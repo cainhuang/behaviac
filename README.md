@@ -1,5 +1,6 @@
 What is behaviac?
 ------------------------------------------
+
 Behaviac is our solution for the behavior tree, which includes two parts:
 
 1. Designer: to design and debug the behavior trees
@@ -41,6 +42,7 @@ If you want to compile the project, you should do as followings:
 
 Others
 ------------------------------------------
+
 Please check the docs on the docs folder to get more details.
 
 
@@ -91,4 +93,5 @@ behaviac是我们对行为树的一种解决方案，包含两大部分：
 
 其他事项
 ------------------------------------------
+
 更多细节可以参考文件夹docs中附带的文档。

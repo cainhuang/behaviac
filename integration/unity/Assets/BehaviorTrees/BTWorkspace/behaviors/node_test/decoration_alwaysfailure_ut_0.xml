@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior>
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="AgentNodeTest" Domains="" Enable="true" Id="-1" Version="1">
+    <Comment Background="NoColor" Text="" />
+    <DescriptorRefs value="0:" />
+    <Connector Identifier="GenericChildren">
+      <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="0" Version="1">
+        <Comment Background="NoColor" Text="" />
+        <Connector Identifier="GenericChildren">
+          <Node Class="PluginBehaviac.Nodes.Selector" Enable="true" Id="4" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.DecoratorAlwaysFailure" DecorateWhenChildEnds="false" Enable="true" Id="1" Version="1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="5" Method="Self.AgentNodeTest::setTestVar_0(0)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                </Connector>
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="6" Method="Self.AgentNodeTest::setTestVar_0(1)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+            </Connector>
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Selector" Enable="true" Id="2" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.DecoratorAlwaysFailure" DecorateWhenChildEnds="false" Enable="true" Id="3" Version="1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="7" Method="Self.AgentNodeTest::setTestVar_1(0)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_FAILURE" Version="1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                </Connector>
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="8" Method="Self.AgentNodeTest::setTestVar_1(1)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+            </Connector>
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Selector" Enable="true" Id="9" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.DecoratorAlwaysFailure" DecorateWhenChildEnds="false" Enable="true" Id="10" Version="1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="11" Method="Self.AgentNodeTest::setTestVar_2(0)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_RUNNING" Version="1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                </Connector>
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="12" Method="Self.AgentNodeTest::setTestVar_2(1)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+            </Connector>
+          </Node>
+        </Connector>
+      </Node>
+    </Connector>
+  </Node>
+</Behavior>

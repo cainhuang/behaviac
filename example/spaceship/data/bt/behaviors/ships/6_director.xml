@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior>
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="framework::WorldState" Domains="" Enable="true" Id="-1" Version="1">
+    <Comment Background="NoColor" Text="" />
+    <DescriptorRefs value="0:" />
+    <Connector Identifier="GenericChildren">
+      <Node Class="PluginBehaviac.Nodes.DecoratorLoop" Count="const int -1" DecorateWhenChildEnds="true" Enable="true" Id="1" Version="1">
+        <Comment Background="NoColor" Text="" />
+        <Connector Identifier="GenericChildren">
+          <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="2" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="3" Method="Self.framework::WorldState::SpawnShip(3)" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.DecoratorLoopUntil" Count="const int -1" DecorateWhenChildEnds="false" Enable="true" Id="4" Until="true" Version="1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Condition" Enable="true" Id="5" Operator="Equal" Opl="Self.framework::WorldState::NextWave()" Opr="const bool true" Version="1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                </Connector>
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="6" Method="Self.framework::WorldState::SpawnShip(4)" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.DecoratorLoopUntil" Count="const int -1" DecorateWhenChildEnds="false" Enable="true" Id="7" Until="true" Version="1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Condition" Enable="true" Id="8" Operator="Equal" Opl="Self.framework::WorldState::NextWave()" Opr="const bool true" Version="1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                </Connector>
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="9" Method="Self.framework::WorldState::SpawnShip(5)" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.DecoratorLoopUntil" Count="const int -1" DecorateWhenChildEnds="false" Enable="true" Id="10" Until="true" Version="1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Condition" Enable="true" Id="11" Operator="Equal" Opl="Self.framework::WorldState::NextWave()" Opr="const bool true" Version="1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                </Connector>
+              </Node>
+            </Connector>
+          </Node>
+        </Connector>
+      </Node>
+    </Connector>
+  </Node>
+</Behavior>

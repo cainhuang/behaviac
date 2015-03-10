@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: ships\1_1_suicide.xml-->
+<behavior name="ships/1_1_suicide" agenttype="framework::Ship" version="1">
+  <pars>
+    <par name="par_a" type="bool" value="false" />
+    <par name="par_b" type="int" value="0" />
+    <par name="par_homing_a" type="int" value="0" />
+  </pars>
+  <node class="Selector" version="1" id="1">
+    <node class="DecoratorLoopUntil" version="1" id="2">
+      <property Count="const int -1" />
+      <property DecorateWhenChildEnds="false" />
+      <property Until="false" />
+      <node class="Parallel" version="1" id="3">
+        <property ChildFinishPolicy="CHILDFINISH_LOOP" />
+        <property ExitPolicy="EXIT_NONE" />
+        <property FailurePolicy="FAIL_ON_ONE" />
+        <property SuccessPolicy="SUCCEED_ON_ALL" />
+        <node class="Condition" version="1" id="4">
+          <property Operator="Greater" />
+          <property Opl="uint Self.framework::GameObject::HP" />
+          <property Opr="uint framework::WorldState.framework::WorldState::HealthHP" />
+        </node>
+        <node class="Sequence" version="1" id="5">
+          <node class="Action" version="1" id="6">
+            <property Method="Self.framework::Ship::Fire()" />
+            <property PreconditionFailResult="BT_FAILURE" />
+            <property ResultFunctor="Self.framework::Ship::checkresult(false)" />
+            <property ResultOption="BT_INVALID" />
+          </node>
+          <node class="Wait" version="1" id="7">
+            <property IgnoreTimeScale="false" />
+            <property Time="const float 1000" />
+          </node>
+        </node>
+        <node class="Assignment" version="1" id="0">
+          <property Opl="int par_b" />
+          <property Opr="const int 10" />
+        </node>
+      </node>
+    </node>
+    <node class="ReferencedBehavior" version="1" id="8">
+      <property ReferenceFilename="base/homing" />
+      <pars>
+        <par name="par_homing_a" type="int" value="0" />
+      </pars>
+    </node>
+  </node>
+</behavior>

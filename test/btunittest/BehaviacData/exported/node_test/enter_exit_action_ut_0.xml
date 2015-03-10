@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: node_test\enter_exit_action_ut_0.xml-->
+<behavior name="node_test/enter_exit_action_ut_0" agenttype="AgentNodeTest" version="1">
+  <node class="Sequence" version="1" id="0">
+    <property EnterAction="Self.AgentNodeTest::enter_action_1(0)" />
+    <property ExitAction="Self.AgentNodeTest::exit_action_1(0)" />
+    <node class="Selector" version="1" id="1">
+      <property EnterAction="Self.AgentNodeTest::enter_action_2(0,&quot;&quot;)" />
+      <property ExitAction="Self.AgentNodeTest::exit_action_2(0,&quot;&quot;)" />
+      <node class="WaitforSignal" version="1" id="3">
+        <attachment class="Predicate" id="5">
+          <property BinaryOperator="And" />
+          <property Operator="Equal" />
+          <property Opl="int Self.AgentNodeTest::testVar_0" />
+          <property Opr="const int 0" />
+        </attachment>
+      </node>
+      <node class="True" version="1" id="4" />
+    </node>
+    <node class="True" version="1" id="2" />
+  </node>
+</behavior>

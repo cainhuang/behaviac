@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: node_test\selector_stochastic_ut_2.xml-->
+<behavior name="node_test/selector_stochastic_ut_2" agenttype="AgentNodeTest" version="1">
+  <node class="SelectorStochastic" version="1" id="4">
+    <node class="Action" version="1" id="5">
+      <property Method="Self.AgentNodeTest::setTestVar_0(0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="False" version="1" id="0" />
+    <node class="True" version="1" id="2" />
+  </node>
+</behavior>

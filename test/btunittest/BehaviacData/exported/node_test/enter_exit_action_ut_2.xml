@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: node_test\enter_exit_action_ut_2.xml-->
+<behavior name="node_test/enter_exit_action_ut_2" agenttype="AgentNodeTest" version="1">
+  <node class="Parallel" version="1" id="0">
+    <property ChildFinishPolicy="CHILDFINISH_LOOP" />
+    <property EnterAction="Self.AgentNodeTest::enter_action_1(0)" />
+    <property ExitAction="Self.AgentNodeTest::exit_action_1(0)" />
+    <property ExitPolicy="EXIT_ABORT_RUNNINGSIBLINGS" />
+    <property FailurePolicy="FAIL_ON_ONE" />
+    <property SuccessPolicy="SUCCEED_ON_ALL" />
+    <node class="WaitforSignal" version="1" id="3">
+      <property EnterAction="Self.AgentNodeTest::enter_action_2(3,&quot;hello&quot;)" />
+      <property ExitAction="Self.AgentNodeTest::exit_action_2(5,&quot;world&quot;)" />
+      <attachment class="Predicate" id="5">
+        <property BinaryOperator="And" />
+        <property Operator="Equal" />
+        <property Opl="int Self.AgentNodeTest::testVar_0" />
+        <property Opr="const int 0" />
+      </attachment>
+    </node>
+    <node class="Action" version="1" id="1">
+      <property EnterAction="Self.AgentNodeTest::enter_action_0()" />
+      <property ExitAction="Self.AgentNodeTest::exit_action_0()" />
+      <property Method="Self.AgentNodeTest::setTestVar_3(0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+  </node>
+</behavior>

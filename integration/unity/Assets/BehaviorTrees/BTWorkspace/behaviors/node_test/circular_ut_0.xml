@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior>
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="AgentNodeTest" Domains="" Enable="true" Id="-1" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+    <Comment Background="NoColor" Text="" />
+    <DescriptorRefs value="0:" />
+    <Connector Identifier="GenericChildren">
+      <Node Class="PluginBehaviac.Nodes.Selector" Enable="true" Id="0" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+        <Comment Background="NoColor" Text="" />
+        <Connector Identifier="GenericChildren">
+          <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="2" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.Condition" Enable="true" Id="5" Operator="Equal" Opl="int Self.AgentNodeTest::testVar_0" Opr="const int 0" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="4" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" Id="3" Opl="int Self.AgentNodeTest::testVar_0" Opr="const int 1" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                  <Node Class="Behaviac.Design.Nodes.ReferencedBehavior" Enable="true" Id="6" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ReferenceFilename="node_test/circular_ut_0" Version="1">
+                    <Comment Background="Blue" Text="This is a referenced tree." />
+                  </Node>
+                </Connector>
+              </Node>
+            </Connector>
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="1" Method="Self.AgentNodeTest::setTestVar_1(0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+        </Connector>
+      </Node>
+    </Connector>
+  </Node>
+</Behavior>

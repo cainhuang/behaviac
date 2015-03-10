@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: ships\1_2_suicide.xml-->
+<behavior name="ships/1_2_suicide" agenttype="framework::Ship" version="1">
+  <pars>
+    <par name="par_a" type="bool" value="false" />
+    <par name="par_b" type="int" value="0" />
+  </pars>
+  <node class="Parallel" version="1" id="1">
+    <property ChildFinishPolicy="CHILDFINISH_LOOP" />
+    <property ExitPolicy="EXIT_NONE" />
+    <property FailurePolicy="FAIL_ON_ONE" />
+    <property SuccessPolicy="SUCCEED_ON_ALL" />
+    <node class="WaitforSignal" version="1" id="2">
+      <attachment class="Predicate" id="3">
+        <property BinaryOperator="And" />
+        <property Operator="LessEqual" />
+        <property Opl="uint Self.framework::GameObject::HP" />
+        <property Opr="uint framework::WorldState.framework::WorldState::HealthHP" />
+      </attachment>
+      <node class="ReferencedBehavior" version="1" id="4">
+        <property ReferenceFilename="base/homing" />
+        <pars>
+          <par name="par_homing_a" type="int" value="0" />
+        </pars>
+      </node>
+    </node>
+    <node class="DecoratorLoop" version="1" id="0">
+      <property Count="const int -1" />
+      <property DecorateWhenChildEnds="true" />
+      <node class="Sequence" version="1" id="5">
+        <node class="Action" version="1" id="6">
+          <property Method="Self.framework::Ship::Fire()" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultFunctor="Self.framework::Ship::checkresult(false)" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+        <node class="Wait" version="1" id="7">
+          <property IgnoreTimeScale="false" />
+          <property Time="const float 1000" />
+        </node>
+      </node>
+    </node>
+  </node>
+</behavior>

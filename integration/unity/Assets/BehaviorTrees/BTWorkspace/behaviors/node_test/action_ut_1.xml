@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior>
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="AgentNodeTest" Domains="" Enable="true" Id="-1" Version="1">
+    <Comment Background="NoColor" Text="" />
+    <Parameters>
+      <Parameter Name="par_float_type_0" Type="System.Single" DefaultValue="0" Desc="" />
+      <Parameter Name="par_float_type_1" Type="System.Single" DefaultValue="0" Desc="" />
+      <Parameter Name="par_float_type_2" Type="System.Single" DefaultValue="2.7" Desc="" />
+    </Parameters>
+    <DescriptorRefs value="0:" />
+    <Connector Identifier="GenericChildren">
+      <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="0" Version="1">
+        <Comment Background="NoColor" Text="" />
+        <Connector Identifier="GenericChildren">
+          <Node Class="PluginBehaviac.Nodes.Compute" Enable="true" Id="3" Operator="Add" Opl="float par_float_type_0" Opr1="const float 0.5" Opr2="const float 1.3" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="2" Method="Self.AgentNodeTest::setTestVar_2(float par_float_type_0)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" Id="1" Opl="float par_float_type_1" Opr="float Self.AgentNodeTest::testVar_2" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Compute" Enable="true" Id="4" Operator="Add" Opl="float par_float_type_0" Opr1="float par_float_type_1" Opr2="float par_float_type_2" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="5" Method="Self.AgentNodeTest::setTestVar_3(float par_float_type_0)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+        </Connector>
+      </Node>
+    </Connector>
+  </Node>
+</Behavior>

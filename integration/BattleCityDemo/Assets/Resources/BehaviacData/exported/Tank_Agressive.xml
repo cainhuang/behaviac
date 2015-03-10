@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: Tank_Agressive.xml-->
+<behavior name="Tank_Agressive" agenttype="Player" version="1">
+  <pars>
+    <par name="parT_NavTargetPosition" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parIn_Self" type="Player" value="null" />
+    <par name="parT_RotateAngle" type="float" value="0" />
+    <par name="parT_nearestEnemy" type="behaviac::Agent" value="null" />
+    <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parT_TendencyDirection" type="eMapDirection" value="UNKNOWN" />
+    <par name="parT_CanReachToAward" type="bool" value="false" />
+    <par name="parT_AwardID" type="int" value="0" />
+    <par name="parT_EnemyAzimuth_0" type="float" value="0" />
+    <par name="parT_SafeMoveDirection" type="eMapDirection" value="UNKNOWN" />
+    <par name="parT_RandomMoveDirection" type="eMapDirection" value="UNKNOWN" />
+    <par name="parT_NavFailed" type="bool" value="false" />
+    <par name="parT_EnemyAzimuth" type="float" value="0" />
+  </pars>
+  <node class="DecoratorLoop" version="1" id="2">
+    <property Count="const int -1" />
+    <property DecorateWhenChildEnds="true" />
+    <node class="Parallel" version="1" id="0">
+      <property ChildFinishPolicy="CHILDFINISH_LOOP" />
+      <property ExitPolicy="EXIT_ABORT_RUNNINGSIBLINGS" />
+      <property FailurePolicy="FAIL_ON_ONE" />
+      <property SuccessPolicy="SUCCEED_ON_ALL" />
+      <node class="DecoratorAlwaysRunning" version="1" id="38">
+        <property DecorateWhenChildEnds="false" />
+        <node class="Selector" version="1" id="39">
+          <node class="DecoratorAlwaysFailure" version="1" id="25">
+            <property DecorateWhenChildEnds="false" />
+            <node class="Assignment" version="1" id="26">
+              <property Opl="bool parT_NavFailed" />
+              <property Opr="const bool true" />
+            </node>
+          </node>
+          <node class="Sequence" version="1" id="22">
+            <node class="Assignment" version="1" id="35">
+              <property Opl="int parT_AwardID" />
+              <property Opr="GameLevel.GameLevelCommon::getNearestAwardID()" />
+            </node>
+            <node class="Condition" version="1" id="34">
+              <property Operator="NotEqual" />
+              <property Opl="int parT_AwardID" />
+              <property Opr="const int -1" />
+            </node>
+            <node class="Assignment" version="1" id="37">
+              <property Opl="UnityEngine::Vector3 parT_NavTargetPosition" />
+              <property Opr="GameLevel.GameLevelCommon::getAwardPosition(int parT_AwardID)" />
+            </node>
+            <node class="Action" version="1" id="24">
+              <property Method="Self.GameActor::findPath(UnityEngine::Vector3 parT_NavTargetPosition,static int GameLevel.GameLevelCommon::actorWalkLevel)" />
+              <property PreconditionFailResult="BT_FAILURE" />
+              <property ResultOption="BT_INVALID" />
+            </node>
+            <node class="Action" version="1" id="5">
+              <property Method="Self.GameActor::navigate()" />
+              <property PreconditionFailResult="BT_FAILURE" />
+              <property ResultOption="BT_INVALID" />
+            </node>
+          </node>
+          <node class="Parallel" version="1" id="15">
+            <property ChildFinishPolicy="CHILDFINISH_LOOP" />
+            <property ExitPolicy="EXIT_ABORT_RUNNINGSIBLINGS" />
+            <property FailurePolicy="FAIL_ON_ONE" />
+            <property SuccessPolicy="SUCCEED_ON_ONE" />
+            <node class="DecoratorNot" version="1" id="21">
+              <property DecorateWhenChildEnds="false" />
+              <node class="Sequence" version="1" id="8">
+                <node class="Wait" version="1" id="19">
+                  <property IgnoreTimeScale="false" />
+                  <property Time="const int 1000" />
+                </node>
+                <node class="Assignment" version="1" id="20">
+                  <property Opl="bool parT_NavFailed" />
+                  <property Opr="const bool false" />
+                </node>
+              </node>
+            </node>
+            <node class="Sequence" version="1" id="3">
+              <node class="Assignment" version="1" id="4">
+                <property Opl="behaviac::Agent parT_nearestEnemy" />
+                <property Opr="GameLevel.GameLevelCommon::getNearestEnemy(eGameForce Self.GameActor::force)" />
+              </node>
+              <node class="Assignment" version="1" id="7">
+                <property Opl="UnityEngine::Vector3 parT_enemyPosition" />
+                <property Opr="GameLevel.GameLevelCommon::getEnemyPosition(behaviac::Agent parT_nearestEnemy)" />
+              </node>
+              <node class="Action" version="1" id="33">
+                <property Method="Self.GameActor::findPath(UnityEngine::Vector3 parT_enemyPosition,static int GameLevel.GameLevelCommon::actorWalkLevel)" />
+                <property PreconditionFailResult="BT_FAILURE" />
+                <property ResultOption="BT_INVALID" />
+              </node>
+              <node class="Action" version="1" id="13">
+                <property Method="Self.GameActor::navigate()" />
+                <property PreconditionFailResult="BT_FAILURE" />
+                <property ResultOption="BT_INVALID" />
+              </node>
+            </node>
+          </node>
+          <node class="Sequence" version="1" id="23">
+            <node class="Condition" version="1" id="6">
+              <property Operator="Equal" />
+              <property Opl="bool parT_NavFailed" />
+              <property Opr="const bool true" />
+            </node>
+            <node class="Parallel" version="1" id="1">
+              <property ChildFinishPolicy="CHILDFINISH_LOOP" />
+              <property ExitPolicy="EXIT_ABORT_RUNNINGSIBLINGS" />
+              <property FailurePolicy="FAIL_ON_ONE" />
+              <property SuccessPolicy="SUCCEED_ON_ONE" />
+              <node class="Sequence" version="1" id="12">
+                <node class="SelectorStochastic" version="1" id="9">
+                  <node class="Assignment" version="1" id="36">
+                    <property Opl="eMapDirection parT_RandomMoveDirection" />
+                    <property Opr="const eMapDirection TOP" />
+                  </node>
+                  <node class="Assignment" version="1" id="11">
+                    <property Opl="eMapDirection parT_RandomMoveDirection" />
+                    <property Opr="const eMapDirection RIGHT" />
+                  </node>
+                  <node class="Assignment" version="1" id="14">
+                    <property Opl="eMapDirection parT_RandomMoveDirection" />
+                    <property Opr="const eMapDirection BOTTOM" />
+                  </node>
+                  <node class="Assignment" version="1" id="16">
+                    <property Opl="eMapDirection parT_RandomMoveDirection" />
+                    <property Opr="const eMapDirection LEFT" />
+                  </node>
+                </node>
+                <node class="Wait" version="1" id="17">
+                  <property IgnoreTimeScale="false" />
+                  <property Time="const int 2000" />
+                </node>
+              </node>
+              <node class="Sequence" version="1" id="49">
+                <node class="Assignment" version="1" id="18">
+                  <property Opl="eMapDirection parT_SafeMoveDirection" />
+                  <property Opr="Self.GameActor::getBestMoveDirection(eMapDirection parT_RandomMoveDirection)" />
+                </node>
+                <node class="Action" version="1" id="27">
+                  <property Method="Self.GameActor::moveToDirection(eMapDirection parT_SafeMoveDirection)" />
+                  <property PreconditionFailResult="BT_FAILURE" />
+                  <property ResultOption="BT_INVALID" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node class="DecoratorAlwaysRunning" version="1" id="10">
+        <property DecorateWhenChildEnds="false" />
+        <node class="Sequence" version="1" id="28">
+          <node class="Assignment" version="1" id="29">
+            <property Opl="float parT_EnemyAzimuth" />
+            <property Opr="Self.Player::detectNearestEnemyInView()" />
+          </node>
+          <node class="Condition" version="1" id="30">
+            <property Operator="GreaterEqual" />
+            <property Opl="float parT_EnemyAzimuth" />
+            <property Opr="const float 0" />
+          </node>
+          <node class="Action" version="1" id="31">
+            <property Method="Self.Player::aimToAngle(float parT_EnemyAzimuth)" />
+            <property PreconditionFailResult="BT_FAILURE" />
+            <property ResultOption="BT_INVALID" />
+          </node>
+          <node class="Action" version="1" id="32">
+            <property Method="Self.Player::fire()" />
+            <property PreconditionFailResult="BT_FAILURE" />
+            <property ResultOption="BT_INVALID" />
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+</behavior>

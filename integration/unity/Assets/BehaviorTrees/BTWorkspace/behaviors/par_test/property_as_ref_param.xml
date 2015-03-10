@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior>
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="EmployeeParTestAgent" Domains="" Enable="true" Id="-1" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+    <Comment Background="NoColor" Text="" />
+    <Parameters>
+      <Parameter Name="par2_uint64_0" Type="System.UInt64" DefaultValue="0" Desc="" />
+      <Parameter Name="par2_uint32_0" Type="System.UInt32" DefaultValue="0" Desc="" />
+      <Parameter Name="par2_string_list_0" Type="System.Collections.Generic.List`1[[System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par2_string_0" Type="System.String" DefaultValue="" Desc="" />
+      <Parameter Name="par2_single_list_0" Type="System.Collections.Generic.List`1[[System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par2_single_0" Type="System.Single" DefaultValue="0" Desc="" />
+      <Parameter Name="par2_double_0" Type="System.Double" DefaultValue="0" Desc="" />
+      <Parameter Name="par2_agent_list_0" Type="System.Collections.Generic.List`1[[XMLPluginBehaviac.behaviac_Agent, XMLPluginBehaviac, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par2_agent_0" Type="XMLPluginBehaviac.behaviac_Agent" DefaultValue="null" Desc="" />
+      <Parameter Name="par1_uint16_0" Type="System.UInt16" DefaultValue="65535" Desc="" />
+      <Parameter Name="par1_kemployee_list_0" Type="System.Collections.Generic.List`1[[XMLPluginBehaviac.TNS_ST_PER_WRK_kEmployee, XMLPluginBehaviac, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par1_kemployee_0" Type="XMLPluginBehaviac.TNS_ST_PER_WRK_kEmployee" DefaultValue="{boss=null;car={brand=&quot;&quot;;color=RED;price=0;};code=c;id=0;isMale=false;name=&quot;tomlp&quot;;skinColor=RED;weight=0;}" Desc="" />
+      <Parameter Name="par1_int64_0" Type="System.Int64" DefaultValue="0" Desc="" />
+      <Parameter Name="par1_int32_list_0" Type="System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par1_int32_0" Type="System.Int32" DefaultValue="0" Desc="" />
+      <Parameter Name="par1_int16_0" Type="System.Int16" DefaultValue="0" Desc="" />
+      <Parameter Name="par0_sbyte_list_0" Type="System.Collections.Generic.List`1[[System.SByte, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par0_sbyte_0" Type="System.SByte" DefaultValue="0" Desc="" />
+      <Parameter Name="par0_ecolor_list_0" Type="System.Collections.Generic.List`1[[XMLPluginBehaviac.TNS_NE_NAT_eColor, XMLPluginBehaviac, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par0_ecolor_0" Type="XMLPluginBehaviac.TNS_NE_NAT_eColor" DefaultValue="WHITE" Desc="" />
+      <Parameter Name="par0_char_list_0" Type="System.Collections.Generic.List`1[[System.Char, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par0_char_0" Type="System.Char" DefaultValue="A" Desc="" />
+      <Parameter Name="par0_byte_list_0" Type="System.Collections.Generic.List`1[[System.Byte, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par0_byte_0" Type="System.Byte" DefaultValue="0" Desc="" />
+      <Parameter Name="par0_boolean_list_0" Type="System.Collections.Generic.List`1[[System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" DefaultValue="0:" Desc="" />
+      <Parameter Name="par0_boolean_0" Type="System.Boolean" DefaultValue="false" Desc="" />
+    </Parameters>
+    <DescriptorRefs value="0:" />
+    <Connector Identifier="GenericChildren">
+      <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="13" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+        <Comment Background="NoColor" Text="" />
+        <Connector Identifier="GenericChildren">
+          <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="1" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="0" Method="Self.EmployeeParTestAgent::Func_AgentRef(behaviac::Agent Self.EmployeeParTestAgent::TV_AGENT_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="17" Method="Self.EmployeeParTestAgent::Func_AgentListRef(vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="2" Method="Self.EmployeeParTestAgent::Func_DoubleRef(double Self.EmployeeParTestAgent::TV_D_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="3" Method="Self.EmployeeParTestAgent::Func_SingleRef(float Self.EmployeeParTestAgent::TV_F_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="4" Method="Self.EmployeeParTestAgent::Func_SingleListRef(vector&lt;float&gt; Self.EmployeeParTestAgent::TV_LIST_F_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="5" Method="Self.EmployeeParTestAgent::Func_StringRef(string Self.EmployeeParTestAgent::TV_STR_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="6" Method="Self.EmployeeParTestAgent::Func_StringListRef(vector&lt;string&gt; Self.EmployeeParTestAgent::TV_LIST_STR_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="7" Method="Self.EmployeeParTestAgent::Func_UInt32Ref(uint Self.EmployeeParTestAgent::TV_UI32_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="8" Method="Self.EmployeeParTestAgent::Func_UInt64Ref(ulong Self.EmployeeParTestAgent::TV_UI64_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+            </Connector>
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="14" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="9" Method="Self.ParTestAgent::Func_Int16Ref(short Self.ParTestAgent::TV_I16_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="10" Method="Self.ParTestAgent::Func_Int32Ref(int Self.ParTestAgent::TV_I32_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="11" Method="Self.ParTestAgent::Func_Int32ListRef(vector&lt;int&gt; Self.ParTestAgent::TV_LIST_I32_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="12" Method="Self.ParTestAgent::Func_Int64Ref(long Self.ParTestAgent::TV_I64_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="18" Method="Self.ParTestAgent::Func_kEmployeeRef(TNS::ST::PER::WRK::kEmployee Self.ParTestAgent::TV_KEMPLOYEE_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="19" Method="Self.ParTestAgent::Func_kEmployeeListRef(vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="20" Method="Self.ParTestAgent::Func_UInt16Ref(ushort Self.ParTestAgent::TV_UI16_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+            </Connector>
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="22" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="16" Method="Self.ParTestAgentBase::Func_BooleanRef(bool Self.ParTestAgentBase::TV_BOOL_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="21" Method="Self.ParTestAgentBase::Func_BooleanListRef(vector&lt;bool&gt; Self.ParTestAgentBase::TV_LIST_BOOL_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="15" Method="Self.ParTestAgentBase::Func_ByteRef(uchar Self.ParTestAgentBase::TV_BYTE_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="29" Method="Self.ParTestAgentBase::Func_ByteListRef(vector&lt;uchar&gt; Self.ParTestAgentBase::TV_LIST_BYTE_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="26" Method="Self.ParTestAgentBase::Func_CharRef(Char Self.ParTestAgentBase::TV_CHAR_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="27" Method="Self.ParTestAgentBase::Func_CharListRef(vector&lt;Char&gt; Self.ParTestAgentBase::TV_LIST_CHAR_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="24" Method="Self.ParTestAgentBase::Func_eColorRef(TNS::NE::NAT::eColor Self.ParTestAgentBase::TV_ECOLOR_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="25" Method="Self.ParTestAgentBase::Func_eColorListRef(vector&lt;TNS::NE::NAT::eColor&gt; Self.ParTestAgentBase::TV_LIST_ECOLOR_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="23" Method="Self.ParTestAgentBase::Func_SByteRef(char Self.ParTestAgentBase::TV_SBYTE_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="28" Method="Self.ParTestAgentBase::Func_SByteListRef(vector&lt;char&gt; Self.ParTestAgentBase::TV_LIST_SBYTE_0)" PreconditionFailResult="BT_FAILURE" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+            </Connector>
+          </Node>
+        </Connector>
+      </Node>
+    </Connector>
+  </Node>
+</Behavior>

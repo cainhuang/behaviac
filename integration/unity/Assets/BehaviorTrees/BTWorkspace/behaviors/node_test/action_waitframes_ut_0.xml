@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior>
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="AgentNodeTest" Domains="" Enable="true" Id="-1" Version="1">
+    <Comment Background="NoColor" Text="" />
+    <Parameters>
+      <Parameter Name="par_frame_count" Type="System.Int32" DefaultValue="5" Desc="" />
+    </Parameters>
+    <DescriptorRefs value="0:" />
+    <Connector Identifier="GenericChildren">
+      <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="0" Version="1">
+        <Comment Background="NoColor" Text="" />
+        <Connector Identifier="GenericChildren">
+          <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" Id="3" Opl="int Self.AgentNodeTest::testVar_0" Opr="const int 1" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.WaitFrames" Enable="true" Frames="int par_frame_count" Id="1" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" Id="4" Opl="int Self.AgentNodeTest::testVar_0" Opr="const int 2" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+        </Connector>
+      </Node>
+    </Connector>
+  </Node>
+</Behavior>

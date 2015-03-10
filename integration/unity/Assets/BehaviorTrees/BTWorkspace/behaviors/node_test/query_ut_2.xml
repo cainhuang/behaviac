@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior>
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="AgentNodeTest" Domains="" Enable="true" Id="-1" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+    <Comment Background="NoColor" Text="" />
+    <DescriptorRefs value="0:" />
+    <Connector Identifier="GenericChildren">
+      <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" EnterAction="Self.AgentNodeTest::enter_action_1(0)" ExitAction="Self.AgentNodeTest::exit_action_2(0,&quot;&quot;)" Id="0" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+        <Comment Background="NoColor" Text="" />
+        <Connector Identifier="GenericChildren">
+          <Node Class="PluginBehaviac.Nodes.Query" Descriptors="1:{Attribute=int Self.AgentNodeTest::testVar_1;Reference=const int 0;Weight=100;}" Domain="test" Enable="true" Id="1" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="2" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.Query" Descriptors="1:{Attribute=int Self.AgentNodeTest::testVar_1;Reference=const int 50;Weight=100;}" Domain="test" Enable="true" Id="3" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Query" Descriptors="1:{Attribute=int Self.AgentNodeTest::testVar_1;Reference=const int 100;Weight=100;}" Domain="test" Enable="true" Id="4" PrefabDirty="false" PrefabName="" PrefabNodeId="-1" Version="1">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+            </Connector>
+          </Node>
+        </Connector>
+      </Node>
+    </Connector>
+  </Node>
+</Behavior>

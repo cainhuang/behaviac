@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: node_test\predicate_sequence_ut_5.xml-->
+<behavior name="node_test/predicate_sequence_ut_5" agenttype="AgentNodeTest" version="1">
+  <node class="Sequence" version="1" id="0">
+    <attachment class="Predicate" id="1">
+      <property BinaryOperator="And" />
+      <property Operator="Equal" />
+      <property Opl="int Self.AgentNodeTest::testVar_0" />
+      <property Opr="const int 0" />
+    </attachment>
+    <attachment class="Predicate" id="3">
+      <property BinaryOperator="Or" />
+      <property Operator="Equal" />
+      <property Opl="int Self.AgentNodeTest::testVar_1" />
+      <property Opr="const int -1" />
+    </attachment>
+    <attachment class="Predicate" id="6">
+      <property BinaryOperator="And" />
+      <property Operator="Equal" />
+      <property Opl="float Self.AgentNodeTest::testVar_2" />
+      <property Opr="const float -1" />
+    </attachment>
+    <node class="Action" version="1" id="5">
+      <property Method="Self.AgentNodeTest::setTestVar_0(0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Action" version="1" id="4">
+      <property Method="Self.AgentNodeTest::setTestVar_1(0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Action" version="1" id="2">
+      <property Method="Self.AgentNodeTest::setTestVar_2(0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Action" version="1" id="7">
+      <property Method="Self.AgentNodeTest::setTestVar_2(1)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+  </node>
+</behavior>

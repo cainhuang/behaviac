@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: node_test\condition_ut_3.xml-->
+<behavior name="node_test/condition_ut_3" agenttype="AgentNodeTest" version="1">
+  <node class="Sequence" version="1" id="0">
+    <node class="And" version="1" id="9">
+      <node class="Or" version="1" id="13">
+        <node class="True" version="1" id="10" />
+        <node class="False" version="1" id="14" />
+      </node>
+      <node class="True" version="1" id="11" />
+    </node>
+    <node class="Action" version="1" id="2">
+      <property Method="Self.AgentNodeTest::setTestVar_0(0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Or" version="1" id="1">
+      <node class="And" version="1" id="15">
+        <node class="True" version="1" id="3" />
+        <node class="True" version="1" id="16" />
+      </node>
+      <node class="False" version="1" id="5" />
+    </node>
+    <node class="Action" version="1" id="8">
+      <property Method="Self.AgentNodeTest::setTestVar_0(1)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="And" version="1" id="4">
+      <node class="Or" version="1" id="18">
+        <node class="Or" version="1" id="19">
+          <node class="False" version="1" id="6" />
+          <node class="True" version="1" id="21" />
+        </node>
+        <node class="False" version="1" id="22" />
+      </node>
+      <node class="And" version="1" id="17">
+        <node class="True" version="1" id="7" />
+        <node class="And" version="1" id="20">
+          <node class="True" version="1" id="23" />
+          <node class="True" version="1" id="24" />
+        </node>
+      </node>
+    </node>
+    <node class="Action" version="1" id="12">
+      <property Method="Self.AgentNodeTest::setTestVar_0(2)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+  </node>
+</behavior>

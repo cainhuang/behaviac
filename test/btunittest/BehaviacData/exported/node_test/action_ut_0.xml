@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: node_test\action_ut_0.xml-->
+<behavior name="node_test/action_ut_0" agenttype="AgentNodeTest" version="1">
+  <pars>
+    <par name="par_int_type_0" type="int" value="0" />
+    <par name="par_int_type_1" type="int" value="0" />
+    <par name="par_int_type_2" type="int" value="300" />
+  </pars>
+  <node class="Sequence" version="1" id="0">
+    <node class="Compute" version="1" id="1">
+      <property Operator="Add" />
+      <property Opl="int par_int_type_0" />
+      <property Opr1="const int 1000" />
+      <property Opr2="const int 500" />
+    </node>
+    <node class="Action" version="1" id="2">
+      <property Method="Self.AgentNodeTest::setTestVar_0(int par_int_type_0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Assignment" version="1" id="3">
+      <property Opl="int par_int_type_1" />
+      <property Opr="int Self.AgentNodeTest::testVar_0" />
+    </node>
+    <node class="Compute" version="1" id="4">
+      <property Operator="Add" />
+      <property Opl="int par_int_type_0" />
+      <property Opr1="int par_int_type_1" />
+      <property Opr2="int par_int_type_2" />
+    </node>
+    <node class="Action" version="1" id="5">
+      <property Method="Self.AgentNodeTest::setTestVar_1(int par_int_type_0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+  </node>
+</behavior>

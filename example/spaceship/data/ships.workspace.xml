@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<workspace name="ships" xmlmetafolder="." folder="bt\behaviors" export="bt\exported">
+  <xmlmeta>ships.xml</xmlmeta>
+  <export>
+    <cs>
+      <isexported>False</isexported>
+      <filename>generated_behaviors</filename>
+      <folder>../../../example/spaceship/data/bt/exported</folder>
+    </cs>
+    <cpp>
+      <isexported>True</isexported>
+      <filename>generated_behaviors</filename>
+    </cpp>
+    <bson>
+      <isexported>True</isexported>
+      <filename>generated_behaviors</filename>
+    </bson>
+  </export>
+</workspace>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: Tank_Chase.xml-->
+<behavior name="Tank_Chase" agenttype="Player" version="1">
+  <pars>
+    <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parT_nearestEnemy" type="behaviac::Agent" value="null" />
+  </pars>
+  <node class="DecoratorLoop" version="1" id="4">
+    <property Count="const int -1" />
+    <property DecorateWhenChildEnds="true" />
+    <node class="Parallel" version="1" id="9">
+      <property ChildFinishPolicy="CHILDFINISH_LOOP" />
+      <property ExitPolicy="EXIT_ABORT_RUNNINGSIBLINGS" />
+      <property FailurePolicy="FAIL_ON_ONE" />
+      <property SuccessPolicy="SUCCEED_ON_ALL" />
+      <node class="DecoratorNot" version="1" id="5">
+        <property DecorateWhenChildEnds="false" />
+        <node class="Wait" version="1" id="7">
+          <property IgnoreTimeScale="false" />
+          <property Time="const int 1000" />
+        </node>
+      </node>
+      <node class="Sequence" version="1" id="8">
+        <node class="Assignment" version="1" id="6">
+          <property Opl="behaviac::Agent parT_nearestEnemy" />
+          <property Opr="GameLevel.GameLevelCommon::getNearestEnemy(eGameForce Self.GameActor::force)" />
+        </node>
+        <node class="Assignment" version="1" id="0">
+          <property Opl="UnityEngine::Vector3 parT_enemyPosition" />
+          <property Opr="GameLevel.GameLevelCommon::getEnemyPosition(behaviac::Agent parT_nearestEnemy)" />
+        </node>
+        <node class="Action" version="1" id="1">
+          <property Method="Self.GameActor::findPath(UnityEngine::Vector3 parT_enemyPosition,static int GameLevel.GameLevelCommon::actorWalkLevel)" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+        <node class="Action" version="1" id="2">
+          <property Method="Self.GameActor::navigate()" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+      </node>
+    </node>
+  </node>
+</behavior>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: Tank_Take_Award_Destroy_Enemy.xml-->
+<behavior name="Tank_Take_Award_Destroy_Enemy" agenttype="Player" version="1">
+  <pars>
+    <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parT_nearestEnemy" type="behaviac::Agent" value="null" />
+    <par name="parT_PathFindLevel" type="int" value="0" />
+    <par name="parT_NavTargetPosition" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parT_AwardID" type="int" value="0" />
+  </pars>
+  <node class="DecoratorAlwaysRunning" version="1" id="10">
+    <property DecorateWhenChildEnds="false" />
+    <node class="Selector" version="1" id="11">
+      <node class="Sequence" version="1" id="17">
+        <node class="Assignment" version="1" id="18">
+          <property Opl="behaviac::Agent parT_nearestEnemy" />
+          <property Opr="GameLevel.GameLevelCommon::getNearestEnemy(eGameForce Self.GameActor::force)" />
+        </node>
+        <node class="Condition" version="1" id="19">
+          <property Operator="NotEqual" />
+          <property Opl="behaviac::Agent parT_nearestEnemy" />
+          <property Opr="const behaviac::Agent null" />
+        </node>
+        <node class="Assignment" version="1" id="20">
+          <property Opl="UnityEngine::Vector3 parT_enemyPosition" />
+          <property Opr="GameLevel.GameLevelCommon::getEnemyPosition(behaviac::Agent parT_nearestEnemy)" />
+        </node>
+        <node class="IfElse" version="1" id="13">
+          <node class="Condition" version="1" id="14">
+            <property Operator="Greater" />
+            <property Opl="int Self.Player::damageLevel" />
+            <property Opr="const int 1" />
+          </node>
+          <node class="Assignment" version="1" id="15">
+            <property Opl="int parT_PathFindLevel" />
+            <property Opr="static int GameLevel.GameLevelCommon::soilSteelWalkLevel" />
+          </node>
+          <node class="Assignment" version="1" id="16">
+            <property Opl="int parT_PathFindLevel" />
+            <property Opr="static int GameLevel.GameLevelCommon::soilWalkLevel" />
+          </node>
+        </node>
+        <node class="Action" version="1" id="8">
+          <property Method="Self.GameActor::findPath(UnityEngine::Vector3 parT_enemyPosition,int parT_PathFindLevel)" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+        <node class="Action" version="1" id="29">
+          <property Method="Self.GameActor::navigate()" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+      </node>
+      <node class="Sequence" version="1" id="27">
+        <node class="Assignment" version="1" id="28">
+          <property Opl="int parT_AwardID" />
+          <property Opr="GameLevel.GameLevelCommon::getNearestAwardID()" />
+        </node>
+        <node class="Condition" version="1" id="34">
+          <property Operator="NotEqual" />
+          <property Opl="int parT_AwardID" />
+          <property Opr="const int -1" />
+        </node>
+        <node class="Assignment" version="1" id="37">
+          <property Opl="UnityEngine::Vector3 parT_NavTargetPosition" />
+          <property Opr="GameLevel.GameLevelCommon::getAwardPosition(int parT_AwardID)" />
+        </node>
+        <node class="IfElse" version="1" id="23">
+          <node class="Condition" version="1" id="24">
+            <property Operator="Greater" />
+            <property Opl="int Self.Player::damageLevel" />
+            <property Opr="const int 1" />
+          </node>
+          <node class="Assignment" version="1" id="25">
+            <property Opl="int parT_PathFindLevel" />
+            <property Opr="static int GameLevel.GameLevelCommon::soilSteelWalkLevel" />
+          </node>
+          <node class="Assignment" version="1" id="26">
+            <property Opl="int parT_PathFindLevel" />
+            <property Opr="static int GameLevel.GameLevelCommon::soilWalkLevel" />
+          </node>
+        </node>
+        <node class="Action" version="1" id="21">
+          <property Method="Self.GameActor::findPath(UnityEngine::Vector3 parT_NavTargetPosition,int parT_PathFindLevel)" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+        <node class="Action" version="1" id="30">
+          <property Method="Self.GameActor::navigate()" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+      </node>
+      <node class="Sequence" version="1" id="2">
+        <node class="Condition" version="1" id="12">
+          <property Operator="NotEqual" />
+          <property Opl="behaviac::Agent parT_nearestEnemy" />
+          <property Opr="const behaviac::Agent null" />
+        </node>
+        <node class="Action" version="1" id="1">
+          <property Method="Self.Player::canDestroyBrick(1)" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+        <node class="Action" version="1" id="3">
+          <property Method="Self.Player::aimToAngle(float Self.GameActor::currentOrientation)" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+        <node class="Action" version="1" id="4">
+          <property Method="Self.Player::fire()" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+      </node>
+    </node>
+  </node>
+</behavior>

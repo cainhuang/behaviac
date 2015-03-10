@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior>
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="AgentNodeTest" Domains="" Enable="true" Id="-1" Version="1">
+    <Comment Background="NoColor" Text="" />
+    <Parameters>
+      <Parameter Name="par_int_type_0" Type="System.Int32" DefaultValue="0" Desc="" />
+      <Parameter Name="par_int_type_1" Type="System.Int32" DefaultValue="0" Desc="" />
+      <Parameter Name="par_int_type_2" Type="System.Int32" DefaultValue="300" Desc="" />
+    </Parameters>
+    <DescriptorRefs value="0:" />
+    <Connector Identifier="GenericChildren">
+      <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" Id="0" Version="1">
+        <Comment Background="NoColor" Text="" />
+        <Connector Identifier="GenericChildren">
+          <Node Class="PluginBehaviac.Nodes.Compute" Enable="true" Id="1" Operator="Mul" Opl="int par_int_type_0" Opr1="const int 1000" Opr2="const int 500" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="2" Method="Self.AgentNodeTest::setTestVar_0(int par_int_type_0)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" Id="3" Opl="int par_int_type_1" Opr="int Self.AgentNodeTest::testVar_0" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Compute" Enable="true" Id="4" Operator="Div" Opl="int par_int_type_0" Opr1="int par_int_type_1" Opr2="int par_int_type_2" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.Action" Enable="true" Id="5" Method="Self.AgentNodeTest::setTestVar_1(int par_int_type_0)" PreconditionFailResult="BT_FAILURE" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS" Version="1">
+            <Comment Background="NoColor" Text="" />
+          </Node>
+        </Connector>
+      </Node>
+    </Connector>
+  </Node>
+</Behavior>

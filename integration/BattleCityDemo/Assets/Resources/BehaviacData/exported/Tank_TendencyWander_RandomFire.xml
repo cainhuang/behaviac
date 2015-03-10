@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: Tank_TendencyWander_RandomFire.xml-->
+<behavior name="Tank_TendencyWander_RandomFire" agenttype="Player" version="1">
+  <pars>
+    <par name="parIn_Self" type="Player" value="null" />
+    <par name="parT_RotateAngle" type="float" value="0" />
+    <par name="parT_nearestEnemy" type="behaviac::Agent" value="null" />
+    <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parT_TendencyDirection" type="eMapDirection" value="UNKNOWN" />
+    <par name="parT_AimAngle" type="float" value="0" />
+  </pars>
+  <node class="DecoratorLoop" version="1" id="0">
+    <property Count="const int -1" />
+    <property DecorateWhenChildEnds="true" />
+    <node class="Parallel" version="1" id="1">
+      <property ChildFinishPolicy="CHILDFINISH_LOOP" />
+      <property ExitPolicy="EXIT_ABORT_RUNNINGSIBLINGS" />
+      <property FailurePolicy="FAIL_ON_ALL" />
+      <property SuccessPolicy="SUCCEED_ON_ALL" />
+      <node class="SelectorProbability" version="1" id="4">
+        <node class="DecoratorWeight" version="1" id="16">
+          <property DecorateWhenChildEnds="false" />
+          <property Weight="const int 70" />
+          <node class="Action" version="1" id="2">
+            <property Method="Self.GameActor::moveForward()" />
+            <property PreconditionFailResult="BT_FAILURE" />
+            <property ResultOption="BT_INVALID" />
+          </node>
+        </node>
+        <node class="DecoratorWeight" version="1" id="6">
+          <property DecorateWhenChildEnds="false" />
+          <property Weight="const int 30" />
+          <node class="Sequence" version="1" id="7">
+            <node class="Assignment" version="1" id="17">
+              <property Opl="eMapDirection parT_TendencyDirection" />
+              <property Opr="const eMapDirection UNKNOWN" />
+            </node>
+            <node class="DecoratorAlwaysSuccess" version="1" id="8">
+              <property DecorateWhenChildEnds="false" />
+              <node class="Sequence" version="1" id="11">
+                <node class="Assignment" version="1" id="14">
+                  <property Opl="behaviac::Agent parT_nearestEnemy" />
+                  <property Opr="GameLevel.GameLevelCommon::getNearestEnemy(RED_FORCE)" />
+                </node>
+                <node class="Condition" version="1" id="15">
+                  <property Operator="NotEqual" />
+                  <property Opl="behaviac::Agent parT_nearestEnemy" />
+                  <property Opr="const behaviac::Agent null" />
+                </node>
+                <node class="Assignment" version="1" id="13">
+                  <property Opl="UnityEngine::Vector3 parT_enemyPosition" />
+                  <property Opr="GameLevel.GameLevelCommon::getEnemyPosition(behaviac::Agent parT_nearestEnemy)" />
+                </node>
+                <node class="Assignment" version="1" id="5">
+                  <property Opl="eMapDirection parT_TendencyDirection" />
+                  <property Opr="Self.Player::locationTendencyToTarget(UnityEngine::Vector3 parT_enemyPosition)" />
+                </node>
+              </node>
+            </node>
+            <node class="Assignment" version="1" id="12">
+              <property Opl="float parT_RotateAngle" />
+              <property Opr="GameLevel.GameLevelCommon::getAvailabeMoveDirection(Player parIn_Self,eMapDirection parT_TendencyDirection)" />
+            </node>
+            <node class="Sequence" version="1" id="10">
+              <node class="Condition" version="1" id="18">
+                <property Operator="GreaterEqual" />
+                <property Opl="float parT_RotateAngle" />
+                <property Opr="const float 0" />
+              </node>
+              <node class="Action" version="1" id="9">
+                <property Method="Self.GameActor::rotateToAngle(float parT_RotateAngle)" />
+                <property PreconditionFailResult="BT_FAILURE" />
+                <property ResultOption="BT_INVALID" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node class="Sequence" version="1" id="27">
+        <node class="SelectorStochastic" version="1" id="3">
+          <node class="Assignment" version="1" id="19">
+            <property Opl="float parT_AimAngle" />
+            <property Opr="const float 180" />
+          </node>
+          <node class="Assignment" version="1" id="20">
+            <property Opl="float parT_AimAngle" />
+            <property Opr="const float 90" />
+          </node>
+          <node class="Assignment" version="1" id="21">
+            <property Opl="float parT_AimAngle" />
+            <property Opr="const float 0" />
+          </node>
+          <node class="Assignment" version="1" id="22">
+            <property Opl="float parT_AimAngle" />
+            <property Opr="const float 270" />
+          </node>
+        </node>
+        <node class="Action" version="1" id="23">
+          <property Method="Self.Player::aimToAngle(float parT_AimAngle)" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+        <node class="Action" version="1" id="24">
+          <property Method="Self.Player::fire()" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+      </node>
+    </node>
+  </node>
+</behavior>

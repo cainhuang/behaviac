@@ -1,0 +1,65 @@
+<metas version="2.0">
+	<types>
+		<enumtype Type="behaviac::EBTStatus" DisplayName="BT状态" Desc="BT状态">
+			<enum NativeValue="behaviac::BT_INVALID" Value="invalid" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_SUCCESS" Value="success" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_FAILURE" Value="failure" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_RUNNING" Value="running" DisplayName="" Desc="" />
+		</enumtype>
+	</types>
+	<agents>
+		<agent classfullname="behaviac::Agent" inherited="true" DisplayName="" Desc="" />
+		<agent classfullname="behaviac::World" base="behaviac::Agent" inherited="true" DisplayName="" Desc="" />
+		<agent classfullname="framework::GameObject" base="behaviac::Agent" inherited="true" DisplayName="" Desc="">
+			<Member Name="HP" DisplayName="" Desc="" Type="unsigned int" Class="framework::GameObject" />
+			<Member Name="age" DisplayName="" Desc="" Type="signed long" Class="framework::GameObject" />
+			<Method Name="GoStraight" DisplayName="" Desc="" Class="framework::GameObject" ReturnType="void">
+				<Param DisplayName="speed" Desc="speed" Type="signed int" />
+			</Method>
+			<Method Name="TurnTowardsTarget" DisplayName="" Desc="" Class="framework::GameObject" ReturnType="signed int">
+				<Param DisplayName="turnSpeed" Desc="turnSpeed" Type="float" />
+			</Method>
+			<Method Name="alignedWithPlayer" DisplayName="" Desc="" Class="framework::GameObject" ReturnType="bool" />
+			<Method Name="playerIsAligned" DisplayName="" Desc="" Class="framework::GameObject" ReturnType="bool" />
+			<Method Name="projectileNearby" DisplayName="" Desc="" Class="framework::GameObject" ReturnType="bool">
+				<Param DisplayName="radius" Desc="radius" Type="float" />
+			</Method>
+			<Method Name="distanceToPlayer" DisplayName="" Desc="" Class="framework::GameObject" ReturnType="float" />
+		</agent>
+		<agent classfullname="framework::Projectile" base="framework::GameObject" DisplayName="" Desc="" />
+		<agent classfullname="framework::Ship" base="framework::GameObject" DisplayName="" Desc="">
+			<Method Name="checkresult" DisplayName="" Desc="" Class="framework::Ship" ReturnType="behaviac::EBTStatus">
+				<Param DisplayName="" Desc="" Type="bool" />
+			</Method>
+			<Method Name="Fire" DisplayName="" Desc="" Class="framework::Ship" ReturnType="bool" />
+			<Method Name="GotoPoint" DisplayName="" Desc="" Class="framework::Ship" ReturnType="bool">
+				<Param DisplayName="x" Desc="x" Type="float" />
+				<Param DisplayName="y" Desc="y" Type="float" />
+				<Param DisplayName="speed" Desc="speed" Type="float" />
+			</Method>
+			<Method Name="GotoPointRelative" DisplayName="" Desc="" Class="framework::Ship" ReturnType="bool">
+				<Param DisplayName="x" Desc="x" Type="float" />
+				<Param DisplayName="y" Desc="y" Type="float" />
+				<Param DisplayName="time" Desc="time" Type="float" />
+			</Method>
+			<Method Name="DestroyAllNearbyProjectiles" DisplayName="" Desc="" Class="framework::Ship" ReturnType="void">
+				<Param DisplayName="radius" Desc="radius" Type="float" />
+			</Method>
+			<Method Name="getXPosition" DisplayName="" Desc="" Class="framework::Ship" ReturnType="float" />
+			<Method Name="getYPosition" DisplayName="" Desc="" Class="framework::Ship" ReturnType="float" />
+		</agent>
+		<agent classfullname="framework::WorldState" base="behaviac::World" DisplayName="" Desc="">
+			<Member Name="time" DisplayName="" Desc="" Type="unsigned int" Class="framework::WorldState" />
+			<Member Name="HealthHP" DisplayName="" Desc="" Type="unsigned int" Class="framework::WorldState" />
+			<Member Name="SyncSignal" DisplayName="" Desc="" Type="bool" Class="framework::WorldState" />
+			<Method Name="NextWave" DisplayName="" Desc="" Class="framework::WorldState" ReturnType="bool" />
+			<Method Name="PlayerHP" DisplayName="" Desc="" Class="framework::WorldState" ReturnType="signed int" />
+			<Method Name="SpawnShip" DisplayName="" Desc="" Class="framework::WorldState" ReturnType="void">
+				<Param DisplayName="level" Desc="level" Type="signed int" />
+			</Method>
+		</agent>
+	</agents>
+	<instances>
+		<instance name="framework::WorldState" class="framework::WorldState" DisplayName="framework::WorldState" Desc="framework::WorldState" />
+	</instances>
+</metas>
