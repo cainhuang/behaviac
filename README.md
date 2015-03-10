@@ -1,4 +1,6 @@
-# behaviac
+behaviac
+==========================================
+
 The behaviac is a behavior tree solution, with a GUI designer and a runtime part. The designer is
 used to design and debug the behavior trees, and the runtime is linked in the final executable to
 execute the generated behavior trees.
