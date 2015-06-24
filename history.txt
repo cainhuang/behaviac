@@ -1,3 +1,13 @@
+2015-6-24	2.1.0
+	Fix a bug for cloning the pars.
+	Fix a bug for current task.
+	Fix a bug for selecting a method.
+	Fix some other bugs for the editor.
+
+2015-4-30	2.0.8
+	Support UnityEngine.GameObject as the Par.
+	Fix some bugs the designer.
+
 2015-3-6	2.0.7
 	Fix a bug for resigtering metas.
 	Update readme.txt file.

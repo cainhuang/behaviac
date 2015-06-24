@@ -73,7 +73,7 @@ namespace PluginBehaviac.NodeExporters
                     ParInfo par = assignment.Opl.Value as ParInfo;
                     if (par != null)
                     {
-                        RightValueCsExporter.GenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType, "opr", "opr");
+                        RightValueCsExporter.GenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType.Replace("::", "."), "opr", "opr");
                         uint id = Behaviac.Design.CRC32.CalcCRC(par.Name);
                         stream.WriteLine("{0}\t\t\tDebug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, par.Name, id);
                         stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", opr, {2}u);", indent, par.Name, id);
@@ -82,14 +82,14 @@ namespace PluginBehaviac.NodeExporters
                 else
                 {
                     Debug.Check(assignment.Opl.IsProperty);
-                    RightValueCsExporter.GenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType, "opr", "opr");
+                    RightValueCsExporter.GenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType.Replace("::", "."), "opr", "opr");
                     //VariableCsExporter.GenerateCode(assignment.Opl, stream, indent + "\t\t\t", string.Empty, string.Empty, "opl", "opr");
-                    VariableCsExporter.PostGenerateCode(assignment.Opl, stream, indent + "\t\t\t", assignment.Opl.NativeType, "opl", string.Empty, null, "", "opr");
+                    VariableCsExporter.PostGenerateCode(assignment.Opl, stream, indent + "\t\t\t", assignment.Opl.NativeType.Replace("::", "."), "opl", string.Empty, null, "", "opr");
                 }
 
                 if (assignment.Opr.IsMethod)
                 {
-                    RightValueCsExporter.PostGenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType, "opr", string.Empty);
+                    RightValueCsExporter.PostGenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType.Replace("::", "."), "opr", string.Empty);
                 }
             }
 

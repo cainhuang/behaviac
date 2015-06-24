@@ -134,13 +134,10 @@
   <data name="descLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="descLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 9pt</value>
-  </data>
   <data name="descLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="descLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 105</value>
   </data>
@@ -173,9 +170,6 @@
   </data>
   <data name="nameLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
-  </data>
-  <data name="nameLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 9pt</value>
   </data>
   <data name="nameLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -213,9 +207,6 @@
   <data name="arrayLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="arrayLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 9pt</value>
-  </data>
   <data name="arrayLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -252,9 +243,6 @@
   <data name="typeLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="typeLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 9pt</value>
-  </data>
   <data name="typeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -290,9 +278,6 @@
   </data>
   <data name="valueLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
-  </data>
-  <data name="valueLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 9pt</value>
   </data>
   <data name="valueLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -853,6 +838,9 @@
         AA//AAAAAAAAD//AAAAAAAAP//AAAAAAAA///gAAAAAAD///AAAAAAAP///AAAAAAH////gAAAAP////
         /AAAAP//////gAAf///////gAP////////AP//////////////8=
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>317, 223</value>

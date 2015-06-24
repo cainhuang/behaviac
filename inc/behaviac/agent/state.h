@@ -38,6 +38,7 @@ namespace behaviac
 	protected:
 		Variables			m_vars;
 		BehaviorTreeTask*	m_bt;
+		behaviac::string	m_agentType;
 
 		friend class Agent;
 		friend class Context;
@@ -48,12 +49,15 @@ namespace behaviac
 
 		void Clear();
 
-		bool SaveToFile(const char* fileName) const;
-		bool LoadFromFile(const char* fileName);
+		bool SaveToFile(const char* fileName, Agent* pAgent = 0) const;
+		bool LoadFromFile(const char* fileName, Agent* pAgent = 0);
 
-		bool SaveToFile(IFile* file) const;
-		virtual bool LoadFromFile(IFile* file);
+		bool SaveToFile(IFile* file, Agent* pAgent = 0) const;
+		virtual bool LoadFromFile(IFile* file, Agent* pAgent = 0);
 	protected:
+		XmlNodeRef SaveToXmlNode(Agent* pAgent) const;
+		void LoadFromXmlNode(CTextNode& node, Agent* pAgent);
+
 		State_t& operator=(const State_t& c);
 	};
 

@@ -138,6 +138,20 @@ public class AgentNodeTest : behaviac.Agent
 		testVar_3 = var;
 	}
 
+	[behaviac.MethodMetaInfo()]
+	public GameObject createGameObject()
+	{
+		GameObject go = new GameObject();
+		go.name = "HC";
+		return go;
+	}
+
+	[behaviac.MethodMetaInfo()]
+	public void testGameObject(GameObject go)
+	{
+		testVar_str_0 = go.name;
+	}
+
 	// enter action and exit action
 	public int action_0_enter_count = 0;
 	public int action_0_exit_count = 0;

@@ -263,6 +263,7 @@ namespace behaviac
 		{
 			BEHAVIAC_ASSERT(gs_threadFlag.value() == 0);
 			BEHAVIAC_LOG(BEHAVIAC_LOG_INFO, "behaviac: ConnectorInterface::Init Enter\n");
+			BEHAVIAC_LOG1(BEHAVIAC_LOG_INFO, "behaviac: listing at port %d\n", port);
 			this->ReserveThreadPacketBuffer();
 			this->SetConnectPort(port);
 

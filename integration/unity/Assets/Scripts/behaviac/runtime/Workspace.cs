@@ -1502,10 +1502,11 @@ namespace behaviac
 
             return null;
         }
+
 #if !BEHAVIAC_RELEASE
 		private static void ExportStructTypeField(Dictionary<string, Type> types, XmlWriter xmlWriter, Type type, bool onlyExportPublicMembers)
         {
-			bool bIsAgentDerived = (type == typeof(Agent) || type.IsSubclassOf(typeof(Agent)));
+			bool bIsAgentDerived = Utils.IsAgentType(type);
 			if (!bIsAgentDerived && Utils.IsCustomClassType(type))
             {
                 string displayName = type.Name;
@@ -1536,7 +1537,10 @@ namespace behaviac
                     xmlWriter.WriteAttributeString("DisplayName", displayName);
                     xmlWriter.WriteAttributeString("Desc", desc);
 
-					ExportType(types, xmlWriter, type, false, onlyExportPublicMembers);
+					if (!Utils.IsNullValueType(type))
+					{
+						ExportType(types, xmlWriter, type, false, onlyExportPublicMembers);
+					}
 
 					//end of struct
 					xmlWriter.WriteEndElement();
@@ -1547,7 +1551,10 @@ namespace behaviac
 					{
 						types.Add(typeFullName, type);
 
-						ExportType(types, xmlWriter, type, false, onlyExportPublicMembers);
+						if (!Utils.IsNullValueType(type))
+						{
+							ExportType(types, xmlWriter, type, false, onlyExportPublicMembers);
+						}
 					}
                 }
             }
@@ -1855,13 +1862,6 @@ namespace behaviac
                     paramType = para.ParameterType.GetElementType();
                 }
 
-                //special handling when the param is derived from 'Agent'
-                bool bIsAgentDerived = false;
-                if (paramType == typeof(Agent) || paramType.IsSubclassOf(typeof(Agent)))
-                {
-                    bIsAgentDerived = true;
-                }
-
                 string paramNativeType = GetFullTypeName(paramType);
                 string paramDisplayName = para.Name;
                 string paramDescription = paramDisplayName;
@@ -1883,7 +1883,9 @@ namespace behaviac
                 {
                     paramNativeType += "&";
                 }
-                if (bIsAgentDerived)
+
+				bool bIsNullValueType = Utils.IsNullValueType(paramType);
+				if (bIsNullValueType)
                 {
                     paramNativeType += "*";
                 }
@@ -1912,98 +1914,61 @@ namespace behaviac
                 }
                 else
                 {
-                    if (!bIsAgentDerived)
-                    {
-                        if (Utils.IsArrayType(paramType))
-                        {
-                            Type elementType = paramType.GetGenericArguments()[0];
-                            if (Utils.IsCustomClassType(elementType))
-                            {
-								ExportStructTypeField(types, xmlWriter, elementType, onlyExportPublicMembers);
-                            }
-                            else if (Utils.IsEnumType(elementType))
-                            {
-                                ExportEnumTypeField(types, xmlWriter, elementType);
-                            }
-                        }
-                        else if (Utils.IsCustomClassType(paramType))
-                        {
-							ExportStructTypeField(types, xmlWriter, paramType, onlyExportPublicMembers);
-                        }
-                        else if (Utils.IsEnumType(paramType))
-                        {
-                            ExportEnumTypeField(types, xmlWriter, paramType);
-                        }
-                    }
-                }
-            }
+					if (Utils.IsArrayType(paramType))
+					{
+						Type elementType = paramType.GetGenericArguments()[0];
+						if (Utils.IsCustomClassType(elementType))
+						{
+							ExportStructTypeField(types, xmlWriter, elementType, onlyExportPublicMembers);
+						}
+						else if (Utils.IsEnumType(elementType))
+						{
+							ExportEnumTypeField(types, xmlWriter, elementType);
+						}
+					}
+					else if (Utils.IsCustomClassType(paramType))
+					{
+						ExportStructTypeField(types, xmlWriter, paramType, onlyExportPublicMembers);
+					}
+					else if (Utils.IsEnumType(paramType))
+					{
+						ExportEnumTypeField(types, xmlWriter, paramType);
+					}
+				}
+			}
 
-            if (Utils.IsArrayType(returnType))
-            {
-                if (types == null)
-                {
-                    xmlWriter.WriteStartElement("ReturnType");
-                    xmlWriter.WriteAttributeString("Type", returnTypeStr);
-
-                    //end of ReturnType
-                    xmlWriter.WriteEndElement();
-                }
-                else
-                {
-                    Type elementType = returnType.GetGenericArguments()[0];
-                    if (Utils.IsCustomClassType(elementType))
-                    {
+			if (types == null)
+			{
+				//end of Method
+				xmlWriter.WriteEndElement();
+			}
+			else
+			{
+				if (Utils.IsArrayType(returnType))
+				{
+					Type elementType = returnType.GetGenericArguments()[0];
+					if (Utils.IsCustomClassType(elementType))
+					{
 						ExportStructTypeField(types, xmlWriter, elementType, onlyExportPublicMembers);
-                    }
-                    else if (Utils.IsEnumType(elementType))
-                    {
-                        ExportEnumTypeField(types, xmlWriter, elementType);
-                    }
-                }
-            }
-            else if (Utils.IsCustomClassType(returnType))
-            {
-                if (!returnType.IsSubclassOf(typeof(Agent)) && returnType != typeof(Agent))
-                {
-                    if (types == null)
-                    {
-                        xmlWriter.WriteStartElement("ReturnType");
-                        xmlWriter.WriteAttributeString("Type", returnTypeStr);
-
-                        //end of ReturnType
-                        xmlWriter.WriteEndElement();
-                    }
-                    else
-                    {
-						ExportStructTypeField(types, xmlWriter, returnType, onlyExportPublicMembers);
-                    }
-                }
-            }
-            else if (Utils.IsEnumType(returnType))
-            {
-                if (types == null)
-                {
-                    xmlWriter.WriteStartElement("ReturnType");
-                    xmlWriter.WriteAttributeString("Type", returnTypeStr);
-
-                    //end of ReturnType
-                    xmlWriter.WriteEndElement();
-                }
-                else
-                {
-                    ExportEnumTypeField(types, xmlWriter, returnType);
-                }
-            }
-
-            if (types == null)
-            {
-                //end of Method
-                xmlWriter.WriteEndElement();
-            }
-        }
-#endif
-
-#if !BEHAVIAC_RELEASE
+					}
+					else if (Utils.IsEnumType(elementType))
+					{
+						ExportEnumTypeField(types, xmlWriter, elementType);
+					}
+				}
+				else if (Utils.IsCustomClassType(returnType))
+				{
+					ExportStructTypeField(types, xmlWriter, returnType, onlyExportPublicMembers);
+				}
+				else if (Utils.IsEnumType(returnType))
+				{
+					ExportEnumTypeField(types, xmlWriter, returnType);
+				}
+			}
+		}
+		#endif
+		
+		#if !BEHAVIAC_RELEASE
 		private static void ExportNames(XmlWriter xmlWriter)
 		{
 			if (Agent.Names.Count > 0)
@@ -2057,7 +2022,7 @@ namespace behaviac
                             foreach (TypeInfo_t typeInfo in ms_agentTypes)
                             {
                                 Type agentType = typeInfo.type;
-								Debug.Check(agentType == typeof(behaviac.Agent) || agentType.IsSubclassOf(typeof(behaviac.Agent)) || Utils.IsStaticType(agentType));
+								Debug.Check(Utils.IsAgentType(agentType) || Utils.IsStaticType(agentType));
 
 								Attribute[] attributes = (Attribute[])agentType.GetCustomAttributes(typeof(behaviac.TypeMetaInfoAttribute), false);
                                 if (attributes.Length > 0)
@@ -2098,7 +2063,7 @@ namespace behaviac
                             foreach (TypeInfo_t typeInfo in ms_agentTypes)
                             {
                                 Type agentType = typeInfo.type;
-								Debug.Check(agentType == typeof(behaviac.Agent) || agentType.IsSubclassOf(typeof(behaviac.Agent)) || Utils.IsStaticType(agentType));
+								Debug.Check(Utils.IsAgentType(agentType) || Utils.IsStaticType(agentType));
 								
 								xmlWriter.WriteStartElement("agent");
 
@@ -2124,9 +2089,9 @@ namespace behaviac
                                 }
                                 else
                                 {
-                                    if (agentType == typeof(behaviac.Agent) || agentType.IsSubclassOf(typeof(behaviac.Agent)))
-                                    {
-                                        xmlWriter.WriteAttributeString("inherited", "true");
+									if (Utils.IsAgentType(agentType))
+									{
+										xmlWriter.WriteAttributeString("inherited", "true");
                                     }
 
                                     xmlWriter.WriteAttributeString("DisplayName", "");
@@ -2221,7 +2186,7 @@ namespace behaviac
 
                             ms_agentTypes.Add(typeInfo);
 
-                            if (type.BaseType != null && (type.BaseType == typeof(behaviac.Agent) || type.BaseType.IsSubclassOf(typeof(behaviac.Agent))))
+							if (type.BaseType != null && Utils.IsAgentType(type.BaseType))
                             {
                                 baseTypes.Add(type.BaseType);
                             }
@@ -2280,7 +2245,7 @@ namespace behaviac
             foreach (TypeInfo_t typeInfo in ms_agentTypes)
             {
                 Type type = typeInfo.type;
-				Debug.Check(type == typeof(behaviac.Agent) || type.IsSubclassOf(typeof(behaviac.Agent)) || Utils.IsStaticType(type));
+				Debug.Check(Utils.IsAgentType(type) || Utils.IsStaticType(type));
 				RegisterType(type, true);
             }
         }
@@ -2296,7 +2261,7 @@ namespace behaviac
 
                 Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(type.FullName);
 
-                if (type.BaseType == typeof(behaviac.Agent) || type.BaseType.IsSubclassOf(typeof(behaviac.Agent)))
+                if (Utils.IsAgentType(type.BaseType))
                 {
                     Agent.CTagObjectDescriptor baseObjectDesc = Agent.GetDescriptorByName(type.BaseType.FullName);
                     objectDesc.m_parent = baseObjectDesc;

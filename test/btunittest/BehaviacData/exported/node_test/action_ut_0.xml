@@ -34,5 +34,10 @@
       <property PreconditionFailResult="BT_FAILURE" />
       <property ResultOption="BT_SUCCESS" />
     </node>
+    <node class="Action" version="1" id="6">
+      <property Method="StaticAgent.StaticAgent::sAction()" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
   </node>
 </behavior>

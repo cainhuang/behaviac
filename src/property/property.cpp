@@ -145,6 +145,11 @@ namespace behaviac
 
 		this->m_variableId = MakeVariableId(nameOnly);
 		this->m_varaibleName = nameOnly;
+		//if (this->m_varaibleName == "testVar_2")
+		//{
+		//	static int de = 0;
+		//	de++;
+		//}
 		//this->m_variableId = MakeVariableId(variableName);
 		//this->m_varaibleName = variableName;
 	}
@@ -268,6 +273,56 @@ namespace behaviac
 #endif//#if K_TYPE_CREATOR_
 
 		return 0;
+	}
+
+
+	Property* Property::Create(const char* typeName, const char* variableName)
+	{
+		char agentIntanceName[kInstanceLength] = "";
+		const char* pPropertyName = 0;
+
+		bool bParVar = IsParVar(variableName);
+		char buffer[256];
+		if (bParVar)
+		{
+			string_sprintf(buffer, "%s::%s", typeName, variableName);
+			pPropertyName = buffer;
+		}
+		else
+		{
+			pPropertyName = ParseInstanceNameProperty(variableName, agentIntanceName);
+		}
+
+		ClassStaticProperties_t::iterator it;
+		if (pPropertyName)
+		{
+			it = Properties().find(pPropertyName);
+		}
+
+		if (it != Properties().end())
+		{
+			Property* p = it->second;
+
+			return p;
+		}
+		else
+		{
+			bool bConst = false;
+			const char* valueStr = 0;
+			Property* pProperty = Property::create(bParVar, bConst, typeName, pPropertyName, agentIntanceName, valueStr);
+			if (pPropertyName)
+			{
+				ClassStaticProperties_t::iterator itFound = Properties().find(pPropertyName);
+				if (itFound != Properties().end())
+				{
+					BEHAVIAC_ASSERT(false);
+				}
+
+				Properties().insert(ClassStaticProperties_t::value_type(pPropertyName, pProperty));
+			}
+
+			return pProperty;
+		}
 	}
 
     Property* Property::Create(const char* typeName, const char* variableName, const char* value, bool bStatic, bool bConst)

@@ -62,14 +62,24 @@ namespace behaviac
 	void DecoratorCountLimitTask::save(ISerializableNode* node) const
 	{
 		super::save(node);
-
-		CSerializationID  initId("inited");
-		node->setAttr(initId, this->m_bInited);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  initId("inited");
+			node->setAttr(initId, this->m_bInited);
+		}
 	}
 
 	void DecoratorCountLimitTask::load(ISerializableNode* node)
 	{
-		super::load(node);
+		super::load(node);		
+		
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  initId("inited");
+			behaviac::string attrStr;
+			node->getAttr(initId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_bInited);
+		}
 	}
 
 

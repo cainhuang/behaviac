@@ -237,6 +237,7 @@ namespace behaviac
 
 	void BehaviorNode::SetAgentType(const behaviac::string& agentType)
 	{
+		BEHAVIAC_UNUSED_VAR(agentType);
 #if !defined(BEHAVIAC_RELEASE)
 		this->m_agentType = agentType;
 #endif

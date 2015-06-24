@@ -72,9 +72,6 @@ namespace behaviac
 	void SelectorLoopTask::save(ISerializableNode* node) const
 	{
 		super::save(node);
-
-		CSerializationID  activeChildId("activeChild");
-		node->setAttr(activeChildId, this->m_activeChildIndex);
 	}
 
 	void SelectorLoopTask::load(ISerializableNode* node)

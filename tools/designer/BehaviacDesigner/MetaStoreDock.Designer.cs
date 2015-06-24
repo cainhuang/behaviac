@@ -172,9 +172,9 @@ namespace Behaviac.Design
             // 
             // MetaStoreDock
             // 
-            resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.closeButton;
+            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.memberCountLabel);
             this.Controls.Add(this.memberListLabel);
             this.Controls.Add(this.memberFilterCheckBox);

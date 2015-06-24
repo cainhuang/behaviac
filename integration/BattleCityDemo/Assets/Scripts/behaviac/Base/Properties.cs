@@ -865,17 +865,15 @@ namespace behaviac
             {
 				result = obj;
 
-                bool bIsAgentDerived = (type == typeof(Agent) || type.IsSubclassOf(typeof(Agent)));
-
-                if (bIsAgentDerived)
+				bool bIsNullValueType = Utils.IsNullValueType(type);
+				if (bIsNullValueType)
                 {
 					result = obj;
 					return;
                 }
 
                 object toret = Activator.CreateInstance(type);
-                FieldInfo[] fields = type.GetFields(BindingFlags.Public |
-                                                    BindingFlags.NonPublic | BindingFlags.Instance);
+                FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                 foreach (FieldInfo field in fields)
                 {
                     object fieldValue = field.GetValue(obj);
@@ -1063,6 +1061,12 @@ namespace behaviac
         {
             Debug.Check(property_ != null);
 
+            //string varirableName = property_.GetVariableName();
+            //if (varirableName == "TempTargetEnemy")
+            //{
+            //    Debug.Check(true);
+            //}
+
             uint varId = property_.GetVariableId();
             if (!this.m_variables.ContainsKey(varId))
             {
@@ -1083,7 +1087,8 @@ namespace behaviac
                 }
                 else
                 {
-                    Debug.Check((property_.GetValue(null) == null && pVar.GetValue(null).GetType().IsSubclassOf(typeof(Agent))) ||
+                    Debug.Check(pVar.GetValue(null) == null || 
+                        (property_.GetValue(null) == null && Utils.IsNullValueType(pVar.GetValue(null).GetType())) ||
                         pVar.GetValue(null).GetType() == property_.GetValue(null).GetType(), 
                         "the same name par doesn't have the same type");
                 }
@@ -1097,6 +1102,11 @@ namespace behaviac
         public void UnInstantiate(string variableName)
         {
             Debug.Check(!string.IsNullOrEmpty(variableName));
+
+            //if (variableName == "TempTargetEnemy")
+            //{
+            //    Debug.Check(true);
+            //}
 
             uint varId = Utils.MakeVariableId(variableName);
 

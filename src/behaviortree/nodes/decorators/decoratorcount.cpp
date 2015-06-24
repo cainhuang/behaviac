@@ -87,14 +87,24 @@ namespace behaviac
 	void DecoratorCountTask::save(ISerializableNode* node) const
 	{
 		super::save(node);
-
-		CSerializationID  countId("count");
-		node->setAttr(countId, this->m_n);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  countId("count");
+			node->setAttr(countId, this->m_n);
+		}
 	}
 
 	void DecoratorCountTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  countId("count");
+			behaviac::string attrStr;
+			node->getAttr(countId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_n);
+		}
 	}
 
 	bool DecoratorCountTask::onenter(Agent* pAgent)

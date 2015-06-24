@@ -187,6 +187,7 @@ namespace behaviac
                     }
                 }
 #endif
+                bool bEnded = false;
                 EBTStatus returnStatus = this.GetReturnStatus();
                 if (returnStatus == EBTStatus.BT_INVALID)
                 {
@@ -195,6 +196,7 @@ namespace behaviac
                 else
                 {
                     this.m_status = returnStatus;
+                    bEnded = true;
                 }
 
                 if (this.m_status != EBTStatus.BT_RUNNING)
@@ -214,8 +216,10 @@ namespace behaviac
                         }
                     }
 
-
-                    this.onexit_action(pAgent, this.m_status);
+                    if (!bEnded)
+                    {
+                        this.onexit_action(pAgent, this.m_status);
+                    }
 
                     //this node is possibly ticked by its parent or by the topBranch who records it as currrent node
                     //so, we can't here reset the topBranch's current node
@@ -1501,6 +1505,19 @@ namespace behaviac
 	    public EBTStatus resume(Agent pAgent, EBTStatus status) {
 		    BranchTask prev = null;
 		    BehaviorTask p = this.m_currentTask;
+            while (p is BranchTask)
+            {
+                BranchTask b = (BranchTask)p;
+                if (b.GetCurrentTask() != null)
+                {
+                    p = b.GetCurrentTask();
+                }
+                else
+                {
+                    break;
+                }
+            }
+
 		    while (p != null) {
                 BranchTask branch = p as BranchTask;
 			    if (branch != null) {

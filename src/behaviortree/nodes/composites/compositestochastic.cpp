@@ -145,14 +145,24 @@ namespace behaviac
 	void CompositeStochasticTask::save(ISerializableNode* node) const
 	{
 		super::save(node);
-
-		CSerializationID  setId("set");
-		node->setAttr(setId, this->m_set);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  setId("set");
+			node->setAttr(setId, this->m_set);
+		}
 	}
 
 	void CompositeStochasticTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  setId("set");
+			behaviac::string attrStr;
+			node->getAttr(setId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_set);
+		}
 	}
 
 	bool CompositeStochasticTask::onenter(Agent* pAgent)

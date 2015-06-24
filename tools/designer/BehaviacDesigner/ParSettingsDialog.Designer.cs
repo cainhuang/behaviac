@@ -51,10 +51,10 @@ namespace Behaviac.Design
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.arrayCheckBox = new System.Windows.Forms.CheckBox();
             this.typeComboBox = new System.Windows.Forms.ComboBox();
-            this.valueEditor = new Behaviac.Design.Attributes.DesignerPropertyEditor();
             this.descTextBox = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.valueEditor = new Behaviac.Design.Attributes.DesignerPropertyEditor();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,16 +132,6 @@ namespace Behaviac.Design
             this.typeComboBox.Name = "typeComboBox";
             this.typeComboBox.SelectedIndexChanged += new System.EventHandler(this.typeComboBox_SelectedIndexChanged);
             // 
-            // valueEditor
-            // 
-            resources.ApplyResources(this.valueEditor, "valueEditor");
-            this.valueEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.valueEditor.FilterType = null;
-            this.valueEditor.ForeColor = System.Drawing.Color.LightGray;
-            this.valueEditor.Name = "valueEditor";
-            this.valueEditor.ValueType = ((Behaviac.Design.ValueTypes)(((Behaviac.Design.ValueTypes.Bool | Behaviac.Design.ValueTypes.Int) 
-            | Behaviac.Design.ValueTypes.Float)));
-            // 
             // descTextBox
             // 
             this.descTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
@@ -173,6 +163,16 @@ namespace Behaviac.Design
             this.cancelButton.ForeColor = System.Drawing.Color.LightGray;
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = false;
+            // 
+            // valueEditor
+            // 
+            resources.ApplyResources(this.valueEditor, "valueEditor");
+            this.valueEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.valueEditor.FilterType = null;
+            this.valueEditor.ForeColor = System.Drawing.Color.LightGray;
+            this.valueEditor.Name = "valueEditor";
+            this.valueEditor.ValueType = ((Behaviac.Design.ValueTypes)(((Behaviac.Design.ValueTypes.Bool | Behaviac.Design.ValueTypes.Int) 
+            | Behaviac.Design.ValueTypes.Float)));
             // 
             // ParSettingsDialog
             // 

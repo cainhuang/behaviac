@@ -269,15 +269,56 @@ namespace behaviac
 		return false;
     }
 
-    //bool Agent::SaveDataToFile(const char* fileName)
-    //{
-    //    BEHAVIAC_ASSERT(fileName);
-    //    const char* className = this->GetObjectTypeName();
-    //    XmlNodeRef xmlInfo = CreateXmlNode(className);
-    //    this->SaveToXML(xmlInfo);
-    //    CFileSystem::MakeSureDirectoryExist(fileName);
-    //    return xmlInfo->saveToFile(fileName);
-    //}
+    bool Agent::SaveDataToFile(const char* fileName)
+    {
+        BEHAVIAC_ASSERT(fileName);
+        const char* className = this->GetObjectTypeName();
+        XmlNodeRef xmlInfo = CreateXmlNode(className);
+        this->SaveToXML(xmlInfo);
+
+        CFileSystem::MakeSureDirectoryExist(fileName);
+        return xmlInfo->saveToFile(fileName);
+    }
+
+	bool Agent::LoadDataFromFile(const char* fileName)
+	{
+        BEHAVIAC_ASSERT(fileName);
+		const char* className = this->GetObjectTypeName();
+		XmlNodeRef xmlInfo = CreateXmlNode(className);
+		CTextNode node(xmlInfo);
+
+		if (node.LoadFromFile(fileName))
+		{
+			this->Load(&node);
+			return true;
+		}
+
+		return false;
+	}
+
+	bool Agent::SaveDataToFile(IFile* file)
+	{
+		const char* className = this->GetObjectTypeName();
+		XmlNodeRef xmlInfo = CreateXmlNode(className);
+		this->SaveToXML(xmlInfo);
+
+		return xmlInfo->saveToFile(file);
+	}
+
+	bool Agent::LoadDataFromFile(IFile* file)
+	{
+		const char* className = this->GetObjectTypeName();
+		XmlNodeRef xmlInfo = CreateXmlNode(className);
+		CTextNode node(xmlInfo);
+
+		if (node.LoadFromFile(file))
+		{
+			this->Load(&node);
+			return true;
+		}
+
+		return false;
+	}
 
     //bool Agent::SaveStateToFile(const char* fileName)
     //{
@@ -1414,6 +1455,7 @@ namespace behaviac
 #if BEHAVIAC_ENABLE_PROFILING
 		BEHAVIAC_PROFILE("Agent::btsave");
 #endif
+		state.m_agentType = this->GetObjectTypeName();
 		this->m_variables.CopyTo(0, state.m_vars);
 
 		if (this->m_currentBT)

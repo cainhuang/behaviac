@@ -55,6 +55,17 @@ namespace behaviac
     public:
 		DECLARE_BEHAVIAC_OBJECT(behaviac::Agent, CTagObject);
 
+		bool SaveDataToFile(const char* fileName);
+		bool LoadDataFromFile(const char* fileName);
+		bool SaveDataToFile(IFile* file);
+		bool LoadDataFromFile(IFile* file);
+
+		//bool SaveTypeToFile(IFile* file);
+		//bool LoadTypeFromFile(IFile* file);
+		//bool SaveTypeToFile(const char* fileName);
+		//bool LoadTypeFromFile(const char* fileName);
+
+
 		bool btload(const State_t& state);
 		bool btsave(State_t& state);
 

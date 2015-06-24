@@ -24,14 +24,6 @@
 #include <vector>
 #include <algorithm>
 
-// please use this instead of CFactory
-class IAllocator
-{
-public:
-    virtual void* Alloc(uint32_t size) = 0;
-};
-
-
 struct SFactoryBucket
 {
     SFactoryBucket(const CStringID& typeID, void* typeConstructor) : m_typeID(typeID), m_typeConstructor(typeConstructor) {}
@@ -95,24 +87,16 @@ class CFactory
     class IConstructType
     {
     public:
-        virtual T* Create(IAllocator* alloc) = 0;
+        virtual T* Create() = 0;
     };
 
     template< typename FINAL_TYPE >
     class CConstructType : public CFactory< T >::IConstructType
     {
     public:
-        virtual T* Create(IAllocator* alloc)
+        virtual T* Create()
         {
-            if (alloc)
-            {
-                void* data = alloc->Alloc(sizeof(FINAL_TYPE));
-                return new(data) FINAL_TYPE;
-            }
-            else
-            {
-                return BEHAVIAC_NEW FINAL_TYPE;
-            }
+			return BEHAVIAC_NEW FINAL_TYPE;
         }
     };
 
@@ -132,13 +116,7 @@ public:
 	}
 
     //Same but with a given allocator
-    virtual T* CreateObject(const CStringID& typeID, IAllocator* alloc);
-
-    //Instantiate an object of type typeID
-    virtual T* CreateObject(const CStringID& typeID)
-    {
-        return CreateObject(typeID, NULL);
-    }
+    virtual T* CreateObject(const CStringID& typeID);
 
     typedef T* (*InstantiateFunctionPointer)(const CStringID& typeID);
 
@@ -211,7 +189,7 @@ BEHAVIAC_FORCEINLINE bool CFactory<T>::IsRegistered(const CStringID& typeID)
 }
 
 template< typename T >
-T* CFactory<T>::CreateObject(const CStringID& typeID, IAllocator* alloc)
+T* CFactory<T>::CreateObject(const CStringID& typeID)
 {
     m_creators.Lock();
     //T* newObject = NULL;
@@ -226,7 +204,7 @@ T* CFactory<T>::CreateObject(const CStringID& typeID, IAllocator* alloc)
         // we are done with the list, no need to keep critical section during alloc.
         m_creators.Unlock();
         //Call the function that creates the abstract object
-        return contructType->Create(alloc);
+        return contructType->Create();
     }
     else
     {

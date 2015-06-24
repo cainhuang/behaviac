@@ -467,6 +467,38 @@ LOAD_TEST(btunittest, action_ut_3)
 	finlTestEnvNode(myTestAgent);
 }
 
+LOAD_TEST(btunittest, action_ut_3_save_load)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_3", format);
+	myTestAgent->resetProperties();
+
+#if BEHAVIAC_COMPILER_MSVC || BEHAVIAC_COMPILER_GCC_CYGWIN || BEHAVIAC_COMPILER_GCC_LINUX
+	behaviac::State_t state;
+	myTestAgent->btsave(state);
+	state.SaveToFile("btsave.xml");
+#endif
+
+	behaviac::EBTStatus status = myTestAgent->btexec();
+	CHECK_EQUAL(2.4f, myTestAgent->testVar_2);
+	CHECK_EQUAL(4.0f, myTestAgent->testVar_3);
+
+#if BEHAVIAC_COMPILER_MSVC || BEHAVIAC_COMPILER_GCC_CYGWIN || BEHAVIAC_COMPILER_GCC_LINUX
+	myTestAgent->resetProperties();
+
+	behaviac::State_t stateTemp;
+	stateTemp.LoadFromFile("btsave.xml");
+
+	myTestAgent->btload(state);
+
+	//myTestAgent->btexec();
+	//CHECK_EQUAL(2.4f, myTestAgent->testVar_2);
+	//CHECK_EQUAL(4.0f, myTestAgent->testVar_3);
+#endif
+
+	finlTestEnvNode(myTestAgent);
+}
+
+
 //< Wait For Signal Tests
 LOAD_TEST(btunittest, action_ut_waitforsignal_0)
 {
@@ -512,6 +544,66 @@ LOAD_TEST(btunittest, action_ut_waitforsignal_2)
 	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
 	finlTestEnvNode(myTestAgent);
 }
+
+#if BEHAVIAC_COMPILER_MSVC || BEHAVIAC_COMPILER_GCC_CYGWIN || BEHAVIAC_COMPILER_GCC_LINUX
+LOAD_TEST(btunittest, action_ut_waitforsignal_0_saveload)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_waitforsignal_0", format);
+	myTestAgent->resetProperties();
+	behaviac::EBTStatus status = myTestAgent->btexec();
+	CHECK_EQUAL(-1, myTestAgent->testVar_1);
+	CHECK_EQUAL(-1.0f, myTestAgent->testVar_2);
+
+	//myTestAgent->SetVariable("testVar_1", -1);
+	//myTestAgent->SetVariable("testVar_2", -1.0f);
+
+	behaviac::State_t state;
+	myTestAgent->btsave(state);
+	state.SaveToFile("btsave2.xml");
+	myTestAgent->SaveDataToFile("agent_state.xml");
+
+	//modify the members
+	myTestAgent->testVar_1 = 1;
+	myTestAgent->testVar_2 = 1;
+
+	behaviac::State_t stateTemp;
+	stateTemp.LoadFromFile("btsave2.xml");
+	myTestAgent->btload(stateTemp);
+
+	myTestAgent->LoadDataFromFile("agent_state.xml");
+	CHECK_EQUAL(-1, myTestAgent->testVar_1);
+	CHECK_EQUAL(-1.0f, myTestAgent->testVar_2);
+
+	finlTestEnvNode(myTestAgent);
+}
+
+LOAD_TEST(btunittest, action_ut_waitforsignal_0_saveload_agent)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_waitforsignal_0", format);
+	myTestAgent->resetProperties();
+	behaviac::EBTStatus status = myTestAgent->btexec();
+	CHECK_EQUAL(-1, myTestAgent->testVar_1);
+	CHECK_EQUAL(-1.0f, myTestAgent->testVar_2);
+
+	behaviac::State_t state;
+	myTestAgent->btsave(state);
+	state.SaveToFile("btsave3.xml", myTestAgent);
+
+	//modify the members
+	myTestAgent->testVar_1 = 1;
+	myTestAgent->testVar_2 = 1;
+
+	behaviac::State_t stateTemp;
+	stateTemp.LoadFromFile("btsave3.xml", myTestAgent);
+	CHECK_EQUAL(-1, myTestAgent->testVar_1);
+	CHECK_EQUAL(-1.0f, myTestAgent->testVar_2);
+
+	myTestAgent->btload(stateTemp);
+
+	finlTestEnvNode(myTestAgent);
+}
+
+#endif
 
 //< Wait For Frames Tests
 LOAD_TEST(btunittest, action_waitframes_ut_0)

@@ -91,7 +91,7 @@ namespace Behaviac.Design.Attributes
 
             Type type = obj.GetType();
 
-            if (Plugin.GetAgentType(type.Name) != null)
+            if (Plugin.IsNullValueType(type))
             {
                 return "null";
             }

@@ -157,6 +157,7 @@ namespace behaviac
 		virtual EBTStatus GetReturnStatus() const;
 		virtual void SetReturnStatus(EBTStatus status);
 
+		virtual const BehaviorTask* GetTaskById(int id) const;
 	protected:
 		BehaviorTask();
 		virtual ~BehaviorTask();
@@ -169,6 +170,7 @@ namespace behaviac
         virtual void onexit(Agent* pAgent, EBTStatus status);
 
 		void Clear();
+
 	private:
 		///return true if it is continuing running for the next exec
 		/**
@@ -328,6 +330,7 @@ namespace behaviac
 		virtual void load(ISerializableNode* node);
 
         virtual void addChild(BehaviorTask* pBehavior);
+		virtual const BehaviorTask* GetTaskById(int id) const;
     protected:
 		typedef behaviac::vector<BehaviorTask*> BehaviorTasks_t;
         BehaviorTasks_t			m_children;
@@ -357,6 +360,8 @@ namespace behaviac
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
 		virtual void addChild(BehaviorTask* pBehavior);
+
+		virtual const BehaviorTask* GetTaskById(int id) const;
 	protected:
 		BehaviorTask*	m_root;
     };

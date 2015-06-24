@@ -97,16 +97,31 @@ namespace behaviac
 	{
 		super::save(node);
 
-		CSerializationID  startId("start");
-		node->setAttr(startId, this->m_start);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  startId("start");
+			node->setAttr(startId, this->m_start);
 
-		CSerializationID  framesId("frames");
-		node->setAttr(framesId, this->m_frames);
+			CSerializationID  framesId("frames");
+			node->setAttr(framesId, this->m_frames);
+		}
 	}
 
 	void DecoratorFramesTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  startId("start");
+			behaviac::string attrStr;
+			node->getAttr(startId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_start);
+
+			CSerializationID  framesId("frames");
+			node->getAttr(framesId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_frames);
+		}
 	}
 
 	bool DecoratorFramesTask::onenter(Agent* pAgent)

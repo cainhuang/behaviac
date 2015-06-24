@@ -117,296 +117,410 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="instanceLabel.Text" xml:space="preserve">
-    <value>Instance Name:</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="instanceLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="memberFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 17</value>
+  <data name="instanceLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 11</value>
   </data>
-  <data name="&gt;&gt;memberFilterLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="instanceLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 12</value>
   </data>
-  <data name="&gt;&gt;memberDescriptionLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="instanceLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="instanceComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="memberTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="memberDescriptionLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="&gt;&gt;memberTypeComboBox.Name" xml:space="preserve">
-    <value>memberTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;memberDescLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="instanceLabel.Text" xml:space="preserve">
+    <value>Instance Name:</value>
   </data>
   <data name="instanceLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="&gt;&gt;memberTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;memberTypeLabel.Name" xml:space="preserve">
-    <value>memberTypeLabel</value>
-  </data>
-  <data name="&gt;&gt;closeButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="memberDescLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 422</value>
-  </data>
-  <data name="&gt;&gt;memberFilterCheckBox.Name" xml:space="preserve">
-    <value>memberFilterCheckBox</value>
-  </data>
-  <data name="memberDescLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 55</value>
-  </data>
-  <data name="&gt;&gt;instanceLabel.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="memberFilterLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;instanceLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="memberDescriptionLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="memberDescriptionLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="memberFilterCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="memberFilterTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 20</value>
-  </data>
-  <data name="&gt;&gt;memberListBox.Name" xml:space="preserve">
-    <value>memberListBox</value>
-  </data>
-  <data name="memberListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 288</value>
-  </data>
-  <data name="memberTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 38</value>
-  </data>
-  <data name="&gt;&gt;closeButton.Name" xml:space="preserve">
-    <value>closeButton</value>
-  </data>
-  <data name="closeButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;closeButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="memberTypeComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="memberDescLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;memberTypeLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="memberFilterLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;instanceComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="memberDescLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="memberDescriptionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="memberListLabel.Text" xml:space="preserve">
-    <value>Member List:</value>
-  </data>
-  <data name="memberFilterLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;memberListLabel.Name" xml:space="preserve">
-    <value>memberListLabel</value>
+  <data name="&gt;&gt;instanceLabel.Name" xml:space="preserve">
+    <value>instanceLabel</value>
   </data>
   <data name="&gt;&gt;instanceLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="memberFilterLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;instanceLabel.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="memberDescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 403</value>
+  <data name="&gt;&gt;instanceLabel.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
-  <data name="memberCountLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;memberListBox.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="memberFilterCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 65</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="closeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="closeButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
-  <data name="&gt;&gt;instanceLabel.Name" xml:space="preserve">
-    <value>instanceLabel</value>
+  <data name="closeButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;memberTypeLabel.ZOrder" xml:space="preserve">
-    <value>8</value>
+  <data name="closeButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 482</value>
   </data>
-  <data name="instanceComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="memberFilterTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 63</value>
-  </data>
-  <data name="closeButton.Text" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="memberListLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="memberTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;instanceComboBox.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;memberFilterCheckBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;memberDescriptionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;memberTypeComboBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="memberTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 35</value>
+  <data name="closeButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 23</value>
   </data>
   <data name="closeButton.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
-  <data name="instanceLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+  <data name="closeButton.Text" xml:space="preserve">
+    <value>Close</value>
   </data>
-  <data name="&gt;&gt;memberTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;closeButton.Name" xml:space="preserve">
+    <value>closeButton</value>
   </data>
-  <data name="&gt;&gt;memberDescLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;closeButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="memberCountLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 13</value>
+  <data name="&gt;&gt;closeButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;closeButton.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="memberListBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="memberListBox.ItemHeight" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="memberListBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 109</value>
+  </data>
+  <data name="memberListBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 278</value>
+  </data>
+  <data name="memberListBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;memberListBox.Name" xml:space="preserve">
+    <value>memberListBox</value>
+  </data>
+  <data name="&gt;&gt;memberListBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;memberListBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;memberListBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="instanceComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="instanceComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="instanceComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 8</value>
+  </data>
+  <data name="instanceComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 20</value>
   </data>
   <data name="instanceComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;memberFilterLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;instanceComboBox.Name" xml:space="preserve">
+    <value>instanceComboBox</value>
   </data>
-  <data name="&gt;&gt;memberDescLabel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;instanceComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;instanceComboBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="memberFilterCheckBox.Text" xml:space="preserve">
-    <value>Start With</value>
+  <data name="&gt;&gt;instanceComboBox.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
-  <data name="closeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="memberTypeComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt</value>
+  <data name="memberTypeComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="memberTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 35</value>
+  </data>
+  <data name="memberTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 20</value>
+  </data>
+  <data name="memberTypeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;memberTypeComboBox.Name" xml:space="preserve">
+    <value>memberTypeComboBox</value>
+  </data>
+  <data name="&gt;&gt;memberTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;memberTypeComboBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;memberTypeComboBox.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="memberTypeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="instanceLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="memberTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="memberListLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="memberTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 38</value>
+  </data>
+  <data name="memberTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 12</value>
+  </data>
+  <data name="memberTypeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="memberTypeLabel.Text" xml:space="preserve">
+    <value>Member Type:</value>
+  </data>
+  <data name="memberTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;memberTypeLabel.Name" xml:space="preserve">
+    <value>memberTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;memberTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;memberTypeLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;memberTypeLabel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="memberDescriptionLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="memberDescriptionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="memberDescriptionLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="memberListLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 13</value>
+  <data name="memberDescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 403</value>
   </data>
-  <data name="memberCountLabel.Text" xml:space="preserve">
-    <value>0</value>
+  <data name="memberDescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 12</value>
   </data>
-  <data name="&gt;&gt;memberFilterTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="memberDescriptionLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="memberDescriptionLabel.Text" xml:space="preserve">
+    <value>Member Description:</value>
+  </data>
+  <data name="memberDescriptionLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;memberDescriptionLabel.Name" xml:space="preserve">
+    <value>memberDescriptionLabel</value>
+  </data>
+  <data name="&gt;&gt;memberDescriptionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;memberDescriptionLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;memberDescriptionLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="memberDescLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="memberDescLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="memberDescLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 422</value>
+  </data>
+  <data name="memberDescLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>281, 55</value>
+  </data>
+  <data name="memberDescLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="memberDescLabel.Text" xml:space="preserve">
+    <value>Select a member, then drag and drop it into the properties window.</value>
+  </data>
+  <data name="&gt;&gt;memberDescLabel.Name" xml:space="preserve">
+    <value>memberDescLabel</value>
+  </data>
+  <data name="&gt;&gt;memberDescLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;memberDescLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;memberDescLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="memberFilterLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="memberFilterLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="memberFilterLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 65</value>
+  </data>
+  <data name="memberFilterLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 12</value>
+  </data>
+  <data name="memberFilterLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="memberFilterLabel.Text" xml:space="preserve">
+    <value>Member Filter:</value>
+  </data>
+  <data name="memberFilterLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;memberFilterLabel.Name" xml:space="preserve">
+    <value>memberFilterLabel</value>
+  </data>
+  <data name="&gt;&gt;memberFilterLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;memberFilterLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="closeButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 482</value>
+  <data name="&gt;&gt;memberFilterLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="instanceComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 8</value>
+  <data name="memberFilterTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="memberFilterTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 63</value>
+  </data>
+  <data name="memberFilterTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 21</value>
+  </data>
+  <data name="memberFilterTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;memberFilterTextBox.Name" xml:space="preserve">
+    <value>memberFilterTextBox</value>
+  </data>
+  <data name="&gt;&gt;memberFilterTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;memberFilterTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;memberFilterTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="memberFilterCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="memberFilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="memberFilterCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>211, 65</value>
+  </data>
+  <data name="memberFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 16</value>
+  </data>
+  <data name="memberFilterCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="memberFilterCheckBox.Text" xml:space="preserve">
+    <value>Start With</value>
+  </data>
+  <data name="&gt;&gt;memberFilterCheckBox.Name" xml:space="preserve">
+    <value>memberFilterCheckBox</value>
   </data>
   <data name="&gt;&gt;memberFilterCheckBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;instanceComboBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;memberFilterCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;memberFilterCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="memberListLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="memberListLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="memberListLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 90</value>
+  </data>
+  <data name="memberListLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 12</value>
+  </data>
+  <data name="memberListLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="memberListLabel.Text" xml:space="preserve">
+    <value>Member List:</value>
+  </data>
+  <data name="memberListLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;memberListLabel.Name" xml:space="preserve">
+    <value>memberListLabel</value>
+  </data>
+  <data name="&gt;&gt;memberListLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;memberListLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;memberListLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;memberListBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="memberDescLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="memberCountLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="closeButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 23</value>
+  <data name="memberCountLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;memberListBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="memberCountLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>96, 90</value>
   </data>
-  <data name="instanceLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 11</value>
+  <data name="memberCountLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>11, 12</value>
   </data>
-  <data name="memberDescriptionLabel.Text" xml:space="preserve">
-    <value>Member Description:</value>
+  <data name="memberCountLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
-  <data name="memberFilterLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 65</value>
+  <data name="memberCountLabel.Text" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;memberTypeComboBox.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="memberCountLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
-  <data name="&gt;&gt;memberDescriptionLabel.Name" xml:space="preserve">
-    <value>memberDescriptionLabel</value>
+  <data name="&gt;&gt;memberCountLabel.Name" xml:space="preserve">
+    <value>memberCountLabel</value>
   </data>
-  <data name="memberFilterLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 13</value>
+  <data name="&gt;&gt;memberCountLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;memberFilterLabel.Name" xml:space="preserve">
-    <value>memberFilterLabel</value>
-  </data>
-  <data name="&gt;&gt;memberListLabel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;memberCountLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="memberListBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 109</value>
+  <data name="&gt;&gt;memberCountLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>304, 511</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5273,130 +5387,16 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
-  <data name="memberTypeComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;memberDescLabel.Name" xml:space="preserve">
-    <value>memberDescLabel</value>
-  </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>320, 549</value>
-  </data>
-  <data name="&gt;&gt;memberCountLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="instanceLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;memberCountLabel.Name" xml:space="preserve">
-    <value>memberCountLabel</value>
-  </data>
-  <data name="memberFilterTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="memberFilterLabel.Text" xml:space="preserve">
-    <value>Member Filter:</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Meta Browser</value>
   </data>
-  <data name="&gt;&gt;memberDescriptionLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="memberListLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 90</value>
-  </data>
-  <data name="memberTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;memberFilterTextBox.Name" xml:space="preserve">
-    <value>memberFilterTextBox</value>
-  </data>
-  <data name="memberFilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="memberListBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;memberCountLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;closeButton.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MetaStoreDock</value>
-  </data>
-  <data name="memberTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 21</value>
-  </data>
-  <data name="memberDescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 13</value>
-  </data>
-  <data name="&gt;&gt;memberCountLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="memberFilterTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="memberCountLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="memberTypeLabel.Text" xml:space="preserve">
-    <value>Member Type:</value>
-  </data>
-  <data name="memberTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 13</value>
-  </data>
-  <data name="memberFilterCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="memberCountLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 90</value>
-  </data>
-  <data name="memberListLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;instanceComboBox.Name" xml:space="preserve">
-    <value>instanceComboBox</value>
-  </data>
-  <data name="memberTypeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>304, 511</value>
-  </data>
-  <data name="memberDescLabel.Text" xml:space="preserve">
-    <value>Select a member, then drag and drop it into the properties window.</value>
-  </data>
-  <data name="&gt;&gt;memberFilterTextBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;memberFilterTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="memberListLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="memberCountLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;memberFilterCheckBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;memberListLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="memberListBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="instanceComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 21</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

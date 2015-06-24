@@ -365,20 +365,6 @@ BEHAVIAC_FORCEINLINE void operator delete[](void* ptr, const behaviac::STagOpera
     { \
         return behaviac::Private::MemHelperAllocAlignment(behaviac::GetAllocator<CLASS>(), size, align, tag, file, line); \
     } \
-    BEHAVIAC_FORCEINLINE void * operator new(size_t /*size*/, void* placement) \
-    { \
-        return placement; \
-    } \
-    BEHAVIAC_FORCEINLINE void * operator new[](size_t /*size*/, void* placement) \
-    { \
-        return placement; \
-    } \
-    BEHAVIAC_FORCEINLINE void  operator delete(void* /*ptr*/, void* /*placement*/) \
-    { \
-    } \
-    BEHAVIAC_FORCEINLINE void  operator delete[](void* /*ptr*/, void* /*placement*/) \
-    { \
-    }\
     BEHAVIAC_FORCEINLINE void operator delete(void* ptr) \
     { \
         behaviac::Private::MemHelperFreeAlignment(behaviac::GetAllocator<CLASS>(), ptr, align, 0, __FILE__, __LINE__); \

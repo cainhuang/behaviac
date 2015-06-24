@@ -103,6 +103,11 @@ namespace behaviac
 		virtual void Log(const Agent* pAgent) = 0;
 
 		virtual void Reset() = 0;
+
+		bool IsMember() const
+		{
+			return this->m_pMember != 0;
+		}
 	protected:
 		uint32_t			m_id;
 		behaviac::string	m_name;
@@ -245,13 +250,45 @@ namespace behaviac
 
 			CSerializationID typeId("type");
 
-			int type_id = GetClassTypeNumberId<VariableType>();
-			varNode->setAttr(typeId, type_id);
+			//int type_id = GetClassTypeNumberId<VariableType>();
+			//varNode->setAttr(typeId, type_id);
+			const char* typeStr = GetClassTypeName((VariableType*)0);
+			behaviac::string typeStrStr = typeStr;
+			if (StringUtils::StartsWith(typeStr, "unsigned long "))
+			{
+				StringUtils::ReplaceTag(typeStrStr, "unsigned long ", "u");
+			}
+			else if (StringUtils::StartsWith(typeStr, "unsigned "))
+			{
+				StringUtils::ReplaceTag(typeStrStr, "unsigned ", "u");
+			}
+			else if (StringUtils::StartsWith(typeStr, "signed "))
+			{
+				StringUtils::ReplaceTag(typeStrStr, "signed ", "");
+			}
+
+			varNode->setAttr(typeId, typeStrStr.c_str());
 		}
 
 		virtual void Load(ISerializableNode* node)
 		{
 			IVariable::Load(node);
+
+			//CSerializationID  nameId("name");
+			//behaviac::string nameStr;
+			//node->getAttr(nameId, nameStr);
+
+			//CSerializationID  valueId("value");
+			//behaviac::string valueStr;
+			//node->getAttr(valueId, valueStr);
+
+			//CSerializationID  typeId("type");
+			//behaviac::string typeStr;
+			//node->getAttr(typeId, typeStr);
+
+			//Property* p = Property::Create(typeStr.c_str(), nameStr.c_str());
+			//BEHAVIAC_ASSERT(p);
+			//pAgent->SetVariableFromString(nameStr.c_str(), valueStr.c_str());
 		}
 
 		virtual void SetFromString(Agent* pAgent, const CMemberBase* pMember, const char* valueString);

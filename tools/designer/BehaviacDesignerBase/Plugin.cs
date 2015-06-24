@@ -1192,6 +1192,20 @@ namespace Behaviac.Design
             return className;
         }
 
+        public static bool IsNullValueType(Type type)
+        {
+            if (type != null)
+            {
+                if (Plugin.GetAgentType(type.Name) != null)
+                    return true;
+
+                if (type.Name == "UnityEngine_GameObject")
+                    return true;
+            }
+
+            return false;
+        }
+
         private static List<string> _filterNodes = new List<string>();
         public static List<string> FilterNodes
         {

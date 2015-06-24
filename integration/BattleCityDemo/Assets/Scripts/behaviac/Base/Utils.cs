@@ -691,10 +691,34 @@ namespace behaviac
             switch (this.m_comparisonType)
             {
                 case E_VariableComparisonType.VariableComparisonType_Equal:
-                    return lhs.Equals(rhs);
+                    {
+                        if (lhs == null)
+                        {
+                            if (rhs == null)
+                            {
+                                return true;
+                            }
+
+                            return false;
+                        }
+
+                        return lhs.Equals(rhs);
+                    }
 
                 case E_VariableComparisonType.VariableComparisonType_NotEqual:
-                    return !lhs.Equals(rhs);
+                    {
+                        if (lhs == null)
+                        {
+                            if (rhs != null)
+                            {
+                                return true;
+                            }
+
+                            return false;
+                        }
+
+                        return !lhs.Equals(rhs);
+                    }
 
                 case E_VariableComparisonType.VariableComparisonType_Greater:
                     return Details.Greater(lhs, rhs);
@@ -1128,6 +1152,21 @@ namespace behaviac
         {
             return type != null && !type.IsByRef && (type.IsClass || type.IsValueType) && type != typeof(void) && !type.IsEnum && !type.IsPrimitive && !IsStringType(type) && !IsArrayType(type);
         }
+
+		public static bool IsAgentType(Type type)
+		{
+			return (type == typeof(Agent) || type.IsSubclassOf(typeof(Agent)));
+		}
+
+		public static bool IsGameObjectType(Type type)
+		{
+			return (type == typeof(UnityEngine.GameObject) || type.IsSubclassOf(typeof(UnityEngine.GameObject)));
+		}
+
+		public static bool IsNullValueType(Type type)
+		{
+			return IsAgentType(type) || IsGameObjectType(type);
+		}
     }
 
     static public class Debug
@@ -2067,7 +2106,7 @@ namespace behaviac
         {
             if (!string.IsNullOrEmpty(valStr) && valStr == "null")
             {
-                Debug.Check(type == typeof(Agent) || type.IsSubclassOf(typeof(Agent)));
+				Debug.Check(Utils.IsNullValueType(type));
                 return null;
             }
 
@@ -2099,7 +2138,7 @@ namespace behaviac
             }
             else if (Utils.IsCustomClassType(type))
             {
-                Debug.Check(type != typeof(Agent) && !type.IsSubclassOf(typeof(Agent)));
+				Debug.Check(!Utils.IsNullValueType(type));
                 v = StringUtils.FromStringStruct(type, valStr);
             }
             else
@@ -2140,8 +2179,8 @@ namespace behaviac
                 }
                 else if (Utils.IsCustomClassType(type))
                 {
-                    bool bIsAgentDerived = (type == typeof(Agent) || type.IsSubclassOf(typeof(Agent)));
-                    if (bIsAgentDerived)
+					bool bIsNullValueType = Utils.IsNullValueType(type);
+					if (bIsNullValueType)
                     {
                         valueStr = string.Format("{0:x08}", value.GetHashCode());
                     }

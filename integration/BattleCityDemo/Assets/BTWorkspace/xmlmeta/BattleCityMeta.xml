@@ -60,28 +60,20 @@
       <Member Name="aiEnabled" DisplayName="" Desc="" Type="bool" Class="GameActor" Public="true" />
       <Member Name="force" DisplayName="" Desc="" Type="eGameForce" Class="GameActor" Public="true" />
       <Member Name="gameScore" DisplayName="" Desc="" Type="int" Class="GameActor" Public="true" />
-      <Method Name="moveForward" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameActor" Public="true">
-        <ReturnType Type="behaviac::EBTStatus" />
-      </Method>
+      <Method Name="moveForward" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameActor" Public="true" />
       <Method Name="getBestMoveDirection" DisplayName="" Desc="" ReturnType="eMapDirection" Class="GameActor" Public="true">
         <Param DisplayName="tendencyDirection" Desc="tendencyDirection" Type="eMapDirection" />
-        <ReturnType Type="eMapDirection" />
       </Method>
       <Method Name="moveToDirection" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameActor" Public="true">
         <Param DisplayName="direction" Desc="direction" Type="eMapDirection" />
-        <ReturnType Type="behaviac::EBTStatus" />
       </Method>
       <Method Name="rotateToAngle" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameActor" Public="true">
         <Param DisplayName="angle" Desc="angle" Type="float" />
-        <ReturnType Type="behaviac::EBTStatus" />
       </Method>
-      <Method Name="navigate" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameActor" Public="true">
-        <ReturnType Type="behaviac::EBTStatus" />
-      </Method>
+      <Method Name="navigate" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameActor" Public="true" />
       <Method Name="findPath" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameActor" Public="true">
         <Param DisplayName="dest" Desc="dest" Type="UnityEngine::Vector3" />
         <Param DisplayName="walkLevel" Desc="walkLevel" Type="int" />
-        <ReturnType Type="behaviac::EBTStatus" />
       </Method>
       <Method Name="getPathDistance" DisplayName="" Desc="" ReturnType="int" Class="GameActor" Public="true" />
     </agent>
@@ -105,17 +97,12 @@
       <Method Name="getActorLifeCount" DisplayName="" Desc="" ReturnType="int" Class="GameLevelCommon" Public="true">
         <Param DisplayName="id" Desc="id" Type="int" />
       </Method>
-      <Method Name="isAllEnemyDeadForever" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameLevelCommon" Public="true">
-        <ReturnType Type="behaviac::EBTStatus" />
-      </Method>
-      <Method Name="isPlayerDeadForever" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameLevelCommon" Public="true">
-        <ReturnType Type="behaviac::EBTStatus" />
-      </Method>
+      <Method Name="isAllEnemyDeadForever" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameLevelCommon" Public="true" />
+      <Method Name="isPlayerDeadForever" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameLevelCommon" Public="true" />
       <Method Name="getBrickType" DisplayName="" Desc="" ReturnType="eBrickType" Class="GameLevelCommon" Public="true">
         <Param DisplayName="p_" Desc="p_" Type="GameActor*" />
         <Param DisplayName="dir_" Desc="dir_" Type="eMapDirection" />
         <Param DisplayName="step" Desc="step" Type="int" />
-        <ReturnType Type="eBrickType" />
       </Method>
       <Method Name="getAvailabeMoveDirection" DisplayName="" Desc="" ReturnType="float" Class="GameLevelCommon" Public="true">
         <Param DisplayName="p_" Desc="p_" Type="GameActor*" />
@@ -149,16 +136,12 @@
       </Method>
       <Method Name="getAwardPosition" DisplayName="" Desc="" ReturnType="UnityEngine::Vector3" Class="GameLevelCommon" Public="true">
         <Param DisplayName="id" Desc="id" Type="int" />
-        <ReturnType Type="UnityEngine::Vector3" />
       </Method>
       <Method Name="getEnemyPosition" DisplayName="" Desc="" ReturnType="UnityEngine::Vector3" Class="GameLevelCommon" Public="true">
         <Param DisplayName="agent" Desc="agent" Type="behaviac::Agent*" />
-        <ReturnType Type="UnityEngine::Vector3" />
       </Method>
       <Method Name="continueGame" DisplayName="" Desc="" ReturnType="void" Class="GameLevelCommon" Public="true" />
-      <Method Name="showCredit" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameLevelCommon" Public="true">
-        <ReturnType Type="behaviac::EBTStatus" />
-      </Method>
+      <Method Name="showCredit" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameLevelCommon" Public="true" />
       <Method Name="stopGame" DisplayName="" Desc="" ReturnType="void" Class="GameLevelCommon" Public="true">
         <Param DisplayName="doesWin" Desc="doesWin" Type="bool" />
       </Method>
@@ -184,18 +167,15 @@
         <Param DisplayName="x" Desc="x" Type="int" />
         <Param DisplayName="y" Desc="y" Type="int" />
         <Param DisplayName="lifeTime" Desc="lifeTime" Type="float" />
-        <ReturnType Type="behaviac::EBTStatus" />
       </Method>
       <Method Name="spawnEffect" DisplayName="" Desc="" ReturnType="UnityEngine::Transform" Class="GameLevelCommon" Public="true">
         <Param DisplayName="fileName" Desc="fileName" Type="string" />
         <Param DisplayName="parent" Desc="parent" Type="UnityEngine::Transform" />
         <Param DisplayName="tr" Desc="tr" Type="UnityEngine::Vector3" />
         <Param DisplayName="sc" Desc="sc" Type="float" />
-        <ReturnType Type="UnityEngine::Transform" />
       </Method>
       <Method Name="isActorAlive" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="GameLevelCommon" Public="true">
         <Param DisplayName="id" Desc="id" Type="int" />
-        <ReturnType Type="behaviac::EBTStatus" />
       </Method>
       <Method Name="getIntArrayElement" DisplayName="" Desc="" ReturnType="int" Class="GameLevelCommon" Static="true" Public="true">
         <Param DisplayName="data" Desc="data" Type="vector&lt;int&gt;" />
@@ -208,12 +188,10 @@
       <Method Name="getColorArrayElement" DisplayName="" Desc="" ReturnType="UnityEngine::Color" Class="GameLevelCommon" Static="true" Public="true">
         <Param DisplayName="data" Desc="data" Type="vector&lt;UnityEngine::Color&gt;" />
         <Param DisplayName="index" Desc="index" Type="int" />
-        <ReturnType Type="UnityEngine::Color" />
       </Method>
       <Method Name="getGameForceArrayElement" DisplayName="" Desc="" ReturnType="eGameForce" Class="GameLevelCommon" Static="true" Public="true">
         <Param DisplayName="data" Desc="data" Type="vector&lt;eGameForce&gt;" />
         <Param DisplayName="index" Desc="index" Type="int" />
-        <ReturnType Type="eGameForce" />
       </Method>
     </agent>
     <agent classfullname="Player" base="GameActor" DisplayName="Player" Desc="Player -&gt; GameActor">
@@ -226,34 +204,25 @@
       <Member Name="hp" DisplayName="" Desc="" Type="int" Class="Player" Public="true" />
       <Member Name="damageLevel" DisplayName="" Desc="" Type="int" Class="Player" Public="true" />
       <Method Name="detectNearestEnemyInView" DisplayName="" Desc="" ReturnType="float" Class="Player" Public="true" />
-      <Method Name="findNearestEnemy" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true">
-        <ReturnType Type="behaviac::EBTStatus" />
-      </Method>
+      <Method Name="findNearestEnemy" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true" />
       <Method Name="canDestroyBrick" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true">
         <Param DisplayName="step" Desc="step" Type="int" />
-        <ReturnType Type="behaviac::EBTStatus" />
       </Method>
       <Method Name="detectEnemy" DisplayName="" Desc="" ReturnType="int" Class="Player" Public="true">
         <Param DisplayName="dir" Desc="dir" Type="eMapDirection" />
       </Method>
       <Method Name="aimToAngle" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true">
         <Param DisplayName="angle" Desc="angle" Type="float" />
-        <ReturnType Type="behaviac::EBTStatus" />
       </Method>
       <Method Name="aimToTarget" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true">
         <Param DisplayName="position" Desc="position" Type="UnityEngine::Vector3" />
-        <ReturnType Type="behaviac::EBTStatus" />
       </Method>
-      <Method Name="fire" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true">
-        <ReturnType Type="behaviac::EBTStatus" />
-      </Method>
+      <Method Name="fire" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true" />
       <Method Name="predicateFirePoint" DisplayName="" Desc="" ReturnType="UnityEngine::Vector3" Class="Player" Public="true">
         <Param DisplayName="target" Desc="target" Type="behaviac::Agent*" />
-        <ReturnType Type="UnityEngine::Vector3" />
       </Method>
       <Method Name="locationTendencyToTarget" DisplayName="" Desc="" ReturnType="eMapDirection" Class="Player" Public="true">
         <Param DisplayName="position" Desc="position" Type="UnityEngine::Vector3" />
-        <ReturnType Type="eMapDirection" />
       </Method>
     </agent>
   </agents>

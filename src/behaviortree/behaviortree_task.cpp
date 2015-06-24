@@ -108,6 +108,17 @@ namespace behaviac
         this->m_attachments->push_back(pAttachment);
     }
 
+	const BehaviorTask* BehaviorTask::GetTaskById(int id) const
+	{
+		BEHAVIAC_ASSERT(id != -1);
+		if (this->m_id == id)
+		{
+			return this;
+		}
+
+		return 0;
+	}
+
 	const behaviac::string& BehaviorTask::GetClassNameString() const
 	{
 		if (this->m_node)
@@ -963,19 +974,42 @@ namespace behaviac
 
 	void BehaviorTask::save(ISerializableNode* node) const
 	{
-		CSerializationID  classId("class");
-		node->setAttr(classId, this->GetClassNameString());
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  classId("class");
+			node->setAttr(classId, this->GetClassNameString());
 
-		CSerializationID  idId("id");
-		node->setAttr(idId, this->GetId());
+			CSerializationID  idId("id");
+			node->setAttr(idId, this->GetId());
 
-		CSerializationID  statusId("status");
-		node->setAttr(statusId, this->m_status);
+			CSerializationID  statusId("status");
+			node->setAttr(statusId, this->m_status);
+		}
 	}
 
 	void BehaviorTask::load(ISerializableNode* node)
 	{
-        BEHAVIAC_UNUSED_VAR(node);
+		CSerializationID  attrId("status");
+		behaviac::string attrStr;
+		if (node->getAttr(attrId, attrStr))
+		{
+			behaviac::StringUtils::FromString(attrStr.c_str(), this->m_status);
+		}
+
+#if !BEHAVIAC_RELEASE
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  classId("class");
+			node->getAttr(classId, attrStr);
+			BEHAVIAC_ASSERT(attrStr == this->GetClassNameString());
+
+			CSerializationID  idId("id");
+			node->getAttr(idId, attrStr);
+			int id = -1;
+			StringUtils::FromString(attrStr.c_str(), id);
+			BEHAVIAC_ASSERT(id == this->GetId());
+		}
+#endif
 	}
 
 	void AttachmentTask::copyto(BehaviorTask* target) const
@@ -1058,18 +1092,36 @@ namespace behaviac
 	{
 		super::save(node);
 
-		if (this->m_currentTask)
+		if (this->m_status != BT_INVALID)
 		{
-			int id = this->m_currentTask->GetId();
-			CSerializationID statusId("current");
+			int id = -1;
+			if (this->m_currentTask)
+			{
+				id = this->m_currentTask->GetId();
+			}
 
-			node->setAttr(statusId, id);
+			CSerializationID attrId("current");
+			node->setAttr(attrId, id);
 		}
 	}
 
 	void BranchTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  attrId("current");
+			behaviac::string attrStr;
+			if (node->getAttr(attrId, attrStr))
+			{
+				int currentNodeId = -1;
+				StringUtils::FromString(attrStr.c_str(), currentNodeId);
+				if (currentNodeId != -1)
+				{
+					this->m_currentTask = (BehaviorTask*)this->GetTaskById(currentNodeId);
+				}
+			}
+		}
 	}
 
 	EBTStatus BranchTask::tickCurrentNode(Agent* pAgent)
@@ -1194,20 +1246,56 @@ namespace behaviac
 	{
 		super::save(node);
 
-		BehaviorTasks_t::size_type count = this->m_children.size();
-		for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
+		if (this->m_status != BT_INVALID)
 		{
-			BehaviorTask* childTask = this->m_children[i];
+			CSerializationID attrId("activeChildIndex");
+			node->setAttr(attrId, this->m_activeChildIndex);
 
-			CSerializationID  nodeId("node");
-			ISerializableNode* chidlNode = node->newChild(nodeId);
-			childTask->save(chidlNode);
+			BehaviorTasks_t::size_type count = this->m_children.size();
+			for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
+			{
+				BehaviorTask* childTask = this->m_children[i];
+
+				CSerializationID  nodeId("node");
+				ISerializableNode* chidlNode = node->newChild(nodeId);
+				childTask->save(chidlNode);
+			}
 		}
 	}
 
 	void CompositeTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID attrId("activeChildIndex");
+			behaviac::string attrStr;
+			node->getAttr(attrId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_activeChildIndex);
+
+//#if !BEHAVIAC_RELEASE
+//			if (this->m_activeChildIndex != uint32_t(-1))
+//			{
+//				BEHAVIAC_ASSERT(this->m_currentTask == this->m_children[this->m_activeChildIndex]);
+//			}
+//			else
+//			{
+//				BEHAVIAC_ASSERT(this->m_currentTask == 0);
+//			}
+//#endif
+
+			BehaviorTasks_t::size_type count = this->m_children.size();
+			BEHAVIAC_ASSERT(count == (BehaviorTasks_t::size_type)node->getChildCount());
+			for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
+			{
+				BehaviorTask* childTask = this->m_children[i];
+
+				//CSerializationID  nodeId("node");
+				ISerializableNode* chidlNode = node->getChild(i);
+				childTask->load(chidlNode);
+			}
+		}
 	}
 
 	CompositeTask::~CompositeTask()
@@ -1218,6 +1306,29 @@ namespace behaviac
 			BEHAVIAC_DELETE(pChild);
 		}
 		this->m_children.clear();
+	}
+
+	const BehaviorTask* CompositeTask::GetTaskById(int id) const
+	{
+		BEHAVIAC_ASSERT(id != -1);
+
+		const BehaviorTask* t = super::GetTaskById(id);
+		if (t)
+		{
+			return t;
+		}
+
+		for (size_t i = 0; i < this->m_children.size(); ++i)
+		{
+			const BehaviorTask* pChild = this->m_children[i];
+			const BehaviorTask* t = pChild->GetTaskById(id);
+			if (t)
+			{
+				return t;
+			}
+		}
+
+		return 0;
 	}
 
 	void CompositeTask::addChild(BehaviorTask* pBehavior)
@@ -1313,17 +1424,45 @@ namespace behaviac
 	{
 		super::save(node);
 
-		if (this->m_root)
+		if (this->m_status != BT_INVALID)
 		{
-			CSerializationID  nodeId("root");
-			ISerializableNode* chidlNode = node->newChild(nodeId);
-			this->m_root->save(chidlNode);
+			if (this->m_root)
+			{
+				CSerializationID  nodeId("root");
+				ISerializableNode* chidlNode = node->newChild(nodeId);
+				this->m_root->save(chidlNode);
+			}
 		}
 	}
 
 	void SingeChildTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  rootId("root");
+			ISerializableNode* rootNode = node->findChild(rootId);
+			BEHAVIAC_ASSERT(rootNode);
+			this->m_root->load(rootNode);
+		}
+	}
+
+	const BehaviorTask* SingeChildTask::GetTaskById(int id) const
+	{
+		BEHAVIAC_ASSERT(id != -1);
+		const BehaviorTask* t = super::GetTaskById(id);
+		if (t)
+		{
+			return t;
+		}
+
+		if (this->m_root->GetId() == id)
+		{
+			return this->m_root;
+		}
+
+		return this->m_root->GetTaskById(id);
 	}
 
 	EBTStatus SingeChildTask::update(Agent* pAgent, EBTStatus childStatus)

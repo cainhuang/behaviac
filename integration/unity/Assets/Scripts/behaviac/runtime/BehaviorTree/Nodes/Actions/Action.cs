@@ -226,7 +226,7 @@ namespace behaviac
 					{
 						m_resultPreconditionFail = EBTStatus.BT_FAILURE;
 					}
-					else if (p.value == "BT_BT_SUCCESS")
+					else if (p.value == "BT_SUCCESS")
 					{
 						m_resultPreconditionFail = EBTStatus.BT_SUCCESS;
 					}

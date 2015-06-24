@@ -69,13 +69,23 @@ namespace behaviac
 	{
 		super::save(node);
 
-		CSerializationID  triggeredId("triggered");
-		node->setAttr(triggeredId, this->m_bTriggered);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  triggeredId("triggered");
+			node->setAttr(triggeredId, this->m_bTriggered);
+		}
 	}
 
 	void WaitforSignalTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  triggeredId("triggered");
+			behaviac::string attrStr;
+			node->getAttr(triggeredId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_bTriggered);
+		}
 	}
 
 	bool WaitforSignalTask::CheckPredicates(Agent* pAgent)

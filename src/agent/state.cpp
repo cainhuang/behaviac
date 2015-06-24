@@ -55,12 +55,22 @@ namespace behaviac
 		this->m_bt = 0;
 	}
 
-	bool State_t::SaveToFile(const char* fileName) const
+	XmlNodeRef State_t::SaveToXmlNode(Agent* pAgent) const
 	{
 		XmlNodeRef xmlInfo = CreateXmlNode("AgentState");
 
-        CTextNode node(xmlInfo);
-		
+		CTextNode node(xmlInfo);
+
+		CSerializationID  attrId("agentType");
+		node.setAttr(attrId, this->m_agentType);
+
+		if (pAgent)
+		{
+			CSerializationID  membersId("members");
+			ISerializableNode* membersNode = node.newChild(membersId);
+			pAgent->Save(membersNode);
+		}
+
 		this->m_vars.Save(&node);
 
 		if (this->m_bt)
@@ -68,12 +78,49 @@ namespace behaviac
 			this->m_bt->Save(&node);
 		}
 
+		return xmlInfo;
+	}
+
+	void State_t::LoadFromXmlNode(CTextNode& node, Agent* pAgent)
+	{
+		if (pAgent)
+		{
+			CSerializationID  membersId("members");
+			ISerializableNode* membersNode = node.findChild(membersId);
+			pAgent->Load(membersNode);
+		}
+
+		this->m_vars.Load(&node);
+		CSerializationID  btNodeId("BehaviorTree");
+		ISerializableNode* btNode = node.findChild(btNodeId);
+		if (btNode)
+		{
+			CSerializationID  sourceId("source");
+			behaviac::string btName;
+			if (btNode->getAttr(sourceId, btName))
+			{
+				BEHAVIAC_DELETE this->m_bt;
+				this->m_bt = Workspace::CreateBehaviorTreeTask(btName.c_str());
+			}
+
+			CSerializationID  nodeId("node");
+			ISerializableNode* n = btNode->findChild(nodeId);
+			BEHAVIAC_ASSERT(n);
+
+			this->m_bt->Load(n);
+		}
+	}
+
+
+	bool State_t::SaveToFile(const char* fileName, Agent* pAgent) const
+	{
+		XmlNodeRef xmlInfo = this->SaveToXmlNode(pAgent);
         CFileSystem::MakeSureDirectoryExist(fileName);
         return xmlInfo->saveToFile(fileName);
 	}
 
 
-	bool State_t::LoadFromFile(const char* fileName)
+	bool State_t::LoadFromFile(const char* fileName, Agent* pAgent)
 	{
 		XmlNodeRef xmlInfo = CreateXmlNode("AgentState");
 
@@ -81,7 +128,7 @@ namespace behaviac
 
 		if (node.LoadFromFile(fileName))
 		{
-			this->m_vars.Load(&node);
+			this->LoadFromXmlNode(node, pAgent);
 
 			return true;
 		}
@@ -89,19 +136,15 @@ namespace behaviac
 		return false;
 	}
 
-	bool State_t::SaveToFile(IFile* file) const
+	bool State_t::SaveToFile(IFile* file, Agent* pAgent) const
 	{
-		XmlNodeRef xmlInfo = CreateXmlNode("AgentState");
-
-        CTextNode node(xmlInfo);
-        
-		this->m_vars.Save(&node);
+		XmlNodeRef xmlInfo = this->SaveToXmlNode(pAgent);
 
         return xmlInfo->saveToFile(file);
 	}
 
 
-	bool State_t::LoadFromFile(IFile* file)
+	bool State_t::LoadFromFile(IFile* file, Agent* pAgent)
 	{
 		XmlNodeRef xmlInfo = CreateXmlNode("AgentState");
 
@@ -109,7 +152,7 @@ namespace behaviac
 
 		if (node.LoadFromFile(file))
 		{
-			this->m_vars.Load(&node);
+			this->LoadFromXmlNode(node, pAgent);
 
 			return true;
 		}

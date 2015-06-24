@@ -46,6 +46,7 @@ namespace behaviac
 	};
 
 	class Agent;
+	class IVariable;
     class BEHAVIAC_API Property
     {
     public:
@@ -96,6 +97,8 @@ namespace behaviac
 		virtual void UnInstantiate(Agent* pAgent) = 0;
 		virtual void UnLoad(Agent* pAgent) = 0;
 
+		virtual IVariable* CreateVar() = 0;
+
 		ParentType GetParentType() const;
 
 		virtual float DifferencePercentage(const Property* other) const = 0;
@@ -123,7 +126,8 @@ namespace behaviac
 
 		///create instance property, 
 		///create class scope static property
-		static Property* Create(const char* typeName, const char* variableName, const char* value, bool bStatic, bool bConst);
+		static Property* Create(const char* typeName, const char* variableName);
+		static Property* Create(const char* typeName, const char* variableName, const char* valueStr, bool bStatic, bool bConst);
 		static void DeleteFromCache(Property* property_);
 
         template<typename T>

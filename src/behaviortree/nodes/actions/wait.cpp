@@ -87,16 +87,31 @@ namespace behaviac
 	{
 		super::save(node);
 
-		CSerializationID  startId("start");
-		node->setAttr(startId, this->m_start);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  startId("start");
+			node->setAttr(startId, this->m_start);
 
-		CSerializationID  timeId("time");
-		node->setAttr(timeId, this->m_time);
+			CSerializationID  timeId("time");
+			node->setAttr(timeId, this->m_time);
+		}
 	}
 
 	void WaitTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  startId("start");
+			behaviac::string attrStr;
+			node->getAttr(startId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_start);
+
+			CSerializationID  timeId("time");
+			node->getAttr(timeId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_time);
+		}
 	}
 
 	WaitTask::~WaitTask()

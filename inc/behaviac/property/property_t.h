@@ -151,6 +151,14 @@ namespace behaviac
 			pAgent->UnLoad<VariableType>(this->m_varaibleName.c_str());
 		}
 
+
+		virtual IVariable* CreateVar()
+		{
+			IVariable* v = BEHAVIAC_NEW TVariable<VariableType>(0, this, this->m_defaultValue);
+
+			return v;
+		}
+
 		virtual void SetDefaultValueString(const char* valString)
 		{
 			VariableType v;

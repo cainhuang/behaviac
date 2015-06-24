@@ -14,6 +14,7 @@
 #include "behaviac/base/base.h"
 #include "behaviac/property/properties.h"
 #include "behaviac/base/workspace.h"
+#include "behaviac/agent/agent.h"
 
 namespace behaviac
 {
@@ -148,13 +149,58 @@ namespace behaviac
 			it != this->m_variables.end(); ++it)
 		{
 			const IVariable* pVar = it->second;
-			pVar->Save(varsNode);
+
+			//skip agent members
+			if (!pVar->IsMember())
+			{
+				pVar->Save(varsNode);
+			}
 		}
 	}
 
 	void Variables::Load(ISerializableNode* node)
 	{
-		BEHAVIAC_UNUSED_VAR(node);
+		CSerializationID  attrId("agentType");
+		behaviac::string agentTypeStr;
+		node->getAttr(attrId, agentTypeStr);
+
+		CSerializationID  variablesId("vars");
+		ISerializableNode* varsNode = node->findChild(variablesId);
+		if (varsNode)
+		{
+			int varsCount = varsNode->getChildCount();
+			for (int i = 0; i < varsCount; ++i)
+			{
+				ISerializableNode* varNode = varsNode->getChild(i);
+
+				CSerializationID  nameId("name");
+				behaviac::string nameStr;
+				varNode->getAttr(nameId, nameStr);
+
+				CSerializationID  valueId("value");
+				behaviac::string valueStr;
+				varNode->getAttr(valueId, valueStr);
+
+				CSerializationID  typeId("type");
+				behaviac::string typeStr;
+				varNode->getAttr(typeId, typeStr);
+				
+#if !BEHAVIAC_RELEASE
+				CStringID agentType(agentTypeStr.c_str());
+				CStringID memberId(nameStr.c_str());
+
+				//members are skipped
+				BEHAVIAC_ASSERT(Agent::FindMemberBase(agentType, memberId) == 0);
+#endif
+				Property* p = Property::Create(typeStr.c_str(), nameStr.c_str());
+				p->SetDefaultValueString(valueStr.c_str());
+
+				IVariable * pVar = p->CreateVar();
+
+				uint32_t varId = MakeVariableId(nameStr.c_str());
+				this->m_variables[varId] = pVar;
+			}
+		}
 		//for (Variables_t::iterator it = this->m_variables.begin();
 		//	it != this->m_variables.end(); ++it)
 		//{

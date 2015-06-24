@@ -6,6 +6,7 @@
     <par name="par_float_type_0" type="float" value="0" />
     <par name="par_float_type_1" type="float" value="0" />
     <par name="par_float_type_2" type="float" value="2.7" />
+    <par name="par_go" type="UnityEngine::GameObject" value="null" />
   </pars>
   <node class="Sequence" version="1" id="0">
     <node class="Compute" version="1" id="3">
@@ -31,6 +32,15 @@
     </node>
     <node class="Action" version="1" id="5">
       <property Method="Self.AgentNodeTest::setTestVar_3(float par_float_type_0)" />
+      <property PreconditionFailResult="BT_FAILURE" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Assignment" version="1" id="7">
+      <property Opl="UnityEngine::GameObject par_go" />
+      <property Opr="Self.AgentNodeTest::createGameObject()" />
+    </node>
+    <node class="Action" version="1" id="6">
+      <property Method="Self.AgentNodeTest::testGameObject(UnityEngine::GameObject par_go)" />
       <property PreconditionFailResult="BT_FAILURE" />
       <property ResultOption="BT_SUCCESS" />
     </node>

@@ -1384,7 +1384,10 @@ namespace behaviac
         {
             if (this.m_currentBT != null)
             {
+                //the following might modify this.m_currentBT if the invoked function called btsetcurrent/FireEvent
+                BehaviorTreeTask currentBT = this.m_currentBT;
                 EBTStatus s = this.m_currentBT.exec(this);
+                Debug.Check(s == EBTStatus.BT_RUNNING || currentBT == this.m_currentBT, "btsetcurrent/FireEvent is not allowed in the invoked function.");
 
                 while (s != EBTStatus.BT_RUNNING)
                 {

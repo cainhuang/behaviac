@@ -110,7 +110,7 @@ namespace behaviac
         }
         void construct(pointer p, const T& val)
         {
-            new(static_cast<void*>(p)) T(val);
+            ::new(static_cast<void*>(p)) T(val);
         }
         //void construct(pointer p)
         //{

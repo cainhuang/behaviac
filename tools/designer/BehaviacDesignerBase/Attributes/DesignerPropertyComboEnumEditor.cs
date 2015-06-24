@@ -597,7 +597,7 @@ namespace Behaviac.Design.Attributes
                     if (methodIndex != -1)
                     {
                         Debug.Check(varRV.Method != null);
-                        if (typeComboBox.SelectedIndex > methodIndex)
+                        if (typeComboBox.SelectedIndex - methodIndex - offset >= 0)
                         {
                             varRV.Method.Owner = Plugin.InstanceNames[typeComboBox.SelectedIndex - methodIndex - offset].name_;
                         }

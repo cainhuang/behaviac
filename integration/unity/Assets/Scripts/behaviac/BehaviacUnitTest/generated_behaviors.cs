@@ -462,6 +462,35 @@ namespace behaviac
 		}
 	}
 
+	class Assignment_bt_node_test_action_ut_1_node7 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_1_node7()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			UnityEngine.GameObject opr = (UnityEngine.GameObject)((AgentNodeTest)pAgent).createGameObject();
+			Debug.Check(behaviac.Utils.MakeVariableId("par_go") == 464621558u);
+			pAgent.SetVariable("par_go", opr, 464621558u);
+			return result;
+		}
+	}
+
+	class Action_bt_node_test_action_ut_1_node6 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_1_node6()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			Debug.Check(behaviac.Utils.MakeVariableId("par_go") == 464621558u);
+			UnityEngine.GameObject method_p0 = (UnityEngine.GameObject)pAgent.GetVariable(464621558u);
+			((AgentNodeTest)pAgent).testGameObject(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
 	public static class bt_node_test_action_ut_1
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -476,6 +505,7 @@ namespace behaviac
 			bt.AddPar("float", "par_float_type_0", "0", "");
 			bt.AddPar("float", "par_float_type_1", "0", "");
 			bt.AddPar("float", "par_float_type_2", "2.7", "");
+			bt.AddPar("UnityEngine.GameObject", "par_go", "null", "");
 			// children
 			{
 				Sequence node0 = new Sequence();
@@ -534,6 +564,26 @@ namespace behaviac
 #endif
 					node0.AddChild(node5);
 					node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_1_node7 node7 = new Assignment_bt_node_test_action_ut_1_node7();
+					node7.SetClassNameString("Assignment");
+					node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+					node7.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node7);
+					node0.SetHasEvents(node0.HasEvents() | node7.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_1_node6 node6 = new Action_bt_node_test_action_ut_1_node6();
+					node6.SetClassNameString("Action");
+					node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+					node6.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node6);
+					node0.SetHasEvents(node0.HasEvents() | node6.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}

@@ -111,17 +111,31 @@ namespace behaviac
 	void WaitFramesTask::save(ISerializableNode* node) const
 	{
 		super::save(node);
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  startId("start");
+			node->setAttr(startId, this->m_start);
 
-		CSerializationID  startId("start");
-		node->setAttr(startId, this->m_start);
-
-		CSerializationID  framesId("frames");
-		node->setAttr(framesId, this->m_frames);
+			CSerializationID  framesId("frames");
+			node->setAttr(framesId, this->m_frames);
+		}
 	}
 
 	void WaitFramesTask::load(ISerializableNode* node)
 	{
 		super::load(node);
+
+		if (this->m_status != BT_INVALID)
+		{
+			CSerializationID  startId("start");
+			behaviac::string attrStr;
+			node->getAttr(startId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_start);
+
+			CSerializationID  framesId("frames");
+			node->getAttr(framesId, attrStr);
+			StringUtils::FromString(attrStr.c_str(), this->m_frames);
+		}
 	}
 
 	WaitFramesTask::~WaitFramesTask()

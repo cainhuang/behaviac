@@ -509,9 +509,10 @@ namespace BehaviorNodeUnitTest
 			testAgent.btsetcurrent("node_test/action_ut_1");
 			testAgent.resetProperties();
 			testAgent.btexec();
-			
+
 			Assert.AreEqual(1.8f, testAgent.testVar_2);
             Assert.AreEqual(4.5f, testAgent.testVar_3);
+			Assert.AreEqual(true, "HC" == testAgent.testVar_str_0);
         }
 
 		[Test]
