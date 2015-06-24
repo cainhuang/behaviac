@@ -780,7 +780,8 @@ namespace behaviac
             m_property = copy.m_property;
             m_pMember = copy.m_pMember;
             m_instantiated = copy.m_instantiated;
-			m_value = copy.m_value;
+			DeepCopy(out m_value, copy.m_value);
+			//m_value = copy.m_value;
 
 #if !BEHAVIAC_RELEASE
 			m_changed = copy.m_changed;
@@ -910,8 +911,8 @@ namespace behaviac
 
 			if (!bProperty && !(Details.Equal(this.m_value, value)))
             {
-				//DeepCopy(out this.m_value, value);
-				this.m_value = value;
+				DeepCopy(out this.m_value, value);
+				//this.m_value = value;
 
 #if !BEHAVIAC_RELEASE
                 this.m_changed = true;
