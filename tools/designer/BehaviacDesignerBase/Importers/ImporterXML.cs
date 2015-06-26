@@ -607,6 +607,9 @@ namespace Behaviac.Design.Importers
                     XmlNode typeNode = childNode.Attributes["Type"];
                     string memberType = (typeNode != null) ? HandleHierarchyName(typeNode.Value) : "";
 
+                    XmlNode readonlyNode = childNode.Attributes["Readonly"];
+                    string isReadOnly = (readonlyNode != null) ? readonlyNode.Value : "false";
+
                     memberType = fixTypeName(memberType);
 
                     if (isStruct)
@@ -629,15 +632,18 @@ namespace Behaviac.Design.Importers
                         XmlNode descNode = childNode.Attributes["Desc"];
                         string desc = (descNode != null && descNode.Value.Length > 0) ? descNode.Value : displayName;
 
-                        wrtr.WriteLine("\t\tprivate {0} _{1}{2};", memberType, memberName, defaultValue);
-                        wrtr.WriteLine("\t\t{0}", getStructAttribute(displayName, desc, memberType, index));
-                        wrtr.WriteLine("\t\tpublic {0} {1}", memberType, memberName);
-                        wrtr.WriteLine("\t\t{");
-                        wrtr.WriteLine("\t\t\tget {{ return _{0}; }}", memberName);
-                        wrtr.WriteLine("\t\t\tset {{ _{0} = value; }}", memberName);
-                        wrtr.WriteLine("\t\t}");
+                        if (isReadOnly == "false")
+                        {
+                            wrtr.WriteLine("\t\tprivate {0} _{1}{2};", memberType, memberName, defaultValue);
+                            wrtr.WriteLine("\t\t{0}", getStructAttribute(displayName, desc, memberType, index));
+                            wrtr.WriteLine("\t\tpublic {0} {1}", memberType, memberName);
+                            wrtr.WriteLine("\t\t{");
+                            wrtr.WriteLine("\t\t\tget {{ return _{0}; }}", memberName);
+                            wrtr.WriteLine("\t\t\tset {{ _{0} = value; }}", memberName);
+                            wrtr.WriteLine("\t\t}");
 
-                        index++;
+                            index++;
+                        }
                     }
                     else
                     {

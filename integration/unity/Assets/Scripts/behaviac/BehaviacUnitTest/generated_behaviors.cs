@@ -12669,6 +12669,161 @@ namespace behaviac
 		}
 	}
 
+	// Source file: par_test/custom_property_as_left_value_and_param
+
+	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node11 : behaviac.Assignment
+	{
+		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node11()
+		{
+			opr.x = 1f;
+			opr.y = 1f;
+			opr.z = 1f;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			AgentExtra_Generated.SetProperty(pAgent, "Location", opr);
+			Debug.Check(behaviac.Utils.MakeVariableId("Location") == 2906627922u);
+			pAgent.SetVariable("Location", opr, 2906627922u);
+			return result;
+		}
+		UnityEngine.Vector3 opr;
+	}
+
+	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node8 : behaviac.Assignment
+	{
+		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node8()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			UnityEngine.Vector3 opr = ((CustomPropertyAgent)pAgent).Location;
+			Debug.Check(behaviac.Utils.MakeVariableId("l_Location") == 3698229766u);
+			pAgent.SetVariable("l_Location", opr, 3698229766u);
+			return result;
+		}
+	}
+
+	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node10 : behaviac.Assignment
+	{
+		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node10()
+		{
+			opr.x = 2f;
+			opr.y = 2f;
+			opr.z = 2f;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			AgentExtra_Generated.SetProperty(pAgent, "Location", opr);
+			Debug.Check(behaviac.Utils.MakeVariableId("Location") == 2906627922u);
+			pAgent.SetVariable("Location", opr, 2906627922u);
+			return result;
+		}
+		UnityEngine.Vector3 opr;
+	}
+
+	class DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6 : behaviac.DecoratorLoop
+	{
+		public DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6()
+		{
+			m_bDecorateWhenChildEnds = true;
+		}
+		protected override int GetCount(Agent pAgent)
+		{
+			return -1;
+		}
+	}
+
+	public static class bt_par_test_custom_property_as_left_value_and_param
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("par_test/custom_property_as_left_value_and_param");
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("CustomPropertyAgent");
+#endif
+			// pars
+			bt.AddPar("int", "l_Int", "1", "");
+			bt.AddPar("UnityEngine.Vector3", "l_Location", "{x=0;y=0;z=0;}", "");
+			// children
+			{
+				Sequence node5 = new Sequence();
+				node5.SetClassNameString("Sequence");
+				node5.SetId(5);
+#if !BEHAVIAC_RELEASE
+				node5.SetAgentType("CustomPropertyAgent");
+#endif
+				bt.AddChild(node5);
+				{
+					Sequence node13 = new Sequence();
+					node13.SetClassNameString("Sequence");
+					node13.SetId(13);
+#if !BEHAVIAC_RELEASE
+					node13.SetAgentType("CustomPropertyAgent");
+#endif
+					node5.AddChild(node13);
+					{
+						Assignment_bt_par_test_custom_property_as_left_value_and_param_node11 node11 = new Assignment_bt_par_test_custom_property_as_left_value_and_param_node11();
+						node11.SetClassNameString("Assignment");
+						node11.SetId(11);
+#if !BEHAVIAC_RELEASE
+						node11.SetAgentType("CustomPropertyAgent");
+#endif
+						node13.AddChild(node11);
+						node13.SetHasEvents(node13.HasEvents() | node11.HasEvents());
+					}
+					{
+						Assignment_bt_par_test_custom_property_as_left_value_and_param_node8 node8 = new Assignment_bt_par_test_custom_property_as_left_value_and_param_node8();
+						node8.SetClassNameString("Assignment");
+						node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+						node8.SetAgentType("CustomPropertyAgent");
+#endif
+						node13.AddChild(node8);
+						node13.SetHasEvents(node13.HasEvents() | node8.HasEvents());
+					}
+					{
+						Assignment_bt_par_test_custom_property_as_left_value_and_param_node10 node10 = new Assignment_bt_par_test_custom_property_as_left_value_and_param_node10();
+						node10.SetClassNameString("Assignment");
+						node10.SetId(10);
+#if !BEHAVIAC_RELEASE
+						node10.SetAgentType("CustomPropertyAgent");
+#endif
+						node13.AddChild(node10);
+						node13.SetHasEvents(node13.HasEvents() | node10.HasEvents());
+					}
+					node5.SetHasEvents(node5.HasEvents() | node13.HasEvents());
+				}
+				{
+					DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6 node6 = new DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6();
+					node6.SetClassNameString("DecoratorLoop");
+					node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+					node6.SetAgentType("CustomPropertyAgent");
+#endif
+					node5.AddChild(node6);
+					{
+						Noop node7 = new Noop();
+						node7.SetClassNameString("Noop");
+						node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+						node7.SetAgentType("CustomPropertyAgent");
+#endif
+						node6.AddChild(node7);
+						node6.SetHasEvents(node6.HasEvents() | node7.HasEvents());
+					}
+					node5.SetHasEvents(node5.HasEvents() | node6.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node5.HasEvents());
+			}
+			return true;
+		}
+	}
+
 	// Source file: par_test/par_as_left_value_and_param
 
 	class Assignment_bt_par_test_par_as_left_value_and_param_node0 : behaviac.Assignment

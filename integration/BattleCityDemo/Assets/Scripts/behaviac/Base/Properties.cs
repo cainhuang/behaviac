@@ -1214,7 +1214,7 @@ namespace behaviac
 					return pAddr;
 				}
 
-				Debug.Check(false, "a compatible property is not found");
+                //Debug.Check(false, "a compatible property is not found");
             }
             else
             {

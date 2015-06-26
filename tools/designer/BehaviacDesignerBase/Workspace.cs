@@ -234,6 +234,8 @@ namespace Behaviac.Design
 
         public string GetExportFilename(string format)
         {
+            Debug.Check(!string.IsNullOrEmpty(format));
+
             if (_exportDatas.ContainsKey(format))
             {
                 ExportData data = _exportDatas[format];
@@ -244,7 +246,7 @@ namespace Behaviac.Design
                 return data.ExportFilename;
             }
 
-            return string.Empty;
+            return "generated_behaviors." + format;
         }
 
         public string GetExportFolder(string format)

@@ -1,3 +1,7 @@
+2015-6-26	2.1.1
+	Fix a bug for setting the struct and array data as the Par.
+	Fix a bug for the default exporting filename.
+
 2015-6-24	2.1.0
 	Fix a bug for cloning the pars.
 	Fix a bug for current task.

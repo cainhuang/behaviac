@@ -54,10 +54,6 @@ namespace Behaviac.Design
             if (Workspace.Current != null && _exporterInfo != null)
             {
                 string exportFilename = Workspace.Current.GetExportFilename(_exporterInfo.ID);
-                if (string.IsNullOrEmpty(exportFilename))
-                {
-                    exportFilename = "generated_behaviors." + _exporterInfo.ID;
-                }
 
                 this.exportFilenameTextBox.Text = exportFilename;
 

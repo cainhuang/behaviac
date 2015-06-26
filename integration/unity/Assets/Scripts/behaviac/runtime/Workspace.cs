@@ -1635,6 +1635,30 @@ namespace behaviac
             return baseTypeName;
         }
 
+		private static bool IsMemberReadonly(MemberInfo m)
+		{
+			FieldInfo field = m as FieldInfo;
+			if (field != null)
+			{
+				return field.IsInitOnly || field.IsLiteral;
+			}
+			
+			PropertyInfo f = m as PropertyInfo;
+			
+			MethodInfo getter = f.GetGetMethod();
+			if (getter != null)
+			{
+				MethodInfo settter = f.GetSetMethod();
+				
+				if (settter == null)
+				{
+					return true;
+				}
+			}
+			
+			return false;
+		}
+
 		private static void ExportType(Dictionary<string, Type> types, XmlWriter xmlWriter, Type type, bool bIsAgentType, bool onlyExportPublicMembers)
         {
             //FieldInfo[] fields = agentType.GetFields(BindingFlags.Instance | BindingFlags.Static);
@@ -1692,6 +1716,11 @@ namespace behaviac
                     xmlWriter.WriteAttributeString("Desc", desc);
                     xmlWriter.WriteAttributeString("Type", memberType);
                     xmlWriter.WriteAttributeString("Class", classFullName);
+
+					if (IsMemberReadonly(f))
+					{
+						xmlWriter.WriteAttributeString("Readonly", "true");
+					}
 
                     if (f.IsStatic)
                     {
@@ -2186,9 +2215,12 @@ namespace behaviac
 
                             ms_agentTypes.Add(typeInfo);
 
-							if (type.BaseType != null && Utils.IsAgentType(type.BaseType))
+                            //find all the base type and ancestors
+                            Type ti = type.BaseType;
+                            while (ti != null && Utils.IsAgentType(ti))
                             {
-                                baseTypes.Add(type.BaseType);
+                                baseTypes.Add(ti);
+                                ti = ti.BaseType;
                             }
 
 							if (Utils.IsStaticType(type))

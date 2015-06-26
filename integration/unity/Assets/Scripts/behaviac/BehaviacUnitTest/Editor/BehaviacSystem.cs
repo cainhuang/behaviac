@@ -18,10 +18,26 @@ using System;
 using System.Runtime.InteropServices;
 #endif
 
-[AddComponentMenu("BattleCity/BehaviacSystem")]
-public class BehaviacSystem : Singleton<BehaviacSystem>
+[AddComponentMenu("BehaviacSystem")]
+public class BehaviacSystem
 {
-	private bool m_bIsInited = false;
+    #region singleon
+    private static BehaviacSystem _instance;
+    public static BehaviacSystem Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new BehaviacSystem();
+            }
+
+            return _instance;
+        }
+    }
+    #endregion
+    
+    private bool m_bIsInited = false;
 	protected static BehaviacFileManager fileSystem = null;
 
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
