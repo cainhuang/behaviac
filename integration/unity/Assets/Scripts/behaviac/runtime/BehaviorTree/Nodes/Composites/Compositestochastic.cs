@@ -76,15 +76,7 @@ namespace behaviac
 				float value = 0;
 				if (method != null)
                 {
-                    ParentType pt = method.GetParentType();
-                    Agent pParent = pAgent;
-                    if (pt == ParentType.PT_INSTANCE)
-                    {
-                        pParent = Agent.GetInstance(method.GetInstanceNameString(), pParent.GetContextId());
-						Debug.Check(pParent != null || Utils.IsStaticClass(method.GetInstanceNameString()));
-                    }
-
-					value = (float)method.run(pParent, pAgent);
+					value = (float)method.Invoke(pAgent);
                 }
                 else
                 {

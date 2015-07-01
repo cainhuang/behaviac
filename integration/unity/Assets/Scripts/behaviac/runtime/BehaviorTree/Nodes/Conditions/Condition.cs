@@ -135,6 +135,42 @@ namespace behaviac
             return opr;
         }
 
+        public static Property ParseProperty(string value, ref string typeName)
+        {
+            Property opr = null;
+            List<string> tokens = StringUtils.SplitTokens(value);
+
+            if (tokens[0] == "static")
+            {
+                //static int Property1
+                typeName = tokens[1].Replace("::", ".");
+                if (tokens.Count == 3)
+                {
+                    opr = Property.Create(typeName, tokens[2], null, true, false);
+                }
+                else
+                {
+                    Debug.Check(tokens.Count == 4);
+                    opr = Property.Create(typeName, tokens[2], tokens[3], true, false);
+                }
+            }
+            else
+            {
+                //int Property1
+                typeName = tokens[0].Replace("::", ".");
+                if (tokens.Count == 2)
+                {
+                    opr = Property.Create(typeName, tokens[1], null, false, false);
+                }
+                else
+                {
+                    opr = Property.Create(typeName, tokens[1], tokens[2], false, false);
+                }
+            }
+
+            return opr;
+        }
+
         public static Property LoadProperty(string value)
         {
             string propertyName = null;
@@ -196,6 +232,23 @@ namespace behaviac
             return base.IsValid(pAgent, pTask);
         }
 
+        public bool Evaluate(Agent pAgent)
+        {
+            if (this.m_comparator != null)
+            {
+                bool bResult = Condition.DoCompare(pAgent, this.m_comparator, this.m_opl, this.m_opl_m, this.m_opr, null);
+
+                return bResult;
+            }
+            else
+            {
+                EBTStatus childStatus = EBTStatus.BT_INVALID;
+                EBTStatus result = this.update_impl(pAgent, childStatus);
+                return result == EBTStatus.BT_SUCCESS;
+            }
+        }
+
+
         protected override BehaviorTask createTask()
         {
             ConditionTask pTask = new ConditionTask();
@@ -203,54 +256,30 @@ namespace behaviac
             return pTask;
         }
 
-		public static bool DoCompare(Agent pAgent, VariableComparator comparator, Property opl, CMethodBase opl_m, Property opr)
-		{
-			bool bResult = false;
-			if (opl != null)
-			{
-				Agent agent_left = pAgent;
-				ParentType pt = opl.GetParentType();
-				if (pt == ParentType.PT_INSTANCE)
-				{
-					agent_left = Agent.GetInstance(opl.GetInstanceNameString(), agent_left.GetContextId());
-					Debug.Check(agent_left != null || Utils.IsStaticClass(opl.GetInstanceNameString()));
-				}
-				
-				Agent agent_right = pAgent;
-				pt = opr.GetParentType();
-				if (pt == ParentType.PT_INSTANCE)
-				{
-					agent_right = Agent.GetInstance(opr.GetInstanceNameString(), agent_left.GetContextId());
-					Debug.Check(agent_right != null || Utils.IsStaticClass(opr.GetInstanceNameString()));
-				}
-				
-				bResult = comparator.Execute(agent_left, agent_right);
-			}
-			else if (opl_m != null)
-			{
-				ParentType pt = opl_m.GetParentType();
-				Agent agent_left = pAgent;
-				if (pt == ParentType.PT_INSTANCE)
-				{
-					agent_left = Agent.GetInstance(opl_m.GetInstanceNameString(), agent_left.GetContextId());
-					Debug.Check(agent_left != null || Utils.IsStaticClass(opl_m.GetInstanceNameString()));
-				}
-				
-				object returnValue = opl_m.run(agent_left, pAgent);
-				
-				Agent agent_right = pAgent;
-				pt = opr.GetParentType();
-				if (pt == ParentType.PT_INSTANCE)
-				{
-					agent_right = Agent.GetInstance(opr.GetInstanceNameString(), agent_right.GetContextId());
-					Debug.Check(agent_right != null || Utils.IsStaticClass(opr.GetInstanceNameString()));
-				}
+        public static bool DoCompare(Agent pAgent, VariableComparator comparator, Property opl, CMethodBase opl_m, Property opr, CMethodBase opr_m)
+        {
+            bool bResult = false;
+            if (opl != null)
+            {
+                Agent agent_left = opl.GetParentAgent(pAgent);
+                Agent agent_right = opr != null ? opr.GetParentAgent(pAgent) : opr_m.GetParentAgent(pAgent);
 
-				bResult = comparator.Execute(returnValue, agent_left, agent_right);
-			}
-			
-			return bResult;
-		}
+                bResult = comparator.Execute(agent_left, agent_right);
+            }
+            else if (opl_m != null)
+            {
+                Agent agent_left = opl_m.GetParentAgent(pAgent);
+
+                object returnValue = opl_m.Invoke(agent_left, pAgent);
+
+                Agent agent_right = opr != null ? opr.GetParentAgent(pAgent) : opr_m.GetParentAgent(pAgent);
+
+                bResult = comparator.Execute(returnValue, agent_left, agent_right);
+            }
+
+            return bResult;
+        }
+
 
         protected Property m_opl;
         Property m_opr;
@@ -290,25 +319,17 @@ namespace behaviac
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
-                EBTStatus result = EBTStatus.BT_FAILURE;
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
 
                 Debug.Check(this.GetNode() is Condition);
                 Condition pConditionNode = (Condition)(this.GetNode());
 
-                if (pConditionNode.m_comparator != null)
-                {
-                    if (DoCompare(pAgent, pConditionNode.m_comparator, pConditionNode.m_opl, pConditionNode.m_opl_m, pConditionNode.m_opr))
-                    {
-                        result = EBTStatus.BT_SUCCESS;
-                    }
-                }
-                else
-                {
-                    result = pConditionNode.update_impl(pAgent, childStatus);
-                }
+                bool ret = pConditionNode.Evaluate(pAgent);
 
-                return result;
+                return ret ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
             }
+
+
         }
     }
 }

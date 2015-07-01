@@ -1,3 +1,12 @@
+2015-7-1	2.1.3
+	Fix a bug for the struct copy on iOS 64.
+	Fix a bug for the behavior filename.
+	Fix a bug for possible failed checking for selectorloop
+
+2015-6-29	2.1.2
+	Fix a bug for the const string value with the same name of a par.
+	Fix a bug for updating a parameter of a method if not ref or out.
+
 2015-6-26	2.1.1
 	Fix a bug for setting the struct and array data as the Par.
 	Fix a bug for the default exporting filename.

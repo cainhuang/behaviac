@@ -62,10 +62,9 @@ namespace Behaviac.Design
             if (string.IsNullOrEmpty(this.nameTextBox.Text))
                 return;
 
-            if (_isReferenceTree && !Plugin.IsASCII(this.nameTextBox.Text))
+            if (_isReferenceTree && !Plugin.IsValidFilename(this.nameTextBox.Text))
             {
-                string msgInfo = string.Format("The behavior filename can only be ascii character!");
-                MessageBox.Show(msgInfo, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Resources.FilenameWarning, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

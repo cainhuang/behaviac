@@ -271,7 +271,7 @@ namespace behaviac
 
         public void InsertEventGlobal(string className, CNamedEvent pEvent)
         {
-            CNamedEvent toFind = FindEventStatic(className, pEvent.GetName());
+            CNamedEvent toFind = FindEventStatic(className, pEvent.Name);
             if (toFind == null)
             {
                 if (!ms_eventInfosGlobal.ContainsKey(className))
@@ -282,7 +282,7 @@ namespace behaviac
                 Dictionary<CStringID, CNamedEvent> events = ms_eventInfosGlobal[className];
 
                 CNamedEvent e = (CNamedEvent)pEvent.clone();
-                CStringID eventId = new CStringID(e.GetName());
+                CStringID eventId = new CStringID(e.Name);
                 events.Add(eventId, e);
             }
         }
@@ -295,7 +295,7 @@ namespace behaviac
             for (int i = methods.Count - 1; i >= 0; --i)
             {
                 CMethodBase pMethod = methods[i];
-                string methodName = pMethod.GetName();
+                string methodName = pMethod.Name;
                 CStringID methodID = new CStringID(methodName);
                 if (methodID == eventID && pMethod.IsNamedEvent())
                 {

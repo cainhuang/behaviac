@@ -229,6 +229,14 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("\t}\r\n");
         }
 
+        private string getValidFilename(string filename)
+        {
+            filename = filename.Replace('/', '_');
+            filename = filename.Replace('-', '_');
+
+            return filename;
+        }
+
         private void ExportBody(StreamWriter file, BehaviorNode behavior)
         {
             string filename = Path.ChangeExtension(behavior.RelativePath, "").Replace(".", "");
@@ -237,7 +245,7 @@ namespace PluginBehaviac.Exporters
             // write comments
             file.WriteLine("\t// Source file: {0}\r\n", filename);
 
-            string btClassName = string.Format("bt_{0}", filename.Replace('/', '_'));
+            string btClassName = string.Format("bt_{0}", getValidFilename(filename));
             string agentType = behavior.AgentType.AgentTypeName;
 
             // create the class definition of its attachments

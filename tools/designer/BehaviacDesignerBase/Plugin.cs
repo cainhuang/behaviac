@@ -38,6 +38,7 @@ using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Behaviac.Design.Data;
 using Behaviac.Design.Nodes;
@@ -908,9 +909,17 @@ namespace Behaviac.Design
             return a.ToArray();
         }
 
-        public static bool IsASCII(string value)
+        private static bool IsASCII(string value)
         {
             return Encoding.UTF8.GetByteCount(value) == value.Length;
+        }
+
+        public static bool IsValidFilename(string value)
+        {
+            if (IsASCII(value))
+                return Regex.IsMatch(value, @"^[a-zA-Z0-9_]*$");
+
+            return false;
         }
 
         /// <summary>

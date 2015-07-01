@@ -2,6 +2,12 @@
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <metas version="2.0">
   <types>
+    <enumtype Type="behaviac::EBTStatus" DisplayName="EBTStatus" Desc="EBTStatus">
+      <enum NativeValue="BT_INVALID" Value="BT_INVALID" DisplayName="BT_INVALID" Desc="BT_INVALID" />
+      <enum NativeValue="BT_SUCCESS" Value="BT_SUCCESS" DisplayName="BT_SUCCESS" Desc="BT_SUCCESS" />
+      <enum NativeValue="BT_FAILURE" Value="BT_FAILURE" DisplayName="BT_FAILURE" Desc="BT_FAILURE" />
+      <enum NativeValue="BT_RUNNING" Value="BT_RUNNING" DisplayName="BT_RUNNING" Desc="BT_RUNNING" />
+    </enumtype>
     <enumtype Type="TNS::NE::NAT::eColor" DisplayName="色彩枚举" Desc="eColor 是一个用于测试枚举使用的类型">
       <enum NativeValue="RED" Value="RED" DisplayName="红色 Red" Desc="Red 是一种非常激进的色彩" />
       <enum NativeValue="GREEN" Value="GREEN" DisplayName="GREEN" Desc="GREEN" />
@@ -70,6 +76,9 @@
       <Method Name="createGameObject" DisplayName="" Desc="" ReturnType="UnityEngine::GameObject" Class="AgentNodeTest" Public="true" />
       <Method Name="testGameObject" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="go" Desc="go" Type="UnityEngine::GameObject*" />
+      </Method>
+      <Method Name="switchRef" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest" Public="true">
+        <Param DisplayName="refTree" Desc="refTree" Type="string" />
       </Method>
       <Method Name="enter_action_0" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true" />
       <Method Name="exit_action_0" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true" />

@@ -98,6 +98,24 @@ namespace behaviac
             }
         }
 
+
+        public bool Evaluate(Agent pAgent)
+        {
+            if (this.m_comparator != null)
+            {
+                bool bResult = Condition.DoCompare(pAgent, this.m_comparator, this.m_opl, this.m_opl_m, this.m_opr, null);
+
+                return bResult;
+            }
+            else
+            {
+                EBTStatus childStatus = EBTStatus.BT_INVALID;
+                EBTStatus result = this.update_impl(pAgent, childStatus);
+                return result == EBTStatus.BT_SUCCESS;
+            }
+        }
+
+
         protected override BehaviorTask createTask()
         {
             PredicateTask pTask = new PredicateTask();
@@ -150,7 +168,7 @@ namespace behaviac
 
                 if (pPredicateNode.m_comparator != null) 
 				{
-					bool bResult = Condition.DoCompare (pAgent, pPredicateNode.m_comparator, pPredicateNode.m_opl, pPredicateNode.m_opl_m, pPredicateNode.m_opr);
+                    bool bResult = pPredicateNode.Evaluate(pAgent); 
 
 					if (bResult) 
 					{

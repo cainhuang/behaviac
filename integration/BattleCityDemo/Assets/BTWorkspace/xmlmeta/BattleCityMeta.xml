@@ -36,7 +36,7 @@
       <enum NativeValue="TOTAL" Value="TOTAL" DisplayName="TOTAL" Desc="TOTAL" />
     </enumtype>
     <struct Type="UnityEngine::Vector3" DisplayName="Vector3" Desc="Vector3">
-      <Member Name="kEpsilon" DisplayName="kEpsilon" Desc="kEpsilon" Type="float" Class="UnityEngine::Vector3" Static="true" Public="true" />
+      <Member Name="kEpsilon" DisplayName="kEpsilon" Desc="kEpsilon" Type="float" Class="UnityEngine::Vector3" Readonly="true" Static="true" Public="true" />
       <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="UnityEngine::Vector3" Public="true" />
       <Member Name="y" DisplayName="y" Desc="y" Type="float" Class="UnityEngine::Vector3" Public="true" />
       <Member Name="z" DisplayName="z" Desc="z" Type="float" Class="UnityEngine::Vector3" Public="true" />
@@ -203,6 +203,7 @@
       <Member Name="bulletLifeTime" DisplayName="" Desc="" Type="float" Class="Player" Public="true" />
       <Member Name="hp" DisplayName="" Desc="" Type="int" Class="Player" Public="true" />
       <Member Name="damageLevel" DisplayName="" Desc="" Type="int" Class="Player" Public="true" />
+      <Member Name="Index" DisplayName="" Desc="" Type="int" Class="Player" Public="true" />
       <Method Name="detectNearestEnemyInView" DisplayName="" Desc="" ReturnType="float" Class="Player" Public="true" />
       <Method Name="findNearestEnemy" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true" />
       <Method Name="canDestroyBrick" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true">
@@ -210,6 +211,12 @@
       </Method>
       <Method Name="detectEnemy" DisplayName="" Desc="" ReturnType="int" Class="Player" Public="true">
         <Param DisplayName="dir" Desc="dir" Type="eMapDirection" />
+      </Method>
+      <Method Name="getTarget" DisplayName="" Desc="" ReturnType="void" Class="Player" Public="true">
+        <Param DisplayName="target" Desc="target" Type="UnityEngine::Vector3&amp;" />
+      </Method>
+      <Method Name="moveto" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true">
+        <Param DisplayName="target" Desc="target" Type="UnityEngine::Vector3" />
       </Method>
       <Method Name="aimToAngle" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player" Public="true">
         <Param DisplayName="angle" Desc="angle" Type="float" />

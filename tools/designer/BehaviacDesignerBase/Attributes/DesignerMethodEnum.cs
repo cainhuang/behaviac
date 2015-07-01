@@ -135,8 +135,8 @@ namespace Behaviac.Design.Attributes
                         ownerName = str.Substring(0, pointIndex);
                         str = str.Substring(pointIndex + 1, str.Length - pointIndex - 1);
                         agentType = Plugin.GetInstanceAgentType(ownerName, agentType);
-                        if (agentType == node.Behavior.AgentType)
-                            ownerName = VariableDef.kSelf;
+                        //if (agentType == node.Behavior.AgentType)
+                        //    ownerName = VariableDef.kSelf;
                         pos = str.IndexOf('(');
                     }
 

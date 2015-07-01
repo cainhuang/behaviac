@@ -1166,6 +1166,13 @@ namespace behaviac
             FileManager.Instance.FileClose(file, ext, pBuffer);
 	    }
 
+		private static string getValidFilename(string filename)
+		{
+			filename = filename.Replace("/", "_");
+			filename = filename.Replace("-", "_");
+			return filename;
+		}
+
         /**
         relativePath is relateve to the workspace path. relativePath should not include extension.
         the file format(xml/bson) is specified by SetWorkspaceSettings.
@@ -1294,7 +1301,7 @@ namespace behaviac
 	                }
 	                else
 	                {
-	                    string clsName = "behaviac.bt_" + relativePath.Replace("/", "_");
+						string clsName = "behaviac.bt_" + getValidFilename(relativePath);
 	                    Type type = Utils.GetType(clsName);
 	                    if (type != null)
 	                    {

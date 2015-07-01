@@ -561,4 +561,7 @@ Are your sure add it?</value>
   <data name="About" xml:space="preserve">
     <value>About </value>
   </data>
+  <data name="FilenameWarning" xml:space="preserve">
+    <value>The behavior filename can only be ascii character with a-z, A-Z, 0-9 and _!</value>
+  </data>
 </root>

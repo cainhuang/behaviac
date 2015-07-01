@@ -148,7 +148,7 @@ namespace behaviac
             {
                 if (Agent.IsNameRegistered(agentIntanceName))
                 {
-                    method.SetInstanceNameString(agentIntanceName, ParentType.PT_INSTANCE);
+                    method.InstanceName = agentIntanceName; 
                 }
                 else
                 {
@@ -174,7 +174,7 @@ namespace behaviac
 
                 if (paramsTokens != null)
                 {
-                    method.Load(null, paramsTokens);
+                    method.Load(paramsTokens);
                 }
             }
 
@@ -252,6 +252,37 @@ namespace behaviac
             return base.IsValid(pAgent, pTask);
         }
 
+        public EBTStatus Execute(Agent pAgent, EBTStatus childStatus)
+        {
+            EBTStatus result = EBTStatus.BT_SUCCESS;
+
+            if (this.m_method != null)
+            {
+                object returnValue = this.m_method.Invoke(pAgent);
+
+                if (this.m_resultOption != EBTStatus.BT_INVALID)
+                {
+                    result = this.m_resultOption;
+                }
+                else if (this.m_resultFunctor != null)
+                {
+                    result = (EBTStatus)this.m_resultFunctor.Invoke(pAgent, returnValue);
+                }
+                else
+                {
+                    Debug.Check(returnValue is EBTStatus, "method's return type is not EBTStatus");
+                    result = (EBTStatus)returnValue;
+                }
+            }
+            else
+            {
+                result = this.update_impl(pAgent, childStatus);
+            }
+
+            return result;
+        }
+
+
         protected override BehaviorTask createTask()
         {
             ActionTask pTask = new ActionTask();
@@ -315,6 +346,8 @@ namespace behaviac
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
                 Debug.Check(this.GetNode() is Action, "node is not an Action");
                 Action pActionNode = (Action)(this.GetNode());
 
@@ -323,54 +356,11 @@ namespace behaviac
 					return pActionNode.m_resultPreconditionFail;
 				}
 
-				EBTStatus result = EBTStatus.BT_SUCCESS;
-
-                if (pActionNode.m_method != null)
-                {
-                    ParentType pt = pActionNode.m_method.GetParentType();
-                    Agent pParent = pAgent;
-                    if (pt == ParentType.PT_INSTANCE)
-                    {
-                        pParent = Agent.GetInstance(pActionNode.m_method.GetInstanceNameString(), pParent.GetContextId());
-						Debug.Check(pParent != null || Utils.IsStaticClass(pActionNode.m_method.GetInstanceNameString()));
-                    }
-
-                    int nodeId = this.GetId();
-                    SetNodeId(nodeId);
-
-                    object returnValue = pActionNode.m_method.run(pParent, pAgent);
-
-                    if (pActionNode.m_resultOption != EBTStatus.BT_INVALID)
-                    {
-                        result = pActionNode.m_resultOption;
-                    }
-                    else if (pActionNode.m_resultFunctor != null)
-                    {
-                        ParentType pt1 = pActionNode.m_resultFunctor.GetParentType();
-                        Agent pParentCheckResult = pAgent;
-                        if (pt1 == ParentType.PT_INSTANCE)
-                        {
-                            pParentCheckResult = Agent.GetInstance(pActionNode.m_resultFunctor.GetInstanceNameString(), pParent.GetContextId());
-							Debug.Check(pParentCheckResult != null || Utils.IsStaticClass(pActionNode.m_resultFunctor.GetInstanceNameString()));
-                        }
-
-                        result = (EBTStatus)pActionNode.m_resultFunctor.run(pParentCheckResult, pAgent, returnValue);
-                    }
-                    else
-                    {
-                        Debug.Check(returnValue is EBTStatus, "method's return type is not EBTStatus");
-                        result = (EBTStatus)returnValue;
-                    }
-
-                    ClearNodeId();
-                }
-                else
-                {
-                    result = pActionNode.update_impl(pAgent, childStatus);
-                }
+                EBTStatus result = pActionNode.Execute(pAgent, childStatus);
 
                 return result;
             }
+            
         }
     }
 }

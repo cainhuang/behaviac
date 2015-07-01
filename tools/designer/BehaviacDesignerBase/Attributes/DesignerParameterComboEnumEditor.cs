@@ -98,11 +98,11 @@ namespace Behaviac.Design.Attributes
                 if (!string.IsNullOrEmpty(instance))
                 {
                     propertyName = propertyName.Substring(instance.Length + 1, propertyName.Length - instance.Length - 1);
-                    valueType = getValueType(instance, propertyName);
+                    valueType = getValueType(param, instance, propertyName);
                 }
                 else
                 {
-                    valueType = getValueType(propertyName);
+                    valueType = getValueType(param, propertyName);
                 }
 
                 typeIndex = getComboIndex(valueType, instance, propertyName);
@@ -190,75 +190,14 @@ namespace Behaviac.Design.Attributes
             return index + 3;
         }
 
-        private string getValueType(string instanceName, string propertyName)
+        private string getValueType(MethodDef.Param param, string instanceName, string propertyName)
         {
-            if (instanceName == VariableDef.kSelf)
-                return VariableDef.kSelf;
-
-            AgentType agent = Plugin.GetInstanceAgentType(instanceName);
-            if (agent != null)
+            if (param.IsProperty)
             {
-                IList<PropertyDef> properties = agent.GetProperties();
-                foreach (PropertyDef p in properties)
-                {
-                    if (p.Name == propertyName
-#if BEHAVIAC_NAMESPACE_FIX
-                        || p.Name.EndsWith(propertyName)
-#endif
-                        )
-                    {
-                        return instanceName;
-                    }
-                }
-            }
+                if (instanceName == VariableDef.kSelf)
+                    return VariableDef.kSelf;
 
-            return VariableDef.kConst;
-        }
-
-        private string getValueType(string propertyName)
-        {
-            Behaviac.Design.Nodes.Node node = _object as Behaviac.Design.Nodes.Node;
-            Behaviac.Design.Nodes.Behavior behavior = (node != null) ? node.Behavior as Behaviac.Design.Nodes.Behavior : null;
-
-            if (behavior != null)
-            {
-                // Try to find the Par parameter with the name.
-                List<ParInfo> allPars = new List<ParInfo>();
-                ((Nodes.Node)behavior).GetAllPars(ref allPars);
-                if (allPars.Count > 0)
-                {
-                    foreach (ParInfo p in allPars)
-                    {
-                        if (p.Name == propertyName
-#if BEHAVIAC_NAMESPACE_FIX
-                            || p.Name.EndsWith(propertyName)
-#endif
-                            )
-                            return VariableDef.kPar;
-                    }
-                }
-            }
-
-            // Try to find the Agent property with the name.
-            if (behavior != null && behavior.AgentType != null)
-            {
-                IList<PropertyDef> properties = behavior.AgentType.GetProperties();
-                foreach (PropertyDef p in properties)
-                {
-                    if (p.Name == propertyName
-#if BEHAVIAC_NAMESPACE_FIX
-                        || p.Name.EndsWith(propertyName)
-#endif                        
-                        )
-                        return VariableDef.kSelf;
-                }
-            }
-
-            // Try to find the World property with the name.
-            string className = Plugin.GetClassName(propertyName);
-            if (!string.IsNullOrEmpty(className))
-            {
-                AgentType agent = Plugin.GetInstanceAgentType(className);
+                AgentType agent = Plugin.GetInstanceAgentType(instanceName);
                 if (agent != null)
                 {
                     IList<PropertyDef> properties = agent.GetProperties();
@@ -266,11 +205,78 @@ namespace Behaviac.Design.Attributes
                     {
                         if (p.Name == propertyName
 #if BEHAVIAC_NAMESPACE_FIX
+                        || p.Name.EndsWith(propertyName)
+#endif
+)
+                        {
+                            return instanceName;
+                        }
+                    }
+                }
+            }
+
+            return VariableDef.kConst;
+        }
+
+        private string getValueType(MethodDef.Param param, string propertyName)
+        {
+            if (param.IsPar)
+            {
+                Behaviac.Design.Nodes.Node node = _object as Behaviac.Design.Nodes.Node;
+                Behaviac.Design.Nodes.Behavior behavior = (node != null) ? node.Behavior as Behaviac.Design.Nodes.Behavior : null;
+
+                if (behavior != null)
+                {
+                    // Try to find the Par parameter with the name.
+                    List<ParInfo> allPars = new List<ParInfo>();
+                    ((Nodes.Node)behavior).GetAllPars(ref allPars);
+                    if (allPars.Count > 0)
+                    {
+                        foreach (ParInfo p in allPars)
+                        {
+                            if (p.Name == propertyName
+#if BEHAVIAC_NAMESPACE_FIX
                             || p.Name.EndsWith(propertyName)
 #endif
-                            )
+)
+                                return VariableDef.kPar;
+                        }
+                    }
+                }
+
+                // Try to find the Agent property with the name.
+                if (behavior != null && behavior.AgentType != null)
+                {
+                    IList<PropertyDef> properties = behavior.AgentType.GetProperties();
+                    foreach (PropertyDef p in properties)
+                    {
+                        if (p.Name == propertyName
+#if BEHAVIAC_NAMESPACE_FIX
+                        || p.Name.EndsWith(propertyName)
+#endif
+)
+                            return VariableDef.kSelf;
+                    }
+                }
+
+                // Try to find the World property with the name.
+                string className = Plugin.GetClassName(propertyName);
+                if (!string.IsNullOrEmpty(className))
+                {
+                    AgentType agent = Plugin.GetInstanceAgentType(className);
+                    if (agent != null)
+                    {
+                        IList<PropertyDef> properties = agent.GetProperties();
+                        foreach (PropertyDef p in properties)
                         {
-                            return className;
+                            if (p.Name == propertyName
+#if BEHAVIAC_NAMESPACE_FIX
+                            || p.Name.EndsWith(propertyName)
+#endif
+)
+                            {
+                                return className;
+                            }
                         }
                     }
                 }

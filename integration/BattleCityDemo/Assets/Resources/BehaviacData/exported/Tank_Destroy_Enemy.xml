@@ -3,7 +3,7 @@
 <!--Source File: Tank_Destroy_Enemy.xml-->
 <behavior name="Tank_Destroy_Enemy" agenttype="Player" version="1">
   <pars>
-    <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{x=0;y=0;z=0;}" />
     <par name="parT_nearestEnemy" type="behaviac::Agent" value="null" />
   </pars>
   <node class="DecoratorAlwaysRunning" version="1" id="10">

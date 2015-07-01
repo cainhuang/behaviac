@@ -3,7 +3,7 @@
 <!--Source File: Tank_WalkUtilCollision.xml-->
 <behavior name="Tank_WalkUtilCollision" agenttype="Player" version="1">
   <pars>
-    <par name="parT_moveTarget" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parT_moveTarget" type="UnityEngine::Vector3" value="{x=0;y=0;z=0;}" />
     <par name="parIn_Self" type="Player" value="null" />
     <par name="parT_RotateAngle" type="float" value="0" />
   </pars>

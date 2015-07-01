@@ -62,6 +62,36 @@ namespace behaviac
             }
         }
 
+        public static bool EvaluteAssignment(Agent pAgent, Property opl, Property opr, behaviac.CMethodBase opr_m)
+        {
+            bool bValid = false;
+
+            if (opr_m != null)
+            {
+                object returnValue = opr_m.Invoke(pAgent);
+
+                Agent pParentOpl = opl.GetParentAgent(pAgent);
+                opl.SetValue(pParentOpl, returnValue);
+
+                bValid = true;
+            }
+            else if (opr != null && opl != null)
+            {
+                Agent pParentL = opl.GetParentAgent(pAgent);
+                Agent pParentR = opr.GetParentAgent(pAgent);
+
+                opl.SetFrom(pParentR, opr, pParentL);
+
+                bValid = true;
+            }
+            else
+            {
+                //Debug.Check(false);
+            }
+
+            return bValid;
+        }
+
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
             if (!(pTask.GetNode() is Assignment))
@@ -120,69 +150,22 @@ namespace behaviac
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
-                EBTStatus result = EBTStatus.BT_SUCCESS;
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
 
                 Debug.Check(this.GetNode() is Assignment);
                 Assignment pAssignmentNode = (Assignment)(this.GetNode());
 
-                if (pAssignmentNode.m_opr_m != null)
-                {
-                    ParentType pt = pAssignmentNode.m_opr_m.GetParentType();
-                    Agent pParent = pAgent;
-                    if (pt == ParentType.PT_INSTANCE)
-                    {
-                        pParent = Agent.GetInstance(pAssignmentNode.m_opr_m.GetInstanceNameString(), pParent.GetContextId());
-						Debug.Check(pParent != null || Utils.IsStaticClass(pAssignmentNode.m_opr_m.GetInstanceNameString()));
-                    }
-
-                    object returnValue = pAssignmentNode.m_opr_m.run(pParent, pAgent);
-
-                    ParentType pt_opl = pAssignmentNode.m_opl.GetParentType();
-                    Agent pParentOpl = pAgent;
-                    if (pt_opl == ParentType.PT_INSTANCE)
-                    {
-                        pParentOpl = Agent.GetInstance(pAssignmentNode.m_opl.GetInstanceNameString(), pParentOpl.GetContextId());
-						Debug.Check(pParentOpl != null || Utils.IsStaticClass(pAssignmentNode.m_opl.GetInstanceNameString()));
-                    }
-
-                    pAssignmentNode.m_opl.SetValue(pParentOpl, returnValue);
-                }
-                else if (pAssignmentNode.m_opr != null && pAssignmentNode.m_opl != null)
-                {
-                    Agent pParentL = pAgent;
-                    Agent pParentR = pAgent;
-
-                    {
-                        ParentType pt = pAssignmentNode.m_opl.GetParentType();
-                        if (pt == ParentType.PT_INSTANCE)
-                        {
-                            pParentL = Agent.GetInstance(pAssignmentNode.m_opl.GetInstanceNameString(), pParentL.GetContextId());
-							Debug.Check(pParentL != null || Utils.IsStaticClass(pAssignmentNode.m_opl.GetInstanceNameString()));
-                        }
-                    }
-                    {
-                        ParentType pt = pAssignmentNode.m_opr.GetParentType();
-                        if (pt == ParentType.PT_INSTANCE)
-                        {
-                            pParentR = Agent.GetInstance(pAssignmentNode.m_opr.GetInstanceNameString(), pParentR.GetContextId());
-
-                            //it is a const
-                            if (pParentR == null)
-                            {
-                                pParentR = pParentL;
-                            }
-                        }
-                    }
-
-                    pAssignmentNode.m_opl.SetFrom(pParentR, pAssignmentNode.m_opr, pParentL);
-                }
-                else
+                EBTStatus result = EBTStatus.BT_SUCCESS;
+                bool bValid = Assignment.EvaluteAssignment(pAgent, pAssignmentNode.m_opl, pAssignmentNode.m_opr, pAssignmentNode.m_opr_m);
+                if (!bValid)
                 {
                     result = pAssignmentNode.update_impl(pAgent, childStatus);
                 }
 
                 return result;
             }
+
+
         }
     }
 }

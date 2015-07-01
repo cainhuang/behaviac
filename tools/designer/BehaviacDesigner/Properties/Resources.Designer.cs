@@ -563,6 +563,15 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The behavior filename can only be ascii character with a-z, A-Z, 0-9 and _!.
+        /// </summary>
+        internal static string FilenameWarning {
+            get {
+                return ResourceManager.GetString("FilenameWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The filename &quot;{0}&quot; has existed. Please input another name!.
         /// </summary>
         internal static string FilenameWarningInfo {

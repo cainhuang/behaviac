@@ -122,33 +122,27 @@ namespace behaviac
         {
             method_ = m;
             descAttrbute_ = a;
-            m_name = !string.IsNullOrEmpty(methodNameOverride) ? methodNameOverride : method_.Name;
-            m_id.SetId(m_name);
+            this.m_variableName = !string.IsNullOrEmpty(methodNameOverride) ? methodNameOverride : method_.Name;
+            m_id.SetId(this.m_variableName);
         }
 
         protected CMethodBase(CMethodBase copy)
         {
-            m_instanceName = copy.m_instanceName;
-            m_parentType = copy.m_parentType;
+            this.m_variableName = copy.m_variableName;
+            this.m_instanceName = copy.m_instanceName;
             method_ = copy.method_;
             descAttrbute_ = copy.descAttrbute_;
-            m_name = copy.m_name;
             m_id = copy.m_id;
         }
 
-        private string m_name;
-
+        protected string m_instanceName;
+        protected string m_variableName;
         public string Name
         {
             get
             {
-                return m_name;
+                return this.m_variableName;
             }
-        }
-
-        public ParentType GetParentType()
-        {
-            return m_parentType;
         }
 
         private CStringID m_id = new CStringID();
@@ -158,41 +152,78 @@ namespace behaviac
             return m_id;
         }
 
-        private string m_instanceName;
-
-        public string GetInstanceNameString()
+        public string InstanceName
         {
-            return m_instanceName;
-        }
-
-        private ParentType m_parentType = ParentType.PT_INVALID;
-
-        public void SetInstanceNameString(string agentInstanceName, ParentType pt)
-        {
-            this.m_instanceName = agentInstanceName;
-            this.m_parentType = pt;
-        }
-
-        public virtual Property CreateProperty(string defaultValue, bool bConst)
-        {
-            Property p = Property.Create(defaultValue, null, bConst);
-            return p;
-        }
-
-        public void Load(Agent parent, List<string> paramsToken)
-        {
-            System.Reflection.ParameterInfo[] parameters = method_.GetParameters();
-
-            //
-            this.m_param_values = new object[parameters.Length];
-
-            if (paramsToken.Count == parameters.Length)
+            get
             {
-                this.m_params = new Param_t[parameters.Length];
+                return this.m_instanceName;
+            }
+            set
+            {
+                this.m_instanceName = value;
+            }
+        }
 
-                for (int i = 0; i < paramsToken.Count; ++i)
+        public virtual int ParamsCount
+        {
+            get
+            {
+                return this.method_ != null ? this.method_.GetParameters().Length : 0;
+            }
+        }
+
+        public virtual List<Type> ParamTypes
+        {
+            get
+            {
+                List<Type> paramTypes = null;
+                if (this.method_ != null)
                 {
-                    System.Reflection.ParameterInfo para = parameters[i];
+                    System.Reflection.ParameterInfo[] parameters = this.method_.GetParameters();
+                    int paramsCount = parameters.Length;
+                    paramTypes = new List<Type>(); 
+
+                    for (int i = 0; i < paramsCount; ++i)
+                    {
+                        paramTypes.Add(parameters[i].ParameterType);
+                    }
+                }
+                else
+                {
+                    int paramsCount = this.m_params.Length;
+                    for (int i = 0; i < paramsCount; ++i)
+                    {
+                        paramTypes.Add(this.m_params[i].paramProperty.PropertyType);
+                    }
+                }
+
+                return paramTypes;
+            }
+        }
+
+        public Agent GetParentAgent(Agent pAgent)
+        {
+            Agent pParent = pAgent;
+
+            if (!string.IsNullOrEmpty(this.m_instanceName) && this.m_instanceName != "Self")
+            {
+                pParent = Agent.GetInstance(this.m_instanceName, pParent.GetContextId());
+                Debug.Check(pParent != null || Utils.IsStaticClass(this.m_instanceName));
+            }
+
+            return pParent;
+        }
+
+        public static Param_t[] LoadParams(List<string> paramsToken, List<Type> parameters, object[] _param_values)
+        {
+            int paramCount = parameters != null ? parameters.Count : paramsToken.Count;
+            Param_t[] _params = new Param_t[paramCount];
+
+            for (int i = 0; i < paramsToken.Count; ++i)
+            {
+                if (parameters != null)
+                {
+                    Type paramType = parameters[i];
 
                     bool isStruct = paramsToken[i][0] == '{';
 
@@ -200,12 +231,12 @@ namespace behaviac
                     {
                         Dictionary<string, Property> props = new Dictionary<string, Property>();
                         string strT = "";
-                        if (StringUtils.ParseForStruct(para.ParameterType, paramsToken[i], ref strT, props))
+                        if (StringUtils.ParseForStruct(paramType, paramsToken[i], ref strT, props))
                         {
-                            object paramValue = StringUtils.FromString(para.ParameterType, strT, false);
-                            this.m_param_values[i] = paramValue;
+                            object paramValue = StringUtils.FromString(paramType, strT, false);
+                            _param_values[i] = paramValue;
 
-                            this.m_params[i].paramStructMembers = props;
+                            _params[i].paramStructMembers = props;
                         }
                     }
                     else
@@ -218,38 +249,48 @@ namespace behaviac
                             Debug.Check(!isString || paramsToken[i][paramsToken[i].Length - 1] == '"');
                             string paramStr = isString ? paramsToken[i].Substring(1, paramsToken[i].Length - 2) : paramsToken[i];
 
-                            object paramValue = StringUtils.FromString(para.ParameterType, paramStr, false);
-                            this.m_param_values[i] = paramValue;
+                            object paramValue = StringUtils.FromString(paramType, paramStr, false);
+                            _param_values[i] = paramValue;
                         }
                         else
                         {
-                            string[] tokens = paramsToken[i].Split(' ');
-                            if (tokens.Length == 2)
-                            {
-                                //int AgentTest::Property1
-                                string typeName = tokens[0].Replace("::", ".");
-                                Property paramProperty = Property.Create(typeName, tokens[1], null, false, false);
-                                this.m_params[i].paramProperty = paramProperty;
-                            }
-                            else if (tokens.Length == 3)
-                            {
-                                //static int AgentTest::Property6
-                                Debug.Check(tokens[0] == "static");
-                                string typeName = tokens[1].Replace("::", ".");
-                                Property paramProperty = Property.Create(typeName, tokens[2], null, true, false);
-                                this.m_params[i].paramProperty = paramProperty;
-                            }
-                            else
-                            {
-                                Debug.Check(false);
-                            }
+                            ParseMethodParamProperty(paramsToken[i], _params, i);
                         }
                     }
+
+                    _params[i].isRefOut = paramType.IsByRef;
                 }
-            }
-            else
+                else
+                {
+                    ParseMethodParamProperty(paramsToken[i], _params, i);
+                }
+            }//end of for
+
+            return _params;
+        }
+
+        private static void ParseMethodParamProperty(string paramToken, Param_t[] _params, int i)
+        {
+            string typeName = null;
+            Property paramProperty = Condition.ParseProperty(paramToken, ref typeName);
+            _params[i].paramProperty = paramProperty;
+        }
+
+        public void Load(List<string> paramsToken)
+        {
+            int paramsCount = this.ParamsCount;
+            if (paramsCount > 0)
             {
-                Debug.Check(false);
+                this.m_param_default_values = new object[paramsCount];
+
+                if (paramsToken.Count == paramsCount)
+                {
+                    this.m_params = LoadParams(paramsToken, this.ParamTypes, this.m_param_default_values);
+                }
+                else
+                {
+                    Debug.Check(false);
+                }
             }
         }
 
@@ -258,12 +299,7 @@ namespace behaviac
             return false;
         }
 
-        public string GetName()
-        {
-            return this.m_name;
-        }
-
-        public string GetClassNameString()
+        public virtual string GetClassNameString()
         {
             if (this.IsNamedEvent())
             {
@@ -283,93 +319,186 @@ namespace behaviac
             return new CMethodBase(this);
         }
 
-        struct Param_t
+        public struct Param_t
         {
+            public bool isRefOut;
             public Property paramProperty;
             public Dictionary<string, Property> paramStructMembers;
         };
 
-        private object[] m_param_values = null;
+        private object[] m_param_default_values = null;
         private Param_t[] m_params = null;
 
-        public object run(Agent parent, Agent parHolder)
+        public void GetParamsValue(Agent pAgent, object[] param_values, bool bAllowNullValue)
+        {
+            Agent pParent = this.GetParentAgent(pAgent);
+
+            this.GetParamsValue(pParent, pAgent, param_values, bAllowNullValue);
+        }
+
+
+        private object run(Agent parent, Agent pSelf)
         {
             //if there is no params, Load was not called and this.m_param_values is null
             //Debug.Check(this.m_param_values != null);
+            object[] param_values = null;
+            
+            if (this.m_params != null && this.m_params.Length > 0)
+            {
+                param_values = new object[this.m_params.Length];
+            }
+
+            this.GetParamsValue(parent, pSelf, param_values, true);
+
+            object returnValue = this.run(parent, pSelf, param_values);
+
+            return returnValue;
+        }
+
+        private object run(Agent parent, Agent pSelf, object[] param_values)
+        {
+            object returnValue = this.method_.Invoke(parent, param_values);
 
             if (this.m_params != null)
             {
                 for (int i = 0; i < this.m_params.Length; ++i)
                 {
+                    if (this.m_params[i].isRefOut)
+                    {
+                        Property property = this.m_params[i].paramProperty;
+                        if (property != null)
+                        {
+                            object value = param_values[i];
+                            property.SetValue(pSelf, value);
+                        }
+
+                        if (this.m_params[i].paramStructMembers != null)
+                        {
+                            Type structType = param_values[i].GetType();
+                            Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(structType.FullName);
+
+                            foreach (KeyValuePair<string, Property> pair in this.m_params[i].paramStructMembers)
+                            {
+                                CMemberBase member = objectDesc.GetMember(pair.Key);
+                                object v = member.Get(param_values[i]);
+
+                                pair.Value.SetValue(pSelf, v);
+                            }
+                        }
+                    }//end of if isRefOut
+                }
+            }
+
+            return returnValue;
+        }
+
+        private void GetParamsValue(Agent parent, Agent pSelf, object[] param_values, bool bAllowNullValue)
+        {
+            if (this.m_params != null)
+            {
+                Debug.Check(this.m_params.Length == this.m_param_default_values.Length);
+                for (int i = 0; i < this.m_params.Length; ++i)
+                {
+                    param_values[i] = this.m_param_default_values[i];
                     Property property = this.m_params[i].paramProperty;
                     if (property != null)
                     {
-                        this.m_param_values[i] = property.GetValue(parent, parHolder);
+                        object v = property.GetValue(parent, pSelf);
+                        if (v != null)
+                        {
+                            Type type = v.GetType();
+
+                            if (Utils.IsCustomStructType(type))
+                            {
+                                param_values[i] = Utils.CloneCustomStruct(type, v);
+                            }
+                            else
+                            {
+                                param_values[i] = v;
+                            }
+                        }
+
+                        Debug.Check(bAllowNullValue || param_values[i] != null);
                     }
 
                     //Debug.Check(this.m_param_values[i] != null);
 
                     if (this.m_params[i].paramStructMembers != null)
                     {
-                        Type structType = this.m_param_values[i].GetType();
+                        Type structType = param_values[i].GetType();
                         Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(structType.FullName);
 
                         foreach (KeyValuePair<string, Property> pair in this.m_params[i].paramStructMembers)
                         {
                             CMemberBase member = objectDesc.GetMember(pair.Key);
 
-                            object v = pair.Value.GetValue(parent, parHolder);
+                            object v = pair.Value.GetValue(parent, pSelf);
 
-                            member.Set(this.m_param_values[i], v);
+                            member.Set(param_values[i], v);
                         }
                     }
                 }
             }
+        }
 
-            object returnValue = this.method_.Invoke(parent, this.m_param_values);
+        private object run(Agent parent, Agent pSelf, object param)
+        {
+            object[] param_values = null;
 
             if (this.m_params != null)
             {
+                Debug.Check(this.m_params.Length == this.m_param_default_values.Length);
+                param_values = new object[this.m_params.Length];
                 for (int i = 0; i < this.m_params.Length; ++i)
                 {
-                    Property property = this.m_params[i].paramProperty;
-                    if (property != null)
-                    {
-                        object value = this.m_param_values[i];
-						property.SetValue(parHolder, value);
-                    }
+                    param_values[i] = this.m_param_default_values[i];
+                }
 
-                    if (this.m_params[i].paramStructMembers != null)
-                    {
-                        Type structType = this.m_param_values[i].GetType();
-                        Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(structType.FullName);
-
-                        foreach (KeyValuePair<string, Property> pair in this.m_params[i].paramStructMembers)
-                        {
-                            CMemberBase member = objectDesc.GetMember(pair.Key);
-                            object v = member.Get(this.m_param_values[i]);
-
-							pair.Value.SetValue(parHolder, v);
-                        }
-                    }
+                if (param_values.Length == 1)
+                {
+                    param_values[0] = param;
                 }
             }
 
+            object returnValue = this.method_.Invoke(parent, param_values);
+
             return returnValue;
         }
 
-        public object run(Agent parent, Agent parHolder, object param)
+        public object Invoke(Agent pParent, Agent pAgent)
         {
-            Debug.Check(this.m_param_values != null && this.m_param_values.Length <= 1);
-            if (this.m_param_values.Length == 1)
-            {
-                this.m_param_values[0] = param;
-            }
-
-            object returnValue = this.method_.Invoke(parent, this.m_param_values);
+            object returnValue = this.run(pParent, pAgent);
 
             return returnValue;
         }
+
+        public object Invoke(Agent pAgent)
+        {
+            Agent pParent = this.GetParentAgent(pAgent);
+
+            object returnValue = this.run(pParent, pAgent);
+
+            return returnValue;
+        }
+
+        public object Invoke(Agent pAgent, object param)
+        {
+            Agent pParent = this.GetParentAgent(pAgent);
+
+            object returnValue = this.run(pParent, pAgent, param);
+
+            return returnValue;
+        }
+
+        public object Invoke(Agent pAgent, object[] paramsValue)
+        {
+            Agent pParent = this.GetParentAgent(pAgent);
+
+            object returnValue = this.run(pParent, pAgent, paramsValue);
+
+            return returnValue;
+        }
+
     }
 
     public class CMemberBase
@@ -1046,13 +1175,23 @@ namespace behaviac
 					{
 						return value;
 					}
+                    else if (type.IsEnum)
+                    {
+                        object ret = Enum.Parse(type, value, true);
+
+                        return ret;
+                    }
+                    else
+                    {
+                        Debug.Check(false);
+                    }
 				}
 			}
 
 			return GetDefaultValue(type);
 		}
 
-        public static Type GetTypeFromName(string typeName)
+        public static Type GetPrimitiveTypeFromName(string typeName)
         {
             if (string.IsNullOrEmpty(typeName))
             {
@@ -1091,6 +1230,80 @@ namespace behaviac
             }
 
             return Utils.GetType(typeName);
+        }
+
+
+        private static Type GetElementTypeFromName(string typeName)
+        {
+            bool bArrayType = false;
+
+            //array type
+            if (typeName.StartsWith("vector<"))
+            {
+                bArrayType = true;
+            }
+
+            if (bArrayType)
+            {
+                int bracket0 = typeName.IndexOf('<');
+                int bracket1 = typeName.IndexOf('>');
+                int len = bracket1 - bracket0 - 1;
+
+                string elementTypeName = typeName.Substring(bracket0 + 1, len);
+                Type elementType = Utils.GetTypeFromName(elementTypeName);
+
+                return elementType;
+            }
+
+            return null;
+        }
+
+        public static Type GetTypeFromName(string typeName)
+        {
+            if (typeName == "void*")
+            {
+                return typeof(Agent);
+            }
+
+            Type type = Agent.GetTypeFromName(typeName);
+
+            if (type == null)
+            {
+                type = Utils.GetPrimitiveTypeFromName(typeName);
+                if (type == null)
+                {
+                    Type elementType = Utils.GetElementTypeFromName(typeName);
+
+                    if (elementType != null)
+                    {
+                        Type vectorType = typeof(List<>).MakeGenericType(elementType);
+                        return vectorType;
+                    }
+                    else
+                    {
+                        typeName = typeName.Replace("::", ".");
+                        type = Utils.GetType(typeName);
+                    }
+                }
+            }
+
+            return type;
+        }
+
+
+        //if it is an array, return the element type
+        public static Type GetTypeFromName(string typeName, ref bool bIsArrayType)
+        {
+            Type elementType = Utils.GetElementTypeFromName(typeName);
+            if (elementType != null)
+            {
+                bIsArrayType = true;
+                return elementType;
+            }
+
+            Type type = Utils.GetTypeFromName(typeName);
+
+            return type;
         }
 
         public static string GetNativeTypeName(string typeName)
@@ -1153,20 +1366,119 @@ namespace behaviac
             return type != null && !type.IsByRef && (type.IsClass || type.IsValueType) && type != typeof(void) && !type.IsEnum && !type.IsPrimitive && !IsStringType(type) && !IsArrayType(type);
         }
 
+        public static bool IsCustomStructType(Type type)
+        {
+            return type != null && !type.IsByRef && type.IsValueType && type != typeof(void) && !type.IsEnum && !type.IsPrimitive && !IsStringType(type) && !IsArrayType(type);
+        }
+
 		public static bool IsAgentType(Type type)
 		{
+            Debug.Check(type != null);
 			return (type == typeof(Agent) || type.IsSubclassOf(typeof(Agent)));
 		}
-
+		
 		public static bool IsGameObjectType(Type type)
 		{
 			return (type == typeof(UnityEngine.GameObject) || type.IsSubclassOf(typeof(UnityEngine.GameObject)));
 		}
-
+		
 		public static bool IsNullValueType(Type type)
 		{
 			return IsAgentType(type) || IsGameObjectType(type);
 		}
+
+        public static bool CompareObjects(object l, object r)
+        {
+            if (l == r)
+            {
+                //if both are null, then equals
+                return true;
+            }
+
+            if (l == null || r == null)
+            {
+                //if one of them is null, not equal
+                return false;
+            }
+
+            Type type = l.GetType();
+            if (type != r.GetType())
+            {
+                return false;
+            }
+
+            bool bIsArrayType = Utils.IsArrayType(type);
+            if (bIsArrayType)
+            {
+                IList la = (IList)l;
+                IList ra = (IList)r;
+
+                if (la.Count != ra.Count)
+                {
+                    return false;
+                }
+
+                for (int i = 0; i < la.Count; ++i)
+                {
+                    object li = la[i];
+                    object ri = ra[i];
+
+                    bool bi = CompareObjects(li, ri);
+                    if (!bi)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+                bool bIsStruct = Utils.IsCustomClassType(type);
+                if (bIsStruct)
+                {
+                    FieldInfo[] fields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                    foreach (FieldInfo f in fields)
+                    {
+                        object lf = f.GetValue(l);
+                        object rf = f.GetValue(r);
+                        bool bi = CompareObjects(lf, rf);
+                        if (!bi)
+                        {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+            }
+
+            return l.Equals(r);
+        }
+
+        public static object CloneCustomStruct(Type type, object c)
+        {
+            Debug.Check(Utils.IsCustomStructType(type));
+
+            object objValue = Activator.CreateInstance(type);
+            FieldInfo[] fields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+            for (int i = 0; i < fields.Length; ++i)
+            {
+                FieldInfo f = fields[i];
+                if (!f.IsLiteral)
+                {
+                    object fv = f.GetValue(c);
+                    if (Utils.IsCustomStructType(f.FieldType))
+                    {
+                        fv = CloneCustomStruct(f.FieldType, fv);
+                    }
+
+                    f.SetValue(objValue, fv);
+                }
+            }
+
+            return objValue;
+        }
     }
 
     static public class Debug
@@ -1201,6 +1513,17 @@ namespace behaviac
             }
         }
 
+        [Conditional("BEHAVIAC_DEBUG")]
+        [Conditional("UNITY_EDITOR")]
+        public static void Check(bool b, string format, object arg0)
+        {
+            if (!b)
+            {
+                string message = string.Format(format, arg0);
+                Break(message);
+            }
+        }
+
 		[Conditional("BEHAVIAC_DEBUG")]
         [Conditional("UNITY_EDITOR")]
         public static void Log(string message)
@@ -1218,6 +1541,12 @@ namespace behaviac
         public static void LogError(string message)
         {
             UnityEngine.Debug.LogError(message);
+        }
+
+        [Conditional("UNITY_EDITOR")]
+        public static void LogError(Exception ex)
+        {
+            UnityEngine.Debug.LogError(ex.Message);
         }
 
 		[Conditional("BEHAVIAC_DEBUG")]
@@ -1903,10 +2232,19 @@ namespace behaviac
                         return d.Mul(value1, value2);
                     case EComputeOperator.E_DIV:
                         return d.Div(value1, value2);
+                    default:
+                        Debug.Check(false);
+                        break;
                 }
             }
 
             return null;
+        }
+
+        public static void Cleanup()
+        {
+            ms_comparers.Clear();
+            ms_computers.Clear();
         }
     }
 
@@ -2102,6 +2440,17 @@ namespace behaviac
             return objVector;
         }
 
+        public static bool IsValidString(string str)
+        {
+            if (string.IsNullOrEmpty(str) || (str[0] == '\"' && str[1] == '\"'))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
         public static object FromString(Type type, string valStr, bool bStrIsArrayType /*= false*/)
         {
             if (!string.IsNullOrEmpty(valStr) && valStr == "null")
@@ -2235,6 +2584,67 @@ namespace behaviac
             }
 
             return -1;
+        }
+
+        public static List<string> SplitTokens(string str)
+        {
+            List<string> ret = new List<string>();
+            //"int Self.AgentArrayAccessTest::ListInts[int Self.AgentArrayAccessTest::l_index]"
+            int pB = 0;
+            int i = 0;
+
+            bool bBeginIndex = false;
+
+            while (i < str.Length)
+            {
+                bool bFound = false;
+                char c = str[i];
+                if (c == ' ' && !bBeginIndex)
+                {
+                    bFound = true;
+                }
+                else  if (c == '[')
+                {
+                    bBeginIndex = true;
+                    bFound = true;
+                }
+                else if (c == ']')
+                {
+                    bBeginIndex = false;
+                    bFound = true;
+                }
+
+                if (bFound)
+                {
+                    string strT = ReadToken(str, pB, i);
+                    Debug.Check(strT.Length > 0);
+                    ret.Add(strT);
+
+                    pB = i + 1;
+                }
+
+                i++;
+            }
+
+            string t = ReadToken(str,  pB, i);
+            if (t.Length > 0)
+            {
+                ret.Add(t);
+            }
+
+            return ret;
+        }
+
+        private static string ReadToken(string str, int pB, int end)
+        {
+            string strT = "";
+            int p = pB;
+            while (p < end)
+            {
+                strT += str[p++];
+            }
+
+            return strT;
         }
 
         public static bool ParseForStruct(Type type, string str, ref string strT, Dictionary<string, Property> props)

@@ -547,4 +547,7 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="FilenameWarning" xml:space="preserve">
+    <value>行为树的名字只能是ascii字符，并且只能包括字母、数字或下划线。</value>
+  </data>
 </root>

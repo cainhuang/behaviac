@@ -738,15 +738,7 @@ namespace behaviac
                 {
                     if (this.m_node.m_enterAction != null)
                     {
-                        ParentType pt = this.m_node.m_enterAction.GetParentType();
-                        Agent pParent = pAgent;
-                        if (pt == ParentType.PT_INSTANCE)
-                        {
-                            pParent = Agent.GetInstance(this.m_node.m_enterAction.GetInstanceNameString(), pParent.GetContextId());
-							Debug.Check(pParent != null || Utils.IsStaticClass(this.m_node.m_enterAction.GetInstanceNameString()));
-                        }
-
-                        this.m_node.m_enterAction.run(pParent, pAgent);
+                        this.m_node.m_enterAction.Invoke(pAgent);
                     }
                 }
             }
@@ -785,22 +777,10 @@ namespace behaviac
 
                 if (exitImpl || this.m_node.m_exitAction != null)
                 {
-                    Agent pParent = pAgent;
-
-                    if (!exitImpl && this.m_node.m_exitAction != null)
-                    {
-                        ParentType pt = this.m_node.m_exitAction.GetParentType();
-                        if (pt == ParentType.PT_INSTANCE)
-                        {
-                            pParent = Agent.GetInstance(this.m_node.m_exitAction.GetInstanceNameString(), pParent.GetContextId());
-							Debug.Check(pParent != null || Utils.IsStaticClass(this.m_node.m_exitAction.GetInstanceNameString()));
-                        }
-                    }
-
                     if (!exitImpl && this.m_node.m_exitAction != null)
                     {
                         ms_lastExitStatus_ = status;
-                        this.m_node.m_exitAction.run(pParent, pAgent);
+                        this.m_node.m_exitAction.Invoke(pAgent);
 
                         ms_lastExitStatus_ = EBTStatus.BT_INVALID;
                     }

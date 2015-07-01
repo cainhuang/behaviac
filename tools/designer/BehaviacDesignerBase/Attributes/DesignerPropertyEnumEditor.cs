@@ -309,6 +309,10 @@ namespace Behaviac.Design.Attributes
             if (!_valueWasAssigned || comboBox.SelectedIndex < 0 || comboBox.SelectedIndex >= _properties.Count)
                 return;
 
+            PropertyDef selectedProperty = _properties[comboBox.SelectedIndex];
+            selectedProperty = new PropertyDef(selectedProperty);
+            selectedProperty.Owner = !string.IsNullOrEmpty(_globalType) ? _globalType : VariableDef.kSelf;
+
             if (_property.Property != null)
             {
                 object propertyMember = _property.Property.GetValue(_object, null);
@@ -317,9 +321,9 @@ namespace Behaviac.Design.Attributes
                 if (rvPropertyEnum == null)
                 {
                     if (var == null)
-                        var = new VariableDef(_properties[comboBox.SelectedIndex], VariableDef.kSelf);
+                        var = new VariableDef(selectedProperty, VariableDef.kSelf);
                     else
-                        var.SetProperty(_properties[comboBox.SelectedIndex], var.ValueClass);
+                        var.SetProperty(selectedProperty, var.ValueClass);
 
                     _property.Property.SetValue(_object, var, null);
                 }
@@ -330,7 +334,7 @@ namespace Behaviac.Design.Attributes
                     if (varRV == null)
                     {
                         Debug.Check(false);
-                        //varRV = new RightValueDef(_properties[comboBox.SelectedIndex], VariableDef.kSelf);
+                        //varRV = new RightValueDef(selectedProperty, VariableDef.kSelf);
                     }
                     else
                     {
@@ -342,11 +346,11 @@ namespace Behaviac.Design.Attributes
                         {
                             if (varRV.Var != null)
                             {
-                                varRV.Var.SetProperty(_properties[comboBox.SelectedIndex], varRV.ValueClassReal);
+                                varRV.Var.SetProperty(selectedProperty, varRV.ValueClassReal);
                             }
                             else
                             {
-                                var = new VariableDef(_properties[comboBox.SelectedIndex], varRV.ValueClassReal);
+                                var = new VariableDef(selectedProperty, varRV.ValueClassReal);
                                 varRV = new RightValueDef(var);
                             }
                         }
@@ -357,8 +361,8 @@ namespace Behaviac.Design.Attributes
             }
             else if (_param != null)
             {
-                string valueType = !string.IsNullOrEmpty(_globalType) ? (string)comboBox.SelectedItem : VariableDef.kSelf;
-                _param.Value = new VariableDef(_properties[comboBox.SelectedIndex], valueType);
+                string valueType = !string.IsNullOrEmpty(_globalType) ? _globalType : VariableDef.kSelf;
+                _param.Value = new VariableDef(selectedProperty, valueType);
             }
 
             OnValueChanged(_property);

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: node_test\selector_loop_ut_5.xml-->
+<behavior name="node_test/selector_loop_ut_5" agenttype="AgentNodeTest" version="0">
+  <node class="SelectorLoop" version="0" id="0">
+    <node class="WithPrecondition" version="0" id="1">
+      <node class="False" version="0" id="4" />
+      <node class="Action" version="0" id="5">
+        <property Method="Self.AgentNodeTest::setTestVar_0(0)" />
+        <property PreconditionFailResult="BT_FAILURE" />
+        <property ResultOption="BT_RUNNING" />
+      </node>
+    </node>
+    <node class="WithPrecondition" version="0" id="2">
+      <node class="True" version="0" id="3" />
+      <node class="Action" version="0" id="6">
+        <property Method="Self.AgentNodeTest::switchRef(&quot;node_test/reference_sub_1&quot;)" />
+        <property PreconditionFailResult="BT_FAILURE" />
+        <property ResultOption="BT_INVALID" />
+      </node>
+    </node>
+  </node>
+</behavior>

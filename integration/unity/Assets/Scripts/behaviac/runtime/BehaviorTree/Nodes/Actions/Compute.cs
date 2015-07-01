@@ -110,6 +110,54 @@ namespace behaviac
             }
         }
 
+        public static bool EvaluteCompute(Agent pAgent, Property opl, Property opr1, CMethodBase opr1_m, EComputeOperator opr, Property opr2, CMethodBase opr2_m)
+        {
+            bool bValid = false;
+            object value1 = null;
+
+            if (opl != null)
+            {
+                if (opr1_m != null)
+                {
+                    bValid = true;
+                    value1 = opr1_m.Invoke(pAgent);
+                }
+                else if (opr1 != null)
+                {
+                    bValid = true;
+                    Agent pParentR = opr1.GetParentAgent(pAgent);
+
+                    value1 = opr1.GetValue(pParentR);
+                }
+
+                if (opr2_m != null)
+                {
+                    bValid = true;
+                    object value2 = opr2_m.Invoke(pAgent);
+
+                    Agent pParentOpl = opl.GetParentAgent(pAgent);
+                    object returnValue = Details.ComputeValue(value1, value2, opr);
+
+                    opl.SetValue(pParentOpl, returnValue);
+                }
+                else if (opr2 != null)
+                {
+                    bValid = true;
+                    Agent pParentL = opl.GetParentAgent(pAgent);
+                    Agent pParentR = opr2.GetParentAgent(pAgent);
+
+                    object value2 = opr2.GetValue(pParentR);
+
+                    object returnValue = Details.ComputeValue(value1, value2, opr);
+
+                    opl.SetValue(pParentL, returnValue);
+                }
+            }
+
+            return bValid;
+        }
+
+
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
             if (!(pTask.GetNode() is Compute))
@@ -171,122 +219,15 @@ namespace behaviac
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
                 EBTStatus result = EBTStatus.BT_SUCCESS;
 
                 Debug.Check(this.GetNode() is Compute);
                 Compute pComputeNode = (Compute)(this.GetNode());
 
-                bool bValid = false;
-                object value1 = null;
-
-                if (pComputeNode.m_opl != null)
-                {
-                    if (pComputeNode.m_opr1_m != null)
-                    {
-                        bValid = true;
-                        ParentType pt = pComputeNode.m_opr1_m.GetParentType();
-                        Agent pParent = pAgent;
-                        if (pt == ParentType.PT_INSTANCE)
-                        {
-                            pParent = Agent.GetInstance(pComputeNode.m_opr1_m.GetInstanceNameString(), pParent.GetContextId());
-							Debug.Check(pParent != null || Utils.IsStaticClass(pComputeNode.m_opr1_m.GetInstanceNameString()));
-                        }
-
-                        value1 = pComputeNode.m_opr1_m.run(pParent, pAgent);
-                    }
-                    else if (pComputeNode.m_opr1 != null)
-                    {
-                        bValid = true;
-                        Agent pParentL = pAgent;
-                        Agent pParentR = pAgent;
-
-                        {
-                            ParentType pt = pComputeNode.m_opl.GetParentType();
-                            if (pt == ParentType.PT_INSTANCE)
-                            {
-                                pParentL = Agent.GetInstance(pComputeNode.m_opl.GetInstanceNameString(), pParentL.GetContextId());
-								Debug.Check(pParentL != null || Utils.IsStaticClass(pComputeNode.m_opl.GetInstanceNameString()));
-                            }
-                        }
-                        {
-                            ParentType pt = pComputeNode.m_opr1.GetParentType();
-                            if (pt == ParentType.PT_INSTANCE)
-                            {
-                                pParentR = Agent.GetInstance(pComputeNode.m_opr1.GetInstanceNameString(), pParentR.GetContextId());
-
-                                //it is a const
-                                if (pParentR == null)
-                                {
-                                    pParentR = pParentL;
-                                }
-                            }
-                        }
-
-                        pComputeNode.m_opl.SetFrom(pParentR, pComputeNode.m_opr1, pParentL);
-
-                        value1 = pComputeNode.m_opl.GetValue(pParentL);
-                    }
-
-                    if (pComputeNode.m_opr2_m != null)
-                    {
-                        bValid = true;
-                        ParentType pt = pComputeNode.m_opr2_m.GetParentType();
-                        Agent pParent = pAgent;
-                        if (pt == ParentType.PT_INSTANCE)
-                        {
-                            pParent = Agent.GetInstance(pComputeNode.m_opr2_m.GetInstanceNameString(), pParent.GetContextId());
-							Debug.Check(pParent != null || Utils.IsStaticClass(pComputeNode.m_opr2_m.GetInstanceNameString()));
-                        }
-
-                        object value2 = pComputeNode.m_opr2_m.run(pParent, pAgent);
-
-                        ParentType pt_opl = pComputeNode.m_opl.GetParentType();
-                        Agent pParentOpl = pAgent;
-                        if (pt_opl == ParentType.PT_INSTANCE)
-                        {
-                            pParentOpl = Agent.GetInstance(pComputeNode.m_opl.GetInstanceNameString(), pParentOpl.GetContextId());
-							Debug.Check(pParentOpl != null || Utils.IsStaticClass(pComputeNode.m_opl.GetInstanceNameString()));
-                        }
-
-                        object returnValue = Details.ComputeValue(value1, value2, pComputeNode.m_operator);
-
-                        pComputeNode.m_opl.SetValue(pParentOpl, returnValue);
-                    }
-                    else if (pComputeNode.m_opr2 != null)
-                    {
-                        bValid = true;
-                        Agent pParentL = pAgent;
-                        Agent pParentR = pAgent;
-
-                        {
-                            ParentType pt = pComputeNode.m_opl.GetParentType();
-                            if (pt == ParentType.PT_INSTANCE)
-                            {
-                                pParentL = Agent.GetInstance(pComputeNode.m_opl.GetInstanceNameString(), pParentL.GetContextId());
-								Debug.Check(pParentL != null || Utils.IsStaticClass(pComputeNode.m_opl.GetInstanceNameString()));
-                            }
-                        }
-                        {
-                            ParentType pt = pComputeNode.m_opr2.GetParentType();
-                            if (pt == ParentType.PT_INSTANCE)
-                            {
-                                pParentR = Agent.GetInstance(pComputeNode.m_opr2.GetInstanceNameString(), pParentR.GetContextId());
-
-                                //it is a const
-                                if (pParentR == null)
-                                {
-                                    pParentR = pParentL;
-                                }
-                            }
-                        }
-
-                        object value2 = pComputeNode.m_opr2.GetValue(pParentR);
-
-                        object returnValue = Details.ComputeValue(value1, value2, pComputeNode.m_operator);
-
-                        pComputeNode.m_opl.SetValue(pParentL, returnValue);
-                    }
-                }
+                bool bValid = Compute.EvaluteCompute(pAgent, pComputeNode.m_opl, pComputeNode.m_opr1, pComputeNode.m_opr1_m,
+                    pComputeNode.m_operator, pComputeNode.m_opr2, pComputeNode.m_opr2_m);
 
                 if (!bValid)
                 {
@@ -295,6 +236,8 @@ namespace behaviac
 
                 return result;
             }
+
+            
         }
     }
 }

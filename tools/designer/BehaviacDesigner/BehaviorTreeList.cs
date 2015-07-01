@@ -1460,12 +1460,11 @@ namespace Behaviac.Design
 
             // trim unrequired characters and check if the label is still valid
             string label = e.Label.Trim();
-            if (label.Length < 1 || (nodetag.Type == NodeTagType.Behavior && !Plugin.IsASCII(label)))
+            if (label.Length < 1 || (nodetag.Type == NodeTagType.Behavior && !Plugin.IsValidFilename(label)))
             {
                 if (label.Length > 0)
                 {
-                    string msgInfo = string.Format("The behavior filename can only be ascii character!");
-                    MessageBox.Show(msgInfo, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(Resources.FilenameWarning, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 e.CancelEdit = true;

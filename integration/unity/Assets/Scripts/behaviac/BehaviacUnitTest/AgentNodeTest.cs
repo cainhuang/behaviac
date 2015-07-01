@@ -152,6 +152,15 @@ public class AgentNodeTest : behaviac.Agent
 		testVar_str_0 = go.name;
 	}
 
+    [behaviac.MethodMetaInfo()]
+    public behaviac.EBTStatus switchRef(string refTree)
+    {
+        this.btreferencetree(refTree);
+
+        return behaviac.EBTStatus.BT_RUNNING;
+    }
+
+
 	// enter action and exit action
 	public int action_0_enter_count = 0;
 	public int action_0_exit_count = 0;

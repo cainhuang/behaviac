@@ -6,7 +6,7 @@
     <par name="parIn_Self" type="Player" value="null" />
     <par name="parT_RotateAngle" type="float" value="0" />
     <par name="parT_nearestEnemy" type="behaviac::Agent" value="null" />
-    <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{kEpsilon=0;x=0;y=0;z=0;}" />
+    <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{x=0;y=0;z=0;}" />
     <par name="parT_TendencyDirection" type="eMapDirection" value="UNKNOWN" />
   </pars>
   <node class="DecoratorLoop" version="1" id="16">

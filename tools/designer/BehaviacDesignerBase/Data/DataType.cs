@@ -880,7 +880,8 @@ namespace Behaviac.Design
 
         public string GetDisplayValue()
         {
-            return this.DisplayName;
+            string owner = (!string.IsNullOrEmpty(this.Owner) && this.Owner != VariableDef.kSelf) ? (this.Owner + ".") : "";
+            return owner + this.DisplayName;
         }
 
         public string GetExportValue()

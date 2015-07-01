@@ -143,7 +143,7 @@ namespace behaviac
                 //clean up the current ticking action tree
                 if (index != (int)-1)
                 {
-                    if (this.m_activeChildIndex != CompositeTask.InvalidChildIndex)
+                    if (this.m_activeChildIndex != CompositeTask.InvalidChildIndex && this.m_activeChildIndex != index)
                     {
                         WithPreconditionTask pCurrentSubTree = (WithPreconditionTask)this.m_children[this.m_activeChildIndex];
                         Debug.Check(pCurrentSubTree is WithPreconditionTask);
@@ -154,30 +154,19 @@ namespace behaviac
 
                         BehaviorTask pActionTree = pSubTree.Action();
 
-                        if (pCurrentActionTree != pActionTree)
-                        {
-                            pCurrentActionTree.abort(pAgent);
+                        Debug.Check(pCurrentActionTree != pActionTree);
 
-                            pCurrentSubTree.abort(pAgent);
+                        pCurrentActionTree.abort(pAgent);
 
-                            this.m_activeChildIndex = index;
-                        }
+                        pCurrentSubTree.abort(pAgent);
+
+                        this.m_activeChildIndex = index;
                     }
 
-                    for (int i = 0; i < this.m_children.Count; ++i)
+                    for (int i = index; i < this.m_children.Count; ++i)
                     {
                         WithPreconditionTask pSubTree = (WithPreconditionTask)this.m_children[i];
                         Debug.Check(pSubTree is WithPreconditionTask);
-
-                        //dummy ticking so that the designer knows it is updating
-                        EBTStatus statusDummy = pSubTree.exec(pAgent);
-                        Debug.Check(statusDummy == EBTStatus.BT_RUNNING);
-
-                        //when i < index, the precondition is failure, so to continue
-                        if (i < index)
-                        {
-                            continue;
-                        }
 
                         if (i > index)
                         {

@@ -143,6 +143,37 @@ namespace behaviac
             }
         }
 
+        public Agent GetParentAgent(Agent pAgent)
+        {
+            Agent pParent = pAgent;
+
+            if (!string.IsNullOrEmpty(this.m_instanceName) && this.m_instanceName != "Self")
+            {
+                pParent = Agent.GetInstance(this.m_instanceName, pParent.GetContextId());
+                Debug.Check(pParent != null || Utils.IsStaticClass(this.m_instanceName));
+            }
+
+            return pParent;
+        }
+
+        public Type PropertyType
+        {
+            get
+            {
+                if (this.m_defaultValue != null)
+                {
+                    return this.m_defaultValue.GetType();
+                }
+
+                if (this.m_memberBase != null)
+                {
+                    return this.m_memberBase.MemberType;
+                }
+
+                return null;
+            }
+        }
+
         public Property clone()
         {
             return new Property(this);

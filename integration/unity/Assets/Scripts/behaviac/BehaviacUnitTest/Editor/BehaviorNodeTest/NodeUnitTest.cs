@@ -81,6 +81,17 @@ namespace BehaviorNodeUnitTest
 			Assert.AreEqual(1, testAgent.testVar_0);
 			Assert.AreEqual(0, testAgent.testVar_1);
         }
+
+
+        //[Test]
+        //[Category("test_selector_loop_5")]
+        //public void test_selector_loop_5()
+        //{
+        //    testAgent.btsetcurrent("node_test/selector_loop_ut_5");
+        //    testAgent.resetProperties();
+        //    testAgent.btexec();
+        //    testAgent.btexec();
+        //}
     }
     
     [TestFixture]

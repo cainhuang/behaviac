@@ -62,15 +62,7 @@ namespace behaviac
             }
             else if (this.m_frames_method != null)
             {
-                ParentType pt = this.m_frames_method.GetParentType();
-                Agent pParent = pAgent;
-                if (pt == ParentType.PT_INSTANCE)
-                {
-                    pParent = Agent.GetInstance(this.m_frames_method.GetInstanceNameString(), pParent.GetContextId());
-					Debug.Check(pParent != null || Utils.IsStaticClass(this.m_frames_method.GetInstanceNameString()));
-                }
-
-                int frames = (int)this.m_frames_method.run(pParent, pAgent);
+                int frames = (int)this.m_frames_method.Invoke(pAgent);
 
                 return frames;
             }
