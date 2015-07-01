@@ -122,9 +122,32 @@ namespace behaviac
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
+                int idx = -1;
+                for (int i = 0; i < this.m_children.Count; ++i)
+                {
+                    WithPreconditionTask pSubTree = (WithPreconditionTask)this.m_children[i];
+                    Debug.Check(pSubTree is WithPreconditionTask);
+
+                    EBTStatus returnStatus = pSubTree.GetReturnStatus();
+                    if (returnStatus != EBTStatus.BT_INVALID)
+                    {
+                        pSubTree.SetReturnStatus(EBTStatus.BT_INVALID);
+
+                        if (returnStatus == EBTStatus.BT_SUCCESS)
+                        {
+                            return EBTStatus.BT_SUCCESS;
+                        }
+                        else if (returnStatus == EBTStatus.BT_FAILURE)
+                        {
+                            idx = i;
+                            break;
+                        }
+                    }
+                }
+
                 //checking the preconditions and take the first action tree
                 int index = (int)-1;
-                for (int i = 0; i < this.m_children.Count; ++i)
+                for (int i = (idx + 1); i < this.m_children.Count; ++i)
                 {
                     WithPreconditionTask pSubTree = (WithPreconditionTask)this.m_children[i];
                     Debug.Check(pSubTree is WithPreconditionTask);

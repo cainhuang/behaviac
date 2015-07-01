@@ -83,15 +83,16 @@ namespace BehaviorNodeUnitTest
         }
 
 
-        //[Test]
-        //[Category("test_selector_loop_5")]
-        //public void test_selector_loop_5()
-        //{
-        //    testAgent.btsetcurrent("node_test/selector_loop_ut_5");
-        //    testAgent.resetProperties();
-        //    testAgent.btexec();
-        //    testAgent.btexec();
-        //}
+        [Test]
+        [Category("test_selector_loop_5")]
+        public void test_selector_loop_5()
+        {
+            testAgent.btsetcurrent("node_test/selector_loop_ut_5");
+            testAgent.resetProperties();
+            behaviac.EBTStatus s = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, s);
+            Assert.AreEqual(1, testAgent.testVar_0);
+        }
     }
     
     [TestFixture]

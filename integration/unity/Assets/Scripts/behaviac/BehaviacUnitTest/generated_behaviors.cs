@@ -10534,6 +10534,20 @@ namespace behaviac
 		string method_p0;
 	}
 
+	class Action_bt_node_test_selector_loop_ut_5_node9 : behaviac.Action
+	{
+		public Action_bt_node_test_selector_loop_ut_5_node9()
+		{
+			method_p0 = 1;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).setTestVar_0(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+		int method_p0;
+	}
+
 	public static class bt_node_test_selector_loop_ut_5
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -10612,6 +10626,36 @@ namespace behaviac
 						node2.SetHasEvents(node2.HasEvents() | node6.HasEvents());
 					}
 					node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
+				}
+				{
+					WithPrecondition node7 = new WithPrecondition();
+					node7.SetClassNameString("WithPrecondition");
+					node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+					node7.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node7);
+					{
+						True node8 = new True();
+						node8.SetClassNameString("True");
+						node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+						node8.SetAgentType("AgentNodeTest");
+#endif
+						node7.AddChild(node8);
+						node7.SetHasEvents(node7.HasEvents() | node8.HasEvents());
+					}
+					{
+						Action_bt_node_test_selector_loop_ut_5_node9 node9 = new Action_bt_node_test_selector_loop_ut_5_node9();
+						node9.SetClassNameString("Action");
+						node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+						node9.SetAgentType("AgentNodeTest");
+#endif
+						node7.AddChild(node9);
+						node7.SetHasEvents(node7.HasEvents() | node9.HasEvents());
+					}
+					node0.SetHasEvents(node0.HasEvents() | node7.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}
