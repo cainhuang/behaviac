@@ -147,12 +147,7 @@ namespace behaviac
 
 		this->m_time = this->GetTime(pAgent);
 
-		if (this->m_time <= 0)
-		{
-			return false;
-		}
-
-        return true;
+        return (this->m_time >= 0);
     }
 
     void WaitTask::onexit(Agent* pAgent, EBTStatus s)

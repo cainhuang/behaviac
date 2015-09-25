@@ -126,8 +126,16 @@ public class BehaviacSystem
 
 			string metaExportPath = workspacePath + "/xmlmeta/UnitTestMeta.xml";
 			behaviac.Workspace.ExportMetas(metaExportPath);
-			behaviac.Debug.Log ("Behaviac meta data export over.");
 
+            //TODO
+            behaviac.IVariable.Register<TNS.ST.PER.WRK.kEmployee>("TNS.ST.PER.WRK.kEmployee");
+            behaviac.IVariable.Register<TNS.NE.NAT.eColor>("TNS.NE.NAT.eColor");
+            behaviac.IVariable.Register<ParTestAgentBase>("ParTestAgentBase");
+            behaviac.IVariable.Register<TNS.ST.PER.WRK.kEmployee>("kEmployee");
+            behaviac.IVariable.Register<TNS.NE.NAT.eColor>("eColor");
+
+			behaviac.Debug.Log ("Behaviac meta data export over.");
+            
 			behaviac.Workspace.RespondToBreakHandler += RespondToBreak;
 
 			//< write log file

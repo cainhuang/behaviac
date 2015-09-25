@@ -1332,7 +1332,11 @@ namespace behaviac
             string[] types = typeName.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
             return types[types.Length - 1];
         }
-
+        /// <summary>
+        /// get type's name
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static string GetNativeTypeName(Type type)
         {
             Debug.Check(type != null);

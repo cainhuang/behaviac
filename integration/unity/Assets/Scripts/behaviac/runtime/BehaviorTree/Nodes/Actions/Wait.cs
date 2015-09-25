@@ -138,12 +138,7 @@ namespace behaviac
 
                 this.m_time = this.GetTime(pAgent);
 
-                if (this.m_time <= 0)
-                {
-                    return false;
-                }
-
-                return true;
+                return (this.m_time >= 0);
             }
 
             protected override void onexit(Agent pAgent, EBTStatus s)

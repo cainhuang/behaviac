@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -27,6 +27,8 @@ namespace Behaviac.Design.Data
         private static Dictionary<int, int> _messsageFrameStartIndex = new Dictionary<int, int>();
         private static int _currentIndex = 0;
         private static int _savingCount = 0;
+
+        private static Concurrent.SPSCQueue<string> _messagesBuffer = new Concurrent.SPSCQueue<string>();
 
         public delegate UpdateModes ProcessMessageDelegate(string message);
         public static event ProcessMessageDelegate ProcessMessageHandler;
@@ -122,13 +124,16 @@ namespace Behaviac.Design.Data
             lock (_lockObject)
             {
                 _messages.Add(msg);
-
-                if (msg.StartsWith("[frame]"))
-                {
-                    int frame = (int.Parse(msg.Substring(7)));
-                    _messsageFrameStartIndex[frame] = _messages.Count - 1;
-                }
             }
+        }
+
+        public static void PostMessageBuffer(string msg)
+        {
+            //lock (_lockObject)
+            //{
+            //    _messages.Add(msg);
+            //}
+            _messagesBuffer.Enqueue(msg);
         }
 
         const long kTimeThreshold = 50;
@@ -137,18 +142,37 @@ namespace Behaviac.Design.Data
         {
             if (Plugin.EditMode != EditModes.Design && Plugin.UpdateMode != UpdateModes.Break)
             {
-                if (ProcessMessageHandler != null && _messages.Count > _currentIndex)
+                string msgN = null;
+                while (_messagesBuffer.Dequeue(out msgN))
                 {
                     lock (_lockObject)
                     {
-                        if (_messages.Count > _currentIndex)
+                        _messages.Add(msgN);
+                    }
+                }
+
+                lock (_lockObject)
+                {
+                    Debug.Check(ProcessMessageHandler != null);
+
+                    if (_currentIndex < _messages.Count)
+                    {
+                        if (_currentIndex < _messages.Count)
                         {
                             _stopwatch.Reset();
                             _stopwatch.Start();
 
                             while (_currentIndex < _messages.Count)
                             {
-                                ProcessMessageHandler(_messages[_currentIndex]);
+                                string msg = _messages[_currentIndex];
+
+                                if (msg.IndexOf("[frame]") == 10)
+                                {
+                                    int frame = (int.Parse(msg.Substring(17)));
+                                    _messsageFrameStartIndex[frame] = _messages.Count - 1;
+                                }
+
+                                ProcessMessageHandler(msg);
                                 _currentIndex++;
 
                                 long ms = _stopwatch.ElapsedMilliseconds;
@@ -185,6 +209,27 @@ namespace Behaviac.Design.Data
                 }
             }
         }
+
+
+        public static void UpdateMessages()
+        {
+            lock (_lockObject)
+            {
+                while (_currentIndex < _messages.Count)
+                {
+                    string msg = _messages[_currentIndex];
+                    if (msg.IndexOf("[frame]") == 10)
+                    {
+                        int frame = (int.Parse(msg.Substring(17)));
+                        _messsageFrameStartIndex[frame] = _currentIndex;
+                    }
+
+                    ProcessMessageHandler(msg);
+                    _currentIndex++;
+                }
+            }
+        }
+
 
         private static void updateMessageIndexes()
         {

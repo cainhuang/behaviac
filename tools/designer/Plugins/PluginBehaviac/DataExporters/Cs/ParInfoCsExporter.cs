@@ -35,7 +35,7 @@ namespace PluginBehaviac.DataExporters
             uint id = Behaviac.Design.CRC32.CalcCRC(par.Name);
             stream.WriteLine("{0}Debug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, par.Name, id);
 
-            string retStr = string.Format("({0})pAgent.GetVariable({1}u)", typename, id);
+            string retStr = string.Format("pAgent.GetVariable<{0}>({1}u)", typename, id);
 
             if (!string.IsNullOrEmpty(var))
             {
@@ -50,9 +50,15 @@ namespace PluginBehaviac.DataExporters
 
         public static void PostGenerateCode(Behaviac.Design.ParInfo par, StreamWriter stream, string indent, string typename, string var, string caller)
         {
+            if (string.IsNullOrEmpty(typename))
+            {
+                typename = par.NativeType;
+            }
+            typename = DataCsExporter.GetGeneratedNativeType(typename);
+
             uint id = Behaviac.Design.CRC32.CalcCRC(par.Name);
             stream.WriteLine("{0}Debug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, par.Name, id);
-            stream.WriteLine("{0}pAgent.SetVariable(\"{1}\", {2}, {3}u);", indent, par.Name, var, id);
+            stream.WriteLine("{0}pAgent.SetVariable<{1}>(\"{2}\", {3}, {4}u);", indent, typename, par.Name, var, id);
         }
     }
 }

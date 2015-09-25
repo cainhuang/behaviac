@@ -77,7 +77,13 @@ namespace PluginBehaviac.DataExporters
             uint id = Behaviac.Design.CRC32.CalcCRC(property.BasicName);
             stream.WriteLine("{0}Debug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, property.BasicName, id);
 
-            stream.WriteLine("{0}{1}.SetVariable(\"{2}\", {3}, {4}u);", indent, agentName, property.BasicName, prop, id);
+            if (string.IsNullOrEmpty(typename))
+            {
+                typename = property.NativeType;
+            }
+            typename = DataCsExporter.GetGeneratedNativeType(typename);
+
+            stream.WriteLine("{0}{1}.SetVariable<{2}>(\"{3}\", {4}, {5}u);", indent, agentName, typename, property.BasicName, prop, id);
         }
 
         private static string getGenerateAgentName(Behaviac.Design.PropertyDef property, string var, string caller)

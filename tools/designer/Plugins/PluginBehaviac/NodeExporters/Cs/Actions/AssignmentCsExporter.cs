@@ -75,8 +75,9 @@ namespace PluginBehaviac.NodeExporters
                     {
                         RightValueCsExporter.GenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType.Replace("::", "."), "opr", "opr");
                         uint id = Behaviac.Design.CRC32.CalcCRC(par.Name);
+                        string typename = DataCsExporter.GetGeneratedNativeType(par.NativeType);
                         stream.WriteLine("{0}\t\t\tDebug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, par.Name, id);
-                        stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", opr, {2}u);", indent, par.Name, id);
+                        stream.WriteLine("{0}\t\t\tpAgent.SetVariable<{1}>(\"{2}\", opr, {3}u);", indent, typename, par.Name, id);
                     }
                 }
                 else

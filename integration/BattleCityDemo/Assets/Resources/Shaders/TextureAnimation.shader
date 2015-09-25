@@ -1,4 +1,4 @@
-Shader "BattleCityShader/TextureAnimation" 
+﻿Shader "BattleCityShader/TextureAnimation" 
 {
 	Properties 
 	{

@@ -108,7 +108,7 @@ namespace behaviac
                 this.m_start = 0;
                 this.m_frames = this.GetFrames(pAgent);
 
-                return (this.m_frames > 0);
+                return (this.m_frames >= 0);
             }
 
             protected override EBTStatus decorate(EBTStatus status)

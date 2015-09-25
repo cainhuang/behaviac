@@ -85,55 +85,55 @@ namespace ParUnitTest
 			parTestAgent.btexec();
 
 			// base class 0 test
-			eColor ecolor_0 = (eColor)parTestAgent.GetVariable("par0_ecolor_0");
+			eColor ecolor_0 = parTestAgent.GetVariable<eColor>("par0_ecolor_0");
 			Assert.AreEqual(eColor.BLUE, ecolor_0);
 
-			Boolean boolean_0 = (Boolean)parTestAgent.GetVariable("par0_boolean_0");
+			Boolean boolean_0 = parTestAgent.GetVariable<Boolean>("par0_boolean_0");
 			Assert.AreEqual(true, boolean_0);
 
-			Char char_0 = (Char)parTestAgent.GetVariable("par0_char_0");
+			Char char_0 = parTestAgent.GetVariable<Char>("par0_char_0");
 			Assert.AreEqual('X', char_0);
 
-			Byte byte_0 = (Byte)parTestAgent.GetVariable("par0_byte_0");
+			Byte byte_0 = parTestAgent.GetVariable<Byte>("par0_byte_0");
 			Assert.AreEqual(2, byte_0);
 
-			List<Byte> byte_list_0 = (List<Byte>)parTestAgent.GetVariable("par0_byte_list_0");
+            List<Byte> byte_list_0 = parTestAgent.GetVariable<List<Byte>>("par0_byte_list_0");
 			Assert.AreEqual(1, byte_list_0.Count);
 			Assert.AreEqual(8, byte_list_0[0]);
 
-			SByte sbyte_0 = (SByte)parTestAgent.GetVariable("par0_sbyte_0");
+            SByte sbyte_0 = parTestAgent.GetVariable<SByte>("par0_sbyte_0");
 			Assert.AreEqual(-2, sbyte_0);
 
-			List<eColor> ecolor_list_0 = (List<eColor>)parTestAgent.GetVariable("par0_ecolor_list_0");
+            List<eColor> ecolor_list_0 = parTestAgent.GetVariable<List<eColor>>("par0_ecolor_list_0");
 			Assert.AreEqual(1, ecolor_list_0.Count);
 			Assert.AreEqual(eColor.RED, ecolor_list_0[0]);
 
-			List<Boolean> boolean_list_0 = (List<Boolean>)parTestAgent.GetVariable("par0_boolean_list_0");
+            List<Boolean> boolean_list_0 = parTestAgent.GetVariable<List<Boolean>>("par0_boolean_list_0");
 			Assert.AreEqual(1, boolean_list_0.Count);
 			Assert.AreEqual(true, boolean_list_0[0]);
 
-			List<Char> char_list_0 = (List<Char>)parTestAgent.GetVariable("par0_char_list_0");
+            List<Char> char_list_0 = parTestAgent.GetVariable<List<Char>>("par0_char_list_0");
 			Assert.AreEqual(1, char_list_0.Count);
 			Assert.AreEqual('k', char_list_0[0]);
 
-			List<SByte> sbyte_list_0 = (List<SByte>)parTestAgent.GetVariable("par0_sbyte_list_0");
+            List<SByte> sbyte_list_0 = parTestAgent.GetVariable<List<SByte>>("par0_sbyte_list_0");
 			Assert.AreEqual(1, sbyte_list_0.Count);
 			Assert.AreEqual(-4, sbyte_list_0[0]);
 
 			// base class 1 test
-			Int16 int16_0 = (Int16)parTestAgent.GetVariable("par1_int16_0");
+            Int16 int16_0 = parTestAgent.GetVariable<Int16>("par1_int16_0");
 			Assert.AreEqual(1, int16_0);
 
-			Int32 int32_0 = (Int32)parTestAgent.GetVariable("par1_int32_0");
+			Int32 int32_0 = parTestAgent.GetVariable<Int32>("par1_int32_0");
 			Assert.AreEqual(2, int32_0);
 
-			Int64 int64_0 = (Int64)parTestAgent.GetVariable("par1_int64_0");
+			Int64 int64_0 = parTestAgent.GetVariable<Int64>("par1_int64_0");
 			Assert.AreEqual(3L, int64_0);
 
-			UInt16 uint16_0 = (UInt16)parTestAgent.GetVariable("par1_uint16_0");
+            UInt16 uint16_0 = parTestAgent.GetVariable<UInt16>("par1_uint16_0");
 			Assert.AreEqual(4, uint16_0);
 
-			kEmployee kemployee_0 = (kEmployee)parTestAgent.GetVariable("par1_kemployee_0");
+            kEmployee kemployee_0 = parTestAgent.GetVariable<kEmployee>("par1_kemployee_0");
 			Assert.AreEqual(3, kemployee_0.id);
 			Assert.AreEqual("Tom", kemployee_0.name);
 			Assert.AreEqual('X', kemployee_0.code);
@@ -145,11 +145,11 @@ namespace ParUnitTest
 			Assert.AreEqual(eColor.RED, kemployee_0.car.color);
 			Assert.AreEqual(23000, kemployee_0.car.price);
 
-			List<Int32> int32_list_0 = (List<Int32>)parTestAgent.GetVariable("par1_int32_list_0");
+            List<Int32> int32_list_0 = parTestAgent.GetVariable<List<Int32>>("par1_int32_list_0");
 			Assert.AreEqual(1, int32_list_0.Count);
 			Assert.AreEqual(5, int32_list_0[0]);
 
-			List<kEmployee> kemployee_list_0 = (List<kEmployee>)parTestAgent.GetVariable("par1_kemployee_list_0");
+            List<kEmployee> kemployee_list_0 = parTestAgent.GetVariable<List<kEmployee>>("par1_kemployee_list_0");
 			Assert.AreEqual(1, kemployee_list_0.Count);
 			Assert.AreEqual(3, kemployee_list_0[0].id);
 			Assert.AreEqual("Tom", kemployee_list_0[0].name);
@@ -163,33 +163,33 @@ namespace ParUnitTest
 			Assert.AreEqual(23000, kemployee_list_0[0].car.price);
 
 			// base class 2 test
-			UInt32 uint32_0 = (UInt32)parTestAgent.GetVariable("par2_uint32_0");
+            UInt32 uint32_0 = parTestAgent.GetVariable<UInt32>("par2_uint32_0");
 			Assert.AreEqual(1, uint32_0);
 
-			UInt64 uint64_0 = (UInt64)parTestAgent.GetVariable("par2_uint64_0");
+            UInt64 uint64_0 = parTestAgent.GetVariable<UInt64>("par2_uint64_0");
 			Assert.AreEqual(2, uint64_0);
 
-			Single single_0 = (Single)parTestAgent.GetVariable("par2_single_0");
+            Single single_0 = parTestAgent.GetVariable<Single>("par2_single_0");
 			Assert.AreEqual(3.0f, single_0);
 
-			Double double_0 = (Double)parTestAgent.GetVariable("par2_double_0");
+            Double double_0 = parTestAgent.GetVariable<Double>("par2_double_0");
 			Assert.AreEqual(4.0, double_0);
 
-			String string_0 = (String)parTestAgent.GetVariable("par2_string_0");
+            String string_0 = parTestAgent.GetVariable<String>("par2_string_0");
 			Assert.AreEqual("This is a string ref in test!", string_0);
 
-			Agent agent_0 = (Agent)parTestAgent.GetVariable("par2_agent_0");
+            Agent agent_0 = parTestAgent.GetVariable<Agent>("par2_agent_0");
 			Assert.AreEqual(parTestAgent, agent_0);
 
-			List<Single> single_list_0 = (List<Single>)parTestAgent.GetVariable("par2_single_list_0");
+            List<Single> single_list_0 = parTestAgent.GetVariable<List<Single>>("par2_single_list_0");
 			Assert.AreEqual(1, single_list_0.Count);
 			Assert.AreEqual(1.0f, single_list_0[0]);
 
-			List<String> string_list_0 = (List<String>)parTestAgent.GetVariable("par2_string_list_0");
+            List<String> string_list_0 = parTestAgent.GetVariable<List<String>>("par2_string_list_0");
 			Assert.AreEqual(1, string_list_0.Count);
 			Assert.AreEqual("This is a string ref in test!", string_list_0[0]);
 
-			List<Agent> agent_list_0 = (List<Agent>)parTestAgent.GetVariable("par2_agent_list_0");
+            List<Agent> agent_list_0 = parTestAgent.GetVariable<List<Agent>>("par2_agent_list_0");
 			Assert.AreEqual(1, agent_list_0.Count);
 			Assert.AreEqual(parTestAgent, agent_list_0[0]);
 		}
@@ -203,49 +203,49 @@ namespace ParUnitTest
 			parTestAgent.btexec();
 
 			// base class 0 test
-			eColor ecolor_0 = (eColor)parTestAgent.GetVariable("par0_ecolor_0");
+            eColor ecolor_0 = parTestAgent.GetVariable<eColor>("par0_ecolor_0");
 			Assert.AreEqual(eColor.RED, ecolor_0);
-			
-			Boolean boolean_0 = (Boolean)parTestAgent.GetVariable("par0_boolean_0");
+
+            Boolean boolean_0 = parTestAgent.GetVariable<Boolean>("par0_boolean_0");
 			Assert.AreEqual(false, boolean_0);
-			
-			Char char_0 = (Char)parTestAgent.GetVariable("par0_char_0");
+
+            Char char_0 = parTestAgent.GetVariable<Char>("par0_char_0");
 			Assert.AreEqual('C', char_0);
-			
-			Byte byte_0 = (Byte)parTestAgent.GetVariable("par0_byte_0");
+
+            Byte byte_0 = parTestAgent.GetVariable<Byte>("par0_byte_0");
 			Assert.AreEqual(209, byte_0);
 
-			List<Byte> byte_list_0 = (List<Byte>)parTestAgent.GetVariable("par0_byte_list_0");
+            List<Byte> byte_list_0 = parTestAgent.GetVariable<List<Byte>>("par0_byte_list_0");
 			Assert.AreEqual(4, byte_list_0.Count);
 			Assert.AreEqual(167, byte_list_0[0]);
 			Assert.AreEqual(23, byte_list_0[1]);
 			Assert.AreEqual(152, byte_list_0[2]);
 			Assert.AreEqual(126, byte_list_0[3]);
 			
-			SByte sbyte_0 = (SByte)parTestAgent.GetVariable("par0_sbyte_0");
+			SByte sbyte_0 = parTestAgent.GetVariable<SByte>("par0_sbyte_0");
 			Assert.AreEqual(-65, sbyte_0);
-			
-			List<eColor> ecolor_list_0 = (List<eColor>)parTestAgent.GetVariable("par0_ecolor_list_0");
+
+            List<eColor> ecolor_list_0 = parTestAgent.GetVariable<List<eColor>>("par0_ecolor_list_0");
 			Assert.AreEqual(3, ecolor_list_0.Count);
 			Assert.AreEqual(eColor.RED, ecolor_list_0[0]);
 			Assert.AreEqual(eColor.GREEN, ecolor_list_0[1]);
 			Assert.AreEqual(eColor.YELLOW, ecolor_list_0[2]);
-			
-			List<Boolean> boolean_list_0 = (List<Boolean>)parTestAgent.GetVariable("par0_boolean_list_0");
+
+            List<Boolean> boolean_list_0 = parTestAgent.GetVariable<List<Boolean>>("par0_boolean_list_0");
 			Assert.AreEqual(3, boolean_list_0.Count);
 			Assert.AreEqual(false, boolean_list_0[0]);
 			Assert.AreEqual(true, boolean_list_0[1]);
 			Assert.AreEqual(false, boolean_list_0[2]);
-			
-			List<Char> char_list_0 = (List<Char>)parTestAgent.GetVariable("par0_char_list_0");
+
+            List<Char> char_list_0 = parTestAgent.GetVariable<List<Char>>("par0_char_list_0");
 			Assert.AreEqual(5, char_list_0.Count);
 			Assert.AreEqual('d', char_list_0[0]);
 			Assert.AreEqual('j', char_list_0[1]);
 			Assert.AreEqual('F', char_list_0[2]);
 			Assert.AreEqual('A', char_list_0[3]);
 			Assert.AreEqual('m', char_list_0[4]);
-			
-			List<SByte> sbyte_list_0 = (List<SByte>)parTestAgent.GetVariable("par0_sbyte_list_0");
+
+            List<SByte> sbyte_list_0 = parTestAgent.GetVariable<List<SByte>>("par0_sbyte_list_0");
 			Assert.AreEqual(4, sbyte_list_0.Count);	
 			Assert.AreEqual(127, sbyte_list_0[0]);
 			Assert.AreEqual(-128, sbyte_list_0[1]);
@@ -253,19 +253,19 @@ namespace ParUnitTest
 			Assert.AreEqual(-126, sbyte_list_0[3]);
 
 			// base class 1 test
-			Int16 int16_0 = (Int16)parTestAgent.GetVariable("par1_int16_0");
+            Int16 int16_0 = parTestAgent.GetVariable<Int16>("par1_int16_0");
 			Assert.AreEqual(328, int16_0);
-			
-			Int32 int32_0 = (Int32)parTestAgent.GetVariable("par1_int32_0");
+
+            Int32 int32_0 = parTestAgent.GetVariable<Int32>("par1_int32_0");
 			Assert.AreEqual(347, int32_0);
-			
-			Int64 int64_0 = (Int64)parTestAgent.GetVariable("par1_int64_0");
+
+            Int64 int64_0 = parTestAgent.GetVariable<Int64>("par1_int64_0");
 			Assert.AreEqual(1950L, int64_0);
-			
-			UInt16 uint16_0 = (UInt16)parTestAgent.GetVariable("par1_uint16_0");
+
+            UInt16 uint16_0 = parTestAgent.GetVariable<UInt16>("par1_uint16_0");
 			Assert.AreEqual(2551, uint16_0);
-			
-			kEmployee kemployee_0 = (kEmployee)parTestAgent.GetVariable("par1_kemployee_0");
+
+            kEmployee kemployee_0 = parTestAgent.GetVariable<kEmployee>("par1_kemployee_0");
 			Assert.AreEqual(86, kemployee_0.id);
 			Assert.AreEqual("TomJerry", kemployee_0.name);
 			Assert.AreEqual('V', kemployee_0.code);
@@ -276,15 +276,15 @@ namespace ParUnitTest
 			Assert.AreEqual("AlphaJapan", kemployee_0.car.brand);
 			Assert.AreEqual(eColor.YELLOW, kemployee_0.car.color);
 			Assert.AreEqual(8700, kemployee_0.car.price);
-			
-			List<Int32> int32_list_0 = (List<Int32>)parTestAgent.GetVariable("par1_int32_list_0");
+
+            List<Int32> int32_list_0 = parTestAgent.GetVariable<List<Int32>>("par1_int32_list_0");
 			Assert.AreEqual(4, int32_list_0.Count);
 			Assert.AreEqual(9999, int32_list_0[0]);
 			Assert.AreEqual(12345, int32_list_0[1]);
 			Assert.AreEqual(0, int32_list_0[2]);
 			Assert.AreEqual(235, int32_list_0[3]);
-			
-			List<kEmployee> kemployee_list_0 = (List<kEmployee>)parTestAgent.GetVariable("par1_kemployee_list_0");
+
+            List<kEmployee> kemployee_list_0 = parTestAgent.GetVariable<List<kEmployee>>("par1_kemployee_list_0");
 			Assert.AreEqual(2, kemployee_list_0.Count);
 
 			Assert.AreEqual(9, kemployee_list_0[0].id);
@@ -310,39 +310,39 @@ namespace ParUnitTest
 			Assert.AreEqual(43000, kemployee_list_0[1].car.price);
 
 			// base class 2 test
-			UInt32 uint32_0 = (UInt32)parTestAgent.GetVariable("par2_uint32_0");
+            UInt32 uint32_0 = parTestAgent.GetVariable<UInt32>("par2_uint32_0");
 			Assert.AreEqual(63, uint32_0);
-			
-			UInt64 uint64_0 = (UInt64)parTestAgent.GetVariable("par2_uint64_0");
+
+            UInt64 uint64_0 = parTestAgent.GetVariable<UInt64>("par2_uint64_0");
 			Assert.AreEqual(389, uint64_0);
-			
-			Single single_0 = (Single)parTestAgent.GetVariable("par2_single_0");
+
+            Single single_0 = parTestAgent.GetVariable<Single>("par2_single_0");
 			Assert.AreEqual(170.5f, single_0);
-			
-			Double double_0 = (Double)parTestAgent.GetVariable("par2_double_0");
+
+            Double double_0 = parTestAgent.GetVariable<Double>("par2_double_0");
 			Assert.AreEqual(48.6, double_0);
-			
-			String string_0 = (String)parTestAgent.GetVariable("par2_string_0");
+
+            String string_0 = parTestAgent.GetVariable<String>("par2_string_0");
 			Assert.AreEqual("originextra", string_0);
-			
-			Agent agent_0 = (Agent)parTestAgent.GetVariable("par2_agent_0");
+
+            Agent agent_0 = parTestAgent.GetVariable<Agent>("par2_agent_0");
 			Assert.AreEqual(parTestAgent, agent_0);
-			
-			List<Single> single_list_0 = (List<Single>)parTestAgent.GetVariable("par2_single_list_0");
+
+            List<Single> single_list_0 = parTestAgent.GetVariable<List<Single>>("par2_single_list_0");
 			Assert.AreEqual(3, single_list_0.Count);
 			Assert.AreEqual(5.1f, single_list_0[0]);
 			Assert.AreEqual(6.2f, single_list_0[1]);
 			Assert.AreEqual(93.7f, single_list_0[2]);
-			
-			List<String> string_list_0 = (List<String>)parTestAgent.GetVariable("par2_string_list_0");
+
+            List<String> string_list_0 = parTestAgent.GetVariable<List<String>>("par2_string_list_0");
 			Assert.AreEqual(5, string_list_0.Count);
 			Assert.AreEqual("string0", string_list_0[0]);
 			Assert.AreEqual("string1", string_list_0[1]);
 			Assert.AreEqual("string2", string_list_0[2]);
 			Assert.AreEqual("string3", string_list_0[3]);
 			Assert.AreEqual("extra", string_list_0[4]);
-			
-			List<Agent> agent_list_0 = (List<Agent>)parTestAgent.GetVariable("par2_agent_list_0");
+
+            List<Agent> agent_list_0 = parTestAgent.GetVariable<List<Agent>>("par2_agent_list_0");
 			Assert.AreEqual(3, agent_list_0.Count);
 			Assert.AreEqual(null, agent_list_0[0]);
 			Assert.AreEqual(null, agent_list_0[1]);

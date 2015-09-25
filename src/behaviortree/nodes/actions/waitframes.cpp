@@ -157,12 +157,7 @@ namespace behaviac
 		this->m_start = 0;
 		this->m_frames = this->GetFrames(pAgent);
 
-		if (this->m_frames <= 0)
-		{
-			return false;
-		}
-
-        return true;
+        return (this->m_frames >= 0);
     }
 
     void WaitFramesTask::onexit(Agent* pAgent, EBTStatus s)

@@ -130,12 +130,7 @@ namespace behaviac
 		this->m_start = 0;
 		this->m_time = this->GetTime(pAgent);
 
-		if (this->m_time <= 0)
-		{
-			return false;
-		}
-
-		return true;
+		return (this->m_time >= 0);
 	}
 
 	EBTStatus DecoratorTimeTask::decorate(EBTStatus status)

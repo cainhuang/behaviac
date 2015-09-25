@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -25,6 +25,7 @@ namespace Behaviac.Design.Network
     public class NetworkManager
     {
         private static NetworkManager _instance = null;
+
         public static NetworkManager Instance
         {
             get
@@ -37,6 +38,7 @@ namespace Behaviac.Design.Network
         }
 
         private static string _serverIP = "";
+
         public static string ServerIP
         {
             get { return _serverIP; }
@@ -44,6 +46,7 @@ namespace Behaviac.Design.Network
         }
 
         private static int _serverPort = 60636;
+
         public static int ServerPort
         {
             get { return _serverPort; }
@@ -51,20 +54,19 @@ namespace Behaviac.Design.Network
         }
 
         private const int kMaxTextLength = 228 + 1;
-        private const ulong BUFFER_SIZE = 16384;
+        private const int BUFFER_SIZE = 16384 * 10;
 
         private uint m_packetsReceived = 0;
         private MsgReceiver m_msgReceiver = new MsgReceiver();
         private Socket m_clientSocket = null;
         private AsyncCallback m_pfnCallBack = null;
 
-        struct SocketPacket
+        private class SocketPacket
         {
             public enum CommandID
             {
                 INITIAL_SETTINGS = 1,
                 TEXT,
-                WORKSPACE,
                 MAX
             };
 
@@ -90,6 +92,8 @@ namespace Behaviac.Design.Network
                 {
                     // Create the socket instance
                     m_clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                    m_clientSocket.ReceiveBufferSize = BUFFER_SIZE;
                     m_clientSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.NoDelay, true);
                     //m_clientSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
                     //m_clientSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 1000);
@@ -148,6 +152,8 @@ namespace Behaviac.Design.Network
             m_clientSocket = null;
         }
 
+        private SocketPacket _theSocPkt = null;
+
         private bool waitForData()
         {
             try
@@ -158,17 +164,20 @@ namespace Behaviac.Design.Network
                 if (m_pfnCallBack == null)
                     m_pfnCallBack = new AsyncCallback(onDataReceived);
 
-                SocketPacket theSocPkt = new SocketPacket();
-                theSocPkt.dataBuffer = new byte[BUFFER_SIZE];
+                if (_theSocPkt == null)
+                {
+                    _theSocPkt = new SocketPacket();
+                    _theSocPkt.dataBuffer = new byte[BUFFER_SIZE];
+                }
 
                 if (m_clientSocket != null)
                 {
                     // Start listening to the data asynchronously
-                    m_clientSocket.BeginReceive(theSocPkt.dataBuffer,
-                        0, theSocPkt.dataBuffer.Length,
+                    m_clientSocket.BeginReceive(_theSocPkt.dataBuffer,
+                        0, _theSocPkt.dataBuffer.Length,
                         SocketFlags.None,
                         m_pfnCallBack,
-                        theSocPkt);
+                        _theSocPkt);
 
                     return true;
                 }
@@ -200,7 +209,9 @@ namespace Behaviac.Design.Network
                 }
 
                 if (m_clientSocket != null && m_clientSocket.Connected)
+                {
                     waitForData();
+                }
             }
             catch (NullReferenceException)
             {
@@ -214,6 +225,10 @@ namespace Behaviac.Design.Network
             {
                 MessageBox.Show(exc.Message, Resources.ConnectError);
                 //Invoke(m_delegateOnDisconnect);
+            }
+            catch (Exception)
+            {
+                Debug.Check(true);
             }
         }
 
@@ -248,13 +263,16 @@ namespace Behaviac.Design.Network
                 ecode = new UTF8Encoding();
             }
 
+            Debug.Check(data.Length <= maxLen);
+            maxLen = data.Length - 1;
+
             string ret = ecode.GetString(data, dataIdx, maxLen);
             char[] zeroChars = { '\0', '?' };
 
             return ret.TrimEnd(zeroChars);
         }
 
-        int[] m_packets = new int[(int)SocketPacket.CommandID.MAX];
+        private int[] m_packets = new int[(int)SocketPacket.CommandID.MAX];
 
         private void handleMessage(byte[] msgData)
         {
@@ -281,12 +299,6 @@ namespace Behaviac.Design.Network
                                 break;
                             }
 
-                        case SocketPacket.CommandID.WORKSPACE:
-                            {
-                                handleWorkspace(msgData);
-                                break;
-                            }
-
                         default:
                             {
                                 System.Diagnostics.Debug.Fail("Unknown command ID: " + commandId);
@@ -302,16 +314,25 @@ namespace Behaviac.Design.Network
             }
         }
 
+        //int _lastIndex = -1;
+
         private void handleText(byte[] msgData)
         {
             string text = GetStringFromBuffer(msgData, 1, kMaxTextLength, true);
-            MessageQueue.PostMessage(text);
-        }
+            //int pos = text.IndexOf("][");
+            //if (pos != -1)
+            //{
+            //    string indexStr = text.Substring(1, pos - 1);
+            //    int index = int.Parse(indexStr);
+            //    if (_lastIndex != -1)
+            //    {
+            //        Debug.Check(_lastIndex + 1 == index);
+            //    }
 
-        private void handleWorkspace(byte[] msgData)
-        {
-            string text = GetStringFromBuffer(msgData, 1, kMaxTextLength, false);
-            MessageQueue.PostMessage(text);
+            //    _lastIndex = index;
+            //}
+
+            MessageQueue.PostMessageBuffer(text);
         }
 
         public void SendBreakpoint(string behaviorName, string nodeClass, string nodeId, string action, bool bSet, int hit, string actionResultStr)
@@ -321,7 +342,7 @@ namespace Behaviac.Design.Network
             Debug.Check(!string.IsNullOrEmpty(actionResultStr));
             behaviorName = behaviorName.Replace('\\', '/');
             string msg = string.Format("[breakpoint] {0} {1}->{2}[{3}]:{4} {5} Hit={6}\n", setStr, behaviorName, nodeClass, nodeId, action, actionResultStr, hit);
-            
+
             this.SendText(msg);
         }
 
@@ -341,7 +362,7 @@ namespace Behaviac.Design.Network
                 }
             }
         }
-        
+
         public void SendBreakAPP(bool bBreakAPP)
         {
             string breakStr = bBreakAPP ? "true" : "false";

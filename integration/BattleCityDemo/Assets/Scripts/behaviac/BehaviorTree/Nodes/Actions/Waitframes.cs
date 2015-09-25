@@ -121,12 +121,7 @@ namespace behaviac
                 this.m_start = 0;
                 this.m_frames = this.GetFrames(pAgent);
 
-                if (this.m_frames <= 0)
-                {
-                    return false;
-                }
-
-                return true;
+                return (this.m_frames >= 0);
             }
 
             protected override void onexit(Agent pAgent, EBTStatus s)

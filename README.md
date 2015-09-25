@@ -1,4 +1,4 @@
-What is behaviac?
+﻿What is behaviac?
 ------------------------------------------
 
 Behaviac is our solution for the behavior tree, which includes two parts:

@@ -195,6 +195,8 @@ namespace behaviac
                 }
                 else
                 {
+                    this.SetReturnStatus(EBTStatus.BT_INVALID);
+
                     this.m_status = returnStatus;
                     bEnded = true;
                 }

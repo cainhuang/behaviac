@@ -497,8 +497,12 @@ namespace Behaviac.Design
             if (string.IsNullOrEmpty(_behaviorFolder))
                 return string.Empty;
 
-            string prefabFolder = Directory.GetParent(_behaviorFolder).FullName;
-            prefabFolder = Path.Combine(prefabFolder, _prefabGroupName);
+            string folder = Directory.GetParent(_behaviorFolder).FullName;
+            string prefabFolder = Path.Combine(folder, _prefabGroupName);
+
+            if (!Directory.Exists(prefabFolder))
+                prefabFolder = Path.Combine(folder, "Prefabs");
+
             return prefabFolder;
         }
 

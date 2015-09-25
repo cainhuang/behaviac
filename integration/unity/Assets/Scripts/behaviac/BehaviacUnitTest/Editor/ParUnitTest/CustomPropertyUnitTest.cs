@@ -64,7 +64,8 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(2.0, Location.y, 0.001f);
             Assert.AreEqual(2.0, Location.z, 0.001f);
 
-            Vector3 l_Location = (Vector3)testAgent.GetVariable("l_Location");
+            //Vector3 l_Location = (Vector3)testAgent.GetVariable("l_Location");
+            Vector3 l_Location = testAgent.GetVariable<Vector3>("l_Location");
             Assert.AreEqual(1.0, l_Location.x, 0.001f);
             Assert.AreEqual(1.0, l_Location.y, 0.001f);
             Assert.AreEqual(1.0, l_Location.z, 0.001f);
@@ -83,7 +84,7 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(0.0, testAgent2.Location.y, 0.001f);
             Assert.AreEqual(0.0, testAgent2.Location.z, 0.001f);
 
-            object l_Location2 = testAgent2.GetVariable("l_Location");
+            object l_Location2 = testAgent2.GetVariable<object>("l_Location");
             Assert.AreEqual(null, l_Location2);
 
             testAgent2.btexec();
@@ -93,7 +94,8 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(2.0, testAgent2.Location.z, 0.001f);
 
             //although l_Location = Location, it is different copies
-            Vector3 c_Location21 = (Vector3)testAgent2.GetVariable("l_Location");
+            //Vector3 c_Location21 = (Vector3)testAgent2.GetVariable("l_Location");
+            Vector3 c_Location21 = testAgent2.GetVariable<Vector3>("l_Location");
             Assert.AreEqual(1.0, c_Location21.x, 0.001f);
             Assert.AreEqual(1.0, c_Location21.y, 0.001f);
             Assert.AreEqual(1.0, c_Location21.z, 0.001f);

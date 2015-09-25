@@ -1,4 +1,4 @@
-Shader "BattleCityShader/IlluminateAnimation" 
+﻿Shader "BattleCityShader/IlluminateAnimation" 
 {
 	Properties 
 	{

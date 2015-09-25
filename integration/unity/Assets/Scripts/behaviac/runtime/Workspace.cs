@@ -1152,6 +1152,14 @@ namespace behaviac
             ms_allBehaviorTreeTasks.Clear();
             BehaviorTrees.Clear();
             BTCreators.Clear();
+            if (ms_metaRegistered)
+            {
+                //TODO inappropriate place to place UnRegisterBasicTypes(), because after call this method to unregister basic types, the program will
+                // use ms_IVariableCreators immediately, but all the types in it was unregistered
+                // so comment it first 
+                //IVariable.UnRegisterBasicTypes();
+                //ms_metaRegistered = false;
+            }
         }
 
 	    static byte[] ReadFileToBuffer(string file, string ext)
@@ -2198,6 +2206,7 @@ namespace behaviac
 				Assembly a = Assembly.GetCallingAssembly();
 
 				RegisterMetas (a);
+                IVariable.RegisterBasicTypes();
 
 				ms_metaRegistered = true;
 			}

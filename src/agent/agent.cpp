@@ -961,11 +961,13 @@ namespace behaviac
 
 	void Agent::btunload_pars(const BehaviorTree* bt)
 	{
-		for (BehaviorNode::Properties_t::iterator it = bt->m_pars->begin(); it != bt->m_pars->end(); ++it)
-		{
-			Property* property_ = *it;
+		if (bt && bt->m_pars) {
+			for (BehaviorNode::Properties_t::iterator it = bt->m_pars->begin(); it != bt->m_pars->end(); ++it)
+			{
+				Property* property_ = *it;
 
-			property_->UnLoad(this);
+				property_->UnLoad(this);
+			}
 		}
 	}
 

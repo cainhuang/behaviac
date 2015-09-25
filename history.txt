@@ -1,4 +1,13 @@
-2015-7-1	2.1.4
+2015-9-24 2.1.6
+    Support the prefabs folder with Chinese and English.
+    Fix a bug for the operator filter of the Computer node.
+    optimize for the boxing/unboxing with GetVariable<T> and SetVariable<T>
+
+
+2015-8-19 2.1.5
+	fix possible bugs in socket sending and receiving
+
+2015-7-1	 2.1.4
 	Fix a bug for the SelectorLoop.
 
 2015-6-30	2.1.3

@@ -3,7 +3,7 @@
   <xmlmeta>UnitTestMeta.xml</xmlmeta>
   <export>
     <bson>
-      <isexported>True</isexported>
+      <isexported>False</isexported>
       <filename>generated_behaviors</filename>
     </bson>
     <cpp>
@@ -15,5 +15,9 @@
       <filename>generated_behaviors.cs</filename>
       <folder>../../../Scripts/behaviac/BehaviacUnitTest</folder>
     </cs>
+    <xml>
+      <isexported>False</isexported>
+      <filename>generated_behaviors</filename>
+    </xml>
   </export>
 </workspace>

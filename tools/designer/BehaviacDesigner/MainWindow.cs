@@ -537,7 +537,8 @@ namespace Behaviac.Design
                     m_Watcher.NotifyFilter = NotifyFilters.LastWrite;
                     //m_Watcher.SynchronizingObject = behaviorTreeList;
 
-                    m_Watcher.Changed += new FileSystemEventHandler(OnChanged);
+                    m_Watcher.Changed -= OnChanged;
+                    m_Watcher.Changed += OnChanged;
                     m_Watcher.EnableRaisingEvents = true;
 
                     postSetWorkspace();

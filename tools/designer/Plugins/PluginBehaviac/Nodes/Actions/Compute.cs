@@ -157,7 +157,7 @@ namespace PluginBehaviac.Nodes
                     bool bIsBool = false;
                     bool bIsNumber = false;
 
-                    Type type = Plugin.GetTypeFromName(Plugin.GetNativeTypeName(this.Opl.NativeType)); ;
+                    Type type = Plugin.GetTypeFromName(Plugin.GetNativeTypeName(this.Opl.GetValueType()));
                     if (type != null)
                     {
                         bIsBool = Plugin.IsBooleanType(type);

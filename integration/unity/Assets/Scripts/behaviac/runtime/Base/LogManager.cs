@@ -14,8 +14,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.ComponentModel;
+using System.IO;
 using System.Reflection;
 
 namespace behaviac
@@ -23,6 +23,7 @@ namespace behaviac
     /**
     indicating the action result for enter/exit
     */
+
     [Flags]
     public enum EActionResult
     {
@@ -37,19 +38,20 @@ namespace behaviac
         ELM_tick,
         ELM_breaked,
         ELM_continue,
-        ELM_jump, 
-        ELM_return, 
+        ELM_jump,
+        ELM_return,
 
         ELM_log
     };
 
     public static class LogManager
     {
-		/**
-		by default, the log file is _behaviac_$_.log in the current path.
+        /**
+        by default, the log file is _behaviac_$_.log in the current path.
 
-		you can call this function to specify where to log
-		*/
+        you can call this function to specify where to log
+        */
+
         public static void SetLogFilePath(string logFilePath)
         {
 #if !BEHAVIAC_RELEASE
@@ -57,38 +59,39 @@ namespace behaviac
 #endif
         }
 
-//        /**
-//        by default, logging is enable. it can be enabled by this function.
-//
-//        when enabled, it is written to the log file.
-//        when disabled, it is not written to the log file however, it is still sent to the network
-//        */
-//        public static void SetEnabled(bool bEnabled)
-//        {
-//            ms_bEnabled = bEnabled;
-//        }
-//
-//
-//        /**
-//        */
-//        public static void SetProfilerEnabled(bool bProfilerEnabled)
-//        {
-//            ms_bProfilerEnabled = bProfilerEnabled;
-//        }
+        //        /**
+        //        by default, logging is enable. it can be enabled by this function.
+        //
+        //        when enabled, it is written to the log file.
+        //        when disabled, it is not written to the log file however, it is still sent to the network
+        //        */
+        //        public static void SetEnabled(bool bEnabled)
+        //        {
+        //            ms_bEnabled = bEnabled;
+        //        }
+        //
+        //
+        //        /**
+        //        */
+        //        public static void SetProfilerEnabled(bool bProfilerEnabled)
+        //        {
+        //            ms_bProfilerEnabled = bProfilerEnabled;
+        //        }
 
-		/**
+        /**
         by default, the log file is flushed every logging.
         */
-		public static void SetFlush(bool bFlush)
-		{
+
+        public static void SetFlush(bool bFlush)
+        {
 #if !BEHAVIAC_RELEASE
-			if (Config.IsLogging)
-			{
+            if (Config.IsLogging)
+            {
                 ms_bFlush = bFlush;
             }
 #endif
         }
-        
+
         //action
         public static void Log(Agent pAgent, string btMsg, EActionResult actionResult, LogMode mode)
         {
@@ -135,7 +138,7 @@ namespace behaviac
                         if (mode == LogMode.ELM_continue)
                         {
                             //[continue]Ship.Ship_1 ships\suicide.xml.BehaviorTreeTask[0]:enter [all/success/failure] [1]
-							int count = Workspace.GetActionCount(btMsg);
+                            int count = Workspace.GetActionCount(btMsg);
                             Debug.Check(count > 0);
                             string buffer = string.Format("[continue]{0} {1} [{2}] [{3}]\n", agentName, btMsg, actionResultStr, count);
 
@@ -145,7 +148,7 @@ namespace behaviac
                         else if (mode == LogMode.ELM_breaked)
                         {
                             //[breaked]Ship.Ship_1 ships\suicide.xml.BehaviorTreeTask[0]:enter [all/success/failure] [1]
-							int count = Workspace.GetActionCount(btMsg);
+                            int count = Workspace.GetActionCount(btMsg);
                             Debug.Check(count > 0);
                             string buffer = string.Format("[breaked]{0} {1} [{2}] [{3}]\n", agentName, btMsg, actionResultStr, count);
 
@@ -344,7 +347,6 @@ namespace behaviac
                 string buffer = string.Format(format, args);
 
                 Output(null, buffer);
-                SocketUtils.SendWorkspace(buffer);
             }
 #endif
         }
@@ -394,7 +396,6 @@ namespace behaviac
                 }
                 catch
                 {
-
                 }
             }
 #endif
@@ -485,5 +486,4 @@ namespace behaviac
         private static bool ms_bFlush = true;
 #endif
     };
-
 }//namespace behaviac

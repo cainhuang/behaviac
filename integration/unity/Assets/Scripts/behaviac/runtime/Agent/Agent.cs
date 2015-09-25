@@ -424,11 +424,11 @@ namespace behaviac
                     int contextId = this.GetContextId();
                     Context c = Context.GetContext(contextId);
 
-					c.SetStaticVariable(pMember, variableName, value, staticClassName, variableId);
+					c.SetStaticVariableObject(pMember, variableName, value, staticClassName, variableId);
                 }
                 else
                 {
-					this.Variables.Set(this, pMember, variableName, value, variableId);
+					this.Variables.SetObject(this, pMember, variableName, value, variableId);
                 }
             }
         }
@@ -1149,20 +1149,34 @@ namespace behaviac
         it is invalid to call GetVariable<Type>("par_name") before exec the BT or SetVariableGetVariable<Type>("par_name") 
         as "par_name" would not had been created then
         */
-        public object GetVariable(string variableName)
+        public VariableType GetVariable<VariableType>(string variableName)
         {
 			uint varId = Utils.MakeVariableId (variableName);
-			object v = this.Variables.Get(this, varId);
+            VariableType v = this.Variables.Get<VariableType>(this, varId);
 
             return v;
         }
+        public object GetVariableObject(string variableName)
+        {
+            uint varId = Utils.MakeVariableId(variableName);
+            object v = this.Variables.GetObject(this, varId);
 
-		public object GetVariable(uint variableId)
+            return v;
+        }
+        public VariableType GetVariable<VariableType>(uint variableId)
 		{
-			object v = this.Variables.Get(this, variableId);
+            VariableType v = this.Variables.Get<VariableType>(this, variableId);
 			
 			return v;
 		}
+
+        public object GetVariableObject(uint variableId)
+        {
+            Debug.Check(false);
+
+            //object v = this.Variables.GetObject(this, variableId);
+            return null;
+        }
 
         public void SetVariable<VariableType>(string variableName, VariableType value)
         {

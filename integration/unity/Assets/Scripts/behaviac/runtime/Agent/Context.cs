@@ -212,7 +212,27 @@ namespace behaviac
 
             m_namedAgents.Clear();
         }
+        /// <summary>
+        /// if the caller's third parameter's type is object
+        /// </summary>
+        /// <param name="pMember"></param>
+        /// <param name="variableName"></param>
+        /// <param name="value"></param>
+        /// <param name="staticClassName"></param>
+        /// <param name="variableId"></param>
+        public void SetStaticVariableObject(CMemberBase pMember, string variableName, object value, string staticClassName, uint variableId)
+        {
+            Debug.Check(!string.IsNullOrEmpty(variableName));
+            Debug.Check(!string.IsNullOrEmpty(staticClassName));
 
+            if (!m_static_variables.ContainsKey(staticClassName))
+            {
+                m_static_variables[staticClassName] = new Variables();
+            }
+
+            Variables variables = m_static_variables[staticClassName];
+            variables.SetObject(null, pMember, variableName, value, variableId);
+        }
         /**
         if staticClassName is no null, it is for static variable
         */
