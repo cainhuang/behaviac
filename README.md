@@ -114,4 +114,4 @@ Linux, Android, iOS, Unity等）。
 
 更多细节可以参考文件夹docs中附带的文档。
 
-可以通过如下链接观看教学视频 : [http://gad.qq.com/tool/detail?id=2](http://gad.qq.com/tool/detail?id=2).
+可以通过如下链接观看教学视频 : [http://gad.qq.com/tool/detail/2](http://gad.qq.com/tool/detail/2).
