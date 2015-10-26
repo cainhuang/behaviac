@@ -1,5 +1,3 @@
 HTN
 
 FSM
-
-time:2015
