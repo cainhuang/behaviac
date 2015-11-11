@@ -1058,12 +1058,9 @@ void CFileSystem::GetModifiedFiles(behaviac::vector<behaviac::string>& modifiedF
 		BEHAVIAC_ASSERT(s_csDirs);
 		CXCritSec::CLocker locker(s_csDirs);
 		std::sort(s_ModifiedFiles.begin(), s_ModifiedFiles.end());
-		std::unique(s_ModifiedFiles.begin(), s_ModifiedFiles.end());
+		s_ModifiedFiles.erase(std::unique(s_ModifiedFiles.begin(), s_ModifiedFiles.end()), s_ModifiedFiles.end());
 		for (unsigned int i = 0; i < s_ModifiedFiles.size(); ++i)
-		{
-			behaviac::string file = behaviac::StringUtils::Wide2Char(s_ModifiedFiles[i]);
-			modifiedFiles.push_back(file);
-		}
+			modifiedFiles.push_back(behaviac::StringUtils::Wide2Char(s_ModifiedFiles[i]));
 		s_ModifiedFiles.clear();
 	}
 }
