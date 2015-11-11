@@ -421,12 +421,11 @@ namespace behaviac
 		{
 			this->UnInstantiatePars(pAgent);
 		}
-		else
-		{
-			//BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
 
-			CHECK_BREAKPOINT(pAgent, this, "enter", bResult ? EAR_success : EAR_failure);
-		}
+		//BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
+
+		CHECK_BREAKPOINT(pAgent, this, "enter", bResult ? EAR_success : EAR_failure);
+		
 
 		return bResult;
 	}
