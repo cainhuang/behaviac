@@ -661,7 +661,7 @@ void CFileSystem::GetModifiedFiles(behaviac::vector<behaviac::string>& modifiedF
 
 	pthread_mutex_lock(&s_mutex);
 	std::sort(s_ModifiedFiles.begin(), s_ModifiedFiles.end());
-	std::unique(s_ModifiedFiles.begin(), s_ModifiedFiles.end());
+	s_ModifiedFiles.erase(std::unique(s_ModifiedFiles.begin(), s_ModifiedFiles.end()), s_ModifiedFiles.end());
 	s_ModifiedFiles.swap(modifiedFiles);
 	pthread_mutex_unlock(&s_mutex);
 }
