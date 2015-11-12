@@ -568,10 +568,9 @@ namespace StringUtils
     // Removes the full extension of a file (ie.: ".meta.inc.xml").
     inline void StripFullFileExtension(behaviac::string& strFileName)
     {
-		int dotPos = -1;
 		while (true)
 		{
-			dotPos = (int)strFileName.find('.', dotPos + 1);
+			int dotPos = (int)strFileName.find('.');
 			if (dotPos < 0)
 				break;
 

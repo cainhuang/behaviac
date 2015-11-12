@@ -208,6 +208,11 @@ namespace behaviac
 		ms_deltaFrames = deltaFrames;
 		ms_fileFormat = format;
 
+#if BEHAVIAC_ENABLE_HOTRELOAD
+		behaviac::wstring dir = behaviac::StringUtils::Char2Wide(workspaceExportPath);
+		CFileSystem::StartMonitoringDirectory(dir.c_str());
+#endif//BEHAVIAC_ENABLE_HOTRELOAD
+
 		//debug to test bson
 		//ms_fileFormat = EFF_bson;
 		//a valid workspace file
@@ -788,8 +793,6 @@ namespace behaviac
 	{
 		BEHAVIAC_UNUSED_VAR(enable);
 #if BEHAVIAC_ENABLE_HOTRELOAD
-		if (enable)
-			CFileSystem::StartMonitoringDirectory(ms_workspace_export_path);
 		ms_AutoHotReload = enable;
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
 	}
@@ -809,7 +812,7 @@ namespace behaviac
 		if (!ms_allBehaviorTreeTasks)
 			return;
 
-		behaviac::vector<behaviac::string> modifiedFiles;
+		behaviac::vector<behaviac::wstring> modifiedFiles;
 		CFileSystem::GetModifiedFiles(modifiedFiles);
 		uint32_t fileCount = modifiedFiles.size();
 
@@ -819,7 +822,8 @@ namespace behaviac
 
 			for (uint32_t i = 0; i < fileCount; ++i )
 			{
-				behaviac::string relativePath = modifiedFiles[i];
+				behaviac::wstring modifiedFile = modifiedFiles[i];
+				behaviac::string relativePath = behaviac::StringUtils::Wide2Char(modifiedFile);
 
 				const char* format = behaviac::StringUtils::FindFullExtension(relativePath.c_str());
 				if (format != 0 && (((f & EFF_xml) == EFF_xml && 0 == strcmp(format, "xml")) ||
