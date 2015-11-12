@@ -1000,9 +1000,9 @@ DWORD WINAPI ThreadFunc(LPVOID lpvd)
 	return 0;
 }
 
-bool CFileSystem::StartMonitoringDirectory(const wchar_t* dir)
+bool CFileSystem::StartMonitoringDirectory(const char* dir)
 {
-	BEHAVIAC_UNUSED_VAR(dir);
+	behaviac::wstring wdir = behaviac::StringUtils::Char2Wide(dir);
 
 	s_pFileSysMon = BEHAVIAC_NEW CFileSysMon;
 	BEHAVIAC_ASSERT(s_pFileSysMon);
@@ -1010,7 +1010,7 @@ bool CFileSystem::StartMonitoringDirectory(const wchar_t* dir)
 	if (!s_pFileSysMon->Init())
 		return false;
 
-	if (s_pFileSysMon->SetDir(dir) != E_FILESYSMON_SUCCESS)
+	if (s_pFileSysMon->SetDir(wdir.c_str()) != E_FILESYSMON_SUCCESS)
 		return false;
 
 	s_csDirs = BEHAVIAC_NEW CXCritSec;
@@ -1051,33 +1051,16 @@ void CFileSystem::StopMonitoringDirectory()
 	}
 }
 
-void CFileSystem::GetModifiedFiles(behaviac::vector<behaviac::wstring>& modifiedFiles)
+void CFileSystem::GetModifiedFiles(behaviac::vector<behaviac::string>& modifiedFiles)
 {
-	BEHAVIAC_UNUSED_VAR(modifiedFiles);
-
 	if (s_ModifiedFiles.size() > 0)
 	{
 		BEHAVIAC_ASSERT(s_csDirs);
 		CXCritSec::CLocker locker(s_csDirs);
-
+		std::sort(s_ModifiedFiles.begin(), s_ModifiedFiles.end());
+		s_ModifiedFiles.erase(std::unique(s_ModifiedFiles.begin(), s_ModifiedFiles.end()), s_ModifiedFiles.end());
 		for (unsigned int i = 0; i < s_ModifiedFiles.size(); ++i)
-		{
-			bool isAdded = false;
-			for (unsigned int k = 0; k < modifiedFiles.size(); ++k)
-			{
-				if (modifiedFiles[k] == s_ModifiedFiles[i])
-				{
-					isAdded = true;
-					break;
-				}
-			}
-
-			if (!isAdded)
-			{
-				modifiedFiles.push_back(s_ModifiedFiles[i]);
-			}
-		}
-
+			modifiedFiles.push_back(behaviac::StringUtils::Wide2Char(s_ModifiedFiles[i]));
 		s_ModifiedFiles.clear();
 	}
 }
