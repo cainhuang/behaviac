@@ -171,9 +171,9 @@ public:
 
     static void ReadError(Handle);
 
-    static bool StartMonitoringDirectory(const char* dir);
+    static bool StartMonitoringDirectory(const wchar_t* dir);
     static void StopMonitoringDirectory();
-    static void GetModifiedFiles(behaviac::vector<behaviac::string>& modifiedFiles);
+    static void GetModifiedFiles(behaviac::vector<behaviac::wstring>& modifiedFiles);
 };
 
 #endif // #ifndef _CORE_FILESYSTEM_NATIVE_H_
