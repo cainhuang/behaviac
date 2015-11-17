@@ -29,60 +29,61 @@ CFileManager* CFileManager::ms_pInstance;
 
 void CFileManager::_SetInstance(CFileManager* pInstance)
 {
-	BEHAVIAC_ASSERT(ms_pInstance == 0);
-	//if created by me, can't _SetInstance(0)
-	BEHAVIAC_ASSERT(!ms_bCreatedByMe);
-	CFileManager::ms_pInstance = pInstance;
+    BEHAVIAC_ASSERT(ms_pInstance == 0);
+    //if created by me, can't _SetInstance(0)
+    BEHAVIAC_ASSERT(!ms_bCreatedByMe);
+    CFileManager::ms_pInstance = pInstance;
 }
 
 CFileManager* CFileManager::_GetInstance()
 {
-	CFileManager* pInstance = CFileManager::ms_pInstance;
+    CFileManager* pInstance = CFileManager::ms_pInstance;
 
-	if (!pInstance)
-	{
-		pInstance = BEHAVIAC_NEW CFileManager;
-		ms_bCreatedByMe = true;
-	}
+    if (!pInstance)
+    {
+        pInstance = BEHAVIAC_NEW CFileManager;
+        ms_bCreatedByMe = true;
+    }
 
-	return pInstance;
+    return pInstance;
 }
 
 CFileManager::CFileManager()
 {
-#if BEHAVIAC_COMPILER_ANDROID && (BEHAVIAC_COMPILER_ANDROID_VER > 8)    
-    m_mgr = 0;    
+#if BEHAVIAC_COMPILER_ANDROID && (BEHAVIAC_COMPILER_ANDROID_VER > 8)
+    m_mgr = 0;
 #endif//#if BEHAVIAC_COMPILER_ANDROID && (BEHAVIAC_COMPILER_ANDROID_VER > 8)
-    
-	CFileManager::_SetInstance(this);
+
+    CFileManager::_SetInstance(this);
 }
 
 CFileManager::~CFileManager()
 {
-	BEHAVIAC_ASSERT(ms_pInstance == this);
-	ms_pInstance = 0;
-	ms_bCreatedByMe = false;
+    BEHAVIAC_ASSERT(ms_pInstance == this);
+    ms_pInstance = 0;
+    ms_bCreatedByMe = false;
 }
 
 void CFileManager::Cleanup()
 {
-	if (ms_pInstance && ms_bCreatedByMe)
-	{
-		BEHAVIAC_DELETE(ms_pInstance);
-	}
+    if (ms_pInstance && ms_bCreatedByMe)
+    {
+        BEHAVIAC_DELETE(ms_pInstance);
+    }
 
-	//BEHAVIAC_ASSERT(ms_pInstance == 0);
+    //BEHAVIAC_ASSERT(ms_pInstance == 0);
 }
-
 
 IFile* CFileManager::FileOpen(const char* fileName, CFileSystem::EOpenAccess iOpenAccess)
 {
     bool onRemovableDevice = false;
 
     CFileSystem::Handle hFile = CFileSystem::OpenCreateFile(fileName, iOpenAccess);
+
     if (hFile != FILE_SYSTEM_INVALID_HANDLE)
     {
         return BEHAVIAC_NEW CPhysicalFile(hFile, onRemovableDevice);
+
     }
     else
     {
@@ -90,30 +91,20 @@ IFile* CFileManager::FileOpen(const char* fileName, CFileSystem::EOpenAccess iOp
     }
 }
 
-
 void CFileManager::FileClose(IFile* file)
 {
     BEHAVIAC_DELETE(file);
 }
-
+bool CFileManager::FileExists(behaviac::string filePath, behaviac::string ext)
+{
+    behaviac::string strFilename = filePath + ext;
+    return this->FileExists(strFilename.c_str());
+}
 bool CFileManager::FileExists(const char* fileName)
 {
-    bool isFullPath = CFileSystem::isFullPath(fileName);
-
-    // File was not found in an archive, try the data folder
-    if (isFullPath)
+    if (CFileSystem::FileExist(fileName))
     {
-        if (CFileSystem::FileExist(fileName))
-        {
-            return true;
-        }
-    }
-    else
-    {
-        if (CFileSystem::FileExist(fileName))
-        {
-            return true;
-        }
+        return true;
     }
 
     return false;
@@ -122,14 +113,16 @@ bool CFileManager::FileExists(const char* fileName)
 behaviac::wstring CFileManager::GetCurrentWorkingDirectory()
 {
 #if BEHAVIAC_COMPILER_MSVC
-	wchar_t dir[BEHAVIAC_CFG_FILENAME_MAXLENGTH];
-	if (::GetCurrentDirectoryW(BEHAVIAC_CFG_FILENAME_MAXLENGTH, dir))
-	{
-		return dir;
-	}
+    wchar_t dir[BEHAVIAC_CFG_FILENAME_MAXLENGTH];
+
+    if (::GetCurrentDirectoryW(BEHAVIAC_CFG_FILENAME_MAXLENGTH, dir))
+    {
+        return dir;
+    }
+
 #endif
 
-	return L"";
+    return L"";
 }
 
 uint64_t CFileManager::FileGetSize(const char* fileName)
@@ -137,7 +130,7 @@ uint64_t CFileManager::FileGetSize(const char* fileName)
     uint64_t fileSize = 0;
     CFileSystem::SFileInfo fileInfo;
 
-	if (CFileSystem::GetFileInfo(fileName, fileInfo))
+    if (CFileSystem::GetFileInfo(fileName, fileInfo))
     {
         fileSize = fileInfo.fileSize;
     }
@@ -148,14 +141,15 @@ uint64_t CFileManager::FileGetSize(const char* fileName)
 //
 bool CFileManager::PathIsRelative(const behaviac::string& path)
 {
-	//return path.length() > 2 && path[0] == '.' && path[1] == '.' && (path[2] == '/' || path[2] == '\\');
-	return path.length() > 2 && path[1] != ':' ;
+    //return path.length() > 2 && path[0] == '.' && path[1] == '.' && (path[2] == '/' || path[2] == '\\');
+    return path.length() > 2 && path[1] != ':';
 }
 
 void CFileManager::FormatPath(const char* fileNameToConvert, char* fileNameOut) const
 {
-    const char * initialValue = fileNameToConvert;
-	BEHAVIAC_UNUSED_VAR(initialValue);
+    const char* initialValue = fileNameToConvert;
+    BEHAVIAC_UNUSED_VAR(initialValue);
+
     if (*fileNameToConvert == '\\')
     {
         // If we have a network path, keep the first of the two separators at the beginning instead of skipping it.
@@ -163,6 +157,7 @@ void CFileManager::FormatPath(const char* fileNameToConvert, char* fileNameOut) 
         {
             *(fileNameOut++) = *(fileNameToConvert++);
             *(fileNameOut++) = *(fileNameToConvert++);
+
         }
         else
         {
@@ -183,6 +178,7 @@ void CFileManager::FormatPath(const char* fileNameToConvert, char* fileNameOut) 
         if (*fileNameToConvert == '/')
         {
             *fileNameOut = '\\';
+
         }
         else
         {
@@ -192,7 +188,6 @@ void CFileManager::FormatPath(const char* fileNameToConvert, char* fileNameOut) 
 
     *fileNameOut = '\0';
 }
-
 
 //This function only substract the root path from the relative path in an non case sentive way
 //The function return NULL if the full path is not in the root path
@@ -206,6 +201,7 @@ const char* CFileManager::MakeRelativePath(const char* szFullPath, const char* s
             {
                 szFullPath++;
                 szRootPath++;
+
             }
             else
             {
@@ -216,4 +212,3 @@ const char* CFileManager::MakeRelativePath(const char* szFullPath, const char* s
 
     return szFullPath;
 }
-

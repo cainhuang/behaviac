@@ -40,14 +40,6 @@ namespace PluginBehaviac.Nodes
             get { return false; }
         }
 
-        //protected bool _negate = false;
-        //[DesignerBoolean("ConditionNegate", "ConditionNegateDesc", "Condition", DesignerProperty.DisplayMode.List, -10, DesignerProperty.DesignerFlags.NoFlags)]
-        //public bool Negate
-        //{
-        //    get { return _negate; }
-        //    set { _negate = value; }
-        //}
-
         private RightValueDef _opl;
         [DesignerRightValueEnum("OperandLeft", "OperandLeftDesc", "Condition", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.AttributesMethod, MethodType.Getter, "", "Opr")]
         public RightValueDef Opl
@@ -64,27 +56,31 @@ namespace PluginBehaviac.Nodes
             set { _operator = value; }
         }
 
-        private VariableDef _opr;
-        [DesignerPropertyEnum("OperandRight", "OperandRightDesc", "Condition", DesignerProperty.DisplayMode.Parameter, 2, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributes, "Opl", "")]
-        public VariableDef Opr
+        private RightValueDef _opr;
+        [DesignerRightValueEnum("OperandRight", "OperandRightDesc", "Condition", DesignerProperty.DisplayMode.Parameter, 2, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "Opl", "")]
+        public RightValueDef Opr
         {
             get { return _opr; }
             set { this._opr = value; }
         }
 
-        public override void ResetMembers(AgentType agentType, bool resetPar)
+        public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null)
         {
-            if (this.Opl != null && this.Opl.ShouldBeReset(agentType, resetPar))
+            bool bReset = false;
+
+            if (this.Opl != null)
             {
-                this.Opl = null;
+                bReset |= this.Opl.ResetMembers(check, agentType, clear, method, property);
             }
 
-            if (this.Opr != null && this.Opr.ShouldBeReset(agentType, resetPar))
+            if (this.Opr != null)
             {
-                this.Opr = null;
+                bReset |= this.Opr.ResetMembers(check, agentType, clear, method, property);
             }
 
-            base.ResetMembers(agentType, resetPar);
+            bReset |= base.ResetMembers(check, agentType, clear, method, property);
+
+            return bReset;
         }
 
         public override string Description
@@ -113,6 +109,8 @@ namespace PluginBehaviac.Nodes
 
         public override object[] GetExcludedEnums(DesignerEnum enumAttr)
         {
+            //List<object> excludedOperatorsResult = new List<object>() { OperatorType.Assignment, OperatorType.In };
+            List<object> excludedOperatorsResult = new List<object>() { OperatorType.Assignment };
             if (enumAttr != null && enumAttr.ExcludeTag == "ConditionOperaptor")
             {
                 if (this.Opl != null)
@@ -121,19 +119,17 @@ namespace PluginBehaviac.Nodes
                     {
                         //and and or are only valid for bool, so to exclude and and or when the type is not bool
                         object[] excludedOperators = new object[] { OperatorType.And, OperatorType.Or };
-
-                        return excludedOperators;
+                        excludedOperatorsResult.AddRange(excludedOperators);
                     }
                     else if (this.Opl.ValueType == typeof(bool))
                     {
                         object[] excludedOperators = new object[] { OperatorType.Greater, OperatorType.GreaterEqual, OperatorType.Less, OperatorType.LessEqual };
-
-                        return excludedOperators;
+                        excludedOperatorsResult.AddRange(excludedOperators);
                     }
                 }
             }
 
-            return null;
+            return excludedOperatorsResult.ToArray();
         }
 
         protected override void CloneProperties(Node newnode)
@@ -142,12 +138,11 @@ namespace PluginBehaviac.Nodes
 
             Condition prec = (Condition)newnode;
 
-            //prec._negate = _negate;
+            prec._operator = _operator;
             if (_opl != null)
                 prec._opl = (RightValueDef)_opl.Clone();
             if (_opr != null)
-                prec._opr = (VariableDef)_opr.Clone();
-            prec._operator = _operator;
+                prec._opr = (RightValueDef)_opr.Clone();
         }
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
@@ -159,8 +154,14 @@ namespace PluginBehaviac.Nodes
             else if (this.Opl.ValueType != typeof(bool) && 
                 (this.Operator == OperatorType.And || this.Operator == OperatorType.Or))
             {
-                //and and or are only valid for bool
+                // And and Or are only valid for bool
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.AndOrOnlyValidForBool));
+            }
+
+            if (this.Opl != null && this.Opl.IsMethod && this.Opl.Method != null && this.Opl.Method.IsCustomized ||
+                this.Opr != null && this.Opr.IsMethod && this.Opr.Method != null && this.Opr.Method.IsCustomized)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.CustomizedMethodError));
             }
 
             base.CheckForErrors(rootBehavior, result);

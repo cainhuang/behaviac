@@ -26,11 +26,11 @@ namespace PluginBehaviac.Nodes
     [NodeDesc("Actions", NodeIcon.Query)]
     class Query : Behaviac.Design.Nodes.Node
 	{
-        //bool _acceptsEvents = false;
+        protected ConnectorSingle _requery;
         public Query()
             : base(Resources.Query, Resources.QueryDesc)
 		{
-            //_acceptsEvents = true;
+            _requery = new ConnectorSingle(_children, Resources.Requery, Connector.kInterupt);
 		}
 
         public override string ExportClass
@@ -91,16 +91,6 @@ namespace PluginBehaviac.Nodes
             get { return _descriptors; }
             set { this._descriptors = value; }
         }
-
-        //public override bool AcceptsAttachment(Type type)
-        //{
-        //    if (_acceptsEvents)
-        //    {
-        //        return type.IsSubclassOf(typeof(Behaviac.Design.Attachments.Predicate));
-        //    }
-
-        //    return false;
-        //}
 
         protected override void CloneProperties(Node newnode)
         {

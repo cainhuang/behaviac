@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -15,59 +15,63 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Behaviac.Design;
 
 namespace PluginBehaviac.DataExporters
 {
     public class PropertyCppExporter
     {
-        public static string GenerateCode(Behaviac.Design.PropertyDef property, StreamWriter stream, string indent, string typename, string var, string caller)
+        public static string GenerateCode(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, bool isRefParam, StreamWriter stream, string indent, string typename, string var, string caller)
         {
-            string agentName = getGenerateAgentName(property, var, caller);
-            if (property.Owner != Behaviac.Design.VariableDef.kSelf)
-            {
-                stream.WriteLine("{0}Agent* {1} = Agent::GetInstance(\"{2}\", pAgent->GetContextId());", indent, agentName, property.Owner);
-                stream.WriteLine("{0}BEHAVIAC_ASSERT({1});", indent, agentName);
-            }
+            if (property.IsPar || property.IsCustomized)
+                return ParInfoCppExporter.GenerateCode(property, isRefParam, stream, indent, typename, var, caller);
 
-            //string retStr = string.Format("(({0}*){1})->{2}", property.ClassName, agentName, property.Name);
-            string propName = property.Name.Replace("::", "_");
-            string nativeType = DataCppExporter.GetGeneratedNativeType(property.NativeType);
-            string retStr = string.Format("(({0}*){1})->_Get_Property_<{2}PROPERTY_TYPE_{3}, {4} >()", property.ClassName, agentName, getNamespace(property.ClassName), propName, nativeType);
+            string prop = GetProperty(property, arrayIndexElement, stream, indent, var, caller);
 
             if (!string.IsNullOrEmpty(var))
             {
                 if (string.IsNullOrEmpty(typename))
                 {
-                    stream.WriteLine("{0}{1} = {2};", indent, var, retStr);
+                    stream.WriteLine("{0}{1} = {2};", indent, var, prop);
                 }
                 else
                 {
-                    stream.WriteLine("{0}{1}& {2} = {3};", indent, DataCppExporter.GetGeneratedNativeType(property.NativeType), var, retStr);
+                    stream.WriteLine("{0}{1} {2} = {3};", indent, DataCppExporter.GetGeneratedNativeType(property.NativeType), var, prop);
                 }
             }
 
-            return retStr;
+            return prop;
         }
 
         public static void PostGenerateCode(Behaviac.Design.PropertyDef property, StreamWriter stream, string indent, string typename, string var, string caller, string setValue = null)
         {
-            string[] name = property.Name.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            if (name.Length > 0)
+            if (property.IsPar || property.IsCustomized)
             {
-                string agentName = getGenerateAgentName(property, var, caller);
-                string prop = setValue;
-                if (setValue == null)
+                ParInfoCppExporter.PostGenerateCode(property, stream, indent, typename, var, caller);
+                return;
+            }
+
+            string agentName = GetGenerateAgentName(property, var, caller);
+            string prop = setValue;
+            if (setValue == null)
+            {
+                if (property.IsPublic)
                 {
-                    //string prop = string.Format("(({0}*){1})->{2}", property.ClassName, agentName, property.Name);
+                    prop = string.Format("(({0}*){1})->{2}", property.ClassName, agentName, property.BasicName);
+                }
+                else
+                {
                     string propName = property.Name.Replace("::", "_");
+                    propName = propName.Replace("[]", "");
                     string nativeType = DataCppExporter.GetGeneratedNativeType(property.NativeType);
                     prop = string.Format("(({0}*){1})->_Get_Property_<{2}PROPERTY_TYPE_{3}, {4} >()", property.ClassName, agentName, getNamespace(property.ClassName), propName, nativeType);
                 }
-
-                uint id = Behaviac.Design.CRC32.CalcCRC(name[name.Length - 1]);
-                stream.WriteLine("{0}BEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, name[name.Length - 1], id);
-                stream.WriteLine("{0}{1}->SetVariable(\"{2}\", {3}, {4}u);", indent, agentName, name[name.Length - 1], prop, id);
             }
+
+            string propBasicName = property.BasicName.Replace("[]", "");
+            uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+            stream.WriteLine("{0}BEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
+            stream.WriteLine("{0}{1}->SetVariable(\"{2}\", {3}, {4}u);", indent, agentName, propBasicName, prop, id);
         }
 
         private static string getNamespace(string className)
@@ -82,7 +86,7 @@ namespace PluginBehaviac.DataExporters
             return string.Empty;
         }
 
-        private static string getGenerateAgentName(Behaviac.Design.PropertyDef property, string var, string caller)
+        public static string GetGenerateAgentName(Behaviac.Design.PropertyDef property, string var, string caller)
         {
             string agentName = "pAgent";
             if (property.Owner != Behaviac.Design.VariableDef.kSelf)
@@ -91,6 +95,48 @@ namespace PluginBehaviac.DataExporters
                 agentName = agentName.Replace(".", "_");
             }
             return agentName;
+        }
+
+        private static string getProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, string agentName, StreamWriter stream, string indent)
+        {
+            if (property.IsPar || property.IsCustomized)
+                return ParInfoCppExporter.GetProperty(property, arrayIndexElement, stream, indent);
+
+            string propName = DataCppExporter.GetPropertyBasicName(property, arrayIndexElement);
+            string nativeType = DataCppExporter.GetPropertyNativeType(property, arrayIndexElement);
+
+            if (property.IsPublic)
+            {
+                string className = property.ClassName;
+
+                if (property.IsStatic)
+                {
+                    return string.Format("{0}::{1}", className, propName);
+                }
+                else
+                {
+                    return string.Format("(({0}*){1})->{2}", className, agentName, propName);
+                }
+            }
+
+            propName = property.Name.Replace("::", "_");
+            propName = propName.Replace("[]", "");
+            return string.Format("(({0}*){1})->_Get_Property_<{2}PROPERTY_TYPE_{3}, {4} >()", property.ClassName, agentName, getNamespace(property.ClassName), propName, nativeType);
+        }
+
+        public static string GetProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent, string var, string caller)
+        {
+            string agentName = GetGenerateAgentName(property, var, caller);
+
+            if (property.Owner != Behaviac.Design.VariableDef.kSelf)
+            {
+                stream.WriteLine("{0}Agent* {1} = Agent::GetInstance(\"{2}\", pAgent->GetContextId());", indent, agentName, property.Owner);
+                stream.WriteLine("{0}BEHAVIAC_ASSERT({1});", indent, agentName);
+            }
+
+            string prop = getProperty(property, arrayIndexElement, agentName, stream, indent);
+
+            return prop;
         }
     }
 }

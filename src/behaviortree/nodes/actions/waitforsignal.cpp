@@ -16,95 +16,85 @@
 
 namespace behaviac
 {
-	WaitforSignal::WaitforSignal()
-	{}
+    WaitforSignal::WaitforSignal()
+    {}
 
-	WaitforSignal::~WaitforSignal()
-	{}
+    WaitforSignal::~WaitforSignal()
+    {}
 
-	void WaitforSignal::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void WaitforSignal::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool WaitforSignal::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!WaitforSignal::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool WaitforSignal::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!WaitforSignal::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	BehaviorTask* WaitforSignal::createTask() const
-	{
-		WaitforSignalTask* pTask = BEHAVIAC_NEW WaitforSignalTask();
-		
+        return super::IsValid(pAgent, pTask);
+    }
+    bool WaitforSignal::CheckIfSignaled(const Agent* pAgent)
+    {
+        bool ret = this->EvaluteCustomCondition(pAgent);
+        return ret;
+    }
+    BehaviorTask* WaitforSignal::createTask() const
+    {
+        WaitforSignalTask* pTask = BEHAVIAC_NEW WaitforSignalTask();
 
-		return pTask;
-	}
+        return pTask;
+    }
 
-	void WaitforSignalTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
-	}
+    void WaitforSignalTask::Init(const BehaviorNode* node)
+    {
+        super::Init(node);
+    }
 
+    WaitforSignalTask::~WaitforSignalTask()
+    {
+    }
 
-	WaitforSignalTask::~WaitforSignalTask()
-	{
-	}
+    void WaitforSignalTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
 
-	void WaitforSignalTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
+        BEHAVIAC_ASSERT(WaitforSignalTask::DynamicCast(target));
+        WaitforSignalTask* ttask = (WaitforSignalTask*)target;
 
-		BEHAVIAC_ASSERT(WaitforSignalTask::DynamicCast(target));
-		WaitforSignalTask* ttask = (WaitforSignalTask*)target;
+        ttask->m_bTriggered = this->m_bTriggered;
+    }
 
-		ttask->m_bTriggered = this->m_bTriggered;
-	}
+    void WaitforSignalTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
 
-	void WaitforSignalTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  triggeredId("triggered");
+            node->setAttr(triggeredId, this->m_bTriggered);
+        }
+    }
 
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  triggeredId("triggered");
-			node->setAttr(triggeredId, this->m_bTriggered);
-		}
-	}
+    void WaitforSignalTask::load(ISerializableNode* node)
+    {
+        super::load(node);
 
-	void WaitforSignalTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  triggeredId("triggered");
-			behaviac::string attrStr;
-			node->getAttr(triggeredId, attrStr);
-			StringUtils::FromString(attrStr.c_str(), this->m_bTriggered);
-		}
-	}
-
-	bool WaitforSignalTask::CheckPredicates(Agent* pAgent)
-	{
-		//when there are no predicates, not triggered
-		bool bTriggered = false;
-		if (this->m_attachments)
-		{
-			bTriggered = super::CheckPredicates(pAgent);
-		}
-
-		return bTriggered;
-	}
-
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  triggeredId("triggered");
+            behaviac::string attrStr;
+            node->getAttr(triggeredId, attrStr);
+            StringUtils::FromString(attrStr.c_str(), this->m_bTriggered);
+        }
+    }
 
     bool WaitforSignalTask::onenter(Agent* pAgent)
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
-		this->m_bTriggered = false;
+        this->m_bTriggered = false;
 
         return true;
     }
@@ -115,33 +105,31 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(s);
     }
 
+    EBTStatus WaitforSignalTask::update(Agent* pAgent, EBTStatus childStatus)
+    {
+        if (childStatus != BT_RUNNING)
+        {
+            return childStatus;
+        }
 
+        if (!this->m_bTriggered)
+        {
+            WaitforSignal* node = (WaitforSignal*)this->m_node;
+            this->m_bTriggered = node->CheckIfSignaled(pAgent);
+        }
 
-	EBTStatus WaitforSignalTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-		if (childStatus != BT_RUNNING)
-		{
-			return childStatus;
-		}
+        if (this->m_bTriggered)
+        {
+            if (!this->m_root)
+            {
+                return BT_SUCCESS;
+            }
 
-		if (!this->m_bTriggered)
-		{
-			this->m_bTriggered = this->CheckPredicates(pAgent);
-		}
+            EBTStatus status = super::update(pAgent, childStatus);
 
-		if (this->m_bTriggered)
-		{
-			if (!this->m_root)
-			{
-				return BT_SUCCESS;
-			}
+            return status;
+        }
 
-			EBTStatus status = super::update(pAgent, childStatus);
-
-			return status;
-		}
-
-		return BT_RUNNING;
-	}
-
+        return BT_RUNNING;
+    }
 }

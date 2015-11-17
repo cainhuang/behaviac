@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public DecoratorNot()
         {
-		}
+        }
+
         ~DecoratorNot()
         {
         }
@@ -41,18 +40,24 @@ namespace behaviac
             return base.IsValid(pAgent, pTask);
         }
 
+        public override bool Evaluate(Agent pAgent)
+        {
+            Debug.Check(this.m_children.Count == 1);
+            bool ret = this.m_children[0].Evaluate(pAgent);
+            return !ret;
+        }
+
         protected override BehaviorTask createTask()
         {
             DecoratorNotTask pTask = new DecoratorNotTask();
 
-
             return pTask;
         }
 
-
-        class DecoratorNotTask : DecoratorTask
+        private class DecoratorNotTask : DecoratorTask
         {
-            public DecoratorNotTask() : base()
+            public DecoratorNotTask()
+                : base()
             {
             }
 
@@ -65,6 +70,7 @@ namespace behaviac
             {
                 base.save(node);
             }
+
             public override void load(ISerializableNode node)
             {
                 base.load(node);

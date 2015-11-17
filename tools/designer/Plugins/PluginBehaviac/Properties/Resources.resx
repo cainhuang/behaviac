@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -343,7 +343,7 @@
     <value>Weight</value>
   </data>
   <data name="SelectorLoop" xml:space="preserve">
-    <value>SelectorLoop</value>
+    <value>SelectorMonitor</value>
   </data>
   <data name="SelectorLoopDesc" xml:space="preserve">
     <value>Dynamic Selector, it keep selecting from the children nodes until one succeeds.</value>
@@ -394,7 +394,7 @@
     <value>Precondition</value>
   </data>
   <data name="ImpulseWithoutEventError" xml:space="preserve">
-    <value>no event</value>
+    <value>no signal specified</value>
   </data>
   <data name="Blocked" xml:space="preserve">
     <value>Blocked</value>
@@ -576,10 +576,7 @@
   <data name="TaskDesc" xml:space="preserve">
     <value>A Task can be expanded into other tasks or actions on the runtime.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="task_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\goal_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="method_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\method.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -589,20 +586,20 @@
   <data name="MethodDesc" xml:space="preserve">
     <value>Methods can only be Tasks' sub nodes.</value>
   </data>
-  <data name="MethodAction" xml:space="preserve">
-    <value>Action</value>
+  <data name="MethodTasks" xml:space="preserve">
+    <value>Tasks</value>
   </data>
   <data name="MethodParentError" xml:space="preserve">
-    <value>Method can only be inserted to Task.</value>
+    <value>Method's parent must be a Task.</value>
   </data>
-  <data name="MethodPrecondition" xml:space="preserve">
-    <value>Precondition</value>
+  <data name="MethodPreconditions" xml:space="preserve">
+    <value>Preconditions</value>
   </data>
   <data name="TaskChildChildError" xml:space="preserve">
     <value>Children are not Method</value>
   </data>
-  <data name="MethodEffector" xml:space="preserve">
-    <value>Effector</value>
+  <data name="MethodEffectors" xml:space="preserve">
+    <value>Effectors</value>
   </data>
   <data name="NoEffectorError" xml:space="preserve">
     <value>No effector branch is specified</value>
@@ -628,7 +625,6 @@
   <data name="successUntil_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICON__0001_45.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="selectorLoop_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICON__0007_39.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -643,5 +639,189 @@
   </data>
   <data name="waitforSignal_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICON__0008_38.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Precondition" xml:space="preserve">
+    <value>PreAction</value>
+  </data>
+  <data name="PreconditionDesc" xml:space="preserve">
+    <value>PreAction is an action or precondition whichi is executed/evaluated before 'entering' a node. </value>
+  </data>
+  <data name="TaskNoChildrenError" xml:space="preserve">
+    <value>task has no children.</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="StateDesc" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="EndTransition" xml:space="preserve">
+    <value>EndTransition</value>
+  </data>
+  <data name="EndTransitionDesc" xml:space="preserve">
+    <value>EndTransition</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="EnterTo" xml:space="preserve">
+    <value>EnterTo</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="ExitFrom" xml:space="preserve">
+    <value>ExitFrom</value>
+  </data>
+  <data name="NoConditionError" xml:space="preserve">
+    <value>no condition specified!</value>
+  </data>
+  <data name="TransitionParentError" xml:space="preserve">
+    <value>transition can only link from a state to another state.</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="TransitionCondition" xml:space="preserve">
+    <value>Transition</value>
+  </data>
+  <data name="TransitionConditionDesc" xml:space="preserve">
+    <value>Transition</value>
+  </data>
+  <data name="TaskPrototype" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="TaskPrototypeDesc" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="NoParam" xml:space="preserve">
+    <value>Task's param not specified</value>
+  </data>
+  <data name="NoTask" xml:space="preserve">
+    <value>No task specified</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="BranchDesc" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="BranchPreconditions" xml:space="preserve">
+    <value>Preconditions</value>
+  </data>
+  <data name="BranchTasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="MethodChildChildError" xml:space="preserve">
+    <value>Method's child can only be Branch node</value>
+  </data>
+  <data name="MethodNoChildrenError" xml:space="preserve">
+    <value>Method has no children</value>
+  </data>
+  <data name="TaskNoMethod" xml:space="preserve">
+    <value>Task is not specified</value>
+  </data>
+  <data name="NoMethosError" xml:space="preserve">
+    <value>no child specified</value>
+  </data>
+  <data name="Proposition" xml:space="preserve">
+    <value>Proposition</value>
+  </data>
+  <data name="PropositionDesc" xml:space="preserve">
+    <value>Proposition</value>
+  </data>
+  <data name="Effector" xml:space="preserve">
+    <value>PostAction</value>
+  </data>
+  <data name="EffectorDesc" xml:space="preserve">
+    <value>it takes effect when the Node ends.</value>
+  </data>
+  <data name="Reinit" xml:space="preserve">
+    <value>Reinit</value>
+  </data>
+  <data name="Requery" xml:space="preserve">
+    <value>Requery</value>
+  </data>
+  <data name="PreconditionPhase" xml:space="preserve">
+    <value>When</value>
+  </data>
+  <data name="PreconditionPhaseDesc" xml:space="preserve">
+    <value>when to evalute the precondition</value>
+  </data>
+  <data name="CustomizedMethodError" xml:space="preserve">
+    <value>The customized method can not be exported!</value>
+  </data>
+  <data name="DecoratorIterator" xml:space="preserve">
+    <value>Try</value>
+  </data>
+  <data name="DecoratorIteratorDesc" xml:space="preserve">
+    <value>try each element in the specified array</value>
+  </data>
+  <data name="DecoratorRepeat" xml:space="preserve">
+    <value>Repeat</value>
+  </data>
+  <data name="DecoratorRepeatDesc" xml:space="preserve">
+    <value>repeat the child node for the specified count to return success, 
+or return failure until the child node fails. if the child node keeps running, 
+it keeps blocked. but, if the 'DecorateChildEnds' is false, it is not blocked.
+it only returns success or failure and never returns running. 
+</value>
+  </data>
+  <data name="StartCondition" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StartConditionDesc" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Effectors" xml:space="preserve">
+    <value>Effectors</value>
+  </data>
+  <data name="EffectorsDesc" xml:space="preserve">
+    <value>Effectors</value>
+  </data>
+  <data name="TargetId" xml:space="preserve">
+    <value>Target Id</value>
+  </data>
+  <data name="TargetIdDesc" xml:space="preserve">
+    <value>Target Id</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="TransitionMode" xml:space="preserve">
+    <value>Transition Mode</value>
+  </data>
+  <data name="TransitionModeDesc" xml:space="preserve">
+    <value>it determines how the transition works: 1. when the condition is true, it transitions. 2. when the method succeeds/fails/ends it transitions.</value>
+  </data>
+  <data name="effector_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\postaction.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="precondition_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\preaction.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="query_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICON__0028_18.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="repeat_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\repeat.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="state_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\state.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="task_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICON__0026_20.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="transition_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\transition.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="try_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\try.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Transition" xml:space="preserve">
+    <value>Transition</value>
+  </data>
+  <data name="FSM" xml:space="preserve">
+    <value>FSM</value>
   </data>
 </root>

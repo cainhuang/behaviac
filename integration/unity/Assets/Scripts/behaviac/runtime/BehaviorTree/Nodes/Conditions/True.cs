@@ -11,17 +11,15 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
 {
     public class True : ConditionBase
     {
-	    public True()
-	    {
-		}
+        public True()
+        {
+        }
 
         ~True()
         {
@@ -29,56 +27,59 @@ namespace behaviac
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
-			base.load(version, agentType, properties);
-		}
+            base.load(version, agentType, properties);
+        }
 
-		public override bool IsValid(Agent pAgent, BehaviorTask pTask)
+        public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
-			if (!(pTask.GetNode() is True))
-			{
-				return false;
-			}
-		
-			return base.IsValid(pAgent, pTask);
-		}
-
-		protected override BehaviorTask createTask()
-        {
-			TrueTask pTask = new TrueTask();
-
-			return pTask;
-		}
-
-
-	    // ============================================================================
-	    class TrueTask : ConditionBaseTask
-	    {
-	    	public  TrueTask() : base()
-	        {
-	        }
-
-	        ~TrueTask()
-	        {
-	        }
-
-	    	public override void copyto(BehaviorTask target)
-	        {
-				base.copyto(target);
-			}
-
-			public override void save(ISerializableNode node)
-	        {
-				base.save(node);
-			}
-			public override void load(ISerializableNode node)
-	        {
-				base.load(node);
-			}
-
-        	protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
+            if (!(pTask.GetNode() is True))
             {
-        		return EBTStatus.BT_SUCCESS;
-    		}
-   		}
+                return false;
+            }
+
+            return base.IsValid(pAgent, pTask);
+        }
+
+        protected override BehaviorTask createTask()
+        {
+            TrueTask pTask = new TrueTask();
+
+            return pTask;
+        }
+
+        // ============================================================================
+        private class TrueTask : ConditionBaseTask
+        {
+            public TrueTask()
+                : base()
+            {
+            }
+
+            ~TrueTask()
+            {
+            }
+
+            public override void copyto(BehaviorTask target)
+            {
+                base.copyto(target);
+            }
+
+            public override void save(ISerializableNode node)
+            {
+                base.save(node);
+            }
+
+            public override void load(ISerializableNode node)
+            {
+                base.load(node);
+            }
+
+            protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
+            {
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
+                return EBTStatus.BT_SUCCESS;
+            }
+        }
     }
 }

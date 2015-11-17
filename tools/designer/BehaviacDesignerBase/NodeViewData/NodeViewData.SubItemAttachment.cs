@@ -36,6 +36,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using Behaviac.Design.Nodes;
+using Behaviac.Design.Properties;
 
 namespace Behaviac.Design
 {
@@ -46,29 +47,43 @@ namespace Behaviac.Design
         /// </summary>
         public abstract class SubItemAttachment : SubItemText
         {
-            protected Attachments.Attachment _attachment;
+            protected Attachments.Attachment _attachment = null;
 
             /// <summary>
             /// The attachment stored in this subitem.
             /// </summary>
-            public Attachments.Attachment Attachment
-            {
+            public Attachments.Attachment Attachment {
                 get { return _attachment; }
             }
 
-            public override object SelectableObject
-            {
+            protected System.Drawing.Drawing2D.GraphicsPath _drawnPath = null;
+            public System.Drawing.Drawing2D.GraphicsPath DrawnPath {
+                get { return _drawnPath; }
+                set { _drawnPath = value; }
+            }
+
+            public override bool IsFSM {
+                get { return _attachment != null && _attachment.IsFSM; }
+            }
+
+            public override bool CanBeDraggedToTarget {
+                get { return _attachment != null && _attachment.CanBeDraggedToTarget; }
+            }
+
+            public override string ToolTip {
+                get { return _attachment.Description; }
+            }
+
+            public override object SelectableObject {
                 // when the subitem gets selected, show the stored attachment in the properties.
                 get { return _attachment; }
             }
 
-            public override bool CanBeDeleted
-            {
-                get { return true; }
+            public override bool CanBeDeleted {
+                get { return _attachment != null ? _attachment.CanBeDeleted : true; }
             }
 
-            protected override string Label
-            {
+            protected override string Label {
                 get { return _attachment.Label; }
             }
 
@@ -80,8 +95,7 @@ namespace Behaviac.Design
             /// <param name="labelFont">The font used to draw the label.</param>
             /// <param name="labelBrush">The brush used to draw the label.</param>
             protected SubItemAttachment(Attachments.Attachment attach, Brush backgroundNormal, Brush backgroundSelected, Font labelFont, Brush labelBrush) :
-                base(backgroundNormal, backgroundSelected, labelFont, labelBrush, Alignment.Center, false)
-            {
+                base(backgroundNormal, backgroundSelected, labelFont, labelBrush, Alignment.Center, false) {
                 _attachment = attach;
             }
         }

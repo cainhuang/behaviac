@@ -19,30 +19,25 @@ namespace Behaviac.Design
 {
     public class Utilities
     {
-        public static void ClearDirectory(string folderName)
-        {
+        public static void ClearDirectory(string folderName) {
             DirectoryInfo dir = new DirectoryInfo(folderName);
 
-            foreach (FileInfo fi in dir.GetFiles())
-            {
+            foreach(FileInfo fi in dir.GetFiles()) {
                 fi.Delete();
             }
 
-            foreach (DirectoryInfo di in dir.GetDirectories())
-            {
+            foreach(DirectoryInfo di in dir.GetDirectories()) {
                 ClearDirectory(di.FullName);
                 di.Delete();
             }
         }
 
-        public static string GetDebugFileDirectory()
-        {
+        public static string GetDebugFileDirectory() {
             string dbgFileDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             return Path.Combine(dbgFileDir, "BehaviacDesigner");
         }
 
-        public static string GetLogFileDirectory()
-        {
+        public static string GetLogFileDirectory() {
             return Path.Combine(Path.GetTempPath(), "BehaviacDesigner");
         }
     }

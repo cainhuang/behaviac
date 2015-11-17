@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_SWAPBYTEBASE_H_
-#define _CORE_SWAPBYTEBASE_H_
+#ifndef BEHAVIAC_CORE_SWAPBYTEBASE_H
+#define BEHAVIAC_CORE_SWAPBYTEBASE_H
 #include "behaviac/base/base.h"
 #include "behaviac/base/core/container/string_t.h"
 #include "behaviac/base/core/container/vector_t.h"
@@ -28,46 +28,43 @@
 //////////////////////////////////////////////////////////////////////////
 // SwapByteTempl helpers
 
-
 template< typename SWAPPER >
 inline void SwapByteTempl(const char*& s)
 {
-	BEHAVIAC_UNUSED_VAR(s);
+    BEHAVIAC_UNUSED_VAR(s);
 }
-
 
 template< typename SWAPPER >
 inline void SwapByteTempl(behaviac::string& s)
 {
-	BEHAVIAC_UNUSED_VAR(s);
+    BEHAVIAC_UNUSED_VAR(s);
 }
 
 template<typename SWAPPER>
 inline void SwapByteTempl(CStringID& value)
 {
 #if STRINGID_USESTRINGCONTENT
-	const char* s = value.c_str();
-	value.SetContent(s);
+    const char* s = value.c_str();
+    value.SetContent(s);
 #else
-	CStringID::IDType id  = value.GetUniqueID();
-	SwapByte(id);
+    CStringID::IDType id = value.GetUniqueID();
+    SwapByte(id);
 
-	value.SetUniqueID(id);
+    value.SetUniqueID(id);
 #endif//#if STRINGID_USESTRINGCONTENT
 }
-
 
 template<typename SWAPPER>
 inline void SwapByteTempl(CPathID& value)
 {
 #if STRINGID_USESTRINGCONTENT
-	const char* s = value.c_str();
-	value.SetContent(s);
+    const char* s = value.c_str();
+    value.SetContent(s);
 #else
-	CPathID::IDType id  = value.GetUniqueID();
-	SwapByte(id);
+    CPathID::IDType id = value.GetUniqueID();
+    SwapByte(id);
 
-	value = CPathID(id);
+    value = CPathID(id);
 #endif//#if STRINGID_USESTRINGCONTENT
 }
 
@@ -84,9 +81,7 @@ inline void SwapByteTempl(behaviac::vector<T>& value)
 template<typename SWAPPER>
 inline void SwapByteTempl(behaviac::vector<bool>& value)
 {
-	BEHAVIAC_UNUSED_VAR(value);
+    BEHAVIAC_UNUSED_VAR(value);
 }
 
-
-#endif // #ifndef _CORE_SWAPBYTEBASE_H_
-
+#endif // #ifndef BEHAVIAC_CORE_SWAPBYTEBASE_H

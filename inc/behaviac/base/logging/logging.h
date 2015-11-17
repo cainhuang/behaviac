@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_LOGGING_H_
-#define _BEHAVIAC_BASE_LOGGING_H_
+#ifndef BEHAVIAC_BASE_LOGGING_H
+#define BEHAVIAC_BASE_LOGGING_H
 
 #include "behaviac/base/base.h"
 
@@ -25,103 +25,84 @@
 
 namespace behaviac
 {
-	class Agent;
-	class BehaviorTask;
+    class Agent;
+    class BehaviorTask;
 
-	/**
-	indicating the action result for enter/exit
-	*/
-	enum EActionResult
-	{
-		EAR_none = 0, 
-		EAR_success = 1, 
-		EAR_failure = 2,
-		EAR_all = EAR_success | EAR_failure
-	};
+    /**
+    indicating the action result for enter/exit
+    */
+    enum EActionResult
+    {
+        EAR_none = 0,
+        EAR_success = 1,
+        EAR_failure = 2,
+        EAR_all = EAR_success | EAR_failure
+    };
 
-	enum LogMode
-	{
-		ELM_tick, 
-		ELM_breaked, 
-		ELM_continue, 
-		ELM_jump,
-		ELM_return,
+    enum LogMode
+    {
+        ELM_tick,
+        ELM_breaked,
+        ELM_continue,
+        ELM_jump,
+        ELM_return,
 
-		ELM_log
-	};
+        ELM_log
+    };
 
-	class BEHAVIAC_API LogManager
-	{
-	public:
-		BEHAVIAC_DELCARE_SINGLETON(LogManager);
+    class BEHAVIAC_API LogManager
+    {
+    public:
+        BEHAVIAC_DELCARE_SINGLETON(LogManager);
 
-		/**
-		by default, the log file is _behaviac_$_.log in the current path.
+        /**
+        by default, the log file is _behaviac_$_.log in the current path.
 
-		you can call this function to specify where to log
-		*/
-		void SetLogFilePath(const char* logFilePath);
+        you can call this function to specify where to log
+        */
+        void SetLogFilePath(const char* logFilePath);
 
-		/**
-		by default, logging is enabled. it can be disabled by this function
 
-		when enabled, it is written to the log file.
-		when disable, it is not written to the log file however, it is still sent to the network
+        //action
+        void Log(const behaviac::Agent* pAgent, const char* btMsg, behaviac::EActionResult actionResult, behaviac::LogMode mode = behaviac::ELM_tick);
 
-		deprecated, to use behaviac::Config::SetLogging
-		*/
-		void SetEnabled(bool bEnabled);
-		
-		///**
-		//*/
-		//void SetProfilerEnabled(bool bProfilerEnabled);
+        //property
+        void Log(const behaviac::Agent* pAgent, const char* typeName, const char* varName, const char* value);
 
-		/**
-		by default, the log file is flushed every logging.
-		*/
-		void SetFlush(bool bFlush)
-		{
-			this->m_bFlush = bFlush;
-		}
+        //profiler
+        void Log(const behaviac::Agent* pAgent, const char* btMsg, long time);
 
-		//action
-		void Log(const behaviac::Agent* pAgent, const char* btMsg, behaviac::EActionResult actionResult, behaviac::LogMode mode = behaviac::ELM_tick);
+        //mode
+        void Log(behaviac::LogMode mode, const char* filterString, const char* format, ...);
 
-		//property
-		void Log(const behaviac::Agent* pAgent, const char* typeName, const char* varName, const char* value);
+        void Log(const char* format, ...);
 
-		//profiler
-		void Log(const behaviac::Agent* pAgent, const char* btMsg, long time);
+        void LogWorkspace(const char* format, ...);
 
-		//mode
-		void Log(behaviac::LogMode mode, const char* filterString, const char* format, ...);
+        template<typename T>
+        void LogVarValue(Agent* pAgent, const behaviac::string& name, const T& value);
 
-		void Log(const char* format, ...);
+        void Warning(const char* format, ...);
 
-		void LogWorkspace(const char* format, ...);
+        void Error(const char* format, ...);
 
-		void Warning(const char* format, ...);
+        void Flush(const behaviac::Agent* pAgent);
+    protected:
+        LogManager();
+    public:
+        ~LogManager();
 
-		void Error(const char* format, ...);
+        //static LogManager* GetInstance();
+    private:
+        FILE* GetFile(const behaviac::Agent* pAgent);
+        void Output(const behaviac::Agent* pAgent, const char* msg);
 
-		void Flush(const behaviac::Agent* pAgent);
-	protected:
-		LogManager();
-	public:
-		~LogManager();
-	private:
-		FILE* GetFile(const behaviac::Agent* pAgent);
-		void Output(const behaviac::Agent* pAgent, const char* msg);
-
-		typedef behaviac::map<int, FILE*> Logs_t;
-		Logs_t m_logs;
-
-		const char* m_logFilePath;
-		bool m_bEnabled;
-		bool m_bProfilerEnabled;
-		bool m_bFlush;
-	};
-
+        typedef behaviac::map<int, FILE*> Logs_t;
+        Logs_t				m_logs;
+        const char*			m_logFilePath;
+        bool				m_bFlush;
+        static LogManager*	ms_instance;
+    };
 }//namespace behaviac
 
-#endif//_BEHAVIAC_BASE_LOGGING_H_
+#endif//BEHAVIAC_BASE_LOGGING_H

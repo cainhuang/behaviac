@@ -18,69 +18,64 @@ using TNS.NE.NAT;
 
 namespace TNS
 {
-	namespace NE
-	{
-		namespace NAT
-		{
-			[behaviac.TypeMetaInfo("色彩枚举", "eColor 是一个用于测试枚举使用的类型")]
-			public enum eColor
-			{
-				[behaviac.MemberMetaInfo("红色 Red", "Red 是一种非常激进的色彩")]
-				RED,	
-				GREEN,
-				BLUE,	
-				YELLOW,	
-				WHITE,
-			}
-		}
-	}
+    namespace NE
+    {
+        namespace NAT
+        {
+            [behaviac.TypeMetaInfo("色彩枚举", "eColor 是一个用于测试枚举使用的类型")]
+            public enum eColor {
+                [behaviac.MemberMetaInfo("红色 Red", "Red 是一种非常激进的色彩")]
+                RED,
+                GREEN,
+                BLUE,
+                YELLOW,
+                WHITE,
+            }
+        }
+    }
 
-	namespace ST
-	{
-		public struct kCar
-		{
-			public string	brand;
-			public int		price;
-			public eColor 	color;
+    namespace ST
+    {
+        public struct kCar {
+            public string	brand;
+            public int		price;
+            public eColor 	color;
 
-			public void reset()
-			{
-				brand = "Volkswage";
-				price = 0;
-				color = eColor.RED;
-			}
-		}
+            public void reset() {
+                brand = "Volkswage";
+                price = 0;
+                color = eColor.RED;
+            }
+        }
 
-		namespace PER
-		{
-			//<
-			namespace WRK
-			{
-				public struct kEmployee
-				{
-					public int		id;
-					public string 	name;
-					public char 	code;
-					public float 	weight;
-					public bool 	isMale;
-					public eColor	skinColor;
-					public kCar		car;
-					public Agent	boss;
-					
-					public void resetProperties()
-					{
-						id		= -1;
-						name 	= string.Empty;
-						code 	= 'A';
-						weight	= 0.0f;
-						isMale	= true;
-						skinColor = eColor.YELLOW;
-						car.reset();
-						boss	= null;
-					}
-				}
-			}
-		}
-		//<
-	}
+        namespace PER
+        {
+            //<
+            namespace WRK
+            {
+                public struct kEmployee {
+                    public int		id;
+                    public string 	name;
+                    public char 	code;
+                    public float 	weight;
+                    public bool 	isMale;
+                    public eColor	skinColor;
+                    public kCar		car;
+                    public Agent	boss;
+
+                    public void resetProperties() {
+                        id		= -1;
+                        name 	= string.Empty;
+                        code 	= 'A';
+                        weight	= 0.0f;
+                        isMale	= true;
+                        skinColor = eColor.YELLOW;
+                        car.reset();
+                        boss	= null;
+                    }
+                }
+            }
+        }
+        //<
+    }
 }

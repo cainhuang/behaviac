@@ -39,140 +39,124 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerCompositeEditor : Behaviac.Design.Attributes.DesignerPropertyEditor
     {
-        public DesignerCompositeEditor()
-        {
+        public DesignerCompositeEditor() {
             InitializeComponent();
         }
 
-        public override void ReadOnly()
-        {
+        public override void ReadOnly() {
             base.ReadOnly();
 
             textBox.Enabled = false;
             button.Enabled = false;
         }
 
-        public override void SetProperty(DesignerPropertyInfo property, object obj)
-        {
+        public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
             object value = property.GetValue(obj);
+
             if (value != null)
-                setProperty(value, property.Attribute.DisplayName, property.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnly), obj);
+            { setProperty(value, property.Attribute.DisplayName, property.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnly), obj); }
+
             else
-                update();
+            { update(); }
         }
 
-        public override void SetVariable(VariableDef value, object obj)
-        {
+        public override void SetVariable(VariableDef value, object obj) {
             base.SetVariable(value, obj);
 
             if (value != null)
-                setProperty(value.Value, "", false, obj);
+            { setProperty(value.Value, "", false, obj); }
+
             else
-                update();
+            { update(); }
         }
 
-        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj)
-        {
+        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj) {
             base.SetArrayProperty(arrayProperty, obj);
 
             update();
         }
 
-        public override void SetStructProperty(DesignerStructPropertyInfo structProperty, object obj)
-        {
+        public override void SetStructProperty(DesignerStructPropertyInfo structProperty, object obj) {
             base.SetStructProperty(structProperty, obj);
 
             update();
         }
 
-        public override void SetParameter(MethodDef.Param param, object obj)
-        {
-            base.SetParameter(param, obj);
+        public override void SetParameter(MethodDef.Param param, object obj, bool bReadonly) {
+            base.SetParameter(param, obj, bReadonly);
 
             if (param != null)
-                setProperty(param.Value, param.Name, false, obj);
+            { setProperty(param.Value, param.Name, false, obj); }
+
             else
-                update();
+            { update(); }
         }
 
-        public override void SetPar(ParInfo par, object obj)
-        {
+        public override void SetPar(ParInfo par, object obj) {
             base.SetPar(par, obj);
 
             if (par != null && par.Variable != null)
-                setProperty(par.Variable.Value, par.Name, false, obj);
+            { setProperty(par.Variable.Value, par.Name, false, obj); }
+
             else
-                update();
+            { update(); }
         }
 
-        private void setProperty(object value, string name, bool readOnly, object obj)
-        {
-            if (value != null && obj != null)
-            {
+        private void setProperty(object value, string name, bool readOnly, object obj) {
+            if (value != null) {
                 Type type = value.GetType();
-                if (Plugin.IsArrayType(type))
-                {
+
+                if (Plugin.IsArrayType(type)) {
                     Type itemType = type.GetGenericArguments()[0];
                     System.Collections.IList itemList = (System.Collections.IList)(value);
 
                     SetArrayProperty(new DesignerArrayPropertyInfo(name, itemType, itemList, -1, readOnly), obj);
-                }
-                else if (Plugin.IsCustomClassType(type))
-                {
+
+                } else if (Plugin.IsCustomClassType(type)) {
                     SetStructProperty(new DesignerStructPropertyInfo(name, type, value), obj);
-                }
-                else
-                {
+
+                } else {
                     // Can't support other types.
                     Debug.Check(false);
                 }
-            }
-            else
-            {
+
+            } else {
                 update();
             }
         }
 
-        private void update()
-        {
-            if (_arrayProperty != null)
-            {
+        private void update() {
+            if (_arrayProperty != null) {
                 textBox.Text = DesignerArray.RetrieveDisplayValue(_arrayProperty.ItemList);
                 button.Enabled = true;
-            }
-            else if (_structProperty != null)
-            {
+
+            } else if (_structProperty != null) {
                 //textBox.Text = "(Multiple properties)";
                 MethodDef method = null;
                 Nodes.Action action = this._object as Nodes.Action;
-                if (action != null)
-                {
+
+                if (action != null) {
                     method = action.Method;
                 }
 
                 textBox.Text = DesignerPropertyUtility.RetrieveDisplayValue(_structProperty.Owner, method, _structProperty.Name, _structProperty.ElmentIndexInArray);
                 button.Enabled = true;
-            }
-            else
-            {
+
+            } else {
                 textBox.Text = "(None)";
                 button.Enabled = false;
             }
         }
 
-        private void button_Click(object sender, EventArgs e)
-        {
-            using (CompositeEditorDialog dialog = new CompositeEditorDialog())
-            {
-                if (_arrayProperty != null)
-                {
+        private void button_Click(object sender, EventArgs e) {
+            using(CompositeEditorDialog dialog = new CompositeEditorDialog()) {
+                if (_arrayProperty != null) {
                     dialog.Text = string.IsNullOrEmpty(_arrayProperty.Name) ? Resources.Properties : string.Format(Resources.PropertiesOf, _arrayProperty.Name);
                     dialog.SetArrayProperty(_arrayProperty, _object);
-                }
-                else if (_structProperty != null)
-                {
+
+                } else if (_structProperty != null) {
                     dialog.Text = string.IsNullOrEmpty(_structProperty.Name) ? Resources.Properties : string.Format(Resources.PropertiesOf, _structProperty.Name);
                     dialog.SetStructProperty(_structProperty, _object);
                 }
@@ -180,11 +164,12 @@ namespace Behaviac.Design.Attributes
                 dialog.ShowDialog();
 
                 update();
+
+                OnValueChanged(new DesignerPropertyInfo());
             }
         }
 
-        private void DesignerArrayEditor_Resize(object sender, EventArgs e)
-        {
+        private void DesignerArrayEditor_Resize(object sender, EventArgs e) {
             button.Size = new System.Drawing.Size(22, 22);
             button.Location = new System.Drawing.Point(Size.Width - button.Size.Width - 2, button.Location.Y);
 

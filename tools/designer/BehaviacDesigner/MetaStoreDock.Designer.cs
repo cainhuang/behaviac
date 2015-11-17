@@ -1,66 +1,44 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2009, Daniel Kollmann
-// All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without modification, are permitted
-// provided that the following conditions are met:
-//
-// - Redistributions of source code must retain the above copyright notice, this list of conditions
-//   and the following disclaimer.
-//
-// - Redistributions in binary form must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other materials provided
-//   with the distribution.
-//
-// - Neither the name of Daniel Kollmann nor the names of its contributors may be used to endorse
-//   or promote products derived from this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
-// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-// FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
-// WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// The above software in this distribution may have been modified by THL A29 Limited ("Tencent Modifications").
+// Tencent is pleased to support the open source community by making behaviac available.
 //
-// All Tencent Modifications are Copyright (C) 2015 THL A29 Limited.
+// Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
+//
+// Licensed under the BSD 3-Clause License (the "License"); you may not use this file except in compliance with
+// the License. You may obtain a copy of the License at http://opensource.org/licenses/BSD-3-Clause
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace Behaviac.Design
 {
-	partial class MetaStoreDock
-	{
-        /// <summary> 
+    partial class MetaStoreDock
+    {
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MetaStoreDock));
             this.instanceLabel = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.Button();
@@ -68,13 +46,22 @@ namespace Behaviac.Design
             this.instanceComboBox = new System.Windows.Forms.ComboBox();
             this.memberTypeComboBox = new System.Windows.Forms.ComboBox();
             this.memberTypeLabel = new System.Windows.Forms.Label();
-            this.memberDescriptionLabel = new System.Windows.Forms.Label();
-            this.memberDescLabel = new System.Windows.Forms.Label();
             this.memberFilterLabel = new System.Windows.Forms.Label();
             this.memberFilterTextBox = new System.Windows.Forms.TextBox();
-            this.memberFilterCheckBox = new System.Windows.Forms.CheckBox();
             this.memberListLabel = new System.Windows.Forms.Label();
             this.memberCountLabel = new System.Windows.Forms.Label();
+            this.typeLabel = new System.Windows.Forms.Label();
+            this.addMemberButton = new System.Windows.Forms.Button();
+            this.removeMemberButton = new System.Windows.Forms.Button();
+            this.typeListBox = new System.Windows.Forms.ListBox();
+            this.addTypeButton = new System.Windows.Forms.Button();
+            this.removeTypeButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
+            this.memberFilterCheckBox = new System.Windows.Forms.CheckBox();
+            this.downMemberButton = new System.Windows.Forms.Button();
+            this.upMemberButton = new System.Windows.Forms.Button();
+            this.applyButton = new System.Windows.Forms.Button();
+            this.metaTypePanel = new Behaviac.Design.MetaTypePanel();
             this.SuspendLayout();
             // 
             // instanceLabel
@@ -101,6 +88,8 @@ namespace Behaviac.Design
             this.memberListBox.ForeColor = System.Drawing.Color.LightGray;
             this.memberListBox.FormattingEnabled = true;
             this.memberListBox.Name = "memberListBox";
+            this.memberListBox.SelectedIndexChanged += new System.EventHandler(this.memberListBox_SelectedIndexChanged);
+            this.memberListBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.memberListBox_Format);
             this.memberListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.memberListBox_KeyDown);
             this.memberListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.memberListBox_MouseDown);
             // 
@@ -112,7 +101,6 @@ namespace Behaviac.Design
             this.instanceComboBox.ForeColor = System.Drawing.Color.LightGray;
             this.instanceComboBox.FormattingEnabled = true;
             this.instanceComboBox.Name = "instanceComboBox";
-            this.instanceComboBox.SelectedIndexChanged += new System.EventHandler(this.instanceComboBox_SelectedIndexChanged);
             // 
             // memberTypeComboBox
             // 
@@ -129,17 +117,6 @@ namespace Behaviac.Design
             resources.ApplyResources(this.memberTypeLabel, "memberTypeLabel");
             this.memberTypeLabel.Name = "memberTypeLabel";
             // 
-            // memberDescriptionLabel
-            // 
-            resources.ApplyResources(this.memberDescriptionLabel, "memberDescriptionLabel");
-            this.memberDescriptionLabel.Name = "memberDescriptionLabel";
-            // 
-            // memberDescLabel
-            // 
-            resources.ApplyResources(this.memberDescLabel, "memberDescLabel");
-            this.memberDescLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.memberDescLabel.Name = "memberDescLabel";
-            // 
             // memberFilterLabel
             // 
             resources.ApplyResources(this.memberFilterLabel, "memberFilterLabel");
@@ -149,16 +126,10 @@ namespace Behaviac.Design
             // 
             resources.ApplyResources(this.memberFilterTextBox, "memberFilterTextBox");
             this.memberFilterTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.memberFilterTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.memberFilterTextBox.ForeColor = System.Drawing.Color.LightGray;
             this.memberFilterTextBox.Name = "memberFilterTextBox";
             this.memberFilterTextBox.TextChanged += new System.EventHandler(this.memberFilterTextBox_TextChanged);
-            // 
-            // memberFilterCheckBox
-            // 
-            resources.ApplyResources(this.memberFilterCheckBox, "memberFilterCheckBox");
-            this.memberFilterCheckBox.Name = "memberFilterCheckBox";
-            this.memberFilterCheckBox.UseVisualStyleBackColor = true;
-            this.memberFilterCheckBox.CheckedChanged += new System.EventHandler(this.memberFilterCheckBox_CheckedChanged);
             // 
             // memberListLabel
             // 
@@ -170,18 +141,138 @@ namespace Behaviac.Design
             resources.ApplyResources(this.memberCountLabel, "memberCountLabel");
             this.memberCountLabel.Name = "memberCountLabel";
             // 
+            // typeLabel
+            // 
+            resources.ApplyResources(this.typeLabel, "typeLabel");
+            this.typeLabel.Name = "typeLabel";
+            // 
+            // addMemberButton
+            // 
+            resources.ApplyResources(this.addMemberButton, "addMemberButton");
+            this.addMemberButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.addMemberButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.addMemberButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.addMemberButton.Name = "addMemberButton";
+            this.addMemberButton.UseVisualStyleBackColor = false;
+            this.addMemberButton.Click += new System.EventHandler(this.addMemberButton_Click);
+            // 
+            // removeMemberButton
+            // 
+            resources.ApplyResources(this.removeMemberButton, "removeMemberButton");
+            this.removeMemberButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.removeMemberButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.removeMemberButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.removeMemberButton.Name = "removeMemberButton";
+            this.removeMemberButton.UseVisualStyleBackColor = false;
+            this.removeMemberButton.Click += new System.EventHandler(this.removeMemberButton_Click);
+            // 
+            // typeListBox
+            // 
+            this.typeListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.typeListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.typeListBox.ForeColor = System.Drawing.Color.LightGray;
+            this.typeListBox.FormattingEnabled = true;
+            resources.ApplyResources(this.typeListBox, "typeListBox");
+            this.typeListBox.Name = "typeListBox";
+            this.typeListBox.SelectedIndexChanged += new System.EventHandler(this.typeListBox_SelectedIndexChanged);
+            // 
+            // addTypeButton
+            // 
+            resources.ApplyResources(this.addTypeButton, "addTypeButton");
+            this.addTypeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.addTypeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.addTypeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.addTypeButton.Name = "addTypeButton";
+            this.addTypeButton.UseVisualStyleBackColor = false;
+            this.addTypeButton.Click += new System.EventHandler(this.addTypeButton_Click);
+            // 
+            // removeTypeButton
+            // 
+            resources.ApplyResources(this.removeTypeButton, "removeTypeButton");
+            this.removeTypeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.removeTypeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.removeTypeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.removeTypeButton.Name = "removeTypeButton";
+            this.removeTypeButton.UseVisualStyleBackColor = false;
+            this.removeTypeButton.Click += new System.EventHandler(this.removeTypeButton_Click);
+            // 
+            // okButton
+            // 
+            resources.ApplyResources(this.okButton, "okButton");
+            this.okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.okButton.Name = "okButton";
+            this.okButton.UseVisualStyleBackColor = false;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            // 
+            // memberFilterCheckBox
+            // 
+            resources.ApplyResources(this.memberFilterCheckBox, "memberFilterCheckBox");
+            this.memberFilterCheckBox.Name = "memberFilterCheckBox";
+            this.memberFilterCheckBox.UseVisualStyleBackColor = true;
+            this.memberFilterCheckBox.CheckedChanged += new System.EventHandler(this.memberFilterCheckBox_CheckedChanged);
+            // 
+            // downMemberButton
+            // 
+            resources.ApplyResources(this.downMemberButton, "downMemberButton");
+            this.downMemberButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.downMemberButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.downMemberButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.downMemberButton.Name = "downMemberButton";
+            this.downMemberButton.UseVisualStyleBackColor = false;
+            this.downMemberButton.Click += new System.EventHandler(this.downMemberButton_Click);
+            // 
+            // upMemberButton
+            // 
+            resources.ApplyResources(this.upMemberButton, "upMemberButton");
+            this.upMemberButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.upMemberButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.upMemberButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.upMemberButton.Name = "upMemberButton";
+            this.upMemberButton.UseVisualStyleBackColor = false;
+            this.upMemberButton.Click += new System.EventHandler(this.upMemberButton_Click);
+            // 
+            // applyButton
+            // 
+            resources.ApplyResources(this.applyButton, "applyButton");
+            this.applyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.applyButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.applyButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.applyButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.applyButton.Name = "applyButton";
+            this.applyButton.UseVisualStyleBackColor = false;
+            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
+            // 
+            // metaTypePanel
+            // 
+            resources.ApplyResources(this.metaTypePanel, "metaTypePanel");
+            this.metaTypePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.metaTypePanel.ForeColor = System.Drawing.Color.LightGray;
+            this.metaTypePanel.IsModified = true;
+            this.metaTypePanel.Name = "metaTypePanel";
+            // 
             // MetaStoreDock
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.closeButton;
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.metaTypePanel);
+            this.Controls.Add(this.applyButton);
+            this.Controls.Add(this.downMemberButton);
+            this.Controls.Add(this.upMemberButton);
+            this.Controls.Add(this.memberFilterCheckBox);
+            this.Controls.Add(this.okButton);
+            this.Controls.Add(this.addTypeButton);
+            this.Controls.Add(this.removeTypeButton);
+            this.Controls.Add(this.typeListBox);
+            this.Controls.Add(this.removeMemberButton);
+            this.Controls.Add(this.addMemberButton);
+            this.Controls.Add(this.typeLabel);
             this.Controls.Add(this.memberCountLabel);
             this.Controls.Add(this.memberListLabel);
-            this.Controls.Add(this.memberFilterCheckBox);
             this.Controls.Add(this.memberFilterTextBox);
             this.Controls.Add(this.memberFilterLabel);
-            this.Controls.Add(this.memberDescLabel);
-            this.Controls.Add(this.memberDescriptionLabel);
             this.Controls.Add(this.memberTypeComboBox);
             this.Controls.Add(this.memberTypeLabel);
             this.Controls.Add(this.instanceComboBox);
@@ -192,14 +283,14 @@ namespace Behaviac.Design
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MetaStoreDock";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MetaStoreDock_FormClosing);
+            this.Resize += new System.EventHandler(this.MetaStoreDock_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.Label instanceLabel;
         private System.Windows.Forms.Button closeButton;
@@ -207,13 +298,22 @@ namespace Behaviac.Design
         private System.Windows.Forms.ComboBox instanceComboBox;
         private System.Windows.Forms.ComboBox memberTypeComboBox;
         private System.Windows.Forms.Label memberTypeLabel;
-        private System.Windows.Forms.Label memberDescriptionLabel;
-        private System.Windows.Forms.Label memberDescLabel;
         private System.Windows.Forms.Label memberFilterLabel;
         private System.Windows.Forms.TextBox memberFilterTextBox;
-        private System.Windows.Forms.CheckBox memberFilterCheckBox;
         private System.Windows.Forms.Label memberListLabel;
         private System.Windows.Forms.Label memberCountLabel;
+        private System.Windows.Forms.Label typeLabel;
+        private System.Windows.Forms.Button addMemberButton;
+        private System.Windows.Forms.Button removeMemberButton;
+        private System.Windows.Forms.ListBox typeListBox;
+        private System.Windows.Forms.Button addTypeButton;
+        private System.Windows.Forms.Button removeTypeButton;
+        private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.CheckBox memberFilterCheckBox;
+        private System.Windows.Forms.Button downMemberButton;
+        private System.Windows.Forms.Button upMemberButton;
+        private System.Windows.Forms.Button applyButton;
+        private MetaTypePanel metaTypePanel;
 
     }
 }

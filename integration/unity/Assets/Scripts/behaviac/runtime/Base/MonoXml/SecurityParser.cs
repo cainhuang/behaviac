@@ -30,84 +30,97 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
 using System.Collections;
 using System.IO;
 using System.Security;
 
-namespace Mono.Xml {
+namespace Mono.Xml
+{
+    // convert an XML document into SecurityElement objects
+    internal class SecurityParser : SmallXmlParser, SmallXmlParser.IContentHandler
+    {
+        private SecurityElement root;
 
-	// convert an XML document into SecurityElement objects
-	internal class SecurityParser : SmallXmlParser, SmallXmlParser.IContentHandler {
+        public SecurityParser()
+            : base()
+        {
+            stack = new Stack();
+        }
 
-		private SecurityElement root;
-
-		public SecurityParser () : base ()
-		{
-			stack = new Stack ();
-		}
-
-		public void LoadXml (string xml)
-		{
-			root = null;
+        public void LoadXml(string xml)
+        {
+            root = null;
 #if CF_1_0
-			stack = new Stack ();
+            stack = new Stack();
 #else
-			stack.Clear ();
+            stack.Clear();
 #endif
-			Parse (new StringReader (xml), this);
-		}
+            Parse(new StringReader(xml), this);
+        }
 
-		public SecurityElement ToXml ()
-		{
-			return root;
-		}
+        public SecurityElement ToXml()
+        {
+            return root;
+        }
 
-		// IContentHandler
+        // IContentHandler
 
-		private SecurityElement current;
-		private Stack stack;
+        private SecurityElement current;
+        private Stack stack;
 
-		public void OnStartParsing (SmallXmlParser parser) {}
+        public void OnStartParsing(SmallXmlParser parser)
+        {
+        }
 
-		public void OnProcessingInstruction (string name, string text) {}
+        public void OnProcessingInstruction(string name, string text)
+        {
+        }
 
-		public void OnIgnorableWhitespace (string s) {}
+        public void OnIgnorableWhitespace(string s)
+        {
+        }
 
-		public void OnStartElement (string name, SmallXmlParser.IAttrList attrs)
-		{
-			SecurityElement newel = new SecurityElement (name);
-			if (root == null) {
-				root = newel;
-				current = newel;
-			}
-			else {
-				SecurityElement parent = (SecurityElement) stack.Peek ();
-				parent.AddChild (newel);
-			}
-			stack.Push (newel);
-			current = newel;
-			// attributes
-			int n = attrs.Length;
-			for (int i=0; i < n; i++)
-			{
-				string attrName = SecurityElement.Escape (attrs.GetName (i));
-				string attrValue = SecurityElement.Escape (attrs.GetValue (i));
-				current.AddAttribute (attrName, attrValue);
-			}
-		}
+        public void OnStartElement(string name, SmallXmlParser.IAttrList attrs)
+        {
+            SecurityElement newel = new SecurityElement(name);
 
-		public void OnEndElement (string name)
-		{
-			current = (SecurityElement) stack.Pop ();
-		}
+            if (root == null)
+            {
+                root = newel;
+                current = newel;
 
-		public void OnChars (string ch)
-		{
-			current.Text = ch;
-		}
+            }
+            else
+            {
+                SecurityElement parent = (SecurityElement)stack.Peek();
+                parent.AddChild(newel);
+            }
 
-		public void OnEndParsing (SmallXmlParser parser) {}
-	}
+            stack.Push(newel);
+            current = newel;
+            // attributes
+            int n = attrs.Length;
+
+            for (int i = 0; i < n; i++)
+            {
+                string attrName = SecurityElement.Escape(attrs.GetName(i));
+                string attrValue = SecurityElement.Escape(attrs.GetValue(i));
+                current.AddAttribute(attrName, attrValue);
+            }
+        }
+
+        public void OnEndElement(string name)
+        {
+            current = (SecurityElement)stack.Pop();
+        }
+
+        public void OnChars(string ch)
+        {
+            current.Text = ch;
+        }
+
+        public void OnEndParsing(SmallXmlParser parser)
+        {
+        }
+    }
 }
-

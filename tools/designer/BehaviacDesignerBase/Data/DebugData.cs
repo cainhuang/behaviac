@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -20,63 +20,56 @@ using Behaviac.Design.Properties;
 using Behaviac.Design.Network;
 
 namespace Behaviac.Design.Data
-{
+{  
     public class HighlightBreakPoint
     {
         public const string kEnter = "enter";
         public const string kExit = "exit";
+        public const string kPlanning = "plan";
 
         private static HighlightBreakPoint _instance = null;
-        public static HighlightBreakPoint Instance
-        {
+        public static HighlightBreakPoint Instance {
             get { return _instance; }
             set { _instance = value; }
         }
 
         private static bool _showBreakPoint = true;
-        public static bool ShowBreakPoint
-        {
+        public static bool ShowBreakPoint {
             get { return _showBreakPoint; }
             set { _showBreakPoint = value; }
         }
 
         private string _behaviorFilename;
-        public string BehaviorFilename
-        {
+        public string BehaviorFilename {
             get { return _behaviorFilename; }
             set { _behaviorFilename = value; }
         }
 
         private string _nodeId;
-        public string NodeId
-        {
+        public string NodeId {
             get { return _nodeId; }
             set { _nodeId = value; }
         }
 
         private string _nodeType;
-        public string NodeType
-        {
+        public string NodeType {
             get { return _nodeType; }
             set { _nodeType = value; }
         }
 
         private string _actionName;
-        public string ActionName
-        {
+        public string ActionName {
             get { return _actionName; }
             set { _actionName = value; }
         }
 
         private string _actionResult;
-        public string ActionResult
-        {
+        public string ActionResult {
             get { return _actionResult; }
             set { _actionResult = value; }
         }
 
-        public HighlightBreakPoint(string behaviorFilename, string nodeId, string nodeType, string actionName, string actionResult)
-        {
+        public HighlightBreakPoint(string behaviorFilename, string nodeId, string nodeType, string actionName, string actionResult) {
             _behaviorFilename = behaviorFilename;
             _nodeId = nodeId;
             _nodeType = nodeType;
@@ -96,35 +89,30 @@ namespace Behaviac.Design.Data
             public static string kResultFailure = "failure";
 
             private string _name;
-            public string Name
-            {
+            public string Name {
                 get { return _name; }
                 set { _name = value; }
             }
 
             private bool _enable = true;
-            public bool Enable
-            {
+            public bool Enable {
                 get { return _enable; }
                 set { _enable = value; }
             }
 
             private string _result = kResultAll;
-            public string Result
-            {
+            public string Result {
                 get { return isValidResult(_result) ? _result : kResultAll; }
                 set { _result = isValidResult(value) ? value : kResultAll; }
             }
 
             private int _hitCount = 0;
-            public int HitCount
-            {
+            public int HitCount {
                 get { return _hitCount; }
                 set { _hitCount = value; }
             }
 
-            private bool isValidResult(string result)
-            {
+            private bool isValidResult(string result) {
                 return result == kResultAll || result == kResultSuccess || result == kResultFailure;
             }
         }
@@ -133,72 +121,64 @@ namespace Behaviac.Design.Data
         public class BreakPoint
         {
             private string _nodeType;
-            public string NodeType
-            {
+            public string NodeType {
                 get { return _nodeType; }
                 set { _nodeType = value; }
             }
 
             private List<Action> _actions = new List<Action>();
-            public List<Action> Actions
-            {
+            public List<Action> Actions {
                 get { return _actions; }
                 set { _actions = value; }
             }
 
-            public Action FindAction(string actionName)
-            {
-                foreach (Action action in _actions)
-                {
+            public Action FindAction(string actionName) {
+                foreach(Action action in _actions) {
                     if (action.Name == actionName)
-                        return action;
+                    { return action; }
                 }
 
                 return null;
             }
 
-            public bool RemoveAction(string actionName)
-            {
-                foreach (Action action in _actions)
-                {
+            public bool RemoveAction(string actionName) {
+                foreach(Action action in _actions) {
                     if (action.Name == actionName)
-                        return _actions.Remove(action);
+                    { return _actions.Remove(action); }
                 }
 
                 return false;
             }
 
-            public bool IsEnable(string actionName)
-            {
+            public bool IsEnable(string actionName) {
                 Action action = FindAction(actionName);
                 return (action != null) ? action.Enable : false;
             }
 
-            public bool IsActive(string actionName, string actionResult, int hitCount = -1)
-            {
+            public bool IsActive(string actionName, string actionResult, int hitCount = -1) {
                 Action action = FindAction(actionName);
                 return action != null && action.Enable &&
-                    (action.Result == Action.kResultAll || action.Result == actionResult) &&
-                    (hitCount < 0 || action.HitCount == 0 || action.HitCount == hitCount);
+                       (action.Result == Action.kResultAll || action.Result == actionResult) &&
+                       (hitCount < 0 || action.HitCount == 0 || action.HitCount == hitCount);
             }
         }
 
         // <behaviorFilename, <nodeId, breakPoint>>
         private static Dictionary<string, Dictionary<string, BreakPoint>> _breakPoints = new Dictionary<string, Dictionary<string, BreakPoint>>();
-        public static Dictionary<string, Dictionary<string, BreakPoint>> BreakPoints
-        {
+        public static Dictionary<string, Dictionary<string, BreakPoint>> BreakPoints {
             get { return _breakPoints; }
         }
 
-        public static BreakPoint FindBreakPoint(string behaviorFilename, string nodeId, string actionName)
-        {
+        public static BreakPoint FindBreakPoint(string behaviorFilename, string nodeId, string actionName) {
             behaviorFilename = behaviorFilename.Replace('\\', '/');
+
             if (!_breakPoints.ContainsKey(behaviorFilename))
-                return null;
+            { return null; }
 
             Dictionary<string, BreakPoint> breakPoints = _breakPoints[behaviorFilename];
+
             if (!breakPoints.ContainsKey(nodeId))
-                return null;
+            { return null; }
 
             BreakPoint breakPoint = breakPoints[nodeId];
             Action action = breakPoint.FindAction(actionName);
@@ -215,26 +195,26 @@ namespace Behaviac.Design.Data
         public delegate void RemoveBreakPointDelegate(string behaviorFilename, string nodeType, string nodeId, Action action);
         public static RemoveBreakPointDelegate RemoveBreakPointHandler;
 
-        public static void AddBreakPoint(string behaviorFilename, string nodeId, string nodeType, string actionName, bool actionEnable, string actionResult, int hitCount)
-        {
+        public static void AddBreakPoint(string behaviorFilename, string nodeId, string nodeType, string actionName, bool actionEnable, string actionResult, int hitCount) {
             if (string.IsNullOrEmpty(behaviorFilename) || string.IsNullOrEmpty(nodeId) || string.IsNullOrEmpty(nodeType) || string.IsNullOrEmpty(actionName) || hitCount < 0)
-                return;
+            { return; }
 
             behaviorFilename = behaviorFilename.Replace('\\', '/');
+
             if (!_breakPoints.ContainsKey(behaviorFilename))
-                _breakPoints[behaviorFilename] = new Dictionary<string, BreakPoint>();
+            { _breakPoints[behaviorFilename] = new Dictionary<string, BreakPoint>(); }
 
             Dictionary<string, BreakPoint> breakPoints = _breakPoints[behaviorFilename];
 
             if (!breakPoints.ContainsKey(nodeId))
-                breakPoints[nodeId] = new BreakPoint();
+            { breakPoints[nodeId] = new BreakPoint(); }
 
             BreakPoint breakPoint = breakPoints[nodeId];
             breakPoint.NodeType = nodeType;
 
             Action action = breakPoint.FindAction(actionName);
-            if (action == null)
-            {
+
+            if (action == null) {
                 action = new Action();
                 breakPoint.Actions.Add(action);
             }
@@ -245,39 +225,38 @@ namespace Behaviac.Design.Data
             action.HitCount = hitCount;
 
             if (AddBreakPointHandler != null)
-                AddBreakPointHandler(behaviorFilename, nodeType, nodeId, action);
+            { AddBreakPointHandler(behaviorFilename, nodeType, nodeId, action); }
         }
 
-        public static void RemoveBreakPoint(string behaviorFilename, string nodeId, Action action)
-        {
+        public static void RemoveBreakPoint(string behaviorFilename, string nodeId, Action action) {
             if (string.IsNullOrEmpty(behaviorFilename) || string.IsNullOrEmpty(nodeId) || action == null)
-                return;
+            { return; }
 
             behaviorFilename = behaviorFilename.Replace('\\', '/');
+
             if (!_breakPoints.ContainsKey(behaviorFilename))
-                return;
+            { return; }
 
             Dictionary<string, BreakPoint> breakPoints = _breakPoints[behaviorFilename];
+
             if (!breakPoints.ContainsKey(nodeId))
-                return;
+            { return; }
 
             BreakPoint breakPoint = breakPoints[nodeId];
             breakPoint.RemoveAction(action.Name);
 
-            if (breakPoint.Actions.Count == 0)
-            {
+            if (breakPoint.Actions.Count == 0) {
                 breakPoints.Remove(nodeId);
 
                 if (breakPoints.Count == 0)
-                    _breakPoints.Remove(behaviorFilename);
+                { _breakPoints.Remove(behaviorFilename); }
             }
 
             if (RemoveBreakPointHandler != null)
-                RemoveBreakPointHandler(behaviorFilename, breakPoint.NodeType, nodeId, action);
+            { RemoveBreakPointHandler(behaviorFilename, breakPoint.NodeType, nodeId, action); }
         }
 
-        private static string getDebugFile(string workspaceFile)
-        {
+        private static string getDebugFile(string workspaceFile) {
             workspaceFile = Path.GetFullPath(workspaceFile);
             uint h = (uint)workspaceFile.ToLowerInvariant().GetHashCode();
             string filename = Path.GetFileName(workspaceFile).Replace('.', '_');
@@ -285,18 +264,16 @@ namespace Behaviac.Design.Data
 
             // Create the debug related folders if not existed
             string dbgFileDir = Utilities.GetDebugFileDirectory();
-            if (!Directory.Exists(dbgFileDir))
-            {
+
+            if (!Directory.Exists(dbgFileDir)) {
                 Directory.CreateDirectory(dbgFileDir);
             }
 
             return Path.Combine(dbgFileDir, dbgFile);
         }
 
-        public static bool Save(string workspaceFile)
-        {
-            try
-            {
+        public static bool Save(string workspaceFile) {
+            try {
                 string filename = getDebugFile(workspaceFile);
                 Stream stream = File.Open(filename, FileMode.Create);
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -311,24 +288,21 @@ namespace Behaviac.Design.Data
                 stream.Close();
 
                 return true;
-            }
-            catch (Exception)
-            {
+
+            } catch (Exception) {
                 return false;
             }
         }
 
-        public static bool Load(string workspaceFile)
-        {
+        public static bool Load(string workspaceFile) {
             _breakPoints.Clear();
             ExpandedNodePool.Clear();
 
             bool loadSucceeded = false;
             string filename = getDebugFile(workspaceFile);
-            if (File.Exists(filename))
-            {
-                try
-                {
+
+            if (File.Exists(filename)) {
+                try {
                     Stream stream = File.Open(filename, FileMode.Open);
                     BinaryFormatter formatter = new BinaryFormatter();
 
@@ -342,16 +316,15 @@ namespace Behaviac.Design.Data
                     stream.Close();
 
                     loadSucceeded = true;
-                }
-                catch (Exception)
-                {
+
+                } catch (Exception) {
                     //string msgError = string.Format(Resources.LoadConfigureError, filename, ex.Message);
                     //MessageBox.Show(msgError, Resources.LoadError, MessageBoxButtons.OK);
                 }
             }
 
             if (LoadBreakPointsHandler != null)
-                LoadBreakPointsHandler();
+            { LoadBreakPointsHandler(); }
 
             return loadSucceeded;
         }

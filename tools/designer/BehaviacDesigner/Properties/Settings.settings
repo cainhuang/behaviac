@@ -1,4 +1,4 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Behaviac.Design.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
@@ -22,9 +22,6 @@
     </Setting>
     <Setting Name="DumpConnectData" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="BreakAPP" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Language" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -82,6 +79,31 @@
     </Setting>
     <Setting Name="ColorTheme" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="OnlyShowFrequentlyUsedNodes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FrequentlyUsedNodes" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;PluginBehaviac.Events.Effector&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Events.Precondition&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.Condition&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.Action&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.Compute&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.Assignment&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.Selector&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.Sequence&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.Parallel&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.DecoratorLoop&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.DecoratorLoopUntil&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.Task&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Nodes.State&lt;/string&gt;
+  &lt;string&gt;PluginBehaviac.Events.TransitionCondition&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="FindDockLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

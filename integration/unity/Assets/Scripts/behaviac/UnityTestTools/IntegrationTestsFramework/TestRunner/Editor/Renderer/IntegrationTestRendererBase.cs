@@ -8,139 +8,135 @@ using Object = UnityEngine.Object;
 
 namespace UnityTest
 {
-	public abstract class IntegrationTestRendererBase : IComparable<IntegrationTestRendererBase>
-	{
-		public static Action<IList<ITestComponent>> RunTest;
+    public abstract class IntegrationTestRendererBase : IComparable<IntegrationTestRendererBase>
+    {
+        public static Action<IList<ITestComponent>> RunTest;
 
-		protected static bool refresh;
+        protected static bool refresh;
 
-		private static GUIContent guiRunSelected = new GUIContent ("Run Selected");
-		private static GUIContent guiRun = new GUIContent ("Run");
-		private static GUIContent guiDelete = new GUIContent ("Delete");
-		private static GUIContent guiDeleteSelected = new GUIContent ("Delete selected");
-		
-		protected static GUIContent guiTimeoutIcon = new GUIContent (Icons.stopwatchImg, "Timeout");
+        private static GUIContent guiRunSelected = new GUIContent("Run Selected");
+        private static GUIContent guiRun = new GUIContent("Run");
+        private static GUIContent guiDelete = new GUIContent("Delete");
+        private static GUIContent guiDeleteSelected = new GUIContent("Delete selected");
 
-		protected GameObject gameObject;
-		public TestComponent test;
-		private string name;
+        protected static GUIContent guiTimeoutIcon = new GUIContent(Icons.stopwatchImg, "Timeout");
 
-		protected IntegrationTestRendererBase ( GameObject gameObject )
-		{
-			this.test = gameObject.GetComponent (typeof (TestComponent)) as TestComponent;
-			if (test == null) throw new ArgumentException ("Provided GameObject is not a test object");
-			this.gameObject = gameObject;
-			this.name = test.Name;
-		}
+        protected GameObject gameObject;
+        public TestComponent test;
+        private string name;
 
-		public int CompareTo (IntegrationTestRendererBase other)
-		{
-			return test.CompareTo (other.test);
-		}
+        protected IntegrationTestRendererBase(GameObject gameObject) {
+            this.test = gameObject.GetComponent(typeof(TestComponent)) as TestComponent;
 
-		public bool Render (RenderingOptions options)
-		{
-			refresh = false;
-			EditorGUIUtility.SetIconSize (new Vector2 (15, 15));
-			Render (0, options);
-			EditorGUIUtility.SetIconSize (Vector2.zero);
-			return refresh;
-		}
+            if (test == null) { throw new ArgumentException("Provided GameObject is not a test object"); }
 
-		protected internal virtual void Render (int indend, RenderingOptions options)
-		{
-			if (!IsVisible (options)) return;
-			EditorGUILayout.BeginHorizontal ();
-			GUILayout.Space (indend * 10);
+            this.gameObject = gameObject;
+            this.name = test.Name;
+        }
 
-			var tempColor = GUI.color;
-			if (IsRunning)
-			{
-				var frame = Mathf.Abs (Mathf.Cos (Time.realtimeSinceStartup * 4)) * 0.6f + 0.4f;
-				GUI.color = new Color (1, 1, 1, frame);
-			}
+        public int CompareTo(IntegrationTestRendererBase other) {
+            return test.CompareTo(other.test);
+        }
 
-			var isSelected = Selection.gameObjects.Contains (gameObject);
-			
-			var value = GetResult ();
-			var icon = GuiHelper.GetIconForResult (value);
+        public bool Render(RenderingOptions options) {
+            refresh = false;
+            EditorGUIUtility.SetIconSize(new Vector2(15, 15));
+            Render(0, options);
+            EditorGUIUtility.SetIconSize(Vector2.zero);
+            return refresh;
+        }
 
-			var label = new GUIContent (name, icon);
-			var labelRect = GUILayoutUtility.GetRect (label, EditorStyles.label, GUILayout.ExpandWidth (true), GUILayout.Height (18));
+        protected internal virtual void Render(int indend, RenderingOptions options) {
+            if (!IsVisible(options)) { return; }
 
-			OnLeftMouseButtonClick (labelRect);
-			OnContextClick (labelRect);
-			DrawLine (labelRect, label, isSelected, options);
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(indend * 10);
 
-			if (IsRunning) GUI.color = tempColor;
-			EditorGUILayout.EndHorizontal ();
-		}
+            var tempColor = GUI.color;
 
-		protected void OnSelect ()
-		{
-			if (!Event.current.control) Selection.objects = new UnityEngine.Object[0];
+            if (IsRunning) {
+                var frame = Mathf.Abs(Mathf.Cos(Time.realtimeSinceStartup * 4)) * 0.6f + 0.4f;
+                GUI.color = new Color(1, 1, 1, frame);
+            }
 
-			if (Event.current.control && Selection.gameObjects.Contains (test.gameObject))
-				Selection.objects = Selection.gameObjects.Where (o => o != test.gameObject).ToArray ();
-			else
-				Selection.objects = Selection.gameObjects.Concat (new[] { test.gameObject }).ToArray ();
-		}
-		
-		protected void OnLeftMouseButtonClick ( Rect rect )
-		{
-			if (rect.Contains (Event.current.mousePosition) && Event.current.type == EventType.mouseDown && Event.current.button == 0)
-			{
-				rect.width = 20;
-				if (rect.Contains (Event.current.mousePosition)) return;
-				Event.current.Use ();
-				OnSelect ();
-			}
-		}
+            var isSelected = Selection.gameObjects.Contains(gameObject);
 
-		protected void OnContextClick ( Rect rect )
-		{
-			if (rect.Contains (Event.current.mousePosition) && Event.current.type == EventType.ContextClick)
-			{
-				DrawContextMenu (test);
-			}
-		}
+            var value = GetResult();
+            var icon = GuiHelper.GetIconForResult(value);
 
-		public static void DrawContextMenu ( TestComponent testComponent )
-		{
-			if (EditorApplication.isPlayingOrWillChangePlaymode) return;
+            var label = new GUIContent(name, icon);
+            var labelRect = GUILayoutUtility.GetRect(label, EditorStyles.label, GUILayout.ExpandWidth(true), GUILayout.Height(18));
 
-			var selectedTests = Selection.gameObjects.Where (go => go.GetComponent (typeof (TestComponent)));
-			var manySelected = selectedTests.Count () > 1;
-			
-			var m = new GenericMenu ();
-			if (manySelected)
-			{
-				//var testsToRun
-				m.AddItem (guiRunSelected, false, data => RunTest (selectedTests.Select(o => o.GetComponent (typeof (TestComponent))).Cast<ITestComponent> ().ToList ()), null);
-			}
-			m.AddItem (guiRun, false, data => RunTest (new[] { testComponent }), null);
-			m.AddSeparator ("");
-			m.AddItem (manySelected ? guiDeleteSelected : guiDelete, false, data => RemoveTests (selectedTests.ToArray ()), null);
-			m.ShowAsContext ();
-		}
+            OnLeftMouseButtonClick(labelRect);
+            OnContextClick(labelRect);
+            DrawLine(labelRect, label, isSelected, options);
 
-		private static void RemoveTests (GameObject[] testsToDelete)
-		{
-			foreach (var t in testsToDelete)
-			{
+            if (IsRunning) { GUI.color = tempColor; }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        protected void OnSelect() {
+            if (!Event.current.control) { Selection.objects = new UnityEngine.Object[0]; }
+
+            if (Event.current.control && Selection.gameObjects.Contains(test.gameObject))
+            { Selection.objects = Selection.gameObjects.Where(o => o != test.gameObject).ToArray(); }
+
+            else
+                Selection.objects = Selection.gameObjects.Concat(new[] { test.gameObject }).ToArray();
+        }
+
+        protected void OnLeftMouseButtonClick(Rect rect) {
+            if (rect.Contains(Event.current.mousePosition) && Event.current.type == EventType.mouseDown && Event.current.button == 0) {
+                rect.width = 20;
+
+                if (rect.Contains(Event.current.mousePosition)) { return; }
+
+                Event.current.Use();
+                OnSelect();
+            }
+        }
+
+        protected void OnContextClick(Rect rect) {
+            if (rect.Contains(Event.current.mousePosition) && Event.current.type == EventType.ContextClick) {
+                DrawContextMenu(test);
+            }
+        }
+
+        public static void DrawContextMenu(TestComponent testComponent) {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) { return; }
+
+            var selectedTests = Selection.gameObjects.Where(go => go.GetComponent(typeof(TestComponent)));
+            var manySelected = selectedTests.Count() > 1;
+
+            var m = new GenericMenu();
+
+            if (manySelected) {
+                //var testsToRun
+                m.AddItem(guiRunSelected, false, data => RunTest(selectedTests.Select(o => o.GetComponent(typeof(TestComponent))).Cast<ITestComponent> ().ToList()), null);
+            }
+
+            m.AddItem(guiRun, false, data => RunTest(new[] { testComponent }), null);
+            m.AddSeparator("");
+            m.AddItem(manySelected ? guiDeleteSelected : guiDelete, false, data => RemoveTests(selectedTests.ToArray()), null);
+            m.ShowAsContext();
+        }
+
+        private static void RemoveTests(GameObject[] testsToDelete) {
+            foreach(var t in testsToDelete) {
 #if UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2
-				Undo.RegisterSceneUndo ("Destroy Tests");
-				GameObject.DestroyImmediate (t);
+                Undo.RegisterSceneUndo("Destroy Tests");
+                GameObject.DestroyImmediate(t);
 #else
-				Undo.DestroyObjectImmediate (t);
+                Undo.DestroyObjectImmediate(t);
 #endif
-			}
-		}
+            }
+        }
 
-		protected internal bool IsRunning;
-		protected internal abstract void DrawLine ( Rect rect, GUIContent label, bool isSelected, RenderingOptions options );
-		protected internal abstract TestResult.ResultType GetResult ();
-		protected internal abstract bool IsVisible (RenderingOptions options);
-		public abstract bool SetCurrentTest (TestComponent tc);
-	}
+        protected internal bool IsRunning;
+        protected internal abstract void DrawLine(Rect rect, GUIContent label, bool isSelected, RenderingOptions options);
+        protected internal abstract TestResult.ResultType GetResult();
+        protected internal abstract bool IsVisible(RenderingOptions options);
+        public abstract bool SetCurrentTest(TestComponent tc);
+    }
 }

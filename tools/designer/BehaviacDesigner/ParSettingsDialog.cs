@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -20,13 +20,13 @@ using System.Text;
 using System.Windows.Forms;
 using Behaviac.Design.Attributes;
 using Behaviac.Design.Properties;
+using Behaviac.Design.Nodes;
 
 namespace Behaviac.Design
 {
     public partial class ParSettingsDialog : Form
     {
-        public ParSettingsDialog()
-        {
+        public ParSettingsDialog() {
             InitializeComponent();
 
             nameTextBox.SelectionStart = nameTextBox.TextLength;
@@ -39,8 +39,7 @@ namespace Behaviac.Design
         private bool _isNewPar = true;
         private bool _isArray = false;
 
-        public void SetPar(ParInfo par, Nodes.Node rootNode, bool isNewPar)
-        {
+        public void SetPar(ParInfo par, Nodes.Node rootNode, bool isNewPar) {
             Debug.Check(par != null && rootNode != null);
 
             _isNewPar = isNewPar;
@@ -54,15 +53,14 @@ namespace Behaviac.Design
 
             setParTypes();
 
-            if (par != null)
-            {
+            if (par != null) {
                 _isArray = Plugin.IsArrayType(par.Type);
                 Type type = _isArray ? par.Type.GetGenericArguments()[0] : par.Type;
 
                 nameTextBox.Text = par.Name;
                 arrayCheckBox.Checked = _isArray;
-                typeComboBox.Text = getTypeName(type);
-                descTextBox.Text = par.Description;
+                typeComboBox.Text = Plugin.GetMemberValueTypeName(type);
+                descTextBox.Text = par.BasicDescription;
 
                 setValue(type);
             }
@@ -72,51 +70,23 @@ namespace Behaviac.Design
             _initialized = true;
         }
 
-        public ParInfo GetPar()
-        {
+        public ParInfo GetPar() {
             return _parTemp;
         }
 
-        private void enableOkButton()
-        {
+        private void enableOkButton() {
             okButton.Enabled = (_parTemp != null) && !string.IsNullOrEmpty(_parTemp.Name) && !string.IsNullOrEmpty(_parTemp.TypeName);
         }
 
-        private string getTypeName(Type type)
-        {
-            foreach (Type key in Plugin.TypeHandlers.Keys)
-            {
-                if (key == type)
-                    return Plugin.GetNativeTypeName(key);
-            }
-
-            foreach (AgentType at in Plugin.AgentTypes)
-            {
-                if (at.AgentTypeType == type)
-                    return at.DisplayName;
-            }
-
-            return null;
-        }
-
-        private void setParTypes()
-        {
-            typeComboBox.Items.Clear();
-            foreach (Type key in Plugin.TypeHandlers.Keys)
-            {
-                typeComboBox.Items.Add(Plugin.GetNativeTypeName(key.Name, false, true));
-            }
-
-            foreach (AgentType at in Plugin.AgentTypes)
-            {
-                typeComboBox.Items.Add(at.DisplayName);
+        private void setParTypes() {
+            this.typeComboBox.Items.Clear();
+            foreach(string typeName in Plugin.GetAllMemberValueTypeNames(false)) {
+                this.typeComboBox.Items.Add(typeName);
             }
         }
 
-        private void nameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (_initialized)
-            {
+        private void nameTextBox_TextChanged(object sender, EventArgs e) {
+            if (_initialized) {
                 Debug.Check(_parTemp != null);
                 _parTemp.Name = nameTextBox.Text;
 
@@ -124,73 +94,62 @@ namespace Behaviac.Design
             }
         }
 
-        private void arrayCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (_initialized)
-            {
+        private void arrayCheckBox_CheckedChanged(object sender, EventArgs e) {
+            if (_initialized) {
                 _isArray = arrayCheckBox.Checked;
 
                 setValue(null);
             }
         }
 
-        private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_initialized)
-            {
+        private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            if (_initialized) {
                 Debug.Check(_parTemp != null && typeComboBox.SelectedItem != null);
 
                 setValue(null);
             }
         }
 
-        private void descTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (_initialized)
-            {
+        private void descTextBox_TextChanged(object sender, EventArgs e) {
+            if (_initialized) {
                 Debug.Check(_parTemp != null);
 
                 _parTemp.Description = descTextBox.Text;
             }
         }
 
-        private void setValue(Type type)
-        {
+        private void setValue(Type type) {
             Debug.Check(_parTemp != null);
 
-            if (type == null)
-            {
-                if (typeComboBox.SelectedItem != null)
-                {
-                    type = getType(typeComboBox.SelectedItem.ToString());
+            if (type == null) {
+                if (typeComboBox.SelectedItem != null) {
+                    type = Plugin.GetMemberValueType(typeComboBox.SelectedItem.ToString());
                     Debug.Check(type != null);
 
-                    if (_isArray)
-                    {
+                    if (_isArray) {
                         type = typeof(List<>).MakeGenericType(type);
                         _parTemp.Variable = new VariableDef(Plugin.DefaultValue(type));
-                    }
-                    else
-                    {
-                        if (_parTemp.Variable == null)
+
+                    } else {
+                        if (_parTemp.Variable == null) {
                             _parTemp.Variable = new VariableDef(Plugin.DefaultValue(type));
-                        else
+                        }
+
+                        else {
                             _parTemp.Variable.Value = Plugin.DefaultValue(type);
+                        }
                     }
 
                     _parTemp.TypeName = type.FullName;
                 }
-            }
-            else
-            {
-                if (_isArray)
-                {
+
+            } else {
+                if (_isArray) {
                     type = typeof(List<>).MakeGenericType(type);
                 }
             }
 
-            if (type != null)
-            {
+            if (type != null) {
                 tableLayoutPanel.Controls.Remove(valueEditor);
                 valueEditor = createValueEditor(type);
                 tableLayoutPanel.Controls.Add(this.valueEditor, 1, 3);
@@ -199,27 +158,7 @@ namespace Behaviac.Design
             }
         }
 
-        private Type getType(string typeName)
-        {
-            foreach (Type key in Plugin.TypeHandlers.Keys)
-            {
-                if (Plugin.GetNativeTypeName(key) == typeName)
-                    return key;
-            }
-
-            foreach (AgentType at in Plugin.AgentTypes)
-            {
-                if (at.DisplayName == typeName)
-                {
-                    return at.AgentTypeType;
-                }
-            }
-
-            return null;
-        }
-
-        private DesignerPropertyEditor createValueEditor(Type type)
-        {
+        private DesignerPropertyEditor createValueEditor(Type type) {
             Debug.Check(type != null);
 
             Type editorType = Plugin.InvokeEditorType(type);
@@ -238,8 +177,7 @@ namespace Behaviac.Design
             return editor;
         }
 
-        private void editor_ValueWasChanged(object sender, DesignerPropertyInfo property)
-        {
+        private void editor_ValueWasChanged(object sender, DesignerPropertyInfo property) {
             Debug.Check(_parTemp != null);
 
             DesignerPropertyEditor editor = sender as DesignerPropertyEditor;
@@ -248,23 +186,28 @@ namespace Behaviac.Design
 
         private bool _isParExisted = false;
 
-        private void okButton_Click(object sender, EventArgs e)
-        {
+        private void okButton_Click(object sender, EventArgs e) {
             Debug.Check(_parTemp != null && !string.IsNullOrEmpty(_parTemp.Name) && _rootNode != null);
 
-            ParInfo p = _rootNode.Pars.Find(delegate(ParInfo par) { return par.Name == _parTemp.Name; });
-            if (p == null || !_isNewPar && p == _par)
-                _isParExisted = false;
-            else
-                _isParExisted = true;
+            if (_rootNode is Behavior) {
+                ParInfo p = ((Behavior)_rootNode).LocalVars.Find(delegate(ParInfo par) {
+                    return par.Name == _parTemp.Name;
+                });
+
+                if (p == null || !_isNewPar && p == _par) {
+                    _isParExisted = false;
+                }
+
+                else {
+                    _isParExisted = true;
+                }
+            }
         }
 
-        private void ParSettingsDialog_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        private void ParSettingsDialog_FormClosing(object sender, FormClosingEventArgs e) {
             e.Cancel = _isParExisted;
 
-            if (_isParExisted)
-            {
+            if (_isParExisted) {
                 Debug.Check(_parTemp != null && !string.IsNullOrEmpty(_parTemp.Name));
                 string info = string.Format(Resources.ParWarningInfo, _parTemp.Name);
                 MessageBox.Show(info, Resources.ParWarning, MessageBoxButtons.OK);

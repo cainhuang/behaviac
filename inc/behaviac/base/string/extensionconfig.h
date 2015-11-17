@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_EXTENSIONCONFIG_H_
-#define _CORE_EXTENSIONCONFIG_H_
+#ifndef BEHAVIAC_CORE_EXTENSIONCONFIG_H
+#define BEHAVIAC_CORE_EXTENSIONCONFIG_H
 
 #include "behaviac/base/core/singleton.h"
 #include "behaviac/base/core/string/stringid.h"
@@ -59,4 +59,4 @@ protected:
     BEHAVIAC_DELCARE_SINGLETON(CExtensionConfig);
 };
 
-#endif // #ifndef _CORE_EXTENSIONCONFIG_H_
+#endif // #ifndef BEHAVIAC_CORE_EXTENSIONCONFIG_H

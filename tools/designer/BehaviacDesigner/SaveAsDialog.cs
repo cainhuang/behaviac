@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -25,8 +25,7 @@ namespace Behaviac.Design
 {
     public partial class SaveAsDialog : Form
     {
-        public SaveAsDialog(bool isReferenceTree)
-        {
+        public SaveAsDialog(bool isReferenceTree) {
             InitializeComponent();
 
             _isReferenceTree = isReferenceTree;
@@ -36,8 +35,7 @@ namespace Behaviac.Design
         private string _folder = string.Empty;
         private bool _isReferenceTree = true;
 
-        public string FileName
-        {
+        public string FileName {
             get { return _filename; }
 
             set
@@ -52,18 +50,16 @@ namespace Behaviac.Design
             }
         }
 
-        private void SaveAsDialog_Activated(object sender, EventArgs e)
-        {
+        private void SaveAsDialog_Activated(object sender, EventArgs e) {
             this.nameTextBox.Focus();
         }
 
-        private void okButton_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.nameTextBox.Text))
+        private void okButton_Click(object sender, EventArgs e) {
+            if (string.IsNullOrEmpty(this.nameTextBox.Text)) {
                 return;
+            }
 
-            if (_isReferenceTree && !Plugin.IsValidFilename(this.nameTextBox.Text))
-            {
+            if (_isReferenceTree && !Plugin.IsValidFilename(this.nameTextBox.Text)) {
                 MessageBox.Show(Resources.FilenameWarning, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -72,8 +68,7 @@ namespace Behaviac.Design
             string filename = Path.Combine(_folder, this.nameTextBox.Text);
             filename = Path.ChangeExtension(filename, ext);
 
-            if (!File.Exists(filename))
-            {
+            if (!File.Exists(filename)) {
                 _filename = filename;
 
                 this.DialogResult = DialogResult.OK;
@@ -82,15 +77,13 @@ namespace Behaviac.Design
             }
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
+        private void cancelButton_Click(object sender, EventArgs e) {
             this.DialogResult = DialogResult.Cancel;
 
             this.Close();
         }
 
-        private void SaveAsDialog_VisibleChanged(object sender, EventArgs e)
-        {
+        private void SaveAsDialog_VisibleChanged(object sender, EventArgs e) {
             this.nameTextBox.SelectAll();
             this.nameTextBox.Focus();
         }

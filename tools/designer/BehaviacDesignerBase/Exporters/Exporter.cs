@@ -48,8 +48,7 @@ namespace Behaviac.Design.Exporters
         /// <summary>
         /// The behaviour which will be exported.
         /// </summary>
-        public Nodes.BehaviorNode Node
-        {
+        public Nodes.BehaviorNode Node {
             get { return _node; }
         }
 
@@ -58,8 +57,7 @@ namespace Behaviac.Design.Exporters
         /// <summary>
         /// The folder we want to export the behaviour to.
         /// </summary>
-        public string OutputFolder
-        {
+        public string OutputFolder {
             get { return _outputFolder; }
         }
 
@@ -68,14 +66,12 @@ namespace Behaviac.Design.Exporters
         /// <summary>
         /// The relative filename the behaviour will be exported to.
         /// </summary>
-        public string Filename
-        {
+        public string Filename {
             get { return _filename; }
         }
 
         protected List<string> _includedFilenames;
-        public List<string> IncludedFilenames
-        {
+        public List<string> IncludedFilenames {
             get { return _includedFilenames; }
         }
 
@@ -85,8 +81,7 @@ namespace Behaviac.Design.Exporters
         /// <param name="node">The behaviour hich will be exported.</param>
         /// <param name="outputFolder">The folder we want to export the behaviour to.</param>
         /// <param name="filename">The relative filename we want to export to. You have to add your file extension.</param>
-        public Exporter(Nodes.BehaviorNode node, string outputFolder, string filename, List<string> includedFilenames = null)
-        {
+        public Exporter(Nodes.BehaviorNode node, string outputFolder, string filename, List<string> includedFilenames = null) {
             _node = node;
             _outputFolder = outputFolder;
             _filename = filename;
@@ -97,8 +92,12 @@ namespace Behaviac.Design.Exporters
         /// Exportes the node to the given filename.
         /// </summary>
         /// <returns>Returns the result when the behaviour is exported.</returns>
-        public abstract FileManagers.SaveResult Export();
+        public virtual FileManagers.SaveResult Export() {
+            return FileManagers.SaveResult.Succeeded;
+        }
 
-        public virtual FileManagers.SaveResult Export(List<Nodes.BehaviorNode> behaviors) { return FileManagers.SaveResult.Succeeded; }
+        public virtual FileManagers.SaveResult Export(List<Nodes.BehaviorNode> behaviors, bool exportUnifiedFile) {
+            return FileManagers.SaveResult.Succeeded;
+        }
     }
 }

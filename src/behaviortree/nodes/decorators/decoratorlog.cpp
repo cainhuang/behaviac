@@ -16,66 +16,65 @@
 
 namespace behaviac
 {
-	DecoratorLog::DecoratorLog()
-	{}
+    DecoratorLog::DecoratorLog()
+    {}
 
-	DecoratorLog::~DecoratorLog()
-	{}
+    DecoratorLog::~DecoratorLog()
+    {}
 
-	void DecoratorLog::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
+    void DecoratorLog::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
 
-		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
-		{
-			const property_t& p = (*it);
+        for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+        {
+            const property_t& p = (*it);
 
-			if (strcmp(p.name, "Log") == 0)
-			{
-				this->m_message = p.value;
-			}
-		}
-	}
+            if (strcmp(p.name, "Log") == 0)
+            {
+                this->m_message = p.value;
+            }
+        }
+    }
 
-	bool DecoratorLog::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!DecoratorLog::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool DecoratorLog::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!DecoratorLog::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	BehaviorTask* DecoratorLog::createTask() const
-	{
-		DecoratorLogTask* pTask = BEHAVIAC_NEW DecoratorLogTask();
+        return super::IsValid(pAgent, pTask);
+    }
 
-		return pTask;
-	}
+    BehaviorTask* DecoratorLog::createTask() const
+    {
+        DecoratorLogTask* pTask = BEHAVIAC_NEW DecoratorLogTask();
 
-	void DecoratorLogTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+        return pTask;
+    }
 
-	void DecoratorLogTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void DecoratorLogTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void DecoratorLogTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void DecoratorLogTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	EBTStatus DecoratorLogTask::decorate(EBTStatus status)
-	{
-		BEHAVIAC_ASSERT(DecoratorLog::DynamicCast(this->GetNode()));
-		const DecoratorLog* pDecoratorLogNode = (const DecoratorLog*)(this->GetNode());
-		BEHAVIAC_LOGINFO("DecoratorLogTask:%s\n", pDecoratorLogNode->m_message.c_str());
+    void DecoratorLogTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-		return status;
-	}
+    EBTStatus DecoratorLogTask::decorate(EBTStatus status)
+    {
+        BEHAVIAC_ASSERT(DecoratorLog::DynamicCast(this->GetNode()));
+        const DecoratorLog* pDecoratorLogNode = (const DecoratorLog*)(this->GetNode());
+        BEHAVIAC_LOGINFO("DecoratorLogTask:%s\n", pDecoratorLogNode->m_message.c_str());
 
+        return status;
+    }
 }//namespace behaviac

@@ -11,68 +11,68 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
 {
     public class DecoratorAlwaysSuccess : DecoratorNode
     {
-    	public DecoratorAlwaysSuccess()
-    	{
-		}
+        public DecoratorAlwaysSuccess()
+        {
+        }
+
         ~DecoratorAlwaysSuccess()
         {
         }
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
-			base.load(version, agentType, properties);
-		}
+            base.load(version, agentType, properties);
+        }
 
-		public override bool IsValid(Agent pAgent, BehaviorTask pTask)
+        public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
-			if (!(pTask.GetNode() is DecoratorAlwaysSuccess))
-			{
-				return false;
-			}
-		
-			return base.IsValid(pAgent, pTask);
-		}
+            if (!(pTask.GetNode() is DecoratorAlwaysSuccess))
+            {
+                return false;
+            }
 
-		protected override BehaviorTask createTask()
+            return base.IsValid(pAgent, pTask);
+        }
+
+        protected override BehaviorTask createTask()
         {
-			DecoratorAlwaysSuccessTask pTask = new DecoratorAlwaysSuccessTask();
-			
-			return pTask;
-		}
+            DecoratorAlwaysSuccessTask pTask = new DecoratorAlwaysSuccessTask();
 
-	    class DecoratorAlwaysSuccessTask : DecoratorTask
-	    {
-	    	public DecoratorAlwaysSuccessTask() : base()
-	        {
-	        }
+            return pTask;
+        }
 
-	    	public override void copyto(BehaviorTask target)
-	        {
-				base.copyto(target);
-			}
+        private class DecoratorAlwaysSuccessTask : DecoratorTask
+        {
+            public DecoratorAlwaysSuccessTask()
+                : base()
+            {
+            }
 
-			public override void save(ISerializableNode node)
-	        {
-				base.save(node);
-			}
+            public override void copyto(BehaviorTask target)
+            {
+                base.copyto(target);
+            }
 
-			public override void load(ISerializableNode node)
-	        {
-				base.load(node);
-			}
+            public override void save(ISerializableNode node)
+            {
+                base.save(node);
+            }
 
-	        protected override EBTStatus decorate(EBTStatus status)
-	        {
-	            return EBTStatus.BT_SUCCESS;
-	        }
-	    }
+            public override void load(ISerializableNode node)
+            {
+                base.load(node);
+            }
+
+            protected override EBTStatus decorate(EBTStatus status)
+            {
+                return EBTStatus.BT_SUCCESS;
+            }
+        }
     }
 }

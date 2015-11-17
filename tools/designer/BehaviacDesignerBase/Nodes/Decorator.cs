@@ -28,26 +28,22 @@ namespace Behaviac.Design.Nodes
         protected ConnectorSingle _genericChildren;
 
         public Decorator(string label, string description)
-            : base(label, description)
-        {
-            _genericChildren = new ConnectorSingle(_children, string.Empty, "GenericChildren");
+            : base(label, description) {
+            _genericChildren = new ConnectorSingle(_children, string.Empty, Connector.kGeneric);
         }
 
-        public override string ExportClass
-        {
+        public override string ExportClass {
             get { return "DecoratorNode"; }
         }
 
         protected bool _bDecorateWhenChildEnds = false;
         [DesignerBoolean("DecorateWhenChildEnds", "DecorateWhenChildEndsDesc", "CategoryBasic", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoFlags)]
-        public bool DecorateWhenChildEnds
-        {
+        public bool DecorateWhenChildEnds {
             get { return _bDecorateWhenChildEnds; }
             set { _bDecorateWhenChildEnds = value; }
         }
 
-        protected override void CloneProperties(Node newnode)
-        {
+        protected override void CloneProperties(Node newnode) {
             base.CloneProperties(newnode);
 
             Decorator dec = (Decorator)newnode;
@@ -55,23 +51,20 @@ namespace Behaviac.Design.Nodes
         }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(96, 74, 123));
-        protected override Brush DefaultBackgroundBrush
-        {
+        protected override Brush DefaultBackgroundBrush {
             get { return __defaultBackgroundBrush; }
         }
 
-        public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior)
-        {
+        public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior) {
             NodeViewData nvd = base.CreateNodeViewData(parent, rootBehavior);
             nvd.ChangeShape(Behaviac.Design.NodeShape.Ellipse);
 
             return nvd;
         }
 
-        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
-        {
+        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
             if (_genericChildren.ChildCount < 1)
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.DecoratorHasNoChildError));
+            { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.DecoratorHasNoChildError)); }
 
             base.CheckForErrors(rootBehavior, result);
         }

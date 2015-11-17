@@ -18,73 +18,80 @@
 #if BEHAVIAC_ENABLE_NETWORKD
 CMethodBase& CMethodBase::NETROLE(behaviac::NetworkRole netRole)
 {
-	this->m_netRole = netRole;
-	if (this->m_netRole != behaviac::NET_ROLE_DEFAULT)
-	{
-		behaviac::Network* pNw = behaviac::Network::GetInstance();
-		if (pNw && !pNw->IsSinglePlayer())
-		{
-			behaviac::string nameTemp;
+    this->m_netRole = netRole;
 
-			if (this->m_className)
-			{
-				nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
-			}
-			else
-			{
-				nameTemp = this->m_propertyName;
-			}
+    if (this->m_netRole != behaviac::NET_ROLE_DEFAULT)
+    {
+        behaviac::Network* pNw = behaviac::Network::GetInstance();
 
-			pNw->RegisterRemoteEvent(this->m_netRole, nameTemp.c_str());
-		}
-	}
+        if (pNw && !pNw->IsSinglePlayer())
+        {
+            behaviac::string nameTemp;
 
-	return *this;
+            if (this->m_className)
+            {
+                nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+
+            }
+            else
+            {
+                nameTemp = this->m_propertyName;
+            }
+
+            pNw->RegisterRemoteEvent(this->m_netRole, nameTemp.c_str());
+        }
+    }
+
+    return *this;
 }
 
 void CMethodBase::SubsribeToNetwork(behaviac::Agent* pAgent)
 {
-	if (this->m_netRole != behaviac::NET_ROLE_DEFAULT)
-	{
-		behaviac::Network* pNw = behaviac::Network::GetInstance();
-		if (pNw && !pNw->IsSinglePlayer())
-		{
-			behaviac::string nameTemp;
+    if (this->m_netRole != behaviac::NET_ROLE_DEFAULT)
+    {
+        behaviac::Network* pNw = behaviac::Network::GetInstance();
 
-			if (this->m_className)
-			{
-				nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
-			}
-			else
-			{
-				nameTemp = this->m_propertyName;
-			}
+        if (pNw && !pNw->IsSinglePlayer())
+        {
+            behaviac::string nameTemp;
 
-			pNw->BindToEvent(this->m_netRole, nameTemp.c_str(), pAgent, this);
-		}
-	}
+            if (this->m_className)
+            {
+                nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+
+            }
+            else
+            {
+                nameTemp = this->m_propertyName;
+            }
+
+            pNw->BindToEvent(this->m_netRole, nameTemp.c_str(), pAgent, this);
+        }
+    }
 }
 
 void CMethodBase::UnSubsribeToNetwork(behaviac::Agent* pAgent)
 {
-	if (this->m_netRole != behaviac::NET_ROLE_DEFAULT)
-	{
-		behaviac::Network* pNw = behaviac::Network::GetInstance();
-		if (pNw && !pNw->IsSinglePlayer())
-		{
-			behaviac::string nameTemp;
+    if (this->m_netRole != behaviac::NET_ROLE_DEFAULT)
+    {
+        behaviac::Network* pNw = behaviac::Network::GetInstance();
 
-			if (this->m_className)
-			{
-				nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
-			}
-			else
-			{
-				nameTemp = this->m_propertyName;
-			}
+        if (pNw && !pNw->IsSinglePlayer())
+        {
+            behaviac::string nameTemp;
 
-			pNw->UnBindToEvent(this->m_netRole, nameTemp.c_str(), pAgent);
-		}
-	}
+            if (this->m_className)
+            {
+                nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+
+            }
+            else
+            {
+                nameTemp = this->m_propertyName;
+            }
+
+            pNw->UnBindToEvent(this->m_netRole, nameTemp.c_str(), pAgent);
+        }
+    }
 }
 #endif//#if BEHAVIAC_ENABLE_NETWORKD

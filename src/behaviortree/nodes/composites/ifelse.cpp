@@ -16,64 +16,63 @@
 
 namespace behaviac
 {
-	IfElse::IfElse()
-	{}
+    IfElse::IfElse()
+    {}
 
-	IfElse::~IfElse()
-	{}
+    IfElse::~IfElse()
+    {}
 
-	void IfElse::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void IfElse::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool IfElse::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!IfElse::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool IfElse::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!IfElse::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	BehaviorTask* IfElse::createTask() const
-	{
-		IfElseTask* pTask = BEHAVIAC_NEW IfElseTask();
-		
+        return super::IsValid(pAgent, pTask);
+    }
 
-		return pTask;
-	}
+    BehaviorTask* IfElse::createTask() const
+    {
+        IfElseTask* pTask = BEHAVIAC_NEW IfElseTask();
 
+        return pTask;
+    }
 
-	void IfElseTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void IfElseTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void IfElseTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void IfElseTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void IfElseTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void IfElseTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     bool IfElseTask::onenter(Agent* pAgent)
     {
-    	BEHAVIAC_UNUSED_VAR(pAgent);
-		//reset it as it will be checked for the condition execution at the first time
-		this->m_activeChildIndex = CompositeTask::InvalidChildIndex;
-		if (this->m_children.size() == 3)
-		{
-			return true;
-		}
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        //reset it as it will be checked for the condition execution at the first time
+        this->m_activeChildIndex = CompositeTask::InvalidChildIndex;
 
-		BEHAVIAC_ASSERT(false, "IfElseTask has to have three children: condition, if, else");
+        if (this->m_children.size() == 3)
+        {
+            return true;
+        }
 
-		return false;
+        BEHAVIAC_ASSERT(false, "IfElseTask has to have three children: condition, if, else");
+
+        return false;
     }
 
     void IfElseTask::onexit(Agent* pAgent, EBTStatus s)
@@ -82,49 +81,48 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(s);
     }
 
-
     EBTStatus IfElseTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-		BEHAVIAC_ASSERT(this->m_children.size() == 3);
+    {
+        BEHAVIAC_ASSERT(this->m_children.size() == 3);
 
-		//called by tickCurrentNode
-		if (childStatus != BT_RUNNING)
-		{
-			return childStatus;
-		}
+        //called by tickCurrentNode
+        if (childStatus != BT_RUNNING)
+        {
+            return childStatus;
+        }
 
-		if (this->m_activeChildIndex == CompositeTask::InvalidChildIndex)
-		{
-			BehaviorTask* pCondition = this->m_children[0];
+        if (this->m_activeChildIndex == CompositeTask::InvalidChildIndex)
+        {
+            BehaviorTask* pCondition = this->m_children[0];
 
-			EBTStatus conditionResult = pCondition->exec(pAgent);
+            EBTStatus conditionResult = pCondition->exec(pAgent);
 
-			//BEHAVIAC_ASSERT (conditionResult == BT_SUCCESS || conditionResult == BT_FAILURE, 
-			//	"conditionResult should be either BT_SUCCESS of BT_FAILURE");
+            //BEHAVIAC_ASSERT (conditionResult == BT_SUCCESS || conditionResult == BT_FAILURE,
+            //	"conditionResult should be either BT_SUCCESS of BT_FAILURE");
 
-			if (conditionResult == BT_SUCCESS)
-			{
-				//BehaviorTask* pIf = this->m_children[1];		
+            if (conditionResult == BT_SUCCESS)
+            {
+                //BehaviorTask* pIf = this->m_children[1];
 
-				this->m_activeChildIndex = 1;
-			}
-			else if (conditionResult == BT_FAILURE)
-			{
-				//BehaviorTask* pElse = this->m_children[2];		
+                this->m_activeChildIndex = 1;
 
-				this->m_activeChildIndex = 2;
-			}
-		}
+            }
+            else if (conditionResult == BT_FAILURE)
+            {
+                //BehaviorTask* pElse = this->m_children[2];
 
-		if (this->m_activeChildIndex != CompositeTask::InvalidChildIndex)
-		{
-			BehaviorTask* pBehavior = this->m_children[this->m_activeChildIndex];
-			EBTStatus s = pBehavior->exec(pAgent);
+                this->m_activeChildIndex = 2;
+            }
+        }
 
-			return s;
-		}
+        if (this->m_activeChildIndex != CompositeTask::InvalidChildIndex)
+        {
+            BehaviorTask* pBehavior = this->m_children[this->m_activeChildIndex];
+            EBTStatus s = pBehavior->exec(pAgent);
 
-		return BT_RUNNING;
-	}
+            return s;
+        }
 
+        return BT_RUNNING;
+    }
 }

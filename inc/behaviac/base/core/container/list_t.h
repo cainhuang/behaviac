@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BASE_LIST_H_
-#define _BASE_LIST_H_
+#ifndef BEHAVIAC_BASE_LIST_H
+#define BEHAVIAC_BASE_LIST_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
@@ -22,12 +22,10 @@
 
 namespace behaviac
 {
-	template<class _Ty,	class _Ax = behaviac::stl_allocator<_Ty> >
-	class list : public std::list<_Ty, _Ax>
-	{
-
-	};
-
+    template<class _Ty, class _Ax = behaviac::stl_allocator<_Ty> >
+    class list : public std::list<_Ty, _Ax>
+    {
+    };
 }//namespace behaviac
 
-#endif //#ifndef _BASE_LIST_H_
+#endif //#ifndef BEHAVIAC_BASE_LIST_H

@@ -117,170 +117,259 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>604, 393</value>
-  </data>
-  <data name="sizeColumn.HeaderText" xml:space="preserve">
-    <value>Size</value>
-  </data>
-  <data name="&gt;&gt;modifiedTimeColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;sizeColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="fileCountLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="exportFolderLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <metadata name="imageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>14, 26</value>
+  </metadata>
+  <data name="imageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAq
+        CQAAAk1TRnQBSQFMAgEBAgEAAaABAgGgAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEbAQEBAAH/ARsBAQEAAf8BGwEBAQAB/wEbAQEBAAH/
+        ARsBAQEAAf8BGwEBAQAB/wEbAQEBAAH/ARsBAQEAAf8BGwEBAQAB/wEbAQEBAAH/jAABLQGEAY8B/wEk
+        ATIBhQH/ARgBJQEvAf8BCQEVAR4B/wEAAQQBDAH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMA
+        Af8DAAH/AwAB/wwAAbcBogGTBf8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/
+        AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/ARsBAQEAAf+MAAEvAYcBkgH/AaIB3wHwAf8BKAHNAeoB/wEB
+        AbgB4gH/AQABrgHbAf8BAAGpAdkB/wEAAaEB0gH/AQABmAHHAf8BAAGOAbwB/wEAAYMBrgH/AQABNwGr
+        Af8BAAE0AakB/wEAAS8BnwH/AQABKgGWAf8DAAH/DAABtwGiAZMJ/wH8AfoB+QH/AfcB8QHuAf8B8QHn
+        AeEB/wHsAd0B1QH/AeYB0wHJAf8B4QHKAb0B/wG3AaIBkwH/ARsBAQEAAf+MAAEyAYoBlQH/AaoB6AH2
+        Af8BlQHlAfwB/wGEAd8B+wH/AS0B1gH6Af8BIgHQAfcB/wEVAcYB9AH/AQgBvgHwAf8BAAG0AewB/wEA
+        AaoB6AH/AQABpAHmAf8BAAGaAd8B/wEAAZAB1wH/AQABLwGfAf8DAAH/DAABtwGiAZMJ/wP+Af8B+gH3
+        AfUB/wH1Ae0B6QH/Ae8B4wHcAf8B6gHZAdEB/wHkAc8BxAH/AbcBogGTAf8BGwEBAQAB/4wAATUBjgGY
+        Af8BsAHqAfYB/wGfAekB+wH/AZIB5AH8Af8BgQHdAfsB/wEtAdYB+gH/ASABzgH3Af8BFQHGAfQB/wEF
+        AbwB8AH/AQABtAHsAf8BAAGqAegB/wEAAaMB5gH/AQABlgHcAf8BAAE0AakB/wMAAf8MAAG3AaIBkw3/
+        Af0B/AH7Af8B+AHzAfAB/wHyAekB4wH/Ae0B3wHYAf8B5wHVAcsB/wG3AaIBkwH/ARsBAQEAAf+MAAGA
+        AZEBnAH/AbYB7QH4Af8BqgHsAfsB/wGbAegB+wH/AY8B4wH8Af8BgQHdAfsB/wEpAdUB+QH/ASABzgH3
+        Af8BEwHFAfQB/wEFAbwB8AH/AQABsgHsAf8BAAGpAegB/wEAAZ4B4gH/AQABggG0Af8CAAEDAf8MAAG6
+        AaUBlhH/AfsB+AH3Af8B9gHvAesB/wHwAeUB3wH/AesB2wHTAf8BtwGiAZMB/wEbAQEBAAH/jAABgwGV
+        AZ8B/wG+AfAB+QH/AasB8AH3Af8BpQHsAfsB/wGYAecB+wH/AYkB4QH8Af8BNwHdAfsB/wEpAdUB+QH/
+        AR0BzQH3Af8BEAHEAfMB/wEDAbsB8AH/AQABsgHsAf8BAAGkAeMB/wEAAYoBvwH/AQEBCwEUAf8MAAG+
+        AakBmhH/Af4B/QH8Af8B+QH1AfIB/wH0AesB5gH/Ae4B4QHaAf8BtwGiAZMB/wEbAQEBAAH/jAABhgGZ
+        AaMB/wG+AfAB+QH/AbYB7QH4Af8BsAHuAfoB/wGkAesB+gH/AZUB5gH7Af8BiQHhAfwB/wE1AdwB/AH/
+        ASkB1QH5Af8BHQHNAfcB/wEQAcQB8wH/AQEBuQHvAf8BAAGpAecB/wEAAY8BxwH/AQ8BGwEjAf8MAAHD
+        Aa4BnhX/AfwB+gH5Af8B9wHxAe4B/wHxAecB4QH/AbcBogGTAf8BGwEBAQAB/4wAAYkBnAGmAf8BvgHw
+        AfkB/wG2Ae0B+AH/AbYB7QH4Af8BqwHwAfcB/wGiAewB+gH/AZUB5gH7Af8BiQHhAfwB/wE1AdwB/AH/
+        AScB0wH6Af8BGwHMAfcB/wENAcMB8wH/AQEBuQHvAf8BAAGZAc8B/wEbASgBMgH/DAAByAGyAaMV/wP+
+        Af8B+gH3AfUB/wH1Ae0B6QH/AbcBogGTAf8BGwEBAQAB/4wAAYsBoAGoAf8BvgHwAfkB/wG+AfAB+QH/
+        Ab4B8AH5Af8BvgHwAfkB/wG0AfIB+AH/AaoB7AH7Af8BoAHpAfsB/wGVAeUB/AH/AYoB3wH8Af8BNwHY
+        AfsB/wEsAdIB+AH/ASABygH0Af8BFQHAAfEB/wEbASgBMgH/DAABzAG2AacZ/wH9AfwB+wH/AbcBogGT
+        Af8BtwGiAZMB/wEcAQIBAAH/jAABjQGhAaoB/wGNAaEBqgH/AY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/
+        AYsBnwGoAf8BiQGcAaYB/wGJAZsBpgH/AYcBmgGkAf8BhgGZAaMB/wGEAZYBoAH/AYQBlgGgAf8BgwGV
+        AaAB/wGDAZUBoAH/AS0BhAGPAf8MAAHRAbsBqxn/AbcBogGTAf8BHAECAQAB/wEcAQIBAAH/ARwBAgEA
+        Af+MAAGPAaQBrAH/AbIB5AHsAf8BtgHtAfgB/wG2Ae0B+AH/AakB7AH2Af8BkgHhAfMB/wGNAaEBqgH/
+        AdUB3AHgAf8oAAHVAb8Brxn/AbkBpAGVAf8B1AHFAboB/wEcAQIBAAH/A0oBjIwAAdoB3gHhAf8BjwGk
+        AawB/wGPAaQBrAH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AdUB3AHgAf8sAAHYAcIBshn/AcABqwGc
+        Af8BHAECAQAB/wNKAYvYAAHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHYAcIBsgH/AdgBwgGyAf8B1AG+
+        Aa4B/wHPAbkBqQH/AckBswGkAf8DSgGL/wCVAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUA
+        AYAXAAP/AQAE/wQAAv8BwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUA
+        AQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAH/AcABBwQAAQEB/wHAAQ8EAAL/
+        AcABHwQABP8EAAs=
+</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="searchIncludeDirCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="exportFolderLabel.Text" xml:space="preserve">
-    <value>File Name:</value>
-  </data>
-  <data name="&gt;&gt;fileCountLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;filepathColumn.Name" xml:space="preserve">
-    <value>filepathColumn</value>
-  </data>
-  <data name="&gt;&gt;filepathColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="closeButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="exportFolderLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 9</value>
-  </data>
-  <data name="&gt;&gt;filesGridView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exportFolderLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
-  </data>
-  <data name="&gt;&gt;filesGridView.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;fileCountLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fileCountLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
-  <data name="searchIncludeDirCheckBox.Text" xml:space="preserve">
-    <value>Search Including Folder</value>
-  </data>
-  <data name="&gt;&gt;folderBrowserDialog.Name" xml:space="preserve">
-    <value>folderBrowserDialog</value>
-  </data>
-  <data name="fileCountLabel.Text" xml:space="preserve">
-    <value>0 files</value>
-  </data>
-  <data name="searchIncludeDirCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>414, 8</value>
-  </data>
-  <data name="closeButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="&gt;&gt;searchIncludeDirCheckBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;closeButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="closeButton.Text" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="closeButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="searchIncludeDirCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;searchIncludeDirCheckBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="filesGridView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="filenameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 6</value>
+  <metadata name="filepathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="filepathColumn.HeaderText" xml:space="preserve">
+    <value>File Path</value>
   </data>
-  <data name="&gt;&gt;modifiedTimeColumn.Name" xml:space="preserve">
-    <value>modifiedTimeColumn</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="filepathColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>160</value>
   </data>
-  <data name="&gt;&gt;filenameTextBox.Name" xml:space="preserve">
-    <value>filenameTextBox</value>
+  <metadata name="sizeColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="sizeColumn.HeaderText" xml:space="preserve">
+    <value>Size</value>
   </data>
-  <data name="fileCountLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 334</value>
+  <data name="sizeColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>60</value>
   </data>
-  <data name="closeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
+  <metadata name="modifiedTimeColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="modifiedTimeColumn.HeaderText" xml:space="preserve">
     <value>Modified Time</value>
-  </data>
-  <data name="filenameTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;filesGridView.Parent" xml:space="preserve">
-    <value>$this</value>
   </data>
   <data name="modifiedTimeColumn.MinimumWidth" type="System.Int32, mscorlib">
     <value>120</value>
   </data>
-  <data name="&gt;&gt;imageList.Name" xml:space="preserve">
-    <value>imageList</value>
-  </data>
-  <data name="closeButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>501, 327</value>
-  </data>
-  <data name="&gt;&gt;exportFolderLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="filesGridView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 33</value>
   </data>
   <data name="filesGridView.Size" type="System.Drawing.Size, System.Drawing">
     <value>564, 287</value>
   </data>
-  <data name="filepathColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>160</value>
+  <data name="filesGridView.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="searchIncludeDirCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;filesGridView.Name" xml:space="preserve">
+    <value>filesGridView</value>
+  </data>
+  <data name="&gt;&gt;filesGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;filesGridView.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;filesGridView.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="filenameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="filenameTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 6</value>
+  </data>
+  <data name="filenameTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>318, 21</value>
+  </data>
+  <data name="filenameTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;filenameTextBox.Name" xml:space="preserve">
+    <value>filenameTextBox</value>
+  </data>
+  <data name="&gt;&gt;filenameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;filenameTextBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;fileCountLabel.Name" xml:space="preserve">
-    <value>fileCountLabel</value>
+  <data name="&gt;&gt;filenameTextBox.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="&gt;&gt;searchIncludeDirCheckBox.Name" xml:space="preserve">
-    <value>searchIncludeDirCheckBox</value>
+  <data name="exportFolderLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;fileCountLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;imageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="exportFolderLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 9</value>
   </data>
   <data name="exportFolderLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 12</value>
   </data>
-  <data name="&gt;&gt;folderBrowserDialog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="exportFolderLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="exportFolderLabel.Text" xml:space="preserve">
+    <value>File Name:</value>
+  </data>
+  <data name="&gt;&gt;exportFolderLabel.Name" xml:space="preserve">
+    <value>exportFolderLabel</value>
+  </data>
+  <data name="&gt;&gt;exportFolderLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportFolderLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;exportFolderLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="searchIncludeDirCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="searchIncludeDirCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="searchIncludeDirCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>414, 8</value>
+  </data>
+  <data name="searchIncludeDirCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 16</value>
+  </data>
+  <data name="searchIncludeDirCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="searchIncludeDirCheckBox.Text" xml:space="preserve">
+    <value>Search Including Folder</value>
+  </data>
+  <data name="&gt;&gt;searchIncludeDirCheckBox.Name" xml:space="preserve">
+    <value>searchIncludeDirCheckBox</value>
+  </data>
+  <data name="&gt;&gt;searchIncludeDirCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;searchIncludeDirCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;searchIncludeDirCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="fileCountLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="fileCountLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="fileCountLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 334</value>
+  </data>
+  <data name="fileCountLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 12</value>
+  </data>
+  <data name="fileCountLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="fileCountLabel.Text" xml:space="preserve">
+    <value>0 files</value>
+  </data>
+  <data name="&gt;&gt;fileCountLabel.Name" xml:space="preserve">
+    <value>fileCountLabel</value>
+  </data>
+  <data name="&gt;&gt;fileCountLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fileCountLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fileCountLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="closeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="closeButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="closeButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>501, 327</value>
+  </data>
+  <data name="closeButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="closeButton.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="closeButton.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="&gt;&gt;closeButton.Name" xml:space="preserve">
+    <value>closeButton</value>
+  </data>
+  <data name="&gt;&gt;closeButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;closeButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;closeButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>588, 355</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5147,144 +5236,43 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
-  <data name="folderBrowserDialog.Description" xml:space="preserve">
-    <value>Select Export Folder</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>604, 393</value>
   </data>
-  <data name="&gt;&gt;filesGridView.Name" xml:space="preserve">
-    <value>filesGridView</value>
-  </data>
-  <data name="&gt;&gt;closeButton.Name" xml:space="preserve">
-    <value>closeButton</value>
-  </data>
-  <data name="&gt;&gt;closeButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="searchIncludeDirCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 16</value>
-  </data>
-  <data name="&gt;&gt;sizeColumn.Name" xml:space="preserve">
-    <value>sizeColumn</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Open File in Workspace</value>
   </data>
-  <data name="filenameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="&gt;&gt;imageList.Name" xml:space="preserve">
+    <value>imageList</value>
   </data>
-  <data name="fileCountLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 12</value>
+  <data name="&gt;&gt;imageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="fileCountLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
+  <data name="&gt;&gt;filepathColumn.Name" xml:space="preserve">
+    <value>filepathColumn</value>
   </data>
-  <data name="filenameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>318, 21</value>
+  <data name="&gt;&gt;filepathColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="sizeColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>60</value>
+  <data name="&gt;&gt;sizeColumn.Name" xml:space="preserve">
+    <value>sizeColumn</value>
   </data>
-  <data name="filesGridView.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;sizeColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;exportFolderLabel.Name" xml:space="preserve">
-    <value>exportFolderLabel</value>
+  <data name="&gt;&gt;modifiedTimeColumn.Name" xml:space="preserve">
+    <value>modifiedTimeColumn</value>
+  </data>
+  <data name="&gt;&gt;modifiedTimeColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FindFileDialog</value>
   </data>
-  <data name="&gt;&gt;searchIncludeDirCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;closeButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="filepathColumn.HeaderText" xml:space="preserve">
-    <value>File Path</value>
-  </data>
-  <data name="imageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAq
-        CQAAAk1TRnQBSQFMAgEBAgEAAZABAgGYAQIBEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEcAQIBAAH/ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/
-        ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/jAABLgGEAY8B/wEl
-        ATMBhQH/ARkBJgEwAf8BCgEWAR8B/wEAAQUBDQH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMA
-        Af8DAAH/AwAB/wwAAbcBogGTBf8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/
-        AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/ARwBAgEAAf+MAAEwAYcBkgH/AaIB3wHwAf8BKQHNAeoB/wEC
-        AbgB4gH/AQABrgHbAf8BAAGpAdkB/wEAAaEB0gH/AQABmAHHAf8BAAGOAbwB/wEAAYMBrgH/AQABOAGr
-        Af8BAAE1AakB/wEAATABnwH/AQABKwGWAf8DAAH/DAABtwGiAZMJ/wH8AfoB+QH/AfcB8QHuAf8B8QHn
-        AeEB/wHsAd0B1QH/AeYB0wHJAf8B4QHKAb0B/wG3AaIBkwH/ARwBAgEAAf+MAAEzAYoBlQH/AaoB6AH2
-        Af8BlQHlAfwB/wGEAd8B+wH/AS4B1gH6Af8BIwHQAfcB/wEWAcYB9AH/AQkBvgHwAf8BAAG0AewB/wEA
-        AaoB6AH/AQABpAHmAf8BAAGaAd8B/wEAAZAB1wH/AQABMAGfAf8DAAH/DAABtwGiAZMJ/wP+Af8B+gH3
-        AfUB/wH1Ae0B6QH/Ae8B4wHcAf8B6gHZAdEB/wHkAc8BxAH/AbcBogGTAf8BHAECAQAB/4wAATYBjgGY
-        Af8BsAHqAfYB/wGfAekB+wH/AZIB5AH8Af8BgQHdAfsB/wEuAdYB+gH/ASEBzgH3Af8BFgHGAfQB/wEG
-        AbwB8AH/AQABtAHsAf8BAAGqAegB/wEAAaMB5gH/AQABlgHcAf8BAAE1AakB/wMAAf8MAAG3AaIBkw3/
-        Af0B/AH7Af8B+AHzAfAB/wHyAekB4wH/Ae0B3wHYAf8B5wHVAcsB/wG3AaIBkwH/ARwBAgEAAf+MAAGA
-        AZEBnAH/AbYB7QH4Af8BqgHsAfsB/wGbAegB+wH/AY8B4wH8Af8BgQHdAfsB/wEqAdUB+QH/ASEBzgH3
-        Af8BFAHFAfQB/wEGAbwB8AH/AQABsgHsAf8BAAGpAegB/wEAAZ4B4gH/AQABggG0Af8CAAEEAf8MAAG6
-        AaUBlhH/AfsB+AH3Af8B9gHvAesB/wHwAeUB3wH/AesB2wHTAf8BtwGiAZMB/wEcAQIBAAH/jAABgwGV
-        AZ8B/wG+AfAB+QH/AasB8AH3Af8BpQHsAfsB/wGYAecB+wH/AYkB4QH8Af8BOAHdAfsB/wEqAdUB+QH/
-        AR4BzQH3Af8BEQHEAfMB/wEEAbsB8AH/AQABsgHsAf8BAAGkAeMB/wEAAYoBvwH/AQIBDAEVAf8MAAG+
-        AakBmhH/Af4B/QH8Af8B+QH1AfIB/wH0AesB5gH/Ae4B4QHaAf8BtwGiAZMB/wEcAQIBAAH/jAABhgGZ
-        AaMB/wG+AfAB+QH/AbYB7QH4Af8BsAHuAfoB/wGkAesB+gH/AZUB5gH7Af8BiQHhAfwB/wE2AdwB/AH/
-        ASoB1QH5Af8BHgHNAfcB/wERAcQB8wH/AQIBuQHvAf8BAAGpAecB/wEAAY8BxwH/ARABHAEkAf8MAAHD
-        Aa4BnhX/AfwB+gH5Af8B9wHxAe4B/wHxAecB4QH/AbcBogGTAf8BHAECAQAB/4wAAYkBnAGmAf8BvgHw
-        AfkB/wG2Ae0B+AH/AbYB7QH4Af8BqwHwAfcB/wGiAewB+gH/AZUB5gH7Af8BiQHhAfwB/wE2AdwB/AH/
-        ASgB0wH6Af8BHAHMAfcB/wEOAcMB8wH/AQIBuQHvAf8BAAGZAc8B/wEcASkBMwH/DAAByAGyAaMV/wP+
-        Af8B+gH3AfUB/wH1Ae0B6QH/AbcBogGTAf8BHAECAQAB/4wAAYsBoAGoAf8BvgHwAfkB/wG+AfAB+QH/
-        Ab4B8AH5Af8BvgHwAfkB/wG0AfIB+AH/AaoB7AH7Af8BoAHpAfsB/wGVAeUB/AH/AYoB3wH8Af8BOAHY
-        AfsB/wEtAdIB+AH/ASEBygH0Af8BFgHAAfEB/wEcASkBMwH/DAABzAG2AacZ/wH9AfwB+wH/AbcBogGT
-        Af8BtwGiAZMB/wEdAQMBAAH/jAABjQGhAaoB/wGNAaEBqgH/AY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/
-        AYsBnwGoAf8BiQGcAaYB/wGJAZsBpgH/AYcBmgGkAf8BhgGZAaMB/wGEAZYBoAH/AYQBlgGgAf8BgwGV
-        AaAB/wGDAZUBoAH/AS4BhAGPAf8MAAHRAbsBqxn/AbcBogGTAf8BHQEDAQAB/wEdAQMBAAH/AR0BAwEA
-        Af+MAAGPAaQBrAH/AbIB5AHsAf8BtgHtAfgB/wG2Ae0B+AH/AakB7AH2Af8BkgHhAfMB/wGNAaEBqgH/
-        AdUB3AHgAf8oAAHVAb8Brxn/AbkBpAGVAf8B1AHFAboB/wEdAQMBAAH/A0oBjIwAAdoB3gHhAf8BjwGk
-        AawB/wGPAaQBrAH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AdUB3AHgAf8sAAHYAcIBshn/AcABqwGc
-        Af8BHQEDAQAB/wNKAYvYAAHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHYAcIBsgH/AdgBwgGyAf8B1AG+
-        Aa4B/wHPAbkBqQH/AckBswGkAf8DSgGL/wCVAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUA
-        AYAXAAP/AQAE/wQAAv8BwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUA
-        AQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAH/AcABBwQAAQEB/wHAAQ8EAAL/
-        AcABHwQABP8aAAs=
-</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>588, 355</value>
-  </data>
-  <data name="&gt;&gt;filenameTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;filenameTextBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="filesGridView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 33</value>
-  </data>
-  <data name="exportFolderLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;exportFolderLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="folderBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="imageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>180, 17</value>
-  </metadata>
-  <metadata name="filepathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="modifiedTimeColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="sizeColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

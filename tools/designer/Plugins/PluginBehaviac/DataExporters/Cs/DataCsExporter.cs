@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -16,13 +16,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using Behaviac.Design;
 using Behaviac.Design.Attributes;
 
 namespace PluginBehaviac.DataExporters
 {
     public class DataCsExporter
     {
-        public static string GetGeneratedNativeType(string typeName)
+        public static string GetExportNativeType(string typeName)
         {
             if (string.IsNullOrEmpty(typeName))
                 return string.Empty;
@@ -37,10 +38,22 @@ namespace PluginBehaviac.DataExporters
             typeName = typeName.Replace("std::string", "string");
             typeName = typeName.Replace("char*", "string");
             typeName = typeName.Replace("ubyte", "byte");
-            //typeName = typeName.Replace("sbyte", "sbyte");
+
+            typeName = typeName.Trim();
+
+            return typeName;
+        }
+
+        public static string GetGeneratedNativeType(string typeName)
+        {
+            typeName = GetExportNativeType(typeName);
+
             typeName = typeName.Replace("::", ".");
             typeName = typeName.Replace("*", "");
             typeName = typeName.Replace("&", "");
+            typeName = typeName.Replace("ullong", "ulong");
+            typeName = typeName.Replace("llong", "long");
+
             typeName = typeName.Trim();
 
             if (typeName.StartsWith("vector<"))
@@ -76,6 +89,82 @@ namespace PluginBehaviac.DataExporters
             return typeName;
         }
 
+        public static string GetGeneratedDefaultValue(Type type, string typename)
+        {
+            string value = DesignerPropertyUtility.RetrieveExportValue(Plugin.DefaultValue(type));
+
+            if (type == typeof(char))
+            {
+                value = "(char)0";
+            }
+            else if (Plugin.IsEnumType(type))
+            {
+                value = string.Format("{0}.{1}", typename, value);
+            }
+            else if (Plugin.IsArrayType(type))
+            {
+                value = "new " + typename + "()";
+            }
+            else if (Plugin.IsCustomClassType(type))
+            {
+                value = "new " + typename + "()";
+            }
+
+            return value;
+        }
+
+        public static string GetGeneratedPropertyDefaultValue(PropertyDef prop, string typename)
+        {
+            string value = "";
+
+            if (prop != null)
+            {
+                value = prop.DefaultValue;
+
+                if (Plugin.IsStringType(prop.Type))
+                {
+                    value = "\"" + value + "\"";
+                }
+                else if (Plugin.IsBooleanType(prop.Type))
+                {
+                    value = value.ToLowerInvariant();
+                }
+                else if (Plugin.IsEnumType(prop.Type))
+                {
+                    value = string.Format("{0}.{1}", typename, value);
+                }
+                else if (Plugin.IsArrayType(prop.Type))
+                {
+                    value = "";
+                }
+                else if (Plugin.IsCustomClassType(prop.Type))
+                {
+                    value = "";
+                }
+            }
+
+            return value;
+        }
+
+        public static string GetPropertyBasicName(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement)
+        {
+            string propName = property.BasicName;
+
+            if (property != null && property.IsArrayElement && arrayIndexElement != null)
+            {
+                propName = propName.Replace("[]", "");
+            }
+
+            return propName;
+        }
+
+        public static string GetPropertyNativeType(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement)
+        {
+            string nativeType = DataCsExporter.GetGeneratedNativeType(property.NativeType);
+
+            return nativeType;
+        }
+
         /// <summary>
         /// Generate code for the given value object.
         /// </summary>
@@ -107,17 +196,17 @@ namespace PluginBehaviac.DataExporters
                 else if (obj is Behaviac.Design.ParInfo)
                 {
                     Behaviac.Design.ParInfo par = obj as Behaviac.Design.ParInfo;
-                    retStr = ParInfoCsExporter.GenerateCode(par, stream, indent, typename, var, caller);
+                    retStr = ParInfoCsExporter.GenerateCode(par, false, stream, indent, typename, var, caller);
                 }
                 else if (obj is Behaviac.Design.PropertyDef)
                 {
                     Behaviac.Design.PropertyDef property = obj as Behaviac.Design.PropertyDef;
-                    retStr = PropertyCsExporter.GenerateCode(property, stream, indent, typename, var, caller, setValue);
+                    retStr = PropertyCsExporter.GenerateCode(property, null, false, stream, indent, typename, var, caller, setValue);
                 }
                 else if (obj is Behaviac.Design.VariableDef)
                 {
                     Behaviac.Design.VariableDef variable = obj as Behaviac.Design.VariableDef;
-                    retStr = VariableCsExporter.GenerateCode(variable, stream, indent, typename, var, caller);
+                    retStr = VariableCsExporter.GenerateCode(variable, false, stream, indent, typename, var, caller);
                 }
                 else if (obj is Behaviac.Design.RightValueDef)
                 {

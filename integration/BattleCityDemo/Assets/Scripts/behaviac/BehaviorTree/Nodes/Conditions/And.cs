@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public And()
         {
-		}
+        }
+
         ~And()
         {
         }
@@ -30,6 +29,7 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
         }
+
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
             if (!(pTask.GetNode() is And))
@@ -40,6 +40,22 @@ namespace behaviac
             return base.IsValid(pAgent, pTask);
         }
 
+        public override bool Evaluate(Agent pAgent)
+        {
+            bool ret = true;
+            foreach(BehaviorNode c in this.m_children)
+            {
+                ret = c.Evaluate(pAgent);
+
+                if (!ret)
+                {
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
         protected override BehaviorTask createTask()
         {
             AndTask pTask = new AndTask();
@@ -48,11 +64,11 @@ namespace behaviac
         }
     }
 
-
     // ============================================================================
-    class AndTask : Sequence.SequenceTask
+    internal class AndTask : Sequence.SequenceTask
     {
-        public AndTask() : base()
+        public AndTask()
+            : base()
         {
         }
 
@@ -77,17 +93,18 @@ namespace behaviac
 
         protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
         {
+            Debug.Check(childStatus == EBTStatus.BT_RUNNING);
             //Debug.Check(this.m_children.Count == 2);
 
-			for(int i = 0; i < this.m_children.Count; ++i)
+            for (int i = 0; i < this.m_children.Count; ++i)
             {
-				BehaviorTask pBehavior = this.m_children[i];
+                BehaviorTask pBehavior = this.m_children[i];
                 EBTStatus s = pBehavior.exec(pAgent);
 
                 // If the child fails, fails
                 if (s == EBTStatus.BT_FAILURE)
                 {
-                    return s;           	
+                    return s;
                 }
 
                 Debug.Check(s == EBTStatus.BT_SUCCESS);

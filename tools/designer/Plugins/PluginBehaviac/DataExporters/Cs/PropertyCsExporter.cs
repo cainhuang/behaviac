@@ -15,78 +15,93 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Behaviac.Design;
 
 namespace PluginBehaviac.DataExporters
 {
     public class PropertyCsExporter
     {
-        public static string GenerateCode(Behaviac.Design.PropertyDef property, StreamWriter stream, string indent, string typename, string var, string caller, string setValue = null)
+        public static string GenerateCode(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, bool isRefParam, StreamWriter stream, string indent, string typename, string var, string caller, string setValue = null)
         {
-            string agentName = getGenerateAgentName(property, var, caller);
+            if (property.IsPar || property.IsCustomized)
+                return ParInfoCsExporter.GenerateCode(property, isRefParam, stream, indent, typename, var, caller);
 
-            if (property.Owner != Behaviac.Design.VariableDef.kSelf)
+            string agentName = GetGenerateAgentName(property, var, caller);
+            string prop = GetProperty(property, arrayIndexElement, stream, indent, var, caller);
+
+            if (!property.IsReadonly)
             {
-                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, property.Owner.Replace("::", "."));
-                stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
-            }
-
-            string prop = getProperty(property, agentName);
-
-            if (setValue == null)
-            {
-                if (!string.IsNullOrEmpty(var))
+                if (setValue == null)
                 {
-                    if (string.IsNullOrEmpty(typename))
+                    if (!string.IsNullOrEmpty(var))
                     {
-                        stream.WriteLine("{0}{1} = {2};", indent, var, prop);
-                    }
-                    else
-                    {
-                        stream.WriteLine("{0}{1} {2} = {3};", indent, DataCsExporter.GetGeneratedNativeType(property.NativeType), var, prop);
+                        if (string.IsNullOrEmpty(typename))
+                        {
+                            stream.WriteLine("{0}{1} = {2};", indent, var, prop);
+                        }
+                        else
+                        {
+                            string nativeType = DataCsExporter.GetPropertyNativeType(property, arrayIndexElement);
+
+                            stream.WriteLine("{0}{1} {2} = {3};", indent, nativeType, var, prop);
+                        }
                     }
                 }
-            }
-            else
-            {
-                stream.WriteLine("{0}AgentExtra_Generated.SetProperty({1}, \"{2}\", {3});", indent, agentName, property.BasicName, setValue);
+                else
+                {
+                    string propBasicName = property.BasicName.Replace("[]", "");
+                    stream.WriteLine("{0}AgentExtra_Generated.SetProperty({1}, \"{2}\", {3});", indent, agentName, propBasicName, setValue);
+                }
             }
 
             return prop;
         }
 
-        public static void PostGenerateCode(Behaviac.Design.PropertyDef property, StreamWriter stream, string indent, string typename, string var, string caller, string setValue = null)
+        public static void PostGenerateCode(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent, string typename, string var, string caller, string setValue = null)
         {
-            string agentName = getGenerateAgentName(property, var, caller);
-            string prop = setValue;
-
-            if (property.Owner != Behaviac.Design.VariableDef.kSelf)
+            if (property.IsPar || property.IsCustomized)
             {
-                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, property.Owner.Replace("::", "."));
-                stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
+                ParInfoCsExporter.PostGenerateCode(property, arrayIndexElement, stream, indent, typename, var, caller);
+                return;
             }
 
-            if (setValue != null)
+            if (!property.IsReadonly)
             {
-                stream.WriteLine("{0}AgentExtra_Generated.SetProperty({1}, \"{2}\", {3});", indent, agentName, property.BasicName, prop);
-            }
-            else
-            {
-                prop = getProperty(property, agentName);
-            }
+                string agentName = GetGenerateAgentName(property, var, caller);
+                string prop = setValue;
 
-            uint id = Behaviac.Design.CRC32.CalcCRC(property.BasicName);
-            stream.WriteLine("{0}Debug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, property.BasicName, id);
+                if (property.Owner != Behaviac.Design.VariableDef.kSelf)
+                {
+                    stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, property.Owner.Replace("::", "."));
+                    stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
+                }
 
-            if (string.IsNullOrEmpty(typename))
-            {
-                typename = property.NativeType;
+                string propBasicName = property.BasicName.Replace("[]", "");
+
+                if (setValue != null)
+                {
+                    stream.WriteLine("{0}AgentExtra_Generated.SetProperty({1}, \"{2}\", {3});", indent, agentName, propBasicName, prop);
+                }
+                else
+                {
+                    prop = getProperty(property, arrayIndexElement, agentName, stream, indent);
+                }
+
+                uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+                stream.WriteLine("{0}Debug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
+
+                if (string.IsNullOrEmpty(typename))
+                {
+                    typename = property.NativeType;
+                }
+                typename = DataCsExporter.GetGeneratedNativeType(typename);
+
+                stream.WriteLine("{0}{1}.SetVariable<{2}>(\"{3}\", {4}, {5}u);", indent, agentName, typename, property.BasicName, prop, id);
+
             }
-            typename = DataCsExporter.GetGeneratedNativeType(typename);
-
-            stream.WriteLine("{0}{1}.SetVariable<{2}>(\"{3}\", {4}, {5}u);", indent, agentName, typename, property.BasicName, prop, id);
         }
 
-        private static string getGenerateAgentName(Behaviac.Design.PropertyDef property, string var, string caller)
+        public static string GetGenerateAgentName(Behaviac.Design.PropertyDef property, string var, string caller)
         {
             string agentName = "pAgent";
             if (property.Owner != Behaviac.Design.VariableDef.kSelf)
@@ -97,23 +112,44 @@ namespace PluginBehaviac.DataExporters
             return agentName;
         }
 
-        private static string getProperty(Behaviac.Design.PropertyDef property, string agentName)
+        private static string getProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, string agentName, StreamWriter stream, string indent)
         {
+            if (property.IsPar || property.IsCustomized)
+                return ParInfoCsExporter.GetProperty(property, arrayIndexElement, stream, indent);
+
+            string propName = DataCsExporter.GetPropertyBasicName(property, arrayIndexElement);
+            string nativeType = DataCsExporter.GetPropertyNativeType(property, arrayIndexElement);
+
             if (property.IsPublic)
             {
                 string className = property.ClassName.Replace("::", ".");
+
                 if (property.IsStatic)
                 {
-                    return string.Format("{0}.{1}", className, property.BasicName);
+                    return string.Format("{0}.{1}", className, propName);
                 }
                 else
                 {
-                    return string.Format("(({0}){1}).{2}", className, agentName, property.BasicName);
+                    return string.Format("(({0}){1}).{2}", className, agentName, propName);
                 }
             }
 
-            string nativeType = DataCsExporter.GetGeneratedNativeType(property.NativeType);
-            return string.Format("({0})AgentExtra_Generated.GetProperty({1}, \"{2}\")", nativeType, agentName, property.BasicName);
+            return string.Format("({0})AgentExtra_Generated.GetProperty({1}, \"{2}\")", nativeType, agentName, propName);
+        }
+
+        public static string GetProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent, string var, string caller)
+        {
+            string agentName = GetGenerateAgentName(property, var, caller);
+
+            if (property.Owner != Behaviac.Design.VariableDef.kSelf)
+            {
+                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, property.Owner.Replace("::", "."));
+                stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
+            }
+
+            string prop = getProperty(property, arrayIndexElement, agentName, stream, indent);
+
+            return prop;
         }
     }
 }

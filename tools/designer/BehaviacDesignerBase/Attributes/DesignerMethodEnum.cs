@@ -19,31 +19,11 @@ using Behaviac.Design.Properties;
 
 namespace Behaviac.Design.Attributes
 {
-    [Flags]
-    public enum MethodType
-    {
-        None = 0, 
-
-        //all the methods
-        Method = 1,
-
-        //getter is the method who returns something
-        Getter = 2,
-
-        //getter is the method who returns something plus the name event
-        Event = 4,
-
-        AllowNullMethod = 8,
-
-        Status = 16
-    }
-
     [AttributeUsage(AttributeTargets.Property)]
     public class DesignerMethodEnum : DesignerProperty
     {
         private MethodType _methodType;
-        public MethodType MethodType
-        {
+        public MethodType MethodType {
             get
             {
                 return this._methodType;
@@ -51,14 +31,13 @@ namespace Behaviac.Design.Attributes
         }
 
         private ValueTypes _methodReturnType;
-        public ValueTypes MethodReturnType
-        {
+        public ValueTypes MethodReturnType {
             get
             {
                 return this._methodReturnType;
             }
         }
-        
+
         /// <summary>
         /// Creates a new designer attribute for handling a string value.
         /// </summary>
@@ -69,16 +48,14 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerMethodEnum(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, MethodType methodType, ValueTypes methodReturnType = ValueTypes.All, string linkedToProperty = "")
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerMethodComboEnumEditor), linkedToProperty)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerMethodComboEnumEditor), linkedToProperty) {
             _methodType = methodType;
             _methodReturnType = methodReturnType;
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             if (obj == null)
-                return string.Empty;
+            { return string.Empty; }
 
             MethodDef methodDef = obj as MethodDef;
             Debug.Check(methodDef != null);
@@ -86,10 +63,9 @@ namespace Behaviac.Design.Attributes
             return methodDef.GetDisplayValue();
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             if (obj == null)
-                return "\"\"";
+            { return "\"\""; }
 
             MethodDef methodDef = obj as MethodDef;
             Debug.Check(methodDef != null);
@@ -97,19 +73,19 @@ namespace Behaviac.Design.Attributes
             return methodDef.GetExportValue();
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (type != typeof(MethodDef))
-                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
+            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
 
             Nodes.Behavior behavior = node.Behavior as Nodes.Behavior;
-            if (behavior != null && behavior.AgentType != null)
-            {
-                MethodDef method = parseMethodString(node, behavior.AgentType, this.MethodType, str);
-                if (method == null)
-                {
+
+            if (behavior != null && behavior.AgentType != null) {
+                MethodDef method = parseMethodString(result, node, behavior.AgentType, this.MethodType, str);
+
+                if (method == null) {
                     string className = Plugin.GetClassName(str);
-                    method = parseMethodString(node, Plugin.GetInstanceAgentType(className), this.MethodType, str);
+                    method = parseMethodString(result, node, Plugin.GetInstanceAgentType(className), this.MethodType, str);
                 }
 
                 return method;
@@ -118,21 +94,26 @@ namespace Behaviac.Design.Attributes
             return null;
         }
 
-        public static MethodDef parseMethodString(NodeTag.DefaultObject node, AgentType agentType, MethodType methodType, string str)
+        public static MethodDef parseMethodString(List<Nodes.Node.ErrorCheck> result, DefaultObject node, AgentType agentType, MethodType methodType, string str)
         {
-            try
-            {
-                if (agentType != null)
-                {
+            try {
+                if (agentType != null) {
                     int pos = str.IndexOf('(');
+
                     if (pos < 0)
-                        return null;
+                    { return null; }
 
                     string ownerName = agentType.ToString();
                     int pointIndex = str.IndexOf('.');
-                    if (pointIndex > -1 && pointIndex < pos)
-                    {
+
+                    if (pointIndex > -1 && pointIndex < pos) {
                         ownerName = str.Substring(0, pointIndex);
+
+                        if (ownerName != VariableDef.kSelf && !Plugin.IsInstanceName(ownerName))
+                        {
+                            throw new Exception("The instance does not exist.");
+                        }
+
                         str = str.Substring(pointIndex + 1, str.Length - pointIndex - 1);
                         agentType = Plugin.GetInstanceAgentType(ownerName, agentType);
                         //if (agentType == node.Behavior.AgentType)
@@ -142,14 +123,12 @@ namespace Behaviac.Design.Attributes
 
                     IList<MethodDef> actions = agentType.GetMethods(methodType);
                     string actionName = str.Substring(0, pos);
-                    foreach (MethodDef actionTypeIt in actions)
-                    {
+                    foreach(MethodDef actionTypeIt in actions) {
                         if (actionTypeIt.Name == actionName
 #if BEHAVIAC_NAMESPACE_FIX
-                        || actionTypeIt.Name.EndsWith(actionName)
+                            || actionTypeIt.Name.EndsWith(actionName)
 #endif
-)
-                        {
+                           ) {
                             MethodDef method = new MethodDef(actionTypeIt);
                             method.Owner = ownerName;
 
@@ -158,53 +137,17 @@ namespace Behaviac.Design.Attributes
 
                             //if (paras.Count == actionTypeIt.Params.Count)
                             {
-                                for (int i = 0; i < paras.Count; ++i)
-                                {
-                                    string param = paras[i];
-                                    string[] tokens = null;
-                                    if (param[0] == '\"')
-                                    {
-                                        param = param.Substring(1, param.Length - 2);
-                                    }
-                                    else if (param[0] == '{')
-                                    {
-                                        //struct
-
-                                        //to set it as action.Method is used in the following parsing
-                                        Nodes.Action action = node as Nodes.Action;
-                                        if (action != null)
-                                        {
-                                            action.Method = method;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        tokens = param.Split(' ');
-                                    }
-
-                                    if (i < method.Params.Count)
-                                    {
-                                        MethodDef.Param par = method.Params[i];
-
-                                        if (tokens != null && tokens.Length > 1)
-                                        {
-                                            //par
-                                            VariableDef var = setParameter(node, tokens[tokens.Length - 1]);
-                                            if (var != null)
-                                                par.Value = var;
-                                            //else
-                                            //    throw new Exception(string.Format(Resources.ExceptionDesignerAttributeIllegalFloatValue, str));
-                                        }
-                                        else
-                                        {
-                                            bool bOk = Plugin.InvokeTypeParser(par.Type, param, (object value) => par.Value = value, node, par.Name);
-                                            if (!bOk)
-                                                throw new Exception(string.Format(Resources.ExceptionDesignerAttributeIllegalFloatValue, str));
-                                        }
-                                    }
-                                    else
-                                    {
+                                for (int i = 0; i < paras.Count; ++i) {
+                                    if (i >= method.Params.Count) {
                                         break;
+                                    }
+
+                                    string param = paras[i];
+                                    MethodDef.Param par = method.Params[i];
+                                    bool bOk = parseParam(result, node, method, par, param);
+
+                                    if (!bOk) {
+                                        throw new Exception(string.Format(Resources.ExceptionDesignerAttributeIllegalFloatValue, str));
                                     }
                                 }
                             }
@@ -213,146 +156,195 @@ namespace Behaviac.Design.Attributes
                         }
                     }
                 }
-            }
-            catch (Exception)
-            {
-                System.Windows.Forms.MessageBox.Show(str, Resources.LoadError, System.Windows.Forms.MessageBoxButtons.OK);
+
+            } catch (Exception) {
+                //System.Windows.Forms.MessageBox.Show(str, Resources.LoadError, System.Windows.Forms.MessageBoxButtons.OK);
+                if (result != null)
+                {
+                    Nodes.Node n = node as Nodes.Node;
+                    string label = "";
+                    if (n == null)
+                    {
+                        Attachments.Attachment a = node as Attachments.Attachment;
+                        if (a != null)
+                        {
+                            n = a.Node;
+                            label = a.Label;
+                        }
+                    }
+                    else
+                    {
+                        label = n.Label;
+                    }
+
+                    Nodes.Node.ErrorCheck error = new Nodes.Node.ErrorCheck(n, node.Id, label, Nodes.ErrorCheckLevel.Error, str);
+                    result.Add(error);
+                }
             }
 
             return null;
         }
 
-        //suppose params are seprated by ','
-        static private List<string> parseParams(string tsrc)
-	    {
-            List<string> paras = new List<string>();
-		    int tsrcLen = (int)tsrc.Length;
-		    int startIndex = 0;
-		    int index = 0;
-		    int quoteDepth = 0;
+        public static bool parseParam(List<Nodes.Node.ErrorCheck> result, DefaultObject node, MethodDef method, MethodDef.Param par, string param)
+        {
+            string[] tokens = null;
 
-		    for (; index < tsrcLen; ++index)
-		    {
-			    if (tsrc[index] == '"')
-			    {
-				    quoteDepth++;
+            if (param[0] == '\"') {
+                param = param.Substring(1, param.Length - 2);
+
+            } else if (param[0] == '{') {
+                //struct
+
+                //to set it as action.Method is used in the following parsing
+                Nodes.Action action = node as Nodes.Action;
+
+                if (action != null) {
+                    action.Method = method;
+                }
+
+            } else {
+                tokens = param.Split(' ');
+            }
+
+
+            bool bOk = false;
+
+            if (tokens != null && tokens.Length > 1) {
+                //par
+                VariableDef var = setParameter(result, node, tokens[tokens.Length - 1]);
+
+                if (var != null) {
+                    par.Value = var;
+                    bOk = true;
+                }
+
+            } else {
+                bOk = Plugin.InvokeTypeParser(result, par.Type, param, (object value) => par.Value = value, node, par.Name);
+            }
+
+            return bOk;
+        }
+
+        //suppose params are seprated by ','
+        static private List<string> parseParams(string tsrc) {
+            List<string> paras = new List<string>();
+            int tsrcLen = (int)tsrc.Length;
+            int startIndex = 0;
+            int index = 0;
+            int quoteDepth = 0;
+
+            for (; index < tsrcLen; ++index) {
+                if (tsrc[index] == '"') {
+                    quoteDepth++;
 
                     //if (quoteDepth == 1)
                     //{
                     //    startIndex = index;
                     //}
 
-				    if ((quoteDepth & 0x1) == 0)
-				    {
-					    //closing quote
-					    quoteDepth -= 2;
-					    Debug.Check(quoteDepth >= 0);
-				    }
-			    }
-			    else if (quoteDepth == 0 && tsrc[index] == ',')
-			    {
-				    //skip ',' inside quotes, like "count, count"
-				    int lengthTemp = index - startIndex;
+                    if ((quoteDepth & 0x1) == 0) {
+                        //closing quote
+                        quoteDepth -= 2;
+                        Debug.Check(quoteDepth >= 0);
+                    }
+
+                } else if (quoteDepth == 0 && tsrc[index] == ',') {
+                    //skip ',' inside quotes, like "count, count"
+                    int lengthTemp = index - startIndex;
                     string strTemp = tsrc.Substring(startIndex, lengthTemp);
                     paras.Add(strTemp);
-				    startIndex = index + 1;
-			    }
-		    }//end for
+                    startIndex = index + 1;
+                }
+            }//end for
 
-		    // the last param
-            if (index > startIndex)
-		    {
+            // the last param
+            if (index > startIndex) {
                 string strTemp = tsrc.Substring(startIndex, index - startIndex);
                 paras.Add(strTemp);
-		    }
+            }
 
             return paras;
-	    }
+        }
 
-        static private VariableDef createVariable(AgentType agentType, string instacneName, string propertyName)
+        private static VariableDef createVariable(List<Nodes.Node.ErrorCheck> result, DefaultObject node, AgentType agentType, string instacneName, string propertyName)
         {
+            List<string> tokens = DesignerPropertyEnum.SplitTokens(propertyName);
+            Debug.Check(tokens.Count > 0);
+            string arrayIndexStr = null;
+
+            if (tokens.Count > 1) {
+                propertyName = tokens[0] + "[]";
+                arrayIndexStr = tokens[1];
+            }
+
             agentType = Plugin.GetInstanceAgentType(instacneName, agentType);
-            if (agentType != null)
-            {
+
+            if (agentType != null) {
                 IList<PropertyDef> properties = agentType.GetProperties();
-                foreach (PropertyDef p in properties)
-                {
+                foreach(PropertyDef p in properties) {
                     if (p.Name == propertyName
 #if BEHAVIAC_NAMESPACE_FIX
                         || p.Name.EndsWith(propertyName)
 #endif
-                        )
-                        return new VariableDef(p, instacneName);
+                       ) {
+                        VariableDef v = new VariableDef(p, instacneName);
+
+                        if (v != null && !string.IsNullOrEmpty(arrayIndexStr)) {
+                            v.ArrayIndexElement = new MethodDef.Param("ArrayIndex", typeof(int), "int", "ArrayIndex", "ArrayIndex");
+                            v.ArrayIndexElement.IsArrayIndex = true;
+                            DesignerMethodEnum.parseParam(result, node, null, v.ArrayIndexElement, arrayIndexStr);
+                        }
+
+                        return v;
+                    }
                 }
             }
 
             return null;
         }
 
-        static public VariableDef setParameter(NodeTag.DefaultObject node, string propertyName)
+        public static VariableDef setParameter(List<Nodes.Node.ErrorCheck> result, DefaultObject node, string propertyName)
         {
             Behaviac.Design.Nodes.Behavior behavior = node.Behavior as Behaviac.Design.Nodes.Behavior;
 
-            string instance = Plugin.GetInstanceName(propertyName);
-            if (!string.IsNullOrEmpty(instance))
-            {
-                propertyName = propertyName.Substring(instance.Length + 1, propertyName.Length - instance.Length - 1);
-                VariableDef var = createVariable(behavior.AgentType, instance, propertyName);
-                if (var != null)
-                    return var;
-            }
+            // Convert the Par to the Property
+            if (!propertyName.Contains(".") && !propertyName.Contains(":"))
+            { propertyName = "Self." + behavior.AgentType.AgentTypeName + "::" + propertyName; }
 
-            // Try to find the Par parameter with the name.
-            List<ParInfo> allPars = new List<ParInfo>();
-            ((Nodes.Node)behavior).GetAllPars(ref allPars);
-            if (allPars.Count > 0)
-            {
-                foreach (ParInfo p in allPars)
-                {
-                    if (p.Name == propertyName
-#if BEHAVIAC_NAMESPACE_FIX
-                        || p.Name.EndsWith(propertyName)
-#endif
-                        )
-                    {
-                        VariableDef var = new VariableDef(p);
-                        var.SetValue(p, VariableDef.kPar);
-                        return var;
-                    }
+            VariableDef var = null;
+            string instance = Plugin.GetInstanceName(propertyName);
+
+            if (!string.IsNullOrEmpty(instance)) {
+                propertyName = propertyName.Substring(instance.Length + 1, propertyName.Length - instance.Length - 1);
+
+                var = createVariable(result, node, behavior.AgentType, instance, propertyName);
+
+                if (var != null) {
+                    return var;
                 }
             }
 
             // Try to find the Agent property with the name.
-            if (behavior != null && behavior.AgentType != null)
-            {
-                IList<PropertyDef> properties = behavior.AgentType.GetProperties();
-                foreach (PropertyDef p in properties)
-                {
-                    if (p.Name == propertyName
-#if BEHAVIAC_NAMESPACE_FIX                        
-                        || p.Name.EndsWith(propertyName)
-#endif
-                        )
-                        return new VariableDef(p, VariableDef.kSelf);
+            if (behavior != null && behavior.AgentType != null) {
+                instance = "Self";
+                var = createVariable(result, node, behavior.AgentType, instance, propertyName);
+
+                if (var != null) {
+                    return var;
                 }
             }
 
-            // Try to find the World property with the name.
+            // Try to find the global property with the name.
             string instacneName = Plugin.GetClassName(propertyName);
-            if (!string.IsNullOrEmpty(instacneName) && Plugin.GetInstanceAgentType(instacneName) != null)
-            {
-                IList<PropertyDef> properties = Plugin.GetInstanceAgentType(instacneName).GetProperties();
-                foreach (PropertyDef p in properties)
-                {
-                    if (p.Name == propertyName
-#if BEHAVIAC_NAMESPACE_FIX
-                        || p.Name.EndsWith(propertyName)
-#endif
-                        )
-                        return new VariableDef(p, instacneName);
+
+            if (!string.IsNullOrEmpty(instacneName) && Plugin.GetInstanceAgentType(instacneName) != null) {
+                var = createVariable(result, node, behavior.AgentType, instacneName, propertyName);
+
+                if (var != null) {
+                    return var;
                 }
             }
-        
+
             return null;
         }
     }

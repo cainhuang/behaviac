@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_META_META_H__INCLUDED
-#define _BEHAVIAC_BASE_META_META_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_META_META_H_INCLUDED
+#define _BEHAVIAC_BASE_META_META_H_INCLUDED
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/core/assert_t.h"
@@ -48,25 +48,23 @@ namespace behaviac
             uint8_t padding[2];
         } No;
 
-		struct TrueType
-		{
-			enum { Result = true };
-		};
+        struct TrueType
+        {
+            enum { Result = true };
+        };
 
-		struct FalseType
-		{
-			enum { Result = false };
-		};
+        struct FalseType
+        {
+            enum { Result = false };
+        };
 
-		template <bool val>
-		struct BooleanType : public FalseType 
-		{};
+        template <bool val>
+        struct BooleanType : public FalseType
+        {};
 
-		template <>
-		struct BooleanType<true> : public TrueType 
-		{};
-
-
+        template <>
+        struct BooleanType<true> : public TrueType
+        {};
     }
 }
 

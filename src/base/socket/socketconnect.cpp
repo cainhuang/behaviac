@@ -24,307 +24,306 @@
 #include "behaviac/behaviortree/behaviortree.h"
 #include "behaviac/behaviortree/behaviortree_task.h"
 #include "behaviac/base/logging/logging.h"
-
-#include "behaviac/world/world.h"
-
+#include "behaviac/agent/context.h"
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
 #endif//BEHAVIAC_COMPILER_MSVC
 
 namespace behaviac
 {
-	uint32_t Packet::CalcPacketSize() const
-	{
-		uint32_t packetSize(0);
+    uint32_t Packet::CalcPacketSize() const
+    {
+        uint32_t packetSize(0);
 
-		if (command == CommandId::CMDID_TEXT || command == CommandId::CMDID_WORKSPACE)
-		{
-			packetSize = sizeof(Text);
-		}
-		else
-		{
-			BEHAVIAC_ASSERT(!"Unknown command");
-		}
+        if (command == CommandId::CMDID_TEXT)
+        {
+            //packetSize = sizeof(Text);
+            packetSize = strlen((char*)this->data);
+            BEHAVIAC_ASSERT(packetSize <= kMaxTextLength);
+        }
+        else
+        {
+            BEHAVIAC_ASSERT(false, "Unknown command");
+        }
 
-		packetSize += sizeof(command);
-		return packetSize;
-	}
+        packetSize += sizeof(command);
+        return packetSize;
+    }
 }
 
 namespace behaviac
 {
-	namespace Socket
-	{
-		void SendWorkspaceSettings();
-	}
+    namespace Socket
+    {
+        void SendWorkspaceSettings();
+    }
 
 #pragma pack(push, 1)
-	struct InitialSettingsPacket
-	{
-		InitialSettingsPacket()
-			:	messageSize(0),
-			command(behaviac::CommandId::CMDID_INITIAL_SETTINGS),
-			platform(Platform::WINDOWS)
-		{
-			#if BEHAVIAC_COMPILER_MSVC
-			HANDLE processHandle = GetCurrentProcess();
-			this->processId = GetProcessId(processHandle);
-			#else
-			this->processId = 0;
-			#endif
-		}
+    struct InitialSettingsPacket
+    {
+        InitialSettingsPacket()
+            : messageSize(0),
+              command(behaviac::CommandId::CMDID_INITIAL_SETTINGS),
+              platform(Platform::WINDOWS)
+        {
+#if BEHAVIAC_COMPILER_MSVC
+            HANDLE processHandle = GetCurrentProcess();
+            this->processId = GetProcessId(processHandle);
+#else
+            this->processId = 0;
+#endif
+        }
 
-		size_t PrepareToSend()
-		{
-			messageSize = sizeof(InitialSettingsPacket) - 1;
-			return messageSize + 1;
-		}
+        size_t PrepareToSend()
+        {
+            messageSize = sizeof(InitialSettingsPacket) - 1;
+            return messageSize + 1;
+        }
 
-		uint8_t	messageSize;
-		uint8_t	command;
-		uint8_t	platform;
-		uint32_t processId;
-	};
+        uint8_t	messageSize;
+        uint8_t	command;
+        uint8_t	platform;
+        uint32_t processId;
+    };
 #pragma pack(pop)
 
-	class ConnectorImpl : public ConnectorInterface
-	{
-	public:
-		ConnectorImpl();
-		virtual ~ConnectorImpl();
+    class ConnectorImpl : public ConnectorInterface
+    {
+    public:
+        ConnectorImpl();
+        virtual ~ConnectorImpl();
 
-		virtual void OnConnection();
+        virtual void OnConnection();
 
-		bool IsWorkspaceSent() const
-		{
-			return m_workspaceSent;
-		}
+        bool IsWorkspaceSent() const
+        {
+            return m_workspaceSent;
+        }
 
-		void SetWorkspaceSent(bool bSent)
-		{
-			m_workspaceSent = bSent;
-		}
-	private:
-		volatile bool				m_workspaceSent;
+        void SetWorkspaceSent(bool bSent)
+        {
+            m_workspaceSent = bSent;
+        }
+    private:
+        volatile bool				m_workspaceSent;
 
-		void SendInitialSettings();
-		void SendInitialProperties();
-		virtual void Clear()
-		{
-			ConnectorInterface::Clear();
+        void SendInitialSettings();
+        void SendInitialProperties();
+        virtual void Clear()
+        {
+            ConnectorInterface::Clear();
 
-			m_workspaceSent = false;
-		}
-	};
+            m_workspaceSent = false;
+        }
+    };
 
-	ConnectorImpl					s_tracer;
+    ConnectorImpl					s_tracer;
 
-	ConnectorImpl::ConnectorImpl() : m_workspaceSent(false)
-	{
-		//don't handle message automatically
-		m_bHandleMessage = false;
-	}
+    ConnectorImpl::ConnectorImpl() : m_workspaceSent(false)
+    {
+        //don't handle message automatically
+        m_bHandleMessage = false;
+    }
 
-	ConnectorImpl::~ConnectorImpl()
-	{
-	}
+    ConnectorImpl::~ConnectorImpl()
+    {
+    }
 
-	void ConnectorImpl::SendInitialSettings()
-	{
-		InitialSettingsPacket initialPacket;
-		const size_t bytesToSend = initialPacket.PrepareToSend();
-		size_t bytesWritten(0);
+    void ConnectorImpl::SendInitialSettings()
+    {
+        InitialSettingsPacket initialPacket;
+        const size_t bytesToSend = initialPacket.PrepareToSend();
+        size_t bytesWritten(0);
 
-		if (!behaviac::Socket::Write(m_writeSocket, &initialPacket, bytesToSend, bytesWritten) ||
-			bytesWritten != bytesToSend)
-		{
-			Log("behaviac: Couldn't send initial settings.\n");
-		}
+        if (!behaviac::Socket::Write(m_writeSocket, &initialPacket, bytesToSend, bytesWritten) ||
+            bytesWritten != bytesToSend)
+        {
+            Log("behaviac: Couldn't send initial settings.\n");
+        }
 
-		gs_packetsStats.init++;
-	}
+        gs_packetsStats.init++;
+    }
 
-	void ConnectorImpl::OnConnection()
-	{
-		Log("behaviac: sending initial settings.\n");
+    void ConnectorImpl::OnConnection()
+    {
+        Log("behaviac: sending initial settings.\n");
 
-		this->SendInitialSettings();
+        this->SendInitialSettings();
 
-		Socket::SendWorkspaceSettings();
+        Socket::SendWorkspaceSettings();
 
-		this->SendInitialProperties();
+        this->SendInitialProperties();
 
-		{
-			ScopedInt_t scopedInt(&gs_threadFlag);
-			Log("behaviac: sending packets before connecting.\n");
+        {
+            ScopedInt_t scopedInt(&gs_threadFlag);
+            Log("behaviac: sending packets before connecting.\n");
 
-			this->SendExistingPackets();
-		}
+            this->SendExistingPackets();
+        }
 
-		behaviac::Socket::SendText("[connected]precached message done");
+        behaviac::Socket::SendText("[connected]precached message done");
 
-		//when '[connected]' is handled in the designer, it will send back all the breakpoints if any and '[breakcpp]' and '[start]'
-		//here we block until all those messages have been received, otherwise, if we don't block here to wait for all those messages
-		//the breakpoints checking might be wrong.
-		bool bLoop = true;
-		while (bLoop && !m_isDisconnected)
-		{
-			//sending packets if any
-			if (m_packetsCount > 0)
-			{
-				SendAllPackets();
-			}
+        //when '[connected]' is handled in the designer, it will send back all the breakpoints if any and '[breakcpp]' and '[start]'
+        //here we block until all those messages have been received, otherwise, if we don't block here to wait for all those messages
+        //the breakpoints checking might be wrong.
+        bool bLoop = true;
 
-			const char* kStartMsg = "[start]";
-			bool bFound = this->ReceivePackets(kStartMsg);
+        while (bLoop && !m_isDisconnected && this->m_writeSocket)
+        {
+            //sending packets if any
+            if (m_packetsCount > 0)
+            {
+                SendAllPackets();
+            }
 
-			if (bFound)
-			{
-				bLoop = false;
-			}
-			else
-			{
-				behaviac::Thread::Sleep(1);
-			}
-		}
+            const char* kStartMsg = "[start]";
+            bool bFound = this->ReceivePackets(kStartMsg);
 
-		Log("behaviac: OnConnection done.\n");
-		//this->m_bHandleMessage = false;
-	}
+            if (bFound)
+            {
+                bLoop = false;
 
-	void ConnectorImpl::SendInitialProperties()
-	{
-		Context::LogCurrentStates();
-	}
+            }
+            else
+            {
+                behaviac::Thread::Sleep(1);
+            }
+        }
 
+        Log("behaviac: OnConnection done.\n");
+        //this->m_bHandleMessage = false;
+    }
+
+    void ConnectorImpl::SendInitialProperties()
+    {
+        Workspace::GetInstance()->LogWorkspaceInfo();
+    }
 }
 
 namespace behaviac
 {
-	namespace Socket
-	{
-		bool SetupConnection(bool bBlocking, unsigned short port)
-		{
-			if (Config::IsSocketing())
-			{
-				if (!s_tracer.IsInited())
-				{
-					const int		kMaxThreads = 128;
+    namespace Socket
+    {
+        bool SetupConnection(bool bBlocking, unsigned short port)
+        {
+            if (Config::IsSocketing())
+            {
+                if (!s_tracer.IsInited())
+                {
+                    const int		kMaxThreads = 128;
 
-					if (!s_tracer.Init(kMaxThreads, port, bBlocking))
-					{
-						return false;
-					}
-				}
+                    if (!s_tracer.Init(kMaxThreads, port, bBlocking))
+                    {
+                        return false;
+                    }
+                }
 
-				BEHAVIAC_LOG(BEHAVIAC_LOG_INFO, "behaviac: SetupConnection successful\n");
+                BEHAVIAC_LOG(BEHAVIAC_LOG_INFO, "behaviac: SetupConnection successful\n");
 
-				return true;
-			}
+                return true;
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		void ShutdownConnection()
-		{
-			if (Config::IsSocketing())
-			{
-				s_tracer.Close();
+        void ShutdownConnection()
+        {
+            if (Config::IsSocketing())
+            {
+                s_tracer.Close();
 
-				BEHAVIAC_LOG(BEHAVIAC_LOG_INFO, "behaviac: ShutdownConnection\n");
-			}
-		}
+                BEHAVIAC_LOG(BEHAVIAC_LOG_INFO, "behaviac: ShutdownConnection\n");
+            }
+        }
 
-		void SendText(const char* text)
-		{
-			if (Config::IsSocketing())
-			{
-				s_tracer.SendText(text);
-			}
-		}
+        void SendText(const char* text)
+        {
+            if (Config::IsSocketing())
+            {
+                s_tracer.SendText(text);
+            }
+        }
 
-		void SendWorkspace(const char* text)
-		{
-			if (Config::IsSocketing())
-			{
-				s_tracer.SendText(text, CommandId::CMDID_WORKSPACE);
-			}
-		}
+        void SendWorkspace(const char* text)
+        {
+            if (Config::IsSocketing())
+            {
+                s_tracer.SendText(text, CommandId::CMDID_TEXT);
+            }
+        }
 
-		bool ReadText(behaviac::string& text)
-		{
-			if (Config::IsSocketing())
-			{
-				return s_tracer.ReadText(text);
-			}
+        bool ReadText(behaviac::string& text)
+        {
+            if (Config::IsSocketing())
+            {
+                return s_tracer.ReadText(text);
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		void Flush()
-		{
-			if (Config::IsSocketing())
-			{
-				while (s_tracer.GetPacketsCount())
-				{
-					behaviac::Thread::Sleep(1);
-				}
-			}
-		}
+        void Flush()
+        {
+            if (Config::IsSocketing())
+            {
+                while (s_tracer.GetPacketsCount())
+                {
+                    behaviac::Thread::Sleep(1);
+                }
+            }
+        }
 
-		void SendWorkspaceSettings()
-		{
-			if (Config::IsSocketing())
-			{
-				if (!s_tracer.IsWorkspaceSent() && s_tracer.IsConnected())
-				{
-					behaviac::string workspaceName;
-					behaviac::StringUtils::WCSToMBS(workspaceName, behaviac::Workspace::GetWorkspaceAbsolutePath());
+        void SendWorkspaceSettings()
+        {
+            if (Config::IsSocketing())
+            {
+                if (!s_tracer.IsWorkspaceSent() && s_tracer.IsConnected())
+                {
+                    behaviac::string workspaceName;
+                    behaviac::StringUtils::WCSToMBS(workspaceName, behaviac::Workspace::GetInstance()->GetWorkspaceAbsolutePath());
 
-					if (!workspaceName.empty())
-					{
-						Workspace::EFileFormat format = Workspace::GetFileFormat();
-						const char* formatString = (format == Workspace::EFF_xml ? "xml" : "bson");
+                    if (!workspaceName.empty())
+                    {
+                        Workspace::EFileFormat format = Workspace::GetInstance()->GetFileFormat();
+                        const char* formatString = (format == Workspace::EFF_xml ? "xml" : "bson");
 
-						behaviac::string msg = FormatString("[workspace] %s \"%s\"\n", formatString, workspaceName.c_str());
-						//behaviac::Socket::SendText(msg.c_str());
-						LogManager::GetInstance()->LogWorkspace(msg.c_str());
+                        behaviac::string msg = FormatString("[workspace] %s \"%s\"\n", formatString, workspaceName.c_str());
+                        //behaviac::Socket::SendText(msg.c_str());
+                        LogManager::GetInstance()->LogWorkspace(msg.c_str());
 
-						s_tracer.SetWorkspaceSent(true);
-					}
-				}
-			}
-		}
+                        s_tracer.SetWorkspaceSent(true);
+                    }
+                }
+            }
+        }
 
-		size_t GetMemoryOverhead()
-		{
-			if (Config::IsSocketing())
-			{
-				return s_tracer.GetMemoryOverhead();
-			}
+        size_t GetMemoryOverhead()
+        {
+            if (Config::IsSocketing())
+            {
+                return s_tracer.GetMemoryOverhead();
+            }
 
-			return 0;
-		}
+            return 0;
+        }
 
-		size_t GetNumTrackedThreads()
-		{
-			if (Config::IsSocketing())
-			{
-				return s_tracer.GetNumTrackedThreads();
-			}
+        size_t GetNumTrackedThreads()
+        {
+            if (Config::IsSocketing())
+            {
+                return s_tracer.GetNumTrackedThreads();
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		void UpdatePacketsStats()
-		{
-			if (Config::IsSocketing())
-			{
-				//size_t overhead = (behaviac::GetMemoryOverhead());
-				//BEHAVIAC_SETTRACEDVAR("Stats::Vars", gs_packetsStats.vars);
-			}
-		}
-
-	}
-
+        void UpdatePacketsStats()
+        {
+            if (Config::IsSocketing())
+            {
+                //size_t overhead = (behaviac::GetMemoryOverhead());
+                //BEHAVIAC_SETTRACEDVAR("Stats::Vars", gs_packetsStats.vars);
+            }
+        }
+    }
 } // behaviac

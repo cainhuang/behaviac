@@ -31,49 +31,42 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerTypeEnum(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerTypeEnumEditor), null)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerTypeEnumEditor), null) {
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             if (obj == null || !(obj is AgentType))
-                return string.Empty;
+            { return string.Empty; }
 
             AgentType t = obj as AgentType;
             return t.DisplayName;
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             if (obj == null)
-                return "\"\"";
+            { return "\"\""; }
 
             return obj.ToString();
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
-            foreach (Plugin.InstanceName_t t in Plugin.InstanceNames)
-            {
+            foreach(Plugin.InstanceName_t t in Plugin.InstanceNames) {
                 if (str == t.agentType_.AgentTypeName
 #if BEHAVIAC_NAMESPACE_FIX
                     || t.agentType_.AgentTypeName.EndsWith(str)
 #endif
-                    )
-                {
+                   ) {
                     return t.agentType_;
                 }
             }
 
-            foreach (AgentType t in Plugin.AgentTypes)
-            {
+            foreach(AgentType t in Plugin.AgentTypes) {
                 if (str == t.ToString()
-#if BEHAVIAC_NAMESPACE_FIX                    
+#if BEHAVIAC_NAMESPACE_FIX
                     || t.AgentTypeName.EndsWith(str)
 #endif
-                    )
-                {
+                   ) {
                     return t;
                 }
             }

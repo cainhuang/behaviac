@@ -19,22 +19,19 @@ using Behaviac.Design.Properties;
 
 namespace Behaviac.Design
 {
-	public partial class SettingsDialog : Form
-	{
-		public SettingsDialog()
-		{
-			InitializeComponent();
-		}
+    public partial class SettingsDialog : Form
+    {
+        public SettingsDialog() {
+            InitializeComponent();
+        }
 
-		protected override void OnShown(EventArgs e)
-		{
+        protected override void OnShown(EventArgs e) {
             languageComboBox.SelectedIndex = Settings.Default.Language;
             themeComboBox.SelectedIndex = Settings.Default.ColorTheme;
             nodeToolTipsCheckBox.Checked = Settings.Default.ShowNodeToolTips;
             showControlsCheckBox.Checked = Settings.Default.ShowControlsOnStartUp;
             checkBoxChecktheLatest.Checked = Settings.Default.CheckLatestVersion;
             dumpConnectDataCheckBox.Checked = Settings.Default.DumpConnectData;
-            checkBoxBreakAPP.Checked = Settings.Default.BreakAPP;
             showVersionCheckBox.Checked = Settings.Default.ShowVersionInfo;
             useBasicDisplayNameCheckBox.Checked = Settings.Default.UseBasicDisplayName;
             showProfileCheckBox.Checked = Settings.Default.ShowProfilingInfo;
@@ -42,16 +39,15 @@ namespace Behaviac.Design
             limitDisplayLengthCheckBox.Checked = Settings.Default.IsDisplayLengthLimited;
             displayLengthNumericUpDown.Value = (decimal)Settings.Default.LimitedDisplayLength;
 
-			base.OnShown(e);
-		}
+            base.OnShown(e);
+        }
 
-		private void acceptButton_Click(object sender, EventArgs e)
-		{
+        private void acceptButton_Click(object sender, EventArgs e) {
             bool themeChanged = (Settings.Default.ColorTheme != themeComboBox.SelectedIndex);
             bool basicDisplayNameChanged = (Settings.Default.UseBasicDisplayName != useBasicDisplayNameCheckBox.Checked);
             bool showVersionChanged = (Settings.Default.ShowVersionInfo != showVersionCheckBox.Checked);
             bool limitDisplayLengthChanged = (Settings.Default.IsDisplayLengthLimited != limitDisplayLengthCheckBox.Checked) ||
-                (Settings.Default.LimitedDisplayLength != (int)displayLengthNumericUpDown.Value);
+                                             (Settings.Default.LimitedDisplayLength != (int)displayLengthNumericUpDown.Value);
             bool languageChanged = (Settings.Default.Language != languageComboBox.SelectedIndex);
 
             Settings.Default.Language = languageComboBox.SelectedIndex;
@@ -60,7 +56,6 @@ namespace Behaviac.Design
             Settings.Default.ShowControlsOnStartUp = showControlsCheckBox.Checked;
             Settings.Default.CheckLatestVersion = checkBoxChecktheLatest.Checked;
             Settings.Default.DumpConnectData = dumpConnectDataCheckBox.Checked;
-            Settings.Default.BreakAPP = checkBoxBreakAPP.Checked;
             Settings.Default.ShowVersionInfo = showVersionCheckBox.Checked;
             Settings.Default.UseBasicDisplayName = useBasicDisplayNameCheckBox.Checked;
             Settings.Default.NoResultTreatAsError = checkBoxTweatAsError.Checked;
@@ -70,36 +65,30 @@ namespace Behaviac.Design
             Nodes.Node.ColorTheme = (Nodes.Node.ColorThemes)Settings.Default.ColorTheme;
             Behaviac.Design.Nodes.Action.NoResultTreatAsError = Settings.Default.NoResultTreatAsError;
 
-            if (Settings.Default.ShowProfilingInfo != showProfileCheckBox.Checked)
-            {
+            if (Settings.Default.ShowProfilingInfo != showProfileCheckBox.Checked) {
                 Settings.Default.ShowProfilingInfo = showProfileCheckBox.Checked;
                 Network.NetworkManager.Instance.SendProfiling(Settings.Default.ShowProfilingInfo);
             }
 
-            Behaviac.Design.Network.NetworkManager.Instance.SendBreakAPP(Settings.Default.BreakAPP);
             Plugin.UseBasicDisplayName = Settings.Default.UseBasicDisplayName;
             NodeViewData.ShowNodeId = Settings.Default.ShowVersionInfo;
             NodeViewData.IsDisplayLengthLimited = Settings.Default.IsDisplayLengthLimited;
             NodeViewData.LimitedDisplayLength = Settings.Default.LimitedDisplayLength;
 
-            if (themeChanged || basicDisplayNameChanged || showVersionChanged || limitDisplayLengthChanged)
-            {
+            if (themeChanged || basicDisplayNameChanged || showVersionChanged || limitDisplayLengthChanged) {
                 BehaviorTreeViewDock.RefreshAll();
                 PropertiesDock.UpdatePropertyGrids();
             }
 
-            if (languageChanged)
-            {
+            if (languageChanged) {
                 MessageBox.Show(Resources.LanguageChangedWarning, Resources.Warning, MessageBoxButtons.OK);
             }
-		}
+        }
 
-        private void resetLayoutButton_Click(object sender, EventArgs e)
-        {
-            if (DialogResult.Yes == MessageBox.Show(Resources.LayoutResetWarning, Resources.Warning, MessageBoxButtons.YesNo))
-            {
+        private void resetLayoutButton_Click(object sender, EventArgs e) {
+            if (DialogResult.Yes == MessageBox.Show(Resources.LayoutResetWarning, Resources.Warning, MessageBoxButtons.YesNo)) {
                 MainWindow.Instance.ResetLayout();
             }
         }
-	}
+    }
 }

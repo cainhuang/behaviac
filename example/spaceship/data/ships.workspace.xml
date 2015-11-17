@@ -4,16 +4,16 @@
   <export>
     <cs>
       <isexported>False</isexported>
-      <filename>generated_behaviors</filename>
+      <exportunifiedfile>True</exportunifiedfile>
       <folder>../../../example/spaceship/data/bt/exported</folder>
     </cs>
     <cpp>
       <isexported>True</isexported>
-      <filename>generated_behaviors</filename>
+      <exportunifiedfile>True</exportunifiedfile>
+      <folder>../..</folder>
     </cpp>
     <bson>
       <isexported>True</isexported>
-      <filename>generated_behaviors</filename>
     </bson>
   </export>
 </workspace>

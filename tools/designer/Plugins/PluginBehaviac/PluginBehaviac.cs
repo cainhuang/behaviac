@@ -64,6 +64,8 @@ namespace PluginBehaviac
             Exporters.Add(new ExporterInfo(typeof(Behaviac.Design.Exporters.ExporterBson), "bson", "Bson Behavior Exporter", true));
             Exporters.Add(new ExporterInfo(typeof(PluginBehaviac.Exporters.ExporterCpp), "cpp", "C++ Behavior Exporter", true, true));
             Exporters.Add(new ExporterInfo(typeof(PluginBehaviac.Exporters.ExporterCs), "cs", "C# Behavior Exporter", true, true));
+
+            Plugin.FSMReferencedBehaviorNodeType = typeof(Nodes.FSMReferencedBehavior);
         }
 	}
 }

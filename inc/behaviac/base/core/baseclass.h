@@ -11,12 +11,11 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BASE_BASECLASS_H_
-#define BEHAVIAC_BASE_BASECLASS_H_
+#ifndef BEHAVIAC_BASE_BASECLASS_H
+#define BEHAVIAC_BASE_BASECLASS_H
 
 namespace behaviac
 {
-
     /// BaseClass is the class from which all TAG objects derivate
     class BEHAVIAC_API BaseClass
     {
@@ -24,7 +23,6 @@ namespace behaviac
         BaseClass() {}
 
     private:
-
     };
 
     /// All cloneable object must inherit from this class. It allows to duplicate inherited object when we only know it's base class.
@@ -42,18 +40,17 @@ namespace behaviac
     	\code
     	class MyClass
     	{
-    		CLASS_COPY_NOT_ALLOWED(MyClass)
+    	CLASS_COPY_NOT_ALLOWED(MyClass)
 
-    		public:
-    			MyClass();
+    	public:
+    	MyClass();
     	};
     	\endcode
-    */
+    	*/
 #define CLASS_COPY_NOT_ALLOWED(ClassName)                   \
 private:                                                \
     ClassName (const ClassName &);                      \
     const ClassName & operator=(const ClassName &)
-
 }//end of ns
 
-#endif // #ifndef BEHAVIAC_BASE_BASECLASS_H_
+#endif // #ifndef BEHAVIAC_BASE_BASECLASS_H

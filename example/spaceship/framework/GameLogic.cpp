@@ -34,8 +34,9 @@ namespace framework
 		const GameObjectList* objects = ws->getAllGameObjects();
 
 		float dt = ws->timeElapsed / 1000.0f;
-		behaviac::Workspace::SetDeltaFrameTime(dt);
-		ws->btexec();
+		behaviac::Workspace::GetInstance()->SetDeltaFrameTime(dt);
+
+		behaviac::Workspace::GetInstance()->Update();
 
 		for (ConstGameObjectIter itr = objects->begin(); itr != objects->end(); ++itr)
 		{

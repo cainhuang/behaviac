@@ -31,5 +31,11 @@ namespace PluginBehaviac.Nodes
         {
             get { return "DecoratorNot"; }
         }
+
+        public override bool IsCondition
+        {
+            get { return true; }
+        }
+
 	}
 }

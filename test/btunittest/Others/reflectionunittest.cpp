@@ -12,14 +12,9 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "behaviac/base/base.h"
-
-#include "behaviac/test.h"
-
 #include "behaviac/base/dynamictype.h"
-
 #include "behaviac/base/object/tagobject.h"
 #include "behaviac/base/object/typehandler.h"
-
 #include "behaviac/agent/agent.h"
 #include "behaviac/base/object/member.h"
 
@@ -30,10 +25,8 @@
 #include "behaviac/base/object/containertypehandlerex.h"
 #include "behaviac/base/object/enummember.h"
 
-#include "behaviac/base/script/scriptobject.h"
-#include "behaviac/base/script/scriptserialisationhelpers.h"
-
 #include "behaviac/agent/registermacros.h"
+#include "test.h"
 
 struct TypeTest2_t
 {
@@ -44,14 +37,13 @@ struct TypeTest2_t
     TypeTest2_t() : name(10), weight(5.0f), bLive(true)
     {}
 
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(TypeTest2_t);
+    DECLARE_BEHAVIAC_OBJECT_STRUCT(TypeTest2_t);
 };
-
 
 class ObjectTest : public CTagObject
 {
 public:
-    DECLARE_BEHAVIAC_OBJECT(ObjectTest, CTagObject);
+    DECLARE_BEHAVIAC_AGENT(ObjectTest, CTagObject);
 
     ObjectTest() : Property1(10), Property2(true), Property3(10.0f)
     {}
@@ -65,7 +57,7 @@ public:
         Param2_t() : color(0), id(0)
         {}
 
-        DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(Param2_t);
+        DECLARE_BEHAVIAC_OBJECT_STRUCT(Param2_t);
     };
 
     void method0()
@@ -82,7 +74,6 @@ public:
         BEHAVIAC_UNUSED_VAR(param);
         BEHAVIAC_UNUSED_VAR(param1);
     }
-
 
     void method3(Param2_t* param, const Param2_t& param1, Param2_t& param2)
     {
@@ -122,20 +113,21 @@ private:
     }
 };
 
-
 BEGIN_PROPERTIES_DESCRIPTION(TypeTest2_t)
-	REGISTER_MEMBER("name", name, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_MEMBER("weight", weight, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_MEMBER("bLive", bLive, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
+{
+    REGISTER_MEMBER("name", name, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_MEMBER("weight", weight, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_MEMBER("bLive", bLive, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 BEGIN_PROPERTIES_DESCRIPTION(ObjectTest::Param2_t)
-	REGISTER_MEMBER("type", type, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_MEMBER("color", color, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_MEMBER("id", id, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
+{
+    REGISTER_MEMBER("type", type, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_MEMBER("color", color, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_MEMBER("id", id, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 //namespace StringUtils
 //{
@@ -161,34 +153,36 @@ END_PROPERTIES_DESCRIPTION()
 //
 //}
 
-
 BEGIN_PROPERTIES_DESCRIPTION(ObjectTest)
-	REGISTER_SERIALIZATION_EVENT(PreSave, EPersistenceType_Description_Save)
-	BEGIN_GROUP_MEMBER("Properties", EPersistenceType_Description)
-		REGISTER_MEMBER("Property1", Property1, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-		REGISTER_MEMBER("Property2", Property2, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-		REGISTER_MEMBER("Property3", Property3, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-		REGISTER_MEMBER("Property4", Property4, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-		REGISTER_MEMBER("Property5", Property5, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	END_GROUP_MEMBER()
-	REGISTER_SERIALIZATION_EVENT(PostSave, EPersistenceType_Description_Save)
-	REGISTER_SERIALIZATION_EVENT(PostLoad, EPersistenceType_Description_Load)
+{
+    REGISTER_SERIALIZATION_EVENT(PreSave, EPersistenceType_Description_Save);
+    BEGIN_GROUP_MEMBER("Properties", EPersistenceType_Description);
+    {
+        REGISTER_MEMBER("Property1", Property1, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+        REGISTER_MEMBER("Property2", Property2, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+        REGISTER_MEMBER("Property3", Property3, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+        REGISTER_MEMBER("Property4", Property4, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+        REGISTER_MEMBER("Property5", Property5, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    }
+    END_GROUP_MEMBER();
+    REGISTER_SERIALIZATION_EVENT(PostSave, EPersistenceType_Description_Save);
+    REGISTER_SERIALIZATION_EVENT(PostLoad, EPersistenceType_Description_Load);
 
-	BEGIN_REGISTER_METHOD("method0", method0)
-	END_REGISTER_METHOD()
+    BEGIN_REGISTER_METHOD("method0", method0)
+    END_REGISTER_METHOD()
 
-	BEGIN_REGISTER_METHOD("method1", method1)
-	END_REGISTER_METHOD()
+    BEGIN_REGISTER_METHOD("method1", method1)
+    END_REGISTER_METHOD()
 
-	BEGIN_REGISTER_METHOD("method2", method2)
-	END_REGISTER_METHOD()
+    BEGIN_REGISTER_METHOD("method2", method2)
+    END_REGISTER_METHOD()
 
-	BEGIN_REGISTER_METHOD("method3", method3)
-	END_REGISTER_METHOD()
+    BEGIN_REGISTER_METHOD("method3", method3)
+    END_REGISTER_METHOD()
 
-	BEGIN_REGISTER_METHOD("method4", method4)
-	END_REGISTER_METHOD()
-
+    BEGIN_REGISTER_METHOD("method4", method4)
+    END_REGISTER_METHOD()
+}
 END_PROPERTIES_DESCRIPTION()
 
 class CGrassMorphData : public CTagObject
@@ -199,11 +193,11 @@ class CGrassMorphData : public CTagObject
 public:
     struct SMorph
     {
-        DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(SMorph);
+        DECLARE_BEHAVIAC_OBJECT_STRUCT(SMorph);
 
         //CStringID m_name;
-		behaviac::string	m_name;
-        CPathID				m_grassFaction [4];
+        behaviac::string	m_name;
+        CPathID				m_grassFaction[4];
     };
 
     struct SMorphResIDContainer
@@ -220,7 +214,7 @@ public:
     // operations
     //-----------------------------------------
 public:
-    DECLARE_BEHAVIAC_OBJECT(CGrassMorphData, CTagObject);
+    DECLARE_BEHAVIAC_AGENT(CGrassMorphData, CTagObject);
 
     static CTagObject* CreateObject()
     {
@@ -243,7 +237,7 @@ public:
     // attributes
     //-----------------------------------------
 public:
-	behaviac::string											m_name;
+    behaviac::string											m_name;
     behaviac::vector< SMorph >									m_morphData;
     behaviac::vector< SMorphResIDContainer >					m_morphResIDList;
     float													m_morphForce;
@@ -266,28 +260,32 @@ template <> class CEmptyPredicate< CGrassMorphData, behaviac::vector<CGrassMorph
 public:
     static bool IsEmpty(const CGrassMorphData::SMorph& morphInfo)
     {
-		return morphInfo.m_name.empty();
+        return morphInfo.m_name.empty();
     }
 };
 
 BEGIN_PROPERTIES_DESCRIPTION(CGrassMorphData::SMorph)
-	REGISTER_MEMBER("Name", m_name, EPersistenceType_Description_UiInfo, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_OFFSET_MEMBER("fileSylvanGrass",  m_grassFaction, 0,   EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_OFFSET_MEMBER("fileHavenGrass",   m_grassFaction, 1,   EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_OFFSET_MEMBER("fileNecroGrass",   m_grassFaction, 2,   EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_OFFSET_MEMBER("fileInfernoGrass", m_grassFaction, 3,	EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
+{
+    REGISTER_MEMBER("Name", m_name, EPersistenceType_Description_UiInfo, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_OFFSET_MEMBER("fileSylvanGrass", m_grassFaction, 0, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_OFFSET_MEMBER("fileHavenGrass", m_grassFaction, 1, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_OFFSET_MEMBER("fileNecroGrass", m_grassFaction, 2, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_OFFSET_MEMBER("fileInfernoGrass", m_grassFaction, 3, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 BEGIN_PROPERTIES_DESCRIPTION(CGrassMorphData)
-	REGISTER_CONTAINER_MEMBER_EX("Morph_contain", "Morph_elem", "", m_morphData, EPersistenceType_Description_UiInfo, TagEmptyEntryVectorProvider, DefaultContainedTypeHandler, DefaultUiInfo)
-	REGISTER_MEMBER("fMorphForce", m_morphForce, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo)
-	//REGISTER_VIRTUAL_MEMBER_REF("Values", SetSavedValues, GetSavedValues, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo)
+{
+    REGISTER_CONTAINER_MEMBER_EX("Morph_contain", "Morph_elem", "", m_morphData, EPersistenceType_Description_UiInfo, TagEmptyEntryVectorProvider, DefaultContainedTypeHandler, DefaultUiInfo);
+    REGISTER_MEMBER("fMorphForce", m_morphForce, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+    //REGISTER_VIRTUAL_MEMBER_REF("Values", SetSavedValues, GetSavedValues, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
+}
 END_PROPERTIES_DESCRIPTION()
+
 #if BEHAVIAC_COMPILER_MSVC
 struct SAttachement
 {
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(SAttachement);
+    DECLARE_BEHAVIAC_OBJECT_STRUCT(SAttachement);
     SAttachement(
         int _boneIndex = -1,
         const bool _freezeRotation = false)
@@ -304,15 +302,14 @@ struct SAttachement
     bool freezeRotation;
 };
 
-
-
 BEGIN_PROPERTIES_DESCRIPTION(SAttachement)
-	REGISTER_MEMBER("BoneIndex", boneIndex, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo)
-	//REGISTER_VIRTUAL_MEMBER("Translation", Translation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo)
-	//REGISTER_VIRTUAL_MEMBER_INTRINSIC_GET_COPY("Rotation", Rotation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_MEMBER("FreezeRotation", freezeRotation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo)
+{
+    REGISTER_MEMBER("BoneIndex", boneIndex, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
+    //REGISTER_VIRTUAL_MEMBER("Translation", Translation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
+    //REGISTER_VIRTUAL_MEMBER_INTRINSIC_GET_COPY("Rotation", Rotation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_MEMBER("FreezeRotation", freezeRotation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 typedef behaviac::map<CStringID, SAttachement> MapAttachements;
 
@@ -330,13 +327,12 @@ enum EVisibleAIObjectType
 };
 BEHAVIAC_OVERRIDE_TYPE_NAME(EVisibleAIObjectType);
 
-
 class CMoveModel
 {
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(CMoveModel);
+    DECLARE_BEHAVIAC_OBJECT_STRUCT(CMoveModel);
 
     CMoveModel() : m_entityObjectType(VISIBLEOBJECT_TYPE_UNDEFINED)
-	{}
+    {}
 
     MapAttachements& GetAttachements()
     {
@@ -381,26 +377,26 @@ class CMoveModel
 //
 
 BEGIN_PROPERTIES_DESCRIPTION(CMoveModel)
-	REGISTER_CONTAINER_MEMBER_BYID("MapAttachements", "Attachement", "Attachement", "AttachementName", m_attachements, EPersistenceType_State, CreateChildNode, TagMapProvider, DefaultTypeHandler, DefaultUiInfo)
+{
+    REGISTER_CONTAINER_MEMBER_BYID("MapAttachements", "Attachement", "Attachement", "AttachementName", m_attachements, EPersistenceType_State, CreateChildNode, TagMapProvider, DefaultTypeHandler, DefaultUiInfo);
 
-	BEGIN_ENUM_MEMBER("VisibleObjectType", m_entityObjectType, EPersistenceType_Description)
-		REGISTER_ENUM_VALUE("Undefined")
-		REGISTER_ENUM_VALUE("Grenade")
-		REGISTER_ENUM_VALUE("Molotov")
-		REGISTER_ENUM_VALUE("Rocket")
-		REGISTER_ENUM_VALUE("MortarShell")
-		REGISTER_ENUM_VALUE("IED")
-		REGISTER_ENUM_VALUE("StandardPropaneTank")
-		REGISTER_ENUM_VALUE("ThinPropaneTank")
-		REGISTER_ENUM_VALUE("NotVisible")
-	END_ENUM_MEMBER()
+    BEGIN_ENUM_MEMBER("VisibleObjectType", m_entityObjectType, EPersistenceType_Description);
+    REGISTER_ENUM_VALUE("Undefined");
+    REGISTER_ENUM_VALUE("Grenade");
+    REGISTER_ENUM_VALUE("Molotov");
+    REGISTER_ENUM_VALUE("Rocket");
+    REGISTER_ENUM_VALUE("MortarShell");
+    REGISTER_ENUM_VALUE("IED");
+    REGISTER_ENUM_VALUE("StandardPropaneTank");
+    REGISTER_ENUM_VALUE("ThinPropaneTank");
+    REGISTER_ENUM_VALUE("NotVisible");
+    END_ENUM_MEMBER();
 
-	REGISTER_SERIALIZATION_EVENT(CreateAIObject, EPersistenceType_Description_Load)
-	REGISTER_MEMBER("AIObject", m_aiObject, EPersistenceType_All_UiInfo, DefaultTypeHandler, DefaultUiInfo)
-	REGISTER_SERIALIZATION_EVENT(RegisterAIObjectResources, EPersistenceType_Description_Load)
-
+    REGISTER_SERIALIZATION_EVENT(CreateAIObject, EPersistenceType_Description_Load);
+    REGISTER_MEMBER("AIObject", m_aiObject, EPersistenceType_All_UiInfo, DefaultTypeHandler, DefaultUiInfo);
+    REGISTER_SERIALIZATION_EVENT(RegisterAIObjectResources, EPersistenceType_Description_Load);
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 class CSequenceManager
 {
@@ -409,17 +405,13 @@ public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CSequenceManager);
 
 public:
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(CSequenceManager);
+    DECLARE_BEHAVIAC_OBJECT_STRUCT(CSequenceManager);
 
 public:
     void CleanUp();
     void Update(float dt);
 
-    ScriptCallbackId CreateListener(const char* sequence, float time
-#if BEHAVIAC_ENABLE_LUA
-		, CScriptReferenceRef scriptObject, const char* scriptFunction
-#endif//#if BEHAVIAC_ENABLE_CONSOLE
-		)
+    ScriptCallbackId CreateListener(const char* sequence, float time)
     {
         return 0;
     }
@@ -432,10 +424,9 @@ public:
         return 0;
     }
 
-
 private:
-	CSequenceManager()
-	{}
+    CSequenceManager()
+    {}
 
     typedef behaviac::vector<int> ListenerArray;
     ListenerArray m_listeners;
@@ -446,19 +437,10 @@ private:
 BEHAVIAC_IMPLEMNT_SINGLETON(CSequenceManager);
 
 BEGIN_PROPERTIES_DESCRIPTION(CSequenceManager)
-#if BEHAVIAC_ENABLE_LUA
-	LUA_EXPOSED_CLASS()
-
-	REGISTER_STATIC_MEMBER_FUNCTION_RETURNPTR(GetInstance, CSequenceManager)
-	REGISTER_STATIC_MEMBER_FUNCTION_ARG1_RETURN(TestFunction, const char*, int)
-
-	REGISTER_MEMBER_FUNCTION(CreateListener)
-	REGISTER_MEMBER_FUNCTION(DeleteListener)
-
-	REGISTER_CONTAINER_MEMBER("Listeners", "Listener", "Listener", m_listeners, EPersistenceType_State, UiContainerType(true, "Defines Listeners"))
-#endif//#if BEHAVIAC_ENABLE_LUA
+{
+    //
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 template< typename T >
 class CSceneObjectHandle
@@ -466,7 +448,7 @@ class CSceneObjectHandle
     template< typename U >
     friend class CSceneObjectContainer;
 
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(CSceneObjectHandle)
+    DECLARE_BEHAVIAC_OBJECT_STRUCT(CSceneObjectHandle)
     // construction
 public:
     CSceneObjectHandle();
@@ -491,21 +473,25 @@ private:
 };
 
 BEGIN_TEMPLATE1_PROPERTIES_DESCRIPTION(CSceneObjectHandle)
+{
+    //
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 class CSceneObject
 {
     // construction
 public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CSceneObject)
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(CSceneObject);
+    DECLARE_BEHAVIAC_OBJECT_STRUCT(CSceneObject);
     CSceneObject();
 };
 
 BEGIN_PROPERTIES_DESCRIPTION(CSceneObject)
+{
+    //
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 template< typename T >
 class CSceneObjectComponent : public CTagObject
@@ -534,12 +520,12 @@ private:
     CSceneObjectHandle< T > m_handle;
 };
 
-
 BEGIN_TEMPLATE1_PROPERTIES_DESCRIPTION(CSceneObjectComponent)
-	REGISTER_SERIALIZATION_EVENT(CreateObjectHandle, EPersistenceType_Description_Load)
-	//REGISTER_MEMBER("Handle", m_handle, EPersistenceType_Description, NoChildTypeHandler, DefaultUiInfo)
+{
+    REGISTER_SERIALIZATION_EVENT(CreateObjectHandle, EPersistenceType_Description_Load)
+    //REGISTER_MEMBER("Handle", m_handle, EPersistenceType_Description, NoChildTypeHandler, DefaultUiInfo)
+}
 END_PROPERTIES_DESCRIPTION()
-
 
 TEST(ReflectionTest, Register)
 {
@@ -548,23 +534,11 @@ TEST(ReflectionTest, Register)
     SAttachement::RegisterProperties();
     CMoveModel::RegisterProperties();
     CSceneObjectComponent<CSceneObject>::RegisterProperties();
-#if BEHAVIAC_ENABLE_LUA
-    CScriptSystem::CreateInstance();
-    CScriptSystem::GetInstance()->Init();
-#endif//#if BEHAVIAC_ENABLE_LUA
-    
-	//after CScriptSystem Init
+
+    //after CScriptSystem Init
     CSequenceManager::RegisterProperties();
     CSequenceManager::CreateInstance();
 
-#if BEHAVIAC_ENABLE_LUA
-    CScriptSystem::GetInstance()->ExecuteString("CSequenceManager_GetInstance()");
-    CScriptSystem::GetInstance()->ExecuteString("CSequenceManager_TestFunction(\"test\")");
-#endif//#if BEHAVIAC_ENABLE_LUA
     CSequenceManager::DestroyInstance();
-
-#if BEHAVIAC_ENABLE_LUA
-    CScriptSystem::DestroyInstance();
-#endif//#if BEHAVIAC_ENABLE_LUA
 }
 #endif//#if BEHAVIAC_COMPILER_MSVC

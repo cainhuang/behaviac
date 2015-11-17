@@ -113,11 +113,10 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(dest);
         BEHAVIAC_UNUSED_VAR(src);
         BEHAVIAC_UNUSED_VAR(num);
-        
+
         BEHAVIAC_ASSERT(0);
         return 0;
     }
-
 }
 
 #endif//#if !BEHAVIAC_COMPILER_MSVC

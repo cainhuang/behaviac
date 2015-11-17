@@ -1,4 +1,4 @@
-﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -45,18 +45,18 @@ namespace PluginBehaviac.Nodes
 		{
 		}
 
-        public override bool AcceptsChildren(IList<Type> children, bool acceptEvenFull = false)
+        public override bool AcceptsChildren(IList<BaseNode> children, bool acceptEvenFull = false)
 		{
-			if(!base.AcceptsChildren(children))
+			if (!base.AcceptsChildren(children))
 			{
 				return false;
 			}
 
-			foreach(Type t in children)
+            foreach (BaseNode child in children)
 			{
-                if (t != typeof(Nodes.Condition) &&
-                    !t.IsSubclassOf(typeof(Behaviac.Design.Nodes.Condition)) &&
-					!t.IsSubclassOf(typeof(Nodes.OperatorCondition)) )
+                if (!(child is Nodes.Condition) &&
+                    !(child is Behaviac.Design.Nodes.Condition) &&
+					!(child is Nodes.OperatorCondition))
 				{
 					return false;
 				}

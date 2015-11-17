@@ -48,8 +48,7 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// Defines is enumerations are exported as Namespace.Enum.Value or simply as Value.
         /// </summary>
-        public static ExportMode ExportTextMode
-        {
+        public static ExportMode ExportTextMode {
             get { return __exportMode; }
             set { __exportMode = value; }
         }
@@ -59,8 +58,7 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// This prefix is placed in front of the enum's value when exporting;
         /// </summary>
-        public static string ExportPrefix
-        {
+        public static string ExportPrefix {
             get { return __exportPrefix; }
             set { __exportPrefix = value; }
         }
@@ -76,110 +74,104 @@ namespace Behaviac.Design.Attributes
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         /// <param name="exclude">The enum values which will be excluded from the values shown in the designer.</param>
         public DesignerEnum(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, string excludeTag)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerEnumEditor), null)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerEnumEditor), null) {
             excludeTag_ = excludeTag;
         }
 
         string excludeTag_;
-        public string ExcludeTag
-        {
+        public string ExcludeTag {
             get
             {
                 return excludeTag_;
             }
         }
 
-        private static string getEnumName(object obj)
-        {
+        private static string getEnumName(object obj) {
             if (obj == null)
-                return string.Empty;
+            { return string.Empty; }
 
             Type type = obj.GetType();
+
             if (!type.IsEnum)
-                throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, obj));
+            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, obj)); }
 
             string enumName = Enum.GetName(type, obj);
+
             if (string.IsNullOrEmpty(enumName))
-                throw new Exception(string.Format(Resources.ExceptionDesignerAttributeEnumValueIllegal, obj));
+            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeEnumValueIllegal, obj)); }
 
             return enumName;
         }
 
-        public static string GetDisplayName(object obj)
-        {
+        public static string GetDisplayName(object obj) {
             if (obj == null)
-                return string.Empty;
+            { return string.Empty; }
 
             string enumName = getEnumName(obj);
 
             System.Reflection.FieldInfo fi = obj.GetType().GetField(obj.ToString());
             Attribute[] attributes = (Attribute[])fi.GetCustomAttributes(typeof(EnumMemberDescAttribute), false);
+
             if (attributes.Length > 0)
-                enumName = ((EnumMemberDescAttribute)attributes[0]).DisplayName;
+            { enumName = ((EnumMemberDescAttribute)attributes[0]).DisplayName; }
 
             return enumName;
         }
 
-        public static string GetDescription(object obj)
-        {
+        public static string GetDescription(object obj) {
             if (obj == null)
-                return string.Empty;
+            { return string.Empty; }
 
             string enumName = getEnumName(obj);
 
             System.Reflection.FieldInfo fi = obj.GetType().GetField(obj.ToString());
             Attribute[] attributes = (Attribute[])fi.GetCustomAttributes(typeof(EnumMemberDescAttribute), false);
+
             if (attributes.Length > 0)
-                enumName = ((EnumMemberDescAttribute)attributes[0]).Description;
-           
+            { enumName = ((EnumMemberDescAttribute)attributes[0]).Description; }
+
             return enumName;
         }
 
-        public static string GeneratedCode(object obj)
-        {
+        public static string GeneratedCode(object obj) {
             if (obj == null)
-                return string.Empty;
+            { return string.Empty; }
 
             string enumName = getEnumName(obj);
 
             System.Reflection.FieldInfo fi = obj.GetType().GetField(obj.ToString());
             Attribute[] attributes = (Attribute[])fi.GetCustomAttributes(typeof(EnumMemberDescAttribute), false);
+
             if (attributes.Length > 0)
-                enumName = ((EnumMemberDescAttribute)attributes[0]).NativeValue;
+            { enumName = ((EnumMemberDescAttribute)attributes[0]).NativeValue; }
 
             return enumName;
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             return GetDisplayName(obj);
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             return getEnumName(obj);
         }
 
-        public override string GetSaveValue(object owner, object obj)
-        {
+        public override string GetSaveValue(object owner, object obj) {
             return getEnumName(obj);
         }
 
-        public override string GetGeneratedValue(object owner, object obj)
-        {
+        public override string GetGeneratedValue(object owner, object obj) {
             return GeneratedCode(obj);
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (!type.IsEnum)
-                throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, type));
+            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, type)); }
 
             string[] parts = str.Split(':');
 
-            if (parts.Length != 2)
-            {
+            if (parts.Length != 2) {
                 // keep compatibility with version 1
                 //throw new Exception( string.Format(Resources.ExceptionDesignerAttributeEnumCouldNotReadValue, str) );
                 parts = new string[] { str, "-1" };
@@ -188,20 +180,19 @@ namespace Behaviac.Design.Attributes
             string enumname = parts[0];
 
             int enumval;
-            try
-            {
+
+            try {
                 // try to get the enum value by name
                 enumval = (int)Enum.Parse(type, enumname, true);
-            }
-            catch
-            {
+
+            } catch {
                 // try to read the stored enum value index
                 if (!int.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out enumval))
-                    throw new Exception(string.Format(Resources.ExceptionDesignerAttributeEnumCouldNotParseValue, str));
+                { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeEnumCouldNotParseValue, str)); }
 
                 // try to get the enum value by index
                 if (Enum.ToObject(type, enumval) == null)
-                    throw new Exception(string.Format(Resources.ExceptionDesignerAttributeEnumIllegalEnumIndex, enumval));
+                { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeEnumIllegalEnumIndex, enumval)); }
 
                 enumval = (int)Plugin.DefaultValue(type);
             }

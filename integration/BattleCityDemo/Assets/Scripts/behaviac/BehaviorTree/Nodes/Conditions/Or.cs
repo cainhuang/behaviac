@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public Or()
         {
-		}
+        }
+
         ~Or()
         {
         }
@@ -41,6 +40,22 @@ namespace behaviac
             return base.IsValid(pAgent, pTask);
         }
 
+        public override bool Evaluate(Agent pAgent)
+        {
+            bool ret = true;
+            foreach(BehaviorNode c in this.m_children)
+            {
+                ret = c.Evaluate(pAgent);
+
+                if (ret)
+                {
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
         protected override BehaviorTask createTask()
         {
             OrTask pTask = new OrTask();
@@ -48,9 +63,8 @@ namespace behaviac
             return pTask;
         }
 
-
         // ============================================================================
-        class OrTask : Selector.SelectorTask
+        private class OrTask : Selector.SelectorTask
         {
             public OrTask()
                 : base()
@@ -70,6 +84,7 @@ namespace behaviac
             {
                 base.save(node);
             }
+
             public override void load(ISerializableNode node)
             {
                 base.load(node);
@@ -77,8 +92,10 @@ namespace behaviac
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
                 //Debug.Check(this.m_children.Count == 2);
-                for(int i = 0; i < this.m_children.Count; ++i)
+                for (int i = 0; i < this.m_children.Count; ++i)
                 {
                     BehaviorTask pBehavior = this.m_children[i];
                     EBTStatus s = pBehavior.exec(pAgent);

@@ -33,34 +33,32 @@
 
 namespace Behaviac.Design
 {
-	partial class MainWindowCloseDialog
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class MainWindowCloseDialog
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Windows Form Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindowCloseDialog));
             this.behaviorListBox = new System.Windows.Forms.CheckedListBox();
             this.saveButton = new System.Windows.Forms.Button();
@@ -68,9 +66,9 @@ namespace Behaviac.Design
             this.discardButton = new System.Windows.Forms.Button();
             this.behaviorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // behaviorListBox
-            // 
+            //
             resources.ApplyResources(this.behaviorListBox, "behaviorListBox");
             this.behaviorListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.behaviorListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -78,9 +76,9 @@ namespace Behaviac.Design
             this.behaviorListBox.ForeColor = System.Drawing.Color.LightGray;
             this.behaviorListBox.FormattingEnabled = true;
             this.behaviorListBox.Name = "behaviorListBox";
-            // 
+            //
             // saveButton
-            // 
+            //
             resources.ApplyResources(this.saveButton, "saveButton");
             this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.saveButton.DialogResult = System.Windows.Forms.DialogResult.Yes;
@@ -88,9 +86,9 @@ namespace Behaviac.Design
             this.saveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.saveButton.Name = "saveButton";
             this.saveButton.UseVisualStyleBackColor = false;
-            // 
+            //
             // cancelButton
-            // 
+            //
             resources.ApplyResources(this.cancelButton, "cancelButton");
             this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -98,9 +96,9 @@ namespace Behaviac.Design
             this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = false;
-            // 
+            //
             // discardButton
-            // 
+            //
             resources.ApplyResources(this.discardButton, "discardButton");
             this.discardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.discardButton.DialogResult = System.Windows.Forms.DialogResult.No;
@@ -108,14 +106,14 @@ namespace Behaviac.Design
             this.discardButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.discardButton.Name = "discardButton";
             this.discardButton.UseVisualStyleBackColor = false;
-            // 
+            //
             // behaviorLabel
-            // 
+            //
             resources.ApplyResources(this.behaviorLabel, "behaviorLabel");
             this.behaviorLabel.Name = "behaviorLabel";
-            // 
+            //
             // MainWindowCloseDialog
-            // 
+            //
             this.AcceptButton = this.saveButton;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -134,14 +132,14 @@ namespace Behaviac.Design
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.CheckedListBox behaviorListBox;
-		private System.Windows.Forms.Button saveButton;
-		private System.Windows.Forms.Button cancelButton;
-		private System.Windows.Forms.Button discardButton;
+        private System.Windows.Forms.CheckedListBox behaviorListBox;
+        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button discardButton;
         private System.Windows.Forms.Label behaviorLabel;
-	}
+    }
 }

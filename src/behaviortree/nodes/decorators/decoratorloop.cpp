@@ -14,85 +14,106 @@
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/nodes/decorators/decoratorloop.h"
 
+#include "behaviac/htn/planner.h"
+#include "behaviac/htn/plannertask.h"
+
 namespace behaviac
 {
-	DecoratorLoop::DecoratorLoop()
-	{
-	}
+    DecoratorLoop::DecoratorLoop()
+    {
+    }
 
-	DecoratorLoop::~DecoratorLoop()
-	{
-	}
+    DecoratorLoop::~DecoratorLoop()
+    {
+    }
 
-	void DecoratorLoop::load(int version, const char* agentType, const properties_t& properties)
-	{
-		DecoratorCount::load(version, agentType, properties);
-	}
+    void DecoratorLoop::load(int version, const char* agentType, const properties_t& properties)
+    {
+        DecoratorCount::load(version, agentType, properties);
+    }
 
-	bool DecoratorLoop::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!DecoratorLoop::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool DecoratorLoop::decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner)
+    {
+        bool bOk = false;
+        DecoratorLoop* loop = (DecoratorLoop*)node;
+        int childCount = loop->GetChildrenCount();
+        BEHAVIAC_UNUSED_VAR(childCount);
+        BEHAVIAC_ASSERT(childCount == 1);
+        BehaviorNode* childNode = (BehaviorNode*)loop->GetChild(0);
+        PlannerTask* childTask = planner->decomposeNode(childNode, depth);
 
-	BehaviorTask* DecoratorLoop::createTask() const
-	{
-		DecoratorLoopTask* pTask = BEHAVIAC_NEW DecoratorLoopTask();
-		
-		return pTask;
-	}
+        if (childTask != NULL)
+        {
+            seqTask->AddChild(childTask);
+            bOk = true;
+        }
 
-	DecoratorLoopTask::DecoratorLoopTask() : DecoratorCountTask()
-	{
-	}
+        return bOk;
+    }
 
-	DecoratorLoopTask::~DecoratorLoopTask()
-	{
-	}
+    bool DecoratorLoop::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!DecoratorLoop::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	void DecoratorLoopTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+        return super::IsValid(pAgent, pTask);
+    }
 
-	void DecoratorLoopTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    BehaviorTask* DecoratorLoop::createTask() const
+    {
+        DecoratorLoopTask* pTask = BEHAVIAC_NEW DecoratorLoopTask();
 
-	void DecoratorLoopTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+        return pTask;
+    }
 
-	EBTStatus DecoratorLoopTask::decorate(EBTStatus status)
-	{
-		BEHAVIAC_UNUSED_VAR(status);
+    DecoratorLoopTask::DecoratorLoopTask() : DecoratorCountTask()
+    {
+    }
 
-		if (this->m_n > 0)
-		{
-			this->m_n--;
+    DecoratorLoopTask::~DecoratorLoopTask()
+    {
+    }
 
-			if (this->m_n == 0)
-			{
-				return BT_SUCCESS;
-			}
+    void DecoratorLoopTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-			return BT_RUNNING;
-		}
+    void DecoratorLoopTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-		if (this->m_n == -1)
-		{
-			return BT_RUNNING;
-		}
+    void DecoratorLoopTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-		BEHAVIAC_ASSERT(this->m_n == 0);
+    EBTStatus DecoratorLoopTask::decorate(EBTStatus status)
+    {
+        BEHAVIAC_UNUSED_VAR(status);
 
-		return BT_SUCCESS;
-	}
+        if (this->m_n > 0)
+        {
+            this->m_n--;
 
+            if (this->m_n == 0)
+            {
+                return BT_SUCCESS;
+            }
+
+            return BT_RUNNING;
+        }
+
+        if (this->m_n == -1)
+        {
+            return BT_RUNNING;
+        }
+
+        BEHAVIAC_ASSERT(this->m_n == 0);
+
+        return BT_SUCCESS;
+    }
 }//namespace behaviac

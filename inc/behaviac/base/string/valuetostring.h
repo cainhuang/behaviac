@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_VALUETOSTRING_H_
-#define _CORE_VALUETOSTRING_H_
+#ifndef BEHAVIAC_CORE_VALUETOSTRING_H
+#define BEHAVIAC_CORE_VALUETOSTRING_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/core/container/string_t.h"
@@ -33,7 +33,7 @@ namespace behaviac
         {
         private:
 
-			template<typename U, behaviac::string (U::*)() const> struct SFINAE {};
+            template<typename U, behaviac::string(U::*)() const> struct SFINAE {};
 
             template< typename U >
             static Yes Tester(SFINAE<U, &U::ToString>*);
@@ -56,249 +56,246 @@ behaviac::string EnumValueToString(const T& v);
 
 namespace behaviac
 {
-namespace StringUtils
-{
-	template<typename T>
-	behaviac::string ToString(const T& val);
+    namespace StringUtils
+    {
+        template<typename T>
+        behaviac::string ToString(const T& val);
 
-	namespace Private
-	{
-		template<typename T>
-		inline behaviac::string ToString(const T& val)
-		{
-			BEHAVIAC_UNUSED_VAR(val);
+        namespace Private
+        {
+            template<typename T>
+            inline behaviac::string ToString(const T& val)
+            {
+                BEHAVIAC_UNUSED_VAR(val);
 
-			return "";
-		}
+                return "";
+            }
 
-		// Basic types
-		inline behaviac::string ToString(bool val)
-		{
-			return val ? "true" : "false";
-		}
-		inline behaviac::string ToString(char val)
-		{
-			char str[2];
-			string_sprintf(str, "%c", val);
-			return str;
-		}
-		inline behaviac::string ToString(signed char val)
-		{
-			char str[5];
-			string_sprintf(str, "%i", val);
-			return str;
-		}
-		inline behaviac::string ToString(unsigned char val)
-		{
-			char str[5];
-			string_sprintf(str, "%u", val);
-			return str;
-		}
-		inline behaviac::string ToString(signed short val)
-		{
-			char str[7];
-			string_sprintf(str, "%i", val);
-			return str;
-		}
-		inline behaviac::string ToString(unsigned short val)
-		{
-			char str[7];
-			string_sprintf(str, "%u", val);
-			return str;
-		}
-		inline behaviac::string ToString(signed int val)
-		{
-			char str[12];
-			string_sprintf(str, "%i", val);
-			return str;
-		}
-		inline behaviac::string ToString(unsigned int val)
-		{
-			char str[12];
-			string_sprintf(str, "%u", val);
-			return str;
-		}
-	
-		inline behaviac::string ToString(signed long val)
-		{
-			char str[12];
-			string_sprintf(str, "%li", val);
-			return str;
-		}
-		inline behaviac::string ToString(unsigned long val)
-		{
-			char str[12];
-			string_sprintf(str, "%lu", val);
-			return str;
-		}
+            // Basic types
+            inline behaviac::string ToString(bool val)
+            {
+                return val ? "true" : "false";
+            }
+            inline behaviac::string ToString(char val)
+            {
+                char str[2];
+                string_sprintf(str, "%c", val);
+                return str;
+            }
+            inline behaviac::string ToString(signed char val)
+            {
+                char str[5];
+                string_sprintf(str, "%i", val);
+                return str;
+            }
+            inline behaviac::string ToString(unsigned char val)
+            {
+                char str[5];
+                string_sprintf(str, "%u", val);
+                return str;
+            }
+            inline behaviac::string ToString(signed short val)
+            {
+                char str[7];
+                string_sprintf(str, "%i", val);
+                return str;
+            }
+            inline behaviac::string ToString(unsigned short val)
+            {
+                char str[7];
+                string_sprintf(str, "%u", val);
+                return str;
+            }
+            inline behaviac::string ToString(signed int val)
+            {
+                char str[12];
+                string_sprintf(str, "%i", val);
+                return str;
+            }
+            inline behaviac::string ToString(unsigned int val)
+            {
+                char str[12];
+                string_sprintf(str, "%u", val);
+                return str;
+            }
+
+            inline behaviac::string ToString(signed long val)
+            {
+                char str[12];
+                string_sprintf(str, "%li", val);
+                return str;
+            }
+            inline behaviac::string ToString(unsigned long val)
+            {
+                char str[12];
+                string_sprintf(str, "%lu", val);
+                return str;
+            }
 #if !BEHAVIAC_COMPILER_GCC_LINUX
-		inline behaviac::string ToString(int64_t val)
-		{
-			char str[23];
-			string_sprintf(str, "%lli", val);
-			return str;
-		}
-		inline behaviac::string ToString(uint64_t val)
-		{
-			char str[23];
-			string_sprintf(str, "%llu", val);
-			return str;
-		}
+            inline behaviac::string ToString(int64_t val)
+            {
+                char str[23];
+                string_sprintf(str, "%lli", val);
+                return str;
+            }
+            inline behaviac::string ToString(uint64_t val)
+            {
+                char str[23];
+                string_sprintf(str, "%llu", val);
+                return str;
+            }
 #else
-		inline behaviac::string ToString(long long val)
-		{
-			char str[23];
-			string_sprintf(str, "%lli", val);
-			return str;
-		}
-		inline behaviac::string ToString(unsigned long long val)
-		{
-			char str[23];
-			string_sprintf(str, "%llu", val);
-			return str;
-		}
+            inline behaviac::string ToString(long long val)
+            {
+                char str[23];
+                string_sprintf(str, "%lli", val);
+                return str;
+            }
+            inline behaviac::string ToString(unsigned long long val)
+            {
+                char str[23];
+                string_sprintf(str, "%llu", val);
+                return str;
+            }
 #endif
-		inline behaviac::string ToString(float val)
-		{
-			char str[32];
-			string_sprintf(str, "%f", val);
-			return str;
-		}
-		inline behaviac::string ToString(double val)
-		{
-			char str[32];
-			string_sprintf(str, "%g", val);
-			return str;
-		}
-		inline behaviac::string ToString(void* val)
-		{
-			char str[32];
-			string_sprintf(str, "%p", val);
-			return str;
-		}
+            inline behaviac::string ToString(float val)
+            {
+                char str[32];
+                string_sprintf(str, "%f", val);
+                return str;
+            }
+            inline behaviac::string ToString(double val)
+            {
+                char str[32];
+                string_sprintf(str, "%g", val);
+                return str;
+            }
+            inline behaviac::string ToString(void* val)
+            {
+                char str[32];
+                string_sprintf(str, "%p", val);
+                return str;
+            }
 
-		inline behaviac::string ToString(const char* val)
-		{
-			behaviac::string ret(val);
-			return ret;
-		}
+            inline behaviac::string ToString(const char* val)
+            {
+                behaviac::string ret(val);
+                return ret;
+            }
 
-		inline behaviac::string ToString(const std::string& val)
-		{
-			return behaviac::string(val.c_str());
-		}
+            inline behaviac::string ToString(const std::string& val)
+            {
+                return behaviac::string(val.c_str());
+            }
 
-		inline behaviac::string ToString(const std::wstring& val)
-		{
-			behaviac::wstring t(val.c_str());
-			behaviac::string r = behaviac::StringUtils::Wide2Char(t);
+            inline behaviac::string ToString(const std::wstring& val)
+            {
+                behaviac::wstring t(val.c_str());
+                behaviac::string r = behaviac::StringUtils::Wide2Char(t);
 
-			return behaviac::string(r.c_str());
-		}
+                return behaviac::string(r.c_str());
+            }
 
-		inline behaviac::string ToString(const behaviac::string& val)
-		{
-			return val;
-		}
+            inline behaviac::string ToString(const behaviac::string& val)
+            {
+                return val;
+            }
 
-		inline behaviac::string ToString(const behaviac::wstring& val)
-		{
-			return behaviac::StringUtils::Wide2Char(val);
-		}
+            inline behaviac::string ToString(const behaviac::wstring& val)
+            {
+                return behaviac::StringUtils::Wide2Char(val);
+            }
 
-		inline behaviac::string ToString(const CStringID& val)
-		{
-			return val.LogStr();
-		}
+            inline behaviac::string ToString(const CStringID& val)
+            {
+                return val.LogStr();
+            }
 
-		inline behaviac::string ToString(const CPathID& val)
-		{
-			return val.LogStr();
-		}
+            inline behaviac::string ToString(const CPathID& val)
+            {
+                return val.LogStr();
+            }
 
+            // Container types
+            template <typename T> behaviac::string ContainerToString(const T& contVal)
+            {
+                behaviac::string str;
+                char count[64];
+                string_sprintf(count, "%d:", (int)contVal.size());
+                str = count;
+                typename T::const_iterator iter = contVal.begin();
+                typename T::const_iterator iterEnd = contVal.end();
 
-		// Container types
-		template <typename T> behaviac::string ContainerToString(const T& contVal)
-		{
-			behaviac::string str;
-			char count[64];
-			string_sprintf(count, "%d:", (int)contVal.size());
-			str = count;
-			typename T::const_iterator iter = contVal.begin();
-			typename T::const_iterator iterEnd = contVal.end();
+                while (iter != iterEnd)
+                {
+                    str += behaviac::StringUtils::ToString(*iter);
+                    str += "|";
+                    ++iter;
+                }
 
-			while (iter != iterEnd)
-			{
-				str += behaviac::StringUtils::ToString(*iter);
-				str += "|";
-				++iter;
-			}
+                return str;
+            }
+            template <typename T> behaviac::string ToString(const behaviac::vector<T>& contVal)
+            {
+                return ContainerToString(contVal);
+            }
+            template <typename T> behaviac::string ToString(const behaviac::list<T>& contVal)
+            {
+                return ContainerToString(contVal);
+            }
+            template <typename T> behaviac::string ToString(const behaviac::set_t<T>& contVal)
+            {
+                return ContainerToString(contVal);
+            }
+        }//namespace Private
 
-			return str;
-		}
-		template <typename T> behaviac::string ToString(const behaviac::vector<T>& contVal)
-		{
-			return ContainerToString(contVal);
-		}
-		template <typename T> behaviac::string ToString(const behaviac::list<T>& contVal)
-		{
-			return ContainerToString(contVal);
-		}
-		template <typename T> behaviac::string ToString(const behaviac::set_t<T>& contVal)
-		{
-			return ContainerToString(contVal);
-		}
-	}//namespace Private
+        namespace Detail
+        {
+            template<typename T, bool bIsEnum>
+            struct ToStringEnumHanler
+            {
+                static behaviac::string ToString(const T& v)
+                {
+                    behaviac::string valueStr = Private::ToString(v);
 
-	namespace Detail
-	{
-		template<typename T, bool bIsEnum>
-		struct ToStringEnumHanler
-		{
-			static behaviac::string ToString(const T& v)
-			{
-				behaviac::string valueStr = Private::ToString(v);
+                    return valueStr;
+                }
+            };
 
-				return valueStr;
-			}
-		};
+            template<typename T>
+            struct ToStringEnumHanler<T, true>
+            {
+                static behaviac::string ToString(const T& v)
+                {
+                    return EnumValueToString(v);
+                }
+            };
 
-		template<typename T>
-		struct ToStringEnumHanler<T, true>
-		{
-			static behaviac::string ToString(const T& v)
-			{
-				return EnumValueToString(v);
-			}
-		};
+            template<typename T, bool bHasToString>
+            struct ToStringStructHanler
+            {
+                static behaviac::string ToString(const T& val)
+                {
+                    return ToStringEnumHanler<T, behaviac::Meta::IsEnum<T>::Result>::ToString(val);
+                }
+            };
 
+            template<typename T>
+            struct ToStringStructHanler<T, true>
+            {
+                static behaviac::string ToString(const T& val)
+                {
+                    return val.ToString();
+                }
+            };
+        }//namespace Detail
 
-		template<typename T, bool bHasToString>
-		struct ToStringStructHanler
-		{
-			static behaviac::string ToString(const T& val)
-			{
-				return ToStringEnumHanler<T, behaviac::Meta::IsEnum<T>::Result>::ToString(val);
-			}
-		};
-
-		template<typename T>
-		struct ToStringStructHanler<T, true>
-		{
-			static behaviac::string ToString(const T& val)
-			{
-				return val.ToString();
-			}
-		};
-	}//namespace Detail
-
-	template<typename T>
-	inline behaviac::string ToString(const T& val)
-	{
-		return Detail::ToStringStructHanler<T, behaviac::Meta::HasToString<T>::Result>::ToString(val);
-	}
-}
+        template<typename T>
+        inline behaviac::string ToString(const T& val)
+        {
+            return Detail::ToStringStructHanler<T, behaviac::Meta::HasToString<T>::Result>::ToString(val);
+        }
+    }
 }
 
-
-#endif // #ifndef _CORE_VALUETOSTRING_H_
+#endif // #ifndef BEHAVIAC_CORE_VALUETOSTRING_H

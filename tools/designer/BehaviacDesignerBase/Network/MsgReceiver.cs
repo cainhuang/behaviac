@@ -21,19 +21,17 @@ namespace Behaviac.Design
     {
         // Assumes the following message format:
         //  - 1 byte with message size (not including this byte),
-        //  - message contents 
+        //  - message contents
 
-        public List<byte[]> OnDataReceived(byte[] dataBuffer, int receivedBytes)
-        {
+        public List<byte[]> OnDataReceived(byte[] dataBuffer, int receivedBytes) {
             List<byte[]> messages = new List<byte[]>();
-            if (receivedBytes > 0)
-            {
+
+            if (receivedBytes > 0) {
                 int dataIndex = 0;
 
                 // Combine data that we received now with whatever incomplete messages
                 // we may have from previous call.
-                if (m_pendingData != null)
-                {
+                if (m_pendingData != null) {
                     byte[] combinedBuffer = new byte[receivedBytes + m_pendingData.Length];
                     Array.Copy(m_pendingData, 0, combinedBuffer, 0, m_pendingData.Length);
                     Array.Copy(dataBuffer, 0, combinedBuffer, m_pendingData.Length, receivedBytes);
@@ -42,19 +40,17 @@ namespace Behaviac.Design
                     m_pendingData = null;
                 }
 
-                while (dataIndex < receivedBytes)
-                {
+                while (dataIndex < receivedBytes) {
                     // We only got message size, maybe not even that. Save & continue next time.
-                    if (receivedBytes - dataIndex <= 1)
-                    {
+                    if (receivedBytes - dataIndex <= 1) {
                         SavePendingData(dataBuffer, dataIndex, receivedBytes);
                         break;
                     }
 
                     int messageSize = dataBuffer[dataIndex];
+
                     // Incomplete message.
-                    if (receivedBytes - (dataIndex + 1) < messageSize)
-                    {
+                    if (receivedBytes - (dataIndex + 1) < messageSize) {
                         SavePendingData(dataBuffer, dataIndex, receivedBytes);
                         break;
                     }
@@ -66,10 +62,10 @@ namespace Behaviac.Design
                     messages.Add(fullMessage);
                 }
             }
+
             return messages;
         }
-        void SavePendingData(byte[] data, int index, int len)
-        {
+        void SavePendingData(byte[] data, int index, int len) {
             int toSave = len - index;
             m_pendingData = new byte[toSave];
             Array.Copy(data, index, m_pendingData, 0, toSave);

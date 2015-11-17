@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -22,7 +20,8 @@ namespace behaviac
     {
         public Noop()
         {
-		}
+        }
+
         ~Noop()
         {
         }
@@ -48,16 +47,17 @@ namespace behaviac
         {
             NoopTask pTask = new NoopTask();
 
-
             return pTask;
         }
 
         /**
         nothing to do, just return success
         */
-        class NoopTask : LeafTask
+
+        private class NoopTask : LeafTask
         {
-            public NoopTask() : base()
+            public NoopTask()
+                : base()
             {
             }
 
@@ -70,6 +70,7 @@ namespace behaviac
             {
                 base.save(node);
             }
+
             public override void load(ISerializableNode node)
             {
                 base.load(node);
@@ -79,12 +80,15 @@ namespace behaviac
             {
                 return true;
             }
+
             protected override void onexit(Agent pAgent, EBTStatus s)
             {
             }
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
                 return EBTStatus.BT_SUCCESS;
             }
         }

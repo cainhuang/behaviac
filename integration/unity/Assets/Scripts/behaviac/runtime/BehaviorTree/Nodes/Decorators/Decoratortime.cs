@@ -11,10 +11,7 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace behaviac
 {
@@ -22,7 +19,8 @@ namespace behaviac
     {
         public DecoratorTime()
         {
-		}
+        }
+
         ~DecoratorTime()
         {
             this.m_time_var = null;
@@ -30,18 +28,17 @@ namespace behaviac
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
-			base.load(version, agentType, properties);
+            base.load(version, agentType, properties);
 
-			foreach (property_t p in properties)
-			{
-				if (p.name == "Time")
-				{
-					string typeName = null;
-					string propertyName = null;
-					this.m_time_var = Condition.LoadRight(p.value, propertyName, ref typeName);
-				}
-			}
-		}
+            foreach(property_t p in properties)
+            {
+                if (p.name == "Time")
+                {
+                    string typeName = null;
+                    this.m_time_var = Condition.LoadRight(p.value, ref typeName);
+                }
+            }
+        }
 
         protected virtual int GetTime(Agent pAgent)
         {
@@ -63,9 +60,9 @@ namespace behaviac
             return pTask;
         }
 
-        Property m_time_var;
+        private Property m_time_var;
 
-        class DecoratorTimeTask : DecoratorTask
+        private class DecoratorTimeTask : DecoratorTask
         {
             public DecoratorTimeTask()
             {
@@ -96,6 +93,7 @@ namespace behaviac
                 CSerializationID timeId = new CSerializationID("time");
                 node.setAttr(timeId, this.m_time);
             }
+
             public override void load(ISerializableNode node)
             {
                 base.load(node);
@@ -113,7 +111,8 @@ namespace behaviac
 
             protected override EBTStatus decorate(EBTStatus status)
             {
-				this.m_start += (int)(Time.deltaTime * 1000.0f);
+                this.m_start += (int)(Workspace.Instance.DeltaTime * 1000.0f);
+
                 if (this.m_start >= this.m_time)
                 {
                     return EBTStatus.BT_SUCCESS;
@@ -122,7 +121,7 @@ namespace behaviac
                 return EBTStatus.BT_RUNNING;
             }
 
-            int GetTime(Agent pAgent)
+            private int GetTime(Agent pAgent)
             {
                 Debug.Check(this.GetNode() is DecoratorTime);
                 DecoratorTime pNode = (DecoratorTime)(this.GetNode());
@@ -130,8 +129,8 @@ namespace behaviac
                 return pNode != null ? pNode.GetTime(pAgent) : 0;
             }
 
-            int m_start;
-            int m_time;
+            private int m_start;
+            private int m_time;
         }
     }
 }

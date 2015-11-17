@@ -29,17 +29,19 @@ char* LoadTextFileAsBuffer(const char* fileName)
         {
             fileBuffer[fileSize] = '\0';
             returnedBuffer = fileBuffer;
+
         }
         else
         {
-            BEHAVIAC_ASSERT(0,  "Fail to read the text file : %s\n", fileName);
+            BEHAVIAC_ASSERT(0, "Fail to read the text file : %s\n", fileName);
         }
 
         CFileManager::GetInstance()->FileClose(fileHandle);
+
     }
     else
     {
-        BEHAVIAC_ASSERT(0,  "Fail to open the text file : %s\n", fileName);
+        BEHAVIAC_ASSERT(0, "Fail to open the text file : %s\n", fileName);
     }
 
     return returnedBuffer;
@@ -54,6 +56,7 @@ bool LoadTextFileAsStringArray(const char* fileName, behaviac::vector<behaviac::
         ConvertTextBufferAsStringArray(buffer, stringArray);
         BEHAVIAC_FREE(buffer);
         return true;
+
     }
     else
     {

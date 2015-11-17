@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -15,91 +15,98 @@
 #include "behaviac/behaviortree/behaviortree_task.h"
 #include "behaviac/agent/registermacros.h"
 
-#include "behaviac/world/world.h"
-
-#include "behaviac/behaviortree/attachments/predicate.h"
 #include "behaviac/behaviortree/attachments/event.h"
 
 #include "behaviac/base/core/profiler/profiler.h"
+#include "behaviac/behaviortree/attachments/effector.h"
+
+#include "behaviac/fsm/state.h"
+#include "behaviac/behaviortree/attachments/effector.h"
+#include "behaviac/fsm/startcondition.h"
+#include "behaviac/fsm/transitioncondition.h"
+
 
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
 #endif//BEHAVIAC_COMPILER_MSVC
 
 BEGIN_ENUM_DESCRIPTION(behaviac::EBTStatus, EBTStatus)
-	ENUMCLASS_DISPLAYNAME(L"BT״̬");
-	ENUMCLASS_DESC(L"BT״̬");
+{
+    ENUMCLASS_DISPLAYNAME(L"BT状态");
+    ENUMCLASS_DESC(L"BT状态");
 
-	DEFINE_ENUM_VALUE(behaviac::BT_INVALID, "invalid");
-	DEFINE_ENUM_VALUE(behaviac::BT_SUCCESS, "success");
-	DEFINE_ENUM_VALUE(behaviac::BT_FAILURE, "failure");
-	DEFINE_ENUM_VALUE(behaviac::BT_RUNNING, "running");
+    DEFINE_ENUM_VALUE(behaviac::BT_INVALID, "invalid");
+    DEFINE_ENUM_VALUE(behaviac::BT_SUCCESS, "success");
+    DEFINE_ENUM_VALUE(behaviac::BT_FAILURE, "failure");
+    DEFINE_ENUM_VALUE(behaviac::BT_RUNNING, "running");
+}
 END_ENUM_DESCRIPTION()
-
 
 namespace behaviac
 {
-	BehaviorTask::BehaviorTask() : m_status(BT_INVALID), m_node(0), m_parent(0), m_attachments(0)
-	{
-	}
+    BehaviorTask::BehaviorTask() : m_status(BT_INVALID), m_node(0), m_parent(0), m_attachments(0)
+    {
+    }
 
-	BehaviorTask::~BehaviorTask()
-	{
-		this->FreeAttachments();
-	}
+    BehaviorTask::~BehaviorTask()
+    {
+        this->FreeAttachments();
+    }
 
-	void BehaviorTask::FreeAttachments()
-	{
-		if (this->m_attachments)
-		{
-			for (size_t i = 0; i < this->m_attachments->size(); ++i)
-			{
-				BehaviorTask* pAttachment = (*m_attachments)[i];
-				BEHAVIAC_DELETE(pAttachment);
-			}
-			this->m_attachments->clear();
-			BEHAVIAC_DELETE(this->m_attachments);
-			this->m_attachments = 0;
-		}
-	}
+    void BehaviorTask::FreeAttachments()
+    {
+        if (this->m_attachments)
+        {
+            for (size_t i = 0; i < this->m_attachments->size(); ++i)
+            {
+                BehaviorTask* pAttachment = (*m_attachments)[i];
+                BEHAVIAC_DELETE(pAttachment);
+            }
 
-	void BehaviorTask::Clear()
-	{
-		this->m_status = BT_INVALID;
-		this->m_parent = 0;
-		this->m_id = -1;
-		this->FreeAttachments();
+            this->m_attachments->clear();
+            BEHAVIAC_DELETE(this->m_attachments);
+            this->m_attachments = 0;
+        }
+    }
 
-		this->m_node = 0;
-	}
+    void BehaviorTask::Clear()
+    {
+        this->m_status = BT_INVALID;
+        this->m_parent = 0;
+        this->m_id = -1;
+        this->FreeAttachments();
 
-	void BehaviorTask::Init(const BehaviorNode* node)
-	{
-		BEHAVIAC_ASSERT(node);
+        this->m_node = 0;
+    }
 
-		this->m_node = node;
-		this->m_id = this->m_node->GetId();
+    void BehaviorTask::Init(const BehaviorNode* node)
+    {
+        BEHAVIAC_ASSERT(node);
 
-		uint32_t attachmentsCount = node->GetAttachmentsCount();
-		if (attachmentsCount > 0)
-		{
-			for (uint32_t i = 0; i < attachmentsCount; i++)
-			{
-				const BehaviorNode* attachmentNode = node->GetAttachment(i);
-				AttachmentTask* attachmentTask = (AttachmentTask*)attachmentNode->CreateAndInitTask();
+        this->m_node = (const BehaviorNode*)node;
+        this->m_id = this->m_node->GetId();
 
-				this->Attach(attachmentTask);
-			}
-		}
-	}
+        uint32_t attachmentsCount = node->GetAttachmentsCount();
 
-	void BehaviorTask::DestroyTask(BehaviorTask* task)
-	{
-		BEHAVIAC_DELETE(task);
-	}
+        if (attachmentsCount > 0)
+        {
+            for (uint32_t i = 0; i < attachmentsCount; i++)
+            {
+                const BehaviorNode* attachmentNode = node->GetAttachment(i);
+                AttachmentTask* attachmentTask = (AttachmentTask*)attachmentNode->CreateAndInitTask();
 
-	void BehaviorTask::Attach(AttachmentTask* pAttachment)
-	{
+                this->Attach(attachmentTask);
+            }
+        }
+    }
+
+    void BehaviorTask::DestroyTask(BehaviorTask* task)
+    {
+        BEHAVIAC_DELETE(task);
+    }
+
+    void BehaviorTask::Attach(AttachmentTask* pAttachment)
+    {
         if (!this->m_attachments)
         {
             this->m_attachments = BEHAVIAC_NEW Attachments;
@@ -108,1701 +115,1594 @@ namespace behaviac
         this->m_attachments->push_back(pAttachment);
     }
 
-	const BehaviorTask* BehaviorTask::GetTaskById(int id) const
-	{
-		BEHAVIAC_ASSERT(id != -1);
-		if (this->m_id == id)
-		{
-			return this;
-		}
+    const BehaviorTask* BehaviorTask::GetTaskById(int id) const
+    {
+        BEHAVIAC_ASSERT(id != -1);
 
-		return 0;
+        if (this->m_id == id)
+        {
+            return this;
+        }
+
+        return 0;
+    }
+
+	int BehaviorTask::GetNextStateId() const
+	{
+		return -1;
 	}
 
-	const behaviac::string& BehaviorTask::GetClassNameString() const
-	{
-		if (this->m_node)
-		{
-			return this->m_node->GetClassNameString();
-		}
+    const behaviac::string& BehaviorTask::GetClassNameString() const
+    {
+        if (this->m_node)
+        {
+            return this->m_node->GetClassNameString();
+        }
 
-		static behaviac::string s_subBT("SubBT");
-		return s_subBT;
-	}
+        static behaviac::string s_subBT("SubBT");
+        return s_subBT;
+    }
 
-	int BehaviorTask::GetId() const
-	{
-		//if (this->m_node)
-		//{
-		//	return this->m_node->GetId();
-		//}
+    int BehaviorTask::GetId() const
+    {
+        //if (this->m_node)
+        //{
+        //	return this->m_node->GetId();
+        //}
 
-		//static int s_subBTId(0);
-		//return s_subBTId;
-		return this->m_id;
-	}
+        //static int s_subBTId(0);
+        //return s_subBTId;
+        return this->m_id;
+    }
 
-	void BehaviorTask::SetId(int id)
-	{
-		this->m_id = id;
-	}
+    void BehaviorTask::SetId(int id)
+    {
+        this->m_id = id;
+    }
 
-	const BehaviorNode* BehaviorTask::GetNode() const
-	{
-		return this->m_node;
-	}
+    const BehaviorNode* BehaviorTask::GetNode() const
+    {
+        return this->m_node;
+    }
 
-	bool BehaviorTask::onenter(Agent* pAgent)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		return true;
-	}
+    bool BehaviorTask::onenter(Agent* pAgent)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        return true;
+    }
 
-	//max number of threads used for BT ticking. 
-	//usually, only 1 thread is used for BT ticking.
-	const static int kMaxThreads = 32;
+    //max number of threads used for BT ticking.
+    //usually, only 1 thread is used for BT ticking.
+    const static int kMaxThreads = 32;
 
-	struct ThreadStatus_t
-	{
-		THREAD_ID_TYPE	tid_;
-		EBTStatus		status_;
-		int				nodeId_;
-	};
+    struct ThreadStatus_t
+    {
+        THREAD_ID_TYPE	tid_;
+        EBTStatus		status_;
+        int				nodeId_;
+    };
 
-	//thread safe and no more mutex or memory allocation
-	//
-	static behaviac::Mutex* gs_tickingMutex = 0;
-	static ThreadStatus_t gs_lastStatus[kMaxThreads];
+    //thread safe and no more mutex or memory allocation
+    //
+    static behaviac::Mutex* gs_tickingMutex = 0;
+    static ThreadStatus_t gs_lastStatus[kMaxThreads];
 
-	static behaviac::Mutex& GetTickingMutex()
-	{
-		if (!gs_tickingMutex)
-		{
-			gs_tickingMutex = BEHAVIAC_NEW behaviac::Mutex;
-		}
+    static behaviac::Mutex& GetTickingMutex()
+    {
+        if (!gs_tickingMutex)
+        {
+            gs_tickingMutex = BEHAVIAC_NEW behaviac::Mutex;
+        }
 
-		return *gs_tickingMutex;
-	}
+        return *gs_tickingMutex;
+    }
 
-	void CleanupTickingMutex()
-	{
-		BEHAVIAC_DELETE gs_tickingMutex;
-		gs_tickingMutex = 0;
-	}
+    void CleanupTickingMutex()
+    {
+        BEHAVIAC_DELETE gs_tickingMutex;
+        gs_tickingMutex = 0;
+    }
 
-	EBTStatus GetNodeExitStatus()
-	{
-		THREAD_ID_TYPE tid = behaviac::GetTID();
+    EBTStatus GetNodeExitStatus()
+    {
+        THREAD_ID_TYPE tid = behaviac::GetTID();
 
-		{
-			behaviac::ScopedLock lock(GetTickingMutex());
+        {
+            behaviac::ScopedLock lock(GetTickingMutex());
 
-			for (int i = 0; i < kMaxThreads; ++i)
-			{
-				const ThreadStatus_t& ts = gs_lastStatus[i];
-				if  (ts.tid_ == tid)
-				{
-					return ts.status_;
-				}
-			}
-		}
+            for (int i = 0; i < kMaxThreads; ++i)
+            {
+                const ThreadStatus_t& ts = gs_lastStatus[i];
 
-		BEHAVIAC_ASSERT(false, "this function is only valid when it is called instead of an 'ExitAction' of any Node.\n \
-			it should not be called in any other functions!");
+                if (ts.tid_ == tid)
+                {
+                    return ts.status_;
+                }
+            }
+        }
 
-		return BT_INVALID;
-	}
+        BEHAVIAC_ASSERT(false, "this function is only valid when it is called instead of an 'ExitAction' of any Node.\n \
+							   							   							   							   							   							   							   							   							   							   							   							   							   			it should not be called in any other functions!");
 
-	int SetNodeId(int nodeId)
-	{
-		THREAD_ID_TYPE tid = behaviac::GetTID();
+        return BT_INVALID;
+    }
 
-		int slot = -1;
-		{
-			behaviac::ScopedLock lock(GetTickingMutex());
+    int SetNodeId(int nodeId)
+    {
+        THREAD_ID_TYPE tid = behaviac::GetTID();
 
-			for (int i = 0; i < kMaxThreads; ++i)
-			{
-				ThreadStatus_t& ts = gs_lastStatus[i];
-				if  (ts.tid_ == 0)
-				{
-					ts.tid_ = tid;
-					ts.nodeId_ = nodeId;
-					slot = i;
+        int slot = -1;
+        {
+            behaviac::ScopedLock lock(GetTickingMutex());
 
-					break;
-				}
-			}
-		}
+            for (int i = 0; i < kMaxThreads; ++i)
+            {
+                ThreadStatus_t& ts = gs_lastStatus[i];
 
-		return slot;
-	}
+                if (ts.tid_ == 0)
+                {
+                    ts.tid_ = tid;
+                    ts.nodeId_ = nodeId;
+                    slot = i;
 
-	void ClearNodeId(int slot)
-	{
-		THREAD_ID_TYPE tid = behaviac::GetTID();
+                    break;
+                }
+            }
+        }
 
-		BEHAVIAC_UNUSED_VAR(tid);
-		{
-			behaviac::ScopedLock lock(GetTickingMutex());
+        return slot;
+    }
 
-			ThreadStatus_t& ts = gs_lastStatus[slot];
-			BEHAVIAC_ASSERT(ts.tid_ == tid);
+    void ClearNodeId(int slot)
+    {
+        THREAD_ID_TYPE tid = behaviac::GetTID();
 
-			ts.tid_ = 0;
-			ts.nodeId_ = INVALID_NODE_ID;
-		}
-	}
+        BEHAVIAC_UNUSED_VAR(tid);
+        {
+            behaviac::ScopedLock lock(GetTickingMutex());
 
-	int GetNodeId()
-	{
-		THREAD_ID_TYPE tid = behaviac::GetTID();
+            ThreadStatus_t& ts = gs_lastStatus[slot];
+            BEHAVIAC_ASSERT(ts.tid_ == tid);
 
-		{
-			behaviac::ScopedLock lock(GetTickingMutex());
+            ts.tid_ = 0;
+            ts.nodeId_ = INVALID_NODE_ID;
+        }
+    }
 
-			for (int i = 0; i < kMaxThreads; ++i)
-			{
-				const ThreadStatus_t& ts = gs_lastStatus[i];
-				if  (ts.tid_ == tid)
-				{
-					return ts.nodeId_;
-				}
-			}
-		}
+    int GetNodeId()
+    {
+        THREAD_ID_TYPE tid = behaviac::GetTID();
 
-		//BEHAVIAC_ASSERT(false, "this function is only valid when it is called instead of an 'Action' Node.\n");
+        {
+            behaviac::ScopedLock lock(GetTickingMutex());
 
-		return INVALID_NODE_ID;
-	}
+            for (int i = 0; i < kMaxThreads; ++i)
+            {
+                const ThreadStatus_t& ts = gs_lastStatus[i];
 
-	void BehaviorTask::onexit(Agent* pAgent, EBTStatus status)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(status);
-	}
+                if (ts.tid_ == tid)
+                {
+                    return ts.nodeId_;
+                }
+            }
+        }
+
+        //BEHAVIAC_ASSERT(false, "this function is only valid when it is called instead of an 'Action' Node.\n");
+
+        return INVALID_NODE_ID;
+    }
+
+    EBTStatus BehaviorTask::update(Agent* pAgent, EBTStatus childStatus)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(childStatus);
+        return BT_SUCCESS;
+    }
+
+    EBTStatus BehaviorTask::update_current(Agent* pAgent, EBTStatus childStatus)
+    {
+        EBTStatus s = this->update(pAgent, childStatus);
+        return s;
+    }
+
+    void BehaviorTask::onexit(Agent* pAgent, EBTStatus status)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(status);
+    }
 
 #if !defined(BEHAVIAC_RELEASE)
-	behaviac::string GetTickInfo(const behaviac::Agent* pAgent, const behaviac::BehaviorTask* b, const char* action)
+    behaviac::string BehaviorTask::GetTickInfo(const behaviac::Agent* pAgent, const behaviac::BehaviorTask* b, const char* action)
+    {
+        return BehaviorTask::GetTickInfo(pAgent, b->GetNode(), action);
+    }
+
+    behaviac::string BehaviorTask::GetTickInfo(const behaviac::Agent* pAgent, const behaviac::BehaviorNode* n, const char* action)
+    {
+        if (pAgent && pAgent->IsMasked())
+        {
+            //BEHAVIAC_PROFILE("GetTickInfo", true);
+
+            const behaviac::string& bClassName = n->GetClassNameString();
+
+            //filter out intermediate bt, whose class name is empty
+            if (!bClassName.empty())
+            {
+                int nodeId = n->GetId();
+                const BehaviorTreeTask* bt = pAgent ? pAgent->btgetcurrent() : 0;
+
+                //TestBehaviorGroup\scratch.xml->EventetTask[0]:enter
+                behaviac::string bpstr;
+
+                if (bt)
+                {
+                    const behaviac::string& btName = bt->GetName();
+
+                    bpstr = FormatString("%s.xml->", btName.c_str());
+                }
+
+                bpstr += FormatString("%s[%i]", bClassName.c_str(), nodeId);
+
+                if (action)
+                {
+                    bpstr += FormatString(":%s", action);
+                }
+
+                return bpstr;
+            }
+        }
+
+        return behaviac::string();
+    }
+
+#define _MY_BREAKPOINT_BREAK_(pAgent, btMsg, actionResult) \
+    { \
+        /*const char* actionResultStr = GetActionResultStr(actionResult); \
+                                                                			const char* msg = FormatString("BehaviorTreeTask Breakpoints at: %s(%d)\n\n'%s%s'\n\nOk to continue.", __FILE__, __LINE__, btMsg, actionResultStr); \
+                                                                			if (IDOK == MessageBoxA(0, msg, "BehaviorTreeTask Breakpoints", MB_OK | MB_ICONHAND | MB_SETFOREGROUND | MB_SYSTEMMODAL)) \
+                                                                			{ \
+                                                                				DebugBreak_(); \
+                                                                			}*/ \
+        Workspace::GetInstance()->WaitforContinue(); \
+    }
+
+    //CheckBreakpoint should be after log of onenter/onexit/update, as it needs to flush msg to the client
+	void CHECK_BREAKPOINT(Agent* pAgent, const BehaviorNode* b, const char* action, EActionResult actionResult)
 	{
-		if (pAgent && pAgent->IsMasked())
+		if (Config::IsLoggingOrSocketing())
 		{
-			//BEHAVIAC_PROFILE("GetTickInfo", true);
-
-			const behaviac::string& bClassName = b->GetClassNameString();
-
-			//filter out intermediate bt, whose class name is empty
-			if (!bClassName.empty())
+			behaviac::string bpstr = behaviac::BehaviorTask::GetTickInfo(pAgent, b, action);
+			if (!bpstr.empty())
 			{
-				int nodeId = b->GetId();
-				const BehaviorTreeTask* bt = pAgent ? pAgent->btgetcurrent() : 0;
-
-				//TestBehaviorGroup\scratch.xml->EventetTask[0]:enter
-				behaviac::string bpstr;
-				if (bt)
+				LogManager::GetInstance()->Log(pAgent, bpstr.c_str(), actionResult, ELM_tick);
+				if (Workspace::GetInstance()->CheckBreakpoint(pAgent, b, action, actionResult))
 				{
-					const behaviac::string& btName = bt->GetName();
-
-					bpstr = FormatString("%s.xml->", btName.c_str());
+					LogManager::GetInstance()->Log(pAgent, bpstr.c_str(), actionResult, ELM_breaked);
+					LogManager::GetInstance()->Flush(pAgent);
+					behaviac::Socket::Flush();
+					BreakpointPromptHandler_fn fn = GetBreakpointPromptHandler();
+					if (fn == 0)
+					{
+						_MY_BREAKPOINT_BREAK_(pAgent, bpstr.c_str(), actionResult);
+					}
+					else
+					{
+						fn(bpstr.c_str());
+					}
+					LogManager::GetInstance()->Log(pAgent, bpstr.c_str(), actionResult, ELM_continue);
+					LogManager::GetInstance()->Flush(pAgent);
+					behaviac::Socket::Flush();
 				}
-
-				bpstr += FormatString("%s[%i]", bClassName.c_str(), nodeId);
-
-				if (action)
-				{
-					bpstr += FormatString(":%s", action);
-				}
-
-				return bpstr;
 			}
 		}
-
-		return behaviac::string();
 	}
-
-	//static const char* GetActionResultStr(EActionResult actionResult)
-	//{
-	//	const char* actionResultStr = ""; 
-	//	if (actionResult == EAR_success) 
-	//	{ 
-	//		actionResultStr = " [success]"; 
-	//	} 
-	//	else if (actionResult == EAR_failure) 
-	//	{ 
-	//		actionResultStr = " [failure]"; 
-	//	} 
-	//	else
-	//	{
-	//		//although actionResult can be EAR_none or EAR_all, but, as this is the real result of an action
-	//		//it can only be success or failure
-	//		BEHAVIAC_ASSERT(false);
-	//	}
-
-	//	return actionResultStr;
-	//}
-
-	#define _MY_BREAKPOINT_BREAK_(pAgent, btMsg, actionResult) \
-		{ \
-			/*const char* actionResultStr = GetActionResultStr(actionResult); \
-			const char* msg = FormatString("BehaviorTreeTask Breakpoints at: %s(%d)\n\n'%s%s'\n\nOk to continue.", __FILE__, __LINE__, btMsg, actionResultStr); \
-			if (IDOK == MessageBoxA(0, msg, "BehaviorTreeTask Breakpoints", MB_OK | MB_ICONHAND | MB_SETFOREGROUND | MB_SYSTEMMODAL)) \
-			{ \
-				DebugBreak_(); \
-			}*/ \
-			Workspace::WaitforContinue(); \
-		}
-
-	//CheckBreakpoint should be after log of onenter/onexit/update, as it needs to flush msg to the client
-	#define CHECK_BREAKPOINT(pAgent, b, action, actionResult) \
-		if (Config::IsLoggingOrSocketing()) \
-		{ \
-			behaviac::string bpstr = behaviac::GetTickInfo(pAgent, b, action); \
-			if (!bpstr.empty()) \
-			{ \
-				LogManager::GetInstance()->Log(pAgent, bpstr.c_str(), actionResult, ELM_tick); \
-				if (behaviac::Config::IsDebugging()) \
-				{	\
-					if (Workspace::CheckBreakpoint(pAgent, b, action, actionResult)) \
-					{ \
-						LogManager::GetInstance()->Log(pAgent, bpstr.c_str(), actionResult, ELM_breaked); \
-						LogManager::GetInstance()->Flush(pAgent); \
-						behaviac::Socket::Flush(); \
-						BreakpointPromptHandler_fn fn = GetBreakpointPromptHandler(); \
-						if (fn == 0) \
-						{ \
-							_MY_BREAKPOINT_BREAK_(pAgent, bpstr.c_str(), actionResult); \
-						} \
-						else \
-						{ \
-							fn(bpstr.c_str()); \
-						} \
-						LogManager::GetInstance()->Log(pAgent, bpstr.c_str(), actionResult, ELM_continue); \
-						LogManager::GetInstance()->Flush(pAgent); \
-						behaviac::Socket::Flush(); \
-					} \
-				} \
-			} \
-		}
 #else
-	#define CHECK_BREAKPOINT(pAgent, b, action, actionResult)
+	void CHECK_BREAKPOINT(Agent* pAgent, const BehaviorNode* b, const char* action, EActionResult actionResult)
+	{
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(b);
+        BEHAVIAC_UNUSED_VAR(action);
+        BEHAVIAC_UNUSED_VAR(actionResult);
+	}
 #endif//#if !defined(BEHAVIAC_RELEASE)
 
+    bool BehaviorTask::onenter_action(Agent* pAgent)
+    {
+        this->m_node->InstantiatePars(pAgent);
+        bool bResult = this->CheckPreconditions(pAgent, false);
 
-	bool BehaviorTask::onenter_action(Agent* pAgent)
-	{
-		//this needs to be before onenter
-		this->InstantiatePars(pAgent);
-		
-		//this->SetReturnStatus(BT_INVALID);
+        if (bResult)
+        {
+            bResult = this->onenter(pAgent);
 
-		bool bResult = this->onenter(pAgent);
+            if (!bResult)
+            {
+                return false;
+            }
+            else
+            {
+#if !BEHAVIAC_RELEASE
+                //BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
 
-		if (this->m_node)
-		{
-			if (this->m_node->m_enterAction)
-			{
-				ParentType pt = this->m_node->m_enterAction->GetParentType();
-				Agent* pParent = pAgent;
-				if (pt == PT_INSTANCE)
-				{
-					pParent = Agent::GetInstance(this->m_node->m_enterAction->GetInstanceNameString(), pParent->GetContextId());
-					BEHAVIAC_ASSERT(pParent);
-				}
+                CHECK_BREAKPOINT(pAgent, this->m_node, "enter", bResult ? EAR_success : EAR_failure);
+#endif
+            }
+        }
 
-				this->m_node->m_enterAction->run(pParent, pAgent);
-			}
-			else
-			{
-				((BehaviorNode*)(this->m_node))->enteraction_impl(pAgent);
-			}
-		}
+        return bResult;
+    }
+    bool BehaviorTask::CheckPreconditions(Agent* pAgent, bool bIsAlive)
+    {
+        bool bResult = true;
 
-		if (!bResult)
-		{
-			this->UnInstantiatePars(pAgent);
-		}
-		else
-		{
-			//BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
+        if (m_node != 0)
+        {
+            if (m_node->m_preconditions.size() > 0)
+            {
+                bResult = ((BehaviorNode*)m_node)->CheckPreconditions(pAgent, bIsAlive);
+            }
+        }
 
-			CHECK_BREAKPOINT(pAgent, this, "enter", bResult ? EAR_success : EAR_failure);
-		}
+        return bResult;
+    }
+    void BehaviorTask::onexit_action(Agent* pAgent, EBTStatus status)
+    {
+        this->onexit(pAgent, status);
 
-		return bResult;
-	}
+        if (this->m_node != 0)
+        {
+            Effector::EPhase phase = Effector::E_SUCCESS;
 
-	void BehaviorTask::onexit_action(Agent* pAgent, EBTStatus status)
-	{
-		this->onexit(pAgent, status);
-		this->SetReturnStatus(BT_INVALID);
+            if (status == BT_FAILURE)
+            {
+                phase = Effector::E_FAILURE;
 
-		if (this->m_node)
-		{
-			if (this->m_node->m_exitAction)
-			{
-				ParentType pt = this->m_node->m_exitAction->GetParentType();
-				Agent* pParent = pAgent;
-				if (pt == PT_INSTANCE)
-				{
-					pParent = Agent::GetInstance(this->m_node->m_exitAction->GetInstanceNameString(), pParent->GetContextId());
-					BEHAVIAC_ASSERT(pParent);
-				}
+            }
+            else
+            {
+                BEHAVIAC_ASSERT(status == BT_SUCCESS);
+            }
 
-				THREAD_ID_TYPE tid = behaviac::GetTID();
-				int slot = -1;
+            this->m_node->ApplyEffects(pAgent, (BehaviorNode::EPhase)phase);
 
-				{
-					behaviac::ScopedLock lock(GetTickingMutex());
-					for (int i = 0; i < kMaxThreads; ++i)
-					{
-						ThreadStatus_t& ts = gs_lastStatus[i];
-						if  (ts.tid_ == 0)
-						{
-							ts.tid_ = tid;
-							ts.status_ = status;
+            this->m_node->UnInstantiatePars(pAgent);
+        }
 
-							slot = i;
+#if !BEHAVIAC_RELEASE
 
-							break;
-						}
-					}
+        if (Config::IsLoggingOrSocketing())
+        {
+            //BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
+            if (status == BT_SUCCESS)
+            {
+                CHECK_BREAKPOINT(pAgent, this->m_node, "exit", EAR_success);
 
-					BEHAVIAC_ASSERT(slot >= 0 && slot < kMaxThreads, "number of threads used for BT is larger than kMaxThreads(32)!");
-				}
+            }
+            else
+            {
+                CHECK_BREAKPOINT(pAgent, this->m_node, "exit", EAR_failure);
+            }
+        }
 
-				this->m_node->m_exitAction->run(pParent, pAgent);
+#endif
+    }
 
-				{
-					behaviac::ScopedLock lock(GetTickingMutex());
-					//clear it to invalidate it
-					ThreadStatus_t& ts = gs_lastStatus[slot];
-					BEHAVIAC_ASSERT(ts.tid_ == tid);
-					BEHAVIAC_ASSERT(ts.status_ == status);
-					ts.tid_ = 0;
-					ts.status_ = BT_INVALID;
-				}
-			}
-			else
-			{
-				((BehaviorNode*)(this->m_node))->exitaction_impl(pAgent);
-			}
-		}
+    /*
+    Get the Root of branch task
+    */
+    BranchTask* BehaviorTask::GetTopManageBranchTask()
+    {
+        BranchTask* tree = 0;
+        BehaviorTask* task = this->m_parent;
 
-		this->UnInstantiatePars(pAgent);
+        while (task != 0)
+        {
+            if (BehaviorTreeTask::DynamicCast(task) != 0)
+            {
+                //to overwrite the child branch
+                tree = (BranchTask*)task;
+                break;
 
-		{
-			//BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
-			if (status == BT_SUCCESS)
-			{
-				CHECK_BREAKPOINT(pAgent, this, "exit", EAR_success);
-			}
-			else
-			{
-				CHECK_BREAKPOINT(pAgent, this, "exit", EAR_failure);
-			}
-		}
-	}
+            }
+            else if (task->m_node ? task->m_node->IsManagingChildrenAsSubTrees() : false)
+            {
+                //until it is Parallel/SelectorLoop, it's child is used as tree to store current task
+                break;
 
+            }
+            else if (BranchTask::DynamicCast(task) != 0)
+            {
+                //this if must be after BehaviorTreeTask and IsManagingChildrenAsSubTrees
+                tree = (BranchTask*)task;
 
-	void BehaviorTask::InstantiatePars(Agent* pAgent)
-	{
-		const BehaviorNode* pNode = this->m_node;
+            }
+            else
+            {
+                BEHAVIAC_ASSERT(false);
+            }
 
-		//pNode could be 0 when the bt is a sub tree of parallel node/referenced bt, etc.
-		if (pNode && pNode->m_pars)
-		{
-			for (BehaviorNode::Properties_t::iterator it = pNode->m_pars->begin(); it != pNode->m_pars->end(); ++it)
-			{
-				Property* property_ = *it;
+            task = task->m_parent;
+        }
 
-				property_->Instantiate(pAgent);
-			}
-		}
-	}
-
-	void BehaviorTask::UnInstantiatePars(Agent* pAgent)
-	{
-		const BehaviorNode* pNode = this->m_node;
-
-		//pNode could be 0 when the bt is a sub tree of parallel node/referenced bt, etc.
-		if (pNode && pNode->m_pars)
-		{
-			for (BehaviorNode::Properties_t::iterator it = pNode->m_pars->begin(); it != pNode->m_pars->end(); ++it)
-			{
-				Property* property_ = *it;
-
-				property_->UnInstantiate(pAgent);
-			}
-		}
-	}
+        return tree;
+    }
 
 #if BEHAVIAC_ENABLE_PROFILING
-	/// Helper class for automatically beginning and ending a profiling block
-	class AutoProfileBlockSend
-	{
-	public:
-		/// Construct. begin a profiling block with the specified name and optional call count.
-		AutoProfileBlockSend(Profiler* profiler, const behaviac::string& taskClassid, const Agent* agent) : profiler_(profiler)
-		{
-			if (Config::IsProfiling())
-			{
-				profiler_ = profiler;
+    /// Helper class for automatically beginning and ending a profiling block
+    class AutoProfileBlockSend
+    {
+    public:
+        /// Construct. begin a profiling block with the specified name and optional call count.
+        AutoProfileBlockSend(Profiler* profiler, const behaviac::string& taskClassid, const Agent* agent) : profiler_(profiler)
+        {
+            if (Config::IsProfiling())
+            {
+                profiler_ = profiler;
 
-				if (profiler_)
-				{
-					profiler_->BeginBlock(taskClassid.c_str(), agent);
-				}
-			}
-		}
+                if (profiler_)
+                {
+                    profiler_->BeginBlock(taskClassid.c_str(), agent);
+                }
+            }
+        }
 
-		/// Destruct. end the profiling block.
-		~AutoProfileBlockSend()
-		{
-			if (Config::IsProfiling())
-			{
-				if (profiler_)
-				{
-					profiler_->EndBlock(true);
-				}
-			}
-		}
+        /// Destruct. end the profiling block.
+        ~AutoProfileBlockSend()
+        {
+            if (Config::IsProfiling())
+            {
+                if (profiler_)
+                {
+                    profiler_->EndBlock(true);
+                }
+            }
+        }
 
-	private:
-		/// Profiler.
-		Profiler* profiler_;
-	};
+    private:
+        /// Profiler.
+        Profiler* profiler_;
+    };
 #endif
-
-	EBTStatus BehaviorTask::GetReturnStatus() const {
-		return BT_INVALID;
-	}
-
-	void BehaviorTask::SetReturnStatus(EBTStatus status) {
-		BEHAVIAC_UNUSED_VAR(status);
-	}
 
     EBTStatus BehaviorTask::exec(Agent* pAgent)
     {
+        EBTStatus childStatus = BT_RUNNING;
+        return this->exec(pAgent, childStatus);
+    }
+
+    EBTStatus BehaviorTask::exec(Agent* pAgent, EBTStatus childStatus)
+    {
 #if BEHAVIAC_ENABLE_PROFILING
 #if 1
-		const char* classStr = (this->m_node ? this->m_node->GetClassNameString().c_str() : "BT");
-		int nodeId = (this->m_node ? this->m_node->GetId() : -1);
-		behaviac::string taskClassid = FormatString("%s[%i]", classStr, nodeId);
+        const char* classStr = (this->m_node ? this->m_node->GetClassNameString().c_str() : "BT");
+        int nodeId = (this->m_node ? this->m_node->GetId() : -1);
+        behaviac::string taskClassid = FormatString("%s[%i]", classStr, nodeId);
 
-		AutoProfileBlockSend profiler_block(Profiler::GetInstance(), taskClassid, pAgent);
+        AutoProfileBlockSend profiler_block(Profiler::GetInstance(), taskClassid, pAgent);
 #else
-		const char* classStr = (this->m_node ? this->m_node->GetClassNameString().c_str() : "BT");
-		BEHAVIAC_PROFILE(classStr);
+        const char* classStr = (this->m_node ? this->m_node->GetClassNameString().c_str() : "BT");
+        BEHAVIAC_PROFILE(classStr);
 #endif
 #endif//#if BEHAVIAC_ENABLE_PROFILING
 
-		BEHAVIAC_ASSERT(!this->m_node || this->m_node->IsValid(pAgent, this), 	
-			FormatString("Agent In BT:%s while the Agent used for: %s", this->m_node->m_agentType.c_str(), pAgent->GetClassTypeName()));
+        BEHAVIAC_ASSERT(!this->m_node || this->m_node->IsValid(pAgent, this),
+                        FormatString("Agent In BT:%s while the Agent used for: %s", this->m_node->m_agentType.c_str(), pAgent->GetClassTypeName()));
 
         bool bEnterResult = false;
-		if (this->m_status == BT_RUNNING)
-		{
-			bEnterResult = true;
-		}
-		else
-		{
-			//reset it to invalid when it was success/failure
-			this->m_status = BT_INVALID;
 
-			bEnterResult = this->onenter_action(pAgent);
+        if (this->m_status == BT_RUNNING)
+        {
+            bEnterResult = true;
 
-			//for continue ticking task, to set it as the cached current task
-			bool bIsContinueTicking = this->isContinueTicking();
-			if (bIsContinueTicking)
-			{
-				BranchTask* pBranch = this->GetParentBranch();
+        }
+        else
+        {
+            //reset it to invalid when it was success/failure
+            this->m_status = BT_INVALID;
 
-				if (pBranch && pBranch != this)
-				{
-					//if 'this' is a tree, don't set it into it parent's current node
-					BEHAVIAC_ASSERT(!BehaviorTreeTask::DynamicCast(this));
-
-					pBranch->SetCurrentTask(this);
-				}
-			}
-		}
+            bEnterResult = this->onenter_action(pAgent);
+        }
 
         if (bEnterResult)
         {
-#if !defined(BEHAVIAC_RELEASE)
-			if (Config::IsLoggingOrSocketing())
-			{
-				//BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
+#if !BEHAVIAC_RELEASE
 
-				behaviac::string btStr = behaviac::GetTickInfo(pAgent, this, "update"); 
-				//empty btStr is for internal BehaviorTreeTask
-				if (!btStr.empty())
-				{
-					LogManager::GetInstance()->Log(pAgent, btStr.c_str(), EAR_none, ELM_tick);
-				}
-			}
-#endif//#if !defined(BEHAVIAC_RELEASE)
+            if (Config::IsLoggingOrSocketing())
+            {
+                string btStr = BehaviorTask::GetTickInfo(pAgent, this, "update");
 
-			EBTStatus returnStatus = this->GetReturnStatus();
-			if (returnStatus == BT_INVALID)	{
-				this->m_status = this->update(pAgent, BT_RUNNING);
-			}
-			else {
-				this->m_status = returnStatus;
-				//this->SetReturnStatus(BT_INVALID);
-			}
+                //empty btStr is for internal BehaviorTreeTask
+                if (!StringUtils::IsNullOrEmpty(btStr.c_str()))
+                {
+                    LogManager::GetInstance()->Log(pAgent, btStr.c_str(), EAR_none, ELM_tick);
+                }
+            }
+
+#endif
+            bool bValid = true;
+            int _tempPrecndCount = this->m_node != 0 ? this->m_node->PreconditionsCount() : 0;
+
+            if (_tempPrecndCount > 0)
+            {
+                bValid = this->m_node->CheckPreconditions(pAgent, true);
+            }
+
+            if (bValid)
+            {
+                this->m_status = this->update_current(pAgent, childStatus);
+            }
+            else
+            {
+                this->m_status = BT_FAILURE;
+            }
 
             if (this->m_status != BT_RUNNING)
             {
-				//clear it
-				bool bIsContinueTicking = this->isContinueTicking();
-				if (bIsContinueTicking)
-				{
-					BranchTask* pBranch = this->GetParentBranch();
-
-					if (pBranch && pBranch != this)
-					{
-						//if 'this' is a tree, don't set it into it parent's current node
-						BEHAVIAC_ASSERT(!BehaviorTreeTask::DynamicCast(this));
-
-						pBranch->SetCurrentTask(0);
-					}
-				}
-
+                //clear it
 
                 this->onexit_action(pAgent, this->m_status);
 
-				//this node is possibly ticked by its parent or by the topBranch who records it as currrent node
-				//so, we can't here reset the topBranch's current node
+                //this node is possibly ticked by its parent or by the topBranch who records it as currrent node
+                //so, we can't here reset the topBranch's current node
+
             }
+            else
+            {
+                BranchTask* tree = this->GetTopManageBranchTask();
+
+                if (tree != 0)
+                {
+                    tree->SetCurrentTask(this);
+                }
+            }
+
         }
         else
         {
             this->m_status = BT_FAILURE;
         }
 
-		EBTStatus currentStatus = this->m_status;
-		if (this->m_status != BT_RUNNING && this->NeedRestart())
-		{
-			//reset it to invalid when it needs restarting
-			//don't need to reset the sub tree
-			this->m_status = BT_INVALID;
-			this->SetReturnStatus(BT_INVALID);
-		}
-
-		return currentStatus;
+        return this->m_status;
     }
 
-	bool abort_handler(BehaviorTask* node, Agent* pAgent, void* user_data)
-	{
-		BEHAVIAC_UNUSED_VAR(user_data);
+    bool abort_handler(BehaviorTask* node, Agent* pAgent, void* user_data)
+    {
+        BEHAVIAC_UNUSED_VAR(user_data);
 
-		if (node->m_status == BT_RUNNING)
-		{
-			node->onexit_action(pAgent, BT_FAILURE);
+        if (node->m_status == BT_RUNNING)
+        {
+            node->onexit_action(pAgent, BT_FAILURE);
 
-			node->m_status = BT_FAILURE;
+            node->m_status = BT_FAILURE;
 
-			node->SetCurrentTask(0);
-		}
+            node->SetCurrentTask(0);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	bool reset_handler(BehaviorTask* node, Agent* pAgent, void* user_data)
-	{
-		BEHAVIAC_UNUSED_VAR(user_data);		
-		BEHAVIAC_UNUSED_VAR(pAgent);
+    bool reset_handler(BehaviorTask* node, Agent* pAgent, void* user_data)
+    {
+        BEHAVIAC_UNUSED_VAR(user_data);
+        BEHAVIAC_UNUSED_VAR(pAgent);
 
-		node->m_status = BT_INVALID;
+        node->m_status = BT_INVALID;
 
-		node->SetCurrentTask(0);
-		//node->SetReturnStatus(BT_INVALID);
-		//BEHAVIAC_ASSERT(node->GetReturnStatus() == BT_INVALID);
+        node->SetCurrentTask(0);
 
-		//node->onreset(pAgent);
+        //node->onreset(pAgent);
 
-		return true;
-	}
+        return true;
+    }
 
+    void BehaviorTask::abort(Agent* pAgent)
+    {
+        this->traverse(&abort_handler, pAgent, 0);
+    }
 
-	void BehaviorTask::abort(Agent* pAgent)
-	{
-		this->traverse(&abort_handler, pAgent, 0);
-	}
-
-	void BehaviorTask::reset(Agent* pAgent)
-	{
+    void BehaviorTask::reset(Agent* pAgent)
+    {
 #if BEHAVIAC_ENABLE_PROFILING
-		BEHAVIAC_PROFILE("BehaviorTask::reset");
+        BEHAVIAC_PROFILE("BehaviorTask::reset");
 #endif
-		this->traverse(&reset_handler, pAgent, 0);
-	}
+        this->traverse(&reset_handler, pAgent, 0);
+    }
 
-	
-	AttachmentTask::AttachmentTask() : BehaviorTask()
-	{}
+    AttachmentTask::AttachmentTask() : BehaviorTask()
+    {}
 
-	void AttachmentTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
-	}
+    void AttachmentTask::Init(const BehaviorNode* node)
+    {
+        super::Init(node);
+    }
 
-	AttachmentTask::~AttachmentTask()
-	{}
+    AttachmentTask::~AttachmentTask()
+    {}
 
-	void AttachmentTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
-	{
-		handler(this, pAgent, user_data);
-	}
+    void AttachmentTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    {
+        handler(this, pAgent, user_data);
+    }
 
+    BranchTask::BranchTask() : BehaviorTask(), m_currentNodeId(-1), m_currentTask(0)
+    {
+    }
 
-	BranchTask::BranchTask() : BehaviorTask(), m_currentTask(0), m_returnStatus(BT_INVALID)
-	{
-	}
+    int  BranchTask::GetCurrentNodeId()
+    {
+        return this->m_currentNodeId;
+    }
 
-	BranchTask::~BranchTask()
-	{
-	}
+    void BranchTask::SetCurrentNodeId(int id)
+    {
+        this->m_currentNodeId = id;
+    }
 
-	bool BranchTask::onenter(Agent* pAgent)	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		//return super::onenter(pAgent);
-		return true;
-	}
+    BranchTask::~BranchTask()
+    {
+    }
 
-	void BranchTask::onexit(Agent* pAgent, EBTStatus s) {
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(s);
-		//super::onexit(pAgent, s);
-	}
+    bool BranchTask::onenter(Agent* pAgent)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        //return super::onenter(pAgent);
+        return true;
+    }
 
-	EBTStatus BranchTask::GetReturnStatus() const {
-		return m_returnStatus;
-	}
+    void BranchTask::onexit(Agent* pAgent, EBTStatus s)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(s);
+        //super::onexit(pAgent, s);
+    }
 
-	void BranchTask::SetReturnStatus(EBTStatus status) {
-		m_returnStatus = status;
-	}
-
-	BranchTask* BehaviorTask::GetParentBranch()
-	{
-		BehaviorTask* pTopNode = this->m_parent;
-
-		while (pTopNode)
-		{
-			BranchTask* pBranch = BranchTask::DynamicCast(pTopNode);
-			if (pBranch && pBranch->isContinueTicking())
+    //
+    //Set the m_currentTask as task
+    //if the leaf node is runninng ,then we should set the leaf's parent node also as running
+    //
+    void BranchTask::SetCurrentTask(BehaviorTask* task)
+    {
+        if (task != 0)
+        {
+            //if the leaf node is running, then the leaf's parent node is also as running,
+            //the leaf is set as the tree's current task instead of its parent
+            if (this->m_currentTask == 0)
+            {
+                BEHAVIAC_ASSERT(this->m_currentTask != this);
+                this->m_currentTask = task;
+            }
+        }
+        else
+        {
+			if (this->m_status != BT_RUNNING)
 			{
-				return pBranch;
+                this->m_currentTask = task;
 			}
+        }
+    }
 
-			pTopNode = pTopNode->m_parent;
-		}
+    BranchTask* BehaviorTask::GetParentBranch()
+    {
+        BehaviorTask* pTopNode = this->m_parent;
 
-		return 0;
-	}
+        while (pTopNode)
+        {
+            BranchTask* pBranch = BranchTask::DynamicCast(pTopNode);
 
-	EBTStatus BehaviorTask::GetStatus() const
-	{
-		return this->m_status;
-	}
+            if (pBranch && pBranch->isContinueTicking())
+            {
+                return pBranch;
+            }
 
+            pTopNode = pTopNode->m_parent;
+        }
 
-	//bool BehaviorTask::CheckPredicates(Agent* pAgent)
-	//{
-	//	if (this->m_attachments)
-	//	{
-	//		bool bTriggered = false;
-	//		int index = 0;
-	//		bool bAnd = true;
-	//		uint32_t numberOfSuccess = 0;
-	//		for (Attachments::iterator it = this->m_attachments->begin();
-	//			it != this->m_attachments->end(); ++it, ++index)
-	//		{
-	//			AttachmentTask* pA = *it;
-	//			PredicateTask* pP = PredicateTask::DynamicCast(pA);
+        return 0;
+    }
 
-	//			//check predicates only
-	//			if (pP)
-	//			{
-	//				if (index > 0)
-	//				{
-	//					bAnd = pP->IsAnd();
-	//				}
+    EBTStatus BehaviorTask::GetStatus() const
+    {
+        return this->m_status;
+    }
 
-	//				EBTStatus currentStatus = pA->GetStatus();
+    // static bool getBooleanFromStatus(EBTStatus status)
+    // {
+    //     if (status == BT_FAILURE) {
+    //         return false;
 
-	//				if (currentStatus == BT_RUNNING || currentStatus == BT_INVALID)
-	//				{
-	//					currentStatus = pA->exec(pAgent);
-	//				}
+    //     } else if (status == BT_SUCCESS) {
+    //         return true;
 
-	//				if (currentStatus == BT_SUCCESS)
-	//				{
-	//					numberOfSuccess++;
+    //     } else {
+    //         BEHAVIAC_ASSERT(false);
+    //         return false;
+    //     }
+    // }
 
-	//					if (!bAnd)
-	//					{
-	//						//or
-	//						bTriggered = true;
-	//						break;
-	//					}
-	//				}
-	//				else if (currentStatus == BT_FAILURE)
-	//				{
-	//					if (bAnd)
-	//					{
-	//						//and
-	//						break;
-	//					}
-	//				}
-	//			}
-	//		}
+    bool BehaviorTask::CheckEvents(const char* eventName, Agent* pAgent) const
+    {
+        return this->m_node->CheckEvents(eventName, pAgent);
+    }
 
-	//		if (!bTriggered && numberOfSuccess == this->m_attachments->size())
-	//		{
-	//			BEHAVIAC_ASSERT(numberOfSuccess >= 1 && bAnd);
+    void BehaviorTask::copyto(BehaviorTask* target) const
+    {
+        target->m_status = this->m_status;
+    }
 
-	//			bTriggered = true;
-	//		}
+    void BehaviorTask::save(ISerializableNode* node) const
+    {
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  classId("class");
+            node->setAttr(classId, this->GetClassNameString());
 
-	//		return bTriggered;
-	//	}
+            CSerializationID  idId("id");
+            node->setAttr(idId, this->GetId());
 
-	//	return true;
-	//}
+            CSerializationID  statusId("status");
+            node->setAttr(statusId, this->m_status);
+        }
+    }
 
-	static bool getBooleanFromStatus(EBTStatus status)
-	{
-		if (status == BT_FAILURE)
-			return false;
-		else if (status == BT_SUCCESS)
-			return true;
-		else
-		{
-			BEHAVIAC_ASSERT(false);
-			return false;
-		}
-	}
+    void BehaviorTask::load(ISerializableNode* node)
+    {
+        CSerializationID  attrId("status");
+        behaviac::string attrStr;
 
-	bool BehaviorTask::CheckPredicates(Agent* pAgent)
-	{
-		if (this->m_attachments == NULL || this->m_attachments->size() == 0)
-			return true;
-
-		bool lastCombineValue = false;
-		for (Attachments::iterator it = this->m_attachments->begin(); it != this->m_attachments->end(); ++it)
-		{
-			AttachmentTask* attchment = *it;
-			PredicateTask* predicateTask = PredicateTask::DynamicCast(attchment);
-
-			if (predicateTask != NULL)
-			{
-				EBTStatus executeStatus = predicateTask->GetStatus();
-				if (executeStatus == BT_RUNNING || executeStatus == BT_INVALID)
-					executeStatus = predicateTask->exec(pAgent);
-
-				bool taskBoolean = getBooleanFromStatus(executeStatus);
-				if (it == this->m_attachments->begin())
-				{
-					lastCombineValue = taskBoolean;
-				}
-				else
-				{
-					bool andOp = predicateTask->IsAnd();
-					if (andOp)
-						lastCombineValue = lastCombineValue && taskBoolean;
-					else
-						lastCombineValue = lastCombineValue || taskBoolean;
-				}
-			}
-		}
-
-		return lastCombineValue;
-	}
-
-	bool BehaviorTask::CheckEvents(const char* eventName, Agent* pAgent)
-	{
-		if (this->m_attachments)
-		{
-			//bool bTriggered = false;
-			for (Attachments::iterator it = this->m_attachments->begin();
-				it != this->m_attachments->end(); ++it)
-			{
-				AttachmentTask* pA = *it;
-				EventetTask* pE = EventetTask::DynamicCast(pA);
-
-				//check events only
-				if (pE && eventName)
-				{
-					const char* pEventName = pE->GetEventName();
-
-					if (pEventName && string_icmp(pEventName, eventName) == 0)
-					{
-						EBTStatus currentStatus = pA->GetStatus();
-
-						if (currentStatus == BT_RUNNING || currentStatus == BT_INVALID)
-						{
-							currentStatus = pA->exec(pAgent);
-						}
-
-						if (currentStatus == BT_SUCCESS)
-						{
-							//bTriggered = true;
-
-							if (pE->TriggeredOnce())
-							{
-								return false;
-							}
-						}
-						else if (currentStatus == BT_FAILURE)
-						{
-						}
-					}
-				}
-			}
-		}
-
-		return true;
-	}
-
-	void BehaviorTask::copyto(BehaviorTask* target) const
-	{
-		target->m_status = this->m_status;
-	}
-
-	void BehaviorTask::save(ISerializableNode* node) const
-	{
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  classId("class");
-			node->setAttr(classId, this->GetClassNameString());
-
-			CSerializationID  idId("id");
-			node->setAttr(idId, this->GetId());
-
-			CSerializationID  statusId("status");
-			node->setAttr(statusId, this->m_status);
-		}
-	}
-
-	void BehaviorTask::load(ISerializableNode* node)
-	{
-		CSerializationID  attrId("status");
-		behaviac::string attrStr;
-		if (node->getAttr(attrId, attrStr))
-		{
-			behaviac::StringUtils::FromString(attrStr.c_str(), this->m_status);
-		}
+        if (node->getAttr(attrId, attrStr))
+        {
+            behaviac::StringUtils::FromString(attrStr.c_str(), this->m_status);
+        }
 
 #if !BEHAVIAC_RELEASE
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  classId("class");
-			node->getAttr(classId, attrStr);
-			BEHAVIAC_ASSERT(attrStr == this->GetClassNameString());
 
-			CSerializationID  idId("id");
-			node->getAttr(idId, attrStr);
-			int id = -1;
-			StringUtils::FromString(attrStr.c_str(), id);
-			BEHAVIAC_ASSERT(id == this->GetId());
-		}
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  classId("class");
+            node->getAttr(classId, attrStr);
+            BEHAVIAC_ASSERT(attrStr == this->GetClassNameString());
+
+            CSerializationID  idId("id");
+            node->getAttr(idId, attrStr);
+            int id = -1;
+            StringUtils::FromString(attrStr.c_str(), id);
+            BEHAVIAC_ASSERT(id == this->GetId());
+        }
+
 #endif
-	}
+    }
 
-	void AttachmentTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void AttachmentTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void AttachmentTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void AttachmentTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void AttachmentTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void AttachmentTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-	void LeafTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void LeafTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void LeafTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void LeafTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void LeafTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void LeafTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-	struct getnode_t
-	{
-		int				id_;
-		BehaviorTask*	task_;
+    struct getnode_t
+    {
+        int				id_;
+        BehaviorTask*	task_;
 
-		getnode_t(int id) : id_(id), task_(0)
-		{}
+        getnode_t(int id) : id_(id), task_(0)
+        {}
 
-		getnode_t& operator=(const getnode_t&);
-	};
+        getnode_t& operator=(const getnode_t&);
+    };
 
-	bool getid_handler(BehaviorTask* task, Agent* pAgent, void* user_data)
-	{
+    bool getid_handler(BehaviorTask* task, Agent* pAgent, void* user_data)
+    {
         BEHAVIAC_UNUSED_VAR(pAgent);
-		getnode_t* temp = (getnode_t*)user_data;
+        getnode_t* temp = (getnode_t*)user_data;
 
-		int oldId = task->GetId();
-		if (oldId == temp->id_)
-		{
-			temp->task_ = task;
+        int oldId = task->GetId();
 
-			return false;
-		}
+        if (oldId == temp->id_)
+        {
+            temp->task_ = task;
 
-		return true;
-	}
+            return false;
+        }
 
-	void BranchTask::copyto(BehaviorTask* target) const
+        return true;
+    }
+
+    void BranchTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+
+        BEHAVIAC_ASSERT(BranchTask::DynamicCast(target));
+        BranchTask* ttask = (BranchTask*)target;
+
+        if (this->m_currentTask)
+        {
+            int id = this->m_currentTask->GetId();
+            getnode_t temp(id);
+
+            ttask->traverse(&getid_handler, 0, &temp);
+            BEHAVIAC_ASSERT(temp.task_);
+
+            ttask->m_currentTask = temp.task_;
+        }
+    }
+
+    void BranchTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+
+        if (this->m_status != BT_INVALID)
+        {
+            int id = -1;
+
+            if (this->m_currentTask)
+            {
+                id = this->m_currentTask->GetId();
+            }
+
+            CSerializationID attrId("current");
+            node->setAttr(attrId, id);
+        }
+    }
+
+    void BranchTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  attrId("current");
+            behaviac::string attrStr;
+
+            if (node->getAttr(attrId, attrStr))
+            {
+                int currentNodeId = -1;
+                StringUtils::FromString(attrStr.c_str(), currentNodeId);
+
+                if (currentNodeId != -1)
+                {
+                    this->m_currentTask = (BehaviorTask*)this->GetTaskById(currentNodeId);
+                }
+            }
+        }
+    }
+
+    EBTStatus BranchTask::execCurrentTask(Agent* pAgent)
+    {
+        BEHAVIAC_ASSERT(this->m_currentTask != 0 && this->m_currentTask->GetStatus() == BT_RUNNING);
+
+        //this->m_currentTask could be cleared in ::tick, to remember it
+        EBTStatus status = this->m_currentTask->exec(pAgent);
+
+        //give the handling back to parents
+        if (status != BT_RUNNING)
+        {
+            BEHAVIAC_ASSERT(status == BT_SUCCESS || status == BT_FAILURE);
+            BEHAVIAC_ASSERT(this->m_currentTask->m_status == status);
+
+            BranchTask* parentBranch = this->m_currentTask->GetParent();
+
+            this->m_currentTask = 0;
+
+            //back track the parents until the branch
+            while (parentBranch != 0 && parentBranch != this)
+            {
+                status = parentBranch->exec(pAgent, status);
+
+                if (status == BT_RUNNING)
+                {
+                    return BT_RUNNING;
+                }
+
+                BEHAVIAC_ASSERT(parentBranch->m_status == status);
+
+                parentBranch = parentBranch->GetParent();
+            }
+        }
+
+        return status;
+    }
+
+    EBTStatus BranchTask::resume_branch(Agent* pAgent, EBTStatus status)
+    {
+        BEHAVIAC_ASSERT(this->m_currentTask != 0);
+        BEHAVIAC_ASSERT(status == BT_SUCCESS || status == BT_FAILURE);
+
+        BranchTask* parent = 0;
+        BehaviorNode* _tNode = (BehaviorNode*) this->m_currentTask->m_node;
+
+        if (_tNode->IsManagingChildrenAsSubTrees())
+        {
+            parent = (BranchTask*)this->m_currentTask;
+
+        }
+        else
+        {
+            parent = this->m_currentTask->GetParent();
+        }
+
+        //clear it as it ends and the next exec might need to set it
+        this->m_currentTask = 0;
+
+        EBTStatus s = parent->exec(pAgent, status);
+
+        return s;
+    }
+
+	EBTStatus BranchTask::update_current(Agent* pAgent, EBTStatus childStatus)
 	{
-		super::copyto(target);
-
-		BEHAVIAC_ASSERT(BranchTask::DynamicCast(target));
-		BranchTask* ttask = (BranchTask*)target;
-
-		if (this->m_currentTask)
-		{
-			int id = this->m_currentTask->GetId();
-			getnode_t temp(id);
-
-			ttask->traverse(&getid_handler, 0, &temp);
-			BEHAVIAC_ASSERT(temp.task_);
-
-			ttask->m_currentTask = temp.task_;
-		}
-	}
-
-	void BranchTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-
-		if (this->m_status != BT_INVALID)
-		{
-			int id = -1;
-			if (this->m_currentTask)
-			{
-				id = this->m_currentTask->GetId();
-			}
-
-			CSerializationID attrId("current");
-			node->setAttr(attrId, id);
-		}
-	}
-
-	void BranchTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  attrId("current");
-			behaviac::string attrStr;
-			if (node->getAttr(attrId, attrStr))
-			{
-				int currentNodeId = -1;
-				StringUtils::FromString(attrStr.c_str(), currentNodeId);
-				if (currentNodeId != -1)
-				{
-					this->m_currentTask = (BehaviorTask*)this->GetTaskById(currentNodeId);
-				}
-			}
-		}
-	}
-
-	EBTStatus BranchTask::tickCurrentNode(Agent* pAgent)
-	{
-		BEHAVIAC_ASSERT(this->m_currentTask);
-
-		EBTStatus s = this->m_currentTask->GetStatus();
-
-		if (s == BT_INVALID || s == BT_RUNNING)
-		{
-			//this->m_currentTask could be cleared in ::exec, to remember it
-			BehaviorTask* currentTask = this->m_currentTask;
-			EBTStatus status = this->m_currentTask->exec(pAgent);
-
-			//give the handling back to parents
-			if (status != BT_RUNNING)
-			{
-				BEHAVIAC_ASSERT(currentTask->m_status == BT_SUCCESS || 
-					currentTask->m_status == BT_FAILURE ||
-					(currentTask->m_status == BT_INVALID && currentTask->NeedRestart()));
-
-				BranchTask* parentBranch = currentTask->GetParent();
-
-				this->SetCurrentTask(0);
-
-				//back track the parents until the branch
-				while (parentBranch && parentBranch != this)
-				{
-					status = parentBranch->update(pAgent, status);
-					if (status == BT_RUNNING)
-					{
-						return BT_RUNNING;
-					}
-
-					parentBranch->onexit_action(pAgent, status);
-
-					parentBranch->m_status = status;
-
-					BEHAVIAC_ASSERT(parentBranch->m_currentTask == 0);
-
-					parentBranch = parentBranch->GetParent();
-				}
-			}
-
-			return status;
-		}
-
-		return s;
-	}
-
-
-	EBTStatus BranchTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-        BEHAVIAC_UNUSED_VAR(childStatus);
-
 		EBTStatus status = BT_INVALID;
 
-		if (this->m_currentTask)
+		if (this->m_currentTask != 0)
 		{
-			EBTStatus s = this->m_currentTask->GetStatus();
-			if (s != BT_RUNNING)
-			{
-				this->SetCurrentTask(0);
-			}
+			status = this->execCurrentTask(pAgent);
+			BEHAVIAC_ASSERT((status == BT_RUNNING && this->m_currentTask != 0) ||
+				(status != BT_RUNNING && this->m_currentTask == 0));
 		}
-
-		if (this->m_currentTask)
+		else
 		{
-			status = this->tickCurrentNode(pAgent);
+			status = this->update(pAgent, childStatus);
 		}
 
 		return status;
 	}
 
+    int CompositeTask::InvalidChildIndex = (int) - 1;
 
-	uint32_t CompositeTask::InvalidChildIndex = (uint32_t)-1;
+    CompositeTask::CompositeTask() : BranchTask(), m_activeChildIndex(InvalidChildIndex)
+    {
+    }
 
-	CompositeTask::CompositeTask() : BranchTask(), m_activeChildIndex(InvalidChildIndex)
+    void CompositeTask::Init(const BehaviorNode* node)
+    {
+        super::Init(node);
+        BEHAVIAC_ASSERT(node->GetChildrenCount() > 0);
+
+        uint32_t childrenCount = node->GetChildrenCount();
+
+        for (uint32_t i = 0; i < childrenCount; i++)
+        {
+            const BehaviorNode* childNode = node->GetChild(i);
+            BehaviorTask* childTask = childNode->CreateAndInitTask();
+
+            this->addChild(childTask);
+        }
+    }
+
+    void CompositeTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+
+        BEHAVIAC_ASSERT(CompositeTask::DynamicCast(target));
+        CompositeTask* ttask = (CompositeTask*)target;
+
+        ttask->m_activeChildIndex = this->m_activeChildIndex;
+
+        BEHAVIAC_ASSERT(this->m_children.size() > 0);
+        BEHAVIAC_ASSERT(this->m_children.size() == ttask->m_children.size());
+
+        BehaviorTasks_t::size_type count = this->m_children.size();
+
+        for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
+        {
+            BehaviorTask* childTask = this->m_children[i];
+            BehaviorTask* childTTask = ttask->m_children[i];
+
+            childTask->copyto(childTTask);
+        }
+    }
+
+    void CompositeTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID attrId("activeChildIndex");
+            node->setAttr(attrId, this->m_activeChildIndex);
+
+            BehaviorTasks_t::size_type count = this->m_children.size();
+
+            for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
+            {
+                BehaviorTask* childTask = this->m_children[i];
+
+                CSerializationID  nodeId("node");
+                ISerializableNode* chidlNode = node->newChild(nodeId);
+                childTask->save(chidlNode);
+            }
+        }
+    }
+
+    void CompositeTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID attrId("activeChildIndex");
+            behaviac::string attrStr;
+            node->getAttr(attrId, attrStr);
+            StringUtils::FromString(attrStr.c_str(), this->m_activeChildIndex);
+
+            //#if !BEHAVIAC_RELEASE
+            //			if (this->m_activeChildIndex != uint32_t(-1))
+            //			{
+            //				BEHAVIAC_ASSERT(this->m_currentTask == this->m_children[this->m_activeChildIndex]);
+            //			}
+            //			else
+            //			{
+            //				BEHAVIAC_ASSERT(this->m_currentTask == 0);
+            //			}
+            //#endif
+
+            BehaviorTasks_t::size_type count = this->m_children.size();
+            BEHAVIAC_ASSERT(count == (BehaviorTasks_t::size_type)node->getChildCount());
+
+            for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
+            {
+                BehaviorTask* childTask = this->m_children[i];
+
+                //CSerializationID  nodeId("node");
+                ISerializableNode* chidlNode = node->getChild(i);
+                childTask->load(chidlNode);
+            }
+        }
+    }
+
+    CompositeTask::~CompositeTask()
+    {
+        for (size_t i = 0; i < this->m_children.size(); ++i)
+        {
+            BehaviorTask* pChild = this->m_children[i];
+            BEHAVIAC_DELETE(pChild);
+        }
+
+        this->m_children.clear();
+    }
+
+	BehaviorTask* CompositeTask::GetChildById(int nodeId) const
 	{
-	}
-
-	void CompositeTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
-		BEHAVIAC_ASSERT(node->GetChildrenCount() > 0);
-
-		uint32_t childrenCount = node->GetChildrenCount();
-		for (uint32_t i = 0; i < childrenCount; i++)
+		if (this->m_children.size() > 0)
 		{
-			const BehaviorNode* childNode = node->GetChild(i);
-			BehaviorTask* childTask = childNode->CreateAndInitTask();
-
-			this->addChild(childTask);
-		}
-	}
-
-
-	void CompositeTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-
-		BEHAVIAC_ASSERT(CompositeTask::DynamicCast(target));
-		CompositeTask* ttask = (CompositeTask*)target;
-
-		ttask->m_activeChildIndex = this->m_activeChildIndex;
-
-		BEHAVIAC_ASSERT(this->m_children.size() > 0);
-		BEHAVIAC_ASSERT(this->m_children.size() == ttask->m_children.size());
-
-		BehaviorTasks_t::size_type count = this->m_children.size();
-
-		for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
-		{
-			BehaviorTask* childTask = this->m_children[i];
-			BehaviorTask* childTTask = ttask->m_children[i];
-
-			childTask->copyto(childTTask);
-		}
-	}
-
-	void CompositeTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID attrId("activeChildIndex");
-			node->setAttr(attrId, this->m_activeChildIndex);
-
-			BehaviorTasks_t::size_type count = this->m_children.size();
-			for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
+			for (unsigned int i = 0; i < this->m_children.size(); ++i)
 			{
-				BehaviorTask* childTask = this->m_children[i];
+				BehaviorTask* c = this->m_children[i];
 
-				CSerializationID  nodeId("node");
-				ISerializableNode* chidlNode = node->newChild(nodeId);
-				childTask->save(chidlNode);
-			}
-		}
-	}
-
-	void CompositeTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID attrId("activeChildIndex");
-			behaviac::string attrStr;
-			node->getAttr(attrId, attrStr);
-			StringUtils::FromString(attrStr.c_str(), this->m_activeChildIndex);
-
-//#if !BEHAVIAC_RELEASE
-//			if (this->m_activeChildIndex != uint32_t(-1))
-//			{
-//				BEHAVIAC_ASSERT(this->m_currentTask == this->m_children[this->m_activeChildIndex]);
-//			}
-//			else
-//			{
-//				BEHAVIAC_ASSERT(this->m_currentTask == 0);
-//			}
-//#endif
-
-			BehaviorTasks_t::size_type count = this->m_children.size();
-			BEHAVIAC_ASSERT(count == (BehaviorTasks_t::size_type)node->getChildCount());
-			for (BehaviorTasks_t::size_type i = 0; i < count; ++i)
-			{
-				BehaviorTask* childTask = this->m_children[i];
-
-				//CSerializationID  nodeId("node");
-				ISerializableNode* chidlNode = node->getChild(i);
-				childTask->load(chidlNode);
-			}
-		}
-	}
-
-	CompositeTask::~CompositeTask()
-	{
-		for (size_t i = 0; i < this->m_children.size(); ++i)
-		{
-			BehaviorTask* pChild = this->m_children[i];
-			BEHAVIAC_DELETE(pChild);
-		}
-		this->m_children.clear();
-	}
-
-	const BehaviorTask* CompositeTask::GetTaskById(int id) const
-	{
-		BEHAVIAC_ASSERT(id != -1);
-
-		const BehaviorTask* t = super::GetTaskById(id);
-		if (t)
-		{
-			return t;
-		}
-
-		for (size_t i = 0; i < this->m_children.size(); ++i)
-		{
-			const BehaviorTask* pChild = this->m_children[i];
-			const BehaviorTask* t = pChild->GetTaskById(id);
-			if (t)
-			{
-				return t;
+				if (c->GetId() == nodeId)
+				{
+					return c;
+				}
 			}
 		}
 
 		return 0;
 	}
 
-	void CompositeTask::addChild(BehaviorTask* pBehavior)
-	{
-		pBehavior->SetParent(this);
+    const BehaviorTask* CompositeTask::GetTaskById(int id) const
+    {
+        BEHAVIAC_ASSERT(id != -1);
 
-		this->m_children.push_back(pBehavior);
-	}
+        const BehaviorTask* t = super::GetTaskById(id);
 
-	void CompositeTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
-	{
-		if (handler(this, pAgent, user_data))
-		{
-			for (BehaviorTasks_t::iterator it = this->m_children.begin(); 
-				it != this->m_children.end(); ++it)
-			{
-				BehaviorTask* task = *it;
+        if (t)
+        {
+            return t;
+        }
 
-				task->traverse(handler, pAgent, user_data);
-			}
-		}
-	}
+        for (size_t i = 0; i < this->m_children.size(); ++i)
+        {
+            const BehaviorTask* pChild = this->m_children[i];
+            const BehaviorTask* t = pChild->GetTaskById(id);
 
-	SingeChildTask::SingeChildTask() : m_root(0)
-	{}
+            if (t)
+            {
+                return t;
+            }
+        }
 
-	SingeChildTask::~SingeChildTask()
-	{
-		BEHAVIAC_DELETE(m_root);
-	}
+        return 0;
+    }
 
-	void SingeChildTask::addChild(BehaviorTask* pBehavior)
-	{
-		pBehavior->SetParent(this);
+    void CompositeTask::addChild(BehaviorTask* pBehavior)
+    {
+        pBehavior->SetParent(this);
 
-		this->m_root = pBehavior;
-	}
+        this->m_children.push_back(pBehavior);
+    }
 
-	void SingeChildTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
-	{
-		if (handler(this, pAgent, user_data))
-		{
-			if (this->m_root)
-			{
-				this->m_root->traverse(handler, pAgent, user_data);
-			}
-		}
-	}
+    void CompositeTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    {
+        if (handler(this, pAgent, user_data))
+        {
+            for (BehaviorTasks_t::iterator it = this->m_children.begin();
+                 it != this->m_children.end(); ++it)
+            {
+                //BehaviorTask* task = *it;
+                (*it)->traverse(handler, pAgent, user_data);
+                //task->traverse(handler, pAgent, user_data);
+            }
+        }
+    }
 
-	void SingeChildTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
+    SingeChildTask::SingeChildTask() : m_root(0)
+    {}
 
-		BEHAVIAC_ASSERT(node->GetChildrenCount() <= 1);
+    SingeChildTask::~SingeChildTask()
+    {
+        BEHAVIAC_DELETE(m_root);
+    }
 
-		if (node->GetChildrenCount() == 1)
-		{
-			const BehaviorNode* childNode = node->GetChild(0);
+    void SingeChildTask::addChild(BehaviorTask* pBehavior)
+    {
+        pBehavior->SetParent(this);
 
-			BehaviorTask* childTask = childNode->CreateAndInitTask();
+        this->m_root = pBehavior;
+    }
 
-			this->addChild(childTask);
-		}
-		else
-		{
-			BEHAVIAC_ASSERT(true);
-		}
-	}
+    void SingeChildTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    {
+        if (handler(this, pAgent, user_data))
+        {
+            if (this->m_root)
+            {
+                this->m_root->traverse(handler, pAgent, user_data);
+            }
+        }
+    }
 
-	void SingeChildTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
+    void SingeChildTask::Init(const BehaviorNode* node)
+    {
+        super::Init(node);
 
-		BEHAVIAC_ASSERT(SingeChildTask::DynamicCast(target));
-		SingeChildTask* ttask = (SingeChildTask*)target;
+        BEHAVIAC_ASSERT(node->GetChildrenCount() <= 1);
 
-		if (this->m_root)
-		{
-			//referencebehavior/query, etc.
-			if (!ttask->m_root)
-			{
-				const BehaviorNode* pNode = this->m_root->GetNode();
-				BEHAVIAC_ASSERT(BehaviorTree::DynamicCast(pNode));
-				ttask->m_root = pNode->CreateAndInitTask();
-			}
+        if (node->GetChildrenCount() == 1)
+        {
+            const BehaviorNode* childNode = node->GetChild(0);
 
-			BEHAVIAC_ASSERT(ttask->m_root);
-			this->m_root->copyto(ttask->m_root);
-		}
-	}
+            BehaviorTask* childTask = childNode->CreateAndInitTask();
 
-	void SingeChildTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
+            this->addChild(childTask);
 
-		if (this->m_status != BT_INVALID)
-		{
-			if (this->m_root)
-			{
-				CSerializationID  nodeId("root");
-				ISerializableNode* chidlNode = node->newChild(nodeId);
-				this->m_root->save(chidlNode);
-			}
-		}
-	}
+        }
+        else
+        {
+            BEHAVIAC_ASSERT(true);
+        }
+    }
 
-	void SingeChildTask::load(ISerializableNode* node)
-	{
-		super::load(node);
+    void SingeChildTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
 
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  rootId("root");
-			ISerializableNode* rootNode = node->findChild(rootId);
-			BEHAVIAC_ASSERT(rootNode);
-			this->m_root->load(rootNode);
-		}
-	}
+        BEHAVIAC_ASSERT(SingeChildTask::DynamicCast(target));
+        SingeChildTask* ttask = (SingeChildTask*)target;
 
-	const BehaviorTask* SingeChildTask::GetTaskById(int id) const
-	{
-		BEHAVIAC_ASSERT(id != -1);
-		const BehaviorTask* t = super::GetTaskById(id);
-		if (t)
-		{
-			return t;
-		}
+        if (this->m_root)
+        {
+            //referencebehavior/query, etc.
+            if (!ttask->m_root)
+            {
+                const BehaviorNode* pNode = this->m_root->GetNode();
+                BEHAVIAC_ASSERT(BehaviorTree::DynamicCast(pNode));
+                ttask->m_root = pNode->CreateAndInitTask();
+            }
 
-		if (this->m_root->GetId() == id)
-		{
-			return this->m_root;
-		}
+            BEHAVIAC_ASSERT(ttask->m_root);
+            this->m_root->copyto(ttask->m_root);
+        }
+    }
 
-		return this->m_root->GetTaskById(id);
-	}
+    void SingeChildTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
 
-	EBTStatus SingeChildTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-		if (this->m_currentTask)
-		{
-			EBTStatus s = super::update(pAgent, childStatus);
+        if (this->m_status != BT_INVALID)
+        {
+            if (this->m_root)
+            {
+                CSerializationID  nodeId("root");
+                ISerializableNode* chidlNode = node->newChild(nodeId);
+                this->m_root->save(chidlNode);
+            }
+        }
+    }
 
-			return s;
-		}
+    void SingeChildTask::load(ISerializableNode* node)
+    {
+        super::load(node);
 
-		if (this->m_root)
-		{
-			EBTStatus s = this->m_root->exec(pAgent);
-			return s;
-		}
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  rootId("root");
+            ISerializableNode* rootNode = node->findChild(rootId);
+            BEHAVIAC_ASSERT(rootNode);
+            this->m_root->load(rootNode);
+        }
+    }
 
-		return BT_INVALID;
-	}
+    const BehaviorTask* SingeChildTask::GetTaskById(int id) const
+    {
+        BEHAVIAC_ASSERT(id != -1);
+        const BehaviorTask* t = super::GetTaskById(id);
 
-	DecoratorTask::DecoratorTask() : SingeChildTask(), m_bDecorateWhenChildEnds(false)
-	{
-	}
+        if (t)
+        {
+            return t;
+        }
 
-	void DecoratorTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
+        if (this->m_root->GetId() == id)
+        {
+            return this->m_root;
+        }
+
+        return this->m_root->GetTaskById(id);
+    }
+
+    EBTStatus SingeChildTask::update(Agent* pAgent, EBTStatus childStatus)
+    {
+        BEHAVIAC_UNUSED_VAR(childStatus);
+        if (this->m_root)
+        {
+            EBTStatus s = this->m_root->exec(pAgent);
+            return s;
+        }
+
+		return BT_FAILURE;
+    }
+
+    DecoratorTask::DecoratorTask() : SingeChildTask(), m_bDecorateWhenChildEnds(false)
+    {
+    }
+
+    void DecoratorTask::Init(const BehaviorNode* node)
+    {
+        super::Init(node);
         DecoratorNode* pDN = (DecoratorNode*)node;
 
-		this->m_bDecorateWhenChildEnds = pDN->m_bDecorateWhenChildEnds;
-	}
+        this->m_bDecorateWhenChildEnds = pDN->m_bDecorateWhenChildEnds;
+    }
 
-	void DecoratorTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
+    void DecoratorTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
 
-		// BEHAVIAC_ASSERT(DecoratorTask::DynamicCast(target));
-		// DecoratorTask* ttask = (DecoratorTask*)target;
-	}
+        // BEHAVIAC_ASSERT(DecoratorTask::DynamicCast(target));
+        // DecoratorTask* ttask = (DecoratorTask*)target;
+    }
 
-	void DecoratorTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void DecoratorTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void DecoratorTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void DecoratorTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-	DecoratorTask::~DecoratorTask()
-	{
-	}
+    DecoratorTask::~DecoratorTask()
+    {
+    }
 
-	bool DecoratorTask::onenter(Agent* pAgent)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-
-		return true;
-	}
-
-	EBTStatus DecoratorTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-		EBTStatus status = super::update(pAgent, childStatus);
-
-		if (!this->m_bDecorateWhenChildEnds || status != BT_RUNNING)
-		{
-			EBTStatus result = this->decorate(status);
-
-			if (status != BT_RUNNING)
-			{
-				BehaviorTask* child = this->m_root;
-				if (child)
-				{
-					child->m_status = BT_INVALID;
-				}
-
-				this->SetCurrentTask(0);
-			}
-
-			return result;
-		}
-
-		return BT_RUNNING;
-	}
-
-	LeafTask::LeafTask() : BehaviorTask()
-	{}
-
-	void LeafTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
-
-		BEHAVIAC_ASSERT(node && node->GetChildrenCount() == 0);
-	}
-
-	LeafTask::~LeafTask()
-	{}
-
-	void LeafTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
-	{
-		handler(this, pAgent, user_data);
-	}
-
-
-	BehaviorTreeTask::BehaviorTreeTask() : SingeChildTask()
-	{}
-
-
-	void BehaviorTreeTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
-	}
-
-	void BehaviorTreeTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-
-		// BEHAVIAC_ASSERT(BehaviorTreeTask::DynamicCast(target));
-		// BehaviorTreeTask* ttask = (BehaviorTreeTask*)target;
-		
-	}
-
-	void BehaviorTreeTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
-
-	void BehaviorTreeTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
-
-	BehaviorTreeTask::~BehaviorTreeTask()
-	{
-		//if (this->m_root)
-		//{
-		//	BehaviorTask::DestroyTask(this->m_root);
-		//}
-	}
-
-	void BehaviorTreeTask::Clear()
-	{
-		BehaviorTask::Clear();
-
-		BEHAVIAC_DELETE this->m_root;
-		this->m_root = NULL;
-
-		this->m_currentTask = 0;
-		this->m_returnStatus = BT_INVALID;
-	}
-
-	const behaviac::string& BehaviorTreeTask::GetName() const
-	{
-		BEHAVIAC_ASSERT(BehaviorTree::DynamicCast(this->m_node));
-		const BehaviorTree* bt = (const BehaviorTree*)(this->m_node);
-		BEHAVIAC_ASSERT(bt);
-		return bt->GetName();
-	}
-
-    bool BehaviorTreeTask::onenter(Agent* pAgent)
+    bool DecoratorTask::onenter(Agent* pAgent)
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
 
         return true;
     }
 
+    EBTStatus DecoratorTask::update(Agent* pAgent, EBTStatus childStatus)
+    {
+        BEHAVIAC_ASSERT(DecoratorNode::DynamicCast(this->m_node) != 0);
+        DecoratorNode* node = (DecoratorNode*)this->m_node;
+
+        EBTStatus status = BT_INVALID;
+
+        if (childStatus != BT_RUNNING)
+        {
+            status = childStatus;
+
+            if (!node->m_bDecorateWhenChildEnds || status != BT_RUNNING)
+            {
+                EBTStatus result = this->decorate(status);
+
+                if (result != BT_RUNNING)
+                {
+                    return result;
+                }
+
+                return BT_RUNNING;
+            }
+        }
+
+        status = super::update(pAgent, childStatus);
+
+        if (!node->m_bDecorateWhenChildEnds || status != BT_RUNNING)
+        {
+            EBTStatus result = this->decorate(status);
+
+            return result;
+        }
+
+        return BT_RUNNING;
+    }
+
+    LeafTask::LeafTask() : BehaviorTask()
+    {}
+
+    void LeafTask::Init(const BehaviorNode* node)
+    {
+        super::Init(node);
+
+        //BEHAVIAC_ASSERT(node && node->GetChildrenCount() == 0);
+    }
+
+    LeafTask::~LeafTask()
+    {}
+
+    void LeafTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    {
+        handler(this, pAgent, user_data);
+    }
+
+    BehaviorTreeTask::BehaviorTreeTask() : SingeChildTask()
+    {}
+
+    void BehaviorTreeTask::Init(const BehaviorNode* node)
+    {
+        BEHAVIAC_ASSERT(node != 0);
+        // BehaviorTree* tree = (BehaviorTree*)node;
+
+		super::Init(node);
+    }
+
+    void BehaviorTreeTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+
+        // BEHAVIAC_ASSERT(BehaviorTreeTask::DynamicCast(target));
+        // BehaviorTreeTask* ttask = (BehaviorTreeTask*)target;
+    }
+
+    void BehaviorTreeTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
+
+    void BehaviorTreeTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
+
+    BehaviorTreeTask::~BehaviorTreeTask()
+    {
+        //if (this->m_root)
+        //{
+        //	BehaviorTask::DestroyTask(this->m_root);
+        //}
+    }
+
+    void BehaviorTreeTask::Clear()
+    {
+        BehaviorTask::Clear();
+
+        BEHAVIAC_DELETE this->m_root;
+        this->m_root = 0;
+
+        this->m_currentTask = 0;
+    }
+
+    const behaviac::string& BehaviorTreeTask::GetName() const
+    {
+        BEHAVIAC_ASSERT(BehaviorTree::DynamicCast(this->m_node));
+        const BehaviorTree* bt = (const BehaviorTree*)(this->m_node);
+        BEHAVIAC_ASSERT(bt);
+        return bt->GetName();
+    }
+
+    bool BehaviorTreeTask::onenter(Agent* pAgent)
+    {
+        pAgent->LogJumpTree(this->GetName());
+
+        return true;
+    }
+
     void BehaviorTreeTask::onexit(Agent* pAgent, EBTStatus status)
     {
-        BEHAVIAC_UNUSED_VAR(pAgent);
-        BEHAVIAC_UNUSED_VAR(status);
+        pAgent->LogReturnTree(this->GetName());
+        super::onexit(pAgent, status);
     }
 
-	bool BehaviorTreeTask::NeedRestart() const
+	EBTStatus BehaviorTreeTask::update_current(Agent* pAgent, EBTStatus childStatus)
 	{
-		const BehaviorTask* root = this->m_root;
-		if (root && root->NeedRestart())
+		BEHAVIAC_ASSERT(this->m_node != 0);
+		BEHAVIAC_ASSERT(BehaviorTree::DynamicCast(this->m_node) != 0);
+		BehaviorTree* tree = (BehaviorTree*)this->m_node;
+
+		EBTStatus status = BT_RUNNING;
+
+		if (tree->IsFSM())
 		{
-			return true;
+			status = this->update(pAgent, childStatus);
 		}
-
-		return false;
-	}
-
-    EBTStatus BehaviorTreeTask::update(Agent* pAgent, EBTStatus childStatus)
-    {
-		EBTStatus status = super::update(pAgent, childStatus);
-
-		if (status != BT_RUNNING)
+		else
 		{
-			this->SetCurrentTask(0);
-		}
-
-        return status;
-    }
-
-	void BehaviorTreeTask::SetRootTask(BehaviorTask* pRoot)
-	{
-		this->addChild(pRoot);
-	}
-
-	void BehaviorTreeTask::CopyTo(BehaviorTreeTask* target)
-	{
-		this->copyto(target);
-	}
-
-	EBTStatus BehaviorTreeTask::resume(Agent* pAgent, EBTStatus status) {
-		BranchTask* prev = 0;
-		BehaviorTask* p = this->m_currentTask;
-		while (p) {
-			BranchTask* branch = BranchTask::DynamicCast(p);
-			if (branch) {
-				prev = (branch);
-				p = const_cast<BehaviorTask*>(branch->GetCurrentTask());
-			}
-			else {
-				prev = p->GetParent();
-				break;
-			}
-		}
-
-		if (prev) {
-			//prev is the last interrupted node, to find and let its parent update with 'stats' which is the subtree's return status
-			BEHAVIAC_ASSERT(status == BT_SUCCESS || status == BT_FAILURE);
-			prev->onexit_action(pAgent, status);
-
-			prev->SetReturnStatus(status);
+			status = super::update_current(pAgent, childStatus);
 		}
 
 		return status;
 	}
 
-	bool BehaviorTask::onevent(Agent* pAgent, const char* eventName)
-	{
-		if (this->m_status == BT_RUNNING && this->m_node->m_bHasEvents)
-		{
-			if (!this->CheckEvents(eventName, pAgent))
-			{
-				return false;
-			}
-		}
 
-		return true;
-	}
+    EBTStatus BehaviorTreeTask::update(Agent* pAgent, EBTStatus childStatus)
+    {
+        BEHAVIAC_ASSERT(this->m_node != 0);
+        BEHAVIAC_ASSERT(this->m_root != 0);
 
-	void BranchTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
-	}
+        if (childStatus != BT_RUNNING)
+        {
+            return childStatus;
+        }
 
-	bool BranchTask::oneventCurrentNode(Agent* pAgent, const char* eventName)
-	{
-		BEHAVIAC_ASSERT(this->m_currentTask);
+        EBTStatus status = BT_INVALID;
 
-		EBTStatus s = this->m_currentTask->GetStatus();
-		BEHAVIAC_UNUSED_VAR(s);
+        status = super::update(pAgent, childStatus);
 
-		BEHAVIAC_ASSERT (s == BT_RUNNING && this->m_node->HasEvents());
+        BEHAVIAC_ASSERT(status != BT_INVALID);
 
-		bool bGoOn = this->m_currentTask->onevent(pAgent, eventName);
+        return status;
+    }
 
-		//give the handling back to parents
-		if (bGoOn)
-		{
-			BranchTask* parentBranch = this->m_currentTask->GetParent();
+    void BehaviorTreeTask::SetRootTask(BehaviorTask* pRoot)
+    {
+        this->addChild(pRoot);
+    }
 
-			//back track the parents until the branch
-			while (parentBranch && parentBranch != this)
-			{
-				BEHAVIAC_ASSERT(parentBranch->GetStatus() == BT_RUNNING);
+    void BehaviorTreeTask::CopyTo(BehaviorTreeTask* target)
+    {
+        this->copyto(target);
+    }
 
-				bGoOn = parentBranch->onevent(pAgent, eventName);
-				if (!bGoOn)
-				{
-					return false;
-				}
+    EBTStatus BehaviorTreeTask::resume(Agent* pAgent, EBTStatus status)
+    {
+        EBTStatus s = super::resume_branch(pAgent, status);
 
-				parentBranch = parentBranch->GetParent();
-			}
-		}
+        return s;
+    }
 
-		return bGoOn;
-	}
+    bool BehaviorTask::onevent(Agent* pAgent, const char* eventName)
+    {
+        if (this->m_status == BT_RUNNING && this->m_node->m_bHasEvents)
+        {
+            if (!this->CheckEvents(eventName, pAgent))
+            {
+                return false;
+            }
+        }
 
-	bool BranchTask::onevent(Agent* pAgent, const char* eventName)
-	{
-		bool bGoOn = true;
+        return true;
+    }
 
-		if (this->m_status == BT_RUNNING && this->m_node->HasEvents())
-		{
-			BEHAVIAC_ASSERT(this->m_currentTask);
+    void BranchTask::Init(const BehaviorNode* node)
+    {
+        super::Init(node);
+    }
 
-			bGoOn = this->oneventCurrentNode(pAgent, eventName);
-		}
+    bool BranchTask::oneventCurrentNode(Agent* pAgent, const char* eventName)
+    {
+        BEHAVIAC_ASSERT(this->m_currentTask);
 
-		return bGoOn;
-	}
+        EBTStatus s = this->m_currentTask->GetStatus();
+        BEHAVIAC_UNUSED_VAR(s);
 
-	bool LeafTask::onevent(Agent* pAgent, const char* eventName)
-	{
-		bool bGoOn = BehaviorTask::onevent(pAgent, eventName);
+        BEHAVIAC_ASSERT(s == BT_RUNNING && this->m_node->HasEvents());
 
-		return bGoOn;
-	}
+        bool bGoOn = this->m_currentTask->onevent(pAgent, eventName);
 
-	bool BehaviorTreeTask::onevent(Agent* pAgent, const char* eventName)
-	{
-		if (this->m_node->HasEvents())
-		{
-			bool bGoOn = this->m_root->onevent(pAgent, eventName);
+        //give the handling back to parents
+        if (bGoOn)
+        {
+            BranchTask* parentBranch = this->m_currentTask->GetParent();
 
-			if (bGoOn && !BehaviorTask::onevent(pAgent, eventName))
-			{
-				return false;
-			}
-		}
+            //back track the parents until the branch
+            while (parentBranch && parentBranch != this)
+            {
+                BEHAVIAC_ASSERT(parentBranch->GetStatus() == BT_RUNNING);
 
-		return true;
-	}
+                bGoOn = parentBranch->onevent(pAgent, eventName);
 
-	void BehaviorTreeTask::Save(ISerializableNode* node) const
-	{
-		CSerializationID  btId("BehaviorTree");
-		ISerializableNode* btNodeRoot = node->newChild(btId);
+                if (!bGoOn)
+                {
+                    return false;
+                }
 
-		BEHAVIAC_ASSERT(BehaviorTree::DynamicCast(this->GetNode()));
-		BehaviorTree* bt = (BehaviorTree*)this->GetNode();
+                parentBranch = parentBranch->GetParent();
+            }
+        }
 
-		CSerializationID  sourceId("source");
-		btNodeRoot->setAttr(sourceId, bt->GetName());
+        return bGoOn;
+    }
 
-		CSerializationID  nodeId("node");
-		ISerializableNode* btNode = btNodeRoot->newChild(nodeId);
+    bool BranchTask::onevent(Agent* pAgent, const char* eventName)
+    {
+        bool bGoOn = true;
 
-		this->save(btNode);
-	}
+        if (this->m_status == BT_RUNNING && this->m_node->HasEvents())
+        {
+            if (this->m_currentTask)
+            {
+                bGoOn = this->oneventCurrentNode(pAgent, eventName);
+            }
+        }
 
-	void BehaviorTreeTask::Load(ISerializableNode* node)
-	{
-		this->load(node);
-	}
+        return bGoOn;
+    }
 
+    bool LeafTask::onevent(Agent* pAgent, const char* eventName)
+    {
+        bool bGoOn = BehaviorTask::onevent(pAgent, eventName);
+
+        return bGoOn;
+    }
+
+    bool BehaviorTreeTask::onevent(Agent* pAgent, const char* eventName)
+    {
+        if (this->m_node->HasEvents())
+        {
+            bool bGoOn = this->m_root->onevent(pAgent, eventName);
+
+            if (bGoOn && !BehaviorTask::onevent(pAgent, eventName))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void BehaviorTreeTask::Save(ISerializableNode* node) const
+    {
+        CSerializationID  btId("BehaviorTree");
+        ISerializableNode* btNodeRoot = node->newChild(btId);
+
+        BEHAVIAC_ASSERT(BehaviorTree::DynamicCast(this->GetNode()));
+        BehaviorTree* bt = (BehaviorTree*)this->GetNode();
+
+        CSerializationID  sourceId("source");
+        btNodeRoot->setAttr(sourceId, bt->GetName());
+
+        CSerializationID  nodeId("node");
+        ISerializableNode* btNode = btNodeRoot->newChild(nodeId);
+
+        this->save(btNode);
+    }
+
+    void BehaviorTreeTask::Load(ISerializableNode* node)
+    {
+        this->load(node);
+    }
 }//namespace behaviac

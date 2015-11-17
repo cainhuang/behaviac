@@ -33,34 +33,32 @@
 
 namespace CustomPropertyGridTest
 {
-	partial class DynamicPropertyGrid
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class DynamicPropertyGrid
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Component Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.propertyPanel = new System.Windows.Forms.Panel();
             this.propertiesSplitContainer = new System.Windows.Forms.SplitContainer();
             this.propertyDescriptionLabel = new System.Windows.Forms.Label();
@@ -74,9 +72,9 @@ namespace CustomPropertyGridTest
             this.splitContainer.SuspendLayout();
             this.descriptionPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // propertyPanel
-            // 
+            //
             this.propertyPanel.AutoScroll = true;
             this.propertyPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.propertyPanel.Controls.Add(this.propertiesSplitContainer);
@@ -86,21 +84,21 @@ namespace CustomPropertyGridTest
             this.propertyPanel.Name = "propertyPanel";
             this.propertyPanel.Size = new System.Drawing.Size(555, 357);
             this.propertyPanel.TabIndex = 2;
-            // 
+            //
             // propertiesSplitContainer
-            // 
+            //
             this.propertiesSplitContainer.BackColor = System.Drawing.Color.Gray;
             this.propertiesSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
             this.propertiesSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.propertiesSplitContainer.Name = "propertiesSplitContainer";
-            // 
+            //
             // propertiesSplitContainer.Panel1
-            // 
+            //
             this.propertiesSplitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.propertiesSplitContainer.Panel1.Padding = new System.Windows.Forms.Padding(3);
-            // 
+            //
             // propertiesSplitContainer.Panel2
-            // 
+            //
             this.propertiesSplitContainer.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.propertiesSplitContainer.Panel2.Padding = new System.Windows.Forms.Padding(3);
             this.propertiesSplitContainer.Size = new System.Drawing.Size(555, 62);
@@ -109,9 +107,9 @@ namespace CustomPropertyGridTest
             this.propertiesSplitContainer.TabIndex = 1;
             this.propertiesSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.propertiesSplitContainer_SplitterMoved);
             this.propertiesSplitContainer.Resize += new System.EventHandler(this.propertiesSplitContainer_Resize);
-            // 
+            //
             // propertyDescriptionLabel
-            // 
+            //
             this.propertyDescriptionLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.propertyDescriptionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyDescriptionLabel.ForeColor = System.Drawing.Color.LightGray;
@@ -120,9 +118,9 @@ namespace CustomPropertyGridTest
             this.propertyDescriptionLabel.Size = new System.Drawing.Size(555, 51);
             this.propertyDescriptionLabel.TabIndex = 1;
             this.propertyDescriptionLabel.Text = "Property Description";
-            // 
+            //
             // propertyNameLabel
-            // 
+            //
             this.propertyNameLabel.BackColor = System.Drawing.Color.Gray;
             this.propertyNameLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.propertyNameLabel.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -133,31 +131,31 @@ namespace CustomPropertyGridTest
             this.propertyNameLabel.TabIndex = 0;
             this.propertyNameLabel.Text = "Property Name";
             this.propertyNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // splitContainer
-            // 
+            //
             this.splitContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
             this.splitContainer.Name = "splitContainer";
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
+            //
             // splitContainer.Panel1
-            // 
+            //
             this.splitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.splitContainer.Panel1.Controls.Add(this.propertyPanel);
-            // 
+            //
             // splitContainer.Panel2
-            // 
+            //
             this.splitContainer.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.splitContainer.Panel2.Controls.Add(this.descriptionPanel);
             this.splitContainer.Panel2MinSize = 35;
             this.splitContainer.Size = new System.Drawing.Size(555, 432);
             this.splitContainer.SplitterDistance = 357;
             this.splitContainer.TabIndex = 3;
-            // 
+            //
             // descriptionPanel
-            // 
+            //
             this.descriptionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.descriptionPanel.Controls.Add(this.propertyDescriptionLabel);
             this.descriptionPanel.Controls.Add(this.propertyNameLabel);
@@ -166,9 +164,9 @@ namespace CustomPropertyGridTest
             this.descriptionPanel.Name = "descriptionPanel";
             this.descriptionPanel.Size = new System.Drawing.Size(555, 71);
             this.descriptionPanel.TabIndex = 1;
-            // 
+            //
             // DynamicPropertyGrid
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
@@ -184,17 +182,17 @@ namespace CustomPropertyGridTest
             this.descriptionPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Panel propertyPanel;
+        private System.Windows.Forms.Panel propertyPanel;
         private System.Windows.Forms.SplitContainer propertiesSplitContainer;
-		private System.Windows.Forms.Label propertyNameLabel;
-		private System.Windows.Forms.Label propertyDescriptionLabel;
+        private System.Windows.Forms.Label propertyNameLabel;
+        private System.Windows.Forms.Label propertyDescriptionLabel;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.Panel descriptionPanel;
 
 
-	}
+    }
 }

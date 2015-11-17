@@ -26,7 +26,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            Compute compute = node as Compute;
+            return (compute != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -34,7 +35,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             Compute compute = node as Compute;
-            Debug.Check(compute != null);
+            if (compute == null)
+                return;
 
             if (compute.Opr1 != null)
             {
@@ -52,7 +54,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMember(node, stream, indent);
 
             Compute compute = node as Compute;
-            Debug.Check(compute != null);
+            if (compute == null)
+                return;
 
             if (compute.Opr1 != null)
             {
@@ -70,7 +73,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             Compute compute = node as Compute;
-            Debug.Check(compute != null);
+            if (compute == null)
+                return;
 
             stream.WriteLine("{0}\t\tprotected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)", indent);
             stream.WriteLine("{0}\t\t{{", indent);
@@ -78,8 +82,11 @@ namespace PluginBehaviac.NodeExporters
 
             if (compute.Opl != null && compute.Opr1 != null && compute.Opr2 != null)
             {
-                RightValueCsExporter.GenerateCode(compute.Opr1, stream, indent + "\t\t\t", compute.Opr1.NativeType, "opr1", "opr1");
-                RightValueCsExporter.GenerateCode(compute.Opr2, stream, indent + "\t\t\t", compute.Opr2.NativeType, "opr2", "opr2");
+                string typeName = Plugin.GetNativeTypeName(compute.Opr1.ValueType);
+                typeName = typeName.Replace("::", ".");
+
+                RightValueCsExporter.GenerateCode(compute.Opr1, stream, indent + "\t\t\t", typeName, "opr1", "opr1");
+                RightValueCsExporter.GenerateCode(compute.Opr2, stream, indent + "\t\t\t", typeName, "opr2", "opr2");
 
                 string oprStr = string.Empty;
                 switch (compute.Operator)
@@ -105,34 +112,44 @@ namespace PluginBehaviac.NodeExporters
                         break;
                 }
 
-                string basicType = DataCsExporter.GetGeneratedNativeType(compute.Opl.NativeType);
-                stream.WriteLine("{0}\t\t\t{1} opr = ({1})({2});", indent, basicType, oprStr);
+                oprStr = string.Format("({0})({1})", typeName, oprStr);
 
-                if (compute.Opl.IsPar)
+                PropertyDef prop = compute.Opl.Property;
+                if (prop != null)
                 {
-                    ParInfo par = compute.Opl.Value as ParInfo;
-                    if (par != null)
+                    string property = PropertyCsExporter.GetProperty(prop, compute.Opl.ArrayIndexElement, stream, indent + "\t\t\t", "opl", "compute");
+                    string propName = prop.BasicName.Replace("[]", "");
+
+                    if (prop.IsArrayElement && compute.Opl.ArrayIndexElement != null)
                     {
-                        uint id = Behaviac.Design.CRC32.CalcCRC(par.Name);
-                        string typename = DataCsExporter.GetGeneratedNativeType(par.NativeType);
-                        stream.WriteLine("{0}\t\t\tDebug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, par.Name, id);
-                        stream.WriteLine("{0}\t\t\tpAgent.SetVariable<{1}>(\"{2}\", opr, {3}u);", indent, typename, par.Name, id);
+                        ParameterCsExporter.GenerateCode(compute.Opl.ArrayIndexElement, stream, indent + "\t\t\t", "int", "opl_index", "compute_opl");
+                        property = string.Format("({0})[opl_index]", property);
                     }
-                }
-                else
-                {
-                    //VariableCsExporter.GenerateCode(compute.Opl, stream, indent + "\t\t\t", string.Empty, string.Empty, "opl", "opr");
-                    VariableCsExporter.PostGenerateCode(compute.Opl, stream, indent + "\t\t\t", compute.Opl.NativeType, "opl", string.Empty, null, "", "opr");
+
+                    if (!prop.IsArrayElement && (prop.IsPar || prop.IsCustomized))
+                    {
+                        string propBasicName = prop.BasicName.Replace("[]", "");
+                        uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+
+                        string typename = DataCsExporter.GetGeneratedNativeType(prop.NativeType);
+                        stream.WriteLine("{0}\t\t\tDebug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
+                        stream.WriteLine("{0}\t\t\tpAgent.SetVariable<{1}>(\"{2}\", {3}, {4}u);", indent, typename, propBasicName, oprStr, id);
+
+                    }
+                    else
+                    {
+                        stream.WriteLine("{0}\t\t\t{1} = {2};", indent, property, oprStr);
+                    }
                 }
 
                 if (compute.Opr1.IsMethod)
                 {
-                    RightValueCsExporter.PostGenerateCode(compute.Opr1, stream, indent + "\t\t\t", compute.Opr1.NativeType, "opr1", string.Empty);
+                    RightValueCsExporter.PostGenerateCode(compute.Opr1, stream, indent + "\t\t\t", typeName, "opr1", string.Empty);
                 }
 
                 if (compute.Opr2.IsMethod)
                 {
-                    RightValueCsExporter.PostGenerateCode(compute.Opr2, stream, indent + "\t\t\t", compute.Opr2.NativeType, "opr2", string.Empty);
+                    RightValueCsExporter.PostGenerateCode(compute.Opr2, stream, indent + "\t\t\t", typeName, "opr2", string.Empty);
                 }
             }
 

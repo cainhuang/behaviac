@@ -16,8 +16,8 @@
 // Description: System related services
 //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef BEHAVIAC_BASE_CORE_SYSTEM_H_
-#define BEHAVIAC_BASE_CORE_SYSTEM_H_
+#ifndef BEHAVIAC_BASE_CORE_SYSTEM_H
+#define BEHAVIAC_BASE_CORE_SYSTEM_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
@@ -37,15 +37,14 @@
 #include <pthread.h>
 #endif//BEHAVIAC_COMPILER_MSVC
 
-
 namespace behaviac
 {
 #if BEHAVIAC_COMPILER_MSVC
-	typedef uint32_t THREAD_ID_TYPE;
+    typedef uint32_t THREAD_ID_TYPE;
 #elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID || BEHAVIAC_COMPILER_GCC_LINUX
-	typedef pthread_t* THREAD_ID_TYPE;
+    typedef pthread_t* THREAD_ID_TYPE;
 #else
-	typedef __pthread_t* THREAD_ID_TYPE;
+    typedef __pthread_t* THREAD_ID_TYPE;
 #endif//BEHAVIAC_COMPILER_MSVC
     // Invalid thread Id definition
 #define BEHAVIAC_INVALID_TID        0xFFFFFFFF
@@ -108,7 +107,7 @@ namespace behaviac
         ZeroType()
         {
             memset(shadow, 0, sizeof(TYPE));
-            var = new(shadow) TYPE;
+            var = new(shadow)TYPE;
         }
         ZeroType(const ZeroType& source)
         {
@@ -128,7 +127,6 @@ namespace behaviac
         uint8_t shadow[sizeof(TYPE)];
         TYPE* var;
     };
-
 }
 
-#endif  // #ifndef BEHAVIAC_BASE_CORE_SYSTEM_H_
+#endif  // #ifndef BEHAVIAC_BASE_CORE_SYSTEM_H

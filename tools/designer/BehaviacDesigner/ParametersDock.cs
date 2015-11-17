@@ -31,86 +31,79 @@ namespace Behaviac.Design
     internal partial class ParametersDock : WeifenLuo.WinFormsUI.Docking.DockContent
     {
         private static List<ParametersDock> _parameterDocks = new List<ParametersDock>();
-        internal static IList<ParametersDock> Docks()
-        {
+        internal static IList<ParametersDock> Docks() {
             return _parameterDocks.AsReadOnly();
         }
 
-        internal static void CloseAll()
-        {
+        internal static void CloseAll() {
             ParametersDock[] docks = _parameterDocks.ToArray();
-            foreach (ParametersDock dock in docks)
-            {
+            foreach(ParametersDock dock in docks) {
                 dock.Close();
             }
+
+            _parameterDocks.Clear();
         }
 
-        internal static void Inspect(AgentType agentType, string agentName, string agentFullname)
-        {
+        internal static void Inspect(AgentType agentType, string agentName, string agentFullName, FrameStatePool.PlanningState nodeState) {
             ParametersDock dock = findParametersDock(agentType, agentName);
 
-            if (dock == null)
-            {
+            if (dock == null) {
                 dock = new ParametersDock();
                 dock.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
             }
 
-            dock.InspectObject(agentType, agentName, agentFullname);
+            dock.InspectObject(agentType, agentName, agentFullName, nodeState);
         }
 
-        internal static void Inspect(string agentFullname, bool isPar)
-        {
-            Debug.Check(!string.IsNullOrEmpty(agentFullname));
+        internal static void Inspect(string agentFullName, FrameStatePool.PlanningState nodeState) {
+            Debug.Check(!string.IsNullOrEmpty(agentFullName));
 
-            string[] tokens = agentFullname.Split('#');
+            string[] tokens = agentFullName.Split('#');
             string agentName = tokens[tokens.Length - 1];
 
             Debug.Check(tokens.Length == 2);
 
             // Agent
-            if (!isPar && tokens.Length > 1)
-            {
+            if (tokens.Length > 1) {
                 AgentType agentType = Plugin.GetAgentType(tokens[0]);
 
-                Inspect(agentType, agentName, agentFullname);
+                Inspect(agentType, agentName, agentFullName, nodeState);
             }
-            // Par or Global
-            else
-            {
-                Inspect(Plugin.GetInstanceAgentType(agentFullname), agentName, agentFullname);
+
+            // Global
+            else {
+                Inspect(Plugin.GetInstanceAgentType(agentFullName), agentName, agentFullName, nodeState);
             }
         }
 
-        internal static void SetProperty(string agentType, string agentName, string valueName, string valueStr)
-        {
-            foreach (ParametersDock dock in _parameterDocks)
+        internal static void SetProperty(string agentType, string agentName, string valueName, string valueStr) {
+            foreach(ParametersDock dock in _parameterDocks)
             {
-                bool bSet = dock.setProperty(agentType, agentName, valueName, valueStr);
-                if (bSet)
+                if (dock.AgentName == agentName)
+                {
+                    dock.setProperty(valueName, valueStr);
                     break;
+                }
             }
         }
 
-        private static ParametersDock findParametersDock(AgentType agentType, string agentName)
-        {
-            foreach (ParametersDock dock in _parameterDocks)
-            {
-                if (dock.AgentType == agentType && (string.IsNullOrEmpty(dock.AgentName) || dock.AgentName == agentName))
+        private static ParametersDock findParametersDock(AgentType agentType, string agentName) {
+            foreach(ParametersDock dock in _parameterDocks) {
+                if (dock.AgentType == agentType && (string.IsNullOrEmpty(dock.AgentName) || dock.AgentName == agentName)) {
                     return dock;
+                }
             }
 
             return null;
         }
 
-        public ParametersDock()
-        {
+        public ParametersDock() {
             InitializeComponent();
 
             _parameterDocks.Add(this);
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
+        protected override void OnClosed(EventArgs e) {
             _parameterDocks.Remove(this);
 
             base.OnClosed(e);
@@ -119,28 +112,26 @@ namespace Behaviac.Design
         private string _agentName = string.Empty;
         private AgentType _agentType = null;
 
-        private AgentType AgentType
-        {
+        private AgentType AgentType {
             get { return _agentType; }
         }
 
-        private string AgentName
-        {
+        private string AgentName {
             get { return _agentName; }
         }
 
-        private void InspectObject(AgentType agentType, string agentName, string agentFullname)
-        {
+        private void InspectObject(AgentType agentType, string agentName, string agentFullName, FrameStatePool.PlanningState nodeState) {
             Nodes.Node node = null;
-            if (agentType == null && !string.IsNullOrEmpty(agentFullname))
-            {
+
+            if (agentType == null && !string.IsNullOrEmpty(agentFullName)) {
                 int frame = AgentDataPool.CurrentFrame > -1 ? AgentDataPool.CurrentFrame : 0;
-                string behaviorFilename = FrameStatePool.GetBehaviorFilename(agentFullname, frame);
-                List<string> highlightNodeIds = FrameStatePool.GetHighlightNodeIds(agentFullname, frame, behaviorFilename);
-                List<string> updatedNodeIds = FrameStatePool.GetUpdatedNodeIds(agentFullname, frame, behaviorFilename);
+                string behaviorFilename = FrameStatePool.GetBehaviorFilename(agentFullName, frame);
+                List<string> transitionIds = FrameStatePool.GetHighlightTransitionIds(agentFullName, frame, behaviorFilename);
+                List<string> highlightNodeIds = FrameStatePool.GetHighlightNodeIds(agentFullName, frame, behaviorFilename);
+                List<string> updatedNodeIds = FrameStatePool.GetUpdatedNodeIds(agentFullName, frame, behaviorFilename);
                 Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> profileInfos = FrameStatePool.GetProfileInfos(frame, behaviorFilename);
 
-                BehaviorNode behavior = UIUtilities.ShowBehaviorTree(agentFullname, frame, highlightNodeIds, updatedNodeIds, HighlightBreakPoint.Instance, profileInfos);
+                BehaviorNode behavior = UIUtilities.ShowBehaviorTree(agentFullName, frame, transitionIds, highlightNodeIds, updatedNodeIds, HighlightBreakPoint.Instance, profileInfos);
                 node = behavior as Nodes.Node;
             }
 
@@ -150,14 +141,29 @@ namespace Behaviac.Design
             Hide();
 
             setText(agentType, agentName);
-            parametersPanel.InspectObject(agentType, agentFullname, node);
 
-            if (AgentDataPool.CurrentFrame > -1 && !string.IsNullOrEmpty(agentName))
-            {
-                List<AgentDataPool.ValueMark> valueSet = AgentDataPool.GetValidValues(node, agentType, agentFullname, AgentDataPool.CurrentFrame);
-                foreach (AgentDataPool.ValueMark value in valueSet)
-                {
-                    SetProperty(agentType != null ? agentType.ToString() : null, agentName, value.Name, value.Value);
+            if (nodeState != null) {
+                foreach(string agentFullName1 in nodeState._agents.Keys) {
+                    string[] tokens = agentFullName1.Split('#');
+                    Debug.Check(tokens.Length == 2);
+                    string at = tokens[0];
+                    string an = tokens[1];
+
+                    AgentType agentType1 = Plugin.GetAgentType(at);
+
+                    ParametersDock dock = findParametersDock(agentType1, an);
+                    dock.InspectObject(agentType1, agentFullName1);
+
+                    dock.setProperty(nodeState, agentFullName1);
+                }
+
+            } else if (AgentDataPool.CurrentFrame > -1 && !string.IsNullOrEmpty(agentName)) {
+                ParametersDock dock = findParametersDock(agentType, agentName);
+                dock.InspectObject(agentType, agentFullName);
+
+                List<AgentDataPool.ValueMark> valueSet = AgentDataPool.GetValidValues(agentType, agentFullName, AgentDataPool.CurrentFrame);
+                foreach(AgentDataPool.ValueMark value in valueSet) {
+                    dock.setProperty(value.Name, value.Value);
                 }
             }
 
@@ -165,84 +171,52 @@ namespace Behaviac.Design
             Show();
         }
 
-        private bool setProperty(string agentType, string agentName, string valueName, string valueStr)
-        {
-            if ((_agentType == null || _agentType.ToString() == agentType) && _agentName == agentName)
-            {
-                return parametersPanel.SetProperty(valueName, valueStr);
-            }
-
-            return false;
+        public void InspectObject(AgentType agentType, string agentFullName) {
+            this.parametersPanel.InspectObject(agentType, agentFullName);
         }
 
-        private void setText(AgentType agentType, string agentName)
-        {
+        private bool setProperty(string valueName, string valueStr) {
+            return parametersPanel.SetProperty(valueName, valueStr);
+        }
+
+        private void setProperty(FrameStatePool.PlanningState nodeState, string agentFullName) {
+            parametersPanel.SetProperty(nodeState, agentFullName);
+        }
+
+
+        private void setText(AgentType agentType, string agentName) {
             // Par
-            if (agentType == null)
-            {
+            if (agentType == null) {
                 Text = TabText = string.IsNullOrEmpty(agentName) ? Resources.Pars : string.Format(Resources.ParsOf, agentName);
             }
+
             // Global
-            else if (Plugin.IsInstanceAgentType(agentType))
-            {
+            else if (Plugin.IsInstanceAgentType(agentType)) {
                 Text = TabText = string.Format(Resources.PropertiesOf, agentType.ToString());
             }
+
             // Agent
-            else
-            {
+            else {
                 Text = TabText = string.Format(Resources.PropertiesOf + "::{1}", agentType.ToString(), agentName);
             }
         }
 
-        private void setParameter(string parName)
-        {
-            if (string.IsNullOrEmpty(parName))
-                return;
-
-            if (parName == VariableDef.kPar)
-            {
-                InspectObject(null, parName, parName);
-            }
-            else if (Plugin.IsInstanceName(parName))
-            {
-                InspectObject(Plugin.GetInstanceAgentType(parName), parName, parName);
-            }
-            else
-            {
-                if (Plugin.AgentTypes.Count > 0)
-                {
-                    string[] types = parName.Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-                    Debug.Check(types.Length > 0);
-                    string agentName = (types.Length > 1) ? types[1] : string.Empty;
-
-                    AgentType agentType = getAgentType(types[0]);
-                    if (agentType == null)
-                        agentType = Plugin.AgentTypes[0];
-
-                    InspectObject(agentType, agentName, parName);
-                }
-            }
-        }
-
-        private AgentType getAgentType(string typeName)
-        {
-            foreach (AgentType agentType in Plugin.AgentTypes)
-            {
-                if (agentType.ToString() == typeName)
+        private AgentType getAgentType(string typeName) {
+            foreach(AgentType agentType in Plugin.AgentTypes) {
+                if (agentType.ToString() == typeName) {
                     return agentType;
+                }
             }
 
             return null;
         }
 
-        private void lostAnyFocus()
-        {
+        private void lostAnyFocus() {
             this.Enabled = false;
             this.Enabled = true;
         }
 
-        private void ParametersDock_Click(object sender, EventArgs e)
-        {
+        private void ParametersDock_Click(object sender, EventArgs e) {
             lostAnyFocus();
         }
     }

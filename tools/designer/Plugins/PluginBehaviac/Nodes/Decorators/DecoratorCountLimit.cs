@@ -24,28 +24,16 @@ namespace PluginBehaviac.Nodes
     [NodeDesc("Decorators", NodeIcon.Decorator)]
     public class DecoratorCountLimit : DecoratorCount
 	{
-        private bool _acceptsEvents = false;
+        protected ConnectorSingle _reinit;
 		public DecoratorCountLimit() : base(Resources.DecoratorCountLimit, Resources.DecoratorCountLimitDesc)
 		{
-            _acceptsEvents = true;
+            _reinit = new ConnectorSingle(_children, Resources.Reinit, Connector.kInterupt);
 		}
-
 
         public override string ExportClass
         {
             get { return "DecoratorCountLimit"; }
         }
-
-        public override bool AcceptsAttachment(Type type)
-        {
-            if (_acceptsEvents)
-            {
-                return type.IsSubclassOf(typeof(Behaviac.Design.Attachments.Predicate));
-            }
-
-            return false;
-        }
-
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {

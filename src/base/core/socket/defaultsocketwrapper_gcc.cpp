@@ -34,7 +34,7 @@ namespace
     SOCKET AsSocket(behaviac::Socket::Handle h)
     {
 #if BEHAVIAC_COMPILER_64BITS
-		return (size_t)(h);
+        return (size_t)(h);
 #else
         return (SOCKET)(h);
 #endif
@@ -43,258 +43,260 @@ namespace
 
 namespace behaviac
 {
-	namespace Socket
-	{
-		bool InitSockets()
-		{
-			return true;
-		}
+    namespace Socket
+    {
+        bool InitSockets()
+        {
+            return true;
+        }
 
-		void ShutdownSockets()
-		{
-		}
+        void ShutdownSockets()
+        {
+        }
 
-		Handle Create(bool blocking)
-		{
-			SOCKET s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+        Handle Create(bool blocking)
+        {
+            SOCKET s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-			if (s < 0)
-			{
-				return Handle(0);
-			}
+            if (s < 0)
+            {
+                return Handle(0);
+            }
 
-			#ifdef SO_NONBLOCK
-				int inonBlocking = (blocking ? 0 : 1);
-				return setsockopt(s, SOL_SOCKET, SO_NONBLOCK, &inonBlocking, sizeof(inonBlocking)) == 0 ? Handle(s) : Handle(0));
-			#else
-				int v = fcntl(s, F_GETFL, 0);
-				int cntl = !blocking ? (v | O_NONBLOCK) : (v & ~O_NONBLOCK);
-				return fcntl(s, F_SETFL, cntl) != -1 ?  Handle(s) : Handle(0);
-			#endif
-		}
+#ifdef SO_NONBLOCK
+            int inonBlocking = (blocking ? 0 : 1);
+            return setsockopt(s, SOL_SOCKET, SO_NONBLOCK, &inonBlocking, sizeof(inonBlocking)) == 0 ? Handle(s) : Handle(0));
+#else
+            int v = fcntl(s, F_GETFL, 0);
+            int cntl = !blocking ? (v | O_NONBLOCK) : (v & ~O_NONBLOCK);
+            return fcntl(s, F_SETFL, cntl) != -1 ? Handle(s) : Handle(0);
+#endif
+        }
 
-		void Close(Handle& h)
-		{
-			close(AsSocket(h));
-			h = Handle(0);
-		}
+        void Close(Handle& h)
+        {
+            close(AsSocket(h));
+            h = Handle(0);
+        }
 
-		bool Listen(Handle h, Port port, int maxConnections)
-		{
-			SOCKET winSocket = ::AsSocket(h);
-			sockaddr_in addr;
+        bool Listen(Handle h, Port port, int maxConnections)
+        {
+            SOCKET winSocket = ::AsSocket(h);
+            sockaddr_in addr;
 
-			memset(&addr, 0, sizeof(addr));
-			addr.sin_addr.s_addr = htonl(INADDR_ANY);
-			addr.sin_family = AF_INET;
-			addr.sin_port = htons(port);
-			memset(addr.sin_zero, 0, sizeof(addr.sin_zero));
+            memset(&addr, 0, sizeof(addr));
+            addr.sin_addr.s_addr = htonl(INADDR_ANY);
+            addr.sin_family = AF_INET;
+            addr.sin_port = htons(port);
+            memset(addr.sin_zero, 0, sizeof(addr.sin_zero));
 
-			int bReuseAddr = 1;
-			::setsockopt(winSocket, SOL_SOCKET, SO_REUSEADDR, (const char*)&bReuseAddr, sizeof(bReuseAddr));
+            int bReuseAddr = 1;
+            ::setsockopt(winSocket, SOL_SOCKET, SO_REUSEADDR, (const char*)&bReuseAddr, sizeof(bReuseAddr));
 
-			//int rcvtimeo = 1000;
-			//::setsockopt(winSocket, SOL_SOCKET, SO_RCVTIMEO, (const char*)&rcvtimeo, sizeof(rcvtimeo));
+            //int rcvtimeo = 1000;
+            //::setsockopt(winSocket, SOL_SOCKET, SO_RCVTIMEO, (const char*)&rcvtimeo, sizeof(rcvtimeo));
 
-			if (bind(winSocket, reinterpret_cast<const sockaddr*>(&addr), sizeof(addr)) < 0)
-			{
-				Close(h);
-				BEHAVIAC_LOGERROR("Listen failed at bind\n");
-				return false;
-			}
+            if (bind(winSocket, reinterpret_cast<const sockaddr*>(&addr), sizeof(addr)) < 0)
+            {
+                Close(h);
+                BEHAVIAC_LOGERROR("Listen failed at bind\n");
+                return false;
+            }
 
-			if (listen(winSocket, maxConnections) < 0)
-			{
-				Close(h);
-				BEHAVIAC_LOGERROR("Listen failed at listen\n");
-				return false;
-			}
+            if (listen(winSocket, maxConnections) < 0)
+            {
+                Close(h);
+                BEHAVIAC_LOGERROR("Listen failed at listen\n");
+                return false;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		bool TestConnection(Handle h)
-		{
-			SOCKET winSocket = ::AsSocket(h);
-			fd_set readSet;
-			FD_ZERO(&readSet);
-			FD_SET(winSocket, &readSet);
-			timeval timeout = { 0, 17000 };
-			int res = ::select(0, &readSet, 0, 0, &timeout);
+        bool TestConnection(Handle h)
+        {
+            SOCKET winSocket = ::AsSocket(h);
+            fd_set readSet;
+            FD_ZERO(&readSet);
+            FD_SET(winSocket, &readSet);
+            timeval timeout = { 0, 17000 };
+            int res = ::select(0, &readSet, 0, 0, &timeout);
 
-			if (res > 0)
-			{
-				if (FD_ISSET(winSocket, &readSet))
-				{
-					return true;
-				}
-			}
-			
-			//printf("TestConnection %d\n", res);
+            if (res > 0)
+            {
+                if (FD_ISSET(winSocket, &readSet))
+                {
+                    return true;
+                }
+            }
 
-			return false;
-		}
+            //printf("TestConnection %d\n", res);
 
-		Handle Accept(Handle listeningSocket, size_t bufferSize)
-		{
+            return false;
+        }
+
+        Handle Accept(Handle listeningSocket, size_t bufferSize)
+        {
 #if !BEHAVIAC_COMPILER_APPLE
-			#ifndef  __GNUC__ 
-				typedef int socklen_t;
-			#endif
+#ifndef  __GNUC__
+            typedef int socklen_t;
+#endif
 #endif//BEHAVIAC_COMPILER_APPLE
-			sockaddr_in addr;
-			socklen_t len = sizeof(sockaddr_in);
-			memset(&addr, 0, sizeof(sockaddr_in));
-			SOCKET outSocket = ::accept(::AsSocket(listeningSocket), (sockaddr*)&addr, &len);
+            sockaddr_in addr;
+            socklen_t len = sizeof(sockaddr_in);
+            memset(&addr, 0, sizeof(sockaddr_in));
+            SOCKET outSocket = ::accept(::AsSocket(listeningSocket), (sockaddr*)&addr, &len);
 
-			if (outSocket > 0)
-			{
-				int sizeOfBufSize = sizeof(bufferSize);
-				::setsockopt(outSocket, SOL_SOCKET, SO_RCVBUF, (const char*)&bufferSize, sizeOfBufSize);
-				::setsockopt(outSocket, SOL_SOCKET, SO_SNDBUF, (const char*)&bufferSize, sizeOfBufSize);
-				return Handle(outSocket);
-			}
+            if (outSocket > 0)
+            {
+                int sizeOfBufSize = sizeof(bufferSize);
+                ::setsockopt(outSocket, SOL_SOCKET, SO_RCVBUF, (const char*)&bufferSize, sizeOfBufSize);
+                ::setsockopt(outSocket, SOL_SOCKET, SO_SNDBUF, (const char*)&bufferSize, sizeOfBufSize);
+                return Handle(outSocket);
+            }
 
-			BEHAVIAC_LOGERROR("Accept failed\n");
+            BEHAVIAC_LOGERROR("Accept failed\n");
 
-			return Handle(0);
-		}
+            return Handle(0);
+        }
 
-		static size_t gs_packetsSent = 0;
-		static size_t gs_packetsReceived = 0;
+        static size_t gs_packetsSent = 0;
+        static size_t gs_packetsReceived = 0;
 
-		bool Write(Handle& h, const void* buffer, size_t bytes, size_t& outBytesWritten)
-		{
-			outBytesWritten = 0;
+        bool Write(Handle& h, const void* buffer, size_t bytes, size_t& outBytesWritten)
+        {
+            outBytesWritten = 0;
 
-			if (bytes == 0 || !h)
-			{
-				return bytes == 0;
-			}
+            if (bytes == 0 || !h)
+            {
+                return bytes == 0;
+            }
 
-			int res = ::send(::AsSocket(h), (const char*)buffer, (int)bytes, 0);
+            int res = ::send(::AsSocket(h), (const char*)buffer, (int)bytes, 0);
 
-			if (res < 0)
-			{
-				BEHAVIAC_ASSERT(0);
-				// int err = WSAGetLastError();
+            if (res < 0)
+            {
+                BEHAVIAC_ASSERT(0);
+                // int err = WSAGetLastError();
 
-				// if (err == WSAECONNRESET || err == WSAECONNABORTED)
-				{
-					Close(h);
-				}
-			}
-			else
-			{
-				outBytesWritten = res;
-				gs_packetsSent++;
-			}
+                // if (err == WSAECONNRESET || err == WSAECONNABORTED)
+                {
+                    Close(h);
+                }
 
-			return outBytesWritten != 0;
-		}
+            }
+            else
+            {
+                outBytesWritten = res;
+                gs_packetsSent++;
+            }
 
-		size_t Read(Handle& h, const void* buffer, size_t bytesMax)
-		{
-			size_t bytesRead = 0;
+            return outBytesWritten != 0;
+        }
 
-			if (bytesMax == 0 || !h)
-			{
-				return bytesRead;
-			}
+        size_t Read(Handle& h, const void* buffer, size_t bytesMax)
+        {
+            size_t bytesRead = 0;
 
-			fd_set readfds;
-			FD_ZERO(&readfds);
-			FD_SET(::AsSocket(h), &readfds);
-			int maxfd1 = h + 1;
+            if (bytesMax == 0 || !h)
+            {
+                return bytesRead;
+            }
 
-			struct timeval tv;
+            fd_set readfds;
+            FD_ZERO(&readfds);
+            FD_SET(::AsSocket(h), &readfds);
+            int maxfd1 = h + 1;
 
-			tv.tv_sec = 0;
-			tv.tv_usec = 100000;//0.1s
+            struct timeval tv;
 
-			int rv = ::select(maxfd1, &readfds, 0, 0, &tv);
-			if (rv < 0)
-			{
-				BEHAVIAC_ASSERT(0);
-			}
-			else if (rv == 0)
-			{
-				//timeout
-			}
-			else
-			{
-				int res = ::recv(::AsSocket(h), (char*)buffer, (int)bytesMax, 0);
+            tv.tv_sec = 0;
+            tv.tv_usec = 100000;//0.1s
 
-				if (res < 0)
-				{
-					// int err = WSAGetLastError();
+            int rv = ::select(maxfd1, &readfds, 0, 0, &tv);
 
-					// if (err == WSAECONNRESET || err == WSAECONNABORTED)
-					{
-						Close(h);
-					}
-				}
-				else
-				{
-					bytesRead = res;
-					gs_packetsReceived++;
-				}
+            if (rv < 0)
+            {
+                BEHAVIAC_ASSERT(0);
 
-				return bytesRead;
-			}
+            }
+            else if (rv == 0)
+            {
+                //timeout
+            }
+            else
+            {
+                int res = ::recv(::AsSocket(h), (char*)buffer, (int)bytesMax, 0);
 
-			return 0;
-		}
+                if (res < 0)
+                {
+                    // int err = WSAGetLastError();
 
-		size_t GetPacketsSent()
-		{
-			return gs_packetsSent;
-		}
+                    // if (err == WSAECONNRESET || err == WSAECONNABORTED)
+                    {
+                        Close(h);
+                    }
 
-		size_t GetPacketsReceived()
-		{
-			return gs_packetsReceived;
-		}
+                }
+                else
+                {
+                    bytesRead = res;
+                    gs_packetsReceived++;
+                }
 
-	}//namespace Socket
+                return bytesRead;
+            }
 
+            return 0;
+        }
 
-	namespace thread
-	{
-		bool IsThreadTerminated(ThreadHandle hThread)
-		{
-			BEHAVIAC_UNUSED_VAR(hThread);
-			// uint32_t ret = ::WaitForSingleObject(hThread, 0);
+        size_t GetPacketsSent()
+        {
+            return gs_packetsSent;
+        }
 
-			// if (ret == 0)
-			// {
-			// 	return true;
-			// }
+        size_t GetPacketsReceived()
+        {
+            return gs_packetsReceived;
+        }
+    }//namespace Socket
 
-			return true;
-		}
-		
-		ThreadHandle CreateAndStartThread(ThreadFunction* function, void* arg, size_t stackSize)
-		{
-			BEHAVIAC_UNUSED_VAR(stackSize);
-			typedef void* ThreadFunction_t(void* arg);
+    namespace thread
+    {
+        bool IsThreadTerminated(ThreadHandle hThread)
+        {
+            BEHAVIAC_UNUSED_VAR(hThread);
+            // uint32_t ret = ::WaitForSingleObject(hThread, 0);
 
-			pthread_t tid;
-			int rc = pthread_create(&tid, NULL, (ThreadFunction_t*)function, arg);
-			if (rc)
-			{
-				return 0;
-			}
+            // if (ret == 0)
+            // {
+            // 	return true;
+            // }
 
-			return (ThreadHandle)tid;
-		}
+            return true;
+        }
 
-		void StopThread(ThreadHandle h)
-		{
-			pthread_t tid = (pthread_t)h;
-			pthread_join(tid, NULL);
-		}
-	}//namespace thread
+        ThreadHandle CreateAndStartThread(ThreadFunction* function, void* arg, size_t stackSize)
+        {
+            BEHAVIAC_UNUSED_VAR(stackSize);
+            typedef void* ThreadFunction_t(void * arg);
 
+            pthread_t tid;
+            int rc = pthread_create(&tid, NULL, (ThreadFunction_t*)function, arg);
+
+            if (rc)
+            {
+                return 0;
+            }
+
+            return (ThreadHandle)tid;
+        }
+
+        void StopThread(ThreadHandle h)
+        {
+            pthread_t tid = (pthread_t)h;
+            pthread_join(tid, NULL);
+        }
+    }//namespace thread
 } // namespace behaviac
 #endif//#if !BEHAVIAC_COMPILER_MSVC

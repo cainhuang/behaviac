@@ -17,44 +17,46 @@ using NUnit.Framework;
 
 namespace BehaviorNodeUnitTest
 {
-	internal class UnitTestBase_0
-	{
-		public AgentNodeTest testAgent = null;
-		
-		[TestFixtureSetUp]  
-		public void initGlobalTestEnv()  
-		{
-			BehaviacSystem.Instance.init();
-			
-			GameObject testAgentObject = new GameObject();
-			testAgentObject.name = "@UnitTestAgent";
-			testAgentObject.transform.localPosition = Vector3.zero;
-			testAgentObject.transform.localRotation = Quaternion.identity;
-			testAgentObject.transform.localScale = Vector3.one;
-			testAgent = testAgentObject.AddComponent<AgentNodeTest>();			
-			testAgent.init();
-			
-			//Debug.Log("InitTestFixture");
-		}
-		
-		[TestFixtureTearDown]  
-		public void finlGlobalTestEnv()  
-		{
-			testAgent.finl();
-			
-			BehaviacSystem.Instance.finl();
-			//Debug.Log("FinlTestFixture");
-		}
-		
-		[SetUp]  
-		public void initTestEnv()  
-		{
-		}
-		
-		[TearDown]  
-		public void finlTestEnv()  
-		{
-			testAgent.btunloadall();
-		}
-	}
+    internal class UnitTestBase_0
+    {
+        //protected const int kLoopCount = 30000;
+        protected const int kLoopCount = 3000;
+        protected const int kLoopMed = kLoopCount / 3;
+        protected const int kLoopMed2 = kLoopMed * 3 / 2;
+        protected const int kLoopBias = kLoopMed / 10;
+
+        public AgentNodeTest testAgent = null;
+
+        [TestFixtureSetUp]
+        public void initGlobalTestEnv() {
+            BehaviacSystem.Instance.Init();
+
+            GameObject testAgentObject = new GameObject();
+            testAgentObject.name = "@UnitTestAgent";
+            testAgentObject.transform.localPosition = Vector3.zero;
+            testAgentObject.transform.localRotation = Quaternion.identity;
+            testAgentObject.transform.localScale = Vector3.one;
+            testAgent = testAgentObject.AddComponent<AgentNodeTest>();
+            testAgent.init();
+
+            //Debug.Log("InitTestFixture");
+        }
+
+        [TestFixtureTearDown]
+        public void finlGlobalTestEnv() {
+            testAgent.finl();
+
+            BehaviacSystem.Instance.Uninit();
+            //Debug.Log("FinlTestFixture");
+        }
+
+        [SetUp]
+        public void initTestEnv() {
+        }
+
+        [TearDown]
+        public void finlTestEnv() {
+            testAgent.btunloadall();
+        }
+    }
 }

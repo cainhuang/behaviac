@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public DecoratorFailureUntil()
         {
-		}
+        }
+
         ~DecoratorFailureUntil()
         {
         }
@@ -49,9 +48,10 @@ namespace behaviac
         }
 
         ///Returns EBTStatus.BT_FAILURE for the specified number of iterations, then returns EBTStatus.BT_SUCCESS after that
-        class DecoratorFailureUntilTask : DecoratorCountTask
+        private class DecoratorFailureUntilTask : DecoratorCountTask
         {
-            public DecoratorFailureUntilTask() : base()
+            public DecoratorFailureUntilTask()
+                : base()
             {
             }
 
@@ -64,6 +64,7 @@ namespace behaviac
             {
                 base.save(node);
             }
+
             public override void load(ISerializableNode node)
             {
                 base.load(node);
@@ -91,11 +92,6 @@ namespace behaviac
                 Debug.Check(this.m_n == 0);
 
                 return EBTStatus.BT_SUCCESS;
-            }
-
-            public override bool NeedRestart()
-            {
-                return true;
             }
         }
     }

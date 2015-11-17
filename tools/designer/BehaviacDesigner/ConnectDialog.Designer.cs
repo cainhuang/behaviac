@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -24,12 +24,11 @@ namespace Behaviac.Design
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -39,8 +38,7 @@ namespace Behaviac.Design
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectDialog));
             this.tbServer = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,22 +47,22 @@ namespace Behaviac.Design
             this.label2 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // tbServer
-            // 
+            //
             resources.ApplyResources(this.tbServer, "tbServer");
             this.tbServer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.tbServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbServer.ForeColor = System.Drawing.Color.LightGray;
             this.tbServer.Name = "tbServer";
-            // 
+            //
             // label1
-            // 
+            //
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            // 
+            //
             // btnOk
-            // 
+            //
             resources.ApplyResources(this.btnOk, "btnOk");
             this.btnOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -72,23 +70,23 @@ namespace Behaviac.Design
             this.btnOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.btnOk.Name = "btnOk";
             this.btnOk.UseVisualStyleBackColor = false;
-            // 
+            //
             // tbPort
-            // 
+            //
             resources.ApplyResources(this.tbPort, "tbPort");
             this.tbPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.tbPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbPort.ForeColor = System.Drawing.Color.LightGray;
             this.tbPort.Name = "tbPort";
             this.tbPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPort_KeyPress);
-            // 
+            //
             // label2
-            // 
+            //
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            // 
+            //
             // btnCancel
-            // 
+            //
             resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -96,9 +94,9 @@ namespace Behaviac.Design
             this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.UseVisualStyleBackColor = false;
-            // 
+            //
             // ConnectDialog
-            // 
+            //
             this.AcceptButton = this.btnOk;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

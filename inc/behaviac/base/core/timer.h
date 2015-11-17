@@ -11,14 +11,13 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BASE_TIMER_H_
-#define BEHAVIAC_BASE_TIMER_H_
+#ifndef BEHAVIAC_BASE_TIMER_H
+#define BEHAVIAC_BASE_TIMER_H
 
 #include "config.h"
 
 namespace behaviac
 {
-
     // Forward declaration
     struct TimerInformation;
     BEHAVIAC_API const TimerInformation& GetTimerInformation();
@@ -90,7 +89,6 @@ namespace behaviac
     BEHAVIAC_API const TimerInformation& GetTimerInformation();
     BEHAVIAC_API Tick GetTick();
     BEHAVIAC_API int64_t ReadTSC();
-
 } // namespace behaviac
 
-#endif//BEHAVIAC_BASE_TIMER_H_
+#endif//BEHAVIAC_BASE_TIMER_H

@@ -33,7 +33,6 @@ uint64_t CHighPerfTimer::GetTimeValue()
     return uint64_t(0);
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 // Variables used by timers
 //////////////////////////////////////////////////////////////////////////
@@ -41,9 +40,9 @@ uint64_t CHighPerfTimer::GetTimeValue()
 struct SInternalTimerVariables
 {
     SInternalTimerVariables()
-        :   m_curTime(0),
-            m_timerStart(0),
-            m_secsPerTick(0.f)
+        : m_curTime(0),
+          m_timerStart(0),
+          m_secsPerTick(0.f)
     {}
     int64_t m_curTime;
     int64_t m_timerStart;
@@ -66,10 +65,10 @@ bool CTimer::Init()
 /////////////////////////////////////////////////////
 unsigned int CTimer::GetElapsedTime(int& hours, int& minutes, int& seconds)
 {
-    BEHAVIAC_UNUSED_VAR(hours);    
-    BEHAVIAC_UNUSED_VAR(minutes);    
-    BEHAVIAC_UNUSED_VAR(seconds);    
-    
+    BEHAVIAC_UNUSED_VAR(hours);
+    BEHAVIAC_UNUSED_VAR(minutes);
+    BEHAVIAC_UNUSED_VAR(seconds);
+
     BEHAVIAC_ASSERT(0);
     return 0;
 }

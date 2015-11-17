@@ -44,13 +44,11 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerEnumEditor : Behaviac.Design.Attributes.DesignerPropertyEditor
     {
-        public DesignerEnumEditor()
-        {
+        public DesignerEnumEditor() {
             InitializeComponent();
         }
 
-        public override void ReadOnly()
-        {
+        public override void ReadOnly() {
             base.ReadOnly();
 
             comboBox.Enabled = false;
@@ -59,69 +57,38 @@ namespace Behaviac.Design.Attributes
         private List<object> _values = new List<object>();
         private List<object> _allValues = new List<object>();
 
-        private void clear()
-        {
+        private void clear() {
             _allValues.Clear();
             _values.Clear();
             comboBox.Items.Clear();
         }
 
-        public override void SetProperty(DesignerPropertyInfo property, object obj)
-        {
-            base.SetProperty(property, obj);
-
-            string enumName = string.Empty;
-            Type enumtype = null;
-
-            DesignerEnum enumAtt = property.Attribute as DesignerEnum;
-            if (enumAtt != null)
-            {
-                enumName = DesignerEnum.GetDisplayName(property.Property.GetValue(obj, null));
-                enumtype = property.Property.PropertyType;
-            }
-
-            if (enumtype == null)
-                throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, property.Property.Name));
-
-            clear();
-
-            Behaviac.Design.Nodes.Node node = obj as Behaviac.Design.Nodes.Node;
-            Behaviac.Design.Attachments.Attach evt = obj as Behaviac.Design.Attachments.Attach;
+        private void filterEnums(DesignerEnum enumAtt, string enumName, Type enumtype) {
+            UIObject uiObject = _object as UIObject;
 
             object[] excludedElements = null;
 
-            if (node != null)
-            {
-                excludedElements = node.GetExcludedEnums(enumAtt);
-            }
-            else if (evt != null)
-            {
-                excludedElements = evt.GetExcludedEnums(enumAtt);
+            if (uiObject != null) {
+                excludedElements = uiObject.GetExcludedEnums(enumAtt);
             }
 
             Array list = Enum.GetValues(enumtype);
-            foreach (object enumVal in list)
-            {
+            foreach(object enumVal in list) {
                 bool excluded = false;
 
-                if (excludedElements != null)
-                {
-                    for (int i = 0; i < excludedElements.Length; ++i)
-                    {
-                        if (excludedElements[i].Equals(enumVal))
-                        {
+                if (excludedElements != null) {
+                    for (int i = 0; i < excludedElements.Length; ++i) {
+                        if (excludedElements[i].Equals(enumVal)) {
                             excluded = true;
                             break;
                         }
                     }
                 }
 
-                if (!excluded)
-                {
+                if (!excluded) {
                     _allValues.Add(enumVal);
 
-                    if (DesignerEnum.GetDisplayName(enumVal) == enumName)
-                    {
+                    if (DesignerEnum.GetDisplayName(enumVal) == enumName) {
                         _values.Add(enumVal);
                         comboBox.Items.Add(enumName);
                     }
@@ -131,8 +98,28 @@ namespace Behaviac.Design.Attributes
             comboBox.Text = enumName;
         }
 
-        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj)
-        {
+        public override void SetProperty(DesignerPropertyInfo property, object obj) {
+            base.SetProperty(property, obj);
+
+            string enumName = string.Empty;
+            Type enumtype = null;
+
+            DesignerEnum enumAtt = property.Attribute as DesignerEnum;
+
+            if (enumAtt != null) {
+                enumName = DesignerEnum.GetDisplayName(property.Property.GetValue(obj, null));
+                enumtype = property.Property.PropertyType;
+            }
+
+            if (enumtype == null)
+            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, property.Property.Name)); }
+
+            clear();
+
+            filterEnums(enumAtt, enumName, enumtype);
+        }
+
+        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj) {
             base.SetArrayProperty(arrayProperty, obj);
 
             clear();
@@ -140,12 +127,10 @@ namespace Behaviac.Design.Attributes
             Array list = Enum.GetValues(arrayProperty.ItemType);
             string enumName = DesignerEnum.GetDisplayName(arrayProperty.Value);
 
-            foreach (object enumVal in list)
-            {
+            foreach(object enumVal in list) {
                 _allValues.Add(enumVal);
 
-                if (DesignerEnum.GetDisplayName(enumVal) == enumName)
-                {
+                if (DesignerEnum.GetDisplayName(enumVal) == enumName) {
                     _values.Add(enumVal);
                     comboBox.Items.Add(enumName);
                 }
@@ -154,93 +139,45 @@ namespace Behaviac.Design.Attributes
             comboBox.Text = enumName;
         }
 
-        public override void SetParameter(MethodDef.Param param, object obj)
-        {
-            base.SetParameter(param, obj);
+        public override void SetParameter(MethodDef.Param param, object obj, bool bReadonly) {
+            base.SetParameter(param, obj, bReadonly);
 
             string enumName = string.Empty;
             Type enumtype = null;
 
             DesignerEnum enumAtt = param.Attribute as DesignerEnum;
-            if (enumAtt != null)
-            {
+
+            if (enumAtt != null) {
                 enumName = DesignerEnum.GetDisplayName(param.Value);
                 enumtype = param.Value.GetType();
             }
 
             if (enumtype == null)
-                throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, param.Attribute.DisplayName));
+            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, param.Attribute.DisplayName)); }
 
             clear();
 
-            Behaviac.Design.Nodes.Node node = obj as Behaviac.Design.Nodes.Node;
-            Behaviac.Design.Attachments.Attach evt = obj as Behaviac.Design.Attachments.Attach;
-
-            object[] excludedElements = null;
-
-            if (node != null)
-            {
-                excludedElements = node.GetExcludedEnums(enumAtt);
-            }
-            else if (evt != null)
-            {
-                excludedElements = evt.GetExcludedEnums(enumAtt);
-            }
-
-            Array list = Enum.GetValues(enumtype);
-            foreach (object enumVal in list)
-            {
-                bool excluded = false;
-
-                if (excludedElements != null)
-                {
-                    for (int i = 0; i < excludedElements.Length; ++i)
-                    {
-                        if (excludedElements[i].Equals(enumVal))
-                        {
-                            excluded = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (!excluded)
-                {
-                    _allValues.Add(enumVal);
-
-                    if (DesignerEnum.GetDisplayName(enumVal) == enumName)
-                    {
-                        _values.Add(enumVal);
-                        comboBox.Items.Add(enumName);
-                    }
-                }
-            }
-
-            comboBox.Text = enumName;
+            filterEnums(enumAtt, enumName, enumtype);
         }
 
-        public override void SetVariable(VariableDef variable, object obj)
-        {
+        public override void SetVariable(VariableDef variable, object obj) {
             base.SetVariable(variable, obj);
 
             _valueWasAssigned = false;
 
             clear();
 
-            if (variable != null)
-            {
+            if (variable != null) {
                 Type enumtype = variable.GetValueType();
-                if (enumtype.IsEnum)
-                {
+
+                if (enumtype.IsEnum) {
                     Array list = Enum.GetValues(enumtype);
                     string enumName = DesignerEnum.GetDisplayName(variable.Value);
 
-                    foreach (object enumVal in list)
-                    {
+                    foreach(object enumVal in list) {
                         _allValues.Add(enumVal);
 
-                        if (DesignerEnum.GetDisplayName(enumVal) == enumName)
-                        {
+                        if (DesignerEnum.GetDisplayName(enumVal) == enumName) {
                             _values.Add(enumVal);
                             comboBox.Items.Add(enumName);
                         }
@@ -253,93 +190,80 @@ namespace Behaviac.Design.Attributes
             _valueWasAssigned = true;
         }
 
-        private void comboBox_DropDown(object sender, EventArgs e)
-        {
-            if (_allValues.Count > 0 && _values.Count != _allValues.Count)
-            {
+        private void comboBox_DropDown(object sender, EventArgs e) {
+            if (_allValues.Count > 0 && _values.Count != _allValues.Count) {
                 _values = _allValues;
 
-                if (string.IsNullOrEmpty(comboBox.Text))
-                {
-                    foreach (object v in _values)
-                    {
+                if (string.IsNullOrEmpty(comboBox.Text)) {
+                    foreach(object v in _values) {
                         string enumName = DesignerEnum.GetDisplayName(v);
+
                         if (!comboBox.Items.Contains(enumName))
-                            comboBox.Items.Add(enumName);
+                        { comboBox.Items.Add(enumName); }
                     }
-                }
-                else
-                {
+
+                } else {
                     int index = -1;
-                    for (int i = 0; i < _values.Count; ++i)
-                    {
+
+                    for (int i = 0; i < _values.Count; ++i) {
                         string enumName = DesignerEnum.GetDisplayName(_values[i]);
-                        if (comboBox.Text == enumName)
-                        {
+
+                        if (comboBox.Text == enumName) {
                             index = i;
                             break;
                         }
                     }
 
-                    if (index > -1)
-                    {
-                        for (int i = index - 1; i >= 0; --i)
-                        {
+                    if (index > -1) {
+                        for (int i = index - 1; i >= 0; --i) {
                             string enumName = DesignerEnum.GetDisplayName(_values[i]);
+
                             if (!comboBox.Items.Contains(enumName))
-                                comboBox.Items.Insert(0, enumName);
+                            { comboBox.Items.Insert(0, enumName); }
                         }
 
-                        for (int i = index + 1; i < _values.Count; ++i)
-                        {
+                        for (int i = index + 1; i < _values.Count; ++i) {
                             string enumName = DesignerEnum.GetDisplayName(_values[i]);
+
                             if (!comboBox.Items.Contains(enumName))
-                                comboBox.Items.Add(enumName);
+                            { comboBox.Items.Add(enumName); }
                         }
                     }
                 }
             }
         }
 
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e) {
             if (comboBox.SelectedIndex < 0 || !_valueWasAssigned)
-                return;
+            { return; }
 
-            if (_property.Property != null)
-            {
+            if (_property.Property != null) {
                 _property.Property.SetValue(_object, _values[comboBox.SelectedIndex], null);
-            }
-            else if (_arrayProperty != null)
-            {
+
+            } else if (_arrayProperty != null) {
                 _arrayProperty.Value = _values[comboBox.SelectedIndex];
-            }
-            else if (_param != null)
-            {
+
+            } else if (_param != null) {
                 Debug.Check(_param.Attribute is DesignerEnum);
                 _param.Value = _values[comboBox.SelectedIndex];
-            }
-            else if (_variable != null)
-            {
+
+            } else if (_variable != null) {
                 _variable.Value = _values[comboBox.SelectedIndex];
-            }
-            else
-            {
+
+            } else {
                 Debug.Check(false);
             }
 
             OnValueChanged(_property);
         }
 
-        private void comboBox_MouseEnter(object sender, EventArgs e)
-        {
+        private void comboBox_MouseEnter(object sender, EventArgs e) {
             this.OnMouseEnter(e);
         }
 
-        private void comboBox_DrawItem(object sender, DrawItemEventArgs e)
-        {
+        private void comboBox_DrawItem(object sender, DrawItemEventArgs e) {
             if (e.Index < 0)
-                return;
+            { return; }
 
             e.DrawBackground();
             e.Graphics.DrawString(comboBox.Items[e.Index].ToString(), e.Font, System.Drawing.Brushes.LightGray, e.Bounds);
@@ -348,10 +272,9 @@ namespace Behaviac.Design.Attributes
             this.OnDescriptionChanged(this.DisplayName, DesignerEnum.GetDescription(_values[e.Index]));
         }
 
-        private void comboBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void comboBox_KeyPress(object sender, KeyPressEventArgs e) {
             if (Control.ModifierKeys == Keys.Shift || Control.ModifierKeys == Keys.Control || Control.ModifierKeys == Keys.Alt)
-                e.Handled = true;
+            { e.Handled = true; }
         }
     }
 }

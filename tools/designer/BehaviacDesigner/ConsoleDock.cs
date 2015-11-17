@@ -30,88 +30,81 @@ namespace Behaviac.Design
     {
         private static ConsoleDock _consoleDock = null;
 
-        internal static void Inspect()
-        {
-            if (_consoleDock == null)
-            {
+        internal static void Inspect() {
+            if (_consoleDock == null) {
                 _consoleDock = new ConsoleDock();
                 _consoleDock.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
-            }
-            else
-            {
+
+            } else {
                 _consoleDock.Show();
             }
         }
 
-        internal static void CloseAll()
-        {
+        internal static void CloseAll() {
             Clear();
 
-            if (_consoleDock != null)
+            if (_consoleDock != null) {
                 _consoleDock.Close();
+            }
         }
 
-        internal static void Clear()
-        {
-            if (_consoleDock != null)
+        internal static void Clear() {
+            if (_consoleDock != null) {
                 _consoleDock.logListView.Items.Clear();
+            }
         }
 
-        internal static void SetMesssages(int frame)
-        {
-            if (_consoleDock != null && frame >= 0)
-            {
-                try
-                {
+        internal static void SetMesssages(int frame) {
+            if (_consoleDock != null && frame >= 0) {
+                try {
                     _consoleDock.logListView.Hide();
 
                     int endIndex = MessageQueue.Messages.Count;
-                    if (Plugin.EditMode == EditModes.Connect)
-                    {
+
+                    if (Plugin.EditMode == EditModes.Connect) {
                         endIndex = MessageQueue.CurrentIndex();
-                    }
-                    else
-                    {
+
+                    } else {
                         endIndex = MessageQueue.MessageStartIndex(frame + 1);
                     }
+
                     _consoleDock.logListView.VirtualListSize = (endIndex > 0) ? endIndex : MessageQueue.Messages.Count;
 
                     bool setTop = false;
-                    if (Plugin.EditMode == EditModes.Analyze)
-                    {
+
+                    if (Plugin.EditMode == EditModes.Analyze) {
                         int startIndex = MessageQueue.MessageStartIndex(frame);
-                        if (startIndex >= 0)
-                        {
+
+                        if (startIndex >= 0 && startIndex < _consoleDock.logListView.Items.Count) {
                             _consoleDock.logListView.TopItem = _consoleDock.logListView.Items[startIndex];
                             setTop = false;
                         }
                     }
-                    if (!setTop)
-                    {
-                        if (_consoleDock.logListView.Items.Count > 0)
+
+                    if (!setTop) {
+                        if (_consoleDock.logListView.Items.Count > 0) {
                             _consoleDock.logListView.EnsureVisible(_consoleDock.logListView.Items.Count - 1);
+                        }
                     }
 
                     _consoleDock.logListView.Show();
-                }
-                catch
-                {
+
+                } catch {
                 }
             }
         }
 
-        public ConsoleDock()
-        {
-            if (_consoleDock == null)
+        public ConsoleDock() {
+            if (_consoleDock == null) {
                 _consoleDock = this;
+            }
 
             InitializeComponent();
 
             this.TabText = Resources.Output;
         }
 
-        protected override void OnShown(EventArgs e)
-        {
+        protected override void OnShown(EventArgs e) {
             this.limitCountCheckBox.Visible = (Plugin.EditMode == EditModes.Connect);
             this.limitCountCheckBox.Checked = Settings.Default.LimitLogCount;
             this.logCountLabel.Visible = (Plugin.EditMode == EditModes.Connect) && Settings.Default.LimitLogCount;
@@ -121,141 +114,107 @@ namespace Behaviac.Design
             base.OnShown(e);
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
+        protected override void OnClosed(EventArgs e) {
             _consoleDock = null;
 
             base.OnClosed(e);
         }
 
-        private void selectAllItems()
-        {
-            try
-            {
-                if (logListView.Items.Count > 0)
-                {
+        private void selectAllItems() {
+            try {
+                if (logListView.Items.Count > 0) {
                     logListView.Focus();
                     logListView.Items[0].Selected = true;
                     SendKeys.Send("+{END}");
                 }
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void copySelectedItems()
-        {
-            try
-            {
-                if (logListView.SelectedIndices.Count > 0)
-                {
+        private void copySelectedItems() {
+            try {
+                if (logListView.SelectedIndices.Count > 0) {
                     StringBuilder sb = new StringBuilder();
-                    foreach (int index in logListView.SelectedIndices)
-                    {
+                    foreach(int index in logListView.SelectedIndices) {
                         sb.Append(logListView.Items[index].SubItems[0].Text);
                     }
 
-                    if (sb.Length > 0)
+                    if (sb.Length > 0) {
                         Clipboard.SetText(sb.ToString());
+                    }
                 }
+
+            } catch {
             }
-            catch
-            {
-            }
         }
 
-        private void selectAllMenuItem_Click(object sender, EventArgs e)
-        {
-            selectAllItems();
-        }
-
-        private void copyMenuItem_Click(object sender, EventArgs e)
-        {
-            copySelectedItems();
-        }
-
-        private void logListView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control)
-            {
-                if (e.KeyCode == Keys.A)
-                {
-                    selectAllItems();
-                }
-                else if (e.KeyCode == Keys.C)
-                {
-                    copySelectedItems();
+        private void logListView_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Control) {
+                if (e.KeyCode == Keys.C) {
+                    copyAllToClipboard();
                 }
             }
         }
 
-        private void logListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
-        {
-            try
-            {
+        private void logListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e) {
+            try {
                 string item = string.Empty;
-                if (e.ItemIndex >= 0 && e.ItemIndex < MessageQueue.Messages.Count)
-                {
+
+                if (e.ItemIndex >= 0 && e.ItemIndex < MessageQueue.Messages.Count) {
                     item = MessageQueue.Messages[e.ItemIndex];
                 }
 
                 e.Item = new ListViewItem(item);
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void logListView_SizeChanged(object sender, EventArgs e)
-        {
+        private void logListView_SizeChanged(object sender, EventArgs e) {
             logColumnHeader.Width = logListView.Width - 25;
         }
 
         private bool isDragging = false;
         private Point startMousePos;
 
-        private void logListView_MouseDown(object sender, MouseEventArgs e)
-        {
+        private void logListView_MouseDown(object sender, MouseEventArgs e) {
             isDragging = true;
             startMousePos = e.Location;
         }
 
-        private void logListView_MouseMove(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                if (isDragging && logListView.Items.Count > 0)
-                {
+        private void logListView_MouseMove(object sender, MouseEventArgs e) {
+            try {
+                if (isDragging && logListView.Items.Count > 0) {
                     Point endMousePos = e.Location;
                     int y = Math.Min(startMousePos.Y, endMousePos.Y);
                     int height = Math.Abs(endMousePos.Y - startMousePos.Y);
 
                     ListViewItem hitItem = logListView.HitTest(endMousePos).Item;
-                    if (hitItem != null)
-                        hitItem.Selected = true;
 
-                    foreach (int index in logListView.SelectedIndices)
-                    {
+                    if (hitItem != null) {
+                        hitItem.Selected = true;
+                    }
+
+                    foreach(int index in logListView.SelectedIndices) {
                         ListViewItem item = logListView.Items[index];
                         int itemY = item.Position.Y;
-                        if (itemY < y - item.Bounds.Height || itemY > y + height)
+
+                        if (itemY < y - item.Bounds.Height || itemY > y + height) {
                             item.Selected = false;
+                        }
                     }
                 }
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void logListView_MouseUp(object sender, MouseEventArgs e)
-        {
+        private void logListView_MouseUp(object sender, MouseEventArgs e) {
             isDragging = false;
         }
 
-        private void limitCountCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
+        private void limitCountCheckBox_CheckedChanged(object sender, EventArgs e) {
             Settings.Default.LimitLogCount = this.limitCountCheckBox.Checked;
             MessageQueue.LimitMessageCount = Settings.Default.LimitLogCount;
 
@@ -263,10 +222,40 @@ namespace Behaviac.Design
             this.logCountNumericUpDown.Visible = Settings.Default.LimitLogCount;
         }
 
-        private void logCountNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
+        private void logCountNumericUpDown_ValueChanged(object sender, EventArgs e) {
             Settings.Default.MaxLogCount = (int)this.logCountNumericUpDown.Value;
             MessageQueue.MaxMessageCount = Settings.Default.MaxLogCount;
+        }
+
+        private void buttonCopyAll_Click(object sender, EventArgs e)
+        {
+            copyAllToClipboard();
+        }
+
+        private void copyMenuItem_Click(object sender, EventArgs e)
+        {
+            copyAllToClipboard();
+        }
+
+        private void copyAllToClipboard()
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+
+                for (int index = 0; index < logListView.Items.Count; ++index)
+                {
+                    sb.Append(logListView.Items[index].SubItems[0].Text);
+                }
+
+                if (sb.Length > 0)
+                {
+                    Clipboard.SetText(sb.ToString());
+                }
+            }
+            catch
+            {
+            }
         }
     }
 }

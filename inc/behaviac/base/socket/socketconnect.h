@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_SOCKETCONNECT_H_
-#define _BEHAVIAC_BASE_SOCKETCONNECT_H_
+#ifndef BEHAVIAC_BASE_SOCKETCONNECT_H
+#define BEHAVIAC_BASE_SOCKETCONNECT_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/core/container/string_t.h"
@@ -23,31 +23,22 @@
 
 namespace behaviac
 {
-	namespace Socket
-	{
-		/**
-		@param bBlocking
-		if true, block the execution and wait for the connection from the designer
-		if false, wait for the connection from the designer but doesn't block the game
-		*/
-		BEHAVIAC_API bool SetupConnection(bool bBlocking, unsigned short port = 60636);
-		BEHAVIAC_API void ShutdownConnection();
+    namespace Socket
+    {
+        BEHAVIAC_API void SendText(const char* text);
+        BEHAVIAC_API void SendWorkspace(const char* text);
 
-		BEHAVIAC_API void SendText(const char* text);
-		BEHAVIAC_API void SendWorkspace(const char* text);
+        /**
+        return true if it successfully reads data
+        return false if there is no text read
+        */
+        BEHAVIAC_API bool ReadText(behaviac::string& text);
 
-		/**
-		return true if it successfully reads data
-		return false if there is no text read
-		*/
-		BEHAVIAC_API bool ReadText(behaviac::string& text);
-
-		/**
-		flush messsages
-		*/
-		BEHAVIAC_API void Flush();
-	}
+        /**
+        flush messsages
+        */
+        BEHAVIAC_API void Flush();
+    }
 }//namespace behaviac
 
-#endif//#if _BEHAVIAC_BASE_SOCKETCONNECT_H_
-
+#endif//#if BEHAVIAC_BASE_SOCKETCONNECT_H

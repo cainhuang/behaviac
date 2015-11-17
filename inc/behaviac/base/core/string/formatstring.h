@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_FORMATSTRING_H_
-#define BEHAVIAC_FORMATSTRING_H_
+#ifndef BEHAVIAC_FORMATSTRING_H
+#define BEHAVIAC_FORMATSTRING_H
 
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS	1
@@ -30,7 +30,7 @@ namespace behaviac
             STempResultString()
             {
                 // force last character to be zero right now, since it's hidden
-                m_characters[ STempResultString::ms_maxStringLength ] = 0;
+                m_characters[STempResultString::ms_maxStringLength] = 0;
             }
 
             operator const char* () const
@@ -44,7 +44,7 @@ namespace behaviac
             }
 
             static const unsigned int ms_maxStringLength = 2048;
-            mutable char m_characters[ ms_maxStringLength + 1 ];
+            mutable char m_characters[ms_maxStringLength + 1];
         };
 
 #define DECLARE_VALIDATETYPE( type ) \
@@ -97,7 +97,7 @@ inline const char* FormatString(const char* format)
     template< REPEAT( DECLARE_TYPENAME, num ) > \
     inline const char* FormatString( const char* format, REPEAT( DECLARE_PARAM, num ), const behaviac::Private::STempResultString& tempString = behaviac::Private::STempResultString() ) \
     { \
-		string_snprintf( tempString, behaviac::Private::STempResultString::ms_maxStringLength, format, REPEAT( USE_PARAM, num ) ); \
+        string_snprintf( tempString, behaviac::Private::STempResultString::ms_maxStringLength, format, REPEAT( USE_PARAM, num ) ); \
         return tempString; \
     }
 #else
@@ -105,7 +105,7 @@ inline const char* FormatString(const char* format)
     template< REPEAT( DECLARE_TYPENAME, num ) > \
     inline const char* FormatString( const char* format, REPEAT( DECLARE_PARAM, num ), const behaviac::Private::STempResultString& tempString = behaviac::Private::STempResultString() ) \
     { \
-		string_snprintf( tempString, behaviac::Private::STempResultString::ms_maxStringLength, format, REPEAT( USE_PARAM, num ) ); \
+        string_snprintf( tempString, behaviac::Private::STempResultString::ms_maxStringLength, format, REPEAT( USE_PARAM, num ) ); \
         return tempString; \
     }
 #endif
@@ -131,4 +131,4 @@ DEFINE_FORMATSTRING(15)
 #undef DECLARE_PARAM
 #undef DECLARE_TYPENAME
 
-#endif // BEHAVIAC_FORMATSTRING_H_
+#endif // BEHAVIAC_FORMATSTRING_H

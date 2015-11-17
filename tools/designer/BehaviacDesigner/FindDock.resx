@@ -117,296 +117,380 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="whatLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="whatLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 15</value>
+  </data>
+  <data name="whatLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 13</value>
+  </data>
+  <data name="whatLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="whatLabel.Text" xml:space="preserve">
+    <value>What:</value>
+  </data>
+  <data name="whatLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;whatLabel.Name" xml:space="preserve">
+    <value>whatLabel</value>
+  </data>
+  <data name="&gt;&gt;whatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;whatLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;whatLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="rangeComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="whatComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
   <data name="whatComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="whatComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>59, 12</value>
+  </data>
   <data name="whatComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>234, 21</value>
   </data>
-  <data name="findPreviousButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="whatComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="findPreviousButton.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="&gt;&gt;whatComboBox.Name" xml:space="preserve">
+    <value>whatComboBox</value>
   </data>
-  <data name="optionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 80</value>
+  <data name="&gt;&gt;whatComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;closeButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;whatComboBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="rangeComboBox.Items1" xml:space="preserve">
-    <value>All Open Files</value>
-  </data>
-  <data name="&gt;&gt;nodeIdCheckBox.Parent" xml:space="preserve">
-    <value>optionGroupBox</value>
-  </data>
-  <data name="&gt;&gt;rangeComboBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="matchCaseCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="&gt;&gt;whatComboBox.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="optionGroupBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;matchWholeWordCheckBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>303, 198</value>
-  </data>
-  <data name="&gt;&gt;findNextButton.Name" xml:space="preserve">
-    <value>findNextButton</value>
-  </data>
-  <data name="optionGroupBox.Text" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="closeButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 23</value>
-  </data>
-  <data name="nodeTypeCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="rangeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="matchWholeWordCheckBox.Text" xml:space="preserve">
-    <value>Match whole word</value>
-  </data>
-  <data name="&gt;&gt;closeButton.Name" xml:space="preserve">
-    <value>closeButton</value>
-  </data>
-  <data name="matchCaseCheckBox.Text" xml:space="preserve">
-    <value>Match case</value>
-  </data>
-  <data name="findNextButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="findNextButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;findPreviousButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;nodeTypeCheckBox.Parent" xml:space="preserve">
-    <value>optionGroupBox</value>
-  </data>
-  <data name="&gt;&gt;findNextButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;findPreviousButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;nodeTypeCheckBox.Name" xml:space="preserve">
-    <value>nodeTypeCheckBox</value>
-  </data>
-  <data name="closeButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="nodeTypeCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="nodeTypeCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="nodeTypeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 54</value>
+  </data>
+  <data name="nodeTypeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 17</value>
+  </data>
+  <data name="nodeTypeCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="nodeTypeCheckBox.Text" xml:space="preserve">
+    <value>Only by node type</value>
+  </data>
+  <data name="&gt;&gt;nodeTypeCheckBox.Name" xml:space="preserve">
+    <value>nodeTypeCheckBox</value>
+  </data>
+  <data name="&gt;&gt;nodeTypeCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nodeTypeCheckBox.Parent" xml:space="preserve">
+    <value>optionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;nodeTypeCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="nodeIdCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="nodeIdCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 54</value>
+  </data>
+  <data name="nodeIdCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 17</value>
+  </data>
   <data name="nodeIdCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
+  </data>
+  <data name="nodeIdCheckBox.Text" xml:space="preserve">
+    <value>Only by node id</value>
+  </data>
+  <data name="&gt;&gt;nodeIdCheckBox.Name" xml:space="preserve">
+    <value>nodeIdCheckBox</value>
+  </data>
+  <data name="&gt;&gt;nodeIdCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nodeIdCheckBox.Parent" xml:space="preserve">
+    <value>optionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;nodeIdCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="matchWholeWordCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="matchWholeWordCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="matchWholeWordCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 26</value>
+  </data>
+  <data name="matchWholeWordCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 17</value>
+  </data>
+  <data name="matchWholeWordCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="matchWholeWordCheckBox.Text" xml:space="preserve">
+    <value>Match whole word</value>
+  </data>
+  <data name="&gt;&gt;matchWholeWordCheckBox.Name" xml:space="preserve">
+    <value>matchWholeWordCheckBox</value>
+  </data>
+  <data name="&gt;&gt;matchWholeWordCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;matchWholeWordCheckBox.Parent" xml:space="preserve">
+    <value>optionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;matchWholeWordCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="matchCaseCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="matchCaseCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 26</value>
+  </data>
+  <data name="matchCaseCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 17</value>
+  </data>
+  <data name="matchCaseCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="matchCaseCheckBox.Text" xml:space="preserve">
+    <value>Match case</value>
   </data>
   <data name="&gt;&gt;matchCaseCheckBox.Name" xml:space="preserve">
     <value>matchCaseCheckBox</value>
   </data>
+  <data name="&gt;&gt;matchCaseCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;matchCaseCheckBox.Parent" xml:space="preserve">
+    <value>optionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;matchCaseCheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="optionGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 75</value>
+  </data>
+  <data name="optionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>282, 80</value>
+  </data>
+  <data name="optionGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="optionGroupBox.Text" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="&gt;&gt;optionGroupBox.Name" xml:space="preserve">
+    <value>optionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;optionGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;optionGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;optionGroupBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="findNextButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="findNextButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="findNextButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>127, 167</value>
+  </data>
   <data name="findNextButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 23</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+  <data name="findNextButton.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="findNextButton.Text" xml:space="preserve">
+    <value>Find &amp;Next</value>
+  </data>
+  <data name="&gt;&gt;findNextButton.Name" xml:space="preserve">
+    <value>findNextButton</value>
+  </data>
+  <data name="&gt;&gt;findNextButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;findNextButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;findNextButton.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="closeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="closeButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="closeButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="closeButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>213, 167</value>
+  </data>
+  <data name="closeButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 23</value>
+  </data>
+  <data name="closeButton.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="closeButton.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="&gt;&gt;closeButton.Name" xml:space="preserve">
+    <value>closeButton</value>
+  </data>
+  <data name="&gt;&gt;closeButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;closeButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;closeButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="rangeComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="rangeComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="rangeComboBox.Items" xml:space="preserve">
+    <value>Current File</value>
+  </data>
+  <data name="rangeComboBox.Items1" xml:space="preserve">
+    <value>All Open Files</value>
+  </data>
+  <data name="rangeComboBox.Items2" xml:space="preserve">
+    <value>Entire Workspace</value>
+  </data>
+  <data name="rangeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>59, 44</value>
+  </data>
+  <data name="rangeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 21</value>
+  </data>
+  <data name="rangeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;rangeComboBox.Name" xml:space="preserve">
+    <value>rangeComboBox</value>
+  </data>
+  <data name="&gt;&gt;rangeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rangeComboBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;rangeComboBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;whatComboBox.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;whatLabel.Name" xml:space="preserve">
-    <value>whatLabel</value>
-  </data>
-  <data name="whatLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="&gt;&gt;matchWholeWordCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="matchWholeWordCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 16</value>
-  </data>
-  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="matchWholeWordCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;whatLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="findNextButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 167</value>
-  </data>
-  <data name="closeButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
   </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;matchWholeWordCheckBox.Name" xml:space="preserve">
-    <value>matchWholeWordCheckBox</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 47</value>
   </data>
-  <data name="whatLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 13</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 13</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;closeButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="findNextButton.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="closeButton.Text" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="closeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="closeButton.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="whatLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="nodeIdCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 54</value>
-  </data>
-  <data name="rangeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 44</value>
-  </data>
-  <data name="&gt;&gt;findPreviousButton.Name" xml:space="preserve">
-    <value>findPreviousButton</value>
-  </data>
-  <data name="whatLabel.Text" xml:space="preserve">
-    <value>What:</value>
-  </data>
-  <data name="&gt;&gt;rangeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;nodeTypeCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="nodeIdCheckBox.Text" xml:space="preserve">
-    <value>Only by node id</value>
-  </data>
-  <data name="whatLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="nodeTypeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 54</value>
-  </data>
-  <data name="&gt;&gt;whatComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="whatLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 15</value>
-  </data>
-  <data name="findPreviousButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 167</value>
-  </data>
-  <data name="&gt;&gt;findPreviousButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="optionGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 75</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt</value>
-  </data>
-  <data name="rangeComboBox.Items" xml:space="preserve">
-    <value>Current File</value>
-  </data>
-  <data name="rangeComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="&gt;&gt;findNextButton.ZOrder" xml:space="preserve">
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
-  </data>
-  <data name="nodeTypeCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="nodeTypeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 16</value>
-  </data>
-  <data name="&gt;&gt;whatLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="findPreviousButton.Text" xml:space="preserve">
-    <value>Find &amp;Previous</value>
-  </data>
-  <data name="closeButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>213, 167</value>
-  </data>
-  <data name="&gt;&gt;rangeComboBox.Name" xml:space="preserve">
-    <value>rangeComboBox</value>
-  </data>
-  <data name="matchWholeWordCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;nodeTypeCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;nodeIdCheckBox.Name" xml:space="preserve">
-    <value>nodeIdCheckBox</value>
-  </data>
-  <data name="matchCaseCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 16</value>
-  </data>
-  <data name="whatComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="nodeIdCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="nodeTypeCheckBox.Text" xml:space="preserve">
-    <value>Only by node type</value>
-  </data>
-  <data name="findPreviousButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Look in:</value>
   </data>
-  <data name="&gt;&gt;closeButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
-  <data name="&gt;&gt;optionGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
   </data>
-  <data name="&gt;&gt;whatComboBox.Name" xml:space="preserve">
-    <value>whatComboBox</value>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="rangeComboBox.Items2" xml:space="preserve">
-    <value>Entire Workspace</value>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="findPreviousButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="findPreviousButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="findPreviousButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="findPreviousButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 167</value>
+  </data>
+  <data name="findPreviousButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 23</value>
+  </data>
+  <data name="findPreviousButton.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="findPreviousButton.Text" xml:space="preserve">
+    <value>Find &amp;Previous</value>
+  </data>
+  <data name="&gt;&gt;findPreviousButton.Name" xml:space="preserve">
+    <value>findPreviousButton</value>
+  </data>
+  <data name="&gt;&gt;findPreviousButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;findPreviousButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;findPreviousButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>303, 198</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5273,97 +5357,13 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
-  <data name="optionGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;nodeIdCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;findNextButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;matchCaseCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 47</value>
-  </data>
-  <data name="whatComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 12</value>
-  </data>
-  <data name="findPreviousButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="findPreviousButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 23</value>
-  </data>
-  <data name="matchCaseCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 26</value>
-  </data>
-  <data name="&gt;&gt;whatLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;optionGroupBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="nodeIdCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 16</value>
-  </data>
-  <data name="matchCaseCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Find</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FindDock</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Find</value>
-  </data>
-  <data name="&gt;&gt;whatComboBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="rangeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 21</value>
-  </data>
-  <data name="matchWholeWordCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 26</value>
-  </data>
-  <data name="&gt;&gt;matchWholeWordCheckBox.Parent" xml:space="preserve">
-    <value>optionGroupBox</value>
-  </data>
-  <data name="findNextButton.Text" xml:space="preserve">
-    <value>Find &amp;Next</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 13</value>
-  </data>
-  <data name="&gt;&gt;nodeIdCheckBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="whatComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="matchWholeWordCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;optionGroupBox.Name" xml:space="preserve">
-    <value>optionGroupBox</value>
-  </data>
-  <data name="&gt;&gt;matchCaseCheckBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;optionGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;matchCaseCheckBox.Parent" xml:space="preserve">
-    <value>optionGroupBox</value>
-  </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

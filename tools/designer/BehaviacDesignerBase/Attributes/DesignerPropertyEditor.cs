@@ -43,182 +43,165 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerPropertyEditor : UserControl
     {
-        public DesignerPropertyEditor()
-        {
+        public DesignerPropertyEditor() {
             InitializeComponent();
         }
 
         protected object _object;
-        public object SelectedObject
-        {
+        public object SelectedObject {
             get { return _object; }
         }
 
         protected Nodes.Node _root;
-        public void SetRootNode(Nodes.Node root)
-        {
+        public void SetRootNode(Nodes.Node root) {
             _root = root;
         }
 
         protected Type _filterType = null;
-        public Type FilterType
-        {
+        public Type FilterType {
             get { return _filterType; }
             set { _filterType = value; }
         }
 
         protected ValueTypes _valueType = ValueTypes.All;
-        public ValueTypes ValueType
-        {
+        public ValueTypes ValueType {
             get { return _valueType; }
             set { _valueType = value; }
         }
 
         protected DesignerPropertyInfo _property;
-        public virtual void SetProperty(DesignerPropertyInfo property, object obj)
-        {
+        public virtual void SetProperty(DesignerPropertyInfo property, object obj) {
             _property = property;
             _object = obj;
         }
-        public DesignerPropertyInfo GetProperty()
-        {
+        public DesignerPropertyInfo GetProperty() {
             return _property;
         }
 
         protected DesignerArrayPropertyInfo _arrayProperty;
-        public virtual void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj)
-        {
+        public virtual void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj) {
             _arrayProperty = arrayProperty;
             _object = obj;
         }
 
         protected DesignerStructPropertyInfo _structProperty;
-        public virtual void SetStructProperty(DesignerStructPropertyInfo structProperty, object obj)
-        {
+        public virtual void SetStructProperty(DesignerStructPropertyInfo structProperty, object obj) {
             _structProperty = structProperty;
             _object = obj;
         }
 
+        protected bool _bIsReadonly;
         protected MethodDef.Param _param;
-        public virtual void SetParameter(MethodDef.Param param, object obj)
-        {
+        public virtual void SetParameter(MethodDef.Param param, object obj, bool bReadonly) {
             _param = param;
             _object = obj;
+            _bIsReadonly = bReadonly;
         }
 
         protected VariableDef _variable;
-        public virtual void SetVariable(VariableDef value, object obj)
-        {
+        public virtual void SetVariable(VariableDef value, object obj) {
             _variable = value;
             _object = obj;
         }
-        public VariableDef GetVariable()
-        {
+        public VariableDef GetVariable() {
             return _variable;
         }
 
         protected ParInfo _par;
-        public virtual void SetPar(ParInfo par, object obj)
-        {
+        public virtual void SetPar(ParInfo par, object obj) {
             _par = par;
             _object = obj;
 
             SetVariable(par.Variable, obj);
         }
 
-        public Attributes.DesignerProperty Attribute
-        {
+        public Attributes.DesignerProperty Attribute {
             get
             {
                 if (_param != null)
-                    return _param.Attribute;
+                { return _param.Attribute; }
 
                 return _property.Attribute;
             }
         }
 
         protected bool _valueWasAssigned = false;
-        public void ValueWasAssigned()
-        {
+        public void ValueWasAssigned() {
             _valueWasAssigned = true;
         }
-        public void ValueWasnotAssigned()
-        {
+        public void ValueWasnotAssigned() {
             _valueWasAssigned = false;
         }
 
-        public virtual void ReadOnly()
-        {
+        public virtual void ReadOnly() {
         }
 
-        public virtual void Clear()
-        {
+        public virtual void Clear() {
         }
 
-        public virtual void SetRange(double min, double max)
-        {
+        public virtual void SetRange(double min, double max) {
         }
 
         public delegate void InvalidateProperty();
         public static event InvalidateProperty PropertyChanged;
 
-        protected void RereshProperty(bool byForce, DesignerPropertyInfo property)
-        {
-            if (!byForce)
-            {
+        protected void RereshProperty(bool byForce, DesignerPropertyInfo property) {
+            if (!byForce) {
                 DesignerPropertyEnum enumAtt = property.Attribute as DesignerPropertyEnum;
-                if (enumAtt != null && enumAtt.DependingProperty != "")
-                {
+
+                if (enumAtt != null && enumAtt.DependingProperty != "") {
                     byForce = true;
                 }
             }
 
-            if (byForce && DesignerPropertyEditor.PropertyChanged != null)
-            {
-                this.BeginInvoke(new MethodInvoker(DesignerPropertyEditor.PropertyChanged));
+            if (byForce && DesignerPropertyEditor.PropertyChanged != null) {
+                try
+                {
+                    //DesignerPropertyEditor.PropertyChanged();
+                    this.BeginInvoke(new MethodInvoker(DesignerPropertyEditor.PropertyChanged));
+                }
+                catch
+                {
+                }
             }
         }
 
         public delegate void ValueChanged(object sender, DesignerPropertyInfo property);
         public event ValueChanged ValueWasChanged;
-        protected void OnValueChanged(DesignerPropertyInfo property)
-        {
+        protected void OnValueChanged(DesignerPropertyInfo property) {
             if (!_valueWasAssigned)
-                return;
+            { return; }
 
             Nodes.Node node = _object as Nodes.Node;
 
-            if (node != null)
-            {
+            if (node != null) {
                 node.OnPropertyValueChanged(true);
-            }
-            else
-            {
+                node.OnPropertyValueChanged(property);
+
+            } else {
                 Attachments.Attachment attach = _object as Attachments.Attachment;
+
                 if (attach != null)
-                    attach.OnPropertyValueChanged(true);
+                { attach.OnPropertyValueChanged(true); }
             }
 
             if (ValueWasChanged != null)
-                ValueWasChanged(this, property);
+            { ValueWasChanged(this, property); }
         }
 
-        public virtual string DisplayName
-        {
+        public virtual string DisplayName {
             get { return (Attribute != null) ? Attribute.DisplayName : string.Empty; }
         }
 
-        public virtual string Description
-        {
+        public virtual string Description {
             get { return (Attribute != null) ? Attribute.Description : string.Empty; }
         }
 
         public delegate void DescriptionChanged(string displayName, string description);
         public event DescriptionChanged DescriptionWasChanged;
-        protected void OnDescriptionChanged(string displayName, string description)
-        {
+        protected void OnDescriptionChanged(string displayName, string description) {
             if (DescriptionWasChanged != null)
-                DescriptionWasChanged(displayName, description);
+            { DescriptionWasChanged(displayName, description); }
         }
     }
 }

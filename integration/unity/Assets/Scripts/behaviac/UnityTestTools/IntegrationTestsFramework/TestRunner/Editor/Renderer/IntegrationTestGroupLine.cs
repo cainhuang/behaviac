@@ -5,83 +5,83 @@ using UnityEngine;
 
 namespace UnityTest
 {
-	class IntegrationTestGroupLine : IntegrationTestRendererBase
-	{
-		public static List<GameObject> FoldMarkers;
-		private IntegrationTestRendererBase[] children;
+    class IntegrationTestGroupLine : IntegrationTestRendererBase
+    {
+        public static List<GameObject> FoldMarkers;
+        private IntegrationTestRendererBase[] children;
 
-		public IntegrationTestGroupLine (GameObject gameObject) : base (gameObject)
-		{
-		}
+        public IntegrationTestGroupLine(GameObject gameObject) : base(gameObject) {
+        }
 
-		protected internal override void DrawLine ( Rect rect, GUIContent label, bool isSelected, RenderingOptions options )
-		{
-			EditorGUILayout.BeginHorizontal ();
+        protected internal override void DrawLine(Rect rect, GUIContent label, bool isSelected, RenderingOptions options) {
+            EditorGUILayout.BeginHorizontal();
 
-			EditorGUI.BeginChangeCheck ();
-			var isClassFolded = !EditorGUI.Foldout (rect, !Folded, label , isSelected ? Styles.selectedFoldout : Styles.foldout);
-			if (EditorGUI.EndChangeCheck ()) Folded = isClassFolded;
+            EditorGUI.BeginChangeCheck();
+            var isClassFolded = !EditorGUI.Foldout(rect, !Folded, label , isSelected ? Styles.selectedFoldout : Styles.foldout);
 
-			EditorGUILayout.EndHorizontal ();
-		}
+            if (EditorGUI.EndChangeCheck()) { Folded = isClassFolded; }
 
-		private bool Folded
-		{
-			get { return FoldMarkers.Contains (gameObject); }
+            EditorGUILayout.EndHorizontal();
+        }
 
-			set
-			{
-				if (value) FoldMarkers.Add (gameObject);
-				else FoldMarkers.RemoveAll (s => s == gameObject);
-			}
-		}
+        private bool Folded {
+            get { return FoldMarkers.Contains(gameObject); }
 
-		protected internal override void Render ( int indend, RenderingOptions options )
-		{
-			base.Render (indend, options);
-			if (!Folded)
-				foreach (var child in children)
-					child.Render (indend + 1, options);
-		}
+            set
+            {
+                if (value) { FoldMarkers.Add(gameObject); }
 
-		protected internal override TestResult.ResultType GetResult ()
-		{
-			bool ignored = false;
-			bool success = false;
-			foreach (var child in children)
-			{
-				var result = child.GetResult ();
+                else { FoldMarkers.RemoveAll(s => s == gameObject); }
+            }
+        }
 
-				if (result == TestResult.ResultType.Failed || result == TestResult.ResultType.FailedException || result == TestResult.ResultType.Timeout)
-					return TestResult.ResultType.Failed;
-				if (result == TestResult.ResultType.Success)
-					success = true;
-				else if (result == TestResult.ResultType.Ignored)
-					ignored = true;
-				else
-					ignored = false;
-			}
-			if(success) return TestResult.ResultType.Success;
-			if(ignored) return TestResult.ResultType.Ignored;
-			return TestResult.ResultType.NotRun;
-		}
-		
-		protected internal override bool IsVisible (RenderingOptions options)
-		{
-			return children.Any (c => c.IsVisible (options));
-		}
+        protected internal override void Render(int indend, RenderingOptions options) {
+            base.Render(indend, options);
 
-		public override bool SetCurrentTest (TestComponent tc)
-		{
-			IsRunning = false;
-			foreach (var child in children)
-				IsRunning |= child.SetCurrentTest (tc);
-			return IsRunning;
-		}
+            if (!Folded)
+                foreach(var child in children)
+                child.Render(indend + 1, options);
+        }
 
-		public void AddChildren ( IntegrationTestRendererBase[] parseTestList )
-		{
-			children = parseTestList;
-		}
-	}
+        protected internal override TestResult.ResultType GetResult() {
+            bool ignored = false;
+            bool success = false;
+            foreach(var child in children) {
+                var result = child.GetResult();
+
+                if (result == TestResult.ResultType.Failed || result == TestResult.ResultType.FailedException || result == TestResult.ResultType.Timeout)
+                { return TestResult.ResultType.Failed; }
+
+                if (result == TestResult.ResultType.Success)
+                { success = true; }
+
+                else if (result == TestResult.ResultType.Ignored)
+                { ignored = true; }
+
+                else
+                { ignored = false; }
+            }
+
+            if (success) { return TestResult.ResultType.Success; }
+
+            if (ignored) { return TestResult.ResultType.Ignored; }
+
+            return TestResult.ResultType.NotRun;
+        }
+
+        protected internal override bool IsVisible(RenderingOptions options) {
+            return children.Any(c => c.IsVisible(options));
+        }
+
+        public override bool SetCurrentTest(TestComponent tc) {
+            IsRunning = false;
+            foreach(var child in children)
+            IsRunning |= child.SetCurrentTest(tc);
+            return IsRunning;
+        }
+
+        public void AddChildren(IntegrationTestRendererBase[] parseTestList) {
+            children = parseTestList;
+        }
+    }
 }

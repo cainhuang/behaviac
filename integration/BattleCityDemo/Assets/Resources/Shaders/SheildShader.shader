@@ -1,4 +1,4 @@
-﻿Shader "BattleCityShader/SheildShader" 
+Shader "BattleCityShader/SheildShader" 
 {
 	Properties 
 	{

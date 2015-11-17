@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -27,29 +27,39 @@ namespace PluginBehaviac.NodeExporters
         {
             if (node != null)
             {
-                string nodeExporter = "PluginBehaviac.NodeExporters." + node.ExportClass + "CppExporter";
-                Type exporterType = Type.GetType(nodeExporter);
-                if (exporterType == null)
-                {
-                    foreach (Assembly assembly in Plugin.GetLoadedPlugins())
-                    {
-                        string filename = Path.GetFileNameWithoutExtension(assembly.Location);
-                        nodeExporter = filename + ".NodeExporters." + node.ExportClass + "CppExporter";
-                        exporterType = assembly.GetType(nodeExporter);
-                        if (exporterType != null)
-                        {
-                            break;
-                        }
-                    }
-                }
-
+                Type exporterType = getExporterType(node.GetType());
                 if (exporterType != null)
-                {
                     return (NodeCppExporter)Activator.CreateInstance(exporterType);
-                }
             }
 
             return new NodeCppExporter();
+        }
+
+        private static Type getExporterType(Type nodeType)
+        {
+            if (nodeType != null)
+            {
+                while (nodeType != typeof(Node))
+                {
+                    string nodeExporter = "PluginBehaviac.NodeExporters." + nodeType.Name + "CppExporter";
+                    Type exporterType = Type.GetType(nodeExporter);
+                    if (exporterType != null)
+                        return exporterType;
+
+                    foreach (Assembly assembly in Plugin.GetLoadedPlugins())
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(assembly.Location);
+                        nodeExporter = filename + ".NodeExporters." + nodeType.Name + "CppExporter";
+                        exporterType = assembly.GetType(nodeExporter);
+                        if (exporterType != null)
+                            return exporterType;
+                    }
+
+                    nodeType = nodeType.BaseType;
+                }
+            }
+
+            return null;
         }
 
         public override void GenerateClass(Node node, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
@@ -58,7 +68,7 @@ namespace PluginBehaviac.NodeExporters
             {
                 string className = GetGeneratedClassName(node, btClassName, nodeName);
 
-                stream.WriteLine("{0}\tclass BEHAVIAC_API {1} : public {2}\r\n{0}\t{{", indent, className, node.ExportClass);
+                stream.WriteLine("{0}\tclass {1} : public {2}\r\n{0}\t{{", indent, className, node.ExportClass);
                 stream.WriteLine("{0}\tpublic:\r\n{0}\t\tBEHAVIAC_DECLARE_DYNAMIC_TYPE({1}, {2});", indent, className, node.ExportClass);
 
                 stream.WriteLine("{0}\t\t{1}()", indent, className);
@@ -103,71 +113,72 @@ namespace PluginBehaviac.NodeExporters
 
         protected virtual bool ShouldGenerateClass(Node node)
         {
-            return (node.EnterAction != null && node.EnterAction.Name != "null_method") ||
-                (node.ExitAction != null && node.ExitAction.Name != "null_method");
+            //return (node.EnterAction != null && node.EnterAction.Name != "null_method") ||
+            //    (node.ExitAction != null && node.ExitAction.Name != "null_method");
+            return false;
         }
 
         protected virtual void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
         {
-            if (node.EnterAction != null && node.EnterAction.Name != "null_method")
-            {
-                MethodCppExporter.GenerateClassConstructor(node.EnterAction, stream, indent, "EnterAction");
-            }
+            //if (node.EnterAction != null && node.EnterAction.Name != "null_method")
+            //{
+            //    MethodCppExporter.GenerateClassConstructor(node.EnterAction, stream, indent, "EnterAction");
+            //}
 
-            if (node.ExitAction != null && node.ExitAction.Name != "null_method")
-            {
-                MethodCppExporter.GenerateClassConstructor(node.ExitAction, stream, indent, "ExitAction");
-            }
+            //if (node.ExitAction != null && node.ExitAction.Name != "null_method")
+            //{
+            //    MethodCppExporter.GenerateClassConstructor(node.ExitAction, stream, indent, "ExitAction");
+            //}
         }
 
         protected virtual void GenerateMember(Node node, StreamWriter stream, string indent)
         {
-            if (node.EnterAction != null && node.EnterAction.Name != "null_method")
-            {
-                MethodCppExporter.GenerateClassMember(node.EnterAction, stream, indent, "EnterAction");
-            }
+            //if (node.EnterAction != null && node.EnterAction.Name != "null_method")
+            //{
+            //    MethodCppExporter.GenerateClassMember(node.EnterAction, stream, indent, "EnterAction");
+            //}
 
-            if (node.ExitAction != null && node.ExitAction.Name != "null_method")
-            {
-                MethodCppExporter.GenerateClassMember(node.ExitAction, stream, indent, "ExitAction");
-            }
+            //if (node.ExitAction != null && node.ExitAction.Name != "null_method")
+            //{
+            //    MethodCppExporter.GenerateClassMember(node.ExitAction, stream, indent, "ExitAction");
+            //}
         }
 
         protected virtual void GenerateMethod(Node node, StreamWriter stream, string indent)
         {
             stream.WriteLine("{0}\tprotected:", indent);
 
-            // enter
-            if (node.EnterAction != null && node.EnterAction.Name != "null_method")
-            {
-                stream.WriteLine("{0}\t\tvirtual bool enteraction_impl(Agent* pAgent)", indent);
-                stream.WriteLine("{0}\t\t{{", indent);
-                stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
+            //// enter
+            //if (node.EnterAction != null && node.EnterAction.Name != "null_method")
+            //{
+            //    stream.WriteLine("{0}\t\tvirtual bool enteraction_impl(Agent* pAgent)", indent);
+            //    stream.WriteLine("{0}\t\t{{", indent);
+            //    stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
 
-                string retStr = MethodCppExporter.GenerateCode(node.EnterAction, stream, indent + "\t\t\t", node.EnterAction.NativeReturnType, string.Empty, "EnterAction");
-                stream.WriteLine("{0}\t\t\t{1};", indent, retStr);
+            //    string retStr = MethodCppExporter.GenerateCode(node.EnterAction, stream, indent + "\t\t\t", node.EnterAction.NativeReturnType, string.Empty, "EnterAction");
+            //    stream.WriteLine("{0}\t\t\t{1};", indent, retStr);
 
-                MethodCppExporter.PostGenerateCode(node.EnterAction, stream, indent + "\t\t\t", node.EnterAction.NativeReturnType, string.Empty, "EnterAction");
+            //    MethodCppExporter.PostGenerateCode(node.EnterAction, stream, indent + "\t\t\t", node.EnterAction.NativeReturnType, string.Empty, "EnterAction");
 
-                stream.WriteLine("{0}\t\t\treturn true;", indent);
-                stream.WriteLine("{0}\t\t}}", indent);
-            }
+            //    stream.WriteLine("{0}\t\t\treturn true;", indent);
+            //    stream.WriteLine("{0}\t\t}}", indent);
+            //}
 
-            // exit
-            if (node.ExitAction != null && node.ExitAction.Name != "null_method")
-            {
-                stream.WriteLine("{0}\t\tvirtual bool exitaction_impl(Agent* pAgent)", indent);
-                stream.WriteLine("{0}\t\t{{", indent);
-                stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
+            //// exit
+            //if (node.ExitAction != null && node.ExitAction.Name != "null_method")
+            //{
+            //    stream.WriteLine("{0}\t\tvirtual bool exitaction_impl(Agent* pAgent)", indent);
+            //    stream.WriteLine("{0}\t\t{{", indent);
+            //    stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
 
-                string retStr = MethodCppExporter.GenerateCode(node.ExitAction, stream, indent + "\t\t\t", node.ExitAction.NativeReturnType, string.Empty, "ExitAction");
-                stream.WriteLine("{0}\t\t\t{1};", indent, retStr);
+            //    string retStr = MethodCppExporter.GenerateCode(node.ExitAction, stream, indent + "\t\t\t", node.ExitAction.NativeReturnType, string.Empty, "ExitAction");
+            //    stream.WriteLine("{0}\t\t\t{1};", indent, retStr);
 
-                MethodCppExporter.PostGenerateCode(node.ExitAction, stream, indent + "\t\t\t", node.ExitAction.NativeReturnType, string.Empty, "ExitAction");
+            //    MethodCppExporter.PostGenerateCode(node.ExitAction, stream, indent + "\t\t\t", node.ExitAction.NativeReturnType, string.Empty, "ExitAction");
 
-                stream.WriteLine("{0}\t\t\treturn true;", indent);
-                stream.WriteLine("{0}\t\t}}", indent);
-            }
+            //    stream.WriteLine("{0}\t\t\treturn true;", indent);
+            //    stream.WriteLine("{0}\t\t}}", indent);
+            //}
         }
     }
 }

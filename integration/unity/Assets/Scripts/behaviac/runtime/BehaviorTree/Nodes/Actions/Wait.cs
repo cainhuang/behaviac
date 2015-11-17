@@ -12,21 +12,19 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace behaviac
 {
     public class Wait : BehaviorNode
     {
-		protected bool m_ignoreTimeScale;
+        protected bool m_ignoreTimeScale;
         protected Property m_time_var;
 
         public Wait()
         {
-			this.m_ignoreTimeScale = false;
-			this.m_time_var = null;
+            this.m_ignoreTimeScale = false;
+            this.m_time_var = null;
         }
 
         ~Wait()
@@ -38,17 +36,17 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
-				if (p.name == "IgnoreTimeScale")
-				{
-					this.m_ignoreTimeScale = (p.value == "true");
-				}
+                if (p.name == "IgnoreTimeScale")
+                {
+                    this.m_ignoreTimeScale = (p.value == "true");
+
+                }
                 else if (p.name == "Time")
                 {
                     string typeName = null;
-                    string propertyName = null;
-                    this.m_time_var = Condition.LoadRight(p.value, propertyName, ref typeName);
+                    this.m_time_var = Condition.LoadRight(p.value, ref typeName);
                 }
             }
         }
@@ -58,8 +56,8 @@ namespace behaviac
             if (this.m_time_var != null)
             {
                 Debug.Check(this.m_time_var != null);
-				object timeObj = this.m_time_var.GetValue(pAgent);
-				return Convert.ToSingle(timeObj);
+                object timeObj = this.m_time_var.GetValue(pAgent);
+                return Convert.ToSingle(timeObj);
             }
 
             return 0;
@@ -72,11 +70,10 @@ namespace behaviac
             return pTask;
         }
 
-
-        class WaitTask : LeafTask
+        private class WaitTask : LeafTask
         {
-			private float m_start;
-			private float m_time;
+            private float m_start;
+            private float m_time;
 
             public WaitTask()
             {
@@ -111,14 +108,14 @@ namespace behaviac
                 base.load(node);
             }
 
-			private bool GetIgnoreTimeScale()
-			{
-				Wait pWaitNode = this.GetNode() as Wait;
-				
-				return pWaitNode != null ? pWaitNode.m_ignoreTimeScale : false;
-			}
+            private bool GetIgnoreTimeScale()
+            {
+                Wait pWaitNode = this.GetNode() as Wait;
 
-			private float GetTime(Agent pAgent)
+                return pWaitNode != null ? pWaitNode.m_ignoreTimeScale : false;
+            }
+
+            private float GetTime(Agent pAgent)
             {
                 Wait pWaitNode = this.GetNode() as Wait;
 
@@ -127,14 +124,15 @@ namespace behaviac
 
             protected override bool onenter(Agent pAgent)
             {
-				if (this.GetIgnoreTimeScale())
-				{
-					this.m_start = Time.realtimeSinceStartup * 1000.0f;
-				}
-				else
-				{
-					this.m_start = 0;
-				}
+                if (this.GetIgnoreTimeScale())
+                {
+                    this.m_start = Workspace.Instance.TimeSinceStartup * 1000.0f;
+
+                }
+                else
+                {
+                    this.m_start = 0;
+                }
 
                 this.m_time = this.GetTime(pAgent);
 
@@ -147,21 +145,25 @@ namespace behaviac
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
-				if (this.GetIgnoreTimeScale())
-				{
-					if (Time.realtimeSinceStartup * 1000.0f - this.m_start >= this.m_time)
-					{
-						return EBTStatus.BT_SUCCESS;
-					}
-				}
-				else
-				{
-					this.m_start += Time.deltaTime * 1000.0f;
-					if (this.m_start >= this.m_time)
-					{
-						return EBTStatus.BT_SUCCESS;
-					}
-				}
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
+                if (this.GetIgnoreTimeScale())
+                {
+                    if (Workspace.Instance.TimeSinceStartup * 1000.0f - this.m_start >= this.m_time)
+                    {
+                        return EBTStatus.BT_SUCCESS;
+                    }
+
+                }
+                else
+                {
+                    this.m_start += Workspace.Instance.DeltaTime * 1000.0f;
+
+                    if (this.m_start >= this.m_time)
+                    {
+                        return EBTStatus.BT_SUCCESS;
+                    }
+                }
 
                 return EBTStatus.BT_RUNNING;
             }

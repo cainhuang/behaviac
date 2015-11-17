@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -289,7 +289,7 @@
     <value>Found circular reference.</value>
   </data>
   <data name="ReferencedBehaviorDesc" xml:space="preserve">
-    <value>This node works like an action which calls the referenced behavior.</value>
+    <value>This node works like an action which calls the subtree.</value>
   </data>
   <data name="ReferencedBehaviorFilename" xml:space="preserve">
     <value>Reference Name</value>
@@ -660,7 +660,7 @@ Are your sure continue the undo/redo operation?</value>
     <value>Transfer</value>
   </data>
   <data name="TriggerMode_TransferDesc" xml:space="preserve">
-    <value>When the child ends, it gives control back and the interupted behavior tree will get executed from start.</value>
+    <value>The original tree is aborted and reset. It gives control to the new tree.</value>
   </data>
   <data name="OperatorType" xml:space="preserve">
     <value>Operator Type</value>
@@ -736,5 +736,104 @@ Are your sure continue the undo/redo operation?</value>
   </data>
   <data name="AgentTypeChangedWarning" xml:space="preserve">
     <value>If the agent type is changed, the properties and methods in the leaf nodes may be reset. Are you sure change it?</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Precondition" xml:space="preserve">
+    <value>Precondition</value>
+  </data>
+  <data name="Effector" xml:space="preserve">
+    <value>Effector</value>
+  </data>
+  <data name="EffectorDesc" xml:space="preserve">
+    <value>it takes effect when the node succeeds.</value>
+  </data>
+  <data name="EffectorPhase" xml:space="preserve">
+    <value>When</value>
+  </data>
+  <data name="EffectorPhaseDesc" xml:space="preserve">
+    <value>this determines when it takes effect, when successful or failed?</value>
+  </data>
+  <data name="InterruptIf" xml:space="preserve">
+    <value>InterruptIf</value>
+  </data>
+  <data name="Signal" xml:space="preserve">
+    <value>Signal</value>
+  </data>
+  <data name="TaskNoMethod" xml:space="preserve">
+    <value>Task has no children</value>
+  </data>
+  <data name="OperatorType_Assignment" xml:space="preserve">
+    <value>Assignment</value>
+  </data>
+  <data name="OperatorType_In" xml:space="preserve">
+    <value>iterator</value>
+  </data>
+  <data name="CustomizedMethodError" xml:space="preserve">
+    <value>The customized method can not be exported!</value>
+  </data>
+  <data name="TaskMethodChildrenOrOne" xml:space="preserve">
+    <value>Task can only accept methods or only one child.</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="Behavior" xml:space="preserve">
+    <value>Behavior</value>
+  </data>
+  <data name="ReferencedBehavior" xml:space="preserve">
+    <value>SubTree</value>
+  </data>
+  <data name="AddPlanningBreakpoint" xml:space="preserve">
+    <value>Add Planning Breakpoint</value>
+  </data>
+  <data name="DisablePlanningBreakpoint" xml:space="preserve">
+    <value>Disable Planning Breakpoint</value>
+  </data>
+  <data name="RemovePlanningBreakpoint" xml:space="preserve">
+    <value>Remove Planning Breakpoint</value>
+  </data>
+  <data name="FileVersionWarning" xml:space="preserve">
+    <value>Please install the latest designer to open the behaviors.</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="ModeDesc" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>Attachment</value>
+  </data>
+  <data name="AttachmentId" xml:space="preserve">
+    <value>Attachment Id</value>
+  </data>
+  <data name="AttachmentIdDesc" xml:space="preserve">
+    <value>Attachment Id</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameDesc" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AttachBasic" xml:space="preserve">
+    <value>Attach</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Method</value>
+  </data>
+  <data name="FSM" xml:space="preserve">
+    <value>FSM</value>
+  </data>
+  <data name="HTN" xml:space="preserve">
+    <value>HTN</value>
   </data>
 </root>

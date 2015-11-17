@@ -15,31 +15,42 @@
 
 namespace behaviac
 {
-    E_VariableComparisonType ParseComparisonType(const char* comparionOperator)
+    E_VariableComparisonType VariableComparator::ParseComparisonType(const char* comparionOperator)
     {
-        if (!strcmp(comparionOperator, "Equal"))
+        if (!strcmp(comparionOperator, "Assignment"))
+        {
+            return VariableComparisonType_Assignment;
+
+        }
+        else if (!strcmp(comparionOperator, "Equal"))
         {
             return VariableComparisonType_Equal;
+
         }
         else if (!strcmp(comparionOperator, "NotEqual"))
         {
             return VariableComparisonType_NotEqual;
+
         }
         else if (!strcmp(comparionOperator, "Greater"))
         {
             return VariableComparisonType_Greater;
+
         }
         else if (!strcmp(comparionOperator, "GreaterEqual"))
         {
             return VariableComparisonType_GreaterEqual;
+
         }
         else if (!strcmp(comparionOperator, "Less"))
         {
             return VariableComparisonType_Less;
+
         }
         else if (!strcmp(comparionOperator, "LessEqual"))
         {
             return VariableComparisonType_LessEqual;
+
         }
         else
         {

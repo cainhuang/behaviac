@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -15,15 +15,30 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Behaviac.Design;
 using Behaviac.Design.Attributes;
 
 namespace PluginBehaviac.DataExporters
 {
     public class DataCppExporter
     {
+        public static string GetExportNativeType(string typeName)
+        {
+            typeName = DataCsExporter.GetExportNativeType(typeName);
+
+            typeName = typeName.Replace("byte", "ubyte");
+
+            return typeName;
+        }
+
         public static string GetGeneratedNativeType(Type type)
         {
             string typeName = Plugin.GetNativeTypeName(type);
+
+            if (!typeName.EndsWith("*") && Plugin.IsRefType(type))
+            {
+                typeName += "*";
+            }
 
             return GetGeneratedNativeType(typeName);
         }
@@ -37,11 +52,17 @@ namespace PluginBehaviac.DataExporters
             else if (typeName.StartsWith("const vector<"))
                 typeName = typeName.Replace("const vector<", "const behaviac::vector<");
 
+            typeName = typeName.Replace("cszstring", "const char*");
+            typeName = typeName.Replace("szstring", "char*");
             typeName = typeName.Replace("sbyte", "signed char");
             typeName = typeName.Replace("ubyte", "unsigned char");
+            typeName = typeName.Replace("uchar", "unsigned char");
             typeName = typeName.Replace("ushort", "unsigned short");
             typeName = typeName.Replace("uint", "unsigned int");
+            typeName = typeName.Replace("llong", "long long");
+            typeName = typeName.Replace("ullong", "unsigned long long");
             typeName = typeName.Replace("ulong", "unsigned long");
+            typeName = typeName.Replace("const ", "");
 
             if (typeName.Contains("std::string"))
                 typeName = typeName.Replace("std::string", "behaviac::string");
@@ -61,6 +82,25 @@ namespace PluginBehaviac.DataExporters
             typeName = typeName.Trim();
 
             return typeName;
+        }
+
+        public static string GetPropertyBasicName(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement)
+        {
+            string propName = property.BasicName;
+
+            if (property != null && property.IsArrayElement && arrayIndexElement != null)
+            {
+                propName = propName.Replace("[]", "");
+            }
+
+            return propName;
+        }
+
+        public static string GetPropertyNativeType(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement)
+        {
+            string nativeType = DataCppExporter.GetGeneratedNativeType(property.NativeType);
+
+            return nativeType;
         }
 
         public static bool IsPtr(string typeName)
@@ -114,17 +154,17 @@ namespace PluginBehaviac.DataExporters
                 else if (obj is Behaviac.Design.ParInfo)
                 {
                     Behaviac.Design.ParInfo par = obj as Behaviac.Design.ParInfo;
-                    retStr = ParInfoCppExporter.GenerateCode(par, stream, indent, typename, var, caller);
+                    retStr = ParInfoCppExporter.GenerateCode(par, false, stream, indent, typename, var, caller);
                 }
                 else if (obj is Behaviac.Design.PropertyDef)
                 {
                     Behaviac.Design.PropertyDef property = obj as Behaviac.Design.PropertyDef;
-                    retStr = PropertyCppExporter.GenerateCode(property, stream, indent, typename, var, caller);
+                    retStr = PropertyCppExporter.GenerateCode(property, null, false, stream, indent, typename, var, caller);
                 }
                 else if (obj is Behaviac.Design.VariableDef)
                 {
                     Behaviac.Design.VariableDef variable = obj as Behaviac.Design.VariableDef;
-                    retStr = VariableCppExporter.GenerateCode(variable, stream, indent, typename, var, caller);
+                    retStr = VariableCppExporter.GenerateCode(variable, false, stream, indent, typename, var, caller);
                 }
                 else if (obj is Behaviac.Design.RightValueDef)
                 {

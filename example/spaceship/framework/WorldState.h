@@ -17,7 +17,7 @@
 #include <list>
 #include <queue>
 #include <set>
-#include "behaviac/world/world.h"
+#include "behaviac/agent/agent.h"
 #include "behaviac/agent/registermacros.h"
 
 #include "GameObject.h"
@@ -48,11 +48,11 @@ namespace framework
 #define coarseGraining 10
 
     /// Data structure that maps a collection of objects into a 2d space
-	class WorldState : public behaviac::World
+	class WorldState : public behaviac::Agent
     {
     public:
 
-		DECLARE_BEHAVIAC_OBJECT(framework::WorldState, behaviac::World);
+		DECLARE_BEHAVIAC_OBJECT(framework::WorldState, behaviac::Agent);
 
         /// Width of a cell. Computed from the coarseGraining value
         int CellSizeX;

@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_MD5_H_
-#define _CORE_MD5_H_
+#ifndef BEHAVIAC_CORE_MD5_H
+#define BEHAVIAC_CORE_MD5_H
 
 #include "behaviac/base/base.h"
 
@@ -89,9 +89,8 @@ private:
         uint32_t w[4];
     }	m_abcd;
     uint32_t									m_msgLength[2];
-
 };
 
 //--------------------------------------------------------------------------
 
-#endif // #ifndef _CORE_MD5_H_
+#endif // #ifndef BEHAVIAC_CORE_MD5_H

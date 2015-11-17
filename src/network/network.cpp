@@ -17,126 +17,124 @@
 #if BEHAVIAC_ENABLE_NETWORKD
 namespace behaviac
 {
-	Network* Network::ms_pNetwork = 0;
+    Network* Network::ms_pNetwork = 0;
 
-	Network::Network()
-	{
-		BEHAVIAC_ASSERT(ms_pNetwork == 0);
-		ms_pNetwork = this;
-	}
+    Network::Network()
+    {
+        BEHAVIAC_ASSERT(ms_pNetwork == 0);
+        ms_pNetwork = this;
+    }
 
-	Network::~Network()
-	{
-		BEHAVIAC_ASSERT(ms_pNetwork);
-		ms_pNetwork = 0;
-	}
+    Network::~Network()
+    {
+        BEHAVIAC_ASSERT(ms_pNetwork);
+        ms_pNetwork = 0;
+    }
 
+    //Network* Network::CreateInstance()
+    //{
+    //	ms_pNetwork = BEHAVIAC_NEW Network;
 
-	//Network* Network::CreateInstance()
-	//{
-	//	ms_pNetwork = BEHAVIAC_NEW Network;
+    //	return ms_pNetwork;
+    //}
 
-	//	return ms_pNetwork;
-	//}
+    //void Network::DestroyInstance(Network* pInstance)
+    //{
+    //	BEHAVIAC_ASSERT(pInstance == ms_pNetwork);
 
-	//void Network::DestroyInstance(Network* pInstance)
-	//{
-	//	BEHAVIAC_ASSERT(pInstance == ms_pNetwork);
+    //	if (pInstance == ms_pNetwork)
+    //	{
+    //		BEHAVIAC_DELETE(ms_pNetwork);
+    //		ms_pNetwork = 0;
+    //	}
+    //}
 
-	//	if (pInstance == ms_pNetwork)
-	//	{
-	//		BEHAVIAC_DELETE(ms_pNetwork);
-	//		ms_pNetwork = 0;
-	//	}
-	//}
+    Network* Network::GetInstance()
+    {
+        Network* pNetwork = Network::ms_pNetwork;
 
-	Network* Network::GetInstance()
-	{
-		Network* pNetwork = Network::ms_pNetwork;
+        //BEHAVIAC_ASSERT(pNetwork);
 
-		//BEHAVIAC_ASSERT(pNetwork);
+        return pNetwork;
+    }
 
-		return pNetwork;
-	}
+    bool Network::ShouldHandle(behaviac::NetworkRole netRole)
+    {
+        if ((!this->IsAuthority() && netRole == NET_ROLE_NONAUTHORITY) ||
+            (this->IsAuthority() && netRole == NET_ROLE_AUTHORITY))
+        {
+            return true;
+        }
 
+        return false;
+    }
 
-	bool Network::ShouldHandle(behaviac::NetworkRole netRole)
-	{
-		if ((!this->IsAuthority() && netRole == NET_ROLE_NONAUTHORITY) ||
-			(this->IsAuthority() && netRole == NET_ROLE_AUTHORITY))
-		{
-			return true;
-		}
+    void Network::BindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent, CMethodBase* pMethod)
+    {
+        BEHAVIAC_ASSERT(netRole != NET_ROLE_DEFAULT && !this->IsSinglePlayer());
 
-		return false;
-	}
+        if (this->ShouldHandle(netRole))
+        {
+            RemoteEventInstanceMethods_t::iterator it = m_remoteEventInstanceMethods.find(eventName);
 
+            MethodInstance_t mi(pAgent, pMethod);
 
-	void Network::BindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent, CMethodBase* pMethod)
-	{
-		BEHAVIAC_ASSERT(netRole != NET_ROLE_DEFAULT && !this->IsSinglePlayer());
+            if (it == m_remoteEventInstanceMethods.end())
+            {
+                InstanceMethods_t a;
 
-		if (this->ShouldHandle(netRole))
-		{
-			RemoteEventInstanceMethods_t::iterator it = m_remoteEventInstanceMethods.find(eventName);
+                a.push_back(mi);
+                m_remoteEventInstanceMethods[eventName] = a;
 
-			MethodInstance_t mi(pAgent, pMethod);
+            }
+            else
+            {
+                InstanceMethods_t& a = m_remoteEventInstanceMethods[eventName];
 
-			if (it == m_remoteEventInstanceMethods.end())
-			{
-				InstanceMethods_t a;
+                a.push_back(mi);
+            }
 
-				a.push_back(mi);
-				m_remoteEventInstanceMethods[eventName] = a;
-			}
-			else
-			{
-				InstanceMethods_t& a = m_remoteEventInstanceMethods[eventName];
+            this->SubscribeToRemoteEvent(eventName, pAgent, pMethod);
+        }
+    }
 
-				a.push_back(mi);
-			}
+    void Network::UnBindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent)
+    {
+        BEHAVIAC_ASSERT(netRole != NET_ROLE_DEFAULT && !this->IsSinglePlayer());
 
-			this->SubscribeToRemoteEvent(eventName, pAgent, pMethod);
-		}
-	}
+        if (this->ShouldHandle(netRole))
+        {
+            RemoteEventInstanceMethods_t::iterator it = m_remoteEventInstanceMethods.find(eventName);
 
-	void Network::UnBindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent)
-	{
-		BEHAVIAC_ASSERT(netRole != NET_ROLE_DEFAULT && !this->IsSinglePlayer());
+            if (it != m_remoteEventInstanceMethods.end())
+            {
+                InstanceMethods_t& a = m_remoteEventInstanceMethods[eventName];
 
-		if (this->ShouldHandle(netRole))
-		{
-			RemoteEventInstanceMethods_t::iterator it = m_remoteEventInstanceMethods.find(eventName);
+                for (InstanceMethods_t::iterator ita = a.begin(); ita != a.end();)
+                {
+                    MethodInstance_t& minfo = *ita;
 
-			if (it != m_remoteEventInstanceMethods.end())
-			{
-				InstanceMethods_t& a = m_remoteEventInstanceMethods[eventName];
+                    if (minfo.agent == pAgent)
+                    {
+                        InstanceMethods_t::iterator d = ita++;
+                        a.erase(d);
 
-				for (InstanceMethods_t::iterator ita = a.begin(); ita != a.end();)
-				{
-					MethodInstance_t& minfo = *ita;
+                        this->UnSubscribeToRemoteEvent(eventName, pAgent);
+                        break;
 
-					if (minfo.agent == pAgent)
-					{
-						InstanceMethods_t::iterator d = ita++;
-						a.erase(d);
+                    }
+                    else
+                    {
+                        ++ita;
+                    }
+                }
+            }
+        }
+    }
 
-						this->UnSubscribeToRemoteEvent(eventName, pAgent);
-						break;
-					}
-					else
-					{
-						++ita;
-					}
-				}
-			}
-		}
-	}
-
-	void Network::tick(float deltaTime)
-	{
+    void Network::tick(float deltaTime)
+    {
         BEHAVIAC_UNUSED_VAR(deltaTime);
-	}
-
+    }
 }//namespace behaviac
 #endif//#if BEHAVIAC_ENABLE_NETWORKD

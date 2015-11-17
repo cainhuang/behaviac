@@ -3,16 +3,15 @@
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
 //
-// Licensed under the BSD 3-Clause License (the "License"); you may not use this file except in compliance with
-// the License. You may obtain a copy of the License at http://opensource.org/licenses/BSD-3-Clause
+// Licensed under the BSD 3-Clause License (the "License"); you may not use this file except in
+// compliance with the License. You may obtain a copy of the License at http://opensource.org/licenses/BSD-3-Clause
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is
-// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and limitations under the License.
+// Unless required by applicable law or agreed to in writing, software distributed under the License
+// is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+// or implied. See the License for the specific language governing permissions and limitations under
+// the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -20,6 +19,7 @@ namespace behaviac
     /**
      Return values of tick/update and valid states for behaviors.
     */
+
     public enum EBTStatus
     {
         BT_INVALID,
@@ -31,6 +31,7 @@ namespace behaviac
     /**
     trigger mode to control the bt switching and back
     */
+
     public enum TriggerMode
     {
         TM_Transfer,
@@ -43,6 +44,7 @@ namespace behaviac
     /**
     Base class for the BehaviorTreeTask's runtime execution management.
     */
+
     public abstract class BehaviorTask
     {
         public static void DestroyTask(BehaviorTask task)
@@ -50,24 +52,14 @@ namespace behaviac
             //nothing
         }
 
-        protected void FreeAttachments()
-	    {
-            if (this.m_attachments != null)
-            {
-                this.m_attachments.Clear();
-                this.m_attachments = null;
-            }
-	    }
-
         public virtual void Clear()
-	    {
+        {
             this.m_status = EBTStatus.BT_INVALID;
             this.m_parent = null;
             this.m_id = -1;
-            this.FreeAttachments();
 
             this.m_node = null;
-	    }
+        }
 
         public virtual void Init(BehaviorNode node)
         {
@@ -75,18 +67,6 @@ namespace behaviac
 
             this.m_node = node;
             this.m_id = this.m_node.GetId();
-
-            int attachmentsCount = node.GetAttachmentsCount();
-            if (attachmentsCount > 0)
-            {
-                for (int i = 0; i < attachmentsCount; i++)
-                {
-                    BehaviorNode attachmentNode = node.GetAttachment(i);
-                    AttachmentTask attachmentTask = (AttachmentTask)attachmentNode.CreateAndInitTask();
-
-                    this.Attach(attachmentTask);
-                }
-            }
         }
 
         public virtual void copyto(BehaviorTask target)
@@ -126,153 +106,158 @@ namespace behaviac
             return this.m_id;
         }
 
-        public void SetId(int id)
+        public virtual int GetNextStateId()
         {
-            this.m_id = id;
-        }
-
-        public virtual EBTStatus GetReturnStatus()
-        {
-            return EBTStatus.BT_INVALID;
-        }
-
-        public virtual void SetReturnStatus(EBTStatus status)
-        {
+            return -1;
         }
 
         public EBTStatus exec(Agent pAgent)
         {
+            EBTStatus childStatus = EBTStatus.BT_RUNNING;
+
+            return this.exec(pAgent, childStatus);
+        }
+
+        public EBTStatus exec(Agent pAgent, EBTStatus childStatus)
+        {
 #if !BEHAVIAC_RELEASE
             Debug.Check(this.m_node == null || this.m_node.IsValid(pAgent, this),
-                string.Format("Agent In BT:{0} while the Agent used for: {1}", this.m_node.GetAgentType(), pAgent.GetClassTypeName()));
+                        string.Format("Agent In BT:{0} while the Agent used for: {1}", this.m_node.GetAgentType(), pAgent.GetClassTypeName()));
 #endif//#if !BEHAVIAC_RELEASE
             bool bEnterResult = false;
+
             if (this.m_status == EBTStatus.BT_RUNNING)
             {
                 bEnterResult = true;
+
             }
             else
             {
                 //reset it to invalid when it was success/failure
                 this.m_status = EBTStatus.BT_INVALID;
-
                 bEnterResult = this.onenter_action(pAgent);
-
-                //for continue ticking task, to set it as the cached current task
-                bool bIsContinueTicking = this.isContinueTicking();
-                if (bIsContinueTicking)
-                {
-                    BranchTask pBranch = this.GetParentBranch();
-
-                    if (pBranch != null && pBranch != this)
-                    {
-                        //if 'this' is a tree, don't set it into it parent's current node
-                        Debug.Check(!(this is BehaviorTreeTask));
-
-                        pBranch.SetCurrentTask(this);
-                    }
-                }
             }
 
             if (bEnterResult)
             {
 #if !BEHAVIAC_RELEASE
+
                 if (Config.IsLoggingOrSocketing)
                 {
                     string btStr = BehaviorTask.GetTickInfo(pAgent, this, "update");
+
                     //empty btStr is for internal BehaviorTreeTask
                     if (!string.IsNullOrEmpty(btStr))
                     {
                         LogManager.Log(pAgent, btStr, EActionResult.EAR_none, LogMode.ELM_tick);
                     }
                 }
+
 #endif
-                bool bEnded = false;
-                EBTStatus returnStatus = this.GetReturnStatus();
-                if (returnStatus == EBTStatus.BT_INVALID)
+                bool bValid = true;
+
+                if (this.m_node.PreconditionsCount > 0)
                 {
-                    this.m_status = this.update(pAgent, EBTStatus.BT_RUNNING);
+                    bValid = this.m_node.CheckPreconditions(pAgent, true);
+                }
+
+                if (bValid)
+                {
+                    this.m_status = this.update_current(pAgent, childStatus);
                 }
                 else
                 {
-                    this.SetReturnStatus(EBTStatus.BT_INVALID);
-
-                    this.m_status = returnStatus;
-                    bEnded = true;
+                    this.m_status = EBTStatus.BT_FAILURE;
                 }
 
                 if (this.m_status != EBTStatus.BT_RUNNING)
                 {
                     //clear it
-                    bool bIsContinueTicking = this.isContinueTicking();
-                    if (bIsContinueTicking)
-                    {
-                        BranchTask pBranch = this.GetParentBranch();
 
-                        if (pBranch != null && pBranch != this)
-                        {
-                            //if 'this' is a tree, don't set it into it parent's current node
-                            Debug.Check(!(this is BehaviorTreeTask));
-
-                            pBranch.SetCurrentTask(null);
-                        }
-                    }
-
-                    if (!bEnded)
-                    {
-                        this.onexit_action(pAgent, this.m_status);
-                    }
+                    this.onexit_action(pAgent, this.m_status);
 
                     //this node is possibly ticked by its parent or by the topBranch who records it as currrent node
                     //so, we can't here reset the topBranch's current node
                 }
+                else
+                {
+                    BranchTask tree = this.GetTopManageBranchTask();
+
+                    if (tree != null)
+                    {
+                        tree.SetCurrentTask(this);
+                    }
+                }
+
             }
             else
             {
                 this.m_status = EBTStatus.BT_FAILURE;
             }
 
-            EBTStatus currentStatus = this.m_status;
-            if (this.m_status != EBTStatus.BT_RUNNING && this.NeedRestart())
-            {
-                //reset it to invalid when it needs restarting
-                //don't need to reset the sub tree
-                this.m_status = EBTStatus.BT_INVALID;
-                this.SetReturnStatus(EBTStatus.BT_INVALID);
-            }
-
-            return currentStatus;
+            return this.m_status;
         }
 
-        static bool abort_handler(BehaviorTask node, Agent pAgent, object user_data)
+        private BranchTask GetTopManageBranchTask()
+        {
+            BranchTask tree = null;
+            BehaviorTask task = this.m_parent;
+
+            while (task != null)
+            {
+                if (task is BehaviorTreeTask)
+                {
+                    //to overwrite the child branch
+                    tree = (BranchTask)task;
+                    break;
+
+                }
+                else if (task.m_node.IsManagingChildrenAsSubTrees())
+                {
+                    //until it is Parallel/SelectorLoop, it's child is used as tree to store current task
+                    break;
+
+                }
+                else if (task is BranchTask)
+                {
+                    //this if must be after BehaviorTreeTask and IsManagingChildrenAsSubTrees
+                    tree = (BranchTask)task;
+
+                }
+                else
+                {
+                    Debug.Check(false);
+                }
+
+                task = task.m_parent;
+            }
+
+            return tree;
+        }
+
+        private static bool abort_handler(BehaviorTask node, Agent pAgent, object user_data)
         {
             if (node.m_status == EBTStatus.BT_RUNNING)
             {
                 node.onexit_action(pAgent, EBTStatus.BT_FAILURE);
 
                 node.m_status = EBTStatus.BT_FAILURE;
-
-                node.SetCurrentTask(null);
             }
 
             return true;
         }
 
-        static bool reset_handler(BehaviorTask node, Agent pAgent, object user_data)
+        private static bool reset_handler(BehaviorTask node, Agent pAgent, object user_data)
         {
             node.m_status = EBTStatus.BT_INVALID;
 
-            node.SetCurrentTask(null);
-            //node->SetReturnStatus(BT_INVALID);
-            //BEHAVIAC_ASSERT(node->GetReturnStatus() == BT_INVALID);
-
-            //node.onreset(pAgent);
+            node.onreset(pAgent);
 
             return true;
         }
 
-		static NodeHandler_t abort_handler_ = abort_handler;
-		static NodeHandler_t reset_handler_ = reset_handler;
+        private static NodeHandler_t abort_handler_ = abort_handler;
+        private static NodeHandler_t reset_handler_ = reset_handler;
 
         public void abort(Agent pAgent)
         {
@@ -291,6 +276,7 @@ namespace behaviac
         {
             return this.m_status;
         }
+
         public void SetStatus(EBTStatus s)
         {
             this.m_status = s;
@@ -299,29 +285,6 @@ namespace behaviac
         public BehaviorNode GetNode()
         {
             return this.m_node;
-        }
-
-        /**
-        a branch is a node whose isContinueTicking returns true
-
-        BehaviorTreeTask, DecoratorTask, ParallelTask, SelectorLoopTask, etc.
-        */
-        public BranchTask GetParentBranch()
-        {
-            BehaviorTask pTopNode = this.m_parent;
-
-            while (pTopNode != null)
-            {
-                BranchTask pBranch = pTopNode as BranchTask;
-                if (pBranch != null && pBranch.isContinueTicking())
-                {
-                    return pBranch;
-                }
-
-                pTopNode = pTopNode.m_parent;
-            }
-
-            return null;
         }
 
         public void SetParent(BranchTask parent)
@@ -337,184 +300,25 @@ namespace behaviac
         public abstract void traverse(NodeHandler_t handler, Agent pAgent, object user_data);
 
         /**
-        when a node is ended(success/failure), this dertermines if the exit status(success/failure) should be kept.
-        if it needs to restart, then, the exit status is just returned but not kept
-        */
-        public virtual bool NeedRestart()
-        {
-            return false;
-        }
-
-        public virtual void SetCurrentTask(BehaviorTask node)
-        {
-        }
-
-//        public virtual bool CheckPredicates(Agent pAgent)
-//        {
-//            if (this.m_attachments != null)
-//            {
-//                bool bTriggered = false;
-//                int index = 0;
-//                bool bAnd = true;
-//                int numberOfSuccess = 0;
-//				for (int i = 0; i < this.m_attachments.Count; ++i)
-//                {
-//					AttachmentTask pA = this.m_attachments[i];
-//                    Predicate.PredicateTask pP = pA as Predicate.PredicateTask;
-//
-//                    //check predicates only
-//                    if (pP != null)
-//                    {
-//                        if (index > 0)
-//                        {
-//                            bAnd = pP.IsAnd();
-//                        }
-//
-//                        EBTStatus currentStatus = pA.GetStatus();
-//
-//                        if (currentStatus == EBTStatus.BT_RUNNING || currentStatus == EBTStatus.BT_INVALID)
-//                        {
-//                            currentStatus = pA.exec(pAgent);
-//                        }
-//
-//                        if (currentStatus == EBTStatus.BT_SUCCESS)
-//                        {
-//                            numberOfSuccess++;
-//
-//                            if (!bAnd)
-//                            {
-//                                //or
-//                                bTriggered = true;
-//                                break;
-//                            }
-//                        }
-//                        else if (currentStatus == EBTStatus.BT_FAILURE)
-//                        {
-//                            if (bAnd)
-//                            {
-//                                //and
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                if (!bTriggered && numberOfSuccess == this.m_attachments.Count)
-//                {
-//                    Debug.Check(numberOfSuccess >= 1 && bAnd);
-//
-//                    bTriggered = true;
-//                }
-//
-//                return bTriggered;
-//            }
-//
-//			//no predicates
-//            return true;
-//        }
-
-		bool getBooleanFromStatus(EBTStatus status)
-		{
-			if(status == EBTStatus.BT_FAILURE)
-				return false;
-			else if(status == EBTStatus.BT_SUCCESS)
-				return true;
-			else
-			{
-				Debug.LogError("Predicate can not return RUNNING status!");
-				return false;
-			}
-		}
-
-		public virtual bool CheckPredicates(Agent pAgent)
-		{
-			if(this.m_attachments == null || this.m_attachments.Count == 0)
-				return true;
-
-			bool lastCombineValue = false;
-			for(int i = 0; i < this.m_attachments.Count; ++i)
-			{
-				AttachmentTask attchment = this.m_attachments[i];
-				Predicate.PredicateTask predicateTask = attchment as Predicate.PredicateTask;
-				
-				if (predicateTask != null)
-				{
-					EBTStatus executeStatus = predicateTask.GetStatus();
-					if(executeStatus == EBTStatus.BT_RUNNING || executeStatus == EBTStatus.BT_INVALID)
-						executeStatus = predicateTask.exec(pAgent);
-
-					bool taskBoolean = getBooleanFromStatus(executeStatus);
-					if(i == 0)
-					{
-						lastCombineValue = taskBoolean;
-					}
-					else
-					{
-						bool andOp = predicateTask.IsAnd();
-						if(andOp)
-							lastCombineValue = lastCombineValue && taskBoolean;
-						else
-							lastCombineValue = lastCombineValue || taskBoolean;
-					}
-				}
-			}
-
-			return lastCombineValue;
-		}
-
-        /**
         return false if the event handling needs to be stopped
 
         an event can be configured to stop being checked if triggered
         */
+
         public bool CheckEvents(string eventName, Agent pAgent)
         {
-            if (this.m_attachments != null)
-            {
-                //bool bTriggered = false;
-				for (int i = 0; i < this.m_attachments.Count; ++i)
-                {
-					AttachmentTask pA = this.m_attachments[i];
-                    Event.EventTask pE = pA as Event.EventTask;
+            return this.m_node.CheckEvents(eventName, pAgent);
+        }
 
-                    //check events only
-                    if (pE != null && !string.IsNullOrEmpty(eventName))
-                    {
-                        string pEventName = pE.GetEventName();
-
-                        if (!string.IsNullOrEmpty(pEventName) && pEventName == eventName)
-                        {
-                            EBTStatus currentStatus = pA.GetStatus();
-
-                            if (currentStatus == EBTStatus.BT_RUNNING || currentStatus == EBTStatus.BT_INVALID)
-                            {
-                                currentStatus = pA.exec(pAgent);
-                            }
-
-                            if (currentStatus == EBTStatus.BT_SUCCESS)
-                            {
-                                //bTriggered = true;
-
-                                if (pE.TriggeredOnce())
-                                {
-                                    return false;
-                                }
-                            }
-                            else if (currentStatus == EBTStatus.BT_FAILURE)
-                            {
-                            }
-                        }
-                    }
-                }
-            }
-
-            return true;
+        public virtual void onreset(Agent pAgent)
+        {
         }
 
         /**
         return false if the event handling  needs to be stopped
         return true, the event hanlding will be checked furtherly
         */
+
         public virtual bool onevent(Agent pAgent, string eventName)
         {
             if (this.m_status == EBTStatus.BT_RUNNING && this.m_node.HasEvents())
@@ -532,17 +336,20 @@ namespace behaviac
         {
             m_status = EBTStatus.BT_INVALID;
             m_node = null;
-            m_attachments = null;
             m_parent = null;
         }
 
-        ~BehaviorTask()
-        {
-		}
+        //~BehaviorTask()
+        //{
+        //}
 
-        /**
-        @sa isContinueTicking
-        */
+        protected virtual EBTStatus update_current(Agent pAgent, EBTStatus childStatus)
+        {
+            EBTStatus s = this.update(pAgent, childStatus);
+
+            return s;
+        }
+
         protected virtual EBTStatus update(Agent pAgent, EBTStatus childStatus)
         {
             return EBTStatus.BT_SUCCESS;
@@ -555,93 +362,40 @@ namespace behaviac
 
         protected virtual void onexit(Agent pAgent, EBTStatus status)
         {
-		}
-
-        ///return true if it is continuing running for the next tick
-        /**
-        this virtual function is used for those nodes which will run continuously in the next tick
-        so that the tree can record it to tick it directly in the next tick.
-
-        so usually, the leaf nodes except the condition nodes need to override it to return true.
-        the branch nodes usually return false. however, parallel need to return true.
-        */
-		protected virtual bool isContinueTicking()
-        {
-            return false;
         }
 
-        private void Attach(AttachmentTask pAttachment)
+        public static string GetTickInfo(Agent pAgent, BehaviorTask bt, string action)
         {
-            if (this.m_attachments == null)
-            {
-                this.m_attachments = new List<AttachmentTask>();
-            }
+            string result = GetTickInfo(pAgent, bt.GetNode(), action);
 
-            this.m_attachments.Add(pAttachment);
+            return result;
         }
 
-        private void InstantiatePars(Agent pAgent)
-        {
-            BehaviorNode pNode = this.m_node;
-
-            //pNode could be 0 when the bt is a sub tree of parallel node/referenced bt, etc.
-            if (pNode != null && pNode.m_pars != null)
-            {
-				for (int i = 0; i < pNode.m_pars.Count; ++i)
-                {
-					Property property_ = pNode.m_pars[i];
-
-//					if(pAgent != null && property_.GetVariableName() == "par0_char_0")
-//					{
-//						behaviac.Debug.Check(true);
-//					}
-
-                    property_.Instantiate(pAgent);
-                }
-            }
-        }
-
-        private void UnInstantiatePars(Agent pAgent)
-        {
-            BehaviorNode pNode = this.m_node;
-
-            //pNode could be 0 when the bt is a sub tree of parallel node/referenced bt, etc.
-            if (pNode != null && pNode.m_pars != null)
-            {
-				for (int i = 0; i < pNode.m_pars.Count; ++i)
-                {
-					Property property_ = pNode.m_pars[i];
-                    property_.UnInstantiate(pAgent);
-                }
-            }
-        }
-
-        public static string GetTickInfo(Agent pAgent, BehaviorTask b, string action)
+        public static string GetTickInfo(Agent pAgent, BehaviorNode n, string action)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
-        	{
+            {
                 if (pAgent != null && pAgent.IsMasked())
-           		{
+                {
                     //BEHAVIAC_PROFILE("GetTickInfo", true);
 
-                    string bClassName = b.GetClassNameString();
+                    string bClassName = n.GetClassNameString();
 
                     //filter out intermediate bt, whose class name is empty
                     if (!string.IsNullOrEmpty(bClassName))
                     {
-                        int nodeId = b.GetId();
-                        BehaviorTreeTask bt = pAgent != null ? pAgent.btgetcurrent() : null;
+                        string btName = GetParentTreeName(n);
 
-                        //TestBehaviorGroup\scratch.xml.EventetTask[0]:enter
                         string bpstr = "";
-                        if (bt != null)
-                        {
-                            string btName = bt.GetName();
 
+                        if (!string.IsNullOrEmpty(btName))
+                        {
                             bpstr = string.Format("{0}.xml->", btName);
                         }
 
+                        int nodeId = n.GetId();
                         bpstr += string.Format("{0}[{1}]", bClassName, nodeId);
 
                         if (!string.IsNullOrEmpty(action))
@@ -653,23 +407,78 @@ namespace behaviac
                     }
                 }
             }
+
 #endif
             return string.Empty;
+        }
+
+        private static string GetParentTreeName(BehaviorNode n)
+        {
+            string btName = null;
+
+            if (n is ReferencedBehavior)
+            {
+                n = n.Parent;
+            }
+
+            bool bIsTree = false;
+            bool bIsRefTree = false;
+
+            while (n != null)
+            {
+                bIsTree = (n is BehaviorTree);
+                bIsRefTree = (n is ReferencedBehavior);
+
+                if (bIsTree || bIsRefTree)
+                {
+                    break;
+                }
+
+                n = n.Parent;
+            }
+
+            if (bIsTree)
+            {
+                BehaviorTree bt = n as BehaviorTree;
+                btName = bt.GetName();
+
+            }
+            else if (bIsRefTree)
+            {
+                ReferencedBehavior refTree = n as ReferencedBehavior;
+                btName = refTree.ReferencedTree;
+
+            }
+            else
+            {
+                Debug.Check(false);
+            }
+
+            return btName;
         }
 
         private static string GetActionResultStr(EActionResult actionResult)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 string actionResultStr = "";
+
                 if (actionResult == EActionResult.EAR_success)
                 {
                     actionResultStr = " [success]";
+
                 }
                 else if (actionResult == EActionResult.EAR_failure)
                 {
                     actionResultStr = " [failure]";
+
+                }
+                else if (actionResult == EActionResult.EAR_all)
+                {
+                    actionResultStr = " [all]";
+
                 }
                 else
                 {
@@ -680,6 +489,7 @@ namespace behaviac
 
                 return actionResultStr;
             }
+
 #endif
             return string.Empty;
         }
@@ -687,137 +497,138 @@ namespace behaviac
         private static void _MY_BREAKPOINT_BREAK_(Agent pAgent, string btMsg, EActionResult actionResult)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 string actionResultStr = GetActionResultStr(actionResult);
                 string msg = string.Format("BehaviorTreeTask Breakpoints at: '{0}{1}'\n\nOk to continue.", btMsg, actionResultStr);
 
-                Workspace.RespondToBreak(msg, "BehaviorTreeTask Breakpoints");
+                Workspace.Instance.RespondToBreak(msg, "BehaviorTreeTask Breakpoints");
             }
+
 #endif
         }
 
         //CheckBreakpoint should be after log of onenter/onexit/update, as it needs to flush msg to the client
-        private static void CHECK_BREAKPOINT(Agent pAgent, BehaviorTask b, string action, EActionResult actionResult)
+        public static void CHECK_BREAKPOINT(Agent pAgent, BehaviorNode b, string action, EActionResult actionResult)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 string bpstr = GetTickInfo(pAgent, b, action);
+
                 if (!string.IsNullOrEmpty(bpstr))
                 {
                     LogManager.Log(pAgent, bpstr, actionResult, LogMode.ELM_tick);
-					if (Config.IsDebugging)
+
+                    if (Workspace.Instance.CheckBreakpoint(pAgent, b, action, actionResult))
                     {
-						if (Workspace.CheckBreakpoint(pAgent, b, action, actionResult))
-                        {
-							LogManager.Log(pAgent, bpstr, actionResult, LogMode.ELM_breaked);
-							LogManager.Flush(pAgent);
-							SocketUtils.Flush();
+                        LogManager.Log(pAgent, bpstr, actionResult, LogMode.ELM_breaked);
+                        LogManager.Flush(pAgent);
+                        SocketUtils.Flush();
 
-                            _MY_BREAKPOINT_BREAK_(pAgent, bpstr, actionResult);
+                        _MY_BREAKPOINT_BREAK_(pAgent, bpstr, actionResult);
 
-							LogManager.Log(pAgent, bpstr, actionResult, LogMode.ELM_continue);
-							LogManager.Flush(pAgent);
-							SocketUtils.Flush();
-                        }
+                        LogManager.Log(pAgent, bpstr, actionResult, LogMode.ELM_continue);
+                        LogManager.Flush(pAgent);
+                        SocketUtils.Flush();
                     }
                 }
             }
+
 #endif
         }
 
-        public bool onenter_action(Agent pAgent)
+        protected virtual bool CheckPreconditions(Agent pAgent, bool bIsAlive)
         {
-            //this needs to be before onenter
-            this.InstantiatePars(pAgent);
-
-            bool bResult = this.onenter(pAgent);
+            bool bResult = true;
 
             if (this.m_node != null)
             {
-                if (!((BehaviorNode)(this.m_node)).enteraction_impl(pAgent))
+                if (this.m_node.PreconditionsCount > 0)
                 {
-                    if (this.m_node.m_enterAction != null)
-                    {
-                        this.m_node.m_enterAction.Invoke(pAgent);
-                    }
+                    bResult = this.m_node.CheckPreconditions(pAgent, bIsAlive);
                 }
-            }
-
-            if (!bResult)
-            {
-                this.UnInstantiatePars(pAgent);
-            }
-            else
-            {
-#if !BEHAVIAC_RELEASE
-                //BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
-
-                CHECK_BREAKPOINT(pAgent, this, "enter", bResult ? EActionResult.EAR_success : EActionResult.EAR_failure);
-#endif
             }
 
             return bResult;
         }
 
-        private static EBTStatus ms_lastExitStatus_ = EBTStatus.BT_INVALID;
+        public bool onenter_action(Agent pAgent)
+        {
+            this.m_node.InstantiatePars(pAgent);
 
-		public static EBTStatus GetNodeExitStatus()
-		{
-			return ms_lastExitStatus_;
-		}
+            bool bResult = this.CheckPreconditions(pAgent, false);
+
+            if (bResult)
+            {
+                bResult = this.onenter(pAgent);
+
+                if (!bResult)
+                {
+                    return false;
+
+                }
+                else
+                {
+#if !BEHAVIAC_RELEASE
+                    //BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
+
+                    BehaviorTask.CHECK_BREAKPOINT(pAgent, this.m_node, "enter", bResult ? EActionResult.EAR_success : EActionResult.EAR_failure);
+#endif
+                }
+            }
+
+            return bResult;
+        }
 
         public void onexit_action(Agent pAgent, EBTStatus status)
         {
             this.onexit(pAgent, status);
-            this.SetReturnStatus(EBTStatus.BT_INVALID);
 
             if (this.m_node != null)
             {
-                bool exitImpl = ((BehaviorNode)(this.m_node)).exitaction_impl(pAgent);
+                Effector.EPhase phase = Effector.EPhase.E_SUCCESS;
 
-                if (exitImpl || this.m_node.m_exitAction != null)
+                if (status == EBTStatus.BT_FAILURE)
                 {
-                    if (!exitImpl && this.m_node.m_exitAction != null)
-                    {
-                        ms_lastExitStatus_ = status;
-                        this.m_node.m_exitAction.Invoke(pAgent);
+                    phase = Effector.EPhase.E_FAILURE;
 
-                        ms_lastExitStatus_ = EBTStatus.BT_INVALID;
-                    }
                 }
+                else
+                {
+                    Debug.Check(status == EBTStatus.BT_SUCCESS);
+                }
+
+                this.m_node.ApplyEffects(pAgent, phase);
+
+                this.m_node.UnInstantiatePars(pAgent);
             }
 
-            this.UnInstantiatePars(pAgent);
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 //BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
                 if (status == EBTStatus.BT_SUCCESS)
                 {
-                    CHECK_BREAKPOINT(pAgent, this, "exit", EActionResult.EAR_success);
+                    BehaviorTask.CHECK_BREAKPOINT(pAgent, this.m_node, "exit", EActionResult.EAR_success);
+
                 }
                 else
                 {
-                    CHECK_BREAKPOINT(pAgent, this, "exit", EActionResult.EAR_failure);
+                    BehaviorTask.CHECK_BREAKPOINT(pAgent, this.m_node, "exit", EActionResult.EAR_failure);
                 }
             }
+
 #endif
         }
-
-		public virtual List<BehaviorNode> GetRunningNodes()
-		{
-			List<BehaviorNode> nodes = new List<BehaviorNode>();
-			return nodes;
-		}
 
         public EBTStatus m_status;
         protected BehaviorNode m_node;
         protected BranchTask m_parent;
-        protected List<AttachmentTask> m_attachments;
-
-        private int m_id;
+        protected int m_id;
     }
 
     // ============================================================================
@@ -827,9 +638,9 @@ namespace behaviac
         {
         }
 
-        ~AttachmentTask()
-        {
-        }
+        //~AttachmentTask()
+        //{
+        //}
 
         public override void Init(BehaviorNode node)
         {
@@ -845,6 +656,7 @@ namespace behaviac
         {
             handler(this, pAgent, user_data);
         }
+
     }
 
     // ============================================================================
@@ -857,32 +669,30 @@ namespace behaviac
 
         protected LeafTask()
         {
-		}
-
-        ~LeafTask()
-        {
         }
+
+        //~LeafTask()
+        //{
+        //}
 
         public override void Init(BehaviorNode node)
         {
             base.Init(node);
         }
+
         public override void copyto(BehaviorTask target)
         {
             base.copyto(target);
         }
+
         public override void save(ISerializableNode node)
         {
             base.save(node);
         }
+
         public override void load(ISerializableNode node)
         {
             base.load(node);
-        }
-
-		protected override bool isContinueTicking()
-        {
-            return true;
         }
 
         public override bool onevent(Agent pAgent, string eventName)
@@ -892,50 +702,18 @@ namespace behaviac
             return bGoOn;
         }
 
-		public override List<BehaviorNode> GetRunningNodes()
-		{
-			List<BehaviorNode> nodes = new List<BehaviorNode>();
-			
-			if (this.isContinueTicking() && EBTStatus.BT_RUNNING == this.GetStatus())
-			{
-				nodes.Add(this.GetNode());
-			}
-			
-			return nodes;
-		}
     }
 
     // ============================================================================
     public abstract class BranchTask : BehaviorTask
     {
-        public override void SetCurrentTask(BehaviorTask node)
-        {
-            this.m_currentTask = node;
-        }
-
-		public BehaviorTask GetCurrentTask()
-		{
-			return this.m_currentTask;
-		}
-
-        public override EBTStatus GetReturnStatus()
-        {
-            return m_returnStatus;
-        }
-
-        public override void SetReturnStatus(EBTStatus status)
-        {
-            m_returnStatus = status;
-        }
-
         protected BranchTask()
         {
-            m_returnStatus = EBTStatus.BT_INVALID;
         }
 
-        ~BranchTask()
-        {
-        }
+        //~BranchTask()
+        //{
+        //}
 
         public override void Init(BehaviorNode node)
         {
@@ -957,92 +735,26 @@ namespace behaviac
             base.load(node);
         }
 
-        protected EBTStatus tickCurrentNode(Agent pAgent)
+        public override void Clear()
         {
-            Debug.Check(this.m_currentTask != null);
+            base.Clear();
 
-            EBTStatus s = this.m_currentTask.GetStatus();
-
-            if (s == EBTStatus.BT_INVALID || s == EBTStatus.BT_RUNNING)
-            {
-                //this.m_currentTask could be cleared in ::tick, to remember it
-                BehaviorTask currentTask = this.m_currentTask;
-                EBTStatus status = this.m_currentTask.exec(pAgent);
-
-                //give the handling back to parents
-                if (status != EBTStatus.BT_RUNNING)
-                {
-                    Debug.Check(currentTask.m_status == EBTStatus.BT_SUCCESS ||
-                        currentTask.m_status == EBTStatus.BT_FAILURE ||
-                        (currentTask.m_status == EBTStatus.BT_INVALID && currentTask.NeedRestart()));
-
-                    BranchTask parentBranch = currentTask.GetParent();
-
-                    this.SetCurrentTask(null);
-
-                    //back track the parents until the branch
-                    while (parentBranch != null && parentBranch != this)
-                    {
-                        status = parentBranch.update(pAgent, status);
-                        if (status == EBTStatus.BT_RUNNING)
-                        {
-                            return EBTStatus.BT_RUNNING;
-                        }
-
-                        parentBranch.onexit_action(pAgent, status);
-
-                        parentBranch.m_status = status;
-
-                        Debug.Check(parentBranch.m_currentTask == null);
-
-                        parentBranch = parentBranch.GetParent();
-                    }
-                }
-
-                return status;
-            }
-
-            return s;
+            this.m_currentTask = null;
         }
 
-        public override bool onevent(Agent pAgent, string eventName)
+        protected override bool onenter(Agent pAgent)
         {
-            bool bGoOn = true;
-
-            if (this.m_status == EBTStatus.BT_RUNNING && this.m_node.HasEvents())
-            {
-                Debug.Check(this.m_currentTask != null);
-
-                bGoOn = this.oneventCurrentNode(pAgent, eventName);
-            }
-
-            return bGoOn;
+            return true;
         }
 
-        protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
+        protected override void onexit(Agent pAgent, EBTStatus status)
         {
-            EBTStatus status = EBTStatus.BT_INVALID;
-
-            if (this.m_currentTask != null)
-            {
-                EBTStatus s = this.m_currentTask.GetStatus();
-                if (s != EBTStatus.BT_RUNNING)
-                {
-                    this.SetCurrentTask(null);
-                }
-            }
-
-            if (this.m_currentTask != null)
-            {
-                status = this.tickCurrentNode(pAgent);
-            }
-
-            return status;
+            this.m_currentTask = null;
         }
 
-		protected override bool isContinueTicking()
+        public override void onreset(Agent pAgent)
         {
-            return false;
+            this.m_currentTask = null;
         }
 
         private bool oneventCurrentNode(Agent pAgent, string eventName)
@@ -1066,6 +778,7 @@ namespace behaviac
                     Debug.Check(parentBranch.GetStatus() == EBTStatus.BT_RUNNING);
 
                     bGoOn = parentBranch.onevent(pAgent, eventName);
+
                     if (!bGoOn)
                     {
                         return false;
@@ -1078,11 +791,135 @@ namespace behaviac
             return bGoOn;
         }
 
+        // return false if the event handling needs to be stopped return true, the event hanlding
+        // will be checked furtherly
+        public override bool onevent(Agent pAgent, string eventName)
+        {
+            if (this.m_node.HasEvents())
+            {
+                bool bGoOn = true;
+
+                if (this.m_currentTask != null)
+                {
+                    bGoOn = this.oneventCurrentNode(pAgent, eventName);
+                }
+
+                if (bGoOn)
+                {
+                    bGoOn = base.onevent(pAgent, eventName);
+                }
+
+                return bGoOn;
+            }
+
+            return true;
+        }
+
+        private EBTStatus execCurrentTask(Agent pAgent)
+        {
+            Debug.Check(this.m_currentTask != null && this.m_currentTask.GetStatus() == EBTStatus.BT_RUNNING);
+
+            //this.m_currentTask could be cleared in ::tick, to remember it
+            EBTStatus status = this.m_currentTask.exec(pAgent);
+
+            //give the handling back to parents
+            if (status != EBTStatus.BT_RUNNING)
+            {
+                Debug.Check(status == EBTStatus.BT_SUCCESS || status == EBTStatus.BT_FAILURE);
+                Debug.Check(this.m_currentTask.m_status == status);
+
+                BranchTask parentBranch = this.m_currentTask.GetParent();
+
+                this.m_currentTask = null;
+
+                //back track the parents until the branch
+                while (parentBranch != null && parentBranch != this)
+                {
+                    status = parentBranch.exec(pAgent, status);
+
+                    if (status == EBTStatus.BT_RUNNING)
+                    {
+                        return EBTStatus.BT_RUNNING;
+                    }
+
+                    Debug.Check(parentBranch.m_status == status);
+
+                    parentBranch = parentBranch.GetParent();
+                }
+            }
+
+            return status;
+        }
+
+        protected override EBTStatus update_current(Agent pAgent, EBTStatus childStatus)
+        {
+            EBTStatus status = EBTStatus.BT_INVALID;
+
+            if (this.m_currentTask != null)
+            {
+                status = this.execCurrentTask(pAgent);
+                Debug.Check((status == EBTStatus.BT_RUNNING && this.m_currentTask != null) ||
+                            (status != EBTStatus.BT_RUNNING && this.m_currentTask == null));
+            }
+            else
+            {
+                status = this.update(pAgent, childStatus);
+            }
+
+            return status;
+        }
+
+        protected EBTStatus resume_branch(Agent pAgent, EBTStatus status)
+        {
+            Debug.Check(this.m_currentTask != null);
+            Debug.Check(status == EBTStatus.BT_SUCCESS || status == EBTStatus.BT_FAILURE);
+
+            BranchTask parent = null;
+
+            if (this.m_currentTask.GetNode().IsManagingChildrenAsSubTrees())
+            {
+                parent = (BranchTask)this.m_currentTask;
+
+            }
+            else
+            {
+                parent = this.m_currentTask.GetParent();
+            }
+
+            //clear it as it ends and the next exec might need to set it
+            this.m_currentTask = null;
+
+            EBTStatus s = parent.exec(pAgent, status);
+
+            return s;
+        }
+
         protected abstract void addChild(BehaviorTask pBehavior);
 
-        //bookmark the current ticking node, it is different from m_activeChildIndex
-        protected BehaviorTask m_currentTask;
-        protected EBTStatus m_returnStatus;
+        //bookmark the current running node, it is different from m_activeChildIndex
+        private BehaviorTask m_currentTask;
+
+        public void SetCurrentTask(BehaviorTask task)
+        {
+            if (task != null)
+            {
+                //if the leaf node is running, then the leaf's parent node is also as running,
+                //the leaf is set as the tree's current task instead of its parent
+                if (this.m_currentTask == null)
+                {
+                    Debug.Check(this.m_currentTask != this);
+                    this.m_currentTask = task;
+                }
+
+            }
+            else
+            {
+                if (this.m_status != EBTStatus.BT_RUNNING)
+                {
+                    this.m_currentTask = task;
+                }
+            }
+        }
     }
 
     // ============================================================================
@@ -1092,9 +929,9 @@ namespace behaviac
         {
             if (handler(this, pAgent, user_data))
             {
-				for (int i = 0; i < this.m_children.Count; ++i)
+                for (int i = 0; i < this.m_children.Count; ++i)
                 {
-					BehaviorTask task = this.m_children[i];
+                    BehaviorTask task = this.m_children[i];
                     task.traverse(handler, pAgent, user_data);
                 }
             }
@@ -1105,23 +942,30 @@ namespace behaviac
             m_activeChildIndex = InvalidChildIndex;
         }
 
-        ~CompositeTask()
-        {
-            this.m_children.Clear();
-        }
+        //~CompositeTask()
+        //{
+        //    this.m_children.Clear();
+        //}
+
+        protected bool m_bIgnoreChildren = false;
 
         public override void Init(BehaviorNode node)
         {
             base.Init(node);
-            Debug.Check(node.GetChildrenCount() > 0);
 
-            int childrenCount = node.GetChildrenCount();
-            for (int i = 0; i < childrenCount; i++)
+            if (!this.m_bIgnoreChildren)
             {
-                BehaviorNode childNode = node.GetChild(i);
-                BehaviorTask childTask = childNode.CreateAndInitTask();
+                Debug.Check(node.GetChildrenCount() > 0);
 
-                this.addChild(childTask);
+                int childrenCount = node.GetChildrenCount();
+
+                for (int i = 0; i < childrenCount; i++)
+                {
+                    BehaviorNode childNode = node.GetChild(i);
+                    BehaviorTask childTask = childNode.CreateAndInitTask();
+
+                    this.addChild(childTask);
+                }
             }
         }
 
@@ -1175,22 +1019,30 @@ namespace behaviac
             this.m_children.Add(pBehavior);
         }
 
-		public override List<BehaviorNode> GetRunningNodes()
-		{
-			List<BehaviorNode> nodes = new List<BehaviorNode>();
-			
-			foreach (BehaviorTask task in m_children)
-			{
-				nodes.AddRange(task.GetRunningNodes());
-			}
-			
-			return nodes;
-		}
-
         protected List<BehaviorTask> m_children = new List<BehaviorTask>();
+
+        protected BehaviorTask GetChildById(int nodeId)
+        {
+            if (this.m_children != null && this.m_children.Count > 0)
+            {
+                for (int i = 0; i < this.m_children.Count; ++i)
+                {
+                    BehaviorTask c = this.m_children[i];
+
+                    if (c.GetId() == nodeId)
+                    {
+                        return c;
+                    }
+                }
+            }
+
+            return null;
+        }
+
 
         //book mark the current child
         protected int m_activeChildIndex = InvalidChildIndex;
+
         protected const int InvalidChildIndex = -1;
     }
 
@@ -1213,10 +1065,10 @@ namespace behaviac
             m_root = null;
         }
 
-        ~SingeChildTask()
-        {
-            m_root = null;
-        }
+        //~SingeChildTask()
+        //{
+        //    m_root = null;
+        //}
 
         public override void Init(BehaviorNode node)
         {
@@ -1231,12 +1083,14 @@ namespace behaviac
                 BehaviorTask childTask = childNode.CreateAndInitTask();
 
                 this.addChild(childTask);
+
             }
             else
             {
                 Debug.Check(true);
             }
         }
+
         public override void copyto(BehaviorTask target)
         {
             base.copyto(target);
@@ -1282,20 +1136,13 @@ namespace behaviac
 
         protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
         {
-            if (this.m_currentTask != null)
-            {
-                EBTStatus s = base.update(pAgent, childStatus);
-
-                return s;
-            }
-
             if (this.m_root != null)
             {
                 EBTStatus s = this.m_root.exec(pAgent);
                 return s;
             }
 
-            return EBTStatus.BT_INVALID;
+            return EBTStatus.BT_FAILURE;
         }
 
         protected override void addChild(BehaviorTask pBehavior)
@@ -1305,25 +1152,7 @@ namespace behaviac
             this.m_root = pBehavior;
         }
 
-		public override List<BehaviorNode> GetRunningNodes()
-		{
-			List<BehaviorNode> nodes = new List<BehaviorNode>();
-
-			BehaviorTask task = this.GetCurrentTask();	
-			if (task == null)
-			{
-				task = m_root;
-			}
-				
-			if (task != null)
-			{
-				nodes.AddRange(task.GetRunningNodes());
-			}
-			
-			return nodes;
-		}
-		
-		protected BehaviorTask m_root;
+        protected BehaviorTask m_root;
     }
 
     // ============================================================================
@@ -1331,19 +1160,16 @@ namespace behaviac
     {
         protected DecoratorTask()
         {
-            m_bDecorateWhenChildEnds = false;
         }
 
-        ~DecoratorTask()
-        {
-        }
+        //~DecoratorTask()
+        //{
+        //}
 
         public override void Init(BehaviorNode node)
         {
             base.Init(node);
-            DecoratorNode pDN = node as DecoratorNode;
-
-            this.m_bDecorateWhenChildEnds = pDN.m_bDecorateWhenChildEnds;
+            //DecoratorNode pDN = node as DecoratorNode;
         }
 
         public override void copyto(BehaviorTask target)
@@ -1366,22 +1192,33 @@ namespace behaviac
 
         protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
         {
-            EBTStatus status = base.update(pAgent, childStatus);
+            Debug.Check(this.m_node is DecoratorNode);
+            DecoratorNode node = (DecoratorNode)this.m_node;
 
-            if (!this.m_bDecorateWhenChildEnds || status != EBTStatus.BT_RUNNING)
+            EBTStatus status = EBTStatus.BT_INVALID;
+
+            if (childStatus != EBTStatus.BT_RUNNING)
             {
-                EBTStatus result = this.decorate(status);
+                status = childStatus;
 
-                if (status != EBTStatus.BT_RUNNING)
+                if (!node.m_bDecorateWhenChildEnds || status != EBTStatus.BT_RUNNING)
                 {
-                    BehaviorTask child = this.m_root;
-                    if (child != null)
+                    EBTStatus result = this.decorate(status);
+
+                    if (result != EBTStatus.BT_RUNNING)
                     {
-                        child.SetStatus(EBTStatus.BT_INVALID);
+                        return result;
                     }
 
-                    this.SetCurrentTask(null);
+                    return EBTStatus.BT_RUNNING;
                 }
+            }
+
+            status = base.update(pAgent, childStatus);
+
+            if (!node.m_bDecorateWhenChildEnds || status != EBTStatus.BT_RUNNING)
+            {
+                EBTStatus result = this.decorate(status);
 
                 return result;
             }
@@ -1393,14 +1230,8 @@ namespace behaviac
         called when the child's tick returns success or failure.
         please note, it is not called if the child's tick returns running
         */
+
         protected abstract EBTStatus decorate(EBTStatus status);
-
-		protected override bool isContinueTicking()
-        {
-            return true;
-        }
-
-        private bool m_bDecorateWhenChildEnds;
     }
 
     // ============================================================================
@@ -1441,6 +1272,7 @@ namespace behaviac
         /**
         return the path relative to the workspace path
         */
+
         public string GetName()
         {
             Debug.Check(this.m_node is BehaviorTree);
@@ -1453,138 +1285,125 @@ namespace behaviac
         {
         }
 
-        ~BehaviorTreeTask()
-        {
-        }
+        //~BehaviorTreeTask()
+        //{
+        //}
 
         public override void Clear()
-	    {
-		    base.Clear();
+        {
+            base.Clear();
 
-		    this.m_currentTask = null;
-            this.m_returnStatus = EBTStatus.BT_INVALID;
-		    this.m_root = null;
-	    }
+            this.m_root = null;
+        }
 
         public override void Init(BehaviorNode node)
         {
+            Debug.Check(node != null);
+            BehaviorTree tree = (BehaviorTree)node;
+
             base.Init(node);
         }
+
         public override void copyto(BehaviorTask target)
         {
             base.copyto(target);
         }
+
         public override void save(ISerializableNode node)
         {
             base.save(node);
         }
+
         public override void load(ISerializableNode node)
         {
             base.load(node);
         }
 
+        public EBTStatus resume(Agent pAgent, EBTStatus status)
+        {
+            EBTStatus s = base.resume_branch(pAgent, status);
 
-	    public EBTStatus resume(Agent pAgent, EBTStatus status) {
-		    BranchTask prev = null;
-		    BehaviorTask p = this.m_currentTask;
-            while (p is BranchTask)
-            {
-                BranchTask b = (BranchTask)p;
-                if (b.GetCurrentTask() != null)
-                {
-                    p = b.GetCurrentTask();
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-		    while (p != null) {
-                BranchTask branch = p as BranchTask;
-			    if (branch != null) {
-				    prev = branch;
-				    p = branch.GetCurrentTask();
-			    }
-				else {
-					prev = p.GetParent();
-					break;
-				}
-		    }
-
-		    if (prev != null) {
-				//prev is the last interrupted node, to find and let its parent update with 'status' which is the subtree's return status
-			    Debug.Check(status == EBTStatus.BT_SUCCESS || status == EBTStatus.BT_FAILURE);
-			    prev.onexit_action(pAgent, status);
-
-			    prev.SetReturnStatus(status);
-		    }
-
-		    return status;
-	    }
+            return s;
+        }
 
         protected override bool onenter(Agent pAgent)
         {
+            //Debug.Check(this.m_node != null);
+            //this.m_node.InstantiatePars(pAgent);
+
+            pAgent.LogJumpTree(this.GetName());
+
             return true;
         }
 
         protected override void onexit(Agent pAgent, EBTStatus s)
         {
+            //Debug.Check(this.m_node != null);
+            //this.m_node.UnInstantiatePars(pAgent);
+
+            pAgent.LogReturnTree(this.GetName());
+            base.onexit(pAgent, s);
         }
 
-        protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
-        {
-            EBTStatus status = base.update(pAgent, childStatus);
+        #region FSM
+        private List<BehaviorTask> m_states = null;
 
-            if (status != EBTStatus.BT_RUNNING)
+        public BehaviorTask GetChildById(int nodeId)
+        {
+            if (this.m_states != null && this.m_states.Count > 0)
             {
-                this.SetCurrentTask(null);
+                for (int i = 0; i < this.m_states.Count; ++i)
+                {
+                    BehaviorTask c = this.m_states[i];
+
+                    if (c.GetId() == nodeId)
+                    {
+                        return c;
+                    }
+                }
+            }
+
+            return null;
+        }
+        #endregion FSM
+
+        protected override EBTStatus update_current(Agent pAgent, EBTStatus childStatus)
+        {
+            Debug.Check(this.m_node != null);
+            Debug.Check(this.m_node is BehaviorTree);
+            BehaviorTree tree = (BehaviorTree)this.m_node;
+
+            EBTStatus status = EBTStatus.BT_RUNNING;
+
+            if (tree.IsFSM)
+            {
+                status = this.update(pAgent, childStatus);
+            }
+            else
+            {
+                status = base.update_current(pAgent, childStatus);
             }
 
             return status;
         }
 
-        public override bool NeedRestart()
+        protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
         {
-            BehaviorTask root = this.m_root;
-            if (root != null && root.NeedRestart())
+            Debug.Check(this.m_node != null);
+            Debug.Check(this.m_root != null);
+
+            if (childStatus != EBTStatus.BT_RUNNING)
             {
-                return true;
+                return childStatus;
             }
 
-            return false;
-        }
+            EBTStatus status = EBTStatus.BT_INVALID;
 
-        /**
-        return false if the event handling  needs to be stopped
-        return true, the event hanlding will be checked furtherly
-        */
-        public override bool onevent(Agent pAgent, string eventName)
-        {
-            if (this.m_node.HasEvents())
-            {
-                bool bGoOn = this.m_root.onevent(pAgent, eventName);
+            status = base.update(pAgent, childStatus);
 
-                if (bGoOn)
-                {
-                    if (this.m_status == EBTStatus.BT_RUNNING && this.m_node.HasEvents())
-                    {
-                        if (!this.CheckEvents(eventName, pAgent))
-                        {
-                            return false;
-                        }
-                    }
+            Debug.Check(status != EBTStatus.BT_INVALID);
 
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-		protected override bool isContinueTicking()
-        {
-            return true;
+            return status;
         }
     }
 }

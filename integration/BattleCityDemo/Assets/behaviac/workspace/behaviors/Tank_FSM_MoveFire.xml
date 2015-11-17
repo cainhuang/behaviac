@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Behavior Version="3">
+  <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="Player" Domains="" Enable="true" HasOwnPrefabData="false" Id="-1" PrefabName="" PrefabNodeId="-1">
+    <Comment Background="NoColor" Text="" />
+    <Parameters>
+      <Parameter Name="rotateAngle" Type="System.Single" DefaultValue="0" DisplayName="rotateAngle" Desc="rotateAngle" Display="true" />
+      <Parameter Name="parIn_Self" Type="XMLPluginBehaviac.Player" DefaultValue="null" DisplayName="parIn_Self" Desc="parIn_Self" Display="true" />
+    </Parameters>
+    <DescriptorRefs value="0:" />
+    <Attachment Class="PluginBehaviac.Events.StartCondition" Id="0" PrefabAttachmentId="-1" TargetFSMNodeId="1" />
+    <FSMNodes ScreenLocationX="0" ScreenLocationY="0">
+      <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="1" Method="Self.GameActor::moveForward()" Name="Move" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_INVALID" ScreenLocationX="246.4812" ScreenLocationY="-45.68622">
+        <Comment Background="NoColor" Text="" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="5" Mode="End" Operator="Equal" Opl="&quot;&quot;" Opr1="&quot;&quot;" Opr2="&quot;&quot;" PrefabAttachmentId="-1" TargetFSMNodeId="2" />
+      </Node>
+      <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="2" Method="Self.GameActor::rotateToAngle(float Self.Player::rotateAngle)" Name="Rotate" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_INVALID" ScreenLocationX="629.1624" ScreenLocationY="-48.16337">
+        <Comment Background="NoColor" Text="" />
+        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="3" Operator="Assign" Opl="float Self.Player::rotateAngle" Opr1="&quot;&quot;" Opr2="GameLevel.GameLevelCommon::getAvailabeMoveDirection(Player Self.Player::parIn_Self,UNKNOWN)" Phase="Enter" PrefabAttachmentId="-1" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="6" Mode="Condition" Operator="Less" Opl="float Self.Player::rotateAngle" Opr1="&quot;&quot;" Opr2="const float 30" PrefabAttachmentId="-1" TargetFSMNodeId="9" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="10" Mode="Condition" Operator="GreaterEqual" Opl="int Self.Player::hp" Opr1="&quot;&quot;" Opr2="const int 0" PrefabAttachmentId="-1" TargetFSMNodeId="7" />
+      </Node>
+      <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="7" Method="Self.Player::fire()" Name="Fire" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_INVALID" ScreenLocationX="440.1082" ScreenLocationY="-201.3462">
+        <Comment Background="NoColor" Text="" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="8" Mode="Success" Operator="Equal" Opl="&quot;&quot;" Opr1="&quot;&quot;" Opr2="&quot;&quot;" PrefabAttachmentId="-1" TargetFSMNodeId="1" />
+      </Node>
+      <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="9" Method="Self.Player::aimToAngle(float Self.GameActor::currentOrientation)" Name="Aim" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_INVALID" ScreenLocationX="439.1825" ScreenLocationY="149.4782">
+        <Comment Background="NoColor" Text="" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="11" Mode="Condition" Operator="Greater" Opl="int Self.Player::hp" Opr1="&quot;&quot;" Opr2="const int 0" PrefabAttachmentId="-1" TargetFSMNodeId="1" />
+      </Node>
+    </FSMNodes>
+  </Node>
+</Behavior>

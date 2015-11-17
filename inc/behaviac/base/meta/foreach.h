@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_META_FOREACH_H__INCLUDED
-#define _BEHAVIAC_BASE_META_FOREACH_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_META_FOREACH_H_INCLUDED
+#define _BEHAVIAC_BASE_META_FOREACH_H_INCLUDED
 
 #include "behaviac/base/meta/meta.h"
 #include "behaviac/base/meta/foreach.hpp"

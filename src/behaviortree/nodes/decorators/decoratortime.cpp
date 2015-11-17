@@ -14,136 +14,142 @@
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/nodes/decorators/decoratortime.h"
 #include "behaviac/agent/agent.h"
+#include "behaviac/behaviortree/nodes/conditions/condition.h"
 
 namespace behaviac
 {
-	DecoratorTime::DecoratorTime() : m_time_var(0)
-	{}
+    DecoratorTime::DecoratorTime() : m_time_var(0)
+    {}
 
-	DecoratorTime::~DecoratorTime()
-	{
-		BEHAVIAC_DELETE(m_time_var);
-	}
+    DecoratorTime::~DecoratorTime()
+    {
+        BEHAVIAC_DELETE(m_time_var);
+    }
 
-	Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
+    //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
 
-	void DecoratorTime::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
+    void DecoratorTime::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
 
-		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
-		{
-			const property_t& p = (*it);
+        for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+        {
+            const property_t& p = (*it);
 
-			if (!strcmp(p.name, "Time"))
-			{
-				behaviac::string typeName;
-				behaviac::string propertyName;
-				this->m_time_var = LoadRight(p.value, propertyName, typeName);
-			}
-		}
-	}
+            if (!strcmp(p.name, "Time"))
+            {
+                behaviac::string typeName;
+                behaviac::string propertyName;
+                this->m_time_var = Condition::LoadRight(p.value, typeName);
+            }
+        }
+    }
 
-	int DecoratorTime::GetTime(Agent* pAgent) const
-	{
-		if (this->m_time_var)
-		{
-			BEHAVIAC_ASSERT(this->m_time_var);
-			TProperty<int>* pP = (TProperty<int>*)this->m_time_var;
-			uint64_t time = pP->GetValue(pAgent);
+    int DecoratorTime::GetTime(Agent* pAgent) const
+    {
+        if (this->m_time_var)
+        {
+            BEHAVIAC_ASSERT(this->m_time_var);
+            TProperty<int>* pP = (TProperty<int>*)this->m_time_var;
+            uint64_t time = pP->GetValue(pAgent);
 
-			return (time == ((uint64_t)-1) ? -1 : (int)time);
-		}
+            return (time == ((uint64_t) - 1) ? -1 : (int)time);
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 
-	BehaviorTask* DecoratorTime::createTask() const
-	{
-		DecoratorTimeTask* pTask = BEHAVIAC_NEW DecoratorTimeTask();
-		
-		return pTask;
-	}
+    BehaviorTask* DecoratorTime::createTask() const
+    {
+        DecoratorTimeTask* pTask = BEHAVIAC_NEW DecoratorTimeTask();
 
-	DecoratorTimeTask::DecoratorTimeTask() : DecoratorTask(), m_start(0), m_time(0)
-	{
-	}
+        return pTask;
+    }
 
-	DecoratorTimeTask::~DecoratorTimeTask()
-	{
-	}
+    DecoratorTimeTask::DecoratorTimeTask() : DecoratorTask(), m_start(0), m_time(0)
+    {
+    }
 
-	int DecoratorTimeTask::GetTime(Agent* pAgent) const
-	{
-		BEHAVIAC_ASSERT(DecoratorTime::DynamicCast(this->GetNode()));
-		const DecoratorTime* pNode = (const DecoratorTime*)(this->GetNode());
+    DecoratorTimeTask::~DecoratorTimeTask()
+    {
+    }
 
-		return pNode ? pNode->GetTime(pAgent) : 0;
-	}
+    int DecoratorTimeTask::GetTime(Agent* pAgent) const
+    {
+        BEHAVIAC_ASSERT(DecoratorTime::DynamicCast(this->GetNode()));
+        const DecoratorTime* pNode = (const DecoratorTime*)(this->GetNode());
 
-	void DecoratorTimeTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
+        return pNode ? pNode->GetTime(pAgent) : 0;
+    }
 
-		BEHAVIAC_ASSERT(DecoratorTimeTask::DynamicCast(target));
-		DecoratorTimeTask* ttask = (DecoratorTimeTask*)target;
+    void DecoratorTimeTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
 
-		ttask->m_start = this->m_start;
-		ttask->m_time = this->m_time;
-	}
+        BEHAVIAC_ASSERT(DecoratorTimeTask::DynamicCast(target));
+        DecoratorTimeTask* ttask = (DecoratorTimeTask*)target;
 
-	void DecoratorTimeTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
+        ttask->m_start = this->m_start;
+        ttask->m_time = this->m_time;
+    }
 
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  startId("start");
-			node->setAttr(startId, this->m_start);
+    void DecoratorTimeTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
 
-			CSerializationID  timeId("time");
-			node->setAttr(timeId, this->m_time);
-		}
-	}
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  startId("start");
+            node->setAttr(startId, this->m_start);
 
-	void DecoratorTimeTask::load(ISerializableNode* node)
-	{
-		super::load(node);
+            CSerializationID  timeId("time");
+            node->setAttr(timeId, this->m_time);
+        }
+    }
 
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  startId("start");
-			behaviac::string attrStr;
-			node->getAttr(startId, attrStr);
-			StringUtils::FromString(attrStr.c_str(), this->m_start);
+    void DecoratorTimeTask::load(ISerializableNode* node)
+    {
+        super::load(node);
 
-			CSerializationID  timeId("time");
-			node->getAttr(timeId, attrStr);
-			StringUtils::FromString(attrStr.c_str(), this->m_time);
-		}
-	}
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  startId("start");
+            behaviac::string attrStr;
+            node->getAttr(startId, attrStr);
+            StringUtils::FromString(attrStr.c_str(), this->m_start);
 
-	bool DecoratorTimeTask::onenter(Agent* pAgent)
-	{
-		super::onenter(pAgent);
+            CSerializationID  timeId("time");
+            node->getAttr(timeId, attrStr);
+            StringUtils::FromString(attrStr.c_str(), this->m_time);
+        }
+    }
 
-		this->m_start = 0;
-		this->m_time = this->GetTime(pAgent);
+    bool DecoratorTimeTask::onenter(Agent* pAgent)
+    {
+        super::onenter(pAgent);
 
-		return (this->m_time >= 0);
-	}
+        this->m_start = 0;
+        this->m_time = this->GetTime(pAgent);
 
-	EBTStatus DecoratorTimeTask::decorate(EBTStatus status)
-	{
+        if (this->m_time <= 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    EBTStatus DecoratorTimeTask::decorate(EBTStatus status)
+    {
         BEHAVIAC_UNUSED_VAR(status);
-        
-		this->m_start += (int)(Workspace::GetDeltaFrameTime() * 1000.0f);
-		if (this->m_start >= this->m_time)
-		{
-			return BT_SUCCESS;
-		}
+
+        this->m_start += (int)(Workspace::GetInstance()->GetDeltaFrameTime() * 1000.0f);
+
+        if (this->m_start >= this->m_time)
+        {
+            return BT_SUCCESS;
+        }
 
         return BT_RUNNING;
     }
-
 }//namespace behaviac

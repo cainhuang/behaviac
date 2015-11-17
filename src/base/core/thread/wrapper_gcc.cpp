@@ -19,82 +19,83 @@
 
 namespace behaviac
 {
-	namespace Thread
-	{
-		void Sleep(long millis)
-		{
-			//sleep(millis);
-			//printf("sleep %ld\n", millis);
-			clock_t goal = millis + clock();
-			while (goal > clock());
-		}
-	}
+    namespace Thread
+    {
+        void Sleep(long millis)
+        {
+            //sleep(millis);
+            //printf("sleep %ld\n", millis);
+            clock_t goal = millis + clock();
+
+            while (goal > clock());
+        }
+    }
 
     // Returns a new value of i
     Atomic32 AtomicInc(volatile Atomic32& i)
     {
-		__sync_fetch_and_add(&i, 1);
-		return i;
+        __sync_fetch_and_add(&i, 1);
+        return i;
     }
 
     Atomic32 AtomicDec(volatile Atomic32& i)
     {
-		__sync_fetch_and_sub(&i, 1);
-		return i;
+        __sync_fetch_and_sub(&i, 1);
+        return i;
     }
-    
-	void ThreadInt::Init()
-	{
-		if (!m_inited)
-		{
-			m_inited = true;
-		}
-	}
 
-	ThreadInt::ThreadInt()
-	{
-		//this is a globle, m_inited is 0 anyway
-		this->Init();
-	}
+    void ThreadInt::Init()
+    {
+        if (!m_inited)
+        {
+            m_inited = true;
+        }
+    }
 
-	ThreadInt::~ThreadInt()
-	{
-		m_inited = false;
-	}
+    ThreadInt::ThreadInt()
+    {
+        //this is a globle, m_inited is 0 anyway
+        this->Init();
+    }
 
-	//void ThreadInt::set(long v)
-	//{
-	//	{
-	//		behaviac::ScopedLock lock(m_csMemory);
-	//		m_value = v;
-	//	}
-	//}
+    ThreadInt::~ThreadInt()
+    {
+        m_inited = false;
+    }
 
-	long ThreadInt::value() const
-	{
-		return m_value;
-	}
+    //void ThreadInt::set(long v)
+    //{
+    //	{
+    //		behaviac::ScopedLock lock(m_csMemory);
+    //		m_value = v;
+    //	}
+    //}
 
-	long ThreadInt::operator++()
-	{
-		this->Init();
+    long ThreadInt::value() const
+    {
+        return m_value;
+    }
 
-		//{
-		//	behaviac::ScopedLock lock(m_csMemory);
-		//	m_value++;
-		//}
+    long ThreadInt::operator++()
+    {
+        this->Init();
 
-		return m_value;
-	}
+        //{
+        //	behaviac::ScopedLock lock(m_csMemory);
+        //	m_value++;
+        //}
 
-	void ThreadInt::operator--()
-	{
-		this->Init();
+        return m_value;
+    }
 
-		//{
-		//	behaviac::ScopedLock lock(m_csMemory);
-		//	m_value--;
-		//}
-	}
+    void ThreadInt::operator--()
+    {
+        this->Init();
+
+        //{
+        //	behaviac::ScopedLock lock(m_csMemory);
+        //	m_value--;
+        //}
+    }
 }
 #endif//#if !BEHAVIAC_COMPILER_MSVC

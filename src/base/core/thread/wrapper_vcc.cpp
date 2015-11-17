@@ -19,13 +19,13 @@
 
 namespace behaviac
 {
-	namespace Thread
-	{
-		void Sleep(long millis)
-		{
-			::Sleep(millis);
-		}
-	}
+    namespace Thread
+    {
+        void Sleep(long millis)
+        {
+            ::Sleep(millis);
+        }
+    }
 
     // Returns a new value of i
     Atomic32 AtomicInc(volatile Atomic32& i)
@@ -37,6 +37,5 @@ namespace behaviac
     {
         return InterlockedDecrement(reinterpret_cast<volatile long*>(&i));
     }
-
 }
 #endif//#if BEHAVIAC_COMPILER_MSVC

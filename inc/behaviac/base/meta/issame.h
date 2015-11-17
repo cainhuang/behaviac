@@ -11,14 +11,13 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_META_ISSAME_H__INCLUDED
-#define _BEHAVIAC_BASE_META_ISSAME_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_META_ISSAME_H_INCLUDED
+#define _BEHAVIAC_BASE_META_ISSAME_H_INCLUDED
 
 namespace behaviac
 {
     namespace Meta
     {
-
         // Compare two type, Answer is true if they are the same
         //
         // IsSame< int32_t, int32_t >::Answer == true
@@ -42,7 +41,6 @@ namespace behaviac
                 Result = 1
             };
         };
-
     }
 }
 

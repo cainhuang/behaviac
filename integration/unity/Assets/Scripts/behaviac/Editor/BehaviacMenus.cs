@@ -19,19 +19,17 @@ using UnityEditor;
 public class BehaviacMenus
 {
     [MenuItem("Behaviac/Export Meta")]
-    static void CreateBTMetaFile()
-    {
-		behaviac.Workspace.SetWorkspaceSettings("Assets/BehaviorTrees/BTWorkspace");
+    static void CreateBTMetaFile() {
+        //register names
+        //you might need to remove the following line and add your names
+        behaviac.Agent.RegisterInstanceName<ParTestRegNameAgent>();
 
-		//register names
-		behaviac.Agent.RegisterName<ParTestRegNameAgent>();
-		
-        behaviac.Workspace.ExportMetas("Assets/BehaviorTrees/BTWorkspace/xmlmeta/UnitTestMeta.xml");
+        behaviac.Workspace.Instance.ExportMetas("behaviac/workspace/xmlmeta/unittestmeta.xml");
+        behaviac.Workspace.Instance.Dispose();
     }
 
-	[MenuItem("Behaviac/Export Behaviac Package")]
-	static void ExportBehaviac()
-	{
+    [MenuItem("Behaviac/Export Behaviac Package")]
+    static void ExportBehaviac() {
         AssetDatabase.ExportPackage("Assets/Scripts/behaviac/runtime", "../../intermediate/behaviac.unitypackage", ExportPackageOptions.Recurse | ExportPackageOptions.IncludeDependencies);
-	}
+    }
 }

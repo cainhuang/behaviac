@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef CORE_PATHID_H_
-#define CORE_PATHID_H_
+#ifndef BEHAVIAC_CORE_PATHID_H
+#define BEHAVIAC_CORE_PATHID_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/core/container/string_t.h"
@@ -88,6 +88,7 @@ public:
         if (other.m_content)
         {
             SetContent(other.m_content);
+
         }
         else
         {
@@ -106,6 +107,7 @@ public:
         if (other.m_content)
         {
             SetContent(other.m_content);
+
         }
         else
         {
@@ -127,4 +129,4 @@ private:
 #endif //STRINGID_USESTRINGCONTENT
 };
 
-#endif //CORE_PATHID_H_
+#endif //BEHAVIAC_CORE_PATHID_H

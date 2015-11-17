@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -55,7 +55,7 @@ namespace PluginBehaviac.DataExporters
             }
             else
             {
-                retStr = VariableCppExporter.GenerateCode(rightValue.Var, stream, indent, typename, var, caller);
+                retStr = VariableCppExporter.GenerateCode(rightValue.Var, false, stream, indent, typename, var, caller);
             }
 
             return retStr;

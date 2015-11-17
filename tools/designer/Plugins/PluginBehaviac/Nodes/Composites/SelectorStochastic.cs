@@ -60,6 +60,10 @@ namespace PluginBehaviac.Nodes
             {
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.RandomGeneratorNotSpecified));
             }
+            else if (this._method.IsCustomized)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.CustomizedMethodError));
+            }
 
             base.CheckForErrors(rootBehavior, result);
         }

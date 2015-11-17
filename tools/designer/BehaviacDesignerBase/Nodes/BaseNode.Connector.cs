@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Behaviac.Design.Properties;
+using Behaviac.Design.Data;
 
 namespace Behaviac.Design.Nodes
 {
@@ -45,10 +46,15 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         public abstract class Connector
         {
+            public const string kGeneric = "GenericChildren";
+            public const string kInterupt = "_custom_condition";
+
             /// <summary>
             /// The number of children connected.
             /// </summary>
             public abstract int ChildCount { get; }
+
+            public abstract int EnableChildCount { get; }
 
             /// <summary>
             /// Gets a child with a given index.
@@ -78,10 +84,11 @@ namespace Behaviac.Design.Nodes
             /// <param name="child">The type of the child we want to check.</param>
             /// <param name="acceptEvenFull">Accepets the child even it is full.</param>
             /// <returns>Returns if the connector will accept that child.</returns>
-            public bool AcceptsChild(Type child, bool acceptEvenFull = false)
-            {
-                List<Type> children = new List<Type>(1);
+            public bool AcceptsChild(BaseNode child, bool acceptEvenFull = false) {
+                if (!this.IsAsChild && !child.IsCondition)
+                { return false; }
 
+                List<BaseNode> children = new List<BaseNode>(1);
                 children.Add(child);
 
                 return AcceptsChildren(children, acceptEvenFull);
@@ -93,19 +100,16 @@ namespace Behaviac.Design.Nodes
             /// <param name="children">The children we want to adopt.</param>
             /// <param name="acceptEvenFull">Accepets the child even it is full.</param>
             /// <returns>Returns if the connector will accept the children.</returns>
-            public bool AcceptsChildren(ConnectedChildren connectedChildren, bool acceptEvenFull = false)
-            {
-                List<Type> children = new List<Type>(connectedChildren.ChildCount);
+            public bool AcceptsChildren(ConnectedChildren connectedChildren, bool acceptEvenFull = false) {
+                List<BaseNode> children = new List<BaseNode>(connectedChildren.ChildCount);
 
-                foreach (BaseNode node in connectedChildren)
-                {
+                foreach(BaseNode node in connectedChildren) {
                     // if the owner itself is part of the list we ignore him
-                    if (node == Owner)
-                    {
+                    if (node == Owner) {
                         continue;
                     }
 
-                    children.Add(node.GetType());
+                    children.Add(node);
                 }
 
                 return AcceptsChildren(children, acceptEvenFull);
@@ -116,21 +120,23 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="children">The children we want to adopt.</param>
             /// <returns>Returns if the connector will accept the children.</returns>
-            public bool AcceptsChildren(Connector conn)
-            {
-                List<Type> children = new List<Type>(conn.ChildCount);
+            public bool AcceptsChildren(Connector conn) {
+                List<BaseNode> children = new List<BaseNode>(conn.ChildCount);
 
-                for (int i = 0; i < conn.ChildCount; ++i)
-                {
+                for (int i = 0; i < conn.ChildCount; ++i) {
                     BaseNode node = conn.GetChild(i);
 
                     // if the owner itself is part of the list we ignore him
-                    if (node == Owner)
-                    {
+                    if (node == Owner) {
                         continue;
                     }
 
-                    children.Add(node.GetType());
+                    //one child can't be as child of Owner
+                    if (!node.CanBeAdoptedBy(Owner)) {
+                        return false;
+                    }
+
+                    children.Add(node);
                 }
 
                 return AcceptsChildren(children);
@@ -141,7 +147,7 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="children">The list of the types of the children we want to add. The list's count is the number of children we want to add.</param>
             /// <returns>Returns true if the given number of children can be connected.</returns>
-            public abstract bool AcceptsChildren(IList<Type> children, bool acceptEvenFull = false);
+            public abstract bool AcceptsChildren(IList<BaseNode> children, bool acceptEvenFull = false);
 
             /// <summary>
             /// Removes a child from this connector.
@@ -172,8 +178,7 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="n">The index of the child we want to get.</param>
             /// <returns>Returns the requested child.</returns>
-            public BaseNode this[int n]
-            {
+            public BaseNode this[int n] {
                 get { return GetChild(n); }
             }
 
@@ -187,8 +192,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The minimum number of connectors shown on the node.
             /// </summary>
-            public int MinCount
-            {
+            public int MinCount {
                 get { return _minCount; }
             }
 
@@ -197,8 +201,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The maximum number of children accepted by the connector.
             /// </summary>
-            public int MaxCount
-            {
+            public int MaxCount {
                 get { return _maxCount; }
             }
 
@@ -212,8 +215,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The label used to generate the individual label for each connected child.
             /// </summary>
-            public string BaseLabel
-            {
+            public string BaseLabel {
                 get { return _label; }
 
                 set
@@ -228,8 +230,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The identifier of the connector.
             /// </summary>
-            public string Identifier
-            {
+            public string Identifier {
                 get { return _identifier; }
             }
 
@@ -238,8 +239,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// Stores if the connector is read-only, used for displaying sub-referenced behaviours and impulses.
             /// </summary>
-            public bool IsReadOnly
-            {
+            public bool IsReadOnly {
                 get { return _isReadOnly; }
                 set { _isReadOnly = value; }
             }
@@ -247,9 +247,102 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The node this connector belongs to.
             /// </summary>
-            public BaseNode Owner
-            {
+            public BaseNode Owner {
                 get { return _connectedChildren.Owner; }
+            }
+
+            public bool IsAsChild
+            {
+                get { return this.Identifier != kInterupt; }
+            }
+
+            public bool IsGeneric
+            {
+                get { return this.Identifier == kGeneric; }
+            }
+
+            private BehaviorNode Behavior {
+                get
+                {
+                    if (this.Owner != null) {
+                        if (this.Owner is NodeViewData) {
+                            NodeViewData nvd = this.Owner as NodeViewData;
+                            return (nvd.Node != null) ? nvd.Node.Behavior : null;
+                        }
+
+                        return this.Owner.Behavior;
+                    }
+
+                    return null;
+                }
+            }
+
+            private string OwnerId {
+                get
+                {
+                    if (this.Owner != null) {
+                        if (this.Owner is NodeViewData) {
+                            NodeViewData nvd = this.Owner as NodeViewData;
+                            return (nvd.Node != null) ? nvd.Node.Id.ToString() : null;
+                        }
+
+                        return ((Node)this.Owner).Id.ToString();
+                    }
+
+                    return string.Empty;
+                }
+            }
+
+            private Connector getTopCustomizedConditionConnector() {
+                Connector connector = this;
+                BaseNode owner = this.Owner;
+
+                while (connector != null) {
+                    if (!connector.IsAsChild)
+                    { return connector; }
+
+                    owner = connector.Owner;
+
+                    if (owner != null)
+                    { connector = owner.ParentConnector; }
+                }
+
+                return null;
+            }
+
+            public bool IsExpanded {
+                get
+                {
+                    Connector topConnector = this.getTopCustomizedConditionConnector();
+
+                    if (topConnector != null) {
+                        if (topConnector == this) {
+                            Nodes.Behavior behavior = this.Behavior as Nodes.Behavior;
+
+                            if (behavior != null) {
+                                behavior = behavior.GetTopBehavior();
+
+                                if (behavior != null)
+                                { return ExpandedNodePool.IsExpandedConnector(behavior.RelativePath, this.OwnerId, this.Identifier); }
+                            }
+
+                            return false;
+                        }
+
+                        return topConnector.IsExpanded;
+                    }
+
+                    return true;
+                }
+
+                set
+                {
+                    Nodes.Behavior behavior = this.Behavior as Nodes.Behavior;
+                    behavior = behavior.GetTopBehavior();
+
+                    if (behavior != null)
+                    { ExpandedNodePool.SetExpandedConnector(behavior.RelativePath, this.OwnerId, this.Identifier, value); }
+                }
             }
 
             /// <summary>
@@ -260,8 +353,7 @@ namespace Behaviac.Design.Nodes
             /// <param name="identifier">The identifier of the connector.</param>
             /// <param name="minCount">The minimum number of subitems shown for the connector.</param>
             /// <param name="maxCount">The maximum number of children the connector can have.</param>
-            public Connector(ConnectedChildren connectedChildren, string label, string identifier, int minCount, int maxCount)
-            {
+            public Connector(ConnectedChildren connectedChildren, string label, string identifier, int minCount, int maxCount) {
                 Debug.Check(connectedChildren != null);
                 Debug.Check(minCount >= 1);
                 Debug.Check(maxCount >= minCount);
@@ -283,8 +375,7 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="index">The index of the child connected to this connector.</param>
             /// <returns>Returns individual label for connected child.</returns>
-            public virtual string GetLabel(int index)
-            {
+            public virtual string GetLabel(int index) {
                 return _labelIncludesIndex ? string.Format(_label, index + 1) : _label;
             }
 
@@ -293,10 +384,9 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="firstIndex">The first connector subitem found on the node.</param>
             /// <returns>Returns alist of all connector subitems.</returns>
-            protected List<NodeViewData.SubItemConnector> CollectSubItems(out int firstIndex)
-            {
+            protected List<NodeViewData.SubItemConnector> CollectSubItems(out int firstIndex) {
                 if (!(_connectedChildren.Owner is NodeViewData))
-                    throw new Exception(Resources.ExceptionIsNotNodeViewData);
+                { throw new Exception(Resources.ExceptionIsNotNodeViewData); }
 
                 List<NodeViewData.SubItemConnector> list = new List<NodeViewData.SubItemConnector>();
 
@@ -305,30 +395,28 @@ namespace Behaviac.Design.Nodes
                 NodeViewData nvd = (NodeViewData)_connectedChildren.Owner;
 
                 // for each subitem...
-                for (int i = 0; i < nvd.SubItems.Count; ++i)
-                {
+                for (int i = 0; i < nvd.SubItems.Count; ++i) {
                     // check if it is a connector subitem
                     NodeViewData.SubItemConnector subconn = nvd.SubItems[i] as NodeViewData.SubItemConnector;
-                    if (subconn != null && subconn.Connector == this)
-                    {
+
+                    if (subconn != null && subconn.Connector == this) {
                         // remember the index of the first connector subitem found
                         if (firstIndex == -1)
-                            firstIndex = i;
+                        { firstIndex = i; }
 
                         // add subitem to list
                         list.Add(subconn);
-                    }
-                    else
-                    {
+
+                    } else {
                         // subitems of a connector must be next to each other
                         if (firstIndex >= 0)
-                            break;
+                        { break; }
                     }
                 }
 
                 // check if we have found any subitems
                 if (list.Count < 1)
-                    throw new Exception(Resources.ExceptionNoSubItemForConnector);
+                { throw new Exception(Resources.ExceptionNoSubItemForConnector); }
 
                 // check that we have found enough of them and not too many
                 Debug.Check(list.Count >= _minCount && list.Count <= _maxCount);
@@ -339,10 +427,9 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// Rebuilds the stored indices on the connector subitems.
             /// </summary>
-            protected void RebuildSubItemIndices()
-            {
+            protected void RebuildSubItemIndices() {
                 if (!(_connectedChildren.Owner is NodeViewData))
-                    throw new Exception(Resources.ExceptionIsNotNodeViewData);
+                { throw new Exception(Resources.ExceptionIsNotNodeViewData); }
 
                 int firstIndex;
                 List<NodeViewData.SubItemConnector> subitems = CollectSubItems(out firstIndex);
@@ -350,15 +437,16 @@ namespace Behaviac.Design.Nodes
                 // check that we have a connector subitem for every child. Due to the minimum count, there can be more connector subitems than children
                 Debug.Check(subitems.Count >= ChildCount);
 
-                for (int i = 0; i < subitems.Count; ++i)
-                {
+                for (int i = 0; i < subitems.Count; ++i) {
                     // assign correct index
                     subitems[i].Index = i;
 
 #if DEBUG
+
                     // check if the stored child is the same from the connector
                     if (i < ChildCount)
-                        Debug.Check(subitems[i].Child == GetChild(i));
+                    { Debug.Check(subitems[i].Child == GetChild(i)); }
+
 #endif
                 }
             }
@@ -367,19 +455,16 @@ namespace Behaviac.Design.Nodes
             /// Adds a connector subitem for a given child.
             /// </summary>
             /// <param name="child">The child we want to add a connecor subitem for.</param>
-            protected void AddSubItem(BaseNode child)
-            {
+            protected void AddSubItem(BaseNode child) {
                 if (!(_connectedChildren.Owner is NodeViewData))
-                    throw new Exception(Resources.ExceptionIsNotNodeViewData);
+                { throw new Exception(Resources.ExceptionIsNotNodeViewData); }
 
                 int firstIndex;
                 List<NodeViewData.SubItemConnector> subitems = CollectSubItems(out firstIndex);
 
                 // check if there is a connector subitem with child due to the minimum count
-                foreach (NodeViewData.SubItemConnector subitem in subitems)
-                {
-                    if (subitem.Child == null)
-                    {
+                foreach(NodeViewData.SubItemConnector subitem in subitems) {
+                    if (subitem.Child == null) {
                         // simply reuse the connector subitem
                         subitem.Child = child;
                         return;
@@ -395,21 +480,17 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="child">The child we want to add a connector subitem for.</param>
             /// <param name="index">The position we want to add the subitem at.</param>
-            protected void AddSubItem(BaseNode child, int index)
-            {
+            protected void AddSubItem(BaseNode child, int index) {
                 if (!(_connectedChildren.Owner is NodeViewData))
-                    throw new Exception(Resources.ExceptionIsNotNodeViewData);
+                { throw new Exception(Resources.ExceptionIsNotNodeViewData); }
 
                 int firstIndex;
                 List<NodeViewData.SubItemConnector> subitems = CollectSubItems(out firstIndex);
 
                 // we want to add inside the minimum count it can be that there is a connector subitem which has no child (due to minimum count)
-                if (index < _minCount)
-                {
-                    foreach (NodeViewData.SubItemConnector subitem in subitems)
-                    {
-                        if (subitem.Child == null)
-                        {
+                if (index < _minCount) {
+                    foreach(NodeViewData.SubItemConnector subitem in subitems) {
+                        if (subitem.Child == null) {
                             // if there is a free connector subitem we drop it so we can add a new one for our child
                             ((NodeViewData)_connectedChildren.Owner).RemoveSubItem(subitem);
                             break;
@@ -427,28 +508,24 @@ namespace Behaviac.Design.Nodes
             /// Removes a connector subitem for a child.
             /// </summary>
             /// <param name="child">The child whose connector subitem we want to remove.</param>
-            protected void RemoveSubItem(BaseNode child)
-            {
+            protected void RemoveSubItem(BaseNode child) {
                 if (!(_connectedChildren.Owner is NodeViewData))
-                    throw new Exception(Resources.ExceptionIsNotNodeViewData);
+                { throw new Exception(Resources.ExceptionIsNotNodeViewData); }
 
                 int firstIndex;
                 List<NodeViewData.SubItemConnector> subitems = CollectSubItems(out firstIndex);
 
                 // find the connector subitem for this child...
-                for (int i = 0; i < subitems.Count; ++i)
-                {
+                for (int i = 0; i < subitems.Count; ++i) {
                     NodeViewData.SubItemConnector subitem = subitems[i];
 
                     // when we found it...
-                    if (subitem.Child == child)
-                    {
+                    if (subitem.Child == child) {
                         // remove the subitem
                         ((NodeViewData)_connectedChildren.Owner).RemoveSubItem(subitem);
 
                         // if we do not fullfil the minimum count, re add it at the end and clear the child
-                        if (subitems.Count - 1 < _minCount)
-                        {
+                        if (subitems.Count - 1 < _minCount) {
                             subitem.Child = null;
                             ((NodeViewData)_connectedChildren.Owner).AddSubItem(subitem, firstIndex + subitems.Count - 1);
                         }
@@ -466,21 +543,20 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// Clears all connector subitems from the node.
             /// </summary>
-            protected void ClearSubItems()
-            {
+            protected void ClearSubItems() {
                 if (!(_connectedChildren.Owner is NodeViewData))
-                    throw new Exception(Resources.ExceptionIsNotNodeViewData);
+                { throw new Exception(Resources.ExceptionIsNotNodeViewData); }
 
                 int firstIndex;
                 List<NodeViewData.SubItemConnector> subitems = CollectSubItems(out firstIndex);
 
                 // for all connector subitems
-                for (int i = 0; i < subitems.Count; ++i)
-                {
+                for (int i = 0; i < subitems.Count; ++i) {
                     // clear the minimum ones and remove the others
                     if (i < _minCount)
-                        subitems[i].Child = null;
-                    else ((NodeViewData)_connectedChildren.Owner).RemoveSubItem(subitems[i]);
+                    { subitems[i].Child = null; }
+
+                    else { ((NodeViewData)_connectedChildren.Owner).RemoveSubItem(subitems[i]); }
                 }
             }
 
@@ -489,19 +565,16 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="node">The node we want to check to be a child.</param>
             /// <returns>Returns true if the node ia child of this connector.</returns>
-            public bool HasChild(BaseNode node)
-            {
-                for (int i = 0; i < ChildCount; ++i)
-                {
+            public bool HasChild(BaseNode node) {
+                for (int i = 0; i < ChildCount; ++i) {
                     if (GetChild(i) == node)
-                        return true;
+                    { return true; }
                 }
 
                 return false;
             }
 
-            public override string ToString()
-            {
+            public override string ToString() {
                 return _connectedChildren.Owner.ToString() + ':' + _identifier;
             }
         }

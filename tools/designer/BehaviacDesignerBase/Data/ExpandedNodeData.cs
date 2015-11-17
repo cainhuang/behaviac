@@ -14,93 +14,133 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Behaviac.Design.Data
 {
     public class ExpandedNodePool
     {
-        // <filename, <fullId, isExpaned>>
-        private static Dictionary<string, Dictionary<string, bool>> _expandedNodeDict = new Dictionary<string, Dictionary<string, bool>>();
-
-        public static void Clear()
+        [Serializable]
+        public class ExpandedDatum : ISerializable
         {
+            // self expand
+            public bool isExpanded = false;
+
+            // all expaned connectors
+            public List<string> expandedConnectors = new List<string>();
+
+            public ExpandedDatum() {
+            }
+
+            protected ExpandedDatum(SerializationInfo info, StreamingContext context) {
+                this.isExpanded = info.GetBoolean("isExpanded");
+                this.expandedConnectors = info.GetValue("expandedConnectors", typeof(List<string>)) as List<string>;
+            }
+
+            public void GetObjectData(SerializationInfo info, StreamingContext context) {
+                info.AddValue("isExpanded", isExpanded);
+                info.AddValue("expandedConnectors", expandedConnectors);
+            }
+        }
+
+        // <filename, <fullId, isExpaned>>
+        private static Dictionary<string, Dictionary<string, ExpandedDatum>> _expandedNodeDict = new Dictionary<string, Dictionary<string, ExpandedDatum>>();
+
+        public static void Clear() {
             _expandedNodeDict.Clear();
         }
 
-        public static bool HasSetExpandedNodes(NodeViewData nvd)
-        {
+        public static bool HasSetExpandedNodes(NodeViewData nvd) {
             Debug.Check(nvd != null && nvd.Node != null);
 
-            Nodes.BehaviorNode behavior = nvd.Node.Behavior;
+            Nodes.Behavior behavior = nvd.Node.Behavior as Nodes.Behavior;
+
+            if (behavior != null) {
+                behavior = behavior.GetTopBehavior();
+            }
+
             string filename = (behavior != null) && !string.IsNullOrEmpty(behavior.Filename) ? behavior.RelativePath : string.Empty;
 
-            if (!string.IsNullOrEmpty(filename) && _expandedNodeDict.ContainsKey(filename))
-            {
+            if (!string.IsNullOrEmpty(filename) && _expandedNodeDict.ContainsKey(filename)) {
                 return true;
             }
 
             return false;
         }
 
-        public static bool IsExpandedNode(NodeViewData nvd)
-        {
+        public static bool IsExpandedNode(NodeViewData nvd) {
             Debug.Check(nvd != null && nvd.Node != null);
 
             bool defaultExpanded = !(nvd.Node is Nodes.ReferencedBehavior);
-            if (defaultExpanded)
-            {
-                foreach (NodeViewData child in nvd.Children)
-                {
-                    if (!child.CanBeExpanded())
-                    {
+
+            if (defaultExpanded) {
+                //if there is a leaf node, collapse it
+                foreach(NodeViewData child in nvd.Children) {
+                    if (!child.CanBeExpanded()) {
+                        //leaf node can't be expanded, there is a leaf node!
                         defaultExpanded = false;
                         break;
                     }
                 }
             }
 
-            Nodes.BehaviorNode behavior = nvd.Node.Behavior;
+            Nodes.Behavior behavior = nvd.Node.Behavior as Nodes.Behavior;
+
+            if (behavior != null) {
+                behavior = behavior.GetTopBehavior();
+            }
+
             string filename = (behavior != null) && !string.IsNullOrEmpty(behavior.Filename) ? behavior.RelativePath : string.Empty;
 
-            if (!string.IsNullOrEmpty(filename) && _expandedNodeDict.ContainsKey(filename))
-            {
-                Dictionary<string, bool> expandedNodes = _expandedNodeDict[filename];
+            if (!string.IsNullOrEmpty(filename) && _expandedNodeDict.ContainsKey(filename)) {
+                Dictionary<string, ExpandedDatum> expandedNodes = _expandedNodeDict[filename];
 
-                string id = nvd.Node.Id.ToString();
+                string id = nvd.FullId;
+
                 if (!expandedNodes.ContainsKey(id))
-                    return defaultExpanded;
+                { return defaultExpanded; }
 
-                return expandedNodes[id];
-            }
-            else
-            {
-                defaultExpanded = true;
+                return expandedNodes[id].isExpanded;
+
+            } else {
+                //defaultExpanded = true;
             }
 
             return defaultExpanded;
         }
 
-        public static bool SetExpandedNode(NodeViewData nvd, bool isExpanded)
-        {
+        public static bool SetExpandedNode(NodeViewData nvd, bool isExpanded) {
             Debug.Check(nvd != null && nvd.Node != null);
 
-            Nodes.BehaviorNode behavior = nvd.Node.Behavior;
-            if (behavior != null && !string.IsNullOrEmpty(behavior.Filename))
-                return SetExpandedNode(behavior.RelativePath, nvd.Node.Id.ToString(), isExpanded);
+            Nodes.Behavior b = nvd.Node.Behavior as Nodes.Behavior;
+
+            if (b != null) {
+                b = b.GetTopBehavior();
+
+                Debug.Check(b != null);
+
+                if (!string.IsNullOrEmpty(b.Filename)) {
+                    return SetExpandedNode(b.RelativePath, nvd.FullId, isExpanded);
+                }
+            }
 
             return false;
         }
 
-        public static bool SetExpandedNode(string relativePath, string fullId, bool isExpanded)
-        {
-            if (!string.IsNullOrEmpty(relativePath))
-            {
-                if (!_expandedNodeDict.ContainsKey(relativePath))
-                    _expandedNodeDict[relativePath] = new Dictionary<string, bool>();
 
-                Dictionary<string, bool> expandedNodes = _expandedNodeDict[relativePath];
-                expandedNodes[fullId] = isExpanded;
+        private static bool SetExpandedNode(string relativePath, string fullId, bool isExpanded) {
+            if (!string.IsNullOrEmpty(relativePath)) {
+                if (!_expandedNodeDict.ContainsKey(relativePath))
+                { _expandedNodeDict[relativePath] = new Dictionary<string, ExpandedDatum>(); }
+
+                Dictionary<string, ExpandedDatum> expandedNodes = _expandedNodeDict[relativePath];
+
+                if (!expandedNodes.ContainsKey(fullId))
+                { expandedNodes[fullId] = new ExpandedDatum(); }
+
+                ExpandedDatum datum = expandedNodes[fullId];
+                datum.isExpanded = isExpanded;
 
                 return true;
             }
@@ -108,23 +148,86 @@ namespace Behaviac.Design.Data
             return false;
         }
 
-        public static void Serialize(Stream stream, BinaryFormatter formatter)
-        {
+        public static bool IsExpandedConnector(NodeViewData nvd, string connector) {
+            Debug.Check(nvd != null && nvd.Node != null);
+
+            Nodes.Behavior behavior = nvd.Node.Behavior as Nodes.Behavior;
+
+            if (behavior != null) {
+                behavior = behavior.GetTopBehavior();
+            }
+
+            string filename = (behavior != null) && !string.IsNullOrEmpty(behavior.Filename) ? behavior.RelativePath : string.Empty;
+
+            return IsExpandedConnector(filename, nvd.Node.Id.ToString(), connector);
+        }
+
+        public static bool IsExpandedConnector(string relativePath, string id, string connector) {
+            if (!string.IsNullOrEmpty(relativePath) && _expandedNodeDict.ContainsKey(relativePath)) {
+                Dictionary<string, ExpandedDatum> expandedNodes = _expandedNodeDict[relativePath];
+
+                if (expandedNodes.ContainsKey(id))
+                { return expandedNodes[id].expandedConnectors.Contains(connector); }
+            }
+
+            return false;
+        }
+
+        public static bool SetExpandedConnector(NodeViewData nvd, string connector, bool isConnectorExpanded) {
+            Debug.Check(nvd != null && nvd.Node != null);
+
+            Nodes.Behavior behavior = nvd.Node.Behavior as Nodes.Behavior;
+
+            if (behavior != null) {
+                behavior = behavior.GetTopBehavior();
+            }
+
+            if (behavior != null && !string.IsNullOrEmpty(behavior.Filename))
+            { return SetExpandedConnector(behavior.RelativePath, nvd.Node.Id.ToString(), connector, isConnectorExpanded); }
+
+            return false;
+        }
+
+        public static bool SetExpandedConnector(string relativePath, string fullId, string connector, bool isConnectorExpanded) {
+            if (!string.IsNullOrEmpty(relativePath)) {
+                if (!_expandedNodeDict.ContainsKey(relativePath))
+                { _expandedNodeDict[relativePath] = new Dictionary<string, ExpandedDatum>(); }
+
+                Dictionary<string, ExpandedDatum> expandedNodes = _expandedNodeDict[relativePath];
+
+                if (!expandedNodes.ContainsKey(fullId))
+                { expandedNodes[fullId] = new ExpandedDatum(); }
+
+                ExpandedDatum datum = expandedNodes[fullId];
+
+                if (isConnectorExpanded) {
+                    if (!datum.expandedConnectors.Contains(connector)) {
+                        datum.expandedConnectors.Add(connector);
+                        return true;
+                    }
+
+                } else {
+                    return datum.expandedConnectors.Remove(connector);
+                }
+            }
+
+            return false;
+        }
+
+        public static void Serialize(Stream stream, BinaryFormatter formatter) {
             formatter.Serialize(stream, _expandedNodeDict);
         }
 
-        public static void Deserialize(Stream stream, BinaryFormatter formatter)
-        {
+        public static void Deserialize(Stream stream, BinaryFormatter formatter) {
             Clear();
 
-            try
-            {
-                Dictionary<string, Dictionary<string, bool>> nodes = formatter.Deserialize(stream) as Dictionary<string, Dictionary<string, bool>>;
+            try {
+                Dictionary<string, Dictionary<string, ExpandedDatum>> nodes = formatter.Deserialize(stream) as Dictionary<string, Dictionary<string, ExpandedDatum>>;
+
                 if (nodes != null)
-                    _expandedNodeDict = nodes;
-            }
-            catch (Exception)
-            {
+                { _expandedNodeDict = nodes; }
+
+            } catch {
             }
         }
     }

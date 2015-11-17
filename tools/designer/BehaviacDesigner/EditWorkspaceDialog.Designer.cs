@@ -33,53 +33,51 @@
 
 namespace Behaviac.Design
 {
-	partial class EditWorkspaceDialog
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class EditWorkspaceDialog
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Windows Form Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditWorkspaceDialog));
             this.doneButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.nameLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.pluginListBox = new System.Windows.Forms.CheckedListBox();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.importXMLButton = new System.Windows.Forms.Button();
-            this.xmlFolderTextBox = new System.Windows.Forms.TextBox();
+            this.XMLButton = new System.Windows.Forms.Button();
+            this.XMLTextBox = new System.Windows.Forms.TextBox();
             this.metaLabel = new System.Windows.Forms.Label();
             this.workspaceButton = new System.Windows.Forms.Button();
-            this.locationTextBox = new System.Windows.Forms.TextBox();
+            this.workspaceTextBox = new System.Windows.Forms.TextBox();
             this.locationLabel = new System.Windows.Forms.Label();
             this.sourceTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonSource = new System.Windows.Forms.Button();
+            this.sourceButton = new System.Windows.Forms.Button();
             this.exportTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonExport = new System.Windows.Forms.Button();
+            this.exportButton = new System.Windows.Forms.Button();
+            this.folderBrowserDialog = new Ookii.Dialogs.VistaFolderBrowserDialog();
             this.SuspendLayout();
             // 
             // doneButton
@@ -127,28 +125,25 @@ namespace Behaviac.Design
             this.pluginListBox.FormattingEnabled = true;
             this.pluginListBox.Name = "pluginListBox";
             // 
-            // folderBrowserDialog
+            // XMLButton
             // 
-            resources.ApplyResources(this.folderBrowserDialog, "folderBrowserDialog");
+            resources.ApplyResources(this.XMLButton, "XMLButton");
+            this.XMLButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.XMLButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.XMLButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.XMLButton.Name = "XMLButton";
+            this.XMLButton.UseVisualStyleBackColor = false;
+            this.XMLButton.Click += new System.EventHandler(this.importXMLButton_Click);
             // 
-            // importXMLButton
+            // XMLTextBox
             // 
-            resources.ApplyResources(this.importXMLButton, "importXMLButton");
-            this.importXMLButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.importXMLButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.importXMLButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
-            this.importXMLButton.Name = "importXMLButton";
-            this.importXMLButton.UseVisualStyleBackColor = false;
-            this.importXMLButton.Click += new System.EventHandler(this.importXMLButton_Click);
-            // 
-            // xmlFolderTextBox
-            // 
-            resources.ApplyResources(this.xmlFolderTextBox, "xmlFolderTextBox");
-            this.xmlFolderTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.xmlFolderTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xmlFolderTextBox.ForeColor = System.Drawing.Color.LightGray;
-            this.xmlFolderTextBox.Name = "xmlFolderTextBox";
-            this.xmlFolderTextBox.ReadOnly = true;
+            resources.ApplyResources(this.XMLTextBox, "XMLTextBox");
+            this.XMLTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.XMLTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.XMLTextBox.ForeColor = System.Drawing.Color.LightGray;
+            this.XMLTextBox.Name = "XMLTextBox";
+            this.XMLTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.xmlFolderTextBox_KeyDown);
+            this.XMLTextBox.Leave += new System.EventHandler(this.xmlFolderTextBox_Leave);
             // 
             // metaLabel
             // 
@@ -165,14 +160,15 @@ namespace Behaviac.Design
             this.workspaceButton.UseVisualStyleBackColor = false;
             this.workspaceButton.Click += new System.EventHandler(this.workspaceButton_Click);
             // 
-            // locationTextBox
+            // workspaceTextBox
             // 
-            resources.ApplyResources(this.locationTextBox, "locationTextBox");
-            this.locationTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.locationTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.locationTextBox.ForeColor = System.Drawing.Color.LightGray;
-            this.locationTextBox.Name = "locationTextBox";
-            this.locationTextBox.ReadOnly = true;
+            resources.ApplyResources(this.workspaceTextBox, "workspaceTextBox");
+            this.workspaceTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.workspaceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.workspaceTextBox.ForeColor = System.Drawing.Color.LightGray;
+            this.workspaceTextBox.Name = "workspaceTextBox";
+            this.workspaceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.locationTextBox_KeyDown);
+            this.workspaceTextBox.Leave += new System.EventHandler(this.locationTextBox_Leave);
             // 
             // locationLabel
             // 
@@ -186,22 +182,23 @@ namespace Behaviac.Design
             this.sourceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sourceTextBox.ForeColor = System.Drawing.Color.LightGray;
             this.sourceTextBox.Name = "sourceTextBox";
-            this.sourceTextBox.ReadOnly = true;
+            this.sourceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sourceTextBox_KeyDown);
+            this.sourceTextBox.Leave += new System.EventHandler(this.sourceTextBox_Leave);
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // buttonSource
+            // sourceButton
             // 
-            resources.ApplyResources(this.buttonSource, "buttonSource");
-            this.buttonSource.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.buttonSource.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.buttonSource.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
-            this.buttonSource.Name = "buttonSource";
-            this.buttonSource.UseVisualStyleBackColor = false;
-            this.buttonSource.Click += new System.EventHandler(this.buttonSource_Click);
+            resources.ApplyResources(this.sourceButton, "sourceButton");
+            this.sourceButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.sourceButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.sourceButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.sourceButton.Name = "sourceButton";
+            this.sourceButton.UseVisualStyleBackColor = false;
+            this.sourceButton.Click += new System.EventHandler(this.buttonSource_Click);
             // 
             // exportTextBox
             // 
@@ -210,22 +207,27 @@ namespace Behaviac.Design
             this.exportTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.exportTextBox.ForeColor = System.Drawing.Color.LightGray;
             this.exportTextBox.Name = "exportTextBox";
-            this.exportTextBox.ReadOnly = true;
+            this.exportTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.exportTextBox_KeyDown);
+            this.exportTextBox.Leave += new System.EventHandler(this.exportTextBox_Leave);
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
-            // buttonExport
+            // exportButton
             // 
-            resources.ApplyResources(this.buttonExport, "buttonExport");
-            this.buttonExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.buttonExport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.buttonExport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
-            this.buttonExport.Name = "buttonExport";
-            this.buttonExport.UseVisualStyleBackColor = false;
-            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            resources.ApplyResources(this.exportButton, "exportButton");
+            this.exportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.exportButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.exportButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.exportButton.Name = "exportButton";
+            this.exportButton.UseVisualStyleBackColor = false;
+            this.exportButton.Click += new System.EventHandler(this.buttonExport_Click);
+            // 
+            // folderBrowserDialog
+            // 
+            resources.ApplyResources(this.folderBrowserDialog, "folderBrowserDialog");
             // 
             // EditWorkspaceDialog
             // 
@@ -236,16 +238,16 @@ namespace Behaviac.Design
             this.CancelButton = this.cancelButton;
             this.Controls.Add(this.exportTextBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.buttonExport);
+            this.Controls.Add(this.exportButton);
             this.Controls.Add(this.sourceTextBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonSource);
-            this.Controls.Add(this.locationTextBox);
+            this.Controls.Add(this.sourceButton);
+            this.Controls.Add(this.workspaceTextBox);
             this.Controls.Add(this.locationLabel);
             this.Controls.Add(this.workspaceButton);
             this.Controls.Add(this.metaLabel);
-            this.Controls.Add(this.xmlFolderTextBox);
-            this.Controls.Add(this.importXMLButton);
+            this.Controls.Add(this.XMLTextBox);
+            this.Controls.Add(this.XMLButton);
             this.Controls.Add(this.pluginListBox);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.nameLabel);
@@ -259,27 +261,27 @@ namespace Behaviac.Design
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Button doneButton;
-		private System.Windows.Forms.Button cancelButton;
-		private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.Button doneButton;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.CheckedListBox pluginListBox;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
-        private System.Windows.Forms.Button importXMLButton;
-        private System.Windows.Forms.TextBox xmlFolderTextBox;
+        private System.Windows.Forms.Button XMLButton;
+        private System.Windows.Forms.TextBox XMLTextBox;
         private System.Windows.Forms.Label metaLabel;
         private System.Windows.Forms.Button workspaceButton;
-        private System.Windows.Forms.TextBox locationTextBox;
+        private System.Windows.Forms.TextBox workspaceTextBox;
         private System.Windows.Forms.Label locationLabel;
         private System.Windows.Forms.TextBox sourceTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonSource;
+        private System.Windows.Forms.Button sourceButton;
         private System.Windows.Forms.TextBox exportTextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonExport;
-	}
+        private System.Windows.Forms.Button exportButton;
+        private Ookii.Dialogs.VistaFolderBrowserDialog folderBrowserDialog;
+    }
 }

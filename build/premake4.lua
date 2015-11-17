@@ -151,12 +151,12 @@ end
 local action = _ACTION or ""
 
 solution "behaviac"
-	configurations { "DebugStatic", "ReleaseStatic", "ProfileStatic" }
+	configurations { "DebugStatic", "ReleaseStatic" }
 	if string.match(action, "vs20") ~= nil then
-		configurations { "DebugDLL", "ReleaseDLL", "ProfileDLL" }
+		configurations { "DebugDLL", "ReleaseDLL" }
 	end
 	
-	--configurations { "DebugStatic", "ReleaseStatic", "ProfileStatic" }
+	--configurations { "DebugStatic", "ReleaseStatic" }
 	
 	if string.match(action, "vs20") ~= nil then		
 		--platforms { "x32", "x64" }
@@ -231,20 +231,12 @@ solution "behaviac"
 		defines { "NDEBUG" }
 		flags   { "Optimize" } 
 		
-	configuration { "Profile*" }
-		defines { "NDEBUG" }
-		flags   { "Optimize" } 
-		--flags   { "Symbols" }
-		
-	configuration { "vs2010", "Profile*" }
-		defines { "_ITERATOR_DEBUG_LEVEL=0" }
-	
 	configuration { "*" }
 		flags {
 			"ExtraWarnings",
-			-- "FatalWarnings",
+			"FatalWarnings", --Treat warnings as errors.
 			"NoExceptions",
-			"NoRTTI",
+			--"NoRTTI",		 --linux generally enables RTTI
 			--"EnableSSE2",
 			"FloatFast",
 			}
@@ -252,26 +244,27 @@ solution "behaviac"
 	--flags { "StaticRuntime" }
 	--linkoptions {"/NODEFAULTLIB:msvcrtd.lib", "/NODEFAULTLIB:msvcprtd.lib", 
 	--		"/NODEFAULTLIB:msvcrt.lib", "/NODEFAULTLIB:msvcprt.lib"	}
-			
-	configuration { "Release*" }
-		buildoptions { 
-			"/Ox", -- Full optimization
-			"/Oi", -- Enable intrinsic functions
-			"/Ob1", -- inline
-			"/Ot",  -- Favor faster code
-		}
+	if string.match(action, "vs20") ~= nil then		
+		flags { "NoMinimalRebuild" }
+		
+        buildoptions { 
+            "/MP", -- multiple processor compilation
+            --"/Gm-" -- Disable Minimum Rebuild
+        }
+		
+		configuration { "Release*" }
+			buildoptions { 
+				"/Ox", -- Full optimization
+				"/Oi", -- Enable intrinsic functions
+				"/Ob1", -- inline
+				"/Ot",  -- Favor faster code
+			}
 
-	configuration { "Profile*" }
-		buildoptions { 
-			"/Ox", -- Full optimization
-			"/Oi", -- Enable intrinsic functions
-			"/Ob1", -- inline
-			"/Ot",  -- Favor faster code
-		}
-		linkoptions {
-			"/DEBUG "
-		}
-		flags   { "Symbols" }			
+			-- linkoptions {
+				-- "/DEBUG "
+			-- }
+			-- flags   { "Symbols" }			
+	end
 
 	if string.match(action, "gmake") ~= nil or string.match(action, "xcode") ~= nil or string.match(action, "jni") ~= nil then	
 		configuration {}
@@ -281,6 +274,10 @@ solution "behaviac"
 				"-Wno-array-bounds", -- array index 'x' is past the end of the array
 				"-Wno-unused-local-typedefs", --warning: typedef '_static_assert_typedef_' locally defined but not used
 				"-Wno-maybe-uninitialized", --warning: 'lhs' may be used uninitialized in this function
+				"-Woverloaded-virtual", 
+				"-Wnon-virtual-dtor",
+				"-Wfloat-equal", 
+				"-Wno-strict-aliasing", --dereferencing type-punned pointer will break strict-aliasing rules 
 				--"-finput-charset=UTF-8", -- invalid access to non-static data member ¡®xxx¡¯  of NULL object
 			}
 	end
@@ -337,15 +334,12 @@ solution "behaviac"
 		setTargetPDBFile("../../bin")
 		
 		--configuration { "not *DLL" }
-		configuration { "Debug or Release or Profile" }
+		configuration { "Debug or Release" }
 			defines {"_LIB"}
 
-		configuration { "DebugDLL or ReleaseDLL or ProfileDLL" }
+		configuration { "DebugDLL or ReleaseDLL" }
 			defines {"_WINDOWS", "_USRDLL", "BEHAVIAC_DLL", "BEHAVIACDLL_EXPORTS"}
 	
-		configuration { "Profile*" }
-			defines {"BEHAVIAC_CFG_PROFILE"}
-			
 	
 	project "btunittest"
 		if string.match(action, "xcode") ~= nil then
@@ -379,7 +373,43 @@ solution "behaviac"
 				}
 		end
 
-		--configuration  {"vs2008 or vs2010", "Debug or Release or Profile"}
+		--configuration  {"vs2008 or vs2010", "Debug or Release"}
+			
+		defines "_CONSOLE"
+		
+	project "usertest"
+		if string.match(action, "xcode") ~= nil then
+			kind     "WindowedApp"
+		else
+			kind     "ConsoleApp"
+		end
+		
+		files  { 
+			"../test/usertest/**.h", 
+			"../test/usertest/**.cpp"
+			}
+			
+		includedirs { "../inc", 
+			"../../../include", 
+			"../test/usertest/"
+			}
+
+		libdirs { "../lib/"  }
+			
+		links "behaviac"
+		linkLib("behaviac", false, true);
+		
+		setTargetObjDir("../bin")
+		
+		if string.match(action, "gmake") ~= nil or string.match(action, "xcode") ~= nil or string.match(action, "jni") ~= nil then	
+			configuration {}
+				buildoptions { 
+					"-Wno-unused-parameter",
+					"-Wno-unused-variable",
+				}
+		end
+
+		--configuration  {"vs2008 or vs2010", "Debug or Release"}
 			
 		defines "_CONSOLE"
 		
@@ -400,7 +430,7 @@ solution "behaviac"
 		
 		setTargetObjDir("../bin")
 
-		--configuration  {"vs2008 or vs2010", "Debug or Release or Profile"}
+		--configuration  {"vs2008 or vs2010", "Debug or Release"}
 		--	linkoptions {"/nodefaultlib:libc.lib", "/nodefaultlib:libcd.lib"}
 			
 		defines "_CONSOLE"
@@ -425,7 +455,7 @@ solution "behaviac"
 			
 			setTargetObjDir("../bin")
 
-			--configuration  {"vs2008 or vs2010", "Debug or Release or Profile"}
+			--configuration  {"vs2008 or vs2010", "Debug or Release"}
 			--	linkoptions {"/nodefaultlib:libc.lib", "/nodefaultlib:libcd.lib"}
 				
 			defines "_CONSOLE"

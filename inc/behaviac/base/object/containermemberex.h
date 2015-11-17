@@ -11,12 +11,11 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_CONTAINERMEMBEREX_H_
-#define _ENGINESERVICES_CONTAINERMEMBEREX_H_
+#ifndef BEHAVIAC_ENGINESERVICES_CONTAINERMEMBEREX_H
+#define BEHAVIAC_ENGINESERVICES_CONTAINERMEMBEREX_H
 
 #include "behaviac/base/object/containermember.h"
 #include "behaviac/base/object/containertypehandlerex.h"
-
 
 /////////////////////////////////////////////////////////
 //////////     EXTENDED CONTAINER MEMBER     ////////////
@@ -26,7 +25,7 @@
     { \
         DECLARE_UIWRAPPER(UiDescriptor); \
         CMemberBase* property_ = CContainerMemberFactory< GenericContainerHandler, containerProvider, containedTypeHandler, propertyFlags, true >::Create( \
-                                &objectType::memberName, objectType::GetClassTypeName(), containerName, elementName, valueName, "", localWrapper); \
+                                 &objectType::memberName, objectType::GetClassTypeName(), containerName, elementName, valueName, "", localWrapper); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
     }
 
@@ -34,7 +33,7 @@
     { \
         DECLARE_UIWRAPPER(UiDescriptor); \
         CMemberBase* property_ = CContainerMemberFactory< GenericContainerHandler, containerProvider, containedTypeHandler, propertyFlags, false >::Create( \
-                                &objectType::memberName, objectType::GetClassTypeName(), containerName, elementName, valueName, "", localWrapper); \
+                                 &objectType::memberName, objectType::GetClassTypeName(), containerName, elementName, valueName, "", localWrapper); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
     }
 
@@ -42,7 +41,7 @@
     { \
         DECLARE_UIWRAPPER(UiDescriptor); \
         CMemberBase* property_ = CContainerMemberFactory< ByIDContainerHandler, containerProvider, containedTypeHandler, propertyFlags, createChildNode >::Create( \
-                                &objectType::memberName, objectType::GetClassTypeName(), containerName, elementName, valueName, idName, localWrapper); \
+                                 &objectType::memberName, objectType::GetClassTypeName(), containerName, elementName, valueName, idName, localWrapper); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
     }
 
@@ -50,7 +49,7 @@
     { \
         DECLARE_UIWRAPPER(UiDescriptor); \
         CMemberBase* property_ = CContainerMemberFactory< UseTagAsIDContainerHandler, containerProvider, containedTypeHandler, propertyFlags, createChildNode>::Create( \
-                                &objectType::memberName, objectType::GetClassTypeName(), containerName, "", valueName, "", localWrapper); \
+                                 &objectType::memberName, objectType::GetClassTypeName(), containerName, "", valueName, "", localWrapper); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
     }
 
@@ -58,9 +57,8 @@
     { \
         DECLARE_UIWRAPPER(UiDescriptor); \
         CMemberBase* property_ = CContainerMemberFactory< containerHandler, containerProvider, containedTypeHandler, propertyFlags, createChildNode>::Create( \
-                                &objectType::memberName, objectType::GetClassTypeName(), containerName, elementName, valueName, "", localWrapper); \
+                                 &objectType::memberName, objectType::GetClassTypeName(), containerName, elementName, valueName, "", localWrapper); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
     }
 
-
-#endif // #ifndef _ENGINESERVICES_CONTAINERMEMBEREX_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_CONTAINERMEMBEREX_H

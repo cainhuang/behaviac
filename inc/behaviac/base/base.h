@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BASE_H_
-#define BEHAVIAC_BASE_H_
+#ifndef BEHAVIAC_BASE_H
+#define BEHAVIAC_BASE_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/compiler.h"
@@ -27,36 +27,20 @@
 #include "behaviac/base/core/container/vector_t.h"
 #include "behaviac/base/core/container/map_t.h"
 
-#include "behaviac/base/core/version.h"
-
 #include <functional>
 #include <algorithm>
 
 namespace behaviac
 {
-	/**
-	return version behaviac::string
-	*/
-	BEHAVIAC_API const char* VersionString();
+    BEHAVIAC_API void SetMainThread();
+    BEHAVIAC_API bool IsMainThread();
 
-	/**
-	it returns false if the dll's version is not compatible with 'versionString'
-	@param versionString
-	to use the default one, don't change it unless you know what you are doing.
-	*/
-	BEHAVIAC_API bool Start(const char* versionString = BEHAVIAC_VERSION_STRING);
-	BEHAVIAC_API void Stop();
+    typedef void(*BreakpointPromptHandler_fn)(const char* breakPointDesc);
+    BEHAVIAC_API void SetBreakpointPromptHandler(BreakpointPromptHandler_fn fn);
 
-	BEHAVIAC_API void SetMainThread();
-	BEHAVIAC_API bool IsMainThread();
-
-	typedef void (*BreakpointPromptHandler_fn)(const char* breakPointDesc);
-	BEHAVIAC_API void SetBreakpointPromptHandler(BreakpointPromptHandler_fn fn);
-
-	BEHAVIAC_API BreakpointPromptHandler_fn GetBreakpointPromptHandler();
-
+    BEHAVIAC_API BreakpointPromptHandler_fn GetBreakpointPromptHandler();
 }//namespace behaviac
 
 #define ASSERT_MAIN_THREAD()  BEHAVIAC_ASSERT(behaviac::IsMainThread(), "called not in the main thread")
 
-#endif // BEHAVIAC_BASE_H_
+#endif // BEHAVIAC_BASE_H

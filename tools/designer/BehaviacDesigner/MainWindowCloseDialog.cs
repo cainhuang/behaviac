@@ -41,41 +41,37 @@ using System.Windows.Forms;
 
 namespace Behaviac.Design
 {
-	internal partial class MainWindowCloseDialog : Form
-	{
-		internal MainWindowCloseDialog()
-		{
-			InitializeComponent();
-		}
+    internal partial class MainWindowCloseDialog : Form
+    {
+        internal MainWindowCloseDialog() {
+            InitializeComponent();
+        }
 
-		/// <summary>
-		/// Adds a behaviour which needs to be saved to the dialogue.
-		/// </summary>
-		/// <param name="node">The behaviour you want to add.</param>
-		internal void AddUnsavedBehavior(Nodes.BehaviorNode node)
-		{
-			behaviorListBox.Items.Add(node, true);
-		}
+        /// <summary>
+        /// Adds a behaviour which needs to be saved to the dialogue.
+        /// </summary>
+        /// <param name="node">The behaviour you want to add.</param>
+        internal void AddUnsavedBehavior(Nodes.BehaviorNode node) {
+            behaviorListBox.Items.Add(node, true);
+        }
 
-        internal bool ReadOnly
-        {
+        internal bool ReadOnly {
             set { behaviorListBox.Enabled = !value; }
         }
 
-		/// <summary>
-		/// Returns whether a behaviour was checked to be saved or not.
-		/// </summary>
-		/// <param name="node">The behaviour you want to check.</param>
-		/// <returns>Returns true if the user wants the behaviour to be saved.</returns>
-		internal bool IsSelected(Nodes.BehaviorNode node)
-		{
-			foreach(object obj in behaviorListBox.CheckedItems)
-			{
-				if(node ==obj)
-					return true;
-			}
+        /// <summary>
+        /// Returns whether a behaviour was checked to be saved or not.
+        /// </summary>
+        /// <param name="node">The behaviour you want to check.</param>
+        /// <returns>Returns true if the user wants the behaviour to be saved.</returns>
+        internal bool IsSelected(Nodes.BehaviorNode node) {
+            foreach(object obj in behaviorListBox.CheckedItems) {
+                if (node == obj) {
+                    return true;
+                }
+            }
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 }

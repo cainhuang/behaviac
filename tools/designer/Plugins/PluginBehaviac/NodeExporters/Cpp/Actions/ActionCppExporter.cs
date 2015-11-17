@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -25,7 +25,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            Action action = node as Action;
+            return (action != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -33,7 +34,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             Action action = node as Action;
-            Debug.Check(action != null);
+            if (action == null)
+                return;
 
             if (action.Method != null)
             {
@@ -46,7 +48,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMember(node, stream, indent);
 
             Action action = node as Action;
-            Debug.Check(action != null);
+            if (action == null)
+                return;
 
             if (action.Method != null)
             {
@@ -59,7 +62,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             Action action = node as Action;
-            Debug.Check(action != null);
+            if (action == null)
+                return;
 
             stream.WriteLine("{0}\t\tvirtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)", indent);
             stream.WriteLine("{0}\t\t{{", indent);

@@ -19,6 +19,27 @@ using Behaviac.Design.Properties;
 
 namespace Behaviac.Design
 {
+    public interface UIObject
+    {
+        Behaviac.Design.ObjectUI.ObjectUIPolicy CreateUIPolicy();
+        object[] GetExcludedEnums(DesignerEnum enumAttr);
+    }
+
+    public interface DefaultObject : UIObject
+    {
+        string Description { get; }
+        string Label { get; }
+        Nodes.BehaviorNode Behavior { get; }
+        int Id { get; }
+        bool CanBeAttached { get; }
+    }
+
+    public interface ISerializableData
+    {
+        string GetDisplayValue();
+        string GetExportValue();
+    }
+
     public enum Language { System = 0, English, Chinese };
 
     [Flags]
@@ -33,75 +54,208 @@ namespace Behaviac.Design
         //return float, double
         Float = 4,
 
+        Array = 8,
+
         //all types
         All = Bool | Int | Float
     }
 
-
-    public interface ISerializableData
+    [Behaviac.Design.EnumDesc("PluginBehaviac.Nodes.ComputeOpr", "计算作符", "计算操作符选择")]
+    public enum ComputeOperator
     {
-        string GetDisplayValue();
-        string GetExportValue();
+        [Behaviac.Design.EnumMemberDesc("Add", "+")]
+        Add,
+
+        [Behaviac.Design.EnumMemberDesc("Sub", "-")]
+        Sub,
+
+        [Behaviac.Design.EnumMemberDesc("Mul", "*")]
+        Mul,
+
+        [Behaviac.Design.EnumMemberDesc("Div", "/")]
+        Div,
+
+        [Behaviac.Design.EnumMemberDesc("Invalid", "x")]
+        Invalid
     }
 
+    [Behaviac.Design.EnumDesc("PluginBehaviac.Nodes.ComputeOpr", "计算作符", "计算操作符选择")]
+    public enum OperatorTypes
+    {
+        [Behaviac.Design.EnumMemberDesc("Assign", "=")]
+        Assign,
+
+        [Behaviac.Design.EnumMemberDesc("Add", "+")]
+        Add,
+
+        [Behaviac.Design.EnumMemberDesc("Sub", "-")]
+        Sub,
+
+        [Behaviac.Design.EnumMemberDesc("Mul", "*")]
+        Mul,
+
+        [Behaviac.Design.EnumMemberDesc("Div", "/")]
+        Div,
+
+        [Behaviac.Design.EnumMemberDesc("Equal", "==")]
+        Equal,
+
+        [Behaviac.Design.EnumMemberDesc("NotEqual", "!=")]
+        NotEqual,
+
+        [Behaviac.Design.EnumMemberDesc("Greater", ">")]
+        Greater,
+
+        [Behaviac.Design.EnumMemberDesc("Less", "<")]
+        Less,
+
+        [Behaviac.Design.EnumMemberDesc("GreaterEqual", ">=")]
+        GreaterEqual,
+
+        [Behaviac.Design.EnumMemberDesc("LessEqual", "<=")]
+        LessEqual,
+
+        [Behaviac.Design.EnumMemberDesc("Invalid", "#")]
+        Invalid
+    }
+
+    [Flags]
+    public enum MethodType
+    {
+        None = 0,
+
+        //all the methods
+        Method = 1,
+
+        //getter is the method who returns something
+        Getter = 2,
+
+        //getter is the method who returns something plus the name event
+        Event_Obsolete = 4,
+
+        AllowNullMethod = 8,
+
+        Status = 16,
+
+        Task = 32
+    }
+
+    public enum MemberType
+    {
+        Property = 0,
+        Method,
+        Task
+    }
 
     public class MethodDef : ICloneable, ISerializableData
     {
         public class Param
         {
-            private ParameterInfo _paramInfo;
+            private ParameterInfo _paramInfo = null;
 
+            private string _name = "";
             public string Name
             {
-                get 
+                get
                 {
                     if (_paramInfo != null)
-                    {
-                        return _paramInfo.Name;
-                    }
+                    { return _paramInfo.Name; }
 
-                    Debug.Check(this._bParamFromStruct);
+                    return (this._property.Property != null) ? this._property.Property.Name : _name;
+                }
 
-                    return this._property.Property.Name;
+                set
+                {
+                    _name = value;
+
+                    if (_type != null)
+                    { _attribute = Plugin.InvokeTypeCreateDesignerProperty("Arguments", _name, _type, float.MinValue, float.MaxValue); }
                 }
             }
 
+            private Type _type = null;
             public Type Type
             {
-                get 
+                get
                 {
                     if (_paramInfo != null)
-                    {
-                        return _paramInfo.ParameterType;
-                    }
+                    { return _paramInfo.ParameterType; }
 
                     if (_bParamFromStruct)
                     {
                         ParInfo par = this._value as ParInfo;
+
                         if (par != null)
-                        {
-                            return par.Type;
-                        }
+                        { return par.Type; }
 
                         return this._property.Property.PropertyType;
                     }
 
                     if (this._value != null)
                     {
+                        if (this._value is VariableDef)
+                        {
+                            VariableDef varDef = this._value as VariableDef;
+                            return varDef.GetValueType();
+                        }
+
                         return this._value.GetType();
                     }
 
-                    return null;
+                    return _type;
+                }
+
+                set
+                {
+                    _type = value;
+                    _nativeType = Plugin.GetNativeTypeName(_type);
+
+                    if (_type != null)
+                    {
+                        _attribute = Plugin.InvokeTypeCreateDesignerProperty("Arguments", _name, _type, float.MinValue, float.MaxValue);
+                        _value = Plugin.DefaultValue(_type);
+                    }
                 }
             }
 
-            private object _value;
+            private bool _isOut = false;
+            public bool IsOut
+            {
+                get { return _isOut; }
+                set
+                {
+                    _isOut = value;
+
+                    this._nativeType = this._nativeType.Replace("&", "");
+
+                    if (value)
+                    { this._nativeType += "&"; }
+                }
+            }
+
+            private bool _isRef = false;
+            public bool IsRef
+            {
+                get { return _isRef; }
+                set
+                {
+                    _isRef = value;
+
+                    this._nativeType = this._nativeType.Replace("&", "");
+
+                    if (value)
+                    { this._nativeType += "&"; }
+                }
+            }
+
+            private object _value = null;
             public object Value
             {
                 get { return _value; }
-                set 
-                { 
+                set
+                {
                     _value = value;
+
                     if (_bParamFromStruct && _value != null)
                     {
                         //_property.Property.SetValue(_value, _object, null);
@@ -112,7 +266,7 @@ namespace Behaviac.Design
                         else
                         {
                             string valueStr = _value.ToString();
-                            _property.SetValueFromString(_object, valueStr, null);
+                            _property.SetValueFromString(null, _object, valueStr, null);
                         }
                     }
                 }
@@ -133,7 +287,8 @@ namespace Behaviac.Design
             private string _displayName;
             public string DisplayName
             {
-                get { return _displayName; }
+                get { return string.IsNullOrEmpty(_displayName) ? this.Name : _displayName; }
+                set { _displayName = value; }
             }
 
             private string _description;
@@ -142,10 +297,17 @@ namespace Behaviac.Design
                 get { return _description; }
             }
 
-            private bool _bParamFromStruct;
+            private bool _bParamFromStruct = false;
             public bool IsFromStruct
-            { 
+            {
                 get { return this._bParamFromStruct; }
+            }
+
+            private bool _isArrayIndex = false;
+            public bool IsArrayIndex
+            {
+                get { return this._isArrayIndex; }
+                set { this._isArrayIndex = value; }
             }
 
             private DesignerPropertyInfo _property;
@@ -165,11 +327,13 @@ namespace Behaviac.Design
                 _bParamFromStruct = true;
             }
 
-            public Param(string category, ParameterInfo pi, object v, string nativeType, string displayName, string description, float rangeMin, float rangeMax)
+            public Param(string category, ParameterInfo pi, object v, string nativeType, string displayName, string description, bool isOut, bool isRef, float rangeMin, float rangeMax)
             {
                 _paramInfo = pi;
                 _value = v;
                 _nativeType = nativeType;
+                _isOut = isOut;
+                _isRef = isRef;
                 _displayName = displayName;
                 _description = description;
 
@@ -178,17 +342,18 @@ namespace Behaviac.Design
                     DesignerProperty attr = null;
 
                     DesignerProperty[] attributes = (DesignerProperty[])_paramInfo.GetCustomAttributes(typeof(DesignerProperty), false);
+
                     if (attributes.Length > 0)
-                        attr = attributes[0];
+                    { attr = attributes[0]; }
 
                     if (attr != null)
-                        _attribute = attr;
+                    { _attribute = attr; }
+
                     else if (_paramInfo.ParameterType.IsEnum)
-                        _attribute = new DesignerEnum(_paramInfo.Name, "", category, DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, "");
+                    { _attribute = new DesignerEnum(_paramInfo.Name, "", category, DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, ""); }
+
                     else
-                    {
-                        _attribute = Plugin.InvokeTypeCreateDesignerProperty(category, _paramInfo.Name, _paramInfo.ParameterType, rangeMin, rangeMax);
-                    }
+                    { _attribute = Plugin.InvokeTypeCreateDesignerProperty(category, _paramInfo.Name, _paramInfo.ParameterType, rangeMin, rangeMax); }
                 }
             }
 
@@ -199,55 +364,89 @@ namespace Behaviac.Design
                 _nativeType = other._nativeType;
                 _displayName = other._displayName;
                 _description = other._description;
+                _name = other._name;
+                _type = other._type;
+                _isOut = other._isOut;
+                _isRef = other._isRef;
                 _value = Plugin.CloneValue(other._value);
+                _isArrayIndex = other._isArrayIndex;
+            }
+
+            // Customized Parameter
+            public Param(string name, Type type, string nativeName, string displayName, string description)
+            {
+                _name = name;
+                _type = type;
+                _nativeType = Plugin.GetNativeTypeName(type);
+                _displayName = displayName;
+                _description = description;
+
+                if (_type != null)
+                {
+                    _attribute = Plugin.InvokeTypeCreateDesignerProperty("Arguments", _name, _type, float.MinValue, float.MaxValue);
+                    _value = Plugin.DefaultValue(_type);
+                }
             }
 
             public string GetDisplayValue(object obj)
             {
+                ParInfo par = this._value as ParInfo;
+
+                if (par != null)
+                {
+                    return par.GetDisplayValue();
+                }
+
+                VariableDef var = this._value as VariableDef;
+
+                if (var != null)
+                {
+                    return var.GetDisplayValue();
+                }
+
+                //if (obj == null)
+                //{
+                //    return this._value.ToString();
+                //}
+
                 return _attribute.GetDisplayValue(this._value);
             }
 
             public string GetExportValue(object obj)
             {
-                Debug.Check(_bParamFromStruct);
+                //Debug.Check(_bParamFromStruct);
 
                 ParInfo par = this._value as ParInfo;
+
                 if (par != null)
                 {
                     return par.GetExportValue();
                 }
 
                 VariableDef var = this._value as VariableDef;
+
                 if (var != null)
                 {
                     return var.GetExportValue();
                 }
 
-                object o = obj;
-                //if (o == null)
-                //{
-                //    o = this._object;
-                //}
+                if (obj == null)
+                {
+                    return this._value.ToString();
+                }
 
-                //if (o != null && this._bParamFromStruct)
-                //{
-                //    object m = this._property.GetValue(o);
-
-                //    return this._attribute.GetExportValue(o, m);
-                //}
-
-                return this._attribute.GetExportValue(o, this._value);
+                return this._attribute.GetExportValue(obj, this._value);
             }
 
-            public bool IsPar
+            public bool IsLocalVar
             {
                 get
                 {
                     if (this._value is ParInfo)
-                        return true;
+                    { return true; }
 
                     VariableDef v = this._value as VariableDef;
-                    return (v != null) ? v.IsPar : false;
+                    return (v != null) ? v.IsLocalVar : false;
                 }
             }
 
@@ -265,56 +464,98 @@ namespace Behaviac.Design
                 get
                 {
                     ParInfo par = this._value as ParInfo;
+
                     if (par != null)
-                        return false;
+                    { return false; }
 
                     VariableDef v = this._value as VariableDef;
+
                     if (v != null)
-                        return v.IsConst;
+                    { return v.IsConst; }
 
                     return true;
                 }
             }
+
+            public PropertyDef Property
+            {
+                get
+                {
+                    VariableDef v = this._value as VariableDef;
+
+                    if (v != null && v.IsProperty)
+                    { return v.Property; }
+
+                    return null;
+                }
+            }
         }
 
-        public MethodDef(AgentType agentType, bool isPublic, bool isStatic, string owner, string name, string displayName, string description, string nativeReturnType, Type returnType, bool isNamedEvent, bool isActionMethodOnly, List<Param> pars)
+        public MethodDef(AgentType agentType, MemberType memberType, bool isPublic, bool isStatic, string classname, string owner, string name, string displayName, string description, string nativeReturnType, Type returnType, bool isActionMethodOnly, List<Param> pars)
         {
             _agentType = agentType;
             _isPublic = isPublic;
             _isStatic = isStatic;
+            _classname = classname;
             _owner = owner;
             _name = name;
             _displayName = displayName;
             _description = description;
-            _nativeReturnType = nativeReturnType;
+            _nativeReturnType = string.IsNullOrEmpty(nativeReturnType) ? Plugin.GetNativeTypeName(returnType) : nativeReturnType;
             _returnType = returnType;
-            _isNamedEvent = isNamedEvent;
             _isActionMethodOnly = isActionMethodOnly;
             _params = pars;
+            _memberType = memberType;
+            _isCustomized = (memberType == Design.MemberType.Task);
         }
 
         public MethodDef(MethodDef other)
         {
+            CopyFrom(other);
+        }
+
+        // Customized Method
+        public MethodDef(AgentType agentType, MemberType memberType, string classname, string name, string displayName, string description, string nativeReturnType, Type returnType)
+        {
+            _agentType = agentType;
+            _isCustomized = true;
+            _memberType = memberType;
+            _isPublic = true;
+            _isStatic = false;
+            _classname = classname;
+            _owner = classname;
+            _name = name;
+            _displayName = displayName;
+            _description = description;
+            _nativeReturnType = string.IsNullOrEmpty(nativeReturnType) ? Plugin.GetNativeTypeName(returnType) : nativeReturnType;
+            _returnType = returnType;
+            _isActionMethodOnly = false;
+        }
+
+        public object Clone()
+        {
+            return new MethodDef(this);
+        }
+
+        public void CopyFrom(MethodDef other)
+        {
             _agentType = other._agentType;
             _isPublic = other._isPublic;
             _isStatic = other._isStatic;
+            _classname = other._classname;
             _owner = other._owner;
             _name = other._name;
             _displayName = other._displayName;
             _description = other._description;
             _nativeReturnType = other._nativeReturnType;
             _returnType = other._returnType;
-            _isNamedEvent = other._isNamedEvent;
             _isActionMethodOnly = other._isActionMethodOnly;
+            _memberType = other._memberType;
+            _isCustomized = other._isCustomized;
 
-            _params = new List<Param>();
+            _params.Clear();
             foreach (Param param in other.Params)
                 _params.Add(new Param(param));
-        }
-
-        public object Clone()
-        {
-            return new MethodDef(this);
         }
 
         AgentType _agentType = null;
@@ -323,16 +564,32 @@ namespace Behaviac.Design
             get { return _agentType; }
         }
 
-        bool _isPublic = false;
+        private bool _isInherited = false;
+        public bool IsInherited
+        {
+            get { return _isInherited; }
+            set { _isInherited = value; }
+        }
+
+        bool _isCustomized = false;
+        public bool IsCustomized
+        {
+            get { return !IsInherited && _isCustomized; }
+            set { _isCustomized = value; }
+        }
+
+        bool _isPublic = true;
         public bool IsPublic
         {
             get { return _isPublic; }
+            set { _isPublic = value; }
         }
 
         bool _isStatic = false;
         public bool IsStatic
         {
             get { return _isStatic; }
+            set { _isStatic = value; }
         }
 
         private string _owner = string.Empty;
@@ -345,7 +602,24 @@ namespace Behaviac.Design
         private string _name = string.Empty;
         public string Name
         {
-            get { return _name; }
+            get
+            {
+                // full name
+                return _name.Contains(":") ? _name : (this.ClassName + "::" + _name);
+            }
+            set
+            {
+                // full name
+                _name = value.Contains(":") ? value : (this.ClassName + "::" + value);
+            }
+        }
+
+        // The Old Name is only used for modifying the method
+        private string _oldName = string.Empty;
+        public string OldName
+        {
+            get { return _oldName; }
+            set { _oldName = value; }
         }
 
         public string BasicName
@@ -355,32 +629,85 @@ namespace Behaviac.Design
                 if (!string.IsNullOrEmpty(_name))
                 {
                     string[] name = _name.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+
                     if (name.Length > 0)
-                        return name[name.Length - 1];
+                    { return name[name.Length - 1]; }
                 }
 
                 return string.Empty;
             }
         }
 
+        private string _classname = string.Empty;
         public string ClassName
         {
             get
             {
+                if (!string.IsNullOrEmpty(_classname))
+                { return _classname; }
+
                 if (!string.IsNullOrEmpty(_name))
                 {
                     int index = _name.LastIndexOf(":");
-                    return (index != -1) ? _name.Substring(0, index - 1) : _name;
+
+                    if (index != -1)
+                    { return _name.Substring(0, index - 1); }
                 }
 
                 return _owner;
             }
         }
 
+        public string PrototypeName
+        {
+            get
+            {
+                string ret = this.DisplayName;
+                string paraStr = "(";
+
+                for (int i = 0; i < this._params.Count; ++i)
+                {
+                    if (i > 0)
+                    {
+                        paraStr += ",";
+                    }
+
+                    paraStr += this._params[i].DisplayName;
+                }
+
+                paraStr += ")";
+
+                if (this._params.Count > 0)
+                {
+                    ret += paraStr;
+                }
+
+                return ret;
+            }
+        }
+
+        private MemberType _memberType = MemberType.Method;
+        public MemberType MemberType
+        {
+            get { return this._memberType; }
+        }
+        public bool IsNamedEvent
+        {
+            get { return _memberType == MemberType.Task; }
+        }
+
         private string _nativeReturnType = "void";
         public string NativeReturnType
         {
             get { return _nativeReturnType; }
+            set { _nativeReturnType = value; }
+        }
+
+        private Type _returnType = typeof(void);
+        public Type ReturnType
+        {
+            get { return _returnType; }
+            set { _returnType = value; }
         }
 
         private string _displayName = string.Empty;
@@ -391,17 +718,20 @@ namespace Behaviac.Design
                 if (Plugin.UseBasicDisplayName && !string.IsNullOrEmpty(_displayName))
                 {
                     string[] name = _displayName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+
                     if (name.Length > 0)
                     {
                         if (name.Length > 1 && Plugin.IsInstanceName(name[0]))
-                            return _displayName;
+                        { return _displayName; }
 
                         return name[name.Length - 1];
                     }
                 }
 
-                return _displayName;
+                return !string.IsNullOrEmpty(_displayName) ? _displayName : this.BasicName;
             }
+
+            set { _displayName = value; }
         }
 
         public string FullDisplayName
@@ -410,27 +740,25 @@ namespace Behaviac.Design
         }
 
         private string _description = string.Empty;
-        public string Description
+        public string BasicDescription
         {
             get { return _description; }
+            set { _description = value; }
         }
 
-        private Type _returnType;
-        public Type ReturnType
+        public string Description
         {
-            get { return _returnType; }
+            get
+            {
+                return Resources.Prototype + "  " + this.NativeReturnType + " " + this.Name + this.GetParamPrototype() + "\n" +
+                Resources.Description + "  " + _description;
+            }
         }
 
-        private List<Param> _params;
+        private List<Param> _params = new List<Param>();
         public List<Param> Params
         {
             get { return _params; }
-        }
-
-        private bool _isNamedEvent = false;
-        public bool IsNamedEvent
-        {
-            get { return _isNamedEvent; }
         }
 
         private bool _isActionMethodOnly = false;
@@ -475,12 +803,13 @@ namespace Behaviac.Design
 
             public StructArrayParam_t()
             {
-                ps = new Dictionary<int,List<Param>>();
+                ps = new Dictionary<int, List<Param>>();
             }
 
             public override List<Param> GetParams(int index)
             {
                 Debug.Check(index != -1);
+
                 if (this.ps.ContainsKey(index))
                 {
                     return this.ps[index];
@@ -492,6 +821,7 @@ namespace Behaviac.Design
             public override void AddParam(int index, Param param)
             {
                 Debug.Check(index != -1);
+
                 if (!this.ps.ContainsKey(index))
                 {
                     this.ps[index] = new List<Param>();
@@ -507,16 +837,19 @@ namespace Behaviac.Design
             if (_structParams.ContainsKey(structParam.Name))
             {
                 List<Param> ps = _structParams[structParam.Name].GetParams(structParam.ElmentIndexInArray);
+
                 if (ps != null)
                 {
                     return ps;
                 }
+
             }
             else
             {
                 if (structParam.ElmentIndexInArray == -1)
                 {
                     _structParams[structParam.Name] = new StructParam_t();
+
                 }
                 else
                 {
@@ -524,7 +857,7 @@ namespace Behaviac.Design
                 }
 
             }
-            
+
             IList<DesignerPropertyInfo> properties = DesignerProperty.GetDesignerProperties(structParam.Type, DesignerProperty.SortByDisplayOrder);
             foreach (DesignerPropertyInfo property in properties)
             {
@@ -540,6 +873,7 @@ namespace Behaviac.Design
             if (_structParams.ContainsKey(paramName))
             {
                 List<Param> ps = _structParams[paramName].GetParams(indexInArray);
+
                 if (ps != null)
                 {
                     foreach (Param p in ps)
@@ -549,6 +883,7 @@ namespace Behaviac.Design
                             return p;
                         }
                     }
+
                 }
                 else
                 {
@@ -585,6 +920,7 @@ namespace Behaviac.Design
             if (ps1.type == obj.GetType())
             {
                 List<Param> ps = _structParams[paramName].GetParams(indexInArray);
+
                 if (ps != null)
                 {
                     foreach (Param p in ps)
@@ -594,6 +930,7 @@ namespace Behaviac.Design
                             return p;
                         }
                     }
+
                 }
                 else
                 {
@@ -604,19 +941,17 @@ namespace Behaviac.Design
             return null;
         }
 #if USE_NOOP
-        private static MethodDef _noop = null;
-        public static MethodDef Noop
+    private static MethodDef _noop = null;
+    public static MethodDef Noop {
+        get
         {
-            get
-            {
-                if (_noop == null)
-                {
-                    _noop = new MethodDef("", typeof(void), new List<Param>());
-                }
-
-                return _noop;
+            if (_noop == null) {
+                _noop = new MethodDef("", typeof(void), new List<Param>());
             }
+
+            return _noop;
         }
+    }
 #endif//#if USE_NOOP
 
         public bool CheckPar(ParInfo par)
@@ -626,65 +961,92 @@ namespace Behaviac.Design
                 if (param.Value is VariableDef)
                 {
                     VariableDef var = param.Value as VariableDef;
-                    return var.CheckPar(par);
+                    bool bOk = var.CheckPar(par);
+
+                    if (bOk)
+                    {
+                        return true;
+                    }
+
                 }
                 else if (param.Value is ParInfo)
                 {
                     if (par.GetExportValue() == ((ParInfo)(param.Value)).GetExportValue())
-                        return true;
+                    { return true; }
                 }
             }
 
             return false;
         }
 
-        public bool ResetPar(ParInfo par, string name)
+        public bool ShouldBeCleared(AgentType agentType)
         {
-            foreach (MethodDef.Param param in this.Params)
-            {
-                if (param.Value is VariableDef)
-                {
-                    VariableDef var = param.Value as VariableDef;
-                    return var.ResetPar(par, name);
-                }
-                else if (param.Value is ParInfo)
-                {
-                    if (par != null && par.GetExportValue() == ((ParInfo)(param.Value)).GetExportValue())
-                    {
-                        // If the name is empty, it means clearing the par.
-                        if (string.IsNullOrEmpty(name))
-                            param.Value = null;
-                        else
-                            ((ParInfo)(param.Value)).Name = name;
-
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        public bool ShouldBeReset(AgentType agentType, bool resetPar)
-        {
-            foreach (MethodDef.Param param in this.Params)
-            {
-                if (param.Value is VariableDef)
-                {
-                    VariableDef var = param.Value as VariableDef;
-                    if (var.ShouldBeReset(agentType, resetPar))
-                    {
-                        param.Value = Plugin.DefaultValue(param.Type);
-                    }
-                }
-                else if (resetPar && param.Value is ParInfo)
-                {
-                    param.Value = Plugin.DefaultValue(param.Type);
-                }
-            }
-
             return (this.Owner == VariableDef.kSelf &&
-                !Plugin.IsAgentDerived(this.AgentType.AgentTypeName, agentType.AgentTypeName));
+                    !Plugin.IsAgentDerived(this.AgentType.AgentTypeName, agentType.AgentTypeName));
+        }
+
+        public bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method, PropertyDef property)
+        {
+            bool bReset = false;
+
+            if (method != null)
+            {
+                if (method.OldName == this.Name)
+                {
+                    bReset = true;
+
+                    if (!check)
+                    {
+                        this.CopyFrom(method);
+                    }
+                }
+
+            }
+            else if (property != null)
+            {
+                foreach (MethodDef.Param param in this.Params)
+                {
+                    if (param.Value is VariableDef)
+                    {
+                        VariableDef var = param.Value as VariableDef;
+                        bReset |= var.ResetMembers(check, agentType, clear, property);
+
+                    }
+                    else if (param.Value is ParInfo)
+                    {
+                        ParInfo par = param.Value as ParInfo;
+
+                        if (property.IsPar && (property.OldName == par.Name ||
+                        !property.IsArrayElement && par.IsArrayElement && (property.OldName + "[]") == par.Name))
+                        {
+                            if (clear || this.ShouldBeCleared(agentType))
+                            {
+                                bReset = true;
+
+                                if (!check)
+                                { param.Value = Plugin.DefaultValue(param.Type); }
+
+                            }
+                            else
+                            {
+                                bReset = true;
+
+                                if (!check)
+                                {
+                                    bool isArrayElement = par.IsArrayElement;
+
+                                    par.CopyFrom(property);
+
+                                    if (isArrayElement)
+                                    { par.SetArrayElement(property); }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return bReset;
         }
 
         public override string ToString()
@@ -704,21 +1066,30 @@ namespace Behaviac.Design
 
         private string getStringValue(bool isDisplay)
         {
+            if (this.Name == "NullAgent::null_method" && this.AgentType == null)
+            {
+                return string.Empty;
+            }
+
 #if USE_NOOP
-            if (MethodDef != MethodDef.Noop)
+
+        if (MethodDef != MethodDef.Noop)
 #endif
             {
-                string str = null;
+                string str = string.Empty;
+
                 if (isDisplay)
                 {
                     if (this.Owner != VariableDef.kSelf)
                     {
                         str = Plugin.GetInstanceDisplayName(this.Owner) + "." + this.DisplayName;
+
                     }
                     else
                     {
                         str = this.DisplayName;
                     }
+
                 }
                 else
                 {
@@ -730,30 +1101,70 @@ namespace Behaviac.Design
                 for (int i = 0; i < this.Params.Count; ++i)
                 {
                     if (i > 0)
-                        str += ",";
+                    { str += ","; }
 
                     object para = this.Params[i].Value;
                     str += isDisplay ? DesignerPropertyUtility.RetrieveDisplayValue(para, this, this.Params[i].Name) : DesignerPropertyUtility.RetrieveExportValue(para, this, this.Params[i].Name);
                 }
+
                 str += ")";
 
                 return str;
             }
+
 #if USE_NOOP
-            return string.Empty;
+        return string.Empty;
 #endif
+        }
+
+        public string GetParamPrototype()
+        {
+            string str = "(";
+
+            for (int i = 0; i < this.Params.Count; ++i)
+            {
+                if (i > 0)
+                { str += ", "; }
+
+                str += this.Params[i].NativeType;
+            }
+
+            str += ")";
+
+            return str;
+        }
+
+        public string GetPrototype()
+        {
+            string str = this.Owner + "." + this.DisplayName + "(";
+
+            for (int i = 0; i < this.Params.Count; ++i)
+            {
+                if (i > 0)
+                { str += ", "; }
+
+                str += this.Params[i].NativeType + " " + this.Params[i].DisplayName;
+            }
+
+            str += ")";
+
+            return str;
         }
     }
 
 
     public class PropertyDef : ISerializableData
     {
-        public PropertyDef(AgentType agentType, FieldInfo pi, bool isStatic, bool isPublic, string owner, string name, string nativeType, string displayName, string description)
+        // Meta Property
+        public PropertyDef(AgentType agentType, FieldInfo pi, bool isStatic, bool isPublic, bool isProperty, bool isReadonly, string classname, string owner, string name, string nativeType, string displayName, string description)
         {
             _agentType = agentType;
             _propertyInfo = pi;
             _isStatic = isStatic;
             _isPublic = isPublic;
+            _isProperty = isProperty;
+            _isReadonly = isReadonly;
+            _classname = classname;
             _owner = owner;
             _name = name;
             _nativeType = nativeType;
@@ -761,92 +1172,314 @@ namespace Behaviac.Design
             _description = description;
         }
 
+        // Customized Property
+        public PropertyDef(AgentType agentType, Type type, string classname, string name, string displayName, string description)
+        {
+            _agentType = agentType;
+            _propertyInfo = null;
+            _type = type;
+            _isStatic = false;
+            _isPublic = true;
+            _isProperty = false;
+            _classname = classname;
+            _owner = VariableDef.kSelf;
+            _name = name;
+            _nativeType = Plugin.GetNativeTypeName(type);
+            _displayName = displayName;
+            _description = description;
+        }
+
         public PropertyDef(PropertyDef other)
         {
+            this.CopyFrom(other);
+        }
+
+        protected PropertyDef()
+        {
+        }
+
+        public virtual PropertyDef Clone()
+        {
+            return new PropertyDef(this);
+        }
+
+        public virtual void CopyFrom(PropertyDef other)
+        {
+            if (other == null)
+                return;
+
             _agentType = other._agentType;
             _propertyInfo = other._propertyInfo;
+            _type = other._type;
             _isStatic = other._isStatic;
             _isPublic = other._isPublic;
+            _isProperty = other._isProperty;
+            _classname = other._classname;
             _owner = other._owner;
             _name = other._name;
             _nativeType = other._nativeType;
             _displayName = other._displayName;
             _description = other._description;
+            _isAddedAutomatically = other._isAddedAutomatically;
+            _isArrayElement = other._isArrayElement;
+            _isExportedButAlsoCustomized = other._isExportedButAlsoCustomized;
+
+            if (other._variable != null)
+            { _variable = (VariableDef)other._variable.Clone(); }
         }
 
-        AgentType _agentType = null;
+        public void SetArrayElement(PropertyDef arrayProperty)
+        {
+            Debug.Check(arrayProperty != null && arrayProperty.Type != null && Plugin.IsArrayType(arrayProperty.Type));
+
+            this.IsArrayElement = true;
+            this.IsAddedAutomatically = true;
+            this.Type = arrayProperty.Type.GetGenericArguments()[0];
+            this.Name = arrayProperty.Name + "[]";
+            this.DisplayName = arrayProperty.DisplayName + "[]";
+            this.Description = this.DisplayName;
+        }
+
+        protected AgentType _agentType = null;
         public AgentType AgentType
         {
             get { return _agentType; }
         }
 
-        private FieldInfo _propertyInfo;
-        public Type Type
+        private bool _isInherited = false;
+        public bool IsInherited
         {
-            get { return _propertyInfo.FieldType; }
+            get { return _isInherited; }
+            set { _isInherited = value; }
         }
 
-        bool _isStatic = false;
+        private FieldInfo _propertyInfo = null;
+        public bool IsMember
+        {
+            get { return _propertyInfo != null; }
+        }
+
+        public virtual bool IsCustomized
+        {
+            get { return !IsInherited && !IsMember; }
+        }
+
+        private bool _isExportedButAlsoCustomized = false;
+        public bool IsExportedButAlsoCustomized
+        {
+            get { return _isExportedButAlsoCustomized; }
+            set { _isExportedButAlsoCustomized = value; }
+        }
+
+        public virtual bool IsPar
+        {
+            get { return false; }
+        }
+
+        protected Type _type = null;
+        public virtual Type Type
+        {
+            get
+            {
+                if (_type != null)
+                    return _type;
+
+                if (_propertyInfo != null)
+                    return _propertyInfo.FieldType;
+
+                if (this.Variable != null)
+                    return this.Variable.GetValueType();
+
+                return null;
+            }
+
+            set { _type = value; }
+        }
+
+        protected bool _isStatic = false;
         public bool IsStatic
         {
             get { return _isStatic; }
+            set { _isStatic = value; }
         }
 
-        bool _isPublic = false;
+        protected bool _isPublic = true;
         public bool IsPublic
         {
             get { return _isPublic; }
+            set { _isPublic = value; }
         }
 
-        private string _owner = string.Empty;
+        protected bool _isProperty = false;
+        public bool IsProperty
+        {
+            get { return _isProperty; }
+            set { _isProperty = value; }
+        }
+
+        protected bool _isReadonly = false;
+        public bool IsReadonly
+        {
+            get { return _isReadonly; }
+            set { _isReadonly = value; }
+        }
+
+        protected bool _isArrayElement = false;
+        public bool IsArrayElement
+        {
+            get { return this._isArrayElement; }
+            set { this._isArrayElement = value; }
+        }
+
+        public virtual void OnValueChanged()
+        {
+        }
+
+        private VariableDef _variable = null;
+        public VariableDef Variable
+        {
+            get { return _variable; }
+            set
+            {
+                _variable = value;
+                OnValueChanged();
+            }
+        }
+
+        public string DefaultValue
+        {
+            get
+            {
+                string valueStr = string.Empty;
+
+                if (Variable == null)
+                {
+                    //return string.Empty;
+                    valueStr = DesignerPropertyUtility.RetrieveExportValue(Plugin.DefaultValue(this.Type));
+
+                }
+                else
+                {
+                    valueStr = Variable.GetRawValue();
+                }
+
+                // "string" - > string
+                if (Plugin.IsStringType(this.Type))
+                {
+                    valueStr = valueStr.Substring(1, valueStr.Length - 2);
+                }
+
+                return valueStr;
+            }
+        }
+
+        protected string _owner = string.Empty;
         public string Owner
         {
             get { return _owner; }
             set { _owner = value; }
         }
 
-        private string _name = string.Empty;
-        public string Name
+        protected string _name = string.Empty;
+        public virtual string Name
         {
-            get { return _name; }
+            get
+            {
+                if (string.IsNullOrEmpty(_name))
+                    return string.Empty;
+
+                // full name
+                return _name.Contains(":") ? _name : (this.ClassName + "::" + _name);
+            }
+            set
+            {
+                // full name
+                _name = value.Contains(":") ? value : (this.ClassName + "::" + value);
+            }
+        }
+
+        // The Old Name is only used for modifying the method
+        private string _oldName = string.Empty;
+        public string OldName
+        {
+            get { return _oldName; }
+            set { _oldName = value; }
         }
 
         public string BasicName
         {
             get
             {
-                if (!string.IsNullOrEmpty(_name))
+                if (!string.IsNullOrEmpty(this.Name))
                 {
-                    string[] name = _name.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] name = this.Name.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+
                     if (name.Length > 0)
-                        return name[name.Length - 1];
+                    { return name[name.Length - 1]; }
                 }
 
                 return string.Empty;
             }
         }
 
+        protected string _classname = string.Empty;
         public string ClassName
         {
             get
             {
+                if (!string.IsNullOrEmpty(_classname))
+                { return _classname; }
+
                 if (!string.IsNullOrEmpty(_name))
                 {
                     int index = _name.LastIndexOf(":");
-                    return (index != -1) ? _name.Substring(0, index - 1) : _name;
+
+                    if (index != -1)
+                    { return _name.Substring(0, index - 1); }
                 }
 
                 return _owner;
             }
         }
 
-        private string _nativeType;
+        protected string _nativeType;
         public string NativeType
         {
-            get { return _nativeType; }
+            get
+            {
+                string nativeType = _nativeType;
+                if (string.IsNullOrEmpty(nativeType))
+                {
+                    nativeType = Plugin.GetNativeTypeName(this.Type);
+                }
+
+                //if (!nativeType.EndsWith("*") && Plugin.IsRefType(this.Type))
+                //{
+                //    nativeType += "*";
+                //}
+
+                return nativeType;
+            }
+
+            set { _nativeType = value; }
         }
 
-        private string _displayName = string.Empty;
+        public string NativeItemType
+        {
+            get
+            {
+                if (this.IsArrayElement && !string.IsNullOrEmpty(this.NativeType))
+                {
+                    int startIndex = this.NativeType.IndexOf("<");
+                    if (startIndex > 0)
+                        return this.NativeType.Substring(startIndex + 1, this.NativeType.Length - startIndex - 2);
+                }
+
+                return this.NativeType;
+            }
+        }
+
+        protected string _displayName = string.Empty;
         public string DisplayName
         {
             get
@@ -854,17 +1487,20 @@ namespace Behaviac.Design
                 if (Plugin.UseBasicDisplayName && !string.IsNullOrEmpty(_displayName))
                 {
                     string[] name = _displayName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+
                     if (name.Length > 0)
                     {
                         if (name.Length > 1 && Plugin.IsInstanceName(name[0]))
-                            return _displayName;
+                        { return _displayName; }
 
                         return name[name.Length - 1];
                     }
                 }
 
-                return _displayName;
+                return string.IsNullOrEmpty(_displayName) ? this.BasicName : _displayName;
             }
+
+            set { _displayName = value; }
         }
 
         public string FullDisplayName
@@ -872,10 +1508,39 @@ namespace Behaviac.Design
             get { return _displayName; }
         }
 
-        private string _description = string.Empty;
-        public string Description
+        protected string _description = string.Empty;
+        public string BasicDescription
         {
-            get { return _description; }
+            get { return string.IsNullOrEmpty(_description) ? this.BasicName : _description; }
+            set { _description = value; }
+        }
+
+        public virtual string Description
+        {
+            get
+            {
+                return Resources.Prototype + "  " + this.NativeType + " " + this.Name + "\n" +
+                Resources.Description + "  " + this.BasicDescription;
+            }
+            set { _description = value; }
+        }
+
+        private bool _isAddedAutomatically = false;
+        public bool IsAddedAutomatically
+        {
+            get
+            {
+                if (this.BasicName.IndexOf(Nodes.Task.LOCAL_TASK_PARAM_PRE) == 0)
+                    return true;
+
+                Debug.Check(!_isAddedAutomatically || this.BasicName.EndsWith("[]"));
+
+                return _isAddedAutomatically;
+            }
+            set
+            {
+                _isAddedAutomatically = value;
+            }
         }
 
         public string GetDisplayValue()
@@ -884,7 +1549,7 @@ namespace Behaviac.Design
             return owner + this.DisplayName;
         }
 
-        public string GetExportValue()
+        public virtual string GetExportValue()
         {
             return this.Owner + "." + this.Name;
         }
@@ -894,10 +1559,10 @@ namespace Behaviac.Design
             return this.Name;
         }
 
-        public bool ShouldBeReset(AgentType agentType, bool resetPar)
+        public bool ShouldBeCleared(AgentType agentType)
         {
             return (this.Owner == VariableDef.kSelf &&
-                !Plugin.IsAgentDerived(this.AgentType.AgentTypeName, agentType.AgentTypeName));
+                    !Plugin.IsAgentDerived(this.AgentType.AgentTypeName, agentType.AgentTypeName));
         }
     }
 
@@ -906,7 +1571,6 @@ namespace Behaviac.Design
     {
         public static string kConst = "Const";
         public static string kGlobal = "Global";
-        public static string kPar = "Par";
         public static string kSelf = "Self";
         public static string kMethod = "::Method";
         public static string kSelfMethod = kSelf + kMethod;
@@ -919,6 +1583,7 @@ namespace Behaviac.Design
             set
             {
                 _valueClass = value;
+
                 if (_property != null && _valueClass == VariableDef.kSelf)
                 {
                     _property.Owner = VariableDef.kSelf;
@@ -930,13 +1595,13 @@ namespace Behaviac.Design
         {
             get { return _valueClass == kConst; }
         }
-        public bool IsPar
+        public bool IsLocalVar
         {
-            get { return _valueClass == kPar; }
+            get { return _valueClass != kConst && _property != null && _property.IsPar; }
         }
         public bool IsProperty
         {
-            get { return _valueClass != kConst && _valueClass != kPar && _property != null; }
+            get { return _valueClass != kConst && _property != null; }
         }
 
         public object Clone()
@@ -952,9 +1617,22 @@ namespace Behaviac.Design
             }
             else
             {
-                _property = (other._property != null) ? new PropertyDef(other._property) : null;
+                _property = null;
+
+                if (other._property != null)
+                {
+                    if (other._property.IsPar && other._property is ParInfo)
+                    { _property = new ParInfo(other._property as ParInfo); }
+
+                    else
+                    { _property = new PropertyDef(other._property); }
+                }
+
                 _value = Plugin.CloneValue(other._value);
                 ValueClass = other._valueClass;
+
+                if (other.m_arrayIndexElement != null)
+                { m_arrayIndexElement = new MethodDef.Param(other.m_arrayIndexElement); }
             }
         }
 
@@ -987,7 +1665,7 @@ namespace Behaviac.Design
 
         public void SetValue(object value, string valueType)
         {
-            Debug.Check(value != null && (valueType == kConst || valueType == kPar));
+            Debug.Check(value != null && valueType == kConst);
             _value = value;
             ValueClass = valueType;
         }
@@ -1000,21 +1678,32 @@ namespace Behaviac.Design
 
         public void SetProperty(PropertyDef property, string valueType)
         {
+            //Debug.Check(this._property == null);
             _property = property;
             ValueClass = valueType;
         }
 
+        private string _nativeType = "";
         public string NativeType
         {
             get
             {
-                if (_valueClass == kConst || _valueClass == kPar)
-                    return Plugin.GetNativeTypeName(this.GetValueType());
+                if (_valueClass == kConst)
+                {
+                    if (string.IsNullOrEmpty(_nativeType))
+                        return Plugin.GetNativeTypeName(this.GetValueType());
+                }
+                else if (_property != null)
+                {
+                    return _property.NativeItemType;
+                }
 
-                if (_property != null)
-                    return _property.NativeType;
+                return _nativeType;
+            }
 
-                return string.Empty;
+            set
+            {
+                _nativeType = value;
             }
         }
 
@@ -1023,13 +1712,10 @@ namespace Behaviac.Design
             get
             {
                 if (_valueClass == kConst)
-                    return Resources.Const;
-
-                if (_valueClass == kPar)
-                    return Resources.Par;
+                { return Resources.Const; }
 
                 if (_property != null)
-                    return _property.DisplayName;
+                { return _property.DisplayName; }
 
                 return string.Empty;
             }
@@ -1040,13 +1726,10 @@ namespace Behaviac.Design
             get
             {
                 if (_valueClass == kConst)
-                    return Resources.Const;
-
-                if (_valueClass == kPar)
-                    return Resources.ParInfo;
+                { return Resources.Const; }
 
                 if (_property != null)
-                    return _property.Description;
+                { return _property.Description; }
 
                 return string.Empty;
             }
@@ -1054,27 +1737,11 @@ namespace Behaviac.Design
 
         public Type GetValueType()
         {
-            if (_valueClass == kConst || _valueClass == kPar)
-            {
-                if (_value != null)
-                {
-                    ParInfo parInfo = _value as ParInfo;
-                    if (parInfo != null)
-                    {
-                        VariableDef var = parInfo.Variable;
-                        if (var != null)
-                            return var.GetValueType();
-                    }
-                    else
-                    {
-                        return _value.GetType();
-                    }
-                }
-            }
-            else if (_property != null)
-            {
-                return _property.Type;
-            }
+            if (_valueClass == kConst && _value != null)
+            { return _value.GetType(); }
+
+            if (_property != null)
+            { return _property.Type; }
 
             return null;
         }
@@ -1087,20 +1754,18 @@ namespace Behaviac.Design
         public string GetDisplayValue()
         {
             string str = string.Empty;
-            if (_valueClass == kConst)
+
+            if (_valueClass == kConst && _value != null)
             {
-                if (_value != null)
-                    str = DesignerPropertyUtility.RetrieveDisplayValue(_value, null, null);
+                str = DesignerPropertyUtility.RetrieveDisplayValue(_value, null, null);
             }
-            else if (_valueClass == kPar)
-            {
-                if (_value != null)
-                    str = DesignerPropertyUtility.RetrieveDisplayValue(_value, null, null);
-            }
-            else if (_property != null)
+
+            if (_property != null)
             {
                 str = DesignerPropertyUtility.RetrieveDisplayValue(_property, null, null);
             }
+
+            str = this.GetArrryIndexStr(str, true);
 
             return str;
         }
@@ -1108,21 +1773,53 @@ namespace Behaviac.Design
         public string GetExportValue()
         {
             string str = string.Empty;
+
             if (_valueClass == kConst)
             {
                 if (_value != null)
-                    str = string.Format("const {0} {1}", Plugin.GetNativeTypeName(_value.GetType()), DesignerPropertyUtility.RetrieveExportValue(_value, null, null));
-            }
-            else if (_valueClass == kPar)
-            {
-                if (_value != null)
-                    str = DesignerPropertyUtility.RetrieveExportValue(_value, null, null);
+                {
+                    string nativeType = Plugin.GetNativeTypeName(this.NativeType);
+                    nativeType = nativeType.Replace("*", "");
+                    str = string.Format("const {0} {1}", nativeType, DesignerPropertyUtility.RetrieveExportValue(_value, null, null));
+                }
             }
             else if (_property != null)
             {
-                str = string.Format("{0} {1}", Plugin.GetNativeTypeName(_property.Type), DesignerPropertyUtility.RetrieveExportValue(_property, null, null));
+                string nativeType = Plugin.GetNativeTypeName(_property.NativeItemType);
+                nativeType = nativeType.Replace("*", "");
+                str = string.Format("{0} {1}", nativeType, DesignerPropertyUtility.RetrieveExportValue(_property, null, null));
+
                 if (_property.IsStatic)
+                {
                     str = str.Insert(0, "static ");
+                }
+            }
+
+            str = this.GetArrryIndexStr(str, false);
+
+            return str;
+        }
+
+        private string GetArrryIndexStr(string str, bool bDisplay)
+        {
+            if (this.m_arrayIndexElement != null)
+            {
+                Debug.Check(this.m_arrayIndexElement.IsArrayIndex);
+
+                string arrayIndexStr = string.Empty;
+
+                if (bDisplay)
+                {
+                    arrayIndexStr = this.m_arrayIndexElement.GetDisplayValue(null);
+
+                }
+                else
+                {
+                    arrayIndexStr = this.m_arrayIndexElement.GetExportValue(null);
+                }
+
+                string arrayIndexAccessor = string.Format("[{0}]", arrayIndexStr);
+                str = str.Replace("[]", arrayIndexAccessor);
             }
 
             return str;
@@ -1131,55 +1828,67 @@ namespace Behaviac.Design
         public string GetRawValue()
         {
             if (_valueClass == kConst && _value != null)
-                return DesignerPropertyUtility.RetrieveExportValue(_value, null, null);
+            { return DesignerPropertyUtility.RetrieveExportValue(_value, null, null); }
 
             return GetDisplayValue();
         }
 
         private bool IsGlobalType()
         {
-            return _valueClass != kConst && _valueClass != kPar && _valueClass != kSelf && _valueClass != kSelfMethod;
+            return _valueClass != kConst && _valueClass != kSelf && _valueClass != kSelfMethod;
         }
 
         public bool CheckPar(ParInfo par)
         {
-            if (_valueClass == kPar && _value is ParInfo)
+            if (_property is ParInfo)
             {
-                if (par.GetExportValue() == ((ParInfo)(_value)).GetExportValue())
-                    return true;
+                return (par.Name == _property.Name);
             }
 
             return false;
         }
 
-        public bool ResetPar(ParInfo par, string name)
+        private MethodDef.Param m_arrayIndexElement = null;
+        public MethodDef.Param ArrayIndexElement
         {
-            if (_valueClass == kPar && _value is ParInfo)
+            get { return this.m_arrayIndexElement; }
+            set { m_arrayIndexElement = value; }
+        }
+
+        public bool ShouldBeCleared(AgentType agentType)
+        {
+            if (this.IsProperty && this.Property != null)
+            { return this.Property.ShouldBeCleared(agentType); }
+
+            return false;
+        }
+
+        public bool ResetMembers(bool check, AgentType agentType, bool clear, PropertyDef property)
+        {
+            if (property != null && this._property != null &&
+                (property.OldName == this._property.Name ||
+                 !property.IsArrayElement && this._property.IsArrayElement &&
+                 (property.OldName + "[]") == this._property.Name))
             {
-                if (par != null && par.GetExportValue() == ((ParInfo)(_value)).GetExportValue())
+                if (!check)
                 {
-                    // If the name is empty, it means clearing the par.
-                    if (string.IsNullOrEmpty(name))
-                        _value = null;
+                    if (clear || this._property.ShouldBeCleared(agentType))
+                    {
+                        this._property = null;
+
+                    }
                     else
-                        ((ParInfo)(_value)).Name = name;
+                    {
+                        bool isArrayElement = this._property.IsArrayElement;
 
-                    return true;
+                        this._property.CopyFrom(property);
+
+                        if (isArrayElement)
+                        { this._property.SetArrayElement(property); }
+                    }
                 }
-            }
 
-            return false;
-        }
-
-        public bool ShouldBeReset(AgentType agentType, bool resetPar)
-        {
-            if (this.IsPar)
-            {
-                return false;
-            }
-            else if (this.IsProperty && this.Property != null)
-            {
-                return this.Property.ShouldBeReset(agentType, resetPar);
+                return true;
             }
 
             return false;
@@ -1197,10 +1906,10 @@ namespace Behaviac.Design
             RightValueDef clone = new RightValueDef(Var);
 
             if (m_var != null)
-                clone.m_var = (VariableDef)m_var.Clone();
+            { clone.m_var = (VariableDef)m_var.Clone(); }
 
             if (m_method != null)
-                clone.m_method = (MethodDef)m_method.Clone();
+            { clone.m_method = (MethodDef)m_method.Clone(); }
 
             clone.ValueClass = _valueClass;
 
@@ -1210,8 +1919,11 @@ namespace Behaviac.Design
         public RightValueDef(VariableDef var)
         {
             m_var = var;
+
             if (m_var != null)
+            {
                 _valueClass = m_var.ValueClass;
+            }
         }
 
         public RightValueDef(MethodDef method, string valueClass)
@@ -1235,10 +1947,10 @@ namespace Behaviac.Design
             get
             {
                 if (m_var != null)
-                    return m_var.GetValueType();
+                { return m_var.GetValueType(); }
 
                 if (m_method != null)
-                    return m_method.ReturnType;
+                { return m_method.ReturnType; }
 
                 return null;
             }
@@ -1251,8 +1963,9 @@ namespace Behaviac.Design
             set
             {
                 _valueClass = value;
+
                 if (m_var != null)
-                    m_var.ValueClass = _valueClass;
+                { m_var.ValueClass = _valueClass; }
             }
         }
 
@@ -1263,6 +1976,7 @@ namespace Behaviac.Design
                 if (!string.IsNullOrEmpty(_valueClass))
                 {
                     int pos = _valueClass.IndexOf(VariableDef.kMethod);
+
                     if (pos != -1)
                     {
                         return true;
@@ -1280,6 +1994,7 @@ namespace Behaviac.Design
                 if (!string.IsNullOrEmpty(_valueClass))
                 {
                     int pos = this._valueClass.IndexOf(VariableDef.kMethod);
+
                     if (pos != -1)
                     {
                         string type = _valueClass.Substring(0, pos);
@@ -1297,12 +2012,18 @@ namespace Behaviac.Design
             get
             {
                 if (m_var != null)
-                    return m_var.NativeType;
+                { return m_var.NativeType; }
 
                 if (m_method != null)
-                    return m_method.NativeReturnType;
+                { return m_method.NativeReturnType; }
 
                 return string.Empty;
+            }
+
+            set
+            {
+                if (m_var != null)
+                    m_var.NativeType = value;
             }
         }
 
@@ -1311,10 +2032,10 @@ namespace Behaviac.Design
             get
             {
                 if (m_var != null)
-                    return m_var.DisplayName;
+                { return m_var.DisplayName; }
 
                 if (m_method != null)
-                    return m_method.DisplayName;
+                { return m_method.DisplayName; }
 
                 return string.Empty;
             }
@@ -1325,10 +2046,10 @@ namespace Behaviac.Design
             get
             {
                 if (m_var != null)
-                    return m_var.Description;
+                { return m_var.Description; }
 
                 if (m_method != null)
-                    return m_method.Description;
+                { return m_method.Description; }
 
                 return string.Empty;
             }
@@ -1341,106 +2062,181 @@ namespace Behaviac.Design
 
         public string GetDisplayValue()
         {
+            string str = string.Empty;
+
             if (m_var != null)
-                return DesignerPropertyUtility.RetrieveDisplayValue(m_var, null, null);
+            {
+                str = DesignerPropertyUtility.RetrieveDisplayValue(m_var, null, null);
 
-            if (m_method != null)
-                return DesignerPropertyUtility.RetrieveDisplayValue(m_method, null, null);
+            }
+            else if (m_method != null)
+            {
+                str = DesignerPropertyUtility.RetrieveDisplayValue(m_method, null, null);
+            }
 
-            return string.Empty;
+            str = this.GetArrryIndexStr(str, true);
+
+            return str;
         }
 
         public string GetExportValue()
         {
+            string str = string.Empty;
+
             if (m_var != null)
-                return DesignerPropertyUtility.RetrieveExportValue(m_var, null, null);
+            {
+                str = DesignerPropertyUtility.RetrieveExportValue(m_var, null, null);
 
-            if (m_method != null)
-                return DesignerPropertyUtility.RetrieveExportValue(m_method, null, null);
+            }
+            else if (m_method != null)
+            {
+                str = DesignerPropertyUtility.RetrieveExportValue(m_method, null, null);
+            }
 
-            return string.Empty;
+            str = this.GetArrryIndexStr(str, false);
+
+            return str;
+        }
+
+        private string GetArrryIndexStr(string str, bool bDisplay)
+        {
+            if (this.Var != null && this.Var.ArrayIndexElement != null)
+            {
+                Debug.Check(this.Var.ArrayIndexElement.IsArrayIndex);
+
+                string arrayIndexStr = string.Empty;
+
+                if (bDisplay)
+                {
+                    arrayIndexStr = this.Var.ArrayIndexElement.GetDisplayValue(null);
+
+                }
+                else
+                {
+                    arrayIndexStr = this.Var.ArrayIndexElement.GetExportValue(null);
+                }
+
+                string arrayIndexAccessor = string.Format("[{0}]", arrayIndexStr);
+
+                if (str.EndsWith("[]"))
+                { str = str.Replace("[]", arrayIndexAccessor); }
+            }
+
+            return str;
         }
 
         public bool CheckPar(ParInfo par)
         {
             if (m_var != null)
-            {
-                return m_var.CheckPar(par);
-            }
-            else if (m_method != null)
-            {
-                return m_method.CheckPar(par);
-            }
-
-            return false;
-        }
-
-        public bool ResetPar(ParInfo par, string name)
-        {
-            if (m_var != null)
-                return m_var.ResetPar(par, name);
+            { return m_var.CheckPar(par); }
 
             if (m_method != null)
-                return m_method.ResetPar(par, name);
+            { return m_method.CheckPar(par); }
 
             return false;
         }
 
-        public bool ShouldBeReset(AgentType agentType, bool resetPar)
+        public bool ShouldBeCleared(AgentType agentType)
+        {
+            if (this.IsMethod && this.Method != null)
+            { return this.Method.ShouldBeCleared(agentType); }
+
+            if (this.Var != null)
+            { return this.Var.ShouldBeCleared(agentType); }
+
+            return false;
+        }
+
+        public bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method, PropertyDef property)
         {
             if (this.IsMethod && this.Method != null)
             {
-                return this.Method.ShouldBeReset(agentType, resetPar);
+                if (method != null && method.OldName == this.Method.Name)
+                {
+                    if (!check)
+                    {
+                        if (clear || this.Method.ShouldBeCleared(agentType))
+                        { this.m_method = null; }
+
+                        else
+                        { this.Method.CopyFrom(method); }
+                    }
+
+                    return true;
+                }
+
+                return this.Method.ResetMembers(check, agentType, clear, method, property);
+
             }
             else if (this.Var != null)
             {
-                return this.Var.ShouldBeReset(agentType, resetPar);
+                return this.Var.ResetMembers(check, agentType, clear, property);
             }
 
             return false;
         }
     }
 
-
-    public class ParInfo : ISerializableData
+    public class ParInfo : PropertyDef
     {
         public delegate void ParameterSettingDelegate(Nodes.Node node, ParInfo parameter);
         public event ParameterSettingDelegate ParameterSet;
 
-        public ParInfo(Nodes.Node node)
+        public ParInfo(Nodes.Node node, AgentType agent)
+            : base(agent, null, (agent != null) ? agent.AgentTypeName : "", "", "", "")
         {
             _node = node;
         }
 
-        public ParInfo(ParInfo other)
+        public ParInfo(PropertyDef other)
         {
-            Copy(other);
+            this.CopyFrom(other);
         }
 
-        public void Copy(ParInfo other)
+        public override PropertyDef Clone()
         {
-            _node = other._node;
-            _name = other._name;
-            _eventParam = other._eventParam;
-            _typeName = other._typeName;
-            _description = other._description;
-            if (other._variable != null)
-                _variable = (VariableDef)other._variable.Clone();
+            return new ParInfo(this);
+        }
+
+        public override void CopyFrom(PropertyDef other)
+        {
+            base.CopyFrom(other);
+
+            if (other is ParInfo)
+            {
+                ParInfo otherPar = other as ParInfo;
+
+                _node = otherPar._node;
+                _eventParam = otherPar._eventParam;
+                _typeName = otherPar._typeName;
+                _display = otherPar._display;
+            }
         }
 
         public ParInfo Clone(Nodes.Node node = null)
         {
             ParInfo par = new ParInfo(this);
+
             if (node != null)
-                par._node = node;
+            { par._node = node; }
 
             return par;
         }
 
-        public void OnValueChanged()
+        public override void OnValueChanged()
         {
             if (ParameterSet != null)
-                ParameterSet(_node, this);
+            { ParameterSet(_node, this); }
+        }
+
+        public override bool IsCustomized
+        {
+            get { return false; }
+        }
+
+        public override bool IsPar
+        {
+            get { return true; }
         }
 
         private Nodes.Node _node = null;
@@ -1453,13 +2249,11 @@ namespace Behaviac.Design
             }
         }
 
-        private string _name = string.Empty;
-        public string Name
+        public override string Name
         {
-            get { return _name; }
             set
             {
-                _name = value;
+                _name = value.Contains(":") ? value : (this.ClassName + "::" + value);
                 OnValueChanged();
             }
         }
@@ -1467,7 +2261,7 @@ namespace Behaviac.Design
         private string _typeName = string.Empty;
         public string TypeName
         {
-            get { return _typeName; }
+            get { return !string.IsNullOrEmpty(_typeName) ? _typeName : ((this.Type != null) ? this.Type.FullName : ""); }
             set
             {
                 _typeName = value;
@@ -1475,15 +2269,8 @@ namespace Behaviac.Design
             }
         }
 
-        public string NativeType
+        public override string Description
         {
-            get { return Plugin.GetNativeTypeName(this.Type); }
-        }
-
-        private string _description = string.Empty;
-        public string Description
-        {
-            get { return _description; }
             set
             {
                 _description = value;
@@ -1491,36 +2278,18 @@ namespace Behaviac.Design
             }
         }
 
-        public Type Type
+        public override Type Type
         {
-            get { return (_variable != null) ? _variable.GetValueType() : null; }
-        }
-
-        private VariableDef _variable = null;
-        public VariableDef Variable
-        {
-            get { return _variable; }
+            get { return (_type != null) ? _type : ((this.Variable != null) ? this.Variable.GetValueType() : null); }
             set
             {
-                _variable = value;
-                OnValueChanged();
-            }
-        }
+                if (_type != value)
+                {
+                    _type = value;
 
-        public string DefaultValue
-        {
-            get
-            {
-                if (Variable == null)
-                    return string.Empty;
-
-                string defaultValue = Variable.GetRawValue();
-
-                // "string" - > string
-                if (Plugin.IsStringType(this.Type))
-                    defaultValue = defaultValue.Substring(1, defaultValue.Length - 2);
-
-                return defaultValue;
+                    if (this.Variable != null)
+                    { this.Variable.Value = Plugin.DefaultValue(_type); }
+                }
             }
         }
 
@@ -1530,27 +2299,162 @@ namespace Behaviac.Design
             get { return _eventParam; }
             set
             {
-                _eventParam = value;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _eventParam = value.Replace("::param", "_param");
+
+                }
+                else
+                {
+                    _eventParam = null;
+                }
+
                 OnValueChanged();
             }
         }
 
-        public override string ToString()
+        private bool _display = true;
+        public bool Display
         {
-            return GetExportValue();
+            get { return _display; }
+            set { _display = value; }
         }
 
-        public string GetDisplayValue()
+        public override string GetExportValue()
         {
-            return Name;
+            string fullname = this.Name;
+
+            if (!this.Name.Contains(":"))
+            { fullname = this.ClassName + "::" + this.Name; }
+
+            return this.Owner + "." + fullname;
+        }
+    }
+
+    public class CustomizedType
+    {
+        public string Name = "";
+        public string Namespace = ""; // behaviac
+        public string Description = "";
+
+        private string _displayName = "";
+        public string DisplayName
+        {
+            get { return string.IsNullOrEmpty(_displayName) ? this.Name : _displayName; }
+            set { _displayName = value; }
         }
 
-        public string GetExportValue()
+        public CustomizedType(CustomizedType other)
         {
-            if (Type != null)
-                return string.Format("{0} {1}", Plugin.GetNativeTypeName(Type), Name);
+            if (other != null)
+            {
+                this.Name = other.Name;
+                this.Namespace = other.Namespace;
+                this.Description = other.Description;
+                this.DisplayName = other.DisplayName;
+            }
+        }
 
-            return string.Empty;
+        public CustomizedType(string name, string displayName, string description)
+        {
+            this.Reset(name, description, displayName);
+        }
+
+        public void Reset(string name, string displayName, string description)
+        {
+            this.Name = name;
+            this.DisplayName = displayName;
+            this.Description = description;
+        }
+    }
+
+    public class CustomizedEnum : CustomizedType
+    {
+        public class CustomizedEnumMember : CustomizedType
+        {
+            public int Value = -1;
+
+            public CustomizedEnumMember(CustomizedEnumMember other)
+                : base(other)
+            {
+                if (other != null)
+                { this.Value = other.Value; }
+            }
+        }
+
+        public List<CustomizedEnumMember> Members = new List<CustomizedEnumMember>();
+
+        public CustomizedEnum(CustomizedEnum other)
+            : base(other)
+        {
+            if (other != null)
+            {
+                foreach (CustomizedEnumMember member in other.Members)
+                {
+                    this.Members.Add(new CustomizedEnumMember(member));
+                }
+            }
+        }
+
+        public CustomizedEnum(string name, string displayName, string description)
+            : base(name, displayName, description)
+        {
+        }
+
+        public CustomizedEnumMember GetMemberByName(string memberName)
+        {
+            foreach (CustomizedEnumMember member in this.Members)
+            {
+                if (member.Name.ToLowerInvariant() == memberName.ToLowerInvariant())
+                    return member;
+            }
+
+            return null;
+        }
+    }
+
+    public class CustomizedStruct : CustomizedType
+    {
+        public List<PropertyDef> Properties = new List<PropertyDef>();
+
+        public CustomizedStruct(CustomizedStruct other)
+            : base(other)
+        {
+            if (other != null)
+            {
+                foreach (PropertyDef prop in other.Properties)
+                {
+                    this.Properties.Add(new PropertyDef(prop));
+                }
+            }
+        }
+
+        public CustomizedStruct(string name, string displayName, string description)
+            : base(name, displayName, description)
+        {
+        }
+    }
+
+    public class CustomizedTypeManager
+    {
+        public List<CustomizedEnum> Enums = new List<CustomizedEnum>();
+        public List<CustomizedStruct> Structs = new List<CustomizedStruct>();
+
+        private static CustomizedTypeManager _instance = null;
+        public static CustomizedTypeManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                { _instance = new CustomizedTypeManager(); }
+
+                return _instance;
+            }
+        }
+
+        public bool HasCustomizedTypes()
+        {
+            return Enums.Count > 0 || Structs.Count > 0;
         }
     }
 }

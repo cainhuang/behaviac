@@ -17,185 +17,177 @@ using NUnit.Framework;
 
 namespace BehaviorNodeUnitTest
 {
-	[TestFixture]
-	[Category ("QueryUnitTest")]
-	internal class QueryUnitTest
-	{
-		AgentNodeTest testAgent = null;
-		
-		[TestFixtureSetUp]  
-		public void initGlobalTestEnv()  
-		{
-			BehaviacSystem.Instance.init();
-			
-			GameObject testAgentObject = new GameObject();
-			testAgentObject.name = "@UnitTestAgent";
-			testAgentObject.transform.localPosition = Vector3.zero;
-			testAgentObject.transform.localRotation = Quaternion.identity;
-			testAgentObject.transform.localScale = Vector3.one;
-			testAgent = testAgentObject.AddComponent<AgentNodeTest>();			
-			testAgent.init();
-		}
-		
-		[TestFixtureTearDown]  
-		public void finlGlobalTestEnv()  
-		{
-			testAgent.finl();			
-			BehaviacSystem.Instance.finl();
-		}
-		
-		[SetUp]  
-		public void initTestEnv()  
-		{
-		}
-		
-		[TearDown]  
-		public void finlTestEnv()  
-		{
-			behaviac.Workspace.UnLoadAll();
-		}
-		
-		[Test]
-		[Category ("test_query_0")]
-		public void test_query_0 ()
-		{
-			bool loadResult = testAgent.btload("node_test/query_subtree_0");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_0 " + "load failed!");
-				Assert.Fail();
-			}
+    [TestFixture]
+    [Category("QueryUnitTest")]
+    internal class QueryUnitTest
+    {
+        AgentNodeTest testAgent = null;
 
-			loadResult = testAgent.btload("node_test/query_subtree_1");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_1 " + "load failed!");
-				Assert.Fail();
-			}
+        [TestFixtureSetUp]
+        public void initGlobalTestEnv() {
+            BehaviacSystem.Instance.Init();
 
-			loadResult = testAgent.btload("node_test/query_subtree_2");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_2 " + "load failed!");
-				Assert.Fail();
-			}
-
-			testAgent.btsetcurrent("node_test/query_ut_0");
-			testAgent.resetProperties();
-
-			behaviac.EBTStatus status = testAgent.btexec();
-//			status = testAgent.btexec();
-//			status = testAgent.btexec();
-			
-			Assert.AreEqual(1, testAgent.testVar_0);
-			Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
-		}
-
-		[Test]
-		[Category ("test_query_1")]
-		public void test_query_1 ()
-		{
-			bool loadResult = testAgent.btload("node_test/query_subtree_0");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_0 " + "load failed!");
-				Assert.Fail();
-			}
-			
-			loadResult = testAgent.btload("node_test/query_subtree_1");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_1 " + "load failed!");
-				Assert.Fail();
-			}
-			
-			loadResult = testAgent.btload("node_test/query_subtree_2");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_2 " + "load failed!");
-				Assert.Fail();
-			}
-			
-			testAgent.btsetcurrent("node_test/query_ut_1");
-			testAgent.resetProperties();			
-
-			behaviac.EBTStatus status = testAgent.btexec();
-//			status = testAgent.btexec();
-//			status = testAgent.btexec();
-//			status = testAgent.btexec();
-			
-			Assert.AreEqual(2, testAgent.testVar_0);
-			Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
-		}
-
-		[Test]
-		[Category ("test_query_2")]
-		public void test_query_2 ()
-		{
-			bool loadResult = testAgent.btload("node_test/query_subtree_0");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_0 " + "load failed!");
-				Assert.Fail();
-			}
-			
-			loadResult = testAgent.btload("node_test/query_subtree_1");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_1 " + "load failed!");
-				Assert.Fail();
-			}
-			
-			loadResult = testAgent.btload("node_test/query_subtree_2");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_2 " + "load failed!");
-				Assert.Fail();
-			}
-			
-            testAgent.btsetcurrent("node_test/query_ut_2");
-            testAgent.resetProperties();			
-            
-			behaviac.EBTStatus status = testAgent.btexec();
-//			status = testAgent.btexec();
-//			status = testAgent.btexec();
-            
-            Assert.AreEqual(2, testAgent.testVar_0);
-			Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+            GameObject testAgentObject = new GameObject();
+            testAgentObject.name = "@UnitTestAgent";
+            testAgentObject.transform.localPosition = Vector3.zero;
+            testAgentObject.transform.localRotation = Quaternion.identity;
+            testAgentObject.transform.localScale = Vector3.one;
+            testAgent = testAgentObject.AddComponent<AgentNodeTest>();
+            testAgent.init();
         }
 
-		[Test]
-		[Category ("test_query_3")]
-		public void test_query_3 ()
-		{
-			bool loadResult = testAgent.btload("node_test/query_subtree_0");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_0 " + "load failed!");
-				Assert.Fail();
-			}
-			
-			loadResult = testAgent.btload("node_test/query_subtree_1");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_1 " + "load failed!");
-				Assert.Fail();
-			}
-			
-			loadResult = testAgent.btload("node_test/query_subtree_2");
-			if(!loadResult)
-			{
-				Debug.LogError("node_test/query_subtree_2 " + "load failed!");
-				Assert.Fail();
-			}
-			
-			testAgent.btsetcurrent("node_test/query_ut_3");
-			testAgent.resetProperties();			
-			
-			behaviac.EBTStatus status = testAgent.btexec();
-//            status = testAgent.btexec();
-//            status = testAgent.btexec();
-            
+        [TestFixtureTearDown]
+        public void finlGlobalTestEnv() {
+            testAgent.finl();
+            BehaviacSystem.Instance.Uninit();
+        }
+
+        [SetUp]
+        public void initTestEnv() {
+        }
+
+        [TearDown]
+        public void finlTestEnv() {
+            behaviac.Workspace.Instance.UnLoadAll();
+        }
+
+        [Test]
+        [Category("test_query_0")]
+        public void test_query_0() {
+            bool loadResult = testAgent.btload("node_test/query_subtree_0");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_0 " + "load failed!");
+                Assert.Fail();
+            }
+
+            loadResult = testAgent.btload("node_test/query_subtree_1");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_1 " + "load failed!");
+                Assert.Fail();
+            }
+
+            loadResult = testAgent.btload("node_test/query_subtree_2");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_2 " + "load failed!");
+                Assert.Fail();
+            }
+
+            testAgent.btsetcurrent("node_test/query_ut_0");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            //			status = testAgent.btexec();
+            //			status = testAgent.btexec();
+
+            Assert.AreEqual(1, testAgent.testVar_0);
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+        }
+
+        [Test]
+        [Category("test_query_1")]
+        public void test_query_1() {
+            bool loadResult = testAgent.btload("node_test/query_subtree_0");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_0 " + "load failed!");
+                Assert.Fail();
+            }
+
+            loadResult = testAgent.btload("node_test/query_subtree_1");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_1 " + "load failed!");
+                Assert.Fail();
+            }
+
+            loadResult = testAgent.btload("node_test/query_subtree_2");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_2 " + "load failed!");
+                Assert.Fail();
+            }
+
+            testAgent.btsetcurrent("node_test/query_ut_1");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            //			status = testAgent.btexec();
+            //			status = testAgent.btexec();
+            //			status = testAgent.btexec();
+
+            Assert.AreEqual(2, testAgent.testVar_0);
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+        }
+
+        [Test]
+        [Category("test_query_2")]
+        public void test_query_2() {
+            bool loadResult = testAgent.btload("node_test/query_subtree_0");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_0 " + "load failed!");
+                Assert.Fail();
+            }
+
+            loadResult = testAgent.btload("node_test/query_subtree_1");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_1 " + "load failed!");
+                Assert.Fail();
+            }
+
+            loadResult = testAgent.btload("node_test/query_subtree_2");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_2 " + "load failed!");
+                Assert.Fail();
+            }
+
+            testAgent.btsetcurrent("node_test/query_ut_2");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            //			status = testAgent.btexec();
+            //			status = testAgent.btexec();
+
+            Assert.AreEqual(2, testAgent.testVar_0);
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+        }
+
+        [Test]
+        [Category("test_query_3")]
+        public void test_query_3() {
+            bool loadResult = testAgent.btload("node_test/query_subtree_0");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_0 " + "load failed!");
+                Assert.Fail();
+            }
+
+            loadResult = testAgent.btload("node_test/query_subtree_1");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_1 " + "load failed!");
+                Assert.Fail();
+            }
+
+            loadResult = testAgent.btload("node_test/query_subtree_2");
+
+            if (!loadResult) {
+                Debug.LogError("node_test/query_subtree_2 " + "load failed!");
+                Assert.Fail();
+            }
+
+            testAgent.btsetcurrent("node_test/query_ut_3");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            //            status = testAgent.btexec();
+            //            status = testAgent.btexec();
+
             Assert.AreEqual(0, testAgent.testVar_0);
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
         }

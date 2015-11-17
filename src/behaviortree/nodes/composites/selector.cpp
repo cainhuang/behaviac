@@ -14,68 +14,150 @@
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/nodes/composites/selector.h"
 
+#include "behaviac/htn/planner.h"
+#include "behaviac/htn/plannertask.h"
+
 namespace behaviac
 {
-	Selector::Selector()
-	{}
+    Selector::Selector()
+    {}
 
-	Selector::~Selector()
-	{}
+    Selector::~Selector()
+    {}
 
-	void Selector::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void Selector::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool Selector::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!Selector::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool Selector::decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner)
+    {
+        bool bOk = false;
+        Selector* sel = (Selector*)node;
+        int childCount = sel->GetChildrenCount();
+        int i = 0;
 
+        for (; i < childCount; ++i)
+        {
+            BehaviorNode* childNode = (BehaviorNode*)sel->GetChild(i);
+            PlannerTask* childTask = planner->decomposeNode(childNode, depth);
 
-	BehaviorTask* Selector::createTask() const
-	{
-		SelectorTask* pTask = BEHAVIAC_NEW SelectorTask();
-		
+            if (childTask != NULL)
+            {
+                seqTask->AddChild(childTask);
+                bOk = true;
+                break;
+            }
+        }
 
-		return pTask;
-	}
+        return bOk;
+    }
 
-	SelectorTask::SelectorTask() : CompositeTask()
-	{
-	}
+    bool Selector::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!Selector::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	SelectorTask::~SelectorTask()
-	{
-	}
+        return super::IsValid(pAgent, pTask);
+    }
+    bool Selector::Evaluate(const Agent* pAgent)
+    {
+        bool ret = true;
 
-	void SelectorTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+        for (behaviac::vector<BehaviorNode*> ::iterator c = this->m_children->begin(); c != this->m_children->end(); c++)
+        {
+            BehaviorNode* p = *c;
+            ret = p->Evaluate(pAgent);
 
-	void SelectorTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+            if (ret)
+            {
+                break;
+            }
+        }
 
-	void SelectorTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+        return ret;
+    }
+    EBTStatus Selector::SelectorUpdate(Agent* pAgent, EBTStatus childStatus, int& activeChildIndex, behaviac::vector<BehaviorTask*>& children)
+    {
+        EBTStatus s = childStatus;
+        int childSize = (int)children.size();
 
+        for (;;)
+        {
+            BEHAVIAC_ASSERT(activeChildIndex < childSize);
 
+            if (s == BT_RUNNING)
+            {
+                BehaviorTask* pBehavior = children[activeChildIndex];
+
+				if (this->CheckIfInterrupted(pAgent))
+				{
+					return BT_FAILURE;
+				}
+
+                s = pBehavior->exec(pAgent);
+            }
+
+            // If the child fails, or keeps running, do the same.
+            if (s != BT_FAILURE)
+            {
+                return s;
+            }
+
+            // Hit the end of the array, job done!
+            ++activeChildIndex;
+
+            if (activeChildIndex >= childSize)
+            {
+                return BT_FAILURE;
+            }
+
+            s = BT_RUNNING;
+        }
+    }
+    bool  Selector::CheckIfInterrupted(Agent* pAgent)
+    {
+        bool bInterrupted = this->EvaluteCustomCondition(pAgent);
+
+        return bInterrupted;
+    }
+    BehaviorTask* Selector::createTask() const
+    {
+        SelectorTask* pTask = BEHAVIAC_NEW SelectorTask();
+
+        return pTask;
+    }
+
+    SelectorTask::SelectorTask() : CompositeTask()
+    {
+    }
+
+    SelectorTask::~SelectorTask()
+    {
+    }
+
+    void SelectorTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
+
+    void SelectorTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
+
+    void SelectorTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     bool SelectorTask::onenter(Agent* pAgent)
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_ASSERT(this->m_children.size() > 0);
-		this->m_activeChildIndex = 0;
+        this->m_activeChildIndex = 0;
         return true;
     }
 
@@ -83,43 +165,12 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
 
-		bool bFirst = true;
+        // bool bFirst = true;
 
-		BEHAVIAC_ASSERT(this->m_activeChildIndex < this->m_children.size());
+        BEHAVIAC_ASSERT(this->m_activeChildIndex < (int)this->m_children.size());
 
-        // Keep going until a child behavior says its running.
-        for (;;)
-		{	
-			EBTStatus s = childStatus;
-			if (!bFirst || s == BT_RUNNING)
-			{
-				BEHAVIAC_ASSERT(this->m_status == BT_INVALID ||
-					this->m_status == BT_RUNNING);
-
-				BehaviorTask* pBehavior = this->m_children[this->m_activeChildIndex];
-				s = pBehavior->exec(pAgent);
-			}
-			
-			bFirst = false;
-
-			// If the child succeeds, or keeps running, do the same.
-			if (s != BT_FAILURE)
-			{
-				return s;
-			}
-
-			// Hit the end of the array, job done!
-			++this->m_activeChildIndex;
-			if (this->m_activeChildIndex >= this->m_children.size())
-			{
-				return BT_FAILURE;
-			}
-
-			if (!this->CheckPredicates(pAgent))
-			{
-				return BT_FAILURE;
-			}
-		}
+        Selector* node = (Selector*)this->m_node;
+        return node->SelectorUpdate(pAgent, childStatus, this->m_activeChildIndex, this->m_children);
     }
 
     void SelectorTask::onexit(Agent* pAgent, EBTStatus s)

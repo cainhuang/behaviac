@@ -21,9 +21,10 @@ public class BehaviacMenus
     [MenuItem("Behaviac/Export Meta")]
     static void CreateBTMetaFile()
     {
-		behaviac.Agent.RegisterName<GameLevelCommon> ("GameLevel");
+		behaviac.Agent.RegisterInstanceName<GameLevelCommon> ("GameLevel");
 
-		behaviac.Workspace.ExportMetas("Assets/BTWorkspace/xmlmeta/BattleCityMeta.xml");
+		behaviac.Workspace.Instance.ExportMetas("behaviac/workspace/xmlmeta/BattleCityMeta.xml");
+		behaviac.Workspace.Instance.Dispose();
     }
 
 	[MenuItem("Behaviac/Export Behaviac Package")]

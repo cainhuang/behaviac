@@ -51,37 +51,32 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerString(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerStringEditor), null)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerStringEditor), null) {
         }
 
-        private string trimQuotes(string text)
-        {
+        private string trimQuotes(string text) {
             char[] toTrim = { '"' };
             return text.Trim(toTrim);
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             if (obj == null)
-                return string.Empty;
+            { return string.Empty; }
 
             return trimQuotes((string)obj);
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             if (obj == null)
-                return "";
+            { return ""; }
 
-            if (Plugin.IsCharType(obj.GetType()))
-            {
+            if (Plugin.IsCharType(obj.GetType())) {
                 return obj.ToString();
             }
 
             string s = (string)obj;
-            if (string.IsNullOrEmpty(s))
-            {
+
+            if (string.IsNullOrEmpty(s)) {
                 return "";
             }
 
@@ -89,16 +84,13 @@ namespace Behaviac.Design.Attributes
             return trimQuotes(s);
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
-            if (type == typeof(string))
-            {
+            if (type == typeof(string)) {
                 return trimQuotes(str);
-            }
-            else if (Plugin.IsCharType(type))
-            {
-                if (str.Length >= 1)
-                {
+
+            } else if (Plugin.IsCharType(type)) {
+                if (str.Length >= 1) {
                     char r = str[0];
                     return r;
                 }

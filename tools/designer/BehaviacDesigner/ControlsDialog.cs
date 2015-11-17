@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -18,57 +18,108 @@ using Behaviac.Design.Properties;
 
 namespace Behaviac.Design
 {
-	public partial class ControlsDialog : Form
-	{
-		public ControlsDialog(bool bShowMeTip)
-		{
-			InitializeComponent();
+    public partial class ControlsDialog : Form
+    {
+        public ControlsDialog(bool bShowMeTip) {
+            InitializeComponent();
 
             this.checkBoxNext.Visible = bShowMeTip;
-            if (bShowMeTip)
-            {
+
+            if (bShowMeTip) {
                 this.checkBoxNext.Checked = !Settings.Default.ShowControlsOnStartUp;
             }
-		}
+        }
 
-		private void ControlsDialog_Load(object sender, EventArgs e)
-		{
+        private void ControlsDialog_Load(object sender, EventArgs e) {
             string appDir = Path.GetDirectoryName(Application.ExecutablePath);
-            string controlFile = (Settings.Default.Language == (int)Language.English) ? "..\\doc\\ControlHelp.html" : "..\\doc\\ControlHelp.zh-CN.html";
+            string controlFile = (Settings.Default.Language == (int)Language.English || System.Threading.Thread.CurrentThread.CurrentUICulture.Name != "zh-CN")
+                                 ? "..\\doc\\ControlHelp.html" : "..\\doc\\ControlHelp.zh-CN.html";
             controlFile = Path.Combine(appDir, controlFile);
             controlFile = Path.GetFullPath(controlFile);
-            if (File.Exists(controlFile))
+
+            if (File.Exists(controlFile)) {
                 webBrowser.Url = new Uri(controlFile);
-		}
+            }
+        }
 
-        private void webBrowser_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
+        private void webBrowser_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e) {
+            if (e.KeyCode == Keys.Escape) {
                 this.Close();
             }
         }
 
-        private void ControlsDialog_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
+        private void ControlsDialog_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Escape) {
                 this.Close();
             }
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
+        private void buttonClose_Click(object sender, EventArgs e) {
             this.Close();
         }
 
-        private void ControlsDialog_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (this.checkBoxNext.Visible)
-            {
+        private void ControlsDialog_FormClosed(object sender, FormClosedEventArgs e) {
+            if (this.checkBoxNext.Visible) {
                 //don't show me next time
                 Settings.Default.ShowControlsOnStartUp = !this.checkBoxNext.Checked;
             }
         }
-	}
+
+        private void loadWorkspace(string wksFile)
+        {
+            try
+            {
+                wksFile = Path.GetFullPath(wksFile);
+                MainWindow.Instance.BehaviorTreeList.OpenWorkspace(wksFile);
+            }
+            catch
+            {
+            }
+        }
+
+        private void workspace1Button_Click(object sender, EventArgs e)
+        {
+            loadWorkspace("../../../integration/unity/Assets/behaviac/workspace/behaviacunittest.workspace.xml");
+        }
+
+        private void workspace2Button_Click(object sender, EventArgs e)
+        {
+            loadWorkspace("../../../integration/BattleCityDemo/Assets/behaviac/workspace/BattleCity.workspace.xml");
+        }
+
+        private void workspace3Button_Click(object sender, EventArgs e)
+        {
+            loadWorkspace("../../../test/btunittest/BehaviacData/BehaviacUnitTestCpp.workspace.xml");
+        }
+
+        private void workspace4Button_Click(object sender, EventArgs e)
+        {
+            loadWorkspace("../../../example/spaceship/data/ships.workspace.xml");
+        }
+
+        private void overviewDocButton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenOverviewDoc();
+        }
+
+        private void tutorialDocbutton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenTutorialDoc();
+        }
+
+        private void nodeRefDocButton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenNodeRefDoc();
+        }
+
+        private void insideDocButton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenInsideBehaviacDoc();
+        }
+
+        private void performenceDocButton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenPerformanceDoc();
+        }
+    }
 }

@@ -14,33 +14,31 @@
 namespace Behaviac.Design
 {
     partial class TimelineDock
-	{
-        /// <summary> 
+    {
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TimelineDock));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -51,7 +49,6 @@ namespace Behaviac.Design
             this.endButton = new System.Windows.Forms.Button();
             this.zoomOutButton = new System.Windows.Forms.Button();
             this.zoomInButton = new System.Windows.Forms.Button();
-            this.checkBoxBreakCPP = new System.Windows.Forms.CheckBox();
             this.comboBoxLogFilter = new System.Windows.Forms.ComboBox();
             this.numericUpDownFPS = new System.Windows.Forms.NumericUpDown();
             this.gotoLabel = new System.Windows.Forms.Label();
@@ -81,7 +78,6 @@ namespace Behaviac.Design
             this.flowLayoutPanel1.Controls.Add(this.endButton);
             this.flowLayoutPanel1.Controls.Add(this.zoomOutButton);
             this.flowLayoutPanel1.Controls.Add(this.zoomInButton);
-            this.flowLayoutPanel1.Controls.Add(this.checkBoxBreakCPP);
             this.flowLayoutPanel1.Controls.Add(this.comboBoxLogFilter);
             this.flowLayoutPanel1.Controls.Add(this.numericUpDownFPS);
             this.flowLayoutPanel1.Controls.Add(this.gotoLabel);
@@ -184,19 +180,6 @@ namespace Behaviac.Design
             this.zoomInButton.UseVisualStyleBackColor = true;
             this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
-            // checkBoxBreakCPP
-            // 
-            this.checkBoxBreakCPP.AutoSize = true;
-            this.checkBoxBreakCPP.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkBoxBreakCPP.Location = new System.Drawing.Point(217, 3);
-            this.checkBoxBreakCPP.Name = "checkBoxBreakCPP";
-            this.checkBoxBreakCPP.Size = new System.Drawing.Size(73, 23);
-            this.checkBoxBreakCPP.TabIndex = 18;
-            this.checkBoxBreakCPP.Text = "BreakApp";
-            this.toolTip.SetToolTip(this.checkBoxBreakCPP, "If breakpoints break CPP/C# side? for c#, please provide RespondToBreakHandler.");
-            this.checkBoxBreakCPP.UseVisualStyleBackColor = true;
-            this.checkBoxBreakCPP.CheckedChanged += new System.EventHandler(this.checkBoxBreakCPP_CheckedChanged);
-            // 
             // comboBoxLogFilter
             // 
             this.comboBoxLogFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
@@ -212,11 +195,12 @@ namespace Behaviac.Design
             "BLUE",
             "INDIGO",
             "PURPLE"});
-            this.comboBoxLogFilter.Location = new System.Drawing.Point(296, 3);
+            this.comboBoxLogFilter.Location = new System.Drawing.Point(217, 3);
             this.comboBoxLogFilter.Name = "comboBoxLogFilter";
             this.comboBoxLogFilter.Size = new System.Drawing.Size(94, 21);
             this.comboBoxLogFilter.TabIndex = 19;
             this.toolTip.SetToolTip(this.comboBoxLogFilter, "Log filter");
+            this.comboBoxLogFilter.Visible = false;
             this.comboBoxLogFilter.SelectedIndexChanged += new System.EventHandler(this.comboBoxLogFilter_SelectedIndexChanged);
             this.comboBoxLogFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxLogFilter_KeyDown);
             // 
@@ -226,7 +210,7 @@ namespace Behaviac.Design
             this.numericUpDownFPS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDownFPS.Dock = System.Windows.Forms.DockStyle.Left;
             this.numericUpDownFPS.ForeColor = System.Drawing.Color.LightGray;
-            this.numericUpDownFPS.Location = new System.Drawing.Point(396, 5);
+            this.numericUpDownFPS.Location = new System.Drawing.Point(317, 5);
             this.numericUpDownFPS.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.numericUpDownFPS.Maximum = new decimal(new int[] {
             1000,
@@ -253,7 +237,7 @@ namespace Behaviac.Design
             // 
             this.gotoLabel.AutoSize = true;
             this.gotoLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.gotoLabel.Location = new System.Drawing.Point(484, 0);
+            this.gotoLabel.Location = new System.Drawing.Point(405, 0);
             this.gotoLabel.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
             this.gotoLabel.Name = "gotoLabel";
             this.gotoLabel.Size = new System.Drawing.Size(36, 29);
@@ -267,7 +251,7 @@ namespace Behaviac.Design
             this.gotoNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gotoNumericUpDown.Dock = System.Windows.Forms.DockStyle.Left;
             this.gotoNumericUpDown.ForeColor = System.Drawing.Color.LightGray;
-            this.gotoNumericUpDown.Location = new System.Drawing.Point(526, 5);
+            this.gotoNumericUpDown.Location = new System.Drawing.Point(447, 5);
             this.gotoNumericUpDown.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.gotoNumericUpDown.Name = "gotoNumericUpDown";
             this.gotoNumericUpDown.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -282,7 +266,7 @@ namespace Behaviac.Design
             this.promptLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.promptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.promptLabel.ForeColor = System.Drawing.Color.Gold;
-            this.promptLabel.Location = new System.Drawing.Point(618, 0);
+            this.promptLabel.Location = new System.Drawing.Point(539, 0);
             this.promptLabel.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
             this.promptLabel.Name = "promptLabel";
             this.promptLabel.Size = new System.Drawing.Size(104, 29);
@@ -367,9 +351,9 @@ namespace Behaviac.Design
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label gotoLabel;
@@ -389,7 +373,6 @@ namespace Behaviac.Design
         private System.Windows.Forms.Label promptLabel;
         private System.Windows.Forms.NumericUpDown numericUpDownFPS;
         private System.Windows.Forms.Timer effectTimer;
-        private System.Windows.Forms.CheckBox checkBoxBreakCPP;
         private System.Windows.Forms.ComboBox comboBoxLogFilter;
     }
 }

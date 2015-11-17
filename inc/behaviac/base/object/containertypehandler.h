@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_CONTAINERTYPEHANDLER_H_
-#define _ENGINESERVICES_CONTAINERTYPEHANDLER_H_
+#ifndef BEHAVIAC_ENGINESERVICES_CONTAINERTYPEHANDLER_H
+#define BEHAVIAC_ENGINESERVICES_CONTAINERTYPEHANDLER_H
 
 #include "behaviac/base/object/typehandler.h"
 #include "behaviac/base/object/member.h"
@@ -22,7 +22,6 @@
 
 // We generally want to take care of the children nodes creation
 #define DefaultContainedTypeHandler NoChildTypeHandler
-
 
 // Utility class to filter empty elements. The default implementation compares
 // the element to 0, but it can be specialized for other types.
@@ -80,7 +79,6 @@ public:
     }
 };
 
-
 // Example provider class, very basic, uses the element index as its ID. Can be
 // used with any class that define ValueType and implements Size and operator[]
 // (i.e. ndContainers).
@@ -112,7 +110,6 @@ public:
     {
         m_container.push_back(element);
     }
-
 
     // These are used to simulate entries indexed by ID
     typedef uint32_t IDType;
@@ -205,7 +202,6 @@ protected:
     contained_type m_emptyElement;
 };
 
-
 // Specialize this to do nothing if your TContainerType does not support Reserve
 template <typename TContainerType>
 class CContainerReserver
@@ -232,7 +228,6 @@ public:
     static void Reserve(behaviac::list<Type, Alloc>&, uint32_t) {} // do nothing
 };
 
-
 /////////////////////////////////////////////////////////
 //////////     GENERIC CONTAINER HANDLER      ///////////
 /////////////////////////////////////////////////////////
@@ -251,7 +246,6 @@ public:
     typedef typename TContainerProvider::contained_type contained_type;
     typedef TContainedTypeHandler<contained_type> ContainedTypeHandler;
     typedef TContainerProvider Provider;
-
 
     GenericContainerHandler(const char* elementName, const char* valueName, const char* /*idName*/)
         : m_elementID(elementName), m_valueID(valueName)
@@ -324,31 +318,45 @@ public:
         }
     }
 
-	void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const ParentType* parent, const ContainerType& container, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const ParentType* parent, const ContainerType& container, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(propertyID);
         Provider provider(const_cast<ParentType*>(parent), const_cast<ContainerType&>(container), EPersistenceType_Description_UiInfo);
         contained_type* element = provider.GetFirstElement();
 
-		XmlNodeRef childNode = xmlNode;
+        XmlNodeRef childNode = xmlNode;
+
         while (element)
         {
-			if (types == NULL)
-			{
-				childNode = xmlNode->newChild("Member");
-				childNode->setAttr("Name", m_elementID.GetString());
-				childNode->setAttr("ContainerElement", true);
-				if (classFullName)
-				{
-					childNode->setAttr("Class", classFullName);
-				}
-				if (bStatic)
-				{
-					childNode->setAttr("Static", "true");
-				}
-			}
+            if (types == NULL)
+            {
+                childNode = xmlNode->newChild("Member");
+                childNode->setAttr("Name", m_elementID.GetString());
+                childNode->setAttr("ContainerElement", true);
 
-			ContainedTypeHandler::GetUiInfo(types, childNode, *element, bStatic, classFullName, m_valueID, displayName, desc, NULL);
+                if (classFullName)
+                {
+                    childNode->setAttr("Class", classFullName);
+                }
+
+                if (bStatic)
+                {
+                    childNode->setAttr("Static", "true");
+                }
+
+                if (readonlyFlag & 0x1)
+                {
+                    childNode->setAttr("Readonly", "true");
+                }
+
+                if (readonlyFlag & 0x2)
+                {
+                    childNode->setAttr("Property", "true");
+                }
+
+            }
+
+            ContainedTypeHandler::GetUiInfo(types, childNode, *element, bStatic, readonlyFlag, classFullName, m_valueID, displayName, desc, NULL);
 
             if (uiWrapper)
             {
@@ -375,4 +383,4 @@ protected:
     CSerializationID m_valueID;
 };
 
-#endif // #ifndef _ENGINESERVICES_CONTAINERTYPEHANDLER_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_CONTAINERTYPEHANDLER_H

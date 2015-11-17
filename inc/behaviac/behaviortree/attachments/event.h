@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_EVENT_H_
-#define BEHAVIAC_BEHAVIORTREE_EVENT_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_EVENT_H
+#define BEHAVIAC_BEHAVIORTREE_EVENT_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -30,24 +30,28 @@ namespace behaviac
         virtual ~Event();
         virtual void load(int version, const char* agentType, const properties_t& properties);
 
-	protected:
-		virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
+        const char*		GetEventName();
+        bool			TriggeredOnce();
+        TriggerMode		GetTriggerMode();
+        void			switchTo(Agent* pAgent);
+    protected:
+        virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
 
-	private:
-		virtual BehaviorTask* createTask() const;
+    private:
+        virtual BehaviorTask* createTask() const;
 
-	protected:
-		CMethodBase*				m_event;
+    protected:
+        CMethodBase*				m_event;
 
-		behaviac::string			m_referencedBehaviorPath;
+        behaviac::string			m_referencedBehaviorPath;
 
-		TriggerMode					m_triggerMode;
-		//an event can be configured to stop being checked if triggered
-		bool						m_bTriggeredOnce;
+        TriggerMode					m_triggerMode;
+        //an event can be configured to stop being checked if triggered
+        bool						m_bTriggeredOnce;
 
-		friend class EventetTask;
-    };	
-	
+        friend class EventetTask;
+    };
+
     class BEHAVIAC_API EventetTask : public AttachmentTask
     {
     public:
@@ -56,23 +60,23 @@ namespace behaviac
         EventetTask();
         virtual ~EventetTask();
 
-		bool TriggeredOnce() const;
-		TriggerMode GetTriggerMode() const;
+        bool TriggeredOnce() const;
+        TriggerMode GetTriggerMode() const;
 
-		const char* GetEventName() const;
+        const char* GetEventName() const;
     protected:
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
 
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
-		virtual bool NeedRestart() const;
+        //virtual bool NeedRestart() const;
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_EVENT_H_
+#endif//BEHAVIAC_BEHAVIORTREE_EVENT_H

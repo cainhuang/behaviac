@@ -1,4 +1,4 @@
-﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -41,13 +41,12 @@ using System.Windows.Forms;
 
 namespace Behaviac.Design
 {
-	internal partial class BehaviorTreeListDock : WeifenLuo.WinFormsUI.Docking.DockContent
-	{
-		public BehaviorTreeListDock()
-		{
-			InitializeComponent();
+    internal partial class BehaviorTreeListDock : WeifenLuo.WinFormsUI.Docking.DockContent
+    {
+        public BehaviorTreeListDock() {
+            InitializeComponent();
 
             this.TabText = this.Text;
-		}
-	}
+        }
+    }
 }

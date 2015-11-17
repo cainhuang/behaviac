@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_XML_BASE64_H_
-#define _CORE_XML_BASE64_H_
+#ifndef BEHAVIAC_CORE_XML_BASE64_H
+#define BEHAVIAC_CORE_XML_BASE64_H
 
 #include "behaviac/base/base.h"
 
@@ -23,4 +23,4 @@ namespace XmlBase64
     int32_t BEHAVIAC_API GetEncodedBuffSize(int32_t nbBytes);
 };
 
-#endif//_CORE_XML_BASE64_H_
+#endif//BEHAVIAC_CORE_XML_BASE64_H

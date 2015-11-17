@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_CONTAINEDMEMBER_H_
-#define _ENGINESERVICES_CONTAINEDMEMBER_H_
+#ifndef BEHAVIAC_ENGINESERVICES_CONTAINEDMEMBER_H
+#define BEHAVIAC_ENGINESERVICES_CONTAINEDMEMBER_H
 
 #include "behaviac/base/object/member.h"
 
@@ -39,15 +39,16 @@ public:
         : CMemberBase(propertyName, className), m_load(Load), m_save(Save), m_uiWrapper(uiWrapper)
     {}
 
-	CContainedMember(const CContainedMember& copy) :  : CMemberBase(copy), m_memberPtr(memberPtr), m_uiWrapper(copy.m_uiWrapper)
+    CContainedMember(const CContainedMember& copy) : :
+        CMemberBase(copy), m_memberPtr(memberPtr), m_uiWrapper(copy.m_uiWrapper)
     {}
 
-	virtual CMemberBase* clone() const
-	{
-		CMemberBase* p = BEHAVIAC_NEW CContainedMember(*this);
+    virtual CMemberBase* clone() const
+    {
+        CMemberBase* p = BEHAVIAC_NEW CContainedMember(*this);
 
-		return p;
-	}
+        return p;
+    }
 
     virtual void Load(CTagObject* parent, const ISerializableNode* node)
     {
@@ -61,6 +62,7 @@ public:
                 {
                     (((ObjectType*)parent)->*m_load)(childNode, EPersistenceType_Description_Load);
                 }
+
             }
             else
             {
@@ -78,6 +80,7 @@ public:
                 XmlNodeRef childNode = CreateXmlNode(m_propertyID.GetString());
                 (((ObjectType*)parent)->*m_save)(childNode, EPersistenceType_Description_Save);
                 node->setAttr(m_propertyID, (XmlConstNodeRef)childNode);
+
             }
             else
             {
@@ -98,6 +101,7 @@ public:
                 {
                     (((ObjectType*)parent)->*m_load)(childNode, EPersistenceType_State_Load);
                 }
+
             }
             else
             {
@@ -115,6 +119,7 @@ public:
                 XmlNodeRef childNode = CreateXmlNode(m_propertyID.GetString());
                 (((ObjectType*)parent)->*m_save)(childNode, EPersistenceType_State_Save);
                 node->setAttr(m_propertyID, (XmlConstNodeRef)childNode);
+
             }
             else
             {
@@ -129,27 +134,42 @@ public:
         {
             if (ChildNodeCreate)
             {
-				if (types == NULL)
-				{
-					XmlNodeRef memberNode = xmlNode->newChild("Member");
-					memberNode->setAttr("Name", m_propertyID.GetString());
-					memberNode->setAttr("ContainerElement", true);
-					if (this->m_classFullName)
-					{
-						memberNode->setAttr("Class", this->m_classFullName);
-					}
-					if (m_bStatic)
-					{
-						memberNode->setAttr("Static", "true");
-					}
+                if (types == NULL)
+                {
+                    XmlNodeRef memberNode = xmlNode->newChild("Member");
+                    memberNode->setAttr("Name", m_propertyID.GetString());
+                    memberNode->setAttr("ContainerElement", true);
 
-					if (m_uiWrapper)
-					{
-						m_uiWrapper->SaveDescription(memberNode);
-					}
+                    if (this->m_classFullName)
+                    {
+                        memberNode->setAttr("Class", this->m_classFullName);
+                    }
 
-					(((ObjectType*)parent)->*m_save)(memberNode, EPersistenceType_UiInfo);
-				}
+                    if (m_bStatic)
+                    {
+                        memberNode->setAttr("Static", "true");
+                    }
+
+                    bool readonlyFlag = this->READONLYFLAG();
+
+                    if (readonlyFlag & 0x1)
+                    {
+                        memberNode->setAttr("Readonly", "true");
+                    }
+
+                    if (readonlyFlag & 0x2)
+                    {
+                        memberNode->setAttr("Property", "true");
+                    }
+
+                    if (m_uiWrapper)
+                    {
+                        m_uiWrapper->SaveDescription(memberNode);
+                    }
+
+                    (((ObjectType*)parent)->*m_save)(memberNode, EPersistenceType_UiInfo);
+                }
+
             }
             else
             {
@@ -160,7 +180,7 @@ public:
 
     virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
     {
-		BEHAVIAC_UNUSED_VAR(parent);
+        BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
         BEHAVIAC_UNUSED_VAR(types);
     }
@@ -177,9 +197,9 @@ struct CContainedMemberFactory
     template<class ObjectType>
     static CMemberBase* Create(const char* propertyName, void (ObjectType::*Load)(const XmlConstNodeRef&, uint32_t), void (ObjectType::*Save)(const XmlNodeRef&, uint32_t) const, UiGenericType* uiWrapper)
     {
-		typedef CContainedMember<ObjectType, PropertyFlags, ChildNodeCreate> MemberType;
+        typedef CContainedMember<ObjectType, PropertyFlags, ChildNodeCreate> MemberType;
         return BEHAVIAC_NEW MemberType(Load, Save, propertyName, uiWrapper);
     }
 };
 
-#endif // #ifndef _ENGINESERVICES_CONTAINEDMEMBER_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_CONTAINEDMEMBER_H

@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -27,10 +27,26 @@ namespace PluginBehaviac.NodeExporters
             return true;
         }
 
+        protected override void GenerateConstructor(Attachment attachment, StreamWriter stream, string indent, string className)
+        {
+            base.GenerateConstructor(attachment, stream, indent, className);
+
+            Event evt = attachment as Event;
+            if (evt == null)
+                return;
+
+            string triggerMode = (evt.TriggerMode == TriggerMode.Transfer) ? "TriggerMode.TM_Transfer" : "TriggerMode.TM_Return";
+            string triggeredOnce = evt.TriggeredOnce ? "true" : "false";
+
+            stream.WriteLine("{0}\t\t\tthis.Initialize(\"{1}\", \"{2}\", {3}, {4});",
+                indent, evt.Task.GetExportValue(), evt.ReferenceFilename, triggerMode, triggeredOnce);
+        }
+
         protected override void GenerateMethod(Attachment attachment, StreamWriter stream, string indent)
         {
             Event evt = attachment as Event;
-            Debug.Check(evt != null);
+            if (evt == null)
+                return;
 
             stream.WriteLine("{0}\t\tpublic void Initialize(string eventName, string referencedBehavior, TriggerMode mode, bool once)", indent);
             stream.WriteLine("{0}\t\t{{", indent);
@@ -39,24 +55,6 @@ namespace PluginBehaviac.NodeExporters
             stream.WriteLine("{0}\t\t\tthis.m_triggerMode = mode;", indent);
             stream.WriteLine("{0}\t\t\tthis.m_bTriggeredOnce = once;", indent);
             stream.WriteLine("{0}\t\t}}", indent);
-        }
-
-        public override void GenerateInstance(Attachment attachment, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
-        {
-            base.GenerateInstance(attachment, stream, indent, nodeName, agentType, btClassName);
-
-            Event evt = attachment as Event;
-            Debug.Check(evt != null);
-
-            if (evt.EventName != null)
-            {
-                string eventName = evt.EventName.GetExportValue().Replace("\"", "\\\"");
-
-                stream.WriteLine("{0}\t{1}.Initialize(\"{2}\", \"{3}\", {4}, {5});",
-                    indent, nodeName, eventName, evt.ReferenceFilename,
-                    (evt.TriggerMode == TriggerMode.Transfer) ? "TriggerMode.TM_Transfer" : "TriggerMode.TM_Return",
-                    evt.TriggeredOnce ? "true" : "false");
-            }
         }
     }
 }

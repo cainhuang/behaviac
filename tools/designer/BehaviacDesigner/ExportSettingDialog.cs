@@ -24,13 +24,12 @@ using Behaviac.Design.Properties;
 
 namespace Behaviac.Design
 {
-	internal partial class ExportSettingDialog : Form
-	{
+    internal partial class ExportSettingDialog : Form
+    {
         private ExporterInfo _exporterInfo = null;
 
-        public ExportSettingDialog(ExporterInfo exporterInfo)
-		{
-			InitializeComponent();
+        public ExportSettingDialog(ExporterInfo exporterInfo) {
+            InitializeComponent();
 
             Debug.Check(exporterInfo != null);
             _exporterInfo = exporterInfo;
@@ -42,40 +41,22 @@ namespace Behaviac.Design
 
             string[] tokens = _exporterInfo.Description.Split(' ');
             this.Text = tokens[0] + " " + this.Text;
-		}
+        }
 
-        protected override void OnShown(EventArgs e)
-        {
+        protected override void OnShown(EventArgs e) {
             loadSettings();
         }
 
-        private void loadSettings()
-        {
-            if (Workspace.Current != null && _exporterInfo != null)
-            {
-                string exportFilename = Workspace.Current.GetExportFilename(_exporterInfo.ID);
-
-                this.exportFilenameTextBox.Text = exportFilename;
-
-                string wsFilename = Workspace.Current.FileName;
-                wsFilename = wsFilename.Replace('/', '\\');
-
-                string exportFolder = Workspace.Current.GetExportFolder(_exporterInfo.ID);
-                if (string.IsNullOrEmpty(exportFolder))
-                {
-                    exportFolder = Workspace.Current.DefaultExportFolder;
-                    exportFolder = Workspace.MakeRelative(exportFolder, wsFilename, true, true);
-                }
-
-                exportFolder = exportFolder.Replace('/', '\\');
-                string exportFullPath = FileManagers.FileManager.MakeAbsolute(wsFilename, exportFolder);
+        private void loadSettings() {
+            if (Workspace.Current != null && _exporterInfo != null) {
+                string exportFullPath = Workspace.Current.GetExportAbsoluteFolder(_exporterInfo.ID);
                 this.exportFolderTextBox.Text = exportFullPath;
 
+                this.unifiedCheckBox.Checked = Workspace.Current.ExportedUnifiedFile(_exporterInfo.ID);
+
                 List<string> exportIncludedFilenames = Workspace.Current.GetExportIncludedFilenames(_exporterInfo.ID);
-                foreach (string filename in exportIncludedFilenames)
-                {
-                    if (!string.IsNullOrEmpty(filename))
-                    {
+                foreach(string filename in exportIncludedFilenames) {
+                    if (!string.IsNullOrEmpty(filename)) {
                         string includedFilename = FileManagers.FileManager.MakeAbsolute(exportFullPath, filename);
                         addFilename(includedFilename);
                     }
@@ -83,18 +64,12 @@ namespace Behaviac.Design
             }
         }
 
-        private void saveSettings()
-        {
-            if (Workspace.Current != null && _exporterInfo != null)
-            {
+        private void saveSettings() {
+            if (Workspace.Current != null && _exporterInfo != null) {
                 string wsFilename = Workspace.Current.FileName;
                 wsFilename = wsFilename.Replace('/', '\\');
 
-                string exportFilename = this.exportFilenameTextBox.Text.Trim();
-                if (string.IsNullOrEmpty(Path.GetExtension(exportFilename)))
-                {
-                    exportFilename = Path.ChangeExtension(exportFilename, _exporterInfo.ID);
-                }
+                bool exportUnifiedFile = this.unifiedCheckBox.Checked;
 
                 string exportFullPath = this.exportFolderTextBox.Text.Replace('/', '\\');
                 string exportFolder = exportFullPath;
@@ -102,8 +77,7 @@ namespace Behaviac.Design
                 exportFolder = exportFolder.Replace('\\', '/');
 
                 List<string> exportIncludedFilenames = new List<string>();
-                foreach (DataGridViewRow row in this.includedFilesGridView.Rows)
-                {
+                foreach(DataGridViewRow row in this.includedFilesGridView.Rows) {
                     string filename = (string)row.Cells["filenameColumn"].Value;
                     filename = filename.Replace('/', '\\');
                     filename = Workspace.MakeRelative(filename, exportFullPath, true, true);
@@ -111,34 +85,31 @@ namespace Behaviac.Design
                     exportIncludedFilenames.Add(filename);
                 }
 
-                Workspace.Current.SetExportInfo(_exporterInfo.ID, Workspace.Current.ShouldBeExported(_exporterInfo.ID), exportFilename, exportFolder, exportIncludedFilenames);
+                Workspace.Current.SetExportInfo(_exporterInfo.ID, Workspace.Current.ShouldBeExported(_exporterInfo.ID), exportUnifiedFile, exportFolder, exportIncludedFilenames);
 
                 Workspace.SaveWorkspaceFile(Workspace.Current);
             }
         }
 
-        private int getFilenameRowIndex(string filename)
-        {
-            for (int index = 0; index < this.includedFilesGridView.Rows.Count; index++)
-            {
+        private int getFilenameRowIndex(string filename) {
+            for (int index = 0; index < this.includedFilesGridView.Rows.Count; index++) {
                 DataGridViewRow row = this.includedFilesGridView.Rows[index];
-                if (filename == (string)row.Cells["filenameColumn"].Value)
+
+                if (filename == (string)row.Cells["filenameColumn"].Value) {
                     return index;
+                }
             }
 
             return -1;
         }
 
-        private string getBrowseFilename(string pdbLoc)
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
-            {
+        private string getBrowseFilename(string pdbLoc) {
+            using(OpenFileDialog dlg = new OpenFileDialog()) {
                 dlg.Title = "Included File";
                 dlg.Filter = "C++ Header Files(*.h)|*.h";
                 dlg.Multiselect = false;
 
-                if (DialogResult.OK == dlg.ShowDialog())
-                {
+                if (DialogResult.OK == dlg.ShowDialog()) {
                     return dlg.FileName;
                 }
             }
@@ -146,11 +117,12 @@ namespace Behaviac.Design
             return string.Empty;
         }
 
-        private void addFilename(string filename)
-        {
+        private void addFilename(string filename) {
             int index = this.getFilenameRowIndex(filename);
-            if (index < 0)
+
+            if (index < 0) {
                 index = this.includedFilesGridView.Rows.Add();
+            }
 
             DataGridViewRow row = this.includedFilesGridView.Rows[index];
             row.Cells["filenameColumn"].Value = filename;
@@ -158,67 +130,58 @@ namespace Behaviac.Design
             row.Selected = true;
         }
 
-        private void removeSelectedRows(DataGridView dataGridView)
-        {
-            if (dataGridView.SelectedRows.Count == 0)
+        private void removeSelectedRows(DataGridView dataGridView) {
+            if (dataGridView.SelectedRows.Count == 0) {
                 return;
+            }
 
             List<DataGridViewRow> removingRows = new List<DataGridViewRow>();
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
-            {
+            foreach(DataGridViewRow row in dataGridView.SelectedRows) {
                 removingRows.Add(row);
             }
 
-            foreach (DataGridViewRow row in removingRows)
-            {
+            foreach(DataGridViewRow row in removingRows) {
                 dataGridView.Rows.Remove(row);
             }
         }
 
-        private void browseButton_Click(object sender, EventArgs e)
-        {
-            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
-            {
+        private void browseButton_Click(object sender, EventArgs e) {
+            using(Ookii.Dialogs.VistaFolderBrowserDialog dialog = new Ookii.Dialogs.VistaFolderBrowserDialog()) {
                 dialog.Description = "Export Location";
                 dialog.SelectedPath = this.exportFolderTextBox.Text;
 
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
+                if (dialog.ShowDialog() == DialogResult.OK) {
                     this.exportFolderTextBox.Text = dialog.SelectedPath;
                 }
             }
         }
 
-        private void addPdbSearchButton_Click(object sender, EventArgs e)
-        {
+        private void addPdbSearchButton_Click(object sender, EventArgs e) {
             this.addFilename("");
         }
 
-        private void removePdbSearchButton_Click(object sender, EventArgs e)
-        {
+        private void removePdbSearchButton_Click(object sender, EventArgs e) {
             removeSelectedRows(this.includedFilesGridView);
         }
 
-        private void okButton_Click(object sender, EventArgs e)
-        {
+        private void okButton_Click(object sender, EventArgs e) {
             saveSettings();
         }
 
-        private void includedFilesGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+        private void includedFilesGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) {
                 return;
+            }
 
             // Browse
-            if (e.ColumnIndex == 1)
-            {
+            if (e.ColumnIndex == 1) {
                 DataGridViewRow row = this.includedFilesGridView.Rows[e.RowIndex];
                 string filename = getBrowseFilename((string)row.Cells["filenameColumn"].Value);
-                if (!string.IsNullOrEmpty(filename))
-                {
+
+                if (!string.IsNullOrEmpty(filename)) {
                     row.Cells["filenameColumn"].Value = filename;
                 }
             }
         }
-	}
+    }
 }

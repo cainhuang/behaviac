@@ -11,19 +11,33 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BASE_OBJECT_REGISTERMACROS_H_
-#define BEHAVIAC_BASE_OBJECT_REGISTERMACROS_H_
+#ifndef BEHAVIAC_BASE_OBJECT_REGISTERMACROS_H
+#define BEHAVIAC_BASE_OBJECT_REGISTERMACROS_H
 
 #include "behaviac/agent/agent.h"
+#include "behaviac/property/property_t.h"
 #include "behaviac/base/object/genericmember.h"
 #include "behaviac/base/object/method.h"
 #include "behaviac/behaviortree/nodes/conditions/condition.h"
+#include "behaviac/property/typeregister.h"
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //register property
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define REGISTER_PROPERTY(memberName) \
-	_addMember(ms_members, CMemberFactory::Create<DefaultTypeHandler, EPersistenceType_Description | EPersistenceType_UiInfo> \
-		(objectType::GetClassTypeName(), #memberName, &objectType::memberName, UiDescriptorAllocate_##DefaultUiInfo))
+#define REGISTER_PROPERTY_V1(memberName) \
+    _addMember(ms_members, CMemberFactory::Create<DefaultTypeHandler, EPersistenceType_Description | EPersistenceType_UiInfo> \
+               (objectType::GetClassTypeName(), #memberName, &objectType::memberName, UiDescriptorAllocate_##DefaultUiInfo))
+
+#define REGISTER_PROPERTY_V2(memberNameStr, getter) \
+    _addMember(ms_members, CMemberFactory::Create<DefaultTypeHandler, EPersistenceType_Description | EPersistenceType_UiInfo> \
+               (objectType::GetClassTypeName(), memberNameStr, &objectType::getter, UiDescriptorAllocate_##DefaultUiInfo))
+
+#define REGISTER_PROPERTY_V3(memberNameStr, getter, settter) \
+    _addMember(ms_members, CMemberFactory::Create<DefaultTypeHandler, EPersistenceType_Description | EPersistenceType_UiInfo> \
+               (objectType::GetClassTypeName(), memberNameStr, &objectType::getter, &objectType::settter, UiDescriptorAllocate_##DefaultUiInfo))
+
+#define REGISTER_PROPERTY(...) ARGUMENT_SELECTOR4((__VA_ARGS__, REGISTER_PROPERTY_V3, REGISTER_PROPERTY_V2, REGISTER_PROPERTY_V1))(__VA_ARGS__)
+#define ARGUMENT_SELECTOR4(__args) GET_4TH_ARGUMENT __args
+#define GET_4TH_ARGUMENT(__p1,__p2,__p3,__n,...) __n
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///register method
@@ -36,39 +50,4 @@ after exectuing 'methodName' once, the status of the node is determined by the n
 */
 #define REGISTER_METHOD(methodName)				_addMethod(ms_methods, &CMethodFactory::Create(&objectType::methodName, objectType::GetClassTypeName(), #methodName))
 
-///register method and check_result_fn
-/**
-register method and check_result_fn
-
-'check_result_fn' is used to check the method's return value to determine the BT status.
-
-deprecated, in the new version, it is advised to config 'check_result_fn' in the designer.
-*/
-#define REGISTER_METHOD_CHECKRESULT(methodName, check_result_fn)	_addMethod(ms_methods, &CMethodFactory::Create(&check_result_fn, &objectType::methodName, objectType::GetClassTypeName(), #methodName))
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///register event
-/**
-register event
-
-REGISTER_EVENT can accept 1 to 4 arguments, the 1st argument must be event name and the other arguments are the types:
-	REGISTER_EVENT("EventDead");
-	REGISTER_EVENT("Exploded", int);
-	REGISTER_EVENT("HurtBy", int, bool);
-	REGISTER_EVENT("Killed", int, bool, float);
-*/
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define REGISTER_EVENT_V1(eventNameString)										_addEvent(ms_methods, &CEventFactory::Create(objectType::GetClassTypeName(), eventNameString))
-#define REGISTER_EVENT_V2(eventNameString, paramType1)							_addEvent(ms_methods, &CEventFactory::Create<paramType1>(objectType::GetClassTypeName(), eventNameString))
-#define REGISTER_EVENT_V3(eventNameString, paramType1, paramType2)				_addEvent(ms_methods, &CEventFactory::Create<paramType1, paramType2>(objectType::GetClassTypeName(), eventNameString))
-#define REGISTER_EVENT_V4(eventNameString, paramType1, paramType2, paramType3)	_addEvent(ms_methods, &CEventFactory::Create<paramType1, paramType2, paramType3>(objectType::GetClassTypeName(), eventNameString))
-
-#define REGISTER_EVENT(...) ARGUMENT_SELECTOR5((__VA_ARGS__, REGISTER_EVENT_V4, REGISTER_EVENT_V3, REGISTER_EVENT_V2, REGISTER_EVENT_V1))(__VA_ARGS__)
-#define ARGUMENT_SELECTOR5(__args) GET_5TH_ARGUMENT __args
-#define GET_5TH_ARGUMENT(__p1,__p2,__p3,__p4,__n,...) __n
-
-//deprecated, to use REGISTER_EVENT(eventNameString, ...)
-#define REGISTER_EVENT_PARAMS1(eventNameString, paramType1)							REGISTER_EVENT(eventNameString, paramType1)
-#define REGISTER_EVENT_PARAMS2(eventNameString, paramType1, paramType2)				REGISTER_EVENT(eventNameString, paramType1, paramType2)
-#define REGISTER_EVENT_PARAMS3(eventNameString, paramType1, paramType2, paramType3)	REGISTER_EVENT(eventNameString, paramType1, paramType2, paramType3)
-
-#endif//BEHAVIAC_BASE_OBJECT_REGISTERMACROS_H_
+#endif//BEHAVIAC_BASE_OBJECT_REGISTERMACROS_H

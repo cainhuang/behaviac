@@ -661,7 +661,7 @@
     <value>转移</value>
   </data>
   <data name="TriggerMode_TransferDesc" xml:space="preserve">
-    <value>子树结束时返回控制，之前打断的行为树将被重新执行</value>
+    <value>原本的树将被终止并且重置，控制权交给新树。</value>
   </data>
   <data name="OperatorType" xml:space="preserve">
     <value>操作符类型</value>
@@ -737,5 +737,101 @@
   </data>
   <data name="AgentTypeChangedWarning" xml:space="preserve">
     <value>修改Agent类型后，已经设置的属性和方法可能被清空。确定该操作吗？</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>进入</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="Precondition" xml:space="preserve">
+    <value>条件</value>
+  </data>
+  <data name="Effector" xml:space="preserve">
+    <value>效果</value>
+  </data>
+  <data name="EffectorDesc" xml:space="preserve">
+    <value>节点成功时执行</value>
+  </data>
+  <data name="EffectorPhase" xml:space="preserve">
+    <value>什么时候作用</value>
+  </data>
+  <data name="EffectorPhaseDesc" xml:space="preserve">
+    <value>决定什么时候起作用，成功还是失败还是都起作用？</value>
+  </data>
+  <data name="InterruptIf" xml:space="preserve">
+    <value>中断条件</value>
+  </data>
+  <data name="Signal" xml:space="preserve">
+    <value>信号</value>
+  </data>
+  <data name="TaskNoMethod" xml:space="preserve">
+    <value>任务没有指定子节点</value>
+  </data>
+  <data name="OperatorType_Assignment" xml:space="preserve">
+    <value>赋值</value>
+  </data>
+  <data name="OperatorType_In" xml:space="preserve">
+    <value>遍历</value>
+  </data>
+  <data name="CustomizedMethodError" xml:space="preserve">
+    <value>定制的方法不能被导出！</value>
+  </data>
+  <data name="TaskMethodChildrenOrOne" xml:space="preserve">
+    <value>任务节点只接受方法节点或者只是一个其他类型的节点。</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="Behavior" xml:space="preserve">
+    <value>行为树</value>
+  </data>
+  <data name="ReferencedBehavior" xml:space="preserve">
+    <value>子树</value>
+  </data>
+  <data name="AddPlanningBreakpoint" xml:space="preserve">
+    <value>添加规划断点</value>
+  </data>
+  <data name="DisablePlanningBreakpoint" xml:space="preserve">
+    <value>禁用规划断点</value>
+  </data>
+  <data name="RemovePlanningBreakpoint" xml:space="preserve">
+    <value>删除规划断点</value>
+  </data>
+  <data name="FileVersionWarning" xml:space="preserve">
+    <value>请安装最新版的编辑器来打开这些行为树文件。</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>右参数</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>模式</value>
+  </data>
+  <data name="ModeDesc" xml:space="preserve">
+    <value>模式</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>附件</value>
+  </data>
+  <data name="AttachmentId" xml:space="preserve">
+    <value>附件ID</value>
+  </data>
+  <data name="AttachmentIdDesc" xml:space="preserve">
+    <value>附件ID</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="NameDesc" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>方法</value>
+  </data>
+  <data name="FSM" xml:space="preserve">
+    <value>状态机</value>
+  </data>
+  <data name="HTN" xml:space="preserve">
+    <value>任务网络</value>
   </data>
 </root>

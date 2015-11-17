@@ -24,10 +24,10 @@ ifeq ($(config),debug64)
   TARGETDIR  = ../../bin
   TARGET     = $(TARGETDIR)/btremotetest_debugstatic_linux_gmake.exe
   DEFINES   += -D_DEBUG -DDEBUG
-  INCLUDES  += -I../../inc -I../../inc -I../../../../include -I../../test/btunittest
+  INCLUDES  += -I../../inc -I../../inc -I../../../../include -I../../test/btremotetest
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -Wall -Wextra -ffast-math -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8  -Wno-unused-parameter -Wno-unused-variable
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -Wall -Wextra -Werror -ffast-math -m64 -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8
+  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions 
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L../../../../lib -L../../lib -m64 -L/usr/lib64
   LDDEPS    += ../../lib/libbehaviac_debugstatic_linux_gmake.a
@@ -46,10 +46,10 @@ ifeq ($(config),release64)
   TARGETDIR  = ../../bin
   TARGET     = $(TARGETDIR)/btremotetest_releasestatic_linux_gmake.exe
   DEFINES   += -DWIN32 -DNDEBUG
-  INCLUDES  += -I../../inc -I../../inc -I../../../../include -I../../test/btunittest
+  INCLUDES  += -I../../inc -I../../inc -I../../../../include -I../../test/btremotetest
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -ffast-math -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8 -Wno-unused-parameter -Wno-unused-variable
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -Werror -ffast-math -m64 -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8
+  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions 
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L../../../../lib -L../../lib -s -m64 -L/usr/lib64
   LDDEPS    += ../../lib/libbehaviac_releasestatic_linux_gmake.a
@@ -63,29 +63,8 @@ ifeq ($(config),release64)
   endef
 endif
 
-ifeq ($(config),profile64)
-  OBJDIR     = ../../intermediate/profile/linux/btremotetest/x64
-  TARGETDIR  = ../../bin
-  TARGET     = $(TARGETDIR)/btremotetest_profilestatic_linux_gmake.exe
-  DEFINES   += -DWIN32 -DNDEBUG -DBEHAVIAC_CFG_PROFILE -D_CONSOLE
-  INCLUDES  += -I../../inc -I../../inc -I../../../../include -I../../test/btunittest
-  ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -ffast-math -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8 /Od /Z7 -Wno-unused-parameter -Wno-unused-variable
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
-  ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../../lib -L../../lib -s -m64 -L/usr/lib64 /DEBUG 
-  LDDEPS    += ../../lib/libbehaviac_profilestatic_win32_gmake.a
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS) -lpthread
-  define PREBUILDCMDS
-  endef
-  define PRELINKCMDS
-  endef
-  define POSTBUILDCMDS
-  endef
-endif
-
 OBJECTS := \
+	$(OBJDIR)/BehaviacWorkspace.o \
 	$(OBJDIR)/btremotetest.o \
 
 RESOURCES := \
@@ -146,6 +125,10 @@ $(GCH): $(PCH)
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -MMD -MP $(DEFINES) $(INCLUDES) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
+
+$(OBJDIR)/BehaviacWorkspace.o: ../../test/btremotetest/BehaviacWorkspace.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/btremotetest.o: ../../test/btremotetest/btremotetest.cpp
 	@echo $(notdir $<)

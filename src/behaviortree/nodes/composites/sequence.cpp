@@ -14,67 +14,153 @@
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/nodes/composites/sequence.h"
 
+#include "behaviac/htn/planner.h"
+#include "behaviac/htn/plannertask.h"
+
 namespace behaviac
 {
-	Sequence::Sequence()
-	{}
+    Sequence::Sequence()
+    {}
 
-	Sequence::~Sequence()
-	{}
+    Sequence::~Sequence()
+    {}
 
-	void Sequence::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    bool Sequence::decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner)
+    {
+        bool bOk = false;
+        Sequence* sequence = (Sequence*)node;
+        int childCount = sequence->GetChildrenCount();
+        int i = 0;
 
-	bool Sequence::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!Sequence::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+        for (; i < childCount; ++i)
+        {
+            BehaviorNode* childNode = (BehaviorNode*)sequence->GetChild(i);
+            PlannerTask* childTask = planner->decomposeNode(childNode, depth);
 
-	BehaviorTask* Sequence::createTask() const
-	{
-		SequenceTask* pTask = BEHAVIAC_NEW SequenceTask();
-		
+            if (childTask == NULL)
+            {
+                break;
+            }
 
-		return pTask;
-	}
+            //clear the log cache so that the next node can log all properites
+            //LogManager.PLanningClearCache();
+            seqTask->AddChild(childTask);
+        }
 
+        if (i == childCount)
+        {
+            bOk = true;
+        }
 
-	SequenceTask::SequenceTask() : CompositeTask()
-	{
-	}
+        return bOk;
+    }
 
-	SequenceTask::~SequenceTask()
-	{}
+    void Sequence::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	void SequenceTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    bool Sequence::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!Sequence::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
+        return super::IsValid(pAgent, pTask);
+    }
+    bool Sequence::Evaluate(const Agent* pAgent)
+    {
+        bool ret = true;
 
-	void SequenceTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+        for (behaviac::vector<BehaviorNode*>::iterator c = this->m_children->begin(); c != this->m_children->end(); c++)
+        {
+            ret = (*c)->Evaluate(pAgent);
 
-	void SequenceTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+            if (!ret)
+            {
+                break;
+            }
+        }
 
+        return ret;
+    }
+    EBTStatus Sequence::SequenceUpdate(Agent* pAgent, EBTStatus childStatus, int& activeChildIndex, behaviac::vector<BehaviorTask*>& children)
+    {
+        EBTStatus s = childStatus;
+        int childSize = (int)children.size();
 
+        for (;;)
+        {
+            BEHAVIAC_ASSERT(activeChildIndex < childSize);
+
+            if (s == BT_RUNNING)
+            {
+                BehaviorTask* pBehavior = children[activeChildIndex];
+
+				if (this->CheckIfInterrupted(pAgent))
+				{
+					return BT_FAILURE;
+				}
+
+                s = pBehavior->exec(pAgent);
+            }
+
+            // If the child fails, or keeps running, do the same.
+            if (s != BT_SUCCESS)
+            {
+                return s;
+            }
+
+            // Hit the end of the array, job done!
+            ++activeChildIndex;
+
+            if (activeChildIndex >= childSize)
+            {
+                return BT_SUCCESS;
+            }
+
+            s = BT_RUNNING;
+        }
+    }
+    bool  Sequence::CheckIfInterrupted(Agent* pAgent)
+    {
+        bool bInterrupted = this->EvaluteCustomCondition(pAgent);
+        return bInterrupted;
+    }
+    BehaviorTask* Sequence::createTask() const
+    {
+        SequenceTask* pTask = BEHAVIAC_NEW SequenceTask();
+
+        return pTask;
+    }
+
+    SequenceTask::SequenceTask() : CompositeTask()
+    {
+    }
+
+    SequenceTask::~SequenceTask()
+    {}
+
+    void SequenceTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
+
+    void SequenceTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
+
+    void SequenceTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     bool SequenceTask::onenter(Agent* pAgent)
     {
-    	BEHAVIAC_UNUSED_VAR(pAgent);
-		this->m_activeChildIndex = 0;
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        this->m_activeChildIndex = 0;
 
         return true;
     }
@@ -83,55 +169,16 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(s);
+        super::onexit(pAgent, s);
     }
-
-
-	bool SequenceTask::CheckPredicates(Agent* pAgent)
-	{
-		return super::CheckPredicates(pAgent);
-	}
 
     EBTStatus SequenceTask::update(Agent* pAgent, EBTStatus childStatus)
     {
-    	BEHAVIAC_UNUSED_VAR(childStatus);
+        BEHAVIAC_UNUSED_VAR(childStatus);
 
-		BEHAVIAC_ASSERT(this->m_activeChildIndex < this->m_children.size());
+        BEHAVIAC_ASSERT(this->m_activeChildIndex < (int)this->m_children.size());
 
-		bool bFirst = true;
-
-        // Keep going until a child behavior says its running.
-        for (;;)
-		{
-			EBTStatus s = childStatus;
-			if (!bFirst || s == BT_RUNNING)
-			{
-				BEHAVIAC_ASSERT(this->m_status == BT_INVALID ||
-					this->m_status == BT_RUNNING);
-
-				BehaviorTask* pBehavior = this->m_children[this->m_activeChildIndex];
-				s = pBehavior->exec(pAgent);
-			}
-
-			bFirst = false;
-
-			// If the child fails, or keeps running, do the same.
-			if (s != BT_SUCCESS)
-			{
-				return s;
-			}
-
-			// Hit the end of the array, job done!
-			++this->m_activeChildIndex;
-			if (this->m_activeChildIndex >= this->m_children.size())
-			{
-				return BT_SUCCESS;
-			}
-
-			if (!this->CheckPredicates(pAgent))
-			{
-				return BT_FAILURE;
-			}
-		}
+        Sequence* node = (Sequence*)this->m_node;
+        return node->SequenceUpdate(pAgent, childStatus, this->m_activeChildIndex, this->m_children);
     }
-
 }

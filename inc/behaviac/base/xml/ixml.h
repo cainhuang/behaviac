@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_IXML_H_
-#define _CORE_IXML_H_
+#ifndef BEHAVIAC_CORE_IXML_H
+#define BEHAVIAC_CORE_IXML_H
 
 #include "behaviac/base/core/string/stringid.h"
 #include "behaviac/base/core/string/formatstring.h"
@@ -105,7 +105,6 @@ public:
     }
 };
 
-
 class BEHAVIAC_API XmlString
 {
 public:
@@ -134,7 +133,6 @@ private:
     char const* m_str;
 };
 
-
 /**
 ******************************************************************************
 * XmlAttribute class
@@ -146,13 +144,13 @@ class XmlAttribute
 public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(XmlAttribute);
 
-	XmlAttribute() : m_wide(false) {}
+    XmlAttribute() : m_wide(false) {}
     XmlAttribute(const char* k, const char* v) : m_key(k), m_value(v), m_wide(false) {}
     explicit XmlAttribute(const char* k) : m_key(k), m_wide(false) {}
 
     bool operator<(const XmlAttribute& attr) const
     {
-        return string_icmp(m_key.c_str() , attr.m_key.c_str()) < 0;
+        return string_icmp(m_key.c_str(), attr.m_key.c_str()) < 0;
     }
 
     bool operator==(const XmlAttribute& attr) const
@@ -182,13 +180,13 @@ public:
         return m_value.c_str();
     }
 
-	inline bool IsWide() const
-	{
-		return m_wide;
-	}
+    inline bool IsWide() const
+    {
+        return m_wide;
+    }
     inline void SetValue(const wchar_t* value)
     {
-		m_wide = true;
+        m_wide = true;
         m_value_w = value;
     }
     inline const wchar_t* GetValueWide() const
@@ -199,10 +197,9 @@ protected:
     XmlString m_key;
     XmlString m_value;
 
-	bool		m_wide;
-	behaviac::wstring m_value_w;
+    bool		m_wide;
+    behaviac::wstring m_value_w;
 };
-
 
 class IXmlNode;
 
@@ -244,7 +241,6 @@ public:
 
     friend class XmlConstNodeRef;
 };
-
 
 class XmlConstNodeRef
 {
@@ -378,16 +374,16 @@ public:
 
     //! Returns XML of this node and sub nodes.
     virtual void getXML(behaviac::string& xml, int level = 0) const = 0;
-	virtual void getXML(behaviac::wstring& xml, int level = 0) const = 0;
+    virtual void getXML(behaviac::wstring& xml, int level = 0) const = 0;
 
-	virtual bool saveToFile(const char* fileName) const = 0;
+    virtual bool saveToFile(const char* fileName) const = 0;
     virtual bool saveToFile(IFile* file) const = 0;
 
     virtual void ReserveAttr(int nCount) = 0;
 
     //! Set XML attribute methods
     virtual void setAttrText(const char* key, const char* text) = 0;
-	virtual void setAttrText(const char* key, const wchar_t* text) = 0;
+    virtual void setAttrText(const char* key, const wchar_t* text) = 0;
     void setAttr(const char* key, const char* value)
     {
         setAttrText(key, value);
@@ -396,7 +392,7 @@ public:
     {
         setAttrText(key, value);
     }
-	void setAttr(const char* key, const behaviac::wstring& value)
+    void setAttr(const char* key, const behaviac::wstring& value)
     {
         setAttrText(key, value.c_str());
     }
@@ -427,13 +423,13 @@ public:
         string_sprintf(str, "0x%08x", value);
         setAttrText(key, str);
     }
-#if !BEHAVIAC_COMPILER_GCC_LINUX    
-	inline void setAttr_Hex(const char* key, int64_t& value)
-	{
-		char str[19];
-		string_sprintf(str, "0x%16llx", value);
-		setAttrText(key, str);
-	}
+#if !BEHAVIAC_COMPILER_GCC_LINUX
+    inline void setAttr_Hex(const char* key, int64_t& value)
+    {
+        char str[19];
+        string_sprintf(str, "0x%16llx", value);
+        setAttrText(key, str);
+    }
 
     inline void setAttr_Hex(const char* key, uint64_t& value)
     {
@@ -442,12 +438,12 @@ public:
         setAttrText(key, str);
     }
 #else
-	inline void setAttr_Hex(const char* key, long long & value)
-	{
-		char str[19];
-		string_sprintf(str, "0x%16llx", value);
-		setAttrText(key, str);
-	}
+    inline void setAttr_Hex(const char* key, long long& value)
+    {
+        char str[19];
+        string_sprintf(str, "0x%16llx", value);
+        setAttrText(key, str);
+    }
 #endif
     //! Value processed as int32_t to avoid precision loss
     inline void setAttrPrecise(const char* key, const float& value)
@@ -473,7 +469,6 @@ public:
     }
     //////////////////////////////////////////////////////////////////////////
 
-
     //! Delete attribute.
     virtual void delAttr(const char* key) = 0;
     //! Remove all node attributes.
@@ -489,13 +484,14 @@ public:
             if (behaviac::StringUtils::FromString(str, value))
             {
                 return true;
+
             }
             else
             {
-                BEHAVIAC_LOGWARNING("Fail to read a (%s) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", 
-					GetClassTypeName((T*)0), 
-					strlen(str) < 64 ? str : behaviac::StringUtils::printf("__too_long_[%u]_to_display__", strlen(str)).c_str(), 
-					key, getTag());
+                BEHAVIAC_LOGWARNING("Fail to read a (%s) from the value (%s) in the xml attribute (%s) in xml node (%s)\n",
+                                    GetClassTypeName((T*)0),
+                                    strlen(str) < 64 ? str : behaviac::StringUtils::printf("__too_long_[%u]_to_display__", strlen(str)).c_str(),
+                                    key, getTag());
                 return false;
             }
         }
@@ -512,13 +508,14 @@ public:
             if (behaviac::StringUtils::FromString(str, value))
             {
                 return true;
+
             }
             else
             {
-                BEHAVIAC_LOGWARNING("Fail to read a (%s) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", 
-					GetClassTypeName((bool*)0), 
-					strlen(str) < 64 ? str : behaviac::StringUtils::printf("__too_long_[%u]_to_display__", strlen(str)).c_str(), 
-					key, getTag());
+                BEHAVIAC_LOGWARNING("Fail to read a (%s) from the value (%s) in the xml attribute (%s) in xml node (%s)\n",
+                                    GetClassTypeName((bool*)0),
+                                    strlen(str) < 64 ? str : behaviac::StringUtils::printf("__too_long_[%u]_to_display__", strlen(str)).c_str(),
+                                    key, getTag());
                 return false;
             }
         }
@@ -537,14 +534,16 @@ public:
             {
                 int32_t crcValue;
 
-                if (sscanf(textVal + 2, "%08X", &crcValue)  == 1)
+                if (sscanf(textVal + 2, "%08X", &crcValue) == 1)
                 {
                     value = T(crcValue);
+
                 }
                 else
                 {
                     return false;
                 }
+
             }
             else
             {
@@ -582,6 +581,7 @@ public:
             if (strncmp(str, "0x", 2) == 0 && sscanf(str, "0x%08x", &value) == 1)
             {
                 return true;
+
             }
             else
             {
@@ -591,25 +591,26 @@ public:
 
         return false;
     }
-#if !BEHAVIAC_COMPILER_GCC_LINUX    
-	inline bool getAttr_Hex(const char* key, int64_t& value) const
-	{
-		const char* str = getAttr(key);
+#if !BEHAVIAC_COMPILER_GCC_LINUX
+    inline bool getAttr_Hex(const char* key, int64_t& value) const
+    {
+        const char* str = getAttr(key);
 
-		if (str && *str)
-		{
-			if (strncmp(str, "0x", 2) == 0 && sscanf(str, "0x%16llx", &value) == 1)
-			{
-				return true;
-			}
-			else
-			{
-				BEHAVIAC_LOGWARNING("Fail to read a (hexa U64) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", str, key, getTag());
-			}
-		}
+        if (str && *str)
+        {
+            if (strncmp(str, "0x", 2) == 0 && sscanf(str, "0x%16llx", &value) == 1)
+            {
+                return true;
 
-		return false;
-	}
+            }
+            else
+            {
+                BEHAVIAC_LOGWARNING("Fail to read a (hexa U64) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", str, key, getTag());
+            }
+        }
+
+        return false;
+    }
 
     inline bool getAttr_Hex(const char* key, uint64_t& value) const
     {
@@ -620,6 +621,7 @@ public:
             if (strncmp(str, "0x", 2) == 0 && sscanf(str, "0x%16llx", &value) == 1)
             {
                 return true;
+
             }
             else
             {
@@ -630,43 +632,45 @@ public:
         return false;
     }
 #else
-	inline bool getAttr_Hex(const char* key, long long& value) const
-	{
-		const char* str = getAttr(key);
+    inline bool getAttr_Hex(const char* key, long long& value) const
+    {
+        const char* str = getAttr(key);
 
-		if (str && *str)
-		{
-			if (strncmp(str, "0x", 2) == 0 && sscanf(str, "0x%16llx", &value) == 1)
-			{
-				return true;
-			}
-			else
-			{
-				BEHAVIAC_LOGWARNING("Fail to read a (hexa U64) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", str, key, getTag());
-			}
-		}
+        if (str && *str)
+        {
+            if (strncmp(str, "0x", 2) == 0 && sscanf(str, "0x%16llx", &value) == 1)
+            {
+                return true;
 
-		return false;
-	}
+            }
+            else
+            {
+                BEHAVIAC_LOGWARNING("Fail to read a (hexa U64) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", str, key, getTag());
+            }
+        }
 
-	inline bool getAttr_Hex(const char* key, unsigned long long& value) const
-	{
-		const char* str = getAttr(key);
+        return false;
+    }
 
-		if (str && *str)
-		{
-			if (strncmp(str, "0x", 2) == 0 && sscanf(str, "0x%16llx", &value) == 1)
-			{
-				return true;
-			}
-			else
-			{
-				BEHAVIAC_LOGWARNING("Fail to read a (hexa U64) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", str, key, getTag());
-			}
-		}
+    inline bool getAttr_Hex(const char* key, unsigned long long& value) const
+    {
+        const char* str = getAttr(key);
 
-		return false;
-	}
+        if (str && *str)
+        {
+            if (strncmp(str, "0x", 2) == 0 && sscanf(str, "0x%16llx", &value) == 1)
+            {
+                return true;
+
+            }
+            else
+            {
+                BEHAVIAC_LOGWARNING("Fail to read a (hexa U64) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", str, key, getTag());
+            }
+        }
+
+        return false;
+    }
 
 #endif
     //! Assign a default value if the param is missing
@@ -709,13 +713,12 @@ public:
     friend class XmlConstNodeRef;
 };
 
-
 template< class T >
 void IXmlNode::setAttrEncode64(const char* key, const behaviac::vector<T>& value)
 {
     int nbInt = static_cast<int>(value.size());
     int sizeInBytes = nbInt * sizeof(typename behaviac::vector<T>::value_type);
-    char buf[32] = {0};
+    char buf[32] = { 0 };
     string_sprintf(buf, "Count(%d) ", nbInt);
     behaviac::string str;
     //+15 is approx for "Count(%d) "
@@ -732,7 +735,7 @@ void IXmlNode::setAttrEncode64(const char* key, const behaviac::vector<T>& value
 template< class T >
 bool IXmlNode::getAttrEncode64(const char* key, behaviac::vector<T>& value) const
 {
-    const char* str  = getAttr(key);
+    const char* str = getAttr(key);
 
     if (str && *str)
     {
@@ -775,7 +778,7 @@ void IXmlNode::setAttrEncode64(const char* key, const T& value)
 template< class T >
 bool IXmlNode::getAttrEncode64(const char* key, T& value) const
 {
-    const char* str  = getAttr(key);
+    const char* str = getAttr(key);
 
     if (str && *str)
     {
@@ -789,7 +792,6 @@ bool IXmlNode::getAttrEncode64(const char* key, T& value) const
 
     return false;
 }
-
 
 /************************************************************************/
 /* CXmlNodeIt class, iterate through children							*/
@@ -919,7 +921,6 @@ public:
         return XmlConstNodeRef(0);
     }
 };
-
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -1114,4 +1115,4 @@ template <> inline bool IXmlNode::getAttr(const char* key, CPathID& value) const
     return getAttrStringIDKind(key, value);
 }
 
-#endif // #ifndef _CORE_IXML_H_
+#endif // #ifndef BEHAVIAC_CORE_IXML_H

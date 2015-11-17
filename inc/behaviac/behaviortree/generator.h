@@ -11,56 +11,56 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef __GENERATOR_H__
-#define __GENERATOR_H__
+#ifndef BEHAVIAC_GENERATOR_H
+#define BEHAVIAC_GENERATOR_H
 
 /*
 void generator_test()
 {
-	$generator(descent)
-	{
-		// place for all variables used in the generator
-		int i; // our counter
+$generator(descent)
+{
+// place for all variables used in the generator
+int i; // our counter
 
-		// place the constructor of our generator, e.g. 
-		// descent(int minv, int maxv) {...}
+// place the constructor of our generator, e.g.
+// descent(int minv, int maxv) {...}
 
-		// from $emit to $stop is a body of our generator:
+// from $emit to $stop is a body of our generator:
 
-		$emit(int) // will emit int values. Start of body of the generator.
-			for (i = 10; i > 0; --i)
-			{
-				CHECK_EQUAL(1, 1);
-				$yield(i); // a.k.a. yield in Python,
-			}
-			// returns next number in [1..10], reversed.
-		$stop; // stop, end of sequence. End of body of the generator.
-	};
+$emit(int) // will emit int values. Start of body of the generator.
+for (i = 10; i > 0; --i)
+{
+CHECK_EQUAL(1, 1);
+$yield(i); // a.k.a. yield in Python,
+}
+// returns next number in [1..10], reversed.
+$stop; // stop, end of sequence. End of body of the generator.
+};
 
-	descent gen;
-	for(int n; gen(n);) // "get next" generator invocation
-	{
-	}
+descent gen;
+for(int n; gen(n);) // "get next" generator invocation
+{
+}
 }
 */
 
 struct _generator
 {
-  int _line;
-  _generator():_line(0) {}
+    int _line;
+    _generator() : _line(0) {}
 };
 
 #define $generator(NAME) struct NAME : public _generator
 
 #define $emit(T) bool operator()(T& _rv) { \
-                    switch(_line) { case 0:;
+    switch(_line) { case 0:;
 
 #define $stop  } _line = 0; return false; }
 
 #define $yield(V)     \
-        do {\
-            _line=__LINE__;\
-            _rv = (V); return true; case __LINE__:;\
-        } while (0)
+    do {\
+        _line=__LINE__;\
+    _rv = (V); return true; case __LINE__:;\
+    } while (0)
 
-#endif//__GENERATOR_H__
+#endif//BEHAVIAC_GENERATOR_H

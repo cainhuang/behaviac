@@ -17,102 +17,93 @@ using NUnit.Framework;
 
 namespace BehaviorNodeUnitTest
 {
-	[TestFixture]
-	[Category ("ParallelNodeTest")]
-	internal class ParallelNodeTest
-	{
-		AgentNodeTest testAgent = null;
-		
-		[TestFixtureSetUp]  
-		public void initGlobalTestEnv()  
-		{
-			BehaviacSystem.Instance.init();
-			
-			GameObject testAgentObject = new GameObject();
-			testAgentObject.name = "@UnitTestAgent";
-			testAgentObject.transform.localPosition = Vector3.zero;
-			testAgentObject.transform.localRotation = Quaternion.identity;
-			testAgentObject.transform.localScale = Vector3.one;
-			testAgent = testAgentObject.AddComponent<AgentNodeTest>();			
-			testAgent.init();
-		}
-		
-		[TestFixtureTearDown]  
-		public void finlGlobalTestEnv()  
-		{
-			testAgent.finl();			
-			BehaviacSystem.Instance.finl();
-		}
-		
-		[SetUp]  
-		public void initTestEnv()  
-		{
-		}
-		
-		[TearDown]  
-		public void finlTestEnv()  
-		{
-			behaviac.Workspace.UnLoadAll();
-		}
-		
-		[Test]
-		[Category ("test_parallel_0")]
-		public void test_parallel_0 ()
-		{
-			testAgent.btsetcurrent("node_test/parallel_ut_0");
-			testAgent.resetProperties();
-			testAgent.btexec();
-			
-			Assert.AreEqual(2, testAgent.testVar_0);
-		}
+    [TestFixture]
+    [Category("ParallelNodeTest")]
+    internal class ParallelNodeTest
+    {
+        AgentNodeTest testAgent = null;
 
-		[Test]
-		[Category ("test_parallel_1")]
-		public void test_parallel_1 ()
-		{
-			testAgent.btsetcurrent("node_test/parallel_ut_1");
-			testAgent.resetProperties();
-			testAgent.btexec();
+        [TestFixtureSetUp]
+        public void initGlobalTestEnv() {
+            BehaviacSystem.Instance.Init();
 
-			Assert.AreEqual(3, testAgent.testVar_0);
-		}
-
-		[Test]
-		[Category ("test_parallel_2")]
-		public void test_parallel_2 ()
-		{
-			testAgent.btsetcurrent("node_test/parallel_ut_2");
-			testAgent.resetProperties();
-			testAgent.btexec();
-			
-			Assert.AreEqual(2, testAgent.testVar_0);
-		}
-
-		[Test]
-		[Category ("test_parallel_3")]
-		public void test_parallel_3 ()
-		{
-			testAgent.btsetcurrent("node_test/parallel_ut_3");
-			testAgent.resetProperties();
-			testAgent.btexec();			
-            Assert.AreEqual(2, testAgent.testVar_0);
-
-			testAgent.resetProperties();
-			testAgent.btexec();			
-			Assert.AreEqual(0, testAgent.testVar_0);
+            GameObject testAgentObject = new GameObject();
+            testAgentObject.name = "@UnitTestAgent";
+            testAgentObject.transform.localPosition = Vector3.zero;
+            testAgentObject.transform.localRotation = Quaternion.identity;
+            testAgentObject.transform.localScale = Vector3.one;
+            testAgent = testAgentObject.AddComponent<AgentNodeTest>();
+            testAgent.init();
         }
 
-		[Test]
-		[Category ("test_parallel_4")]
-		public void test_parallel_4 ()
-		{
-			testAgent.btsetcurrent("node_test/parallel_ut_4");
-			testAgent.resetProperties();
-			testAgent.btexec();			
-			Assert.AreEqual(2, testAgent.testVar_0);
-			
-			testAgent.resetProperties();
-			testAgent.btexec();			
+        [TestFixtureTearDown]
+        public void finlGlobalTestEnv() {
+            testAgent.finl();
+            BehaviacSystem.Instance.Uninit();
+        }
+
+        [SetUp]
+        public void initTestEnv() {
+        }
+
+        [TearDown]
+        public void finlTestEnv() {
+            behaviac.Workspace.Instance.UnLoadAll();
+        }
+
+        [Test]
+        [Category("test_parallel_0")]
+        public void test_parallel_0() {
+            testAgent.btsetcurrent("node_test/parallel_ut_0");
+            testAgent.resetProperties();
+            testAgent.btexec();
+
+            Assert.AreEqual(2, testAgent.testVar_0);
+        }
+
+        [Test]
+        [Category("test_parallel_1")]
+        public void test_parallel_1() {
+            testAgent.btsetcurrent("node_test/parallel_ut_1");
+            testAgent.resetProperties();
+            testAgent.btexec();
+
+            Assert.AreEqual(3, testAgent.testVar_0);
+        }
+
+        [Test]
+        [Category("test_parallel_2")]
+        public void test_parallel_2() {
+            testAgent.btsetcurrent("node_test/parallel_ut_2");
+            testAgent.resetProperties();
+            testAgent.btexec();
+
+            Assert.AreEqual(2, testAgent.testVar_0);
+        }
+
+        [Test]
+        [Category("test_parallel_3")]
+        public void test_parallel_3() {
+            testAgent.btsetcurrent("node_test/parallel_ut_3");
+            testAgent.resetProperties();
+            testAgent.btexec();
+            Assert.AreEqual(2, testAgent.testVar_0);
+
+            testAgent.resetProperties();
+            testAgent.btexec();
+            Assert.AreEqual(0, testAgent.testVar_0);
+        }
+
+        [Test]
+        [Category("test_parallel_4")]
+        public void test_parallel_4() {
+            testAgent.btsetcurrent("node_test/parallel_ut_4");
+            testAgent.resetProperties();
+            testAgent.btexec();
+            Assert.AreEqual(2, testAgent.testVar_0);
+
+            testAgent.resetProperties();
+            testAgent.btexec();
             Assert.AreEqual(2, testAgent.testVar_0);
         }
     }

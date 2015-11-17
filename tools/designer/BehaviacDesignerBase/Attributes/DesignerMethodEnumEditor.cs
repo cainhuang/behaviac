@@ -25,13 +25,11 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerMethodEnumEditor : Behaviac.Design.Attributes.DesignerPropertyEditor
     {
-        public DesignerMethodEnumEditor()
-        {
+        public DesignerMethodEnumEditor() {
             InitializeComponent();
         }
 
-        public override void ReadOnly()
-        {
+        public override void ReadOnly() {
             base.ReadOnly();
 
             comboBox.Enabled = false;
@@ -40,8 +38,7 @@ namespace Behaviac.Design.Attributes
         private List<MethodDef> _methods = new List<MethodDef>();
         private bool _resetMethods = false;
 
-        public override void SetProperty(DesignerPropertyInfo property, object obj)
-        {
+        public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
             _resetMethods = false;
@@ -49,85 +46,79 @@ namespace Behaviac.Design.Attributes
             DesignerRightValueEnum enumAttRV = _property.Attribute as DesignerRightValueEnum;
 
             this.FilterType = null;
-            if (enumAttRV != null && enumAttRV.DependedProperty != "")
-            {
+
+            if (enumAttRV != null && enumAttRV.DependedProperty != "") {
                 Type objType = _object.GetType();
                 PropertyInfo pi = objType.GetProperty(enumAttRV.DependedProperty);
                 object propMember = pi.GetValue(_object, null);
                 VariableDef var = propMember as VariableDef;
-                if (var != null)
-                {
+
+                if (var != null) {
                     this.FilterType = var.GetValueType();
-                }
-                else
-                {
+
+                } else {
                     MethodDef method = propMember as MethodDef;
-                    if (method != null)
-                    {
+
+                    if (method != null) {
                         this.FilterType = method.ReturnType;
-                    }
-                    else
-                    {
+
+                    } else {
                         RightValueDef varRVp = propMember as RightValueDef;
-                        if (varRVp != null)
-                        {
+
+                        if (varRVp != null) {
                             this.FilterType = varRVp.ValueType;
                         }
                     }
                 }
-            }
-            else
-            {
+
+            } else {
                 this.FilterType = _property.Attribute.FilterType;
             }
 
             setComboBox();
         }
 
-        private List<MethodDef> getMethods()
-        {
+        private List<MethodDef> getMethods() {
             List<MethodDef> methods = new List<MethodDef>();
 
-            Behaviac.Design.Nodes.BaseNode baseNode = null;
             Behaviac.Design.Attachments.Attach evt = _object as Behaviac.Design.Attachments.Attach;
-            if (evt != null)
-            {
-                baseNode = evt.Node;
-            }
-            else
-            {
-                baseNode = _object as Behaviac.Design.Nodes.BaseNode;
+            Behaviac.Design.Nodes.BaseNode baseNode = (evt != null) ? evt.Node : _object as Behaviac.Design.Nodes.BaseNode;
+
+            if (baseNode == null) {
+                baseNode = this._root;
             }
 
             Behaviac.Design.Nodes.Behavior behavior = null;
-            if (baseNode != null)
-            {
+
+            if (baseNode != null) {
                 behavior = baseNode.Behavior as Behaviac.Design.Nodes.Behavior;
+            }
+
+            AgentType agentType = null;
+
+            if (behavior != null && behavior.AgentType != null) {
+                agentType = behavior.AgentType;
             }
 
             object action = _property.Property.GetValue(_object, null);
             RightValueDef varRV = action as RightValueDef;
-            if (behavior != null && behavior.AgentType != null)
-            {
-                AgentType agentType = behavior.AgentType;
-                if (varRV != null && Plugin.IsInstanceName(varRV.ValueClassReal))
-                {
-                    agentType = Plugin.GetInstanceAgentType(varRV.ValueClassReal);
-                }
 
+            if (varRV != null && Plugin.IsInstanceName(varRV.ValueClassReal)) {
+                agentType = Plugin.GetInstanceAgentType(varRV.ValueClassReal);
+            }
+
+            if (agentType != null) {
                 DesignerRightValueEnum enumAttRV = _property.Attribute as DesignerRightValueEnum;
                 DesignerMethodEnum attrMethod = _property.Attribute as DesignerMethodEnum;
                 MethodType methodType = attrMethod != null ? attrMethod.MethodType : MethodType.Getter;
-                if (enumAttRV != null)
-                {
+
+                if (enumAttRV != null) {
                     methodType = enumAttRV.MethodType;
                 }
 
                 IList<MethodDef> actions = agentType.GetMethods(methodType);
-                foreach (MethodDef actionType in actions)
-                {
-                    if (Plugin.IsCompatibleType(this.FilterType, actionType.ReturnType))
-                    {
+                foreach(MethodDef actionType in actions) {
+                    if (Plugin.IsCompatibleType(this.FilterType, actionType.ReturnType, false)) {
                         methods.Add(actionType);
                     }
                 }
@@ -136,29 +127,24 @@ namespace Behaviac.Design.Attributes
             return methods;
         }
 
-        private void setComboBox()
-        {
+        private void setComboBox() {
             object action = _property.Property.GetValue(_object, null);
             MethodDef actionObj = action as MethodDef;
             RightValueDef varRV = action as RightValueDef;
             string selectionName = string.Empty;
 
-            if (actionObj != null)
-            {
+            if (actionObj != null) {
                 selectionName = actionObj.DisplayName;
-            }
-            else if (varRV != null && varRV.Method != null)
-            {
+
+            } else if (varRV != null && varRV.Method != null) {
                 selectionName = varRV.Method.DisplayName;
             }
 
             _methods = getMethods();
             comboBox.Items.Clear();
 
-            foreach (MethodDef md in _methods)
-            {
-                if (md.DisplayName == selectionName)
-                {
+            foreach(MethodDef md in _methods) {
+                if (md.DisplayName == selectionName) {
                     _methods.Clear();
                     _methods.Add(md);
                     comboBox.Items.Add(md.DisplayName);
@@ -170,48 +156,38 @@ namespace Behaviac.Design.Attributes
             comboBox.Text = selectionName;
         }
 
-        private void resetMethods()
-        {
-            if (!_resetMethods)
-            {
+        private void resetMethods() {
+            if (!_resetMethods) {
                 _resetMethods = true;
 
                 _methods = getMethods();
 
-                if (_methods.Count > 0)
-                {
-                    if (string.IsNullOrEmpty(comboBox.Text))
-                    {
-                        foreach (MethodDef md in _methods)
-                        {
+                if (_methods.Count > 0) {
+                    if (string.IsNullOrEmpty(comboBox.Text)) {
+                        foreach(MethodDef md in _methods) {
                             if (!comboBox.Items.Contains(md.DisplayName))
-                                comboBox.Items.Add(md.DisplayName);
+                            { comboBox.Items.Add(md.DisplayName); }
                         }
-                    }
-                    else
-                    {
+
+                    } else {
                         int index = -1;
-                        for (int i = 0; i < _methods.Count; ++i)
-                        {
-                            if (comboBox.Text == _methods[i].DisplayName)
-                            {
+
+                        for (int i = 0; i < _methods.Count; ++i) {
+                            if (comboBox.Text == _methods[i].DisplayName) {
                                 index = i;
                                 break;
                             }
                         }
 
-                        if (index > -1)
-                        {
-                            for (int i = index - 1; i >= 0; --i)
-                            {
+                        if (index > -1) {
+                            for (int i = index - 1; i >= 0; --i) {
                                 if (!comboBox.Items.Contains(_methods[i].DisplayName))
-                                    comboBox.Items.Insert(0, _methods[i].DisplayName);
+                                { comboBox.Items.Insert(0, _methods[i].DisplayName); }
                             }
 
-                            for (int i = index + 1; i < _methods.Count; ++i)
-                            {
+                            for (int i = index + 1; i < _methods.Count; ++i) {
                                 if (!comboBox.Items.Contains(_methods[i].DisplayName))
-                                    comboBox.Items.Add(_methods[i].DisplayName);
+                                { comboBox.Items.Add(_methods[i].DisplayName); }
                             }
                         }
                     }
@@ -219,52 +195,46 @@ namespace Behaviac.Design.Attributes
             }
         }
 
-        private void comboBox_DropDown(object sender, EventArgs e)
-        {
+        private void comboBox_DropDown(object sender, EventArgs e) {
             resetMethods();
         }
 
-        private void comboBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
+        private void comboBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e) {
             resetMethods();
         }
 
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e) {
             if (!_valueWasAssigned || comboBox.SelectedIndex < 0 || comboBox.SelectedIndex >= _methods.Count)
-                return;
+            { return; }
 
             DesignerRightValueEnum propertRV = _property.Attribute as DesignerRightValueEnum;
             MethodDef m_ = _methods[comboBox.SelectedIndex] as MethodDef;
             MethodDef m = new MethodDef(m_);
 
-            if (propertRV == null)
-            {
+            m.Owner = VariableDef.kSelf;
+
+            if (propertRV == null) {
                 _property.Property.SetValue(_object, m, null);
-            }
-            else
-            {
+
+            } else {
                 object propertyMember = _property.Property.GetValue(_object, null);
                 RightValueDef oldvarRV = propertyMember as RightValueDef;
                 RightValueDef varRV = new RightValueDef(m, oldvarRV.ValueClass);
                 _property.Property.SetValue(_object, varRV, null);
             }
 
-            OnValueChanged(_property);
-
-            //to update the properties
             this.RereshProperty(true, _property);
+
+            OnValueChanged(_property);
         }
 
-        private void comboBox_MouseEnter(object sender, EventArgs e)
-        {
+        private void comboBox_MouseEnter(object sender, EventArgs e) {
             this.OnMouseEnter(e);
         }
 
-        private void comboBox_DrawItem(object sender, DrawItemEventArgs e)
-        {
+        private void comboBox_DrawItem(object sender, DrawItemEventArgs e) {
             if (e.Index < 0 || e.Index >= _methods.Count || e.Index >= comboBox.Items.Count)
-                return;
+            { return; }
 
             e.DrawBackground();
             e.Graphics.DrawString(comboBox.Items[e.Index].ToString(), e.Font, System.Drawing.Brushes.LightGray, e.Bounds);
@@ -274,31 +244,38 @@ namespace Behaviac.Design.Attributes
             this.OnDescriptionChanged(this.DisplayName, m.Description);
         }
 
-        private void DesignerMethodEnumEditor_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (Control.ModifierKeys == Keys.Shift || Control.ModifierKeys == Keys.Control || Control.ModifierKeys == Keys.Alt)
-            {
+        private void DesignerMethodEnumEditor_KeyPress(object sender, KeyPressEventArgs e) {
+            if (Control.ModifierKeys == Keys.Shift || Control.ModifierKeys == Keys.Control || Control.ModifierKeys == Keys.Alt) {
                 e.Handled = true;
             }
         }
 
-        private void comboBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (Control.ModifierKeys == Keys.Control || Control.ModifierKeys == Keys.Alt || Control.ModifierKeys == Keys.Tab)
-            {
+        private void comboBox_KeyPress(object sender, KeyPressEventArgs e) {
+            if (Control.ModifierKeys == Keys.Control || Control.ModifierKeys == Keys.Alt || Control.ModifierKeys == Keys.Tab) {
                 e.Handled = true;
             }
         }
 
-        private void comboBox_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.Text))
-            {
+        private string getMethodName(string fullname) {
+            string methodName = string.Empty;
+
+            if (!string.IsNullOrEmpty(fullname)) {
+                string[] names = fullname.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                methodName = names[names.Length - 1];
+                methodName = methodName.Replace("()", "");
+                methodName = methodName.Trim();
+            }
+
+            return methodName;
+        }
+
+        private void comboBox_DragEnter(object sender, DragEventArgs e) {
+            if (e.Data.GetDataPresent(DataFormats.Text)) {
                 resetMethods();
 
-                string dragItem = (string)e.Data.GetData(DataFormats.Text);
-                if (!string.IsNullOrEmpty(dragItem) && comboBox.Items.Contains(dragItem))
-                {
+                string dragItem = getMethodName((string)e.Data.GetData(DataFormats.Text));
+
+                if (!string.IsNullOrEmpty(dragItem) && comboBox.Items.Contains(dragItem)) {
                     e.Effect = DragDropEffects.Move;
                     return;
                 }
@@ -307,9 +284,8 @@ namespace Behaviac.Design.Attributes
             e.Effect = DragDropEffects.None;
         }
 
-        private void comboBox_DragDrop(object sender, DragEventArgs e)
-        {
-            comboBox.Text = (string)e.Data.GetData(DataFormats.Text);
+        private void comboBox_DragDrop(object sender, DragEventArgs e) {
+            comboBox.Text = getMethodName((string)e.Data.GetData(DataFormats.Text));
         }
     }
 }

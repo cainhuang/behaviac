@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BASE_STRING_H_
-#define _BASE_STRING_H_
+#ifndef BEHAVIAC_BASE_STRING_H
+#define BEHAVIAC_BASE_STRING_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
@@ -23,35 +23,34 @@
 
 namespace behaviac
 {
-	//typedef std::string string;
-	//typedef std::wstring wstring;
+    //typedef std::string string;
+    //typedef std::wstring wstring;
 
-	//template<class _Elem>
-	//class basic_string_t : public std::basic_string<_Elem, std::char_traits<_Elem>, std::allocator<_Elem> >
-	//{
+    //template<class _Elem>
+    //class basic_string_t : public std::basic_string<_Elem, std::char_traits<_Elem>, std::allocator<_Elem> >
+    //{
+    //};
 
-	//};
-
-	//typedef basic_string_t<char, std::char_traits<char>, std::allocator<char> > string;
-	//typedef basic_string_t<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > wstring;
-	typedef std::basic_string<char, std::char_traits<char>, behaviac::stl_allocator<char> > string;
-	typedef std::basic_string<wchar_t, std::char_traits<wchar_t>, behaviac::stl_allocator<wchar_t> > wstring;
+    //typedef basic_string_t<char, std::char_traits<char>, std::allocator<char> > string;
+    //typedef basic_string_t<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > wstring;
+    typedef std::basic_string<char, std::char_traits<char>, behaviac::stl_allocator<char> > string;
+    typedef std::basic_string<wchar_t, std::char_traits<wchar_t>, behaviac::stl_allocator<wchar_t> > wstring;
 }
 
 inline behaviac::string make_lower(const behaviac::string& src)
 {
-	behaviac::string dst = src;
-	std::transform(dst.begin(), dst.end(), dst.begin(), ::tolower);
+    behaviac::string dst = src;
+    std::transform(dst.begin(), dst.end(), dst.begin(), ::tolower);
 
-	return dst;
+    return dst;
 }
 
 inline behaviac::string make_upper(const behaviac::string& src)
 {
-	behaviac::string dst = src;
-	std::transform(dst.begin(), dst.end(), dst.begin(), ::toupper);
+    behaviac::string dst = src;
+    std::transform(dst.begin(), dst.end(), dst.begin(), ::toupper);
 
-	return dst;
+    return dst;
 }
 
-#endif //#ifndef _BASE_STRING_H_
+#endif //#ifndef BEHAVIAC_BASE_STRING_H

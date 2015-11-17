@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_PROPERTY_PROPERTIES_H_
-#define _BEHAVIAC_PROPERTY_PROPERTIES_H_
+#ifndef BEHAVIAC_PROPERTY_PROPERTIES_H
+#define BEHAVIAC_PROPERTY_PROPERTIES_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/object/tagobject.h"
@@ -24,410 +24,426 @@
 
 namespace behaviac
 {
-	class Agent;
-	class Property;
+    class Agent;
+    class Property;
 
-	class BEHAVIAC_API IVariable
-	{
-	public:
-		IVariable(const CMemberBase* pMember, const char* variableName, uint32_t id) : 
-		  m_id(id), m_name(variableName), m_property(0), m_pMember(pMember), m_instantiated(1)
+    class BEHAVIAC_API IVariable
+    {
+    public:
+        IVariable(const CMemberBase* pMember, const char* variableName, uint32_t id) :
+            m_id(id), m_name(variableName), m_property(0), m_pMember(pMember), m_instantiated(1)
 #if !defined(BEHAVIAC_RELEASE)
-		  , m_changed(true)
+            , m_changed(true)
 #endif
-		{}
+        {}
 
-	    IVariable(const CMemberBase* pMember, const Property* property_) : 
-		  m_property(property_), m_pMember(pMember), m_instantiated(1)
+        IVariable(const CMemberBase* pMember, const Property* property_) :
+            m_property(property_), m_pMember(pMember), m_instantiated(1)
 #if !defined(BEHAVIAC_RELEASE)
-		  , m_changed(true)
+            , m_changed(true)
 #endif
-		{
-			BEHAVIAC_ASSERT(this->m_property);
+        {
+            BEHAVIAC_ASSERT(this->m_property);
 
-			this->m_name = this->m_property->GetVariableName();
-			this->m_id = this->m_property->GetVariableId();
-		}
+            this->m_name = this->m_property->GetVariableName();
+            this->m_id = this->m_property->GetVariableId();
+        }
 
-		IVariable(const IVariable& copy) : 
-		  m_id(copy.m_id), m_name(copy.m_name), m_property(copy.m_property), m_pMember(copy.m_pMember), m_instantiated(copy.m_instantiated)
+        IVariable(const IVariable& copy) :
+            m_id(copy.m_id), m_name(copy.m_name), m_property(copy.m_property), m_pMember(copy.m_pMember), m_instantiated(copy.m_instantiated)
 #if !defined(BEHAVIAC_RELEASE)
-		  , m_changed(copy.m_changed)
+            , m_changed(copy.m_changed)
 #endif
-		{
-		}
+        {
+        }
 
-		virtual ~IVariable()
-		{}
+        virtual ~IVariable()
+        {}
 
 #if !defined(BEHAVIAC_RELEASE)
-		bool IsChanged() const
-		{
-			return m_changed;
-		}
+        bool IsChanged() const
+        {
+            return m_changed;
+        }
 
-		virtual bool CheckIfChanged(const Agent* pAgent) = 0;
+        virtual bool CheckIfChanged(const Agent* pAgent) = 0;
 #endif
-		virtual int GetTypeId() const
-		{
-			return 0;
-		}
+        virtual int GetTypeId() const
+        {
+            return 0;
+        }
 
-		uint32_t GetId() const
-		{
-			return this->m_id;
-		}
+        uint32_t GetId() const
+        {
+            return this->m_id;
+        }
 
-		const Property*	GetProperty() const
-		{
-			return this->m_property;
-		}
+        const behaviac::Property*	GetProperty() const
+        {
+            return this->m_property;
+        }
 
-		void SetProperty(const Property* p)
-		{
-			if (p)
-			{
-				BEHAVIAC_ASSERT(this->m_name == p->GetVariableName());
-				BEHAVIAC_ASSERT(this->m_id == p->GetVariableId());
-			}
+        void SetProperty(const Property* p)
+        {
+            if (p)
+            {
+                BEHAVIAC_ASSERT(this->m_name == p->GetVariableName());
+                BEHAVIAC_ASSERT(this->m_id == p->GetVariableId());
+            }
 
-			this->m_property = p;
-		}
+            this->m_property = p;
+        }
+        string Name()
+        {
+            return m_name;
+        }
+        virtual IVariable* clone() const = 0;
+        virtual void CopyTo(Agent* pAgent) = 0;
+        virtual void Save(ISerializableNode* node) const;
+        virtual void Load(ISerializableNode* node);
 
-		virtual IVariable* clone() const = 0;
-		virtual void CopyTo(Agent* pAgent) = 0;
-		virtual void Save(ISerializableNode* node) const;
-		virtual void Load(ISerializableNode* node);
+        virtual void SetFromString(Agent* pAgent, const CMemberBase* pMember, const char* value) = 0;
+        virtual void Log(const Agent* pAgent) = 0;
 
-		virtual void SetFromString(Agent* pAgent, const CMemberBase* pMember, const char* value) = 0;
-		virtual void Log(const Agent* pAgent) = 0;
+        virtual void Reset() = 0;
 
-		virtual void Reset() = 0;
+        bool IsMember() const
+        {
+            return this->m_pMember != 0;
+        }
 
-		bool IsMember() const
-		{
-			return this->m_pMember != 0;
-		}
-	protected:
-		uint32_t			m_id;
-		behaviac::string	m_name;
-		const Property*		m_property;
-		const CMemberBase*	m_pMember;
-		unsigned char		m_instantiated;
+    protected:
+        uint32_t			m_id;
+        behaviac::string	m_name;
+        const Property*		m_property;
+        const CMemberBase*	m_pMember;
+        unsigned char		m_instantiated;
 #if !defined(BEHAVIAC_RELEASE)
-		bool				m_changed;
+        bool				m_changed;
 #endif
-		friend class Variables;
-	};
-
+        friend class Variables;
+    };
 
     template<typename VariableType>
-	class TVariable : public IVariable
-	{
-	public:
-		TVariable(const CMemberBase* pMember, const char* variableName, uint32_t varId) : IVariable(pMember, variableName, varId)
-		{}
+    class TVariable : public IVariable
+    {
+    public:
+        TVariable(const CMemberBase* pMember, const char* variableName, uint32_t varId) : IVariable(pMember, variableName, varId)
+        {}
 
-		TVariable(const CMemberBase* pMember, const Property* property_, const VariableType& value) : IVariable(pMember, property_), m_value(value)
-		{}
+        TVariable(const CMemberBase* pMember, const Property* property_, const VariableType& value) : IVariable(pMember, property_), m_value(value)
+        {}
 
-		TVariable(const TVariable& copy) : IVariable(copy), m_value(copy.m_value)
-		{}
+        TVariable(const TVariable& copy) : IVariable(copy), m_value(copy.m_value)
+        {}
 
-		VariableType& GetValue(const Agent* pAgent = 0)
-		{
-			if (this->m_pMember)
-			{
-				int typeId = ::GetClassTypeNumberId<VariableType>();
-				BEHAVIAC_UNUSED_VAR(typeId);
-				BEHAVIAC_ASSERT(typeId == this->m_pMember->GetTypeId());
+        const VariableType& GetValue(const Agent* pAgent = 0) const
+        {
+            if (this->m_pMember)
+            {
+                int typeId = ::GetClassTypeNumberId<VariableType>();
+                BEHAVIAC_UNUSED_VAR(typeId);
+                BEHAVIAC_ASSERT(typeId == ::GetClassTypeNumberId<System::Object>() ||
+                                typeId == this->m_pMember->GetTypeId());
 
-				void* pAddr = this->m_pMember->Get(pAgent, typeId);
+                const void* pAddr = this->m_pMember->Get(pAgent, typeId);
 
-				return *(VariableType*)pAddr;
-			}
+                return *(VariableType*)pAddr;
+            }
 
-			return this->m_value;
-		}
+            return this->m_value;
+        }
 
-		void SetValue(const VariableType& value, Agent* pAgent)
-		{
-			bool bProperty = false;
-			if (this->m_pMember)
-			{
-				int typeId = ::GetClassTypeNumberId<VariableType>();
-				BEHAVIAC_UNUSED_VAR(typeId);
-				BEHAVIAC_ASSERT(typeId == this->m_pMember->GetTypeId());
+        void SetValue(const VariableType& value, Agent* pAgent)
+        {
+            bool bProperty = false;
 
-				void* pAddr = this->m_pMember->Get(pAgent, typeId);
+            if (this->m_pMember)
+            {
+                int typeId = ::GetClassTypeNumberId<VariableType>();
+                BEHAVIAC_UNUSED_VAR(typeId);
+                BEHAVIAC_ASSERT(typeId == this->m_pMember->GetTypeId());
 
-				*(VariableType*)pAddr = value;
-				//devlelopment version needs to update m_value even for property, as it needs to be used in the logging 
+                this->m_pMember->Set(pAgent, &value, typeId);
+                //devlelopment version needs to update m_value even for property, as it needs to be used in the logging
 #if !defined(BEHAVIAC_RELEASE)
 #else
-				bProperty = true;
+                bProperty = true;
 #endif
-			}
+            }
 
-			if (!bProperty && !(Details::Equal(this->m_value, value)))
-			{
-				this->m_value = value;
+            if (!bProperty && !(Details::Equal(this->m_value, value)))
+            {
+                this->m_value = value;
 #if !defined(BEHAVIAC_RELEASE)
-				this->m_changed = true;
+                this->m_changed = true;
 #endif
-			}
-			else
-			{
-				//don't clear it here, it will be cleared after being logged
-				//this->m_changed = false;
-			}
-		}
 
-		virtual int GetTypeId() const
-		{
-			return GetClassTypeNumberId<VariableType>();
-		}
+            }
+            else
+            {
+                //don't clear it here, it will be cleared after being logged
+                //this->m_changed = false;
+            }
+        }
+
+        virtual int GetTypeId() const
+        {
+            return GetClassTypeNumberId<VariableType>();
+        }
 
 #if !defined(BEHAVIAC_RELEASE)
-		virtual bool CheckIfChanged(const Agent* pAgent)
-		{
-			if (this->m_pMember)
-			{
-				const VariableType& v = this->GetValue(pAgent);
-				if (!Details::Equal(this->m_value, v))
-				{
-					this->m_value = v;
-					this->m_changed = true;
+        virtual bool CheckIfChanged(const Agent* pAgent)
+        {
+            if (this->m_pMember)
+            {
+                const VariableType& v = this->GetValue(pAgent);
 
-					return true;
-				}
-			}
+                if (!Details::Equal(this->m_value, v))
+                {
+                    this->m_value = v;
+                    this->m_changed = true;
 
-			return false;
-		}
+                    return true;
+                }
+            }
+
+            return false;
+        }
 #endif
 
-		virtual void Log(const Agent* pAgent);
+        virtual void Log(const Agent* pAgent);
 
-		virtual void Reset()
-		{
+        virtual void Reset()
+        {
 #if !defined(BEHAVIAC_RELEASE)
-			this->m_changed = false;
+            this->m_changed = false;
 #endif
-		}
+        }
 
-		virtual IVariable* clone() const
-		{
-			IVariable* pVar = BEHAVIAC_NEW TVariable(*this);
-			return pVar;
-		}
+        virtual IVariable* clone() const
+        {
+            IVariable* pVar = BEHAVIAC_NEW TVariable(*this);
+            return pVar;
+        }
 
-		virtual void CopyTo(Agent* pAgent)
-		{
-			if (this->m_pMember)
-			{
-				int typeId = ::GetClassTypeNumberId<VariableType>();
-				this->m_pMember->SetVariable(pAgent, &m_value, typeId);
-			}
-			else
-			{
-				BEHAVIAC_ASSERT(true);
-			}
-		}
+        virtual void CopyTo(Agent* pAgent)
+        {
+            if (this->m_pMember)
+            {
+                int typeId = ::GetClassTypeNumberId<VariableType>();
+                this->m_pMember->SetVariable(pAgent, &m_value, typeId);
 
-		virtual void Save(ISerializableNode* node) const
-		{
-			IVariable::Save(node);
+            }
+            else
+            {
+                BEHAVIAC_ASSERT(true);
+            }
+        }
 
-			CSerializationID  variableId("var");
-			ISerializableNode* varNode = node->newChild(variableId);
+        virtual void Save(ISerializableNode* node) const
+        {
+            IVariable::Save(node);
 
-			CSerializationID nameId("name");
-			varNode->setAttr(nameId, this->m_name);
+            CSerializationID  variableId("var");
+            ISerializableNode* varNode = node->newChild(variableId);
 
-			CSerializationID valueId("value");
-			varNode->setAttr(valueId, this->m_value);
+            CSerializationID nameId("name");
+            varNode->setAttr(nameId, this->m_name);
 
-			CSerializationID typeId("type");
+            CSerializationID valueId("value");
+            varNode->setAttr(valueId, this->m_value);
 
-			//int type_id = GetClassTypeNumberId<VariableType>();
-			//varNode->setAttr(typeId, type_id);
-			const char* typeStr = GetClassTypeName((VariableType*)0);
-			behaviac::string typeStrStr = typeStr;
-			if (StringUtils::StartsWith(typeStr, "unsigned long "))
-			{
-				StringUtils::ReplaceTag(typeStrStr, "unsigned long ", "u");
-			}
-			else if (StringUtils::StartsWith(typeStr, "unsigned "))
-			{
-				StringUtils::ReplaceTag(typeStrStr, "unsigned ", "u");
-			}
-			else if (StringUtils::StartsWith(typeStr, "signed "))
-			{
-				StringUtils::ReplaceTag(typeStrStr, "signed ", "");
-			}
+            CSerializationID typeId("type");
 
-			varNode->setAttr(typeId, typeStrStr.c_str());
-		}
+            //int type_id = GetClassTypeNumberId<VariableType>();
+            //varNode->setAttr(typeId, type_id);
+            const char* typeStr = GetClassTypeName((VariableType*)0);
+            behaviac::string typeStrStr = typeStr;
 
-		virtual void Load(ISerializableNode* node)
-		{
-			IVariable::Load(node);
+            if (StringUtils::StartsWith(typeStr, "unsigned long "))
+            {
+                StringUtils::ReplaceTag(typeStrStr, "unsigned long ", "u");
 
-			//CSerializationID  nameId("name");
-			//behaviac::string nameStr;
-			//node->getAttr(nameId, nameStr);
+            }
+            else if (StringUtils::StartsWith(typeStr, "unsigned "))
+            {
+                StringUtils::ReplaceTag(typeStrStr, "unsigned ", "u");
 
-			//CSerializationID  valueId("value");
-			//behaviac::string valueStr;
-			//node->getAttr(valueId, valueStr);
+            }
+            else if (StringUtils::StartsWith(typeStr, "signed "))
+            {
+                StringUtils::ReplaceTag(typeStrStr, "signed ", "");
+            }
 
-			//CSerializationID  typeId("type");
-			//behaviac::string typeStr;
-			//node->getAttr(typeId, typeStr);
+            varNode->setAttr(typeId, typeStrStr.c_str());
+        }
 
-			//Property* p = Property::Create(typeStr.c_str(), nameStr.c_str());
-			//BEHAVIAC_ASSERT(p);
-			//pAgent->SetVariableFromString(nameStr.c_str(), valueStr.c_str());
-		}
+        virtual void Load(ISerializableNode* node)
+        {
+            IVariable::Load(node);
 
-		virtual void SetFromString(Agent* pAgent, const CMemberBase* pMember, const char* valueString);
+            //CSerializationID  nameId("name");
+            //behaviac::string nameStr;
+            //node->getAttr(nameId, nameStr);
 
-	private:
-		VariableType m_value;
-	};
+            //CSerializationID  valueId("value");
+            //behaviac::string valueStr;
+            //node->getAttr(valueId, valueStr);
 
-	BEHAVIAC_API uint32_t MakeVariableId(const char* idString);
+            //CSerializationID  typeId("type");
+            //behaviac::string typeStr;
+            //node->getAttr(typeId, typeStr);
 
-	class BEHAVIAC_API Variables
-	{
-	public:
-		Variables();
-		virtual ~Variables();
+            //Property* p = Property::Create(typeStr.c_str(), nameStr.c_str());
+            //BEHAVIAC_ASSERT(p);
+            //pAgent->SetVariableFromString(nameStr.c_str(), valueStr.c_str());
+        }
 
-		void Clear();
+        virtual void SetFromString(Agent* pAgent, const CMemberBase* pMember, const char* valueString);
 
-		bool IsExisting(uint32_t varId) const
-		{
-			Variables_t::const_iterator it = this->m_variables.find(varId);
-			if (it != this->m_variables.end())
-			{
-				return true;
-			}
+    private:
+        VariableType m_value;
+    };
 
-			return false;
-		}
+    BEHAVIAC_API uint32_t MakeVariableId(const char* idString);
 
-		template<typename VariableType>
-		void Instantiate(const Property* property_, const VariableType& value)
-		{
-			BEHAVIAC_ASSERT(property_);
-			
-			typedef TVariable<VariableType> VariableTypeType;
+    class BEHAVIAC_API Variables
+    {
+    public:
+        Variables();
+        virtual ~Variables();
 
-			uint32_t varId = property_->GetVariableId();
-			Variables_t::iterator it = this->m_variables.find(varId);
-			if (it == this->m_variables.end())
-			{
-				VariableTypeType* pVar = BEHAVIAC_NEW VariableTypeType(0, property_, value);
-				m_variables[varId] = pVar;
-			}
-			else
-			{
-				VariableTypeType* pVar = (VariableTypeType*)it->second;
-				BEHAVIAC_ASSERT(pVar->GetTypeId() == GetClassTypeNumberId<VariableType>(), "the same par is used for different types");
-				BEHAVIAC_ASSERT(pVar->m_instantiated < 255, "dead loop?!");
+        void Clear();
 
-				//don't update it, so the par set by outer scope can override the one in the internal
-				if (pVar->m_instantiated == 0)
-				{
-					pVar->SetProperty(property_);
-				}
-				else
-				{
-					//pVar->GetProperty() might be 0 if pAgent->SetVariable("par_agent", pA);
-					//BEHAVIAC_ASSERT(pVar->GetProperty());
-					BEHAVIAC_ASSERT(pVar->GetTypeId() == property_->GetTypeId(), "the same name par doesn't have the same type");
-				}
+        bool IsExisting(uint32_t varId) const
+        {
+            Variables_t::const_iterator it = this->m_variables.find(varId);
 
+            if (it != this->m_variables.end())
+            {
+                return true;
+            }
 
-				//use the original value, don't update it
-				pVar->m_instantiated++;
-			}
-		}
+            return false;
+        }
 
+        template<typename VariableType>
+        void Instantiate(const Property* property_, const VariableType& value)
+        {
+            BEHAVIAC_ASSERT(property_);
 
-		template<typename VariableType>
-		void UnInstantiate(const char* variableName)
-		{
-			BEHAVIAC_ASSERT(variableName && variableName[0] != '\0');
-			
-			typedef TVariable<VariableType> VariableTypeType;
+            typedef TVariable<VariableType> VariableTypeType;
 
-			uint32_t varId = MakeVariableId(variableName);
-			Variables_t::iterator it = this->m_variables.find(varId);
+            uint32_t varId = property_->GetVariableId();
+            Variables_t::iterator it = this->m_variables.find(varId);
 
-			BEHAVIAC_ASSERT(it != this->m_variables.end());
+            if (it == this->m_variables.end())
+            {
+                VariableTypeType* pVar = BEHAVIAC_NEW VariableTypeType(0, property_, value);
+                m_variables[varId] = pVar;
 
-			if (it != this->m_variables.end())
-			{
-				VariableTypeType* pVar = (VariableTypeType*)it->second;
-				BEHAVIAC_ASSERT(pVar->GetTypeId() == GetClassTypeNumberId<VariableType>(), "the same par is Instantiateed as a different type");
-				BEHAVIAC_ASSERT(pVar->m_instantiated >= 1);
+            }
+            else
+            {
+                VariableTypeType* pVar = (VariableTypeType*)it->second;
+                BEHAVIAC_ASSERT(pVar->GetTypeId() == GetClassTypeNumberId<VariableType>(), "the same par is used for different types");
+                BEHAVIAC_ASSERT(pVar->m_instantiated < 255, "dead loop?!");
 
-				//don't erase it as it might be accessed after the bt's ticking
-				//this->m_variables.erase(varId);
-				pVar->m_instantiated--;
+                //don't update it, so the par set by outer scope can override the one in the internal
+                if (pVar->m_instantiated == 0)
+                {
+                    pVar->SetProperty(property_);
 
-				if (pVar->m_instantiated == 0)
-				{
-					pVar->SetProperty(0);
-				}
-			}
-		}
+                }
+                else
+                {
+                    //pVar->GetProperty() might be 0 if pAgent->SetVariable("par_agent", pA);
+                    //BEHAVIAC_ASSERT(pVar->GetProperty());
+                    BEHAVIAC_ASSERT(pVar->GetTypeId() == property_->GetTypeId(), "the same name par doesn't have the same type");
+                }
 
-		template<typename VariableType>
-		void UnLoad(const char* variableName)
-		{
-			BEHAVIAC_ASSERT(variableName && variableName[0] != '\0');
+                //use the original value, don't update it
+                pVar->m_instantiated++;
+            }
+        }
 
-			typedef TVariable<VariableType> VariableTypeType;
+        template<typename VariableType>
+        void UnInstantiate(const char* variableName)
+        {
+            BEHAVIAC_ASSERT(variableName && variableName[0] != '\0');
 
-			uint32_t varId = MakeVariableId(variableName);
-			Variables_t::iterator it = this->m_variables.find(varId);
+            typedef TVariable<VariableType> VariableTypeType;
 
-			if (it != this->m_variables.end())
-			{
-				VariableTypeType* pVar = (VariableTypeType*)it->second;
-				BEHAVIAC_DELETE pVar;
+            uint32_t varId = MakeVariableId(variableName);
+            Variables_t::iterator it = this->m_variables.find(varId);
 
-				this->m_variables.erase(it);
-			}
-		}
+            BEHAVIAC_ASSERT(it != this->m_variables.end());
 
-		void SetFromString(Agent* pAgent, const char* variableName, const char* value);
+            if (it != this->m_variables.end())
+            {
+                VariableTypeType* pVar = (VariableTypeType*)it->second;
+                BEHAVIAC_ASSERT(pVar->GetTypeId() == GetClassTypeNumberId<VariableType>(), "the same par is Instantiateed as a different type");
+                BEHAVIAC_ASSERT(pVar->m_instantiated >= 1);
 
-		template<typename VariableType>
-		void Set(Agent* pAgent, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId = 0);
+                //don't erase it as it might be accessed after the bt's ticking
+                //this->m_variables.erase(varId);
+                pVar->m_instantiated--;
 
-		template<typename VariableType>
-		VariableType* Get(const Agent* pAgent, uint32_t varId) const;
+                if (pVar->m_instantiated == 0)
+                {
+                    pVar->SetProperty(0);
+                }
+            }
+        }
 
-		void Log(const Agent* pAgent, bool bForce);
-		void Reset();
+        template<typename VariableType>
+        void UnLoad(const char* variableName)
+        {
+            BEHAVIAC_ASSERT(variableName && variableName[0] != '\0');
 
-		void Unload();
+            typedef TVariable<VariableType> VariableTypeType;
 
-		static void Cleanup();
+            uint32_t varId = MakeVariableId(variableName);
+            Variables_t::iterator it = this->m_variables.find(varId);
 
-		void CopyTo(Agent* pAgent, Variables& target) const;
+            if (it != this->m_variables.end())
+            {
+                VariableTypeType* pVar = (VariableTypeType*)it->second;
+                BEHAVIAC_DELETE pVar;
 
-		void Save(ISerializableNode* node) const;
-		void Load(ISerializableNode* node);
-	private:
-		typedef behaviac::map<uint32_t, IVariable*> Variables_t;
-		Variables_t m_variables;
-	};
+                this->m_variables.erase(it);
+            }
+        }
+
+        void SetFromString(Agent* pAgent, const char* variableName, const char* value);
+
+        template<typename VariableType>
+        void Set(bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId = 0);
+
+        template<typename VariableType>
+        const VariableType* Get(const Agent* pAgent, bool bMemberGet, const CMemberBase* pMember, uint32_t varId) const;
+
+        void Log(const Agent* pAgent, bool bForce);
+        void Reset();
+
+        void Unload();
+
+        static void Cleanup();
+
+        void CopyTo(Agent* pAgent, Variables& target) const;
+
+        void Save(ISerializableNode* node) const;
+        void Load(ISerializableNode* node);
+    protected:
+        typedef behaviac::map<uint32_t, IVariable*> Variables_t;
+        Variables_t m_variables;
+    public:
+        behaviac::map<uint32_t, IVariable*>& Vars()
+        {
+            return this->m_variables;
+        };
+    };
 }//namespace behaviac
 
-#endif//_BEHAVIAC_PROPERTY_PROPERTIES_H_
+#endif//BEHAVIAC_PROPERTY_PROPERTIES_H

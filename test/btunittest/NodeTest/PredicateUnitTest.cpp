@@ -16,187 +16,188 @@
 
 LOAD_TEST(btunittest, predicate_selector_ut_0)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_0", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_0", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_selector_ut_1)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_1", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_1", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_selector_ut_2)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_2", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	CHECK_EQUAL(0.0f, myTestAgent->testVar_2);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_2", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_selector_ut_3)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_3", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(-1, myTestAgent->testVar_1);
-	CHECK_EQUAL(-1.0f, myTestAgent->testVar_2);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_3", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(-1, myTestAgent->testVar_1);
+    CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_selector_ut_4)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_4", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	CHECK_EQUAL(-1.0f, myTestAgent->testVar_2);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_4", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_selector_ut_5)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_5", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	CHECK_EQUAL(0.0f, myTestAgent->testVar_2);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_selector_ut_5", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_sequence_ut_0)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_0", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_0", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_sequence_ut_1)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_1", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_1", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_sequence_ut_2)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_2", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	CHECK_EQUAL(0.0f, myTestAgent->testVar_2);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_2", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_sequence_ut_3)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_3", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(-1, myTestAgent->testVar_1);
-	CHECK_EQUAL(-1.0f, myTestAgent->testVar_2);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_3", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(-1, myTestAgent->testVar_1);
+    CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_sequence_ut_4)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_4", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	CHECK_EQUAL(-1.0f, myTestAgent->testVar_2);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_4", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_sequence_ut_5)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_5", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	CHECK_EQUAL(0.0f, myTestAgent->testVar_2);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_sequence_ut_5", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_action_ut_0)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_action_ut_0", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(-1, myTestAgent->testVar_1);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_action_ut_0", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(-1, myTestAgent->testVar_1);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_action_ut_1)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_action_ut_1", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_action_ut_1", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_action_ut_2)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_action_ut_2", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	status = myTestAgent->btexec();
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(0, myTestAgent->testVar_1);
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_action_ut_2", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    status = myTestAgent->btexec();
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(0, myTestAgent->testVar_1);
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, predicate_action_ut_3)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_action_ut_3", format);
-	myTestAgent->resetProperties();
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_RUNNING, status);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	status = myTestAgent->btexec();
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	CHECK_EQUAL(behaviac::BT_FAILURE, status);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/predicate_action_ut_3", format);
+    myTestAgent->resetProperties();
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(behaviac::BT_RUNNING, status);
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    status = myTestAgent->btexec();
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    CHECK_EQUAL(behaviac::BT_FAILURE, status);
+    finlTestEnvNode(myTestAgent);
 }

@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_REPEAT_H_
-#define BEHAVIAC_REPEAT_H_
+#ifndef BEHAVIAC_REPEAT_H
+#define BEHAVIAC_REPEAT_H
 
 #include "behaviac/base/core/string/join.h"
 
@@ -58,4 +58,4 @@
 
 #define REPEAT( mac, num ) REPEATM( mac, REPEAT_SEPARATOR_COMMA, num )
 
-#endif // BEHAVIAC_REPEAT_H_
+#endif // BEHAVIAC_REPEAT_H

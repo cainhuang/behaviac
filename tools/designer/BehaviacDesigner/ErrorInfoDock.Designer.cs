@@ -14,33 +14,31 @@
 namespace Behaviac.Design
 {
     partial class ErrorInfoDock
-	{
-        /// <summary> 
+    {
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorInfoDock));
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -50,42 +48,43 @@ namespace Behaviac.Design
             this.errorListBox = new System.Windows.Forms.ListBox();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // contextMenu
-            // 
+            //
             this.contextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyMenuItem,
-            this.toolStripSeparator,
-            this.clearAllMenuItem});
+                this.copyMenuItem,
+                this.toolStripSeparator,
+                this.clearAllMenuItem
+            });
             this.contextMenu.Name = "contextMenu";
             resources.ApplyResources(this.contextMenu, "contextMenu");
-            // 
+            //
             // copyMenuItem
-            // 
+            //
             this.copyMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.copyMenuItem.ForeColor = System.Drawing.Color.LightGray;
             this.copyMenuItem.Name = "copyMenuItem";
             resources.ApplyResources(this.copyMenuItem, "copyMenuItem");
             this.copyMenuItem.Click += new System.EventHandler(this.copyMenuItem_Click);
-            // 
+            //
             // toolStripSeparator
-            // 
+            //
             this.toolStripSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.toolStripSeparator.ForeColor = System.Drawing.Color.LightGray;
             this.toolStripSeparator.Name = "toolStripSeparator";
             resources.ApplyResources(this.toolStripSeparator, "toolStripSeparator");
-            // 
+            //
             // clearAllMenuItem
-            // 
+            //
             this.clearAllMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.clearAllMenuItem.ForeColor = System.Drawing.Color.LightGray;
             this.clearAllMenuItem.Name = "clearAllMenuItem";
             resources.ApplyResources(this.clearAllMenuItem, "clearAllMenuItem");
             this.clearAllMenuItem.Click += new System.EventHandler(this.clearAllMenuItem_Click);
-            // 
+            //
             // errorListBox
-            // 
+            //
             this.errorListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.errorListBox.ContextMenuStrip = this.contextMenu;
             resources.ApplyResources(this.errorListBox, "errorListBox");
@@ -95,9 +94,9 @@ namespace Behaviac.Design
             this.errorListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.errorListBox.SelectedIndexChanged += new System.EventHandler(this.logListBox_SelectedIndexChanged);
             this.errorListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.logListBox_KeyDown);
-            // 
+            //
             // ErrorInfoDock
-            // 
+            //
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.errorListBox);
@@ -107,9 +106,9 @@ namespace Behaviac.Design
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.ListBox errorListBox;
         private System.Windows.Forms.ContextMenuStrip contextMenu;

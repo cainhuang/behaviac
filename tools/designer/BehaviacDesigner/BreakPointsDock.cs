@@ -25,29 +25,25 @@ namespace Behaviac.Design
     {
         private static BreakPointsDock _breakPointsDock = null;
 
-        internal static void Inspect()
-        {
-            if (_breakPointsDock == null)
-            {
+        internal static void Inspect() {
+            if (_breakPointsDock == null) {
                 _breakPointsDock = new BreakPointsDock();
                 _breakPointsDock.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
-            }
-            else
-            {
+
+            } else {
                 _breakPointsDock.Show();
             }
 
             _breakPointsDock.setDataGrid();
         }
 
-        internal static void CloseAll()
-        {
-            if (_breakPointsDock != null)
+        internal static void CloseAll() {
+            if (_breakPointsDock != null) {
                 _breakPointsDock.Close();
+            }
         }
 
-        public BreakPointsDock()
-        {
+        public BreakPointsDock() {
             _breakPointsDock = this;
 
             InitializeComponent();
@@ -66,8 +62,7 @@ namespace Behaviac.Design
             DebugDataPool.RemoveBreakPointHandler += new DebugDataPool.RemoveBreakPointDelegate(removeBreakPoint);
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
+        protected override void OnClosed(EventArgs e) {
             _breakPointsDock = null;
 
             DebugDataPool.LoadBreakPointsHandler -= setDataGrid;
@@ -77,8 +72,7 @@ namespace Behaviac.Design
             base.OnClosed(e);
         }
 
-        private void initDataGrid()
-        {
+        private void initDataGrid() {
             DataGridViewCheckBoxColumn enableColumn = new DataGridViewCheckBoxColumn();
             enableColumn.Name = "Enable";
             enableColumn.HeaderText = Resources.Enable;
@@ -140,18 +134,14 @@ namespace Behaviac.Design
 
         private bool _isReady = true;
 
-        private void setDataGrid()
-        {
+        private void setDataGrid() {
             dataGridView.Rows.Clear();
 
             // Add all breakpoints from the pool.
-            foreach (string behaviorFilename in DebugDataPool.BreakPoints.Keys)
-            {
-                foreach (string nodeId in DebugDataPool.BreakPoints[behaviorFilename].Keys)
-                {
+            foreach(string behaviorFilename in DebugDataPool.BreakPoints.Keys) {
+                foreach(string nodeId in DebugDataPool.BreakPoints[behaviorFilename].Keys) {
                     DebugDataPool.BreakPoint breakPoint = DebugDataPool.BreakPoints[behaviorFilename][nodeId];
-                    foreach (DebugDataPool.Action action in breakPoint.Actions)
-                    {
+                    foreach(DebugDataPool.Action action in breakPoint.Actions) {
                         newBreakPoint(behaviorFilename, breakPoint.NodeType, nodeId, action);
                     }
                 }
@@ -160,13 +150,14 @@ namespace Behaviac.Design
             dataGridView.CurrentCell = null;
         }
 
-        private int newBreakPoint(string behaviorFilename, string nodeType, string nodeId, DebugDataPool.Action action)
-        {
+        private int newBreakPoint(string behaviorFilename, string nodeType, string nodeId, DebugDataPool.Action action) {
             _isReady = false;
 
             int index = getRowIndex(behaviorFilename, nodeId, action.Name);
-            if (index < 0)
+
+            if (index < 0) {
                 index = dataGridView.Rows.Add();
+            }
 
             DataGridViewRow row = dataGridView.Rows[index];
             row.Tag = action;
@@ -184,10 +175,10 @@ namespace Behaviac.Design
             return index;
         }
 
-        private void addBreakPoint(string behaviorFilename, string nodeType, string nodeId, DebugDataPool.Action action)
-        {
-            if (!_isReady)
+        private void addBreakPoint(string behaviorFilename, string nodeType, string nodeId, DebugDataPool.Action action) {
+            if (!_isReady) {
                 return;
+            }
 
             int index = newBreakPoint(behaviorFilename, nodeType, nodeId, action);
             DataGridViewRow row = dataGridView.Rows[index];
@@ -197,33 +188,30 @@ namespace Behaviac.Design
             selectRowNode(row);
         }
 
-        private void removeBreakPoint(string behaviorFilename, string nodeType, string nodeId, DebugDataPool.Action action)
-        {
-            if (!_isReady)
+        private void removeBreakPoint(string behaviorFilename, string nodeType, string nodeId, DebugDataPool.Action action) {
+            if (!_isReady) {
                 return;
+            }
 
             int index = getRowIndex(behaviorFilename, nodeId, action.Name);
-            if (index > -1)
-            {
+
+            if (index > -1) {
                 dataGridView.Rows.RemoveAt(index);
 
-                if (dataGridView.CurrentCell != null)
-                {
+                if (dataGridView.CurrentCell != null) {
                     DataGridViewRow row = dataGridView.Rows[dataGridView.CurrentCell.RowIndex];
                     row.Selected = true;
                 }
             }
         }
 
-        private int getRowIndex(string behaviorFilename, string nodeId, string actionName)
-        {
-            for (int index = 0; index < dataGridView.Rows.Count; index++)
-            {
+        private int getRowIndex(string behaviorFilename, string nodeId, string actionName) {
+            for (int index = 0; index < dataGridView.Rows.Count; index++) {
                 DataGridViewRow row = dataGridView.Rows[index];
+
                 if (behaviorFilename == (string)row.Cells["BehaviorFilename"].Value &&
                     nodeId == (string)row.Cells["NodeId"].Value &&
-                    actionName == getResourceName((string)row.Cells["ActionName"].Value))
-                {
+                    actionName == getResourceName((string)row.Cells["ActionName"].Value)) {
                     return index;
                 }
             }
@@ -231,19 +219,18 @@ namespace Behaviac.Design
             return -1;
         }
 
-        private void selectRowNode(DataGridViewRow row)
-        {
+        private void selectRowNode(DataGridViewRow row) {
             Debug.Check(row != null);
             row.Selected = true;
 
             string behaviorFilename = (string)row.Cells["BehaviorFilename"].Value;
             BehaviorTreeView behaviorTreeView = UIUtilities.ShowBehaviorTree(behaviorFilename);
-            if (behaviorTreeView != null)
-            {
+
+            if (behaviorTreeView != null) {
                 string nodeId = (string)row.Cells["NodeId"].Value;
                 NodeViewData nvd = behaviorTreeView.RootNodeView.FindNodeViewData(nodeId);
-                if (nvd != null)
-                {
+
+                if (nvd != null) {
                     behaviorTreeView.SelectedNode = nvd;
                     //if (behaviorTreeView.ClickNode != null)
                     //    behaviorTreeView.ClickNode(nvd);
@@ -252,70 +239,77 @@ namespace Behaviac.Design
             }
         }
 
-        private int getHitCount(DataGridViewRow row)
-        {
+        private int getHitCount(DataGridViewRow row) {
             Debug.Check(row != null);
 
             int actionHitCount = 0;
 
-            try
-            {
+            try {
                 object hitCount = row.Cells["HitCount"].Value;
-                if (hitCount is string)
+
+                if (hitCount is string) {
                     actionHitCount = int.Parse((string)hitCount);
-                else if (hitCount is int)
+                }
+
+                else if (hitCount is int) {
                     actionHitCount = (int)hitCount;
-            }
-            catch
-            {
+                }
+
+            } catch {
             }
 
-            if (actionHitCount < 0)
+            if (actionHitCount < 0) {
                 actionHitCount = 0;
+            }
 
             row.Cells["HitCount"].Value = actionHitCount;
 
             return actionHitCount;
         }
 
-        private void dataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
-        {
-            if (!_isReady)
+        private void dataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e) {
+            if (!_isReady) {
                 return;
+            }
 
-            if (dataGridView.IsCurrentCellDirty)
+            if (dataGridView.IsCurrentCellDirty) {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
 
-        private string getResourceName(string resourceLabel)
-        {
-            if (resourceLabel == Plugin.GetResourceString("enter"))
+        private string getResourceName(string resourceLabel) {
+            if (resourceLabel == Plugin.GetResourceString("enter")) {
                 return "enter";
+            }
 
-            if (resourceLabel == Plugin.GetResourceString("exit"))
+            if (resourceLabel == Plugin.GetResourceString("exit")) {
                 return "exit";
+            }
 
-            if (resourceLabel == Plugin.GetResourceString(DebugDataPool.Action.kResultAll))
+            if (resourceLabel == Plugin.GetResourceString(DebugDataPool.Action.kResultAll)) {
                 return DebugDataPool.Action.kResultAll;
+            }
 
-            if (resourceLabel == Plugin.GetResourceString(DebugDataPool.Action.kResultSuccess))
+            if (resourceLabel == Plugin.GetResourceString(DebugDataPool.Action.kResultSuccess)) {
                 return DebugDataPool.Action.kResultSuccess;
+            }
 
-            if (resourceLabel == Plugin.GetResourceString(DebugDataPool.Action.kResultFailure))
+            if (resourceLabel == Plugin.GetResourceString(DebugDataPool.Action.kResultFailure)) {
                 return DebugDataPool.Action.kResultFailure;
+            }
 
             return resourceLabel;
         }
 
-        private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (!_isReady)
+        private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
+            if (!_isReady) {
                 return;
+            }
 
             DataGridViewRow row = dataGridView.Rows[e.RowIndex];
             DebugDataPool.Action action = row.Tag as DebugDataPool.Action;
-            if (action != null)
-            {
+
+            if (action != null) {
                 bool actionEnable = (bool)row.Cells["Enable"].Value;
                 string behaviorFilename = (string)row.Cells["BehaviorFilename"].Value;
                 string nodeType = (string)row.Cells["NodeType"].Value;
@@ -332,30 +326,28 @@ namespace Behaviac.Design
             }
         }
 
-        private void dataGridView_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.RowIndex < 0)
+        private void dataGridView_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e) {
+            if (e.RowIndex < 0) {
                 return;
+            }
 
             DataGridViewRow row = dataGridView.Rows[e.RowIndex];
             row.Selected = true;
         }
 
-        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
+        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex < 0) {
                 return;
+            }
 
             DataGridViewRow row = dataGridView.Rows[e.RowIndex];
             selectRowNode(row);
         }
 
-        private void deleteBreakpoints(string[] behaviorFilenames, string[] nodeIds, DebugDataPool.Action[] actions)
-        {
+        private void deleteBreakpoints(string[] behaviorFilenames, string[] nodeIds, DebugDataPool.Action[] actions) {
             Debug.Check(behaviorFilenames.Length == nodeIds.Length && nodeIds.Length == actions.Length);
 
-            for (int i = 0; i < behaviorFilenames.Length; i++)
-            {
+            for (int i = 0; i < behaviorFilenames.Length; i++) {
                 DebugDataPool.RemoveBreakPoint(behaviorFilenames[i], nodeIds[i], actions[i]);
             }
 
@@ -363,24 +355,25 @@ namespace Behaviac.Design
             Inspect();
         }
 
-        private void deleteButton_Click(object sender, EventArgs e)
-        {
+        private void deleteButton_Click(object sender, EventArgs e) {
             int rowCount = dataGridView.SelectedRows.Count;
-            if (rowCount < 0)
+
+            if (rowCount < 0) {
                 return;
+            }
 
             DialogResult dr = MessageBox.Show(Resources.DeleteBreakpointsWarning,
-                Resources.DeleteSelectedBreakpoints, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                              Resources.DeleteSelectedBreakpoints, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (dr != DialogResult.Yes)
+            if (dr != DialogResult.Yes) {
                 return;
+            }
 
             string[] behaviorFilenames = new string[rowCount];
             string[] nodeIds = new string[rowCount];
             DebugDataPool.Action[] actions = new DebugDataPool.Action[rowCount];
 
-            for (int i = 0; i < rowCount; i++)
-            {
+            for (int i = 0; i < rowCount; i++) {
                 DataGridViewRow row = dataGridView.SelectedRows[i];
 
                 behaviorFilenames[i] = (string)row.Cells["BehaviorFilename"].Value;
@@ -391,24 +384,25 @@ namespace Behaviac.Design
             deleteBreakpoints(behaviorFilenames, nodeIds, actions);
         }
 
-        private void deleteAllButton_Click(object sender, EventArgs e)
-        {
+        private void deleteAllButton_Click(object sender, EventArgs e) {
             int rowCount = dataGridView.Rows.Count;
-            if (rowCount < 0)
+
+            if (rowCount < 0) {
                 return;
+            }
 
             DialogResult dr = MessageBox.Show(Resources.DeleteAllBreakpointsWarning,
-                Resources.DeleteAllBreakpoints, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                              Resources.DeleteAllBreakpoints, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (dr != DialogResult.Yes)
+            if (dr != DialogResult.Yes) {
                 return;
+            }
 
             string[] behaviorFilenames = new string[rowCount];
             string[] nodeIds = new string[rowCount];
             DebugDataPool.Action[] actions = new DebugDataPool.Action[rowCount];
 
-            for (int i = 0; i < rowCount; i++)
-            {
+            for (int i = 0; i < rowCount; i++) {
                 DataGridViewRow row = dataGridView.Rows[i];
 
                 behaviorFilenames[i] = (string)row.Cells["BehaviorFilename"].Value;
@@ -419,11 +413,9 @@ namespace Behaviac.Design
             deleteBreakpoints(behaviorFilenames, nodeIds, actions);
         }
 
-        private void enableBreakpoints(DataGridViewRow[] rows, bool enable)
-        {
+        private void enableBreakpoints(DataGridViewRow[] rows, bool enable) {
             DataGridViewRow lastRow = null;
-            foreach (DataGridViewRow row in rows)
-            {
+            foreach(DataGridViewRow row in rows) {
                 _isReady = false;
 
                 lastRow = row;
@@ -440,18 +432,18 @@ namespace Behaviac.Design
                 _isReady = true;
             }
 
-            if (lastRow != null)
-            {
+            if (lastRow != null) {
                 selectRowNode(lastRow);
                 dataGridView.Update();
             }
         }
 
-        private void enableSelectedBreakpoints(bool enable)
-        {
+        private void enableSelectedBreakpoints(bool enable) {
             int rowCount = dataGridView.SelectedRows.Count;
-            if (rowCount < 0)
+
+            if (rowCount < 0) {
                 return;
+            }
 
             DataGridViewRow[] rows = new DataGridViewRow[rowCount];
             dataGridView.SelectedRows.CopyTo(rows, 0);
@@ -459,21 +451,20 @@ namespace Behaviac.Design
             enableBreakpoints(rows, enable);
         }
 
-        private void enableButton_Click(object sender, EventArgs e)
-        {
+        private void enableButton_Click(object sender, EventArgs e) {
             enableSelectedBreakpoints(true);
         }
 
-        private void disableButton_Click(object sender, EventArgs e)
-        {
+        private void disableButton_Click(object sender, EventArgs e) {
             enableSelectedBreakpoints(false);
         }
 
-        private void enableAllBreakpoints(bool enable)
-        {
+        private void enableAllBreakpoints(bool enable) {
             int rowCount = dataGridView.Rows.Count;
-            if (rowCount < 0)
+
+            if (rowCount < 0) {
                 return;
+            }
 
             DataGridViewRow[] rows = new DataGridViewRow[rowCount];
             dataGridView.Rows.CopyTo(rows, 0);
@@ -481,37 +472,34 @@ namespace Behaviac.Design
             enableBreakpoints(rows, enable);
         }
 
-        private void enableAllButton_Click(object sender, EventArgs e)
-        {
+        private void enableAllButton_Click(object sender, EventArgs e) {
             enableAllBreakpoints(true);
         }
 
-        private void disableAllButton_Click(object sender, EventArgs e)
-        {
+        private void disableAllButton_Click(object sender, EventArgs e) {
             enableAllBreakpoints(false);
         }
 
-        private void showButton_Click(object sender, EventArgs e)
-        {
+        private void showButton_Click(object sender, EventArgs e) {
             HighlightBreakPoint.ShowBreakPoint = !HighlightBreakPoint.ShowBreakPoint;
             BehaviorTreeViewDock.RefreshAll();
 
-            if (HighlightBreakPoint.ShowBreakPoint)
+            if (HighlightBreakPoint.ShowBreakPoint) {
                 showButton.ToolTipText = Resources.BreakpointsHide;
-            else
+            }
+
+            else {
                 showButton.ToolTipText = Resources.BreakpointsShow;
+            }
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
-        {
+        private void saveButton_Click(object sender, EventArgs e) {
             Debug.Check(Workspace.Current != null);
             DebugDataPool.Save(Workspace.Current.FileName);
         }
 
-        private void dataGridView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
+        private void dataGridView_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Delete) {
                 deleteButton_Click(sender, null);
             }
         }

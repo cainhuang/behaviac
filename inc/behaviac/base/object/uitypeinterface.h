@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_UITYPEINTERFACE_H_
-#define _ENGINESERVICES_UITYPEINTERFACE_H_
+#ifndef BEHAVIAC_ENGINESERVICES_UITYPEINTERFACE_H
+#define BEHAVIAC_ENGINESERVICES_UITYPEINTERFACE_H
 
 struct UiGenericType
 {
@@ -20,18 +20,18 @@ public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(UiGenericType);
 
 public:
-    virtual void SetMemberName(const char* memberName) 
+    virtual void SetMemberName(const char* memberName)
     {
-    	BEHAVIAC_UNUSED_VAR(memberName);
+        BEHAVIAC_UNUSED_VAR(memberName);
     }
     virtual void SaveDescription(XmlNodeRef& xmlNode) = 0;
-	virtual ~UiGenericType()
-	{
-	}
+    virtual ~UiGenericType()
+    {
+    }
 };
 
 #define UiDescriptorAllocate_DefaultUiInfo  ((UiGenericType*)NULL)
 
 #define DefaultUiInfo DefaultUiInfo
 
-#endif // #ifndef _ENGINESERVICES_UITYPEINTERFACE_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_UITYPEINTERFACE_H

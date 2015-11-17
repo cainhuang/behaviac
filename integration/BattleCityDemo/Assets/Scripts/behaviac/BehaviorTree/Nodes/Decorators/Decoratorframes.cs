@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public DecoratorFrames()
         {
-		}
+        }
+
         ~DecoratorFrames()
         {
             this.m_frames_var = null;
@@ -31,13 +30,12 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
                 if (p.name == "Time")
                 {
                     string typeName = null;
-                    string propertyName = null;
-                    this.m_frames_var = Condition.LoadRight(p.value, propertyName, ref typeName);
+                    this.m_frames_var = Condition.LoadRight(p.value, ref typeName);
                 }
             }
         }
@@ -62,9 +60,9 @@ namespace behaviac
             return pTask;
         }
 
-        Property m_frames_var;
+        private Property m_frames_var;
 
-        class DecoratorFramesTask : DecoratorTask
+        private class DecoratorFramesTask : DecoratorTask
         {
             public DecoratorFramesTask()
             {
@@ -113,7 +111,8 @@ namespace behaviac
 
             protected override EBTStatus decorate(EBTStatus status)
             {
-                this.m_start += (int)(Workspace.GetDeltaFrames());
+                this.m_start += Workspace.Instance.DeltaFrames;
+
                 if (this.m_start >= this.m_frames)
                 {
                     return EBTStatus.BT_SUCCESS;
@@ -122,7 +121,7 @@ namespace behaviac
                 return EBTStatus.BT_RUNNING;
             }
 
-            int GetFrames(Agent pAgent)
+            private int GetFrames(Agent pAgent)
             {
                 Debug.Check(this.GetNode() is DecoratorFrames);
                 DecoratorFrames pNode = (DecoratorFrames)(this.GetNode());
@@ -130,8 +129,8 @@ namespace behaviac
                 return pNode != null ? pNode.GetFrames(pAgent) : 0;
             }
 
-            int m_start;
-            int m_frames = 0;
+            private int m_start;
+            private int m_frames = 0;
         }
     }
 }

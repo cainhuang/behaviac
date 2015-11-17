@@ -18,6 +18,7 @@ using System.IO;
 using Behaviac.Design;
 using Behaviac.Design.Nodes;
 using Behaviac.Design.Attributes;
+using Behaviac.Design.Attachments;
 using PluginBehaviac.Properties;
 using PluginBehaviac.DataExporters;
 using PluginBehaviac.NodeExporters;
@@ -27,77 +28,119 @@ namespace PluginBehaviac.Exporters
     public class ExporterCs : Behaviac.Design.Exporters.Exporter
     {
         public ExporterCs(BehaviorNode node, string outputFolder, string filename, List<string> includedFilenames = null)
-            : base(node, outputFolder, filename, includedFilenames)
+            : base(node, outputFolder, filename + ".cs", includedFilenames)
         {
-            _outputFolder = Path.GetFullPath(_outputFolder);
-            _filename = _filename.Replace('\\', '/');
+            _outputFolder = Path.Combine(Path.GetFullPath(_outputFolder), "behaviac_generated");
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export()
+        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile)
         {
-            string filename = string.Empty;
-            Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(out filename);
+            string behaviorFilename = "behaviors/generated_behaviors.cs";
+            string agentFolder = string.Empty;
+            Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(ref behaviorFilename, ref agentFolder);
             if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
             {
-                // export to the file
-                using (StreamWriter file = new StreamWriter(filename))
-                {
-                    ExportBehavior(file, _node, filename);
-                    file.Close();
-                }
+                string behaviorFolder = Path.GetDirectoryName(behaviorFilename);
+                clearFolder(behaviorFolder);
+                clearFolder(agentFolder);
+
+                ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
+
+                ExportCustomizedTypes(agentFolder);
+
+                //ExportAgents(agentFolder);
+
+                ExportCustomizedMembers(agentFolder);
             }
 
             return result;
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors)
+        private void clearFolder(string folder)
         {
-            string filename = string.Empty;
-            Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(out filename);
-            if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
+            DirectoryInfo dirInfo = new DirectoryInfo(folder);
+            if (dirInfo.Exists)
             {
-                using (StreamWriter file = new StreamWriter(filename))
+                foreach (FileInfo file in dirInfo.GetFiles())
                 {
-                    ExportBehaviors(file, behaviors, filename);
-                    file.Close();
+                    try
+                    {
+                        File.SetAttributes(file.FullName, FileAttributes.Normal);
+                        if (file.Extension == ".cs")
+                            file.Delete();
+                    }
+                    catch
+                    {
+                    }
                 }
             }
-
-            return result;
         }
 
-        private void ExportBehavior(StreamWriter file, BehaviorNode behavior, string filename)
+        private void ExportBehaviors(List<BehaviorNode> behaviors, string filename, bool exportUnifiedFile)
         {
-            ExportHead(file, filename);
-
-            ExportBody(file, behavior);
-
-            ExportTail(file);
-        }
-
-        private void ExportBehaviors(StreamWriter file, List<BehaviorNode> behaviors, string filename)
-        {
-            ExportHead(file, filename);
-
-            foreach (BehaviorNode behavior in behaviors)
+            using (StreamWriter file = new StreamWriter(filename))
             {
-                ExportBody(file, behavior);
-            }
+                ExportHead(file, filename);
 
-            ExportTail(file);
+                ExportMemberDeclaration(file);
+
+                if (exportUnifiedFile)
+                {
+                    foreach (BehaviorNode behavior in behaviors)
+                    {
+                        ExportBody(file, behavior);
+                    }
+                }
+                else
+                {
+                    foreach (BehaviorNode behavior in behaviors)
+                    {
+                        string behaviorFilename = behavior.RelativePath;
+                        behaviorFilename = behaviorFilename.Replace("\\", "/");
+                        behaviorFilename = Path.ChangeExtension(behaviorFilename, "cs");
+                        behaviorFilename = Path.Combine("behaviors", behaviorFilename);
+
+                        string agentFolder = string.Empty;
+
+                        Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(ref behaviorFilename, ref agentFolder);
+                        if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
+                        {
+                            using (StreamWriter behaviorFile = new StreamWriter(behaviorFilename))
+                            {
+                                ExportHead(behaviorFile, behaviorFilename);
+
+                                ExportBody(behaviorFile, behavior);
+
+                                ExportTail(behaviorFile);
+
+                                behaviorFile.Close();
+                            }
+                        }
+                    }
+                }
+
+                ExportTail(file);
+
+                file.Close();
+            }
         }
 
-        private Behaviac.Design.FileManagers.SaveResult VerifyFilename(out string filename)
+        private Behaviac.Design.FileManagers.SaveResult VerifyFilename(ref string behaviorFilename, ref string agentFolder)
         {
-            filename = Path.Combine(_outputFolder, _filename);
+            behaviorFilename = Path.Combine(_outputFolder, behaviorFilename);
+            agentFolder = Path.Combine(_outputFolder, "types");
 
             // get the abolute folder of the file we want to export
-            string folder = Path.GetDirectoryName(filename);
+            string folder = Path.GetDirectoryName(behaviorFilename);
             if (!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
 
+            if (!Directory.Exists(agentFolder))
+                Directory.CreateDirectory(agentFolder);
+
             // verify it can be writable
-            return Behaviac.Design.FileManagers.FileManager.MakeWritable(filename, Resources.ExportFileWarning);
+            Behaviac.Design.FileManagers.SaveResult result = Behaviac.Design.FileManagers.FileManager.MakeWritable(behaviorFilename, Resources.ExportFileWarning);
+            return result;
         }
 
         private void ExportHead(StreamWriter file, string exportFilename)
@@ -108,7 +151,7 @@ namespace PluginBehaviac.Exporters
 
             // write comments
             file.WriteLine("// ---------------------------------------------------------------------");
-            file.WriteLine("// This file is auto-generated, so please don't modify it by yourself!");
+            file.WriteLine("// This file is auto-generated by behaviac designer, so please don't modify it by yourself!");
             file.WriteLine("// Export file: {0}", exportFilename);
             file.WriteLine("// ---------------------------------------------------------------------\r\n");
 
@@ -120,7 +163,10 @@ namespace PluginBehaviac.Exporters
 
             // write namespace
             file.WriteLine("namespace behaviac\r\n{");
+        }
 
+        private void ExportMemberDeclaration(StreamWriter file)
+        {
             // write the AgentExtra_Generated class
             file.WriteLine("\tclass AgentExtra_Generated");
             file.WriteLine("\t{");
@@ -204,7 +250,7 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("\t\t}\r\n");
 
             file.WriteLine("\t\tpublic static object ExecuteMethod(behaviac.Agent agent, string method, object[] args)");
-		    file.WriteLine("\t\t{");
+            file.WriteLine("\t\t{");
             file.WriteLine("\t\t\tType type = agent.GetType();");
             file.WriteLine("\t\t\tstring methodName = type.FullName + method;");
             file.WriteLine("\t\t\tif (_methods.ContainsKey(methodName))");
@@ -225,7 +271,7 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("\t\t\t}");
             file.WriteLine("\t\t\tDebug.Check(false, \"No method can be found!\");");
             file.WriteLine("\t\t\treturn null;");
-		    file.WriteLine("\t\t}");
+            file.WriteLine("\t\t}");
             file.WriteLine("\t}\r\n");
         }
 
@@ -239,6 +285,8 @@ namespace PluginBehaviac.Exporters
 
         private void ExportBody(StreamWriter file, BehaviorNode behavior)
         {
+            behavior.PreExport();
+
             string filename = Path.ChangeExtension(behavior.RelativePath, "").Replace(".", "");
             filename = filename.Replace('\\', '/');
 
@@ -252,7 +300,7 @@ namespace PluginBehaviac.Exporters
             ExportAttachmentClass(file, btClassName, (Node)behavior);
 
             // create the class definition of its children
-            foreach (Node child in ((Node)behavior).Children)
+            foreach (Node child in ((Node)behavior).GetChildNodes())
                 ExportNodeClass(file, btClassName, agentType, behavior, child);
 
             // create the bt class
@@ -263,6 +311,7 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("\t\t\tbt.SetClassNameString(\"BehaviorTree\");");
             file.WriteLine("\t\t\tbt.SetId(-1);");
             file.WriteLine("\t\t\tbt.SetName(\"{0}\");", filename);
+            file.WriteLine("\t\t\tbt.IsFSM = {0};", ((Node)behavior).IsFSM ? "true" : "false");
             file.WriteLine("#if !BEHAVIAC_RELEASE");
             file.WriteLine("\t\t\tbt.SetAgentType(\"{0}\");", agentType.Replace("::", "."));
             file.WriteLine("#endif");
@@ -275,7 +324,7 @@ namespace PluginBehaviac.Exporters
                 file.WriteLine("\t\t\tbt.SetDescriptors(\"{0}\");", DesignerPropertyUtility.RetrieveExportValue(((Behavior)behavior).DescriptorRefs));
             }
 
-            ExportPars(file, "bt", (Node)behavior, "\t\t");
+            ExportPars(file, agentType, "bt", (Node)behavior, "\t\t");
 
             // export its attachments
             ExportAttachment(file, btClassName, agentType, "bt", (Node)behavior, "\t\t\t");
@@ -283,8 +332,32 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("\t\t\t// children");
 
             // export its children
-            foreach (Node child in ((Node)behavior).Children)
-                ExportNode(file, btClassName, agentType, "bt", child, 3);
+            if (((Node)behavior).IsFSM)
+            {
+                file.WriteLine("\t\t\t{");
+                file.WriteLine("\t\t\t\tFSM fsm = new FSM();");
+                file.WriteLine("\t\t\t\tfsm.SetClassNameString(\"FSM\");");
+                file.WriteLine("\t\t\t\tfsm.SetId(-1);");
+                file.WriteLine("\t\t\t\tfsm.InitialId = {0};", behavior.InitialStateId);
+                file.WriteLine("#if !BEHAVIAC_RELEASE");
+                file.WriteLine("\t\t\t\tfsm.SetAgentType(\"{0}\");", agentType.Replace("::", "."));
+                file.WriteLine("#endif");
+
+                foreach (Node child in ((Node)behavior).FSMNodes)
+                {
+                    ExportNode(file, btClassName, agentType, "fsm", child, 4);
+                }
+
+                file.WriteLine("\t\t\t\tbt.AddChild(fsm);");
+                file.WriteLine("\t\t\t}");
+            }
+            else
+            {
+                foreach (Node child in ((Node)behavior).GetChildNodes())
+                {
+                    ExportNode(file, btClassName, agentType, "bt", child, 3);
+                }
+            }
 
             file.WriteLine("\t\t\treturn true;");
 
@@ -293,6 +366,8 @@ namespace PluginBehaviac.Exporters
 
             // close class
             file.WriteLine("\t}\r\n");
+
+            behavior.PostExport();
         }
 
         private void ExportTail(StreamWriter file)
@@ -301,33 +376,26 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("}");
         }
 
-        private void ExportPars(StreamWriter file, string nodeName, Node node, string indent)
+        private void ExportPars(StreamWriter file, string agentType, string nodeName, Node node, string indent)
         {
-            ExportPars(file, nodeName, node.Pars, indent);
-        }
-
-        private void ExportPars(StreamWriter file, string nodeName, Behaviac.Design.Attachments.Attachment attachment, string indent)
-        {
-            Behaviac.Design.Attachments.Event evt = attachment as Behaviac.Design.Attachments.Event;
-            if (evt != null)
+            if (node is Behavior)
             {
-                ExportPars(file, nodeName, evt.Pars, indent);
+                ExportPars(file, agentType, nodeName, ((Behavior)node).LocalVars, indent);
             }
         }
 
-        private void ExportPars(StreamWriter file, string nodeName, List<Behaviac.Design.ParInfo> pars, string indent)
+        private void ExportPars(StreamWriter file, string agentType, string nodeName, List<Behaviac.Design.ParInfo> pars, string indent)
         {
             if (pars.Count > 0)
             {
                 file.WriteLine("{0}\t// pars", indent);
                 for (int i = 0; i < pars.Count; ++i)
                 {
-                    string name = pars[i].Name;
+                    string name = pars[i].BasicName;
                     string type = DataCsExporter.GetGeneratedParType(pars[i].Type);
                     string value = pars[i].DefaultValue.Replace("\"", "\\\"");
-                    string eventParam = pars[i].EventParam;
 
-                    file.WriteLine("{0}\t{1}.AddPar(\"{2}\", \"{3}\", \"{4}\", \"{5}\");", indent, nodeName, type, name, value, eventParam);
+                    file.WriteLine("{0}\t{1}.AddPar(\"{2}\", \"{3}\", \"{4}\", \"{5}\");", indent, nodeName, agentType, type, name, value);
                 }
             }
         }
@@ -350,6 +418,9 @@ namespace PluginBehaviac.Exporters
                 file.WriteLine("{0}// attachments", indent);
                 foreach (Behaviac.Design.Attachments.Attachment attach in node.Attachments)
                 {
+                    if (attach.IsStartCondition)
+                        continue;
+
                     file.WriteLine("{0}{{", indent);
 
                     string nodeName = string.Format("attach{0}", attach.Id);
@@ -358,13 +429,16 @@ namespace PluginBehaviac.Exporters
                     AttachmentCsExporter attachmentExporter = AttachmentCsExporter.CreateInstance(attach);
                     attachmentExporter.GenerateInstance(attach, file, indent, nodeName, agentType, btClassName);
 
-                    ExportPars(file, nodeName, attach, indent);
+                    string isPrecondition = attach.IsPrecondition && !attach.IsTransition ? "true" : "false";
+                    string isEffector = attach.IsEffector && !attach.IsTransition ? "true" : "false";
+                    string isTransition = attach.IsTransition ? "true" : "false";
+                    file.WriteLine("{0}\t{1}.Attach({2}, {3}, {4}, {5});", indent, parentName, nodeName, isPrecondition, isEffector, isTransition);
 
-                    file.WriteLine("{0}\t{1}.Attach({2});", indent, parentName, nodeName);
                     if (attach is Behaviac.Design.Attachments.Event)
                     {
                         file.WriteLine("{0}\t{1}.SetHasEvents({1}.HasEvents() | ({2} is Event));", indent, parentName, nodeName);
                     }
+
                     file.WriteLine("{0}}}", indent);
                 }
             }
@@ -372,6 +446,9 @@ namespace PluginBehaviac.Exporters
 
         private void ExportNodeClass(StreamWriter file, string btClassName, string agentType, BehaviorNode behavior, Node node)
         {
+            if (!node.Enable)
+                return;
+
             string nodeName = string.Format("node{0}", node.Id);
 
             NodeCsExporter nodeExporter = NodeCsExporter.CreateInstance(node);
@@ -381,7 +458,7 @@ namespace PluginBehaviac.Exporters
 
             if (!(node is ReferencedBehavior))
             {
-                foreach (Node child in node.Children)
+                foreach (Node child in node.GetChildNodes())
                 {
                     ExportNodeClass(file, btClassName, agentType, behavior, child);
                 }
@@ -390,6 +467,9 @@ namespace PluginBehaviac.Exporters
 
         private void ExportNode(StreamWriter file, string btClassName, string agentType, string parentName, Node node, int indentDepth)
         {
+            if (!node.Enable)
+                return;
+
             // generate the indent string
             string indent = string.Empty;
             for (int i = 0; i < indentDepth; ++i)
@@ -406,17 +486,35 @@ namespace PluginBehaviac.Exporters
             NodeCsExporter nodeExporter = NodeCsExporter.CreateInstance(node);
             nodeExporter.GenerateInstance(node, file, indent, nodeName, agentType, btClassName);
 
-            ExportPars(file, nodeName, node, indent);
+            ExportPars(file, agentType, nodeName, node, indent);
 
             ExportAttachment(file, btClassName, agentType, nodeName, node, indent + "\t");
 
-            // add the node to its parent
-            file.WriteLine("{0}\t{1}.AddChild({2});", indent, parentName, nodeName);
+            bool isAsChild = true;
+            if (node.Parent != null)
+            {
+                BaseNode.Connector connector = node.Parent.GetConnector(node);
+                if (connector != null && !connector.IsAsChild)
+                {
+                    isAsChild = false;
+                }
+            }
+
+            if (isAsChild)
+            {
+                // add the node to its parent
+                file.WriteLine("{0}\t{1}.AddChild({2});", indent, parentName, nodeName);
+            }
+            else
+            {
+                // add the node as its customized children
+                file.WriteLine("{0}\t{1}.SetCustomCondition({2});", indent, parentName, nodeName);
+            }
 
             // export the child nodes
-            if (!(node is ReferencedBehavior))
+            if (!node.IsFSM && !(node is ReferencedBehavior))
             {
-                foreach (Node child in node.Children)
+                foreach (Node child in node.GetChildNodes())
                 {
                     ExportNode(file, btClassName, agentType, nodeName, child, indentDepth + 1);
                 }
@@ -426,6 +524,384 @@ namespace PluginBehaviac.Exporters
 
             // close the brackets for a better formatting in the generated code
             file.WriteLine("{0}}}", indent);
+        }
+
+        private void ExportAgents(string agentFolder)
+        {
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                bool hasCustomizedProperty = false;
+                foreach (PropertyDef prop in agent.GetProperties())
+                {
+                    if (prop.IsCustomized && !prop.IsPar && !prop.IsArrayElement)
+                    {
+                        hasCustomizedProperty = true;
+                        break;
+                    }
+                }
+
+                IList<MethodDef> methods = agent.GetMethods();
+                bool hasCustomizedMethod = false;
+                foreach (MethodDef method in methods)
+                {
+                    if (method.IsCustomized && !method.IsNamedEvent)
+                    {
+                        hasCustomizedMethod = true;
+                        break;
+                    }
+                }
+
+                if (hasCustomizedProperty || hasCustomizedMethod)
+                {
+                    string filename = Path.Combine(agentFolder, agent.AgentTypeName + ".cs");
+                    Encoding utf8WithBom = new UTF8Encoding(true);
+
+                    using (StreamWriter file = new StreamWriter(filename, false, utf8WithBom))
+                    {
+                        // write comments
+                        file.WriteLine("// ---------------------------------------------------------------------");
+                        file.WriteLine("// This file is auto-generated by behaviac designer, so please don't modify it by yourself!");
+                        file.WriteLine("// ---------------------------------------------------------------------\r\n");
+
+                        file.WriteLine("using System.Collections.Generic;");
+                        file.WriteLine();
+
+                        if (!string.IsNullOrEmpty(agent.Namespace))
+                        {
+                            file.WriteLine("namespace {0}", agent.Namespace);
+                            file.WriteLine("{");
+                        }
+
+                        file.WriteLine("\tpartial class {0}", agent.AgentTypeName);
+                        file.WriteLine("\t{");
+
+                        if (hasCustomizedProperty)
+                        {
+                            foreach (PropertyDef prop in agent.GetProperties())
+                            {
+                                if (prop.IsCustomized && !prop.IsPar && !prop.IsArrayElement)
+                                {
+                                    string isStatic = prop.IsStatic ? "static " : "";
+                                    string propType = DataCsExporter.GetGeneratedNativeType(prop.Type);
+                                    string defaultValue = DataCsExporter.GetGeneratedPropertyDefaultValue(prop, propType);
+                                    if (!string.IsNullOrEmpty(defaultValue))
+                                        defaultValue = " = " + defaultValue;
+
+                                    file.WriteLine("\t\tpublic {0}{1} {2}{3};", isStatic, propType, prop.BasicName, defaultValue);
+                                }
+                            }
+                        }
+
+                        if (hasCustomizedMethod)
+                        {
+                            if (hasCustomizedProperty)
+                                file.WriteLine();
+
+                            file.WriteLine("\t\t// ----------------------------------------------------------------------------------");
+                            file.WriteLine("\t\t// The following methods should be copied to your partial class file to implement it.");
+                            file.WriteLine("\t\t// ----------------------------------------------------------------------------------\n");
+
+                            foreach (MethodDef method in methods)
+                            {
+                                if (method.IsCustomized && !method.IsNamedEvent)
+                                {
+                                    string allParams = "";
+                                    foreach (MethodDef.Param param in method.Params)
+                                    {
+                                        if (!string.IsNullOrEmpty(allParams))
+                                            allParams += ", ";
+
+                                        allParams += DataCsExporter.GetGeneratedNativeType(param.NativeType) + " " + param.Name;
+                                    }
+
+                                    file.WriteLine("\t\t//[behaviac.MethodMetaInfo(\"{0}\", \"{1}\")]", method.DisplayName, method.BasicDescription);
+                                    file.WriteLine("\t\t//public partial {0} {1}({2})", DataCsExporter.GetGeneratedNativeType(method.ReturnType), method.BasicName, allParams);
+                                }
+                            }
+                        }
+
+                        //end of class
+                        file.WriteLine("\t}");
+
+                        if (!string.IsNullOrEmpty(agent.Namespace))
+                        {
+                            //end of namespace
+                            file.WriteLine("}");
+                        }
+
+                        file.Close();
+                    }
+                }
+            }
+        }
+
+        private void ExportCustomizedTypes(string agentFolder)
+        {
+            if (CustomizedTypeManager.Instance.Enums.Count > 0 || CustomizedTypeManager.Instance.Structs.Count > 0)
+            {
+                string filename = Path.Combine(agentFolder, "customizedtypes.cs");
+                Encoding utf8WithBom = new UTF8Encoding(true);
+
+                using (StreamWriter file = new StreamWriter(filename, false, utf8WithBom))
+                {
+                    // write comments
+                    file.WriteLine("// ---------------------------------------------------------------------");
+                    file.WriteLine("// This file is auto-generated by behaviac designer, so please don't modify it by yourself!");
+                    file.WriteLine("// ---------------------------------------------------------------------\n");
+
+                    file.WriteLine("using System.Collections;");
+                    file.WriteLine("using System.Collections.Generic;");
+                    file.WriteLine();
+
+                    //file.WriteLine("namespace behaviac");
+                    //file.WriteLine("{");
+
+                    file.WriteLine("// -------------------");
+                    file.WriteLine("// Customized enums");
+                    file.WriteLine("// -------------------\n");
+
+                    for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
+                    {
+                        if (e > 0)
+                            file.WriteLine();
+
+                        CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
+                        file.WriteLine("[behaviac.TypeMetaInfo(\"{0}\", \"{1}\")]", customizedEnum.DisplayName, customizedEnum.Description);
+
+                        file.WriteLine("public enum {0}", customizedEnum.Name);
+                        file.WriteLine("{");
+
+                        for (int m = 0; m < customizedEnum.Members.Count; ++m)
+                        {
+                            if (m > 0)
+                                file.WriteLine();
+
+                            CustomizedEnum.CustomizedEnumMember member = customizedEnum.Members[m];
+                            if (member.DisplayName != member.Name || !string.IsNullOrEmpty(member.Description))
+                                file.WriteLine("\t[behaviac.MemberMetaInfo(\"{0}\", \"{1}\")]", member.DisplayName, member.Description);
+
+                            if (member.Value >= 0)
+                                file.WriteLine("\t{0} = {1},", member.Name, member.Value);
+                            else
+                                file.WriteLine("\t{0},", member.Name);
+                        }
+
+                        file.WriteLine("}");
+                    }
+
+                    if (CustomizedTypeManager.Instance.Enums.Count > 0)
+                        file.WriteLine();
+
+                    file.WriteLine("// -------------------");
+                    file.WriteLine("// Customized structs");
+                    file.WriteLine("// -------------------\n");
+
+                    for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; s++)
+                    {
+                        if (s > 0)
+                            file.WriteLine();
+
+                        CustomizedStruct customizedStruct = CustomizedTypeManager.Instance.Structs[s];
+                        file.WriteLine("[behaviac.TypeMetaInfo(\"{0}\", \"{1}\")]", customizedStruct.DisplayName, customizedStruct.Description);
+
+                        file.WriteLine("public struct {0}", customizedStruct.Name);
+                        file.WriteLine("{");
+
+                        for (int m = 0; m < customizedStruct.Properties.Count; ++m)
+                        {
+                            if (m > 0)
+                                file.WriteLine();
+
+                            PropertyDef member = customizedStruct.Properties[m];
+                            if (member.DisplayName != member.Name || !string.IsNullOrEmpty(member.BasicDescription))
+                                file.WriteLine("\t[behaviac.MemberMetaInfo(\"{0}\", \"{1}\")]", member.DisplayName, member.BasicDescription);
+
+                            file.WriteLine("\tpublic {0} {1};", DataCsExporter.GetGeneratedNativeType(member.NativeType), member.BasicName);
+                        }
+
+                        file.WriteLine("}");
+                    }
+
+                    //file.WriteLine("}");
+                }
+            }
+        }
+
+        private void ExportCustomizedMembers(string agentFolder)
+        {
+            bool hasNonParProperty = false;
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                foreach (PropertyDef prop in agent.GetProperties())
+                {
+                    if (!prop.IsPar && !prop.IsArrayElement)
+                    {
+                        hasNonParProperty = true;
+                        break;
+                    }
+                }
+
+                if (hasNonParProperty)
+                    break;
+            }
+
+            bool hasEvents = false;
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                IList<MethodDef> methods = agent.GetMethods();
+
+                foreach (MethodDef method in methods)
+                {
+                    if (method.IsCustomized && method.IsNamedEvent)
+                    {
+                        hasEvents = true;
+                        break;
+                    }
+                }
+
+                if (hasEvents)
+                    break;
+            }
+
+            if (hasNonParProperty || hasEvents)
+            {
+                string filename = Path.Combine(agentFolder, "AgentProperties.cs");
+                Encoding utf8WithBom = new UTF8Encoding(true);
+
+                using (StreamWriter file = new StreamWriter(filename, false, utf8WithBom))
+                {
+                    // write comments
+                    file.WriteLine("// ---------------------------------------------------------------------");
+                    file.WriteLine("// This file is auto-generated by behaviac designer, so please don't modify it by yourself!");
+                    file.WriteLine("// ---------------------------------------------------------------------\n");
+
+                    //file.WriteLine("using System.Collections.Generic;");
+                    //file.WriteLine();
+
+                    file.WriteLine("namespace behaviac");
+                    file.WriteLine("{");
+
+                    file.WriteLine("\tpartial class AgentProperties");
+                    file.WriteLine("\t{");
+
+                    // load_cs
+                    file.WriteLine("\t\tstatic partial void load_cs()");
+                    file.WriteLine("\t\t{");
+
+                    ExportProperties(file);
+
+                    ExportMethods(file);
+
+                    file.WriteLine("\t\t}\n");
+
+                    file.WriteLine("\t}");
+
+                    file.WriteLine("}");
+                }
+            }
+        }
+
+        private void ExportProperties(StreamWriter file)
+        {
+            file.WriteLine("\t\t\t// ---------------------------------------------------------------------");
+            file.WriteLine("\t\t\t// properties");
+            file.WriteLine("\t\t\t// ---------------------------------------------------------------------\n");
+
+            bool hasWrittenProperties = false;
+
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                bool hasNonParProperty = false;
+                foreach (PropertyDef prop in agent.GetProperties())
+                {
+                    if (!prop.IsPar && !prop.IsArrayElement)
+                    {
+                        hasNonParProperty = true;
+                        break;
+                    }
+                }
+
+                if (hasNonParProperty)
+                {
+                    if (!hasWrittenProperties)
+                    {
+                        hasWrittenProperties = true;
+
+                        file.WriteLine("\t\t\tAgentProperties bb;");
+                    }
+
+                    file.WriteLine("\n\t\t\t// {0}", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tbb = new AgentProperties(\"{0}\");", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tagent_type_blackboards[\"{0}\"] = bb;", agent.AgentTypeName);
+
+                    foreach (PropertyDef prop in agent.GetProperties())
+                    {
+                        if (!prop.IsPar && !prop.IsArrayElement)
+                        {
+                            file.WriteLine("\t\t\tbb.AddProperty(\"{0}\", {1}, \"{2}\", \"{3}\", \"{4}\");",
+                                DataCsExporter.GetExportNativeType(prop.NativeType),
+                                prop.IsStatic ? "true" : "false",
+                                prop.BasicName, prop.DefaultValue.Replace("\"", "\\\""), agent.AgentTypeName);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ExportMethods(StreamWriter file)
+        {
+            file.WriteLine("\n\t\t\t// ---------------------------------------------------------------------");
+            file.WriteLine("\t\t\t// tasks");
+            file.WriteLine("\t\t\t// ---------------------------------------------------------------------\n");
+
+            bool hasWrittenMethod = false;
+
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                IList<MethodDef> methods = agent.GetMethods();
+                bool hasEvents = false;
+
+                foreach (MethodDef method in methods)
+                {
+                    if (method.IsCustomized && method.IsNamedEvent)
+                    {
+                        hasEvents = true;
+                        break;
+                    }
+                }
+
+                if (hasEvents)
+                {
+                    if (!hasWrittenMethod)
+                    {
+                        hasWrittenMethod = true;
+
+                        file.WriteLine("\t\t\tAgent.CTagObjectDescriptor objectDesc;");
+                        file.WriteLine("\t\t\tCCustomMethod customeMethod;");
+                    }
+
+                    file.WriteLine("\n\t\t\t// {0}", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tobjectDesc = Agent.GetDescriptorByName(\"{0}\");", agent.AgentTypeName);
+
+                    file.WriteLine("\t\t\tcustomeMethod = new CTaskMethod(\"{0}\", \"root\");", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tobjectDesc.ms_methods.Add(customeMethod);");
+
+                    foreach (MethodDef method in methods)
+                    {
+                        if (method.IsCustomized && method.IsNamedEvent)
+                        {
+                            file.WriteLine("\n\t\t\tcustomeMethod = new CTaskMethod(\"{0}\", \"{1}\");", agent.AgentTypeName, method.BasicName);
+
+                            foreach (MethodDef.Param param in method.Params)
+                            {
+                                file.WriteLine("\t\t\tcustomeMethod.AddParamType(\"{0}\");", DataCsExporter.GetExportNativeType(param.NativeType));
+                            }
+
+                            file.WriteLine("\t\t\tobjectDesc.ms_methods.Add(customeMethod);");
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_NOOP_H_
-#define BEHAVIAC_BEHAVIORTREE_NOOP_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_NOOP_H
+#define BEHAVIAC_BEHAVIORTREE_NOOP_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -20,14 +20,14 @@
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup Noop
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup Noop
+    * @{ */
 
-	/**
-	Nothing to do, just return success.
-	*/
+    /**
+    Nothing to do, just return success.
+    */
     class BEHAVIAC_API Noop : public BehaviorNode
     {
     public:
@@ -36,12 +36,12 @@ namespace behaviac
         Noop();
         virtual ~Noop();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-	protected:
-		virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
-	private:
-		virtual BehaviorTask* createTask() const;
+    protected:
+        virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
+    private:
+        virtual BehaviorTask* createTask() const;
     };
-	
+
     class BEHAVIAC_API NoopTask : public LeafTask
     {
     public:
@@ -52,18 +52,17 @@ namespace behaviac
         }
 
     protected:
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
 
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
     protected:
-
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_NOOP_H_
+#endif//BEHAVIAC_BEHAVIORTREE_NOOP_H

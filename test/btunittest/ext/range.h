@@ -45,5 +45,4 @@ typedef TRange<float> Range;
 
 BEHAVIAC_OVERRIDE_TYPE_NAME(Range);
 
-
 #endif // #ifndef _CORE_RANGE_H_

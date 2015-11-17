@@ -1,4 +1,4 @@
-﻿What is behaviac?
+What is behaviac?
 ------------------------------------------
 
 Behaviac is our solution for the behavior tree, which includes two parts:
@@ -56,8 +56,7 @@ Others
 
 Please check the docs on the docs folder to get more details.
 
-Please see the overview video at the link : [http://gad.qq.com/tool/detail?id=2](http://gad.qq.com/tool/detail?id=2).
-
+Please see the overview video at the link : [http://gad.qq.com/tool/detail/2](http://gad.qq.com/tool/detail/2).
 
 ------------------------------------------
 

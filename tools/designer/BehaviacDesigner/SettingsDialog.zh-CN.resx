@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -119,16 +119,19 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="acceptButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>137, 291</value>
+    <value>170, 264</value>
   </data>
   <data name="acceptButton.Text" xml:space="preserve">
     <value>确认</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>219, 291</value>
+    <value>257, 264</value>
   </data>
   <data name="cancelButton.Text" xml:space="preserve">
     <value>取消</value>
+  </data>
+  <data name="nodeToolTipsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 45</value>
   </data>
   <data name="nodeToolTipsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 16</value>
@@ -136,11 +139,17 @@
   <data name="nodeToolTipsCheckBox.Text" xml:space="preserve">
     <value>显示节点提示信息</value>
   </data>
+  <data name="showControlsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 68</value>
+  </data>
   <data name="showControlsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 16</value>
   </data>
   <data name="showControlsCheckBox.Text" xml:space="preserve">
     <value>启动时，显示操控键说明</value>
+  </data>
+  <data name="checkBoxChecktheLatest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 92</value>
   </data>
   <data name="checkBoxChecktheLatest.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 16</value>
@@ -148,17 +157,14 @@
   <data name="checkBoxChecktheLatest.Text" xml:space="preserve">
     <value>启动时，检测版本最新情况</value>
   </data>
+  <data name="dumpConnectDataCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 116</value>
+  </data>
   <data name="dumpConnectDataCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 16</value>
   </data>
   <data name="dumpConnectDataCheckBox.Text" xml:space="preserve">
     <value>连接游戏后，导出数据</value>
-  </data>
-  <data name="checkBoxBreakAPP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 16</value>
-  </data>
-  <data name="checkBoxBreakAPP.Text" xml:space="preserve">
-    <value>调试时，中断游戏端</value>
   </data>
   <data name="languageLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 12</value>
@@ -176,7 +182,10 @@
     <value>中文</value>
   </data>
   <data name="languageComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 12</value>
+    <value>51, 12</value>
+  </data>
+  <data name="showVersionCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 140</value>
   </data>
   <data name="showVersionCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 16</value>
@@ -185,7 +194,7 @@
     <value>显示节点ID等信息</value>
   </data>
   <data name="useBasicDisplayNameCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 187</value>
+    <value>14, 189</value>
   </data>
   <data name="useBasicDisplayNameCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 16</value>
@@ -194,7 +203,7 @@
     <value>只显示属性和方法的基本名字</value>
   </data>
   <data name="showProfileCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 212</value>
+    <value>14, 213</value>
   </data>
   <data name="showProfileCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>264, 16</value>
@@ -207,13 +216,16 @@
     <value>NoControl</value>
   </data>
   <data name="checkBoxTweatAsError.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 235</value>
+    <value>14, 163</value>
   </data>
   <data name="checkBoxTweatAsError.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 16</value>
   </data>
   <data name="checkBoxTweatAsError.Text" xml:space="preserve">
     <value>动作节点里没有配置则当作错误</value>
+  </data>
+  <data name="limitDisplayLengthCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 237</value>
   </data>
   <data name="limitDisplayLengthCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 16</value>
@@ -222,7 +234,7 @@
     <value>限制节点的显示长度:</value>
   </data>
   <data name="displayLengthNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>148, 257</value>
+    <value>158, 234</value>
   </data>
   <data name="themeComboBox.Items" xml:space="preserve">
     <value>传统</value>
@@ -231,10 +243,13 @@
     <value>现代</value>
   </data>
   <data name="themeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>197, 12</value>
+    <value>232, 12</value>
+  </data>
+  <data name="themeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
   </data>
   <data name="themLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 15</value>
+    <value>180, 15</value>
   </data>
   <data name="themLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 12</value>
@@ -243,16 +258,16 @@
     <value>主题:</value>
   </data>
   <data name="resetLayoutButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>197, 58</value>
+    <value>232, 43</value>
   </data>
   <data name="resetLayoutButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 23</value>
+    <value>100, 22</value>
   </data>
   <data name="resetLayoutButton.Text" xml:space="preserve">
-    <value>重置布局</value>
+    <value>重置个人数据</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>299, 319</value>
+    <value>345, 296</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

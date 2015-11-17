@@ -126,7 +126,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="acceptButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>179, 290</value>
+    <value>181, 264</value>
   </data>
   <data name="acceptButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 21</value>
@@ -148,13 +148,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;acceptButton.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>16</value>
   </data>
   <data name="cancelButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>265, 290</value>
+    <value>267, 264</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 21</value>
@@ -175,13 +175,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>15</value>
   </data>
   <data name="nodeToolTipsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="nodeToolTipsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 42</value>
+    <value>12, 44</value>
   </data>
   <data name="nodeToolTipsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 16</value>
@@ -202,13 +202,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;nodeToolTipsCheckBox.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="showControlsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="showControlsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 65</value>
+    <value>12, 67</value>
   </data>
   <data name="showControlsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 16</value>
@@ -229,13 +229,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;showControlsCheckBox.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="checkBoxChecktheLatest.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBoxChecktheLatest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 89</value>
+    <value>12, 91</value>
   </data>
   <data name="checkBoxChecktheLatest.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 16</value>
@@ -256,13 +256,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBoxChecktheLatest.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="dumpConnectDataCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="dumpConnectDataCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 113</value>
+    <value>12, 115</value>
   </data>
   <data name="dumpConnectDataCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>228, 16</value>
@@ -283,33 +283,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;dumpConnectDataCheckBox.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="checkBoxBreakAPP.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxBreakAPP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 137</value>
-  </data>
-  <data name="checkBoxBreakAPP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 16</value>
-  </data>
-  <data name="checkBoxBreakAPP.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="checkBoxBreakAPP.Text" xml:space="preserve">
-    <value>Break App Side</value>
-  </data>
-  <data name="&gt;&gt;checkBoxBreakAPP.Name" xml:space="preserve">
-    <value>checkBoxBreakAPP</value>
-  </data>
-  <data name="&gt;&gt;checkBoxBreakAPP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxBreakAPP.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxBreakAPP.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
   <data name="languageLabel.AutoSize" type="System.Boolean, mscorlib">
@@ -319,7 +292,7 @@
     <value>NoControl</value>
   </data>
   <data name="languageLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 15</value>
+    <value>10, 15</value>
   </data>
   <data name="languageLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 12</value>
@@ -355,7 +328,7 @@
     <value>Chinese</value>
   </data>
   <data name="languageComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>69, 12</value>
+    <value>76, 12</value>
   </data>
   <data name="languageComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -382,7 +355,7 @@
     <value>NoControl</value>
   </data>
   <data name="showVersionCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 162</value>
+    <value>12, 137</value>
   </data>
   <data name="showVersionCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 16</value>
@@ -412,7 +385,7 @@
     <value>NoControl</value>
   </data>
   <data name="useBasicDisplayNameCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 186</value>
+    <value>12, 161</value>
   </data>
   <data name="useBasicDisplayNameCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>276, 16</value>
@@ -445,7 +418,7 @@
     <value>NoControl</value>
   </data>
   <data name="showProfileCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 210</value>
+    <value>12, 185</value>
   </data>
   <data name="showProfileCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>330, 16</value>
@@ -472,7 +445,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxTweatAsError.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 234</value>
+    <value>12, 209</value>
   </data>
   <data name="checkBoxTweatAsError.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 16</value>
@@ -502,7 +475,7 @@
     <value>NoControl</value>
   </data>
   <data name="limitDisplayLengthCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 259</value>
+    <value>12, 234</value>
   </data>
   <data name="limitDisplayLengthCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 16</value>
@@ -526,7 +499,7 @@
     <value>4</value>
   </data>
   <data name="displayLengthNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 259</value>
+    <value>265, 233</value>
   </data>
   <data name="displayLengthNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 21</value>
@@ -559,7 +532,7 @@
     <value>241, 12</value>
   </data>
   <data name="themeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 20</value>
+    <value>100, 20</value>
   </data>
   <data name="themeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -613,16 +586,16 @@
     <value>NoControl</value>
   </data>
   <data name="resetLayoutButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>239, 58</value>
+    <value>196, 44</value>
   </data>
   <data name="resetLayoutButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 23</value>
+    <value>146, 22</value>
   </data>
   <data name="resetLayoutButton.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
   </data>
   <data name="resetLayoutButton.Text" xml:space="preserve">
-    <value>Reset Layout</value>
+    <value>Reset Personal Data</value>
   </data>
   <data name="&gt;&gt;resetLayoutButton.Name" xml:space="preserve">
     <value>resetLayoutButton</value>
@@ -643,7 +616,7 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>348, 319</value>
+    <value>348, 292</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

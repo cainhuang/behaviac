@@ -60,8 +60,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The node this class belongs to.
             /// </summary>
-            public BaseNode Owner
-            {
+            public BaseNode Owner {
                 get { return _owner; }
             }
 
@@ -70,8 +69,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// A list of all children connected via connectors.
             /// </summary>
-            public IList<BaseNode> Children
-            {
+            public IList<BaseNode> Children {
                 get
                 {
                     RebuildChildList();
@@ -82,8 +80,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// All connectors registered on the ndoe.
             /// </summary>
-            public IList<Connector> Connectors
-            {
+            public IList<Connector> Connectors {
                 get { return _connectors.AsReadOnly(); }
             }
 
@@ -91,32 +88,28 @@ namespace Behaviac.Design.Nodes
             /// Creates a new instance to store all available connectors on an node.
             /// </summary>
             /// <param name="owner">The node this instance belongs to.</param>
-            public ConnectedChildren(BaseNode owner)
-            {
+            public ConnectedChildren(BaseNode owner) {
                 _owner = owner;
             }
 
             /// <summary>
             /// Rebuilds the list of all children connected via connectors.
             /// </summary>
-            protected void RebuildChildList()
-            {
-                if (_requiresRebuild)
-                {
+            protected void RebuildChildList() {
+                if (_requiresRebuild) {
                     _requiresRebuild = false;
 
                     // clear the list
                     _children.Clear();
 
                     // for every connector
-                    foreach (Connector connector in _connectors)
-                    {
+                    foreach(Connector connector in _connectors) {
                         // add its children
-                        for (int i = 0; i < connector.ChildCount; ++i)
-                        {
+                        for (int i = 0; i < connector.ChildCount; ++i) {
                             BaseNode child = connector.GetChild(i);
+
                             if (child != null)
-                                _children.Add(child);
+                            { _children.Add(child); }
                         }
                     }
                 }
@@ -126,13 +119,11 @@ namespace Behaviac.Design.Nodes
             /// Registeres a connector.
             /// </summary>
             /// <param name="connector">The connector which will be registered.</param>
-            public void RegisterConnector(Connector connector)
-            {
+            public void RegisterConnector(Connector connector) {
                 // check if this connector has already been registered. The identifier must be unique on the node.
-                foreach (Connector conn in _connectors)
-                {
+                foreach(Connector conn in _connectors) {
                     if (conn.Identifier == connector.Identifier)
-                        throw new Exception(Resources.ExceptionDuplicatedConnectorIdentifier);
+                    { throw new Exception(Resources.ExceptionDuplicatedConnectorIdentifier); }
                 }
 
                 // add the connector and queue and update of the child list
@@ -141,18 +132,17 @@ namespace Behaviac.Design.Nodes
 
                 // add the visual subitems for the connector
                 NodeViewData nvd = _owner as NodeViewData;
-                if (nvd != null)
-                {
+
+                if (nvd != null) {
                     for (int i = 0; i < connector.MinCount; ++i)
-                        nvd.AddSubItem(new NodeViewData.SubItemConnector(connector, null, i));
+                    { nvd.AddSubItem(new NodeViewData.SubItemConnector(connector, null, i)); }
                 }
             }
 
             /// <summary>
             /// Queues a rebuild of the list of children.
             /// </summary>
-            public void RequiresRebuild()
-            {
+            public void RequiresRebuild() {
                 _requiresRebuild = true;
             }
 
@@ -161,14 +151,11 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="child">The child whose connector we are looking for.</param>
             /// <returns>Returns null if no connector could be found.</returns>
-            public Connector GetConnector(BaseNode child)
-            {
-                foreach (Connector connector in _connectors)
-                {
-                    for (int i = 0; i < connector.ChildCount; ++i)
-                    {
+            public Connector GetConnector(BaseNode child) {
+                foreach(Connector connector in _connectors) {
+                    for (int i = 0; i < connector.ChildCount; ++i) {
                         if (connector.GetChild(i) == child)
-                            return connector;
+                        { return connector; }
                     }
                 }
 
@@ -180,18 +167,19 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="identifier">The identifier we are looking for.</param>
             /// <returns>Returns null if no connector with this identifier exists.</returns>
-            public Connector GetConnector(string identifier)
-            {
-                foreach (Connector connector in _connectors)
-                {
+            public Connector GetConnector(string identifier) {
+                Connector defaultConnector = null;
+                foreach(Connector connector in _connectors) {
                     if (connector.Identifier == identifier)
-                        return connector;
+                    { return connector; }
+
+                    defaultConnector = connector;
                 }
 
-                if (_connectors.Count > 0)
-                    return _connectors[0];
+                if (defaultConnector == null && _connectors.Count > 0)
+                { defaultConnector = _connectors[0]; }
 
-                return null;
+                return defaultConnector;
             }
 
             /// <summary>
@@ -199,16 +187,14 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="conn">The connector we want to check.</param>
             /// <returns>Returns true if the connector is registered.</returns>
-            public bool HasConnector(Connector conn)
-            {
+            public bool HasConnector(Connector conn) {
                 return _connectors.Contains(conn);
             }
 
             /// <summary>
             /// The number of children connected.
             /// </summary>
-            public int ChildCount
-            {
+            public int ChildCount {
                 get
                 {
                     RebuildChildList();
@@ -216,8 +202,7 @@ namespace Behaviac.Design.Nodes
                 }
             }
 
-            public System.Collections.IEnumerator GetEnumerator()
-            {
+            public System.Collections.IEnumerator GetEnumerator() {
                 RebuildChildList();
                 return _children.GetEnumerator();
             }
@@ -227,27 +212,24 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="child">The node we want to adopt.</param>
             /// <returns>Returns true if this node can adopt the given child.</returns>
-            public bool CanAdoptNode(BaseNode child)
-            {
+            public bool CanAdoptNode(BaseNode child) {
                 Connector connector = (child != null && child.ParentConnector != null) ? GetConnector(child.ParentConnector.Identifier) : null;
-                return (connector != null) ? connector.AcceptsChild(child.GetType()) : false;
+                return (connector != null) ? connector.AcceptsChild(child) : false;
             }
 
             /// <summary>
             /// Clears all children from all connectors.
             /// </summary>
-            public void ClearChildren()
-            {
-                foreach (Connector conn in _connectors)
-                    conn.ClearChildren();
+            public void ClearChildren() {
+                foreach(Connector conn in _connectors)
+                conn.ClearChildren();
             }
 
             /// <summary>
             /// Exchanges any registered connector with the given one. This is used internally for subreferenced behaviours.
             /// </summary>
             /// <param name="connector">The connector which will replace all the others.</param>
-            public void SetConnector(Connector connector)
-            {
+            public void SetConnector(Connector connector) {
                 _connectors.Clear();
                 _connectors.Add(connector);
 
@@ -257,8 +239,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// This is used internally for subreferenced behaviours.
             /// </summary>
-            public void ClearConnectors()
-            {
+            public void ClearConnectors() {
                 _connectors.Clear();
                 _requiresRebuild = true;
             }

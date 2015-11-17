@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,7 +26,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            DecoratorFrames decoratorFrames = node as DecoratorFrames;
+            return (decoratorFrames != null);
         }
 
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
@@ -34,14 +35,15 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             DecoratorFrames decoratorFrames = node as DecoratorFrames;
-            Debug.Check(decoratorFrames != null);
+            if (decoratorFrames == null)
+                return;
 
             if (decoratorFrames.Time != null)
             {
                 stream.WriteLine("{0}\t\tprotected override int GetFrames(Agent pAgent)", indent);
                 stream.WriteLine("{0}\t\t{{", indent);
 
-                string retStr = VariableCsExporter.GenerateCode(decoratorFrames.Time, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
+                string retStr = VariableCsExporter.GenerateCode(decoratorFrames.Time, false, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
 
                 stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
                 stream.WriteLine("{0}\t\t}}", indent);

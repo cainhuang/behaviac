@@ -18,14 +18,6 @@ using System.Reflection;
 
 namespace behaviac
 {
-    public enum ParentType
-    {
-        PT_INVALID,
-        PT_AGENT,
-        PT_INSTANCE,
-        PT_PAR
-    };
-
     public class Property
     {
         public Property(CMemberBase pMemberBase, bool bIsConst)
@@ -34,112 +26,143 @@ namespace behaviac
             m_variableId = 0;
             m_bValidDefaultValue = false;
             m_bIsConst = bIsConst;
-
-            if (this.m_memberBase != null)
-            {
-                this.m_pt = this.m_memberBase.GetParentType();
-
-                Debug.Check(this.m_pt == ParentType.PT_INVALID);
-            }
-            else
-            {
-                this.m_pt = ParentType.PT_PAR;
-            }
         }
 
         protected Property(Property copy)
         {
-            m_varaibleName = copy.m_varaibleName;
-            m_varaibleFullName = copy.m_varaibleFullName;
-            m_variableId = copy.m_variableId;
-            m_refParName = copy.m_refParName;
-			m_refParNameId = copy.m_refParNameId;
-            m_memberBase = copy.m_memberBase;
-            m_pt = copy.m_pt;
+            m_variableName = copy.m_variableName;
             m_instanceName = copy.m_instanceName;
+            m_variableId = copy.m_variableId;
+            m_memberBase = copy.m_memberBase;
+
+            m_parent = copy.m_parent;
+            m_index = copy.m_index;
 
             m_bValidDefaultValue = copy.m_bValidDefaultValue;
             m_defaultValue = copy.m_defaultValue;
             m_bIsConst = copy.m_bIsConst;
+            m_bIsStatic = copy.m_bIsStatic;
+            m_bIsLocal = copy.m_bIsLocal;
+            m_strNativeTypeName = copy.m_strNativeTypeName;
+        }
+
+        protected Property(Property parent, string indexStr)
+        {
+            m_variableName = parent.m_variableName + "[]";
+            m_instanceName = parent.m_instanceName;
+            m_variableId = Utils.MakeVariableId(m_variableName);
+            //m_refParName = parent.m_refParName;
+            //m_refParNameId = parent.m_refParNameId;
+            m_memberBase = null;
+            m_parent = parent;
+
+            m_bValidDefaultValue = parent.m_bValidDefaultValue;
+
+            if (m_bValidDefaultValue)
+            {
+                IList asList = parent.m_defaultValue as IList;
+
+                if (asList.Count > 0)
+                {
+                    m_defaultValue = asList[0];
+                }
+            }
+
+            m_bIsConst = false;
+            m_bIsStatic = false;
+            m_bIsLocal = parent.m_bIsLocal;
+            //m_strNativeTypeName = parent.m_strNativeTypeName;
+            //m_strNativeTypeName = "int";
+
+            string[] tokens = indexStr.Split(' ');
+
+            if (tokens.Length == 1)
+            {
+                this.m_index = Property.Create("int", indexStr);
+
+            }
+            else
+            {
+                Debug.Check(tokens[0] == "int");
+                this.m_index = Property.Create(tokens[0], tokens[1], false, null);
+            }
         }
 
         ~Property()
         {
-//#if !BEHAVIAC_RELEASE
-//            if (!string.IsNullOrEmpty(this.m_varaibleFullName))
-//            {
-//                if (ms_properties.ContainsKey(this.m_varaibleFullName))
-//                {
-//                    ms_properties.Remove(this.m_varaibleFullName);
-//                }
-//            }
-//#ifdef 
         }
 
-        public void SetVariableName(string variableName)
+        public string Name
         {
-            this.m_varaibleFullName = variableName;
+            get
+            {
+                return this.m_variableName;
+            }
+            set
+            {
+                this.m_variableName = value;
 
-            string nameOnly = Utils.GetNameWithoutClassName(variableName);
-
-            this.m_variableId = Utils.MakeVariableId(nameOnly);
-            this.m_varaibleName = nameOnly;
-            //this.m_variableId = MakeVariableId(variableName);
-            //this.m_varaibleName = variableName;
+                this.m_variableId = Utils.MakeVariableId(this.m_variableName);
+            }
         }
 
-        public string GetVariableName()
+        public string InstanceName
         {
-            return this.m_varaibleName;
-        }
+            get
+            {
+                if (!string.IsNullOrEmpty(this.m_instanceName))
+                {
+                    return this.m_instanceName;
+                }
 
-        public string GetVariableFullName()
-        {
-            return this.m_varaibleFullName;
+                return m_memberBase != null ? m_memberBase.InstanceName : null;
+            }
+            set
+            {
+                this.m_instanceName = value;
+            }
         }
-
+        /// <summary>
+        /// get variableId
+        /// </summary>
+        /// <returns></returns>
         public uint GetVariableId()
         {
             return m_variableId;
         }
-
-        public string GetClassNameString()
+        public uint VariableId
         {
-            return m_memberBase != null ? m_memberBase.GetClassNameString() : null;
+            get
+            {
+                return m_variableId;
+            }
         }
 
-        public string GetInstanceNameString()
-        {
-            if (!string.IsNullOrEmpty(m_instanceName))
-            {
-                return m_instanceName;
-            }
+        private bool m_bIsStatic;
 
-            return m_memberBase != null ? m_memberBase.GetInstanceNameString() : null;
+        public bool IsStatic
+        {
+            get
+            {
+                return this.m_bIsStatic;
+            }
+            set
+            {
+                this.m_bIsStatic = value;
+            }
         }
 
-        public void SetInstanceNameString(string agentIntanceName)
+        private bool m_bIsLocal;
+
+        public bool IsLocal
         {
-            bool bValidName = !string.IsNullOrEmpty(agentIntanceName);
-
-            if (bValidName)
+            get
             {
-                Debug.Check(this.m_pt == ParentType.PT_INVALID || this.m_pt == ParentType.PT_AGENT);
-
-                if (Agent.IsNameRegistered(agentIntanceName))
-                {
-                    this.m_pt = ParentType.PT_INSTANCE;
-                    this.m_instanceName = agentIntanceName;
-                }
-                else
-                {
-                    //Debug.Check(strcmp(agentIntanceName, "Self") == 0);
-                    this.m_pt = ParentType.PT_AGENT;
-                }
+                return this.m_bIsLocal;
             }
-            else
+            set
             {
-                Debug.Check(this.m_pt == ParentType.PT_PAR);
+                this.m_bIsLocal = value;
             }
         }
 
@@ -173,7 +196,33 @@ namespace behaviac
                 return null;
             }
         }
+        private string m_strNativeTypeName;
+        public string NativeTypeName
+        {
+            get
+            {
+                return m_strNativeTypeName;
 
+                //string strName = null;
+                //if (PropertyType != null)
+                //{
+                //    strName = Utils.GetNativeTypeName(PropertyType);
+                //    if (!string.IsNullOrEmpty(strName))
+                //    {
+                //        return strName;
+                //    }
+                //}
+                //if (!string.IsNullOrEmpty(m_strNativeTypeName))
+                //{
+                //    return Utils.GetNativeTypeName(m_strNativeTypeName);
+                //}
+                //return null;
+            }
+            set
+            {
+                m_strNativeTypeName = Utils.GetNativeTypeName(value).Replace("::", ".");
+            }
+        }
         public Property clone()
         {
             return new Property(this);
@@ -202,94 +251,122 @@ namespace behaviac
             return 0;
         }
 
-        public float DifferencePercentage(Property other)
+        public float GetRange()
+        {
+            if (this.m_memberBase != null)
+            {
+                return this.m_memberBase.GetRange();
+            }
+
+            return 1.0f;
+        }
+
+        public float DifferencePercentage(Property other, float range)
         {
             //return const_cast<CMemberBase*>(this.m_memberBase).DifferencePercentage(this, other);
-			object lV = this.GetDefaultValue ();
-			object rV = other.GetDefaultValue ();
+            object lV = this.GetDefaultValue();
+            object rV = other.GetDefaultValue();
 
-			float range = this.m_memberBase.GetRange ();
+            float leftValue = 0.0f;
+            float rightValue = 0.0f;
 
-			float leftValue = 0.0f;
-			float rightValue = 0.0f;
-			if (lV.GetType () == typeof(float)) 
-			{
-				leftValue = (float)lV;
-				rightValue = (float)rV;
-			}
-			else if (lV.GetType () == typeof(long)) 
-			{
-				leftValue = (long)lV;
-				rightValue = (long)rV;
-			}
-			else if (lV.GetType () == typeof(int)) 
-			{
-				leftValue = (int)lV;
-				rightValue = (int)rV;
-			}
-			else if (lV.GetType () == typeof(short)) 
-			{
-				leftValue = (short)lV;
-				rightValue = (short)rV;
-			}
-			else if (lV.GetType () == typeof(sbyte)) 
-			{
-				leftValue = (sbyte)lV;
-				rightValue = (sbyte)rV;
-			}
-			else if (lV.GetType () == typeof(ulong)) 
-			{
-				leftValue = (ulong)lV;
-				rightValue = (ulong)rV;
-			}
-			else if (lV.GetType () == typeof(uint)) 
-			{
-				leftValue = (uint)lV;
-				rightValue = (uint)rV;
-			}
-			else if (lV.GetType () == typeof(ushort)) 
-			{
-				leftValue = (ushort)lV;
-				rightValue = (ushort)rV;
-			}
-			else if (lV.GetType () == typeof(byte)) 
-			{
-				leftValue = (byte)lV;
-				rightValue = (byte)rV;
-			}
+            if (lV.GetType() == typeof(float))
+            {
+                leftValue = (float)lV;
+                rightValue = (float)rV;
 
-			float d = leftValue - rightValue;
-			if (d < 0.0f) 
-			{
-				d = -d;
-			}
+            }
+            else if (lV.GetType() == typeof(long))
+            {
+                leftValue = (long)lV;
+                rightValue = (long)rV;
+
+            }
+            else if (lV.GetType() == typeof(int))
+            {
+                leftValue = (int)lV;
+                rightValue = (int)rV;
+
+            }
+            else if (lV.GetType() == typeof(short))
+            {
+                leftValue = (short)lV;
+                rightValue = (short)rV;
+
+            }
+            else if (lV.GetType() == typeof(sbyte))
+            {
+                leftValue = (sbyte)lV;
+                rightValue = (sbyte)rV;
+
+            }
+            else if (lV.GetType() == typeof(ulong))
+            {
+                leftValue = (ulong)lV;
+                rightValue = (ulong)rV;
+
+            }
+            else if (lV.GetType() == typeof(uint))
+            {
+                leftValue = (uint)lV;
+                rightValue = (uint)rV;
+
+            }
+            else if (lV.GetType() == typeof(ushort))
+            {
+                leftValue = (ushort)lV;
+                rightValue = (ushort)rV;
+
+            }
+            else if (lV.GetType() == typeof(byte))
+            {
+                leftValue = (byte)lV;
+                rightValue = (byte)rV;
+            }
+
+            float d = leftValue - rightValue;
+
+            if (d < 0.0f)
+            {
+                d = -d;
+            }
 
             return d / range;
         }
 
         public void Instantiate(Agent pAgent)
         {
-            object v = this.GetDefaultValue();
-            Debug.Check(this.m_memberBase == null);
+            //if it is a member property, don't instantiate it, otherwise it will have two copies can causes inconsistency
+            if (this.m_memberBase == null)
+            {
+                object v = this.GetDefaultValue();
 
-            pAgent.Instantiate(v, this);
+                if (this.IsStatic)
+                {
+                    this.SetValue(pAgent, v);
+                }
+                else
+                {
+                    pAgent.Instantiate(v, this);
+                }
+            }
         }
-
 
         public void UnInstantiate(Agent pAgent)
         {
-            Debug.Check(this.m_memberBase == null);
-
-            pAgent.UnInstantiate(this.m_varaibleName);
+            if (this.m_memberBase == null)
+            {
+                pAgent.UnInstantiate(this.m_variableName);
+            }
         }
 
         public void UnLoad(Agent pAgent)
         {
-            Debug.Check(this.m_memberBase == null);
-
-            pAgent.UnLoad(this.m_varaibleName);
+            if (this.m_memberBase == null)
+            {
+                pAgent.UnLoad(this.m_variableName);
+            }
         }
-
 
         public void SetDefaultValue(Property r)
         {
@@ -300,27 +377,13 @@ namespace behaviac
         public void SetDefaultValue(object v)
         {
             this.m_bValidDefaultValue = true;
+            //this.m_defaultValue = Utils.Clone(v);
             this.m_defaultValue = v;
         }
 
         public bool SetDefaultValue(string valStr)
         {
-			Type type = null;
-            if (this.m_memberBase != null) 
-			{
-				type = this.m_memberBase.MemberType;
-			} 
-			else if (this.m_bValidDefaultValue) 
-			{
-				Debug.Check (this.m_defaultValue != null);
-				type = this.m_defaultValue.GetType ();
-			} 
-			else 
-			{
-				Debug.Check(false);
-			}
-
-            this.m_defaultValue = StringUtils.FromString(type, valStr, false);
+            this.m_defaultValue = this.FromString(valStr);
 
             if (this.m_defaultValue != null)
             {
@@ -330,54 +393,82 @@ namespace behaviac
             }
 
             return false;
+        }
+
+        public object FromString(string valStr)
+        {
+            Type type = null;
+
+            if (this.m_memberBase != null)
+            {
+                type = this.m_memberBase.MemberType;
+
+            }
+            else if (this.m_bValidDefaultValue)
+            {
+                Debug.Check(this.m_defaultValue != null);
+                type = this.m_defaultValue.GetType();
+
+            }
+            else
+            {
+                Debug.Check(false);
+            }
+
+            object v = StringUtils.FromString(type, valStr, false);
+
+            return v;
+        }
+
+        public Property CreateElelmentAccessor(string vecotrAcessorIndex)
+        {
+            Property elementAccessor = new Property(this, vecotrAcessorIndex);
+
+            return elementAccessor;
         }
 
         public bool SetDefaultValue(string valStr, Type type)
         {
-            Debug.Check(this.m_memberBase == null);
-
-            this.m_defaultValue = StringUtils.FromString(type, valStr, false);
-
-            if (this.m_defaultValue != null)
+            if (this.m_memberBase == null)
             {
-                this.m_bValidDefaultValue = true;
+                this.m_defaultValue = StringUtils.FromString(type, valStr, false);
 
-                return true;
+                if (this.m_defaultValue != null)
+                {
+                    this.m_bValidDefaultValue = true;
+
+                    return true;
+                }
             }
 
             return false;
         }
 
-        object GetDefaultValue()
+        private object GetDefaultValue()
         {
             Debug.Check(this.m_bValidDefaultValue);
 
             return this.m_defaultValue;
         }
-
-        public void SetValue(Agent parent, object v)
+        protected virtual void SetValue(object value)
         {
-            Debug.Check(!Object.ReferenceEquals(parent, null));
+            Debug.Check(false, "should call parent's SetValue method");
+        }
+        public void SetValue(Agent pSelf, object v)
+        {
+            Debug.Check(!Object.ReferenceEquals(pSelf, null));
             Debug.Check(!m_bIsConst);
 
+            if (this.m_parent != null)
+            {
+                this.SetVectorElement(pSelf, v);
+                return;
+            }
+
             string staticClassName = null;
+
             if (this.m_memberBase != null)
             {
-#if !BEHAVIAC_RELEASE
-                ParentType pt = this.m_memberBase.GetParentType();
-
-                if (pt == ParentType.PT_INSTANCE)
-                {
-                    Agent pInstance = Agent.GetInstance(this.GetInstanceNameString(), parent.GetContextId());
-                    Debug.Check(Object.ReferenceEquals(pInstance, parent));
-                }
-#endif//
-                if (this.m_pt == ParentType.PT_INSTANCE)
-                {
-                    Agent pInstance = Agent.GetInstance(this.GetInstanceNameString(), parent.GetContextId());
-                    parent = pInstance;
-                }
-
                 //don't update member as v is indeed the member itsef!
                 //this.m_memberBase.Set(parent, v);
 
@@ -385,109 +476,147 @@ namespace behaviac
                 {
                     staticClassName = this.m_memberBase.GetClassNameString();
                 }
+
+            }
+            else if (this.IsStatic)
+            {
+                staticClassName = pSelf.GetClassTypeName();
             }
 
-			parent.SetVariableRegistry(this.m_memberBase, this.m_varaibleName, v, staticClassName, this.m_variableId);
+            Agent pInstance = this.GetParentAgent(pSelf);
+            Agent parent = pInstance;
+
+            parent.SetVariableRegistry(this.m_bIsLocal, this.m_memberBase, this.m_variableName, v, staticClassName, this.m_variableId);
         }
 
-        public object GetValue(Agent parent)
+        public object GetValue(Agent pSelf)
+        {
+            if (this.m_parent != null)
+            {
+                return this.GetVectorElement(pSelf);
+            }
+
+            if (pSelf == null || m_bIsConst)
+            {
+                return this.GetDefaultValue();
+
+            }
+            else
+            {
+                string staticClassName = null;
+
+                if (this.m_memberBase != null)
+                {
+#if !BEHAVIAC_RELEASE
+                    Agent pInstance = this.GetParentAgent(pSelf);
+                    Debug.Check(pSelf == pInstance);
+#endif
+
+                }
+                else if (this.IsStatic)
+                {
+                    staticClassName = pSelf.GetClassTypeName();
+                }
+
+                object pVariable = pSelf.GetVariableRegistry(staticClassName, this.m_memberBase, this.m_variableId);
+
+                return pVariable;
+            }
+        }
+
+        private object GetVectorElement(Agent pSelf)
+        {
+            Debug.Check(this.m_index != null);
+            Agent parentParent = this.m_parent.GetParentAgent(pSelf);
+            object parentObject = this.m_parent.GetValue(parentParent);
+
+            Agent indexParent = this.m_index.GetParentAgent(pSelf);
+            object indexObject = this.m_index.GetValue(indexParent);
+
+            Debug.Check(parentObject is IList);
+            IList asList = parentObject as IList;
+            Debug.Check(indexObject is int);
+            int index = (int)indexObject;
+
+            if (index < asList.Count)
+            {
+                object elementObject = asList[index];
+
+                return elementObject;
+            }
+
+            Debug.Check(false);
+
+            return null;
+        }
+
+        private void SetVectorElement(Agent pSelf, object v)
+        {
+            Debug.Check(this.m_index != null);
+            Agent parentParent = this.m_parent.GetParentAgent(pSelf);
+            object parentObject = this.m_parent.GetValue(parentParent);
+
+            Agent indexParent = this.m_index.GetParentAgent(pSelf);
+            object indexObject = this.m_index.GetValue(indexParent);
+
+            Debug.Check(parentObject is IList);
+            IList asList = parentObject as IList;
+            Debug.Check(indexObject is int);
+            int index = (int)indexObject;
+
+            asList[index] = v;
+
+#if !BEHAVIAC_RELEASE
+
+            if (pSelf != null && pSelf.PlanningTop >= 0)
+            {
+                string varName = string.Format("{0}[{1}]", this.m_parent.Name, index);
+                LogManager.LogVarValue(pSelf, varName, v);
+            }
+
+#endif
+        }
+
+        public object GetValue(Agent parent, Agent pSelf)
         {
             if (parent == null || m_bIsConst)
             {
                 return this.GetDefaultValue();
+
             }
             else
             {
+                if (this.m_parent != null)
+                {
+                    return this.GetVectorElement(pSelf);
+                }
+
+                string staticClassName = null;
+
                 if (this.m_memberBase != null)
                 {
-#if !BEHAVIAC_RELEASE
-                    ParentType pt = this.m_memberBase.GetParentType();
-                    if (pt == ParentType.PT_INSTANCE)
-                    {
-                        Agent pInstance = Agent.GetInstance(this.GetInstanceNameString(), parent.GetContextId());
-                        Debug.Check(Object.ReferenceEquals(pInstance, parent));
-                    }
-#endif//
-                    if (this.m_pt == ParentType.PT_INSTANCE)
-                    {
-                        Agent pInstance = Agent.GetInstance(this.GetInstanceNameString(), parent.GetContextId());
-                        parent = pInstance;
-                    }
+                    Agent pInstance = this.GetParentAgent(pSelf);
+                    pSelf = pInstance;
 
-                    object pVariable = this.m_memberBase.Get(parent);
-
-                    return pVariable;
                 }
-                else
+                else if (this.IsStatic)
                 {
-                    return parent.GetVariable(this.m_varaibleName);
+                    staticClassName = pSelf.GetClassTypeName();
                 }
+
+                object pVariable = pSelf.GetVariableRegistry(staticClassName, this.m_memberBase, this.m_variableId);
+
+                return pVariable;
             }
         }
 
-        public object GetValue(Agent parent, Agent parHolder)
-        {
-            if (parent == null || m_bIsConst)
-            {
-                return this.GetDefaultValue();
-            }
-            else
-            {
-                if (this.m_memberBase != null)
-                {
-#if !BEHAVIAC_RELEASE
-                    ParentType pt = this.m_memberBase.GetParentType();
-                    if (pt == ParentType.PT_INSTANCE)
-                    {
-						Agent pInstance = Agent.GetInstance(this.GetInstanceNameString(), parHolder.GetContextId());
-						Debug.Check(Object.ReferenceEquals(pInstance, parHolder));
-                    }
-#endif//
-                    if (this.m_pt == ParentType.PT_INSTANCE)
-                    {
-						Agent pInstance = Agent.GetInstance(this.GetInstanceNameString(), parHolder.GetContextId());
-						parHolder = pInstance;
-                    }
-
-					object pVariable = this.m_memberBase.Get(parHolder);
-
-                    return pVariable;
-                }
-                else
-                {
-                    return parHolder.GetVariable(this.m_varaibleName);
-                }
-            }
-        }
-
-        public ParentType GetParentType()
-        {
-            return m_pt;
-        }
-
-
-        public void SetRefName(string refParName)
-        {
-            m_refParName = refParName;
-			m_refParNameId = Utils.MakeVariableId (m_refParName);
-        }
-
-        public string GetRefName()
-        {
-            return this.m_refParName;
-        }
-
-		public uint GetRefNameId()
-		{
-			return this.m_refParNameId;
-		}
 #if K_TYPE_CREATOR_
-		template<typename T>
+        template<typename T>
         static bool Register(string typeName)
         {
             PropertyCreators()[typeName] = &Creator<T>;
 
-			return true;
+            return true;
         }
         template<typename T>
         static void UnRegister(string typeName)
@@ -499,284 +628,203 @@ namespace behaviac
         static void UnRegisterBasicTypes();
 #endif//#if K_TYPE_CREATOR_
 
-        static string ParseInstanceNameProperty(string fullName, ref string instanceName)
+        private static string ParseInstanceNameProperty(string fullName, ref string instanceName, ref string agentType)
         {
             //Self.AgentActionTest::Action2(0)
             int pClassBegin = fullName.IndexOf('.');
+
             if (pClassBegin != -1)
             {
                 instanceName = fullName.Substring(0, pClassBegin).Replace("::", ".");
 
                 string propertyName = fullName.Substring(pClassBegin + 1);
-                return propertyName;
+                int variableEnd = propertyName.LastIndexOf(':');
+                Debug.Check(variableEnd != -1);
+
+                agentType = propertyName.Substring(0, variableEnd - 1).Replace("::", ".");
+                string variableName = propertyName.Substring(variableEnd + 1);
+                return variableName;
             }
 
             return fullName;
         }
 
-        ///create instance property, 
-        ///create class scope static property
-        public static Property Create(string typeName, string variableName, string value, bool bStatic, bool bConst)
+        public static Property Create(string typeName, string valueStr)
         {
-            if (!bConst)
-            {
-                string instanceName = null;
-                string pPropertyName = null;
+            bool bConst = true;
 
-                bool bParVar = Utils.IsParVar(variableName);
-                if (bParVar)
-                {
-                    pPropertyName = string.Format("{0}::{1}", typeName, variableName);
-                }
-                else
-                {
-                    pPropertyName = ParseInstanceNameProperty(variableName, ref instanceName);
-                }
-
-                bool bFound = false;
-                if (!string.IsNullOrEmpty(pPropertyName))
-                {
-                    bFound = ms_properties.ContainsKey(pPropertyName);
-                }
-
-                if (!bFound)
-                {
-                    Property pProperty = Property.create(bParVar, bConst, typeName, pPropertyName, instanceName, value);
-                    if (!string.IsNullOrEmpty(pPropertyName))
-                    {
-                        Debug.Check(pProperty != null);
-                        ms_properties[pPropertyName] = pProperty;
-                    }
-
-                    Property pO = pProperty.clone();
-                    return pO;
-                }
-
-                Property p = ms_properties[pPropertyName];
-
-                Property pO0 = p.clone();
-				if (!string.IsNullOrEmpty(value))
-				{
-					bool bAgentPtr = IsAgentPtr (typeName, value);
-
-					if (!bAgentPtr)
-					{
-						pO0.SetDefaultValue(value);
-					}
-				}
-
-                return pO0;
-            }
-            else
-            {
-                //const
-                CMemberBase pMember = null;
-                bool bValidName = !string.IsNullOrEmpty(variableName);
-                string instanceName = null;
-
-                string pPropertyName = variableName;
-                if (bValidName)
-                {
-                    pPropertyName = ParseInstanceNameProperty(variableName, ref instanceName);
-                    pMember = Agent.FindMemberBase(pPropertyName);
-                }
-
-                if (pMember != null)
-                {
-                    Property pProperty = pMember.CreateProperty(value, true);
-
-                    return pProperty;
-                }
-                else
-                {
-                    //CMethodBase pMethod = null;
-                    //if (bValidName)
-                    //{
-                    //    pMethod = Agent.FindMethodBase(pPropertyName);
-                    //}
-
-                    //if (pMethod != null)
-                    //{
-                    //    Property pProperty = pMethod.CreateProperty(value, true);
-
-                    //    return pProperty;
-                    //}
-
-                    bool bParVar = bValidName && Utils.IsParVar(variableName);
-                    Property pProperty1 = Property.create(bParVar, bConst, typeName, pPropertyName, instanceName, value);
-
-                    return pProperty1;
-                }
-            }
-
-            //return 0;
-        }
-
-        public static Property Create(string value, CMemberBase pMemberBase, bool bConst)
-        {
-            Property p = new Property(pMemberBase, bConst);
-
-            //a const must have default value
-            Debug.Check(!bConst || !string.IsNullOrEmpty(value));
-
-            if (!string.IsNullOrEmpty(value))
-            {
-                if (p.SetDefaultValue(value))
-                {
-                    //
-                }
-                else
-                {
-                    //a const must have a valid default value
-                    Debug.Check(!bConst);
-                }
-            }
+            Property p = Property.create(null, bConst, typeName, null, null, valueStr);
 
             return p;
         }
 
-
-        public static void DeleteFromCache(Property property_)
+        public static Property Create(string typeName, string fullName, bool bIsStatic, string arrayIndexStr)
         {
-            string pPropertyName = property_.GetVariableFullName();
+            string instanceName = null;
+            string agentType = null;
+            string variableName = ParseInstanceNameProperty(fullName, ref instanceName, ref agentType);
 
-            if (!string.IsNullOrEmpty(pPropertyName))
+            Property pProperty = AgentProperties.GetProperty(agentType, variableName);
+
+            if (pProperty != null)
             {
-                if (ms_properties.ContainsKey(pPropertyName))
+                Debug.Check(pProperty != null);
+
+                if (pProperty.InstanceName != instanceName)
                 {
-                    //Property pProperty = ms_properties[pPropertyName];
-                    ms_properties.Remove(pPropertyName);
+                    pProperty = pProperty.clone();
+                    Debug.Check(pProperty.Name == variableName);
+                    pProperty.InstanceName = instanceName;
                 }
+
+                Debug.Check(pProperty.IsStatic == bIsStatic);
+
+                if (!string.IsNullOrEmpty(arrayIndexStr))
+                {
+                    Property vectorAccessor = pProperty.CreateElelmentAccessor(arrayIndexStr);
+
+                    return vectorAccessor;
+                }
+
             }
+            else
+            {
+                //Debug.Check(false, "accessing a not declared local variable");
+                string valueStr = null;
+                pProperty = AgentProperties.AddLocal(agentType, typeName, variableName, valueStr);
+            }
+
+            return pProperty;
         }
 
+        public static Property Create(string typeName, string instanceName, string agentType, string propertyName, string valueStr)
+        {
+            Debug.Check(!propertyName.EndsWith("]"));
+            Debug.Check(!string.IsNullOrEmpty(propertyName));
+            CMemberBase pMember = null;
+            bool bConst = false;
+
+            if (!string.IsNullOrEmpty(agentType))
+            {
+                pMember = Agent.FindMemberBase(agentType, propertyName);
+
+            }
+            else
+            {
+                Debug.Check(true);
+            }
+
+            Property p = Property.create(pMember, bConst, typeName, propertyName, instanceName, valueStr);
+
+            return p;
+        }
 
         public static void Cleanup()
         {
-            Debug.Check(ms_properties != null);
-            ms_properties.Clear();
         }
 
-        private static Type GetTypeFromName(string typeName)
+        private static bool IsAgentPtr(string typeName, string valueStr)
         {
-            if (typeName == "void*")
-            { 
-                return typeof(Agent);
-            }
-            
-            Type type = Agent.GetTypeFromName(typeName);
-            if (type == null)
+            bool bAgentPtr = false;
+
+            //it might be par or the right value of condition/assignment
+            if (!string.IsNullOrEmpty(valueStr) && valueStr == "null")
             {
-                typeName = typeName.Replace("::", ".");
-                type = Utils.GetType(typeName);
-
-                if (type == null)
-                {
-                    //typeName is not the customized struct or enums
-                    //it should be the basic types
-                    type = Utils.GetTypeFromName(typeName);
-                }
+                Debug.Check(!typeName.EndsWith("*") && Agent.IsAgentClassName(typeName));
+                bAgentPtr = true;
             }
 
-            return type;
+            return bAgentPtr;
         }
 
-
-		static bool IsAgentPtr (string typeName, string valueStr)
-		{
-			bool bAgentPtr = false;
-			//it might be par or the right value of condition/assignment
-			if (!string.IsNullOrEmpty (valueStr) && valueStr == "null") {
-				Debug.Check (Agent.IsAgentClassName (typeName));
-				bAgentPtr = true;
-			}
-			return bAgentPtr;
-		}
-
-        private static Property create(bool bParVar, bool bConst, string typeName, string variableName, string instanceName, string valueStr)
+        private static Property create(CMemberBase pMember, bool bConst, string typeName, string variableName, string instanceName, string valueStr)
         {
-            bool bValidName = !string.IsNullOrEmpty(variableName);
-            if (bValidName)
+            Debug.Check(string.IsNullOrEmpty(variableName) || !variableName.EndsWith("]"));
+
+            Property pProperty = null;
+
+            if (pMember != null)
             {
-                if (!bParVar)
-                {
-                    Property p = Agent.CreateProperty(typeName, variableName, valueStr);
+                Debug.Check(!string.IsNullOrEmpty(variableName));
+                pProperty = pMember.CreateProperty(valueStr, bConst);
+                Debug.Check(pProperty != null);
 
-                    if (bValidName && p != null && !bConst)
-                    {
-                        p.SetVariableName(variableName);
-                        p.SetInstanceNameString(instanceName);
-                    }
+            }
+            else
+            {
+                pProperty = new Property(null, bConst);
+                object v = PasrseTypeValue(typeName, valueStr);
 
-                    return p;
-                }
+                pProperty.SetDefaultValue(v);
             }
 
-			var bAgentPtr = IsAgentPtr (typeName, valueStr);
+            Debug.Check(pProperty != null);
 
-            Property pProperty = new Property(null, bConst);
+            if (!bConst)
+            {
+                Debug.Check(!string.IsNullOrEmpty(variableName));
+                pProperty.Name = variableName;
+                pProperty.InstanceName = instanceName;
+            }
+
+            return pProperty;
+        }
+
+        private static object PasrseTypeValue(string typeName, string valueStr)
+        {
+            var bAgentPtr = IsAgentPtr(typeName, valueStr);
+
             object v = null;
+
             if (!bAgentPtr)
             {
                 bool bArrayType = false;
-                //array type
-                if (typeName.StartsWith("vector<"))
+                Type type = Utils.GetTypeFromName(typeName, ref bArrayType);
+
+                if (!string.IsNullOrEmpty(valueStr))
                 {
-                    bArrayType = true;
-                }
-
-                Type type = null;
-                if (bArrayType)
-                {
-                    int bracket0 = typeName.IndexOf('<');
-                    int bracket1 = typeName.IndexOf('>');
-                    int len = bracket1 - bracket0 - 1;
-
-                    string elementType = typeName.Substring(bracket0 + 1, len);
-
-                    type = GetTypeFromName(elementType);
+                    v = StringUtils.FromString(type, valueStr, bArrayType);
                 }
                 else
                 {
-                    type = GetTypeFromName(typeName);
+                    if (type == typeof(string))
+                    {
+                        v = string.Empty;
+                    }
                 }
 
-                v = StringUtils.FromString(type, valueStr, bArrayType);
             }
             else
             {
                 v = null;
             }
 
-            pProperty.SetDefaultValue(v);
-
-            if (bValidName && pProperty != null && !bConst)
-            {
-                pProperty.SetVariableName(variableName);
-            }
-
-            return pProperty;
+            return v;
         }
 
-        private static Dictionary<string, Property> ms_properties = new Dictionary<string, Property>();
 
-        protected string m_varaibleName;
-        protected string m_varaibleFullName;
-        protected uint m_variableId;
-        protected readonly CMemberBase m_memberBase;
-        protected string m_refParName;
-		protected uint m_refParNameId;
 
-        protected ParentType m_pt;
+
+
+        protected string m_variableName;
         protected string m_instanceName;
+        protected uint m_variableId;
+
+
+        protected Property m_parent;
+        protected Property m_index;
+
+        protected readonly CMemberBase m_memberBase;
 
         protected object m_defaultValue;
-        bool m_bValidDefaultValue;
+        private bool m_bValidDefaultValue;
         protected readonly bool m_bIsConst;
+
     };
 
-    public class IVariable
+    public abstract class IVariable
     {
+        public IVariable() { }
         public IVariable(CMemberBase pMember, string variableName, uint id)
         {
             m_id = id;
@@ -785,7 +833,7 @@ namespace behaviac
             m_pMember = pMember;
             m_instantiated = 1;
 #if !BEHAVIAC_RELEASE
-			m_changed = true;
+            m_changed = true;
 #endif
         }
 
@@ -797,10 +845,10 @@ namespace behaviac
 
             Debug.Check(this.m_property != null);
 
-            this.m_name = this.m_property.GetVariableName();
-            this.m_id = this.m_property.GetVariableId();
+            this.m_name = this.m_property.Name;
+            this.m_id = this.m_property.VariableId;
 #if !BEHAVIAC_RELEASE
-			m_changed = true;
+            m_changed = true;
 #endif
         }
 
@@ -811,11 +859,9 @@ namespace behaviac
             m_property = copy.m_property;
             m_pMember = copy.m_pMember;
             m_instantiated = copy.m_instantiated;
-			DeepCopy(out m_value, copy.m_value);
-			//m_value = copy.m_value;
 
 #if !BEHAVIAC_RELEASE
-			m_changed = copy.m_changed;
+            m_changed = copy.m_changed;
 #endif
         }
 
@@ -823,11 +869,14 @@ namespace behaviac
         { }
 
 #if !BEHAVIAC_RELEASE
+
         public bool IsChanged()
         {
             return m_changed;
         }
+
 #endif
+
         public uint GetId()
         {
             return this.m_id;
@@ -842,149 +891,286 @@ namespace behaviac
         {
             if (p != null)
             {
-                Debug.Check(this.m_name == p.GetVariableName());
-                Debug.Check(this.m_id == p.GetVariableId());
+                Debug.Check(this.m_name == p.Name);
+                Debug.Check(this.m_id == p.VariableId);
             }
 
             this.m_property = p;
         }
 
-        public object GetValue(Agent pAgent)
+        class TypeCreator
         {
-			if (this.m_pMember != null)
-			{
-				return this.m_pMember.Get(pAgent);
-			}
+            public delegate IVariable IVariableCreator();
 
-            return this.m_value;
-        }
+            IVariableCreator creator;
+            MethodInfo methodInfo;
 
-		private static void DeepCopy(out object result, object obj)
-		{
-			if (obj == null)
-			{
-				result = obj;
-				return;
-			}
-
-			Type type = obj.GetType();
-			
-			if (type.IsValueType || type == typeof(string))
-			{
-				result = obj;
-				return;
-			}
-			else if (type.IsArray)
-			{
-                Type elementType = type.GetElementType(); 
-				if (elementType == null)
-				{
-                    elementType = Type.GetType(type.FullName.Replace("[]", string.Empty));
-				}
-
-				var array = obj as Array;
-				Array copied = Array.CreateInstance(elementType, array.Length);
-				for (int i = 0; i < array.Length; i++)
-				{
-					object item;
-					DeepCopy(out item, array.GetValue(i));
-					copied.SetValue(item, i);
-				}
-
-				result = Convert.ChangeType(copied, type);
-			}
-            else if (type.IsClass)
+            public TypeCreator(IVariableCreator c)
             {
-				result = obj;
+                this.creator = c;
+            }
 
-				bool bIsNullValueType = Utils.IsNullValueType(type);
-				if (bIsNullValueType)
+            public TypeCreator(MethodInfo m)
+            {
+                this.methodInfo = m;
+            }
+
+            public IVariable Create()
+            {
+                if (creator != null)
                 {
-					result = obj;
-					return;
+                    return creator();
+                }
+                else if (methodInfo != null)
+                {
+                    return (IVariable)methodInfo.Invoke(null, null);
+                }
+                else
+                {
+                    Debug.Check(false);
                 }
 
-                object toret = Activator.CreateInstance(type);
-                FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                foreach (FieldInfo field in fields)
-                {
-                    object fieldValue = field.GetValue(obj);
-                    if (fieldValue == null)
-                        continue;
-
-					object outField;
-					DeepCopy(out outField, fieldValue);
-					field.SetValue(toret, outField);
-                }
-				result = toret;
-			}
-            else
-            {
-                //throw new ArgumentException("Unknown type");
-                Debug.Check(false);
-
-				result = obj;
-            }
-		}
-
-		public void SetValue(object value, Agent pAgent)
-		{
-			bool bProperty = false;
-			if (this.m_pMember != null)
-			{
-				this.m_pMember.Set(pAgent, value);
-				//devlelopment version needs to update m_value even for property, as it needs to be used in the logging 
-#if !BEHAVIAC_RELEASE
-#else
-				bProperty = true;
-#endif
-			}
-
-			if (!bProperty && !(Details.Equal(this.m_value, value)))
-            {
-				DeepCopy(out this.m_value, value);
-				//this.m_value = value;
-
-#if !BEHAVIAC_RELEASE
-                this.m_changed = true;
-#endif
-            }
-            else
-            {
-                //don't clear it here, it will be cleared after being logged
-                //this.m_changed = false;
+                return null;
             }
         }
 
-        public void Log(Agent pAgent)
+        static Dictionary<string, TypeCreator> ms_IVariableCreators = null;
+
+        public static IVariable Creator<T>()
         {
-            //BEHAVIAC_ASSERT(this.m_changed);
+            TVariable<T> p = new TVariable<T>();
+            return p;
+        }
 
-            string valueStr = StringUtils.ToString(this.m_value);
-			string typeName = "";
-			if (!Object.ReferenceEquals (this.m_value, null)) {
-								typeName = Utils.GetNativeTypeName (this.m_value.GetType ());
-						} else {
-								typeName = "Agent";
-						}
+        public static bool Register<T>(string typeName)
+        {
+            TypeCreator tc = new TypeCreator(Creator<T>);
 
-            string full_name = this.m_name;
-            if (!Object.ReferenceEquals(pAgent, null))
+            IVariableCreators()[typeName] = tc;
+
+            string vectorTypeName = string.Format("vector<{0}>", typeName);
+
+            TypeCreator tcl = new TypeCreator(Creator<List<T>>);
+            IVariableCreators()[vectorTypeName] = tcl;
+            return true;
+        }
+
+        public static void UnRegister<T>(string typeName)
+        {
+            IVariableCreators().Remove(typeName);
+
+            string vectorTypeName = string.Format("vector<{0}>", typeName);
+
+            IVariableCreators().Remove(vectorTypeName);
+        }
+
+        public static bool RegisterType(Type type, string typeName)
+        {
+            Type c = typeof(IVariable);
+            MethodInfo mi = c.GetMethod("Creator");
+            MethodInfo m = mi.MakeGenericMethod(type);
+            TypeCreator tc = new TypeCreator(m);
+
+            IVariableCreators()[typeName] = tc;
+
+            string vectorTypeName = string.Format("vector<{0}>", typeName);
+            Type tl = typeof(List<>).MakeGenericType(type);
+            MethodInfo ml = mi.MakeGenericMethod(tl);
+            TypeCreator tcl = new TypeCreator(ml);
+            IVariableCreators()[vectorTypeName] = tcl;
+
+            return true;
+        }
+
+        public static void UnRegisterType(Type type, string typeName)
+        {
+            IVariableCreators().Remove(typeName);
+
+            string vectorTypeName = string.Format("vector<{0}>", typeName);
+
+            IVariableCreators().Remove(vectorTypeName);
+        }
+
+        public static void RegisterBasicTypes()
+        {
+            IVariable.Register<bool>("bool");
+            IVariable.Register<Boolean>("Boolean");
+            IVariable.Register<byte>("byte");
+            IVariable.Register<byte>("ubyte");
+            IVariable.Register<Byte>("Byte");
+            IVariable.Register<char>("char");
+            IVariable.Register<Char>("Char");
+            IVariable.Register<decimal>("decimal");
+            IVariable.Register<Decimal>("Decimal");
+            IVariable.Register<double>("double");
+            IVariable.Register<Double>("Double");
+            IVariable.Register<float>("float");
+            IVariable.Register<int>("int");
+            IVariable.Register<Int16>("Int16");
+            IVariable.Register<Int32>("Int32");
+            IVariable.Register<Int64>("Int64");
+            IVariable.Register<long>("long");
+            IVariable.Register<long>("llong");
+
+            IVariable.Register<sbyte>("sbyte");
+            IVariable.Register<SByte>("SByte");
+            IVariable.Register<short>("short");
+            IVariable.Register<ushort>("ushort");
+
+            IVariable.Register<uint>("uint");
+            IVariable.Register<UInt16>("UInt16");
+            IVariable.Register<UInt32>("UInt32");
+            IVariable.Register<UInt64>("UInt64");
+            IVariable.Register<ulong>("ulong");
+            IVariable.Register<ulong>("ullong");
+            IVariable.Register<Single>("Single");
+            IVariable.Register<string>("string");
+            IVariable.Register<String>("String");
+            IVariable.Register<object>("object");
+            IVariable.Register<UnityEngine.GameObject>("UnityEngine.GameObject");
+            IVariable.Register<UnityEngine.GameObject>("GameObject");
+            IVariable.Register<UnityEngine.Vector2>("UnityEngine.Vector2");
+            IVariable.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
+            IVariable.Register<UnityEngine.Vector4>("UnityEngine.Vector4");
+            IVariable.Register<UnityEngine.Vector2>("Vector2");
+            IVariable.Register<UnityEngine.Vector3>("Vector3");
+            IVariable.Register<UnityEngine.Vector4>("Vector4");
+            IVariable.Register<behaviac.Agent>("behaviac.Agent");
+            IVariable.Register<Agent>("Agent");
+        }
+
+        public static void UnRegisterBasicTypes()
+        {
+            IVariable.UnRegister<bool>("bool");
+            IVariable.UnRegister<Boolean>("Boolean");
+            IVariable.UnRegister<byte>("byte");
+            IVariable.UnRegister<byte>("ubyte");
+            IVariable.UnRegister<Byte>("Byte");
+            IVariable.UnRegister<char>("char");
+            IVariable.UnRegister<Char>("Char");
+            IVariable.UnRegister<decimal>("decimal");
+            IVariable.UnRegister<Decimal>("Decimal");
+            IVariable.UnRegister<double>("double");
+            IVariable.UnRegister<Double>("Double");
+            IVariable.UnRegister<float>("float");
+            IVariable.UnRegister<Single>("Single");
+            IVariable.UnRegister<int>("int");
+            IVariable.UnRegister<Int16>("Int16");
+            IVariable.UnRegister<Int32>("Int32");
+            IVariable.UnRegister<Int64>("Int64");
+            IVariable.UnRegister<long>("long");
+            IVariable.UnRegister<long>("llong");
+            IVariable.UnRegister<sbyte>("sbyte");
+            IVariable.UnRegister<SByte>("SByte");
+            IVariable.UnRegister<short>("short");
+            IVariable.UnRegister<ushort>("ushort");
+
+            IVariable.UnRegister<uint>("uint");
+            IVariable.UnRegister<UInt16>("UInt16");
+            IVariable.UnRegister<UInt32>("UInt32");
+            IVariable.UnRegister<UInt64>("UInt64");
+            IVariable.UnRegister<ulong>("ulong");
+            IVariable.UnRegister<ulong>("ullong");
+
+            IVariable.UnRegister<string>("string");
+            IVariable.UnRegister<String>("String");
+            IVariable.UnRegister<object>("object");
+            IVariable.UnRegister<UnityEngine.GameObject>("UnityEngine.GameObject");
+            IVariable.UnRegister<UnityEngine.GameObject>("GameObject");
+            IVariable.UnRegister<UnityEngine.Vector2>("UnityEngine.Vector2");
+            IVariable.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
+            IVariable.UnRegister<UnityEngine.Vector4>("UnityEngine.Vector4");
+            IVariable.UnRegister<UnityEngine.Vector2>("Vector2");
+            IVariable.UnRegister<UnityEngine.Vector3>("Vector3");
+            IVariable.UnRegister<UnityEngine.Vector4>("Vector4");
+            IVariable.UnRegister<behaviac.Agent>("behaviac.Agent");
+            IVariable.UnRegister<Agent>("Agent");
+        }
+
+        /// <summary>
+        /// get IVariable Creators
+        /// </summary>
+        /// <returns></returns>
+        static Dictionary<string, TypeCreator> IVariableCreators()
+        {
+            if (ms_IVariableCreators == null)
             {
-                CMemberBase pMember = pAgent.FindMember(this.m_name);
-                if (pMember != null)
-                {
-                    string classFullName = pMember.GetClassNameString().Replace(".", "::");
-                    full_name = string.Format("{0}::{1}", classFullName, this.m_name);
-                }
+                ms_IVariableCreators = new Dictionary<string, TypeCreator>();
             }
 
-            LogManager.Log(pAgent, typeName, full_name, valueStr);
+            return ms_IVariableCreators;
+        }
+
+        private static TypeCreator GetIVariableCreatorByTypeName(string typeName)
+        {
+            Dictionary<string, TypeCreator> d = IVariableCreators();
+
+            if (!d.ContainsKey(typeName))
+            {
+                Debug.LogError(typeName + " can not found!");
+            }
+
+            TypeCreator pIVariableCreator = d[typeName];
+            Debug.Check(pIVariableCreator != null);
+            return pIVariableCreator;
+        }
+
+        public virtual void Log(Agent pAgent)
+        {
+            Debug.Check(false, "this step must go to parent's method");
+        }
+
+        public void Set(CMemberBase pMember, string variableName, uint id)
+        {
+            m_id = id;
+            m_name = variableName;
+            m_property = null;
+            m_pMember = pMember;
+            m_instantiated = 1;
+            m_instantiated = 1;
+
 #if !BEHAVIAC_RELEASE
-            this.m_changed = false;
+            m_changed = true;
 #endif
         }
 
+        public void Set(CMemberBase pMember, Property property_, object value_)
+        {
+            m_pMember = pMember;
+            m_property = property_;
+            m_instantiated = 1;
+
+            Debug.Check(this.m_property != null);
+
+            this.m_name = this.m_property.Name;
+            this.m_id = this.m_property.GetVariableId();
+            this.SetValueObject(value_);
+#if !BEHAVIAC_RELEASE
+            m_changed = true;
+#endif
+        }
+
+        public string Name
+        {
+            get
+            {
+                return this.m_name;
+            }
+        }
+
+        public virtual object GetValueObject(Agent pAgent)
+        {
+            Debug.Check(false, "this step must go to parent's method");
+            return null;
+        }
+        protected virtual void SetValueObject(object value)
+        {
+            Debug.Check(false, "should call parent's SetValue method");
+        }
+        public virtual void SetValueObject(object value, Agent pAgent)
+        {
+            Debug.Check(false, "should call parent's SetValue method");
+        }
 
         public void Reset()
         {
@@ -993,28 +1179,197 @@ namespace behaviac
 #endif
         }
 
-        public IVariable clone()
+        public virtual IVariable clone()
         {
-            IVariable pVar = new IVariable(this);
-            return pVar;
+            Debug.Check(false);
+            return null;
+        }
+        public virtual void CopyTo(Agent pAgent)
+        {
+            Debug.Check(false, "should call parent's method");
+        }
+        public virtual void Save(ISerializableNode node)
+        {
+            //base.Save(node);
+            Debug.Check(false);
+        }
+        public static IVariable CreateVariable(CMemberBase pMember, string typeNameIn, string variableName, uint varId)
+        {
+
+            string typeName = null;
+
+            if (pMember != null)
+            {
+                //Debug.Check(!string.IsNullOrEmpty(typeNameIn));
+                typeName = Utils.GetNativeTypeName(pMember.MemberType);
+            }
+            else
+            {
+                Debug.Check(!string.IsNullOrEmpty(typeNameIn));
+                typeName = typeNameIn;
+            }
+
+            TypeCreator pIVariableCreator = GetIVariableCreatorByTypeName(typeName);
+
+            IVariable pIV = pIVariableCreator.Create();
+
+            pIV.Set(pMember, variableName, varId);
+
+            return pIV;
+            //behaviac.Debug.Check(pVar != null);
+            //pVar.SetValue(value, null);
         }
 
-        public void CopyTo(Agent pAgent)
+        /// <summary>
+        /// create a Variable
+        /// </summary>
+        /// <param name="property_"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static IVariable CreateVariable(Property property_, object value)
+        {
+            string typeName = null;
+
+            string fullName = property_.NativeTypeName;
+
+            if (!string.IsNullOrEmpty(fullName))
+            {
+                typeName = fullName;
+            }
+            else
+            {
+                Debug.Check(false);
+                typeName = "object";
+            }
+
+            TypeCreator pIVariableCreator = GetIVariableCreatorByTypeName(typeName);
+
+            IVariable pIV = pIVariableCreator.Create();
+            pIV.Set(null, property_, value);
+
+            return pIV;
+        }
+
+
+
+        /// <summary>
+        /// Deep copy
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="result"></param>
+        /// <param name="obj"></param>
+        /// TODO: disappear in 3.0 , but still used in 2.1.6
+        public void Load(ISerializableNode node)
+        {
+            //base.Load(node);
+        }
+
+        public virtual void SetFromString(Agent pAgent, string valueString)
+        {
+            Debug.Check(false, "should call parent's method.");
+        }
+
+        protected uint m_id;
+        protected string m_name;
+        protected Property m_property;
+        protected CMemberBase m_pMember;
+        public byte m_instantiated;
+
+#if !BEHAVIAC_RELEASE
+        protected bool m_changed;
+#endif
+    };
+
+    public class TVariable<VariableType> : IVariable
+    {
+        public override object GetValueObject(Agent pAgent)
+        {
+            VariableType v = GetValue(pAgent);
+            return v;
+        }
+        protected override void SetValueObject(object value)
+        {
+            //force convert object type to VariableType not a good way, however it is only called in the Instantiate
+            //this.m_value = (VariableType)value;
+            //this.m_value = Utils.Clone((VariableType)value);
+            Utils.Clone(ref this.m_value , (VariableType)value);
+        }
+        public override void SetValueObject(object v, Agent pAgent)
+        {
+            VariableType v_ = (VariableType)v;
+            this.SetValue(v_, pAgent);
+        }
+
+        public TVariable() { }
+        public TVariable(TVariable<VariableType> copy)
+            : base(copy)
+        {
+            //this.m_value = Utils.Clone(copy.m_value);
+            this.m_value = copy.m_value;
+
+        }
+        public TVariable(CMemberBase pMember, string variableName, uint varId)
+            : base(pMember, variableName, varId)
+        {
+        }
+        public TVariable(CMemberBase pMember, Property property_, VariableType value)
+            : base(pMember, property_)
+        {
+            m_value = value;
+        }
+        public override IVariable clone()
+        {
+            IVariable pVar = new TVariable<VariableType>(this);
+            return pVar;
+        }
+        public override void Log(Agent pAgent)
+        {
+            //BEHAVIAC_ASSERT(this.m_changed);
+
+            LogManager.LogVarValue(pAgent, this.m_name, this.m_value);
+
+#if !BEHAVIAC_RELEASE
+            this.m_changed = false;
+#endif
+        }
+        public override void CopyTo(Agent pAgent)
         {
             if (this.m_pMember != null)
             {
                 this.m_pMember.Set(pAgent, m_value);
+
             }
             else
             {
                 Debug.Check(true);
             }
         }
+        public override void SetFromString(Agent pAgent, string valueString)
+        {
+            if (!string.IsNullOrEmpty(valueString))
+            {
+                object value = StringUtils.FromString(this.m_property.PropertyType, valueString, false);
 
-        public void Save(ISerializableNode node)
+                if (!(Details.Equals_(this.m_value, value)))
+                {
+                    this.m_value = (VariableType) value;
+#if !BEHAVIAC_RELEASE
+                    this.m_changed = true;
+#endif
+
+                    if (!Object.ReferenceEquals(pAgent, null))
+                    {
+                        if (this.m_pMember != null)
+                        {
+                            this.m_pMember.Set(pAgent, value);
+                        }
+                    }
+                }
+            }
+        }
+        public override void Save(ISerializableNode node)
         {
             //base.Save(node);
-
             CSerializationID variableId = new CSerializationID("var");
             ISerializableNode varNode = node.newChild(variableId);
 
@@ -1025,48 +1380,67 @@ namespace behaviac
             varNode.setAttr(valueId, this.m_value);
         }
 
-        public void Load(ISerializableNode node)
+        public VariableType GetValue(Agent pAgent)
         {
-            //base.Load(node);
+            //don't use member property if in planning
+            if (this.m_pMember != null && (pAgent == null || pAgent.PlanningTop == -1))
+            {
+                return (VariableType)this.m_pMember.Get(pAgent);
+            }
+
+            return this.m_value;
         }
 
-        public void SetFromString(Agent pAgent, CMemberBase pMember, string valueString)
+        public void SetValue(VariableType value, Agent pAgent)
         {
-            if (!string.IsNullOrEmpty(valueString))
-            {
-                object value = StringUtils.FromString(pMember.MemberType, valueString, false);
 
-                if (!(Details.Equal(this.m_value, value)))
+            bool bProperty = false;
+
+            //don't update member property if in planning
+            if (this.m_pMember != null && (pAgent == null || pAgent.PlanningTop == -1))
+            {
+                this.m_pMember.Set(pAgent, value);
+                //devlelopment version needs to update m_value even for property, as it needs to be used in the logging
+#if !BEHAVIAC_RELEASE
+#else
+                bProperty = true;
+#endif
+            }
+
+            if (!bProperty && !(Details.Equals_(this.m_value, value)))
+            {
+                if (this.m_value == null || !this.m_value.GetType().IsValueType)
+                {
+                    //this.m_value = Utils.Clone(value);
+                    Utils.Clone(ref this.m_value , value);
+                }
+                else
                 {
                     this.m_value = value;
-#if !BEHAVIAC_RELEASE
-                    this.m_changed = true;
-#endif
-                    if (!Object.ReferenceEquals(pAgent, null))
-                    {
-                        //const CMemberBase* pMember = pAgent.FindMember(variableName);
-
-                        if (pMember != null)
-                        {
-                            pMember.Set(pAgent, value);
-                        }
-                    }
                 }
+
+#if !BEHAVIAC_RELEASE
+                Type valueType = this.m_value != null ? this.m_value.GetType() : null;
+                Debug.Check(this.m_property == null || this.m_property.PropertyType == null || this.m_property.PropertyType == valueType);
+
+                this.m_changed = true;
+
+                if (pAgent != null && pAgent.PlanningTop >= 0)
+                {
+                    this.Log(pAgent);
+                }
+
+#endif
+
+            }
+            else
+            {
+                //don't clear it here, it will be cleared after being logged
+                //this.m_changed = false;
             }
         }
-
-        protected uint m_id;
-        protected string m_name;
-        protected Property m_property;
-        protected CMemberBase m_pMember;
-        public byte m_instantiated;
-
-		private object m_value;
-#if !BEHAVIAC_RELEASE
-		protected bool m_changed;
-#endif
-    };
-
+        private VariableType m_value;
+    }
     public class Variables
     {
         public Variables()
@@ -1088,24 +1462,24 @@ namespace behaviac
         {
             return this.m_variables.ContainsKey(varId);
         }
-
-        public void Instantiate(Property property_, object value)
+        public void Instantiate(Agent pAgent, Property property_, object value)
         {
             Debug.Check(property_ != null);
 
-            //string varirableName = property_.GetVariableName();
-            //if (varirableName == "TempTargetEnemy")
-            //{
-            //    Debug.Check(true);
-            //}
+            uint varId = property_.VariableId;
 
-            uint varId = property_.GetVariableId();
             if (!this.m_variables.ContainsKey(varId))
             {
-                IVariable pVar = new IVariable(null, property_);
-				behaviac.Debug.Check(pVar != null);
-                pVar.SetValue(value, null);
+                //IVariable pVar = new IVariable(null, property_);
+                IVariable pVar = IVariable.CreateVariable(property_, value);
+
+                //behaviac.Debug.Check(pVar != null);
+                //pVar.SetValue(value, null);
                 m_variables[varId] = pVar;
+                //IVariable pVar = new IVariable(null, property_);
+                //behaviac.Debug.Check(pVar != null);
+                //pVar.SetValue(value, pAgent);
+                //m_variables[varId] = pVar;
             }
             else
             {
@@ -1116,29 +1490,23 @@ namespace behaviac
                 if (pVar.m_instantiated == 0)
                 {
                     pVar.SetProperty(property_);
+
                 }
                 else
                 {
-                    Debug.Check(pVar.GetValue(null) == null || 
-                        (property_.GetValue(null) == null && Utils.IsNullValueType(pVar.GetValue(null).GetType())) ||
-                        pVar.GetValue(null).GetType() == property_.GetValue(null).GetType(), 
-                        "the same name par doesn't have the same type");
+                    Debug.Check(pVar.GetValueObject(pAgent) == null ||
+                                (property_.GetValue(pAgent) == null && Utils.IsRefNullType(pVar.GetValueObject(pAgent).GetType())) ||
+                                pVar.GetValueObject(pAgent).GetType() == property_.GetValue(pAgent).GetType(),
+                                "the same name par doesn't have the same type");
                 }
 
                 //use the original value, don't update it
                 pVar.m_instantiated++;
             }
         }
-
-
         public void UnInstantiate(string variableName)
         {
             Debug.Check(!string.IsNullOrEmpty(variableName));
-
-            //if (variableName == "TempTargetEnemy")
-            //{
-            //    Debug.Check(true);
-            //}
 
             uint varId = Utils.MakeVariableId(variableName);
 
@@ -1160,7 +1528,6 @@ namespace behaviac
             }
         }
 
-
         public void UnLoad(string variableName)
         {
             Debug.Check(!string.IsNullOrEmpty(variableName));
@@ -1179,103 +1546,178 @@ namespace behaviac
         {
             Debug.Check(!string.IsNullOrEmpty(variableName));
 
-            //to skip class name
-            string variableNameOnly = Utils.GetNameWithoutClassName(variableName);
+            Debug.Check(variableName.LastIndexOf(':') == -1);
 
-            CMemberBase pMember = pAgent.FindMember(variableNameOnly);
-
-            uint varId = Utils.MakeVariableId(variableNameOnly);
+            uint varId = Utils.MakeVariableId(variableName);
 
             if (this.m_variables.ContainsKey(varId))
             {
                 IVariable pVar = this.m_variables[varId];
 
-                pVar.SetFromString(pAgent, pMember, valueStr);
+                pVar.SetFromString(pAgent, valueStr);
             }
         }
-
-		public void Set(Agent pAgent, CMemberBase pMember, string variableName, object value, uint varId)
+        public virtual void SetObject(bool bMemberSet, Agent pAgent, bool bLocal, CMemberBase pMember, string variableName, object value, uint varId)
         {
             Debug.Check(!string.IsNullOrEmpty(variableName));
 
-			if (varId == 0) 
-			{
-				varId = Utils.MakeVariableId(variableName);			
-			}
-
-            IVariable pVar = null;
+            if (varId == 0)
+            {
+                varId = Utils.MakeVariableId(variableName);
+            }
 
             if (!this.m_variables.ContainsKey(varId))
             {
-				if (pMember == null)
-				{
-					if (pAgent != null)
-					{
-						pMember = pAgent.FindMember(variableName); 
-					}
-					else
-					{
-						pMember = Agent.FindMemberBase(variableName);
-					}
-				}
+                if (bMemberSet)
+                {
+                    if (pMember == null)
+                    {
+                        if (pAgent != null)
+                        {
+                            pMember = pAgent.FindMember(variableName);
+                        }
+                    }
 
-                pVar = new IVariable(pMember, variableName, varId);
-				behaviac.Debug.Check(pVar != null);
+                }
+                else
+                {
+                    pMember = null;
+                }
+
+                string typeName = null;
+
+                if (value != null)
+                {
+                    typeName = Utils.GetNativeTypeName(value.GetType());
+                }
+
+                IVariable pVar = IVariable.CreateVariable(pMember, typeName, variableName, varId);
+                behaviac.Debug.Check(pVar != null);
                 m_variables[varId] = pVar;
+                pVar.SetValueObject(value, pAgent);
+
             }
             else
             {
-                pVar = this.m_variables[varId];
+                IVariable pVar = this.m_variables[varId];
+                pVar.SetValueObject(value, pAgent);
             }
-
-			pVar.SetValue(value, pAgent);
         }
 
-		public object Get(Agent pAgent, uint varId)
+        public virtual void Set<VariableType>(bool bMemberSet, Agent pAgent, bool bLocal, CMemberBase pMember, string variableName, VariableType value, uint varId)
         {
-			if (!this.m_variables.ContainsKey(varId))
+            Debug.Check(!string.IsNullOrEmpty(variableName));
+
+            if (varId == 0)
             {
-				//possible static property
-				CMemberBase pMember = pAgent.FindMember(varId);
-				
-				if (pMember != null)
-				{
-					object pAddr = pMember.Get(pAgent);
-					
-					return pAddr;
-				}
+                varId = Utils.MakeVariableId(variableName);
+            }
+
+            if (!this.m_variables.ContainsKey(varId))
+            {
+                if (bMemberSet)
+                {
+                    if (pMember == null)
+                    {
+                        if (pAgent != null)
+                        {
+                            pMember = pAgent.FindMember(variableName);
+                        }
+                    }
+
+                }
+                else
+                {
+                    pMember = null;
+                }
+
+                string typeName = Utils.GetNativeTypeName(typeof(VariableType));
+                IVariable pVar = IVariable.CreateVariable(pMember, typeName, variableName, varId);
+                behaviac.Debug.Check(pVar != null);
+                m_variables[varId] = pVar;
+                TVariable<VariableType> tpVar = (TVariable<VariableType>)pVar;
+                tpVar.SetValue(value, pAgent);
+
+            }
+            else
+            {
+                IVariable pVar = this.m_variables[varId];
+                TVariable<VariableType> tpVar = (TVariable<VariableType>)pVar;
+                tpVar.SetValue(value, pAgent);
+            }
+        }
+
+        public virtual object GetObject(Agent pAgent, bool bMemberGet, CMemberBase pMember, uint varId)
+        {
+            if (!this.m_variables.ContainsKey(varId))
+            {
+                if (bMemberGet)
+                {
+                    if (pMember != null)
+                    {
+                        object val = pMember.Get(pAgent);
+                        return val;
+                    }
+                }
 
                 //Debug.Check(false, "a compatible property is not found");
+                return null;
+
             }
             else
             {
                 //par
-				IVariable pVar = this.m_variables[varId];
+                IVariable pVar = this.m_variables[varId];
+                Debug.Check(pVar != null);
 
+                //if out of scope
+                if (pVar.m_instantiated > 0)
                 {
-                    Property refPropety = pVar.GetProperty();
-                    if (refPropety != null)
-                    {
-                        string refName = refPropety.GetRefName();
-                        if (!string.IsNullOrEmpty(refName))
-                        {
-							return this.Get(pAgent, refPropety.GetRefNameId());
-                        }
-                    }
-
-					return pVar.GetValue(pAgent);
+                    return pVar.GetValueObject(pAgent);
                 }
             }
 
             return null;
         }
+        public virtual VariableType Get<VariableType>(Agent pAgent, bool bMemberGet, CMemberBase pMember, uint varId)
+        {
+            if (!this.m_variables.ContainsKey(varId))
+            {
+                if (bMemberGet)
+                {
+                    if (pMember != null)
+                    {
+                        VariableType val = (VariableType)pMember.Get(pAgent);
+                        return val;
+                    }
+                }
 
-        public void Log(Agent pAgent, bool bForce)
+                //Debug.Check(false, "a compatible property is not found");
+                return default(VariableType);
+
+            }
+            else
+            {
+                //par
+                IVariable pVar = this.m_variables[varId];
+                Debug.Check(pVar != null);
+
+                //if out of scope
+                if (pVar.m_instantiated > 0)
+                {
+                    return (VariableType)pVar.GetValueObject(pAgent);
+                }
+            }
+
+            return default(VariableType);
+        }
+        public virtual void Log(Agent pAgent, bool bForce)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
-                foreach (IVariable pVar in this.m_variables.Values)
+                foreach(IVariable pVar in this.m_variables.Values)
                 {
                     if (bForce || pVar.IsChanged())
                     {
@@ -1283,12 +1725,13 @@ namespace behaviac
                     }
                 }
             }
+
 #endif
         }
 
         public void Reset()
         {
-            foreach (IVariable pVar in this.m_variables.Values)
+            foreach(IVariable pVar in this.m_variables.Values)
             {
                 pVar.Reset();
             }
@@ -1303,7 +1746,7 @@ namespace behaviac
         {
             target.m_variables.Clear();
 
-            foreach (IVariable pVar in this.m_variables.Values)
+            foreach(IVariable pVar in this.m_variables.Values)
             {
                 IVariable pNew = pVar.clone();
 
@@ -1312,27 +1755,36 @@ namespace behaviac
 
             if (!Object.ReferenceEquals(pAgent, null))
             {
-                foreach (IVariable pVar in target.m_variables.Values)
+                foreach(IVariable pVar in target.m_variables.Values)
                 {
                     pVar.CopyTo(pAgent);
                 }
             }
         }
 
-        void Save(ISerializableNode node)
+        private void Save(ISerializableNode node)
         {
             CSerializationID variablesId = new CSerializationID("vars");
             ISerializableNode varsNode = node.newChild(variablesId);
 
-            foreach (IVariable pVar in this.m_variables.Values)
+            foreach(IVariable pVar in this.m_variables.Values)
             {
                 pVar.Save(varsNode);
             }
         }
-        void Load(ISerializableNode node)
-        {
 
+        private void Load(ISerializableNode node)
+        {
         }
-        private Dictionary<uint, IVariable> m_variables = new Dictionary<uint, IVariable>();
+
+        protected Dictionary<uint, IVariable> m_variables = new Dictionary<uint, IVariable>();
+
+        public Dictionary<uint, IVariable> Vars
+        {
+            get
+            {
+                return this.m_variables;
+            }
+        }
     };
 }//namespace behaviac

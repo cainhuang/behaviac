@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Concurrent
 {
-    ///SPSCQueue{T} is an efficient queue which allows one thread to use the Enqueue and another one use the Dequeue without locking 
+    ///SPSCQueue{T} is an efficient queue which allows one thread to use the Enqueue and another one use the Dequeue without locking
     public class SPSCQueue<T>
     {
         class Chunk
@@ -23,8 +23,7 @@ namespace Concurrent
             /// <param name="capacity">
             /// The number of elements that the chunk can hold.
             /// </param>
-            public Chunk(int capacity)
-            {
+            public Chunk(int capacity) {
                 values = new T[capacity];
                 head_pos = 0;
                 tail_pos = 0;
@@ -34,7 +33,7 @@ namespace Concurrent
             #endregion
         }
 
-        const int kDefaultCapacity = 200;
+        const int kDefaultCapacity = 1000;
         volatile Chunk divider_;
         readonly int granularity_;
         volatile Chunk tail_chunk_;
@@ -45,8 +44,7 @@ namespace Concurrent
         /// that has the default capacity.
         /// </summary>
         public SPSCQueue()
-            : this(kDefaultCapacity)
-        {
+            : this(kDefaultCapacity) {
         }
 
         /// <summary>
@@ -57,8 +55,7 @@ namespace Concurrent
         /// A number that defines the granularity of the queue(how many pushes
         /// have to be done till actual memory allocation is required).
         /// </param>
-        public SPSCQueue(int granularity)
-        {
+        public SPSCQueue(int granularity) {
             granularity_ = granularity;
             divider_ = new Chunk(granularity);
 
@@ -76,14 +73,12 @@ namespace Concurrent
         /// <param name="element">
         /// The element to be added to the back end of the queue.
         /// </param>
-        public void Enqueue(T element)
-        {
+        public void Enqueue(T element) {
             int tail_pos = tail_chunk_.tail_pos;
 
             // If either the queue is not empty or the tail chunk is not full, adds
             // the specified element to the back end of the current tail chunk.
-            if (tail_chunk_ != divider_ && ++tail_pos < granularity_)
-            {
+            if (tail_chunk_ != divider_ && ++tail_pos < granularity_) {
                 tail_chunk_.values[tail_pos] = element;
 
                 // Prevents any kind of instruction reorderring or caching.
@@ -132,13 +127,12 @@ namespace Concurrent
         /// This operation should be sychronized with the <see cref="Dequeue()"/>
         /// and <see cref="Dequeue(out T)"/> operations.
         /// </remarks>
-        public void Clear()
-        {
+        public void Clear() {
             // Save the current tail chunk to ensure that the future elements are
             // not cleared.
             Chunk current_tail_chunk = tail_chunk_;
-            while (divider_ != current_tail_chunk)
-            {
+
+            while (divider_ != current_tail_chunk) {
                 divider_ = divider_.next;
             }
         }
@@ -151,14 +145,14 @@ namespace Concurrent
         /// <see cref="SPSCQueue{T}"/></returns>
         /// <exception cref="InvalidOperationException">The
         /// <see cref="SPSCQueue{T}"/> is empty.</exception>
-        public T Dequeue()
-        {
+        public T Dequeue() {
             T t;
             bool ok = Dequeue(out t);
-            if (!ok)
-            {
+
+            if (!ok) {
                 throw new InvalidOperationException("invalid operation");
             }
+
             return t;
         }
 
@@ -173,11 +167,9 @@ namespace Concurrent
         /// <returns><c>true</c> if the queue is not empty and the object at the
         /// beginning of it was successfully removed; otherwise, false.
         /// </returns>
-        public bool Dequeue(out T t)
-        {
+        public bool Dequeue(out T t) {
             // checks if the queue is empty
-            while (divider_ != tail_chunk_)
-            {
+            while (divider_ != tail_chunk_) {
                 // The chunks that sits between the |divider_| and the |tail_chunk_|,
                 // excluding the |divider_| and including the |tail_chunk_|, are
                 // unconsumed.
@@ -189,24 +181,20 @@ namespace Concurrent
                 int tail_pos;
                 tail_pos = current_chunk.tail_pos;
 
-                if (current_chunk.head_pos > tail_pos)
-                {
-                    if (tail_pos == granularity_ - 1)
-                    {
+                if (current_chunk.head_pos > tail_pos) {
+                    if (tail_pos == granularity_ - 1) {
                         // we have reached the end of the chunk, go to the next chunk and
                         // frees the unused chunk.
                         divider_ = current_chunk;
                         //head_chunk_ = head_chunk_.next;
-                    }
-                    else
-                    {
+
+                    } else {
                         // we already consume all the available itens.
                         t = default(T);
                         return false;
                     }
-                }
-                else
-                {
+
+                } else {
                     // Ensure that we are reading the freshness value from the chunk
                     // values array.
                     Thread.MemoryBarrier();
@@ -223,6 +211,7 @@ namespace Concurrent
                     return true;
                 }
             }
+
             t = default(T);
             return false;
         }
@@ -236,15 +225,14 @@ namespace Concurrent
         /// thread will modify the collection after <see cref="IsEmpty"/> returns,
         /// thus invalidatind the result.
         /// </remarks>
-        public bool IsEmpty
-        {
+        public bool IsEmpty {
             get
             {
                 Chunk divider = divider_;
                 Chunk tail = tail_chunk_;
 
                 return (divider.next == tail || divider == tail) &&
-                  tail.head_pos > tail.tail_pos;
+                tail.head_pos > tail.tail_pos;
             }
         }
     }

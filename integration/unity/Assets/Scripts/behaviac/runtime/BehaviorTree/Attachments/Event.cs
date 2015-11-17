@@ -11,7 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -33,16 +32,18 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
-                if (p.name == "EventName")
+                if (p.name == "Task")
                 {
                     //method
                     this.m_event = Action.LoadMethod(p.value);
+
                 }
                 else if (p.name == "ReferenceFilename")
                 {
                     this.m_referencedBehaviorPath = p.value;
+
                 }
                 else if (p.name == "TriggeredOnce")
                 {
@@ -50,25 +51,63 @@ namespace behaviac
                     {
                         this.m_bTriggeredOnce = true;
                     }
+
                 }
                 else if (p.name == "TriggerMode")
                 {
                     if (p.value == "Transfer")
                     {
                         this.m_triggerMode = TriggerMode.TM_Transfer;
+
                     }
                     else if (p.value == "Return")
                     {
                         this.m_triggerMode = TriggerMode.TM_Return;
+
                     }
                     else
                     {
                         Debug.Check(false, string.Format("unrecognised trigger mode {0}", p.value));
                     }
+
                 }
                 else
                 {
                     //Debug.Check(0, "unrecognised property %s", p.name);
+                }
+            }
+        }
+
+        public string GetEventName()
+        {
+            if (this.m_event != null)
+            {
+                return this.m_event.Name;
+            }
+
+            return null;
+        }
+
+        public bool TriggeredOnce()
+        {
+            return this.m_bTriggeredOnce;
+        }
+
+        public TriggerMode GetTriggerMode()
+        {
+            return this.m_triggerMode;
+        }
+
+        public void switchTo(Agent pAgent)
+        {
+            if (!string.IsNullOrEmpty(this.m_referencedBehaviorPath))
+            {
+                if (pAgent != null)
+                {
+                    TriggerMode tm = this.GetTriggerMode();
+
+                    pAgent.bteventtree(pAgent, this.m_referencedBehaviorPath, tm);
+                    pAgent.btexec();
                 }
             }
         }
@@ -85,9 +124,8 @@ namespace behaviac
 
         protected override BehaviorTask createTask()
         {
-            EventTask pTask = new EventTask();
-
-            return pTask;
+            Debug.Check(false);
+            return null;
         }
 
         protected CMethodBase m_event;
@@ -100,71 +138,5 @@ namespace behaviac
         protected bool m_bTriggeredOnce;
 
         // ============================================================================
-        public class EventTask : AttachmentTask
-        {
-            public EventTask() { }
-            ~EventTask() { }
-
-            public bool TriggeredOnce()
-            {
-                Event pEventNode = this.GetNode() as Event;
-                return pEventNode.m_bTriggeredOnce;
-            }
-            public TriggerMode GetTriggerMode()
-            {
-                Event pEventNode = this.GetNode() as Event;
-                return pEventNode.m_triggerMode;
-            }
-
-            public string GetEventName()
-            {
-                Event pEventNode = this.GetNode() as Event;
-                return pEventNode.m_event.Name;
-            }
-
-            public override void copyto(BehaviorTask target)
-            {
-                base.copyto(target);
-            }
-            public override void save(ISerializableNode node)
-            {
-                base.save(node);
-            }
-            public override void load(ISerializableNode node)
-            {
-                base.load(node);
-            }
-
-            protected override bool onenter(Agent pAgent)
-            {
-                return true;
-            }
-            protected override void onexit(Agent pAgent, EBTStatus s)
-            {
-            }
-
-            protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
-            {
-                EBTStatus result = EBTStatus.BT_SUCCESS;
-                Event pEventNode = this.GetNode() as Event;
-                if (!string.IsNullOrEmpty(pEventNode.m_referencedBehaviorPath))
-                {
-                    if (pAgent != null)
-                    {
-                        TriggerMode tm = this.GetTriggerMode();
-
-						pAgent.bteventtree(pEventNode.m_referencedBehaviorPath, tm);
-                        pAgent.btexec();
-                    }
-                }
-
-                return result;
-            }
-
-            public override bool NeedRestart()
-            {
-                return true;
-            }
-        }
     }
 }

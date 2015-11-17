@@ -22,14 +22,14 @@ CTimer::CTimer()
     m_bLockedFrameRate = false;
     m_iVirtualFrameRate = 30;
     m_iRealFrameRate = 30;
-    m_pfnUpdate		=	NULL;
-    m_BaseTime		=	0;
-    m_LastTime		=	0;
-    m_FrameTime		=	1 / 30.0;
-    m_FrameTimeNoSlowmo =   m_FrameTime;
-    m_CurrentTime	=	0;
+    m_pfnUpdate = NULL;
+    m_BaseTime = 0;
+    m_LastTime = 0;
+    m_FrameTime = 1 / 30.0;
+    m_FrameTimeNoSlowmo = m_FrameTime;
+    m_CurrentTime = 0;
     m_CurrentTimeNoPauseTime = 0;
-    m_maxDeltaTime  = 1.f / 10.f; // by default we don't go below 10 fps
+    m_maxDeltaTime = 1.f / 10.f; // by default we don't go below 10 fps
     m_gamePaused = false;
     m_gamePausedByCheat = false;
     m_ulFrameCounter = 0;
@@ -40,7 +40,6 @@ CTimer::CTimer()
 CTimer::~CTimer()
 {
 }
-
 
 //get frame rate
 /////////////////////////////////////////////////////
@@ -65,12 +64,12 @@ void CTimer::Update()
         double fLowLevelTime;
         double fCurrentTime;
 
-        for (;;) // we wait 1ms if we are calling update too fast
+        for (;;)   // we wait 1ms if we are calling update too fast
         {
             fLowLevelTime = double((*m_pfnUpdate)()); // be double as the rest of the code seems to prefer double p
             fCurrentTime = fLowLevelTime - m_BaseTime;
 
-            if (fCurrentTime != m_LastTime)
+            if (!behaviac::IsEqualWithEpsilon(fCurrentTime, m_LastTime))
             {
                 break;
             }

@@ -17,76 +17,75 @@
 
 namespace TNS
 {
-	namespace NE
-	{
-		namespace NAT
-		{
-			enum eColor
-			{
-				RED,
-				GREEN,
-				BLUE,
-				YELLOW,
-				WHITE,
-			};
-		}
-	}
+    namespace NE
+    {
+        namespace NAT
+        {
+            enum eColor
+            {
+                RED,
+                GREEN,
+                BLUE,
+                YELLOW,
+                WHITE,
+            };
+        }
+    }
 
-	namespace ST
-	{
-		struct kCar
-		{
-			behaviac::string	brand;
-			int		price;
-			NE::NAT::eColor	color;
+    namespace ST
+    {
+        struct kCar
+        {
+            behaviac::string	brand;
+            int		price;
+            NE::NAT::eColor	color;
 
-			void reset()
-			{
-				brand = "Volkswage";
-				price = 0;
-				color = NE::NAT::RED;
-			}
+            void reset()
+            {
+                brand = "Volkswage";
+                price = 0;
+                color = NE::NAT::RED;
+            }
 
-			DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(TNS::ST::kCar);
-		};
+            DECLARE_BEHAVIAC_OBJECT_STRUCT(TNS::ST::kCar);
+        };
 
-		namespace PER
-		{
-			//<
-			namespace WRK
-			{
-				struct kEmployee
-				{
-					int		id;
-					behaviac::string 	name;
-					char 	code;
-					float 	weight;
-					bool 	isMale;
-					NE::NAT::eColor	skinColor;
-					kCar	car;
-					behaviac::Agent*	boss;
+        namespace PER
+        {
+            //<
+            namespace WRK
+            {
+                struct kEmployee
+                {
+                    int		id;
+                    behaviac::string 	name;
+                    char 	code;
+                    float 	weight;
+                    bool 	isMale;
+                    NE::NAT::eColor	skinColor;
+                    kCar	car;
+                    behaviac::Agent*	boss;
 
-					void resetProperties()
-					{
-						id = -1;
-						name = "";
-						code = 'A';
-						weight = 0.0f;
-						isMale = true;
-						skinColor = NE::NAT::YELLOW;
-						car.reset();
-						boss = NULL;
-					}
+                    void resetProperties()
+                    {
+                        id = -1;
+                        name = "";
+                        code = 'A';
+                        weight = 0.0f;
+                        isMale = true;
+                        skinColor = NE::NAT::YELLOW;
+                        car.reset();
+                        boss = NULL;
+                    }
 
-					DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL(TNS::ST::PER::WRK::kEmployee);
-				};
-			}
-		}
-		//<
-	}
+                    DECLARE_BEHAVIAC_OBJECT_STRUCT(TNS::ST::PER::WRK::kEmployee);
+                };
+            }
+        }
+        //<
+    }
 }
 
 DECLARE_BEHAVIAC_OBJECT_ENUM(TNS::NE::NAT::eColor, eColor);
 
-BEHAVIAC_OVERRIDE_TYPE_NAME(behaviac::vector<TNS::ST::PER::WRK::kEmployee>);
 SPECIALIZE_TYPE_HANDLER(behaviac::vector<TNS::ST::PER::WRK::kEmployee>, BasicTypeHandler< behaviac::vector<TNS::ST::PER::WRK::kEmployee> >);

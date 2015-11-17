@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_DECORATORTIME_H_
-#define BEHAVIAC_BEHAVIORTREE_DECORATORTIME_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_DECORATORTIME_H
+#define BEHAVIAC_BEHAVIORTREE_DECORATORTIME_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -20,33 +20,33 @@
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup DecoratorTime
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup DecoratorTime
+    * @{ */
 
-	/**
-	It returns Running result until it reaches the time limit specified, no matter which
-	value its child return. Or return the child's value.
-	*/
+    /**
+    It returns Running result until it reaches the time limit specified, no matter which
+    value its child return. Or return the child's value.
+    */
     class BEHAVIAC_API DecoratorTime : public DecoratorNode
     {
     public:
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorTime, DecoratorNode);
 
-		DecoratorTime();
-		virtual ~DecoratorTime();
+        DecoratorTime();
+        virtual ~DecoratorTime();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-    
-		virtual int GetTime(Agent* pAgent) const;
 
-	private:
-		virtual BehaviorTask* createTask() const;
+        virtual int GetTime(Agent* pAgent) const;
 
-	protected:
-		Property*	m_time_var;
+    private:
+        virtual BehaviorTask* createTask() const;
 
-		friend class DecoratorTimeTask;
+    protected:
+        Property*	m_time_var;
+
+        friend class DecoratorTimeTask;
     };
 
     class BEHAVIAC_API DecoratorTimeTask : public DecoratorTask
@@ -57,22 +57,22 @@ namespace behaviac
         DecoratorTimeTask();
 
     protected:
-		virtual ~DecoratorTimeTask();
+        virtual ~DecoratorTimeTask();
 
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
-		
-		virtual bool onenter(Agent* pAgent);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
+
+        virtual bool onenter(Agent* pAgent);
         virtual EBTStatus decorate(EBTStatus status);
-    
-		int GetTime(Agent* pAgent) const;
-	private:
+
+        int GetTime(Agent* pAgent) const;
+    private:
         int	m_start;
-		int	m_time;
+        int	m_time;
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_DECORATORTIME_H_
+#endif//BEHAVIAC_BEHAVIORTREE_DECORATORTIME_H

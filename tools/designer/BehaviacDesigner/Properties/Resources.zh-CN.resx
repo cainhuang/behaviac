@@ -197,7 +197,7 @@
     <value>..\Resources\prefab.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AnalyzeDump" xml:space="preserve">
-    <value>分析导出文件</value>
+    <value>分析文件</value>
   </data>
   <data name="ConnectServer" xml:space="preserve">
     <value>连接游戏</value>
@@ -205,8 +205,8 @@
   <data name="DisconnectServer" xml:space="preserve">
     <value>断开游戏</value>
   </data>
-  <data name="StopAnalyzing" xml:space="preserve">
-    <value>终止分析</value>
+  <data name="StopAnalyzingDump" xml:space="preserve">
+    <value>终止分析导出文件</value>
   </data>
   <data name="DisableNode" xml:space="preserve">
     <value>禁用节点</value>
@@ -371,7 +371,10 @@
     <value>工作区从"{0}"切换到"{1}"</value>
   </data>
   <data name="WorkspaceWarningInfo" xml:space="preserve">
-    <value>选择打开的工作区:\n'{0}'不是游戏所用的工作区:\n'{1}'</value>
+    <value>选择打开的工作区:
+'{0}'
+不是游戏所用的工作区:
+'{1}'</value>
   </data>
   <data name="FileWarning" xml:space="preserve">
     <value>文件警告</value>
@@ -455,7 +458,7 @@
     <value>文件夹"{0}"已经存在，请输入其他名字！</value>
   </data>
   <data name="DebugOperation" xml:space="preserve">
-    <value>双击开始调试</value>
+    <value>双击实例开始调试</value>
   </data>
   <data name="WorkspaceError" xml:space="preserve">
     <value>工作区设置错误</value>
@@ -547,7 +550,140 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="AddType" xml:space="preserve">
+    <value>新增类型</value>
+  </data>
+  <data name="AddEvent" xml:space="preserve">
+    <value>新增事件</value>
+  </data>
+  <data name="AddMethod" xml:space="preserve">
+    <value>新增方法</value>
+  </data>
+  <data name="AddProperty" xml:space="preserve">
+    <value>新增属性</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>新增任务</value>
+  </data>
+  <data name="EditType" xml:space="preserve">
+    <value>编辑类型</value>
+  </data>
+  <data name="EditEvent" xml:space="preserve">
+    <value>编辑事件</value>
+  </data>
+  <data name="EditMethod" xml:space="preserve">
+    <value>编辑方法</value>
+  </data>
+  <data name="EditProperty" xml:space="preserve">
+    <value>编辑定制属性</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>编辑任务</value>
+  </data>
+  <data name="MetaSaveInfo" xml:space="preserve">
+    <value>元信息已被修改，需要保存吗？</value>
+  </data>
+  <data name="RemoveParametersInfo" xml:space="preserve">
+    <value>确定删除所有选中的参数吗？</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="AddLocalProperty" xml:space="preserve">
+    <value>新增局部变量</value>
+  </data>
+  <data name="EditLocalProperty" xml:space="preserve">
+    <value>编辑局部变量</value>
+  </data>
+  <data name="ExpandConnectorInfo" xml:space="preserve">
+    <value>中断条件：点击这里，来展开或收起附属的条件节点</value>
+  </data>
+  <data name="EventParametersInfo" xml:space="preserve">
+    <value>事件的参数个数不能多于3个</value>
+  </data>
+  <data name="MethodParametersInfo" xml:space="preserve">
+    <value>方法的参数个数不能多于8个</value>
+  </data>
+  <data name="SubTreeHasNoTaskError" xml:space="preserve">
+    <value>{0} 不能被用作子树，只有根节点是‘任务’节点的树才能作为子树。</value>
+  </data>
+  <data name="DesignerError" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="ViewLocalProperty" xml:space="preserve">
+    <value>查看局部变量</value>
+  </data>
+  <data name="ViewProperty" xml:space="preserve">
+    <value>查看属性</value>
+  </data>
+  <data name="ModifyMemberWarning" xml:space="preserve">
+    <value>该成员已被使用，确定继续吗？</value>
+  </data>
+  <data name="Callstack" xml:space="preserve">
+    <value>调用堆栈</value>
+  </data>
+  <data name="OpenLogFile" xml:space="preserve">
+    <value>打开日志文件</value>
+  </data>
+  <data name="AnalyzeLog" xml:space="preserve">
+    <value>分析日志文件</value>
+  </data>
+  <data name="StopAnalyzingLog" xml:space="preserve">
+    <value>终止分析日志文件</value>
+  </data>
+  <data name="EmptyMetaWarning" xml:space="preserve">
+    <value>可能没有加载元信息，请检查！</value>
+  </data>
   <data name="FilenameWarning" xml:space="preserve">
     <value>行为树的名字只能是ascii字符，并且只能包括字母、数字或下划线。</value>
+  </data>
+  <data name="AddEnum" xml:space="preserve">
+    <value>新增枚举</value>
+  </data>
+  <data name="AddEnumMember" xml:space="preserve">
+    <value>新增枚举成员</value>
+  </data>
+  <data name="AddStruct" xml:space="preserve">
+    <value>新增结构体</value>
+  </data>
+  <data name="AddStructMember" xml:space="preserve">
+    <value>新增结构体成员</value>
+  </data>
+  <data name="EditEnum" xml:space="preserve">
+    <value>编辑枚举</value>
+  </data>
+  <data name="EditEnumMember" xml:space="preserve">
+    <value>编辑枚举成员</value>
+  </data>
+  <data name="EditStruct" xml:space="preserve">
+    <value>编辑结构体</value>
+  </data>
+  <data name="EditStructMember" xml:space="preserve">
+    <value>编辑结构体成员</value>
+  </data>
+  <data name="PropertyVerifyWarning" xml:space="preserve">
+    <value>请为属性设置正确的名字和类型。</value>
+  </data>
+  <data name="MethodVerifyWarning" xml:space="preserve">
+    <value>请为方法设置正确的名字、返回值类型和参数。</value>
+  </data>
+  <data name="EnumMemberVerifyWarning" xml:space="preserve">
+    <value>请问枚举变量设置正确的名字。</value>
+  </data>
+  <data name="TypeRemoveWarning" xml:space="preserve">
+    <value>确定删除该类型吗？</value>
+  </data>
+  <data name="TypeVerifyWarning" xml:space="preserve">
+    <value>请为类型设置正确的名字。</value>
+  </data>
+  <data name="WorkspaceLoadError" xml:space="preserve">
+    <value>工作区 {0}加载失败！</value>
+  </data>
+  <data name="WorkspaceDebugErrorInfo" xml:space="preserve">
+    <value>找不到工作区文件："{0}" 
+请确保工作区的导出位置跟运行时端所用的路径保持一致！</value>
   </data>
 </root>

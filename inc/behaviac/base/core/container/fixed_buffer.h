@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_CONTAINER_FIXEDBUFFER_H_
-#define _BEHAVIAC_BASE_CONTAINER_FIXEDBUFFER_H_
+#ifndef BEHAVIAC_BASE_CONTAINER_FIXEDBUFFER_H
+#define BEHAVIAC_BASE_CONTAINER_FIXEDBUFFER_H
 
 #include "behaviac/base/core/assert_t.h"
 
@@ -68,4 +68,4 @@ public:
     }
 };
 
-#endif//_BEHAVIAC_BASE_CONTAINER_FIXEDBUFFER_H_
+#endif//BEHAVIAC_BASE_CONTAINER_FIXEDBUFFER_H

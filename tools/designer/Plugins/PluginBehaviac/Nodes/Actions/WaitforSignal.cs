@@ -43,16 +43,9 @@ namespace PluginBehaviac.Nodes
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
-            if (this.Attachments.Count == 0)
+            if (this._signal.ChildCount == 0)
             {
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.ImpulseWithoutEventError));
-            }
-            else
-            {
-                foreach (Attachment attach in this.Attachments)
-                {
-                    attach.CheckForErrors(rootBehavior, result);
-                }
             }
 
             base.CheckForErrors(rootBehavior, result);

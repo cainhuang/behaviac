@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_CORE_FACTORY_H_
-#define _BEHAVIAC_CORE_FACTORY_H_
+#ifndef BEHAVIAC_CORE_FACTORY_H
+#define BEHAVIAC_CORE_FACTORY_H
 
 #include "behaviac/base/core/config.h"
 
@@ -87,6 +87,7 @@ class CFactory
     class IConstructType
     {
     public:
+        virtual ~IConstructType() {}
         virtual T* Create() = 0;
     };
 
@@ -96,24 +97,24 @@ class CFactory
     public:
         virtual T* Create()
         {
-			return BEHAVIAC_NEW FINAL_TYPE;
+            return BEHAVIAC_NEW FINAL_TYPE;
         }
     };
 
 public:
-    virtual ~CFactory() 
-	{
+    virtual ~CFactory()
+    {
         CreatorIt it(m_creators.begin());
         CreatorIt itEnd(m_creators.end());
 
         while (it != itEnd)
         {
-			SFactoryBucket& item = *it++;
-			BEHAVIAC_FREE(item.m_typeConstructor);
+            SFactoryBucket& item = *it++;
+            BEHAVIAC_FREE(item.m_typeConstructor);
         }
 
-		m_creators.m_vector.clear();
-	}
+        m_creators.m_vector.clear();
+    }
 
     //Same but with a given allocator
     virtual T* CreateObject(const CStringID& typeID);
@@ -129,9 +130,9 @@ public:
     template< typename FINAL_TYPE >
     bool Register()
     {
-		typedef CConstructType<FINAL_TYPE> FinalType;
-		void* p = BEHAVIAC_MALLOC(sizeof(FinalType));
-        IConstructType* typeConstructor = new(p) FinalType;
+        typedef CConstructType<FINAL_TYPE> FinalType;
+        void* p = BEHAVIAC_MALLOC(sizeof(FinalType));
+        IConstructType* typeConstructor = new(p)FinalType;
         return FactoryNewRegisterSub(&m_creators, FINAL_TYPE::GetClassTypeId(), typeConstructor);
     }
 
@@ -180,6 +181,7 @@ BEHAVIAC_FORCEINLINE bool CFactory<T>::IsRegistered(const CStringID& typeID)
         // we are done with the list, no need to keep critical section during alloc.
         m_creators.Unlock();
         return true;
+
     }
     else
     {
@@ -205,11 +207,12 @@ T* CFactory<T>::CreateObject(const CStringID& typeID)
         m_creators.Unlock();
         //Call the function that creates the abstract object
         return contructType->Create();
+
     }
     else
     {
 #if STRINGID_USESTRINGCONTENT
-		BEHAVIAC_LOGWARNING("Trying to create an unregister type 0x%08X -- %s", typeID.GetUniqueID(), typeID.c_str());
+        BEHAVIAC_LOGWARNING("Trying to create an unregister type 0x%08X -- %s", typeID.GetUniqueID(), typeID.c_str());
 #else
         BEHAVIAC_LOGWARNING("Trying to create an unregister type 0x%08X", typeID.GetUniqueID());
 #endif
@@ -233,21 +236,23 @@ bool CFactory<T>::Register(const CStringID& typeID, InstantiateFunctionPointer i
     if (!wasThere)
     {
         m_creators.push_back(bucket);
+
     }
     else if (overwrite)
     {
         *itFound = bucket;
         m_creators.Unlock();
         return true;
+
     }
     else
-	{
+    {
 #if STRINGID_USESTRINGCONTENT
-		BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d -- %s", typeID.GetUniqueID(), typeID.c_str());
+        BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d -- %s", typeID.GetUniqueID(), typeID.c_str());
 #else
-		BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d", typeID.GetUniqueID());
+        BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d", typeID.GetUniqueID());
 #endif // #if STRINGID_USESTRINGCONTENT
-	}
+    }
 
     m_creators.Unlock();
     return !wasThere;
@@ -273,6 +278,4 @@ bool CFactory<T>::UnRegister(const CStringID& typeID)
     return false;
 }
 
-
-
-#endif //_BEHAVIAC_CORE_FACTORY_H_
+#endif //BEHAVIAC_CORE_FACTORY_H

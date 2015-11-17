@@ -51,27 +51,32 @@ namespace Behaviac.Design
             /// <summary>
             /// If true the subitem is rndered parallel to the label.
             /// </summary>
-            public bool ShowParallelToLabel
-            {
+            public bool ShowParallelToLabel {
                 get { return _showParallelToLabel; }
             }
 
-            protected bool _selected;
+            private bool _selected = false;
 
             /// <summary>
             /// Holds if the subitem is currently selected.
             /// </summary>
-            public bool IsSelected
-            {
+            public bool IsSelected {
                 get { return _selected; }
                 set { _selected = value; }
+            }
+
+            public virtual bool IsFSM {
+                get { return false; }
+            }
+
+            public virtual bool CanBeDraggedToTarget {
+                get { return false; }
             }
 
             /// <summary>
             /// The displayed height of the item in the untransformed graph.
             /// </summary>
-            public virtual float Height
-            {
+            public virtual float Height {
                 get { return 14.0f; }
             }
 
@@ -83,17 +88,19 @@ namespace Behaviac.Design
             /// <summary>
             /// Returns the object which can be selected. Is null when the subitem cannot be selected.
             /// </summary>
-            public virtual object SelectableObject
-            {
+            public virtual object SelectableObject {
                 get { return null; }
             }
 
             /// <summary>
             /// Holds if the subitem can be deleted by the user.
             /// </summary>
-            public virtual bool CanBeDeleted
-            {
+            public virtual bool CanBeDeleted {
                 get { return false; }
+            }
+
+            public virtual string ToolTip {
+                get { return string.Empty; }
             }
 
             /// <summary>
@@ -117,10 +124,11 @@ namespace Behaviac.Design
             /// <param name="graphics">The graphics object used for drawing.</param>
             /// <param name="nvd">The node view data of the node the subitem belongs to.</param>
             /// <param name="brush">The brush to draw the node's shape.</param>
-            protected void DrawBackground(Graphics graphics, NodeViewData nvd, Brush brush)
-            {
-                if (brush != null)
+            protected void DrawBackground(Graphics graphics, NodeViewData nvd, Brush brush) {
+                if (brush != null) {
                     nvd.DrawShapeBackground(graphics, nvd.BoundingBox, brush);
+                    //nvd.DrawShapeBorder(graphics, nvd.GetSubItemBoundingBox(nvd.BoundingBox, nvd.GetSubItemIndex(this)), Pens.WhiteSmoke);
+                }
             }
 
             /// <summary>
@@ -134,8 +142,7 @@ namespace Behaviac.Design
             /// Creates a new subitem instance.
             /// </summary>
             /// <param name="showParallelToLabel">Holds if the subitem will be drawn next to the label.</param>
-            protected SubItem(bool showParallelToLabel)
-            {
+            protected SubItem(bool showParallelToLabel) {
                 _showParallelToLabel = showParallelToLabel;
 
                 // a parallel drawn subitem cannot be selected or deleted.

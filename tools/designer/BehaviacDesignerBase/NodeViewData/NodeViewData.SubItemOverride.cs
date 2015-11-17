@@ -56,12 +56,10 @@ namespace Behaviac.Design
             /// </summary>
             /// <param name="evnt">The override we want to draw.</param>
             public SubItemOverride(Override overr)
-                : base(overr, _theDefaultOverrideBrush, _theSelectedOverrideBrush, _theOverrideLabelFont, Brushes.LightGray)
-            {
+                : base(overr, _theDefaultOverrideBrush, _theSelectedOverrideBrush, _theOverrideLabelFont, Brushes.LightGray) {
             }
 
-            public override SubItem Clone(Node newnode)
-            {
+            public override SubItem Clone(Node newnode) {
                 return new SubItemOverride((Override)_attachment.Clone(newnode));
             }
         }

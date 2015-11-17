@@ -16,62 +16,73 @@
 
 namespace behaviac
 {
-	And::And()
-	{}
+    And::And()
+    {}
 
-	And::~And()
-	{}
+    And::~And()
+    {}
 
-	void And::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void And::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool And::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!And::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool And::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!And::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
+        return super::IsValid(pAgent, pTask);
+    }
+    bool And::Evaluate(const Agent* pAgent)
+    {
+        bool ret = true;
 
-	BehaviorTask* And::createTask() const
-	{
-		AndTask* pTask = BEHAVIAC_NEW AndTask();
-		
+        for (behaviac::vector<BehaviorNode*>::iterator it = this->m_children->begin(); it != this->m_children->end(); ++it)
+        {
+            ret = (*it)->Evaluate(pAgent);
 
-		return pTask;
-	}
+            if (!ret)
+            {
+                break;
+            }
+        }
 
-	void AndTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+        return ret;
+    }
 
+    BehaviorTask* And::createTask() const
+    {
+        AndTask* pTask = BEHAVIAC_NEW AndTask();
 
-	void AndTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+        return pTask;
+    }
 
-	void AndTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void AndTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
+    void AndTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
+    void AndTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     EBTStatus AndTask::update(Agent* pAgent, EBTStatus childStatus)
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(childStatus);
 
-		//BEHAVIAC_ASSERT(this->m_children.size() == 2);
+        //BEHAVIAC_ASSERT(this->m_children.size() == 2);
 
-		for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
+        for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
         {
             BehaviorTask* pBehavior = *it;
             EBTStatus s = pBehavior->exec(pAgent);
@@ -82,10 +93,9 @@ namespace behaviac
                 return s;
             }
 
-			BEHAVIAC_ASSERT(s == BT_SUCCESS);
+            BEHAVIAC_ASSERT(s == BT_SUCCESS);
         }
 
-		return BT_SUCCESS;
+        return BT_SUCCESS;
     }
-
 }

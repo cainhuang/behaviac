@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_CONTAINERTYPEHANDLEREX_H_
-#define _ENGINESERVICES_CONTAINERTYPEHANDLEREX_H_
+#ifndef BEHAVIAC_ENGINESERVICES_CONTAINERTYPEHANDLEREX_H
+#define BEHAVIAC_ENGINESERVICES_CONTAINERTYPEHANDLEREX_H
 
 #include "behaviac/base/object/typehandler.h"
 #include "behaviac/base/object/member.h"
@@ -63,7 +63,6 @@ public:
         return !element.IsValid();
     }
 };
-
 
 // Similar to TagVectorProvider but for maps.
 template<class TParentType, class TContainerType>
@@ -118,7 +117,6 @@ protected:
 
     typename TContainerType::iterator m_currentIterator;
 };
-
 
 // Extended provider class, same as TagMapProvider but adds an empty entry
 // at the end and filters empty entries on Add.
@@ -189,7 +187,6 @@ protected:
     contained_type m_emptyElement;
 };
 
-
 // This handler serializes an ID to match the elements.
 // For this handler, TContainerProvider must implement:
 // - typenames ParentType, ContainerType, IDType, contained_type
@@ -204,7 +201,6 @@ public:
     typedef typename TContainerProvider::IDType IDType;
     typedef TContainedTypeHandler<contained_type> ContainedTypeHandler;
     typedef TContainerProvider Provider;
-
 
     ByIDContainerHandler(const char* elementName, const char* valueName, const char* idName)
         : m_elementID(elementName), m_valueID(valueName), m_idID(idName)
@@ -280,31 +276,45 @@ public:
         }
     }
 
-	void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, ParentType* parent, ContainerType& container, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, ParentType* parent, ContainerType& container, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         Provider provider(parent, container, EPersistenceType_UiInfo);
         contained_type* element = provider.GetFirstElement();
 
-		XmlNodeRef childNode = xmlNode;
+        XmlNodeRef childNode = xmlNode;
+
         while (element)
         {
-			if (types == NULL)
-			{
-				childNode = xmlNode->newChild("Member");
-				childNode->setAttr("Name", m_elementID.GetString());
-				childNode->setAttr("ContainerElement", true);
-				if (classFullName)
-				{
-					childNode->setAttr("Class", classFullName);
-				}
-				if (bStatic)
-				{
-					childNode->setAttr("Static", "true");
-				}
-			}
+            if (types == NULL)
+            {
+                childNode = xmlNode->newChild("Member");
+                childNode->setAttr("Name", m_elementID.GetString());
+                childNode->setAttr("ContainerElement", true);
 
-			ContainedTypeHandler::GetUiInfo(types, childNode, *element, bStatic, classFullName, m_valueID, displayName, desc, NULL);
-			GenericTypeHandler<IDType>::GetUiInfo(types, childNode, provider.GetCurrentElementID(), bStatic, classFullName, m_idID, displayName, desc, NULL);
+                if (classFullName)
+                {
+                    childNode->setAttr("Class", classFullName);
+                }
+
+                if (bStatic)
+                {
+                    childNode->setAttr("Static", "true");
+                }
+
+                if (readonlyFlag & 0x1)
+                {
+                    childNode->setAttr("Readonly", "true");
+                }
+
+                if (readonlyFlag & 0x2)
+                {
+                    childNode->setAttr("Property", "true");
+                }
+
+            }
+
+            ContainedTypeHandler::GetUiInfo(types, childNode, *element, bStatic, readonlyFlag, classFullName, m_valueID, displayName, desc, NULL);
+            GenericTypeHandler<IDType>::GetUiInfo(types, childNode, provider.GetCurrentElementID(), bStatic, readonlyFlag, classFullName, m_idID, displayName, desc, NULL);
 
             if (uiWrapper)
             {
@@ -317,7 +327,7 @@ public:
 
     void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, ParentType* parent, ContainerType& container, const char* className)
     {
-		BEHAVIAC_UNUSED_VAR(types);
+        BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(container);
@@ -332,7 +342,6 @@ protected:
     CSerializationID m_idID;
 };
 
-
 // For this handler, TContainerProvider must implement:
 // - typenames ParentType, ContainerType, contained_type
 // - functions GetFirstElement, GetNextElement, GetElementByID, GetCurrentElementID
@@ -346,7 +355,6 @@ public:
     typedef typename TContainerProvider::contained_type contained_type;
     typedef TContainedTypeHandler<contained_type> ContainedTypeHandler;
     typedef TContainerProvider Provider;
-
 
     UseTagAsIDContainerHandler(const char* /*elementName*/, const char* valueName, const char* /*idName*/)
         : m_valueID(valueName)
@@ -427,7 +435,7 @@ public:
     void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, ParentType* parent, ContainerType& container, const char* className)
     {
         BEHAVIAC_UNUSED_VAR(types);
-		BEHAVIAC_UNUSED_VAR(xmlNode);
+        BEHAVIAC_UNUSED_VAR(xmlNode);
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(container);
         BEHAVIAC_UNUSED_VAR(className);
@@ -439,4 +447,4 @@ protected:
     CSerializationID m_valueID;
 };
 
-#endif // #ifndef _ENGINESERVICES_CONTAINERTYPEHANDLEREX_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_CONTAINERTYPEHANDLEREX_H

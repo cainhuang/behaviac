@@ -17,96 +17,110 @@ using NUnit.Framework;
 
 namespace BehaviorNodeUnitTest
 {
-	[TestFixture]
-	[Category ("EventUnitTest")]
-	internal class EventUnitTest
-	{
-		AgentNodeTest testAgent = null;
-		
-		[TestFixtureSetUp]  
-		public void initGlobalTestEnv()  
-		{
-			BehaviacSystem.Instance.init();
-			
-			GameObject testAgentObject = new GameObject();
-			testAgentObject.name = "@UnitTestAgent";
-			testAgentObject.transform.localPosition = Vector3.zero;
-			testAgentObject.transform.localRotation = Quaternion.identity;
-			testAgentObject.transform.localScale = Vector3.one;
-			testAgent = testAgentObject.AddComponent<AgentNodeTest>();			
-			testAgent.init();
-		}
-		
-		[TestFixtureTearDown]  
-		public void finlGlobalTestEnv()  
-		{
-			testAgent.finl();			
-			BehaviacSystem.Instance.finl();
-		}
-		
-		[SetUp]  
-		public void initTestEnv()  
-		{
-		}
-		
-		[TearDown]  
-		public void finlTestEnv()  
-		{
-			behaviac.Workspace.UnLoadAll();
-		}
-		
-		[Test]
-		[Category ("test_event_0")]
-		public void test_event_0 ()
-		{
-			testAgent.btsetcurrent("node_test/event_ut_0");
-			testAgent.resetProperties();
+    [TestFixture]
+    [Category("EventUnitTest")]
+    internal class EventUnitTest
+    {
+        AgentNodeTest testAgent = null;
 
-			testAgent.FireEvent("event_test_void");
-			behaviac.EBTStatus status = testAgent.btexec();
-			
-			Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+        [TestFixtureSetUp]
+        public void initGlobalTestEnv() {
+            BehaviacSystem.Instance.Init();
 
-			testAgent.FireEvent("event_test_void");
-			Assert.AreEqual(true, testAgent.event_test_var_bool);
+            GameObject testAgentObject = new GameObject();
+            testAgentObject.name = "@UnitTestAgent";
+            testAgentObject.transform.localPosition = Vector3.zero;
+            testAgentObject.transform.localRotation = Quaternion.identity;
+            testAgentObject.transform.localScale = Vector3.one;
+            testAgent = testAgentObject.AddComponent<AgentNodeTest>();
+            testAgent.init();
+        }
 
-			status = testAgent.btexec();
-			Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+        [TestFixtureTearDown]
+        public void finlGlobalTestEnv() {
+            testAgent.finl();
+            BehaviacSystem.Instance.Uninit();
+        }
 
-			testAgent.resetProperties();
-			testAgent.FireEvent("event_test_int", 13);
-			Assert.AreEqual(13, testAgent.event_test_var_int);
+        [SetUp]
+        public void initTestEnv() {
+        }
 
-			status = testAgent.btexec();
-			Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+        [TearDown]
+        public void finlTestEnv() {
+            behaviac.Workspace.Instance.UnLoadAll();
+        }
 
-			testAgent.resetProperties();
-			testAgent.FireEvent("event_test_int_bool", 15, true);
-			Assert.AreEqual(true, testAgent.event_test_var_bool);
-			Assert.AreEqual(15, testAgent.event_test_var_int);
+        [Test]
+        [Category("test_event_0")]
+        public void test_event_0() {
+            testAgent.btsetcurrent("node_test/event_ut_0");
+            testAgent.resetProperties();
 
-			status = testAgent.btexec();
-			Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            behaviac.EBTStatus status = testAgent.btexec();
 
-			testAgent.resetProperties();
-			testAgent.FireEvent("event_test_int_bool_float", 15, true, 27.3f);
-			Assert.AreEqual(true, testAgent.event_test_var_bool);
-			Assert.AreEqual(15, testAgent.event_test_var_int);
-			Assert.AreEqual(27.3f, testAgent.event_test_var_float);
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
 
-			status = testAgent.btexec();
-			Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            testAgent.FireEvent("event_test_void");
+            Assert.AreEqual(true, testAgent.event_test_var_bool);
 
-			testAgent.resetProperties();
-			testAgent.testVar_0 = 0;
-			status = testAgent.btexec();
-			Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
-			Assert.AreEqual(0, testAgent.testVar_1);
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
 
-			testAgent.FireEvent("event_test_int_bool_float", 19, true, 11.9f);
-			Assert.AreEqual(false, testAgent.event_test_var_bool);
-			Assert.AreEqual(-1, testAgent.event_test_var_int);
-			Assert.AreEqual(-1.0f, testAgent.event_test_var_float);
-		}
-	}
+            testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/event_ut_0");
+            testAgent.btexec();
+            testAgent.FireEvent("event_test_int", 13);
+            Assert.AreEqual(13, testAgent.event_test_var_int);
+
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/event_ut_0");
+            testAgent.btexec();
+            testAgent.FireEvent("event_test_int_bool", 15, true);
+            Assert.AreEqual(true, testAgent.event_test_var_bool);
+            Assert.AreEqual(15, testAgent.event_test_var_int);
+
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/event_ut_0");
+            testAgent.btexec();
+            testAgent.FireEvent("event_test_int_bool_float", 15, true, 27.3f);
+            Assert.AreEqual(true, testAgent.event_test_var_bool);
+            Assert.AreEqual(15, testAgent.event_test_var_int);
+            Assert.AreEqual(27.3f, testAgent.event_test_var_float);
+
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/event_ut_0");
+            testAgent.btexec();
+            testAgent.testVar_0 = 0;
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+            Assert.AreEqual(0, testAgent.testVar_1);
+
+            testAgent.FireEvent("event_test_int_bool_float", 19, true, 11.9f);
+            Assert.AreEqual(false, testAgent.event_test_var_bool);
+            Assert.AreEqual(-1, testAgent.event_test_var_int);
+            Assert.AreEqual(-1.0f, testAgent.event_test_var_float);
+        }
+
+        [Test]
+        [Category("test_local_vars")]
+        public void test_local_vars() {
+            testAgent.btsetcurrent("node_test/event_ut_1");
+            testAgent.resetProperties();
+
+            testAgent.btexec();
+            testAgent.FireEvent("event_test_int_bool", 15, true);
+            Assert.AreEqual(true, testAgent.event_test_var_bool);
+            Assert.AreEqual(15, testAgent.event_test_var_int);
+        }
+    }
 }

@@ -11,9 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_DYNAMICTYPEFACTORY_H_
-#define _ENGINESERVICES_DYNAMICTYPEFACTORY_H_
-
+#ifndef BEHAVIAC_ENGINESERVICES_DYNAMICTYPEFACTORY_H
+#define BEHAVIAC_ENGINESERVICES_DYNAMICTYPEFACTORY_H
 
 #include "behaviac/base/core/singleton.h"
 #include "behaviac/base/core/factory.h"
@@ -60,4 +59,4 @@ public:
     CDynamicType* Create(const CStringID& typeID);
 };
 
-#endif // #ifndef _ENGINESERVICES_DYNAMICTYPEFACTORY_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_DYNAMICTYPEFACTORY_H

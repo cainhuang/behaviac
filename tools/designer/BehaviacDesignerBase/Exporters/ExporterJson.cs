@@ -27,19 +27,17 @@ namespace Behaviac.Design.Exporters
     /// </summary>
     public class ExporterJson : ExporterXml
     {
-        public ExporterJson(BehaviorNode node, string outputFolder, string filename)
-            : base(node, outputFolder, "")
+        public ExporterJson(BehaviorNode node, string outputFolder, string filename, List<string> includedFilenames = null)
+            : base(node, outputFolder, "", includedFilenames)
         {
             this._filename = filename + ".json";
         }
 
-        public static string GetUTF8String(byte[] buffer)
-        {
+        public static string GetUTF8String(byte[] buffer) {
             if (buffer == null)
-                return null;
+            { return null; }
 
-            if (buffer.Length <= 3)
-            {
+            if (buffer.Length <= 3) {
                 return Encoding.UTF8.GetString(buffer);
             }
 
@@ -47,35 +45,33 @@ namespace Behaviac.Design.Exporters
 
             if (buffer[0] == bomBuffer[0]
                 && buffer[1] == bomBuffer[1]
-                && buffer[2] == bomBuffer[2])
-            {
+                && buffer[2] == bomBuffer[2]) {
                 return new UTF8Encoding(false).GetString(buffer, 3, buffer.Length - 3);
             }
 
             return Encoding.UTF8.GetString(buffer);
         }
 
-        public override FileManagers.SaveResult Export()
-        {
+        public override FileManagers.SaveResult Export() {
             string filename = Path.Combine(_outputFolder, _filename);
             FileManagers.SaveResult result = FileManagers.FileManager.MakeWritable(filename, Resources.ExportFileWarning);
+
             if (FileManagers.SaveResult.Succeeded != result)
-                return result;
+            { return result; }
 
             // get the abolute folder of the file we want toexport
             string folder = Path.GetDirectoryName(filename);
+
             if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
+            { Directory.CreateDirectory(folder); }
 
             // export to the file
-            using (MemoryStream ms = new MemoryStream())
-            {
+            using(MemoryStream ms = new MemoryStream()) {
                 XmlWriterSettings ws = new XmlWriterSettings();
                 ws.Indent = true;
                 //ws.OmitXmlDeclaration = true;
 
-                using (XmlWriter xmlWrtier = XmlWriter.Create(ms, ws))
-                {
+                using(XmlWriter xmlWrtier = XmlWriter.Create(ms, ws)) {
                     xmlWrtier.WriteStartDocument();
                     ExportBehavior(xmlWrtier, _node);
                     xmlWrtier.WriteEndDocument();
@@ -92,8 +88,7 @@ namespace Behaviac.Design.Exporters
                     string json = XmlToJson.XmlToJSON(xmlDoc);
 
                     // export to the file
-                    using (StreamWriter file = new StreamWriter(filename))
-                    {
+                    using(StreamWriter file = new StreamWriter(filename)) {
                         file.Write(json);
                         file.Close();
                     }

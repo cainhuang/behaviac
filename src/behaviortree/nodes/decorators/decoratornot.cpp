@@ -16,62 +16,67 @@
 
 namespace behaviac
 {
-	DecoratorNot::DecoratorNot()
-	{}
+    DecoratorNot::DecoratorNot()
+    {}
 
-	DecoratorNot::~DecoratorNot()
-	{}
+    DecoratorNot::~DecoratorNot()
+    {}
+    bool DecoratorNot::Evaluate(const Agent* pAgent)
+    {
+        BEHAVIAC_ASSERT(this->m_children->size() == 1);
+        bool ret = (*this->m_children)[0]->Evaluate(pAgent);
+        return !ret;
+    }
 
-	void DecoratorNot::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void DecoratorNot::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool DecoratorNot::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!DecoratorNot::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool DecoratorNot::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!DecoratorNot::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	BehaviorTask* DecoratorNot::createTask() const
-	{
-		DecoratorNotTask* pTask = BEHAVIAC_NEW DecoratorNotTask();
-		
-		return pTask;
-	}
+        return super::IsValid(pAgent, pTask);
+    }
 
-	void DecoratorNotTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    BehaviorTask* DecoratorNot::createTask() const
+    {
+        DecoratorNotTask* pTask = BEHAVIAC_NEW DecoratorNotTask();
 
-	void DecoratorNotTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+        return pTask;
+    }
 
-	void DecoratorNotTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void DecoratorNotTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	EBTStatus DecoratorNotTask::decorate(EBTStatus status)
-	{
-		if (status == BT_FAILURE)
-		{
-			return BT_SUCCESS;
-		}
+    void DecoratorNotTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-		if (status == BT_SUCCESS)
-		{
-			return BT_FAILURE;
-		}
+    void DecoratorNotTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-		return status;
-	}
+    EBTStatus DecoratorNotTask::decorate(EBTStatus status)
+    {
+        if (status == BT_FAILURE)
+        {
+            return BT_SUCCESS;
+        }
 
+        if (status == BT_SUCCESS)
+        {
+            return BT_FAILURE;
+        }
+
+        return status;
+    }
 }//namespace behaviac

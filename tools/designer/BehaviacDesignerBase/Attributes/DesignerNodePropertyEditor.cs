@@ -44,26 +44,22 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerNodePropertyEditor : Behaviac.Design.Attributes.DesignerPropertyEditor
     {
-        public DesignerNodePropertyEditor()
-        {
+        public DesignerNodePropertyEditor() {
             InitializeComponent();
         }
 
-        public override void SetProperty(DesignerPropertyInfo property, object obj)
-        {
+        public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
             Nodes.Node node = null;
-            if (obj is Nodes.Node)
-            {
+
+            if (obj is Nodes.Node) {
                 node = (Nodes.Node)obj;
-            }
-            else if (obj is Attachments.Attachment)
-            {
+
+            } else if (obj is Attachments.Attachment) {
                 node = ((Attachments.Attachment)obj).Node;
-            }
-            else
-            {
+
+            } else {
                 throw new Exception(string.Format(Resources.ExceptionDesignerAttributeCouldNotRetrieveNode, obj));
             }
 
@@ -74,15 +70,12 @@ namespace Behaviac.Design.Attributes
             comboBox.Items.Add(Resources.DesignerNodePropertyNone);
 
             IList<DesignerPropertyInfo> properties = node.GetDesignerProperties();
-            foreach (DesignerPropertyInfo dpi in properties)
-            {
+            foreach(DesignerPropertyInfo dpi in properties) {
                 bool supported = false;
 
                 // check if the property is allowed
-                foreach (Type supportedType in attribute.SupportedTypes)
-                {
-                    if (dpi.Property.PropertyType == supportedType)
-                    {
+                foreach(Type supportedType in attribute.SupportedTypes) {
+                    if (dpi.Property.PropertyType == supportedType) {
                         supported = true;
 
                         break;
@@ -90,16 +83,13 @@ namespace Behaviac.Design.Attributes
                 }
 
                 // skip this property if it is not supported
-                if (!supported)
-                {
+                if (!supported) {
                     continue;
                 }
 
                 // check if the node denies using this property
-                foreach (string excludedProperty in excludedProperties)
-                {
-                    if (dpi.Property.Name == excludedProperty)
-                    {
+                foreach(string excludedProperty in excludedProperties) {
+                    if (dpi.Property.Name == excludedProperty) {
                         supported = false;
 
                         break;
@@ -107,8 +97,7 @@ namespace Behaviac.Design.Attributes
                 }
 
                 // skip this property if it is not supported
-                if (!supported)
-                {
+                if (!supported) {
                     continue;
                 }
 
@@ -118,38 +107,33 @@ namespace Behaviac.Design.Attributes
 
             comboBox.Text = (string)property.Property.GetValue(obj, null);
 
-            if (comboBox.Text.Length < 1)
-            {
+            if (comboBox.Text.Length < 1) {
                 comboBox.SelectedIndex = 0;
             }
         }
 
-        public override void ReadOnly()
-        {
+        public override void ReadOnly() {
             base.ReadOnly();
 
             comboBox.Enabled = false;
         }
 
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e) {
             if (comboBox.SelectedIndex < 0 || !_valueWasAssigned)
-                return;
+            { return; }
 
             _property.Property.SetValue(_object, comboBox.Text, null);
 
             OnValueChanged(_property);
         }
 
-        private void comboBox_MouseEnter(object sender, EventArgs e)
-        {
+        private void comboBox_MouseEnter(object sender, EventArgs e) {
             this.OnMouseEnter(e);
         }
 
-        private void DesignerNodePropertyEditor_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void DesignerNodePropertyEditor_KeyPress(object sender, KeyPressEventArgs e) {
             if (Control.ModifierKeys == Keys.Shift || Control.ModifierKeys == Keys.Control || Control.ModifierKeys == Keys.Alt)
-                e.Handled = true;
+            { e.Handled = true; }
         }
     }
 }

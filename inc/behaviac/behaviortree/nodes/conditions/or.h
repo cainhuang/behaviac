@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_CONDITIONS_OR_H_
-#define BEHAVIAC_BEHAVIORTREE_CONDITIONS_OR_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_CONDITIONS_OR_H
+#define BEHAVIAC_BEHAVIORTREE_CONDITIONS_OR_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -22,14 +22,14 @@
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup Or
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup Or
+    * @{ */
 
-	/**
-	Boolean arithmetical operation ||
-	*/
+    /**
+    Boolean arithmetical operation ||
+    */
     class BEHAVIAC_API Or : public ConditionBase
     {
     public:
@@ -38,11 +38,11 @@ namespace behaviac
         Or();
         virtual ~Or();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-	protected:
-		virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
-	private:
-		virtual BehaviorTask* createTask() const;
-
+        virtual bool Evaluate(const Agent* pAgent);
+    protected:
+        virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
+    private:
+        virtual BehaviorTask* createTask() const;
     };
 
     class BEHAVIAC_API OrTask : public SelectorTask
@@ -59,14 +59,14 @@ namespace behaviac
         }
 
     protected:
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
 
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_CONDITIONS_OR_H_
+#endif//BEHAVIAC_BEHAVIORTREE_CONDITIONS_OR_H

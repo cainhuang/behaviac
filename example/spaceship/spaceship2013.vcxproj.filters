@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="behaviac_generated\types\customizedtypes.cpp">
+      <Filter>generated_behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\GameLogic.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\GameObject.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\GFrameHandler.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\mtrand.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\point.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Projectile.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Renderer.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Ship.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\stdafx.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\WorldState.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="behaviac_generated\types\agentproperties.h">
+      <Filter>generated_behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviac_generated\types\customizedtypes.h">
+      <Filter>generated_behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviac_generated\behaviors\generated_behaviors.h">
+      <Filter>generated_behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Definitions.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\GameLogic.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\GameObject.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\GFrameHandler.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\globals.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\mtrand.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\point.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Projectile.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Renderer.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Ship.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\stdafx.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\targetver.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\util.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\WorldState.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="generated_behaviors">
+      <UniqueIdentifier>{d03507b3-e210-44b8-be89-b2586bce8815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework">
+      <UniqueIdentifier>{8d5ca606-6d9a-49b8-8603-d4367376b880}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="readme.txt">
+      <Filter>framework</Filter>
+    </None>
+  </ItemGroup>
+</Project>

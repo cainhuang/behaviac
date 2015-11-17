@@ -16,63 +16,58 @@
 
 namespace behaviac
 {
-	DecoratorAlwaysRunning::DecoratorAlwaysRunning()
-	{}
+    DecoratorAlwaysRunning::DecoratorAlwaysRunning()
+    {}
 
-	DecoratorAlwaysRunning::~DecoratorAlwaysRunning()
-	{}
+    DecoratorAlwaysRunning::~DecoratorAlwaysRunning()
+    {}
 
-	void DecoratorAlwaysRunning::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void DecoratorAlwaysRunning::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool DecoratorAlwaysRunning::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!DecoratorAlwaysRunning::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool DecoratorAlwaysRunning::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!DecoratorAlwaysRunning::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	BehaviorTask* DecoratorAlwaysRunning::createTask() const
-	{
-		DecoratorAlwaysRunningTask* pTask = BEHAVIAC_NEW DecoratorAlwaysRunningTask();
-		
+        return super::IsValid(pAgent, pTask);
+    }
 
-		return pTask;
-	}
+    BehaviorTask* DecoratorAlwaysRunning::createTask() const
+    {
+        DecoratorAlwaysRunningTask* pTask = BEHAVIAC_NEW DecoratorAlwaysRunningTask();
 
-	void DecoratorAlwaysRunningTask::addChild(BehaviorTask* pBehavior)
-	{
-		super::addChild(pBehavior);
-	}
+        return pTask;
+    }
 
-	void DecoratorAlwaysRunningTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void DecoratorAlwaysRunningTask::addChild(BehaviorTask* pBehavior)
+    {
+        super::addChild(pBehavior);
+    }
 
+    void DecoratorAlwaysRunningTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void DecoratorAlwaysRunningTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void DecoratorAlwaysRunningTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void DecoratorAlwaysRunningTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void DecoratorAlwaysRunningTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
+    EBTStatus DecoratorAlwaysRunningTask::decorate(EBTStatus status)
+    {
+        BEHAVIAC_UNUSED_VAR(status);
 
-
-	EBTStatus DecoratorAlwaysRunningTask::decorate(EBTStatus status)
-	{
-		BEHAVIAC_UNUSED_VAR(status);
-
-		return BT_RUNNING;
-	}
-
+        return BT_RUNNING;
+    }
 }//namespace behaviac

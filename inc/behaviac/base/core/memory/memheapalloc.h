@@ -11,12 +11,12 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_MEMORY_MEMHEAPALLOC_H_
-#define _BEHAVIAC_MEMORY_MEMHEAPALLOC_H_
+#ifndef BEHAVIAC_MEMORY_MEMHEAPALLOC_H
+#define BEHAVIAC_MEMORY_MEMHEAPALLOC_H
 #include "behaviac/base/core/memory/memory.h"
 
 namespace behaviac
 {
 }//namespace behaviac
 
-#endif//_BEHAVIAC_MEMORY_MEMHEAPALLOC_H_
+#endif//BEHAVIAC_MEMORY_MEMHEAPALLOC_H

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -10,14 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Behaviac.Design</RootNamespace>
     <AssemblyName>BehaviacDesignerBase</AssemblyName>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -69,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Agent.cs" />
     <Compile Include="Attachments\Attachment.cs" />
+    <Compile Include="Attachments\Events\AttachAction.cs" />
     <Compile Include="Attachments\Events\Attach.cs" />
     <Compile Include="Attachments\Events\Predicate.cs" />
     <Compile Include="Attributes\DesignerParamEnumEditor.cs">
@@ -76,18 +73,6 @@
     </Compile>
     <Compile Include="Attributes\DesignerParamEnumEditor.Designer.cs">
       <DependentUpon>DesignerParamEnumEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Attributes\DesignerParEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Attributes\DesignerParEditor.Designer.cs">
-      <DependentUpon>DesignerParEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Attributes\DesignerParComboEnumEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Attributes\DesignerParComboEnumEditor.Designer.cs">
-      <DependentUpon>DesignerParComboEnumEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Attributes\DesignerPropertyUtility.cs" />
     <Compile Include="CRC32.cs" />
@@ -197,10 +182,13 @@
     <Compile Include="Network\MsgReceiver.cs" />
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Nodes\BaseNode.cs" />
+    <Compile Include="Nodes\Method.cs" />
+    <Compile Include="Nodes\Task.cs" />
     <Compile Include="NodeUI\ActionUIPolicy.cs" />
     <Compile Include="NodeUI\BehaviorUIPolicy.cs" />
-    <Compile Include="NodeUI\PredicateUIPolicy.cs" />
-    <Compile Include="NodeUI\NodeUIPolicy.cs" />
+    <Compile Include="NodeUI\AttachActionUIPolicy.cs" />
+    <Compile Include="NodeUI\ObjectUIPolicy.cs" />
+    <Compile Include="NodeViewData\NodeViewData.SubItemAttachAction.cs" />
     <Compile Include="NodeViewData\NodeViewData.SubItemAttachment.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Attachments\Events\Event.cs">
@@ -220,6 +208,7 @@
     <Compile Include="Nodes\Selector.cs" />
     <Compile Include="Nodes\Sequence.cs" />
     <Compile Include="NodeViewData\NodeViewData.cs" />
+    <Compile Include="NodeViewData\NodeViewData.SubItemEffector.cs" />
     <Compile Include="NodeViewData\NodeViewData.SubItemEvent.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -268,12 +257,6 @@
     <EmbeddedResource Include="Attributes\DesignerParamEnumEditor.resx">
       <DependentUpon>DesignerParamEnumEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Attributes\DesignerParEditor.resx">
-      <DependentUpon>DesignerParEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Attributes\DesignerParComboEnumEditor.resx">
-      <DependentUpon>DesignerParComboEnumEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CompositeEditorDialog.resx">
       <DependentUpon>CompositeEditorDialog.cs</DependentUpon>
@@ -347,8 +330,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

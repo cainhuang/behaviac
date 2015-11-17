@@ -11,6 +11,5 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "behaviac/base/base.h"
-#include "behaviac/agent/agent.h"
-#include "behaviac/test.h"
+#include "behaviac/behaviac.h"
+#include "test.h"

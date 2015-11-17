@@ -22,28 +22,28 @@
 
 /* ---------------------------------------------------------------------
 
-    Conversions between UTF32, UTF-16, and UTF-8. Source code file.
-    Author: Mark E. Davis, 1994.
-    Rev History: Rick McGowan, fixes & updates May 2001.
-    Sept 2001: fixed const & error conditions per
+	Conversions between UTF32, UTF-16, and UTF-8. Source code file.
+	Author: Mark E. Davis, 1994.
+	Rev History: Rick McGowan, fixes & updates May 2001.
+	Sept 2001: fixed const & error conditions per
 	mods suggested by S. Parent & A. Lillich.
-    June 2002: Tim Dodd added detection and handling of incomplete
+	June 2002: Tim Dodd added detection and handling of incomplete
 	source sequences, enhanced error detection, added casts
 	to eliminate compiler warnings.
-    July 2003: slight mods to back out aggressive FFFE detection.
-    Jan 2004: updated switches in from-UTF8 conversions.
-    Oct 2004: updated to use UNI_MAX_LEGAL_UTF32 in UTF-32 conversions.
+	July 2003: slight mods to back out aggressive FFFE detection.
+	Jan 2004: updated switches in from-UTF8 conversions.
+	Oct 2004: updated to use UNI_MAX_LEGAL_UTF32 in UTF-32 conversions.
 
-    See the header file "ConvertUTF.h" for complete documentation.
+	See the header file "ConvertUTF.h" for complete documentation.
 
------------------------------------------------------------------------- */
+	------------------------------------------------------------------------ */
 
 #include "behaviac/base/convertutf.h"
 #ifdef CVTUTF_DEBUG
 #include <stdio.h>
 #endif
 
-static const int halfShift  = 10; /* used for shifting by 10 bits */
+static const int halfShift = 10; /* used for shifting by 10 bits */
 
 static const UTF32 halfBase = 0x0010000UL;
 static const UTF32 halfMask = 0x3FFUL;
@@ -87,27 +87,32 @@ ConversionResult ConvertUTF32toUTF16(
                     --source; /* return to the illegal value itself */
                     result = sourceIllegal;
                     break;
+
                 }
                 else
                 {
                     *target++ = UNI_REPLACEMENT_CHAR;
                 }
+
             }
             else
             {
                 *target++ = (UTF16)ch; /* normal case */
             }
+
         }
         else if (ch > UNI_MAX_LEGAL_UTF32)
         {
             if (flags == strictConversion)
             {
                 result = sourceIllegal;
+
             }
             else
             {
                 *target++ = UNI_REPLACEMENT_CHAR;
             }
+
         }
         else
         {
@@ -160,6 +165,7 @@ ConversionResult ConvertUTF16toUTF32(
                     ch = ((ch - UNI_SUR_HIGH_START) << halfShift)
                          + (ch2 - UNI_SUR_LOW_START) + halfBase;
                     ++source;
+
                 }
                 else if (flags == strictConversion)     /* it's an unpaired high surrogate */
                 {
@@ -167,6 +173,7 @@ ConversionResult ConvertUTF16toUTF32(
                     result = sourceIllegal;
                     break;
                 }
+
             }
             else     /* We don't have the 16 bits following the high surrogate. */
             {
@@ -174,6 +181,7 @@ ConversionResult ConvertUTF16toUTF32(
                 result = sourceExhausted;
                 break;
             }
+
         }
         else if (flags == strictConversion)
         {
@@ -292,6 +300,7 @@ ConversionResult ConvertUTF16toUTF8(
                     ch = ((ch - UNI_SUR_HIGH_START) << halfShift)
                          + (ch2 - UNI_SUR_LOW_START) + halfBase;
                     ++source;
+
                 }
                 else if (flags == strictConversion)     /* it's an unpaired high surrogate */
                 {
@@ -299,6 +308,7 @@ ConversionResult ConvertUTF16toUTF8(
                     result = sourceIllegal;
                     break;
                 }
+
             }
             else     /* We don't have the 16 bits following the high surrogate. */
             {
@@ -306,6 +316,7 @@ ConversionResult ConvertUTF16toUTF8(
                 result = sourceExhausted;
                 break;
             }
+
         }
         else if (flags == strictConversion)
         {
@@ -322,18 +333,22 @@ ConversionResult ConvertUTF16toUTF8(
         if (ch < (UTF32)0x80)
         {
             bytesToWrite = 1;
+
         }
         else if (ch < (UTF32)0x800)
         {
             bytesToWrite = 2;
+
         }
         else if (ch < (UTF32)0x10000)
         {
             bytesToWrite = 3;
+
         }
         else if (ch < (UTF32)0x110000)
         {
             bytesToWrite = 4;
+
         }
         else
         {
@@ -516,7 +531,7 @@ ConversionResult ConvertUTF8toUTF16(
         }
 
         /* Do this check whether lenient or strict */
-        if (! isLegalUTF8(source, extraBytesToRead + 1))
+        if (!isLegalUTF8(source, extraBytesToRead + 1))
         {
             result = sourceIllegal;
             break;
@@ -570,16 +585,19 @@ ConversionResult ConvertUTF8toUTF16(
                     source -= (extraBytesToRead + 1); /* return to the illegal value itself */
                     result = sourceIllegal;
                     break;
+
                 }
                 else
                 {
                     *target++ = UNI_REPLACEMENT_CHAR;
                 }
+
             }
             else
             {
                 *target++ = (UTF16)ch; /* normal case */
             }
+
         }
         else if (ch > UNI_MAX_UTF16)
         {
@@ -588,11 +606,13 @@ ConversionResult ConvertUTF8toUTF16(
                 result = sourceIllegal;
                 source -= (extraBytesToRead + 1); /* return to the start */
                 break; /* Bail out; shouldn't continue */
+
             }
             else
             {
                 *target++ = UNI_REPLACEMENT_CHAR;
             }
+
         }
         else
         {
@@ -651,18 +671,22 @@ ConversionResult ConvertUTF32toUTF8(
         if (ch < (UTF32)0x80)
         {
             bytesToWrite = 1;
+
         }
         else if (ch < (UTF32)0x800)
         {
             bytesToWrite = 2;
+
         }
         else if (ch < (UTF32)0x10000)
         {
             bytesToWrite = 3;
+
         }
         else if (ch <= UNI_MAX_LEGAL_UTF32)
         {
             bytesToWrite = 4;
+
         }
         else
         {
@@ -729,7 +753,7 @@ ConversionResult ConvertUTF8toUTF32(
         }
 
         /* Do this check whether lenient or strict */
-        if (! isLegalUTF8(source, extraBytesToRead + 1))
+        if (!isLegalUTF8(source, extraBytesToRead + 1))
         {
             result = sourceIllegal;
             break;
@@ -786,16 +810,19 @@ ConversionResult ConvertUTF8toUTF32(
                     source -= (extraBytesToRead + 1); /* return to the illegal value itself */
                     result = sourceIllegal;
                     break;
+
                 }
                 else
                 {
                     *target++ = UNI_REPLACEMENT_CHAR;
                 }
+
             }
             else
             {
                 *target++ = ch;
             }
+
         }
         else     /* i.e., ch > UNI_MAX_LEGAL_UTF32 */
         {
@@ -811,20 +838,19 @@ ConversionResult ConvertUTF8toUTF32(
 
 /* ---------------------------------------------------------------------
 
-    Note A.
-    The fall-through switches in UTF-8 reading code save a
-    temp variable, some decrements & conditionals.  The switches
-    are equivalent to the following loop:
+	Note A.
+	The fall-through switches in UTF-8 reading code save a
+	temp variable, some decrements & conditionals.  The switches
+	are equivalent to the following loop:
 	{
-	    int tmpBytesToRead = extraBytesToRead+1;
-	    do {
-		ch += *source++;
-		--tmpBytesToRead;
-		if (tmpBytesToRead) ch <<= 6;
-	    } while (tmpBytesToRead > 0);
+	int tmpBytesToRead = extraBytesToRead+1;
+	do {
+	ch += *source++;
+	--tmpBytesToRead;
+	if (tmpBytesToRead) ch <<= 6;
+	} while (tmpBytesToRead > 0);
 	}
-    In UTF-8 writing code, the switches on "bytesToWrite" are
-    similarly unrolled loops.
+	In UTF-8 writing code, the switches on "bytesToWrite" are
+	similarly unrolled loops.
 
-   --------------------------------------------------------------------- */
-
+	--------------------------------------------------------------------- */

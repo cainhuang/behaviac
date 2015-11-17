@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_META_ADDPOINTER_H__INCLUDED
-#define _BEHAVIAC_BASE_META_ADDPOINTER_H__INCLUDED
+#ifndef BEHAVIAC_BASE_META_ADDPOINTER_H_INCLUDED
+#define BEHAVIAC_BASE_META_ADDPOINTER_H_INCLUDED
 
 namespace behaviac
 {

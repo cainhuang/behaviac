@@ -14,10 +14,10 @@
 #include "behaviac/base/file/filesystemvisitor.h"
 
 CVectorFileSystemVisitor::CVectorFileSystemVisitor(behaviac::vector< behaviac::string >& vec, bool storeFullPath, uint32_t maximumSize, bool keepCase)
-    :   m_vec(vec)
-    ,   m_storeFullPath(storeFullPath)
-    ,   m_maximumSize(maximumSize)
-    ,   m_keepCase(keepCase)
+    : m_vec(vec)
+    , m_storeFullPath(storeFullPath)
+    , m_maximumSize(maximumSize)
+    , m_keepCase(keepCase)
 {
 }
 
@@ -52,25 +52,25 @@ void CVectorFileSystemVisitor::ExitDirectory()
 }
 
 CCounterFileSystemVisitor::CCounterFileSystemVisitor(uint32_t maximumSize)
-    :   m_maximumSize(maximumSize)
-    ,   m_count(0)
+    : m_maximumSize(maximumSize)
+    , m_count(0)
 {
 }
 
 bool CCounterFileSystemVisitor::EnterDirectory(const char* fullDirPath, const char* dirName)
 {
-	BEHAVIAC_UNUSED_VAR(fullDirPath);
-	BEHAVIAC_UNUSED_VAR(dirName);
+    BEHAVIAC_UNUSED_VAR(fullDirPath);
+    BEHAVIAC_UNUSED_VAR(dirName);
 
     return true;
 }
 
 bool CCounterFileSystemVisitor::VisitFile(const char* fullFilePath, const char* fileName)
 {
-	BEHAVIAC_UNUSED_VAR(fullFilePath);
-	BEHAVIAC_UNUSED_VAR(fileName);
+    BEHAVIAC_UNUSED_VAR(fullFilePath);
+    BEHAVIAC_UNUSED_VAR(fileName);
 
-	++m_count;
+    ++m_count;
     return m_maximumSize == 0 || m_count < m_maximumSize;
 }
 

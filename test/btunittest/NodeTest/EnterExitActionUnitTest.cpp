@@ -16,132 +16,134 @@
 
 LOAD_TEST(btunittest, enter_exit_action_ut_0)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/enter_exit_action_ut_0", format);
-	myTestAgent->resetProperties();
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/enter_exit_action_ut_0", format);
+    myTestAgent->resetProperties();
 
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	//CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    //CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
 
-	//CHECK_EQUAL(0, myTestAgent->action_0_exit_count);
-	CHECK_EQUAL(0, myTestAgent->action_1_exit_count);
-	CHECK_EQUAL(0, myTestAgent->action_2_exit_count);
+    //CHECK_EQUAL(0, myTestAgent->action_0_exit_count);
+    CHECK_EQUAL(0, myTestAgent->action_1_exit_count);
+    CHECK_EQUAL(0, myTestAgent->action_2_exit_count);
 
-	CHECK_EQUAL(behaviac::BT_RUNNING, status);
-	int loopCount = 1000;
-	while (loopCount > 0)
-	{
-		status = myTestAgent->btexec();
-		//CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
-		CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
-		CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
+    CHECK_EQUAL(behaviac::BT_RUNNING, status);
+    int loopCount = 1000;
 
-		//CHECK_EQUAL(0, myTestAgent->action_0_exit_count);
-		CHECK_EQUAL(0, myTestAgent->action_1_exit_count);
-		CHECK_EQUAL(0, myTestAgent->action_2_exit_count);
+    while (loopCount > 0)
+    {
+        status = myTestAgent->btexec();
+        //CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
+        CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
+        CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
 
-		CHECK_EQUAL(behaviac::BT_RUNNING, status);
-		--loopCount;
-	}
+        //CHECK_EQUAL(0, myTestAgent->action_0_exit_count);
+        CHECK_EQUAL(0, myTestAgent->action_1_exit_count);
+        CHECK_EQUAL(0, myTestAgent->action_2_exit_count);
 
-	//
-	myTestAgent->testVar_0 = 0;
-	status = myTestAgent->btexec();
-	//CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
+        CHECK_EQUAL(behaviac::BT_RUNNING, status);
+        --loopCount;
+    }
 
-	//CHECK_EQUAL(1, myTestAgent->action_0_exit_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_exit_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_exit_count);
+    //
+    myTestAgent->testVar_0 = 0;
+    status = myTestAgent->btexec();
+    //CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
 
-	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+    //CHECK_EQUAL(1, myTestAgent->action_0_exit_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_exit_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_exit_count);
 
-	loopCount = 100;
-	while (loopCount > 0)
-	{
-		status = myTestAgent->btexec();
-		--loopCount;
-	}
+    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
 
-	//CHECK_EQUAL(101, myTestAgent->action_0_enter_count);
-	CHECK_EQUAL(101, myTestAgent->action_1_enter_count);
-	CHECK_EQUAL(101, myTestAgent->action_2_enter_count);
+    loopCount = 100;
 
-	//CHECK_EQUAL(101, myTestAgent->action_0_exit_count);
-	CHECK_EQUAL(101, myTestAgent->action_1_exit_count);
-	CHECK_EQUAL(101, myTestAgent->action_2_exit_count);
+    while (loopCount > 0)
+    {
+        status = myTestAgent->btexec();
+        --loopCount;
+    }
 
-	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-	finlTestEnvNode(myTestAgent);
+    //CHECK_EQUAL(101, myTestAgent->action_0_enter_count);
+    CHECK_EQUAL(101, myTestAgent->action_1_enter_count);
+    CHECK_EQUAL(101, myTestAgent->action_2_enter_count);
+
+    //CHECK_EQUAL(101, myTestAgent->action_0_exit_count);
+    CHECK_EQUAL(101, myTestAgent->action_1_exit_count);
+    CHECK_EQUAL(101, myTestAgent->action_2_exit_count);
+
+    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, enter_exit_action_ut_1)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/enter_exit_action_ut_1", format);
-	myTestAgent->resetProperties();
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/enter_exit_action_ut_1", format);
+    myTestAgent->resetProperties();
 
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	//CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    //CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
 
-	//CHECK_EQUAL(0, myTestAgent->action_0_exit_count);
-	CHECK_EQUAL(0, myTestAgent->action_1_exit_count);
-	CHECK_EQUAL(0, myTestAgent->action_2_exit_count);
+    //CHECK_EQUAL(0, myTestAgent->action_0_exit_count);
+    CHECK_EQUAL(0, myTestAgent->action_1_exit_count);
+    CHECK_EQUAL(0, myTestAgent->action_2_exit_count);
 
-	CHECK_EQUAL(3, myTestAgent->testVar_1);
-	CHECK_STR_EQUAL("hello", myTestAgent->testVar_str_0.c_str());
+    CHECK_EQUAL(3, myTestAgent->testVar_1);
+    CHECK_STR_EQUAL("hello", myTestAgent->testVar_str_0.c_str());
 
-	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+    CHECK_EQUAL(behaviac::BT_RUNNING, status);
 
-	myTestAgent->testVar_0 = 0;
-	status = myTestAgent->btexec();
-	//CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
+    myTestAgent->testVar_0 = 0;
+    status = myTestAgent->btexec();
+    //CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
 
-	//CHECK_EQUAL(1, myTestAgent->action_0_exit_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_exit_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_exit_count);
+    //CHECK_EQUAL(1, myTestAgent->action_0_exit_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_exit_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_exit_count);
 
-	CHECK_EQUAL(5, myTestAgent->testVar_1);
-	CHECK_STR_EQUAL("world", myTestAgent->testVar_str_0.c_str());
-	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-	finlTestEnvNode(myTestAgent);
+    CHECK_EQUAL(5, myTestAgent->testVar_1);
+    CHECK_STR_EQUAL("world", myTestAgent->testVar_str_0.c_str());
+    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, enter_exit_action_ut_2)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/enter_exit_action_ut_2", format);
-	myTestAgent->resetProperties();
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/enter_exit_action_ut_2", format);
+    myTestAgent->resetProperties();
 
-	behaviac::EBTStatus status = myTestAgent->btexec();
-	CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
+    behaviac::EBTStatus status = myTestAgent->btexec();
+    CHECK_EQUAL(1, myTestAgent->action_0_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
 
-	CHECK_EQUAL(1, myTestAgent->action_0_exit_count);
-	CHECK_EQUAL(0, myTestAgent->action_1_exit_count);
-	CHECK_EQUAL(0, myTestAgent->action_2_exit_count);
+    CHECK_EQUAL(1, myTestAgent->action_0_exit_count);
+    CHECK_EQUAL(0, myTestAgent->action_1_exit_count);
+    CHECK_EQUAL(0, myTestAgent->action_2_exit_count);
 
-	CHECK_EQUAL(3, myTestAgent->testVar_1);
-	CHECK_STR_EQUAL("hello", myTestAgent->testVar_str_0.c_str());
-	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+    CHECK_EQUAL(3, myTestAgent->testVar_1);
+    CHECK_STR_EQUAL("hello", myTestAgent->testVar_str_0.c_str());
+    CHECK_EQUAL(behaviac::BT_RUNNING, status);
 
-	myTestAgent->testVar_0 = 0;
-	status = myTestAgent->btexec();
-	CHECK_EQUAL(2, myTestAgent->action_0_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
+    myTestAgent->testVar_0 = 0;
+    status = myTestAgent->btexec();
+    CHECK_EQUAL(2, myTestAgent->action_0_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_enter_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_enter_count);
 
-	CHECK_EQUAL(2, myTestAgent->action_0_exit_count);
-	CHECK_EQUAL(1, myTestAgent->action_1_exit_count);
-	CHECK_EQUAL(1, myTestAgent->action_2_exit_count);
+    CHECK_EQUAL(2, myTestAgent->action_0_exit_count);
+    CHECK_EQUAL(1, myTestAgent->action_1_exit_count);
+    CHECK_EQUAL(1, myTestAgent->action_2_exit_count);
 
-	CHECK_EQUAL(5, myTestAgent->testVar_1);
-	CHECK_STR_EQUAL("world", myTestAgent->testVar_str_0.c_str());
-	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-	finlTestEnvNode(myTestAgent);
+    CHECK_EQUAL(5, myTestAgent->testVar_1);
+    CHECK_STR_EQUAL("world", myTestAgent->testVar_str_0.c_str());
+    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+    finlTestEnvNode(myTestAgent);
 }

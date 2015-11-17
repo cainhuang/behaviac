@@ -11,17 +11,17 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_UITYPE_H_
-#define _ENGINESERVICES_UITYPE_H_
+#ifndef BEHAVIAC_ENGINESERVICES_UITYPE_H
+#define BEHAVIAC_ENGINESERVICES_UITYPE_H
 
 #include "behaviac/base/serialization/textnode.h"
 #include "behaviac/base/object/uitypeinterface.h"
 
 enum UiFlags
 {
-    Ui_None         = 0x0000,
-    Ui_Hidden       = 0x0001,
-    Ui_Disable      = 0x0002
+    Ui_None = 0x0000,
+    Ui_Hidden = 0x0001,
+    Ui_Disable = 0x0002
 };
 
 struct UiBasicType : public UiGenericType
@@ -34,9 +34,9 @@ private:
     {
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(IMinMax);
         virtual void SaveToXml(XmlNodeRef& xmlNode) const = 0;
-		virtual ~IMinMax()
-		{
-		}
+        virtual ~IMinMax()
+        {
+        }
     };
 
     template<class T>
@@ -52,9 +52,9 @@ private:
             maximum = max;
         }
 
-		virtual ~CAutoTypeMinMax()
-		{
-		}
+        virtual ~CAutoTypeMinMax()
+        {
+        }
 
         virtual void SaveToXml(XmlNodeRef& xmlNode) const
         {
@@ -86,7 +86,7 @@ public:
     UiBasicType(uint32_t UiFlags, const char* description, const PropertyType& min, const PropertyType& max) :
         m_UiFlags(Ui_None), m_description(description)
     {
-		typedef CAutoTypeMinMax<PropertyType> PropertyTypeAuto;
+        typedef CAutoTypeMinMax<PropertyType> PropertyTypeAuto;
         m_minMax = BEHAVIAC_NEW PropertyTypeAuto(min, max);
     }
 
@@ -126,4 +126,4 @@ public:
 
 static const uint32_t DefaultUiFlags = Ui_None;
 
-#endif // #ifndef _ENGINESERVICES_UITYPE_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_UITYPE_H

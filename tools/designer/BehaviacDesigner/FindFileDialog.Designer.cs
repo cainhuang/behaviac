@@ -13,43 +13,40 @@
 
 namespace Behaviac.Design
 {
-	partial class FindFileDialog
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class FindFileDialog
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Windows Form Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FindFileDialog));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.filesGridView = new System.Windows.Forms.DataGridView();
             this.filepathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,63 +59,59 @@ namespace Behaviac.Design
             this.closeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.filesGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // folderBrowserDialog
-            // 
-            resources.ApplyResources(this.folderBrowserDialog, "folderBrowserDialog");
-            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            // 
+            //
             // imageList
-            // 
+            //
             this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
             this.imageList.TransparentColor = System.Drawing.Color.Magenta;
             this.imageList.Images.SetKeyName(0, "VSFolder_closed.bmp");
             this.imageList.Images.SetKeyName(1, "DocumentHS.png");
-            // 
+            //
             // filesGridView
-            // 
-            resources.ApplyResources(this.filesGridView, "filesGridView");
+            //
             this.filesGridView.AllowUserToAddRows = false;
             this.filesGridView.AllowUserToDeleteRows = false;
             this.filesGridView.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.filesGridView, "filesGridView");
             this.filesGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.filesGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.filesGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.filesGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.filesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.filesGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.filepathColumn,
-            this.sizeColumn,
-            this.modifiedTimeColumn});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.filesGridView.DefaultCellStyle = dataGridViewCellStyle10;
+                this.filepathColumn,
+                this.sizeColumn,
+                this.modifiedTimeColumn
+            });
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.filesGridView.DefaultCellStyle = dataGridViewCellStyle4;
             this.filesGridView.MultiSelect = false;
             this.filesGridView.Name = "filesGridView";
             this.filesGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.filesGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.filesGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.filesGridView.RowHeadersVisible = false;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.LightGray;
-            this.filesGridView.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.LightGray;
+            this.filesGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.filesGridView.RowTemplate.Height = 23;
             this.filesGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.filesGridView.VirtualMode = true;
@@ -126,38 +119,38 @@ namespace Behaviac.Design
             this.filesGridView.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.filesGridView_CellValueNeeded);
             this.filesGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.filesGridView_ColumnHeaderMouseClick);
             this.filesGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesGridView_KeyDown);
-            // 
+            //
             // filepathColumn
-            // 
+            //
             this.filepathColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.filepathColumn.FillWeight = 80F;
             resources.ApplyResources(this.filepathColumn, "filepathColumn");
             this.filepathColumn.Name = "filepathColumn";
             this.filepathColumn.ReadOnly = true;
-            // 
+            //
             // sizeColumn
-            // 
+            //
             this.sizeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.sizeColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.sizeColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.sizeColumn.FillWeight = 10F;
             resources.ApplyResources(this.sizeColumn, "sizeColumn");
             this.sizeColumn.Name = "sizeColumn";
             this.sizeColumn.ReadOnly = true;
-            // 
+            //
             // modifiedTimeColumn
-            // 
+            //
             this.modifiedTimeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.modifiedTimeColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.modifiedTimeColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.modifiedTimeColumn.FillWeight = 20F;
             resources.ApplyResources(this.modifiedTimeColumn, "modifiedTimeColumn");
             this.modifiedTimeColumn.Name = "modifiedTimeColumn";
             this.modifiedTimeColumn.ReadOnly = true;
             this.modifiedTimeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
+            //
             // filenameTextBox
-            // 
+            //
             resources.ApplyResources(this.filenameTextBox, "filenameTextBox");
             this.filenameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.filenameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -165,14 +158,14 @@ namespace Behaviac.Design
             this.filenameTextBox.Name = "filenameTextBox";
             this.filenameTextBox.TextChanged += new System.EventHandler(this.filenameTextBox_TextChanged);
             this.filenameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filenameTextBox_KeyDown);
-            // 
+            //
             // exportFolderLabel
-            // 
+            //
             resources.ApplyResources(this.exportFolderLabel, "exportFolderLabel");
             this.exportFolderLabel.Name = "exportFolderLabel";
-            // 
+            //
             // searchIncludeDirCheckBox
-            // 
+            //
             resources.ApplyResources(this.searchIncludeDirCheckBox, "searchIncludeDirCheckBox");
             this.searchIncludeDirCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.searchIncludeDirCheckBox.Checked = true;
@@ -180,15 +173,15 @@ namespace Behaviac.Design
             this.searchIncludeDirCheckBox.Name = "searchIncludeDirCheckBox";
             this.searchIncludeDirCheckBox.UseVisualStyleBackColor = false;
             this.searchIncludeDirCheckBox.CheckedChanged += new System.EventHandler(this.searchIncludeDirCheckBox_CheckedChanged);
-            // 
+            //
             // fileCountLabel
-            // 
+            //
             resources.ApplyResources(this.fileCountLabel, "fileCountLabel");
             this.fileCountLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.fileCountLabel.Name = "fileCountLabel";
-            // 
+            //
             // closeButton
-            // 
+            //
             resources.ApplyResources(this.closeButton, "closeButton");
             this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -196,9 +189,9 @@ namespace Behaviac.Design
             this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.closeButton.Name = "closeButton";
             this.closeButton.UseVisualStyleBackColor = false;
-            // 
+            //
             // FindFileDialog
-            // 
+            //
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
@@ -218,11 +211,10 @@ namespace Behaviac.Design
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.DataGridView filesGridView;
         private System.Windows.Forms.TextBox filenameTextBox;
@@ -233,5 +225,5 @@ namespace Behaviac.Design
         private System.Windows.Forms.DataGridViewTextBoxColumn filepathColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn sizeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn modifiedTimeColumn;
-	}
+    }
 }

@@ -16,92 +16,93 @@
 
 namespace behaviac
 {
-	DecoratorLoopUntil::DecoratorLoopUntil() : m_until(true)
-	{}
+    DecoratorLoopUntil::DecoratorLoopUntil() : m_until(true)
+    {}
 
-	DecoratorLoopUntil::~DecoratorLoopUntil()
-	{}
+    DecoratorLoopUntil::~DecoratorLoopUntil()
+    {}
 
-	void DecoratorLoopUntil::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
+    void DecoratorLoopUntil::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
 
-		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
-		{
-			const property_t& p = (*it);
+        for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+        {
+            const property_t& p = (*it);
 
-			if (strcmp(p.name, "Until") == 0)
-			{
-				if (string_icmp(p.value, "true") == 0)
-				{
-					this->m_until = true;
-				}
-				else if (string_icmp(p.value, "false") == 0)
-				{
-					this->m_until = false;
-				}
-			}
-		}
-	}
+            if (strcmp(p.name, "Until") == 0)
+            {
+                if (string_icmp(p.value, "true") == 0)
+                {
+                    this->m_until = true;
 
-	BehaviorTask* DecoratorLoopUntil::createTask() const
-	{
-		DecoratorLoopUntilTask* pTask = BEHAVIAC_NEW DecoratorLoopUntilTask();
-		
-		return pTask;
-	}
+                }
+                else if (string_icmp(p.value, "false") == 0)
+                {
+                    this->m_until = false;
+                }
+            }
+        }
+    }
 
-	void DecoratorLoopUntilTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    BehaviorTask* DecoratorLoopUntil::createTask() const
+    {
+        DecoratorLoopUntilTask* pTask = BEHAVIAC_NEW DecoratorLoopUntilTask();
 
-	void DecoratorLoopUntilTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+        return pTask;
+    }
 
-	void DecoratorLoopUntilTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void DecoratorLoopUntilTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	bool DecoratorLoopUntilTask::NeedRestart() const
-	{
-		return true;
-	}
+    void DecoratorLoopUntilTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	EBTStatus DecoratorLoopUntilTask::decorate(EBTStatus status)
-	{
-		if (this->m_n > 0)
-		{
-			this->m_n--;
-		}
+    void DecoratorLoopUntilTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-		if (this->m_n == 0)
-		{
-			return BT_SUCCESS;
-		}
+    //bool DecoratorLoopUntilTask::NeedRestart() const
+    //{
+    //	return true;
+    //}
 
-		BEHAVIAC_ASSERT(DecoratorLoopUntil::DynamicCast(this->GetNode()));
-		DecoratorLoopUntil* pDecoratorLoopUntil = (DecoratorLoopUntil*)(this->GetNode());
+    EBTStatus DecoratorLoopUntilTask::decorate(EBTStatus status)
+    {
+        if (this->m_n > 0)
+        {
+            this->m_n--;
+        }
 
-		if (pDecoratorLoopUntil->m_until)
-		{
-			if (status == BT_SUCCESS)
-			{
-				return BT_SUCCESS;
-			}
-		}
-		else
-		{
-			if (status == BT_FAILURE)
-			{
-				return BT_FAILURE;
-			}		
-		}
+        if (this->m_n == 0)
+        {
+            return BT_SUCCESS;
+        }
 
-		return BT_RUNNING;
-	}
+        BEHAVIAC_ASSERT(DecoratorLoopUntil::DynamicCast(this->GetNode()));
+        DecoratorLoopUntil* pDecoratorLoopUntil = (DecoratorLoopUntil*)(this->GetNode());
 
+        if (pDecoratorLoopUntil->m_until)
+        {
+            if (status == BT_SUCCESS)
+            {
+                return BT_SUCCESS;
+            }
+
+        }
+        else
+        {
+            if (status == BT_FAILURE)
+            {
+                return BT_FAILURE;
+            }
+        }
+
+        return BT_RUNNING;
+    }
 }//namespace behaviac

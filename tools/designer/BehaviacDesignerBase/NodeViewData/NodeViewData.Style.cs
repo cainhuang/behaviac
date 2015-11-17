@@ -47,28 +47,24 @@ namespace Behaviac.Design
         public class Style
         {
             private Brush _background;
-            public Brush Background
-            {
+            public Brush Background {
                 get { return _background; }
                 set { _background = value; }
             }
 
             private Pen _border;
-            public Pen Border
-            {
+            public Pen Border {
                 get { return _border; }
                 set { _border = value; }
             }
 
             private Brush _label;
-            public Brush Label
-            {
+            public Brush Label {
                 get { return _label; }
                 set { _label = value; }
             }
 
-            public Style(Brush background, Pen border, Brush label)
-            {
+            public Style(Brush background, Pen border, Brush label) {
                 _background = background;
                 _border = border;
                 _label = label;
@@ -80,16 +76,15 @@ namespace Behaviac.Design
             /// <param name="a">Style with defaults.</param>
             /// <param name="b">Style with overrides.</param>
             /// <returns>Returns a combination of both styles.</returns>
-            public static Style operator +(Style a, Style b)
-            {
+            public static Style operator +(Style a, Style b) {
                 if (a == null && b == null)
-                    throw new Exception(Resources.ExceptionBothStylesNull);
+                { throw new Exception(Resources.ExceptionBothStylesNull); }
 
                 if (a == null)
-                    return b;
+                { return b; }
 
                 if (b == null)
-                    return a;
+                { return a; }
 
                 return new Style(b.Background != null ? b.Background : a.Background, b.Border != null ? b.Border : a.Border, b.Label != null ? b.Label : a.Label);
             }

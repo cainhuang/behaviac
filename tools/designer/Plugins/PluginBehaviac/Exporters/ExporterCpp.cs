@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -17,6 +17,7 @@ using System.Text;
 using System.IO;
 using Behaviac.Design;
 using Behaviac.Design.Nodes;
+using Behaviac.Design.Attachments;
 using PluginBehaviac.Properties;
 using PluginBehaviac.NodeExporters;
 using PluginBehaviac.DataExporters;
@@ -26,78 +27,144 @@ namespace PluginBehaviac.Exporters
 {
     public class ExporterCpp : Behaviac.Design.Exporters.Exporter
     {
+        class BehaviorCreator
+        {
+            public BehaviorCreator(string filename, string classname)
+            {
+                Filename = filename;
+                Classname = classname;
+            }
+
+            public string Filename;
+            public string Classname;
+        }
+
+        List<BehaviorCreator> _behaviorCreators = new List<BehaviorCreator>();
+
         public ExporterCpp(BehaviorNode node, string outputFolder, string filename, List<string> includedFilenames = null)
             : base(node, outputFolder, filename, includedFilenames)
         {
-            _outputFolder = Path.GetFullPath(_outputFolder);
-            _filename = _filename.Replace('\\', '/');
+            //automatically create an extra level of path
+            _outputFolder = Path.Combine(Path.GetFullPath(_outputFolder), "behaviac_generated");
+            _filename = "behaviors/generated_behaviors.h";
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export()
+        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile)
         {
-            string filename = string.Empty;
-            Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(out filename);
+            string behaviorFilename = "behaviors/generated_behaviors.h";
+            string agentFolder = string.Empty;
+            Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(ref behaviorFilename, ref agentFolder);
             if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
             {
-                // export to the file
-                using (StreamWriter file = new StreamWriter(filename))
-                {
-                    ExportBehavior(file, _node, filename);
-                    file.Close();
-                }
+                string behaviorFolder = Path.GetDirectoryName(behaviorFilename);
+                clearFolder(behaviorFolder);
+                clearFolder(agentFolder);
+
+                ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
+
+                ExportCustomizedTypesDefinition(agentFolder);
+                ExportCustomizedTypesImplement(agentFolder);
+
+                ExportCustomizedMembers(agentFolder);
             }
 
             return result;
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors)
+        private void clearFolder(string folder)
         {
-            string filename = string.Empty;
-            Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(out filename);
-            if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
+            DirectoryInfo dirInfo = new DirectoryInfo(folder);
+            if (dirInfo.Exists)
             {
-                using (StreamWriter file = new StreamWriter(filename))
+                foreach (FileInfo file in dirInfo.GetFiles())
                 {
-                    ExportBehaviors(file, behaviors, filename);
-                    file.Close();
+                    try
+                    {
+                        File.SetAttributes(file.FullName, FileAttributes.Normal);
+                        if (file.Extension == ".h" || file.Extension == ".cpp")
+                            file.Delete();
+                    }
+                    catch
+                    {
+                    }
                 }
             }
-
-            return result;
         }
 
-        private void ExportBehavior(StreamWriter file, BehaviorNode behavior, string filename)
+        private void ExportBehaviors(List<BehaviorNode> behaviors, string filename, bool exportUnifiedFile)
         {
-            ExportHead(file, filename);
-
-            ExportBody(file, behavior);
-
-            ExportTail(file);
-        }
-
-        private void ExportBehaviors(StreamWriter file, List<BehaviorNode> behaviors, string filename)
-        {
-            ExportHead(file, filename);
-
-            foreach (BehaviorNode behavior in behaviors)
+            using (StreamWriter file = new StreamWriter(filename))
             {
-                ExportBody(file, behavior);
-            }
+                ExportHead(file, filename);
 
-            ExportTail(file);
+                _behaviorCreators.Clear();
+
+                if (exportUnifiedFile)
+                {
+                    foreach (BehaviorNode behavior in behaviors)
+                    {
+                        behavior.PreExport();
+
+                        _behaviorCreators.Add(ExportBody(file, behavior));
+
+                        behavior.PostExport();
+                    }
+                }
+                else
+                {
+                    foreach (BehaviorNode behavior in behaviors)
+                    {
+                        string behaviorFilename = behavior.RelativePath;
+                        behaviorFilename = behaviorFilename.Replace("\\", "/");
+                        behaviorFilename = Path.ChangeExtension(behaviorFilename, "cpp");
+
+                        file.WriteLine("#include \"{0}\"", behaviorFilename);
+
+                        behaviorFilename = Path.Combine("generated_behaviors", behaviorFilename);
+                        string agentFolder = string.Empty;
+
+                        Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(ref behaviorFilename, ref agentFolder);
+
+                        if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
+                        {
+                            using (StreamWriter behaviorFile = new StreamWriter(behaviorFilename))
+                            {
+                                behavior.PreExport();
+
+                                _behaviorCreators.Add(ExportBody(behaviorFile, behavior));
+
+                                behavior.PostExport();
+
+                                behaviorFile.Close();
+                            }
+                        }
+                    }
+
+                    file.WriteLine();
+                }
+
+                ExportTail(file);
+
+                file.Close();
+            }
         }
 
-        private Behaviac.Design.FileManagers.SaveResult VerifyFilename(out string filename)
+        private Behaviac.Design.FileManagers.SaveResult VerifyFilename(ref string behaviorFilename, ref string agentFolder)
         {
-            filename = Path.Combine(_outputFolder, _filename);
+            behaviorFilename = Path.Combine(_outputFolder, behaviorFilename);
+            agentFolder = Path.Combine(_outputFolder, "types");
 
             // get the abolute folder of the file we want to export
-            string folder = Path.GetDirectoryName(filename);
+            string folder = Path.GetDirectoryName(behaviorFilename);
             if (!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
 
+            if (!Directory.Exists(agentFolder))
+                Directory.CreateDirectory(agentFolder);
+
             // verify it can be writable
-            return Behaviac.Design.FileManagers.FileManager.MakeWritable(filename, Resources.ExportFileWarning);
+            Behaviac.Design.FileManagers.SaveResult result = Behaviac.Design.FileManagers.FileManager.MakeWritable(behaviorFilename, Resources.ExportFileWarning);
+            return result;
         }
 
         private List<string> GetNamespaces(string ns)
@@ -157,15 +224,21 @@ namespace PluginBehaviac.Exporters
 
             // write comments
             file.WriteLine("// ---------------------------------------------------------------------");
-            file.WriteLine("/* This file is auto-generated, so please don't modify it by yourself!");
-            file.WriteLine("Usage: include it in a certain cpp accordingly(RELATIVE_PATH is the path where it is generated):\n");
-            file.WriteLine("      #include \"RELATIVE_PATH/generated_behaviors.cpp\"\n*/\n");
+            file.WriteLine("/*\nThis file is auto-generated by behaviac designer, so please don't modify it by yourself!\n\n");
+            file.WriteLine("Usage: include this file in a certain cpp accordingly, only include it once and don't include it in other cpps again.");
+            file.WriteLine("(RELATIVE_PATH is the path where it is generated):");
+            file.WriteLine("and you also need to include your agent types' headers before it:\n");
+            file.WriteLine("      #include \"YourAgentTypes.h\"\n");
+            file.WriteLine("      #include \"RELATIVE_PATH/generated_behaviors.h\"\n*/\n");
             file.WriteLine("// Export file: {0}", exportFilename);
             file.WriteLine("// ---------------------------------------------------------------------\r\n");
 
             // write included behaviac files
             file.WriteLine("// You should set the include path of the behaviac lib in your project\r\n// for using the following header files :");
-            file.WriteLine("#include \"behaviac/behaviortree/behaviortree.h\"\r\n");
+            file.WriteLine("#pragma once");
+            file.WriteLine("#include \"behaviac/behaviortree/behaviortree.h\"");
+            file.WriteLine("#include \"behaviac/agent/agent.h\"");
+            file.WriteLine("#include \"behaviac/agent/taskmethod.h\"\n");
 
             file.WriteLine("#include \"behaviac/behaviortree/nodes/actions/action.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/actions/assignment.h\"");
@@ -199,15 +272,24 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorcountlimit.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorfailureuntil.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorframes.h\"");
+            file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratoriterator.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorlog.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorloop.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorloopuntil.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratornot.h\"");
+            file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorrepeat.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorsuccessuntil.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratortime.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/nodes/decorators/decoratorweight.h\"");
             file.WriteLine("#include \"behaviac/behaviortree/attachments/event.h\"");
-            file.WriteLine("#include \"behaviac/behaviortree/attachments/predicate.h\"\r\n");
+            file.WriteLine("#include \"behaviac/behaviortree/attachments/attachaction.h\"");
+            file.WriteLine("#include \"behaviac/behaviortree/attachments/precondition.h\"");
+            file.WriteLine("#include \"behaviac/behaviortree/attachments/effector.h\"");
+            file.WriteLine("#include \"behaviac/htn/task.h\"");
+            file.WriteLine("#include \"behaviac/fsm/fsm.h\"");
+            file.WriteLine("#include \"behaviac/fsm/state.h\"");
+            file.WriteLine("#include \"behaviac/fsm/startcondition.h\"");
+            file.WriteLine("#include \"behaviac/fsm/transitioncondition.h\"\r\n");
 
             // write included files for the game agents
             if (this.IncludedFilenames != null)
@@ -235,7 +317,7 @@ namespace PluginBehaviac.Exporters
                 {
                     foreach (PropertyDef property in agenType.GetProperties())
                     {
-                        if (property.ClassName == agenType.AgentTypeName)
+                        if (property.IsMember && !property.IsAddedAutomatically && property.ClassName == agenType.AgentTypeName)
                         {
                             namespaces = GetNamespaces(ns);
                             break;
@@ -259,7 +341,7 @@ namespace PluginBehaviac.Exporters
 
                 foreach (PropertyDef property in agenType.GetProperties())
                 {
-                    if (property.ClassName == agenType.AgentTypeName)
+                    if (!property.IsPublic && property.IsMember && !property.IsAddedAutomatically && property.ClassName == agenType.AgentTypeName)
                     {
                         string propName = property.Name.Replace("::", "_");
                         string nativeType = DataCppExporter.GetBasicGeneratedNativeType(property.NativeType);
@@ -267,23 +349,31 @@ namespace PluginBehaviac.Exporters
                         file.WriteLine("{0}struct PROPERTY_TYPE_{1} {{ }};", indent, propName);
                         file.WriteLine("{0}template<> BEHAVIAC_FORCEINLINE {1}& {2}::_Get_Property_<PROPERTY_TYPE_{3}>()", indent, nativeType, agenType.BasicClassName, propName);
                         file.WriteLine("{0}{{", indent);
-                        if (property.IsStatic)
+                        if (property.IsProperty)
                         {
-                            file.WriteLine("{0}\tunsigned char* pc = (unsigned char*)(&{1});", indent, property.Name);
+                            file.WriteLine("{0}\treturn *({1}*)&this->GetVariable<{1}>(\"{2}\");", indent, nativeType, property.BasicName);
                         }
-                        else
+                        else // field
                         {
-                            file.WriteLine("{0}\tunsigned char* pc = (unsigned char*)this;", indent);
-                            file.WriteLine("{0}\tpc += (int)offsetof({1}, {2});", indent, property.ClassName, property.Name);
+                            if (property.IsStatic)
+                            {
+                                file.WriteLine("{0}\tunsigned char* pc = (unsigned char*)(&{1});", indent, property.Name);
+                            }
+                            else
+                            {
+                                file.WriteLine("{0}\tunsigned char* pc = (unsigned char*)this;", indent);
+                                file.WriteLine("{0}\tpc += (int)offsetof({1}, {2});", indent, property.ClassName, property.Name);
+                            }
+                            file.WriteLine("{0}\treturn *(reinterpret_cast<{1}*>(pc));", indent, nativeType);
                         }
-                        file.WriteLine("{0}\treturn *(reinterpret_cast<{1}*>(pc));", indent, nativeType);
+
                         file.WriteLine("{0}}}\r\n", indent);
                     }
                 }
 
                 foreach (MethodDef method in agenType.GetMethods())
                 {
-                    if (method.ClassName == agenType.AgentTypeName)
+                    if (!method.IsPublic && !method.IsCustomized && method.ClassName == agenType.AgentTypeName)
                     {
                         string paramStrDef = string.Empty;
                         string paramStr = string.Empty;
@@ -320,6 +410,9 @@ namespace PluginBehaviac.Exporters
 
                         string methodName = method.Name.Replace("::", "_");
                         string nativeReturnType = DataCppExporter.GetGeneratedNativeType(method.NativeReturnType);
+                        if (method.NativeReturnType.StartsWith("const "))
+                            nativeReturnType = "const " + nativeReturnType;
+
                         file.WriteLine("{0}struct METHOD_TYPE_{1} {{ }};", indent, methodName);
                         file.WriteLine("{0}template<> BEHAVIAC_FORCEINLINE {1} {2}::_Execute_Method_<METHOD_TYPE_{3}>({4})", indent, nativeReturnType, agenType.BasicClassName, methodName, paramStrDef);
                         file.WriteLine("{0}{{", indent);
@@ -338,7 +431,7 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("namespace behaviac\r\n{");
         }
 
-        private void ExportBody(StreamWriter file, BehaviorNode behavior)
+        private BehaviorCreator ExportBody(StreamWriter file, BehaviorNode behavior)
         {
             string filename = Path.ChangeExtension(behavior.RelativePath, "").Replace(".", "");
             filename = filename.Replace('\\', '/');
@@ -353,83 +446,120 @@ namespace PluginBehaviac.Exporters
             ExportAttachmentClass(file, btClassName, (Node)behavior);
 
             // create the class definition of its children
-            foreach (Node child in ((Node)behavior).Children)
+            foreach (Node child in ((Node)behavior).GetChildNodes())
                 ExportNodeClass(file, btClassName, agentType, behavior, child);
 
             // export the create function
-            file.WriteLine("\tBEHAVIAC_API bool Create_{0}(BehaviorTree* pBT)\r\n\t{{", btClassName);
+            file.WriteLine("\tclass {0}", btClassName);
+            file.WriteLine("\t{");
+            file.WriteLine("\tpublic:");
+            file.WriteLine("\t\tstatic bool Create(BehaviorTree* pBT)");
+            file.WriteLine("\t\t{");
 
-            file.WriteLine("\t\tpBT->SetClassNameString(\"BehaviorTree\");");
-            file.WriteLine("\t\tpBT->SetId(-1);");
-            file.WriteLine("\t\tpBT->SetName(\"{0}\");", filename);
+            file.WriteLine("\t\t\tpBT->SetClassNameString(\"BehaviorTree\");");
+            file.WriteLine("\t\t\tpBT->SetId(-1);");
+            file.WriteLine("\t\t\tpBT->SetName(\"{0}\");", filename);
+            file.WriteLine("\t\t\tpBT->SetIsFSM({0});", ((Node)behavior).IsFSM ? "true" : "false");
             file.WriteLine("#if !defined(BEHAVIAC_RELEASE)");
-            file.WriteLine("\t\tpBT->SetAgentType(\"{0}\");", agentType);
+            file.WriteLine("\t\t\tpBT->SetAgentType(\"{0}\");", agentType);
             file.WriteLine("#endif");
             if (!string.IsNullOrEmpty(((Behavior)behavior).Domains))
             {
-                file.WriteLine("\t\tpBT->SetDomains(\"{0}\");", ((Behavior)behavior).Domains);
+                file.WriteLine("\t\t\tpBT->SetDomains(\"{0}\");", ((Behavior)behavior).Domains);
             }
             if (((Behavior)behavior).DescriptorRefs.Count > 0)
             {
-                file.WriteLine("\t\tpBT->SetDescriptors(\"{0}\");", DesignerPropertyUtility.RetrieveExportValue(((Behavior)behavior).DescriptorRefs));
+                file.WriteLine("\t\t\tpBT->SetDescriptors(\"{0}\");", DesignerPropertyUtility.RetrieveExportValue(((Behavior)behavior).DescriptorRefs));
             }
 
-            ExportPars(file, "pBT", (Node)behavior, "\t");
+            ExportPars(file, agentType, "pBT", (Node)behavior, "\t\t");
 
             // export its attachments
-            ExportAttachment(file, btClassName, agentType, "pBT", (Node)behavior, "\t\t");
+            ExportAttachment(file, btClassName, agentType, "pBT", (Node)behavior, "\t\t\t");
 
-            file.WriteLine("\t\t// children");
+            file.WriteLine("\t\t\t// children");
 
             // export its children
-            foreach (Node child in ((Node)behavior).Children)
-                ExportNode(file, btClassName, agentType, "pBT", child, 2);
+            if (((Node)behavior).IsFSM)
+            {
+                file.WriteLine("\t\t\t{");
+                file.WriteLine("\t\t\t\tFSM* fsm = BEHAVIAC_NEW FSM();");
+                file.WriteLine("\t\t\t\tfsm->SetClassNameString(\"FSM\");");
+                file.WriteLine("\t\t\t\tfsm->SetId(-1);");
+                file.WriteLine("\t\t\t\tfsm->SetInitialId({0});", behavior.InitialStateId);
+                file.WriteLine("#if !defined(BEHAVIAC_RELEASE)");
+                file.WriteLine("\t\t\t\tfsm->SetAgentType(\"{0}\");", agentType);
+                file.WriteLine("#endif");
 
-            file.WriteLine("\t\treturn true;");
-            file.WriteLine("\t}\r\n");
+                foreach (Node child in ((Node)behavior).FSMNodes)
+                {
+                    ExportNode(file, btClassName, agentType, "fsm", child, 4);
+                }
 
-            // export the register class and its instance
-            file.WriteLine("\tstruct Register_{0}\r\n\t{{", btClassName);
-            file.WriteLine("\t\tRegister_{0}()\r\n\t\t{{", btClassName);
-            file.WriteLine("\t\t\tWorkspace::RegisterBehaviorTreeCreator(\"{0}\", Create_{1});", filename, btClassName);
-            file.WriteLine("\t\t}\r\n\t};\r\n");
+                file.WriteLine("\t\t\t\tpBT->AddChild(fsm);");
+                file.WriteLine("\t\t\t}");
+            }
+            else
+            {
+                foreach (Node child in ((Node)behavior).GetChildNodes())
+                    ExportNode(file, btClassName, agentType, "pBT", child, 3);
+            }
 
-            file.WriteLine("\tstatic Register_{0} register_{0};\n", btClassName);
+            file.WriteLine("\t\t\treturn true;");
+            file.WriteLine("\t\t}");
+            file.WriteLine("\t};");
+            file.WriteLine();
+
+            return new BehaviorCreator(filename, btClassName);
         }
 
         private void ExportTail(StreamWriter file)
         {
+            file.WriteLine("\tclass CppGenerationManager : GenerationManager");
+	        file.WriteLine("\t{");
+	        file.WriteLine("\tpublic:");
+		    file.WriteLine("\t\tCppGenerationManager()");
+		    file.WriteLine("\t\t{");
+            file.WriteLine("\t\t\tSetInstance(this);");
+		    file.WriteLine("\t\t}\n");
+
+            file.WriteLine("\t\tvirtual void RegisterBehaviorsImplement()");
+		    file.WriteLine("\t\t{");
+            for (int i = 0; i < _behaviorCreators.Count; ++i)
+            {
+                string filename = _behaviorCreators[i].Filename;
+                string btClassName = _behaviorCreators[i].Classname;
+                file.WriteLine("\t\t\tWorkspace::GetInstance()->RegisterBehaviorTreeCreator(\"{0}\", {1}::Create);", filename, btClassName);
+            }
+		    file.WriteLine("\t\t}");
+	        file.WriteLine("\t};\n");
+
+            file.WriteLine("\tCppGenerationManager _cppGenerationManager_;");
+
             // close namespace
             file.WriteLine("}");
         }
 
-        private void ExportPars(StreamWriter file, string nodeName, Node node, string indent)
+        private void ExportPars(StreamWriter file, string agentType, string nodeName, Node node, string indent)
         {
-            ExportPars(file, nodeName, node.Pars, indent);
-        }
-
-        private void ExportPars(StreamWriter file, string nodeName, Behaviac.Design.Attachments.Attachment attachment, string indent)
-        {
-            Behaviac.Design.Attachments.Event evt = attachment as Behaviac.Design.Attachments.Event;
-            if (evt != null)
+            if (node is Behavior)
             {
-                ExportPars(file, nodeName, evt.Pars, indent);
+                ExportPars(file, agentType, nodeName, ((Behavior)node).LocalVars, indent);
             }
         }
 
-        private void ExportPars(StreamWriter file, string nodeName, List<Behaviac.Design.ParInfo> pars, string indent)
+        private void ExportPars(StreamWriter file, string agentType, string nodeName, List<Behaviac.Design.ParInfo> pars, string indent)
         {
             if (pars.Count > 0)
             {
                 file.WriteLine("{0}\t// pars", indent);
                 for (int i = 0; i < pars.Count; ++i)
                 {
-                    string name = pars[i].Name;
-                    string type = Plugin.GetNativeTypeName(pars[i].Type);
+                    string name = pars[i].BasicName;
+                    string type = pars[i].NativeType;
                     string value = pars[i].DefaultValue.Replace("\"", "\\\"");
-                    string eventParam = pars[i].EventParam;
 
-                    file.WriteLine("{0}\t{1}->AddPar(\"{2}\", \"{3}\", \"{4}\", \"{5}\");", indent, nodeName, type, name, value, eventParam);
+                    file.WriteLine("{0}\t{1}->AddPar(\"{2}\", \"{3}\", \"{4}\", \"{5}\");", indent, nodeName, agentType, type, name, value);
                 }
             }
         }
@@ -452,6 +582,9 @@ namespace PluginBehaviac.Exporters
                 file.WriteLine("{0}// attachments", indent);
                 foreach (Behaviac.Design.Attachments.Attachment attach in node.Attachments)
                 {
+                    if (attach.IsStartCondition)
+                        continue;
+
                     file.WriteLine("{0}{{", indent);
 
                     string nodeName = string.Format("attach{0}", attach.Id);
@@ -460,9 +593,10 @@ namespace PluginBehaviac.Exporters
                     AttachmentCppExporter attachmentExporter = AttachmentCppExporter.CreateInstance(attach);
                     attachmentExporter.GenerateInstance(attach, file, indent, nodeName, agentType, btClassName);
 
-                    ExportPars(file, nodeName, attach, indent);
-
-                    file.WriteLine("{0}\t{1}->Attach({2});", indent, parentName, nodeName);
+                    string isPrecondition = attach.IsPrecondition && !attach.IsTransition ? "true" : "false";
+                    string isEffector = attach.IsEffector && !attach.IsTransition ? "true" : "false";
+                    string isTransition = attach.IsTransition ? "true" : "false";
+                    file.WriteLine("{0}\t{1}->Attach({2}, {3}, {4}, {5});", indent, parentName, nodeName, isPrecondition, isEffector, isTransition);
                     file.WriteLine("{0}\t{1}->SetHasEvents({1}->HasEvents() | (Event::DynamicCast({2}) != 0));", indent, parentName, nodeName);
                     file.WriteLine("{0}}}", indent);
                 }
@@ -471,6 +605,9 @@ namespace PluginBehaviac.Exporters
 
         private void ExportNodeClass(StreamWriter file, string btClassName, string agentType, BehaviorNode behavior, Node node)
         {
+            if (!node.Enable)
+                return;
+
             string nodeName = string.Format("node{0}", node.Id);
 
             NodeCppExporter nodeExporter = NodeCppExporter.CreateInstance(node);
@@ -480,7 +617,7 @@ namespace PluginBehaviac.Exporters
 
             if (!(node is ReferencedBehavior))
             {
-                foreach (Node child in node.Children)
+                foreach (Node child in node.GetChildNodes())
                 {
                     ExportNodeClass(file, btClassName, agentType, behavior, child);
                 }
@@ -489,10 +626,15 @@ namespace PluginBehaviac.Exporters
 
         private void ExportNode(StreamWriter file, string btClassName, string agentType, string parentName, Node node, int indentDepth)
         {
+            if (!node.Enable)
+                return;
+
             // generate the indent string
             string indent = string.Empty;
             for (int i = 0; i < indentDepth; ++i)
+            {
                 indent += '\t';
+            }
 
             string nodeName = string.Format("node{0}", node.Id);
 
@@ -503,17 +645,35 @@ namespace PluginBehaviac.Exporters
             NodeCppExporter nodeExporter = NodeCppExporter.CreateInstance(node);
             nodeExporter.GenerateInstance(node, file, indent, nodeName, agentType, btClassName);
 
-            ExportPars(file, nodeName, node, indent);
+            ExportPars(file, agentType, nodeName, node, indent);
 
             ExportAttachment(file, btClassName, agentType, nodeName, node, indent + "\t");
 
-            // add the node to its parent
-            file.WriteLine("{0}\t{1}->AddChild({2});", indent, parentName, nodeName);
+            bool isAsChild = true;
+            if (node.Parent != null)
+            {
+                BaseNode.Connector connector = node.Parent.GetConnector(node);
+                if (connector != null && !connector.IsAsChild)
+                {
+                    isAsChild = false;
+                }
+            }
+
+            if (isAsChild)
+            {
+                // add the node to its parent
+                file.WriteLine("{0}\t{1}->AddChild({2});", indent, parentName, nodeName);
+            }
+            else
+            {
+                // add the node as its customized children
+                file.WriteLine("{0}\t{1}->SetCustomCondition({2});", indent, parentName, nodeName);
+            }
 
             // export the child nodes
-            if (!(node is ReferencedBehavior))
+            if (!node.IsFSM && !(node is ReferencedBehavior))
             {
-                foreach (Node child in node.Children)
+                foreach (Node child in node.GetChildNodes())
                 {
                     ExportNode(file, btClassName, agentType, nodeName, child, indentDepth + 1);
                 }
@@ -523,6 +683,423 @@ namespace PluginBehaviac.Exporters
 
             // close the brackets for a better formatting in the generated code
             file.WriteLine("{0}}}", indent);
+        }
+
+        private void ExportCustomizedTypesDefinition(string agentFolder)
+        {
+            if (CustomizedTypeManager.Instance.Enums.Count > 0 || CustomizedTypeManager.Instance.Structs.Count > 0)
+            {
+                string filename = Path.Combine(agentFolder, "customizedtypes.h");
+                Encoding utf8WithBom = new UTF8Encoding(true);
+
+                using (StreamWriter file = new StreamWriter(filename, false, utf8WithBom))
+                {
+                    // write comments
+                    file.WriteLine("// ---------------------------------------------------------------------");
+                    file.WriteLine("// This file is auto-generated by behaviac designer, so please don't modify it by yourself!");
+                    file.WriteLine("// ---------------------------------------------------------------------\n");
+
+                    file.WriteLine("#pragma once");
+                    file.WriteLine("#include \"behaviac/agent/agent.h\"\n");
+
+                    file.WriteLine("// -------------------");
+                    file.WriteLine("// Customized enums");
+                    file.WriteLine("// -------------------\n");
+
+                    for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
+                    {
+                        if (e > 0)
+                            file.WriteLine();
+
+                        CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
+
+                        file.WriteLine("enum {0}", customizedEnum.Name);
+                        file.WriteLine("{");
+
+                        for (int m = 0; m < customizedEnum.Members.Count; ++m)
+                        {
+                            if (m > 0)
+                                file.WriteLine();
+
+                            CustomizedEnum.CustomizedEnumMember member = customizedEnum.Members[m];
+
+                            if (member.Value >= 0)
+                                file.WriteLine("\t{0} = {1},", member.Name, member.Value);
+                            else
+                                file.WriteLine("\t{0},", member.Name);
+                        }
+
+                        file.WriteLine("};");
+                    }
+
+                    if (CustomizedTypeManager.Instance.Enums.Count > 0)
+                        file.WriteLine();
+
+                    file.WriteLine("// -------------------");
+                    file.WriteLine("// Customized structs");
+                    file.WriteLine("// -------------------\n");
+
+                    for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; s++)
+                    {
+                        if (s > 0)
+                            file.WriteLine();
+
+                        CustomizedStruct customizedStruct = CustomizedTypeManager.Instance.Structs[s];
+
+                        file.WriteLine("struct {0}", customizedStruct.Name);
+                        file.WriteLine("{");
+
+                        if (customizedStruct.Properties.Count > 0)
+                        {
+                            for (int m = 0; m < customizedStruct.Properties.Count; ++m)
+                            {
+                                if (m > 0)
+                                    file.WriteLine();
+
+                                PropertyDef member = customizedStruct.Properties[m];
+
+                                file.WriteLine("\t{0} {1};", DataCsExporter.GetGeneratedNativeType(member.NativeType), member.BasicName);
+                            }
+
+                            file.WriteLine();
+                        }
+
+                        file.WriteLine("\tDECLARE_BEHAVIAC_OBJECT_STRUCT({0});", customizedStruct.Name);
+
+                        file.WriteLine("};");
+                    }
+
+                    if (CustomizedTypeManager.Instance.Enums.Count > 0)
+                    {
+                        file.WriteLine();
+
+                        for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
+                        {
+                            CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
+                            file.WriteLine("DECLARE_BEHAVIAC_OBJECT_ENUM({0}, {0});", customizedEnum.Name);
+                        }
+                    }
+
+                    if (CustomizedTypeManager.Instance.Structs.Count > 0)
+                    {
+                        file.WriteLine();
+
+                        for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; s++)
+                        {
+                            CustomizedStruct customizedStruct = CustomizedTypeManager.Instance.Structs[s];
+                            file.WriteLine("SPECIALIZE_TYPE_HANDLER(behaviac::vector<{0}>, BasicTypeHandler< behaviac::vector<{0}> >);", customizedStruct.Name);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ExportCustomizedTypesImplement(string agentFolder)
+        {
+            if (CustomizedTypeManager.Instance.Enums.Count > 0 || CustomizedTypeManager.Instance.Structs.Count > 0)
+            {
+                string filename = Path.Combine(agentFolder, "customizedtypes.cpp");
+                Encoding utf8WithBom = new UTF8Encoding(true);
+
+                using (StreamWriter file = new StreamWriter(filename, false, utf8WithBom))
+                {
+                    // write comments
+                    file.WriteLine("// ---------------------------------------------------------------------");
+                    file.WriteLine("// This file is auto-generated by behaviac designer, so please don't modify it by yourself!");
+                    file.WriteLine("// ---------------------------------------------------------------------\n");
+
+                    file.WriteLine("#include \"behaviac/agent/registermacros.h\"");
+                    file.WriteLine("#include \"customizedtypes.h\"\n");
+
+                    file.WriteLine("// -------------------");
+                    file.WriteLine("// Customized enums");
+                    file.WriteLine("// -------------------\n");
+
+                    for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
+                    {
+                        if (e > 0)
+                            file.WriteLine();
+
+                        CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
+                        
+                        file.WriteLine("BEGIN_ENUM_DESCRIPTION({0}, {0})", customizedEnum.Name);
+                        file.WriteLine("{");
+                        file.WriteLine("\tENUMCLASS_DISPLAY_INFO(L\"{0}\", L\"{1}\");", customizedEnum.DisplayName, customizedEnum.Description);
+                        file.WriteLine();
+
+                        for (int m = 0; m < customizedEnum.Members.Count; ++m)
+                        {
+                            if (m > 0)
+                                file.WriteLine();
+
+                            CustomizedEnum.CustomizedEnumMember member = customizedEnum.Members[m];
+
+                            if (member.DisplayName != member.Name || !string.IsNullOrEmpty(member.Description))
+                                file.WriteLine("\tDEFINE_ENUM_VALUE({0}, \"{0}\").DISPLAY_INFO(L\"{1}\", L\"{2}\");", member.Name, member.DisplayName, member.Description);
+                            else
+                                file.WriteLine("\tDEFINE_ENUM_VALUE({0}, \"{0}\");", member.Name);
+                        }
+
+                        file.WriteLine("}");
+                        file.WriteLine("END_ENUM_DESCRIPTION()");
+                    }
+
+                    if (CustomizedTypeManager.Instance.Enums.Count > 0)
+                        file.WriteLine();
+
+                    file.WriteLine("// -------------------");
+                    file.WriteLine("// Customized structs");
+                    file.WriteLine("// -------------------\n");
+
+                    for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; s++)
+                    {
+                        if (s > 0)
+                            file.WriteLine();
+
+                        CustomizedStruct customizedStruct = CustomizedTypeManager.Instance.Structs[s];
+
+                        file.WriteLine("BEGIN_PROPERTIES_DESCRIPTION({0})", customizedStruct.Name);
+                        file.WriteLine("{");
+                        file.WriteLine("\tCLASS_DISPLAYNAME(L\"{0}\");", customizedStruct.DisplayName);
+                        file.WriteLine("\tCLASS_DESC(L\"{0}\");", customizedStruct.Description);
+                        file.WriteLine();
+
+                        for (int m = 0; m < customizedStruct.Properties.Count; ++m)
+                        {
+                            if (m > 0)
+                                file.WriteLine();
+
+                            PropertyDef member = customizedStruct.Properties[m];
+                            if (member.DisplayName != member.Name || !string.IsNullOrEmpty(member.BasicDescription))
+                                file.WriteLine("\tREGISTER_PROPERTY({0}).DISPLAYNAME(L\"{1}\").DESC(L\"{2}\");", member.BasicName, member.DisplayName, member.BasicDescription);
+                            else
+                                file.WriteLine("\tREGISTER_PROPERTY({0});", member.BasicName);
+                        }
+
+                        file.WriteLine("}");
+                        file.WriteLine("END_PROPERTIES_DESCRIPTION()");
+                    }
+                }
+            }
+        }
+
+        private void ExportCustomizedMembers(string agentFolder)
+        {
+            bool hasNonParProperty = false;
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                foreach (PropertyDef prop in agent.GetProperties())
+                {
+                    if (!prop.IsPar && !prop.IsArrayElement)
+                    {
+                        hasNonParProperty = true;
+                        break;
+                    }
+                }
+
+                if (hasNonParProperty)
+                    break;
+            }
+
+            bool hasEvents = false;
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                IList<MethodDef> methods = agent.GetMethods();
+
+                foreach (MethodDef method in methods)
+                {
+                    if (method.IsCustomized && method.IsNamedEvent)
+                    {
+                        hasEvents = true;
+                        break;
+                    }
+                }
+
+                if (hasEvents)
+                    break;
+            }
+
+            if (hasNonParProperty || hasEvents)
+            {
+                string filename = Path.Combine(agentFolder, "agentproperties.h");
+                Encoding utf8WithBom = new UTF8Encoding(true);
+
+                using (StreamWriter file = new StreamWriter(filename, false, utf8WithBom))
+                {
+                    // write comments
+                    file.WriteLine("// ---------------------------------------------------------------------");
+                    file.WriteLine("// This file is auto-generated by behaviac designer, so please don't modify it by yourself!");
+                    file.WriteLine("// ---------------------------------------------------------------------\n");
+
+                    file.WriteLine("#pragma once");
+                    file.WriteLine("#include \"behaviac/agent/agent.h\"");
+                    file.WriteLine("#include \"behaviac/agent/taskmethod.h\"");
+                    file.WriteLine("#include \"behaviac/property/typeregister.h\"");
+
+                    if (CustomizedTypeManager.Instance.Enums.Count > 0 || CustomizedTypeManager.Instance.Structs.Count > 0)
+                    {
+                        file.WriteLine("#include \"customizedtypes.h\"");
+                    }
+
+                    file.WriteLine("\nnamespace behaviac");
+                    file.WriteLine("{");
+
+                    file.WriteLine("\tclass CppBehaviorLoaderImplement : CppBehaviorLoader");
+                    file.WriteLine("\t{");
+
+                    file.WriteLine("\tpublic:");
+                    file.WriteLine("\t\tCppBehaviorLoaderImplement()");
+                    file.WriteLine("\t\t{");
+                    file.WriteLine("\t\t\tAgentProperties::SetInstance(this);");
+                    file.WriteLine("\t\t}\n");
+
+                    // destructor
+                    file.WriteLine("\t\tvirtual ~CppBehaviorLoaderImplement()");
+                    file.WriteLine("\t\t{");
+                    file.WriteLine("\t\t}\n");
+
+                    // load
+                    file.WriteLine("\t\tvirtual bool load()");
+                    file.WriteLine("\t\t{");
+
+                    ExportProperties(file);
+
+                    ExportMethods(file);
+
+                    file.WriteLine("\n\t\t\treturn true;");
+
+                    file.WriteLine("\t\t}\n");
+
+                    // RegisterCustomizedTypes_
+                    file.WriteLine("\t\tvirtual void RegisterCustomizedTypes_()");
+                    file.WriteLine("\t\t{");
+
+                    for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
+                    {
+                        CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
+                        file.WriteLine("\t\t\tbehaviac::TypeRegister::Register<{0}>(\"{0}\");", customizedEnum.Name);
+                    }
+                    for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; ++s)
+                    {
+                        CustomizedStruct customizedStuct = CustomizedTypeManager.Instance.Structs[s];
+                        file.WriteLine("\t\t\tbehaviac::TypeRegister::Register<{0}>(\"{0}\");", customizedStuct.Name);
+                    }
+
+                    file.WriteLine("\t\t}\n");
+
+                    // UnRegisterCustomizedTypes_
+                    file.WriteLine("\t\tvirtual void UnRegisterCustomizedTypes_()");
+                    file.WriteLine("\t\t{");
+
+                    for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
+                    {
+                        CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
+                        file.WriteLine("\t\t\tbehaviac::TypeRegister::UnRegister<{0}>(\"{0}\");", customizedEnum.Name);
+                    }
+                    for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; ++s)
+                    {
+                        CustomizedStruct customizedStuct = CustomizedTypeManager.Instance.Structs[s];
+                        file.WriteLine("\t\t\tbehaviac::TypeRegister::UnRegister<{0}>(\"{0}\");", customizedStuct.Name);
+                    }
+
+                    file.WriteLine("\t\t}");
+
+                    file.WriteLine("\t};\n");
+
+                    file.WriteLine("\tstatic CppBehaviorLoaderImplement cppBehaviorLoaderImplement;");
+
+                    file.WriteLine("}");
+                }
+            }
+        }
+
+        private void ExportProperties(StreamWriter file)
+        {
+            file.WriteLine("\t\t\t// ---------------------------------------------------------------------");
+            file.WriteLine("\t\t\t// properties");
+            file.WriteLine("\t\t\t// ---------------------------------------------------------------------\n");
+
+            file.WriteLine("\t\t\tAgentProperties* bb = NULL;");
+
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                bool hasNonParProperty = false;
+                foreach (PropertyDef prop in agent.GetProperties())
+                {
+                    if (!prop.IsPar && !prop.IsArrayElement)
+                    {
+                        hasNonParProperty = true;
+                        break;
+                    }
+                }
+
+                if (hasNonParProperty)
+                {
+                    file.WriteLine("\n\t\t\t// {0}", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tbb = BEHAVIAC_NEW AgentProperties(\"{0}\");", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tAgentProperties::SetAgentTypeBlackboards(\"{0}\", bb);", agent.AgentTypeName);
+
+                    foreach (PropertyDef prop in agent.GetProperties())
+                    {
+                        if (!prop.IsPar && !prop.IsArrayElement)
+                        {
+                            file.WriteLine("\t\t\tbb->AddProperty(\"{0}\", {1}, \"{2}\", \"{3}\", \"{4}\");",
+                                DataCppExporter.GetExportNativeType(prop.NativeType),
+                                prop.IsStatic ? "true" : "false",
+                                prop.BasicName, prop.DefaultValue.Replace("\"", "\\\""), agent.AgentTypeName);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ExportMethods(StreamWriter file)
+        {
+            file.WriteLine("\n\t\t\t// ---------------------------------------------------------------------");
+            file.WriteLine("\t\t\t// tasks");
+            file.WriteLine("\t\t\t// ---------------------------------------------------------------------\n");
+
+            file.WriteLine("\t\t\tCTagObjectDescriptor* objectDesc = NULL;");
+            file.WriteLine("\t\t\tCCustomMethod* customeMethod = NULL;");
+
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                IList<MethodDef> methods = agent.GetMethods();
+                bool hasEvents = false;
+
+                foreach (MethodDef method in methods)
+                {
+                    if (method.IsCustomized && method.IsNamedEvent)
+                    {
+                        hasEvents = true;
+                        break;
+                    }
+                }
+
+                if (hasEvents)
+                {
+                    file.WriteLine("\n\t\t\t// {0}", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tobjectDesc = (CTagObjectDescriptor*)Agent::GetDescriptorByName(\"{0}\");", agent.AgentTypeName);
+
+                    file.WriteLine("\t\t\tcustomeMethod = BEHAVIAC_NEW CTaskMethod(\"{0}\", \"root\");", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tobjectDesc->ms_methods.push_back(customeMethod);");
+
+                    foreach (MethodDef method in methods)
+                    {
+                        if (method.IsCustomized && method.IsNamedEvent)
+                        {
+                            file.WriteLine("\n\t\t\tcustomeMethod = BEHAVIAC_NEW CTaskMethod(\"{0}\", \"{1}\");", agent.AgentTypeName, method.BasicName);
+
+                            foreach (MethodDef.Param param in method.Params)
+                            {
+                                file.WriteLine("\t\t\tcustomeMethod->AddParamType(\"{0}\");", DataCppExporter.GetExportNativeType(param.NativeType));
+                            }
+
+                            file.WriteLine("\t\t\tobjectDesc->ms_methods.push_back(customeMethod);");
+                        }
+                    }
+                }
+            }
         }
     }
 }

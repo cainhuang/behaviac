@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_XMLSERIALIZER_H_
-#define _CORE_XMLSERIALIZER_H_
+#ifndef BEHAVIAC_CORE_XMLSERIALIZER_H
+#define BEHAVIAC_CORE_XMLSERIALIZER_H
 
 #include "behaviac/base/xml/ixml.h"
 
@@ -53,7 +53,7 @@ public:
 
         if (xmlNode->getAttr(attr, enumValue))
         {
-            value = (T) enumValue;
+            value = (T)enumValue;
         }
     }
     template <typename T> void SerializeArray(const NodeRef& xmlNode, const char* attr, behaviac::vector<T>& array)
@@ -62,7 +62,7 @@ public:
         xmlNode->getAttr(XMLSERIALIZERBEHAVIAC_ARRAYSIZE, size);
         array.resize(size);
 
-        for (int i = 0; i < size; i ++)
+        for (int i = 0; i < size; i++)
         {
             char tag[64];
             string_sprintf(tag, attr, i);
@@ -104,7 +104,7 @@ public:
         int size = (int)array.size();
         xmlNode->setAttr(XMLSERIALIZERBEHAVIAC_ARRAYSIZE, size);
 
-        for (int i = 0; i < size; i ++)
+        for (int i = 0; i < size; i++)
         {
             char tag[64];
             string_sprintf(tag, attr, i);
@@ -138,5 +138,4 @@ class CResourceContainer;
     XML_DECLARE_VIRTUAL_SINGLE_SERIALIZE( XmlSerializerLoad ); \
     XML_DECLARE_VIRTUAL_SINGLE_SERIALIZE( XmlSerializerSave );
 
-#endif // #ifndef _CORE_XMLSERIALIZER_H_
-
+#endif // #ifndef BEHAVIAC_CORE_XMLSERIALIZER_H

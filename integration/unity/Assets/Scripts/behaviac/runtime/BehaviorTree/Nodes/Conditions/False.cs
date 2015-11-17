@@ -11,74 +11,75 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
 {
     public class False : ConditionBase
     {
-    	public False()
-    	{
-		}
+        public False()
+        {
+        }
 
         ~False()
         {
         }
 
         protected override void load(int version, string agentType, List<property_t> properties)
-		{
-			base.load(version, agentType, properties);
-		}
-
-		public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
-			if (!(pTask.GetNode() is False))
-			{
-				return false;
-			}
-		
-			return base.IsValid(pAgent, pTask);
-		}
+            base.load(version, agentType, properties);
+        }
 
-		protected override BehaviorTask createTask()
+        public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
-			FalseTask pTask = new FalseTask();
+            if (!(pTask.GetNode() is False))
+            {
+                return false;
+            }
 
-			return pTask;
-		}
+            return base.IsValid(pAgent, pTask);
+        }
 
+        protected override BehaviorTask createTask()
+        {
+            FalseTask pTask = new FalseTask();
 
-	    // ============================================================================
-	    class FalseTask : ConditionBaseTask
-	    {
-	    	public FalseTask() : base()
-	        {
-	        }
+            return pTask;
+        }
 
-	        ~FalseTask()
-	        {
-	        }
+        // ============================================================================
+        private class FalseTask : ConditionBaseTask
+        {
+            public FalseTask()
+                : base()
+            {
+            }
 
-	    	public override void copyto(BehaviorTask target)
-	        {
-				base.copyto(target);
-			}
+            ~FalseTask()
+            {
+            }
 
-			public override void save(ISerializableNode node)
-	        {
-				base.save(node);
-			}
-			public override void load(ISerializableNode node)
-	        {
-				base.load(node);
-			}
+            public override void copyto(BehaviorTask target)
+            {
+                base.copyto(target);
+            }
 
-	        protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
-	        {
-		        return EBTStatus.BT_FAILURE;
-	    	}
-	    }
+            public override void save(ISerializableNode node)
+            {
+                base.save(node);
+            }
+
+            public override void load(ISerializableNode node)
+            {
+                base.load(node);
+            }
+
+            protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
+            {
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
+                return EBTStatus.BT_FAILURE;
+            }
+        }
     }
 }

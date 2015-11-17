@@ -42,7 +42,7 @@ namespace Behaviac.Design.Attachments
     /// <summary>
     /// This class represents objects that can be attached to nodes like events or overrides.
     /// </summary>
-    public abstract class Attachment : NodeTag.DefaultObject
+    public abstract class Attachment : DefaultObject
     {
         /// <summary>
         /// Creates an attachment from a given type.
@@ -50,16 +50,54 @@ namespace Behaviac.Design.Attachments
         /// <param name="type">The type we want to create an attachment of.</param>
         /// <param name="node">The node this will be added to.</param>
         /// <returns>Returns the created event.</returns>
-        public static Attachment Create(Type type, Nodes.Node node)
-        {
+        public static Attachment Create(Type type, Nodes.Node node) {
             Debug.Check(type != null);
 
             Attachment atta = (Attachment)type.InvokeMember(string.Empty, System.Reflection.BindingFlags.CreateInstance, null, null, new object[] { node });
 
             if (atta == null)
-                throw new Exception(Resources.ExceptionMissingEventConstructor);
+            { throw new Exception(Resources.ExceptionMissingEventConstructor); }
 
             return atta;
+        }
+
+        public bool CanBeAttached
+        {
+            get { return true; }
+        }
+
+        public virtual bool IsFSM {
+            get { return false; }
+        }
+
+        public virtual bool IsStartCondition {
+            get { return false; }
+        }
+
+        public virtual bool CanBeDraggedToTarget {
+            get { return false; }
+        }
+
+        private int _targetFSMNodeId = int.MinValue;
+        public virtual int TargetFSMNodeId {
+            get { return _targetFSMNodeId; }
+            set { _targetFSMNodeId = value; }
+        }
+
+        public virtual bool IsPrecondition {
+            get { return false; }
+        }
+
+        public virtual bool IsEffector {
+            get { return false; }
+        }
+
+        public virtual bool IsTransition {
+            get { return false; }
+        }
+
+        public virtual bool CanBeDeleted {
+            get { return true; }
         }
 
         protected Nodes.Node _node;
@@ -67,15 +105,13 @@ namespace Behaviac.Design.Attachments
         /// <summary>
         /// The node we are attached to.
         /// </summary>
-        public Nodes.Node Node
-        {
+        public Nodes.Node Node {
             get { return _node; }
         }
 
         private string _label;
         private string _baselabel;
-        public string Label
-        {
+        public string Label {
             get { return _label; }
         }
 
@@ -84,18 +120,15 @@ namespace Behaviac.Design.Attachments
         /// <summary>
         /// The description of this node.
         /// </summary>
-        public string Description
-        {
+        public virtual string Description {
             get { return /*Resources.ResourceManager.GetString(*/_description/*, Resources.Culture)*/; }
         }
 
-        public Behaviac.Design.Nodes.BehaviorNode Behavior
-        {
+        public Behaviac.Design.Nodes.BehaviorNode Behavior {
             get { return (Node != null) ? Node.Behavior : null; }
         }
 
-        protected Attachment(Nodes.Node node, string label, string description)
-        {
+        protected Attachment(Nodes.Node node, string label, string description) {
             _node = node;
             _label = label;
             _baselabel = label;
@@ -103,9 +136,8 @@ namespace Behaviac.Design.Attachments
         }
 
         private int _id;
-        [DesignerInteger("AttachmentId", "AttachmentIdDesc", "NodeBasic", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
-        public int Id
-        {
+        [DesignerInteger("AttachmentId", "AttachmentIdDesc", "Attachment", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
+        public int Id {
             get { return _id; }
             set { _id = value; }
         }
@@ -114,58 +146,78 @@ namespace Behaviac.Design.Attachments
         /// The attachment id in the prefab behavior
         /// </summary>
         private int _prefabAttachmentId = -1;
-        [DesignerInteger("PrefabAttachmentId", "PrefabAttachmentIdDesc", "Prefab", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
-        public int PrefabAttachmentId
-        {
+        [DesignerInteger("PrefabAttachmentId", "PrefabAttachmentIdDesc", "Prefab", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated | DesignerProperty.DesignerFlags.NoDisplay, null, int.MinValue, int.MaxValue, 1, null)]
+        public int PrefabAttachmentId {
             get { return _prefabAttachmentId; }
             set { _prefabAttachmentId = value; }
         }
 
-        public void ResetId()
-        {
-            Id = Plugin.NewNodeId((Nodes.Node)Node.Behavior);
+        public virtual List<ParInfo> LocalVars {
+            get { return null; }
         }
 
-        private void setLabel(string value, bool wasModified)
-        {
+        public void ResetId() {
+            bool bReset = (this.Id < 0);
+
+            if (!bReset) {
+                DefaultObject obj = Plugin.GetObjectById((Nodes.Node)Node.Behavior, this.Id);
+
+                if (obj != null && obj != this)
+                { bReset = true; }
+            }
+
+            if (bReset)
+            { this.Id = Plugin.NewNodeId((Nodes.Node)Node.Behavior); }
+        }
+
+        private void setLabel(string value, bool wasModified) {
             _label = value; //Resources.ResourceManager.GetString(value, Resources.Culture);
 
             // store the original label so we can automatically generate a new label when an ttribute changes.
             if (_baselabel == string.Empty)
-                _baselabel = _label;
+            { _baselabel = _label; }
 
             // when the label changes the size of the node might change as well
-            if (wasModified && _label != _baselabel)
-                _node.DoWasModified();
+            if (_node != null && wasModified && _label != _baselabel)
+            { _node.Behavior.TriggerWasModified(_node); }
+        }
+
+        //a chance to modify the structure or data
+        public virtual void PostCreate(List<Nodes.Node.ErrorCheck> result, int version, Nodes.Node node, System.Xml.XmlNode xmlNode)
+        {
         }
 
         /// <summary>
         /// Is called when one of the event's proterties were modified.
         /// </summary>
         /// <param name="wasModified">Holds if the event was modified.</param>
-        public void OnPropertyValueChanged(bool wasModified)
-        {
-            _node.OnPropertyValueChanged(wasModified);
+        public void OnPropertyValueChanged(bool wasModified) {
+            if (_node != null)
+            { _node.OnPropertyValueChanged(wasModified); }
 
             setLabel(GenerateNewLabel(), wasModified);
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return _label;
         }
 
         /// <summary>
         /// The name of the class we want to use for the exporter. This is usually the implemented node of the game.
         /// </summary>
-        public virtual string ExportClass
-        {
+        public virtual string ExportClass {
             get { return GetType().FullName; }
         }
 
+        public virtual Behaviac.Design.ObjectUI.ObjectUIPolicy CreateUIPolicy() {
+            return new Behaviac.Design.ObjectUI.ObjectUIPolicy();
+        }
 
-        public Attachment Clone(Nodes.Node newnode)
-        {
+        public virtual object[] GetExcludedEnums(DesignerEnum enumAttr) {
+            return null;
+        }
+
+        public Attachment Clone(Nodes.Node newnode) {
             Attachment atta = Create(GetType(), newnode);
 
             CloneProperties(atta);
@@ -175,8 +227,7 @@ namespace Behaviac.Design.Attachments
             return atta;
         }
 
-        protected virtual void CloneProperties(Attachment newattach)
-        {
+        protected virtual void CloneProperties(Attachment newattach) {
             newattach._id = this._id;
             newattach._prefabAttachmentId = this._prefabAttachmentId;
             //newattach._node = this._node; // The node should be the new one.
@@ -185,24 +236,38 @@ namespace Behaviac.Design.Attachments
             newattach._description = this._description;
         }
 
-        public virtual void GetAllPars(ref List<ParInfo> pars)
-        {
+        public virtual void CheckForErrors(Behaviac.Design.Nodes.BehaviorNode rootBehavior, List<Behaviac.Design.Nodes.Node.ErrorCheck> result) {
+            if (!this.IsPrecondition && !this.IsEffector) {
+                //flagStr = "event";
+            } else if (this.IsPrecondition) {
+                //flagStr = "precondition";
+                if (this.IsEffector) {
+                    result.Add(new Nodes.Node.ErrorCheck(this.Node, this.Id, this.Label, Nodes.ErrorCheckLevel.Error, "the attachment can only be a Precondition or an Effector!"));
+                }
+
+            } else if (this.IsEffector) {
+                //flagStr = "effector";
+                if (this.IsPrecondition) {
+                    result.Add(new Nodes.Node.ErrorCheck(this.Node, this.Id, this.Label, Nodes.ErrorCheckLevel.Error, "the attachment can only be a Precondition or an Effector!"));
+                }
+
+            } else {
+                Debug.Check(false);
+            }
         }
 
-        public virtual void CheckForErrors(Behaviac.Design.Nodes.BehaviorNode rootBehavior, List<Behaviac.Design.Nodes.Node.ErrorCheck> result)
-        {
+        public virtual void GetReferencedFiles(ref List<string> referencedFiles) {
         }
 
-        public virtual void GetReferencedFiles(ref List<string> referencedFiles)
-        {
+        public virtual bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null) {
+            return false;
         }
 
         /// <summary>
         /// Returns a list of all properties which have a designer attribute attached.
         /// </summary>
         /// <returns>A list of all properties relevant to the designer.</returns>
-        public IList<DesignerPropertyInfo> GetDesignerProperties()
-        {
+        public virtual IList<DesignerPropertyInfo> GetDesignerProperties(bool bCustom = false) {
             return DesignerProperty.GetDesignerProperties(this.GetType());
         }
 
@@ -211,8 +276,7 @@ namespace Behaviac.Design.Attachments
         /// </summary>
         /// <param name="comparison">The comparison used to sort the design properties.</param>
         /// <returns>A list of all properties relevant to the designer.</returns>
-        public IList<DesignerPropertyInfo> GetDesignerProperties(Comparison<DesignerPropertyInfo> comparison)
-        {
+        public IList<DesignerPropertyInfo> GetDesignerProperties(Comparison<DesignerPropertyInfo> comparison) {
             return DesignerProperty.GetDesignerProperties(this.GetType(), comparison);
         }
 
@@ -220,28 +284,26 @@ namespace Behaviac.Design.Attachments
         /// Generates a new label by adding the attributes to the label as arguments
         /// </summary>
         /// <returns>Returns the label with a list of arguments.</returns>
-        protected string GenerateNewLabel()
-        {
+        protected string GenerateNewLabel() {
             // generate the new label with the arguments
             return /*_baselabel + ": " +*/ this.GeneratePropertiesLabel();
         }
 
-        protected virtual string GeneratePropertiesLabel()
-        {
+        protected virtual string GeneratePropertiesLabel() {
             string propertiesLabel = string.Empty;
             int paramCount = 0;
 
             // check all properties for one which must be shown as a parameter on the node
             IList<DesignerPropertyInfo> properties = GetDesignerProperties(DesignerProperty.SortByDisplayOrder);
-            for (int p = 0; p < properties.Count; ++p)
-            {
+
+            for (int p = 0; p < properties.Count; ++p) {
                 // property must be shown as a parameter on the node
-                if (properties[p].Attribute.Display == DesignerProperty.DisplayMode.Parameter)
-                {
+                if (properties[p].Attribute.Display == DesignerProperty.DisplayMode.Parameter) {
                     if (paramCount == 0)
-                        propertiesLabel += "(";
+                    { propertiesLabel += "("; }
+
                     else
-                        propertiesLabel += ", ";
+                    { propertiesLabel += ", "; }
 
                     propertiesLabel += properties[p].GetDisplayValue(this);
                     paramCount++;
@@ -249,7 +311,7 @@ namespace Behaviac.Design.Attachments
             }
 
             if (paramCount > 0)
-                propertiesLabel += ")";
+            { propertiesLabel += ")"; }
 
             return propertiesLabel;
         }

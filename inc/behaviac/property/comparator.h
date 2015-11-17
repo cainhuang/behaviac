@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_COMPARISOR_H_
-#define _BEHAVIAC_COMPARISOR_H_
+#ifndef BEHAVIAC_COMPARISOR_H
+#define BEHAVIAC_COMPARISOR_H
 
 #include "behaviac/property/property.h"
 #include "behaviac/agent/agent.h"
@@ -27,79 +27,84 @@ namespace behaviac
     //------------------------------------------------------------------------
     enum E_VariableComparisonType
     {
-        VariableComparisonType_Equal,			//( "Equal (==)" )
-        VariableComparisonType_NotEqual,		//( "Not Equal (!=)" )
-        VariableComparisonType_Greater,			//( "Greater (>)"  )
-        VariableComparisonType_GreaterEqual,	//( "Greater Or Equal (>=)" )
-        VariableComparisonType_Less,			//( "Lower (<)"  )
-        VariableComparisonType_LessEqual,		//( "Lower Or Equal (<=)" )
-		VariableComparisonType_And,				//( "Lower Or Equal (&&)" )
-		VariableComparisonType_Or				//( "Lower Or Equal (||)" )
+        VariableComparisonType_Assignment,      //( "Assignment (=)" )
+        VariableComparisonType_Equal,           //( "Equal (==)" )
+        VariableComparisonType_NotEqual,        //( "Not Equal (!=)" )
+        VariableComparisonType_Greater,         //( "Greater (>)"  )
+        VariableComparisonType_GreaterEqual,    //( "Greater Or Equal (>=)" )
+        VariableComparisonType_Less,            //( "Lower (<)"  )
+        VariableComparisonType_LessEqual,       //( "Lower Or Equal (<=)" )
+        VariableComparisonType_And,             //( "Lower Or Equal (&&)" )
+        VariableComparisonType_Or               //( "Lower Or Equal (||)" )
     };
-
-
-    E_VariableComparisonType ParseComparisonType(const char* comparionOperator);
 
     //------------------------------------------------------------------------
     class BEHAVIAC_API VariableComparator
     {
     public:
-		VariableComparator() : m_lhs(0), m_rhs(0)
-		{}
+        VariableComparator() : m_lhs(0), m_lhs_m(0), m_rhs(0), m_rhs_m(0)
+        {}
 
-		VariableComparator(const VariableComparator& copy) : m_lhs(copy.m_lhs), m_rhs(copy.m_rhs)
-		{}
+        VariableComparator(const VariableComparator& copy) : m_lhs(copy.m_lhs), m_lhs_m(copy.m_lhs_m), m_rhs(copy.m_rhs), m_rhs_m(copy.m_rhs_m)
+        {}
 
-        virtual ~VariableComparator() {}
+        virtual ~VariableComparator()
+        {
+            m_lhs = 0;
+            m_lhs_m = 0;
+            m_rhs = 0;
+            m_rhs_m = 0;
+        }
 
-		virtual VariableComparator* clone() = 0;
+        virtual VariableComparator* clone() = 0;
 
-        //virtual void Serialize( Serializer& serializer ) = 0;
-        virtual bool Execute(Agent* agentL, Agent* agentR) const = 0;
+        virtual bool Execute(const Agent* pAgent) const = 0;
 
-		virtual bool Execute(CMethodBase* method, const Agent* parent, Agent* agentR) const = 0;
+        void SetProperty(Property* lhs, CMethodBase* lhs_m, Property* rhs, CMethodBase* rhs_m)
+        {
+            m_lhs = lhs;
+            m_lhs_m = lhs_m;
+            m_rhs = rhs;
+            m_rhs_m = rhs_m;
+        }
 
-		void SetProperty(Property* lhs, Property* rhs)
-		{
-			m_lhs = lhs;
-			m_rhs = rhs;
-		}
+        static E_VariableComparisonType ParseComparisonType(const char* comparionOperator);
 
-	protected:
-		Property* m_lhs;
-		Property* m_rhs;
+    protected:
+        Property*					m_lhs;
+        CMethodBase*				m_lhs_m;
+        Property*					m_rhs;
+        CMethodBase*				m_rhs_m;
+        E_VariableComparisonType	m_comparisonType;
     };
 
     //------------------------------------------------------------------------
-    //
     template< typename VariableType >
     class VariableComparatorImpl_ : public VariableComparator
     {
-	protected:
-		VariableComparatorImpl_(const VariableComparatorImpl_& copy) : VariableComparator(copy), m_comparisonType(copy.m_comparisonType)
-		{}
+    protected:
+        VariableComparatorImpl_(const VariableComparatorImpl_& copy) : VariableComparator(copy), m_comparisonType(copy.m_comparisonType)
+        {}
+
     public:
         VariableComparatorImpl_();
         virtual ~VariableComparatorImpl_() {}
 
-		virtual VariableComparator* clone() = 0;
+        virtual VariableComparator* clone() = 0;
 
-        //void Serialize( Serializer& serializer );
-        virtual bool Execute(Agent* agentL, Agent* agentR) const = 0;
-
-		virtual bool Execute(CMethodBase* lhs, const Agent* parent, Agent* agentR) const = 0;
+        virtual bool Execute(const Agent* pAgent) const = 0;
 
         void SetType(const E_VariableComparisonType type);
         E_VariableComparisonType GetType() const;
+
     protected:
         //The operator used in the comparison
         E_VariableComparisonType m_comparisonType;
     };
 
-
     //------------------------------------------------------------------------
     template< typename VariableType >
-	VariableComparatorImpl_< VariableType >::VariableComparatorImpl_() : m_comparisonType(VariableComparisonType_Equal)
+    VariableComparatorImpl_< VariableType >::VariableComparatorImpl_() : m_comparisonType(VariableComparisonType_Equal)
     {}
 
     //------------------------------------------------------------------------
@@ -119,75 +124,69 @@ namespace behaviac
     template< typename VariableType >
     class VariableComparatorImpl : public VariableComparatorImpl_<VariableType>
     {
-	protected:
-		VariableComparatorImpl(const VariableComparatorImpl& copy) : VariableComparatorImpl_<VariableType>(copy)
-		{}
+    protected:
+        VariableComparatorImpl(const VariableComparatorImpl& copy) : VariableComparatorImpl_<VariableType>(copy)
+        {}
     public:
         VariableComparatorImpl()
-		{}
+        {}
 
-		virtual VariableComparator* clone()
-		{
-			return BEHAVIAC_NEW VariableComparatorImpl(*this);
-		}
+        virtual VariableComparator* clone()
+        {
+            return BEHAVIAC_NEW VariableComparatorImpl(*this);
+        }
 
-        //void Serialize( Serializer& serializer );
-        virtual bool Execute(Agent* agentL, Agent* agentR) const;
-		virtual bool Execute(CMethodBase* pLHS, const Agent* parent, Agent* agentR) const;
-	};
+        virtual bool Execute(const Agent* pAgent) const;
+    };
 
     //------------------------------------------------------------------------
     template< typename VariableType >
-    inline bool VariableComparatorImpl< VariableType >::Execute(Agent* agentL, Agent* agentR) const
+    inline bool VariableComparatorImpl< VariableType >::Execute(const Agent* pAgent) const
     {
-		TProperty<VariableType>* pTP_lhs = (TProperty<VariableType>*)this->m_lhs;
-		TProperty<VariableType>* pTP_rhs = (TProperty<VariableType>*)this->m_rhs;
-
-        const VariableType& lhs = pTP_lhs->GetValue(agentL);
-        const VariableType& rhs = pTP_rhs->GetValue(agentR);
-
-        switch (this->m_comparisonType)
-        {
-            case VariableComparisonType_Equal:
-                return Details::Equal(lhs, rhs);
-
-            case VariableComparisonType_NotEqual:
-                return !Details::Equal(lhs, rhs);
-
-            case VariableComparisonType_Greater:
-                return Details::Greater(lhs, rhs);
-
-            case VariableComparisonType_GreaterEqual:
-                return Details::GreaterEqual(lhs, rhs);
-
-            case VariableComparisonType_Less:
-                return Details::Less(lhs, rhs);
-
-            case VariableComparisonType_LessEqual:
-                return Details::LessEqual(lhs, rhs);
-
-            default:
-                BEHAVIAC_ASSERT(0, "Unsupported comparison type");
-                break;
-        }
-
-        return false;
-    }
-
-    template< typename VariableType >
-    inline bool VariableComparatorImpl< VariableType >::Execute(CMethodBase* pLHS, const Agent* parent, Agent* agentR) const
-    {
+        TProperty<VariableType>* pTP_lhs = NULL;
         VariableType lhs;
-		
-		bool bOk = pLHS->GetReturnValue(parent, lhs);
-		BEHAVIAC_UNUSED_VAR(bOk);
-		BEHAVIAC_ASSERT(bOk);
+        Agent* agentL = (Agent*)pAgent;
 
-		TProperty<VariableType>* pTP_rhs = (TProperty<VariableType>*)this->m_rhs;
-        const VariableType& rhs = pTP_rhs->GetValue(agentR);
+        if (this->m_lhs)
+        {
+            agentL = this->m_lhs->GetParentAgent(agentL);
+            pTP_lhs = (TProperty<VariableType>*)this->m_lhs;
+            lhs = pTP_lhs->GetValue(agentL);
+        }
+        else
+        {
+            BEHAVIAC_ASSERT(this->m_lhs_m);
+            this->m_lhs_m->Invoke(agentL);
+            bool bOk = this->m_lhs_m->GetReturnValue(agentL, lhs);
+            BEHAVIAC_ASSERT(bOk);
+            BEHAVIAC_UNUSED_VAR(bOk);
+        }
+
+        VariableType rhs;
+        Agent* agentR = (Agent*)pAgent;
+
+        if (this->m_rhs)
+        {
+            agentR = this->m_rhs->GetParentAgent(agentR);
+            TProperty<VariableType>* pTP_rhs = (TProperty<VariableType>*)this->m_rhs;
+            rhs = pTP_rhs->GetValue(agentR);
+        }
+        else
+        {
+            BEHAVIAC_ASSERT(this->m_rhs_m);
+            this->m_rhs_m->Invoke(agentR);
+            bool bOk = this->m_rhs_m->GetReturnValue(agentR, rhs);
+            BEHAVIAC_ASSERT(bOk);
+            BEHAVIAC_UNUSED_VAR(bOk);
+        }
 
         switch (this->m_comparisonType)
         {
+            case VariableComparisonType_Assignment:
+                BEHAVIAC_ASSERT(this->m_lhs && pTP_lhs);
+                pTP_lhs->SetValue(agentL, rhs);
+                break;
+
             case VariableComparisonType_Equal:
                 return Details::Equal(lhs, rhs);
 
@@ -213,113 +212,100 @@ namespace behaviac
 
         return false;
     }
-
 
     template<>
     class VariableComparatorImpl<bool> : public VariableComparatorImpl_<bool>
     {
-	protected:
-		VariableComparatorImpl(const VariableComparatorImpl& copy) : VariableComparatorImpl_<bool>(copy)
-		{}
+    protected:
+        VariableComparatorImpl(const VariableComparatorImpl& copy) : VariableComparatorImpl_<bool>(copy)
+        {}
     public:
         VariableComparatorImpl()
-		{}
+        {}
 
-		virtual VariableComparator* clone()
-		{
-			return BEHAVIAC_NEW VariableComparatorImpl(*this);
-		}
+        virtual VariableComparator* clone()
+        {
+            return BEHAVIAC_NEW VariableComparatorImpl(*this);
+        }
 
-        //void Serialize( Serializer& serializer );
-        virtual bool Execute(Agent* agentL, Agent* agentR) const
-		{
-			TProperty<bool>* pTP_lhs = (TProperty<bool>*)this->m_lhs;
-			TProperty<bool>* pTP_rhs = (TProperty<bool>*)this->m_rhs;
+        virtual bool Execute(const Agent* pAgent) const
+        {
+            TProperty<bool>* pTP_lhs = NULL;
+            bool lhs = false;
+            Agent* agentL = (Agent*)pAgent;
 
-			bool lhs = pTP_lhs->GetValue(agentL);
-			bool rhs = pTP_rhs->GetValue(agentR);
+            if (this->m_lhs)
+            {
+                agentL = this->m_lhs->GetParentAgent(agentL);
+                pTP_lhs = (TProperty<bool>*)this->m_lhs;
+                lhs = pTP_lhs->GetValue(agentL);
+            }
+            else
+            {
+                BEHAVIAC_ASSERT(this->m_lhs_m);
+                this->m_lhs_m->Invoke(agentL);
+                bool bOk = this->m_lhs_m->GetReturnValue(agentL, lhs);
+                BEHAVIAC_UNUSED_VAR(bOk);
+                BEHAVIAC_ASSERT(bOk);
+            }
 
-			switch (this->m_comparisonType)
-			{
-			case VariableComparisonType_Equal:
-				return Details::Equal(lhs, rhs);
+            bool rhs = false;
+            Agent* agentR = (Agent*)pAgent;
 
-			case VariableComparisonType_NotEqual:
-				return !Details::Equal(lhs, rhs);
+            if (this->m_rhs)
+            {
+                agentR = this->m_rhs->GetParentAgent(agentR);
+                TProperty<bool>* pTP_rhs = (TProperty<bool>*)this->m_rhs;
+                rhs = pTP_rhs->GetValue(agentR);
+            }
+            else
+            {
+                BEHAVIAC_ASSERT(this->m_rhs_m);
+                this->m_rhs_m->Invoke(agentR);
+                bool bOk = this->m_rhs_m->GetReturnValue(agentR, rhs);
+                BEHAVIAC_UNUSED_VAR(bOk);
+                BEHAVIAC_ASSERT(bOk);
+            }
 
-			case VariableComparisonType_Greater:
-				return Details::Greater(lhs, rhs);
+            switch (this->m_comparisonType)
+            {
+                case VariableComparisonType_Assignment:
+                    BEHAVIAC_ASSERT(this->m_lhs && pTP_lhs);
+                    pTP_lhs->SetValue(agentL, rhs);
+                    break;
 
-			case VariableComparisonType_GreaterEqual:
-				return Details::GreaterEqual(lhs, rhs);
+                case VariableComparisonType_Equal:
+                    return Details::Equal(lhs, rhs);
 
-			case VariableComparisonType_Less:
-				return Details::Less(lhs, rhs);
+                case VariableComparisonType_NotEqual:
+                    return !Details::Equal(lhs, rhs);
 
-			case VariableComparisonType_LessEqual:
-				return Details::LessEqual(lhs, rhs);
+                case VariableComparisonType_Greater:
+                    return Details::Greater(lhs, rhs);
 
-			case VariableComparisonType_And:
-				return (lhs && rhs);
+                case VariableComparisonType_GreaterEqual:
+                    return Details::GreaterEqual(lhs, rhs);
 
-			case VariableComparisonType_Or:
-				return (lhs || rhs);
+                case VariableComparisonType_Less:
+                    return Details::Less(lhs, rhs);
 
-			default:
-				BEHAVIAC_ASSERT(0, "Unsupported comparison type");
-				break;
-			}
+                case VariableComparisonType_LessEqual:
+                    return Details::LessEqual(lhs, rhs);
 
-			return false;
-		}
+                case VariableComparisonType_And:
+                    return (lhs && rhs);
 
-		virtual bool Execute(CMethodBase* pLHS, const Agent* parent, Agent* agentR) const
-		{
-			bool lhs;
+                case VariableComparisonType_Or:
+                    return (lhs || rhs);
 
-			bool bOk = pLHS->GetReturnValue(parent, lhs);
-			BEHAVIAC_UNUSED_VAR(bOk);
-			BEHAVIAC_ASSERT(bOk);
+                default:
+                    BEHAVIAC_ASSERT(0, "Unsupported comparison type");
+                    break;
+            }
 
-			TProperty<bool>* pTP_rhs = (TProperty<bool>*)this->m_rhs;
-			bool rhs = pTP_rhs->GetValue(agentR);
-
-			switch (this->m_comparisonType)
-			{
-			case VariableComparisonType_Equal:
-				return Details::Equal(lhs, rhs);
-
-			case VariableComparisonType_NotEqual:
-				return !Details::Equal(lhs, rhs);
-
-			case VariableComparisonType_Greater:
-				return Details::Greater(lhs, rhs);
-
-			case VariableComparisonType_GreaterEqual:
-				return Details::GreaterEqual(lhs, rhs);
-
-			case VariableComparisonType_Less:
-				return Details::Less(lhs, rhs);
-
-			case VariableComparisonType_LessEqual:
-				return Details::LessEqual(lhs, rhs);
-
-			case VariableComparisonType_And:
-				return (lhs && rhs);
-
-			case VariableComparisonType_Or:
-				return (lhs || rhs);
-
-			default:
-				BEHAVIAC_ASSERT(0, "Unsupported comparison type");
-				break;
-			}
-
-			return false;
-		}
-	};
-
+            return false;
+        }
+    };
 }
 
-
-#endif//_BEHAVIAC_COMPARISOR_H_
+#endif//BEHAVIAC_COMPARISOR_H

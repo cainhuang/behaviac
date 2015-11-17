@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_TRAITS_ISCOMPOUND_H__INCLUDED
-#define _BEHAVIAC_BASE_TRAITS_ISCOMPOUND_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_TRAITS_ISCOMPOUND_H_INCLUDED
+#define _BEHAVIAC_BASE_TRAITS_ISCOMPOUND_H_INCLUDED
 
 #include "behaviac/base/meta/isptr.h"
 #include "behaviac/base/meta/isref.h"
@@ -32,9 +32,9 @@ namespace behaviac
         {
             enum
             {
-                Result =    IsPtr< Type >::Result ||
-                            IsRef< Type >::Result ||
-                            IsArray< Type >::Result
+                Result = IsPtr< Type >::Result ||
+                         IsRef< Type >::Result ||
+                         IsArray< Type >::Result
             };
         };
     }

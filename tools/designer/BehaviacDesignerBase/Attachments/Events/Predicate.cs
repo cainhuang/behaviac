@@ -22,28 +22,11 @@ using Behaviac.Design.Nodes;
 
 namespace Behaviac.Design.Attachments
 {
-    public enum BinaryOperator
-    {
-        [Behaviac.Design.EnumMemberDesc("And", "&")]
-        And,
-
-        [Behaviac.Design.EnumMemberDesc("Or", "|")]
-        Or
-    }
-
 	/// <summary>
 	/// This class represents an event which is attached to a node.
 	/// </summary>
     public class Predicate : Attach
 	{
-        private BinaryOperator _binary = BinaryOperator.And;
-        [DesignerEnum("BinaryOperator", "BinaryOperatorDesc", "Condition", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, "")]
-        public BinaryOperator BinaryOperator
-        {
-            get { return _binary; }
-            set { _binary = value; }
-        }
-
 		/// <summary>
 		/// Create a new node event.
 		/// </summary>
@@ -57,13 +40,5 @@ namespace Behaviac.Design.Attachments
         {
             return null;
         }
-
-		protected override void CloneProperties(Attachment newattach)
-		{
-			base.CloneProperties(newattach);
-
-            Predicate prec = (Predicate)newattach;
-            prec._binary = _binary;
-		}
 	}
 }

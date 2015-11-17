@@ -52,113 +52,139 @@
 #include "behaviac/behaviortree/nodes/decorators/decoratorloopuntil.h"
 #include "behaviac/behaviortree/nodes/decorators/decoratorweight.h"
 #include "behaviac/behaviortree/nodes/decorators/decoratorcountlimit.h"
+#include "behaviac/behaviortree/nodes/decorators/decoratorrepeat.h"
+#include "behaviac/behaviortree/nodes/decorators/decoratoriterator.h"
 
-#include "behaviac/behaviortree/attachments/predicate.h"
 #include "behaviac/behaviortree/attachments/event.h"
+#include "behaviac/behaviortree/attachments/attachaction.h"
+#include "behaviac/behaviortree/attachments/precondition.h"
+#include "behaviac/behaviortree/attachments/effector.h"
+
+#include "behaviac/fsm/fsm.h"
+#include "behaviac/fsm/state.h"
+#include "behaviac/fsm/transitioncondition.h"
+#include "behaviac/htn/task.h"
+#include "behaviac/htn/method.h"
 
 namespace behaviac
 {
     void Workspace::RegisterBasicNodes()
     {
-		behaviac::Condition::RegisterBasicTypes();
-#if K_TYPE_CREATOR_
-		behaviac::Property::RegisterBasicTypes();
-#endif//#if K_TYPE_CREATOR_
+        behaviac::Compute::RegisterBasicTypes();
+        behaviac::Property::RegisterBasicTypes();
 
         BehaviorNode::Register<Action>();
-		BehaviorNode::Register<Assignment>();
-		BehaviorNode::Register<Compute>();
+        BehaviorNode::Register<Assignment>();
+        BehaviorNode::Register<Compute>();
         BehaviorNode::Register<Noop>();
         BehaviorNode::Register<Query>();
         BehaviorNode::Register<Wait>();
-		BehaviorNode::Register<WaitFrames>();
-		BehaviorNode::Register<WaitforSignal>();
+        BehaviorNode::Register<WaitFrames>();
+        BehaviorNode::Register<WaitforSignal>();
 
-		BehaviorNode::Register<Condition>();
-		BehaviorNode::Register<True>();
-		BehaviorNode::Register<False>();
-		BehaviorNode::Register<And>();
-		BehaviorNode::Register<Or>();
+        BehaviorNode::Register<Condition>();
+        BehaviorNode::Register<True>();
+        BehaviorNode::Register<False>();
+        BehaviorNode::Register<And>();
+        BehaviorNode::Register<Or>();
 
         BehaviorNode::Register<Selector>();
-		BehaviorNode::Register<SelectorProbability>();
-		BehaviorNode::Register<SelectorStochastic>();
-		BehaviorNode::Register<SelectorLoop>();
-		BehaviorNode::Register<Sequence>();
-		BehaviorNode::Register<SequenceStochastic>();
-		BehaviorNode::Register<Parallel>();
-		BehaviorNode::Register<WithPrecondition>();
-		BehaviorNode::Register<ReferencedBehavior>();
-		BehaviorNode::Register<IfElse>();
+        BehaviorNode::Register<SelectorProbability>();
+        BehaviorNode::Register<SelectorStochastic>();
+        BehaviorNode::Register<SelectorLoop>();
+        BehaviorNode::Register<Sequence>();
+        BehaviorNode::Register<SequenceStochastic>();
+        BehaviorNode::Register<Parallel>();
+        BehaviorNode::Register<WithPrecondition>();
+        BehaviorNode::Register<ReferencedBehavior>();
+        BehaviorNode::Register<IfElse>();
 
-        BehaviorNode::Register<Predicate>();
-		BehaviorNode::Register<Event>();
+        BehaviorNode::Register<Event>();
+        BehaviorNode::Register<Precondition>();
+        BehaviorNode::Register<AttachAction>();
+        BehaviorNode::Register<Effector>();
 
         BehaviorNode::Register<DecoratorNot>();
-		BehaviorNode::Register<DecoratorLog>();
+        BehaviorNode::Register<DecoratorLog>();
         BehaviorNode::Register<DecoratorAlwaysSuccess>();
-		BehaviorNode::Register<DecoratorAlwaysFailure>();
-		BehaviorNode::Register<DecoratorAlwaysRunning>();
+        BehaviorNode::Register<DecoratorAlwaysFailure>();
+        BehaviorNode::Register<DecoratorAlwaysRunning>();
         BehaviorNode::Register<DecoratorLoop>();
         BehaviorNode::Register<DecoratorTime>();
-		BehaviorNode::Register<DecoratorFrames>();
+        BehaviorNode::Register<DecoratorFrames>();
+        BehaviorNode::Register<DecoratorRepeat>();
+        BehaviorNode::Register<DecoratorIterator>();
 
         BehaviorNode::Register<DecoratorFailureUntil>();
         BehaviorNode::Register<DecoratorSuccessUntil>();
-		BehaviorNode::Register<DecoratorLoopUntil>();
-		BehaviorNode::Register<DecoratorWeight>();
-		BehaviorNode::Register<DecoratorCountLimit>();
+        BehaviorNode::Register<DecoratorLoopUntil>();
+        BehaviorNode::Register<DecoratorWeight>();
+        BehaviorNode::Register<DecoratorCountLimit>();
+
+        BehaviorNode::Register<FSM>();
+        BehaviorNode::Register<State>();
+        BehaviorNode::Register<Transition>();
+        BehaviorNode::Register<Task>();
+        BehaviorNode::Register<Method>();
     }
 
     void Workspace::UnRegisterBasicNodes()
     {
-		behaviac::Condition::UnRegisterBasicTypes();
-#if K_TYPE_CREATOR_
-		behaviac::Property::UnRegisterBasicTypes();
-#endif//#if K_TYPE_CREATOR_
+        behaviac::Compute::UnRegisterBasicTypes();
+        behaviac::Property::UnRegisterBasicTypes();
 
         BehaviorNode::UnRegister<Action>();
-		BehaviorNode::UnRegister<Assignment>();
-		BehaviorNode::UnRegister<Compute>();
+        BehaviorNode::UnRegister<Assignment>();
+        BehaviorNode::UnRegister<Compute>();
         BehaviorNode::UnRegister<Noop>();
         BehaviorNode::UnRegister<Query>();
         BehaviorNode::UnRegister<Wait>();
-		BehaviorNode::UnRegister<WaitFrames>();
-		BehaviorNode::UnRegister<WaitforSignal>();
+        BehaviorNode::UnRegister<WaitFrames>();
+        BehaviorNode::UnRegister<WaitforSignal>();
 
         BehaviorNode::UnRegister<Condition>();
-		BehaviorNode::UnRegister<True>();
-		BehaviorNode::UnRegister<False>();
-		BehaviorNode::UnRegister<And>();
-		BehaviorNode::UnRegister<Or>();
+        BehaviorNode::UnRegister<True>();
+        BehaviorNode::UnRegister<False>();
+        BehaviorNode::UnRegister<And>();
+        BehaviorNode::UnRegister<Or>();
 
         BehaviorNode::UnRegister<Selector>();
-		BehaviorNode::UnRegister<SelectorProbability>();
-		BehaviorNode::UnRegister<SelectorStochastic>();
-		BehaviorNode::UnRegister<SelectorLoop>();
-		BehaviorNode::UnRegister<Sequence>();
-		BehaviorNode::UnRegister<SequenceStochastic>();
-		BehaviorNode::UnRegister<Parallel>();
-		BehaviorNode::UnRegister<WithPrecondition>();
-		BehaviorNode::UnRegister<ReferencedBehavior>();
-		BehaviorNode::UnRegister<IfElse>();
+        BehaviorNode::UnRegister<SelectorProbability>();
+        BehaviorNode::UnRegister<SelectorStochastic>();
+        BehaviorNode::UnRegister<SelectorLoop>();
+        BehaviorNode::UnRegister<Sequence>();
+        BehaviorNode::UnRegister<SequenceStochastic>();
+        BehaviorNode::UnRegister<Parallel>();
+        BehaviorNode::UnRegister<WithPrecondition>();
+        BehaviorNode::UnRegister<ReferencedBehavior>();
+        BehaviorNode::UnRegister<IfElse>();
 
-        BehaviorNode::UnRegister<Predicate>();
-		BehaviorNode::UnRegister<Event>();
+        BehaviorNode::UnRegister<Event>();
+        BehaviorNode::UnRegister<Precondition>();
+        BehaviorNode::UnRegister<AttachAction>();
+        BehaviorNode::UnRegister<Effector>();
 
         BehaviorNode::UnRegister<DecoratorNot>();
-		BehaviorNode::UnRegister<DecoratorLog>();
+        BehaviorNode::UnRegister<DecoratorLog>();
         BehaviorNode::UnRegister<DecoratorAlwaysSuccess>();
-		BehaviorNode::UnRegister<DecoratorAlwaysFailure>();
-		BehaviorNode::UnRegister<DecoratorAlwaysRunning>();
+        BehaviorNode::UnRegister<DecoratorAlwaysFailure>();
+        BehaviorNode::UnRegister<DecoratorAlwaysRunning>();
         BehaviorNode::UnRegister<DecoratorLoop>();
+        BehaviorNode::UnRegister<DecoratorRepeat>();
+        BehaviorNode::UnRegister<DecoratorIterator>();
+
         BehaviorNode::UnRegister<DecoratorTime>();
-		BehaviorNode::UnRegister<DecoratorFrames>();
+        BehaviorNode::UnRegister<DecoratorFrames>();
         BehaviorNode::UnRegister<DecoratorFailureUntil>();
         BehaviorNode::UnRegister<DecoratorSuccessUntil>();
-		BehaviorNode::UnRegister<DecoratorLoopUntil>();
-		BehaviorNode::UnRegister<DecoratorWeight>();
-		BehaviorNode::UnRegister<DecoratorCountLimit>();
-    }
+        BehaviorNode::UnRegister<DecoratorLoopUntil>();
+        BehaviorNode::UnRegister<DecoratorWeight>();
+        BehaviorNode::UnRegister<DecoratorCountLimit>();
 
+        BehaviorNode::UnRegister<FSM>();
+        BehaviorNode::UnRegister<State>();
+        BehaviorNode::UnRegister<Transition>();
+        BehaviorNode::UnRegister<Task>();
+        BehaviorNode::UnRegister<Method>();
+    }
 }//namespace behaviac

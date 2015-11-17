@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := behaviac btunittest btremotetest
+PROJECTS := behaviac btunittest usertest btremotetest
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -20,6 +20,10 @@ btunittest: behaviac
 	@echo "==== Building btunittest ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f btunittest.make
 
+usertest: behaviac
+	@echo "==== Building usertest ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f usertest.make
+
 btremotetest: behaviac
 	@echo "==== Building btremotetest ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f btremotetest.make
@@ -27,21 +31,22 @@ btremotetest: behaviac
 clean:
 	@${MAKE} --no-print-directory -C . -f behaviac.make clean
 	@${MAKE} --no-print-directory -C . -f btunittest.make clean
+	@${MAKE} --no-print-directory -C . -f usertest.make clean
 	@${MAKE} --no-print-directory -C . -f btremotetest.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
 	@echo ""
 	@echo "CONFIGURATIONS:"
-	@echo "   debug32"
+	@echo "   debug64"
 	@echo "   release64"
-	@echo "   profile32"
 	@echo ""
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
 	@echo "   behaviac"
 	@echo "   btunittest"
+	@echo "   usertest"
 	@echo "   btremotetest"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"

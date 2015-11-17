@@ -15,23 +15,22 @@
 
 namespace behaviac
 {
-	RandomGenerator* RandomGenerator::ms_pInstance;
+    RandomGenerator* RandomGenerator::ms_pInstance;
 
-	void RandomGenerator::_SetInstance(RandomGenerator* pInstance)
-	{
-		RandomGenerator::ms_pInstance = pInstance;
-	}
+    void RandomGenerator::_SetInstance(RandomGenerator* pInstance)
+    {
+        RandomGenerator::ms_pInstance = pInstance;
+    }
 
-	RandomGenerator* RandomGenerator::_GetInstance()
-	{
-		RandomGenerator* pInstance = RandomGenerator::ms_pInstance;
+    RandomGenerator* RandomGenerator::_GetInstance()
+    {
+        RandomGenerator* pInstance = RandomGenerator::ms_pInstance;
 
-		if (!pInstance)
-		{
-			pInstance = BEHAVIAC_NEW RandomGenerator;
-		}
+        if (!pInstance)
+        {
+            pInstance = BEHAVIAC_NEW RandomGenerator;
+        }
 
-		return pInstance;
-	}
-
+        return pInstance;
+    }
 }//namespace behaviac

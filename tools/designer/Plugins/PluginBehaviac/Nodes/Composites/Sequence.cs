@@ -45,7 +45,6 @@ namespace PluginBehaviac.Nodes
         public Sequence()
             : base(Resources.Sequence, Resources.SequenceDesc)
 		{
-            this.IsAcceptingEvents = true;
 		}
 
         public override string ExportClass

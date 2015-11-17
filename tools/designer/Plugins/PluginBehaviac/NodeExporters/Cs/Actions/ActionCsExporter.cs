@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -23,9 +23,27 @@ namespace PluginBehaviac.NodeExporters
 {
     public class ActionCsExporter : NodeCsExporter
     {
+        private bool isNullMethod(MethodDef method)
+        {
+            return (method != null && method.BasicName == "null_method");
+        }
+
+        private string getResultOptionStr(EBTStatus status)
+        {
+            switch (status)
+            {
+                case EBTStatus.BT_SUCCESS: return "EBTStatus.BT_SUCCESS";
+                case EBTStatus.BT_FAILURE: return "EBTStatus.BT_FAILURE";
+                case EBTStatus.BT_RUNNING: return "EBTStatus.BT_RUNNING";
+            }
+
+            return "EBTStatus.BT_INVALID";
+        }
+
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            Action action = node as Action;
+            return (action != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -33,9 +51,12 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             Action action = node as Action;
-            Debug.Check(action != null);
+            if (action == null)
+                return;
 
-            if (action.Method != null)
+            stream.WriteLine("{0}\t\t\tthis.m_resultOption = {1};", indent, getResultOptionStr(action.ResultOption));
+
+            if (action.Method != null && !isNullMethod(action.Method))
             {
                 MethodCsExporter.GenerateClassConstructor(action.Method, stream, indent, "method");
             }
@@ -46,9 +67,10 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMember(node, stream, indent);
 
             Action action = node as Action;
-            Debug.Check(action != null);
+            if (action == null)
+                return;
 
-            if (action.Method != null)
+            if (action.Method != null && !isNullMethod(action.Method))
             {
                 MethodCsExporter.GenerateClassMember(action.Method, stream, indent, "method");
             }
@@ -59,13 +81,14 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             Action action = node as Action;
-            Debug.Check(action != null);
+            if (action == null)
+                return;
 
             stream.WriteLine("{0}\t\tprotected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)", indent);
             stream.WriteLine("{0}\t\t{{", indent);
 
-            string resultStatus = "EBTStatus.BT_SUCCESS";
-            if (action.Method != null)
+            string resultStatus = getResultOptionStr(action.ResultOption);
+            if (action.Method != null && !isNullMethod(action.Method))
             {
                 string nativeReturnType = DataCsExporter.GetGeneratedNativeType(action.Method.NativeReturnType);
                 string typeConvertStr = (nativeReturnType == "void") ? string.Empty : "(" + nativeReturnType + ")";
@@ -92,7 +115,7 @@ namespace PluginBehaviac.NodeExporters
 
                     if (EBTStatus.BT_INVALID != action.ResultOption)
                     {
-                        resultStatus = "EBTStatus." + action.ResultOption.ToString();
+                        resultStatus = getResultOptionStr(action.ResultOption);
                     }
                     else if (Plugin.IsMatchedStatusMethod(action.Method, action.ResultFunctor))
                     {

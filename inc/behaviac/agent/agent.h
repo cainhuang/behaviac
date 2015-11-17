@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_AGENT_H_
-#define _BEHAVIAC_AGENT_H_
+#ifndef BEHAVIAC_AGENT_H
+#define BEHAVIAC_AGENT_H
 
 #include "behaviac/base/base.h"
 
@@ -23,449 +23,442 @@
 #include "behaviac/base/core/string/stringid.h"
 #include "behaviac/base/core/string/formatstring.h"
 #include "behaviac/base/string/stringutils.h"
-
 #include "behaviac/behaviortree/behaviortree.h"
 #include "behaviac/behaviortree/behaviortree_task.h"
 #include "behaviac/property/properties.h"
 #include "behaviac/base/meta/meta.h"
 #include "behaviac/base/meta/types.h"
+#include "behaviac/htn/agentstate.h"
+#include "behaviac/base/object/member.h"
 
-class CNamedEvent;
 namespace behaviac
 {
-	class Property;
-	class World;
-	class BehaviorTreeTask;
-	class State_t;
-
+    class CNamedEvent;
+    class Property;
+    class BehaviorTreeTask;
+    class State_t;
     /*! \addtogroup Agent
      * @{
      * \addtogroup Agent
      * @{ */
 
-	/// The Agent class is the base class to manage(load/unload/tick) behaviortrees.
+    /// The Agent class is the base class to manage(load/unload/exec) behaviors.
     /*!
-	Each agent belongs to a context, specified by a context id, the default context's id is 0. you should create a world 
-	instance by Agent::CreateInstance<YourWorldClass>() before creating any other agents. YourWorldClass should derive 
-	from World. and, you should destroy your world instance by Agent::DestroyInstance<YourWorldClass>(). Agent should be 
-	created by Agent::Create<YourAgentClass>() and destroyed by Agent::Destory(pAgent).
+    Each agent belongs to a context, specified by a context id, the default context's id is 0.
+    Agent should be created by Agent::Create<YourAgentClass>() and destroyed by Agent::Destory(pAgent).
     */
     class BEHAVIAC_API Agent : public CTagObject
     {
     public:
-		DECLARE_BEHAVIAC_OBJECT(behaviac::Agent, CTagObject);
+        DECLARE_BEHAVIAC_AGENT(behaviac::Agent, CTagObject);
 
-		bool SaveDataToFile(const char* fileName);
-		bool LoadDataFromFile(const char* fileName);
-		bool SaveDataToFile(IFile* file);
-		bool LoadDataFromFile(IFile* file);
+        bool SaveDataToFile(const char* fileName);
+        bool LoadDataFromFile(const char* fileName);
+        bool SaveDataToFile(IFile* file);
+        bool LoadDataFromFile(IFile* file);
+        template <typename VariableType>
+        const VariableType* GetVariableRegistry(const char* staticClassName, const CMemberBase* pMember, uint32_t variableId) const;
+        //bool SaveTypeToFile(IFile* file);
 
-		//bool SaveTypeToFile(IFile* file);
-		//bool LoadTypeFromFile(IFile* file);
-		//bool SaveTypeToFile(const char* fileName);
-		//bool LoadTypeFromFile(const char* fileName);
+        //bool LoadTypeFromFile(IFile* file);
+        //bool SaveTypeToFile(const char* fileName);
+        //bool LoadTypeFromFile(const char* fileName);
 
+        bool btload(const State_t& state);
+        bool btsave(State_t& state);
+        void LogJumpTree(string newTree)
+        {
+            BEHAVIAC_UNUSED_VAR(newTree);
+#if !BEHAVIAC_RELEASE
+            string msg = newTree + ".xml";
+            LogManager::GetInstance()->Log(this, msg.c_str(), EAR_none, ELM_jump);
+#endif
+        }
+        void LogReturnTree(string returnFromTree)
+        {
+            BEHAVIAC_UNUSED_VAR(returnFromTree);
+#if !BEHAVIAC_RELEASE
+            string msg = returnFromTree + ".xml";
+            LogManager::GetInstance()->Log(this, msg.c_str(), EAR_none, ELM_return);
+#endif
+        }
 
-		bool btload(const State_t& state);
-		bool btsave(State_t& state);
+        /**
+        @param relativePath, relativePath is relative to the workspace exported path. relativePath should not include extension.
+        the file format(xml/bson) is specified by Init.
+        @param bForce, the loaded BT is kept in the cache so the subsequent loading will just return it from the cache.
+        if bForce is true, it will not check the cache and force to load it.
 
-		/**
-		@param relativePath, relativePath is relative to the workspace exported path. relativePath should not include extension.
-		the file format(xml/bson) is specified by SetWorkspaceSettings.
-		@param bForce, the loaded BT is kept in the cache so the subsequent loading will just return it from the cache. 
-		if bForce is true, it will not check the cache and force to load it.
+        @return
+        return true if successfully loaded
+        */
+        bool btload(const char* relativePath, bool bForce = false);
 
-		@return
-		return true if successfully loaded
-		*/
-		bool btload(const char* relativePath, bool bForce = false);
+        /**
+        destory the specified bt created by this agent
 
-		/**
-		destory the specified bt created by this agent
+        relativePath is relative to the workspace epported path. relativePath should not include extension.
+        */
+        void btunload(const char* relativePath);
 
-		relativePath is relative to the workspace epported path. relativePath should not include extension.
-		*/
-		void btunload(const char* relativePath);
+        /**
+        destory all the BTs created by this agent
+        */
+        void btunloadall();
 
-		/**
-		destory all the BTs created by this agent
-		*/
-		void btunloadall();
+        /**
+        called when hotreloaded
 
-		/**
-		called when hotreloaded
+        the default implementation is unloading all pars.
 
-		the default implementation is unloading all pars. 
+        it can be overridden to do some clean up, like to reset some internal states, etc.
+        */
+        virtual void bthotreloaded(const BehaviorTree* bt);
 
-		it can be overridden to do some clean up, like to reset some internal states, etc.
-		*/
-		virtual void bthotreloaded(const BehaviorTree* bt);
+        /**
+        reload all the loaded behavior trees
+        */
+        virtual void btreloadall();
 
-		/**
-		reload all the loaded behavior trees
-		*/
-		virtual void btreloadall();
+        /**
+        if 'relativePath' is empty, it uses the first one
 
-		/**
-		if 'relativePath' is empty, it uses the first one
+        before set the found one as the current bt,
+        it aborts the current one and pushes it on the stack so that it will be continued later when the
+        new one is finished.
+        */
+        void btsetcurrent(const char* relativePath);
 
-		before set the found one as the current bt, 
-		it aborts the current one and pushes it on the stack so that it will be continued later when the 
-		new one is finished.
-		*/
-		void btsetcurrent(const char* relativePath);
+        void btreferencetree(const char* relativePath);
 
-		void btreferencetree(const char* relativePath);
+        void bteventtree(const char* relativePath, TriggerMode triggerMode);
 
-		void bteventtree(const char* relativePath, TriggerMode triggerMode);
+        /**
+        reset the current bt, do nothing if there is no current bt
+        */
+        void btresetcurrrent();
+        BehaviorTreeTask* btgetcurrent();
+        const BehaviorTreeTask* btgetcurrent() const;
 
-		/**
-		reset the current bt, do nothing if there is no current bt
-		*/
-		void btresetcurrrent();
+        /**
+        exec the BT specified by 'btName'. if 'btName' is null, exec the current behavior tree specified by 'btsetcurrent'.
+        */
+        virtual EBTStatus btexec();
 
-		BehaviorTreeTask* btgetcurrent();
-		const BehaviorTreeTask* btgetcurrent() const;
-
-		/**
-		exec the BT specified by 'btName'. if 'btName' is null, exec the current behavior tree specified by 'btsetcurrent'.
-		*/
-		virtual EBTStatus btexec();
-
-		/**
-		to respond to event 'btEvent' to switch to the corresonding behavior tree
-		*/
-		void btonevent(const char* btEvent);
+        /**
+        to respond to event 'btEvent' to switch to the corresonding behavior tree
+        */
+        void btonevent(const char* btEvent);
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-		int GetId() const
-		{
-			return this->m_id;
-		}
+        int GetId() const
+        {
+            return this->m_id;
+        }
 
-		int GetPriority() const
-		{
-			return (int)this->m_priority;
-		}
+        int GetPriority() const
+        {
+            return (int)this->m_priority;
+        }
 
-		/**
-		Each agent can be assigned to an id flag by 'SetIdFlag'. A global mask can be specified by SetIdMask.
-		the id flag will be checked with this global mask.
+        /**
+        Each agent can be assigned to an id flag by 'SetIdFlag'. A global mask can be specified by SetIdMask.
+        the id flag will be checked with this global mask.
 
-		@sa SetIdFlag SetIdMask
-		*/
-		bool IsMasked() const
-		{
-			return (this->m_idFlag & Agent::IdMask()) != 0;
-		}
+        @sa SetIdFlag SetIdMask
+        */
+        bool IsMasked() const
+        {
+            return (this->m_idFlag & Agent::IdMask()) != 0;
+        }
 
-		/**
-		@sa SetIdMask IsMasked
-		*/
-		void SetIdFlag(uint32_t idMask)
-		{
-			this->m_idFlag = idMask;
-		}
+        /**
+        @sa SetIdMask IsMasked
+        */
+        void SetIdFlag(uint32_t idMask)
+        {
+            this->m_idFlag = idMask;
+        }
 
-		/**
-		@sa SetIdFlag IsMasked
-		*/
-		static void SetIdMask(uint32_t idMask);
+        /**
+        @sa SetIdFlag IsMasked
+        */
+        static void SetIdMask(uint32_t idMask);
 
-		static uint32_t	IdMask();
+        static uint32_t	IdMask();
 
-		const behaviac::string& GetName() const
-		{
-			return this->m_name;
-		}
+        const behaviac::string& GetName() const
+        {
+            return this->m_name;
+        }
 
-		void SetName(const char* instanceName);
+        void SetName(const char* instanceName);
 
-		int GetContextId() const
-		{
-			return this->m_context_id;
-		}
+        int GetContextId() const
+        {
+            return this->m_context_id;
+        }
 
-		/**
-		return if the agent is active or not.
+        /**
+        return if the agent is active or not.
 
-		an active agent is ticked automatiacally by the world it is added.
-		if it is inactive, it is not ticked automatiacally by the world it is added.
+        an active agent is ticked automatiacally by the world it is added.
+        if it is inactive, it is not ticked automatiacally by the world it is added.
 
-		@sa SetActive
-		*/
-		bool IsActive() const
-		{
-			return this->m_bActive == 0 ? false : true;
-		}
+        @sa SetActive
+        */
+        bool IsActive() const
+        {
+            return this->m_bActive == 0 ? false : true;
+        }
 
-		/**
-		set the agent active or inactive
-		*/
-		void SetActive(bool bActive)
-		{
-			this->m_bActive = bActive ? 1 : 0;
-		}
-
+        /**
+        set the agent active or inactive
+        */
+        void SetActive(bool bActive)
+        {
+            this->m_bActive = bActive ? 1 : 0;
+        }
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-		static void FireEvent(Agent* pAgent, const char* eventName);
-		
-		template<class ParamType1>
-		static void FireEvent(Agent* pAgent, const char* eventName, const ParamType1& param1);
+        static void FireEvent(Agent* pAgent, const char* eventName);
 
-		template<class ParamType1, class ParamType2>
-		static void FireEvent(Agent* pAgent, const char* eventName, const ParamType1& param1, const ParamType2& param2);
-		
-		template<class ParamType1, class ParamType2, class ParamType3>
-		static void FireEvent(Agent* pAgent, const char* eventName, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3);
-		
-		//static void FireEvent(int contextId, const char* eventName);
+        template<class ParamType1>
+        static void FireEvent(Agent* pAgent, const char* eventName, const ParamType1& param1);
 
-		//template<class ParamType1>
-		//static void FireEvent(int contextId, const char* eventName, const ParamType1& param1);
+        template<class ParamType1, class ParamType2>
+        static void FireEvent(Agent* pAgent, const char* eventName, const ParamType1& param1, const ParamType2& param2);
 
-		//template<class ParamType1, class ParamType2>
-		//static void FireEvent(int contextId, const char* eventName, const ParamType1& param1, const ParamType2& param2);
+        template<class ParamType1, class ParamType2, class ParamType3>
+        static void FireEvent(Agent* pAgent, const char* eventName, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3);
 
-		//template<class ParamType1, class ParamType2, class ParamType3>
-		//static void FireEvent(int contextId, const char* eventName, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3);
+        //static void FireEvent(int contextId, const char* eventName);
 
-		void FireEvent(const char* eventName);
-		
-		template<class ParamType1>
-		void FireEvent(const char* eventName, const ParamType1& param1);
-		
-		template<class ParamType1, class ParamType2>
-		void FireEvent(const char* eventName, const ParamType1& param1, const ParamType2& param2);
-		
-		template<class ParamType1, class ParamType2, class ParamType3>
-		void FireEvent(const char* eventName, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3);
-		
-		bool IsFired(const char* eventName);
-		static void ResetEvent(Agent* pAgent, const char* eventName);
-		//static void ResetEvent(int contextId, const char* eventName);
-		void ResetEvent(const char* eventName);
+        //template<class ParamType1>
+        //static void FireEvent(int contextId, const char* eventName, const ParamType1& param1);
 
-		const CNamedEvent* FindEvent(const char* eventName, const char* className = 0) const;
+        //template<class ParamType1, class ParamType2>
+        //static void FireEvent(int contextId, const char* eventName, const ParamType1& param1, const ParamType2& param2);
+
+        //template<class ParamType1, class ParamType2, class ParamType3>
+        //static void FireEvent(int contextId, const char* eventName, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3);
+
+        void FireEvent(const char* eventName);
+
+        template<class ParamType1>
+        void FireEvent(const char* eventName, const ParamType1& param1);
+
+        template<class ParamType1, class ParamType2>
+        void FireEvent(const char* eventName, const ParamType1& param1, const ParamType2& param2);
+
+        template<class ParamType1, class ParamType2, class ParamType3>
+        void FireEvent(const char* eventName, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3);
+
+        bool IsFired(const char* eventName);
+        static void ResetEvent(Agent* pAgent, const char* eventName);
+        //static void ResetEvent(int contextId, const char* eventName);
+        void ResetEvent(const char* eventName);
+
+        const CNamedEvent* FindEvent(const char* eventName, const char* className = 0) const;
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-		/**
-		return true if a variable named 'variableName'exists
-		*/
-		BEHAVIAC_FORCEINLINE bool IsVariableExisting(const char* variableName) const;
+        /**
+        return true if a variable named 'variableName'exists
+        */
+        BEHAVIAC_FORCEINLINE bool IsVariableExisting(const char* variableName) const;
 
-		/**
-		get a variable by its name
+        /**
+        get a variable by its name
 
-		it is invalid to call GetVariable<Type>("par_name") before exec the BT or SetVariableGetVariable<Type>("par_name") 
-		as "par_name" would not had been created then
-		*/
-		template<typename VariableType>
-		BEHAVIAC_FORCEINLINE const VariableType& GetVariable(const char* variableName) const;
+        it is invalid to call GetVariable<Type>("par_name") before exec the BT or SetVariableGetVariable<Type>("par_name")
+        as "par_name" would not had been created then
+        */
+        template<typename VariableType>
+        BEHAVIAC_FORCEINLINE const VariableType& GetVariable(const char* variableName) const;
 
-		template<typename VariableType>
-		BEHAVIAC_FORCEINLINE const VariableType& GetVariable(uint32_t variableId) const;
+        template<typename VariableType>
+        BEHAVIAC_FORCEINLINE const VariableType& GetVariable(uint32_t variableId) const;
 
-		/**
-		set a variable by its name, its type(agent/par/singleton) is determined by the name
-		*/
-		template<typename VariableType>
-		BEHAVIAC_FORCEINLINE void SetVariable(const char* variableName, const VariableType& value);
+        /**
+        set a variable by its name, its type(agent/par/singleton) is determined by the name
+        */
+        template<typename VariableType>
+        BEHAVIAC_FORCEINLINE void SetVariable(const char* variableName, const VariableType& value);
 
-		template<typename VariableType>
-		BEHAVIAC_FORCEINLINE void SetVariable(const char* variableName, const VariableType& value, uint32_t variableId);
+        template<typename VariableType>
+        BEHAVIAC_FORCEINLINE void SetVariable(const char* variableName, const VariableType& value, uint32_t variableId);
 
-		BEHAVIAC_FORCEINLINE void SetVariableFromString(const char* variableName, const char* valueStr);
+        BEHAVIAC_FORCEINLINE void SetVariableFromString(const char* variableName, const char* valueStr);
 
-		/**
-		if staticClassName is no null, it is for static variable
-		*/
-		template<typename VariableType>
-		void SetVariableRegistry(const CMemberBase* pMember, const char* variableName, const VariableType& value, const char* staticClassName, uint32_t varableId);
+        /**
+        if staticClassName is no null, it is for static variable
+        */
+        template<typename VariableType>
+        void SetVariableRegistry(bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, const char* staticClassName, uint32_t varableId);
 
-		/**
-		instantiate a variable by its name, its type(agent/par/singleton) is determined by the name
+        /**
+        instantiate a variable by its name, its type(agent/par/singleton) is determined by the name
 
-		if that variable with that name has already been existed, it does nothing.
-		*/
-		template<typename VariableType>
-		BEHAVIAC_FORCEINLINE void Instantiate(const VariableType& value, const Property* property_);
+        if that variable with that name has already been existed, it does nothing.
+        */
+        template<typename VariableType>
+        BEHAVIAC_FORCEINLINE void Instantiate(const VariableType& value, const Property* property_);
 
-		/**
-		uninstantiate a variable by its name
-		*/
-		template<typename VariableType>
-		BEHAVIAC_FORCEINLINE void UnInstantiate(const char* variableName);
+        /**
+        uninstantiate a variable by its name
+        */
+        template<typename VariableType>
+        BEHAVIAC_FORCEINLINE void UnInstantiate(const char* variableName);
 
-		/**
-		unload a variable by its name
-		*/
-		template<typename VariableType>
-		void UnLoad(const char* variableName);
+        /**
+        unload a variable by its name
+        */
+        template<typename VariableType>
+        void UnLoad(const char* variableName);
 
+        /**
+        log changed variables(propery and par)
+        */
+        void LogVariables(bool bForce);
 
-		/**
-		log changed variables(propery and par)
-		*/
-		void LogVariables(bool bForce);
+        static bool Invoke(Agent* pAgent, const char* methodName);
 
-		static bool Invoke(Agent* pAgent, const char* methodName);
+        template <typename P1>
+        static bool Invoke(Agent* pAgent, const char* methodName, P1 p1);
 
-		template <typename P1>
-		static bool Invoke(Agent* pAgent, const char* methodName, P1 p1);
+        template <typename P1, typename P2>
+        static bool Invoke(Agent* pAgent, const char* methodName, P1 p1, P2 p2);
 
-		template <typename P1, typename P2>
-		static bool Invoke(Agent* pAgent, const char* methodName, P1 p1, P2 p2);
+        template <typename P1, typename P2, typename P3>
+        static bool Invoke(Agent* pAgent, const char* methodName, P1 p1, P2 p2, P3 p3);
 
-		template <typename P1, typename P2, typename P3>
-		static bool Invoke(Agent* pAgent, const char* methodName, P1 p1, P2 p2, P3 p3);
-
-
-		/**
-		you first call 'Invoke', if it returns true, then you can call 'GetInvokeReturn' to retrieve the return value if any
-		*/
-		template <typename R>
-		static bool GetInvokeReturn(Agent* pAgent, const char* methodName, R& returnValue);
+        /**
+        you first call 'Invoke', if it returns true, then you can call 'GetInvokeReturn' to retrieve the return value if any
+        */
+        template <typename R>
+        static bool GetInvokeReturn(Agent* pAgent, const char* methodName, R& returnValue);
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-		World* GetWorld();
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-		/**
-		register agent derived class
+        /**
+        register agent derived class
 
-		only registered agent derived class can be created/managed correctly.
+        only registered agent derived class can be created/managed correctly.
 
-		@param bSingleton
-			indicating a singleton class, which is allowed to create only one instance, like the world, player, etc.
-		*/
+        @param bSingleton
+        indicating a singleton class, which is allowed to create only one instance, like the world, player, etc.
+        */
         template<typename TAGENT>
         static bool Register();
-        
+
         template<typename TAGENT>
         static void UnRegister();
-        
+
         static bool IsRegistered(const char* agentClassName);
 
-		template<typename TAGENT>
-		static bool IsRegistered();
+        template<typename TAGENT>
+        static bool IsRegistered();
 
-		/**
-		return true if 'agentClassName' is an agent class name or agent derived class name
+        /**
+        return true if 'agentClassName' is an agent class name or agent derived class name
 
-		IsAgentClassName is different from IsRegistered that IsRegistered only returns true for those classes directly registered by 'Register'
-		IsAgentClassName also returns true for those base classes.
-		*/
-		static bool IsAgentClassName(const CStringID& agentClassId);
-		static bool IsAgentClassName(const char* agentClassName);
+        IsAgentClassName is different from IsRegistered that IsRegistered only returns true for those classes directly registered by 'Register'
+        IsAgentClassName also returns true for those base classes.
+        */
+        static bool IsAgentClassName(const CStringID& agentClassId);
+        static bool IsAgentClassName(const char* agentClassName);
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-		/**
-		A name can be bound to an instance. before a name is bound to an instance, that name has to be registered by 'RegisterName'
+        /**
+        An instance name can be bound to an instance. before an instance name is bound to an instance,
+        that instance name has to be registered by 'RegisterInstanceName'
 
-		@param agentInstanceName
-		the specified name to be used to access an instance of type 'TAGENT' or its derivative.
-		if 'agentInstanceName' is 0, the class name of 'TAGENT' will be used to be registered.
+        @param agentInstanceName
+        the specified name to be used to access an instance of type 'TAGENT' or its derivative.
+        if 'agentInstanceName' is 0, the class name of 'TAGENT' will be used to be registered.
 
-		@sa CreateInstance
-		*/
+        @sa Create
+        */
         template<typename TAGENT>
-        static bool RegisterName(const char* agentInstanceName = 0, const wchar_t* displayName = 0, const wchar_t* desc = 0);
-        
+        static bool RegisterInstanceName(const char* agentInstanceName = 0, const wchar_t* displayName = 0, const wchar_t* desc = 0);
+
         template<typename TAGENT>
-        static void UnRegisterName(const char* agentInstanceName = 0);
-        
-		/**
-		return if 'agentInstanceName' is registerd.
+        static void UnRegisterInstanceName(const char* agentInstanceName = 0);
 
-		@sa RegisterName
-		*/
-        static bool IsNameRegistered(const char* agentInstanceName);
+        /**
+        return if 'agentInstanceName' is registerd.
 
-		/**
-		return the registered class name
+        @sa RegisterInstanceName
+        */
+        static bool IsInstanceNameRegistered(const char* agentInstanceName);
 
-		@sa RegisterName
-		*/
-		static const char* GetRegisteredClassName(const char* agentInstanceName);
+        /**
+        return the registered class name
 
-		/**
-		create an Agent with type 'TAGENT', with priority and agentInstanceName as name
+        @sa RegisterInstanceName
+        */
+        static const char* GetRegisteredClassName(const char* agentInstanceName);
 
-		higher priority are ticked earlier
+        /**
+        create an Agent with type 'TAGENT', with priority and agentInstanceName as name,
+        if agentInstanceName is 0, the TAGENT class name is used
 
-		@contextId
-		by default, it is 0
+        higher priority are ticked earlier
 
-		@sa Destroy
-		*/
-		template<typename TAGENT>
-		static TAGENT* Create(const char* agentInstanceName = 0, int contextId = 0, short priority = 0);
-		
+        @contextId
+        by default, it is 0
 
-		/**
-		destroy the agent created by 'Create'
+        @sa Destroy
+        */
+        template<typename TAGENT>
+        static TAGENT* Create(const char* agentInstanceName = 0, int contextId = 0, short priority = 0);
 
-		@sa Create
-		*/
-		static void Destory(Agent* pAgent);
+        /**
+        destroy the agent created by 'Create'
+
+        @sa Create
+        */
+        static void Destroy(Agent* pAgent);
 
 #if !defined(BEHAVIAC_RELEASE)
-		static Agent* GetAgent(const char* agentName);
+        static Agent* GetAgent(const char* agentName);
 #endif//BEHAVIAC_RELEASE
 
-		/**
-		create an instance of 'TAGENT' and bind it to 'agentInstanceName'
+        /**
+        bind 'agentInstanceName' to 'pAgentInstance'.
+        'agentInstanceName' should have been registered to the class of 'pAgentInstance' or its parent class.
 
-		@param agentInstanceName
-		the specified name to bind the created instance.
-		if 'agentInstanceName' is 0, the class name of 'TAGENT' will be used.
+        if 'agentInstanceName' is not specified, the class type name of 'pAgentInstance' will be used.
 
-		@contextId
-		by default, it is 0
+        @sa RegisterInstanceName
+        */
+        static bool BindInstance(Agent* pAgentInstance, const char* agentInstanceName = 0, int contextId = 0);
 
-		@sa RegisterName
-		*/
-		template<typename TAGENT>
-		static TAGENT* CreateInstance(const char* agentInstanceName = 0, int contextId = 0, short priority = 0);
+        /**
+        unbind 'agentInstanceName' from 'pAgentInstance'.
+        'agentInstanceName' should have been bound to 'pAgentInstance'.
 
-		template<typename TAGENT>
-		static void DestroyInstance(const char* agentInstanceName = 0, int contextId = 0);
+        @sa RegisterInstanceName, BindInstance, Create
+        */
+        static bool UnbindInstance(const char* agentInstanceName, int contextId = 0);
 
-		/**
-		bind 'agentInstanceName' to 'pAgentInstance'. 
-		'agentInstanceName' should have been registered to the class of 'pAgentInstance' or its parent class.
+        template<typename TAGENT>
+        static bool UnbindInstance();
 
-		if 'agentInstanceName' is not specified, the class type name of 'pAgentInstance' will be used.
+        static Agent* GetInstance(const char* agentInstanceName, int contextId = 0);
 
-		@sa RegisterName
-		*/
-		static bool BindInstance(Agent* pAgentInstance, const char* agentInstanceName = 0, int contextId = 0);
+        template<typename TAGENT>
+        static TAGENT* GetInstance(const char* agentInstanceName = 0, int contextId = 0);
 
-		/**
-		unbind 'agentInstanceName' from 'pAgentInstance'. 
-		'agentInstanceName' should have been bound to 'pAgentInstance'.
+        static const CMemberBase* FindMemberBase(const char* propertyName);
+        static const CMethodBase* FindMethodBase(const char* propertyName);
 
-		@sa RegisterName, BindInstance, CreateInstance
-		*/
-		static bool UnbindInstance(const char* agentInstanceName, int contextId = 0);
+        static const CMemberBase* FindMemberBase(const CStringID& agentClassId, const CStringID& propertyId);
+        static const CMethodBase* FindMethodBase(const CStringID& agentClassId, const CStringID& propertyId);
 
-		template<typename TAGENT>
-		static bool UnbindInstance();
-
-		static Agent* GetInstance(const char* agentInstanceName, int contextId = 0);
-
-		template<typename TAGENT>
-		static TAGENT* GetInstance(const char* agentInstanceName = 0, int contextId = 0);
-
-		static const CMemberBase* FindMemberBase(const char* propertyName);
-		static const CMethodBase* FindMethodBase(const char* propertyName);
-
-		static const CMemberBase* FindMemberBase(const CStringID& agentClassId, const CStringID& propertyId);
-		static const CMethodBase* FindMethodBase(const CStringID& agentClassId, const CStringID& propertyId);
-
-		static Property* CreateProperty(const char* typeName, const char* propertyName, const char* defaultValue);
+        static Property* CreateProperty(const char* typeName, const char* propertyName, const char* defaultValue);
+        static const CTagObjectDescriptor* GetDescriptorByName(const char* agentTypeClass);
 
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -473,205 +466,218 @@ namespace behaviac
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
 
-		/**
-		find the property's meta 
-		*/
-		const CMemberBase* FindMember(const char* property_name) const;
-		const CMemberBase* FindMember(const CStringID& propertyId) const;
+        /**
+        find the property's meta
+        */
+        const CMemberBase* FindMember(const char* property_name) const;
+        const CMemberBase* FindMember(const CStringID& propertyId) const;
 #if BEHAVIAC_ENABLE_NETWORKD
-		void ReplicateProperties();
+        void ReplicateProperties();
 #endif//#if BEHAVIAC_ENABLE_NETWORKD
 
-	protected:
-		Agent();
+        static int VectorLength(const IList& vector);
+        static void VectorAdd(IList& vector, const System::Object& element);
+        static void VectorRemove(IList& vector, const System::Object& element);
+        static bool VectorContains(IList& vector, const System::Object& element);
+        static void VectorClear(IList& vector);
+
+    protected:
+        Agent();
         virtual ~Agent();
 
-		int	m_context_id;
+        int	m_context_id;
+
     private:
-		//to stop a class from being able to be copied, either via copy constructor or assignment.
+        //to stop a class from being able to be copied, either via copy constructor or assignment.
         Agent(const Agent&);
         Agent& operator=(const Agent&);
 
         static CFactory<Agent>* ms_factory;
         static CFactory<Agent>& Factory();
 
-		static const int kAGENT_DEBUG_VERY = 0x01010101;
-		/**
-		create an Agent with type 'agentClassName', with priority and agentInstanceName as name
+        static const int kAGENT_DEBUG_VERY = 0x01010101;
+        void InstantiateProperties();
 
-		higher priority are ticked earlier
-		*/
+        /**
+        create an Agent with type 'agentClassName', with priority and agentInstanceName as name
+
+        higher priority are ticked earlier
+        */
         static void Init_(int contextId, Agent* pAgent, short priority, const char* agentInstanceName);
 
-		EBTStatus btexec_();
+        EBTStatus btexec_();
 
-		void _btsetcurrent(const char* relativePath, TriggerMode triggerMode = TM_Transfer, bool bByEvent = false);
+        void _btsetcurrent(const char* relativePath, TriggerMode triggerMode = TM_Transfer, bool bByEvent = false);
 
-		void btunload_pars(const BehaviorTree* bt);
+        void btunload_pars(const BehaviorTree* bt);
 
 #if BEHAVIAC_ENABLE_NETWORKD
-		void SubsribeToNetwork();
-		void UnSubsribeToNetwork();
+        void SubsribeToNetwork();
+        void UnSubsribeToNetwork();
 #endif//#if BEHAVIAC_ENABLE_NETWORKD
-		void InitVariableRegistry();
-		void UpdateVariableRegistry();
+        void InitVariableRegistry();
+        void UpdateVariableRegistry();
 
-		/**
-		reset changed variables(propery and par)
-		*/
-		void ResetChangedVariables();
+        /**
+        reset changed variables(propery and par)
+        */
+        void ResetChangedVariables();
 
+        CNamedEvent* findEvent(const char* eventName);
 
-		CNamedEvent* findEvent(const char* eventName);
+        //access ExportMetas and Cleanup
+        friend class Workspace;
+        static bool ExportMetas(const char* xmlMetaFilePath);
+        static void Cleanup();
 
-		//access ExportMetas and Cleanup
-		friend class Workspace;
-		static bool ExportMetas(const char* fileName);
-		static void Cleanup();
+        static const CNamedEvent* findEventStatic(const char* eventName, const char* className, int context_id);
+        static void insertEventGlobal(const char* className, CNamedEvent* pEvent, int context_id);
+        static CNamedEvent* findNamedEventTemplate(const CTagObject::MethodsContainer& methods, const char* eventName, int context_id);
 
-		static const CNamedEvent* findEventStatic(const char* eventName, const char* className, int context_id);
-		static void insertEventGlobal(const char* className, CNamedEvent* pEvent, int context_id);
-		static CNamedEvent* findNamedEventTemplate(const CTagObject::MethodsContainer& methods, const char* eventName, int context_id);
+        template<typename TAGENT>
+        static void RegisterTypeToMetas(bool bInternal);
 
-		template<typename TAGENT>
-		static void RegisterTypeToMetas(bool bInternal);
+        template<typename TAGENT, bool bAgent>
+        struct AgentSuperRegister
+        {
+            static bool Register()
+            {
+                return false;
+            }
+        };
 
-		template<typename TAGENT, bool bAgent>
-		struct AgentSuperRegister
-		{
-			static bool Register()
-			{
-				return false;
-			}
-		};
+        template<typename TAGENT>
+        struct AgentSuperRegister < TAGENT, true >
+        {
+            static bool Register()
+            {
+                Agent::RegisterTypeToMetas<TAGENT>(true);
 
-		template<typename TAGENT>
-		struct AgentSuperRegister < TAGENT, true >
-		{
-			static bool Register()
-			{
-				Agent::RegisterTypeToMetas<TAGENT>(true);
-
-				return true;
-			}
-		};
+                return true;
+            }
+        };
 
 #if !defined(BEHAVIAC_RELEASE)
-		typedef behaviac::map<behaviac::string, Agent*> Agents_t;
-		static Agents_t* ms_agents;
-		static Agents_t* Agents(bool bCleanup);
+        typedef behaviac::map<behaviac::string, Agent*> Agents_t;
+        static Agents_t* ms_agents;
+        static Agents_t* Agents(bool bCleanup);
 #endif//BEHAVIAC_RELEASE
 
-		struct MetaInfo_t
-		{
-			const char*						classFullName;
-			const char*						baseClassFullName;
-			const CTagObjectDescriptor*		descriptor;
-			bool							bInternal;
+        struct MetaInfo_t
+        {
+            const char*						classFullName;
+            const char*						baseClassFullName;
+            const CTagObjectDescriptor*		descriptor;
+            bool							bInternal;
 
-			MetaInfo_t() : classFullName(0), baseClassFullName(0), descriptor(0), bInternal(false)
-			{}
+            MetaInfo_t() : classFullName(0), baseClassFullName(0), descriptor(0), bInternal(false)
+            {}
 
-			MetaInfo_t(const CTagObjectDescriptor* d, const char* typeFullName, const char* baseTypeFullName, bool i) : 
-				classFullName(typeFullName), baseClassFullName(baseTypeFullName), descriptor(d), bInternal(i)
-			{}
-		};
+            MetaInfo_t(const CTagObjectDescriptor* d, const char* typeFullName, const char* baseTypeFullName, bool i) :
+                classFullName(typeFullName), baseClassFullName(baseTypeFullName), descriptor(d), bInternal(i)
+            {}
+        };
 
-		struct MetaComparator
-		{
-			bool operator ()(const Agent::MetaInfo_t* _left, const Agent::MetaInfo_t* _right);
-		};
+        struct MetaComparator
+        {
+            bool operator()(const Agent::MetaInfo_t* _left, const Agent::MetaInfo_t* _right);
+        };
 
-		typedef behaviac::map<CStringID, MetaInfo_t> AgentMetas_t;
+        typedef behaviac::map<CStringID, MetaInfo_t> AgentMetas_t;
 
-		static AgentMetas_t*			ms_metas;
-		static AgentMetas_t& Metas();
+        static AgentMetas_t*			ms_metas;
+        static AgentMetas_t& Metas();
 
-		struct AgentName_t
-		{
-			behaviac::string			instantceName_;
-			behaviac::string			classFullName_;
-			behaviac::wstring			displayName_;
-			behaviac::wstring			desc_;
+        struct AgentName_t
+        {
+            behaviac::string			instantceName_;
+            behaviac::string			classFullName_;
+            behaviac::wstring			displayName_;
+            behaviac::wstring			desc_;
 
-			AgentName_t()
-			{}
+            AgentName_t()
+            {}
 
-			AgentName_t(const char* instanceName, const char* classFullName,
-				const wchar_t* displayName, const wchar_t* desc) : instantceName_(instanceName), classFullName_(classFullName)
-			{
-				if (displayName)
-				{
-					displayName_ = displayName;
-				}
-				else
-				{
-					displayName_ = StringUtils::Char2Wide(instantceName_);
-				}
+            AgentName_t(const char* instanceName, const char* classFullName,
+                        const wchar_t* displayName, const wchar_t* desc) : instantceName_(instanceName), classFullName_(classFullName)
+            {
+                if (displayName)
+                {
+                    displayName_ = displayName;
 
-				if (desc)
-				{
-					desc_ = desc;
-				}
-				else
-				{
-					desc_ = displayName_;
-				}
-			}
-		};
+                }
+                else
+                {
+                    displayName_ = StringUtils::Char2Wide(instantceName_);
+                }
 
-		struct NameComparator
-		{
-			bool operator ()(const Agent::AgentName_t* _left, const Agent::AgentName_t* _right);
-		};
+                if (desc)
+                {
+                    desc_ = desc;
 
-		typedef behaviac::map<behaviac::string, AgentName_t> AgentNames_t;
+                }
+                else
+                {
+                    desc_ = displayName_;
+                }
+            }
+        };
 
-		static AgentNames_t*			ms_names;
-		static AgentNames_t& Names();
+        struct NameComparator
+        {
+            bool operator()(const Agent::AgentName_t* _left, const Agent::AgentName_t* _right);
+        };
 
-		typedef behaviac::map<CStringID, CNamedEvent*> AgentEvents_t;
+        typedef behaviac::map<behaviac::string, AgentName_t> AgentNames_t;
 
-		static int					ms_agent_index;
+        static AgentNames_t*			ms_names;
+        static AgentNames_t& Names();
 
-		typedef behaviac::map<behaviac::string, uint32_t> AgentTypeIndexMap_t;
-		static AgentTypeIndexMap_t*	ms_agent_type_index;
-		///////////////////////////////////////////////////////////////////////////////////////
-		AgentEvents_t				m_eventInfos;
+        typedef behaviac::map<CStringID, CNamedEvent*> AgentEvents_t;
 
-		struct BehaviorTreeStackItem_t {
-			BehaviorTreeTask*	bt;
-			TriggerMode			triggerMode;
-			bool				triggerByEvent;
+        static int					ms_agent_index;
 
-			BehaviorTreeStackItem_t(BehaviorTreeTask* bt_, TriggerMode tm, bool bByEvent) : bt(bt_), triggerMode(tm), triggerByEvent(bByEvent) {
-			}
-		};
-		
-		typedef behaviac::vector<BehaviorTreeStackItem_t> BehaviorTreeStack_t;
-		typedef behaviac::vector<BehaviorTreeTask*> BehaviorTreeTasks_t;
+        typedef behaviac::map<behaviac::string, uint32_t> AgentTypeIndexMap_t;
+        static AgentTypeIndexMap_t*	ms_agent_type_index;
+        ///////////////////////////////////////////////////////////////////////////////////////
+        AgentEvents_t				m_eventInfos;
 
-		BehaviorTreeTasks_t			m_behaviorTreeTasks;
+        struct BehaviorTreeStackItem_t
+        {
+            BehaviorTreeTask*	bt;
+            TriggerMode			triggerMode;
+            bool				triggerByEvent;
 
-		BehaviorTreeStack_t			m_btStack;
-		BehaviorTreeTask*			m_currentBT;
+            BehaviorTreeStackItem_t(BehaviorTreeTask* bt_, TriggerMode tm, bool bByEvent) : bt(bt_), triggerMode(tm), triggerByEvent(bByEvent)
+            {
+            }
+        };
 
-		int							m_id;
-		short						m_priority;
-		char						m_bActive;
-		bool						m_referencetree;
-		behaviac::string			m_name;
+        typedef behaviac::vector<BehaviorTreeStackItem_t> BehaviorTreeStack_t;
+        typedef behaviac::vector<BehaviorTreeTask*> BehaviorTreeTasks_t;
 
-		int							m_debug_verify;
+        BehaviorTreeTasks_t			m_behaviorTreeTasks;
 
-		//debug
-		Variables					m_variables;
-		uint32_t					m_idFlag;
+        BehaviorTreeStack_t			m_btStack;
+        BehaviorTreeTask*			m_currentBT;
 
-		static uint32_t				ms_idMask;
+        int							m_id;
+        short						m_priority;
+        char						m_bActive;
+        bool						m_referencetree;
+        behaviac::string			m_name;
+
+        int							m_debug_verify;
+        bool						_balckboard_bound;
+        //debug
+    public:
+        AgentState					m_variables;
+        uint32_t					m_idFlag;
+        int                         m_planningTop;
+        static uint32_t				ms_idMask;
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
 #if BEHAVIAC_ENABLE_NETWORKD
@@ -679,40 +685,40 @@ namespace behaviac
 
 namespace behaviac
 {
-	template<typename T>
-	class Any_t<T, true, true> : public IAny
-	{
-	public:
-		typedef REAL_BASETYPE(T)		BaseType;
+    template<typename T>
+    class Any_t<T, true, true> : public IAny
+    {
+    public:
+        typedef REAL_BASETYPE(T)		BaseType;
 
-		Any_t() : IAny(GetClassTypeNumberId<BaseType>())
-		{}
+        Any_t() : IAny(GetClassTypeNumberId<BaseType>())
+        {}
 
-		Any_t(BaseType* d) : IAny(GetClassTypeNumberId<BaseType>()), data(d)
-		{
+        Any_t(BaseType* d) : IAny(GetClassTypeNumberId<BaseType>()), data(d)
+        {
+        }
 
-		}
+        virtual void* GetData() const
+        {
+            return (void*)this->data;
+        }
 
-		virtual void* GetData() const
-		{
-			return (void*)this->data;
-		}
+        void SetValue(BaseType* v)
+        {
+            data = v;
+        }
 
-		void SetValue(BaseType* v)
-		{
-			data = v;
-		}
-
-	protected:
-		BaseType*	data;
-	};
+    protected:
+        BaseType*	data;
+    };
 }//namespace behaviac
 #endif//#if BEHAVIAC_ENABLE_NETWORKD
 
 //after agent
-#include "behaviac/property/property_t.h"
+#include "behaviac/base/custommethod.h"
 #include "behaviac/agent/context.h"
-#include "behaviac/agent/namedevent.h"
+#include "behaviac/htn/agentproperties.h"
+#include "behaviac/property/vector_ext.h"
 #include "agent.inl"
 
 #include "behaviac/base/object/method.h"
@@ -721,114 +727,109 @@ template<class ObjectType>
 class CGenericMethod<behaviac::EBTStatus, ObjectType> : public CGenericMethod_R<behaviac::EBTStatus, ObjectType>
 {
 public:
-	CGenericMethod(behaviac::EBTStatus (ObjectType::*methodPtr)(void), 
-		const char* className, const char* propertyName) : CGenericMethod_R<behaviac::EBTStatus, ObjectType>(methodPtr, className, propertyName)
-	{}
-	CGenericMethod(behaviac::EBTStatus (ObjectType::*methodPtr)(void) const, 
-		const char* className, const char* propertyName) : CGenericMethod_R<behaviac::EBTStatus, ObjectType>(methodPtr, className, propertyName)
-	{}
+    CGenericMethod(behaviac::EBTStatus(ObjectType::*methodPtr)(void),
+                   const char* className, const char* propertyName) : CGenericMethod_R<behaviac::EBTStatus, ObjectType>(methodPtr, className, propertyName)
+    {}
+    CGenericMethod(behaviac::EBTStatus(ObjectType::*methodPtr)(void) const,
+                   const char* className, const char* propertyName) : CGenericMethod_R<behaviac::EBTStatus, ObjectType>(methodPtr, className, propertyName)
+    {}
 
-	virtual ~CGenericMethod()
-	{
+    virtual ~CGenericMethod()
+    {
+    }
 
-	}
+    virtual CMethodBase* clone() const
+    {
+        return BEHAVIAC_NEW CGenericMethod(*this);
+    }
 
-	virtual CMethodBase* clone() const
-	{
-		return BEHAVIAC_NEW CGenericMethod(*this);
-	}
+    virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
+    {
+        BEHAVIAC_UNUSED_VAR(returnResult);
+        int result = (int)(((ObjectType*)parent)->*this->m_methodPtr)();
 
-	virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
-	{
-		BEHAVIAC_UNUSED_VAR(returnResult);
-		int result = (int)(((ObjectType*)parent)->*this->m_methodPtr)();
-
-		return result;
-	}
+        return result;
+    }
 };
-
 
 template<class ObjectType, class ParamType>
 class CGenericMethod1<behaviac::EBTStatus, ObjectType, ParamType> : public CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>
 {
 public:
-	typedef typename CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>::ParamBaseType ParamBaseType;
-	CGenericMethod1(behaviac::EBTStatus (ObjectType::*methodPtr)(ParamType), 
-		const char* className, const char* propertyName) :	CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>(methodPtr, className, propertyName)
-	{}
+    typedef typename CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>::ParamBaseType ParamBaseType;
+    CGenericMethod1(behaviac::EBTStatus(ObjectType::*methodPtr)(ParamType),
+                    const char* className, const char* propertyName) : CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>(methodPtr, className, propertyName)
+    {}
 
-	CGenericMethod1(behaviac::EBTStatus (ObjectType::*methodPtr)(ParamType) const, 
-		const char* className, const char* propertyName) :	CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>(methodPtr, className, propertyName)
-	{}
+    CGenericMethod1(behaviac::EBTStatus(ObjectType::*methodPtr)(ParamType) const,
+                    const char* className, const char* propertyName) : CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>(methodPtr, className, propertyName)
+    {}
 
-	virtual ~CGenericMethod1()
-	{
+    virtual ~CGenericMethod1()
+    {
+    }
 
-	}
+    virtual CMethodBase* clone() const
+    {
+        return BEHAVIAC_NEW CGenericMethod1(*this);
+    }
 
-	virtual CMethodBase* clone() const
-	{
-		return BEHAVIAC_NEW CGenericMethod1(*this);
-	}
+    virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
+    {
+        const ParamBaseType& returnValue = ((behaviac::AsyncValue<ParamType>*)&returnResult)->get();
 
-	virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
-	{
-		const ParamBaseType& returnValue = ((behaviac::AsyncValue<ParamType>*)&returnResult)->get();
+        int result = (int)(((ObjectType*)parent)->*this->m_methodPtr)((PARAM_CALLEDTYPE(ParamType))returnValue);
 
-		int result = (int)(((ObjectType*)parent)->*this->m_methodPtr)((PARAM_CALLEDTYPE(ParamType))returnValue);
-
-		return result;
-	}
+        return result;
+    }
 };
 
 template<>
 class CGenericMethodStatic<behaviac::EBTStatus> : public CGenericMethodStatic_R<behaviac::EBTStatus>
 {
 public:
-	CGenericMethodStatic(behaviac::EBTStatus(*methodPtr)(void), const char* className, const char* propertyName) : CGenericMethodStatic_R<behaviac::EBTStatus>(methodPtr, className, propertyName)
-	{}
+    CGenericMethodStatic(behaviac::EBTStatus(*methodPtr)(void), const char* className, const char* propertyName) : CGenericMethodStatic_R<behaviac::EBTStatus>(methodPtr, className, propertyName)
+    {}
 
-	virtual CMethodBase* clone() const
-	{
-		return BEHAVIAC_NEW CGenericMethodStatic(*this);
-	}
+    virtual CMethodBase* clone() const
+    {
+        return BEHAVIAC_NEW CGenericMethodStatic(*this);
+    }
 
-	virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
-	{
-		BEHAVIAC_UNUSED_VAR(parent);
-		BEHAVIAC_UNUSED_VAR(returnResult);	
-		behaviac::EBTStatus result = (*this->m_methodPtr)();
+    virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
+    {
+        BEHAVIAC_UNUSED_VAR(parent);
+        BEHAVIAC_UNUSED_VAR(returnResult);
+        behaviac::EBTStatus result = (*this->m_methodPtr)();
 
-		return (int)result;
-	}
-
+        return (int)result;
+    }
 };
-
 
 template<class ParamType>
 class CGenericMethodStatic1<behaviac::EBTStatus, ParamType> : public CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>
 {
 public:
-	typedef typename CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>::ParamBaseType ParamBaseType;
+    typedef typename CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>::ParamBaseType ParamBaseType;
 
-	CGenericMethodStatic1(behaviac::EBTStatus(*methodPtr)(ParamType), const char* className, const char* propertyName) :
-	CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>(methodPtr, className, propertyName)
-	{}
+    CGenericMethodStatic1(behaviac::EBTStatus(*methodPtr)(ParamType), const char* className, const char* propertyName) :
+        CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>(methodPtr, className, propertyName)
+    {}
 
-	virtual CMethodBase* clone() const
-	{
-		return BEHAVIAC_NEW CGenericMethodStatic1(*this);
-	}
+    virtual CMethodBase* clone() const
+    {
+        return BEHAVIAC_NEW CGenericMethodStatic1(*this);
+    }
 
-	virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
-	{
-		BEHAVIAC_UNUSED_VAR(parent);
-		const ParamBaseType& returnValue = ((behaviac::AsyncValue<ParamType>*)&returnResult)->get();
+    virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
+    {
+        BEHAVIAC_UNUSED_VAR(parent);
+        const ParamBaseType& returnValue = ((behaviac::AsyncValue<ParamType>*)&returnResult)->get();
 
-		behaviac::EBTStatus result = ((*this->m_methodPtr)((PARAM_CALLEDTYPE(ParamType))returnValue));
+        behaviac::EBTStatus result = ((*this->m_methodPtr)((PARAM_CALLEDTYPE(ParamType))returnValue));
 
-		return (int)result;
-	}
+        return (int)result;
+    }
 };
 
 //namespace StringUtils
@@ -848,5 +849,4 @@ public:
 BEHAVIAC_OVERRIDE_TYPE_NAME(behaviac::vector<behaviac::Agent*>);
 SPECIALIZE_TYPE_HANDLER(behaviac::vector<behaviac::Agent*>, BasicTypeHandler< behaviac::vector<behaviac::Agent*> >);
 
-
-#endif//#ifndef _BEHAVIAC_AGENT_H_
+#endif//#ifndef BEHAVIAC_AGENT_H

@@ -15,7 +15,6 @@
 
 namespace behaviac
 {
-
     uint32_t TraceManager::m_TagLogFilter = BEHAVIAC_LOG_PRIVATE_MASK;
 
     uint32_t TraceManager::m_TagLogLevel = BEHAVIAC_LOG_USER_DEFINED;
@@ -59,7 +58,6 @@ namespace behaviac
 
         return false;
     }
-
 
     void TraceManager::SetLoggingLevel(ETagLogLevel NewLevel)
     {

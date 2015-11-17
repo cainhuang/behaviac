@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -27,7 +27,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            Wait wait = node as Wait;
+            return (wait != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -35,7 +36,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             Wait wait = node as Wait;
-            Debug.Check(wait != null);
+            if (wait == null)
+                return;
 
             stream.WriteLine("{0}\t\t\tm_ignoreTimeScale = {1};", indent, wait.IgnoreTimeScale ? "true" : "false");
         }
@@ -45,7 +47,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             Wait wait = node as Wait;
-            Debug.Check(wait != null);
+            if (wait == null)
+                return;
 
             if (wait.Time != null)
             {
@@ -53,7 +56,7 @@ namespace PluginBehaviac.NodeExporters
                 stream.WriteLine("{0}\t\t{{", indent);
                 stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
 
-                string retStr = VariableCppExporter.GenerateCode(wait.Time, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
+                string retStr = VariableCppExporter.GenerateCode(wait.Time, false, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
 
                 stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
                 stream.WriteLine("{0}\t\t}}", indent);

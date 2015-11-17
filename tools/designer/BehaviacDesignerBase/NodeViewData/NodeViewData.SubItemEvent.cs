@@ -47,21 +47,27 @@ namespace Behaviac.Design
         /// </summary>
         public class SubItemEvent : SubItemAttachment
         {
-            private static Brush _theDefaultEventBrush = new SolidBrush(Color.FromArgb(50, Color.Black));
-            private static Brush _theSelectedEventBrush = new SolidBrush(Color.FromArgb(100, Color.Black));
-            private static Font _theEventLabelFont = new Font("Calibri,Arial", 6.0f, FontStyle.Regular);
+            protected static Brush _theDefaultEventBrush = new SolidBrush(Color.FromArgb(50, Color.Black));
+            protected static Brush _theSelectedEventBrush = new SolidBrush(Color.FromArgb(200, Color.YellowGreen));
+            protected static Font _theEventLabelFont = new Font("Calibri,Arial", 6.0f, FontStyle.Regular);
+
+            protected static Brush _theSuccessBrush = new SolidBrush(Color.FromArgb(100, Color.Green));
+            protected static Brush _theFailureBrush = new SolidBrush(Color.FromArgb(100, Color.Red));
+            protected static Brush _planPreFailedBrush = new SolidBrush(Color.FromArgb(255, Color.Red));
+            protected static Brush _theBothBrush = new SolidBrush(Color.FromArgb(100,
+                                                                                 (Color.Green.R + Color.Red.R) / 2,
+                                                                                 (Color.Green.G + Color.Red.G) / 2,
+                                                                                 (Color.Green.B + Color.Red.B) / 2));
 
             /// <summary>
             /// Creates a new subitm which can render an event on the node.
             /// </summary>
             /// <param name="evnt">The event we want to draw.</param>
             public SubItemEvent(Attach evnt)
-                : base(evnt, _theDefaultEventBrush, _theSelectedEventBrush, _theEventLabelFont, null)
-            {
+                : base(evnt, _theDefaultEventBrush, _theSelectedEventBrush, _theEventLabelFont, null) {
             }
 
-            public override void Draw(Graphics graphics, NodeViewData nvd, RectangleF boundingBox)
-            {
+            public override void Draw(Graphics graphics, NodeViewData nvd, RectangleF boundingBox) {
                 Attach evnt = (Attach)_attachment;
 
                 //// use a different brush depending on if the event is reacted to or blocked.
@@ -71,8 +77,7 @@ namespace Behaviac.Design
                 base.Draw(graphics, nvd, boundingBox);
             }
 
-            public override SubItem Clone(Node newnode)
-            {
+            public override SubItem Clone(Node newnode) {
                 return new SubItemEvent((Attach)_attachment.Clone(newnode));
             }
         }

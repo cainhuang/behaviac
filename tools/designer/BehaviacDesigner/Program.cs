@@ -54,60 +54,54 @@ namespace Behaviac.Design
         public string workspace = "";
         public string bt = "";
 
-        public bool Parse(string[] args)
-        {
-            if (args.Length == 0)
-            {
+        public bool Parse(string[] args) {
+            if (args.Length == 0) {
                 help = true;
             }
 
             this.format = "";
-            for (int i = 0; i < args.Length; ++i)
-            {
-                if (args[i] == "/help")
-                {
+
+            for (int i = 0; i < args.Length; ++i) {
+                string arg = args[i].ToLowerInvariant();
+
+                if (arg == "/help") {
                     this.help = true;
-                }
-                else if (args[i].StartsWith("/export"))
-                {
+
+                } else if (arg.StartsWith("/export")) {
                     this.export = true;
 
-                    int pos = args[i].IndexOf('=');
-                    if (pos != -1)
-                    {
-                        this.format = args[i].Substring(pos + 1);
+                    int pos = arg.IndexOf('=');
+
+                    if (pos != -1) {
+                        this.format = arg.Substring(pos + 1);
 
                         bool isValidFormat = false;
-                        foreach (ExporterInfo info in Plugin.Exporters)
-                        {
-                            if (info.ID == this.format)
-                            {
+                        foreach(ExporterInfo info in Plugin.Exporters) {
+                            if (info.ID == this.format) {
                                 isValidFormat = true;
                                 break;
                             }
                         }
-                        if (!isValidFormat)
-                        {
+
+                        if (!isValidFormat) {
                             System.Diagnostics.Debug.Assert(false);
                         }
                     }
-                }
-                else if (args[i].StartsWith("/bt"))
-                {
-                    int pos = args[i].IndexOf('=');
-                    if (pos != -1)
-                    {
-                        this.bt = args[i].Substring(pos + 1);
+
+                } else if (arg.StartsWith("/bt")) {
+                    int pos = arg.IndexOf('=');
+
+                    if (pos != -1) {
+                        this.bt = arg.Substring(pos + 1);
                     }
-                }
-                else
-                {
-                    this.workspace = args[i];
+
+                } else {
+                    this.workspace = arg;
                 }
             }
 
             return !string.IsNullOrEmpty(this.workspace) && !string.IsNullOrEmpty(this.format);
-        }        
+        }
     }
 
     internal static class NativeMethods
@@ -127,8 +121,7 @@ namespace Behaviac.Design
         private const UInt32 STD_OUTPUT_HANDLE = 0xFFFFFFF5;
         private const UInt32 STD_ERROR_HANDLE = 0xFFFFFFF4;
         private const UInt32 DUPLICATE_SAME_ACCESS = 2;
-        struct BY_HANDLE_FILE_INFORMATION
-        {
+        struct BY_HANDLE_FILE_INFORMATION {
             public UInt32 FileAttributes;
             public System.Runtime.InteropServices.ComTypes.FILETIME CreationTime;
             public System.Runtime.InteropServices.ComTypes.FILETIME LastAccessTime;
@@ -140,8 +133,7 @@ namespace Behaviac.Design
             public UInt32 FileIndexHigh;
             public UInt32 FileIndexLow;
         }
-        public static void InitConsoleHandles()
-        {
+        public static void InitConsoleHandles() {
             SafeFileHandle hStdOut, hStdErr, hStdOutDup, hStdErrDup;
             BY_HANDLE_FILE_INFORMATION bhfi;
             hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -150,44 +142,39 @@ namespace Behaviac.Design
             IntPtr hProcess = Process.GetCurrentProcess().Handle;
             // Duplicate Stdout handle to save initial value
             DuplicateHandle(hProcess, hStdOut, hProcess, out hStdOutDup,
-            0, true, DUPLICATE_SAME_ACCESS);
+                            0, true, DUPLICATE_SAME_ACCESS);
             // Duplicate Stderr handle to save initial value
             DuplicateHandle(hProcess, hStdErr, hProcess, out hStdErrDup,
-            0, true, DUPLICATE_SAME_ACCESS);
+                            0, true, DUPLICATE_SAME_ACCESS);
             // Attach to console window ¨C this may modify the standard handles
             AttachConsole(ATTACH_PARENT_PROCESS);
+
             // Adjust the standard handles
-            if (GetFileInformationByHandle(GetStdHandle(STD_OUTPUT_HANDLE), out bhfi))
-            {
+            if (GetFileInformationByHandle(GetStdHandle(STD_OUTPUT_HANDLE), out bhfi)) {
                 SetStdHandle(STD_OUTPUT_HANDLE, hStdOutDup);
-            }
-            else
-            {
+
+            } else {
                 SetStdHandle(STD_OUTPUT_HANDLE, hStdOut);
             }
-            if (GetFileInformationByHandle(GetStdHandle(STD_ERROR_HANDLE), out bhfi))
-            {
+
+            if (GetFileInformationByHandle(GetStdHandle(STD_ERROR_HANDLE), out bhfi)) {
                 SetStdHandle(STD_ERROR_HANDLE, hStdErrDup);
-            }
-            else
-            {
+
+            } else {
                 SetStdHandle(STD_ERROR_HANDLE, hStdErr);
             }
         }
     }
 
-	static class Program
-	{
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
-        static void Main(string[] args)
-		{
-            try
-            {
-                if (Settings.Default.UpdateRequired)
-                {
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main(string[] args) {
+            try {
+                if (Settings.Default.UpdateRequired) {
                     Settings.Default.Upgrade();
                     Settings.Default.UpdateRequired = false;
                 }
@@ -198,8 +185,7 @@ namespace Behaviac.Design
                 Plugin.LoadPlugins();
 
                 //only do it when there are args
-                if (args.Length > 0)
-                {
+                if (args.Length > 0) {
                     NativeMethods.InitConsoleHandles();
                 }
 
@@ -207,38 +193,34 @@ namespace Behaviac.Design
 
                 bool bOk = options.Parse(args);
 
-                if (!bOk || options.help)
-                {
+                if (!bOk || options.help) {
                     string allFormats = string.Empty;
-                    foreach (ExporterInfo info in Plugin.Exporters)
-                    {
-                        if (!string.IsNullOrEmpty(allFormats))
+                    foreach(ExporterInfo info in Plugin.Exporters) {
+                        if (!string.IsNullOrEmpty(allFormats)) {
                             allFormats += "|";
+                        }
 
                         allFormats += info.ID;
                     }
 
                     string usage = string.Format
-                        (@"
-                            Usage:
-                                BehaviacDesigner.exe <workspaceFile> <options>
+                                   (@"
+                                    Usage:
+                                    BehaviacDesigner.exe <workspaceFile> <options>
                                     options:
-                                        /bt=btFile
-                                        /export=<{0}>
-                                        /help", allFormats);
+                                    /bt=btFile
+                                    /export=<{0}>
+                                    /help", allFormats);
 
                     System.Console.WriteLine(usage);
                 }
 
-                if (options.export)
-                {
-                    if (bOk)
-                    {
+                if (options.export) {
+                    if (bOk) {
                         string msg = string.Format("Exporting: format '{0}' workspace '{1}' ...", options.format, options.workspace);
                         System.Console.WriteLine(msg);
 
-                        if (!System.IO.File.Exists(options.workspace))
-                        {
+                        if (!System.IO.File.Exists(options.workspace)) {
                             msg = string.Format("Workspace '{0}' does not exist! check the workspace path and name.", options.workspace);
                             System.Console.WriteLine(msg);
 
@@ -247,24 +229,21 @@ namespace Behaviac.Design
 
                         new MainWindow(false);
 
-                        if (MainWindow.Instance.SetWorkspace(options.workspace, false))
-                        {
+                        MainWindow.Instance.Hide();
+
+                        if (MainWindow.Instance.SetWorkspace(options.workspace, false)) {
                             MainWindow.Instance.ExportBehavior(true, options.format);
-                        }
-                        else
-                        {
+
+                        } else {
                             //msg = string.Format("Workspace '{0}' is not a valid workspace file!", options.workspace);
                             //System.Console.WriteLine(msg);
                         }
-                    }
-                    else
-                    {
-                        if (string.IsNullOrEmpty(options.workspace))
-                        {
+                    } else {
+                        if (string.IsNullOrEmpty(options.workspace)) {
                             System.Console.WriteLine("No workspace is specified!");
                         }
-                        if (string.IsNullOrEmpty(options.format))
-                        {
+
+                        if (string.IsNullOrEmpty(options.format)) {
                             System.Console.WriteLine("No format is specified!");
                         }
                     }
@@ -273,22 +252,20 @@ namespace Behaviac.Design
                 }
 
                 MainWindow mainWindow = new MainWindow(true);
-                if (!string.IsNullOrEmpty(options.workspace))
-                {
+
+                if (!string.IsNullOrEmpty(options.workspace)) {
                     mainWindow.SetWorkspace(options.workspace, false);
 
-                    if (!string.IsNullOrEmpty(options.bt))
-                    {
+                    if (!string.IsNullOrEmpty(options.bt)) {
                         UIUtilities.ShowBehaviorTree(options.bt);
                     }
                 }
 
                 Application.Run(mainWindow);
-            }
-            catch (Exception e)
-            {
+
+            } catch (Exception e) {
                 Console.WriteLine("Exception is {0}", e);
             }
-		}
-	}
+        }
+    }
 }

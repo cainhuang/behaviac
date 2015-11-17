@@ -43,22 +43,19 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerNumberEditor : Behaviac.Design.Attributes.DesignerPropertyEditor
     {
-        public DesignerNumberEditor()
-        {
+        public DesignerNumberEditor() {
             InitializeComponent();
         }
 
-        public override void SetRange(double min, double max)
-        {
+        public override void SetRange(double min, double max) {
             if (min > double.MinValue)
-                numericUpDown.Minimum = (decimal)min;
+            { numericUpDown.Minimum = (decimal)min; }
 
             if (max < double.MaxValue)
-                numericUpDown.Maximum = (decimal)max;
+            { numericUpDown.Maximum = (decimal)max; }
         }
 
-        public void SetRange(int precision, decimal min, decimal max, decimal increment, string unit = "")
-        {
+        public void SetRange(int precision, decimal min, decimal max, decimal increment, string unit = "") {
             numericUpDown.DecimalPlaces = precision;
             numericUpDown.Minimum = min;
             numericUpDown.Maximum = max;
@@ -69,14 +66,13 @@ namespace Behaviac.Design.Attributes
             DesignerNumberEditor_Resize(this, new EventArgs());
         }
 
-        public override void SetProperty(DesignerPropertyInfo property, object obj)
-        {
+        public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
             // check if there is an override for this paroperty
             Nodes.Node node = _object as Nodes.Node;
-            if (node != null && node.HasOverrride(property.Property.Name))
-            {
+
+            if (node != null && node.HasOverrride(property.Property.Name)) {
                 numericUpDown.Enabled = false;
 
                 return;
@@ -88,55 +84,53 @@ namespace Behaviac.Design.Attributes
             DesignerPropertyInfo linkedProperty = property.Attribute.GetLinkedProperty(obj, out linkBroken);
 
             // control cannot be used with a broken link
-            if (linkBroken)
-            {
+            if (linkBroken) {
                 numericUpDown.Enabled = false;
 
                 return;
             }
 
             // if we have a linked property this property will define the restrictions
-            if (linkedProperty.Property != null)
-            {
+            if (linkedProperty.Property != null) {
                 restrictions = linkedProperty;
             }
 
             // extract resrictions for float property
             DesignerFloat restFloatAtt = restrictions.Attribute as DesignerFloat;
-            if (restFloatAtt != null)
-            {
+
+            if (restFloatAtt != null) {
                 SetRange(restFloatAtt.Precision,
-                    (decimal)restFloatAtt.Min,
-                    (decimal)restFloatAtt.Max,
-                    (decimal)restFloatAtt.Steps,
-                    restFloatAtt.Units);
+                         (decimal)restFloatAtt.Min,
+                         (decimal)restFloatAtt.Max,
+                         (decimal)restFloatAtt.Steps,
+                         restFloatAtt.Units);
             }
 
             // extract restrictions for int property
             DesignerInteger restIntAtt = restrictions.Attribute as DesignerInteger;
-            if (restIntAtt != null)
-            {
+
+            if (restIntAtt != null) {
                 SetRange(0,
-                    (decimal)restIntAtt.Min,
-                    (decimal)restIntAtt.Max,
-                    (decimal)restIntAtt.Steps,
-                    restIntAtt.Units);
+                         (decimal)restIntAtt.Min,
+                         (decimal)restIntAtt.Max,
+                         (decimal)restIntAtt.Steps,
+                         restIntAtt.Units);
             }
 
             // extract the value
             decimal value = 0;
 
             DesignerFloat floatAtt = property.Attribute as DesignerFloat;
-            if (floatAtt != null)
-            {
+
+            if (floatAtt != null) {
                 float val = (float)property.Property.GetValue(obj, null);
 
                 value = (decimal)val;
             }
 
             DesignerInteger intAtt = property.Attribute as DesignerInteger;
-            if (intAtt != null)
-            {
+
+            if (intAtt != null) {
                 int val = (int)property.Property.GetValue(obj, null);
 
                 value = (decimal)val;
@@ -146,162 +140,149 @@ namespace Behaviac.Design.Attributes
             numericUpDown.Value = Math.Max(numericUpDown.Minimum, Math.Min(numericUpDown.Maximum, value));
         }
 
-        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj)
-        {
+        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj) {
             base.SetArrayProperty(arrayProperty, obj);
 
             decimal value = 0;
 
-            if (arrayProperty.ItemType == typeof(float))
-            {
+            if (arrayProperty.ItemType == typeof(float)) {
                 const float maxValue = 1000000000000;
                 SetRange(2,
-                    (decimal)(-maxValue),
-                    (decimal)maxValue,
-                    (decimal)0.01);
+                         (decimal)(-maxValue),
+                         (decimal)maxValue,
+                         (decimal)0.01);
 
                 float val = (float)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(double))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(double)) {
                 const double maxValue = 1000000000000;
                 SetRange(2,
-                    (decimal)(-maxValue),
-                    (decimal)maxValue,
-                    (decimal)0.01);
+                         (decimal)(-maxValue),
+                         (decimal)maxValue,
+                         (decimal)0.01);
 
                 double val = (double)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(int))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(int)) {
                 SetRange(0,
-                        (decimal)int.MinValue,
-                        (decimal)int.MaxValue,
-                        (decimal)1);
+                         (decimal)int.MinValue,
+                         (decimal)int.MaxValue,
+                         (decimal)1);
 
                 int val = (int)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(uint))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(uint)) {
                 SetRange(0,
-                        (decimal)uint.MinValue,
-                        (decimal)uint.MaxValue,
-                        (decimal)1);
+                         (decimal)uint.MinValue,
+                         (decimal)uint.MaxValue,
+                         (decimal)1);
 
                 int val = (int)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(short))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(short)) {
                 SetRange(0,
-                        (decimal)short.MinValue,
-                        (decimal)short.MaxValue,
-                        (decimal)1);
+                         (decimal)short.MinValue,
+                         (decimal)short.MaxValue,
+                         (decimal)1);
 
                 short val = (short)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(ushort))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(ushort)) {
                 SetRange(0,
-                        (decimal)ushort.MinValue,
-                        (decimal)ushort.MaxValue,
-                        (decimal)1);
+                         (decimal)ushort.MinValue,
+                         (decimal)ushort.MaxValue,
+                         (decimal)1);
 
                 ushort val = (ushort)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(sbyte))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(sbyte)) {
                 SetRange(0,
-                        (decimal)sbyte.MinValue,
-                        (decimal)sbyte.MaxValue,
-                        (decimal)1);
+                         (decimal)sbyte.MinValue,
+                         (decimal)sbyte.MaxValue,
+                         (decimal)1);
 
                 sbyte val = (sbyte)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(byte))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(byte)) {
                 SetRange(0,
-                        (decimal)byte.MinValue,
-                        (decimal)byte.MaxValue,
-                        (decimal)1);
+                         (decimal)byte.MinValue,
+                         (decimal)byte.MaxValue,
+                         (decimal)1);
 
                 byte val = (byte)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(long))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(long)) {
                 SetRange(0,
-                        (decimal)long.MinValue,
-                        (decimal)long.MaxValue,
-                        (decimal)1);
+                         (decimal)long.MinValue,
+                         (decimal)long.MaxValue,
+                         (decimal)1);
 
                 long val = (long)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else if (arrayProperty.ItemType == typeof(ulong))
-            {
+
+            } else if (arrayProperty.ItemType == typeof(ulong)) {
                 SetRange(0,
-                        (decimal)ulong.MinValue,
-                        (decimal)ulong.MaxValue,
-                        (decimal)1);
+                         (decimal)ulong.MinValue,
+                         (decimal)ulong.MaxValue,
+                         (decimal)1);
 
                 ulong val = (ulong)arrayProperty.Value;
                 value = (decimal)val;
-            }
-            else
-            {
+
+            } else {
                 Debug.Check(false);
             }
 
             numericUpDown.Value = Math.Max(numericUpDown.Minimum, Math.Min(numericUpDown.Maximum, value));
         }
 
-        public override void SetParameter(MethodDef.Param param, object obj)
-        {
-            base.SetParameter(param, obj);
+        public override void SetParameter(MethodDef.Param param, object obj, bool bReadonly) {
+            base.SetParameter(param, obj, bReadonly);
 
             // extract resrictions for float property
             DesignerFloat restFloatAtt = param.Attribute as DesignerFloat;
-            if (restFloatAtt != null)
-            {
+
+            if (restFloatAtt != null) {
                 SetRange(restFloatAtt.Precision,
-                    (decimal)restFloatAtt.Min,
-                    (decimal)restFloatAtt.Max,
-                    (decimal)restFloatAtt.Steps,
-                    restFloatAtt.Units);
+                         (decimal)restFloatAtt.Min,
+                         (decimal)restFloatAtt.Max,
+                         (decimal)restFloatAtt.Steps,
+                         restFloatAtt.Units);
             }
 
             // extract restrictions for int property
             DesignerInteger restIntAtt = param.Attribute as DesignerInteger;
-            if (restIntAtt != null)
-            {
+
+            if (restIntAtt != null) {
                 SetRange(0,
-                    (decimal)restIntAtt.Min,
-                    (decimal)restIntAtt.Max,
-                    (decimal)restIntAtt.Steps,
-                    restIntAtt.Units);
+                         (decimal)restIntAtt.Min,
+                         (decimal)restIntAtt.Max,
+                         (decimal)restIntAtt.Steps,
+                         restIntAtt.Units);
             }
 
             // extract the value
             decimal value = 0;
 
             DesignerFloat floatAtt = param.Attribute as DesignerFloat;
-            if (floatAtt != null)
-            {
+
+            if (floatAtt != null) {
                 float val = (param.Value != null) ? float.Parse(param.Value.ToString()) : 0.0f;
                 value = (decimal)val;
                 numericUpDown.DecimalPlaces = 2;
             }
 
             DesignerInteger intAtt = param.Attribute as DesignerInteger;
-            if (intAtt != null)
-            {
+
+            if (intAtt != null) {
                 int val = (param.Value != null) ? int.Parse(param.Value.ToString()) : 0;
                 value = (decimal)val;
             }
@@ -310,104 +291,94 @@ namespace Behaviac.Design.Attributes
             numericUpDown.Value = Math.Max(numericUpDown.Minimum, Math.Min(numericUpDown.Maximum, value));
         }
 
-        public override void SetVariable(VariableDef variable, object obj)
-        {
+        public override void SetVariable(VariableDef variable, object obj) {
             base.SetVariable(variable, obj);
 
-            if (variable != null)
-            {
+            if (variable != null) {
                 // extract the value
                 decimal value = 0;
 
                 Type valueType = variable.GetValueType();
-                if (Plugin.IsFloatType(valueType))
-                {
+
+                if (Plugin.IsFloatType(valueType)) {
                     const float maxValue = 1000000000000;
                     SetRange(2,
-                        (decimal)(-maxValue),
-                        (decimal)maxValue,
-                        (decimal)0.01);
+                             (decimal)(-maxValue),
+                             (decimal)maxValue,
+                             (decimal)0.01);
 
                     float val = Convert.ToSingle(variable.Value);
                     value = (decimal)val;
                     numericUpDown.DecimalPlaces = 2;
-                }
-                else if (valueType == typeof(int))
-                {
+
+                } else if (valueType == typeof(int)) {
                     SetRange(0,
-                        (decimal)int.MinValue,
-                        (decimal)int.MaxValue,
-                        (decimal)1);
+                             (decimal)int.MinValue,
+                             (decimal)int.MaxValue,
+                             (decimal)1);
 
                     int val = (int)variable.Value;
                     value = (decimal)val;
-                }
-                else if (valueType == typeof(uint))
-                {
+
+                } else if (valueType == typeof(uint)) {
                     SetRange(0,
-                        (decimal)int.MinValue,
-                        (decimal)int.MaxValue,
-                        (decimal)1);
+                             (decimal)int.MinValue,
+                             (decimal)int.MaxValue,
+                             (decimal)1);
 
                     uint val = (uint)variable.Value;
                     value = (decimal)val;
-                }
-                else if (valueType == typeof(short))
-                {
+
+                } else if (valueType == typeof(short)) {
                     SetRange(0,
-                        (decimal)short.MinValue,
-                        (decimal)short.MaxValue,
-                        (decimal)1);
+                             (decimal)short.MinValue,
+                             (decimal)short.MaxValue,
+                             (decimal)1);
 
                     short val = (short)variable.Value;
                     value = (decimal)val;
-                }
-                else if (valueType == typeof(ushort))
-                {
+
+                } else if (valueType == typeof(ushort)) {
                     SetRange(0,
-                        (decimal)ushort.MinValue,
-                        (decimal)ushort.MaxValue,
-                        (decimal)1);
+                             (decimal)ushort.MinValue,
+                             (decimal)ushort.MaxValue,
+                             (decimal)1);
 
                     ushort val = (ushort)variable.Value;
                     value = (decimal)val;
-                }
-                else if (valueType == typeof(sbyte))
-                {
+
+                } else if (valueType == typeof(sbyte)) {
                     SetRange(0,
-                        (decimal)sbyte.MinValue,
-                        (decimal)sbyte.MaxValue,
-                        (decimal)1);
+                             (decimal)sbyte.MinValue,
+                             (decimal)sbyte.MaxValue,
+                             (decimal)1);
 
                     sbyte val = (sbyte)variable.Value;
                     value = (decimal)val;
-                }
-                else if (valueType == typeof(byte))
-                {
+
+                } else if (valueType == typeof(byte)) {
                     SetRange(0,
-                        (decimal)byte.MinValue,
-                        (decimal)byte.MaxValue,
-                        (decimal)1);
+                             (decimal)byte.MinValue,
+                             (decimal)byte.MaxValue,
+                             (decimal)1);
 
                     byte val = (byte)variable.Value;
                     value = (decimal)val;
-                }
-                else if (valueType == typeof(long))
-                {
+
+                } else if (valueType == typeof(long)) {
                     SetRange(0,
-                        (decimal)int.MinValue,
-                        (decimal)int.MaxValue,
-                        (decimal)1);
+                             (decimal)int.MinValue,
+                             (decimal)int.MaxValue,
+                             (decimal)1);
 
                     long val = (long)variable.Value;
                     value = (decimal)val;
-                }
-                else if (valueType == typeof(ulong))
-                {
+
+                } else if (valueType == typeof(ulong)) {
                     SetRange(0,
-                        (decimal)uint.MinValue,
-                        (decimal)uint.MaxValue,
-                        (decimal)1);
+                             (decimal)uint.MinValue,
+                             (decimal)uint.MaxValue,
+                             (decimal)1);
 
                     ulong val = (ulong)variable.Value;
                     value = (decimal)val;
@@ -418,107 +389,122 @@ namespace Behaviac.Design.Attributes
             }
         }
 
-        public override void ReadOnly()
-        {
+        public override void ReadOnly() {
             base.ReadOnly();
 
             numericUpDown.Enabled = false;
         }
 
-        private void numericUpDown_ValueChanged(object sender, EventArgs e)
-        {
+        private void numericUpDown_ValueChanged(object sender, EventArgs e) {
             if (!_valueWasAssigned)
-                return;
+            { return; }
 
-            try
-            {
-                if (this._property.Property != null)
-                {
+            try {
+                if (this._property.Property != null) {
                     if (this._property.Attribute is DesignerFloat)
-                        this._property.Property.SetValue(_object, (float)numericUpDown.Value, null);
+                    { this._property.Property.SetValue(_object, (float)numericUpDown.Value, null); }
+
                     else if (this._property.Attribute is DesignerInteger)
-                        this._property.Property.SetValue(_object, (int)numericUpDown.Value, null);
+                    { this._property.Property.SetValue(_object, (int)numericUpDown.Value, null); }
+
                     else
-                        Debug.Check(false);
-                }
-                else if (_arrayProperty != null)
-                {
+                    { Debug.Check(false); }
+
+                } else if (_arrayProperty != null) {
                     if (_arrayProperty.ItemType == typeof(float))
-                        _arrayProperty.Value = (float)numericUpDown.Value;
+                    { _arrayProperty.Value = (float)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(double))
-                        _arrayProperty.Value = (double)numericUpDown.Value;
+                    { _arrayProperty.Value = (double)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(int))
-                        _arrayProperty.Value = (int)numericUpDown.Value;
+                    { _arrayProperty.Value = (int)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(uint))
-                        _arrayProperty.Value = (uint)numericUpDown.Value;
+                    { _arrayProperty.Value = (uint)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(short))
-                        _arrayProperty.Value = (short)numericUpDown.Value;
+                    { _arrayProperty.Value = (short)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(ushort))
-                        _arrayProperty.Value = (ushort)numericUpDown.Value;
+                    { _arrayProperty.Value = (ushort)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(sbyte))
-                        _arrayProperty.Value = (sbyte)numericUpDown.Value;
+                    { _arrayProperty.Value = (sbyte)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(byte))
-                        _arrayProperty.Value = (byte)numericUpDown.Value;
+                    { _arrayProperty.Value = (byte)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(long))
-                        _arrayProperty.Value = (long)numericUpDown.Value;
+                    { _arrayProperty.Value = (long)numericUpDown.Value; }
+
                     else if (_arrayProperty.ItemType == typeof(ulong))
-                        _arrayProperty.Value = (ulong)numericUpDown.Value;
+                    { _arrayProperty.Value = (ulong)numericUpDown.Value; }
+
                     else
-                        Debug.Check(false);
-                }
-                else if (this._param != null)
-                {
+                    { Debug.Check(false); }
+
+                } else if (this._param != null) {
                     if (this._param.Attribute is DesignerFloat)
-                        this._param.Value = (float)numericUpDown.Value;
+                    { this._param.Value = (float)numericUpDown.Value; }
+
                     else if (this._param.Attribute is DesignerInteger)
-                        this._param.Value = (int)numericUpDown.Value;
+                    { this._param.Value = (int)numericUpDown.Value; }
+
                     else
-                        Debug.Check(false);
-                }
-                else if (this._variable != null)
-                {
+                    { Debug.Check(false); }
+
+                } else if (this._variable != null) {
                     if (this._variable.Value.GetType() == typeof(float))
-                        this._variable.Value = (float)numericUpDown.Value;
+                    { this._variable.Value = (float)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(double))
-                        this._variable.Value = (double)numericUpDown.Value;
+                    { this._variable.Value = (double)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(int))
-                        this._variable.Value = (int)numericUpDown.Value;
+                    { this._variable.Value = (int)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(uint))
-                        this._variable.Value = (uint)numericUpDown.Value;
+                    { this._variable.Value = (uint)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(short))
-                        this._variable.Value = (short)numericUpDown.Value;
+                    { this._variable.Value = (short)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(ushort))
-                        this._variable.Value = (ushort)numericUpDown.Value;
+                    { this._variable.Value = (ushort)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(sbyte))
-                        this._variable.Value = (sbyte)numericUpDown.Value;
+                    { this._variable.Value = (sbyte)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(byte))
-                        this._variable.Value = (byte)numericUpDown.Value;
+                    { this._variable.Value = (byte)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(long))
-                        this._variable.Value = (long)numericUpDown.Value;
+                    { this._variable.Value = (long)numericUpDown.Value; }
+
                     else if (this._variable.Value.GetType() == typeof(ulong))
-                        this._variable.Value = (ulong)numericUpDown.Value;
+                    { this._variable.Value = (ulong)numericUpDown.Value; }
+
                     else
-                        Debug.Check(false);
+                    { Debug.Check(false); }
                 }
-            }
-            catch(Exception ex)
-            {
+
+            } catch (Exception ex) {
                 Console.WriteLine(ex.Message);
             }
 
             OnValueChanged(_property);
         }
 
-        private void DesignerNumberEditor_Resize(object sender, EventArgs e)
-        {
+        private void DesignerNumberEditor_Resize(object sender, EventArgs e) {
             if (unitLabel.Visible)
-                numericUpDown.Size = new System.Drawing.Size(Size.Width - unitLabel.Width - 2, Size.Height);
+            { numericUpDown.Size = new System.Drawing.Size(Size.Width - unitLabel.Width - 2, Size.Height); }
+
             else
-                numericUpDown.Size = new System.Drawing.Size(Size.Width - 7, Size.Height);
+            { numericUpDown.Size = new System.Drawing.Size(Size.Width - 7, Size.Height); }
         }
 
-        private void numericUpDown_Enter(object sender, EventArgs e)
-        {
+        private void numericUpDown_Enter(object sender, EventArgs e) {
             this.OnMouseEnter(e);
         }
     }

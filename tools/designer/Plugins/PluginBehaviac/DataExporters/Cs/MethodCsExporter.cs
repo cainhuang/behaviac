@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -38,7 +38,7 @@ namespace PluginBehaviac.DataExporters
             for (int i = 0; i < method.Params.Count; ++i)
             {
                 // const value
-                if (!method.Params[i].IsProperty && !method.Params[i].IsPar)
+                if (!method.Params[i].IsProperty && !method.Params[i].IsLocalVar)
                 {
                     object obj = method.Params[i].Value;
                     if (obj != null)
@@ -105,7 +105,7 @@ namespace PluginBehaviac.DataExporters
             for (int i = 0; i < method.Params.Count; ++i)
             {
                 // const value
-                if (!method.Params[i].IsProperty && !method.Params[i].IsPar)
+                if (!method.Params[i].IsProperty && !method.Params[i].IsLocalVar && method.Params[i].Value != null)
                 {
                     Type type = method.Params[i].Value.GetType();
                     if (method.IsPublic || Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type))
@@ -123,7 +123,7 @@ namespace PluginBehaviac.DataExporters
             Debug.Check(!string.IsNullOrEmpty(var) || !string.IsNullOrEmpty(caller));
 
             string allParams = string.Empty;
-            string paramsName = (method.Params.Count == 0) ? "null" : getParamsName(var, caller);
+            string paramsName = getParamsName(var, caller);
 
             for (int i = 0; i < method.Params.Count; ++i)
             {
@@ -138,37 +138,37 @@ namespace PluginBehaviac.DataExporters
                     param = string.Format("{0}[{1}]", paramsName, i);
                 }
 
-                if (method.Params[i].IsProperty) // property
+                if (method.Params[i].IsProperty || method.Params[i].IsLocalVar) // property
                 {
-                    if (method.IsPublic)
-                    {
-                        param = ParameterCsExporter.GenerateCode(method.Params[i], stream, indent, nativeType, "", param);
-                    }
-                    else
-                    {
-                        ParameterCsExporter.GenerateCode(method.Params[i], stream, indent, "", param, caller);
-                    }
-                }
-                else
-                {
-                    if (method.Params[i].IsPar) // par
+                    if ((method.Params[i].Property != null && method.Params[i].Property.IsCustomized) || method.Params[i].IsLocalVar)
                     {
                         ParameterCsExporter.GenerateCode(method.Params[i], stream, indent, method.IsPublic ? nativeType : "", param, caller);
                     }
-                    else // const value
+                    else
                     {
-                        object obj = method.Params[i].Value;
-                        if (obj != null)
+                        if (method.IsPublic)
                         {
-                            Type type = obj.GetType();
-                            if (Plugin.IsCustomClassType(type) && !DesignerStruct.IsPureConstDatum(obj, method, method.Params[i].Name))
+                            param = ParameterCsExporter.GenerateCode(method.Params[i], stream, indent, nativeType, "", param);
+                        }
+                        else
+                        {
+                            ParameterCsExporter.GenerateCode(method.Params[i], stream, indent, "", param, caller);
+                        }
+                    }
+                }
+                else // const value
+                {
+                    object obj = method.Params[i].Value;
+                    if (obj != null)
+                    {
+                        Type type = obj.GetType();
+                        if (Plugin.IsCustomClassType(type) && !DesignerStruct.IsPureConstDatum(obj, method, method.Params[i].Name))
+                        {
+                            string paramName = getParamName(var, caller, i);
+                            StructCsExporter.GenerateCode(obj, stream, indent, paramName, method, method.Params[i].Name);
+                            if (!method.IsPublic)
                             {
-                                string paramName = getParamName(var, caller, i);
-                                StructCsExporter.GenerateCode(obj, stream, indent, paramName, method, method.Params[i].Name);
-                                if (!method.IsPublic)
-                                {
-                                    stream.WriteLine("{0}{1} = {2};", indent, param, paramName);
-                                }
+                                stream.WriteLine("{0}{1} = {2};", indent, param, paramName);
                             }
                         }
                     }
@@ -177,10 +177,13 @@ namespace PluginBehaviac.DataExporters
                 if (i > 0)
                     allParams += ", ";
 
-                //if (method.Params[i].NativeType.EndsWith("&"))
-                if (method.Params[i].NativeType.IndexOf("&") >= 0)
+                if (method.Params[i].IsRef)
                 {
                     param = "ref " + param;
+                }
+                else if (method.Params[i].IsOut)
+                {
+                    param = "out " + param;
                 }
 
                 allParams += param;
@@ -229,19 +232,28 @@ namespace PluginBehaviac.DataExporters
         public static void PostGenerateCode(Behaviac.Design.MethodDef method, StreamWriter stream, string indent, string typename, string var, string caller)
         {
             string paramsName = getParamsName(var, caller);
+
             for (int i = 0; i < method.Params.Count; ++i)
             {
-                //if (method.Params[i].NativeType.EndsWith("&"))
-                if (method.Params[i].NativeType.IndexOf("&") >= 0)
+                if (method.Params[i].IsRef || method.Params[i].IsOut)
                 {
                     object obj = method.Params[i].Value;
                     if (obj != null)
                     {
                         string nativeType = DataCsExporter.GetGeneratedNativeType(method.Params[i].NativeType);
-                        string param = getParamName(var, caller, i);
+                        string param = string.Empty;
+                        if (method.IsPublic)
+                        {
+                            param = getParamName(var, caller, i);
+                        }
+                        else
+                        {
+                            param = string.Format("{0}[{1}]", paramsName, i);
+                        }
+
                         string paramName = string.Format("(({0}){1}[{2}])", nativeType, paramsName, i);
 
-                        if (!method.Params[i].IsProperty && !method.Params[i].IsPar)
+                        if (!method.Params[i].IsProperty && !method.Params[i].IsLocalVar)
                         {
                             Type type = obj.GetType();
                             if (!Plugin.IsArrayType(type) && !Plugin.IsCustomClassType(type))

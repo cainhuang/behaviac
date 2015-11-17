@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_FILESYSTEMVISITOR_H_
-#define _CORE_FILESYSTEMVISITOR_H_
+#ifndef BEHAVIAC_CORE_FILESYSTEMVISITOR_H
+#define BEHAVIAC_CORE_FILESYSTEMVISITOR_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
@@ -25,7 +25,7 @@
 class IFileSystemVisitor
 {
 protected:
-    inline ~IFileSystemVisitor()
+    virtual ~IFileSystemVisitor()
     {
     }
 
@@ -42,7 +42,7 @@ class CVectorFileSystemVisitor : public IFileSystemVisitor
 {
 public:
     CVectorFileSystemVisitor(behaviac::vector< behaviac::string >& vec, bool storeFullPath, uint32_t maximumSize, bool keepCase);
-
+    virtual ~CVectorFileSystemVisitor() {}
 public:
     virtual bool EnterDirectory(const char* fullDirPath, const char* dirName);
     virtual bool VisitFile(const char* fullFilePath, const char* fileName);
@@ -63,7 +63,7 @@ class CCounterFileSystemVisitor : public IFileSystemVisitor
 {
 public:
     CCounterFileSystemVisitor(uint32_t maximumSize);
-
+    virtual ~CCounterFileSystemVisitor() {}
 public:
     uint32_t GetCount() const
     {
@@ -80,4 +80,4 @@ private:
     uint32_t m_count;
 };
 
-#endif // _CORE_FILESYSTEMVISITOR_H_
+#endif // BEHAVIAC_CORE_FILESYSTEMVISITOR_H

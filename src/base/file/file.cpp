@@ -91,7 +91,6 @@ void CPhysicalFile::Flush()
     return CFileSystem::FlushFile(m_handle);
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 // Memory Stream File
 //////////////////////////////////////////////////////////////////////////
@@ -111,7 +110,7 @@ uint32_t CMemoryStreamFile::Read(void* pBuffer, uint32_t numberOfBytesToRead)
 
     if (m_offset + nbBytes > m_data.size())
     {
-        nbBytes = uint32_t (m_data.size() - m_offset);
+        nbBytes = uint32_t(m_data.size() - m_offset);
     }
 
     if (nbBytes)
@@ -166,7 +165,7 @@ int64_t CMemoryStreamFile::Seek(int64_t distanceToMove, CFileSystem::ESeekMoveMo
 
         default:
             BEHAVIAC_ASSERT(false);
-        break;
+            break;
     }
 
     behaviac::ClampValue(m_offset, uint64_t(0), GetSize());
@@ -187,9 +186,6 @@ bool CMemoryStreamFile::SetEndOfFile()
 {
     return false;
 }
-
-
-
 
 //////////////////////////////////////////////////////////////////////////
 // Streamed sequential file System File NO SEEK
@@ -222,7 +218,7 @@ uint32_t CSequentialWriter::Read(void* pBuffer, uint32_t numberOfBytesToRead)
 void CSequentialWriter::FlushBuffer()
 {
     uint32_t written = m_file->Write(m_buffer, m_bufferUsed);
-	BEHAVIAC_UNUSED_VAR(written);
+    BEHAVIAC_UNUSED_VAR(written);
     BEHAVIAC_ASSERT(written == m_bufferUsed);
     m_bufferUsed = 0;
 }
@@ -231,11 +227,12 @@ uint32_t CSequentialWriter::Write(const void* pBuffer, uint32_t nNumberOfBytesTo
 {
     m_filePointer += nNumberOfBytesToWrite;
 
-    if ((m_bufferUsed + nNumberOfBytesToWrite) <=  m_bufferSize)
+    if ((m_bufferUsed + nNumberOfBytesToWrite) <= m_bufferSize)
     {
         memcpy(((char*)m_buffer) + m_bufferUsed, pBuffer, nNumberOfBytesToWrite);
         m_bufferUsed += nNumberOfBytesToWrite;
         return nNumberOfBytesToWrite;
+
     }
     else
     {
@@ -246,6 +243,7 @@ uint32_t CSequentialWriter::Write(const void* pBuffer, uint32_t nNumberOfBytesTo
             uint32_t written = m_file->Write(pBuffer, nNumberOfBytesToWrite);
             BEHAVIAC_UNUSED_VAR(written);
             return nNumberOfBytesToWrite;
+
         }
         else
         {
@@ -286,8 +284,6 @@ bool CSequentialWriter::SetEndOfFile()
     FlushBuffer();
     return m_file->SetEndOfFile();
 }
-
-
 
 //////////////////////////////////////////////////////////////////////////
 // Streamed sequential file
@@ -332,6 +328,7 @@ uint32_t CSequentialReader::Read(void* pBuffer, uint32_t numberOfBytesToRead)
         {
             // Read directly
             dataRead += m_file->Read(pBuffer, dataNeeded);
+
         }
         else
         {
@@ -367,7 +364,7 @@ uint32_t CSequentialReader::Write(const void* pBuffer, uint32_t nNumberOfBytesTo
 int64_t CSequentialReader::Seek(int64_t distanceToMove, CFileSystem::ESeekMoveMode moveMethod)
 {
     int64_t realOffset = m_file->Seek(0, CFileSystem::ESeekMoveMode_Cur);
-    int64_t deltaOffset = - int64_t(m_bufferPointerEnd - m_bufferPointer);
+    int64_t deltaOffset = -int64_t(m_bufferPointerEnd - m_bufferPointer);
 
     if (moveMethod == CFileSystem::ESeekMoveMode_Cur)
     {
@@ -377,6 +374,7 @@ int64_t CSequentialReader::Seek(int64_t distanceToMove, CFileSystem::ESeekMoveMo
         }
 
         distanceToMove += deltaOffset;
+
     }
     else if (moveMethod == CFileSystem::ESeekMoveMode_Begin)
     {
@@ -401,8 +399,6 @@ bool CSequentialReader::SetEndOfFile()
 {
     return m_file->SetEndOfFile();
 }
-
-
 
 //////////////////////////////////////////////////////////////////////////
 // Memory File
@@ -460,7 +456,7 @@ uint32_t CMemoryFile::Read(void* pBuffer, uint32_t numberOfBytesToRead)
 
     if (m_offset + nbBytes > GetSize())
     {
-        nbBytes = uint32_t (GetSize() - m_offset);
+        nbBytes = uint32_t(GetSize() - m_offset);
     }
 
     if (nbBytes)
@@ -505,6 +501,7 @@ bool CMemoryFile::SetEndOfFile()
     {
         m_data.resize(uint32_t(m_offset));
         return true;
+
     }
     else
     {
@@ -532,7 +529,7 @@ uint32_t CMemoryBufferFile::Read(void* pBuffer, uint32_t numberOfBytesToRead)
 
     if (m_offset + nbBytes > GetSize())
     {
-        nbBytes = uint32_t (GetSize() - m_offset);
+        nbBytes = uint32_t(GetSize() - m_offset);
     }
 
     if (nbBytes)
@@ -576,8 +573,7 @@ int64_t CMemoryBufferFile::Seek(int64_t distanceToMove, CFileSystem::ESeekMoveMo
 
         default:
             BEHAVIAC_ASSERT(false);
-        break;
-
+            break;
     }
 
     behaviac::ClampValue(m_offset, uint64_t(0), GetSize());
@@ -619,6 +615,7 @@ inline bool GetLine(IFile* file, behaviac::string& line)
             }
 
             break;
+
         }
         else
         {

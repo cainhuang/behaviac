@@ -26,4 +26,4 @@ echo Please download the premake-4.4-beta5-windows.zip from http://premake.bitbu
 
 :exit
 
-pause
+rem pause

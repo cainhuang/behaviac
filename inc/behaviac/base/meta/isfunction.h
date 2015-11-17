@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_TRAITS_ISFUNCTION_H__INCLUDED
-#define _BEHAVIAC_BASE_TRAITS_ISFUNCTION_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_TRAITS_ISFUNCTION_H_INCLUDED
+#define _BEHAVIAC_BASE_TRAITS_ISFUNCTION_H_INCLUDED
 
 #include "behaviac/base/meta/meta.h"
 
@@ -20,7 +20,6 @@ namespace behaviac
 {
     namespace Meta
     {
-
         // Answer is true if the provided Type is a function
         //
         // void MyFunction();

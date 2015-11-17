@@ -18,218 +18,222 @@
 
 namespace behaviac
 {
-	Variables::Variables()
-	{
-		BEHAVIAC_ASSERT(this->m_variables.size() == 0);
-	}
+    Variables::Variables()
+    {
+        BEHAVIAC_ASSERT(this->m_variables.size() == 0);
+    }
 
-	Variables::~Variables()
-	{
-		this->Clear();
-	}
+    Variables::~Variables()
+    {
+        this->Clear();
+    }
 
+    void Variables::Clear()
+    {
+        for (Variables_t::iterator it = this->m_variables.begin();
+             it != this->m_variables.end(); ++it)
+        {
+            IVariable* pVar = it->second;
 
-	void Variables::Clear()
-	{
-		for (Variables_t::iterator it = this->m_variables.begin();
-			it != this->m_variables.end(); ++it)
-		{
-			IVariable* pVar = it->second;
+            BEHAVIAC_DELETE(pVar);
+        }
 
-			BEHAVIAC_DELETE(pVar);
-		}
+        this->m_variables.clear();
+    }
 
-		this->m_variables.clear();
-	}
-
-	void Variables::Log(const Agent* pAgent, bool bForce)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(bForce);
+    void Variables::Log(const Agent* pAgent, bool bForce)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(bForce);
 #if !defined(BEHAVIAC_RELEASE)
-		if (Config::IsLoggingOrSocketing())
-		{
-			for (Variables_t::iterator it = this->m_variables.begin();
-				it != this->m_variables.end(); ++it)
-			{
-				IVariable* pVar = it->second;
 
-				bool bToLog = false;
-				if (bForce)
-				{
-					bToLog = true;
-				}
-				else
-				{
-					if (pVar->IsChanged())
-					{
-						bToLog = true;
-					}
-					else
-					{
-						bToLog = pVar->CheckIfChanged(pAgent);
-					}
-				}
+        if (Config::IsLoggingOrSocketing())
+        {
+            for (Variables_t::iterator it = this->m_variables.begin();
+                 it != this->m_variables.end(); ++it)
+            {
+                IVariable* pVar = it->second;
 
-				if (bToLog)
-				{
-					pVar->Log(pAgent);
-				}
-			}
-		}
+                bool bToLog = false;
+
+                if (bForce)
+                {
+                    bToLog = true;
+
+                }
+                else
+                {
+                    if (pVar->IsChanged())
+                    {
+                        bToLog = true;
+
+                    }
+                    else
+                    {
+                        bToLog = pVar->CheckIfChanged(pAgent);
+                    }
+                }
+
+                if (bToLog)
+                {
+                    pVar->Log(pAgent);
+                }
+            }
+        }
+
 #endif//BEHAVIAC_RELEASE
-	}
+    }
 
-	void Variables::Reset()
-	{
-		for (Variables_t::iterator it = this->m_variables.begin();
-			it != this->m_variables.end(); ++it)
-		{
-			IVariable* pVar = it->second;
+    void Variables::Reset()
+    {
+        for (Variables_t::iterator it = this->m_variables.begin();
+             it != this->m_variables.end(); ++it)
+        {
+            IVariable* pVar = it->second;
 
-			pVar->Reset();
-		}
-	}
+            pVar->Reset();
+        }
+    }
 
-	void IVariable::CopyTo(Agent* pAgent)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-	}
+    void IVariable::CopyTo(Agent* pAgent)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+    }
 
-	void Variables::CopyTo(Agent* pAgent, Variables& target) const
-	{
-		for (Variables_t::iterator it = target.m_variables.begin();
-			it != target.m_variables.end(); ++it)
-		{
-			IVariable* pVar = it->second;
+    void Variables::CopyTo(Agent* pAgent, Variables& target) const
+    {
+        for (Variables_t::iterator it = target.m_variables.begin();
+             it != target.m_variables.end(); ++it)
+        {
+            IVariable* pVar = it->second;
 
-			BEHAVIAC_DELETE(pVar);
-		}
+            BEHAVIAC_DELETE(pVar);
+        }
 
-		target.m_variables.clear();
+        target.m_variables.clear();
 
-		for (Variables_t::const_iterator it = this->m_variables.begin();
-			it != this->m_variables.end(); ++it)
-		{
-			const IVariable* pVar = it->second;
-			IVariable* pNew = pVar->clone();
+        for (Variables_t::const_iterator it = this->m_variables.begin();
+             it != this->m_variables.end(); ++it)
+        {
+            const IVariable* pVar = it->second;
+            IVariable* pNew = pVar->clone();
 
-			target.m_variables[pNew->GetId()] = pNew;
-		}
+            target.m_variables[pNew->GetId()] = pNew;
+        }
 
-		if (pAgent)
-		{
-			for (Variables_t::iterator it = target.m_variables.begin();
-				it != target.m_variables.end(); ++it)
-			{
-				IVariable* pVar = it->second;
-				pVar->CopyTo(pAgent);
-			}
-		}
-	}
+        if (pAgent)
+        {
+            for (Variables_t::iterator it = target.m_variables.begin();
+                 it != target.m_variables.end(); ++it)
+            {
+                IVariable* pVar = it->second;
+                pVar->CopyTo(pAgent);
+            }
+        }
+    }
 
-	void IVariable::Save(ISerializableNode* node) const
-	{
-		BEHAVIAC_UNUSED_VAR(node);
-	}
+    void IVariable::Save(ISerializableNode* node) const
+    {
+        BEHAVIAC_UNUSED_VAR(node);
+    }
 
+    void IVariable::Load(ISerializableNode* node)
+    {
+        BEHAVIAC_UNUSED_VAR(node);
+    }
 
-	void IVariable::Load(ISerializableNode* node)
-	{
-		BEHAVIAC_UNUSED_VAR(node);
-	}
+    void Variables::Save(ISerializableNode* node) const
+    {
+        CSerializationID  variablesId("vars");
+        ISerializableNode* varsNode = node->newChild(variablesId);
 
+        for (Variables_t::const_iterator it = this->m_variables.begin();
+             it != this->m_variables.end(); ++it)
+        {
+            const IVariable* pVar = it->second;
 
-	void Variables::Save(ISerializableNode* node) const
-	{
-		CSerializationID  variablesId("vars");
-		ISerializableNode* varsNode = node->newChild(variablesId);
+            //skip agent members
+            if (!pVar->IsMember())
+            {
+                pVar->Save(varsNode);
+            }
+        }
+    }
 
-		for (Variables_t::const_iterator it = this->m_variables.begin();
-			it != this->m_variables.end(); ++it)
-		{
-			const IVariable* pVar = it->second;
+    void Variables::Load(ISerializableNode* node)
+    {
+        CSerializationID  attrId("agentType");
+        behaviac::string agentTypeStr;
+        node->getAttr(attrId, agentTypeStr);
 
-			//skip agent members
-			if (!pVar->IsMember())
-			{
-				pVar->Save(varsNode);
-			}
-		}
-	}
+        CSerializationID  variablesId("vars");
+        ISerializableNode* varsNode = node->findChild(variablesId);
 
-	void Variables::Load(ISerializableNode* node)
-	{
-		CSerializationID  attrId("agentType");
-		behaviac::string agentTypeStr;
-		node->getAttr(attrId, agentTypeStr);
+        if (varsNode)
+        {
+            int varsCount = varsNode->getChildCount();
 
-		CSerializationID  variablesId("vars");
-		ISerializableNode* varsNode = node->findChild(variablesId);
-		if (varsNode)
-		{
-			int varsCount = varsNode->getChildCount();
-			for (int i = 0; i < varsCount; ++i)
-			{
-				ISerializableNode* varNode = varsNode->getChild(i);
+            for (int i = 0; i < varsCount; ++i)
+            {
+                ISerializableNode* varNode = varsNode->getChild(i);
 
-				CSerializationID  nameId("name");
-				behaviac::string nameStr;
-				varNode->getAttr(nameId, nameStr);
+                CSerializationID  nameId("name");
+                behaviac::string nameStr;
+                varNode->getAttr(nameId, nameStr);
 
-				CSerializationID  valueId("value");
-				behaviac::string valueStr;
-				varNode->getAttr(valueId, valueStr);
+                CSerializationID  valueId("value");
+                behaviac::string valueStr;
+                varNode->getAttr(valueId, valueStr);
 
-				CSerializationID  typeId("type");
-				behaviac::string typeStr;
-				varNode->getAttr(typeId, typeStr);
-				
+                CSerializationID  typeId("type");
+                behaviac::string typeStr;
+                varNode->getAttr(typeId, typeStr);
+
 #if !BEHAVIAC_RELEASE
-				CStringID agentType(agentTypeStr.c_str());
-				CStringID memberId(nameStr.c_str());
+                CStringID agentType(agentTypeStr.c_str());
+                CStringID memberId(nameStr.c_str());
 
-				//members are skipped
-				BEHAVIAC_ASSERT(Agent::FindMemberBase(agentType, memberId) == 0);
+                //members are skipped
+                BEHAVIAC_ASSERT(Agent::FindMemberBase(agentType, memberId) == 0);
 #endif
-				Property* p = Property::Create(typeStr.c_str(), nameStr.c_str());
-				p->SetDefaultValueString(valueStr.c_str());
+                Property* p = Property::Create(typeStr.c_str(), nameStr.c_str());
+                p->SetDefaultValueString(valueStr.c_str());
 
-				IVariable * pVar = p->CreateVar();
+                IVariable* pVar = p->CreateVar();
 
-				uint32_t varId = MakeVariableId(nameStr.c_str());
-				this->m_variables[varId] = pVar;
-			}
-		}
-		//for (Variables_t::iterator it = this->m_variables.begin();
-		//	it != this->m_variables.end(); ++it)
-		//{
-		//	const IVariable* pVar = it->second;
-		//	pVar->Load(node);
-		//}
-	}
+                uint32_t varId = MakeVariableId(nameStr.c_str());
+                this->m_variables[varId] = pVar;
+            }
+        }
 
-	void Variables::Unload()
-	{
-		for (Variables_t::iterator it = this->m_variables.begin();
-			it != this->m_variables.end(); )
-		{
-			Variables_t::iterator itCurrent = it;
-			Variables_t::iterator itNext = ++it;
+        //for (Variables_t::iterator it = this->m_variables.begin();
+        //	it != this->m_variables.end(); ++it)
+        //{
+        //	const IVariable* pVar = it->second;
+        //	pVar->Load(node);
+        //}
+    }
 
-			IVariable* pVar = itCurrent->second;
+    void Variables::Unload()
+    {
+        for (Variables_t::iterator it = this->m_variables.begin();
+             it != this->m_variables.end();)
+        {
+            Variables_t::iterator itCurrent = it;
+            Variables_t::iterator itNext = ++it;
 
-			if (!pVar->m_pMember)
-			{
-				//par
-				this->m_variables.erase(itCurrent->first);
-			}
+            IVariable* pVar = itCurrent->second;
 
-			it = itNext;
-		}
-	}
+            if (!pVar->m_pMember)
+            {
+                //par
+                this->m_variables.erase(itCurrent->first);
+            }
 
-	void Variables::Cleanup()
-	{}
+            it = itNext;
+        }
+    }
 
+    void Variables::Cleanup()
+    {}
 }//namespace behaviac

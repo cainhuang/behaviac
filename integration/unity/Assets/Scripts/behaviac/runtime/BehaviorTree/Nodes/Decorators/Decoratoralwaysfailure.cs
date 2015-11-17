@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public DecoratorAlwaysFailure()
         {
-		}
+        }
+
         ~DecoratorAlwaysFailure()
         {
         }
@@ -48,9 +47,10 @@ namespace behaviac
             return pTask;
         }
 
-        class DecoratorAlwaysFailureTask : DecoratorTask
+        private class DecoratorAlwaysFailureTask : DecoratorTask
         {
-            public DecoratorAlwaysFailureTask() : base()
+            public DecoratorAlwaysFailureTask()
+                : base()
             {
             }
 

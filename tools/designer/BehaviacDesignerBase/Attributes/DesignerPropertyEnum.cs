@@ -43,13 +43,12 @@ namespace Behaviac.Design.Attributes
     public class DesignerPropertyEnum : DesignerProperty
     {
         [Flags]
-        public enum AllowStyles 
-        {
-            None = 0, 
-            Const = 1, 
+        public enum AllowStyles {
+            None = 0,
+            Const = 1,
             Par = 2,
             Self = 4,
-            Global = 8, 
+            Global = 8,
             SelfMethod = 16,
             GlobalMethod = 32,
             Attributes = Par | Self | Global,
@@ -60,32 +59,27 @@ namespace Behaviac.Design.Attributes
         }
 
         private string _dependedProperty = "";
-        public string DependedProperty
-        {
+        public string DependedProperty {
             get { return _dependedProperty; }
         }
 
         private string _dependingProperty = "";
-        public string DependingProperty
-        {
+        public string DependingProperty {
             get { return _dependingProperty; }
         }
 
         private AllowStyles _styles = AllowStyles.Self;
-        public bool HasStyles(AllowStyles styles)
-        {
+        public bool HasStyles(AllowStyles styles) {
             return (_styles & styles) == styles;
         }
 
         private double _minValue = double.MinValue;
-        public double MinValue
-        {
+        public double MinValue {
             get { return _minValue; }
         }
 
         private double _maxValue = double.MaxValue;
-        public double MaxValue
-        {
+        public double MaxValue {
             get { return _maxValue; }
         }
 
@@ -99,8 +93,7 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerPropertyEnum(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, AllowStyles styles, string dependedProperty, string dependingProperty, ValueTypes filterType = ValueTypes.All, double min = double.MinValue, double max = double.MaxValue)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerPropertyEnumEditor), null, filterType)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerPropertyEnumEditor), null, filterType) {
             _styles = styles;
             _dependedProperty = dependedProperty;
             _dependingProperty = dependingProperty;
@@ -108,129 +101,186 @@ namespace Behaviac.Design.Attributes
             _maxValue = max;
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             return DesignerPropertyUtility.RetrieveDisplayValue(obj, null, null);
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             return DesignerPropertyUtility.RetrieveExportValue(obj, null, null);
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
-            if (type != typeof(VariableDef))
-            {
+            if (type != typeof(VariableDef)) {
                 throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
             }
 
             if (str.Length == 0 ||
-                str.Length == 2 && str == "\"\"")
-            {
+                str.Length == 2 && str == "\"\"") {
                 return null;
             }
 
-            if (!str.StartsWith("const"))
-            {
-                return this.parsePropertyVar(node, str);
-            }
-            else
-            {
-                return this.parseConstVar(node, parentObject, str);
+            if (!str.StartsWith("const")) {
+                return DesignerPropertyEnum.parsePropertyVar(result, node, str);
+
+            } else {
+                return this.parseConstVar(result, node, parentObject, str);
             }
 
             //return null;
         }
 
-        protected VariableDef parsePropertyVar(NodeTag.DefaultObject node, string str)
+        public static List<string> SplitTokens(string str) {
+            List<string> ret = new List<string>();
+            //"int Self.AgentArrayAccessTest::ListInts[int Self.AgentArrayAccessTest::l_index]"
+            int pB = 0;
+            int i = 0;
+
+            bool bBeginIndex = false;
+
+            while (i < str.Length) {
+                bool bFound = false;
+                char c = str[i];
+
+                if (c == ' ' && !bBeginIndex) {
+                    bFound = true;
+
+                } else if (c == '[') {
+                    bBeginIndex = true;
+                    bFound = true;
+
+                } else if (c == ']') {
+                    bBeginIndex = false;
+                    bFound = true;
+                }
+
+                if (bFound) {
+                    string strT = ReadToken(str, pB, i);
+                    Debug.Check(strT.Length > 0);
+                    ret.Add(strT);
+
+                    pB = i + 1;
+                }
+
+                i++;
+            }
+
+            string t = ReadToken(str, pB, i);
+
+            if (t.Length > 0) {
+                ret.Add(t);
+            }
+
+            return ret;
+        }
+
+        private static string ReadToken(string str, int pB, int end) {
+            string strT = "";
+            int p = pB;
+
+            while (p < end) {
+                strT += str[p++];
+            }
+
+            return strT;
+        }
+
+        public static VariableDef parsePropertyVar(List<Nodes.Node.ErrorCheck> result, DefaultObject node, string str)
         {
             Debug.Check(!str.StartsWith("const"));
 
-            string[] tokens = str.Split(' ');
-            if (tokens.Length < 2)
-                return null;
+            List<string> tokens = SplitTokens(str);
 
+            if (tokens.Count < 2)
+            { return null; }
+
+            string arrayIndexStr = string.Empty;
             string propertyType = string.Empty;
             string propertyName = string.Empty;
-            if (tokens[0] == "static")
-            {
-                Debug.Check(tokens.Length == 3);
 
-                //e.g. static int Property;
-                propertyType = tokens[1];
-                propertyName = tokens[2];
-            }
-            else
-            {
-                Debug.Check(tokens.Length == 2);
+            if (tokens[0] == "static") {
+                if (tokens.Count == 3) {
+                    //e.g. static int Property;
+                    propertyType = tokens[1];
+                    propertyName = tokens[2];
 
-                //e.g. int Property;
-                propertyType = tokens[0];
-                propertyName = tokens[1];
+                } else {
+                    Debug.Check(tokens.Count == 4);
+                    //e.g. static int Property[int Property1];
+                    propertyType = tokens[1];
+                    propertyName = tokens[2] + "[]";
+                    arrayIndexStr = tokens[3];
+                }
+
+            } else {
+                if (tokens.Count == 2) {
+                    //e.g. int Property;
+                    propertyType = tokens[0];
+                    propertyName = tokens[1];
+
+                } else {
+                    Debug.Check(tokens.Count == 3);
+                    //e.g. int Property;
+                    propertyType = tokens[0];
+                    propertyName = tokens[1] + "[]";
+                    arrayIndexStr = tokens[2];
+                }
             }
+
+            AgentType agentType = node.Behavior.AgentType;
+
+            // Convert the Par to the Property
+            if (!propertyName.Contains(".") && !propertyName.Contains(":"))
+            { propertyName = "Self." + agentType.AgentTypeName + "::" + propertyName; }
 
             VariableDef v = null;
             int pointIndex = propertyName.IndexOf('.');
 
-            if (pointIndex > -1)
-            {
+            if (pointIndex > -1) {
                 string ownerName = propertyName.Substring(0, pointIndex);
                 propertyName = propertyName.Substring(pointIndex + 1, propertyName.Length - pointIndex - 1);
 
-                AgentType agentType = node.Behavior.AgentType;
                 agentType = Plugin.GetInstanceAgentType(ownerName, agentType);
-                string valueType = (agentType == node.Behavior.AgentType) ? VariableDef.kSelf : agentType.ToString();
+                string valueType = ownerName;
 
-                v = setProperty(agentType, propertyName, valueType);
-            }
-            else
-            {
+                v = setProperty(result, node, agentType, propertyName, arrayIndexStr, valueType);
+
+            } else {
                 string className = Plugin.GetClassName(propertyName);
 
-                // Assume it was World type.
-                if (className != null)
-                {
-                    v = setProperty(Plugin.GetInstanceAgentType(className), propertyName, className);
+                // Assume it was global type.
+                if (className != null) {
+                    v = setProperty(result, node, Plugin.GetInstanceAgentType(className), propertyName, arrayIndexStr, className);
 
-                    if (v == null)
-                    {
+                    if (v == null) {
                         Nodes.Behavior behavior = node.Behavior as Nodes.Behavior;
-                        if (behavior != null)
-                        {
+
+                        if (behavior != null) {
                             // Assume it was Agent type.
-                            v = setProperty(behavior.AgentType, propertyName, VariableDef.kSelf);
+                            v = setProperty(result, node, behavior.AgentType, propertyName, arrayIndexStr, VariableDef.kSelf);
                         }
                     }
                 }
             }
 
-            if (v == null)
-            {
-                // It should be Par type.
-                v = setParameter(node, propertyType, propertyName);
-            }
-
             return v;
         }
 
-        protected VariableDef parseConstVar(NodeTag.DefaultObject node, object parentObject, string str)
+        protected VariableDef parseConstVar(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, string str)
         {
             Debug.Check(str.StartsWith("const"));
 
             //const Int32 1
             object propertyMemberDepended = null;
             Type objType = node.GetType();
-            if (this.DependedProperty != "")
-            {
+
+            if (this.DependedProperty != "") {
                 System.Reflection.PropertyInfo pi = objType.GetProperty(this.DependedProperty);
 
-                if (pi != null)
-                {
+                if (pi != null) {
                     propertyMemberDepended = pi.GetValue(node, null);
-                }
-                else if (pi == null && parentObject != null)
-                {
+
+                } else if (pi == null && parentObject != null) {
                     Type parentType = parentObject.GetType();
                     pi = parentType.GetProperty(this.DependedProperty);
                     propertyMemberDepended = pi.GetValue(parentObject, null);
@@ -239,44 +289,46 @@ namespace Behaviac.Design.Attributes
 
             Type valueType = null;
             VariableDef variableDepended = propertyMemberDepended as VariableDef;
-            if (variableDepended != null)
-            {
+
+            if (variableDepended != null) {
                 valueType = variableDepended.GetValueType();
-            }
-            else if (propertyMemberDepended != null)
-            {
+
+            } else if (propertyMemberDepended != null) {
                 MethodDef methodDepended = propertyMemberDepended as MethodDef;
-                if (methodDepended != null)
-                {
+
+                if (methodDepended != null) {
                     valueType = methodDepended.ReturnType;
-                }
-                else
-                {
+
+                } else {
                     RightValueDef varRV = propertyMemberDepended as RightValueDef;
-                    if (varRV != null)
-                    {
+
+                    if (varRV != null) {
                         valueType = varRV.ValueType;
                     }
                 }
-            }
-            else
-            {
+
+            } else {
                 string[] tokens = str.Split(' ');
-                Debug.Check(tokens.Length == 3);
+                Debug.Check(tokens.Length >= 3);
 
                 valueType = Plugin.GetTypeFromName(tokens[1]);
             }
 
-            if (valueType != null)
-            {
+            if (valueType != null) {
                 VariableDef variable = new VariableDef(null);
 
-                string[] tokens = str.Split(' ');
-                Debug.Check(tokens.Length == 3);
+                //string[] tokens = str.Split(' ');
+                //Debug.Check(tokens.Length == 3);
+                Debug.Check(str.StartsWith("const"));
+                //skip 'const '
+                int pos = str.IndexOf(' ');
+                Debug.Check(pos != -1);
+                pos = str.IndexOf(' ', pos + 1);
+                string token = str.Substring(pos + 1);
 
-                Plugin.InvokeTypeParser(valueType, tokens[2],
-                    (object value) => variable.Value = value, 
-                    node);
+                Plugin.InvokeTypeParser(result, valueType, token,
+                                        (object value) => variable.Value = value,
+                                        node);
 
                 return variable;
             }
@@ -284,20 +336,24 @@ namespace Behaviac.Design.Attributes
             return null;
         }
 
-        protected VariableDef setProperty(AgentType agentType, string propertyName, string valueType)
+        protected static VariableDef setProperty(List<Nodes.Node.ErrorCheck> result, DefaultObject node, AgentType agentType, string propertyName, string arrayIndexStr, string valueType)
         {
-            if (agentType != null)
-            {
+            if (agentType != null) {
                 IList<PropertyDef> properties = agentType.GetProperties();
-                foreach (PropertyDef p in properties)
-                {
+                foreach(PropertyDef p in properties) {
                     if (p.Name == propertyName
 #if BEHAVIAC_NAMESPACE_FIX
                         || p.Name.EndsWith(propertyName)
 #endif
-                        )
-                    {
-                        VariableDef v = new VariableDef(p, valueType);
+                       ) {
+                        VariableDef v = new VariableDef(p.Clone(), valueType);
+
+                        if (v != null && !string.IsNullOrEmpty(arrayIndexStr)) {
+                            v.ArrayIndexElement = new MethodDef.Param("ArrayIndex", typeof(int), "int", "ArrayIndex", "ArrayIndex");
+                            v.ArrayIndexElement.IsArrayIndex = true;
+                            DesignerMethodEnum.parseParam(result, node, null, v.ArrayIndexElement, arrayIndexStr);
+                        }
+
                         return v;
                     }
                 }
@@ -306,31 +362,9 @@ namespace Behaviac.Design.Attributes
             return null;
         }
 
-        protected VariableDef setParameter(NodeTag.DefaultObject node, string propertyType, string propertyName)
-        {
-            List<ParInfo> allPars = new List<ParInfo>();
-            ((Nodes.Node)node.Behavior).GetAllPars(ref allPars);
-            if (allPars.Count > 0)
-            {
-                string fullname = string.Format("{0} {1}", propertyType, propertyName);
-                foreach (ParInfo p in allPars)
-                {
-                    if (p.ToString() == fullname)
-                    {
-                        VariableDef v = new VariableDef(p);
-                        v.SetValue(p, VariableDef.kPar);
-                        return v;
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        public override Type GetEditorType(object obj)
-        {
+        public override Type GetEditorType(object obj) {
             if (_styles == AllowStyles.Self)
-                return typeof(DesignerPropertyEnumEditor);
+            { return typeof(DesignerPropertyEnumEditor); }
 
             return typeof(DesignerPropertyComboEnumEditor);
         }

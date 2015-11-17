@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_FILE_H_
-#define _CORE_FILE_H_
+#ifndef BEHAVIAC_CORE_FILE_H
+#define BEHAVIAC_CORE_FILE_H
 
 #include "behaviac/base/dynamictype.h"
 #include "behaviac/base/file/filesystem.h"
@@ -25,24 +25,23 @@
 class BEHAVIAC_API IFile : public CDynamicType
 {
 public:
-    BEHAVIAC_DECLARE_MEMORY_OPERATORS(IFile)
+    BEHAVIAC_DECLARE_MEMORY_OPERATORS(IFile);
     BEHAVIAC_DECLARE_DYNAMIC_TYPE(IFile, CDynamicType)
 
     virtual ~IFile() {};
 
     virtual uint32_t Read(void* pBuffer, uint32_t numberOfBytesToRead) = 0;
-    virtual uint32_t Read(void* pBuffer, uint32_t OffsetOfBytesToRead, uint32_t numberOfBytesToRead)
-    {
-        BEHAVIAC_UNUSED_VAR(pBuffer);
-        BEHAVIAC_UNUSED_VAR(OffsetOfBytesToRead);
-        BEHAVIAC_UNUSED_VAR(numberOfBytesToRead);
-        return 0;
-    }
+    // virtual uint32_t Read(void* pBuffer, uint32_t OffsetOfBytesToRead, uint32_t numberOfBytesToRead) {
+    //     BEHAVIAC_UNUSED_VAR(pBuffer);
+    //     BEHAVIAC_UNUSED_VAR(OffsetOfBytesToRead);
+    //     BEHAVIAC_UNUSED_VAR(numberOfBytesToRead);
+    //     return 0;
+    // }
     virtual uint32_t	Write(const void* pBuffer, uint32_t numberOfBytesToWrite) = 0;
     virtual int64_t		Seek(int64_t distanceToMove, CFileSystem::ESeekMoveMode moveMethod) = 0;
     virtual uint64_t	GetSize() = 0;
     virtual bool		SetEndOfFile() = 0;
-	virtual void		Flush() { };
+    virtual void		Flush() { };
 
     template<class T>
     uint32_t Read(T& elem)
@@ -81,13 +80,12 @@ public:
     virtual int64_t		Seek(int64_t distanceToMove, CFileSystem::ESeekMoveMode moveMethod);
     virtual uint64_t	GetSize();
     virtual bool		SetEndOfFile();
-	virtual void		Flush();
+    virtual void		Flush();
 
 protected:
     CFileSystem::Handle     m_handle;
     bool m_isRemovableDevice;
 };
-
 
 //////////////////////////////////////////////////////////////////////////
 //  CSequentialFile
@@ -150,7 +148,6 @@ private:
     char*   				m_bufferPointer;
     char*                   m_bufferPointerEnd;
 };
-
 
 //////////////////////////////////////////////////////////////////////////
 // Memory Stream File
@@ -226,4 +223,4 @@ private:
     uint64_t					m_offset;
 };
 
-#endif // _CORE_FILE_H_
+#endif // BEHAVIAC_CORE_FILE_H

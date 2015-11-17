@@ -27,39 +27,38 @@ namespace
 {
     //typedef behaviac::map<CPathID::IDType,const char*, stdext::hash_compare< CPathID::IDType, std::less< CPathID::IDType > >, CCritSection> StringIdDictionary;
     typedef behaviac::map<CPathID::IDType, const char*> StringIdDictionary;
-	static StringIdDictionary* ms_dictionary;
+    static StringIdDictionary* ms_dictionary;
     StringIdDictionary& GetDictionary()
     {
         if (!ms_dictionary)
-		{
-			ms_dictionary = BEHAVIAC_NEW StringIdDictionary;
-		}
+        {
+            ms_dictionary = BEHAVIAC_NEW StringIdDictionary;
+        }
 
-		BEHAVIAC_ASSERT(ms_dictionary);
+        BEHAVIAC_ASSERT(ms_dictionary);
         return *ms_dictionary;
     }
 
-	void CleanupDictionary()
-	{
-		if (ms_dictionary)
-		{
-			StringIdDictionary* dictionary = ms_dictionary;
+    void CleanupDictionary()
+    {
+        if (ms_dictionary)
+        {
+            StringIdDictionary* dictionary = ms_dictionary;
 
-			for (StringIdDictionary::iterator it = dictionary->begin(); it != dictionary->end(); ++it)
-			{
-				const char* p = it->second;
+            for (StringIdDictionary::iterator it = dictionary->begin(); it != dictionary->end(); ++it)
+            {
+                const char* p = it->second;
 
-				BEHAVIAC_FREE(p);
-			}
+                BEHAVIAC_FREE(p);
+            }
 
-			dictionary->clear();
-			BEHAVIAC_DELETE(ms_dictionary);
-			ms_dictionary = 0;
-		}
-	}
+            dictionary->clear();
+            BEHAVIAC_DELETE(ms_dictionary);
+            ms_dictionary = 0;
+        }
+    }
 }
 #endif//#if STRINGID_USESTRINGCONTENT
-
 
 CPathID::CPathID() :
     m_value(InvalidID)
@@ -96,6 +95,7 @@ CPathID::CPathID(const char* path, bool doNotFromat)
         CPathID pathId(path);
         BEHAVIAC_ASSERT(GetUniqueID() == pathId.GetUniqueID());
 #endif // #ifdef BEHAVIAC_ENABLE_ASSERTS
+
     }
     else
     {
@@ -103,13 +103,13 @@ CPathID::CPathID(const char* path, bool doNotFromat)
     }
 }
 
-
 #if STRINGID_USESTRINGCONTENT
 const char* CPathID::c_str() const
 {
     if (m_content == NULL)
     {
         return "";
+
     }
     else
     {
@@ -133,11 +133,10 @@ behaviac::string CPathID::LogStr() const
 
 #endif
 
-
 void CPathID::SetContent(const char* path)
 {
     BEHAVIAC_ASSERT(path);   // no full paths allowed
-    char filename[ PATHID_MAX_PATH ];
+    char filename[PATHID_MAX_PATH];
     filename[0] = '\0';
     CFileManager::GetInstance()->FormatPath(path, filename);
 #ifdef _DEBUG
@@ -151,7 +150,7 @@ void CPathID::SetContent(const char* path)
 
     if (CExtensionConfig::GetInstance())
     {
-        const CExtensionConfig::SConfigInfo* cfg =  CExtensionConfig::GetInstance()->GetInfoFromSource(filename);
+        const CExtensionConfig::SConfigInfo* cfg = CExtensionConfig::GetInstance()->GetInfoFromSource(filename);
 
         if (cfg)
         {
@@ -167,7 +166,7 @@ void CPathID::SetContent(const char* path)
 void CPathID::ClearDictionary()
 {
 #if STRINGID_USESTRINGCONTENT
-	CleanupDictionary();
+    CleanupDictionary();
 #endif//#if STRINGID_USESTRINGCONTENT
 }
 
@@ -180,6 +179,7 @@ void CPathID::SetContentPrivate(const char* content)
 #if STRINGID_USESTRINGCONTENT
         m_content = NULL;
 #endif
+
     }
     else
     {
@@ -196,10 +196,11 @@ void CPathID::SetContentPrivate(const char* content)
     {
         if (string_icmp(content, (*it).second))
         {
-            BEHAVIAC_ASSERT(0,  "There is a conflict between two PathID for the CRC 0x%08X.\n%s\n%s\n\nThe result of that is unpredictable but will probably crash.", m_value, content, (*it).second);
+            BEHAVIAC_ASSERT(0, "There is a conflict between two PathID for the CRC 0x%08X.\n%s\n%s\n\nThe result of that is unpredictable but will probably crash.", m_value, content, (*it).second);
         }
 
         m_content = (*it).second;
+
     }
     else
     {

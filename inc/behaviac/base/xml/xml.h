@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_XML_H_
-#define _CORE_XML_H_
+#ifndef BEHAVIAC_CORE_XML_H
+#define BEHAVIAC_CORE_XML_H
 
 #include "behaviac/base/xml/ixml.h"
 
@@ -142,7 +142,7 @@ public:
 
     //! Returns XML of this node and sub nodes.
     void getXML(behaviac::string& xml, int level = 0) const;
-	void getXML(behaviac::wstring& xml, int level = 0) const;
+    void getXML(behaviac::wstring& xml, int level = 0) const;
     bool saveToFile(const char* fileName) const;
     bool saveToFile(IFile* file) const;
 
@@ -150,7 +150,7 @@ public:
 
     //! Set new XML Node attribute.
     virtual void setAttrText(const char* key, const char* value);
-	virtual void setAttrText(const char* key, const wchar_t* text);
+    virtual void setAttrText(const char* key, const wchar_t* text);
 
     //! Delete attrbute.
     void delAttr(const char* key);
@@ -187,8 +187,6 @@ private:
 #endif //_DEBUG
 };
 
-
-
 /**
 ******************************************************************************
 * CXmlNode class
@@ -196,6 +194,4 @@ private:
 ******************************************************************************
 */
 
-
-
-#endif // #ifndef _CORE_XML_H_
+#endif // #ifndef BEHAVIAC_CORE_XML_H

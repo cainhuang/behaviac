@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _SMART_PTR_H_
-#define _SMART_PTR_H_
+#ifndef BEHAVIAC_SMART_PTR_H
+#define BEHAVIAC_SMART_PTR_H
 
 #include "behaviac/base/base.h"
 //////////////////////////////////////////////////////////////////
@@ -173,7 +173,7 @@ public:
         : m_nRefCounter(0)
     {}
     CRefCounted(const CRefCounted& other)
-        : m_nRefCounter(0) // All CRefCounted objects must be constructed with 0 refcount, do NOT copy other's count!
+        : m_nRefCounter(0)   // All CRefCounted objects must be constructed with 0 refcount, do NOT copy other's count!
     {
         BEHAVIAC_UNUSED_VAR(other);
     }
@@ -219,9 +219,8 @@ protected:
     long m_nRefCounter;
 };
 
-
 // TYPEDEF_AUTOPTR macro, declares Class_AutoPtr, which is the smart pointer to the given class,
 // and Class_AutoArray, which is the array(STL vector) of autopointers
 #define TYPEDEF_AUTOPTR(T) typedef CSmartPtr<T> T##_AutoPtr;
 
-#endif //_SMART_PTR_H_
+#endif //BEHAVIAC_SMART_PTR_H

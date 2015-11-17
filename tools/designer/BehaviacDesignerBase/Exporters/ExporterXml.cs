@@ -39,6 +39,7 @@ using System.Xml;
 using Behaviac.Design.Nodes;
 using Behaviac.Design.Attributes;
 using Behaviac.Design.Properties;
+using Behaviac.Design.Attachments;
 
 namespace Behaviac.Design.Exporters
 {
@@ -52,14 +53,13 @@ namespace Behaviac.Design.Exporters
         /// <summary>
         /// The namespace the behaviours will be exported to.
         /// </summary>
-        public static string UsedNamespace
-        {
+        public static string UsedNamespace {
             get { return __usedNamespace; }
             set { __usedNamespace = value; }
         }
 
-        public ExporterXml(BehaviorNode node, string outputFolder, string filename)
-            : base(node, outputFolder, filename + ".xml")
+        public ExporterXml(BehaviorNode node, string outputFolder, string filename, List<string> includedFilenames = null)
+            : base(node, outputFolder, filename + ".xml", includedFilenames)
         {
         }
 
@@ -68,13 +68,12 @@ namespace Behaviac.Design.Exporters
         /// </summary>
         /// <param name="file">The file we want to export to.</param>
         /// <param name="behavior">The behaviour we want to export.</param>
-        protected void ExportBehavior(XmlWriter file, BehaviorNode behavior)
-        {
+        protected void ExportBehavior(XmlWriter file, BehaviorNode behavior) {
             file.WriteComment("EXPORTED BY TOOL, DON'T MODIFY IT!");
             file.WriteComment("Source File: " + behavior.MakeRelative(behavior.FileManager.Filename));
 
             file.WriteStartElement("behavior");
-            
+
             Behavior b = behavior as Behavior;
             Debug.Check(b != null);
             Debug.Check(b.Id == -1);
@@ -83,101 +82,127 @@ namespace Behaviac.Design.Exporters
             string behaviorName = b.MakeRelative(b.Filename);
             behaviorName = behaviorName.Replace('\\', '/');
             int pos = behaviorName.IndexOf(".xml");
-            if (pos != -1)
-            {
+
+            if (pos != -1) {
                 behaviorName = behaviorName.Remove(pos);
             }
 
             file.WriteAttributeString("name", behaviorName);
             //file.WriteAttributeString("event", b.EventName);
             file.WriteAttributeString("agenttype", b.AgentType.AgentTypeName);
+
+            if (b.IsFSM)
+            { file.WriteAttributeString("fsm", "true"); }
+
             file.WriteAttributeString("version", b.Version.ToString());
 
             this.ExportProperties(file, b);
 
-            this.ExportParameters(file, (Node)behavior);
+            this.ExportPars(file, b);
 
-            this.ExportAttachments(file, b);
+            if (!b.IsFSM)
+            { this.ExportAttachments(file, b); }
+
 #if QUERY_EANBLED
             //after ExportProperties as DescritorRefs are exported as property
             this.ExportDescritorRefs(file, b);
 #endif//#if QUERY_EANBLED
 
-            // export the children
-            foreach (Node child in ((Node)behavior).Children)
+            if (b.IsFSM)
             {
-                this.ExportNode(file, behavior, (Node)behavior, child);
-            }
+                file.WriteStartElement("node");
 
-            file.WriteEndElement();
-        }
+                file.WriteAttributeString("class", "FSM");
+                file.WriteAttributeString("id", "-1");
 
-        private void ExportParameters(XmlWriter file, Node node)
-        {
-            if (node.Pars.Count == 0)
-                return;
+                file.WriteStartElement("property");
+                file.WriteAttributeString("initialid", behavior.InitialStateId.ToString());
+                file.WriteEndElement();
 
-            file.WriteStartElement("pars");
-
-            for (int i = 0; i < node.Pars.Count; ++i)
-            {
-                //if (node.Pars[i].Name == "par0_char_0")
-                //{
-                //    Debug.Check(true);
-                //}
-
-                string parType = Plugin.GetNativeTypeName(node.Pars[i].Type);
-
-                file.WriteStartElement("par");
-
-                file.WriteAttributeString("name", node.Pars[i].Name);
-                file.WriteAttributeString("type", parType);
-                file.WriteAttributeString("value", node.Pars[i].DefaultValue);
+                foreach (Node child in ((Node)behavior).FSMNodes)
+                {
+                    this.ExportNode(file, behavior, child);
+                }
 
                 file.WriteEndElement();
             }
-
-            file.WriteEndElement();
-        }
-
-        private void ExportParameters(XmlWriter file, Attachments.Attachment attachment)
-        {
-            Attachments.Event evt = attachment as Attachments.Event;
-
-            if (evt == null || evt.Pars.Count == 0)
-                return;
-
-            file.WriteStartElement("pars");
-
-            for (int i = 0; i < evt.Pars.Count; ++i)
+            else
             {
-                file.WriteStartElement("par");
-
-                file.WriteAttributeString("name", evt.Pars[i].Name);
-                file.WriteAttributeString("type", Plugin.GetNativeTypeName(evt.Pars[i].Type));
-                file.WriteAttributeString("value", evt.Pars[i].DefaultValue);
-                if (!string.IsNullOrEmpty(evt.Pars[i].EventParam))
-                    file.WriteAttributeString("eventParam", evt.Pars[i].EventParam);
-
-                file.WriteEndElement();
+                // export the children
+                foreach (Node child in ((Node)behavior).Children)
+                {
+                    this.ExportNode(file, behavior, child);
+                }
             }
 
             file.WriteEndElement();
         }
 
+        private void ExportPars(XmlWriter file, Behavior behavior) {
+            if (behavior.LocalVars.Count == 0) {
+                return;
+            }
+
+            file.WriteStartElement("pars");
+
+            for (int i = 0; i < behavior.LocalVars.Count; ++i) {
+                ParInfo par = behavior.LocalVars[i];
+
+                //for node, only display pars are exported
+                //if (bIsBehaviorRoot || par.Display)
+                {
+                    ExportPar(file, par, true);
+                }
+            }
+
+            file.WriteEndElement();
+        }
+
+        private void ExportPar(XmlWriter file, ParInfo par, bool bExportValue) {
+            file.WriteStartElement("par");
+
+            file.WriteAttributeString("name", par.BasicName);
+            file.WriteAttributeString("type", par.NativeType);
+
+            if (bExportValue) {
+                file.WriteAttributeString("value", par.DefaultValue);
+            }
+
+            //if (!string.IsNullOrEmpty(par.EventParam))
+            //{
+            //    file.WriteAttributeString("eventParam", par.EventParam);
+            //}
+            //file.WriteAttributeString("member", "false");
+            //if (par.AgentType != null)
+            //    file.WriteAttributeString("agent", par.AgentType.AgentTypeName);
+
+            file.WriteEndElement();
+        }
 
 #if QUERY_EANBLED
-        private void ExportDescritorRefs(XmlWriter file, Behavior b)
-        {
-            if (b.DescriptorRefs.Count == 0)
-                return;
+        private void ExportDescritorRefs(XmlWriter file, Behavior b) {
+            if (Plugin.IsQueryFiltered)
+            { 
+                return; 
+            }
 
-            file.WriteStartElement("property");
+            if (b.DescriptorRefs.Count > 0)
+            {
+                file.WriteStartElement("property");
+                string propValue = DesignerArray.RetrieveExportValue(b.DescriptorRefs);
+                file.WriteAttributeString("DescriptorRefs", propValue);
+                file.WriteEndElement();
+            }
 
-            string propValue = DesignerArray.RetrieveExportValue(b.DescriptorRefs);
-            file.WriteAttributeString("DescriptorRefs", propValue);
-
-            file.WriteEndElement();
+            {
+                string propValue = b.Domains;
+                if (!string.IsNullOrEmpty(propValue))
+                {
+                    file.WriteStartElement("property");
+                    file.WriteAttributeString("Domains", propValue);
+                    file.WriteEndElement();
+                }
+            }
         }
 #endif//#endif//#if QUERY_EANBLED
 
@@ -185,52 +210,38 @@ namespace Behaviac.Design.Exporters
         /// Exports a node to the given file.
         /// </summary>
         /// <param name="file">The file we want to export to.</param>
-        /// <param name="namspace">The namespace of the behaviour we are currently exporting.</param>
         /// <param name="behavior">The behaviour we are currently exporting.</param>
-        /// <param name="parentName">The name of the variable of the node which is the parent of this node.</param>
         /// <param name="node">The node we want to export.</param>
-        /// <param name="indentDepth">The indent of the ocde we are exporting.</param>
-        /// <param name="nodeID">The current id used for generating the variables for the nodes.</param>
-        protected void ExportNode(XmlWriter file, BehaviorNode behavior, Node parent, Node node)
-        {
+        protected void ExportNode(XmlWriter file, BehaviorNode behavior, Node node) {
             if (!node.Enable)
-                return;
+            { return; }
 
             file.WriteStartElement("node");
 
             file.WriteAttributeString("class", node.ExportClass);
-            file.WriteAttributeString("version", node.Version.ToString());
             file.WriteAttributeString("id", node.Id.ToString());
 
-            //// we have to handle a referenced behaviour differently
-            //if (node is ReferencedBehaviorNode)
-            //{
-            //    // generate the namespace and name of the behaviour we are referencing
-            //    string refRelativeFilename = behavior.MakeRelative(((ReferencedBehaviorNode)node).ReferenceFilename);
-            //    string refBehaviorName = Path.GetFileNameWithoutExtension(((ReferencedBehaviorNode)node).ReferenceFilename.Replace(" ", string.Empty));
-
-            //    file.WriteStartElement("property");
-            //    file.WriteAttributeString("referencefilename", refBehaviorName);
-            //    file.WriteEndElement();
-            //}
-            //else
             {
                 // export the properties
                 this.ExportProperties(file, node);
 
-                this.ExportParameters(file, node);
-
                 this.ExportAttachments(file, node);
 
-                // add the node to its parent
-                //file.Write(string.Format("{0}\t{1}.AddChild({1}.GetConnector(\"{2}\"), {3});\r\n", indent, parentName, node.ParentConnector.Identifier, nodeName));
-
-                if (!(node is ReferencedBehavior))
+                if (!node.IsFSM && !(node is ReferencedBehavior))
                 {
                     // export the child nodes
                     foreach (Node child in node.Children)
                     {
-                        this.ExportNode(file, behavior, node, child);
+                        if (!node.GetConnector(child).IsAsChild)
+                        {
+                            file.WriteStartElement("custom");
+                            this.ExportNode(file, behavior, child);
+                            file.WriteEndElement();
+                        }
+                        else
+                        {
+                            this.ExportNode(file, behavior, child);
+                        }
                     }
                 }
             }
@@ -245,107 +256,156 @@ namespace Behaviac.Design.Exporters
         /// <param name="nodeName">The name of the node we are setting the properties for.</param>
         /// <param name="node">The node whose properties we are exporting.</param>
         /// <param name="indent">The indent for the currently generated code.</param>
-        private void ExportProperties(XmlWriter file, Node n)
-        {
+        private void ExportProperties(XmlWriter file, Node n) {
             IList<DesignerPropertyInfo> properties = n.GetDesignerProperties();
 
-            foreach (DesignerPropertyInfo p in properties)
-            {
+            foreach(DesignerPropertyInfo p in properties) {
                 // we skip properties which are not marked to be exported
                 if (p.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoExport))
-                    continue;
+                { continue; }
 
-                bool bDo = true;
-                if (p.Attribute.HasFlags(DesignerProperty.DesignerFlags.BeValid))
-                {
-                    object obj = p.Property.GetValue(n, null);
+                object v = p.Property.GetValue(n, null);
+                bool bExport = !Plugin.IsExportArray(v); ;
 
-                    if (obj == null || obj.ToString() == "null_method")
-                    {
-                        bDo = false;
-                    }
-                }
-
-                if (bDo)
-                {
+                if (bExport) {
 
                     // create the code which assigns the value to the node's property
                     //file.Write(string.Format("{0}\t{1}.{2} = {3};\r\n", indent, nodeName, properties[p].Property.Name, properties[p].GetExportValue(node)));
                     string propValue = p.GetExportValue(n);
-                    if (propValue != string.Empty && propValue != "\"\"")
-                    {
+
+                    if (propValue != string.Empty && propValue != "\"\"") {
                         file.WriteStartElement("property");
                         file.WriteAttributeString(p.Property.Name, propValue);
                         file.WriteEndElement();
                     }
                 }
             }
-        }
 
-        private void ExportProperties(XmlWriter file, Attachments.Attachment a)
-        {
-            IList<DesignerPropertyInfo> properties = a.GetDesignerProperties();
-            foreach (DesignerPropertyInfo p in properties)
-            {
-                // we skip properties which are not marked to be exported
-                if (p.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoExport))
-                    continue;
-
-                // create the code which assigns the value to the node's property
-                //file.Write(string.Format("{0}\t{1}.{2} = {3};\r\n", indent, nodeName, properties[p].Property.Name, properties[p].GetExportValue(node)));
+            if (n is Task) {
+                Task task = n as Task;
                 file.WriteStartElement("property");
-                file.WriteAttributeString(p.Property.Name, p.GetExportValue(a));
+                file.WriteAttributeString("IsHTN", task.IsHTN ? "true" : "false");
                 file.WriteEndElement();
             }
         }
 
+        private void ExportProperties(XmlWriter file, Attachments.Attachment a) {
+            DesignerPropertyInfo propertyEffector = new DesignerPropertyInfo();
+            IList<DesignerPropertyInfo> properties = a.GetDesignerProperties(true);
+            foreach(DesignerPropertyInfo p in properties) {
+                // we skip properties which are not marked to be exported
+                if (p.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoExport))
+                { continue; }
 
-        protected void ExportAttachments(XmlWriter file, Node node)
-        {
-            //file.WriteStartElement("attachments");
+                object v = p.Property.GetValue(a, null);
+                bool bExport = !Plugin.IsExportArray(v);
 
-            foreach (Attachments.Attachment a in node.Attachments)
-            {
+                if (bExport) {
+                    if (p.Property.Name == "Effectors") {
+                        propertyEffector = p;
+
+                    } else {
+                        // create the code which assigns the value to the node's property
+                        //file.Write(string.Format("{0}\t{1}.{2} = {3};\r\n", indent, nodeName, properties[p].Property.Name, properties[p].GetExportValue(node)));
+                        string propValue = p.GetExportValue(a);
+
+                        if (propValue != string.Empty && propValue != "\"\"") {
+                            file.WriteStartElement("property");
+                            file.WriteAttributeString(p.Property.Name, propValue);
+                            file.WriteEndElement();
+                        }
+                    }
+                }
+            }
+
+            if (propertyEffector.Property != null) {
+                List<TransitionEffector> listV = (List<TransitionEffector>)propertyEffector.Property.GetValue(a, null);
+
+                if (listV != null) {
+                    foreach(TransitionEffector te in listV) {
+                        IList<DesignerPropertyInfo> effectorProperties = te.GetDesignerProperties();
+                        file.WriteStartElement("attachment");
+
+                        foreach(DesignerPropertyInfo p in effectorProperties) {
+                            // we skip properties which are not marked to be exported
+                            if (p.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoExport))
+                            { continue; }
+
+                            string propValue = p.GetExportValue(te);
+
+                            if (propValue != string.Empty && propValue != "\"\"") {
+                                file.WriteStartElement("property");
+                                file.WriteAttributeString(p.Property.Name, propValue);
+                                file.WriteEndElement();
+                            }
+                        }
+
+                        file.WriteEndElement();
+                    }
+                }
+            }
+        }
+
+        protected void ExportAttachments(XmlWriter file, Node node) {
+            foreach(Attachments.Attachment a in node.Attachments) {
                 file.WriteStartElement("attachment");
 
                 Type type = a.GetType();
                 file.WriteAttributeString("class", a.ExportClass);
                 file.WriteAttributeString("id", a.Id.ToString());
 
+                string flagStr = "precondition";
+
+                if (a.IsTransition) {
+                    flagStr = "transition";
+
+                } else if (a.IsPrecondition) {
+                    Debug.Check(!a.IsEffector);
+                    flagStr = "precondition";
+
+                } else if (a.IsEffector) {
+                    Debug.Check(!a.IsPrecondition);
+                    flagStr = "effector";
+
+                } else if (!a.IsPrecondition && !a.IsEffector) {
+                    flagStr = "event";
+
+                } else {
+                    Debug.Check(false);
+                }
+
+                file.WriteAttributeString("flag", flagStr);
+
                 this.ExportProperties(file, a);
-                this.ExportParameters(file, a);
 
                 file.WriteEndElement();
             }
-
-            //file.WriteEndElement();
         }
 
         /// <summary>
         /// Export the assigned node to the assigned file.
         /// </summary>
         /// <returns>Returns the result when the behaviour is exported.</returns>
-        public override FileManagers.SaveResult Export()
-        {
+        public override FileManagers.SaveResult Export() {
             string filename = Path.Combine(_outputFolder, _filename);
             FileManagers.SaveResult result = FileManagers.FileManager.MakeWritable(filename, Resources.ExportFileWarning);
+
             if (FileManagers.SaveResult.Succeeded != result)
-                return result;
+            { return result; }
 
             // get the abolute folder of the file we want toexport
             string folder = Path.GetDirectoryName(filename);
+
             if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
+            { Directory.CreateDirectory(folder); }
 
             // export to the file
-            using (StreamWriter file = new StreamWriter(filename))
-            {
+            using(StreamWriter file = new StreamWriter(filename)) {
                 XmlWriterSettings ws = new XmlWriterSettings();
                 ws.Indent = true;
                 //ws.OmitXmlDeclaration = true;
 
-                using (XmlWriter xmlWrtier = XmlWriter.Create(file, ws))
-                {
+                using(XmlWriter xmlWrtier = XmlWriter.Create(file, ws)) {
                     xmlWrtier.WriteStartDocument();
                     ExportBehavior(xmlWrtier, _node);
                     xmlWrtier.WriteEndDocument();

@@ -60,16 +60,14 @@ namespace Behaviac.Design.Nodes
             /// The background color used for drawing.
             /// </summary>
             [DesignerEnum("NodeCommentBackground", "NodeCommentBackgroundDesc", "CategoryComment", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoExport, "")]
-            public CommentColor Background
-            {
+            public CommentColor Background {
                 get { return _backgroundColor; }
 
                 set
                 {
                     _backgroundColor = value;
 
-                    switch (_backgroundColor)
-                    {
+                    switch (_backgroundColor) {
                         case (CommentColor.NoColor):
                             _backgroundBrush = null;
                             _labelBrush = Brushes.Black;
@@ -120,7 +118,8 @@ namespace Behaviac.Design.Nodes
                             _labelBrush = new SolidBrush(Color.FromArgb(90, 70, 100));
                             break;
 
-                        default: throw new Exception(Resources.ExceptionUnhandledCommentColor);
+                        default:
+                            throw new Exception(Resources.ExceptionUnhandledCommentColor);
                     }
                 }
             }
@@ -131,8 +130,7 @@ namespace Behaviac.Design.Nodes
             /// The comment stored.
             /// </summary>
             [DesignerString("NodeCommentText", "NodeCommentTextDesc", "CategoryComment", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoExport)]
-            public string Text
-            {
+            public string Text {
                 get { return _comment; }
                 set { _comment = value; }
             }
@@ -141,8 +139,7 @@ namespace Behaviac.Design.Nodes
             /// Creates a new comment for a node.
             /// </summary>
             /// <param name="comment">The comment shown.</param>
-            public Comment(string comment)
-            {
+            public Comment(string comment) {
                 _comment = comment;
                 Background = CommentColor.NoColor;
             }
@@ -154,12 +151,11 @@ namespace Behaviac.Design.Nodes
             /// <param name="nvd">The view data of this node in the current view.</param>
             /// <param name="renderDepth">The depth which is still rendered.</param>
             /// <param name="padding">The padding between the nodes.</param>
-            public void DrawBackground(Graphics graphics, NodeViewData nvd, int renderDepth, SizeF padding)
-            {
-                SizeF size = nvd.GetTotalSize(padding.Width, renderDepth);
+            public void DrawBackground(Graphics graphics, NodeViewData nvd, int renderDepth, SizeF padding) {
+                float paddingWidth = nvd.IsFSM ? 0 : padding.Width;
+                SizeF size = nvd.GetTotalSize(paddingWidth, renderDepth);
 
-                if (_backgroundColor != CommentColor.NoColor)
-                {
+                if (_backgroundColor != CommentColor.NoColor) {
                     float commentPadding = Math.Min(padding.Height, padding.Width) * 0.75f;
 
                     ExtendedGraphics extended = new ExtendedGraphics(graphics);
@@ -172,11 +168,9 @@ namespace Behaviac.Design.Nodes
             /// </summary>
             /// <param name="graphics">The graphics object we render to.</param>
             /// <param name="nvd">The view data of this node in the current view.</param>
-            public void DrawText(Graphics graphics, NodeViewData nvd)
-            {
-                if (_comment != string.Empty)
-                {
-                    graphics.DrawString(_comment, __font, _labelBrush, nvd.LayoutRectangle.Location.X + 25, nvd.LayoutRectangle.Location.Y);
+            public void DrawText(Graphics graphics, NodeViewData nvd) {
+                if (_comment != string.Empty) {
+                    graphics.DrawString(_comment, __font, _labelBrush, nvd.LayoutRectangle.Location.X + 5, nvd.LayoutRectangle.Location.Y);
                 }
             }
 
@@ -184,8 +178,7 @@ namespace Behaviac.Design.Nodes
             /// Returns a list of all properties which have a designer attribute attached.
             /// </summary>
             /// <returns>A list of all properties relevant to the designer.</returns>
-            public IList<DesignerPropertyInfo> GetDesignerProperties()
-            {
+            public IList<DesignerPropertyInfo> GetDesignerProperties() {
                 return DesignerProperty.GetDesignerProperties(GetType());
             }
 
@@ -193,8 +186,7 @@ namespace Behaviac.Design.Nodes
             /// Creates a copy of this comment.
             /// </summary>
             /// <returns>The copy of this comment.</returns>
-            public Comment Clone()
-            {
+            public Comment Clone() {
                 Comment cm = new Comment(_comment);
 
                 cm.Background = Background;

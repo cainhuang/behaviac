@@ -11,16 +11,16 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_MEMORY_H_
-#define BEHAVIAC_MEMORY_H_
+#ifndef BEHAVIAC_MEMORY_H
+#define BEHAVIAC_MEMORY_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
 
 #if BEHAVIAC_COMPILER_APPLE
-	//#include <sys/malloc.h>
+//#include <sys/malloc.h>
 #else
-	#include <malloc.h>
+#include <malloc.h>
 #endif//BEHAVIAC_COMPILER_APPLE
 
 #include <memory.h>
@@ -42,19 +42,18 @@
 //_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 //_CrtDumpMemoryLeaks();
 
-
 #if _MSC_VER >= 1400
 #include <crtdbg.h>
 #endif//#if _MSC_VER >= 1400
 
 namespace behaviac
 {
-	BEHAVIAC_API IMemAllocator& GetMemoryAllocator();
+    BEHAVIAC_API IMemAllocator& GetMemoryAllocator();
 
-	/**
-	you can call this to override/customize the memory allocator
-	*/
-	BEHAVIAC_API void SetMemoryAllocator(IMemAllocator& allocator);
+    /**
+    you can call this to override/customize the memory allocator
+    */
+    BEHAVIAC_API void SetMemoryAllocator(IMemAllocator& allocator);
 }
 
 #define BEHAVIAC_MALLOC_WITHTAG(size, tag)							BEHAVIAC_ALLOCATOR_MALLOC_WITHTAG(&behaviac::GetMemoryAllocator(), size, tag)
@@ -74,22 +73,21 @@ namespace behaviac
 #define BEHAVIAC_FREEALIGNED(ptr, alignment)						BEHAVIAC_FREEALIGNED_WITHTAG(ptr, alignment, "behaviac")
 
 #if BEHAVIAC_COMPILER_MSVC
-	/// Allocates memory on the stack
-	#define BEHAVIAC_ALLOCA(s)  _alloca(s)
+/// Allocates memory on the stack
+#define BEHAVIAC_ALLOCA(s)  _alloca(s)
 #else
-	/// Allocates memory on the stack
-	#define BEHAVIAC_ALLOCA(s)  alloca(s)
+/// Allocates memory on the stack
+#define BEHAVIAC_ALLOCA(s)  alloca(s)
 #endif
-
 
 namespace behaviac
 {
-	template<typename T>
-	behaviac::IMemAllocator* GetAllocator()
-	{
-		behaviac::IMemAllocator* pAllocator = &behaviac::GetMemoryAllocator();
-		return pAllocator;
-	}
+    template<typename T>
+    behaviac::IMemAllocator* GetAllocator()
+    {
+        behaviac::IMemAllocator* pAllocator = &behaviac::GetMemoryAllocator();
+        return pAllocator;
+    }
 }
 
 #include "memory.inl"
@@ -109,7 +107,7 @@ namespace behaviac
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define BEHAVIAC_DECLARE_MEMORY_OPERATORS(CLASS) \
-	BEHAVIAC_DECLARE_MEMORY_OPERATORS_(CLASS, BEHAVIAC_ALIGNOF(CLASS))
+    BEHAVIAC_DECLARE_MEMORY_OPERATORS_(CLASS, BEHAVIAC_ALIGNOF(CLASS))
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -122,19 +120,19 @@ BEHAVIAC_DELETE	type
 
 if the 'type' doesn't include 'BEHAVIAC_DECLARE_MEMORY_OPERATORS', it has the following risks:
 
-BEHAVIAC_DELETE calls behaviac::Private::MemHelperDeleteAlignment to handle alignment 
-while BEHAVIAC_NEW doesn't handle alignment(alignenmt is always 4). 
+BEHAVIAC_DELETE calls behaviac::Private::MemHelperDeleteAlignment to handle alignment
+while BEHAVIAC_NEW doesn't handle alignment(alignenmt is always 4).
 
 so if type's alignment > 4, it will assert-fail and crash in _aligned_free(was allocated by malloc instead of _aligned_malloc)
 please use BEHAVIAC_G_NEW/BEHAVIAC_G_DELETE instead or to include BEHAVIAC_DECLARE_MEMORY_OPERATORS
 
-the other risk is BEHAVIAC_NEW uses behaviac::GetMemoryAllocator() as the allocator 
-while BEHAVIAC_DELETE uses behaviac::GetAllocator<T>() as the allocator, 
+the other risk is BEHAVIAC_NEW uses behaviac::GetMemoryAllocator() as the allocator
+while BEHAVIAC_DELETE uses behaviac::GetAllocator<T>() as the allocator,
 so if these two allocators are not the same, it causes problems.
 please use BEHAVIAC_G_NEW/BEHAVIAC_G_DELETE instead or to include BEHAVIAC_DECLARE_MEMORY_OPERATORS
 
-also, BEHAVIAC_NEW_ARRAY/BEHAVIAC_DELETE_ARRAY MUST work together with BEHAVIAC_DECLARE_MEMORY_OPERATORS, 
-otherwise, it will assert-fail. this is when you need to new/delete an array, 
+also, BEHAVIAC_NEW_ARRAY/BEHAVIAC_DELETE_ARRAY MUST work together with BEHAVIAC_DECLARE_MEMORY_OPERATORS,
+otherwise, it will assert-fail. this is when you need to new/delete an array,
 either you should use BEHAVIAC_G_NEW_ARRAY/BEHAVIAC_G_DELETE_ARRAY or you should include BEHAVIAC_DECLARE_MEMORY_OPERATORS int the type.
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,5 +145,4 @@ either you should use BEHAVIAC_G_NEW_ARRAY/BEHAVIAC_G_DELETE_ARRAY or you should
 /*! @} */
 /*! @} */
 
-
-#endif//BEHAVIAC_MEMORY_H_
+#endif//BEHAVIAC_MEMORY_H

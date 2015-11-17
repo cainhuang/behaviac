@@ -11,14 +11,14 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_MEMORY_STL_ALLOCATOR_H_
-#define _BEHAVIAC_MEMORY_STL_ALLOCATOR_H_
+#ifndef BEHAVIAC_MEMORY_STL_ALLOCATOR_H
+#define BEHAVIAC_MEMORY_STL_ALLOCATOR_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/memory/memory.h"
 
 namespace behaviac
-{   
+{
     template <typename T> class stl_allocator;
     template <> class stl_allocator<void>
     {
@@ -41,7 +41,7 @@ namespace behaviac
         template <typename T>
         BEHAVIAC_FORCEINLINE void destruct(T* t)
         {
-			((void) &t);
+            ((void)&t);
             t->~T();
         }
     } // namespace Private
@@ -67,7 +67,7 @@ namespace behaviac
         stl_allocator() {}
         pointer address(reference x)
         {
-            return& x;
+            return&x;
         }
         const_pointer address(const_reference x) const
         {
@@ -124,7 +124,6 @@ namespace behaviac
     private:
     };
 
-
     template <typename T, typename U>
     BEHAVIAC_FORCEINLINE bool operator==(const stl_allocator<T>&, const stl_allocator<U>)
     {
@@ -136,9 +135,6 @@ namespace behaviac
     {
         return false;
     }
-
 }//namespace behaviac
 
-
-#endif//_BEHAVIAC_MEMORY_STL_ALLOCATOR_H_
-
+#endif//BEHAVIAC_MEMORY_STL_ALLOCATOR_H

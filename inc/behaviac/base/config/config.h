@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_CONFIG_H_
-#define _BEHAVIAC_BASE_CONFIG_H_
+#ifndef BEHAVIAC_BASE_CONFIG_H
+#define BEHAVIAC_BASE_CONFIG_H
 
 #include "behaviac/base/core/singleton.h"
 #include "behaviac/base/core/string/stringid.h"
@@ -21,7 +21,6 @@
 
 #include <map>
 #include <string>
-
 
 class BEHAVIAC_API CConfig
 {
@@ -52,4 +51,4 @@ private:
     behaviac::map< CStringID, XmlConstNodeRef > m_settingsXmlInfo;
 };
 
-#endif // #ifndef _BEHAVIAC_BASE_CONFIG_H_
+#endif // #ifndef BEHAVIAC_BASE_CONFIG_H

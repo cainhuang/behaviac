@@ -13,34 +13,32 @@
 
 namespace Behaviac.Design
 {
-	partial class BreakPointsDock
-	{
-        /// <summary> 
+    partial class BreakPointsDock
+    {
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BreakPointsDock));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -63,16 +61,16 @@ namespace Behaviac.Design
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panel
-            // 
+            //
             resources.ApplyResources(this.panel, "panel");
             this.panel.Controls.Add(this.dataGridView);
             this.panel.Controls.Add(this.toolStrip);
             this.panel.Name = "panel";
-            // 
+            //
             // dataGridView
-            // 
+            //
             resources.ApplyResources(this.dataGridView, "dataGridView");
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AllowUserToDeleteRows = false;
@@ -108,98 +106,99 @@ namespace Behaviac.Design
             this.dataGridView.RowTemplate.Height = 23;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_KeyDown);
-            // 
+            //
             // toolStrip
-            // 
+            //
             resources.ApplyResources(this.toolStrip, "toolStrip");
             this.toolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showButton,
-            this.toolStripSeparator1,
-            this.deleteButton,
-            this.enableButton,
-            this.disableButton,
-            this.toolStripSeparator2,
-            this.deleteAllButton,
-            this.enableAllButton,
-            this.disableAllButton,
-            this.toolStripSeparator3,
-            this.saveButton});
+                this.showButton,
+                this.toolStripSeparator1,
+                this.deleteButton,
+                this.enableButton,
+                this.disableButton,
+                this.toolStripSeparator2,
+                this.deleteAllButton,
+                this.enableAllButton,
+                this.disableAllButton,
+                this.toolStripSeparator3,
+                this.saveButton
+            });
             this.toolStrip.Name = "toolStrip";
-            // 
+            //
             // showButton
-            // 
+            //
             resources.ApplyResources(this.showButton, "showButton");
             this.showButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.showButton.Name = "showButton";
             this.showButton.Click += new System.EventHandler(this.showButton_Click);
-            // 
+            //
             // toolStripSeparator1
-            // 
+            //
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            // 
+            //
             // deleteButton
-            // 
+            //
             resources.ApplyResources(this.deleteButton, "deleteButton");
             this.deleteButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
-            // 
+            //
             // enableButton
-            // 
+            //
             resources.ApplyResources(this.enableButton, "enableButton");
             this.enableButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.enableButton.Name = "enableButton";
             this.enableButton.Click += new System.EventHandler(this.enableButton_Click);
-            // 
+            //
             // disableButton
-            // 
+            //
             resources.ApplyResources(this.disableButton, "disableButton");
             this.disableButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.disableButton.Name = "disableButton";
             this.disableButton.Click += new System.EventHandler(this.disableButton_Click);
-            // 
+            //
             // toolStripSeparator2
-            // 
+            //
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            // 
+            //
             // deleteAllButton
-            // 
+            //
             resources.ApplyResources(this.deleteAllButton, "deleteAllButton");
             this.deleteAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.deleteAllButton.Name = "deleteAllButton";
             this.deleteAllButton.Click += new System.EventHandler(this.deleteAllButton_Click);
-            // 
+            //
             // enableAllButton
-            // 
+            //
             resources.ApplyResources(this.enableAllButton, "enableAllButton");
             this.enableAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.enableAllButton.Name = "enableAllButton";
             this.enableAllButton.Click += new System.EventHandler(this.enableAllButton_Click);
-            // 
+            //
             // disableAllButton
-            // 
+            //
             resources.ApplyResources(this.disableAllButton, "disableAllButton");
             this.disableAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.disableAllButton.Name = "disableAllButton";
             this.disableAllButton.Click += new System.EventHandler(this.disableAllButton_Click);
-            // 
+            //
             // toolStripSeparator3
-            // 
+            //
             resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            // 
+            //
             // saveButton
-            // 
+            //
             resources.ApplyResources(this.saveButton, "saveButton");
             this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.saveButton.Name = "saveButton";
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
+            //
             // BreakPointsDock
-            // 
+            //
             resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.Controls.Add(this.panel);
@@ -213,9 +212,9 @@ namespace Behaviac.Design
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.DataGridView dataGridView;

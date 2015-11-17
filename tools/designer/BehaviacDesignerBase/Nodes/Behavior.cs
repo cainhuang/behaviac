@@ -41,35 +41,53 @@ using System.IO;
 using Behaviac.Design.Attributes;
 using Behaviac.Design.Attachments;
 using Behaviac.Design.Properties;
-
+using Behaviac.Design.Data;
 
 namespace Behaviac.Design.Nodes
 {
-    public interface BehaviorNode : ICloneable
-    {
+    public delegate void AgentTypeEventDelegate(AgentType agentType);
+    public delegate void WasModifiedEventDelegate(BehaviorNode root, Node node);
+    public delegate void WasSavedEventDelegate(BehaviorNode root);
+    public delegate void WasRenamedEventDelegate(BehaviorNode root);
+
+public interface BehaviorNode :
+    ICloneable {
         FileManagers.FileManager FileManager { get; set; }
         string Folder { get; set; }
         string Filename { get; set; }
         string RelativePath { get; }
         bool IsPrefab { get; set; }
+        int Version{get; set;}
 
         void Restore(BehaviorNode source);
 
+        int InitialStateId { get; }
+
         AgentType AgentType { get; set; }
         int ModificationID { get; }
-        bool IsModified { get; set; }
+        bool IsModified { get; }
+        void TriggerWasModified(Node node);
+        void TriggerWasSaved();
+        void TriggerWasRenamed();
+
         Node.Connector GenericChildren { get; }
 
         string MakeAbsolute(string filename);
         string MakeRelative(string filename);
-
-        void TriggerWasSaved();
-        void TriggerWasRenamed();
         string GetPathLabel(string behaviorFolder);
 
-        event Behavior.AgentTypeEventDelegate AgentTypeChanged;
-        event Behavior.WasSavedEventDelegate WasSaved;
-        event Behavior.WasRenamedEventDelegate WasRenamed;
+        void PostLoadPars();
+
+        void PreSave();
+        void PostSave();
+
+        void PreExport();
+        void PostExport();
+
+        event AgentTypeEventDelegate AgentTypeChanged;
+        event WasModifiedEventDelegate WasModified;
+        event WasSavedEventDelegate WasSaved;
+        event WasRenamedEventDelegate WasRenamed;
     }
 
     /// <summary>
@@ -77,23 +95,46 @@ namespace Behaviac.Design.Nodes
     /// </summary>
     public class Behavior : Node, BehaviorNode
     {
-        public override string ExportClass
-        {
+        public override string ExportClass {
             get { return "Behavior"; }
         }
 
-        public override bool AlwaysExpanded()
-        {
+        public override bool AlwaysExpanded() {
             return true;
         }
 
-        public override bool CanBeDragged()
-        {
+        public override bool CanBeDragged() {
             return false;
         }
 
-        public void Restore(BehaviorNode source)
+        public override bool IsFSM {
+            get { return this.FSMNodes.Count > 0; }
+        }
+
+        public int InitialStateId
         {
+            get
+            {
+                int initialid = -1;
+                foreach (Attachment attach in this.Attachments)
+                {
+                    if (attach.IsStartCondition && attach.TargetFSMNodeId > -1)
+                    {
+                        initialid = attach.TargetFSMNodeId;
+                        break;
+                    }
+                }
+
+                return initialid;
+            }
+        }
+
+        public override bool CanBeAttached
+        {
+            get { return (this.Children.Count == 1 && this.Children[0] is Task); }
+        }
+
+        public void Restore(BehaviorNode source) {
             Debug.Check(source is Nodes.Node);
 
             Behavior sourceBehavior = (Behavior)source;
@@ -114,8 +155,7 @@ namespace Behaviac.Design.Nodes
             sourceBehavior.CloneProperties(this);
         }
 
-        public override object Clone()
-        {
+        public override object Clone() {
             // Clone the hierarchy.
             Nodes.BehaviorNode behavior = (Nodes.BehaviorNode)this.CloneBranch();
 
@@ -123,74 +163,60 @@ namespace Behaviac.Design.Nodes
             behavior.AgentType = this.AgentType;
 
             // Clone the file manager.
-            if (this.FileManager != null)
-            {
+            if (this.FileManager != null) {
                 behavior.FileManager = (FileManagers.FileManager)this.FileManager.Clone();
                 behavior.FileManager.Behavior = behavior;
-            }
-            else
-            {
+
+            } else {
                 behavior.Filename = this.Filename;
             }
 
             return behavior;
         }
 
+        public override bool AcceptsAttachment(Type type) {
+            return type != null && ((this.IsFSM && Plugin.IsClassDerived(type, typeof(Behaviac.Design.Attachments.AttachAction))) ||  //if fsm, only accept effectors
+                                    (!Plugin.IsClassDerived(type, typeof(Behaviac.Design.Attachments.AttachAction)) &&
+                                     !Plugin.IsClassDerived(type, typeof(Behaviac.Design.Attachments.Event)) &&
+                                     !Plugin.IsClassDerived(type, typeof(Behaviac.Design.Nodes.Behavior))));
+        }
+
         private bool _isVisiting = false;
 
         private string _folder = "";
-        public string Folder
-        {
+        public string Folder {
             get { return _folder; }
             set { _folder = value; }
         }
 
         private bool _isPrefab = false;
-        public bool IsPrefab
-        {
+        public bool IsPrefab {
             get { return _isPrefab; }
             set { _isPrefab = value; }
         }
 
         protected Connector _genericChildren;
-        public Connector GenericChildren
-        {
+        public Connector GenericChildren {
             get { return _genericChildren; }
         }
 
-        private bool _isModified = false;
+        //please update BehaviorTree.SupportedVersion when you update the NewVersion
+        public static int NewVersion = 3;
 
-        /// <summary>
-        /// This flag determines if the behaviour was modified, so it can be saved when closing the editor.
-        /// </summary>
-        public bool IsModified
-        {
-            get { return _isModified; }
-            set 
-            { 
-                _isModified = value;
-                UpdateModified();
+        private int _version = NewVersion;
+        public int Version {
+            get { return _version; }
+            set
+            {
+                if (value > _version)
+                { _version = value; }
             }
         }
 
         protected FileManagers.FileManager _fileManager = null;
-
-        /// <summary>
-        /// The file manager the behaviour was saved with. Required so you can simply click save later on.
-        /// </summary>
-        public FileManagers.FileManager FileManager
-        {
+        public FileManagers.FileManager FileManager {
             get { return _fileManager; }
             set { _fileManager = value; }
-        }
-
-        private void UpdateModified()
-        {
-            if (!_isModified && _fileManager != null)
-                Label = Path.GetFileNameWithoutExtension(_fileManager.Filename);
-
-            if (!_isModified && WasSaved != null)
-                WasSaved(this);
         }
 
         /// <summary>
@@ -198,36 +224,35 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         //[DesignerString("BehaviorFilename", "BehaviorFilenameDesc", "CategoryBasic", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.ReadOnly|DesignerProperty.DesignerFlags.NoExport|DesignerProperty.DesignerFlags.NoSave)]
         private string _filename = string.Empty;
-        public string Filename
-        {
-            get 
-            { 
-                return (_fileManager == null) ? _filename : _fileManager.Filename; 
-            }
+        public string Filename {
+            get { return (_fileManager == null) ? _filename : _fileManager.Filename; }
 
             set
             {
                 _filename = value;
 
                 if (_fileManager != null)
-                {
-                    _fileManager.Filename = _filename;
-                }
+                { _fileManager.Filename = _filename; }
             }
         }
-#if QUERY_EANBLED
-        //private string _EventName = "";
-        //[DesignerString("BehaviorEventName", "BehaviorEventNameDesc", "CategoryBasic", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoExport)]
-        //public string EventName
-        //{
-        //    get { return _EventName; }
-        //    set { _EventName = value; }
-        //}
 
+        private FrameStatePool.PlanningProcess _planningProcess = null;
+        public FrameStatePool.PlanningProcess PlanningProcess {
+            get { return this._planningProcess; }
+            set { this._planningProcess = value; }
+        }
+
+        public static readonly int kPlanIsCollapseFailedBranch = 2;
+        private int _planIsCollapseFailedBranch = 0;
+        public int PlanIsCollapseFailedBranch {
+            get { return this._planIsCollapseFailedBranch; }
+            set { this._planIsCollapseFailedBranch = value; }
+        }
+
+#if QUERY_EANBLED
         private string _domains = "";
-        [DesignerString("BehaviorDomains", "BehaviorDomainsDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.QueryRelated)]
-        public string Domains
-        {
+        [DesignerString("BehaviorDomains", "BehaviorDomainsDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.QueryRelated)]
+        public string Domains {
             get { return _domains; }
             set { _domains = value; }
         }
@@ -236,8 +261,7 @@ namespace Behaviac.Design.Nodes
         {
             private VariableDef _descriptor;
             [DesignerPropertyEnum("Descriptor", "DescriptorDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.Self | DesignerPropertyEnum.AllowStyles.Global, "", "Reference")]
-            public VariableDef Descriptor
-            {
+            public VariableDef Descriptor {
                 get { return _descriptor; }
                 set { _descriptor = value; }
             }
@@ -245,8 +269,7 @@ namespace Behaviac.Design.Nodes
             private VariableDef _reference;
 
             [DesignerPropertyEnum("Reference", "ReferenceDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 2, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.Const, "Descriptor", "")]
-            public VariableDef Reference
-            {
+            public VariableDef Reference {
                 get { return _reference; }
                 set { _reference = value; }
             }
@@ -255,60 +278,121 @@ namespace Behaviac.Design.Nodes
         private List<DescriptorRef> _descriptorRefs = new List<DescriptorRef>();
 
         [DesignerArrayStruct("DescriptorRefs", "DescriptorRefsDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.NoSave | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.QueryRelated)]
-        public List<DescriptorRef> DescriptorRefs
-        {
+        public List<DescriptorRef> DescriptorRefs {
             get { return _descriptorRefs; }
             set { this._descriptorRefs = value; }
         }
 #endif//#if QUERY_EANBLED
 
         private AgentType _agentType;
-        public delegate void AgentTypeEventDelegate(AgentType agentType);
         public event AgentTypeEventDelegate AgentTypeChanged;
 
         /// <summary>
         /// The AgentType of the behaviour.
         /// </summary>
         [DesignerTypeEnum("BehaviorAgentType", "BehaviorAgentTypeDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoExport)]
-        public AgentType AgentType
-        {
+        public AgentType AgentType {
             get { return _agentType; }
             set
             {
-                if (this._agentType != value)
-                {
+                if (this._agentType != value) {
                     bool bEmpty = (this._agentType == null);
                     this._agentType = value;
 
-                    if (!bEmpty && this.Children.Count > 0 && AgentTypeChanged != null)
-                    {
+                    if (!bEmpty && this.Children.Count > 0 && AgentTypeChanged != null) {
                         AgentTypeChanged(value);
                     }
                 }
             }
         }
 
+        //used for the referenced behavior
+        private Node _parentNode;
+        public Node ParentNode {
+            get
+            {
+                return this._parentNode;
+            }
+            set
+            {
+                this._parentNode = value;
+            }
+        }
+
+        public Behavior GetTopBehavior() {
+            Behavior b = this;
+
+            while (b.ParentNode != null) {
+                b = b.ParentNode.Behavior as Behavior;
+                Debug.Check(b != null);
+            }
+
+            return b;
+        }
+
+        public void PostLoadPars() {
+            if (this.AgentType != null) {
+                this.AgentType.AddPars(this.LocalVars);
+            }
+        }
+
+        public void PreSave() {
+            if (this.AgentType != null)
+            { this.AgentType.AddPars(this.LocalVars); }
+        }
+
+        public void PostSave() {
+            //if (this.AgentType != null)
+            //    this.AgentType.ClearPars();
+        }
+
+        public void PreExport() {
+            PreSave();
+        }
+
+        public void PostExport() {
+            PostSave();
+        }
+
         public Behavior(string label, bool createConnector = true)
-            : base(label, "BehaviorDesc")
-        {
+            : base(label, "BehaviorDesc") {
             if (createConnector)
-                _genericChildren = new ConnectorSingle(_children, string.Empty, "GenericChildren");
+            { _genericChildren = new ConnectorSingle(_children, string.Empty, Connector.kGeneric); }
         }
 
         public Behavior()
-            : this(string.Empty)
-        {
+            : this(string.Empty) {
+        }
+
+        public Behavior(Behavior other)
+            : this(string.Empty) {
+            // Clone the hierarchy.
+            //Nodes.BehaviorNode behavior = (Nodes.BehaviorNode)this.CloneBranch();
+
+            // Set the agent type.
+            this.AgentType = other.AgentType;
+
+            // Clone the file manager.
+            if (other.FileManager != null) {
+                this.FileManager = (FileManagers.FileManager)other.FileManager.Clone();
+                this.FileManager.Behavior = this;
+
+            } else {
+                this.Filename = other.Filename;
+            }
         }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(100, 120, 80));
-        protected override Brush DefaultBackgroundBrush
-        {
+        protected override Brush DefaultBackgroundBrush {
             get { return __defaultBackgroundBrush; }
         }
 
+        public override Behaviac.Design.ObjectUI.ObjectUIPolicy CreateUIPolicy() {
+            return new Behaviac.Design.ObjectUI.BehaviorUIPolicy();
+        }
+
         private static string _behaviorPath = "";
-        public static string BehaviorPath
-        {
+        public static string BehaviorPath {
             get { return _behaviorPath; }
             set { _behaviorPath = value; }
         }
@@ -318,14 +402,12 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="filename">The filename which will become relative to this behaviour.</param>
         /// <returns>Returns the relative filename of the filename parameter.</returns>
-        public string MakeRelative(string filename)
-        {
+        public string MakeRelative(string filename) {
             //return FileManagers.FileManager.MakeRelative(Path.GetDirectoryName(_fileManager.Filename), filename);
             return FileManagers.FileManager.MakeRelative(_behaviorPath, filename);
         }
 
-        public string RelativePath
-        {
+        public string RelativePath {
             get { return string.IsNullOrEmpty(Filename) ? string.Empty : MakeRelative(Filename); }
         }
 
@@ -334,63 +416,51 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="filename">The filename which is relative and will become absolute.</param>
         /// <returns>Returns the sbolute filename of the filename parameter.</returns>
-        public string MakeAbsolute(string filename)
-        {
+        public string MakeAbsolute(string filename) {
             //return FileManagers.FileManager.MakeAbsolute(Path.GetDirectoryName(_fileManager.Filename), filename);
             return FileManagers.FileManager.MakeAbsolute(_behaviorPath, filename);
         }
 
-        public delegate void WasSavedEventDelegate(BehaviorNode node);
-
-        /// <summary>
-        /// Is called when the behaviour was saved.
-        /// </summary>
+        public event WasModifiedEventDelegate WasModified;
         public event WasSavedEventDelegate WasSaved;
-
-        public void TriggerWasSaved()
-        {
-            _isModified = false;
-
-            if (WasSaved != null)
-                WasSaved(this);
-        }
-
-        public delegate void WasRenamedEventDelegate(BehaviorNode node);
-
-        /// <summary>
-        /// Is called when the behaviour is renamed.
-        /// </summary>
         public event WasRenamedEventDelegate WasRenamed;
 
-        public void TriggerWasRenamed()
-        {
-            if (WasRenamed != null)
-                WasRenamed(this);
+        private bool _isModified = false;
+        public bool IsModified {
+            get { return _isModified; }
         }
 
         protected int _modificationID = 0;
-
-        /// <summary>
-        /// The ID of the last modification. This allows the referenced behaviours to check if they still represent the latest version of the behaviour.
-        /// </summary>
-        public int ModificationID
-        {
+        public int ModificationID {
             get { return _modificationID; }
         }
 
-        /// <summary>
-        /// Marks this behaviour as being modified.
-        /// </summary>
-        /// <param name="layoutChanged">If true causes the view to recalculate the layout.</param>
-        public override void BehaviorWasModified()
-        {
-            //_isModified = true;
-
-            // update the modification ID
+        public void TriggerWasModified(Node node) {
+            _isModified = true;
             _modificationID++;
 
-            // call WasModified event
-            DoWasModified();
+            if (WasModified != null)
+            { WasModified(this, node); }
+        }
+
+        public void TriggerWasSaved() {
+            _isModified = false;
+
+            if (_fileManager != null)
+            { this.Label = Path.GetFileNameWithoutExtension(_fileManager.Filename); }
+
+            if (WasSaved != null)
+            { WasSaved(this); }
+        }
+
+        public void TriggerWasRenamed() {
+            if (WasRenamed != null)
+            { WasRenamed(this); }
+        }
+
+        protected List<ParInfo> _localVars = new List<ParInfo>();
+        public override List<ParInfo> LocalVars {
+            get { return _localVars; }
         }
 
         /// <summary>
@@ -399,11 +469,10 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="behaviorFolder">The root folder of the behaviour.</param>
         /// <returns>Returns a string with the relative path of this behaviour.</returns>
-        public string GetPathLabel(string behaviorFolder)
-        {
+        public string GetPathLabel(string behaviorFolder) {
             string label = Label;
-            if (FileManager != null && FileManager.Filename != string.Empty)
-            {
+
+            if (FileManager != null && FileManager.Filename != string.Empty) {
                 // cut away the behaviour folder
                 label = FileManager.Filename.Substring(behaviorFolder.Length + 1);
 
@@ -418,30 +487,22 @@ namespace Behaviac.Design.Nodes
             return label;
         }
 
-        public override void GetAllPars(ref List<ParInfo> pars)
-        {
-            if (!this._isVisiting)
-            {
+        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
+            if (!this._isVisiting) {
                 this._isVisiting = true;
 
-                base.GetAllPars(ref pars);
-
-                this._isVisiting = false;
-            }
-        }
-
-        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
-        {
-            if (!this._isVisiting)
-            {
-                this._isVisiting = true;
+                if (this.FSMNodes.Count == 0 && this.InitialStateId >= 0)
+                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "There can not be Start condition on the empty FSM!"));
 
                 // check if the node has any children
-                if (_genericChildren.ChildCount < 1)
-                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.BehaviorIsEmptyError));
+                if (!this.IsFSM && _genericChildren.ChildCount < 1)
+                { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.BehaviorIsEmptyError)); }
 
                 if (this._agentType == null)
-                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoAgent));
+                { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoAgent)); }
+
+                else if (this._agentType.IsCustomized)
+                { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "The customized agent can not be exported!")); }
 
                 base.CheckForErrors(rootBehavior, result);
 
@@ -449,22 +510,22 @@ namespace Behaviac.Design.Nodes
             }
         }
 
-        public override void ResetMembers(AgentType agentType, bool resetPar)
-        {
-            if (!this._isVisiting)
-            {
+        public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null) {
+            bool bReset = false;
+
+            if (!this._isVisiting) {
                 this._isVisiting = true;
 
-                base.ResetMembers(agentType, resetPar);
+                bReset = base.ResetMembers(check, agentType, clear, method, property);
 
                 this._isVisiting = false;
             }
+
+            return bReset;
         }
 
-        public override void GetReferencedFiles(ref List<string> referencedFiles)
-        {
-            if (!this._isVisiting)
-            {
+        public override void GetReferencedFiles(ref List<string> referencedFiles) {
+            if (!this._isVisiting) {
                 this._isVisiting = true;
 
                 base.GetReferencedFiles(ref referencedFiles);
@@ -473,12 +534,10 @@ namespace Behaviac.Design.Nodes
             }
         }
 
-        public override bool ResetReferenceBehavior(string referenceFilename)
-        {
+        public override bool ResetReferenceBehavior(string referenceFilename) {
             bool reset = false;
 
-            if (!this._isVisiting)
-            {
+            if (!this._isVisiting) {
                 this._isVisiting = true;
 
                 reset = base.ResetReferenceBehavior(referenceFilename);
@@ -489,10 +548,8 @@ namespace Behaviac.Design.Nodes
             return reset;
         }
 
-        public override void GetObjectsByType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects)
-        {
-            if (!this._isVisiting)
-            {
+        public override void GetObjectsByType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
+            if (!this._isVisiting) {
                 this._isVisiting = true;
 
                 base.GetObjectsByType(root, nodeType, matchCase, matchWholeWord, ref objects);
@@ -501,10 +558,8 @@ namespace Behaviac.Design.Nodes
             }
         }
 
-        public override void GetObjectsByPropertyMethod(Nodes.Node root, string propertyName, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects)
-        {
-            if (!this._isVisiting)
-            {
+        public override void GetObjectsByPropertyMethod(Nodes.Node root, string propertyName, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
+            if (!this._isVisiting) {
                 this._isVisiting = true;
 
                 base.GetObjectsByPropertyMethod(root, propertyName, matchCase, matchWholeWord, ref objects);

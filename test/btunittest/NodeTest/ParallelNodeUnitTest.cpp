@@ -16,51 +16,51 @@
 
 LOAD_TEST(btunittest, parallel_ut_0)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_0", format);
-	myTestAgent->resetProperties();
-	myTestAgent->btexec();
-	CHECK_EQUAL(2, myTestAgent->testVar_0);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_0", format);
+    myTestAgent->resetProperties();
+    myTestAgent->btexec();
+    CHECK_EQUAL(2, myTestAgent->testVar_0);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, parallel_ut_1)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_1", format);
-	myTestAgent->resetProperties();
-	myTestAgent->btexec();
-	CHECK_EQUAL(3, myTestAgent->testVar_0);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_1", format);
+    myTestAgent->resetProperties();
+    myTestAgent->btexec();
+    CHECK_EQUAL(3, myTestAgent->testVar_0);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, parallel_ut_2)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_2", format);
-	myTestAgent->resetProperties();
-	myTestAgent->btexec();
-	CHECK_EQUAL(2, myTestAgent->testVar_0);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_2", format);
+    myTestAgent->resetProperties();
+    myTestAgent->btexec();
+    CHECK_EQUAL(2, myTestAgent->testVar_0);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, parallel_ut_3)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_3", format);
-	myTestAgent->resetProperties();
-	myTestAgent->btexec();
-	CHECK_EQUAL(2, myTestAgent->testVar_0);
-	myTestAgent->resetProperties();
-	myTestAgent->btexec();
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_3", format);
+    myTestAgent->resetProperties();
+    myTestAgent->btexec();
+    CHECK_EQUAL(2, myTestAgent->testVar_0);
+    myTestAgent->resetProperties();
+    myTestAgent->btexec();
+    CHECK_EQUAL(0, myTestAgent->testVar_0);
+    finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, parallel_ut_4)
 {
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_4", format);
-	myTestAgent->resetProperties();
-	myTestAgent->btexec();
-	CHECK_EQUAL(2, myTestAgent->testVar_0);
-	myTestAgent->resetProperties();
-	myTestAgent->btexec();
-	CHECK_EQUAL(2, myTestAgent->testVar_0);
-	finlTestEnvNode(myTestAgent);
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/parallel_ut_4", format);
+    myTestAgent->resetProperties();
+    myTestAgent->btexec();
+    CHECK_EQUAL(2, myTestAgent->testVar_0);
+    myTestAgent->resetProperties();
+    myTestAgent->btexec();
+    CHECK_EQUAL(2, myTestAgent->testVar_0);
+    finlTestEnvNode(myTestAgent);
 }

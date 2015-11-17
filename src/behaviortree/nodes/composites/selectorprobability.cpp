@@ -16,22 +16,23 @@
 #include "behaviac/base/randomgenerator/randomgenerator.h"
 #include "behaviac/base/object/method.h"
 #include "behaviac/agent/agent.h"
+#include "behaviac/behaviortree/nodes/actions/action.h"
 
 namespace behaviac
 {
-	SelectorProbability::SelectorProbability() : m_method(0)
-	{}
+    SelectorProbability::SelectorProbability() : m_method(0)
+    {}
 
-	SelectorProbability::~SelectorProbability()
-	{
-		BEHAVIAC_DELETE(m_method);
-	}
+    SelectorProbability::~SelectorProbability()
+    {
+        BEHAVIAC_DELETE(m_method);
+    }
 
-	CMethodBase* LoadMethod(const char* value);
+    //CMethodBase* LoadMethod(const char* value);
 
     void SelectorProbability::load(int version, const char* agentType, const properties_t& properties)
     {
-		super::load(version, agentType, properties);
+        super::load(version, agentType, properties);
 
         for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
         {
@@ -39,10 +40,11 @@ namespace behaviac
 
             if (strcmp(p.name, "RandomGenerator") == 0)
             {
-				if (p.value[0] != '\0')
-				{
-					this->m_method = LoadMethod(p.value);
-				}//if (p.value[0] != '\0')
+                if (p.value[0] != '\0')
+                {
+                    this->m_method = Action::LoadMethod(p.value);
+                }//if (p.value[0] != '\0')
+
             }
             else
             {
@@ -51,58 +53,59 @@ namespace behaviac
         }
     }
 
-	bool SelectorProbability::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!SelectorProbability::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
+    bool SelectorProbability::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!SelectorProbability::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-		return super::IsValid(pAgent, pTask);
-	}
+        return super::IsValid(pAgent, pTask);
+    }
 
-	BehaviorTask* SelectorProbability::createTask() const
-	{
-		SelectorProbabilityTask* pTask = BEHAVIAC_NEW SelectorProbabilityTask();
-		
-		return pTask;
-	}
+    BehaviorTask* SelectorProbability::createTask() const
+    {
+        SelectorProbabilityTask* pTask = BEHAVIAC_NEW SelectorProbabilityTask();
 
-	void SelectorProbability::AddChild(BehaviorNode* pBehavior)
-	{
-		BEHAVIAC_ASSERT(DecoratorWeight::DynamicCast(pBehavior));
-		DecoratorWeight* pDW = (DecoratorWeight*)(pBehavior);
+        return pTask;
+    }
 
-		if (pDW)
-		{
-			super::AddChild(pBehavior);
-		}
-		else
-		{
-			BEHAVIAC_ASSERT(false, "only DecoratorWeightTask can be children");
-		}
-	}
+    void SelectorProbability::AddChild(BehaviorNode* pBehavior)
+    {
+        BEHAVIAC_ASSERT(DecoratorWeight::DynamicCast(pBehavior));
+        DecoratorWeight* pDW = (DecoratorWeight*)(pBehavior);
 
-	SelectorProbabilityTask::SelectorProbabilityTask() : CompositeTask(), m_totalSum(0)
-	{}
+        if (pDW)
+        {
+            super::AddChild(pBehavior);
 
-	SelectorProbabilityTask::~SelectorProbabilityTask()
-	{}
+        }
+        else
+        {
+            BEHAVIAC_ASSERT(false, "only DecoratorWeightTask can be children");
+        }
+    }
 
-	void SelectorProbabilityTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    SelectorProbabilityTask::SelectorProbabilityTask() : CompositeTask(), m_totalSum(0)
+    {}
 
-	void SelectorProbabilityTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    SelectorProbabilityTask::~SelectorProbabilityTask()
+    {}
 
-	void SelectorProbabilityTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void SelectorProbabilityTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
+
+    void SelectorProbabilityTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
+
+    void SelectorProbabilityTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     bool SelectorProbabilityTask::onenter(Agent* pAgent)
     {
@@ -110,23 +113,23 @@ namespace behaviac
 
         BEHAVIAC_ASSERT(this->m_activeChildIndex == CompositeTask::InvalidChildIndex);
 
-		//const SelectorProbability* pSelectorProbabilityNode = SelectorProbability::DynamicCast(this->GetNode());
+        //const SelectorProbability* pSelectorProbabilityNode = SelectorProbability::DynamicCast(this->GetNode());
 
-		this->m_weightingMap.clear();
-		this->m_totalSum = 0;
+        this->m_weightingMap.clear();
+        this->m_totalSum = 0;
 
-		for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
-		{
-			BehaviorTask* task = *it;
-			BEHAVIAC_ASSERT(DecoratorWeightTask::DynamicCast(task));
-			DecoratorWeightTask* pWT = (DecoratorWeightTask*)task;
+        for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
+        {
+            BehaviorTask* task = *it;
+            BEHAVIAC_ASSERT(DecoratorWeightTask::DynamicCast(task));
+            DecoratorWeightTask* pWT = (DecoratorWeightTask*)task;
 
-			int weight = pWT->GetWeight(pAgent);
-			this->m_weightingMap.push_back(weight);
-			this->m_totalSum += weight;
-		}
+            int weight = pWT->GetWeight(pAgent);
+            this->m_weightingMap.push_back(weight);
+            this->m_totalSum += weight;
+        }
 
-		BEHAVIAC_ASSERT(this->m_weightingMap.size() == this->m_children.size());
+        BEHAVIAC_ASSERT(this->m_weightingMap.size() == this->m_children.size());
 
         return true;
     }
@@ -135,63 +138,64 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(s);
-		this->m_activeChildIndex = CompositeTask::InvalidChildIndex;
+        this->m_activeChildIndex = CompositeTask::InvalidChildIndex;
     }
 
-	double GetRandomValue(CMethodBase* method, Agent* pAgent);
+    double GetRandomValue(CMethodBase* method, Agent* pAgent);
 
     EBTStatus SelectorProbabilityTask::update(Agent* pAgent, EBTStatus childStatus)
     {
-		BEHAVIAC_ASSERT(SelectorProbability::DynamicCast(this->GetNode()));
+        BEHAVIAC_ASSERT(SelectorProbability::DynamicCast(this->GetNode()));
         const SelectorProbability* pSelectorProbabilityNode = (const SelectorProbability*)(this->GetNode());
 
-		if (childStatus != BT_RUNNING)
-		{
-			return childStatus;
-		}
+        if (childStatus != BT_RUNNING)
+        {
+            return childStatus;
+        }
 
         //check if we've already chosen a node to run
         if (this->m_activeChildIndex != CompositeTask::InvalidChildIndex)
         {
-			BehaviorTask* pNode = this->m_children[this->m_activeChildIndex];
+            BehaviorTask* pNode = this->m_children[this->m_activeChildIndex];
 
-			EBTStatus status = pNode->exec(pAgent);
+            EBTStatus status = pNode->exec(pAgent);
 
             return status;
         }
 
-		BEHAVIAC_ASSERT(this->m_weightingMap.size() == this->m_children.size());
+        BEHAVIAC_ASSERT(this->m_weightingMap.size() == this->m_children.size());
 
-		//generate a number between 0 and the sum of the weights
-		double chosen = this->m_totalSum * GetRandomValue(pSelectorProbabilityNode->m_method, pAgent);
+        //generate a number between 0 and the sum of the weights
+        double chosen = this->m_totalSum * GetRandomValue(pSelectorProbabilityNode->m_method, pAgent);
 
-		double sum = 0;
+        double sum = 0;
 
-        for (uint32_t i = 0; i < this->m_children.size() ; ++i)
+        for (uint32_t i = 0; i < this->m_children.size(); ++i)
         {
-			int w = this->m_weightingMap[i];
+            int w = this->m_weightingMap[i];
 
             sum += w;
 
-            if (w > 0 && sum >= chosen) //execute this node
+            if (w > 0 && sum >= chosen)   //execute this node
             {
-				BehaviorTask* pChild = this->m_children[i];
+                BehaviorTask* pChild = this->m_children[i];
 
                 EBTStatus status = pChild->exec(pAgent);
 
-				if (status == BT_RUNNING)
-				{
-					this->m_activeChildIndex = i;
-				}
-				else
-				{
-					this->m_activeChildIndex = CompositeTask::InvalidChildIndex;
-				}
+                if (status == BT_RUNNING)
+                {
+                    this->m_activeChildIndex = i;
+
+                }
+                else
+                {
+                    this->m_activeChildIndex = CompositeTask::InvalidChildIndex;
+                }
 
                 return status;
             }
         }
 
-		return BT_FAILURE;
+        return BT_FAILURE;
     }
 }//namespace namespace behaviac

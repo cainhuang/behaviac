@@ -33,52 +33,48 @@ namespace Behaviac.Design
     {
         private static TimelineDock _timelineDock = null;
 
-        internal static void Inspect()
-        {
-            if (_timelineDock == null || !_timelineDock.Visible)
-            {
+        internal static void Inspect() {
+            if (_timelineDock == null || !_timelineDock.Visible) {
                 _timelineDock = new TimelineDock();
                 _timelineDock.Show(MainWindow.Instance.DockPanel.DockWindows[DockState.DockTop].DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockTop);
                 _timelineDock.Show();
 
-                while (!_timelineDock._loaded && !_timelineDock.IsHandleCreated)
-                {
+                while (!_timelineDock._loaded && !_timelineDock.IsHandleCreated) {
                     System.Threading.Thread.Sleep(10);
                 }
 
                 Debug.Check(_timelineDock.IsHandleCreated);
-            }
-            else
-            {
+
+            } else {
                 _timelineDock.Show();
             }
         }
 
-        internal static void UpdateUIState(EditModes editMode)
-        {
-            if (_timelineDock != null)
-            {
-                if (Plugin.UpdateMode == UpdateModes.Continue)
-                {
+        internal static void UpdateUIState(EditModes editMode) {
+            if (_timelineDock != null) {
+                if (Plugin.UpdateMode == UpdateModes.Continue) {
                     _timelineDock.playButton.Image = Resources.Pause;
                     _timelineDock.toolTip.SetToolTip(_timelineDock.playButton, "Pause");
                     _timelineDock.numericUpDownFPS.Visible = false;
                     _timelineDock.effectTimer.Enabled = true;
-                    _timelineDock.checkBoxBreakCPP.Visible = true;
-                    _timelineDock.checkBoxBreakCPP.Checked = Settings.Default.BreakAPP;
                     //_timelineDock.playButton.Enabled = !Settings.Default.BreakAPP;
-                }
-                else
-                {
+
+                } else {
                     _timelineDock.playButton.Image = Resources.Play;
                     _timelineDock.toolTip.SetToolTip(_timelineDock.playButton, "Continue (F5)");
                     _timelineDock.numericUpDownFPS.Visible = true;
                     _timelineDock.effectTimer.Enabled = false;
-                    _timelineDock.checkBoxBreakCPP.Visible = false;
                 }
 
-                if (editMode != EditModes.Connect)
-                {
+                bool isAnalyzeMode = (Plugin.EditMode == EditModes.Analyze);
+                _timelineDock.startButton.Visible = isAnalyzeMode;
+                _timelineDock.backwardButton.Visible = isAnalyzeMode;
+                _timelineDock.forwardButton.Visible = isAnalyzeMode;
+                _timelineDock.endButton.Visible = isAnalyzeMode;
+                _timelineDock.zoomOutButton.Enabled = isAnalyzeMode;
+                _timelineDock.zoomInButton.Enabled = isAnalyzeMode;
+
+                if (editMode != EditModes.Connect) {
                     MessageQueue.IsConnected = false;
                 }
 
@@ -86,10 +82,8 @@ namespace Behaviac.Design
             }
         }
 
-        internal static void CloseAll()
-        {
-            if (_timelineDock != null)
-            {
+        internal static void CloseAll() {
+            if (_timelineDock != null) {
                 _timelineDock.Close();
 
                 MessageQueue.ContinueHandler -= _timelineDock.Continue_handler;
@@ -99,87 +93,79 @@ namespace Behaviac.Design
             }
         }
 
-        internal static void SetCurrentFrame(int frame)
-        {
-            if (_timelineDock != null)
+        internal static void SetCurrentFrame(int frame) {
+            if (_timelineDock != null) {
                 _timelineDock.setCurrentFrame(frame);
+            }
         }
 
-        internal static void SetTotalFrame(int totalFrame, int firstFrame = -1)
-        {
-            if (_timelineDock != null)
-            {
-                if (totalFrame < 0)
+        internal static void SetTotalFrame(int totalFrame, int firstFrame = -1) {
+            if (_timelineDock != null) {
+                if (totalFrame < 0) {
                     totalFrame = 0;
+                }
 
                 _timelineDock.setFrame(totalFrame, firstFrame);
             }
         }
 
-        private static void updateUI(int frame)
-        {
-            if (_timelineDock != null)
-            {
-                //when breaking cpp, only check breakpoints after [connected], i.e. skip breakpoints before connecting
-                if (!Settings.Default.BreakAPP || MessageQueue.IsConnected)
-                {
+        private static void updateUI(int frame) {
+            if (_timelineDock != null) {
+                if (MessageQueue.IsConnected) {
                     HighlightBreakPoint breakPoint = HighlightBreakPoint.Instance;
                     string agentName = Plugin.DebugAgentInstance;
 
-                    if (breakPoint != null || agentName == Plugin.DebugAgentInstance)
-                    {
+                    if (breakPoint != null || agentName == Plugin.DebugAgentInstance) {
+                        List<string> transitionIds = null;
                         List<string> highlightNodeIds = null;
                         List<string> updatedNodeIds = null;
                         Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> profileInfos = null;
 
-                        if (!string.IsNullOrEmpty(agentName))
-                        {
+                        if (!string.IsNullOrEmpty(agentName)) {
                             string behaviorFilename = FrameStatePool.GetBehaviorFilename(agentName, frame);
-                            if (!string.IsNullOrEmpty(behaviorFilename))
-                            {
+
+                            if (!string.IsNullOrEmpty(behaviorFilename)) {
+                                transitionIds = FrameStatePool.GetHighlightTransitionIds(agentName, frame, behaviorFilename);
                                 highlightNodeIds = FrameStatePool.GetHighlightNodeIds(agentName, frame, behaviorFilename);
                                 updatedNodeIds = FrameStatePool.GetUpdatedNodeIds(agentName, frame, behaviorFilename);
                                 profileInfos = FrameStatePool.GetProfileInfos(frame, behaviorFilename);
                             }
                         }
 
-                        _timelineDock.updateHighlights(agentName, frame, highlightNodeIds, updatedNodeIds, breakPoint, profileInfos);
+                        _timelineDock.updateHighlights(agentName, frame, transitionIds, highlightNodeIds, updatedNodeIds, breakPoint, profileInfos);
 
-                        if (breakPoint != null)
-                        {
+                        if (breakPoint != null) {
                             string prompt = string.Format("Break: {0}->{1}[{2}]:{3}", breakPoint.BehaviorFilename, breakPoint.NodeType, breakPoint.NodeId, breakPoint.ActionName);
-                            if (breakPoint.ActionResult == "success" || breakPoint.ActionResult == "failure")
-                            {
+
+                            if (breakPoint.ActionResult == "success" || breakPoint.ActionResult == "failure") {
                                 prompt += string.Format(" [{0}]", breakPoint.ActionResult);
                             }
 
-                            _timelineDock.setUpdateMode(UpdateModes.Break, prompt);
+                            if (_timelineDock != null) {
+                                _timelineDock.setUpdateMode(UpdateModes.Break, prompt);
+                            }
                         }
                     }
                 }
             }
         }
 
-        private void FrameStatePool_UpdateAppLogHandler(int frame, string appLog)
-        {
-            if (Plugin.UpdateMode == UpdateModes.Continue)
-            {
+        private void FrameStatePool_UpdateAppLogHandler(int frame, string appLog) {
+            if (Plugin.UpdateMode == UpdateModes.Continue) {
                 SetTotalFrame(frame);
                 AgentDataPool.CurrentFrame = AgentDataPool.TotalFrames;
 
-                if (_timelineDock != null)
-                {
-                    //when breaking cpp, only check breakpoints after [connected], i.e. skip breakpoints before connecting
-                    if (!Settings.Default.BreakAPP || MessageQueue.IsConnected)
-                    {
+                if (_timelineDock != null) {
+                    if (MessageQueue.IsConnected) {
                         _timelineDock.setUpdateMode(UpdateModes.Break, appLog);
                     }
                 }
             }
         }
 
-        public TimelineDock()
-        {
+        public TimelineDock() {
+            CloseAll();
+
             InitializeComponent();
 
             this.Enabled = (Plugin.EditMode != EditModes.Design);
@@ -195,37 +181,30 @@ namespace Behaviac.Design
             this.Disposed += new EventHandler(TimelineDock_Disposed);
         }
 
-        void TimelineDock_Disposed(object sender, EventArgs e)
-        {
+        void TimelineDock_Disposed(object sender, EventArgs e) {
             this.Disposed -= TimelineDock_Disposed;
 
-            if (this.toolTip != null)
-            {
+            if (this.toolTip != null) {
                 this.toolTip.Dispose();
                 this.toolTip = null;
             }
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
+        protected override void OnClosed(EventArgs e) {
             // Just hide this instance, instead of closing it.
             this.Hide();
         }
 
-        private void setLabels()
-        {
+        private void setLabels() {
             startLabel.Text = trackBar.Minimum.ToString();
             endLabel.Text = trackBar.Maximum.ToString();
         }
 
-        private void setFrame(int frame, int firstFrame = -1)
-        {
-            if (frame > -1 && trackBar.Value != frame)
-            {
+        private void setFrame(int frame, int firstFrame = -1) {
+            if (frame > -1 && trackBar.Value != frame) {
                 trackBar.Minimum = (firstFrame < 0) ? 0 : firstFrame;
 
-                if (frame > 0)
-                {
+                if (frame > 0) {
                     gotoNumericUpDown.Maximum = frame;
                     //gotoNumericUpDown.Value = frame;
                     trackBar.Maximum = frame;
@@ -240,59 +219,55 @@ namespace Behaviac.Design
             }
         }
 
-        private void setCurrentFrame(int frame)
-        {
-            if (frame > -1)
-            {
+        private void setCurrentFrame(int frame) {
+            if (frame > -1) {
                 //gotoNumericUpDown.Value = frame;
                 trackBar.Value = frame;
             }
         }
 
-        private void updateParameters(AgentType agentType, string agentName, int frame)
-        {
-            if (string.IsNullOrEmpty(agentName))
+        private void updateParameters(AgentType agentType, string agentName, int frame) {
+            if (string.IsNullOrEmpty(agentName)) {
                 return;
+            }
 
             string typeName = (agentType == null) ? agentName : agentType.ToString();
             string agentFullname = (agentType == null) ? agentName : agentType.ToString() + "#" + agentName;
-            List<AgentDataPool.ValueMark> values = AgentDataPool.GetValidValues(_updateNode, agentType, agentFullname, frame);
-            foreach (AgentDataPool.ValueMark value in values)
-            {
+            List<AgentDataPool.ValueMark> values = AgentDataPool.GetValidValues(agentType, agentFullname, frame);
+            foreach(AgentDataPool.ValueMark value in values) {
                 ParametersDock.SetProperty(typeName, agentName, value.Name, value.Value);
             }
         }
 
-        private Nodes.Node _updateNode = null;
-        private void updateHighlights(string agentFullname, int frame, List<string> highlightNodeIds, List<string> updatedNodeIds, HighlightBreakPoint breakPoint, Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> profileInfos)
+        private void updateHighlights(string agentFullname, int frame, List<string> highlightedTransitionIds, List<string> highlightNodeIds, List<string> updatedNodeIds, HighlightBreakPoint breakPoint, Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> profileInfos)
         {
-            //if (agentFullname == Plugin.DebugAgentInstance || breakPoint != null)
+            if (agentFullname == Plugin.DebugAgentInstance || breakPoint != null)
             {
-                BehaviorNode behavior = UIUtilities.ShowBehaviorTree(agentFullname, frame, highlightNodeIds, updatedNodeIds, breakPoint, profileInfos);
-                _updateNode = behavior as Nodes.Node;
+                BehaviorNode behavior = UIUtilities.ShowBehaviorTree(agentFullname, frame, highlightedTransitionIds, highlightNodeIds, updatedNodeIds, breakPoint, profileInfos);
             }
         }
 
         private string _break_prompt = "";
-        private HighlightBreakPoint checkBreakpoint(string behaviorFilename, List<FrameStatePool.FrameState.Action> actions, ref int lastBreakPointIndex)
-        {
-            if (string.IsNullOrEmpty(behaviorFilename) || actions == null)
+        private HighlightBreakPoint checkBreakpoint(string behaviorFilename, List<FrameStatePool.FrameState.Action> actions, ref int lastBreakPointIndex) {
+            if (string.IsNullOrEmpty(behaviorFilename) || actions == null) {
                 return null;
+            }
 
             int index = -1;
-            foreach (FrameStatePool.FrameState.Action action in actions)
-            {
+            foreach(FrameStatePool.FrameState.Action action in actions) {
                 DebugDataPool.BreakPoint breakPoint = DebugDataPool.FindBreakPoint(behaviorFilename, action.NodeId, action.Name);
-                if (breakPoint != null && breakPoint.IsActive(action.Name, action.Result))
-                {
+
+                if (breakPoint != null && breakPoint.IsActive(action.Name, action.Result)) {
                     index++;
-                    if (index == lastBreakPointIndex)
-                    {
+
+                    if (index == lastBreakPointIndex) {
                         lastBreakPointIndex++;
 
                         _break_prompt = string.Format("Break: {0}->{1}[{2}]:{3}", behaviorFilename, breakPoint.NodeType, action.NodeId, action.Name);
-                        if (action.Result == "success" || action.Result == "failure")
+
+                        if (action.Result == "success" || action.Result == "failure") {
                             _break_prompt += string.Format(" [{0}]", action.Result);
+                        }
 
                         return new HighlightBreakPoint(behaviorFilename, action.NodeId, breakPoint.NodeType, action.Name, action.Result);
                     }
@@ -302,21 +277,21 @@ namespace Behaviac.Design
             return null;
         }
 
-        private static int _agenttype_index = -1;
-        private static int _agentinstance_index = -1;
+        private static object _lockObject = new object();
         private static int _lastBreakFrame = -1;
         private static int _lastBreakPointIndex = 0;
 
         private int _log_index = -1;
 
-        private bool update(int frame)
-        {
+        //return true if breaked
+        private bool update(int frame) {
+            int _agenttype_index = 0;
+            int _agentinstance_index = 0;
+
             ConsoleDock.SetMesssages(frame);
 
-            if (Plugin.EditMode == EditModes.Connect)
-            {
-                if (Plugin.UpdateMode == UpdateModes.Continue)
-                {
+            if (Plugin.EditMode == EditModes.Connect) {
+                if (Plugin.UpdateMode == UpdateModes.Continue) {
                     SetTotalFrame(frame);
                     AgentDataPool.CurrentFrame = AgentDataPool.TotalFrames;
                 }
@@ -324,116 +299,107 @@ namespace Behaviac.Design
                 updateUI(frame);
             }
 
-            if (_agenttype_index != -1 && _agentinstance_index != -1)
-            {
-                //update could be entered multiple times for a 'frame' if there are multiple breakpoints in 'frame'
-                if (_agenttype_index == 0 && _agentinstance_index == 0)
-                {
-                    AgentDataPool.CurrentFrame = frame;
+            lock(_lockObject) {
+                if (_agenttype_index != -1 && _agentinstance_index != -1) {
+                    //update could be entered multiple times for a 'frame' if there are multiple breakpoints in 'frame'
+                    if (_agenttype_index == 0 && _agentinstance_index == 0) {
+                        AgentDataPool.CurrentFrame = frame;
 
-                    // Global
-                    //foreach (Plugin.InstanceName_t agentType in Plugin.InstanceNames)
-                    //{
-                    //    updateParameters(agentType.agentType_, agentType.agentType_.AgentTypeName, frame);
-                    //}
+                        // Global
+                        //foreach (Plugin.InstanceName_t agentType in Plugin.InstanceNames)
+                        //{
+                        //    updateParameters(agentType.agentType_, agentType.agentType_.AgentTypeName, frame);
+                        //}
+                    }
+
+                    this._break_prompt = "";
+
+                    // Agent
+                    while (_agenttype_index < Plugin.AgentTypes.Count) {
+                        AgentType agentType = Plugin.AgentTypes[_agenttype_index];
+
+                        if (!agentType.IsInherited) {
+                            List<string> instances = AgentInstancePool.GetInstances(agentType.ToString());
+
+                            while (_agentinstance_index < instances.Count) {
+                                string instance = instances[_agentinstance_index];
+                                _agentinstance_index++;
+
+                                // Parameters
+                                updateParameters(agentType, instance, frame);
+
+                                if (Plugin.EditMode == EditModes.Analyze) {
+                                    string agentName = string.Format("{0}#{1}", agentType, instance);
+                                    string behaviorFilename = FrameStatePool.GetBehaviorFilename(agentName, frame);
+
+                                    if (_lastBreakFrame != frame) {
+                                        _lastBreakPointIndex = 0;
+                                    }
+
+                                    // Breakpoint
+                                    List<FrameStatePool.FrameState.Action> actions = FrameStatePool.GetActions(agentName, frame, behaviorFilename);
+                                    HighlightBreakPoint.Instance = checkBreakpoint(behaviorFilename, actions, ref _lastBreakPointIndex);
+
+                                    if (HighlightBreakPoint.Instance != null || agentName == Plugin.DebugAgentInstance) {
+                                        // Highlights
+                                        List<string> transitionIds = FrameStatePool.GetHighlightTransitionIds(agentName, frame, behaviorFilename);
+                                        List<string> highlightNodeIds = FrameStatePool.GetHighlightNodeIds(agentName, frame, behaviorFilename);
+                                        List<string> updatedNodeIds = FrameStatePool.GetUpdatedNodeIds(agentName, frame, behaviorFilename);
+                                        Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> profileInfos = FrameStatePool.GetProfileInfos(frame, behaviorFilename);
+
+                                        updateHighlights(agentName, frame, transitionIds, highlightNodeIds, updatedNodeIds, HighlightBreakPoint.Instance, profileInfos);
+                                    }
+
+                                    // Return if there is breakpoint breaked.
+                                    if (HighlightBreakPoint.Instance != null) {
+                                        _lastBreakFrame = frame;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+
+                        _agenttype_index++;
+                        _agentinstance_index = 0;
+                    }
+
+                    _agenttype_index = -1;
+                    _agentinstance_index = -1;
+
+                    //after checking breakpoints, to check applog
+                    _log_index = 0;
                 }
+            }
 
-                this._break_prompt = "";
+            lock(_lockObject) {
+                if (_log_index != -1) {
+                    if (Plugin.EditMode == EditModes.Analyze) {
+                        bool bCheckLog = (this.comboBoxLogFilter.Text != "");
 
-                // Agent
-                while (_agenttype_index < Plugin.AgentTypes.Count)
-                {
-                    AgentType agentType = Plugin.AgentTypes[_agenttype_index];
+                        if (bCheckLog) {
+                            if (Plugin.EditMode == EditModes.Analyze) {
+                                Debug.Check(true);
 
-                    if (!agentType.IsInherited)
-                    {
-                        List<string> instances = AgentInstancePool.GetInstances(agentType.ToString());
-                        while (_agentinstance_index < instances.Count)
-                        {
-                            string instance = instances[_agentinstance_index++];
+                            } else if (MessageQueue.IsConnected) {
+                                Debug.Check(true);
 
-                            // Parameters
-                            updateParameters(agentType, instance, frame);
+                            } else {
+                                bCheckLog = false;
+                            }
+                        }
 
-                            if (Plugin.EditMode == EditModes.Analyze)
-                            {
-                                string agentName = string.Format("{0}#{1}", agentType, instance);
-                                string behaviorFilename = FrameStatePool.GetBehaviorFilename(agentName, frame);
+                        if (bCheckLog) {
+                            List<string> logs = FrameStatePool.GetAppLog(frame, this.comboBoxLogFilter.Text);
 
-                                if (_lastBreakFrame != frame)
-                                {
-                                    _lastBreakPointIndex = 0;
-                                }
-
-                                // Breakpoint
-                                List<FrameStatePool.FrameState.Action> actions = FrameStatePool.GetActions(agentName, frame, behaviorFilename);
-                                HighlightBreakPoint.Instance = checkBreakpoint(behaviorFilename, actions, ref _lastBreakPointIndex);
-
-                                if (HighlightBreakPoint.Instance != null || agentName == Plugin.DebugAgentInstance)
-                                {
-                                    // Highlights
-                                    List<string> highlightNodeIds = FrameStatePool.GetHighlightNodeIds(agentName, frame, behaviorFilename);
-                                    List<string> updatedNodeIds = FrameStatePool.GetUpdatedNodeIds(agentName, frame, behaviorFilename);
-                                    Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> profileInfos = FrameStatePool.GetProfileInfos(frame, behaviorFilename);
-
-                                    updateHighlights(agentName, frame, highlightNodeIds, updatedNodeIds, HighlightBreakPoint.Instance, profileInfos);
-                                }
-
-                                // Return if there is breakpoint breaked.
-                                if (HighlightBreakPoint.Instance != null)
-                                {
-                                    _lastBreakFrame = frame;
-                                    return true;
-                                }
+                            if (logs != null && _log_index < logs.Count) {
+                                this._break_prompt = logs[_log_index++];
+                                return true;
                             }
                         }
                     }
 
-                    _agenttype_index++;
-                    _agentinstance_index = 0;
+                    _log_index = -1;
                 }
-
-                _agenttype_index = -1;
-                _agentinstance_index = -1;
-
-                //after checking breakpoints, to check applog
-                _log_index = 0;
-            }
-
-            if (_log_index != -1)
-            {
-                if (Plugin.EditMode == EditModes.Analyze)
-                {
-                    bool bCheckLog = (this.comboBoxLogFilter.Text != "");
-                    if (bCheckLog)
-                    {
-                        if (Plugin.EditMode == EditModes.Analyze)
-                        {
-                            Debug.Check(true);
-                        }
-                        else if (!Settings.Default.BreakAPP || MessageQueue.IsConnected)
-                        {
-                            //when breaking cpp, only check breakpoints after [connected], i.e. skip breakpoints before connecting
-                            Debug.Check(true);
-                        }
-                        else
-                        {
-                            bCheckLog = false;
-                        }
-                    }
-
-                    if (bCheckLog)
-                    {
-                        List<string> logs = FrameStatePool.GetAppLog(frame, this.comboBoxLogFilter.Text);
-                        if (logs != null && _log_index < logs.Count)
-                        {
-                            this._break_prompt = logs[_log_index++];
-                            return true;
-                        }
-                    }
-                }
-
-                _log_index = -1;
             }
 
             return false;
@@ -441,112 +407,97 @@ namespace Behaviac.Design
 
         private const int kFPS = 20;
 
-        private void setUpdateMode(UpdateModes updataMode, string prompt)
-        {
+        private void setUpdateMode(UpdateModes updataMode, string prompt) {
             Plugin.UpdateMode = updataMode;
 
             this.promptLabel.Text = prompt;
 
-            if (updataMode == UpdateModes.Break)
-            {
+            if (updataMode == UpdateModes.Break) {
                 this.playButton.Image = Resources.Play;
                 this.toolTip.SetToolTip(_timelineDock.playButton, "Continue (F5)");
                 this.effectTimer.Enabled = false;
 
-                //when breaked by cpp, allow to disable BreakAPP
-                //when breaked by designer, don't allow to enable BreakAPP as it will cause inconsistence
-                if (!Settings.Default.BreakAPP)
-                {
-                    this.checkBoxBreakCPP.Enabled = false;
+            } else {
+                if (Plugin.EditMode == EditModes.Connect) {
+                    _currentFrame = AgentDataPool.TotalFrames;
                 }
-            }
-            else
-            {
-                _currentFrame = AgentDataPool.TotalFrames;
+
                 this.effectTimer.Enabled = true;
                 this.playButton.Image = Resources.Pause;
                 this.toolTip.SetToolTip(_timelineDock.playButton, "Pause");
-                this.checkBoxBreakCPP.Enabled = true;
 
-                if (Plugin.EditMode == EditModes.Analyze)
-                {
+                if (Plugin.EditMode == EditModes.Analyze) {
                     bool bBreakedByLog = this._break_prompt.StartsWith("[applog]");
-                    if (string.IsNullOrEmpty(this._break_prompt))
-                    {
-                        _agenttype_index = 0;
-                        _agentinstance_index = 0;
+
+                    if (string.IsNullOrEmpty(this._break_prompt)) {
                     }
                 }
             }
         }
 
-        public static void Continue()
-        {
+        public static void Continue() {
             _timelineDock.setUpdateMode(UpdateModes.Continue, ".");
-            if (Plugin.EditMode == EditModes.Connect)
+
+            if (Plugin.EditMode == EditModes.Connect) {
                 Network.NetworkManager.Instance.SendContinue();
-        }
-
-        private void playButton_Click(object sender, EventArgs e)
-        {
-            if (Settings.Default.BreakAPP)
-            {
-                TimelineDock.Continue();
-            }
-            else
-            {
-                if (Plugin.UpdateMode == UpdateModes.Continue)
-                    setUpdateMode(UpdateModes.Break, "Break manually.");
-                else
-                    setUpdateMode(UpdateModes.Continue, ".");
             }
         }
 
-        private void startButton_Click(object sender, EventArgs e)
-        {
+        private void playButton_Click(object sender, EventArgs e) {
+            if (Plugin.UpdateMode == UpdateModes.Continue) {
+                setUpdateMode(UpdateModes.Break, "Break manually.");
+            }
+
+            else {
+                Continue();
+            }
+        }
+
+        private void startButton_Click(object sender, EventArgs e) {
             trackBar.Value = trackBar.Minimum;
         }
 
-        private void backwardButton_Click(object sender, EventArgs e)
-        {
-            if (trackBar.Value > trackBar.Minimum)
+        private void backwardButton_Click(object sender, EventArgs e) {
+            if (trackBar.Value > trackBar.Minimum) {
                 trackBar.Value--;
+            }
         }
 
-        private void forwardButton_Click(object sender, EventArgs e)
-        {
-            if (trackBar.Value < trackBar.Maximum)
+        private void forwardButton_Click(object sender, EventArgs e) {
+            if (trackBar.Value < trackBar.Maximum) {
                 trackBar.Value++;
+            }
         }
 
-        private void endButton_Click(object sender, EventArgs e)
-        {
+        private void endButton_Click(object sender, EventArgs e) {
             trackBar.Value = trackBar.Maximum;
         }
 
-        private void zoomOutButton_Click(object sender, EventArgs e)
-        {
+        private void zoomOutButton_Click(object sender, EventArgs e) {
             int size = trackBar.Maximum - trackBar.Minimum;
 
             trackBar.Minimum = trackBar.Value - size;
-            if (trackBar.Minimum < 0)
+
+            if (trackBar.Minimum < 0) {
                 trackBar.Minimum = 0;
+            }
 
             trackBar.Maximum = trackBar.Value + size;
 
             setLabels();
         }
 
-        private void zoomInButton_Click(object sender, EventArgs e)
-        {
+        private void zoomInButton_Click(object sender, EventArgs e) {
             int size = trackBar.Maximum - trackBar.Minimum;
-            if (size >= 10)
-            {
+
+            if (size >= 10) {
                 size = size / 4;
 
                 trackBar.Minimum = trackBar.Value - size;
-                if (trackBar.Minimum < 0)
+
+                if (trackBar.Minimum < 0) {
                     trackBar.Minimum = 0;
+                }
 
                 trackBar.Maximum = trackBar.Value + size;
 
@@ -554,38 +505,24 @@ namespace Behaviac.Design
             }
         }
 
-        private void effectTimer_Tick(object sender, EventArgs e)
-        {
-            if (_timelineDock != null)
-            {
-                if (Plugin.UpdateMode == UpdateModes.Continue)
-                {
-                    if (_timelineDock.promptLabel.Text.Length < 20)
+        private void effectTimer_Tick(object sender, EventArgs e) {
+            if (_timelineDock != null) {
+                if (Plugin.UpdateMode == UpdateModes.Continue) {
+                    if (_timelineDock.promptLabel.Text.Length < 20) {
                         _timelineDock.promptLabel.Text += " .";
-                    else
+                    }
+
+                    else {
                         _timelineDock.promptLabel.Text = ".";
-                }
-                else
-                {
+                    }
+
+                } else {
                     _timelineDock.effectTimer.Enabled = false;
                 }
             }
         }
 
-        private void checkBoxBreakCPP_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Settings.Default.BreakAPP != _timelineDock.checkBoxBreakCPP.Checked)
-            {
-                Settings.Default.BreakAPP = _timelineDock.checkBoxBreakCPP.Checked;
-
-                NetworkManager.Instance.SendBreakAPP(Settings.Default.BreakAPP);
-            }
-
-            //_timelineDock.playButton.Enabled = !Settings.Default.BreakAPP;
-        }
-
-        private void Continue_handler(string btMsg)
-        {
+        private void Continue_handler(string btMsg) {
             //if (Plugin.UpdateMode == UpdateModes.Break)
             {
                 //it could be toggled off when the breakpoint dialog is prompted
@@ -595,19 +532,17 @@ namespace Behaviac.Design
 
                 string msg = btMsg.Substring(10);
 
-                if (msg.StartsWith("[applog]"))
-                {
+                if (msg.StartsWith("[applog]")) {
                     int pos = this.promptLabel.Text.IndexOf(msg);
                     Debug.Check(pos != -1);
-                }
-                else
-                {
+
+                } else {
                     string[] bts = msg.Split(' ');
                     Debug.Check(bts.Length >= 2);
 
                     int posNewline = bts[1].IndexOf('\n');
-                    if (posNewline != -1)
-                    {
+
+                    if (posNewline != -1) {
                         bts[1] = bts[1].Substring(0, posNewline);
                     }
 
@@ -620,8 +555,7 @@ namespace Behaviac.Design
         }
 
         private bool _loaded = false;
-        private void TimelineDock_Load(object sender, EventArgs e)
-        {
+        private void TimelineDock_Load(object sender, EventArgs e) {
             _loaded = true;
         }
 
@@ -629,101 +563,92 @@ namespace Behaviac.Design
         private bool isFromTrackBar = false;
         private bool isUpdateValue = true;
 
-        private void updateValue()
-        {
-            _agenttype_index = 0;
-            _agentinstance_index = 0;
-
-            if (this.update(_timelineDock.trackBar.Value))
-            {
+        private void updateValue() {
+            if (this.update(_timelineDock.trackBar.Value)) {
                 this.setUpdateMode(UpdateModes.Break, this._break_prompt);
-            }
-            else
-            {
-                if (Plugin.EditMode == EditModes.Analyze)
-                {
+
+            } else {
+                if (Plugin.EditMode == EditModes.Analyze) {
                     BehaviorTreeViewDock.ClearHighlightBreakPoint();
                     _timelineDock.promptLabel.Text = "";
+
+                    _currentFrame = _timelineDock.trackBar.Value;
                 }
             }
         }
 
-        private void gotoNumericUpDown_ValueChanged(Object sender, EventArgs e)
-        {
-            if (isFromTrackBar)
+        private void gotoNumericUpDown_ValueChanged(Object sender, EventArgs e) {
+            if (isFromTrackBar) {
                 return;
+            }
 
             isFromGotoNumericUpDown = true;
             trackBar.Value = (int)gotoNumericUpDown.Value;
             isFromGotoNumericUpDown = false;
 
-            if (isUpdateValue)
+            if (isUpdateValue) {
                 updateValue();
+            }
         }
 
-        private void trackBar_ValueChanged(Object sender, EventArgs e)
-        {
-            if (isFromGotoNumericUpDown)
+        private void trackBar_ValueChanged(Object sender, EventArgs e) {
+            if (isFromGotoNumericUpDown) {
                 return;
+            }
 
             isFromTrackBar = true;
             gotoNumericUpDown.Value = trackBar.Value;
             isFromTrackBar = false;
 
-            if (isUpdateValue)
+            if (isUpdateValue) {
                 updateValue();
+            }
         }
 
         const long kTimeThreshold = 50;
         private static int _currentFrame = -1;
         private static System.Diagnostics.Stopwatch _stopwatch = new System.Diagnostics.Stopwatch();
 
-        public static void Tick()
-        {
-            if (Plugin.EditMode == EditModes.Connect)
-            {
+        public static void Tick() {
+            if (_timelineDock == null)
+                return;
+
+            if (Plugin.EditMode == EditModes.Connect) {
                 int totalFrames = AgentDataPool.TotalFrames;
-                if (totalFrames >= 0)
-                {
-                    if (_currentFrame < 0)
-                    {
+
+                if (totalFrames >= 0) {
+                    if (_currentFrame < 0) {
                         _currentFrame = totalFrames;
                     }
 
-                    if (_currentFrame <= totalFrames)
-                    {
-                        bool bUpdate = !MessageQueue.BreakAPP || Plugin.UpdateMode == UpdateModes.Continue;
+                    if (_currentFrame <= totalFrames) {
+                        bool bUpdate = Plugin.UpdateMode == UpdateModes.Continue;
 
-                        if (bUpdate)
-                        {
+                        if (bUpdate) {
                             _stopwatch.Reset();
                             _stopwatch.Start();
                         }
 
-                        while (_currentFrame <= totalFrames)
-                        {
+                        while (_currentFrame <= totalFrames) {
                             SetTotalFrame(_currentFrame);
 
                             _currentFrame++;
 
-                            if (bUpdate)
-                            {
+                            if (bUpdate) {
                                 long ms = _stopwatch.ElapsedMilliseconds;
-                                if (ms > kTimeThreshold)
-                                {
+
+                                if (ms > kTimeThreshold) {
                                     _currentFrame = totalFrames;
                                     break;
                                 }
                             }
                         }
 
-                        if (bUpdate)
-                        {
+                        if (bUpdate) {
                             _stopwatch.Stop();
                         }
-                    }
-                    else if (AgentDataPool.BreakFrame > -1 && _currentFrame > AgentDataPool.BreakFrame)
-                    {
+
+                    } else if (AgentDataPool.BreakFrame > -1 && _currentFrame > AgentDataPool.BreakFrame) {
                         _currentFrame = AgentDataPool.BreakFrame;
                         AgentDataPool.BreakFrame = -1;
 
@@ -731,27 +656,22 @@ namespace Behaviac.Design
                         _timelineDock.update(_currentFrame);
                     }
                 }
-            }
-            else if (Plugin.EditMode == EditModes.Analyze)
-            {
-                if (Plugin.UpdateMode == UpdateModes.Break)
+
+            } else if (Plugin.EditMode == EditModes.Analyze) {
+                if (Plugin.UpdateMode == UpdateModes.Break) {
                     return;
+                }
 
                 int current = _timelineDock.trackBar.Value;
                 int framesPerStep = (int)_timelineDock.numericUpDownFPS.Value / kFPS;
                 int end = current + framesPerStep;
-                if (end > _timelineDock.trackBar.Maximum)
-                {
+
+                if (end > _timelineDock.trackBar.Maximum) {
                     end = _timelineDock.trackBar.Maximum;
                 }
 
-                for (int i = current; i <= end; ++i)
-                {
-                    _agenttype_index = 0;
-                    _agentinstance_index = 0;
-
-                    if (_timelineDock.update(i))
-                    {
+                for (int i = current; i <= end; ++i) {
+                    if (_timelineDock.update(i)) {
                         _timelineDock.isUpdateValue = false;
                         _timelineDock.trackBar.Value = i;
                         _timelineDock.isUpdateValue = true;
@@ -768,25 +688,20 @@ namespace Behaviac.Design
                 _timelineDock.trackBar.Value = end;
                 _timelineDock.isUpdateValue = true;
 
-                if (_timelineDock.trackBar.Value >= _timelineDock.trackBar.Maximum)
-                {
+                if (_timelineDock.trackBar.Value >= _timelineDock.trackBar.Maximum) {
                     _timelineDock.setUpdateMode(UpdateModes.Break, "No breakpoints found.");
                 }
             }
         }
 
-        private void comboBoxLogFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.comboBoxLogFilter.Text != "")
-            {
+        private void comboBoxLogFilter_SelectedIndexChanged(object sender, EventArgs e) {
+            if (this.comboBoxLogFilter.Text != "") {
                 NetworkManager.Instance.SendLogFilter(this.comboBoxLogFilter.Text);
             }
         }
 
-        private void comboBoxLogFilter_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && this.comboBoxLogFilter.Text != "")
-            {
+        private void comboBoxLogFilter_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter && this.comboBoxLogFilter.Text != "") {
                 NetworkManager.Instance.SendLogFilter(this.comboBoxLogFilter.Text);
             }
         }

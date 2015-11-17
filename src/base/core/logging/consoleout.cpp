@@ -98,7 +98,7 @@ namespace behaviac
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     bool                            ConsoleOut::IsInit = false;
-	uint32_t                        ConsoleOut::EnableMask = ELOG_VCOUTPUT | ELOG_FILE;
+    uint32_t                        ConsoleOut::EnableMask = ELOG_VCOUTPUT | ELOG_FILE;
     static Private::SafeLock*		gs_lock;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,7 +109,7 @@ namespace behaviac
         {
             IsInit = true;
             static char s_buffer[sizeof(Private::SafeLock)];
-            gs_lock = new(s_buffer) Private::SafeLock();
+            gs_lock = new(s_buffer)Private::SafeLock();
             gs_lock->SetInitializationSignal();
         }
     }
@@ -117,52 +117,53 @@ namespace behaviac
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void ConsoleOut::PrintLines(uint32_t Filter, const char* pStr)
-	{
+    {
         BEHAVIAC_UNUSED_VAR(Filter);
 
-		TestInit();
+        TestInit();
 
-		const int kMaxStringLength = 2048;
-		int count = 0;
-		char line[kMaxStringLength];
-		while (*pStr != '\0' && *pStr != '\n')
-		{
-			line[count++] = *pStr++;
-		}
+        const int kMaxStringLength = 2048;
+        int count = 0;
+        char line[kMaxStringLength];
 
-		if (*pStr == '\n')
-		{
-			line[count++] = *pStr++;
-		}
+        while (*pStr != '\0' && *pStr != '\n')
+        {
+            line[count++] = *pStr++;
+        }
 
-		line[count++] = '\0';
+        if (*pStr == '\n')
+        {
+            line[count++] = *pStr++;
+        }
 
-		BEHAVIAC_ASSERT(count < kMaxStringLength);
-		count = 0;
+        line[count++] = '\0';
 
-		//the first line
-		OutputDecoratedLine(line);
+        BEHAVIAC_ASSERT(count < kMaxStringLength);
+        count = 0;
 
-		while (*pStr != '\0')
-		{
-			while (*pStr != '\0' && *pStr != '\n')
-			{
-				line[count++] = *pStr++;
-			}
+        //the first line
+        OutputDecoratedLine(line);
 
-			if (*pStr == '\n')
-			{
-				line[count++] = *pStr++;
-			}
+        while (*pStr != '\0')
+        {
+            while (*pStr != '\0' && *pStr != '\n')
+            {
+                line[count++] = *pStr++;
+            }
 
-			line[count++] = '\0';
+            if (*pStr == '\n')
+            {
+                line[count++] = *pStr++;
+            }
 
-			BEHAVIAC_ASSERT(count < kMaxStringLength);
-			count = 0;
+            line[count++] = '\0';
 
-			OutputLine(line);
-		}
-	}
+            BEHAVIAC_ASSERT(count < kMaxStringLength);
+            count = 0;
+
+            OutputLine(line);
+        }
+    }
 
     void ConsoleOut::PrintLines(const char* pStr)
     {
@@ -226,20 +227,20 @@ namespace behaviac
             size_t		Size;
             size_t		StartingOfs;
             size_t		EndingOfs;
-            pData       = BEHAVIAC_ALIGN_PTR(uint8_t*, pUserData, 16);
-            StartingOfs = (size_t) BEHAVIAC_DIFF_PTR(pUserData, pData);
-            EndingOfs   = StartingOfs + UserSize;
-            Size        = BEHAVIAC_ROUND(EndingOfs, 16);
+            pData = BEHAVIAC_ALIGN_PTR(uint8_t*, pUserData, 16);
+            StartingOfs = (size_t)BEHAVIAC_DIFF_PTR(pUserData, pData);
+            EndingOfs = StartingOfs + UserSize;
+            Size = BEHAVIAC_ROUND(EndingOfs, 16);
 
-            for (i = 0; i < (Size / 16) ; i++)
+            for (i = 0; i < (Size / 16); i++)
             {
-				memset(Str, ' ', sizeof(Str));
+                memset(Str, ' ', sizeof(Str));
                 string_snprintf(Str, sizeof(Str), "%p", pData + i * 16);
                 Str[8] = ':';
 
                 for (size_t j = 0; j < 16; j++)
                 {
-                    size_t Ofs   = i * 16 + j;
+                    size_t Ofs = i * 16 + j;
                     size_t Index = (j * 3) + ((j > 7) ? 11 : 10);
 
                     if ((Ofs >= StartingOfs) && (Ofs < EndingOfs))
@@ -262,97 +263,99 @@ namespace behaviac
 
     void ConsoleOut::Output(uint32_t LogFilter, const char* pStr)
     {
-		BEHAVIAC_UNUSED_VAR(LogFilter);
-		BEHAVIAC_UNUSED_VAR(pStr);
+        BEHAVIAC_UNUSED_VAR(LogFilter);
+        BEHAVIAC_UNUSED_VAR(pStr);
 
-		//you can call ConsoleOut::SetEnableMask(0) to disable the output
+        //you can call ConsoleOut::SetEnableMask(0) to disable the output
         if (EnableMask != 0)
         {
-			OutputDecoratedLine(pStr);
+            OutputDecoratedLine(pStr);
         }
     }
 
-	void ConsoleOut::OutputLine(const char* temp)
-	{
-		gs_lock->Lock();
+    void ConsoleOut::OutputLine(const char* temp)
+    {
+        gs_lock->Lock();
 
-#if BEHAVIAC_COMPILER_MSVC        
+#if BEHAVIAC_COMPILER_MSVC
 #if _MSC_VER >= 1500
-		static BOOL s_debugger = IsDebuggerPresent();
+        static BOOL s_debugger = IsDebuggerPresent();
 #else
-		static BOOL s_debugger = false;
+        static BOOL s_debugger = false;
 #endif//#if _MSC_VER >= 1500
-		if (s_debugger && (EnableMask & ELOG_VCOUTPUT))
-		{
-			OutputDebugString(temp);
-		}
+
+        if (s_debugger && (EnableMask & ELOG_VCOUTPUT))
+        {
+            OutputDebugString(temp);
+        }
+
 #endif//
 
-		//to console window
-		if (EnableMask & ELOG_CONSOLE)
-		{
-			LOGI(temp);
-		}
+        //to console window
+        if (EnableMask & ELOG_CONSOLE)
+        {
+            LOGI(temp);
+        }
 
-		if (EnableMask & ELOG_FILE)
-		{
-			static FILE* s_file = 0;
+        if (EnableMask & ELOG_FILE)
+        {
+            static FILE* s_file = 0;
 
-			if (!s_file)
-			{
-				s_file = fopen("_behaviac_$_$_.log", "wt");
-				if (s_file)
-				{
-					behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
+            if (!s_file)
+            {
+                s_file = fopen("_behaviac_$_$_.log", "wt");
 
-					time_t tTime = time(NULL);
-					tm* ptmCurrent = localtime(&tTime);
+                if (s_file)
+                {
+                    behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
 
-					behaviac::string buffer = FormatString("[behaviac][%05d][thread %04d]CREATED ON %d-%.2d-%.2d\n\n",  0, threadId, ptmCurrent->tm_year + 1900, ptmCurrent->tm_mon + 1, ptmCurrent->tm_mday);
+                    time_t tTime = time(NULL);
+                    tm* ptmCurrent = localtime(&tTime);
 
-					fwrite(buffer.c_str(), 1, buffer.size(), s_file);
-				}
-			}
+                    behaviac::string buffer = FormatString("[behaviac][%05d][thread %04d]CREATED ON %d-%.2d-%.2d\n\n", 0, threadId, ptmCurrent->tm_year + 1900, ptmCurrent->tm_mon + 1, ptmCurrent->tm_mday);
 
-			if (s_file)
-			{
-				fwrite(temp, 1, strlen(temp), s_file);
-				fflush(s_file);
-			}
-		}
+                    fwrite(buffer.c_str(), 1, buffer.size(), s_file);
+                }
+            }
 
-		gs_lock->Unlock();
-	}
+            if (s_file)
+            {
+                fwrite(temp, 1, strlen(temp), s_file);
+                fflush(s_file);
+            }
+        }
 
+        gs_lock->Unlock();
+    }
 
-	void ConsoleOut::OutputDecoratedLine(const char* pStr)
-	{
-		behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
-		time_t tTime = time(NULL);
-		tm* ptmCurrent = localtime(&tTime);
+    void ConsoleOut::OutputDecoratedLine(const char* pStr)
+    {
+        behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
+        time_t tTime = time(NULL);
+        tm* ptmCurrent = localtime(&tTime);
 
-		char szTime[64];
-		string_snprintf(szTime, sizeof(szTime) - 1,
-			"%.2d:%.2d:%.2d",
-			ptmCurrent->tm_hour, ptmCurrent->tm_min, ptmCurrent->tm_sec);
-		static int s_index = 0;
-		int index = s_index++;
-		const int kMaxStringLength = 2048;
-		char temp[kMaxStringLength];
+        char szTime[64];
+        string_snprintf(szTime, sizeof(szTime) - 1,
+                        "%.2d:%.2d:%.2d",
+                        ptmCurrent->tm_hour, ptmCurrent->tm_min, ptmCurrent->tm_sec);
+        static int s_index = 0;
+        int index = s_index++;
+        const int kMaxStringLength = 2048;
+        char temp[kMaxStringLength];
 #if !BEHAVIAC_COMPILER_GCC_LINUX
-		string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %04d][%s]%s", index, (int)threadId, szTime, pStr);
+        string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %04d][%s]%s", index, (int)threadId, szTime, pStr);
 #else
-        string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %p][%s]%s", index, threadId, szTime, pStr);        
+        string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %p][%s]%s", index, threadId, szTime, pStr);
 #endif
         temp[kMaxStringLength - 1] = '\0';
 
-		OutputLine(temp);
-	}
+        OutputLine(temp);
+    }
 
-	void ConsoleOut::SetEnableMask(uint32_t enableMask)
-	{
-		EnableMask = enableMask;
-	}
+    void ConsoleOut::SetEnableMask(uint32_t enableMask)
+    {
+        EnableMask = enableMask;
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -398,5 +401,4 @@ namespace behaviac
         BEHAVIAC_ASSERT(false);
         return 0;
     }
-
 }

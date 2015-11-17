@@ -14,41 +14,39 @@
 namespace Behaviac.Design.Attributes
 {
     partial class DesignerMethodComboEnumEditor
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Windows Form Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.typeComboBox = new System.Windows.Forms.ComboBox();
             this.valueComboBox = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // flowLayoutPanel
-            // 
+            //
             this.flowLayoutPanel.AutoSize = true;
             this.flowLayoutPanel.Controls.Add(this.typeComboBox);
             this.flowLayoutPanel.Controls.Add(this.valueComboBox);
@@ -58,9 +56,9 @@ namespace Behaviac.Design.Attributes
             this.flowLayoutPanel.Size = new System.Drawing.Size(277, 24);
             this.flowLayoutPanel.TabIndex = 2;
             this.flowLayoutPanel.Resize += new System.EventHandler(this.flowLayoutPanel_Resize);
-            // 
+            //
             // typeComboBox
-            // 
+            //
             this.typeComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.typeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.typeComboBox.DropDownWidth = 140;
@@ -75,9 +73,9 @@ namespace Behaviac.Design.Attributes
             this.typeComboBox.DropDown += new System.EventHandler(this.typeComboBox_DropDown);
             this.typeComboBox.SelectedIndexChanged += new System.EventHandler(this.typeComboBox_SelectedIndexChanged);
             this.typeComboBox.MouseEnter += new System.EventHandler(this.typeComboBox_MouseEnter);
-            // 
+            //
             // valueComboBox
-            // 
+            //
             this.valueComboBox.AllowDrop = true;
             this.valueComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.valueComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -99,9 +97,9 @@ namespace Behaviac.Design.Attributes
             this.valueComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.valueComboBox_KeyPress);
             this.valueComboBox.MouseEnter += new System.EventHandler(this.valueComboBox_MouseEnter);
             this.valueComboBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.valueComboBox_PreviewKeyDown);
-            // 
+            //
             // DesignerMethodComboEnumEditor
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
@@ -112,9 +110,9 @@ namespace Behaviac.Design.Attributes
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.ComboBox valueComboBox;
         private System.Windows.Forms.ComboBox typeComboBox;

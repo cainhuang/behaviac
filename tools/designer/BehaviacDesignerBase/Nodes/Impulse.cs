@@ -36,6 +36,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using Behaviac.Design.Attributes;
+using Behaviac.Design.Properties;
 
 namespace Behaviac.Design.Nodes
 {
@@ -44,39 +45,25 @@ namespace Behaviac.Design.Nodes
     /// </summary>
     public class Impulse : Node
     {
+        protected ConnectorSingle _signal;
         protected Connector _genericChildren;
-        public Connector GenericChildren
-        {
+        public Connector GenericChildren {
             get { return _genericChildren; }
         }
 
-        protected bool _acceptsEvents;
         public Impulse(string label, string description)
             : base(label, description)
         {
-            _acceptsEvents = true;
-
-            _genericChildren = new ConnectorSingle(_children, string.Empty, "GenericChildren");
-        }
-
-        public override bool AcceptsAttachment(Type type)
-        {
-            if (_acceptsEvents)
-            {
-                return type.IsSubclassOf(typeof(Behaviac.Design.Attachments.Predicate));
-            }
-
-            return false;
+            _signal = new ConnectorSingle(_children, Resources.Signal, Connector.kInterupt);
+            _genericChildren = new ConnectorSingle(_children, string.Empty, Connector.kGeneric);
         }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(96, 74, 123));
-        protected override Brush DefaultBackgroundBrush
-        {
+        protected override Brush DefaultBackgroundBrush {
             get { return __defaultBackgroundBrush; }
         }
 
-        protected override void CloneProperties(Node newnode)
-        {
+        protected override void CloneProperties(Node newnode) {
             base.CloneProperties(newnode);
         }
     }

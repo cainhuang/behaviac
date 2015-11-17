@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_THREAD_WRAPPER_H_
-#define _BEHAVIAC_BASE_THREAD_WRAPPER_H_
+#ifndef BEHAVIAC_BASE_THREAD_WRAPPER_H
+#define BEHAVIAC_BASE_THREAD_WRAPPER_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
@@ -22,13 +22,13 @@
 #include "behaviac/base/core/system.h"
 
 #if BEHAVIAC_COMPILER_MSVC
-	#include <intrin.h>
+#include <intrin.h>
 
-	#define MemoryReadBarrier	_ReadBarrier
-	#define MemoryWriteBarrier	_WriteBarrier
+#define MemoryReadBarrier	_ReadBarrier
+#define MemoryWriteBarrier	_WriteBarrier
 #else
-	#define MemoryReadBarrier
-	#define MemoryWriteBarrier
+#define MemoryReadBarrier
+#define MemoryWriteBarrier
 #endif//BEHAVIAC_COMPILER_MSVC
 
 #include <cassert>
@@ -38,9 +38,9 @@ namespace behaviac
     typedef long			Atomic32;
 
     namespace Thread
-	{
-		BEHAVIAC_API void Sleep(long millis);
-	}
+    {
+        BEHAVIAC_API void Sleep(long millis);
+    }
 
     template<typename T>
     inline T Load_Relaxed(const T& v)
@@ -71,71 +71,70 @@ namespace behaviac
     Atomic32 AtomicInc(volatile Atomic32& i);
     Atomic32 AtomicDec(volatile Atomic32& i);
 
-	template<typename T>
-	class ScopedInt
-	{
-		T* m_int;
-	public:
-		ScopedInt(T* i) : m_int(i)
-		{
-			++(*m_int);
-		}
+    template<typename T>
+    class ScopedInt
+    {
+        T* m_int;
+    public:
+        ScopedInt(T* i) : m_int(i)
+        {
+            ++(*m_int);
+        }
 
-		~ScopedInt()
-		{
-			--(*m_int);
-		}
+        ~ScopedInt()
+        {
+            --(*m_int);
+        }
 
-		bool equal(long v) const
-		{
-			long vThis = m_int->value();
-			return vThis == v;
-		}
-	};
+        bool equal(long v) const
+        {
+            long vThis = m_int->value();
+            return vThis == v;
+        }
+    };
 
 #if BEHAVIAC_COMPILER_MSVC
-	class BEHAVIAC_API ThreadInt
-	{
-		fixed_hash<long, 256 * 2>	m_threadInt;
-		behaviac::Mutex			m_csMemory;
-		bool					m_inited;
-	public:
-		ThreadInt();
-		~ThreadInt();
-		long value() const;
-	private:
-		void Init();
-		//void set(long v);
-		long operator++();
-		void operator--();
+    class BEHAVIAC_API ThreadInt
+    {
+        fixed_hash<long, 256* 2>	m_threadInt;
+        behaviac::Mutex			m_csMemory;
+        bool					m_inited;
+    public:
+        ThreadInt();
+        ~ThreadInt();
+        long value() const;
+    private:
+        void Init();
+        //void set(long v);
+        long operator++();
+        void operator--();
 
-		friend class ScopedInt<ThreadInt>;
-	};
-
+        friend class ScopedInt<ThreadInt>;
+    };
 } // behaviac
 
 #else
-	class BEHAVIAC_API ThreadInt
-	{
-		long					m_value;
-		behaviac::Mutex			m_csMemory;
-		bool					m_inited;
-	public:
-		ThreadInt();
-		~ThreadInt();
-		long value() const;
-	private:
-		void Init();
-		//void set(long v);
-		long operator++();
-		void operator--();
+    class BEHAVIAC_API ThreadInt
+    {
+        long					m_value;
+        behaviac::Mutex			m_csMemory;
+        bool					m_inited;
+    public:
+        ThreadInt();
+        ~ThreadInt();
+        long value() const;
+    private:
+        void Init();
+        //void set(long v);
+        long operator++();
+        void operator--();
 
-		friend class ScopedInt<ThreadInt>;
-	};
+        friend class ScopedInt<ThreadInt>;
+    };
 } // behaviac
 
 #endif
 
 typedef behaviac::ScopedInt<behaviac::ThreadInt> ScopedInt_t;
 
-#endif//_BEHAVIAC_BASE_THREAD_WRAPPER_H_
+#endif//BEHAVIAC_BASE_THREAD_WRAPPER_H

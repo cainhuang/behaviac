@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,14 +19,38 @@ namespace behaviac
     {
         public DecoratorLoop()
         {
-		}
+        }
+
         ~DecoratorLoop()
         {
+        }
+
+        public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
+        {
+            DecoratorLoop loop = (DecoratorLoop)node;
+            bool bOk = false;
+            int childCount = loop.GetChildrenCount();
+            Debug.Check(childCount == 1);
+            BehaviorNode childNode = loop.GetChild(0);
+            PlannerTask childTask = planner.decomposeNode(childNode, depth);
+
+            if (childTask != null)
+            {
+                seqTask.AddChild(childTask);
+                bOk = true;
+            }
+
+            return bOk;
         }
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
+        }
+
+        public int Count(Agent pAgent)
+        {
+            return base.GetCount(pAgent);
         }
 
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
@@ -49,7 +71,7 @@ namespace behaviac
         }
 
         ///Returns EBTStatus.BT_FAILURE for the specified number of iterations, then returns EBTStatus.BT_SUCCESS after that
-        class DecoratorLoopTask : DecoratorCountTask
+        private class DecoratorLoopTask : DecoratorCountTask
         {
             public DecoratorLoopTask()
             {
@@ -68,6 +90,7 @@ namespace behaviac
             {
                 base.save(node);
             }
+
             public override void load(ISerializableNode node)
             {
                 base.load(node);

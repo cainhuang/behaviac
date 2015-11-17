@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_IMPULSE_H_
-#define BEHAVIAC_BEHAVIORTREE_IMPULSE_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_IMPULSE_H
+#define BEHAVIAC_BEHAVIORTREE_IMPULSE_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -20,15 +20,15 @@
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup WaitforSignal
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup WaitforSignal
+    * @{ */
 
-	/**
-	Always return Running until the predicates of WaitforSignal node become true,
-	or executing child node and return execution result.
-	*/
+    /**
+    Always return Running until the predicates of WaitforSignal node become true,
+    or executing child node and return execution result.
+    */
     class BEHAVIAC_API WaitforSignal : public BehaviorNode
     {
     public:
@@ -37,13 +37,13 @@ namespace behaviac
         WaitforSignal();
         virtual ~WaitforSignal();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-	protected:
-		virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
+        bool CheckIfSignaled(const Agent* pAgent);
+    protected:
+        virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
 
-	private:
-		virtual BehaviorTask* createTask() const;
-
-    };	
+    private:
+        virtual BehaviorTask* createTask() const;
+    };
 
     class BEHAVIAC_API WaitforSignalTask : public SingeChildTask
     {
@@ -51,31 +51,30 @@ namespace behaviac
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(WaitforSignalTask, SingeChildTask);
         WaitforSignalTask() : SingeChildTask(), m_bTriggered(false)
         {}
-	protected:
-		virtual ~WaitforSignalTask();
 
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+    protected:
+        virtual ~WaitforSignalTask();
 
-		virtual void Init(const BehaviorNode* node);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
+
+        virtual void Init(const BehaviorNode* node);
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
 
-		virtual bool CheckPredicates(Agent* pAgent);
-
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
-		virtual bool isContinueTicking() const
-		{
-			//return !this->m_bTriggered;
-			return true;
-		}
-	private:
-		bool	m_bTriggered;
+        virtual bool isContinueTicking() const
+        {
+            //return !this->m_bTriggered;
+            return true;
+        }
+    private:
+        bool	m_bTriggered;
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_IMPULSE_H_
+#endif//BEHAVIAC_BEHAVIORTREE_IMPULSE_H

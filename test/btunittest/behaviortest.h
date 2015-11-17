@@ -16,7 +16,8 @@
 
 #include "behaviac/base/base.h"
 #include "behaviac/agent/agent.h"
-#include "behaviac/world/world.h"
+
+#include "behaviac/behaviortree/behaviortree.h"
 
 #include "behaviac/behaviortree/nodes/decorators/decoratorloop.h"
 #include "behaviac/behaviortree/nodes/decorators/decoratorsuccessuntil.h"
@@ -26,193 +27,187 @@
 
 #include "behaviac/behaviortree/nodes/conditions/condition.h"
 
-#include "behaviac/behaviortree/nodes/conditions/condition.h"
-
 #include "ext/types.h"
+
+//behaviac::Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
 
 class BEHAVIAC_API DecoratorLoopTaskMask : public behaviac::DecoratorLoopTask
 {
-	bool m_success;
+    bool m_success;
 public:
-	BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoopTaskMask, behaviac::DecoratorLoopTask);
+    BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoopTaskMask, behaviac::DecoratorLoopTask);
 
-	DecoratorLoopTaskMask(bool s) : behaviac::DecoratorLoopTask(), m_success(s)
-	{
-	}
+    DecoratorLoopTaskMask(bool s) : behaviac::DecoratorLoopTask(), m_success(s)
+    {
+    }
 
-	virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
-	{
-		behaviac::EBTStatus s = super::decorate(status);
+    virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
+    {
+        behaviac::EBTStatus s = super::decorate(status);
 
-		if (s == behaviac::BT_SUCCESS)
-		{
-			return m_success ? behaviac::BT_SUCCESS : behaviac::BT_FAILURE;
-		}
+        if (s == behaviac::BT_SUCCESS)
+        {
+            return m_success ? behaviac::BT_SUCCESS : behaviac::BT_FAILURE;
+        }
 
-		if (s == behaviac::BT_FAILURE)
-		{
-			return m_success ? behaviac::BT_FAILURE : behaviac::BT_SUCCESS;
-		}
+        if (s == behaviac::BT_FAILURE)
+        {
+            return m_success ? behaviac::BT_FAILURE : behaviac::BT_SUCCESS;
+        }
 
-		return s;
-	}
+        return s;
+    }
 };
-
 
 class DecoratorCountMock : public behaviac::DecoratorCount
 {
-	bool m_success;
+    bool m_success;
 public:
-	DecoratorCountMock(int count, bool s = true) : m_success(s)
-	{
-		behaviac::string valueStr = FormatString("const int %d", count);
-		behaviac::string typeName;
-		behaviac::string propertyName;
+    DecoratorCountMock(int count, bool s = true) : m_success(s)
+    {
+        behaviac::string valueStr = FormatString("const int %d", count);
+        behaviac::string typeName;
+        behaviac::string propertyName;
 
-		this->m_count_var = behaviac::LoadRight(valueStr.c_str(), propertyName, typeName);
+        this->m_count_var = behaviac::Condition::LoadRight(valueStr.c_str(), typeName);
 
-		behaviac::Noop* pNoop = BEHAVIAC_NEW behaviac::Noop();
+        behaviac::Noop* pNoop = BEHAVIAC_NEW behaviac::Noop();
 
-		this->AddChild(pNoop);
-	}
+        this->AddChild(pNoop);
+    }
 
-	virtual behaviac::BehaviorTask* createTask() const
-	{
-		behaviac::BehaviorTask* pTask = BEHAVIAC_NEW DecoratorLoopTaskMask(m_success);
-		pTask->Init(this);
+    virtual behaviac::BehaviorTask* createTask() const
+    {
+        behaviac::BehaviorTask* pTask = BEHAVIAC_NEW DecoratorLoopTaskMask(m_success);
+        pTask->Init(this);
 
-		return pTask;
-	}
+        return pTask;
+    }
 
-	virtual bool IsValid(behaviac::Agent* pAgent, behaviac::BehaviorTask* pTask) const
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent); 
-		BEHAVIAC_UNUSED_VAR(pTask); 
+    virtual bool IsValid(behaviac::Agent* pAgent, behaviac::BehaviorTask* pTask) const
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(pTask);
 
-		return true;
-	}
+        return true;
+    }
 };
-
 
 class FailureAfter : public behaviac::DecoratorLoopTask
 {
 public:
-	FailureAfter(const DecoratorCountMock* node) : behaviac::DecoratorLoopTask()
-	{
-		this->m_node = node;
+    FailureAfter(const DecoratorCountMock* node) : behaviac::DecoratorLoopTask()
+    {
+        this->m_node = node;
 
-		behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
+        behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
 
-		this->addChild(pNoop);
-	}
+        this->addChild(pNoop);
+    }
 
-	~FailureAfter()
-	{
-	}
+    ~FailureAfter()
+    {
+    }
 
-	virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
-	{
-		behaviac::EBTStatus s = behaviac::DecoratorLoopTask::decorate(status);
+    virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
+    {
+        behaviac::EBTStatus s = behaviac::DecoratorLoopTask::decorate(status);
 
-		if (s == behaviac::BT_SUCCESS)
-		{
-			return behaviac::BT_FAILURE;
-		}
+        if (s == behaviac::BT_SUCCESS)
+        {
+            return behaviac::BT_FAILURE;
+        }
 
-		if (s == behaviac::BT_FAILURE)
-		{
-			return behaviac::BT_SUCCESS;
-		}
+        if (s == behaviac::BT_FAILURE)
+        {
+            return behaviac::BT_SUCCESS;
+        }
 
-		return s;
-	}
+        return s;
+    }
 };
-
 
 class SuccessAfter : public behaviac::DecoratorLoopTask
 {
 public:
-	SuccessAfter(const DecoratorCountMock* node) : behaviac::DecoratorLoopTask()
-	{
-		this->m_node = node;
-		behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
+    SuccessAfter(const DecoratorCountMock* node) : behaviac::DecoratorLoopTask()
+    {
+        this->m_node = node;
+        behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
 
-		this->addChild(pNoop);
-	}
+        this->addChild(pNoop);
+    }
 
-	~SuccessAfter()
-	{
-	}
+    ~SuccessAfter()
+    {
+    }
 
-	virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
-	{
-		return behaviac::DecoratorLoopTask::decorate(status);
-	}
+    virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
+    {
+        return behaviac::DecoratorLoopTask::decorate(status);
+    }
 };
-
 
 class FailureUntil : public behaviac::DecoratorFailureUntilTask
 {
 public:
-	FailureUntil(const DecoratorCountMock* node) : behaviac::DecoratorFailureUntilTask()
-	{
-		this->m_node = node;
-		behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
+    FailureUntil(const DecoratorCountMock* node) : behaviac::DecoratorFailureUntilTask()
+    {
+        this->m_node = node;
+        behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
 
-		this->addChild(pNoop);
-	}
+        this->addChild(pNoop);
+    }
 
-	~FailureUntil()
-	{
-	}
+    ~FailureUntil()
+    {
+    }
 
-	virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
-	{
-		return behaviac::DecoratorFailureUntilTask::decorate(status);
-	}
+    virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
+    {
+        return behaviac::DecoratorFailureUntilTask::decorate(status);
+    }
 };
 
 class SuccessUntil : public behaviac::DecoratorSuccessUntilTask
 {
 public:
-	SuccessUntil(const DecoratorCountMock* node) : behaviac::DecoratorSuccessUntilTask()
-	{
-		this->m_node = node;
-		behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
+    SuccessUntil(const DecoratorCountMock* node) : behaviac::DecoratorSuccessUntilTask()
+    {
+        this->m_node = node;
+        behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
 
-		this->addChild(pNoop);
-	}
+        this->addChild(pNoop);
+    }
 
-	~SuccessUntil()
-	{
-	}
+    ~SuccessUntil()
+    {
+    }
 
-	virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
-	{
-		return behaviac::DecoratorSuccessUntilTask::decorate(status);
-	}
+    virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
+    {
+        return behaviac::DecoratorSuccessUntilTask::decorate(status);
+    }
 };
-
 
 class AlwaysRunning : public behaviac::DecoratorAlwaysRunningTask
 {
 public:
-	AlwaysRunning() : behaviac::DecoratorAlwaysRunningTask()
-	{
-		behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
+    AlwaysRunning() : behaviac::DecoratorAlwaysRunningTask()
+    {
+        behaviac::NoopTask* pNoop = BEHAVIAC_NEW behaviac::NoopTask();
 
-		this->addChild(pNoop);
-	}
+        this->addChild(pNoop);
+    }
 
-	~AlwaysRunning()
-	{
-	}
+    ~AlwaysRunning()
+    {
+    }
 
-	virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
-	{
-		return behaviac::DecoratorAlwaysRunningTask::decorate(status);
-	}
+    virtual behaviac::EBTStatus decorate(behaviac::EBTStatus status)
+    {
+        return behaviac::DecoratorAlwaysRunningTask::decorate(status);
+    }
 };
-
 
 #endif//_TEST_BEHAVIOR_TEST_H_

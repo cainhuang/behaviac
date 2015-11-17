@@ -14,145 +14,280 @@
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/nodes/composites/parallel.h"
 
+#include "behaviac/htn/planner.h"
+#include "behaviac/htn/plannertask.h"
+
 namespace behaviac
 {
-	Parallel::Parallel() : m_failPolicy(FAIL_ON_ONE), m_succeedPolicy(SUCCEED_ON_ALL), m_exitPolicy(EXIT_NONE), m_childFinishPolicy(CHILDFINISH_LOOP)
-	{}
+    Parallel::Parallel() : m_failPolicy(FAIL_ON_ONE), m_succeedPolicy(SUCCEED_ON_ALL), m_exitPolicy(EXIT_NONE), m_childFinishPolicy(CHILDFINISH_LOOP)
+    {}
 
-	Parallel::~Parallel()
-	{}
+    Parallel::~Parallel()
+    {}
 
-	bool Parallel::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!Parallel::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool Parallel::decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner)
+    {
+        bool bOk = false;
+        Parallel* parallel = (Parallel*)node;// as Parallel;
+        int childCount = parallel->GetChildrenCount();
+        int i = 0;
 
-	BehaviorTask* Parallel::createTask() const
-	{
-		ParallelTask* pTask = BEHAVIAC_NEW ParallelTask();
+        for (; i < childCount; ++i)
+        {
+            BehaviorNode* childNode = (BehaviorNode*)parallel->GetChild(i);
+            PlannerTask* childTask = planner->decomposeNode(childNode, depth);
 
-		return pTask;
-	}
+            if (childTask == NULL)
+            {
+                break;
+            }
 
-	void Parallel::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
+            seqTask->AddChild(childTask);
+        }
 
-		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
-		{
-			const property_t& p = (*it);
+        if (i == childCount)
+        {
+            bOk = true;
+        }
 
-			if (!strcmp(p.name, "FailurePolicy"))
-			{
-				if (!strcmp(p.value, "FAIL_ON_ONE"))
-				{
-					this->m_failPolicy = FAIL_ON_ONE;
-				}
-				else if (!strcmp(p.value, "FAIL_ON_ALL"))
-				{
-					this->m_failPolicy = FAIL_ON_ALL;
-				}
-				else
-				{
-					BEHAVIAC_ASSERT(0);
-				}
-			}
-			else if (!strcmp(p.name, "SuccessPolicy"))
-			{
-				if (!strcmp(p.value, "SUCCEED_ON_ONE"))
-				{
-					this->m_succeedPolicy = SUCCEED_ON_ONE;
-				}
-				else if (!strcmp(p.value, "SUCCEED_ON_ALL"))
-				{
-					this->m_succeedPolicy = SUCCEED_ON_ALL;
-				}
-				else
-				{
-					BEHAVIAC_ASSERT(0);
-				}
-			}
-			else if (!strcmp(p.name, "ExitPolicy"))
-			{
-				if (!strcmp(p.value, "EXIT_NONE"))
-				{
-					this->m_exitPolicy = EXIT_NONE;
-				}
-				else if (!strcmp(p.value, "EXIT_ABORT_RUNNINGSIBLINGS"))
-				{
-					this->m_exitPolicy = EXIT_ABORT_RUNNINGSIBLINGS;
-				}
-				else
-				{
-					BEHAVIAC_ASSERT(0);
-				}
-			}
-			else if (!strcmp(p.name, "ChildFinishPolicy"))
-			{
-				if (!strcmp(p.value, "CHILDFINISH_ONCE"))
-				{
-					this->m_childFinishPolicy = CHILDFINISH_ONCE;
-				}
-				else if (!strcmp(p.value, "CHILDFINISH_LOOP"))
-				{
-					this->m_childFinishPolicy = CHILDFINISH_LOOP;
-				}
-				else
-				{
-					BEHAVIAC_ASSERT(0);
-				}
-			}
-			else
-			{
-				//BEHAVIAC_ASSERT(0);
-			}
-		}
-	}
+        return bOk;
+
+    }
+
+    bool Parallel::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!Parallel::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
+
+        return super::IsValid(pAgent, pTask);
+    }
+
+    BehaviorTask* Parallel::createTask() const
+    {
+        ParallelTask* pTask = BEHAVIAC_NEW ParallelTask();
+
+        return pTask;
+    }
+    bool Parallel::IsManagingChildrenAsSubTrees() const
+    {
+        return true;
+    }
+    EBTStatus Parallel::ParallelUpdate(Agent* pAgent, behaviac::vector<BehaviorTask*> children)
+    {
+        bool sawSuccess = false;
+        bool sawFail = false;
+        bool sawRunning = false;
+        bool sawAllFails = true;
+        bool sawAllSuccess = true;
+
+        bool bLoop = (this->m_childFinishPolicy == CHILDFINISH_LOOP);
+
+        // go through all m_children
+        for (uint32_t i = 0; i < children.size(); ++i)
+        {
+            BehaviorTask* pChild = children[i];
+
+            EBTStatus treeStatus = pChild->GetStatus();
+
+            if (bLoop || (treeStatus == BT_RUNNING || treeStatus == BT_INVALID))
+            {
+                EBTStatus status = pChild->exec(pAgent);
+
+                if (status == BT_FAILURE)
+                {
+                    sawFail = true;
+                    sawAllSuccess = false;
+
+                }
+                else if (status == BT_SUCCESS)
+                {
+                    sawSuccess = true;
+                    sawAllFails = false;
+
+                }
+                else if (status == BT_RUNNING)
+                {
+                    sawRunning = true;
+                    sawAllFails = false;
+                    sawAllSuccess = false;
+                }
+
+            }
+            else if (treeStatus == BT_SUCCESS)
+            {
+                sawSuccess = true;
+                sawAllFails = false;
+
+            }
+            else
+            {
+                BEHAVIAC_ASSERT(treeStatus == BT_FAILURE);
+
+                sawFail = true;
+                sawAllSuccess = false;
+            }
+        }
+
+        EBTStatus result = sawRunning ? BT_RUNNING : BT_FAILURE;
+
+        if ((this->m_failPolicy == FAIL_ON_ALL && sawAllFails) ||
+            (this->m_failPolicy == FAIL_ON_ONE && sawFail))
+        {
+            result = BT_FAILURE;
+
+        }
+        else if ((this->m_succeedPolicy == SUCCEED_ON_ALL && sawAllSuccess) ||
+                 (this->m_succeedPolicy == SUCCEED_ON_ONE && sawSuccess))
+        {
+            result = BT_SUCCESS;
+        }
+
+        if (this->m_exitPolicy == EXIT_ABORT_RUNNINGSIBLINGS && (result == BT_FAILURE || result == BT_SUCCESS))
+        {
+            for (uint32_t i = 0; i < children.size(); ++i)
+            {
+                BehaviorTask* pChild = children[i];
+                //BEHAVIAC_ASSERT(BehaviorTreeTask.DynamicCast(pChild));
+                EBTStatus treeStatus = pChild->GetStatus();
+
+                if (treeStatus == BT_RUNNING)
+                {
+                    pChild->abort(pAgent);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    void Parallel::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+
+        for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+        {
+            const property_t& p = (*it);
+
+            if (!strcmp(p.name, "FailurePolicy"))
+            {
+                if (!strcmp(p.value, "FAIL_ON_ONE"))
+                {
+                    this->m_failPolicy = FAIL_ON_ONE;
+
+                }
+                else if (!strcmp(p.value, "FAIL_ON_ALL"))
+                {
+                    this->m_failPolicy = FAIL_ON_ALL;
+
+                }
+                else
+                {
+                    BEHAVIAC_ASSERT(0);
+                }
+
+            }
+            else if (!strcmp(p.name, "SuccessPolicy"))
+            {
+                if (!strcmp(p.value, "SUCCEED_ON_ONE"))
+                {
+                    this->m_succeedPolicy = SUCCEED_ON_ONE;
+
+                }
+                else if (!strcmp(p.value, "SUCCEED_ON_ALL"))
+                {
+                    this->m_succeedPolicy = SUCCEED_ON_ALL;
+
+                }
+                else
+                {
+                    BEHAVIAC_ASSERT(0);
+                }
+
+            }
+            else if (!strcmp(p.name, "ExitPolicy"))
+            {
+                if (!strcmp(p.value, "EXIT_NONE"))
+                {
+                    this->m_exitPolicy = EXIT_NONE;
+
+                }
+                else if (!strcmp(p.value, "EXIT_ABORT_RUNNINGSIBLINGS"))
+                {
+                    this->m_exitPolicy = EXIT_ABORT_RUNNINGSIBLINGS;
+
+                }
+                else
+                {
+                    BEHAVIAC_ASSERT(0);
+                }
+
+            }
+            else if (!strcmp(p.name, "ChildFinishPolicy"))
+            {
+                if (!strcmp(p.value, "CHILDFINISH_ONCE"))
+                {
+                    this->m_childFinishPolicy = CHILDFINISH_ONCE;
+
+                }
+                else if (!strcmp(p.value, "CHILDFINISH_LOOP"))
+                {
+                    this->m_childFinishPolicy = CHILDFINISH_LOOP;
+
+                }
+                else
+                {
+                    BEHAVIAC_ASSERT(0);
+                }
+
+            }
+            else
+            {
+                //BEHAVIAC_ASSERT(0);
+            }
+        }
+    }
 
     ParallelTask::ParallelTask() : CompositeTask()
     {
     }
 
     ParallelTask::~ParallelTask()
-	{
-		for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
-		{
-			BEHAVIAC_DELETE(*it);
-		}
+    {
+        for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
+        {
+            BEHAVIAC_DELETE(*it);
+        }
 
-		this->m_children.clear();
-	}
+        this->m_children.clear();
+    }
 
-	void ParallelTask::Init(const BehaviorNode* node)
-	{
-		super::Init(node);
-	}
+    void ParallelTask::Init(const BehaviorNode* node)
+    {
+        super::Init(node);
+    }
 
-	void ParallelTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void ParallelTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void ParallelTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void ParallelTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void ParallelTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void ParallelTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     bool ParallelTask::onenter(Agent* pAgent)
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
 
-		BEHAVIAC_ASSERT(this->m_activeChildIndex == CompositeTask::InvalidChildIndex);
+        BEHAVIAC_ASSERT(this->m_activeChildIndex == CompositeTask::InvalidChildIndex);
 
         return true;
     }
@@ -163,93 +298,107 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(s);
     }
 
-	EBTStatus ParallelTask::update(Agent* pAgent, EBTStatus childStatus)
+	EBTStatus ParallelTask::update_current(Agent* pAgent, EBTStatus childStatus)
+	{
+		EBTStatus s = this->update(pAgent, childStatus);
+
+		return s;
+	}
+
+    EBTStatus ParallelTask::update(Agent* pAgent, EBTStatus childStatus)
     {
-    	BEHAVIAC_UNUSED_VAR(childStatus);
-		BEHAVIAC_ASSERT(Parallel::DynamicCast(this->GetNode()));
-		const Parallel* pParallelNode = (const Parallel*)(this->GetNode());
+        BEHAVIAC_UNUSED_VAR(childStatus);
+        BEHAVIAC_ASSERT(Parallel::DynamicCast(this->GetNode()));
+        const Parallel* pParallelNode = (const Parallel*)(this->GetNode());
 
         bool sawSuccess = false;
-		bool sawFail = false;
-		bool sawRunning = false;
+        bool sawFail = false;
+        bool sawRunning = false;
         bool sawAllFails = true;
         bool sawAllSuccess = true;
-		
-		bool bLoop = (pParallelNode->m_childFinishPolicy == CHILDFINISH_LOOP);
+
+        bool bLoop = (pParallelNode->m_childFinishPolicy == CHILDFINISH_LOOP);
 
         // go through all m_children
         for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
         {
-			BehaviorTask* pChild = *it;
+            BehaviorTask* pChild = *it;
 
-			EBTStatus treeStatus = pChild->GetStatus();
+            EBTStatus treeStatus = pChild->GetStatus();
 
-			if (bLoop || (treeStatus == BT_RUNNING || treeStatus == BT_INVALID))
+            if (bLoop || (treeStatus == BT_RUNNING || treeStatus == BT_INVALID))
             {
                 EBTStatus status = pChild->exec(pAgent);
 
                 if (status == BT_FAILURE)
                 {
-					sawFail = true;
+                    sawFail = true;
                     sawAllSuccess = false;
+
                 }
                 else if (status == BT_SUCCESS)
                 {
                     sawSuccess = true;
                     sawAllFails = false;
+
                 }
-				else if (status == BT_RUNNING)
-				{
-					sawRunning = true;
+                else if (status == BT_RUNNING)
+                {
+                    sawRunning = true;
                     sawAllFails = false;
                     sawAllSuccess = false;
-				}
-            }
-			else if (treeStatus == BT_SUCCESS)
-			{
-				sawSuccess = true;
-				sawAllFails = false;
-			}
-			else
-			{
-				BEHAVIAC_ASSERT(treeStatus == BT_FAILURE);
+                }
 
-				sawFail = true;
-				sawAllSuccess = false;
-			}
+            }
+            else if (treeStatus == BT_SUCCESS)
+            {
+                sawSuccess = true;
+                sawAllFails = false;
+
+            }
+            else
+            {
+                BEHAVIAC_ASSERT(treeStatus == BT_FAILURE);
+
+                sawFail = true;
+                sawAllSuccess = false;
+            }
         }
 
-		EBTStatus result = sawRunning ? BT_RUNNING : BT_FAILURE;
+        EBTStatus result = sawRunning ? BT_RUNNING : BT_FAILURE;
+
         if ((pParallelNode->m_failPolicy == FAIL_ON_ALL && sawAllFails) ||
-			(pParallelNode->m_failPolicy == FAIL_ON_ONE && sawFail))
+            (pParallelNode->m_failPolicy == FAIL_ON_ONE && sawFail))
         {
             result = BT_FAILURE;
+
         }
-        else if ((pParallelNode->m_succeedPolicy == SUCCEED_ON_ALL && sawAllSuccess) || 
-			(pParallelNode->m_succeedPolicy == SUCCEED_ON_ONE && sawSuccess))
+        else if ((pParallelNode->m_succeedPolicy == SUCCEED_ON_ALL && sawAllSuccess) ||
+                 (pParallelNode->m_succeedPolicy == SUCCEED_ON_ONE && sawSuccess))
         {
             result = BT_SUCCESS;
-		}
-		//else if (m_failPolicy == FAIL_ON_ALL && m_succeedPolicy == SUCCEED_ON_ALL && sawRunning)
-		//{
-		//	return BT_RUNNING;
-		//}
+        }
 
-		if (pParallelNode->m_exitPolicy == EXIT_ABORT_RUNNINGSIBLINGS && (result == BT_FAILURE || result == BT_SUCCESS))
-		{
-			for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
-			{
-				BehaviorTask* pChild = *it;
-				//BEHAVIAC_ASSERT(BehaviorTreeTask::DynamicCast(pChild));
-				EBTStatus treeStatus = pChild->GetStatus();
+        //else if (m_failPolicy == FAIL_ON_ALL && m_succeedPolicy == SUCCEED_ON_ALL && sawRunning)
+        //{
+        //	return BT_RUNNING;
+        //}
 
-				if (treeStatus == BT_RUNNING)
-				{
-					pChild->abort(pAgent);
-				}
-			}		
-		}
+        if (pParallelNode->m_exitPolicy == EXIT_ABORT_RUNNINGSIBLINGS && (result == BT_FAILURE || result == BT_SUCCESS))
+        {
+            for (BehaviorTasks_t::iterator it = this->m_children.begin(); it != this->m_children.end(); ++it)
+            {
+                BehaviorTask* pChild = *it;
+                //BEHAVIAC_ASSERT(BehaviorTreeTask::DynamicCast(pChild));
+                EBTStatus treeStatus = pChild->GetStatus();
 
-		return result;
+                if (treeStatus == BT_RUNNING)
+                {
+                    pChild->abort(pAgent);
+                }
+            }
+        }
+
+        return result;
     }
 }

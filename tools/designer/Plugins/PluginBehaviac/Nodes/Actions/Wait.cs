@@ -1,4 +1,4 @@
-﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -111,6 +111,20 @@ namespace PluginBehaviac.Nodes
             }
 
             base.CheckForErrors(rootBehavior, result);
+        }
+
+        public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null)
+        {
+            bool bReset = false;
+
+            if (this._time != null)
+            {
+                bReset |= this._time.ResetMembers(check, agentType, clear, property);
+            }
+
+            bReset |= base.ResetMembers(check, agentType, clear, method, property);
+
+            return bReset;
         }
 	}
 }

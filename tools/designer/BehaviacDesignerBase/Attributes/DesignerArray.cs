@@ -30,57 +30,51 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerArray(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerCompositeEditor), null)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerCompositeEditor), null) {
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             return RetrieveDisplayValue(obj);
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             return RetrieveExportValue(obj);
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
-            return ParseStringValue(type, str, node);
+            return ParseStringValue(result, type, str, node);
         }
 
-        public static string RetrieveDisplayValue(object obj)
-        {
-            if (obj != null)
-            {
-                Type type = obj.GetType();
-                if (Plugin.IsArrayType(type))
-                {
-                    Type itemType = type.GetGenericArguments()[0];
-                    System.Collections.IList list = (System.Collections.IList)obj;
+        public static string RetrieveDisplayValue(object obj) {
+            //if (obj != null)
+            //{
+            //    Type type = obj.GetType();
+            //    if (Plugin.IsArrayType(type))
+            //    {
+            //        Type itemType = type.GetGenericArguments()[0];
+            //        System.Collections.IList list = (System.Collections.IList)obj;
 
-                    return string.Format("{0}[{1}]", Plugin.GetNativeTypeName(itemType.Name), list.Count);
-                }
-            }
+            //        return string.Format("{0}[{1}]", Plugin.GetNativeTypeName(itemType.Name), list.Count);
+            //    }
+            //}
 
-            return string.Empty;
+            //return string.Empty;
+            return RetrieveExportValue(obj);
         }
 
-        public static string RetrieveExportValue(object obj)
-        {
-            if (obj != null)
-            {
+        public static string RetrieveExportValue(object obj) {
+            if (obj != null) {
                 Type type = obj.GetType();
-                if (Plugin.IsArrayType(type))
-                {
+
+                if (Plugin.IsArrayType(type)) {
                     Type itemType = type.GetGenericArguments()[0];
                     System.Collections.IList list = (System.Collections.IList)obj;
 
                     string str = string.Empty;
-                    foreach (object item in list)
-                    {
+                    foreach(object item in list) {
                         if (!string.IsNullOrEmpty(str))
-                            str += "|";
+                        { str += "|"; }
 
                         str += DesignerPropertyUtility.RetrieveExportValue(item, null, null);
                     }
@@ -92,31 +86,33 @@ namespace Behaviac.Design.Attributes
             return string.Empty;
         }
 
-        public static object ParseStringValue(Type type, string str, NodeTag.DefaultObject node)
+        public static object ParseStringValue(List<Nodes.Node.ErrorCheck> result, Type type, string str, DefaultObject node)
         {
             Debug.Check(Plugin.IsArrayType(type));
 
             Type itemType = type.GetGenericArguments()[0];
+
             if (Plugin.IsCustomClassType(itemType))
-                return DesignerArrayStruct.ParseStringValue(type, str, node);
+            { return DesignerArrayStruct.ParseStringValue(result, type, str, node); }
 
             object obj = Plugin.CreateInstance(type);
             Debug.Check(obj != null);
 
-            if (!string.IsNullOrEmpty(str))
-            {
+            if (!string.IsNullOrEmpty(str)) {
                 System.Collections.IList list = (System.Collections.IList)obj;
 
                 int index = str.IndexOf(':');
-                if (index >= 0)
-                    str = str.Substring(index + 1);
 
-                if (!string.IsNullOrEmpty(str))
-                {
+                if (index >= 0)
+                { str = str.Substring(index + 1); }
+
+                if (!string.IsNullOrEmpty(str)) {
                     string[] tokens = str.Split('|');
-                    foreach (string s in tokens)
-                    {
-                        Plugin.InvokeTypeParser(itemType, s, (object value) => { list.Add(value); }, node);
+                    foreach(string s in tokens) {
+                        if (!string.IsNullOrEmpty(s))
+                        {
+                            Plugin.InvokeTypeParser(result, itemType, s, (object value) => { list.Add(value); }, node);
+                        }
                     }
                 }
             }

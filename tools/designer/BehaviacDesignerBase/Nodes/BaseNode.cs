@@ -32,6 +32,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -53,8 +54,7 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The parent of this node. Can be null for root.
         /// </summary>
-        public BaseNode Parent
-        {
+        public BaseNode Parent {
             get { return _parent; }
         }
 
@@ -63,8 +63,7 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The connector the ode is connected to its parent with.
         /// </summary>
-        public Connector ParentConnector
-        {
+        public Connector ParentConnector {
             get { return _parentConnector; }
         }
 
@@ -76,20 +75,65 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The child nodes of this node. Is never null.
         /// </summary>
-        public IList<BaseNode> Children
-        {
+        public IList<BaseNode> Children {
             get { return _children.Children; }
+        }
+
+        protected PointF _screenLocation = new PointF(0, 0);
+        public virtual PointF ScreenLocation {
+            get { return _screenLocation; }
+            set { _screenLocation = value; }
+        }
+
+        public virtual bool CanBeAttached
+        {
+            get { return false; }
+        }
+
+        public virtual bool IsFSM {
+            get { return false; }
+        }
+
+        public virtual Attachments.Attachment CreateStartCondition(BaseNode owner) {
+            return null;
+        }
+
+        protected List<BaseNode> _fsmNodes = new List<BaseNode>();
+        public List<BaseNode> FSMNodes {
+            get { return _fsmNodes; }
+        }
+
+        public virtual bool AddFSMNode(BaseNode node) {
+            if (node != null && node.IsFSM) {
+                node._parent = this;
+                _fsmNodes.Add(node);
+                return true;
+            }
+
+            return false;
+        }
+
+        public virtual bool RemoveFSMNode(BaseNode node) {
+            Debug.Check(node != null && node.IsFSM);
+            return _fsmNodes.Remove(node);
+        }
+
+        public IEnumerable GetChildNodes() {
+            return this.IsFSM ? (IEnumerable)(this.FSMNodes) : (IEnumerable)(this.Children);
         }
 
         /// <summary>
         /// Replace the children of this node from the source node.
         /// </summary>
-        public void ReplaceChildren(BaseNode source)
-        {
-            _children = source._children;
 
-            foreach (BaseNode child in source._children)
-            {
+        public void ReplaceChildren(BaseNode source) {
+            _children = source._children;
+            foreach(BaseNode child in _children) {
+                child._parent = this;
+            }
+
+            _fsmNodes = source._fsmNodes;
+            foreach(BaseNode child in _fsmNodes) {
                 child._parent = this;
             }
         }
@@ -99,8 +143,7 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="identifier">The identifier of the connector we are looking for.</param>
         /// <returns>Returns null if no connector could be found.</returns>
-        public Connector GetConnector(string identifier)
-        {
+        public Connector GetConnector(string identifier) {
             return _children.GetConnector(identifier);
         }
 
@@ -109,25 +152,26 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="child">The child of the connector we are looking for.</param>
         /// <returns>Returns null if no connector could be found.</returns>
-        public Connector GetConnector(BaseNode child)
-        {
+        public Connector GetConnector(BaseNode child) {
             return _children.GetConnector(child);
         }
 
         /// <summary>
         /// A list of all connectors registered on the node.
         /// </summary>
-        public IList<Connector> Connectors
-        {
+        public IList<Connector> Connectors {
             get { return _children.Connectors; }
         }
 
         /// <summary>
         /// Creates a new node and attaches the default attributes DebugName and ExportType.
         /// </summary>
-        protected BaseNode()
-        {
+        protected BaseNode() {
             _children = new ConnectedChildren(this);
+        }
+
+        public virtual bool IsCondition {
+            get { return false; }
         }
 
         /// <summary>
@@ -135,13 +179,12 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="parent">The node we want to check if it is a ancestor of this node.</param>
         /// <returns>Returns true if this node is a descendant of the given node.</returns>
-        public bool HasParent(BaseNode parent)
-        {
+        public bool HasParent(BaseNode parent) {
             if (_parent == null)
-                return false;
+            { return false; }
 
             if (_parent == parent)
-                return true;
+            { return true; }
 
             return _parent.HasParent(parent);
         }
@@ -149,45 +192,50 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The sibling node before this one.
         /// </summary>
-        public BaseNode PreviousNode
-        {
+        public BaseNode PreviousNode {
             get
             {
                 if (_parent == null)
                     return null;
 
                 int n = _parent.Children.IndexOf(this);
-                return n > 0 ? _parent.Children[n - 1] : null;
+                if (n >= 0)
+                    return n > 0 ? _parent.Children[n - 1] : null;
+
+                n = _parent.FSMNodes.IndexOf(this);
+                return n > 0 ? _parent.FSMNodes[n - 1] : null;
             }
         }
 
         /// <summary>
         /// The sibling node after this one.
         /// </summary>
-        public BaseNode NextNode
-        {
+        public BaseNode NextNode {
             get
             {
                 if (_parent == null)
                     return null;
 
                 int n = _parent.Children.IndexOf(this);
-                return n < _parent.Children.Count - 1 ? _parent.Children[n + 1] : null;
+                if (n >= 0)
+                    return n < _parent.Children.Count - 1 ? _parent.Children[n + 1] : null;
+
+                n = _parent.FSMNodes.IndexOf(this);
+                return n < _parent.FSMNodes.Count - 1 ? _parent.FSMNodes[n + 1] : null;
             }
         }
 
         /// <summary>
         /// The behaviour this node belongs to.
         /// </summary>
-        public BehaviorNode Behavior
-        {
+        public BehaviorNode Behavior {
             get
             {
                 BaseNode node = this;
-                while (node != null)
-                {
+
+                while (node != null) {
                     if (node is BehaviorNode)
-                        return (BehaviorNode)node;
+                    { return (BehaviorNode)node; }
 
                     node = node._parent;
                 }
@@ -201,10 +249,9 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="sibling">The assumed sibling we want to check.</param>
         /// <returns>Returns true if the given node is a sibling of this node.</returns>
-        public bool IsSibling(BaseNode sibling)
-        {
+        public bool IsSibling(BaseNode sibling) {
             if (_parent == null)
-                return false;
+            { return false; }
 
             return _parent.Children.Contains(sibling);
         }
@@ -214,27 +261,17 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="node">The parent we want to check if this is its last child.</param>
         /// <returns>Returns true if this node is the last child of the given node.</returns>
-        public bool IsLastChildOf(BaseNode parent)
-        {
+        public bool IsLastChildOf(BaseNode parent) {
             if (parent == null || parent.Children.Count < 1)
-                return false;
+            { return false; }
 
             return parent.Children[parent.Children.Count - 1] == this;
         }
 
         /// <summary>
-        /// This method is called before the layout gets updated so you can add new children or remove some. Used by referenced behaviour nodes.
-        /// </summary>
-        /// <param name="nvd">Thew NodeViewData of the node in the current view. Children can be invalid!</param>
-        public virtual void PreLayoutUpdate(NodeViewData nvd)
-        {
-        }
-
-        /// <summary>
         /// Returns if the parent of this node can adopt the children of this node.
         /// </summary>
-        public bool ParentCanAdoptChildren
-        {
+        public bool ParentCanAdoptChildren {
             get { return _parentConnector != null && _parentConnector.AcceptsChildren(_children, true); }
         }
 
@@ -243,8 +280,7 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="child">The node we want to adopt.</param>
         /// <returns>Returns true if this node can adopt the given child.</returns>
-        public virtual bool CanAdopt(BaseNode child)
-        {
+        public virtual bool CanAdopt(BaseNode child) {
             return child != null && child.CanBeAdoptedBy(this);
         }
 
@@ -253,9 +289,18 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="parent">The node which can adopt this one.</param>
         /// <returns>Returns true if this node can by adopted by the given parent.</returns>
-        protected virtual bool CanBeAdoptedBy(BaseNode parent)
-        {
-            return (parent != null);
+        protected virtual bool CanBeAdoptedBy(BaseNode parent) {
+            if (parent != null) {
+                if (this is Behavior)
+                    return true;
+
+                if (this.IsFSM)
+                    return (parent.IsFSM || parent.Children.Count == 0);
+                else
+                    return !parent.IsFSM;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -263,8 +308,7 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="child">The node we want to adopt.</param>
         /// <returns>Returns true if this node can adopt the given child.</returns>
-        public bool CanAdoptNode(BaseNode child)
-        {
+        public bool CanAdoptNode(BaseNode child) {
             return CanAdopt(child) && _children.CanAdoptNode(child);
         }
 
@@ -273,18 +317,14 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="node">The node we want to adopt its children.</param>
         /// <returns>Returns true if this node can adopt the children of the given node.</returns>
-        public bool CanAdoptChildren(BaseNode node)
-        {
-            foreach (Connector connector in node.Connectors)
-            {
-                if (connector.ChildCount > 0)
-                {
+        public bool CanAdoptChildren(BaseNode node) {
+            foreach(Connector connector in node.Connectors) {
+                if (connector.ChildCount > 0) {
                     // Get the connector to adapt those children
                     Connector conn = GetConnector(connector.Identifier);
 
                     // Check if this connector accepts those children
-                    if (conn == null || !conn.AcceptsChildren(connector))
-                    {
+                    if (conn == null || !conn.AcceptsChildren(connector)) {
                         return false;
                     }
                 }
@@ -294,30 +334,26 @@ namespace Behaviac.Design.Nodes
         }
 
 #if DEBUG
-        public virtual void DebugCheckIntegrity()
-        {
-            Debug.Check((_parent == null) == (_parentConnector == null));
+        public virtual void DebugCheckIntegrity() {
+            Debug.Check(this.IsFSM || (_parent == null) == (_parentConnector == null));
             Debug.Check(_parentConnector == null || _parentConnector.Owner == _parent);
             Debug.Check(_parentConnector == null || _parentConnector.HasChild(this));
 
             if (_parent != null && _parent is ReferencedBehaviorNode)
-                Debug.Check(_debugIsSubreferencedGraphNode);
+            { Debug.Check(_debugIsSubreferencedGraphNode); }
 
-            foreach (Connector connector in _children.Connectors)
-            {
+            foreach(Connector connector in _children.Connectors) {
                 for (int i = 0; i < connector.ChildCount; ++i)
-                    Debug.Check(_children.Children.Contains(connector.GetChild(i)));
+                { Debug.Check(_children.Children.Contains(connector.GetChild(i))); }
             }
         }
 
         protected bool _debugIsSubreferencedGraphNode = false;
-        public bool DebugIsSubreferencedGraphNode
-        {
+        public bool DebugIsSubreferencedGraphNode {
             get { return _debugIsSubreferencedGraphNode; }
         }
 
-        public void IsSubreferencedGraphNode()
-        {
+        public void IsSubreferencedGraphNode() {
             _debugIsSubreferencedGraphNode = true;
         }
 #endif

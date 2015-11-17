@@ -20,7 +20,7 @@ using PluginBehaviac.Properties;
 
 namespace PluginBehaviac.Nodes
 {
-    [NodeDesc("Composites:Sequences", "task_icon")]
+    [NodeDesc("Composites:Sequences", "query_icon")]
     public class IfElse : Behaviac.Design.Nodes.Node
 	{
         private ConnectorSingle _condition;

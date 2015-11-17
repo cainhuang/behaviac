@@ -16,52 +16,48 @@
 
 namespace behaviac
 {
-	True::True()
-	{}
+    True::True()
+    {}
 
-	True::~True()
-	{}
+    True::~True()
+    {}
 
-	void True::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void True::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool True::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!True::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool True::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!True::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	BehaviorTask* True::createTask() const
-	{
-		TrueTask* pTask = BEHAVIAC_NEW TrueTask();
-		
+        return super::IsValid(pAgent, pTask);
+    }
 
-		return pTask;
-	}
+    BehaviorTask* True::createTask() const
+    {
+        TrueTask* pTask = BEHAVIAC_NEW TrueTask();
 
-	void TrueTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+        return pTask;
+    }
 
+    void TrueTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void TrueTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void TrueTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void TrueTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
-
-
+    void TrueTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     EBTStatus TrueTask::update(Agent* pAgent, EBTStatus childStatus)
     {
@@ -70,5 +66,4 @@ namespace behaviac
 
         return BT_SUCCESS;
     }
-
 }

@@ -15,123 +15,133 @@
 #include "behaviac/base/string/stringutils.h"
 
 #if BEHAVIAC_COMPILER_MSVC
-	#include <windows.h>
+#include <windows.h>
 #endif//#if BEHAVIAC_COMPILER_MSVC
 
 namespace behaviac
 {
-namespace StringUtils
-{
-	/// convert multibyte string to wide char string
-	bool MBSToWCS(behaviac::wstring& resultString, const behaviac::string& str, const char* locale)
-	{
-        BEHAVIAC_UNUSED_VAR(resultString);
-        BEHAVIAC_UNUSED_VAR(str);
-        BEHAVIAC_UNUSED_VAR(locale);
+    namespace StringUtils
+    {
+        /// convert multibyte string to wide char string
+        bool MBSToWCS(behaviac::wstring& resultString, const behaviac::string& str, const char* locale)
+        {
+            BEHAVIAC_UNUSED_VAR(resultString);
+            BEHAVIAC_UNUSED_VAR(str);
+            BEHAVIAC_UNUSED_VAR(locale);
 
-		bool ret = false;
-
-#if BEHAVIAC_COMPILER_MSVC
-		const int cp = (strcmp(locale, LOCALE_CN_UTF8) == 0) ? CP_UTF8 : CP_ACP;
-		const int dwNum = MultiByteToWideChar(cp, 0, str.c_str(), -1, 0, 0);
-		wchar_t* buffer = (wchar_t*) BEHAVIAC_MALLOC_WITHTAG(dwNum * 2 + 2, "MBSToWCS");
-		if (buffer)
-		{
-			MultiByteToWideChar(cp, 0, str.c_str(), -1, buffer, dwNum);
-
-			resultString = buffer;
-			BEHAVIAC_FREE(buffer);
-
-			ret = true;
-		}
-#else
-		uint32_t dwNum = (str.size() + 1) * 4;
-		wchar_t* buffer = (wchar_t*) BEHAVIAC_MALLOC_WITHTAG(dwNum, "MBSToWCS");
-		if (buffer)
-		{
-			//remember it to restore it later
-			char* currrentLocale = setlocale(LC_ALL, 0);
-
-			char* loc = setlocale(LC_ALL, locale);
-			if (loc)
-			{
-				mbstowcs(buffer, str.c_str(), dwNum);
-				ret = true;
-			}
-
-			//restore
-			setlocale(LC_ALL, currrentLocale);
-
-			resultString = buffer;
-			BEHAVIAC_FREE(buffer);
-		}
-#endif//#if BEHAVIAC_COMPILER_MSVC
-
-		return ret;
-	}
-
-	/// convert multibyte string to wide char string
-	behaviac::wstring MBSToWCS(const behaviac::string& str, const char* locale)
-	{
-        behaviac::wstring resultString;
-        MBSToWCS(resultString, str, locale);
-        return resultString;
-    }
-
-	/// convert wide char string to multibyte string
-	bool WCSToMBS(behaviac::string& resultString, const behaviac::wstring& wstr, const char* locale)
-	{
-        BEHAVIAC_UNUSED_VAR(resultString);
-        BEHAVIAC_UNUSED_VAR(wstr);
-        BEHAVIAC_UNUSED_VAR(locale);
-
-		bool ret = false;
+            bool ret = false;
 
 #if BEHAVIAC_COMPILER_MSVC
-		const int cp = (strcmp(locale, LOCALE_CN_UTF8) == 0) ? CP_UTF8 : CP_ACP;
-		const int dwNum = WideCharToMultiByte(cp, 0, wstr.c_str(), -1, NULL, 0, NULL, NULL);
-		char* buffer = (char*) BEHAVIAC_MALLOC_WITHTAG(dwNum * 2 + 2, "WCSToMBS");
-		if (buffer)
-		{
-			WideCharToMultiByte(cp, 0, wstr.c_str(), -1, buffer, dwNum, NULL, NULL);
+            const int cp = (strcmp(locale, LOCALE_CN_UTF8) == 0) ? CP_UTF8 : CP_ACP;
+            const int dwNum = MultiByteToWideChar(cp, 0, str.c_str(), -1, 0, 0);
+            wchar_t* buffer = (wchar_t*)BEHAVIAC_MALLOC_WITHTAG(dwNum * 2 + 2, "MBSToWCS");
 
-			resultString = buffer;
-			BEHAVIAC_FREE(buffer);
+            if (buffer)
+            {
+                MultiByteToWideChar(cp, 0, str.c_str(), -1, buffer, dwNum);
 
-			ret = true;
-		}
+                resultString = buffer;
+                BEHAVIAC_FREE(buffer);
+
+                ret = true;
+            }
+
 #else
-		uint32_t dwNum = (wstr.size() + 1) * 4;
-		char* buffer = (char*) BEHAVIAC_MALLOC_WITHTAG(dwNum, "WCSToMBS");
-		if (buffer)
-		{
-			//remember it to restore it later
-			char* currrentLocale = setlocale(LC_ALL, 0);
+            uint32_t dwNum = (str.size() + 1) * 4;
+            wchar_t* buffer = (wchar_t*)BEHAVIAC_MALLOC_WITHTAG(dwNum, "MBSToWCS");
 
-			char* loc = setlocale(LC_ALL, locale);
-			if (loc)
-			{
-				wcstombs(buffer, wstr.c_str(), dwNum);
-				ret = true;
-			}
+            if (buffer)
+            {
+                //remember it to restore it later
+                char* currrentLocale = setlocale(LC_ALL, 0);
 
-			//restore
-			setlocale(LC_ALL, currrentLocale);
+                char* loc = setlocale(LC_ALL, locale);
 
-			resultString = buffer;
-			BEHAVIAC_FREE(buffer);
-		}
+                if (loc)
+                {
+                    mbstowcs(buffer, str.c_str(), dwNum);
+                    ret = true;
+                }
+
+                //restore
+                setlocale(LC_ALL, currrentLocale);
+
+                resultString = buffer;
+                BEHAVIAC_FREE(buffer);
+            }
+
 #endif//#if BEHAVIAC_COMPILER_MSVC
 
-		return ret;
-	}
+            return ret;
+        }
 
-	/// convert wide char string to multibyte string
-	behaviac::string WCSToMBS(const behaviac::wstring& wstr, const char* locale)
-	{
-        behaviac::string resultString;
-        WCSToMBS(resultString, wstr, locale);
-        return resultString;
+        /// convert multibyte string to wide char string
+        behaviac::wstring MBSToWCS(const behaviac::string& str, const char* locale)
+        {
+            behaviac::wstring resultString;
+            MBSToWCS(resultString, str, locale);
+            return resultString;
+        }
+
+        /// convert wide char string to multibyte string
+        bool WCSToMBS(behaviac::string& resultString, const behaviac::wstring& wstr, const char* locale)
+        {
+            BEHAVIAC_UNUSED_VAR(resultString);
+            BEHAVIAC_UNUSED_VAR(wstr);
+            BEHAVIAC_UNUSED_VAR(locale);
+
+            bool ret = false;
+
+#if BEHAVIAC_COMPILER_MSVC
+            const int cp = (strcmp(locale, LOCALE_CN_UTF8) == 0) ? CP_UTF8 : CP_ACP;
+            const int dwNum = WideCharToMultiByte(cp, 0, wstr.c_str(), -1, NULL, 0, NULL, NULL);
+            char* buffer = (char*)BEHAVIAC_MALLOC_WITHTAG(dwNum * 2 + 2, "WCSToMBS");
+
+            if (buffer)
+            {
+                WideCharToMultiByte(cp, 0, wstr.c_str(), -1, buffer, dwNum, NULL, NULL);
+
+                resultString = buffer;
+                BEHAVIAC_FREE(buffer);
+
+                ret = true;
+            }
+
+#else
+            uint32_t dwNum = (wstr.size() + 1) * 4;
+            char* buffer = (char*)BEHAVIAC_MALLOC_WITHTAG(dwNum, "WCSToMBS");
+
+            if (buffer)
+            {
+                //remember it to restore it later
+                char* currrentLocale = setlocale(LC_ALL, 0);
+
+                char* loc = setlocale(LC_ALL, locale);
+
+                if (loc)
+                {
+                    wcstombs(buffer, wstr.c_str(), dwNum);
+                    ret = true;
+                }
+
+                //restore
+                setlocale(LC_ALL, currrentLocale);
+
+                resultString = buffer;
+                BEHAVIAC_FREE(buffer);
+            }
+
+#endif//#if BEHAVIAC_COMPILER_MSVC
+
+            return ret;
+        }
+
+        /// convert wide char string to multibyte string
+        behaviac::string WCSToMBS(const behaviac::wstring& wstr, const char* locale)
+        {
+            behaviac::string resultString;
+            WCSToMBS(resultString, wstr, locale);
+            return resultString;
+        }
     }
-}
 }

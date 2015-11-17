@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_MEMORY_LINKEDOBJECTPOOL_H_
-#define BEHAVIAC_MEMORY_LINKEDOBJECTPOOL_H_
+#ifndef BEHAVIAC_MEMORY_LINKEDOBJECTPOOL_H
+#define BEHAVIAC_MEMORY_LINKEDOBJECTPOOL_H
 
 #include "behaviac/base/core/memory/mempool.h"
 
@@ -35,17 +35,16 @@ namespace behaviac
 
     while (!it.Empty())
     {
-        SomeStruct* s = (*it);
+    SomeStruct* s = (*it);
 
-    	++it;
+    ++it;
     }
 
     \endcode
     */
-	template <typename TYPE, typename TALLOCATOR = behaviac::IMemAllocator, typename MUTEX_TYPE = behaviac::Mutex>
+    template <typename TYPE, typename TALLOCATOR = behaviac::IMemAllocator, typename MUTEX_TYPE = behaviac::Mutex>
     class LinkedObjectPool : public BasicObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>
     {
-
     private:
         /// Node shadow that represent a derivative class of TYPE + some data (dlist node)
         class NodeShadow
@@ -79,7 +78,7 @@ namespace behaviac
 
             inline TYPE* operator*(void)
             {
-                return (TYPE*) m_iter.Current();
+                return (TYPE*)m_iter.Current();
             }
 
             inline Iterator& operator++()
@@ -124,7 +123,6 @@ namespace behaviac
         protected:
 
             typename DList::DRoot<NodeShadow>::DIterator m_iter;
-
         }; //class Iterator
 
         /// Begin iterator
@@ -153,7 +151,6 @@ namespace behaviac
 
         //list of living/allocated objects
         DList::DRoot<NodeShadow> m_root;
-
     }; //class LinkedObjectPool
 
     template <typename TYPE, typename TALLOCATOR, typename MUTEX_TYPE>
@@ -163,12 +160,12 @@ namespace behaviac
     }
 
     template<typename TYPE, typename TALLOCATOR, typename MUTEX_TYPE>
-    inline LinkedObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>::LinkedObjectPool(): BasicObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>()
+    inline LinkedObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>::LinkedObjectPool() : BasicObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>()
     {
     }
 
     template<typename TYPE, typename TALLOCATOR, typename MUTEX_TYPE>
-    inline LinkedObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>::LinkedObjectPool(uint32_t objectCountPerSegment, uint32_t maximumNumberOfObjectInPool, Float32 initialyCreatedRatio, TALLOCATOR* pAllocator):
+    inline LinkedObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>::LinkedObjectPool(uint32_t objectCountPerSegment, uint32_t maximumNumberOfObjectInPool, Float32 initialyCreatedRatio, TALLOCATOR* pAllocator) :
         BasicObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>(objectCountPerSegment, maximumNumberOfObjectInPool,
                                                       initialyCreatedRatio, sizeof(((NodeShadow*)0)->m_llist), pAllocator)
     {
@@ -207,11 +204,9 @@ namespace behaviac
             m_root.PushBack(*listNode);
         }
     }
-
 }//end of ns
 
 /*! @} */
 /*! @} */
 
-
-#endif//BEHAVIAC_MEMORY_LINKEDOBJECTPOOL_H_
+#endif//BEHAVIAC_MEMORY_LINKEDOBJECTPOOL_H

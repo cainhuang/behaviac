@@ -375,6 +375,26 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="behaviac_generated"
+			>
+			<File
+				RelativePath=".\behaviac_generated\types\agentproperties.h"
+				>
+			</File>
+			<File
+				RelativePath=".\behaviac_generated\types\customizedtypes.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\behaviac_generated\types\customizedtypes.h"
+				>
+			</File>
+			<File
+				RelativePath=".\behaviac_generated\behaviors\generated_behaviors.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\readme.txt"
 			>

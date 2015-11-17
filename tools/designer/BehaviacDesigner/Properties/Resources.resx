@@ -128,7 +128,7 @@
     <value>Save as Reference</value>
   </data>
   <data name="OpenDumpFile" xml:space="preserve">
-    <value>Open Dump File</value>
+    <value>Open Log or Dump File</value>
   </data>
   <data name="LanguageChangedWarning" xml:space="preserve">
     <value>The language setting will take effect when the editor is launched next time.</value>
@@ -259,7 +259,7 @@
   <data name="SelectWorkspaceFolder" xml:space="preserve">
     <value>Select Workspace Folder</value>
   </data>
-  <data name="StopAnalyzing" xml:space="preserve">
+  <data name="StopAnalyzingDump" xml:space="preserve">
     <value>Stop Analyzing</value>
   </data>
   <data name="prefab" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -269,7 +269,7 @@
     <value>..\Resources\Search.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AnalyzeDump" xml:space="preserve">
-    <value>Analyze Dump</value>
+    <value>Analyze...</value>
   </data>
   <data name="PropertiesOf" xml:space="preserve">
     <value>Properties of {0}</value>
@@ -378,7 +378,10 @@ Please input another one.</value>
     <value>The workspace is changed from {0} to {1}.</value>
   </data>
   <data name="WorkspaceWarningInfo" xml:space="preserve">
-    <value>The open workspace : \n'{0}' is not the right one used by game: \n'{1}'</value>
+    <value>The open workspace :
+'{0}'
+is not the right one used by game:
+'{1}'</value>
   </data>
   <data name="FileWarning" xml:space="preserve">
     <value>File Warning</value>
@@ -462,7 +465,7 @@ Please input another one.</value>
     <value>The folder "{0}" has existed. Please input another name!</value>
   </data>
   <data name="DebugOperation" xml:space="preserve">
-    <value>Double-click to Debug</value>
+    <value>Double-click an Instance to Debug</value>
   </data>
   <data name="WorkspaceError" xml:space="preserve">
     <value>Set Workspace Error</value>
@@ -561,7 +564,141 @@ Are your sure add it?</value>
   <data name="About" xml:space="preserve">
     <value>About </value>
   </data>
+  <data name="AddType" xml:space="preserve">
+    <value>Add Type</value>
+  </data>
+  <data name="AddEvent" xml:space="preserve">
+    <value>Add Event</value>
+  </data>
+  <data name="AddMethod" xml:space="preserve">
+    <value>Add Method</value>
+  </data>
+  <data name="AddProperty" xml:space="preserve">
+    <value>Add Property</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Add Task</value>
+  </data>
+  <data name="EditType" xml:space="preserve">
+    <value>Edit Type</value>
+  </data>
+  <data name="EditEvent" xml:space="preserve">
+    <value>Edit Event</value>
+  </data>
+  <data name="EditMethod" xml:space="preserve">
+    <value>Edit Method</value>
+  </data>
+  <data name="EditProperty" xml:space="preserve">
+    <value>Edit Cusom Property</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Edit Task</value>
+  </data>
+  <data name="MetaSaveInfo" xml:space="preserve">
+    <value>The meta data has been modified, so do you want to save it?</value>
+  </data>
+  <data name="RemoveParametersInfo" xml:space="preserve">
+    <value>Are you sure remove all selected parameters?</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="AddLocalProperty" xml:space="preserve">
+    <value>Add Local Variable</value>
+  </data>
+  <data name="EditLocalProperty" xml:space="preserve">
+    <value>Edit Local Variable</value>
+  </data>
+  <data name="ExpandConnectorInfo" xml:space="preserve">
+    <value>Interrupt Condition : Click here to expand or collapse the attached condition node.</value>
+  </data>
+  <data name="EventParametersInfo" xml:space="preserve">
+    <value>The count of the parameters of the event can not be more than 3.</value>
+  </data>
+  <data name="MethodParametersInfo" xml:space="preserve">
+    <value>The count of the parameters of the method can not be more than 8.</value>
+  </data>
+  <data name="SubTreeHasNoTaskError" xml:space="preserve">
+    <value>{0} can't be used as a referened behavior as it's root is not a Task node.</value>
+  </data>
+  <data name="DesignerError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ViewLocalProperty" xml:space="preserve">
+    <value>View Local Variable</value>
+  </data>
+  <data name="ViewProperty" xml:space="preserve">
+    <value>View Property</value>
+  </data>
+  <data name="ModifyMemberWarning" xml:space="preserve">
+    <value>This member has already been used.
+Are you sure to continue?</value>
+  </data>
+  <data name="Callstack" xml:space="preserve">
+    <value>Tree Exec Stack</value>
+  </data>
+  <data name="OpenLogFile" xml:space="preserve">
+    <value>Open Log File</value>
+  </data>
+  <data name="AnalyzeLog" xml:space="preserve">
+    <value>Analyze Log File...</value>
+  </data>
+  <data name="StopAnalyzingLog" xml:space="preserve">
+    <value>Stop Analyzing Log File</value>
+  </data>
+  <data name="EmptyMetaWarning" xml:space="preserve">
+    <value>The meta info may be not loaded. Please check it!</value>
+  </data>
   <data name="FilenameWarning" xml:space="preserve">
     <value>The behavior filename can only be ascii character with a-z, A-Z, 0-9 and _!</value>
+  </data>
+  <data name="AddEnum" xml:space="preserve">
+    <value>Add Enum</value>
+  </data>
+  <data name="AddEnumMember" xml:space="preserve">
+    <value>Add Enum Member</value>
+  </data>
+  <data name="AddStruct" xml:space="preserve">
+    <value>Add Struct</value>
+  </data>
+  <data name="AddStructMember" xml:space="preserve">
+    <value>Add Struct Member</value>
+  </data>
+  <data name="EditEnum" xml:space="preserve">
+    <value>Edit Enum</value>
+  </data>
+  <data name="EditEnumMember" xml:space="preserve">
+    <value>Edit Enum Member</value>
+  </data>
+  <data name="EditStruct" xml:space="preserve">
+    <value>Edit Struct</value>
+  </data>
+  <data name="EditStructMember" xml:space="preserve">
+    <value>Edit Struct Member</value>
+  </data>
+  <data name="PropertyVerifyWarning" xml:space="preserve">
+    <value>Please set the right name and type for the property.</value>
+  </data>
+  <data name="MethodVerifyWarning" xml:space="preserve">
+    <value>Please set the right name, return type and parameters for the method.</value>
+  </data>
+  <data name="EnumMemberVerifyWarning" xml:space="preserve">
+    <value>Please set the right name for the enum member.</value>
+  </data>
+  <data name="TypeRemoveWarning" xml:space="preserve">
+    <value>Are you sure remove the selected type?</value>
+  </data>
+  <data name="TypeVerifyWarning" xml:space="preserve">
+    <value>Please set the right name for the type.</value>
+  </data>
+  <data name="WorkspaceLoadError" xml:space="preserve">
+    <value>The workspace {0} can not be loaded!</value>
+  </data>
+  <data name="WorkspaceDebugErrorInfo" xml:space="preserve">
+    <value>The workspace file "{0}" can not be found.
+Please check the exported location of the workspace is the right one on the runtime side.</value>
   </data>
 </root>

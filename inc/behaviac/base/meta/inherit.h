@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_REAL_BASETYPE_COMPOSE_H__INCLUDED
-#define _BEHAVIAC_REAL_BASETYPE_COMPOSE_H__INCLUDED
+#ifndef _BEHAVIAC_REAL_BASETYPE_COMPOSE_H_INCLUDED
+#define _BEHAVIAC_REAL_BASETYPE_COMPOSE_H_INCLUDED
 
 #include "behaviac/base/meta/collection.h"
 
@@ -27,9 +27,7 @@ namespace behaviac
                      template< typename Type, typename BaseType > class NodeType,
                      typename RootType = Empty >
             struct InheritImpl;
-
         }    namespace Details
-
 
                 /// Inherit utility
                 ///

@@ -12,197 +12,176 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "behaviac/base/base.h"
-#include "behaviac/world/world.h"
 #include "behaviac/property/property_t.h"
 #include "behaviac/behaviortree/nodes/actions/assignment.h"
-
 #include "behaviac/base/core/profiler/profiler.h"
+#include "behaviac/base/object/method.h"
+
+#include "behaviac/behaviortree/nodes/actions/action.h"
+#include "behaviac/behaviortree/nodes/conditions/condition.h"
 
 namespace behaviac
 {
-	Assignment::Assignment() : m_opl(0), m_opr(0), m_opr_m(0)
-	{
-	}
+    Assignment::Assignment() : m_opl(0), m_opr(0), m_opr_m(0)
+    {
+    }
 
-	Assignment::~Assignment()
-	{
-		BEHAVIAC_DELETE(m_opl);
-		BEHAVIAC_DELETE(m_opr);
-		BEHAVIAC_DELETE(m_opr_m);
-	}
+    Assignment::~Assignment()
+    {
+        BEHAVIAC_DELETE(m_opl);
+        BEHAVIAC_DELETE(m_opr);
+        BEHAVIAC_DELETE(m_opr_m);
+    }
 
-	CMethodBase* LoadMethod(const char* value);
-	Property* LoadLeft(const char* value, behaviac::string& propertyName, const char* constValue);
-	Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
+    //CMethodBase* LoadMethod(const char* value);
+    //Property* LoadLeft(const char* value, behaviac::string& propertyName, const char* constValue);
+    //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
+    /**
+    handle the Assignment property
 
-	void Assignment::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
+    */
+    void Assignment::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
 
-		behaviac::string propertyName;
+        behaviac::string propertyName;
 
-		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
-		{
-			const property_t& p = (*it);
+        for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+        {
+            const property_t& p = (*it);
 
-			if (strcmp(p.name, "Opl") == 0)
-			{
-				this->m_opl = LoadLeft(p.value, propertyName, 0);
-			}
-			else if (strcmp(p.name, "Opr") == 0)
-			{
-				const char* pParenthesis = strchr(p.value, '(');
-				if (pParenthesis == 0)
-				{
-					behaviac::string typeName;
-					this->m_opr = LoadRight(p.value, propertyName, typeName);
-				}
-				else
-				{
-					//method
-					this->m_opr_m = LoadMethod(p.value);
-				}
-			}
-			else
-			{
-				//BEHAVIAC_ASSERT(0, "unrecognised property %s", p.name);
-			}
-		}
-	}
+            if (strcmp(p.name, "Opl") == 0)
+            {
+                this->m_opl = Condition::LoadLeft(p.value);
 
-	bool Assignment::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!Assignment::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
+            }
+            else if (strcmp(p.name, "Opr") == 0)
+            {
+                const char* pParenthesis = strchr(p.value, '(');
 
-		return super::IsValid(pAgent, pTask);
-	}
+                if (pParenthesis == 0)
+                {
+                    behaviac::string typeName;
+                    behaviac::string	propertyName;
+                    this->m_opr = Condition::LoadRight(p.value, typeName);
 
-	BehaviorTask* Assignment::createTask() const
-	{
-		AssignmentTask* pTask = BEHAVIAC_NEW AssignmentTask();
+                }
+                else
+                {
+                    //method
+                    this->m_opr_m = Action::LoadMethod(p.value);
+                }
 
-		return pTask;
-	}
+            }
+            else
+            {
+                //BEHAVIAC_ASSERT(0, "unrecognised property %s", p.name);
+            }
+        }
+    }
+    bool Assignment::EvaluteAssignment(const Agent* pAgent, Property* opl, Property* opr, CMethodBase* opr_m)
+    {
+        bool bValid = false;
 
-	AssignmentTask::AssignmentTask() : LeafTask()
-	{
-	}
+        if (opr_m != NULL)
+        {
+            Agent* pParentL = (Agent*)opl->GetParentAgent(pAgent);
+            Agent* pParentR = (Agent*)opr_m->GetParentAgent(pAgent);
 
-	AssignmentTask::~AssignmentTask()
-	{
-	}
+            opl->SetFrom(pParentR, opr_m, pParentL);
 
-	void AssignmentTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+            bValid = true;
 
-	void AssignmentTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+        }
+        else if (opr != NULL && opl != NULL)
+        {
+            Agent* pParentL = opl->GetParentAgent(pAgent);
+            Agent* pParentR = opr->GetParentAgent(pAgent);
 
-	void AssignmentTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+            opl->SetFrom(pParentR, opr, pParentL);
 
-	bool AssignmentTask::isContinueTicking() const
-	{
-		return false;
-	}
+            bValid = true;
 
-	bool AssignmentTask::onenter(Agent* pAgent)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		return true;
-	}
+        }
+        else
+        {
+            //BEHAVIAC_ASSERT(false);
+        }
 
-	void AssignmentTask::onexit(Agent* pAgent, EBTStatus s)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(s);
-	}
+        return bValid;
+    }
+    bool Assignment::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!Assignment::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	EBTStatus AssignmentTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(childStatus);
+        return super::IsValid(pAgent, pTask);
+    }
 
-		EBTStatus result = BT_SUCCESS;
+    BehaviorTask* Assignment::createTask() const
+    {
+        AssignmentTask* pTask = BEHAVIAC_NEW AssignmentTask();
 
-		BEHAVIAC_ASSERT(Assignment::DynamicCast(this->GetNode()));
-		Assignment* pAssignmentNode = (Assignment*)(this->GetNode());
+        return pTask;
+    }
 
-		if (pAssignmentNode->m_opr_m)
-		{
-//#if BEHAVIAC_ENABLE_PROFILING
-//			BEHAVIAC_PROFILE("Node");
-//#endif
-			ParentType pt = pAssignmentNode->m_opr_m->GetParentType();
-			Agent* pParent = pAgent;
-			if (pt == PT_INSTANCE)
-			{
-				pParent = Agent::GetInstance(pAssignmentNode->m_opr_m->GetInstanceNameString(), pParent->GetContextId());
-				BEHAVIAC_ASSERT(pParent);
-			}
+    AssignmentTask::AssignmentTask() : LeafTask()
+    {
+    }
 
-			pAssignmentNode->m_opr_m->run(pParent, pAgent);
+    AssignmentTask::~AssignmentTask()
+    {
+    }
 
-			ParentType pt_opl = pAssignmentNode->m_opl->GetParentType();
-			Agent* pParentOpl = pAgent;
-			if (pt_opl == PT_INSTANCE)
-			{
-				pParentOpl = Agent::GetInstance(pAssignmentNode->m_opl->GetInstanceNameString(), pParentOpl->GetContextId());
-				BEHAVIAC_ASSERT(pParentOpl);
-			}
+    void AssignmentTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-			pAssignmentNode->m_opr_m->GetReturnValue(pParent, pAssignmentNode->m_opl, pParentOpl);
-		}
-		else if (pAssignmentNode->m_opr && pAssignmentNode->m_opl)
-		{
-//#if BEHAVIAC_ENABLE_PROFILING
-//			BEHAVIAC_PROFILE("Node");
-//#endif
-			Agent* pParentL = pAgent;
-			Agent* pParentR = pAgent;
+    void AssignmentTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-			{
-				ParentType pt = pAssignmentNode->m_opl->GetParentType();
-				if (pt == PT_INSTANCE)
-				{
-					pParentL = Agent::GetInstance(pAssignmentNode->m_opl->GetInstanceNameString(), pParentL->GetContextId());
-					BEHAVIAC_ASSERT(pParentL);
-				}
-			}
-			{
-				ParentType pt = pAssignmentNode->m_opr->GetParentType();
-				if (pt == PT_INSTANCE)
-				{
-					pParentR = Agent::GetInstance(pAssignmentNode->m_opr->GetInstanceNameString(), pParentR->GetContextId());
+    void AssignmentTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-					//it is a const
-					if (!pParentR)
-					{
-						pParentR = pParentL;
-					}
-				}
-			}
+    bool AssignmentTask::isContinueTicking() const
+    {
+        return false;
+    }
 
-			pAssignmentNode->m_opl->SetFrom(pParentR, pAssignmentNode->m_opr, pParentL);
-		}
-		else
-		{
-//#if BEHAVIAC_ENABLE_PROFILING
-//			BEHAVIAC_PROFILE("AssignmentGenerated");
-//#endif
-			result = pAssignmentNode->update_impl(pAgent, childStatus);
-		}
+    bool AssignmentTask::onenter(Agent* pAgent)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        return true;
+    }
 
-		return result;
-	}
+    void AssignmentTask::onexit(Agent* pAgent, EBTStatus s)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(s);
+    }
 
+    EBTStatus AssignmentTask::update(Agent* pAgent, EBTStatus childStatus)
+    {
+        BEHAVIAC_ASSERT(childStatus == BT_RUNNING);
+
+        BEHAVIAC_ASSERT(Assignment::DynamicCast(this->GetNode()));
+        Assignment* pAssignmentNode = (Assignment*)(this->GetNode());
+
+        EBTStatus result = BT_SUCCESS;
+        bool bValid = Assignment::EvaluteAssignment(pAgent, pAssignmentNode->m_opl, pAssignmentNode->m_opr, pAssignmentNode->m_opr_m);
+
+        if (!bValid)
+        {
+            result = pAssignmentNode->update_impl(pAgent, childStatus);
+        }
+
+        return result;
+    }
 }

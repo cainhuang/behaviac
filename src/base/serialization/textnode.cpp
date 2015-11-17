@@ -118,6 +118,7 @@ void CTextNode::RebuildChildrenList()
             m_children.push_back(CTextNode());
             m_children.back() = child;
         }
+
     }
     else
     {
@@ -174,12 +175,12 @@ bool CTextNode::LoadFromFile(IFile* file)
 
 bool CTextNode::SaveToFile(IFile* file) const
 {
-	behaviac::string temp;
+    behaviac::string temp;
     m_constXmlNode->getXML(temp);
 
-	file->Write(temp.c_str(), temp.size());
+    file->Write(temp.c_str(), temp.size());
 
-	return true;
+    return true;
 }
 
 // This is a very unprecise approximation...

@@ -15,7 +15,6 @@
 
 #include "behaviac/base/base.h"
 #include "behaviac/agent/agent.h"
-#include "behaviac/world/world.h"
 #include "behaviac/agent/registermacros.h"
 #include "Agent/UnitTestTypes.h"
 
@@ -31,199 +30,230 @@ using TNS::ST::PER::WRK::kEmployee;
 class StaticAgent : public behaviac::Agent
 {
 public:
-	DECLARE_BEHAVIAC_OBJECT(StaticAgent, behaviac::Agent);
+    DECLARE_BEHAVIAC_AGENT(StaticAgent, behaviac::Agent);
 
-	//[MemberMetaInfo()]
-	static int sInt;
+    //[MemberMetaInfo()]
+    static int sInt;
 
-	//[MethodMetaInfo()]
-	static void sAction()
-	{
-		sInt = 2;
-	}
+    //[MethodMetaInfo()]
+    static void sAction()
+    {
+        sInt = 2;
+    }
 };
 
 class ParTestRegNameAgent : public behaviac::Agent
 {
 public:
-	ParTestRegNameAgent();
-	virtual ~ParTestRegNameAgent();
+    ParTestRegNameAgent();
+    virtual ~ParTestRegNameAgent();
 
-	DECLARE_BEHAVIAC_OBJECT(ParTestRegNameAgent, behaviac::Agent);
+    DECLARE_BEHAVIAC_AGENT(ParTestRegNameAgent, behaviac::Agent);
 
-	static void clearAllStaticMemberVariables()
-	{
-		ParTestRegNameAgent::STV_KEMPLOYEE_0.resetProperties();
+    static void clearAllStaticMemberVariables()
+    {
+        ParTestRegNameAgent::STV_KEMPLOYEE_0.resetProperties();
 
-		ParTestRegNameAgent::STV_LIST_SBYTE_0.clear();
-		behaviac::vector<signed char>().swap(ParTestRegNameAgent::STV_LIST_SBYTE_0);
+        ParTestRegNameAgent::STV_LIST_SBYTE_0.clear();
+        behaviac::vector<signed char>().swap(ParTestRegNameAgent::STV_LIST_SBYTE_0);
 
-		ParTestRegNameAgent::STV_LIST_KEMPLOYEE_0.clear();
-		behaviac::vector<kEmployee>().swap(ParTestRegNameAgent::STV_LIST_KEMPLOYEE_0);
-	}
+        ParTestRegNameAgent::STV_LIST_KEMPLOYEE_0.clear();
+        behaviac::vector<kEmployee>().swap(ParTestRegNameAgent::STV_LIST_KEMPLOYEE_0);
+    }
 
-	//[MemberMetaInfo("3 # TV_CHAR_0", "A")]
-	char TV_CHAR_0;
+    //[MemberMetaInfo("3 # TV_CHAR_0", "A")]
+    char TV_CHAR_0;
 
-	//[MemberMetaInfo("3 # TV_BYTE_0", "A")]
-	unsigned char TV_BYTE_0;
+    //[MemberMetaInfo("3 # TV_BYTE_0", "A")]
+    unsigned char TV_BYTE_0;
 
-	//[MemberMetaInfo("3 # TV_SBYTE_0", "A")]
-	signed char TV_SBYTE_0;
+    //[MemberMetaInfo("3 # TV_SBYTE_0", "A")]
+    signed char TV_SBYTE_0;
 
-	//[MemberMetaInfo("3 # TV_STR_0", "A")]
-	behaviac::string TV_STR_0;
+    //[MemberMetaInfo("3 # TV_STR_0", "A")]
+    behaviac::string TV_STR_0;
 
-	//[MemberMetaInfo("3 # TV_AGENT_0", "A")]
-	behaviac::Agent* TV_AGENT_0;
+    //[MemberMetaInfo("3 # TV_AGENT_0", "A")]
+    behaviac::Agent* TV_AGENT_0;
 
-	//[MemberMetaInfo("3 # TV_KEMPLOYEE_0", "A")]
-	kEmployee TV_KEMPLOYEE_0;
+    //[MemberMetaInfo("3 # TV_KEMPLOYEE_0", "A")]
+    kEmployee TV_KEMPLOYEE_0;
 
-	//[MemberMetaInfo("3 # STV_KEMPLOYEE_0", "A")]
-	static kEmployee STV_KEMPLOYEE_0;
+    //[MemberMetaInfo("3 # STV_KEMPLOYEE_0", "A")]
+    static kEmployee STV_KEMPLOYEE_0;
 
-	//[MemberMetaInfo("3 # TV_LIST_KEMPLOYEE_0", "A")]
-	behaviac::vector<kEmployee> TV_LIST_KEMPLOYEE_0;
+    //[MemberMetaInfo("3 # TV_LIST_KEMPLOYEE_0", "A")]
+    behaviac::vector<kEmployee> TV_LIST_KEMPLOYEE_0;
 
-	//[MemberMetaInfo("3 # STV_LIST_SBYTE_0", "A")]
-	static behaviac::vector<signed char> STV_LIST_SBYTE_0;
+    //[MemberMetaInfo("3 # STV_LIST_SBYTE_0", "A")]
+    static behaviac::vector<signed char> STV_LIST_SBYTE_0;
 
-	//[MemberMetaInfo("3 # STV_LIST_KEMPLOYEE_0", "A")]
-	static behaviac::vector<kEmployee> STV_LIST_KEMPLOYEE_0;
+    //[MemberMetaInfo("3 # STV_LIST_KEMPLOYEE_0", "A")]
+    static behaviac::vector<kEmployee> STV_LIST_KEMPLOYEE_0;
 
 public:
-	virtual void resetProperties();
+    virtual void resetProperties();
 
-	void init()
-	{
-		//base.Init();
+    void init()
+    {
+        //base.Init();
 
-		//behaviac::Agent*.RegisterName<ParTestRegNameAgent>();
-		//behaviac::Agent*.BindInstance(this);
-	}
+        //behaviac::Agent*.RegisterInstanceName<ParTestRegNameAgent>();
+        //behaviac::Agent*.BindInstance(this);
+    }
 
-	void finl()
-	{
-		//behaviac::Agent*.UnbindInstance("ParTestRegNameAgent");
-		//behaviac::Agent*.UnRegisterName<ParTestRegNameAgent>(NULL);
-	}
+    void finl()
+    {
+        //behaviac::Agent*.UnbindInstance("ParTestRegNameAgent");
+        //behaviac::Agent*.UnRegisterInstanceName<ParTestRegNameAgent>(NULL);
+    }
 
+    //[MethodMetaInfo("3 # PIR_Char", "A")]
+    char Func_CharIR(char par)
+    {
+        if (par == 'A')
+        {
+            return 'C';
 
-	//[MethodMetaInfo("3 # PIR_Char", "A")]
-	char Func_CharIR(char par)
-	{
-		if (par == 'A')
-			return 'C';
-		else
-			return 'D';
-	}
+        }
+        else
+        {
+            return 'D';
+        }
+    }
 
-	//[MethodMetaInfo("3 # PIR_Byte", "A")]
-	unsigned char Func_ByteIR(unsigned char par)
-	{
-		unsigned char tv = (unsigned char)(par + 12);
-		return tv;
-	}
+    //[MethodMetaInfo("3 # PIR_Byte", "A")]
+    unsigned char Func_ByteIR(unsigned char par)
+    {
+        unsigned char tv = (unsigned char)(par + 12);
+        return tv;
+    }
 
-	//[MethodMetaInfo("3 # PIR_SByte", "A")]
-	signed char Func_SByteIR(signed char par)
-	{
-		signed char tv = (signed char)(par - 5);
-		return tv;
-	}
+    //[MethodMetaInfo("3 # PIR_SByte", "A")]
+    signed char Func_SByteIR(signed char par)
+    {
+        signed char tv = (signed char)(par - 5);
+        return tv;
+    }
 
-	//[MethodMetaInfo("3 # PIR_String", "A")]
-	behaviac::string Func_StringIR(behaviac::string par)
-	{
-		behaviac::string tv = par + "extra";
-		return tv;
-	}
+    //[MethodMetaInfo("3 # PIR_String", "A")]
+    behaviac::string Func_StringIR(behaviac::string par)
+    {
+        behaviac::string tv = par + "extra";
+        return tv;
+    }
 
-	//[MethodMetaInfo("3 # PIR_Agent", "A")]
-	behaviac::Agent* Func_AgentIR(behaviac::Agent* par)
-	{
-		behaviac::Agent* tv = NULL;
-		if (par == NULL)
-			tv = this;
-		else
-			tv = NULL;
-		return tv;
-	}
+    //[MethodMetaInfo("3 # PIR_Agent", "A")]
+    behaviac::Agent* Func_AgentIR(behaviac::Agent* par)
+    {
+        behaviac::Agent* tv = NULL;
 
-	//[MethodMetaInfo("3 # PIR_kEmployee", "A")]
-	kEmployee Func_kEmployeeIR(kEmployee par)
-	{
-		kEmployee tv;
-		tv.id = par.id + 3;
-		tv.name = par.name + "Jerry";
+        if (par == NULL)
+        {
+            tv = this;
 
-		if (par.code == 'C')
-			tv.code = 'Z';
-		else
-			tv.code = 'V';
+        }
+        else
+        {
+            tv = NULL;
+        }
 
-		tv.weight = par.weight + 20.2f;
-		tv.isMale = !par.isMale;
+        return tv;
+    }
 
-		if (par.skinColor == WHITE)
-			tv.skinColor = RED;
-		else
-			tv.skinColor = BLUE;
+    //[MethodMetaInfo("3 # PIR_kEmployee", "A")]
+    kEmployee Func_kEmployeeIR(kEmployee par)
+    {
+        kEmployee tv;
+        tv.id = par.id + 3;
+        tv.name = par.name + "Jerry";
 
-		if (par.boss == NULL)
-			tv.boss = this;
-		else
-			tv.boss = NULL;
+        if (par.code == 'C')
+        {
+            tv.code = 'Z';
 
-		tv.car.brand = par.car.brand + "Japan";
+        }
+        else
+        {
+            tv.code = 'V';
+        }
 
-		if (par.car.color == WHITE)
-			tv.car.color = YELLOW;
-		else
-			tv.car.color = RED;
+        tv.weight = par.weight + 20.2f;
+        tv.isMale = !par.isMale;
 
-		tv.car.price = par.car.price + 3000;
-		return tv;
-	}
+        if (par.skinColor == WHITE)
+        {
+            tv.skinColor = RED;
 
-	//[MethodMetaInfo("3 # PIR_SByteList", "A")]
-	behaviac::vector<signed char> Func_SByteListIR(behaviac::vector<signed char> par)
-	{
-		behaviac::vector<signed char> tv;
-		for (size_t i = 0; i < par.size(); ++i)
-		{
-			tv.push_back(par[i]);
-		}
+        }
+        else
+        {
+            tv.skinColor = BLUE;
+        }
 
-		tv.push_back(-126);
-		return tv;
-	}
+        if (par.boss == NULL)
+        {
+            tv.boss = this;
 
-	//[MethodMetaInfo("3 # PIR_kEmployeeList", "A")]
-	behaviac::vector<kEmployee> Func_kEmployeeListIR(behaviac::vector<kEmployee> par)
-	{
-		behaviac::vector<kEmployee> tv;
-		for (size_t i = 0; i < par.size(); ++i)
-		{
-			tv.push_back(par[i]);
-		}
+        }
+        else
+        {
+            tv.boss = NULL;
+        }
 
-		kEmployee jerry;
-		jerry.id = 4;
-		jerry.name = "Jerry";
-		jerry.code = 'J';
-		jerry.weight = 60.0f;
-		jerry.isMale = false;
-		jerry.skinColor = WHITE;
-		jerry.boss = NULL;
-		jerry.car.brand = "Toyota";
-		jerry.car.color = YELLOW;
-		jerry.car.price = 43000;
-		tv.push_back(jerry);
+        tv.car.brand = par.car.brand + "Japan";
 
-		return tv;
-	}
+        if (par.car.color == WHITE)
+        {
+            tv.car.color = YELLOW;
 
+        }
+        else
+        {
+            tv.car.color = RED;
+        }
+
+        tv.car.price = par.car.price + 3000;
+        return tv;
+    }
+
+    //[MethodMetaInfo("3 # PIR_SByteList", "A")]
+    behaviac::vector<signed char> Func_SByteListIR(behaviac::vector<signed char> par)
+    {
+        behaviac::vector<signed char> tv;
+
+        for (size_t i = 0; i < par.size(); ++i)
+        {
+            tv.push_back(par[i]);
+        }
+
+        tv.push_back(-126);
+        return tv;
+    }
+
+    //[MethodMetaInfo("3 # PIR_kEmployeeList", "A")]
+    behaviac::vector<kEmployee> Func_kEmployeeListIR(behaviac::vector<kEmployee> par)
+    {
+        behaviac::vector<kEmployee> tv;
+
+        for (size_t i = 0; i < par.size(); ++i)
+        {
+            tv.push_back(par[i]);
+        }
+
+        kEmployee jerry;
+        jerry.id = 4;
+        jerry.name = "Jerry";
+        jerry.code = 'J';
+        jerry.weight = 60.0f;
+        jerry.isMale = false;
+        jerry.skinColor = WHITE;
+        jerry.boss = NULL;
+        jerry.car.brand = "Toyota";
+        jerry.car.color = YELLOW;
+        jerry.car.price = 43000;
+        tv.push_back(jerry);
+
+        return tv;
+    }
 };
-

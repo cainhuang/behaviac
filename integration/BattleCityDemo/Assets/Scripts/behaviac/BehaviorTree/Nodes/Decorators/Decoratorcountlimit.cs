@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public DecoratorCountLimit()
         {
-		}
+        }
+
         ~DecoratorCountLimit()
         {
         }
@@ -48,8 +47,15 @@ namespace behaviac
             return pTask;
         }
 
+        public bool CheckIfReInit(Agent pAgent)
+        {
+            bool bTriggered = this.EvaluteCustomCondition(pAgent);
+
+            return bTriggered;
+        }
+
         ///enter and tick the child for the specified number of iterations, then it will not enter and tick the child after that
-        class DecoratorCountLimitTask : DecoratorCountTask
+        private class DecoratorCountLimitTask : DecoratorCountTask
         {
             public DecoratorCountLimitTask()
             {
@@ -78,21 +84,11 @@ namespace behaviac
                 base.load(node);
             }
 
-			public override bool CheckPredicates(Agent pAgent)
-			{
-				//when there are no predicates, not triggered
-				bool bTriggered = false;
-				if (this.m_attachments != null)
-				{
-					bTriggered = base.CheckPredicates(pAgent);
-				}
-				
-				return bTriggered;
-			}
-
             protected override bool onenter(Agent pAgent)
             {
-				if (this.CheckPredicates(pAgent))
+                DecoratorCountLimit node = this.m_node as DecoratorCountLimit;
+
+                if (node.CheckIfReInit(pAgent))
                 {
                     this.m_bInited = false;
                 }
@@ -111,10 +107,12 @@ namespace behaviac
                 {
                     this.m_n--;
                     return true;
+
                 }
                 else if (this.m_n == 0)
                 {
                     return false;
+
                 }
                 else if (this.m_n == -1)
                 {
@@ -133,7 +131,7 @@ namespace behaviac
                 return status;
             }
 
-            bool m_bInited;
+            private bool m_bInited;
         }
     }
 }

@@ -13,34 +13,32 @@
 
 namespace Behaviac.Design
 {
-	partial class FindDock
-	{
-        /// <summary> 
+    partial class FindDock
+    {
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FindDock));
             this.whatLabel = new System.Windows.Forms.Label();
             this.whatComboBox = new System.Windows.Forms.ComboBox();
@@ -56,22 +54,22 @@ namespace Behaviac.Design
             this.findPreviousButton = new System.Windows.Forms.Button();
             this.optionGroupBox.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // whatLabel
-            // 
+            //
             resources.ApplyResources(this.whatLabel, "whatLabel");
             this.whatLabel.Name = "whatLabel";
-            // 
+            //
             // whatComboBox
-            // 
+            //
             resources.ApplyResources(this.whatComboBox, "whatComboBox");
             this.whatComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.whatComboBox.ForeColor = System.Drawing.Color.LightGray;
             this.whatComboBox.FormattingEnabled = true;
             this.whatComboBox.Name = "whatComboBox";
-            // 
+            //
             // optionGroupBox
-            // 
+            //
             resources.ApplyResources(this.optionGroupBox, "optionGroupBox");
             this.optionGroupBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.optionGroupBox.Controls.Add(this.nodeTypeCheckBox);
@@ -81,35 +79,35 @@ namespace Behaviac.Design
             this.optionGroupBox.ForeColor = System.Drawing.Color.LightGray;
             this.optionGroupBox.Name = "optionGroupBox";
             this.optionGroupBox.TabStop = false;
-            // 
+            //
             // nodeTypeCheckBox
-            // 
+            //
             resources.ApplyResources(this.nodeTypeCheckBox, "nodeTypeCheckBox");
             this.nodeTypeCheckBox.Name = "nodeTypeCheckBox";
             this.nodeTypeCheckBox.UseVisualStyleBackColor = true;
             this.nodeTypeCheckBox.CheckedChanged += new System.EventHandler(this.nodeTypeCheckBox_CheckedChanged);
-            // 
+            //
             // nodeIdCheckBox
-            // 
+            //
             resources.ApplyResources(this.nodeIdCheckBox, "nodeIdCheckBox");
             this.nodeIdCheckBox.Name = "nodeIdCheckBox";
             this.nodeIdCheckBox.UseVisualStyleBackColor = true;
             this.nodeIdCheckBox.CheckedChanged += new System.EventHandler(this.nodeIdCheckBox_CheckedChanged);
-            // 
+            //
             // matchWholeWordCheckBox
-            // 
+            //
             resources.ApplyResources(this.matchWholeWordCheckBox, "matchWholeWordCheckBox");
             this.matchWholeWordCheckBox.Name = "matchWholeWordCheckBox";
             this.matchWholeWordCheckBox.UseVisualStyleBackColor = true;
-            // 
+            //
             // matchCaseCheckBox
-            // 
+            //
             resources.ApplyResources(this.matchCaseCheckBox, "matchCaseCheckBox");
             this.matchCaseCheckBox.Name = "matchCaseCheckBox";
             this.matchCaseCheckBox.UseVisualStyleBackColor = true;
-            // 
+            //
             // findNextButton
-            // 
+            //
             resources.ApplyResources(this.findNextButton, "findNextButton");
             this.findNextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.findNextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
@@ -117,9 +115,9 @@ namespace Behaviac.Design
             this.findNextButton.Name = "findNextButton";
             this.findNextButton.UseVisualStyleBackColor = false;
             this.findNextButton.Click += new System.EventHandler(this.findNextButton_Click);
-            // 
+            //
             // closeButton
-            // 
+            //
             resources.ApplyResources(this.closeButton, "closeButton");
             this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -128,27 +126,28 @@ namespace Behaviac.Design
             this.closeButton.Name = "closeButton";
             this.closeButton.UseVisualStyleBackColor = false;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
-            // 
+            //
             // rangeComboBox
-            // 
+            //
             resources.ApplyResources(this.rangeComboBox, "rangeComboBox");
             this.rangeComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.rangeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.rangeComboBox.ForeColor = System.Drawing.Color.LightGray;
             this.rangeComboBox.FormattingEnabled = true;
             this.rangeComboBox.Items.AddRange(new object[] {
-            resources.GetString("rangeComboBox.Items"),
-            resources.GetString("rangeComboBox.Items1"),
-            resources.GetString("rangeComboBox.Items2")});
+                resources.GetString("rangeComboBox.Items"),
+                resources.GetString("rangeComboBox.Items1"),
+                resources.GetString("rangeComboBox.Items2")
+            });
             this.rangeComboBox.Name = "rangeComboBox";
-            // 
+            //
             // label1
-            // 
+            //
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            // 
+            //
             // findPreviousButton
-            // 
+            //
             resources.ApplyResources(this.findPreviousButton, "findPreviousButton");
             this.findPreviousButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.findPreviousButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
@@ -156,13 +155,13 @@ namespace Behaviac.Design
             this.findPreviousButton.Name = "findPreviousButton";
             this.findPreviousButton.UseVisualStyleBackColor = false;
             this.findPreviousButton.Click += new System.EventHandler(this.findPreviousButton_Click);
-            // 
+            //
             // FindDock
-            // 
+            //
             this.AcceptButton = this.findNextButton;
-            resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.closeButton;
+            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.findPreviousButton);
             this.Controls.Add(this.rangeComboBox);
             this.Controls.Add(this.label1);
@@ -176,16 +175,15 @@ namespace Behaviac.Design
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FindDock";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FindDock_FormClosing);
             this.optionGroupBox.ResumeLayout(false);
             this.optionGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.Label whatLabel;
         private System.Windows.Forms.ComboBox whatComboBox;

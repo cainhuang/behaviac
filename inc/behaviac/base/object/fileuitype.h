@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_FILEUITYPE_H_
-#define _ENGINESERVICES_FILEUITYPE_H_
+#ifndef BEHAVIAC_ENGINESERVICES_FILEUITYPE_H
+#define BEHAVIAC_ENGINESERVICES_FILEUITYPE_H
 
 #include "behaviac/base/object/uitype.h"
 
@@ -60,4 +60,4 @@ public:
 
 #define UiDescriptorAllocate_UiFileType BEHAVIAC_NEW UiFileType
 
-#endif // #ifndef _ENGINESERVICES_FILEUITYPE_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_FILEUITYPE_H

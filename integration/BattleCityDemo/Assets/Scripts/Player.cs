@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -13,27 +13,17 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [behaviac.TypeMetaInfo("Player", "Player -> GameActor")]
 [AddComponentMenu("BattleCity/Player")]
 public class Player : GameActor 
 {
-	[behaviac.MemberMetaInfo()]
 	public int id = -1;
-
-	[behaviac.MemberMetaInfo()]
 	public Color forceColor = Color.green;
-
-	[behaviac.MemberMetaInfo()]
 	public int fireInterval = 1500;
-
-	[behaviac.MemberMetaInfo()]
 	public int twoBulletInterval = 300;
-
-	[behaviac.MemberMetaInfo()]
 	public float aimSpeed = 180.0f;
-
-	[behaviac.MemberMetaInfo()]
 	public float bulletLifeTime = 2.5f;
 	
 	[behaviac.MemberMetaInfo()]
@@ -441,6 +431,64 @@ public class Player : GameActor
 		else 
 			return eMapDirection.LEFT;
 	}
+
+    [behaviac.MemberMetaInfo()]
+    public int Index = 0;
+
+	[behaviac.MethodMetaInfo()]
+    public void getTarget(ref Vector3 target)
+    {
+        if (this.Index == 0)
+        {
+            target = new Vector3(-4, 0, 8);
+        }
+        else if (this.Index == 1)
+        {
+            target = new Vector3(8, 0, -8);
+        }
+        else if (this.Index == 2)
+        {
+            target = new Vector3(0, 0, -8);
+        }
+    }
+
+
+	[behaviac.MethodMetaInfo()]
+    private behaviac.EBTStatus moveto(Vector3 targetPos)
+    {
+        behaviac.EBTStatus s = base.moveAGrid(targetPos);
+
+        return s;
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public void getInfo(ref float w, ref int index)
+    {
+        index = this.Index;
+
+        if (index == 0)
+        {
+            w = 0.0f;
+        }
+        else if (index == 1)
+        {
+            w = 1.0f;
+        }
+        else if (index == 2)
+        {
+            w = 2.0f;
+        }
+    }
+
+    //public static List<string> Msgs = new List<string>();
+
+    [behaviac.MethodMetaInfo()]
+    public void printf(float w, int index)
+    {
+        //string m = string.Format("W {0} Index {1} {2}", w, index, this.name);
+
+        //Msgs.Add(m);
+    }
 
 	static float angleAroundAxis (Vector3 dirA, Vector3 dirB, Vector3 axis)
 	{

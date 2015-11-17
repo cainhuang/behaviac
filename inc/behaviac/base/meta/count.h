@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_REAL_BASETYPE_COUNT_H__INCLUDED
-#define _BEHAVIAC_REAL_BASETYPE_COUNT_H__INCLUDED
+#ifndef BEHAVIAC_REAL_BASETYPE_COUNT_H_INCLUDED
+#define BEHAVIAC_REAL_BASETYPE_COUNT_H_INCLUDED
 
 namespace behaviac
 {
@@ -22,7 +22,6 @@ namespace behaviac
         {
             template< typename LookingFor, typename SequenceHead, typename SequenceTail >
             struct CountImpl;
-
         }  //namespace Details
 
         template< typename LookingFor, typename VectorType >

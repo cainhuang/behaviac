@@ -11,10 +11,10 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_SWAPBYTEHELPERS_H_
-#define _CORE_SWAPBYTEHELPERS_H_
+#ifndef BEHAVIAC_CORE_SWAPBYTEHELPERS_H
+#define BEHAVIAC_CORE_SWAPBYTEHELPERS_H
 
 #include "behaviac/base/swapbyte.h"
 #include "behaviac/base/swapbytebase.h"
 
-#endif // _CORE_SWAPBYTEHELPERS_H_
+#endif // BEHAVIAC_CORE_SWAPBYTEHELPERS_H

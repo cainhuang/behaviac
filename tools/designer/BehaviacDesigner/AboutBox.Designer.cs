@@ -33,33 +33,31 @@
 
 namespace Behaviac.Design
 {
-	partial class AboutBox
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class AboutBox
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Windows Form Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
@@ -73,9 +71,9 @@ namespace Behaviac.Design
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // tableLayoutPanel
-            // 
+            //
             resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
             this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
@@ -86,45 +84,45 @@ namespace Behaviac.Design
             this.tableLayoutPanel.Controls.Add(this.okButton, 1, 6);
             this.tableLayoutPanel.Controls.Add(this.weblinkRichTextBox, 1, 4);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            // 
+            //
             // logoPictureBox
-            // 
+            //
             this.logoPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             resources.ApplyResources(this.logoPictureBox, "logoPictureBox");
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 7);
             this.logoPictureBox.TabStop = false;
-            // 
+            //
             // labelProductName
-            // 
+            //
             this.labelProductName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             resources.ApplyResources(this.labelProductName, "labelProductName");
             this.labelProductName.MaximumSize = new System.Drawing.Size(0, 16);
             this.labelProductName.Name = "labelProductName";
-            // 
+            //
             // labelVersion
-            // 
+            //
             this.labelVersion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             resources.ApplyResources(this.labelVersion, "labelVersion");
             this.labelVersion.MaximumSize = new System.Drawing.Size(0, 16);
             this.labelVersion.Name = "labelVersion";
-            // 
+            //
             // labelCopyright
-            // 
+            //
             this.labelCopyright.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             resources.ApplyResources(this.labelCopyright, "labelCopyright");
             this.labelCopyright.MaximumSize = new System.Drawing.Size(0, 16);
             this.labelCopyright.Name = "labelCopyright";
-            // 
+            //
             // labelCompanyName
-            // 
+            //
             this.labelCompanyName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             resources.ApplyResources(this.labelCompanyName, "labelCompanyName");
             this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 16);
             this.labelCompanyName.Name = "labelCompanyName";
-            // 
+            //
             // textBoxDescription
-            // 
+            //
             this.textBoxDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
@@ -132,9 +130,9 @@ namespace Behaviac.Design
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.TabStop = false;
-            // 
+            //
             // okButton
-            // 
+            //
             resources.ApplyResources(this.okButton, "okButton");
             this.okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -142,18 +140,18 @@ namespace Behaviac.Design
             this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.okButton.Name = "okButton";
             this.okButton.UseVisualStyleBackColor = false;
-            // 
+            //
             // weblinkRichTextBox
-            // 
+            //
             this.weblinkRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.weblinkRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.weblinkRichTextBox, "weblinkRichTextBox");
             this.weblinkRichTextBox.Name = "weblinkRichTextBox";
             this.weblinkRichTextBox.ReadOnly = true;
             this.weblinkRichTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.weblinkRichTextBox_LinkClicked);
-            // 
+            //
             // AboutBox
-            // 
+            //
             this.AcceptButton = this.okButton;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -171,18 +169,18 @@ namespace Behaviac.Design
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-		private System.Windows.Forms.PictureBox logoPictureBox;
-		private System.Windows.Forms.Label labelProductName;
-		private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.PictureBox logoPictureBox;
+        private System.Windows.Forms.Label labelProductName;
+        private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelCopyright;
-		private System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.RichTextBox weblinkRichTextBox;
         private System.Windows.Forms.Label labelCompanyName;
-	}
+    }
 }

@@ -31,8 +31,7 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerArrayInteger(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags) {
         }
     }
 }

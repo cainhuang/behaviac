@@ -46,45 +46,33 @@ namespace Behaviac.Design.Nodes
     /// </summary>
     public class Sequence : Node
     {
-        private bool _acceptsEvents = false;
+        protected ConnectorSingle _interruptChild;
         protected ConnectorMultiple _genericChildren;
 
         public Sequence(string label, string description)
-            : base(label, description)
-        {
-            _genericChildren = new ConnectorMultiple(_children, "", "GenericChildren", 2, int.MaxValue);
+            : base(label, description) {
+            CreateInterruptChild();
+            _genericChildren = new ConnectorMultiple(_children, "", Connector.kGeneric, 2, int.MaxValue);
         }
 
-        protected bool IsAcceptingEvents
-        {
-            set
-            {
-                _acceptsEvents = value;
-            }
-        }
-
-        public override bool AcceptsAttachment(Type type)
-        {
-            if (_acceptsEvents)
-            {
-                return type.IsSubclassOf(typeof(Behaviac.Design.Attachments.Predicate));
-            }
-
-            return false;
+        protected virtual void CreateInterruptChild() {
+            _interruptChild = new ConnectorSingle(_children, "", Connector.kInterupt);
         }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(79, 129, 189));
-        protected override Brush DefaultBackgroundBrush
-        {
+        protected override Brush DefaultBackgroundBrush {
             get { return __defaultBackgroundBrush; }
         }
 
-        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
-        {
-            if (_genericChildren.ChildCount < 1)
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.SequenceNoChildrenError));
-            else if (_genericChildren.ChildCount < 2)
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.SequenceOnlyOneChildError));
+        protected bool _do_sequence_error_check = true;
+        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
+            if (_do_sequence_error_check) {
+                if (_genericChildren.EnableChildCount < 1)
+                { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.SequenceNoChildrenError)); }
+
+                else if (_genericChildren.EnableChildCount < 2)
+                { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.SequenceOnlyOneChildError)); }
+            }
 
             base.CheckForErrors(rootBehavior, result);
         }

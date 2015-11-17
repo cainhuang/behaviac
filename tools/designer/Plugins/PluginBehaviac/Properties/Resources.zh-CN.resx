@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -343,10 +343,10 @@
     <value>权值</value>
   </data>
   <data name="SelectorLoop" xml:space="preserve">
-    <value>循环选择</value>
+    <value>选择监测</value>
   </data>
   <data name="SelectorLoopDesc" xml:space="preserve">
-    <value>在子节点中动态选择，只接受“条件动作”作为子节点</value>
+    <value>在子节点中动态选择，只接受“监测分支”作为子节点</value>
   </data>
   <data name="False" xml:space="preserve">
     <value>假</value>
@@ -373,13 +373,13 @@
     <value>装饰器循环执行直到这个‘直到条件’。如果直到条件是True，装饰器循环执行直到子节点返回Success；如果直到条件是False，装饰器循环执行直到子节点返回Failure。</value>
   </data>
   <data name="WithPrecondition" xml:space="preserve">
-    <value>条件动作</value>
+    <value>监测分支</value>
   </data>
   <data name="WithPreconditionDesc" xml:space="preserve">
-    <value>条件动作，只能作为“循环选择”的子节点</value>
+    <value>监测分支，只能作为“选择监测”的子节点</value>
   </data>
   <data name="SelectorLoopChildChildError" xml:space="preserve">
-    <value>“循环选择”节点只接受“条件动作”作为子节点</value>
+    <value>“选择监测”节点只接受“监测分支”作为子节点</value>
   </data>
   <data name="WithPreconditionAction" xml:space="preserve">
     <value>动作分支</value>
@@ -394,7 +394,7 @@
     <value>条件分支</value>
   </data>
   <data name="ImpulseWithoutEventError" xml:space="preserve">
-    <value>no event</value>
+    <value>没有指定信号</value>
   </data>
   <data name="Blocked" xml:space="preserve">
     <value>阻塞</value>
@@ -457,7 +457,7 @@
     <value>阻塞状态，一直到等待的信号为真</value>
   </data>
   <data name="WithPreconditionParentError" xml:space="preserve">
-    <value>“条件动作”节点只能作为“动态选择”的子节点</value>
+    <value>“监测分支”节点只能作为“选择监测”的子节点</value>
   </data>
   <data name="Descriptors" xml:space="preserve">
     <value>描述器</value>
@@ -588,7 +588,7 @@
   <data name="MethodDesc" xml:space="preserve">
     <value>方法节点只能作为任务节点的子节点，用了表示实现该任务的一种方法。</value>
   </data>
-  <data name="MethodEffector" xml:space="preserve">
+  <data name="MethodEffectors" xml:space="preserve">
     <value>效果</value>
   </data>
   <data name="NoEffectorError" xml:space="preserve">
@@ -600,10 +600,171 @@
   <data name="OperatandIsNotComplete" xml:space="preserve">
     <value>没有提供完整的操作数</value>
   </data>
-  <data name="MethodAction" xml:space="preserve">
-    <value>方法</value>
+  <data name="MethodTasks" xml:space="preserve">
+    <value>任务</value>
   </data>
-  <data name="MethodPrecondition" xml:space="preserve">
+  <data name="MethodPreconditions" xml:space="preserve">
     <value>条件</value>
+  </data>
+  <data name="Precondition" xml:space="preserve">
+    <value>前置</value>
+  </data>
+  <data name="PreconditionDesc" xml:space="preserve">
+    <value>只有前置条件满足了，才能进入节点。</value>
+  </data>
+  <data name="TaskNoChildrenError" xml:space="preserve">
+    <value>任务没有任何方法子节点。</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="StateDesc" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="EndTransition" xml:space="preserve">
+    <value>终止转换</value>
+  </data>
+  <data name="EndTransitionDesc" xml:space="preserve">
+    <value>终止转换</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>进入</value>
+  </data>
+  <data name="EnterTo" xml:space="preserve">
+    <value>进入</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="ExitFrom" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="NoConditionError" xml:space="preserve">
+    <value>没有指定条件</value>
+  </data>
+  <data name="TransitionParentError" xml:space="preserve">
+    <value>转换节点只能连接状态节点</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="TransitionCondition" xml:space="preserve">
+    <value>转换</value>
+  </data>
+  <data name="TransitionConditionDesc" xml:space="preserve">
+    <value>转换</value>
+  </data>
+  <data name="TaskPrototype" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="TaskPrototypeDesc" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="NoParam" xml:space="preserve">
+    <value>没有指定任务的参数</value>
+  </data>
+  <data name="NoTask" xml:space="preserve">
+    <value>没有指定任务</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="BranchDesc" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="MethodParentError" xml:space="preserve">
+    <value>方法只能是任务的子节点</value>
+  </data>
+  <data name="BranchPreconditions" xml:space="preserve">
+    <value>条件</value>
+  </data>
+  <data name="BranchTasks" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="MethodChildChildError" xml:space="preserve">
+    <value>方法的子节点必须是分支节点</value>
+  </data>
+  <data name="MethodNoChildrenError" xml:space="preserve">
+    <value>方法节点最少要有一个子节点</value>
+  </data>
+  <data name="TaskNoMethod" xml:space="preserve">
+    <value>没有指定任务</value>
+  </data>
+  <data name="NoMethosError" xml:space="preserve">
+    <value>没有指定子节点</value>
+  </data>
+  <data name="Proposition" xml:space="preserve">
+    <value>命题</value>
+  </data>
+  <data name="PropositionDesc" xml:space="preserve">
+    <value>命题</value>
+  </data>
+  <data name="Effector" xml:space="preserve">
+    <value>后置</value>
+  </data>
+  <data name="EffectorDesc" xml:space="preserve">
+    <value>节点结束时执行</value>
+  </data>
+  <data name="Reinit" xml:space="preserve">
+    <value>重新开始</value>
+  </data>
+  <data name="Requery" xml:space="preserve">
+    <value>重新查询</value>
+  </data>
+  <data name="PreconditionPhase" xml:space="preserve">
+    <value>时机</value>
+  </data>
+  <data name="PreconditionPhaseDesc" xml:space="preserve">
+    <value>什么时候起作用</value>
+  </data>
+  <data name="CustomizedMethodError" xml:space="preserve">
+    <value>定制的方法不能被导出！</value>
+  </data>
+  <data name="DecoratorIterator" xml:space="preserve">
+    <value>尝试</value>
+  </data>
+  <data name="DecoratorIteratorDesc" xml:space="preserve">
+    <value>尝试数组中直到第一个满足子树的元素</value>
+  </data>
+  <data name="DecoratorRepeat" xml:space="preserve">
+    <value>重复</value>
+  </data>
+  <data name="DecoratorRepeatDesc" xml:space="preserve">
+    <value>重复子节点指定的次数然后成功，如果子节点失败了，则失败。
+如果子节点一直运行，则本节点一直阻塞。如果‘子节点结束时’不为真，则不会阻塞。
+本节点只能成功或失败，不会返回运行。</value>
+  </data>
+  <data name="StartCondition" xml:space="preserve">
+    <value>开始</value>
+  </data>
+  <data name="StartConditionDesc" xml:space="preserve">
+    <value>开始</value>
+  </data>
+  <data name="Effectors" xml:space="preserve">
+    <value>效果</value>
+  </data>
+  <data name="EffectorsDesc" xml:space="preserve">
+    <value>效果</value>
+  </data>
+  <data name="TargetId" xml:space="preserve">
+    <value>转换节点ID</value>
+  </data>
+  <data name="TargetIdDesc" xml:space="preserve">
+    <value>转换节点ID</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>右值</value>
+  </data>
+  <data name="TransitionMode" xml:space="preserve">
+    <value>转换模式</value>
+  </data>
+  <data name="TransitionModeDesc" xml:space="preserve">
+    <value>控制如何转换：当条件为真时转换，或者当配置的方法成功/失败/结束时转换。</value>
+  </data>
+  <data name="Transition" xml:space="preserve">
+    <value>转换</value>
+  </data>
+  <data name="FSM" xml:space="preserve">
+    <value>状态机</value>
   </data>
 </root>

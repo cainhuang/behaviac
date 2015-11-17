@@ -47,8 +47,7 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// Defines which appendix is used for float numbers during export.
         /// </summary>
-        public static string ExportAppendix
-        {
+        public static string ExportAppendix {
             get { return __exportAppendix; }
             set { __exportAppendix = value; }
         }
@@ -60,40 +59,35 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// The units the value is represented in.
         /// </summary>
-        public string Units
-        {
+        public string Units {
             get { return Plugin.GetResourceString(_units); }
         }
 
         /// <summary>
         /// The minimum value of the property.
         /// </summary>
-        public float Min
-        {
+        public float Min {
             get { return _min; }
         }
 
         /// <summary>
         /// The maximum value of the property.
         /// </summary>
-        public float Max
-        {
+        public float Max {
             get { return _max; }
         }
 
         /// <summary>
         /// The minimum value added or substracted when changing the property's value.
         /// </summary>
-        public float Steps
-        {
+        public float Steps {
             get { return _steps; }
         }
 
         /// <summary>
         /// The number of decimal places shown.
         /// </summary>
-        public int Precision
-        {
+        public int Precision {
             get { return _precision; }
         }
 
@@ -113,8 +107,7 @@ namespace Behaviac.Design.Attributes
         /// <param name="precision">The number of decimal places shown.</param>
         /// <param name="units">The units the value is represented in.</param>
         public DesignerFloat(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, string linkedToProperty, float min, float max, float steps, int precision, string units)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNumberEditor), linkedToProperty)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNumberEditor), linkedToProperty) {
             _min = min;
             _max = max;
             _steps = steps;
@@ -123,8 +116,7 @@ namespace Behaviac.Design.Attributes
         }
 
         public DesignerFloat(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNumberEditor), null)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNumberEditor), null) {
             const float maxValue = 1000000000000;
             _min = -maxValue;
             _max = maxValue;
@@ -133,25 +125,24 @@ namespace Behaviac.Design.Attributes
             _units = null;
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             return string.Format(CultureInfo.InvariantCulture, "{0}", (float)obj);
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             return GetDisplayValue(obj);
             //return string.Format(CultureInfo.InvariantCulture, "{0:f}{1}", (float)obj, __exportAppendix);
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (type != typeof(float))
-                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
+            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
 
-            float result;
-            if (float.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out result))
-                return result;
+            float resultValue;
+
+            if (float.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out resultValue))
+            { return resultValue; }
 
             throw new Exception(string.Format(Resources.ExceptionDesignerAttributeIllegalFloatValue, str));
         }

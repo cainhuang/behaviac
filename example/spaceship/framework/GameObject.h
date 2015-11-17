@@ -21,7 +21,6 @@
 #include "globals.h"
 
 #include "behaviac/agent/agent.h"
-#include "behaviac/world/world.h"
 #include "behaviac/agent/registermacros.h"
 
 class CL_Sprite;

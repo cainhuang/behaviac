@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,10 +19,36 @@ namespace behaviac
     {
         public Selector()
         {
-		}
+        }
+
         ~Selector()
         {
         }
+
+        public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
+        {
+            Selector sel = (Selector)node;
+
+            bool bOk = false;
+            int childCount = sel.GetChildrenCount();
+            int i = 0;
+
+            for (; i < childCount; ++i)
+            {
+                BehaviorNode childNode = sel.GetChild(i);
+                PlannerTask childTask = planner.decomposeNode(childNode, depth);
+
+                if (childTask != null)
+                {
+                    seqTask.AddChild(childTask);
+                    bOk = true;
+                    break;
+                }
+            }
+
+            return bOk;
+        }
+
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -41,6 +65,66 @@ namespace behaviac
             return base.IsValid(pAgent, pTask);
         }
 
+        public override bool Evaluate(Agent pAgent)
+        {
+            bool ret = true;
+            foreach(BehaviorNode c in this.m_children)
+            {
+                ret = c.Evaluate(pAgent);
+
+                if (ret)
+                {
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        public EBTStatus SelectorUpdate(Agent pAgent, EBTStatus childStatus, ref int activeChildIndex, List<BehaviorTask> children)
+        {
+            EBTStatus s = childStatus;
+
+            for (; ;)
+            {
+                Debug.Check(activeChildIndex < children.Count);
+
+                if (s == EBTStatus.BT_RUNNING)
+                {
+                    BehaviorTask pBehavior = children[activeChildIndex];
+                    if (this.CheckIfInterrupted(pAgent))
+                    {
+                        return EBTStatus.BT_FAILURE;
+                    }
+
+                    s = pBehavior.exec(pAgent);
+                }
+
+                // If the child fails, or keeps running, do the same.
+                if (s != EBTStatus.BT_FAILURE)
+                {
+                    return s;
+                }
+
+                // Hit the end of the array, job done!
+                ++activeChildIndex;
+
+                if (activeChildIndex >= children.Count)
+                {
+                    return EBTStatus.BT_FAILURE;
+                }
+
+                s = EBTStatus.BT_RUNNING;
+            }
+        }
+
+        public bool CheckIfInterrupted(Agent pAgent)
+        {
+            bool bInterrupted = this.EvaluteCustomCondition(pAgent);
+
+            return bInterrupted;
+        }
+
         protected override BehaviorTask createTask()
         {
             SelectorTask pTask = new SelectorTask();
@@ -53,7 +137,8 @@ namespace behaviac
         {
             public SelectorTask()
             {
-			}
+            }
+
             ~SelectorTask()
             {
             }
@@ -62,6 +147,7 @@ namespace behaviac
             {
                 base.copyto(target);
             }
+
             public override void save(ISerializableNode node)
             {
                 base.save(node);
@@ -81,47 +167,15 @@ namespace behaviac
 
             protected override void onexit(Agent pAgent, EBTStatus s)
             {
+                base.onexit(pAgent, s);
             }
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
-                bool bFirst = true;
-
                 Debug.Check(this.m_activeChildIndex < this.m_children.Count);
+                Selector node = this.m_node as Selector;
 
-                // Keep going until a child behavior says its running.
-                for (; ; )
-                {
-                    EBTStatus s = childStatus;
-                    if (!bFirst || s == EBTStatus.BT_RUNNING)
-                    {
-                        Debug.Check(this.m_status == EBTStatus.BT_INVALID ||
-                            this.m_status == EBTStatus.BT_RUNNING);
-
-                        BehaviorTask pBehavior = this.m_children[this.m_activeChildIndex];
-                        s = pBehavior.exec(pAgent);
-                    }
-
-                    bFirst = false;
-
-                    // If the child succeeds, or keeps running, do the same.
-                    if (s != EBTStatus.BT_FAILURE)
-                    {
-                        return s;
-                    }
-
-                    // Hit the end of the array, job done!
-                    ++this.m_activeChildIndex;
-                    if (this.m_activeChildIndex >= this.m_children.Count)
-                    {
-                        return EBTStatus.BT_FAILURE;
-                    }
-
-					if (!this.CheckPredicates(pAgent))
-					{
-						return EBTStatus.BT_FAILURE;
-					}
-                }
+                return node.SelectorUpdate(pAgent, childStatus, ref this.m_activeChildIndex, this.m_children);
             }
         }
     }

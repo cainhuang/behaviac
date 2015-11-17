@@ -29,6 +29,10 @@ namespace PluginBehaviac.Nodes
 		{
 		}
 
+        protected override void CreateInterruptChild()
+        {
+        }
+
         public override string ExportClass
         {
             get { return "SelectorLoop"; }

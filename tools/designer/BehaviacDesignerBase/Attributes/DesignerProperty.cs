@@ -41,34 +41,29 @@ using Behaviac.Design.Properties;
 
 namespace Behaviac.Design.Attributes
 {
-    public struct DesignerPropertyInfo
-    {
+    public struct DesignerPropertyInfo {
         private PropertyInfo _property;
-        public PropertyInfo Property
-        {
+        public PropertyInfo Property {
             get { return _property; }
         }
 
         private DesignerProperty _attribute;
-        public DesignerProperty Attribute
-        {
+        public DesignerProperty Attribute {
             get { return _attribute; }
         }
 
-        public DesignerPropertyInfo(PropertyInfo property)
-        {
+        public DesignerPropertyInfo(PropertyInfo property) {
             _property = property;
 
             DesignerProperty[] attributes = (DesignerProperty[])_property.GetCustomAttributes(typeof(DesignerProperty), true);
 
             if (attributes.Length != 1)
-                throw new Exception(Resources.ExceptionMultipleDesignerAttributes);
+            { throw new Exception(Resources.ExceptionMultipleDesignerAttributes); }
 
             _attribute = attributes[0];
         }
 
-        public DesignerPropertyInfo(PropertyInfo property, DesignerProperty attribute)
-        {
+        public DesignerPropertyInfo(PropertyInfo property, DesignerProperty attribute) {
             _property = property;
             _attribute = attribute;
         }
@@ -78,8 +73,7 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The value we want to get the value from.</param>
         /// <returns>The value as an object.</returns>
-        public object GetValue(object obj)
-        {
+        public object GetValue(object obj) {
             return (_property != null) ? _property.GetValue(obj, null) : null;
         }
 
@@ -88,8 +82,7 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The value whose value we want to get.</param>
         /// <returns>The value as a string.</returns>
-        public string GetDisplayValue(object obj)
-        {
+        public string GetDisplayValue(object obj) {
             return _attribute.GetDisplayValue(_property.GetValue(obj, null));
         }
 
@@ -98,8 +91,7 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The value stored in the property unencoded.</param>
         /// <returns>The value as a string.</returns>
-        public string GetExportValue(object obj)
-        {
+        public string GetExportValue(object obj) {
             return _attribute.GetExportValue(obj, _property.GetValue(obj, null));
         }
 
@@ -108,8 +100,7 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The value stored in the property unencoded.</param>
         /// <returns>The value as a string.</returns>
-        public string GetSaveValue(object obj)
-        {
+        public string GetSaveValue(object obj) {
             return _attribute.GetSaveValue(obj, _property.GetValue(obj, null));
         }
 
@@ -118,8 +109,7 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The value stored in the property unencoded.</param>
         /// <returns>The value as a string.</returns>
-        public string GetGeneratedValue(object obj)
-        {
+        public string GetGeneratedValue(object obj) {
             return _attribute.GetGeneratedValue(obj, _property.GetValue(obj, null));
         }
 
@@ -129,9 +119,8 @@ namespace Behaviac.Design.Attributes
         /// <param name="type">The type of the property.</param>
         /// <param name="str">The string representing the value to be set.</param>
         /// <returns>Returns the value encoded in the string in the correct type given.</returns>
-        public object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
-        {
-            return _attribute.FromStringValue(node, parentObject, type, str);
+        public object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str) {
+            return _attribute.FromStringValue(result, node, parentObject, type, str);
         }
 
         /// <summary>
@@ -139,24 +128,22 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The object we want to set the value on.</param>
         /// <param name="valueString">The string holding the value.</param>
-        public void SetValueFromString(object obj, string valueString, NodeTag.DefaultObject node = null)
+        public void SetValueFromString(List<Nodes.Node.ErrorCheck> result, object obj, string valueString, DefaultObject node = null)
         {
-            if (Plugin.IsCharType(_property.PropertyType))
-            {
-                object v = FromStringValue(node, obj, _property.PropertyType, valueString);
+            if (Plugin.IsCharType(_property.PropertyType)) {
+                object v = FromStringValue(result, node, obj, _property.PropertyType, valueString);
                 string vStr = v.ToString();
 
                 char c = 'A';
-                if (vStr.Length >= 1)
-                {
+
+                if (vStr.Length >= 1) {
                     c = vStr[0];
                 }
 
                 _property.SetValue(obj, c, null);
-            }
-            else
-            {
-                _property.SetValue(obj, FromStringValue(node, obj, _property.PropertyType, valueString), null);
+
+            } else {
+                _property.SetValue(obj, FromStringValue(result, node, obj, _property.PropertyType, valueString), null);
             }
         }
 
@@ -165,9 +152,9 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="node">The node we want to set the value on.</param>
         /// <param name="valueString">The string holding the value.</param>
-        public void SetValueFromString(Nodes.Node node, string valueString)
+        public void SetValueFromString(List<Nodes.Node.ErrorCheck> result, Nodes.Node node, string valueString)
         {
-            _property.SetValue(node, FromStringValue(node, null, _property.PropertyType, valueString), null);
+            _property.SetValue(node, FromStringValue(result, node, null, _property.PropertyType, valueString), null);
         }
 
         /// <summary>
@@ -175,9 +162,9 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="evnt">The event we want to set the value on.</param>
         /// <param name="valueString">The string holding the value.</param>
-        public void SetValueFromString(Attachments.Attachment attach, string valueString)
+        public void SetValueFromString(List<Nodes.Node.ErrorCheck> result, Attachments.Attachment attach, string valueString)
         {
-            _property.SetValue(attach, FromStringValue(attach, null, _property.PropertyType, valueString), null);
+            _property.SetValue(attach, FromStringValue(result, attach, null, _property.PropertyType, valueString), null);
         }
 
         /// <summary>
@@ -185,45 +172,40 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="evnt">The comment we want to set the value on.</param>
         /// <param name="valueString">The string holding the value.</param>
-        public void SetValueFromString(Nodes.Node.Comment comment, string valueString)
+        public void SetValueFromString(List<Nodes.Node.ErrorCheck> result, Nodes.Node.Comment comment, string valueString)
         {
-            _property.SetValue(comment, FromStringValue(null, null, _property.PropertyType, valueString), null);
+            _property.SetValue(comment, FromStringValue(result, null, null, _property.PropertyType, valueString), null);
         }
     }
 
     public class DesignerArrayPropertyInfo
     {
         private string _name = string.Empty;
-        public string Name
-        {
+        public string Name {
             get { return _name; }
         }
 
         private Type _itemType = null;
-        public Type ItemType
-        {
+        public Type ItemType {
             get { return _itemType; }
         }
 
         private System.Collections.IList _itemList = null;
-        public System.Collections.IList ItemList
-        {
+        public System.Collections.IList ItemList {
             get { return _itemList; }
         }
 
         private int _itemIndex = -1;
-        public int ItemIndex
-        {
+        public int ItemIndex {
             get { return _itemIndex; }
             set { _itemIndex = value; }
         }
 
-        public object Value
-        {
+        public object Value {
             get
             {
                 if (_itemList != null && _itemIndex > -1 && _itemIndex < _itemList.Count)
-                    return _itemList[_itemIndex];
+                { return _itemList[_itemIndex]; }
 
                 return null;
             }
@@ -231,18 +213,16 @@ namespace Behaviac.Design.Attributes
             set
             {
                 if (_itemList != null && _itemIndex > -1 && _itemIndex < _itemList.Count)
-                    _itemList[_itemIndex] = value;
+                { _itemList[_itemIndex] = value; }
             }
         }
 
         private bool _readOnly = false;
-        public bool ReadOnly
-        {
+        public bool ReadOnly {
             get { return _readOnly; }
         }
 
-        public DesignerArrayPropertyInfo(string name, Type itemType, System.Collections.IList itemList, int itemIndex, bool readOnly)
-        {
+        public DesignerArrayPropertyInfo(string name, Type itemType, System.Collections.IList itemList, int itemIndex, bool readOnly) {
             _name = name;
             _itemType = itemType;
             _itemList = itemList;
@@ -250,8 +230,7 @@ namespace Behaviac.Design.Attributes
             _readOnly = readOnly;
         }
 
-        public DesignerArrayPropertyInfo(DesignerArrayPropertyInfo arrayProperty)
-        {
+        public DesignerArrayPropertyInfo(DesignerArrayPropertyInfo arrayProperty) {
             _name = arrayProperty.Name;
             _itemType = arrayProperty.ItemType;
             _itemList = arrayProperty.ItemList;
@@ -263,36 +242,31 @@ namespace Behaviac.Design.Attributes
     public class DesignerStructPropertyInfo
     {
         private string _name = string.Empty;
-        public string Name
-        {
+        public string Name {
             get { return _name; }
         }
 
         private Type _type = null;
-        public Type Type
-        {
+        public Type Type {
             get { return _type; }
         }
 
         private object _owner = null;
-        public object Owner
-        {
+        public object Owner {
             get { return _owner; }
         }
 
         private int _elmentIndexInArray = -1;
 
         //if -1, it is not an element of an array
-        public int ElmentIndexInArray
-        {
+        public int ElmentIndexInArray {
             get
             {
                 return _elmentIndexInArray;
             }
         }
 
-        public DesignerStructPropertyInfo(string name, Type type, object owner, int elmentIndexInArray = -1)
-        {
+        public DesignerStructPropertyInfo(string name, Type type, object owner, int elmentIndexInArray = -1) {
             _name = name;
             _type = type;
             _owner = owner;
@@ -306,16 +280,17 @@ namespace Behaviac.Design.Attributes
     public abstract class DesignerProperty : Attribute
     {
         [Flags]
-        public enum DesignerFlags
-        {
+        public enum DesignerFlags {
             NoFlags = 0,
             ReadOnly = 1,
             NoDisplay = 2,
             NoSave = 4,
-            NoExport = 8, 
-            BeValid = 16,
-            NotPrefabRelated = 32, 
-            QueryRelated = 64
+            NoExport = 8,
+            NotPrefabRelated = 32,
+            QueryRelated = 64,
+            NoDisplayOnProperty = 128,
+            NoReadonly = 256,
+            ReadOnlyParams = 512,
         }
 
         /// <summary>
@@ -326,18 +301,16 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// This method is used to sort properties by their name.
         /// </summary>
-        public static int SortByName(DesignerPropertyInfo a, DesignerPropertyInfo b)
-        {
+        public static int SortByName(DesignerPropertyInfo a, DesignerPropertyInfo b) {
             return a.Property.Name.CompareTo(b.Property.Name);
         }
 
         /// <summary>
         /// This method is used to sort properties by their display order.
         /// </summary>
-        public static int SortByDisplayOrder(DesignerPropertyInfo a, DesignerPropertyInfo b)
-        {
+        public static int SortByDisplayOrder(DesignerPropertyInfo a, DesignerPropertyInfo b) {
             if (a.Attribute.DisplayOrder == b.Attribute.DisplayOrder)
-                return 0;
+            { return 0; }
 
             return a.Attribute.DisplayOrder < b.Attribute.DisplayOrder ? -1 : 1;
         }
@@ -347,8 +320,7 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="type">The type we want to get the properties from.</param>
         /// <returns>A list of all properties relevant to the designer.</returns>
-        public static IList<DesignerPropertyInfo> GetDesignerProperties(Type type)
-        {
+        public static IList<DesignerPropertyInfo> GetDesignerProperties(Type type) {
             Debug.Check(type != null);
             return GetDesignerProperties(type, SortByName);
         }
@@ -359,40 +331,28 @@ namespace Behaviac.Design.Attributes
         /// <param name="type">The type we want to get the properties from.</param>
         /// <param name="comparison">The comparison used to sort the design properties.</param>
         /// <returns>A list of all properties relevant to the designer.</returns>
-        public static IList<DesignerPropertyInfo> GetDesignerProperties(Type type, Comparison<DesignerPropertyInfo> comparison)
-        {
+        public static IList<DesignerPropertyInfo> GetDesignerProperties(Type type, Comparison<DesignerPropertyInfo> comparison) {
             List<DesignerPropertyInfo> list = new List<DesignerPropertyInfo>();
 
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
 
-            foreach (PropertyInfo property in properties)
-            {
+            foreach(PropertyInfo property in properties) {
                 DesignerProperty[] attributes = (DesignerProperty[])property.GetCustomAttributes(typeof(DesignerProperty), true);
 
                 if (attributes.Length > 1)
-                    throw new Exception(Resources.ExceptionMultipleDesignerAttributes);
+                { throw new Exception(Resources.ExceptionMultipleDesignerAttributes); }
 
-                if (attributes.Length == 1)
-                {
+                if (attributes.Length == 1) {
                     // all properties with a designer attribute must be able to be read and written
                     if (!property.CanRead)
-                        throw new Exception(Resources.ExceptionPropertyCannotBeRead);
+                    { throw new Exception(Resources.ExceptionPropertyCannotBeRead); }
 
                     // all properties with a designer attribute must be able to be written or marked as read-only and no-save
-                    if (!property.CanWrite && !attributes[0].HasFlags(DesignerFlags.ReadOnly | DesignerFlags.NoSave))
-                    {
+                    if (!property.CanWrite && !attributes[0].HasFlags(DesignerFlags.ReadOnly | DesignerFlags.NoSave)) {
                         throw new Exception(Resources.ExceptionPropertyCannotBeWritten);
-                    }
-                    else
-                    {
-                        if (Plugin.IsQueryFiltered && attributes[0].HasFlags(DesignerProperty.DesignerFlags.QueryRelated))
-                        {
-                            //skip
-                        }
-                        else
-                        {
+
+                    } else {
                             list.Add(new DesignerPropertyInfo(property, attributes[0]));
-                        }
                     }
                 }
             }
@@ -408,33 +368,29 @@ namespace Behaviac.Design.Attributes
         /// <param name="type">The type we want to get the property from.</param>
         /// <param name="name">The name of the property we want to get.</param>
         /// <returns>The property requested if it exists.</returns>
-        public static DesignerPropertyInfo GetDesignerProperty(Type type, string name)
-        {
+        public static DesignerPropertyInfo GetDesignerProperty(Type type, string name) {
             List<DesignerPropertyInfo> list = new List<DesignerPropertyInfo>();
 
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
 
-            foreach (PropertyInfo property in properties)
-            {
-                if (property.Name != name)
-                {
+            foreach(PropertyInfo property in properties) {
+                if (property.Name != name) {
                     continue;
                 }
 
                 DesignerProperty[] attributes = (DesignerProperty[])property.GetCustomAttributes(typeof(DesignerProperty), true);
 
                 if (attributes.Length > 1)
-                    throw new Exception(Resources.ExceptionMultipleDesignerAttributes);
+                { throw new Exception(Resources.ExceptionMultipleDesignerAttributes); }
 
-                if (attributes.Length == 1)
-                {
+                if (attributes.Length == 1) {
                     // all properties with a designer attribute must be able to be read and written
                     if (!property.CanRead)
-                        throw new Exception(Resources.ExceptionPropertyCannotBeRead);
+                    { throw new Exception(Resources.ExceptionPropertyCannotBeRead); }
 
                     // all properties with a designer attribute must be able to be written or marked as read-only and no-save
                     if (!property.CanWrite && !attributes[0].HasFlags(DesignerFlags.ReadOnly | DesignerFlags.NoSave))
-                        throw new Exception(Resources.ExceptionPropertyCannotBeWritten);
+                    { throw new Exception(Resources.ExceptionPropertyCannotBeWritten); }
 
                     return new DesignerPropertyInfo(property, attributes[0]);
                 }
@@ -457,56 +413,49 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// Gets the name shown on the node and in the property editor for the property.
         /// </summary>
-        public string DisplayName
-        {
+        public string DisplayName {
             get { return Plugin.GetResourceString(_displayName); }
         }
 
         /// <summary>
         /// Gets the description shown in the property editor for the property.
         /// </summary>
-        public string Description
-        {
+        public string Description {
             get { return Plugin.GetResourceString(_description); }
         }
 
         /// <summary>
         /// Gets the category shown in the property editor for the property.
         /// </summary>
-        public string Category
-        {
+        public string Category {
             get { return Plugin.GetResourceString(_category); }
         }
 
         /// <summary>
         /// Returns the resource used for the category.
         /// </summary>
-        public string CategoryResourceString
-        {
+        public string CategoryResourceString {
             get { return _category; }
         }
 
         /// <summary>
         /// Gets how the property is visualised in the editor.
         /// </summary>
-        public DisplayMode Display
-        {
+        public DisplayMode Display {
             get { return _displayMode; }
         }
 
         /// <summary>
         /// Gets the type of the editor used in the property grid.
         /// </summary>
-        public virtual Type GetEditorType(object obj)
-        {
+        public virtual Type GetEditorType(object obj) {
             return _editorType;
         }
 
         /// <summary>
         /// Defines the order the properties will be sorted in when shown in the property grid. Lower come first.
         /// </summary>
-        public int DisplayOrder
-        {
+        public int DisplayOrder {
             get { return _displayOrder; }
         }
 
@@ -515,20 +464,17 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="flags">The flags we want to check.</param>
         /// <returns>Returns true when all given flags were found.</returns>
-        public bool HasFlags(DesignerFlags flags)
-        {
+        public bool HasFlags(DesignerFlags flags) {
             return (_flags & flags) == flags;
         }
 
         protected Type _filterType = null;
-        public Type FilterType
-        {
+        public Type FilterType {
             get { return _filterType; }
         }
 
         protected ValueTypes _valueType = ValueTypes.All;
-        public ValueTypes ValueType
-        {
+        public ValueTypes ValueType {
             get { return _valueType; }
         }
 
@@ -552,8 +498,7 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The value stored in the property unencoded.</param>
         /// <returns>The value as a string.</returns>
-        public virtual string GetSaveValue(object owner, object obj)
-        {
+        public virtual string GetSaveValue(object owner, object obj) {
             return GetExportValue(owner, obj);
         }
 
@@ -563,8 +508,7 @@ namespace Behaviac.Design.Attributes
         /// <param name="owner">The owner object storing the property.</param>
         /// <param name="obj">The value stored in the property unencoded.</param>
         /// <returns>The value as a string.</returns>
-        public virtual string GetGeneratedValue(object owner, object obj)
-        {
+        public virtual string GetGeneratedValue(object owner, object obj) {
             return GetExportValue(owner, obj);
         }
 
@@ -579,8 +523,7 @@ namespace Behaviac.Design.Attributes
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         /// <param name="editorType">The type of the editor used in the property grid.</param>
         /// <param name="linkedToProperty">The restrictions of this property are defined by another property.</param>
-        protected DesignerProperty(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, Type editorType, string linkedToProperty, ValueTypes filterType = ValueTypes.All)
-        {
+        protected DesignerProperty(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, Type editorType, string linkedToProperty, ValueTypes filterType = ValueTypes.All) {
             _displayName = displayName;
             _description = description;
             _category = category;
@@ -599,19 +542,17 @@ namespace Behaviac.Design.Attributes
         /// <param name="type">The type of the property.</param>
         /// <param name="str">The string representing the value to be set.</param>
         /// <returns>Returns the value encoded in the string in the correct type given.</returns>
-        public abstract object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str);
+        public abstract object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str);
 
         /// <summary>
         /// Returns the property this one is linked to.
         /// </summary>
         /// <param name="linkBroken">Is true if a link was found but it does not work.</param>
         /// <returns>The info of the property this is linked to.</returns>
-        public DesignerPropertyInfo GetLinkedProperty(object obj, out bool linkBroken)
-        {
+        public DesignerPropertyInfo GetLinkedProperty(object obj, out bool linkBroken) {
             linkBroken = false;
 
-            if (string.IsNullOrEmpty(_linkedToProperty))
-            {
+            if (string.IsNullOrEmpty(_linkedToProperty)) {
                 return new DesignerPropertyInfo();
             }
 
@@ -619,8 +560,8 @@ namespace Behaviac.Design.Attributes
 
             // if we are linked to a DesignerNodeProperty we get the information of its assigned property
             DesignerNodeProperty dnp = dpi.Attribute as DesignerNodeProperty;
-            if (dnp == null)
-            {
+
+            if (dnp == null) {
                 return dpi;
             }
 
@@ -630,8 +571,8 @@ namespace Behaviac.Design.Attributes
             object objvalue = dpi.Property.GetValue(obj, null);
 
             string value = dnp.GetDisplayValue(objvalue);
-            if (string.IsNullOrEmpty(value) || value == Resources.DesignerNodePropertyNone)
-            {
+
+            if (string.IsNullOrEmpty(value) || value == Resources.DesignerNodePropertyNone) {
                 linkBroken = true;
 
                 return new DesignerPropertyInfo();

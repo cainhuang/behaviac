@@ -48,8 +48,7 @@ namespace Behaviac.Design.Nodes
         protected ConnectorSingle _isFalse;
 
         public ConditionConnectors(string label, string description)
-            : base(label, description)
-        {
+            : base(label, description) {
             _isTrue = new ConnectorSingle(_children, Resources.ConditionConnectorsTrue, "ConditionTrue");
             _isFalse = new ConnectorSingle(_children, Resources.ConditionConnectorsFalse, "ConditionFalse");
         }

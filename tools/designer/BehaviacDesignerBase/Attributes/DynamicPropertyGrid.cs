@@ -45,30 +45,25 @@ namespace CustomPropertyGridTest
 {
     public partial class DynamicPropertyGrid : UserControl
     {
-        public DynamicPropertyGrid()
-        {
+        public DynamicPropertyGrid() {
             InitializeComponent();
 
             this.Disposed += new EventHandler(DynamicPropertyGrid_Disposed);
         }
 
-        ~DynamicPropertyGrid()
-        {
+        ~DynamicPropertyGrid() {
             this.Dispose(false);
         }
 
-        void DynamicPropertyGrid_Disposed(object sender, EventArgs e)
-        {
+        void DynamicPropertyGrid_Disposed(object sender, EventArgs e) {
             this.Disposed -= DynamicPropertyGrid_Disposed;
 
-            if (this.propertiesSplitContainer != null)
-            {
+            if (this.propertiesSplitContainer != null) {
                 this.propertiesSplitContainer.Dispose();
                 this.propertiesSplitContainer = null;
             }
 
-            if (this.splitContainer != null)
-            {
+            if (this.splitContainer != null) {
                 this.splitContainer.Dispose();
                 this.splitContainer = null;
             }
@@ -77,33 +72,28 @@ namespace CustomPropertyGridTest
 
         private const int _padding = 1;
 
-        public void PropertiesVisible(bool visible, bool showDescription)
-        {
+        public void PropertiesVisible(bool visible, bool showDescription) {
             propertiesSplitContainer.Visible = visible;
             descriptionPanel.Visible = showDescription;
         }
 
         private int _location = 0;
 
-        public void ClearProperties()
-        {
+        public void ClearProperties() {
             _location = 0;
 
-            foreach (Control c in propertiesSplitContainer.Panel1.Controls)
-            {
+            foreach(Control c in propertiesSplitContainer.Panel1.Controls) {
                 c.Dispose();
             }
             propertiesSplitContainer.Panel1.Controls.Clear();
 
-            foreach (Control c in propertiesSplitContainer.Panel2.Controls)
-            {
+            foreach(Control c in propertiesSplitContainer.Panel2.Controls) {
                 c.Dispose();
             }
             propertiesSplitContainer.Panel2.Controls.Clear();
         }
 
-        public void AddCategory(string name, bool expanded)
-        {
+        public void AddCategory(string name, bool expanded) {
             Label label = new Label();
             label.AutoSize = false;
             label.Text = name;
@@ -124,8 +114,7 @@ namespace CustomPropertyGridTest
             propertiesSplitContainer.Height = _location;
         }
 
-        public Label AddProperty(string name, Type editorType, bool isReadOnly)
-        {
+        public Label AddProperty(string name, Type editorType, bool isReadOnly) {
             Label label = new Label();
             label.AutoSize = false;
             label.Text = name;
@@ -135,18 +124,17 @@ namespace CustomPropertyGridTest
             propertiesSplitContainer.Panel1.Controls.Add(label);
 
             Control ctrl = null;
-            if (editorType == null)
-            {
+
+            if (editorType == null) {
                 ctrl = new Panel();
                 ctrl.Height = 20;
                 ctrl.BackColor = Color.Red;
-            }
-            else
-            {
+
+            } else {
                 DesignerPropertyEditor editor = (DesignerPropertyEditor)editorType.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, null, new object[0]);
 
                 if (isReadOnly)
-                    editor.ReadOnly();
+                { editor.ReadOnly(); }
 
                 ctrl = editor;
             }
@@ -163,27 +151,23 @@ namespace CustomPropertyGridTest
             return label;
         }
 
-        public void UpdateSizes()
-        {
-            foreach (Control ctrl in propertiesSplitContainer.Panel1.Controls)
-                ctrl.Width = propertiesSplitContainer.Panel1.Width;
+        public void UpdateSizes() {
+            foreach(Control ctrl in propertiesSplitContainer.Panel1.Controls)
+            ctrl.Width = propertiesSplitContainer.Panel1.Width;
 
-            foreach (Control ctrl in propertiesSplitContainer.Panel2.Controls)
-                ctrl.Width = propertiesSplitContainer.Panel2.Width;
+            foreach(Control ctrl in propertiesSplitContainer.Panel2.Controls)
+            ctrl.Width = propertiesSplitContainer.Panel2.Width;
         }
 
-        private void propertiesSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
-        {
+        private void propertiesSplitContainer_SplitterMoved(object sender, SplitterEventArgs e) {
             UpdateSizes();
         }
 
-        private void propertiesSplitContainer_Resize(object sender, EventArgs e)
-        {
+        private void propertiesSplitContainer_Resize(object sender, EventArgs e) {
             UpdateSizes();
         }
 
-        public void ShowDescription(string name, string description)
-        {
+        public void ShowDescription(string name, string description) {
             propertyNameLabel.Text = name;
             propertyDescriptionLabel.Text = description;
         }

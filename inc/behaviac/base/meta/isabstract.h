@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_ENGINE_SYSTEM_UTILITIES_META_ISABSTRACT_H__INCLUDED
-#define BEHAVIAC_ENGINE_SYSTEM_UTILITIES_META_ISABSTRACT_H__INCLUDED
+#ifndef BEHAVIAC_ENGINE_SYSTEM_UTILITIES_META_ISABSTRACT_H_INCLUDED
+#define BEHAVIAC_ENGINE_SYSTEM_UTILITIES_META_ISABSTRACT_H_INCLUDED
 
 #include "behaviac/base/meta/isclass.h"
 #include "behaviac/base/meta/ifthenelse.h"

@@ -49,7 +49,7 @@ namespace PluginBehaviac.Nodes
 
         protected override bool CanBeAdoptedBy(BaseNode parent)
         {
-            return (parent is SelectorLoop);
+            return base.CanBeAdoptedBy(parent) && (parent is SelectorLoop);
         }
 
         protected override void CloneProperties(Node newnode)

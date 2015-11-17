@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
 #include "behaviac/base/xml/base64.h"
 namespace XmlBase64
 {
@@ -56,7 +54,6 @@ namespace XmlBase64
         return ((nbBytes + 2) * 4 / 3) + 1;
     }
 
-
     //Encode 3 8 bits into 4 6 bits char
     inline void Encode3to4(int8_t in[3], int8_t* out, int8_t nb)
     {
@@ -66,11 +63,11 @@ namespace XmlBase64
         int8_t n1 = in[1];
         int8_t n2 = in[2];
         //6 more significatives bits byte 0
-        (*out) = index64ToChar[(n0 >> 2) ];
+        (*out) = index64ToChar[(n0 >> 2)];
         //2 least significatives bits byte 0, 4 more significatives bits byte 1
-        (*(out + 1)) = index64ToChar[((n0 & 0x03) << 4) | ((n1 & 0xF0) >> 4) ];
+        (*(out + 1)) = index64ToChar[((n0 & 0x03) << 4) | ((n1 & 0xF0) >> 4)];
         //4 bits least significatives byte 1, 2 bits more significatives byte 2
-        (*(out + 2)) = (nb > 1) ? index64ToChar[((n1 & 0x0F) << 2) | ((n2 & 0xC0) >> 6) ] : '=';
+        (*(out + 2)) = (nb > 1) ? index64ToChar[((n1 & 0x0F) << 2) | ((n2 & 0xC0) >> 6)] : '=';
         //6 bits least significatives byte 3
         (*(out + 3)) = (nb > 2) ? index64ToChar[(n2 & 0x3F)] : '=';
     }
@@ -78,16 +75,16 @@ namespace XmlBase64
     //Decode 4 6 bits into 3 8 bits
     BEHAVIAC_FORCEINLINE void Decode4to3(int8_t in[4], int8_t* out)
     {
-        uint8_t i0 = charToIndex64[ in[0] ];
-        uint8_t i1 = charToIndex64[ in[1] ];
-        uint8_t i2 = charToIndex64[ in[2] ];
-        uint8_t i3 = charToIndex64[ in[3] ];
+        uint8_t i0 = charToIndex64[in[0]];
+        uint8_t i1 = charToIndex64[in[1]];
+        uint8_t i2 = charToIndex64[in[2]];
+        uint8_t i3 = charToIndex64[in[3]];
         //6 bits more significatives from byte 0 + 2 least significatives from byte 1
         *out = (i0 << 2) | (i1 >> 4);
         //4 bits least significatives from byte 1 + 4 bits  least significatives from byte 2
         (*(out + 1)) = (i2 != 0xFF) ? (i1 << 4) | (i2 >> 2) : '\0';
         //2 bits more significatives from byte 2, 6 bits least significatives from byte 3
-        (*(out + 2)) = (i3 != 0xFF) ? (i2 << 6)  | i3 : '\0';
+        (*(out + 2)) = (i3 != 0xFF) ? (i2 << 6) | i3 : '\0';
     }
 
     //Encode the memory buffer, size must be at least 1,

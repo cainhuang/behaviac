@@ -35,6 +35,7 @@ bool CFileSystem::GetFileInfo(const char* szFilename, CFileSystem::SFileInfo& fi
         if (win32FileInfo.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
         {
             fileInfo.fileAttributes = SFileInfo::ATTRIB_DIRECTORY;
+
         }
         else
         {
@@ -73,7 +74,6 @@ bool CFileSystem::GetFileInfo(Handle hFile, SFileInfo& fileInfo)
 
     return !!bOk;
 }
-
 
 CFileSystem::Handle CFileSystem::OpenCreateFile(const char* szFullPath, EOpenAccess openAccess)
 {
@@ -137,14 +137,14 @@ bool CFileSystem::writeFile(Handle hFile,
                             uint32_t nNumberOfBytesToWrite,
                             uint32_t* pNumberOfBytesWritten)
 {
-    return !! ::WriteFile(hFile, pBuffer, nNumberOfBytesToWrite, (LPDWORD)pNumberOfBytesWritten, 0);
+    return !!::WriteFile(hFile, pBuffer, nNumberOfBytesToWrite, (LPDWORD)pNumberOfBytesWritten, 0);
 }
 
 bool CFileSystem::copyFile(const char* lpExistingFileName,
                            const char* lpNewFileName,
                            bool bFailIfExists)
 {
-    return !! ::CopyFileW(STRING2WSTRING(lpExistingFileName).c_str(), STRING2WSTRING(lpNewFileName).c_str(), bFailIfExists);
+    return !!::CopyFileW(STRING2WSTRING(lpExistingFileName).c_str(), STRING2WSTRING(lpNewFileName).c_str(), bFailIfExists);
 }
 
 int64_t CFileSystem::SetFilePointer(Handle file, int64_t distanceToMove, ESeekMoveMode moveMethod)
@@ -154,20 +154,22 @@ int64_t CFileSystem::SetFilePointer(Handle file, int64_t distanceToMove, ESeekMo
     LARGE_INTEGER dist;
     dist.QuadPart = distanceToMove;
 
-	int offsetBy = FILE_BEGIN;
+    int offsetBy = FILE_BEGIN;
 
-	if (moveMethod == ESeekMoveMode_Cur)
-	{
-		offsetBy = FILE_CURRENT;
-	}
-	else if (moveMethod == ESeekMoveMode_End)
-	{
-		offsetBy = FILE_END;
-	}
-	else if (moveMethod == ESeekMoveMode_Begin || moveMethod == ESeekMoveMode_Set)
-	{
-		offsetBy = FILE_BEGIN;
-	}
+    if (moveMethod == ESeekMoveMode_Cur)
+    {
+        offsetBy = FILE_CURRENT;
+
+    }
+    else if (moveMethod == ESeekMoveMode_End)
+    {
+        offsetBy = FILE_END;
+
+    }
+    else if (moveMethod == ESeekMoveMode_Begin || moveMethod == ESeekMoveMode_Set)
+    {
+        offsetBy = FILE_BEGIN;
+    }
 
     ::SetFilePointerEx(file, dist, &newPos, moveMethod);
     return newPos.QuadPart;
@@ -185,9 +187,8 @@ void CFileSystem::FlushFile(Handle file)
 
 bool CFileSystem::FileExist(const char* szFullPath)
 {
-    return (::GetFileAttributesW(STRING2WSTRING(szFullPath).c_str()) != (uint32_t)-1);
+    return (::GetFileAttributesW(STRING2WSTRING(szFullPath).c_str()) != (uint32_t) - 1);
 }
-
 
 uint64_t CFileSystem::GetFileSize(Handle hFile)
 {
@@ -339,7 +340,7 @@ static bool VisitHelper
     {
         do
         {
-            if (findData.cFileName[ 0 ] != '.')
+            if (findData.cFileName[0] != '.')
             {
                 if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
                 {
@@ -350,6 +351,7 @@ static bool VisitHelper
                         cont = visitor.VisitDirectory(tempString.c_str(), tempString.c_str() + dirLength);
                         dir.resize(dirLength);
                     }
+
                 }
                 else
                 {
@@ -383,7 +385,7 @@ static bool VisitHelper
         {
             do
             {
-                if (findData.cFileName[ 0 ] != '.')
+                if (findData.cFileName[0] != '.')
                 {
                     if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
                     {
@@ -395,6 +397,7 @@ static bool VisitHelper
                             dir += L'\\';
                             cont = VisitHelper(visitor, dir, filter, visitFiles, visitDirectories, true, tempString);
                             visitor.ExitDirectory();
+
                         }
                         else
                         {
@@ -438,6 +441,7 @@ void CFileSystem::Visit
     if (lastSeparatorPos == behaviac::wstring::npos)
     {
         dir.swap(filter);
+
     }
     else
     {
@@ -466,6 +470,7 @@ void CFileSystem::ConvertPath(const char* szFilePathToConvert, char* szFilePathO
         {
             *(szFilePathOut++) = *(szFilePathToConvert++);
             *(szFilePathOut++) = *(szFilePathToConvert++);
+
         }
         else
         {
@@ -486,6 +491,7 @@ void CFileSystem::ConvertPath(const char* szFilePathToConvert, char* szFilePathO
         if (*szFilePathToConvert == '/')
         {
             *szFilePathOut = '\\';
+
         }
         else
         {
@@ -510,7 +516,7 @@ bool CFileSystem::getFileAttributes(const char* szFilename, uint32_t& fileAttrib
 {
     fileAttributes = ::GetFileAttributesW(STRING2WSTRING(szFilename).c_str());
 
-    if (fileAttributes == (uint32_t)-1)
+    if (fileAttributes == (uint32_t) - 1)
     {
         return false;
     }
@@ -542,88 +548,90 @@ void CFileSystem::ReadError(Handle file)
 class CXCritSec
 {
 public:
-	BEHAVIAC_DECLARE_MEMORY_OPERATORS(CXCritSec);
+    BEHAVIAC_DECLARE_MEMORY_OPERATORS(CXCritSec);
 
-	class CLocker
-	{
-	public:
-		CLocker(CXCritSec& crit) : m_crit(crit)
-		{
-			m_crit.Enter();
-		}
-		CLocker(CXCritSec* pCrit) : m_crit(*pCrit)
-		{
-			m_crit.Enter();
-		}
-		~CLocker()
-		{
-			m_crit.Leave();
-		}
+    class CLocker
+    {
+    public:
+        CLocker(CXCritSec& crit) : m_crit(crit)
+        {
+            m_crit.Enter();
+        }
+        CLocker(CXCritSec* pCrit) : m_crit(*pCrit)
+        {
+            m_crit.Enter();
+        }
+        ~CLocker()
+        {
+            m_crit.Leave();
+        }
 
-		CLocker& operator=(const CLocker& rhs)
-		{
-			m_crit = rhs.m_crit;
-		}
+        CLocker& operator=(const CLocker& rhs)
+        {
+            m_crit = rhs.m_crit;
+        }
 
-	private :
-		CXCritSec& m_crit;
-	};
+    private:
+        CXCritSec& m_crit;
+    };
 
-	CXCritSec()
-	{
-		::InitializeCriticalSectionAndSpinCount(&m_crit, 4000);
-	}
-	~CXCritSec()
-	{
-		::DeleteCriticalSection(&m_crit);
-	}
+    CXCritSec()
+    {
+        ::InitializeCriticalSectionAndSpinCount(&m_crit, 4000);
+    }
+    ~CXCritSec()
+    {
+        ::DeleteCriticalSection(&m_crit);
+    }
 
-	void Enter()
-	{
-		::EnterCriticalSection(&m_crit);
-	}
-	void Leave()
-	{
-		::LeaveCriticalSection(&m_crit);
-	}
+    void Enter()
+    {
+        ::EnterCriticalSection(&m_crit);
+    }
+    void Leave()
+    {
+        ::LeaveCriticalSection(&m_crit);
+    }
 
-private :
-	CRITICAL_SECTION m_crit;
+private:
+    CRITICAL_SECTION m_crit;
 };
 
 class CPrivilegeUtil
 {
 public:
-	CPrivilegeUtil()  { }
-	~CPrivilegeUtil() { }
+    CPrivilegeUtil()  { }
+    ~CPrivilegeUtil() { }
 
-	static BOOL Add(LPCTSTR pszPrivName, BOOL bEnable = TRUE)
-	{
-		bool bSuccess = FALSE;
-		HANDLE hToken = NULL;
+    static BOOL Add(LPCTSTR pszPrivName, BOOL bEnable = TRUE)
+    {
+        bool bSuccess = FALSE;
+        HANDLE hToken = NULL;
 
-		if (!OpenProcessToken(GetCurrentProcess(),  TOKEN_ADJUST_PRIVILEGES, &hToken))
-			return FALSE;
+        if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken))
+        {
+            return FALSE;
+        }
 
-		TOKEN_PRIVILEGES tp = { 1 };        
+        TOKEN_PRIVILEGES tp = { 1 };
 
-		if (LookupPrivilegeValue(NULL, pszPrivName,  &tp.Privileges[0].Luid))
-		{
-			tp.Privileges[0].Attributes = bEnable ?  SE_PRIVILEGE_ENABLED : 0;
+        if (LookupPrivilegeValue(NULL, pszPrivName, &tp.Privileges[0].Luid))
+        {
+            tp.Privileges[0].Attributes = bEnable ? SE_PRIVILEGE_ENABLED : 0;
 
-			AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(tp), NULL, NULL);
-			bSuccess = (GetLastError() == ERROR_SUCCESS);		
-		}
+            AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(tp), NULL, NULL);
+            bSuccess = (GetLastError() == ERROR_SUCCESS);
+        }
 
-		CloseHandle(hToken);
+        CloseHandle(hToken);
 
-		return bSuccess;
-	}
+        return bSuccess;
+    }
 };
 
 struct FILE_NOTIFY_INFORMATION_TYPE
 {
-	BEHAVIAC_DECLARE_MEMORY_OPERATORS(FILE_NOTIFY_INFORMATION_TYPE);
+    BEHAVIAC_DECLARE_MEMORY_OPERATORS(FILE_NOTIFY_INFORMATION_TYPE);
 
     DWORD NextEntryOffset;
     DWORD Action;
@@ -633,296 +641,312 @@ struct FILE_NOTIFY_INFORMATION_TYPE
 
 struct SDir
 {
-	//BEHAVIAC_DECLARE_MEMORY_OPERATORS(SDir);
+    //BEHAVIAC_DECLARE_MEMORY_OPERATORS(SDir);
 
-	OVERLAPPED						ol;
-	HANDLE							hFile;
-	DWORD							dwNotifyFilters;
-	BOOL							bSubTree;
-	behaviac::wstring				strDir;
-	FILE_NOTIFY_INFORMATION_TYPE*	pBuff;
+    OVERLAPPED						ol;
+    HANDLE							hFile;
+    DWORD							dwNotifyFilters;
+    BOOL							bSubTree;
+    behaviac::wstring				strDir;
+    FILE_NOTIFY_INFORMATION_TYPE*	pBuff;
 
-	SDir()
-	{
-		pBuff    = NULL;
-		bSubTree = FALSE;
-	}
+    SDir()
+    {
+        pBuff = NULL;
+        bSubTree = FALSE;
+    }
 
-	~SDir()
-	{
-		if (pBuff)
-		{
-			BEHAVIAC_DELETE_ARRAY pBuff;
-			pBuff = NULL;
-		}
-	}
+    ~SDir()
+    {
+        if (pBuff)
+        {
+            BEHAVIAC_DELETE_ARRAY pBuff;
+            pBuff = NULL;
+        }
+    }
 };
 
 struct SChange
 {
-	behaviac::wstring	strFilePath;
-	DWORD				dwAction;
+    behaviac::wstring	strFilePath;
+    DWORD				dwAction;
 };
 
 typedef behaviac::vector<SChange>	VECCHANGES;
 
 enum
 {
-	E_FILESYSMON_SUCCESS,
-	E_FILESYSMON_ERRORUNKNOWN,
-	E_FILESYSMON_ERRORNOTINIT,
-	E_FILESYSMON_ERROROUTOFMEM,
-	E_FILESYSMON_ERROROPENFILE,
-	E_FILESYSMON_ERRORADDTOIOCP,
-	E_FILESYSMON_ERRORREADDIR,
-	E_FILESYSMON_NOCHANGE,
-	E_FILESYSMON_ERRORDEQUE
+    E_FILESYSMON_SUCCESS,
+    E_FILESYSMON_ERRORUNKNOWN,
+    E_FILESYSMON_ERRORNOTINIT,
+    E_FILESYSMON_ERROROUTOFMEM,
+    E_FILESYSMON_ERROROPENFILE,
+    E_FILESYSMON_ERRORADDTOIOCP,
+    E_FILESYSMON_ERRORREADDIR,
+    E_FILESYSMON_NOCHANGE,
+    E_FILESYSMON_ERRORDEQUE
 };
 
 #define MAX_BUFF_SIZE  100
 
 class CFileSysMon
 {
-	//BEHAVIAC_DECLARE_MEMORY_OPERATORS(CFileSysMon);
+    //BEHAVIAC_DECLARE_MEMORY_OPERATORS(CFileSysMon);
 
 protected:
-	HANDLE		m_hIOCP;
-	SDir*		m_pDir;
-	int			m_nLastError;
-	int			m_nThreads;
+    HANDLE		m_hIOCP;
+    SDir*		m_pDir;
+    int			m_nLastError;
+    int			m_nThreads;
 
 public:
-	CFileSysMon()
-	{
-		m_hIOCP = NULL;
-		m_pDir = NULL;
-	}
-	~CFileSysMon()
-	{
-		Uninit();
-	}
+    CFileSysMon()
+    {
+        m_hIOCP = NULL;
+        m_pDir = NULL;
+    }
+    ~CFileSysMon()
+    {
+        Uninit();
+    }
 
-	bool Init(int nThreads = 2)
-	{
-		if (!CPrivilegeUtil::Add(SE_BACKUP_NAME) ||
-			!CPrivilegeUtil::Add(SE_RESTORE_NAME) ||
-			!CPrivilegeUtil::Add(SE_CHANGE_NOTIFY_NAME))
-		{
-			m_nLastError = GetLastError();
-			return false;
-		}
+    bool Init(int nThreads = 2)
+    {
+        if (!CPrivilegeUtil::Add(SE_BACKUP_NAME) ||
+            !CPrivilegeUtil::Add(SE_RESTORE_NAME) ||
+            !CPrivilegeUtil::Add(SE_CHANGE_NOTIFY_NAME))
+        {
+            m_nLastError = GetLastError();
+            return false;
+        }
 
-		m_hIOCP = CreateIoCompletionPort((HANDLE)INVALID_HANDLE_VALUE, NULL, 0, nThreads);
-		if (!m_hIOCP)
-		{
-			m_nLastError = GetLastError();
-			return false;
-		}
+        m_hIOCP = CreateIoCompletionPort((HANDLE)INVALID_HANDLE_VALUE, NULL, 0, nThreads);
 
-		m_nThreads = nThreads;
+        if (!m_hIOCP)
+        {
+            m_nLastError = GetLastError();
+            return false;
+        }
 
-		return true;
-	}
+        m_nThreads = nThreads;
 
-	void Uninit()
-	{
-		//also stops any pending GetQueuedStatus() calls
-		RemoveDir();
-		
-		if (m_hIOCP)
-		{
-			CloseHandle(m_hIOCP);
-			m_hIOCP = NULL;
-		}
-	}
+        return true;
+    }
 
-	int SetDir(const wchar_t* pDir,
-		DWORD dwNotifyFilters = FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_ACTION_ADDED | FILE_ACTION_MODIFIED,
-		bool bSubTree = true)
-	{
-		RemoveDir();
+    void Uninit()
+    {
+        //also stops any pending GetQueuedStatus() calls
+        RemoveDir();
 
-		m_pDir = BEHAVIAC_NEW SDir;
-		BEHAVIAC_ASSERT(m_pDir);
-		if (!m_pDir)
-			return E_FILESYSMON_ERROROUTOFMEM;
+        if (m_hIOCP)
+        {
+            CloseHandle(m_hIOCP);
+            m_hIOCP = NULL;
+        }
+    }
 
-		// Open handle to the directory to be monitored, note the FILE_FLAG_OVERLAPPED
-		if ((m_pDir->hFile = CreateFileW(pDir,
-			FILE_LIST_DIRECTORY,
-			FILE_SHARE_READ | FILE_SHARE_DELETE | FILE_SHARE_WRITE,
-			NULL,                               
-			OPEN_EXISTING,
-			FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED,
-			NULL)) == INVALID_HANDLE_VALUE)
-		{
-			m_nLastError = GetLastError();
+    int SetDir(const wchar_t* pDir,
+               DWORD dwNotifyFilters = FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_ACTION_ADDED | FILE_ACTION_MODIFIED,
+               bool bSubTree = true)
+    {
+        RemoveDir();
 
-			BEHAVIAC_DELETE m_pDir;
-			m_pDir = NULL;
+        m_pDir = BEHAVIAC_NEW SDir;
+        BEHAVIAC_ASSERT(m_pDir);
 
-			return E_FILESYSMON_ERROROPENFILE;
-		}
+        if (!m_pDir)
+        {
+            return E_FILESYSMON_ERROROUTOFMEM;
+        }
 
-		// Allocate notification buffers (will be filled by the system when a notification occurs
-		memset(&m_pDir->ol, 0, sizeof(m_pDir->ol));
-		if((m_pDir->pBuff = BEHAVIAC_NEW_ARRAY FILE_NOTIFY_INFORMATION_TYPE[MAX_BUFF_SIZE]) == NULL)
-		{
-			CloseHandle(m_pDir->hFile);
-			BEHAVIAC_DELETE m_pDir;
-			m_pDir = NULL;
+        // Open handle to the directory to be monitored, note the FILE_FLAG_OVERLAPPED
+        if ((m_pDir->hFile = CreateFileW(pDir,
+                                         FILE_LIST_DIRECTORY,
+                                         FILE_SHARE_READ | FILE_SHARE_DELETE | FILE_SHARE_WRITE,
+                                         NULL,
+                                         OPEN_EXISTING,
+                                         FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED,
+                                         NULL)) == INVALID_HANDLE_VALUE)
+        {
+            m_nLastError = GetLastError();
 
-			return E_FILESYSMON_ERROROUTOFMEM;
-		}
+            BEHAVIAC_DELETE m_pDir;
+            m_pDir = NULL;
 
-		// Associate directory handle with the IO completion port
-		if (CreateIoCompletionPort(m_pDir->hFile, m_hIOCP, (ULONG_PTR) m_pDir->hFile, 0) == NULL)
-		{
-			m_nLastError = GetLastError();
+            return E_FILESYSMON_ERROROPENFILE;
+        }
 
-			CloseHandle(m_pDir->hFile);
-			BEHAVIAC_DELETE m_pDir;
-			m_pDir = NULL;
+        // Allocate notification buffers (will be filled by the system when a notification occurs
+        memset(&m_pDir->ol, 0, sizeof(m_pDir->ol));
 
-			return E_FILESYSMON_ERRORADDTOIOCP;
-		}
+        if ((m_pDir->pBuff = BEHAVIAC_NEW_ARRAY FILE_NOTIFY_INFORMATION_TYPE[MAX_BUFF_SIZE]) == NULL)
+        {
+            CloseHandle(m_pDir->hFile);
+            BEHAVIAC_DELETE m_pDir;
+            m_pDir = NULL;
 
-		// Start monitoring for changes
-		DWORD dwBytesReturned   = 0;
-		m_pDir->dwNotifyFilters = dwNotifyFilters;
-		m_pDir->bSubTree        = bSubTree;
-		m_pDir->strDir          = pDir;
+            return E_FILESYSMON_ERROROUTOFMEM;
+        }
 
-		if (!ReadDirectoryChangesW(m_pDir->hFile,
-			m_pDir->pBuff,
-			MAX_BUFF_SIZE * sizeof(FILE_NOTIFY_INFORMATION_TYPE),
-			bSubTree,
-			dwNotifyFilters, 
-			&dwBytesReturned,
-			&m_pDir->ol,
-			NULL))
-		{
-			m_nLastError = GetLastError();
+        // Associate directory handle with the IO completion port
+        if (CreateIoCompletionPort(m_pDir->hFile, m_hIOCP, (ULONG_PTR)m_pDir->hFile, 0) == NULL)
+        {
+            m_nLastError = GetLastError();
 
-			CloseHandle(m_pDir->hFile);
-			BEHAVIAC_DELETE m_pDir;
-			m_pDir = NULL;
+            CloseHandle(m_pDir->hFile);
+            BEHAVIAC_DELETE m_pDir;
+            m_pDir = NULL;
 
-			return E_FILESYSMON_ERRORREADDIR;
-		}
+            return E_FILESYSMON_ERRORADDTOIOCP;
+        }
 
-		return E_FILESYSMON_SUCCESS;
-	}
+        // Start monitoring for changes
+        DWORD dwBytesReturned = 0;
+        m_pDir->dwNotifyFilters = dwNotifyFilters;
+        m_pDir->bSubTree = bSubTree;
+        m_pDir->strDir = pDir;
 
-	void RemoveDir()
-	{
-		if (m_pDir)
-		{
-			CancelIo(m_pDir->hFile);
-			CloseHandle(m_pDir->hFile);
-			BEHAVIAC_DELETE m_pDir;
-			m_pDir = NULL;
-		}
-	}
+        if (!ReadDirectoryChangesW(m_pDir->hFile,
+                                   m_pDir->pBuff,
+                                   MAX_BUFF_SIZE * sizeof(FILE_NOTIFY_INFORMATION_TYPE),
+                                   bSubTree,
+                                   dwNotifyFilters,
+                                   &dwBytesReturned,
+                                   &m_pDir->ol,
+                                   NULL))
+        {
+            m_nLastError = GetLastError();
 
-	int GetQueuedStatus(VECCHANGES& vecChanges, DWORD dwTimeOut)
-	{
-		BEHAVIAC_ASSERT(m_pDir);
+            CloseHandle(m_pDir->hFile);
+            BEHAVIAC_DELETE m_pDir;
+            m_pDir = NULL;
 
-		DWORD		dwBytesXFered = 0;
-		ULONG_PTR	ulKey = 0;
-		OVERLAPPED*	pOl = NULL;
+            return E_FILESYSMON_ERRORREADDIR;
+        }
 
-		vecChanges.clear();
+        return E_FILESYSMON_SUCCESS;
+    }
 
-		if (!GetQueuedCompletionStatus(m_hIOCP, &dwBytesXFered, &ulKey, &pOl, dwTimeOut))
-		{
-			if ((m_nLastError = GetLastError()) == WAIT_TIMEOUT)
-				return E_FILESYSMON_NOCHANGE;
-			return E_FILESYSMON_ERRORDEQUE;
-		}
+    void RemoveDir()
+    {
+        if (m_pDir)
+        {
+            CancelIo(m_pDir->hFile);
+            CloseHandle(m_pDir->hFile);
+            BEHAVIAC_DELETE m_pDir;
+            m_pDir = NULL;
+        }
+    }
 
-		if (ulKey != (ULONG_PTR)m_pDir->hFile) // not found
-			return E_FILESYSMON_ERRORUNKNOWN;
+    int GetQueuedStatus(VECCHANGES& vecChanges, DWORD dwTimeOut)
+    {
+        BEHAVIAC_ASSERT(m_pDir);
 
-		SChange myChange;
-		FILE_NOTIFY_INFORMATION_TYPE* pIter = m_pDir->pBuff;
+        DWORD		dwBytesXFered = 0;
+        ULONG_PTR	ulKey = 0;
+        OVERLAPPED*	pOl = NULL;
 
-		while (pIter)
-		{
-			pIter->FileName[pIter->FileNameLength / sizeof(wchar_t)] = 0;
+        vecChanges.clear();
 
-			myChange.strFilePath = pIter->FileName;
-			myChange.dwAction    = pIter->Action;
+        if (!GetQueuedCompletionStatus(m_hIOCP, &dwBytesXFered, &ulKey, &pOl, dwTimeOut))
+        {
+            if ((m_nLastError = GetLastError()) == WAIT_TIMEOUT)
+            {
+                return E_FILESYSMON_NOCHANGE;
+            }
 
-			vecChanges.push_back(myChange);
+            return E_FILESYSMON_ERRORDEQUE;
+        }
 
-			if(pIter->NextEntryOffset == 0UL)
-				break;	
+        if (ulKey != (ULONG_PTR)m_pDir->hFile)   // not found
+        {
+            return E_FILESYSMON_ERRORUNKNOWN;
+        }
 
-			if ((DWORD)((BYTE*)pIter - (BYTE*)m_pDir->pBuff) > (MAX_BUFF_SIZE * sizeof(FILE_NOTIFY_INFORMATION_TYPE)))
-				pIter = m_pDir->pBuff;
+        SChange myChange;
+        FILE_NOTIFY_INFORMATION_TYPE* pIter = m_pDir->pBuff;
 
-			pIter = (FILE_NOTIFY_INFORMATION_TYPE*)((LPBYTE)pIter + pIter->NextEntryOffset);
-		}
+        while (pIter)
+        {
+            pIter->FileName[pIter->FileNameLength / sizeof(wchar_t)] = 0;
 
-		// Continue reading for changes
+            myChange.strFilePath = pIter->FileName;
+            myChange.dwAction = pIter->Action;
 
-		DWORD dwBytesReturned = 0;
+            vecChanges.push_back(myChange);
 
-		if (!ReadDirectoryChangesW(m_pDir->hFile,
-			m_pDir->pBuff,
-			MAX_BUFF_SIZE * sizeof(FILE_NOTIFY_INFORMATION_TYPE),
-			m_pDir->bSubTree,
-			m_pDir->dwNotifyFilters, 
-			&dwBytesReturned,
-			&m_pDir->ol,
-			NULL))
-		{
-			m_nLastError = GetLastError();
-			RemoveDir();
+            if (pIter->NextEntryOffset == 0UL)
+            {
+                break;
+            }
 
-			return E_FILESYSMON_ERRORREADDIR;
-		}
+            if ((DWORD)((BYTE*)pIter - (BYTE*)m_pDir->pBuff) > (MAX_BUFF_SIZE * sizeof(FILE_NOTIFY_INFORMATION_TYPE)))
+            {
+                pIter = m_pDir->pBuff;
+            }
 
-		return E_FILESYSMON_SUCCESS;
-	}
+            pIter = (FILE_NOTIFY_INFORMATION_TYPE*)((LPBYTE)pIter + pIter->NextEntryOffset);
+        }
+
+        // Continue reading for changes
+
+        DWORD dwBytesReturned = 0;
+
+        if (!ReadDirectoryChangesW(m_pDir->hFile,
+                                   m_pDir->pBuff,
+                                   MAX_BUFF_SIZE * sizeof(FILE_NOTIFY_INFORMATION_TYPE),
+                                   m_pDir->bSubTree,
+                                   m_pDir->dwNotifyFilters,
+                                   &dwBytesReturned,
+                                   &m_pDir->ol,
+                                   NULL))
+        {
+            m_nLastError = GetLastError();
+            RemoveDir();
+
+            return E_FILESYSMON_ERRORREADDIR;
+        }
+
+        return E_FILESYSMON_SUCCESS;
+    }
 };
 
 struct ModifiedFile_t
 {
-	behaviac::wstring	filePath;
+    behaviac::wstring	filePath;
 
-	uint64_t			fileSize;		
+    uint64_t			fileSize;
 
-	ModifiedFile_t() : fileSize(0)
-	{
+    ModifiedFile_t() : fileSize(0)
+    {
+    }
 
-	}
+    ModifiedFile_t(const behaviac::wstring& f) : filePath(f)
+    {
+        this->fileSize = this->GetFileSize();
+    }
 
-	ModifiedFile_t(const behaviac::wstring& f) : filePath(f) {
-		this->fileSize = this->GetFileSize();
-	}
+    uint64_t GetFileSize()
+    {
+        uint64_t fsize = CFileManager::GetInstance()->FileGetSize(WSTRING2STRING(this->filePath).c_str());
 
-	uint64_t GetFileSize() {
-		uint64_t fsize = CFileManager::GetInstance()->FileGetSize(WSTRING2STRING(this->filePath).c_str());
+        return fsize;
+    }
 
-		return fsize;
-	}
+    bool CheckIfReady()
+    {
+        uint64_t fsize = this->GetFileSize();
 
-	bool CheckIfReady() {
-		uint64_t fsize = this->GetFileSize();
+        if (this->fileSize == fsize)
+        {
+            return true;
+        }
 
-		if (this->fileSize == fsize) {
-			return true;
-		}
+        this->fileSize = fsize;
 
-		this->fileSize = fsize;
-
-		return false;
-	}
+        return false;
+    }
 };
-
 
 static CFileSysMon* s_pFileSysMon = NULL;
 static HANDLE s_hThread = NULL;
@@ -933,153 +957,160 @@ static bool s_bThreadFinish = false;
 
 DWORD WINAPI ThreadFunc(LPVOID lpvd)
 {
-	behaviac::vector<ModifiedFile_t> modifiedFiles;
+    behaviac::vector<ModifiedFile_t> modifiedFiles;
 
-	VECCHANGES vecChanges;
-	while(!s_bThreadFinish)
-	{
-		if (s_pFileSysMon->GetQueuedStatus(vecChanges, 100) == E_FILESYSMON_SUCCESS)
-		{
-			unsigned uiCount = vecChanges.size();
+    VECCHANGES vecChanges;
 
-			for (unsigned i = 0; i < uiCount; ++i)
-			{
-				if ((vecChanges.at(i).dwAction & FILE_NOTIFY_CHANGE_LAST_WRITE) == FILE_NOTIFY_CHANGE_LAST_WRITE ||
-					(vecChanges.at(i).dwAction & FILE_ACTION_ADDED) == FILE_ACTION_ADDED ||
-					(vecChanges.at(i).dwAction & FILE_ACTION_MODIFIED) == FILE_ACTION_MODIFIED)
-				{
-					const behaviac::wstring& filePath = vecChanges.at(i).strFilePath;
+    while (!s_bThreadFinish)
+    {
+		const DWORD kWaitTimeOut = 1;
+		if (s_pFileSysMon->GetQueuedStatus(vecChanges, kWaitTimeOut) == E_FILESYSMON_SUCCESS)
+        {
+            unsigned uiCount = vecChanges.size();
 
+            for (unsigned i = 0; i < uiCount; ++i)
+            {
+                if ((vecChanges.at(i).dwAction & FILE_NOTIFY_CHANGE_LAST_WRITE) == FILE_NOTIFY_CHANGE_LAST_WRITE ||
+                    (vecChanges.at(i).dwAction & FILE_ACTION_ADDED) == FILE_ACTION_ADDED ||
+                    (vecChanges.at(i).dwAction & FILE_ACTION_MODIFIED) == FILE_ACTION_MODIFIED)
+                {
+                    const behaviac::wstring& filePath = vecChanges.at(i).strFilePath;
 
-					bool bFound = false;
-					for(uint32_t i = 0; i < modifiedFiles.size(); ++i) {
-						ModifiedFile_t& file = modifiedFiles[i];
-						if (file.filePath == filePath) {
-							bFound = true;
-							break;
-						}
-					}
+                    bool bFound = false;
 
-					if (!bFound)
-					{
-						ModifiedFile_t file(filePath);
-						modifiedFiles.push_back(file);
-					}
-				}
-			}
-		}
+                    for (uint32_t i = 0; i < modifiedFiles.size(); ++i)
+                    {
+                        ModifiedFile_t& file = modifiedFiles[i];
 
-		behaviac::Sleep(100);
+                        if (file.filePath == filePath)
+                        {
+                            bFound = true;
+                            break;
+                        }
+                    }
 
-		uint32_t readyFiles = 0;
-		//check if files are ready by checking if the file size is not changing
-		for (uint32_t i = 0; i < modifiedFiles.size();++i) {
-			ModifiedFile_t& file = modifiedFiles[i];
+                    if (!bFound)
+                    {
+                        ModifiedFile_t file(filePath);
+                        modifiedFiles.push_back(file);
+                    }
+                }
+            }
+        }
 
-			if (file.CheckIfReady()) {
-				CXCritSec::CLocker locker(s_csDirs);
+        behaviac::Sleep(1);
 
-				s_ModifiedFiles.push_back(file.filePath);
+        uint32_t readyFiles = 0;
 
-				//free it
-				file.fileSize = 0;
-			}
+        //check if files are ready by checking if the file size is not changing
+        for (uint32_t i = 0; i < modifiedFiles.size(); ++i)
+        {
+            ModifiedFile_t& file = modifiedFiles[i];
 
-			if (file.fileSize == 0) {
-				readyFiles++;
-			}
-		}
+            if (file.CheckIfReady())
+            {
+                CXCritSec::CLocker locker(s_csDirs);
 
-		//all files are ready, clear the array
-		if  (readyFiles > 0 && readyFiles == modifiedFiles.size()) {
-			modifiedFiles.clear();
-		}
-	}
+                s_ModifiedFiles.push_back(file.filePath);
 
-	s_bThreadFinish = false;
-	return 0;
+                //free it
+                file.fileSize = 0;
+            }
+
+            if (file.fileSize == 0)
+            {
+                readyFiles++;
+            }
+        }
+
+        //all files are ready, clear the array
+        if (readyFiles > 0 && readyFiles == modifiedFiles.size())
+        {
+            modifiedFiles.clear();
+        }
+    }
+
+    s_bThreadFinish = false;
+    return 0;
 }
 
 bool CFileSystem::StartMonitoringDirectory(const wchar_t* dir)
 {
-	BEHAVIAC_UNUSED_VAR(dir);
+    BEHAVIAC_UNUSED_VAR(dir);
 
-	s_pFileSysMon = BEHAVIAC_NEW CFileSysMon;
-	BEHAVIAC_ASSERT(s_pFileSysMon);
+    s_pFileSysMon = BEHAVIAC_NEW CFileSysMon;
+    BEHAVIAC_ASSERT(s_pFileSysMon);
 
-	if (!s_pFileSysMon->Init())
-		return false;
+    if (!s_pFileSysMon->Init())
+    {
+        return false;
+    }
 
-	if (s_pFileSysMon->SetDir(dir) != E_FILESYSMON_SUCCESS)
-		return false;
+    if (s_pFileSysMon->SetDir(dir) != E_FILESYSMON_SUCCESS)
+    {
+        return false;
+    }
 
-	s_csDirs = BEHAVIAC_NEW CXCritSec;
-	BEHAVIAC_ASSERT(s_csDirs);
+    s_csDirs = BEHAVIAC_NEW CXCritSec;
+    BEHAVIAC_ASSERT(s_csDirs);
 
-	DWORD dwThreadID = 0;
-	s_hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE) ThreadFunc, NULL, 0, &dwThreadID);
+    DWORD dwThreadID = 0;
+    s_hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ThreadFunc, NULL, 0, &dwThreadID);
 
-	return true;
+    return true;
 }
 
 void CFileSystem::StopMonitoringDirectory()
 {
-	if (s_pFileSysMon)
-	{
-		s_bThreadFinish = true;
+    if (s_pFileSysMon)
+    {
+        s_bThreadFinish = true;
 
-		if (s_hThread)
-		{
-			WaitForSingleObject(s_hThread, INFINITE);
+        if (s_hThread)
+        {
+            WaitForSingleObject(s_hThread, INFINITE);
 
-			CloseHandle(s_hThread);
-			s_hThread = NULL;
-		}
+            CloseHandle(s_hThread);
+            s_hThread = NULL;
+        }
 
-		s_pFileSysMon->Uninit();
+        s_pFileSysMon->Uninit();
 
-		BEHAVIAC_DELETE s_pFileSysMon;
-		s_pFileSysMon = NULL;
-	}
+        BEHAVIAC_DELETE s_pFileSysMon;
+        s_pFileSysMon = NULL;
+    }
 
-	s_ModifiedFiles.clear();
+    s_ModifiedFiles.clear();
 
-	if (s_csDirs)
-	{
-		BEHAVIAC_DELETE s_csDirs;
-		s_csDirs = NULL;
-	}
+    if (s_csDirs)
+    {
+        BEHAVIAC_DELETE s_csDirs;
+        s_csDirs = NULL;
+    }
 }
 
-void CFileSystem::GetModifiedFiles(behaviac::vector<behaviac::wstring>& modifiedFiles)
+void CFileSystem::GetModifiedFiles(behaviac::vector<behaviac::string>& modifiedFiles)
 {
-	BEHAVIAC_UNUSED_VAR(modifiedFiles);
+    BEHAVIAC_UNUSED_VAR(modifiedFiles);
+    modifiedFiles.clear();
 
-	if (s_ModifiedFiles.size() > 0)
-	{
-		BEHAVIAC_ASSERT(s_csDirs);
-		CXCritSec::CLocker locker(s_csDirs);
-
-		for (unsigned int i = 0; i < s_ModifiedFiles.size(); ++i)
+    if (s_ModifiedFiles.size() > 0)
+    {
+        BEHAVIAC_ASSERT(s_csDirs);
+        CXCritSec::CLocker locker(s_csDirs);
+        std::sort(s_ModifiedFiles.begin(), s_ModifiedFiles.end());
+        s_ModifiedFiles.erase(std::unique(s_ModifiedFiles.begin(), s_ModifiedFiles.end()), s_ModifiedFiles.end());
+        //s_ModifiedFiles.swap(modifiedFiles);
+		for (behaviac::vector<behaviac::wstring>::iterator it = s_ModifiedFiles.begin(); it != s_ModifiedFiles.end(); ++it)
 		{
-			bool isAdded = false;
-			for (unsigned int k = 0; k < modifiedFiles.size(); ++k)
-			{
-				if (modifiedFiles[k] == s_ModifiedFiles[i])
-				{
-					isAdded = true;
-					break;
-				}
-			}
+			behaviac::wstring& sW = *it;
 
-			if (!isAdded)
-			{
-				modifiedFiles.push_back(s_ModifiedFiles[i]);
-			}
+			behaviac::string s = behaviac::StringUtils::Wide2Char(sW);
+			modifiedFiles.push_back(s);
 		}
 
-		s_ModifiedFiles.clear();
-	}
+        s_ModifiedFiles.clear();
+    }
 }
 #endif //BEHAVIAC_ENABLE_HOTRELOAD
 

@@ -11,15 +11,14 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_MEMEORY_OBJECTPOOL_H_
-#define BEHAVIAC_MEMEORY_OBJECTPOOL_H_
+#ifndef BEHAVIAC_MEMEORY_OBJECTPOOL_H
+#define BEHAVIAC_MEMEORY_OBJECTPOOL_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/system.h"
 #include "behaviac/base/core/memory/memory.h"
 #include "behaviac/base/core/container/slist.h"
 #include "behaviac/base/core/container/dlist.h"
-
 
 namespace behaviac
 {
@@ -37,37 +36,37 @@ namespace behaviac
 
     /// BasicObjectPool is a template that manages thread safe allocations in a pool of object in a really fast way.
     /*! The BasicObjectPool offer really high speed efficiency while minimizing memory fragmentation.
-        Use this structure when you know that you'll have a high rate of allocation.
-        For example: Particles in a particle system, file request in a file system...
+    	Use this structure when you know that you'll have a high rate of allocation.
+    	For example: Particles in a particle system, file request in a file system...
 
-        The basic concept is it creates linked segments (array) of object in system memory,
-        and then logically manages allocation/deallocation of objects into these segments (array).
-        So a BasicObjectPool can be either a pool of contiguous object in memory (BasicObjectPool with only one segment) or
-        a list of sub-pools/segments of contiguous object in memory (BasicObjectPool with many segments)
+    	The basic concept is it creates linked segments (array) of object in system memory,
+    	and then logically manages allocation/deallocation of objects into these segments (array).
+    	So a BasicObjectPool can be either a pool of contiguous object in memory (BasicObjectPool with only one segment) or
+    	a list of sub-pools/segments of contiguous object in memory (BasicObjectPool with many segments)
 
-        At creation time of the BasicObjectPool, you can specify the count of object per segment with
-        objectCountPerSegment, the maximum number of object in the pool with
-        maximumNumberOfObjectInPool and a count of already physically created objects
-        you want with initialyCreatedRatio.
+    	At creation time of the BasicObjectPool, you can specify the count of object per segment with
+    	objectCountPerSegment, the maximum number of object in the pool with
+    	maximumNumberOfObjectInPool and a count of already physically created objects
+    	you want with initialyCreatedRatio.
 
-        When allocating an object with Allocate() or AllocateDefault(), the BasicObjectPool checks if a new segment
-        is needed and create one if so else it uses the current segment to logically allocate your new object.
-        The constructor of the new logically allocated object is not called unless you used AllocateDefault()
-        whitch call the default empty constructor. So if your BasicObjectPool is a pool of some class where each
-        instances needs their constructor to be called, you'll have to call the placement new manually giving
-        the call to Allocate() to the placement new.
-        ex: CParticle* myNewParticle = new(particlePool.Allocate())CParticle(m_particleColor);
+    	When allocating an object with Allocate() or AllocateDefault(), the BasicObjectPool checks if a new segment
+    	is needed and create one if so else it uses the current segment to logically allocate your new object.
+    	The constructor of the new logically allocated object is not called unless you used AllocateDefault()
+    	whitch call the default empty constructor. So if your BasicObjectPool is a pool of some class where each
+    	instances needs their constructor to be called, you'll have to call the placement new manually giving
+    	the call to Allocate() to the placement new.
+    	ex: CParticle* myNewParticle = new(particlePool.Allocate())CParticle(m_particleColor);
 
-        When freeing an object calling Free(TYPE* object), the BasicObjectPool finds the segments where the object resides
-        and removes it and call the object's destructor. If the segment is empty, it is physically deleted.
+    	When freeing an object calling Free(TYPE* object), the BasicObjectPool finds the segments where the object resides
+    	and removes it and call the object's destructor. If the segment is empty, it is physically deleted.
 
-        - To create a fixed sized pool with 100 objects max, all created at pool's creation time : BasicObjectPool(100, 100, 1.0);
-        - To create a dynamic sized pool of maximum 100 objects, with 10 objects per segment,
-        with only the first segment created at pool's creation time  : BasicObjectPool(10, 100, 10/100.0);
-        - To create a dynamic sized pool with no maximum count, with 10 object's per segment : (10, BEHAVIAC_OBJECTPOOL_INFINIT, 0.0);
-        In the case of an Infinite size pool, the initialyCreatedRatio parameter is ignored
-    */
-	template <typename TYPE, typename TALLOCATOR = behaviac::IMemAllocator, typename MUTEX_TYPE = behaviac::Mutex>
+    	- To create a fixed sized pool with 100 objects max, all created at pool's creation time : BasicObjectPool(100, 100, 1.0);
+    	- To create a dynamic sized pool of maximum 100 objects, with 10 objects per segment,
+    	with only the first segment created at pool's creation time  : BasicObjectPool(10, 100, 10/100.0);
+    	- To create a dynamic sized pool with no maximum count, with 10 object's per segment : (10, BEHAVIAC_OBJECTPOOL_INFINIT, 0.0);
+    	In the case of an Infinite size pool, the initialyCreatedRatio parameter is ignored
+    	*/
+    template <typename TYPE, typename TALLOCATOR = behaviac::IMemAllocator, typename MUTEX_TYPE = behaviac::Mutex>
     class BasicObjectPool
     {
     public:
@@ -78,10 +77,10 @@ namespace behaviac
 
         /// create the pool with min/max and ratio. Use this if the creation of the BasicObjectPool was made using the default empty constructor.
         /*! \param objectCountPerSegment The count of objects per segment in the pool. Minimum is 2.
-            \param maximumNumberOfObjectInPool The maximum count of object the pool can allocate (BEHAVIAC_OBJECTPOOL_INFINIT or 0xFFFFFFF for infinite size)
-            \param initialyCreatedRatio The count of object the pool will physically create when Create is called.
-            \param extraDataSpacePerObject Size of user data that can be inserted after the end of each object's allocation. It is defaulted to 0.
-        */
+        	\param maximumNumberOfObjectInPool The maximum count of object the pool can allocate (BEHAVIAC_OBJECTPOOL_INFINIT or 0xFFFFFFF for infinite size)
+        	\param initialyCreatedRatio The count of object the pool will physically create when Create is called.
+        	\param extraDataSpacePerObject Size of user data that can be inserted after the end of each object's allocation. It is defaulted to 0.
+        	*/
         virtual bool Create(uint32_t objectCountPerSegment, uint32_t maximumNumberOfObjectInPool, float initialyCreatedRatio = 0.33f, uint32_t extraDataSpacePerObject = 0);
 
         /// Allocate one object. No constructor is called. IF YOUR POOL MANAGES CLASS INSTANCES YOU MUST CALL THE PLACEMENT NEW WITH THIS METHOD TO INITIALISE YOUR OBJECT ex: new(particlePool.Allocate())CParticle();
@@ -92,15 +91,15 @@ namespace behaviac
 
         /// Free an allocated object calling the destructor if any. Will call destructor.
         /*!
-            \param object Object to free
-        */
+        	\param object Object to free
+        	*/
         virtual void  Free(TYPE* object);
 
         /// Free an allocated object calling the destructor if any. Does call destructor only if callDestructor if true
         /*!
-            \param object         Object to free
-            \param callDestructor Call destructor if true
-        */
+        	\param object         Object to free
+        	\param callDestructor Call destructor if true
+        	*/
         virtual void  Free(TYPE* object, bool callDestructor);
 
         /// Destroy the pool by freeing all it's segments. Does not call the destructor of object still allocated.
@@ -167,7 +166,7 @@ namespace behaviac
 
         public:
 #ifdef _DEBUG
-            enum     ESafety {Val = 0xBEBA0B0B};
+            enum     ESafety { Val = 0xBEBA0B0B };
             ESafety  m_safety;
 #endif
             SLink   m_freeObjectList;
@@ -177,7 +176,7 @@ namespace behaviac
         struct BlockHeader
         {
 #ifdef _DEBUG
-            enum    ESafety {Val = 0x01D0ADDE};
+            enum    ESafety { Val = 0x01D0ADDE };
             ESafety m_safety;
 #endif
             uint32_t m_index;
@@ -207,7 +206,6 @@ namespace behaviac
         uint32_t m_peakAllocatedCount;
         uint32_t m_totalAllocatedCount;
 #endif
-
     };
 
 #if BEHAVIAC_COMPILER_MSVC
@@ -227,7 +225,7 @@ namespace behaviac
     template <typename TYPE, typename TALLOCATOR, typename MUTEX_TYPE>
     inline uint32_t BasicObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>::GetFreeCount()  const
     {
-        return m_segmentCount == 0 ? m_maxSegmentCount * m_objectCountsInSegment : m_freeObjectCount ;
+        return m_segmentCount == 0 ? m_maxSegmentCount * m_objectCountsInSegment : m_freeObjectCount;
     }
 
     template <typename TYPE, typename TALLOCATOR, typename MUTEX_TYPE>
@@ -237,15 +235,15 @@ namespace behaviac
     }
 
     template <typename TYPE, typename TALLOCATOR, typename MUTEX_TYPE>
-    inline BasicObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>::BasicObjectPool(TALLOCATOR* pAllocator):
+    inline BasicObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>::BasicObjectPool(TALLOCATOR* pAllocator) :
         m_segmentCandidateForDeletion(0), m_objectCountsInSegment(0), m_maxSegmentCount(0),
         m_objectSize(0), m_segmentCount(0), m_freeObjectCount(0),
         m_candidateDeletionLimit(0), m_candidateDeletionCountLimit(0), m_allocator(pAllocator)
     {
-		if (!m_allocator)
-		{
-			m_allocator = (TALLOCATOR*)&GetMemoryAllocator();
-		}
+        if (!m_allocator)
+        {
+            m_allocator = (TALLOCATOR*)&GetMemoryAllocator();
+        }
     }
 
     template <typename TYPE, typename TALLOCATOR, typename MUTEX_TYPE>
@@ -257,10 +255,11 @@ namespace behaviac
         m_segmentCount = 0;
         m_candidateDeletionCountLimit = 0;
         m_allocator = pAllocator;
-		if (!m_allocator)
-		{
-			m_allocator = (TALLOCATOR*)&GetMemoryAllocator();
-		}
+
+        if (!m_allocator)
+        {
+            m_allocator = (TALLOCATOR*)&GetMemoryAllocator();
+        }
 
         Create(objectCountPerSegment, maximumNumberOfObjectInPool, initialyCreatedRatio, extraDataSpacePerObject);
     }
@@ -280,8 +279,8 @@ namespace behaviac
         //validate params
         BEHAVIAC_STATIC_ASSERT(sizeof(TYPE) != 0);
         BEHAVIAC_ASSERT(objectCountPerSegment <= maximumNumberOfObjectInPool &&
-                   objectCountPerSegment >= 2 &&
-                   initialyCreatedRatio >= 0.0f && initialyCreatedRatio <= 1.0f);
+                        objectCountPerSegment >= 2 &&
+                        initialyCreatedRatio >= 0.0f && initialyCreatedRatio <= 1.0f);
         m_freeObjectCount = 0;
         m_objectSize = (uint32_t)Max(sizeof(TYPE), sizeof(SLink));// at least 'link' size
         //add extra user data at the end of the object
@@ -317,6 +316,7 @@ namespace behaviac
         if (maxObjCnt > U32_Max)
         {
             maximumNumberOfObjectInPool = U32_Max;
+
         }
         else
         {
@@ -370,6 +370,7 @@ namespace behaviac
         if (ptr)
         {
             return new(ptr)TYPE;
+
         }
         else
         {
@@ -408,6 +409,7 @@ namespace behaviac
                     // correct counts
                     m_freeObjectCount += m_objectCountsInSegment;
                     m_segmentCount++;
+
                 }
                 else
                 {
@@ -420,6 +422,7 @@ namespace behaviac
                         return;
                     }
                 }
+
             }
             else
             {
@@ -511,6 +514,7 @@ namespace behaviac
             if (m_segmentCandidateForDeletion != 0)
             {
                 FreeSegment(segment);
+
             }
             else
             {
@@ -544,7 +548,7 @@ namespace behaviac
         while (!m_segmentList.Empty())
         {
             PoolSegment* segment = it.Current();
-            BEHAVIAC_DEBUGCODE(BEHAVIAC_ASSERT(segment->m_safety  == PoolSegment::Val));
+            BEHAVIAC_DEBUGCODE(BEHAVIAC_ASSERT(segment->m_safety == PoolSegment::Val));
 
             if (forceDestroy)
             {
@@ -630,9 +634,8 @@ namespace behaviac
 #pragma warning(pop)
 #endif
 
-
     //The default object pool
-	template<typename TYPE, typename TALLOCATOR = behaviac::IMemAllocator, typename MUTEX_TYPE = behaviac::Mutex>
+    template<typename TYPE, typename TALLOCATOR = behaviac::IMemAllocator, typename MUTEX_TYPE = behaviac::Mutex>
     class ObjectPool : public BasicObjectPool<TYPE, TALLOCATOR, MUTEX_TYPE>
     {
     public:
@@ -651,4 +654,4 @@ namespace behaviac
 /*! @} */
 /*! @} */
 
-#endif //BEHAVIAC_MEMEORY_OBJECTPOOL_H_
+#endif //BEHAVIAC_MEMEORY_OBJECTPOOL_H

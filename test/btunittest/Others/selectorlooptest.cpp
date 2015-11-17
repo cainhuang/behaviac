@@ -12,7 +12,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "behaviac/base/base.h"
-#include "behaviac/test.h"
+#include "test.h"
 #include "../behaviortest.h"
 //#include "behaviac/base/timer/timer.h"
 #include "behaviac/behaviortree/nodes/composites/selectorloop.h"
@@ -22,34 +22,32 @@
 
 using namespace behaviac;
 
-
-
-TEST(btunittest, selectorloop_basic1)
-{
-	behaviac::Start();
-    SelectorLoopTask* node = BEHAVIAC_NEW SelectorLoopTask();
-	
-	DecoratorCountMock countMock2(2);
-	WithPreconditionTask* pWithPrecondition1 = BEHAVIAC_NEW WithPreconditionTask();
-	pWithPrecondition1->addChild(BEHAVIAC_NEW FailureUntil(&countMock2));
-	pWithPrecondition1->addChild(BEHAVIAC_NEW TrueTask());
-    node->addChild(pWithPrecondition1);
-
-	WithPreconditionTask* pWithPrecondition2 = BEHAVIAC_NEW WithPreconditionTask();
-	pWithPrecondition2->addChild(BEHAVIAC_NEW TrueTask());
-	
-	DecoratorAlwaysRunningTask* b = BEHAVIAC_NEW DecoratorAlwaysRunningTask();
-	BehaviorTask* c = BEHAVIAC_NEW NoopTask();
-	b->addChild(c);
-
-	pWithPrecondition2->addChild(b);
-    node->addChild(pWithPrecondition2);
-
-    behaviac::Agent* pAgent = 0;
-
-	CHECK_EQUAL(BT_RUNNING, node->exec(pAgent));
-	CHECK_EQUAL(BT_SUCCESS, node->exec(pAgent));
-
-    BEHAVIAC_DELETE(node);
-	behaviac::Stop();
-}
+//TEST(btunittest, selectorloop_basic1)
+//{
+//
+//    SelectorLoopTask* node = BEHAVIAC_NEW SelectorLoopTask();
+//
+//    DecoratorCountMock countMock2(2);
+//    WithPreconditionTask* pWithPrecondition1 = BEHAVIAC_NEW WithPreconditionTask();
+//    pWithPrecondition1->addChild(BEHAVIAC_NEW FailureUntil(&countMock2));
+//    pWithPrecondition1->addChild(BEHAVIAC_NEW TrueTask());
+//    node->addChild(pWithPrecondition1);
+//
+//    WithPreconditionTask* pWithPrecondition2 = BEHAVIAC_NEW WithPreconditionTask();
+//    pWithPrecondition2->addChild(BEHAVIAC_NEW TrueTask());
+//
+//    DecoratorAlwaysRunningTask* b = BEHAVIAC_NEW DecoratorAlwaysRunningTask();
+//    BehaviorTask* c = BEHAVIAC_NEW NoopTask();
+//    b->addChild(c);
+//
+//    pWithPrecondition2->addChild(b);
+//    node->addChild(pWithPrecondition2);
+//
+//    behaviac::Agent* pAgent = 0;
+//
+//    CHECK_EQUAL(BT_RUNNING, node->exec(pAgent));
+//    CHECK_EQUAL(BT_SUCCESS, node->exec(pAgent));
+//
+//    BEHAVIAC_DELETE(node);
+//
+//}

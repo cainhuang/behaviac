@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Reflection;
 using Behaviac.Design.Attachments;
 
 namespace PluginBehaviac.NodeExporters
@@ -25,15 +26,39 @@ namespace PluginBehaviac.NodeExporters
         {
             if (attachment != null)
             {
-                string attachmentExporter = "PluginBehaviac.NodeExporters." + attachment.ExportClass + "CsExporter";
-                Type exporterType = Type.GetType(attachmentExporter);
+                Type exporterType = getExporterType(attachment.GetType());
                 if (exporterType != null)
-                {
                     return (AttachmentCsExporter)Activator.CreateInstance(exporterType);
-                }
             }
 
             return new AttachmentCsExporter();
+        }
+
+        private static Type getExporterType(Type attachmentType)
+        {
+            if (attachmentType != null)
+            {
+                while (attachmentType != typeof(Attachment))
+                {
+                    string attachmentExporter = "PluginBehaviac.NodeExporters." + attachmentType.Name + "CsExporter";
+                    Type exporterType = Type.GetType(attachmentExporter);
+                    if (exporterType != null)
+                        return exporterType;
+
+                    foreach (Assembly assembly in Plugin.GetLoadedPlugins())
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(assembly.Location);
+                        attachmentExporter = filename + ".NodeExporters." + attachmentType.Name + "CsExporter";
+                        exporterType = assembly.GetType(attachmentExporter);
+                        if (exporterType != null)
+                            return exporterType;
+                    }
+
+                    attachmentType = attachmentType.BaseType;
+                }
+            }
+
+            return null;
         }
 
         public void GenerateClass(Attachment attachment, StreamWriter stream, string indent, string nodeName, string btClassName)
@@ -44,7 +69,16 @@ namespace PluginBehaviac.NodeExporters
 
                 stream.WriteLine("{0}\tclass {1} : behaviac.{2}\r\n{0}\t{{", indent, className, attachment.ExportClass);
 
+                stream.WriteLine("{0}\t\tpublic {1}()", indent, className);
+                stream.WriteLine("{0}\t\t{{", indent);
+
+                GenerateConstructor(attachment, stream, indent, className);
+
+                stream.WriteLine("{0}\t\t}}", indent);
+
                 GenerateMethod(attachment, stream, indent);
+
+                GenerateMember(attachment, stream, indent);
 
                 stream.WriteLine("{0}\t}}\r\n", indent);
             }
@@ -78,6 +112,14 @@ namespace PluginBehaviac.NodeExporters
         protected virtual bool ShouldGenerateClass()
         {
             return false;
+        }
+
+        protected virtual void GenerateConstructor(Attachment attachment, StreamWriter stream, string indent, string className)
+        {
+        }
+
+        protected virtual void GenerateMember(Attachment attachment, StreamWriter stream, string indent)
+        {
         }
 
         protected virtual void GenerateMethod(Attachment attachment, StreamWriter stream, string indent)

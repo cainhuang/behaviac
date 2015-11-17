@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -20,22 +20,17 @@ public enum eGameForce {RED_FORCE, BLUE_FORCE, UNKNOWN_FORCE}
 [behaviac.TypeMetaInfo("GameActor", "GameActor -> Agent")]
 public class GameActor : behaviac.Agent
 {
-	[behaviac.MemberMetaInfo()]
 	public float moveSpeed = 4.0f;
 
-	[behaviac.MemberMetaInfo()]
 	public float rotateSpeed = 180.0f;
 
 	[behaviac.MemberMetaInfo()]
 	public float currentOrientation = 0.0f;
 
-	[behaviac.MemberMetaInfo()]
 	public bool isMoving = false;
 
-	[behaviac.MemberMetaInfo()]
 	public bool isRotating = false;
 
-	[behaviac.MemberMetaInfo()]
 	public bool aiEnabled = true;
 
 	[behaviac.MemberMetaInfo()]
@@ -55,7 +50,7 @@ public class GameActor : behaviac.Agent
 
 	public bool dodgeFromDanager = true;
 
-    private behaviac.EBTStatus moveAGrid(Vector3 targetPos)
+    protected behaviac.EBTStatus moveAGrid(Vector3 targetPos)
 	{
 		Vector3 deltaVector = targetPos - transform.position;
 		if(!isMoving)

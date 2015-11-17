@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_ENUMMEMBER_H_
-#define _ENGINESERVICES_ENUMMEMBER_H_
+#ifndef BEHAVIAC_ENGINESERVICES_ENUMMEMBER_H
+#define BEHAVIAC_ENGINESERVICES_ENUMMEMBER_H
 
 #include "behaviac/base/object/member.h"
 
@@ -30,9 +30,8 @@
         CMemberBase* property_ = CMemberFactory::Create<BasicTypeHandlerEnum, propertyFlags>(objectType::GetClassTypeName(), enumName, (uint32_t objectType::*)&objectType::enumValueName, localWrapper); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
         CEnumMember* enumMember = BEHAVIAC_NEW CEnumMember(enumName, objectType::GetClassTypeName()); \
-		enumMember->SetEnumTypeName(&objectType::enumValueName);\
+        enumMember->SetEnumTypeName(&objectType::enumValueName);\
         CTagObjectDescriptor::PushBackMember(ms_members, enumMember);
-
 
 #define REGISTER_ENUM_VALUE(enumValue) \
     enumMember->AddValue(enumValue);
@@ -70,17 +69,15 @@ public:
     {
     }
 
+    CEnumMember(const CEnumMember& copy) : CMemberBase(copy), m_values(copy.m_values), m_enumTypeName(copy.m_enumTypeName)
+    {}
 
-	CEnumMember(const CEnumMember& copy) : CMemberBase(copy), m_values(copy.m_values), m_enumTypeName(copy.m_enumTypeName)
-	{}
+    virtual CMemberBase* clone() const
+    {
+        CMemberBase* p = BEHAVIAC_NEW CEnumMember(*this);
 
-	virtual CMemberBase* clone() const
-	{
-		CMemberBase* p = BEHAVIAC_NEW CEnumMember(*this);
-
-		return p;
-	}
-
+        return p;
+    }
 
     virtual void Load(CTagObject* parent, const ISerializableNode* node)
     {
@@ -118,35 +115,39 @@ public:
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(parent);
 
-		XmlNodeRef memberNode = xmlNode;
-		if (types == NULL)
-		{
-			memberNode = xmlNode->newChild("Member");
-			memberNode->setAttr("Name", this->m_propertyID.GetString());
-			memberNode->setAttr("Type", this->m_enumTypeName.c_str());
-			if (this->m_classFullName)
-			{
-				memberNode->setAttr("Class", this->m_classFullName);
-			}
-			if (this->m_bStatic)
-			{
-				memberNode->setAttr("Static", "true");
-			}
-		}
-		else
-		{
-			for (behaviac::vector<SEnumValue>::const_iterator iter = m_values.begin(); iter != m_values.end(); ++iter)
-			{
-				const SEnumValue& enumValue = *iter;
-				XmlNodeRef enumNodeElement = memberNode->newChild("enum");
-				enumNodeElement->setAttr("Value", enumValue.m_valueName);
+        XmlNodeRef memberNode = xmlNode;
 
-				if (enumValue.m_hasCustomValue)
-				{
-					enumNodeElement->setAttr("CustomValue", enumValue.m_customValue);
-				}
-			}
-		}
+        if (types == NULL)
+        {
+            memberNode = xmlNode->newChild("Member");
+            memberNode->setAttr("Name", this->m_propertyID.GetString());
+            memberNode->setAttr("Type", this->m_enumTypeName.c_str());
+
+            if (this->m_classFullName)
+            {
+                memberNode->setAttr("Class", this->m_classFullName);
+            }
+
+            if (this->m_bStatic)
+            {
+                memberNode->setAttr("Static", "true");
+            }
+
+        }
+        else
+        {
+            for (behaviac::vector<SEnumValue>::const_iterator iter = m_values.begin(); iter != m_values.end(); ++iter)
+            {
+                const SEnumValue& enumValue = *iter;
+                XmlNodeRef enumNodeElement = memberNode->newChild("enum");
+                enumNodeElement->setAttr("Value", enumValue.m_valueName);
+
+                if (enumValue.m_hasCustomValue)
+                {
+                    enumNodeElement->setAttr("CustomValue", enumValue.m_customValue);
+                }
+            }
+        }
     }
 
     virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
@@ -154,7 +155,7 @@ public:
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
         BEHAVIAC_UNUSED_VAR(types);
-        
+
         //TODO;
     }
 
@@ -167,25 +168,25 @@ public:
         m_values.push_back(SEnumValue(value, customValue));
     }
 
-	template <typename TOBJ, typename TMEMBER>
-	void SetEnumTypeName(TMEMBER TOBJ::* member)
-	{
-		this->m_enumTypeName = ::GetClassTypeName((TMEMBER*)0);
-	}
+    template <typename TOBJ, typename TMEMBER>
+    void SetEnumTypeName(TMEMBER TOBJ::* member)
+    {
+        this->m_enumTypeName = ::GetClassTypeName((TMEMBER*)0);
+    }
 
-	virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
-	{
-		//typedef PARAM_BASETYPE(int)				StoredMemberType;
-		//behaviac::Property* pProperty = behaviac::Property::Creator<StoredMemberType>(defaultValue, this);
-		behaviac::Property* pProperty = behaviac::Property::Creator<int>(defaultValue, this, bConst);
+    virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
+    {
+        //typedef PARAM_BASETYPE(int)				StoredMemberType;
+        //behaviac::Property* pProperty = behaviac::Property::Creator<StoredMemberType>(defaultValue, this);
+        behaviac::Property* pProperty = behaviac::Property::Creator<int>(defaultValue, this, bConst);
 
-		return pProperty;
-	}
+        return pProperty;
+    }
 
-	virtual float DifferencePercentage(const behaviac::Property* l, const behaviac::Property* r)
-	{
-		return TDifferencePercentage<unsigned int>(l, r);
-	}
+    virtual float DifferencePercentage(const behaviac::Property* l, const behaviac::Property* r)
+    {
+        return CMemberBase::TDifferencePercentage<unsigned int>(l, r);
+    }
 
 private:
     struct SEnumValue
@@ -204,8 +205,7 @@ private:
     };
 
     behaviac::vector<SEnumValue> m_values;
-	behaviac::string m_enumTypeName;
+    behaviac::string m_enumTypeName;
 };
 
-
-#endif // #ifndef _ENGINESERVICES_ENUMMEMBER_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_ENUMMEMBER_H

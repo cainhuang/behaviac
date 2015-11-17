@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>486, 252</value>
+  <data name="unifiedCheckBox.Text" xml:space="preserve">
+    <value>Export Unified File?</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="exportFolderTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 21</value>
   </data>
@@ -132,18 +132,12 @@
   <data name="filenameColumn.MinimumWidth" type="System.Int32, mscorlib">
     <value>120</value>
   </data>
-  <data name="&gt;&gt;exportFilenameTextBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="okButton.Text" xml:space="preserve">
     <value>OK
 </value>
   </data>
   <data name="&gt;&gt;browseButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;removeFilenameButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -154,17 +148,17 @@
   <data name="&gt;&gt;exportFolderTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;removeFilenameButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="exportFolderLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;exportFilenameLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="exportFilenameLabel.Text" xml:space="preserve">
-    <value>Export Filename:</value>
-  </data>
   <data name="addFilenameButton.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>487, 290</value>
   </data>
   <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -172,32 +166,29 @@
   <data name="exportFolderLabel.Text" xml:space="preserve">
     <value>Export Location:</value>
   </data>
-  <data name="&gt;&gt;exportFilenameTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;exportFilenameLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="browseButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="exportFolderLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="&gt;&gt;removeFilenameButton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="exportFolderLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 56</value>
+    <value>13, 9</value>
   </data>
-  <data name="exportFilenameLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="&gt;&gt;browseColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;browseButton.Name" xml:space="preserve">
     <value>browseButton</value>
   </data>
   <data name="&gt;&gt;exportFolderLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;addFilenameButton.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="&gt;&gt;filenameColumn.Name" xml:space="preserve">
     <value>filenameColumn</value>
@@ -205,29 +196,23 @@
   <data name="cancelButton.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 255</value>
-  </data>
   <data name="&gt;&gt;exportFolderTextBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="exportFilenameLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 21</value>
   </data>
   <data name="includedFilesGridView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="&gt;&gt;folderBrowserDialog.Name" xml:space="preserve">
-    <value>folderBrowserDialog</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>486, 252</value>
   </data>
-  <data name="&gt;&gt;browseColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;exportFolderLabel.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="browseButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;exportFilenameTextBox.Name" xml:space="preserve">
-    <value>exportFilenameTextBox</value>
   </data>
   <data name="addFilenameButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
@@ -235,11 +220,11 @@
   <data name="exportFolderTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>406, 21</value>
   </data>
-  <data name="exportFilenameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 9</value>
+  <data name="browseButton.Text" xml:space="preserve">
+    <value>...</value>
   </data>
-  <data name="&gt;&gt;browseColumn.Name" xml:space="preserve">
-    <value>browseColumn</value>
+  <data name="browseButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>425, 27</value>
   </data>
   <data name="&gt;&gt;includedFilesGridView.Name" xml:space="preserve">
     <value>includedFilesGridView</value>
@@ -247,26 +232,20 @@
   <data name="okButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="&gt;&gt;addFilenameButton.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="&gt;&gt;browseColumn.Name" xml:space="preserve">
+    <value>browseColumn</value>
   </data>
   <data name="includedFilesGridView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 106</value>
+    <value>12, 77</value>
   </data>
-  <data name="&gt;&gt;removeFilenameButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportFolderLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="includedFilesGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 143</value>
-  </data>
   <data name="browseColumn.MinimumWidth" type="System.Int32, mscorlib">
     <value>32</value>
-  </data>
-  <data name="removeFilenameButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
   </data>
   <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -277,8 +256,8 @@
   <data name="cancelButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ExportSettingDialog</value>
+  <data name="addFilenameButton.Text" xml:space="preserve">
+    <value>Add</value>
   </data>
   <data name="okButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
@@ -289,26 +268,20 @@
   <data name="removeFilenameButton.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="exportFilenameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 21</value>
-  </data>
-  <data name="&gt;&gt;exportFilenameLabel.Name" xml:space="preserve">
-    <value>exportFilenameLabel</value>
-  </data>
   <data name="browseButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
   <data name="addFilenameButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>425, 127</value>
+    <value>425, 77</value>
   </data>
-  <data name="&gt;&gt;filenameColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
   </data>
   <data name="&gt;&gt;okButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="browseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>425, 74</value>
+  <data name="unifiedCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="browseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -319,20 +292,20 @@
   <data name="browseColumn.HeaderText" xml:space="preserve">
     <value />
   </data>
-  <data name="exportFilenameLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 12</value>
-  </data>
-  <data name="addFilenameButton.Text" xml:space="preserve">
-    <value>Add</value>
+  <data name="&gt;&gt;unifiedCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="folderBrowserDialog.Description" xml:space="preserve">
-    <value>Select Export Folder</value>
+    <value>4</value>
   </data>
   <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>319, 255</value>
+    <value>319, 261</value>
+  </data>
+  <data name="&gt;&gt;unifiedCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="removeFilenameButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="&gt;&gt;okButton.Name" xml:space="preserve">
     <value>okButton</value>
@@ -340,8 +313,50 @@
   <data name="&gt;&gt;imageList.Name" xml:space="preserve">
     <value>imageList</value>
   </data>
-  <data name="&gt;&gt;exportFilenameTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;filenameColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;unifiedCheckBox.Name" xml:space="preserve">
+    <value>unifiedCheckBox</value>
+  </data>
+  <data name="unifiedCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="&gt;&gt;exportFolderTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>400, 261</value>
+  </data>
+  <data name="removeFilenameButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>425, 104</value>
+  </data>
+  <data name="&gt;&gt;okButton.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;browseButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;addFilenameButton.Name" xml:space="preserve">
+    <value>addFilenameButton</value>
+  </data>
+  <data name="cancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ExportSettingDialog</value>
+  </data>
+  <data name="&gt;&gt;browseButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;imageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="removeFilenameButton.Text" xml:space="preserve">
+    <value>Remove</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5208,71 +5223,29 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
-  <data name="&gt;&gt;exportFolderTextBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="removeFilenameButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>425, 154</value>
-  </data>
-  <data name="exportFilenameTextBox.Text" xml:space="preserve">
-    <value>generated_behaviors</value>
-  </data>
-  <data name="&gt;&gt;okButton.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;browseButton.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;addFilenameButton.Name" xml:space="preserve">
-    <value>addFilenameButton</value>
-  </data>
-  <data name="cancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>487, 284</value>
-  </data>
-  <data name="&gt;&gt;browseButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;imageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="removeFilenameButton.Text" xml:space="preserve">
-    <value>Remove</value>
-  </data>
-  <data name="&gt;&gt;folderBrowserDialog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="exportFilenameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
   <data name="browseButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 21</value>
   </data>
-  <data name="removeFilenameButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;exportFolderLabel.Name" xml:space="preserve">
     <value>exportFolderLabel</value>
   </data>
+  <data name="unifiedCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 55</value>
+  </data>
   <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
     <value>cancelButton</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Export Settings</value>
   </data>
-  <data name="&gt;&gt;exportFolderLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="unifiedCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 16</value>
   </data>
   <data name="&gt;&gt;removeFilenameButton.Name" xml:space="preserve">
     <value>removeFilenameButton</value>
-  </data>
-  <data name="browseButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="browseColumn.Width" type="System.Int32, mscorlib">
     <value>32</value>
@@ -5286,75 +5259,63 @@
   <data name="exportFolderTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 21</value>
+  <data name="unifiedCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
+  <data name="includedFilesGridView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 178</value>
   </data>
   <data name="addFilenameButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 21</value>
   </data>
-  <data name="browseButton.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="&gt;&gt;exportFilenameLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="&gt;&gt;includedFilesGridView.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="exportFilenameTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="exportFilenameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 27</value>
+    <value>7</value>
   </data>
   <data name="imageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAA0
-        CQAAAk1TRnQBSQFMAgEBAgEAAdgBAQHcAQEBEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEzARkBBQH/ATMBGQEFAf8BMwEZAQUB/wEzARkBBQH/
-        ATMBGQEFAf8BMwEZAQUB/wEzARkBBQH/ATMBGQEFAf8BMwEZAQUB/wEzARkBBQH/jAABRQGEAY8B/wE8
-        AUoBhQH/ATABPQFHAf8BIQEtATYB/wESARwBJAH/AQEBCgERAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMA
-        Af8DAAH/AwAB/wMAAf8MAAG3AaIBkwX/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BtwGi
-        AZMB/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wEzARkBBQH/jAABRwGHAZIB/wGiAd8B8AH/AUABzQHq
-        Af8BGQG4AeIB/wEHAa4B2wH/AQABqQHZAf8BAAGhAdIB/wEAAZgBxwH/AQABjgG8Af8BAAGDAa4B/wEA
-        AU8BqwH/AQABTAGpAf8BAAFHAZ8B/wEAAUIBlgH/AwAB/wwAAbcBogGTCf8B/AH6AfkB/wH3AfEB7gH/
-        AfEB5wHhAf8B7AHdAdUB/wHmAdMByQH/AeEBygG9Af8BtwGiAZMB/wEzARkBBQH/jAABSgGKAZUB/wGq
-        AegB9gH/AZUB5QH8Af8BhAHfAfsB/wFFAdYB+gH/AToB0AH3Af8BLQHGAfQB/wEgAb4B8AH/AREBtAHs
-        Af8BBQGqAegB/wEAAaQB5gH/AQABmgHfAf8BAAGQAdcB/wEAAUcBnwH/AwAB/wwAAbcBogGTCf8D/gH/
-        AfoB9wH1Af8B9QHtAekB/wHvAeMB3AH/AeoB2QHRAf8B5AHPAcQB/wG3AaIBkwH/ATMBGQEFAf+MAAFN
-        AY4BmAH/AbAB6gH2Af8BnwHpAfsB/wGSAeQB/AH/AYEB3QH7Af8BRQHWAfoB/wE4Ac4B9wH/AS0BxgH0
-        Af8BHQG8AfAB/wERAbQB7AH/AQUBqgHoAf8BAAGjAeYB/wEAAZYB3AH/AQABTAGpAf8BAAEEAQsB/wwA
-        AbcBogGTDf8B/QH8AfsB/wH4AfMB8AH/AfIB6QHjAf8B7QHfAdgB/wHnAdUBywH/AbcBogGTAf8BMwEZ
-        AQUB/4wAAYABkQGcAf8BtgHtAfgB/wGqAewB+wH/AZsB6AH7Af8BjwHjAfwB/wGBAd0B+wH/AUEB1QH5
-        Af8BOAHOAfcB/wErAcUB9AH/AR0BvAHwAf8BDQGyAewB/wECAakB6AH/AQABngHiAf8BAAGCAbQB/wEL
-        ARMBGwH/DAABugGlAZYR/wH7AfgB9wH/AfYB7wHrAf8B8AHlAd8B/wHrAdsB0wH/AbcBogGTAf8BMwEZ
-        AQUB/4wAAYMBlQGfAf8BvgHwAfkB/wGrAfAB9wH/AaUB7AH7Af8BmAHnAfsB/wGJAeEB/AH/AU8B3QH7
-        Af8BQQHVAfkB/wE1Ac0B9wH/ASgBxAHzAf8BGwG7AfAB/wENAbIB7AH/AQABpAHjAf8BAAGKAb8B/wEZ
-        ASMBLAH/DAABvgGpAZoR/wH+Af0B/AH/AfkB9QHyAf8B9AHrAeYB/wHuAeEB2gH/AbcBogGTAf8BMwEZ
-        AQUB/4wAAYYBmQGjAf8BvgHwAfkB/wG2Ae0B+AH/AbAB7gH6Af8BpAHrAfoB/wGVAeYB+wH/AYkB4QH8
-        Af8BTQHcAfwB/wFBAdUB+QH/ATUBzQH3Af8BKAHEAfMB/wEZAbkB7wH/AQUBqQHnAf8BAAGPAccB/wEn
-        ATMBOwH/DAABwwGuAZ4V/wH8AfoB+QH/AfcB8QHuAf8B8QHnAeEB/wG3AaIBkwH/ATMBGQEFAf+MAAGJ
-        AZwBpgH/Ab4B8AH5Af8BtgHtAfgB/wG2Ae0B+AH/AasB8AH3Af8BogHsAfoB/wGVAeYB+wH/AYkB4QH8
-        Af8BTQHcAfwB/wE/AdMB+gH/ATMBzAH3Af8BJQHDAfMB/wEZAbkB7wH/AQABmQHPAf8BMwFAAUoB/wwA
-        AcgBsgGjFf8D/gH/AfoB9wH1Af8B9QHtAekB/wG3AaIBkwH/ATMBGQEFAf+MAAGLAaABqAH/Ab4B8AH5
-        Af8BvgHwAfkB/wG+AfAB+QH/Ab4B8AH5Af8BtAHyAfgB/wGqAewB+wH/AaAB6QH7Af8BlQHlAfwB/wGK
-        Ad8B/AH/AU8B2AH7Af8BRAHSAfgB/wE4AcoB9AH/AS0BwAHxAf8BMwFAAUoB/wwAAcwBtgGnGf8B/QH8
-        AfsB/wG3AaIBkwH/AbcBogGTAf8BNAEaAQYB/4wAAY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/AY0BoQGq
-        Af8BjQGhAaoB/wGLAZ8BqAH/AYkBnAGmAf8BiQGbAaYB/wGHAZoBpAH/AYYBmQGjAf8BhAGWAaAB/wGE
-        AZYBoAH/AYMBlQGgAf8BgwGVAaAB/wFFAYQBjwH/DAAB0QG7AasZ/wG3AaIBkwH/ATQBGgEGAf8BNAEa
-        AQYB/wE0ARoBBgH/jAABjwGkAawB/wGyAeQB7AH/AbYB7QH4Af8BtgHtAfgB/wGpAewB9gH/AZIB4QHz
-        Af8BjQGhAaoB/wHVAdwB4AH/KAAB1QG/Aa8Z/wG5AaQBlQH/AdQBxQG6Af8BNAEaAQYB/wNKAYyMAAHa
-        Ad4B4QH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AY8BpAGsAf8BjwGkAawB/wHVAdwB4AH/LAAB2AHC
-        AbIZ/wHAAasBnAH/ATQBGgEGAf8DSgGL2AAB2AHCAbIB/wHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHY
-        AcIBsgH/AdQBvgGuAf8BzwG5AakB/wHJAbMBpAH/A0oBi/8AlQABQgFNAT4HAAE+AwABKAMAAUADAAEQ
-        AwABAQEAAQEFAAGAFwAD/wEABP8EAAL/AcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEH
-        BQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQAB/wHAAQcEAAEB
-        Af8BwAEPBAAC/wHAAR8EAAT/GgAL
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAw
+        CQAAAk1TRnQBSQFMAgEBAgIAAQIBBAECARABAAEQAQAE/wEhARAI/wFCAU0BNgcAATYDAAEoAwABQAMA
+        ARADAAEBAQABIAYAARD/AFsAAbcBogGTAf8BLwEVAQEB/wEvARUBAQH/AS8BFQEBAf8BLwEVAQEB/wEv
+        ARUBAQH/AS8BFQEBAf8BLwEVAQEB/wEvARUBAQH/AS8BFQEBAf8BLwEVAQEB/4wAAUEBhAGPAf8BOAFG
+        AYUB/wEsATkBQwH/AR0BKQEyAf8BDgEYASAB/wEAAQYBDQH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/
+        AwAB/wMAAf8DAAH/DAABtwGiAZMF/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/AbcBogGT
+        Af8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BLwEVAQEB/4wAAUMBhwGSAf8BogHfAfAB/wE8Ac0B6gH/
+        ARUBuAHiAf8BAwGuAdsB/wEAAakB2QH/AQABoQHSAf8BAAGYAccB/wEAAY4BvAH/AQABgwGuAf8BAAFL
+        AasB/wEAAUgBqQH/AQABQwGfAf8BAAE+AZYB/wMAAf8MAAG3AaIBkwn/AfwB+gH5Af8B9wHxAe4B/wHx
+        AecB4QH/AewB3QHVAf8B5gHTAckB/wHhAcoBvQH/AbcBogGTAf8BLwEVAQEB/4wAAUYBigGVAf8BqgHo
+        AfYB/wGVAeUB/AH/AYQB3wH7Af8BQQHWAfoB/wE2AdAB9wH/ASkBxgH0Af8BHAG+AfAB/wENAbQB7AH/
+        AQEBqgHoAf8BAAGkAeYB/wEAAZoB3wH/AQABkAHXAf8BAAFDAZ8B/wMAAf8MAAG3AaIBkwn/A/4B/wH6
+        AfcB9QH/AfUB7QHpAf8B7wHjAdwB/wHqAdkB0QH/AeQBzwHEAf8BtwGiAZMB/wEvARUBAQH/jAABSQGO
+        AZgB/wGwAeoB9gH/AZ8B6QH7Af8BkgHkAfwB/wGBAd0B+wH/AUEB1gH6Af8BNAHOAfcB/wEpAcYB9AH/
+        ARkBvAHwAf8BDQG0AewB/wEBAaoB6AH/AQABowHmAf8BAAGWAdwB/wEAAUgBqQH/AgABBwH/DAABtwGi
+        AZMN/wH9AfwB+wH/AfgB8wHwAf8B8gHpAeMB/wHtAd8B2AH/AecB1QHLAf8BtwGiAZMB/wEvARUBAQH/
+        jAABgAGRAZwB/wG2Ae0B+AH/AaoB7AH7Af8BmwHoAfsB/wGPAeMB/AH/AYEB3QH7Af8BPQHVAfkB/wE0
+        Ac4B9wH/AScBxQH0Af8BGQG8AfAB/wEJAbIB7AH/AQABqQHoAf8BAAGeAeIB/wEAAYIBtAH/AQcBDwEX
+        Af8MAAG6AaUBlhH/AfsB+AH3Af8B9gHvAesB/wHwAeUB3wH/AesB2wHTAf8BtwGiAZMB/wEvARUBAQH/
+        jAABgwGVAZ8B/wG+AfAB+QH/AasB8AH3Af8BpQHsAfsB/wGYAecB+wH/AYkB4QH8Af8BSwHdAfsB/wE9
+        AdUB+QH/ATEBzQH3Af8BJAHEAfMB/wEXAbsB8AH/AQkBsgHsAf8BAAGkAeMB/wEAAYoBvwH/ARUBHwEo
+        Af8MAAG+AakBmhH/Af4B/QH8Af8B+QH1AfIB/wH0AesB5gH/Ae4B4QHaAf8BtwGiAZMB/wEvARUBAQH/
+        jAABhgGZAaMB/wG+AfAB+QH/AbYB7QH4Af8BsAHuAfoB/wGkAesB+gH/AZUB5gH7Af8BiQHhAfwB/wFJ
+        AdwB/AH/AT0B1QH5Af8BMQHNAfcB/wEkAcQB8wH/ARUBuQHvAf8BAQGpAecB/wEAAY8BxwH/ASMBLwE3
+        Af8MAAHDAa4BnhX/AfwB+gH5Af8B9wHxAe4B/wHxAecB4QH/AbcBogGTAf8BLwEVAQEB/4wAAYkBnAGm
+        Af8BvgHwAfkB/wG2Ae0B+AH/AbYB7QH4Af8BqwHwAfcB/wGiAewB+gH/AZUB5gH7Af8BiQHhAfwB/wFJ
+        AdwB/AH/ATsB0wH6Af8BLwHMAfcB/wEhAcMB8wH/ARUBuQHvAf8BAAGZAc8B/wEvATwBRgH/DAAByAGy
+        AaMV/wP+Af8B+gH3AfUB/wH1Ae0B6QH/AbcBogGTAf8BLwEVAQEB/4wAAYsBoAGoAf8BvgHwAfkB/wG+
+        AfAB+QH/Ab4B8AH5Af8BvgHwAfkB/wG0AfIB+AH/AaoB7AH7Af8BoAHpAfsB/wGVAeUB/AH/AYoB3wH8
+        Af8BSwHYAfsB/wFAAdIB+AH/ATQBygH0Af8BKQHAAfEB/wEvATwBRgH/DAABzAG2AacZ/wH9AfwB+wH/
+        AbcBogGTAf8BtwGiAZMB/wEwARYBAgH/jAABjQGhAaoB/wGNAaEBqgH/AY0BoQGqAf8BjQGhAaoB/wGN
+        AaEBqgH/AYsBnwGoAf8BiQGcAaYB/wGJAZsBpgH/AYcBmgGkAf8BhgGZAaMB/wGEAZYBoAH/AYQBlgGg
+        Af8BgwGVAaAB/wGDAZUBoAH/AUEBhAGPAf8MAAHRAbsBqxn/AbcBogGTAf8BMAEWAQIB/wEwARYBAgH/
+        ATABFgECAf+MAAGPAaQBrAH/AbIB5AHsAf8BtgHtAfgB/wG2Ae0B+AH/AakB7AH2Af8BkgHhAfMB/wGN
+        AaEBqgH/AdUB3AHgAf8oAAHVAb8Brxn/AbkBpAGVAf8B1AHFAboB/wEwARYBAgH/A0oBjIwAAdoB3gHh
+        Af8BjwGkAawB/wGPAaQBrAH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AdUB3AHgAf8sAAHYAcIBshn/
+        AcABqwGcAf8BMAEWAQIB/wNKAYvYAAHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHYAcIBsgH/AdgBwgGy
+        Af8B1AG+Aa4B/wHPAbkBqQH/AckBswGkAf8DSgGL/wCVAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEB
+        AQABAQUAAYAXAAP/AQAE/wQAAv8BwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEB
+        AcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAH/AcABBwQAAQEB/wHA
+        AQ8EAAL/AcABHwQABP8aAAs=
 </value>
   </data>
   <data name="&gt;&gt;okButton.Parent" xml:space="preserve">
@@ -5369,11 +5330,14 @@
   <data name="&gt;&gt;addFilenameButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="exportFilenameLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="removeFilenameButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="&gt;&gt;unifiedCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="exportFolderTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 74</value>
+    <value>13, 27</value>
   </data>
   <data name="okButton.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -5381,19 +5345,16 @@
   <data name="exportFolderLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 12</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="filenameColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="folderBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="browseColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="imageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>180, 17</value>
+    <value>15, 21</value>
   </metadata>
 </root>

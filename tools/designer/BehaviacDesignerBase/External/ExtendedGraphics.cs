@@ -21,23 +21,20 @@ namespace System.Drawing.Extended
     public class ExtendedGraphics
     {
         private Graphics mGraphics;
-        public Graphics Graphics
-        {
+        public Graphics Graphics {
             get { return this.mGraphics; }
             set { this.mGraphics = value; }
         }
 
 
-        public ExtendedGraphics(Graphics graphics)
-        {
+        public ExtendedGraphics(Graphics graphics) {
             this.Graphics = graphics;
         }
 
 
         #region Fills a Rounded Rectangle with continuous numbers.
         public void FillRoundRectangle(System.Drawing.Brush brush,
-          float x, float y, float width, float height, float ratio)
-        {
+                                       float x, float y, float width, float height, float ratio) {
             Debug.Check(ratio >= 0.0f && ratio <= 0.5f);
 
             RectangleF rectangle = new RectangleF(x, y, width, height);
@@ -49,8 +46,7 @@ namespace System.Drawing.Extended
 
         #region Fills a Corner Rectangle with continuous numbers.
         public void FillCornerRectangle(System.Drawing.Brush brush,
-          float x, float y, float width, float height, float ratio)
-        {
+                                        float x, float y, float width, float height, float ratio) {
             Debug.Check(ratio >= 0.0f && ratio <= 0.5f);
 
             RectangleF rectangle = new RectangleF(x, y, width, height);
@@ -62,8 +58,7 @@ namespace System.Drawing.Extended
 
         #region Draws a Rounded Rectangle border with continuous numbers.
         public void DrawRoundRectangle(System.Drawing.Pen pen,
-          float x, float y, float width, float height, float ratio)
-        {
+                                       float x, float y, float width, float height, float ratio) {
             Debug.Check(ratio >= 0.0f && ratio <= 0.5f);
 
             RectangleF rectangle = new RectangleF(x, y, width, height);
@@ -75,8 +70,7 @@ namespace System.Drawing.Extended
 
         #region Draws a Corner Rectangle border with continuous numbers.
         public void DrawCornerRectangle(System.Drawing.Pen pen,
-          float x, float y, float width, float height, float ratio)
-        {
+                                        float x, float y, float width, float height, float ratio) {
             Debug.Check(ratio >= 0.0f && ratio <= 0.5f);
 
             RectangleF rectangle = new RectangleF(x, y, width, height);
@@ -87,42 +81,40 @@ namespace System.Drawing.Extended
 
 
         #region Get the desired Rounded Rectangle path.
-        private GraphicsPath GetRoundedRect(RectangleF baseRect, float ratio)
-        {
-            // if corner radius is less than or equal to zero, 
-            // return the original rectangle 
-            if (ratio <= 0.0f)
-            {
+        private GraphicsPath GetRoundedRect(RectangleF baseRect, float ratio) {
+            // if corner radius is less than or equal to zero,
+            // return the original rectangle
+            if (ratio <= 0.0f) {
                 GraphicsPath mPath = new GraphicsPath();
                 mPath.AddRectangle(baseRect);
                 mPath.CloseFigure();
                 return mPath;
             }
 
-            // if the corner radius is greater than or equal to 
-            // half the width, or height (whichever is shorter) 
-            // then return a capsule instead of a lozenge 
+            // if the corner radius is greater than or equal to
+            // half the width, or height (whichever is shorter)
+            // then return a capsule instead of a lozenge
             if (ratio >= 0.5f)
-                return GetCapsule(baseRect);
+            { return GetCapsule(baseRect); }
 
             float radius = Math.Min(baseRect.Width, baseRect.Height) * ratio;
 
-            // create the arc for the rectangle sides and declare 
-            // a graphics path object for the drawing 
+            // create the arc for the rectangle sides and declare
+            // a graphics path object for the drawing
 
             float diameter = radius * 2.0F;
             SizeF sizeF = new SizeF(diameter, diameter);
             RectangleF arc = new RectangleF(baseRect.Location, sizeF);
             GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
 
-            // top left arc 
+            // top left arc
             path.AddArc(arc, 180, 90);
 
-            // top right arc 
+            // top right arc
             arc.X = baseRect.Right - diameter;
             path.AddArc(arc, 270, 90);
 
-            // bottom right arc 
+            // bottom right arc
             arc.Y = baseRect.Bottom - diameter;
             path.AddArc(arc, 0, 90);
 
@@ -136,45 +128,40 @@ namespace System.Drawing.Extended
         #endregion
 
         #region Gets the desired Capsular path.
-        private GraphicsPath GetCapsule(RectangleF baseRect)
-        {
+        private GraphicsPath GetCapsule(RectangleF baseRect) {
             float diameter;
             RectangleF arc;
             GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
-            try
-            {
-                if (baseRect.Width > baseRect.Height)
-                {
-                    // return horizontal capsule 
+
+            try {
+                if (baseRect.Width > baseRect.Height) {
+                    // return horizontal capsule
                     diameter = baseRect.Height;
                     SizeF sizeF = new SizeF(diameter, diameter);
                     arc = new RectangleF(baseRect.Location, sizeF);
                     path.AddArc(arc, 90, 180);
                     arc.X = baseRect.Right - diameter;
                     path.AddArc(arc, 270, 180);
-                }
-                else if (baseRect.Width < baseRect.Height)
-                {
-                    // return vertical capsule 
+
+                } else if (baseRect.Width < baseRect.Height) {
+                    // return vertical capsule
                     diameter = baseRect.Width;
                     SizeF sizeF = new SizeF(diameter, diameter);
                     arc = new RectangleF(baseRect.Location, sizeF);
                     path.AddArc(arc, 180, 180);
                     arc.Y = baseRect.Bottom - diameter;
                     path.AddArc(arc, 0, 180);
-                }
-                else
-                {
-                    // return circle 
+
+                } else {
+                    // return circle
                     path.AddEllipse(baseRect);
                 }
-            }
-            catch
-            {
+
+            } catch {
                 path.AddEllipse(baseRect);
             }
-            finally
-            {
+
+            finally {
                 path.CloseFigure();
             }
             return path;
@@ -182,8 +169,7 @@ namespace System.Drawing.Extended
         #endregion
 
         #region Get the desired Corner Rectangle path.
-        private GraphicsPath GetCornerRect(RectangleF baseRect, float ratio)
-        {
+        private GraphicsPath GetCornerRect(RectangleF baseRect, float ratio) {
             GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
             float radius = Math.Min(baseRect.Width, baseRect.Height) * ratio;
             PointF[] points = new PointF[8];

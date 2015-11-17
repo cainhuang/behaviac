@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public WithPrecondition()
         {
-		}
+        }
+
         ~WithPrecondition()
         {
         }
@@ -45,16 +44,16 @@ namespace behaviac
         {
             WithPreconditionTask pTask = new WithPreconditionTask();
 
-
             return pTask;
         }
     }
 
-    class WithPreconditionTask : Sequence.SequenceTask
+    internal class WithPreconditionTask : Sequence.SequenceTask
     {
-        public WithPreconditionTask() : base()
+        public WithPreconditionTask()
+            : base()
         {
-		}
+        }
 
         protected override void addChild(BehaviorTask pBehavior)
         {
@@ -91,6 +90,38 @@ namespace behaviac
             BehaviorTask pParent = this.GetParent();
 
             Debug.Check(pParent is SelectorLoop.SelectorLoopTask);
+
+            base.onexit(pAgent, s);
+        }
+
+        private bool m_bIsUpdatePrecondition = false;
+
+        public bool IsUpdatePrecondition
+        {
+            set
+            {
+                this.m_bIsUpdatePrecondition = value;
+            }
+        }
+
+        private BehaviorTask PreconditionNode
+        {
+            get
+            {
+                Debug.Check(this.m_children.Count == 2);
+
+                return (this.m_children)[0];
+            }
+        }
+
+        private BehaviorTask ActionNode
+        {
+            get
+            {
+                Debug.Check(this.m_children.Count == 2);
+
+                return (this.m_children)[1];
+            }
         }
 
         protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
@@ -98,21 +129,23 @@ namespace behaviac
             BehaviorTask pParent = this.GetParent();
             Debug.Check(pParent is SelectorLoop.SelectorLoopTask);
 
-            return EBTStatus.BT_RUNNING;
-        }
+            if (this.m_bIsUpdatePrecondition)
+            {
+                BehaviorTask precond = this.PreconditionNode;
+                EBTStatus s = precond.exec(pAgent, childStatus);
 
-        public BehaviorTask PreconditionNode()
-        {
-            Debug.Check(this.m_children.Count == 2);
+                return s;
 
-            return (this.m_children)[0];
-        }
+            }
+            else
+            {
+                BehaviorTask action = this.ActionNode;
+                EBTStatus s = action.exec(pAgent, childStatus);
 
-        public BehaviorTask Action()
-        {
-            Debug.Check(this.m_children.Count == 2);
+                return s;
+            }
 
-            return (this.m_children)[1];
+            //return EBTStatus.BT_RUNNING;
         }
     }
 }

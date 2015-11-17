@@ -31,56 +31,52 @@ namespace Behaviac.Design
         private static ErrorInfoDock _dock = null;
         private static bool _shouldScroll = true;
 
-        internal static void Inspect()
-        {
-            if (_dock == null)
-            {
+        internal static void Inspect() {
+            if (_dock == null) {
                 _dock = new ErrorInfoDock();
                 _dock.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
-            }
-            else
-            {
+
+            } else {
                 _dock.Show();
             }
         }
 
-        internal static void CloseAll()
-        {
-            if (_dock != null)
+        internal static void CloseAll() {
+            if (_dock != null) {
                 _dock.Close();
+            }
         }
 
-        internal static void Clear()
-        {
-            if (_dock != null)
+        internal static void Clear() {
+            if (_dock != null) {
                 _dock.errorListBox.Items.Clear();
+            }
         }
 
-        internal static void WriteLine(string log)
-        {
-            if (_dock != null)
-            {
+        internal static void WriteLine(string log) {
+            if (_dock != null) {
                 _dock.errorListBox.BeginUpdate();
 
                 _dock.errorListBox.Items.Add(log);
-                if (_shouldScroll)
+
+                if (_shouldScroll) {
                     scrollToEnd();
+                }
 
                 _dock.errorListBox.EndUpdate();
             }
         }
 
-        private static void scrollToEnd()
-        {
+        private static void scrollToEnd() {
             //_dock.errorListBox.SelectedIndex = _dock.errorListBox.Items.Count - 1;
             _dock.errorListBox.TopIndex = _dock.errorListBox.Items.Count - 1;
             _shouldScroll = true;
         }
 
-        public ErrorInfoDock()
-        {
-            if (_dock == null)
+        public ErrorInfoDock() {
+            if (_dock == null) {
                 _dock = this;
+            }
 
             InitializeComponent();
 
@@ -89,8 +85,7 @@ namespace Behaviac.Design
             FrameStatePool.AddLogHandler += FrameStatePool_AddLogHandler;
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
+        protected override void OnClosed(EventArgs e) {
             _dock = null;
 
             FrameStatePool.AddLogHandler -= FrameStatePool_AddLogHandler;
@@ -98,54 +93,47 @@ namespace Behaviac.Design
             base.OnClosed(e);
         }
 
-        private void FrameStatePool_AddLogHandler(int frame, string log)
-        {
+        private void FrameStatePool_AddLogHandler(int frame, string log) {
             errorListBox.Items.Add(log);
 
-            if (_shouldScroll)
+            if (_shouldScroll) {
                 scrollToEnd();
+            }
         }
 
-        private void copyMenuItem_Click(object sender, EventArgs e)
-        {
-            if (errorListBox.SelectedIndices.Count > 0)
-            {
+        private void copyMenuItem_Click(object sender, EventArgs e) {
+            if (errorListBox.SelectedIndices.Count > 0) {
                 string log = string.Empty;
-                foreach (int index in errorListBox.SelectedIndices)
-                {
+                foreach(int index in errorListBox.SelectedIndices) {
                     log += errorListBox.Items[index];
                 }
 
-                if (!string.IsNullOrEmpty(log))
+                if (!string.IsNullOrEmpty(log)) {
                     Clipboard.SetText(log);
+                }
             }
         }
 
-        private void clearAllMenuItem_Click(object sender, EventArgs e)
-        {
+        private void clearAllMenuItem_Click(object sender, EventArgs e) {
             Clear();
         }
 
-        private void logListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void logListBox_SelectedIndexChanged(object sender, EventArgs e) {
             _shouldScroll = (errorListBox.SelectedIndex == errorListBox.Items.Count - 1);
         }
 
-        private void logListBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.End)
-            {
+        private void logListBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.End) {
                 _shouldScroll = true;
-            }
-            else if (e.Control && e.KeyCode == Keys.A)
-            {
+
+            } else if (e.Control && e.KeyCode == Keys.A) {
                 errorListBox.BeginUpdate();
                 SelectionMode selectionMode = errorListBox.SelectionMode;
                 errorListBox.SelectionMode = SelectionMode.MultiSimple;
 
                 errorListBox.SelectedIndices.Clear();
-                for (int i = 0; i < errorListBox.Items.Count; ++i)
-                {
+
+                for (int i = 0; i < errorListBox.Items.Count; ++i) {
                     errorListBox.SelectedIndices.Add(i);
                 }
 

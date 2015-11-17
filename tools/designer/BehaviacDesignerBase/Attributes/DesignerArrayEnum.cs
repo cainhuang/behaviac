@@ -31,26 +31,23 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerArrayEnum(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags) {
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             string str = string.Empty;
-            if (obj != null)
-            {
+
+            if (obj != null) {
                 Type type = obj.GetType();
-                if (type.GetGenericTypeDefinition() == typeof(List<>))
-                {
+
+                if (type.GetGenericTypeDefinition() == typeof(List<>)) {
                     Type itemType = type.GetGenericArguments()[0];
-                    if (itemType.IsEnum)
-                    {
+
+                    if (itemType.IsEnum) {
                         System.Collections.IList itemList = (System.Collections.IList)(obj);
-                        foreach (object item in itemList)
-                        {
+                        foreach(object item in itemList) {
                             if (!string.IsNullOrEmpty(str))
-                                str += "|";
+                            { str += "|"; }
 
                             str += Enum.GetName(itemType, item);
                         }
@@ -63,25 +60,26 @@ namespace Behaviac.Design.Attributes
             return str;
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (type.GetGenericTypeDefinition() != typeof(List<>))
-                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
+            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
 
             Type itemType = type.GetGenericArguments()[0];
+
             if (!itemType.IsEnum)
-                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
+            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
 
             System.Collections.IList enumArray = (System.Collections.IList)Plugin.CreateInstance(type);
-            if (!string.IsNullOrEmpty(str))
-            {
+
+            if (!string.IsNullOrEmpty(str)) {
                 int index = str.IndexOf(':');
+
                 if (index >= 0)
-                    str = str.Substring(index + 1);
+                { str = str.Substring(index + 1); }
 
                 string[] tokens = str.Split('|');
-                foreach (string s in tokens)
-                {
+                foreach(string s in tokens) {
                     enumArray.Add(Enum.Parse(itemType, s, true));
                 }
             }

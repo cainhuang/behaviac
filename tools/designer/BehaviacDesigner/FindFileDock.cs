@@ -30,25 +30,20 @@ namespace Behaviac.Design
     {
         private static FindFileDock _instance = null;
 
-        internal static void Inspect(string findWhat, int findFileCount, List<Nodes.Node.ObjectPair> findObjects)
-        {
-            if (_instance == null)
-            {
+        internal static void Inspect(string findWhat, int findFileCount, List<ObjectPair> findObjects) {
+            if (_instance == null) {
                 _instance = new FindFileDock();
                 _instance.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
-            }
-            else
-            {
+
+            } else {
                 _instance.Show();
             }
 
             _instance.SetResults(findWhat, findFileCount, findObjects);
         }
 
-        public FindFileDock()
-        {
-            if (_instance == null)
-            {
+        public FindFileDock() {
+            if (_instance == null) {
                 _instance = this;
             }
 
@@ -57,38 +52,33 @@ namespace Behaviac.Design
             this.TabText = Resources.FindResults;
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
+        protected override void OnClosed(EventArgs e) {
             _instance = null;
 
             base.OnClosed(e);
         }
 
-        private List<Nodes.Node.ObjectPair> _objects = null;
+        private List<ObjectPair> _objects = null;
         private List<string> _results = new List<string>();
 
-        private void SetResults(string findWhat, int findFileCount, List<Nodes.Node.ObjectPair> findObjects)
-        {
+        private void SetResults(string findWhat, int findFileCount, List<ObjectPair> findObjects) {
             this._objects = findObjects;
 
             List<string> findFiles = new List<string>();
             this._results.Clear();
-            foreach (Nodes.Node.ObjectPair objPair in this._objects)
-            {
-                if (!findFiles.Contains(objPair.Root.Behavior.Filename))
-                {
+            foreach(ObjectPair objPair in this._objects) {
+                if (!findFiles.Contains(objPair.Root.Behavior.Filename)) {
                     findFiles.Add(objPair.Root.Behavior.Filename);
                 }
 
                 string result = "  " + FileManagers.FileManager.GetRelativePath(objPair.Root.Behavior.Filename);
                 result += ":  " + objPair.Obj.Label + "[" + objPair.Obj.Id + "]";
 
-                if (objPair.Obj is Nodes.Node)
-                {
+                if (objPair.Obj is Nodes.Node) {
                     Nodes.Node node = (Nodes.Node)objPair.Obj;
                     string label = node.GenerateNewLabel();
-                    if (!string.IsNullOrEmpty(label))
-                    {
+
+                    if (!string.IsNullOrEmpty(label)) {
                         result += "  " + label;
                     }
                 }
@@ -96,73 +86,58 @@ namespace Behaviac.Design
                 this._results.Add(result);
             }
 
-            this.resultLabel.Text = string.Format(Resources.FindResultsInfo, findWhat, this._objects.Count, findFiles.Count,findFileCount);
+            this.resultLabel.Text = string.Format(Resources.FindResultsInfo, findWhat, this._objects.Count, findFiles.Count, findFileCount);
 
             this.resultListView.Items.Clear();
             this.resultListView.SelectedIndices.Clear();
             this.resultListView.VirtualListSize = this._results.Count;
         }
 
-        private void selectAllItems()
-        {
-            try
-            {
-                if (this.resultListView.Items.Count > 0)
-                {
+        private void selectAllItems() {
+            try {
+                if (this.resultListView.Items.Count > 0) {
                     this.resultListView.Focus();
                     this.resultListView.Items[0].Selected = true;
                     SendKeys.Send("+{END}");
                 }
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void copySelectedItems()
-        {
-            try
-            {
-                if (this.resultListView.SelectedIndices.Count > 0)
-                {
+        private void copySelectedItems() {
+            try {
+                if (this.resultListView.SelectedIndices.Count > 0) {
                     StringBuilder sb = new StringBuilder();
-                    foreach (int index in this.resultListView.SelectedIndices)
-                    {
+                    foreach(int index in this.resultListView.SelectedIndices) {
                         sb.Append(this.resultListView.Items[index].SubItems[0].Text);
                     }
 
-                    if (sb.Length > 0)
+                    if (sb.Length > 0) {
                         Clipboard.SetText(sb.ToString());
+                    }
                 }
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void showSelectedObject()
-        {
-            if (this._objects != null && this.resultListView.SelectedIndices.Count > 0)
-            {
-                foreach (int index in this.resultListView.SelectedIndices)
-                {
-                    if (index != _selectedIndex)
-                    {
+        private void showSelectedObject() {
+            if (this._objects != null && this.resultListView.SelectedIndices.Count > 0) {
+                foreach(int index in this.resultListView.SelectedIndices) {
+                    if (index != _selectedIndex) {
                         _selectedIndex = index;
                         break;
                     }
                 }
 
                 List<int> indexes = new List<int>();
-                foreach (int index in this.resultListView.SelectedIndices)
-                {
-                    if (index != _selectedIndex)
-                    {
+                foreach(int index in this.resultListView.SelectedIndices) {
+                    if (index != _selectedIndex) {
                         indexes.Add(index);
                     }
                 }
-                foreach (int index in indexes)
-                {
+                foreach(int index in indexes) {
                     this.resultListView.SelectedIndices.Remove(index);
                 }
 
@@ -171,32 +146,28 @@ namespace Behaviac.Design
             }
         }
 
-        private void selectAllMenuItem_Click(object sender, EventArgs e)
-        {
+        private void selectAllMenuItem_Click(object sender, EventArgs e) {
             this.selectAllItems();
         }
 
-        private void copyMenuItem_Click(object sender, EventArgs e)
-        {
+        private void copyMenuItem_Click(object sender, EventArgs e) {
             this.copySelectedItems();
         }
 
-        private void resultListView_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
+        private void resultListView_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.KeyCode) {
                 case Keys.A:
-                    if (e.Control)
-                    {
+                    if (e.Control) {
                         this.selectAllItems();
                     }
+
                     break;
 
                 case Keys.C:
-                    if (e.Control)
-                    {
+                    if (e.Control) {
                         this.copySelectedItems();
                     }
+
                     break;
 
                 case Keys.Enter:
@@ -206,78 +177,69 @@ namespace Behaviac.Design
         }
 
         private int _selectedIndex = -1;
-        private void resultListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
-        {
-            try
-            {
+        private void resultListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e) {
+            try {
                 string item = string.Empty;
-                if (e.ItemIndex >= 0 && e.ItemIndex < this._results.Count)
-                {
+
+                if (e.ItemIndex >= 0 && e.ItemIndex < this._results.Count) {
                     item = this._results[e.ItemIndex];
 
-                    if (_selectedIndex >= 0)
-                    {
+                    if (_selectedIndex >= 0) {
                         this.resultListView.SelectedIndices.Add(_selectedIndex);
                         _selectedIndex = -1;
                     }
                 }
 
                 e.Item = new ListViewItem(item);
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void resultListView_SizeChanged(object sender, EventArgs e)
-        {
+        private void resultListView_SizeChanged(object sender, EventArgs e) {
             this.logColumnHeader.Width = this.resultListView.Width - 25;
         }
 
         private bool isDragging = false;
         private Point startMousePos;
 
-        private void resultListView_MouseDown(object sender, MouseEventArgs e)
-        {
+        private void resultListView_MouseDown(object sender, MouseEventArgs e) {
             this.isDragging = true;
             this.startMousePos = e.Location;
         }
 
-        private void resultListView_MouseMove(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                if (this.isDragging && this.resultListView.Items.Count > 0)
-                {
+        private void resultListView_MouseMove(object sender, MouseEventArgs e) {
+            try {
+                if (this.isDragging && this.resultListView.Items.Count > 0) {
                     Point endMousePos = e.Location;
                     int y = Math.Min(this.startMousePos.Y, endMousePos.Y);
                     int height = Math.Abs(endMousePos.Y - startMousePos.Y);
 
                     ListViewItem hitItem = this.resultListView.HitTest(endMousePos).Item;
-                    if (hitItem != null)
-                        hitItem.Selected = true;
 
-                    foreach (int index in this.resultListView.SelectedIndices)
-                    {
+                    if (hitItem != null) {
+                        hitItem.Selected = true;
+                    }
+
+                    foreach(int index in this.resultListView.SelectedIndices) {
                         ListViewItem item = this.resultListView.Items[index];
                         int itemY = item.Position.Y;
-                        if (itemY < y - item.Bounds.Height || itemY > y + height)
+
+                        if (itemY < y - item.Bounds.Height || itemY > y + height) {
                             item.Selected = false;
+                        }
                     }
                 }
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void resultListView_MouseUp(object sender, MouseEventArgs e)
-        {
+        private void resultListView_MouseUp(object sender, MouseEventArgs e) {
             isDragging = false;
         }
 
-        private void resultListView_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
+        private void resultListView_MouseDoubleClick(object sender, MouseEventArgs e) {
             showSelectedObject();
         }
     }

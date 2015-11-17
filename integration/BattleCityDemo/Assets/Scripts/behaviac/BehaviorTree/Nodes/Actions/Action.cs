@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -23,15 +21,15 @@ namespace behaviac
         public Action()
         {
             m_resultOption = EBTStatus.BT_INVALID;
-			m_resultPreconditionFail = EBTStatus.BT_FAILURE;
         }
+
         ~Action()
         {
             m_method = null;
             m_resultFunctor = null;
         }
 
-        static string ParseInstanceName(string fullName, ref string instanceName)
+        private static string ParseInstanceName(string fullName, ref string instanceName)
         {
             //Self.AgentActionTest::Action2(0)
             int pClassBegin = fullName.IndexOf('.');
@@ -43,7 +41,7 @@ namespace behaviac
             return propertyName;
         }
 
-        static int ParseMethodNames(string fullName, ref string agentIntanceName, ref string agentClassName, ref string methodName)
+        public static int ParseMethodNames(string fullName, ref string agentIntanceName, ref string agentClassName, ref string methodName)
         {
             //Self.test_ns::AgentActionTest::Action2(0)
             int pClassBegin = fullName.IndexOf('.');
@@ -75,7 +73,7 @@ namespace behaviac
         }
 
         //suppose params are seprated by ','
-        static List<string> ParseForParams(string tsrc)
+        public static List<string> ParseForParams(string tsrc)
         {
             int tsrcLen = tsrc.Length;
             int startIndex = 0;
@@ -101,6 +99,7 @@ namespace behaviac
                         quoteDepth -= 2;
                         Debug.Check(quoteDepth >= 0);
                     }
+
                 }
                 else if (quoteDepth == 0 && tsrc[index] == ',')
                 {
@@ -114,6 +113,7 @@ namespace behaviac
 
             // the last param
             int lengthTemp0 = index - startIndex;
+
             if (lengthTemp0 > 0)
             {
                 string strTemp = tsrc.Substring(startIndex, lengthTemp0);
@@ -128,6 +128,12 @@ namespace behaviac
         public static CMethodBase LoadMethod(string value_)
         {
             //Self.test_ns::AgentActionTest::Action2(0)
+            if (string.IsNullOrEmpty(value_) || (value_[0] == '\"' && value_[1] == '\"'))
+            {
+                //empty value
+                return null;
+            }
+
             string agentIntanceName = null;
             string agentClassName = null;
             string methodName = null;
@@ -141,19 +147,13 @@ namespace behaviac
 
             if (method == null)
             {
-				behaviac.Debug.LogWarning(string.Format("No Method {0}::{1} registered\n", agentClassName, methodName));
-				Debug.Check(false, string.Format("No Method {0}::{1} registered\n", agentClassName, methodName));
+                behaviac.Debug.LogWarning(string.Format("No Method {0}::{1} registered\n", agentClassName, methodName));
+                Debug.Check(false, string.Format("No Method {0}::{1} registered\n", agentClassName, methodName));
+
             }
             else
             {
-                if (Agent.IsNameRegistered(agentIntanceName))
-                {
-                    method.InstanceName = agentIntanceName; 
-                }
-                else
-                {
-                    //Debug.Check(agentIntanceName == "Self");
-                }
+                method.InstanceName = agentIntanceName;
 
                 Debug.Check(method != null, string.Format("No Method {0}::{1} registered", agentClassName, methodName));
                 string params_ = value_.Substring(pBeginP);
@@ -185,7 +185,7 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
                 if (p.name == "Method")
                 {
@@ -193,25 +193,30 @@ namespace behaviac
                     {
                         this.m_method = Action.LoadMethod(p.value);
                     }//if (p.value[0] != '\0')
+
                 }
                 else if (p.name == "ResultOption")
                 {
                     if (p.value == "BT_INVALID")
                     {
                         m_resultOption = EBTStatus.BT_INVALID;
+
                     }
                     else if (p.value == "BT_FAILURE")
                     {
                         m_resultOption = EBTStatus.BT_FAILURE;
+
                     }
                     else if (p.value == "BT_RUNNING")
                     {
                         m_resultOption = EBTStatus.BT_RUNNING;
+
                     }
                     else
                     {
                         m_resultOption = EBTStatus.BT_SUCCESS;
                     }
+
                 }
                 else if (p.name == "ResultFunctor")
                 {
@@ -219,22 +224,8 @@ namespace behaviac
                     {
                         this.m_resultFunctor = Action.LoadMethod(p.value);
                     }
+
                 }
-				else if (p.name == "PreconditionFailResult")
-				{
-					if (p.value == "BT_FAILURE")
-					{
-						m_resultPreconditionFail = EBTStatus.BT_FAILURE;
-					}
-					else if (p.value == "BT_SUCCESS")
-					{
-						m_resultPreconditionFail = EBTStatus.BT_SUCCESS;
-					}
-					else
-					{
-						Debug.Check(false);
-					}
-				}
                 else
                 {
                     //Debug.Check(0, "unrecognised property %s", p.name);
@@ -263,16 +254,19 @@ namespace behaviac
                 if (this.m_resultOption != EBTStatus.BT_INVALID)
                 {
                     result = this.m_resultOption;
+
                 }
                 else if (this.m_resultFunctor != null)
                 {
                     result = (EBTStatus)this.m_resultFunctor.Invoke(pAgent, returnValue);
+
                 }
                 else
                 {
                     Debug.Check(returnValue is EBTStatus, "method's return type is not EBTStatus");
                     result = (EBTStatus)returnValue;
                 }
+
             }
             else
             {
@@ -282,7 +276,6 @@ namespace behaviac
             return result;
         }
 
-
         protected override BehaviorTask createTask()
         {
             ActionTask pTask = new ActionTask();
@@ -291,16 +284,44 @@ namespace behaviac
         }
 
         protected CMethodBase m_method;
-        EBTStatus m_resultOption;
-        CMethodBase m_resultFunctor;
-		EBTStatus m_resultPreconditionFail;
 
-        class ActionTask : LeafTask
+        public EBTStatus Execute(Agent pAgent, object[] paramsValue)
+        {
+            EBTStatus result = EBTStatus.BT_SUCCESS;
+
+            if (this.m_method != null)
+            {
+                object returnValue = this.m_method.Invoke(pAgent, paramsValue);
+
+                if (this.m_resultOption != EBTStatus.BT_INVALID)
+                {
+                    result = this.m_resultOption;
+
+                }
+                else if (this.m_resultFunctor != null)
+                {
+                    result = (EBTStatus)this.m_resultFunctor.Invoke(pAgent, returnValue);
+
+                }
+                else
+                {
+                    Debug.Check(returnValue is EBTStatus, "method's return type is not EBTStatus");
+                    result = (EBTStatus)returnValue;
+                }
+            }
+
+            return result;
+        }
+
+        protected EBTStatus m_resultOption;
+        private CMethodBase m_resultFunctor;
+
+        private class ActionTask : LeafTask
         {
             public ActionTask()
             {
-
             }
+
             ~ActionTask()
             {
             }
@@ -314,6 +335,7 @@ namespace behaviac
             {
                 base.save(node);
             }
+
             public override void load(ISerializableNode node)
             {
                 base.load(node);
@@ -323,25 +345,9 @@ namespace behaviac
             {
                 return true;
             }
+
             protected override void onexit(Agent pAgent, EBTStatus s)
             {
-			}
-
-            static int ms_lastNodeId = -2;
-
-            static void SetNodeId(int nodeId)
-            {
-                ms_lastNodeId = nodeId;
-            }
-
-            static void ClearNodeId()
-            {
-                ms_lastNodeId = -2;
-            }
-
-            public static int GetNodeId()
-            {
-                return ms_lastNodeId;
             }
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
@@ -351,16 +357,10 @@ namespace behaviac
                 Debug.Check(this.GetNode() is Action, "node is not an Action");
                 Action pActionNode = (Action)(this.GetNode());
 
-				if (!this.CheckPredicates(pAgent))
-				{
-					return pActionNode.m_resultPreconditionFail;
-				}
-
                 EBTStatus result = pActionNode.Execute(pAgent, childStatus);
 
                 return result;
             }
-            
         }
     }
 }

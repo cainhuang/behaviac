@@ -52,7 +52,6 @@ namespace behaviac
                     Result = 1
                 };
             };
-
         }
     }
 }

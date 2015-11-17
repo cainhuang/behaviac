@@ -16,59 +16,53 @@
 
 namespace behaviac
 {
-	DecoratorAlwaysSuccess::DecoratorAlwaysSuccess()
-	{}
+    DecoratorAlwaysSuccess::DecoratorAlwaysSuccess()
+    {}
 
-	DecoratorAlwaysSuccess::~DecoratorAlwaysSuccess()
-	{}
+    DecoratorAlwaysSuccess::~DecoratorAlwaysSuccess()
+    {}
 
-	void DecoratorAlwaysSuccess::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void DecoratorAlwaysSuccess::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool DecoratorAlwaysSuccess::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!DecoratorAlwaysSuccess::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool DecoratorAlwaysSuccess::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!DecoratorAlwaysSuccess::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
+        return super::IsValid(pAgent, pTask);
+    }
 
-	BehaviorTask* DecoratorAlwaysSuccess::createTask() const
-	{
-		DecoratorAlwaysSuccessTask* pTask = BEHAVIAC_NEW DecoratorAlwaysSuccessTask();
-		
+    BehaviorTask* DecoratorAlwaysSuccess::createTask() const
+    {
+        DecoratorAlwaysSuccessTask* pTask = BEHAVIAC_NEW DecoratorAlwaysSuccessTask();
 
-		return pTask;
-	}
+        return pTask;
+    }
 
-	void DecoratorAlwaysSuccessTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void DecoratorAlwaysSuccessTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
+    void DecoratorAlwaysSuccessTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void DecoratorAlwaysSuccessTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void DecoratorAlwaysSuccessTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-	void DecoratorAlwaysSuccessTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    EBTStatus DecoratorAlwaysSuccessTask::decorate(EBTStatus status)
+    {
+        BEHAVIAC_UNUSED_VAR(status);
 
-
-
-	EBTStatus DecoratorAlwaysSuccessTask::decorate(EBTStatus status)
-	{
-		BEHAVIAC_UNUSED_VAR(status);
-
-		return BT_SUCCESS;
-	}
-
+        return BT_SUCCESS;
+    }
 }//namespace behaviac

@@ -11,15 +11,14 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BASE_SLIST_H_
-#define BEHAVIAC_BASE_SLIST_H_
+#ifndef BEHAVIAC_BASE_SLIST_H
+#define BEHAVIAC_BASE_SLIST_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
 
 namespace behaviac
 {
-
     /// Single Linked list declaration for elements that belong to a list
     /// \sa SList
 #define BEHAVIAC_DECLARE_SLIST(CLASSNAME)                           \
@@ -48,21 +47,21 @@ public:                                                         \
 
     /// Single Linked list declaration to put in your class declaration.
     /*! This is a typical single linked list class. Its main advantage reside in the fact the there is no
-        dynamic allocation involved, since all your elements object will have in their  next pointer
-        space already reserved in their object. To reserve this space in your element object, use the BEHAVIAC_DECLARE_SLIST
-        macro. (You can use BEHAVIAC_DECLARE_SLIST2, BEHAVIAC_DECLARE_SLIST3, etc. if you want your object to be the element of
-        more than a list at the time).
-        Here's an example how to declare your object as a single linked list node.
-        \code
-        class MyClass
-        {
-            BEHAVIAC_DECLARE_SLIST(MyClass)
+    	dynamic allocation involved, since all your elements object will have in their  next pointer
+    	space already reserved in their object. To reserve this space in your element object, use the BEHAVIAC_DECLARE_SLIST
+    	macro. (You can use BEHAVIAC_DECLARE_SLIST2, BEHAVIAC_DECLARE_SLIST3, etc. if you want your object to be the element of
+    	more than a list at the time).
+    	Here's an example how to declare your object as a single linked list node.
+    	\code
+    	class MyClass
+    	{
+    	BEHAVIAC_DECLARE_SLIST(MyClass)
 
-            public:
-            MyClass() {  }
-        };
-        \endcode
-    */
+    	public:
+    	MyClass() {  }
+    	};
+    	\endcode
+    	*/
     class BEHAVIAC_API SList
     {
     public:
@@ -128,7 +127,6 @@ public:                                                         \
 
             /// Next pointer
             NODETYPE*      m_pNext[NBLIST];
-
         }; // Class Node
 
         // Returns true if the node is in a linked list
@@ -143,8 +141,8 @@ public:                                                         \
 
         /// SList SRoot is the root object that will handle the single linked list
         /*! The root object is a template, and receive an object type as template parameter. This object
-            type must have the BEHAVIAC_DECLARE_SLIST in his declaration.
-        */
+        	type must have the BEHAVIAC_DECLARE_SLIST in his declaration.
+        	*/
         template <typename NODETYPE, int LISTNB = 0>
         class SRoot
         {
@@ -169,6 +167,7 @@ public:                                                         \
                 {
                     NewNode.m_llist.m_pNext[LISTNB] = this->m_pHead;
                     this->m_pHead = &NewNode;
+
                 }
                 else
                 {
@@ -190,6 +189,7 @@ public:                                                         \
                 {
                     this->m_pTail->m_llist.m_pNext[LISTNB] = &NewNode;
                     this->m_pTail = &NewNode;
+
                 }
                 else
                 {
@@ -199,10 +199,10 @@ public:                                                         \
 
             /// Insert an element in a single linked list after a specified node
             /*! The Element must be initialized and not currently in a list
-                \param CurrentNode The Node currently in the list, that will be linked before the new node
-                \param NewNode A reference on the node to add
-                \return None
-            */
+            	\param CurrentNode The Node currently in the list, that will be linked before the new node
+            	\param NewNode A reference on the node to add
+            	\return None
+            	*/
             inline void InsertAfter(NODETYPE& CurrentNode, NODETYPE& NewNode)
             {
                 BEHAVIAC_ASSERT(!IsLinked(NewNode, LISTNB));
@@ -220,10 +220,10 @@ public:                                                         \
 
             /// Remove an element in a single linked list after a specified node
             /*! \param pPreviousNode A pointer on the node just before the node to remove.
-                                     Null an be sent if you remove the head.
-                \return The Element after the specified element or NULL if pPreviousNode is the
-                        last element of the list.
-            */
+            						 Null an be sent if you remove the head.
+            						 \return The Element after the specified element or NULL if pPreviousNode is the
+            						 last element of the list.
+            						 */
             inline NODETYPE* PopAfter(NODETYPE* pPreviousNode)
             {
                 NODETYPE* pResult = 0;
@@ -232,6 +232,7 @@ public:                                                         \
                 {
                     // If this is the head, just pop the firs element
                     pResult = PopFront();
+
                 }
                 else if (pPreviousNode != this->m_pTail)
                 {
@@ -253,9 +254,9 @@ public:                                                         \
 
             /// Unlink the first element of the single linked list (Head).
             /*! If the list is empty, 0 is returned.
-                \return A pointer on the first element, removed from the list or 0 if the list is empty.
-                \sa Empty()
-            */
+            	\return A pointer on the first element, removed from the list or 0 if the list is empty.
+            	\sa Empty()
+            	*/
             inline NODETYPE* PopFront(void)
             {
                 NODETYPE* pResult = this->m_pHead;
@@ -295,8 +296,8 @@ public:                                                         \
 
             /// Find if a node is in the list or not.
             /*! \param ToFind A reference on the node to find.
-                \return true if the node passed in parameter is in the list, false if the node haven't been found.
-            */
+            	\return true if the node passed in parameter is in the list, false if the node haven't been found.
+            	*/
             inline bool Find(const NODETYPE& ToFind)
             {
                 NODETYPE*  pIndex = this->m_pHead;
@@ -311,9 +312,9 @@ public:                                                         \
 
             /// Returns the number of elements in the list
             /*! Scan the SList & Count the number of elements in it.
-                WARNING: This function can be slow since it pass all the elements in the list.
-                Should be used only for testing & stats purpose.
-            */
+            	WARNING: This function can be slow since it pass all the elements in the list.
+            	Should be used only for testing & stats purpose.
+            	*/
             inline size_t size(void) const
             {
                 unsigned    Result = 0;
@@ -485,9 +486,7 @@ public:                                                         \
 
                 SRoot<NODETYPE, LISTNB>*      m_pHead;        /// A pointer on the root object
                 NODETYPE*                    m_pIndex;       /// The Iterator internal index
-
             }; // class SIterator
-
         }; // class SRoot
 
         //// Generic Services
@@ -545,8 +544,6 @@ public:                                                         \
     {
         return node.m_llist.m_pNext[LISTNB];
     }
-
 }//end of namespace
 
-
-#endif // #ifndef BEHAVIAC_BASE_SLIST_H_
+#endif // #ifndef BEHAVIAC_BASE_SLIST_H

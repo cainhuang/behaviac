@@ -19,13 +19,12 @@
 #include <pthread.h>
 #include <errno.h>
 
-
 namespace behaviac
 {
 #if BEHAVIAC_COMPILER_APPLE
     ////////////////////////////////////////////////////////////////////////////////
     Mutex::Mutex() : _impl(0)
-    {        
+    {
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -46,24 +45,24 @@ namespace behaviac
     ////////////////////////////////////////////////////////////////////////////////
     bool Mutex::TryLock()
     {
-		return false;
+        return false;
     }
 #else
     struct Mutex::MutexImpl
-    {        
-    	pthread_mutex_t _mutex;
+    {
+        pthread_mutex_t _mutex;
     };
 
     ////////////////////////////////////////////////////////////////////////////////
     Mutex::Mutex() : _impl(0)
-    {        
+    {
         // uint32_t s = sizeof(MutexImpl);
         // printf("size of MutexImpl %d\n", s);
         // Be sure that the shadow is large enough
         BEHAVIAC_ASSERT(sizeof(m_Shadow) >= sizeof(MutexImpl));
 
         // Use the shadow as memory space for the platform specific implementation
-		_impl = (MutexImpl*) m_Shadow;
+        _impl = (MutexImpl*)m_Shadow;
 
         pthread_mutex_init(&_impl->_mutex, 0);
     }
@@ -71,7 +70,7 @@ namespace behaviac
     ////////////////////////////////////////////////////////////////////////////////
     Mutex::~Mutex()
     {
-		pthread_mutex_destroy(&_impl->_mutex);
+        pthread_mutex_destroy(&_impl->_mutex);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -93,16 +92,16 @@ namespace behaviac
     ////////////////////////////////////////////////////////////////////////////////
     bool Mutex::TryLock()
     {
-#if !BEHAVIAC_COMPILER_GCC_LINUX        
+#if !BEHAVIAC_COMPILER_GCC_LINUX
         int rval = pthread_mutex_trylock(&_impl->_mutex);
         // valid returns are 0 (locked) and [EBUSY]
         BEHAVIAC_ASSERT(rval == 0 || rval == EBUSY, "critical_section::trylock: pthread_mutex_trylock failed");
         bool gotlock = (rval == 0);
 
-		return gotlock;
+        return gotlock;
 #else
         return false;
-#endif        
+#endif
     }
 #endif//BEHAVIAC_COMPILER_APPLE
 }//namespace behaviac

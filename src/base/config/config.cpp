@@ -100,9 +100,9 @@ void CConfig::MergeSections(const char* sourceSectionName, const char* destinati
 {
     const CStringID sourceSectionID(sourceSectionName);
     const CStringID destinationSectionID(destinationSectionName);
-    const TSectionXmlInfoMap& sourceSection = m_settings[ sourceSectionID ];
-    TSectionXmlInfoMap& destinationSection = m_settings[ destinationSectionID ];
-    TSectionXmlInfoMap::const_iterator it    = sourceSection.begin();
+    const TSectionXmlInfoMap& sourceSection = m_settings[sourceSectionID];
+    TSectionXmlInfoMap& destinationSection = m_settings[destinationSectionID];
+    TSectionXmlInfoMap::const_iterator it = sourceSection.begin();
     TSectionXmlInfoMap::const_iterator itEnd = sourceSection.end();
 
     for (; it != itEnd; ++it)
@@ -112,6 +112,7 @@ void CConfig::MergeSections(const char* sourceSectionName, const char* destinati
         if (itDest == destinationSection.end())
         {
             destinationSection.insert(*it);
+
         }
         else if (overrideIfPresent)
         {
@@ -154,6 +155,7 @@ bool CConfig::LoadConfig(const char* Config)
                         if (setting->getAttr("id", id))
                         {
                             sid.SetContent(id.c_str());
+
                         }
                         else
                         {
@@ -162,6 +164,7 @@ bool CConfig::LoadConfig(const char* Config)
 
                         setting->getAttr("string", value);
                         m_settings[sectionId][sid] = value;
+
                     }
                     else
                     {
@@ -171,6 +174,7 @@ bool CConfig::LoadConfig(const char* Config)
                 }
             }
         }
+
     }
     else
     {

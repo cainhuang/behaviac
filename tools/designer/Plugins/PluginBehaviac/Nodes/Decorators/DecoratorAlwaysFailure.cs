@@ -20,7 +20,7 @@ using PluginBehaviac.Properties;
 
 namespace PluginBehaviac.Nodes
 {
-    [NodeDesc("Decorators", "alwaysFailure_ico")]
+    //[NodeDesc("Decorators", "alwaysFailure_ico")]
     public class DecoratorAlwaysFailure : Decorator
 	{
         public DecoratorAlwaysFailure()

@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BASE_SET_H_
-#define _BASE_SET_H_
+#ifndef BEHAVIAC_BASE_SET_H
+#define BEHAVIAC_BASE_SET_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
@@ -22,13 +22,12 @@
 
 namespace behaviac
 {
-	template<class _Kty,
-	class _Pr = std::less<_Kty>,
-	class _Alloc = behaviac::stl_allocator<_Kty> >
-	class set_t : public std::set<_Kty, _Pr, _Alloc>
-	{
-
-	};
+    template < class _Kty,
+             class _Pr = std::less<_Kty>,
+             class _Alloc = behaviac::stl_allocator<_Kty> >
+    class set_t : public std::set<_Kty, _Pr, _Alloc>
+    {
+    };
 }//namespace behaviac
 
-#endif //#ifndef _BASE_SET_H_
+#endif //#ifndef BEHAVIAC_BASE_SET_H

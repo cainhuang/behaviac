@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_FILESYSTEM_NATIVE_H_
-#define _CORE_FILESYSTEM_NATIVE_H_
+#ifndef BEHAVIAC_CORE_FILESYSTEM_NATIVE_H
+#define BEHAVIAC_CORE_FILESYSTEM_NATIVE_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/string/stringutils.h"
@@ -51,12 +51,12 @@ class BEHAVIAC_API CFileSystem
 {
 public:
 
-	static const uint32_t kMAX_PATH = 260; 
+    static const uint32_t kMAX_PATH = 260;
     // global constants
     static const uint32_t MAX_FILE_PATH_SIZE = (kMAX_PATH);
     static const uint32_t MAX_FILE_SHORT_PATH_SIZE = (13); // 8.3
 
-	typedef void* Handle;
+    typedef void* Handle;
 
     struct SFileInfo
     {
@@ -69,27 +69,27 @@ public:
         static const uint32_t ATTRIB_FILE = 1;
 
         uint32_t   fileAttributes; // one of the two above const
-        char     fileName[ MAX_FILE_PATH_SIZE + 1 ]; // +1 for 0 terminating
-        char     alternFileName[ MAX_FILE_SHORT_PATH_SIZE + 1 ]; // +1 for 0 terminating
+        char     fileName[MAX_FILE_PATH_SIZE + 1]; // +1 for 0 terminating
+        char     alternFileName[MAX_FILE_SHORT_PATH_SIZE + 1]; // +1 for 0 terminating
     };
 
-	/// File open mode.
-	enum EOpenAccess
-	{
-		EOpenAccess_Invalid = 0,
-		EOpenAccess_Read = 1,
-		EOpenAccess_Write = 2,
-		EOpenAccess_ReadWrite = 4, 
-		EOpenAccess_WriteAppend = 8
-	};
+    /// File open mode.
+    enum EOpenAccess
+    {
+        EOpenAccess_Invalid = 0,
+        EOpenAccess_Read = 1,
+        EOpenAccess_Write = 2,
+        EOpenAccess_ReadWrite = 4,
+        EOpenAccess_WriteAppend = 8
+    };
 
     enum ESeekMoveMode
     {
-        ESeekMoveMode_Cur =         0,
-        ESeekMoveMode_End =			1,
-        ESeekMoveMode_Begin =	    2,
-        ESeekMoveMode_Set =	        3, // for SEEK_SET synonym
-        ESeekMoveMode_Force32Bits =	0xFFFFFFFF
+        ESeekMoveMode_Cur = 0,
+        ESeekMoveMode_End = 1,
+        ESeekMoveMode_Begin = 2,
+        ESeekMoveMode_Set = 3, // for SEEK_SET synonym
+        ESeekMoveMode_Force32Bits = 0xFFFFFFFF
     };
 
     static bool GetFileInfo(const char* inFileName, SFileInfo& fileInfo);
@@ -173,7 +173,7 @@ public:
 
     static bool StartMonitoringDirectory(const wchar_t* dir);
     static void StopMonitoringDirectory();
-    static void GetModifiedFiles(behaviac::vector<behaviac::wstring>& modifiedFiles);
+    static void GetModifiedFiles(behaviac::vector<behaviac::string>& modifiedFiles);
 };
 
-#endif // #ifndef _CORE_FILESYSTEM_NATIVE_H_
+#endif // #ifndef BEHAVIAC_CORE_FILESYSTEM_NATIVE_H

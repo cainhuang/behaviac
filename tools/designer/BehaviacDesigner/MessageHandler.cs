@@ -24,340 +24,95 @@ namespace Behaviac.Design
 {
     class MessageHandler
     {
-        internal static void RegisterMessageHandler()
-        {
+        internal static void RegisterMessageHandler() {
             MessageQueue.ProcessMessageHandler -= processMessage;
             MessageQueue.ProcessMessageHandler += processMessage;
         }
 
         private static Dictionary<string, bool> _checkedBehaviorFiles = new Dictionary<string, bool>();
 
-        public static void Init()
-        {
+        public static void Init() {
             _checkedBehaviorFiles.Clear();
         }
 
         private static bool ms_workspace_handled = false;
         private static string ms_fileFormat = "xml";
 
-        private static UpdateModes processMessage(string msg)
-        {
-            try
-            {
-                if (msg.StartsWith("[workspace]"))
-                {
-                    if (!ms_workspace_handled && Plugin.WorkspaceDelegateHandler != null)
-                    {
-                        string str_ = msg.Substring(11);
-                        string format = "";
 
-                        //skip the space
-                        int pos = 1;
-                        for (; pos < str_.Length; ++pos)
-                        {
-                            format += str_[pos];
-                            if (str_[pos] == ' ')
-                            {
-                                break;
-                            }
-                        }
+        private static UpdateModes processMessage(string _msg) {
+            try {
+                //skip index
+                //string msg = _msg.Substring(10);
+                int pos = _msg.IndexOf("][");
+                string msg = _msg.Substring(pos + 1);
 
-                        ms_fileFormat = format.Trim();
+                //Console.WriteLine(msg.Trim());
+                if (msg.StartsWith("[workspace]")) {
+                    processWorkspace(msg);
 
-                        Debug.Check(ms_fileFormat == "xml" || ms_fileFormat == "bson");
+                } else if (msg.StartsWith("[connected]")) {
+                    processConnected();
 
-                        //skip the space
-                        string str = str_.Substring(pos + 1);
-                        if (!string.IsNullOrEmpty(str))
-                        {
-                            string wksName = string.Empty;
-                            if (str[0] == '\"')
-                            {
-                                for (int i = 1; i < str.Length; ++i)
-                                {
-                                    if (str[i] == '\"')
-                                    {
-                                        wksName = str.Substring(1, i - 1);
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                string[] tokens = str.Split(' ');
-                                wksName = tokens[0].Trim(new char[] { ' ', '\"' });
-                            }
-
-                            if (!string.IsNullOrEmpty(wksName))
-                            {
-                                wksName = Path.GetFullPath(wksName);
-
-                                //Plugin_WorkspaceDelegateHandler might be blocked
-                                ms_workspace_handled = true;
-                                Plugin.WorkspaceDelegateHandler(wksName, false, true);
-                                ms_workspace_handled = false;
-                            }
-
-                            //
-                            AgentDataPool.TotalFrames = 0;
-                        }
-                    }
-                }
-                else if (msg.StartsWith("[connected]"))
-                {
-                    MessageQueue.IsConnected = true;
-
-                    //sending breakpoints after receving those precaches messages
-                    NetworkManager.Instance.SendLoadedBreakpoints();
-                    NetworkManager.Instance.SendProfiling(Settings.Default.ShowProfilingInfo);
-
-                    //BreakAPP can only be sent to cpp after all the breakpoints info have been sent
-                    //sending BreakAPP to cpp to enable the debugging
-                    NetworkManager.Instance.SendBreakAPP(Settings.Default.BreakAPP);
-                    NetworkManager.Instance.SendText("[start]\n");
-                }
-                else if (msg.StartsWith("[frame]"))
-                {
+                } else if (msg.StartsWith("[frame]")) {
                     // [frame]0
                     AgentDataPool.TotalFrames = (int.Parse(msg.Substring(7)));
-                }
-                else if (msg.StartsWith("[property]"))
-                {
-                    // Par:   [property]a->10
-                    // World: [property]WorldTest::World WorldTest::Property3->10
-                    // Agent: [property]AgentTest::AgentTest_1 AgentTest::Property5::type::name->10
 
-                    string[] tokens = msg.Substring(10).Split(' ');
-                    Debug.Check(tokens.Length > 0);
+                } else if (msg.StartsWith("[property]")) {
+                    processProperty(msg);
 
-                    string agentType = string.Empty;
-                    string agentName = string.Empty;
-                    string agentFullname = string.Empty;
+                } else if (msg.StartsWith("[tick]")) {
+                    processTick(msg);
 
-                    // Par
-                    if (tokens.Length == 1)
-                    {
-                        agentType = string.Empty;
-                        agentName = VariableDef.kPar;
-                        agentFullname = tokens[0];
-                    }
-                    // Global or Agent
-                    else
-                    {
-                        string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-                        Debug.Check(types.Length == 2);
-                        agentType = types[0];
-                        agentName = types[1];
-                        agentFullname = tokens[0];
+                } else if (msg.StartsWith("[jump]")) {
+                    processJump(msg);
 
-                        AgentInstancePool.AddInstance(agentType, agentName);
-                    }
+                } else if (msg.StartsWith("[return]")) {
+                    processReturn(msg);
 
-                    Debug.Check(!string.IsNullOrEmpty(agentFullname));
+                } else if (msg.StartsWith("[plan_")) {
+                    string m = msg.Trim();
 
-                    string[] values = tokens[tokens.Length - 1].Split(new string[] { "->", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                    if (values.Length == 2)
-                    {
-                        if (AgentDataPool.TotalFrames > -1 && !string.IsNullOrEmpty(agentFullname))
-                        {
-                            AgentDataPool.AddValue(agentFullname, values[0], AgentDataPool.TotalFrames, values[1]);
-                        }
-                    }
-                }
-                else if (msg.StartsWith("[tick]"))
-                {
-                    // [tick]Ship::Ship_1 ships\basic.xml->BehaviorTree[0]:enter [all/success/failure] [1]
-                    // [tick]Ship::Ship_1 ships\basic.xml->BehaviorTree[0]:update [1]
+                    //Console.WriteLine(m);
 
-                    string[] tokens = msg.Substring(6).Split(' ');
-                    if (tokens.Length == 4)
-                    {
-                        string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-                        Debug.Check(types.Length == 2);
-                        string agentType = types[0];
-                        string agentName = types[1];
-                        string agentFullname = tokens[0];
+                    processPlanning(m);
 
-                        AgentInstancePool.AddInstance(agentType, agentName, true);
+                } else if (msg.StartsWith("[breaked]")) {
+                    processBreaked(msg);
 
-                        string[] nodes = tokens[1].Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
-                        if (nodes.Length == 2)
-                        {
-                            string behaviorFilename = nodes[0];
-
-                            checkBehaviorFiles(behaviorFilename);
-
-                            string[] actions = nodes[1].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                            if (actions.Length == 3)
-                            {
-                                string[] actionResults = tokens[2].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                                string[] hitCounts = tokens[3].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                                int hitCount = int.Parse(hitCounts[0]);
-                                string nodeId = actions[1];
-
-                                if (actions[2] == ":enter")
-                                {
-                                    FrameStatePool.EnterNode(agentFullname, AgentDataPool.TotalFrames, behaviorFilename, nodeId, actionResults[0], hitCount);
-                                }
-                                else if (actions[2] == ":exit")
-                                {
-                                    FrameStatePool.ExitNode(agentFullname, AgentDataPool.TotalFrames, behaviorFilename, nodeId, actionResults[0], hitCount);
-                                }
-                                else if (actions[2] == ":update")
-                                {
-                                    List<string> highlightNodeIds = FrameStatePool.GetHighlightNodeIds(agentFullname, AgentDataPool.TotalFrames, behaviorFilename);
-                                    if (highlightNodeIds != null && !highlightNodeIds.Contains(nodeId))
-                                        FrameStatePool.EnterNode(agentFullname, AgentDataPool.TotalFrames, behaviorFilename, actions[1], actionResults[0], hitCount);
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (msg.StartsWith("[jump]"))
-                {
-                    // [jump]Ship::Ship_1 ships/1_1_suicide[5] ships\basic
-
-                    string[] tokens = msg.Substring(6).Split(' ');
-                    if (tokens.Length == 3)
-                    {
-                        string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-                        Debug.Check(types.Length == 2);
-                        string agentType = types[0];
-                        string agentName = types[1];
-                        string agentFullname = tokens[0];
-
-                        //AgentInstancePool.AddInstance(agentType, agentName, true);
-                        string thisTree = null;
-
-                        int nodeId = -1;
-                        string[] nodes = tokens[1].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                        if (nodes.Length == 2)
-                        {
-                            thisTree = nodes[0];
-                            nodeId = int.Parse(nodes[1]);
-                        }
-                        else
-                        {
-                            Debug.Check(false);
-                        }
-
-                        string jumpTree = tokens[2].Trim(new char[] { '\n' });
-
-                        FrameStatePool.SetJumpInfo(agentFullname, thisTree, nodeId, jumpTree);
-                    }
-                }
-                else if (msg.StartsWith("[return]"))
-                {
-                    // [return]Ship::Ship_1 ships\basic
-
-                    string[] tokens = msg.Substring(8).Split(' ');
-                    if (tokens.Length == 2)
-                    {
-                        string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-                        Debug.Check(types.Length == 2);
-                        string agentType = types[0];
-                        string agentName = types[1];
-                        string agentFullname = tokens[0];
-
-                        //AgentInstancePool.AddInstance(agentType, agentName, true);
-
-                        string lastTree = tokens[1].Trim(new char[] { '\n' });
-
-                        FrameStatePool.SetReturnInfo(agentFullname, lastTree);
-                    }
-                }
-                else if (msg.StartsWith("[breaked]"))
-                {
-                    //BreakAPP could be toggled off when the break dialog is prompted
-                    //Debug.Check(MessageQueue.BreakAPP);
-                    if (MessageQueue.BreakAPP)
-                    {
-                        string msg_real = msg.Substring(9);
-                        if (msg_real.StartsWith("[applog]"))
-                        {
-                            FrameStatePool.RespondToCPPBreak(AgentDataPool.TotalFrames, msg_real);
-                        }
-                        else
-                        {
-                            //[breaked]Ship::Ship_1 ships\basic.xml->BehaviorTree[0]:enter [all/success/failure] [1]
-                            string[] tokens = msg_real.Split(' ');
-                            if (tokens.Length == 4)
-                            {
-                                string agentFullname = tokens[0];
-                                //if (string.IsNullOrEmpty(Plugin.DebugAgentInstance))
-                                {
-                                    Plugin.DebugAgentInstance = agentFullname;
-                                }
-
-                                string[] nodes = tokens[1].Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
-                                if (nodes.Length == 2)
-                                {
-                                    string[] actions = nodes[1].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                                    if (actions.Length == 3)
-                                    {
-                                        Debug.Check(actions[2].StartsWith(":"));
-                                        string actionName = actions[2].Substring(1);
-                                        string[] actionResults = tokens[2].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-
-                                        //although actionResult can be EAR_none or EAR_all, but, as this is the real result of an action
-                                        //it can only be success or failure
-                                        Debug.Check(actionResults.Length == 1 && (actionResults[0] == "success" || actionResults[0] == "failure"));
-
-                                        string[] hitCounts = tokens[3].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                                        int hitCount = int.Parse(hitCounts[0]);
-
-                                        FrameStatePool.RespondToAPPBreak(agentFullname, AgentDataPool.TotalFrames, nodes[0], actions[1], actionName, actionResults[0], hitCount);
-                                    }
-                                }
-                            }
-                        }
-
-                        Plugin.UpdateMode = UpdateModes.Break;
-                    }
-                }
-                else if (msg.StartsWith("[continue]"))
-                {
-                    if (MessageQueue.ContinueHandler != null)
+                } else if (msg.StartsWith("[continue]")) {
+                    if (MessageQueue.ContinueHandler != null) {
                         MessageQueue.ContinueHandler(msg);
-                }
-                else if (msg.StartsWith("[applog]"))
-                {
+                    }
+
+                } else if (msg.StartsWith("[applog]")) {
                     int frame = AgentDataPool.TotalFrames;
                     FrameStatePool.AddAppLog(frame, msg);
-                }
-                else if (msg.StartsWith("[log]"))
-                {
+
+                } else if (msg.StartsWith("[log]")) {
                     int frame = AgentDataPool.TotalFrames;
                     FrameStatePool.AddLog(frame, msg);
-                }
-                else if (msg.StartsWith("[profiler]"))
-                {
+
+                } else if (msg.StartsWith("[profiler]")) {
                     //[profiler]ships\0_basic.xml->BehaviorTree[-1] 685
                     string[] tokens = msg.Substring(10).Split(new char[] { ' ', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (tokens.Length == 2)
-                    {
+
+                    if (tokens.Length == 2) {
                         string[] nodes = tokens[0].Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
-                        if (nodes.Length == 2)
-                        {
+
+                        if (nodes.Length == 2) {
                             string behaviorFilename = nodes[0];
 
                             string[] ids = nodes[1].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                            if (ids.Length == 2)
-                            {
+
+                            if (ids.Length == 2) {
                                 FrameStatePool.SetProfileInfo(AgentDataPool.TotalFrames, behaviorFilename, ids[1], 0.001f * int.Parse(tokens[1]));
                             }
                         }
                     }
                 }
-                else
-                {
-                    //
-                    //Debug.Check(false);
-                }
-            }
-            catch
-            {
-                string errorInfo = string.Format("The message \"%s\" is failed to process.", msg);
+
+            } catch {
+                string errorInfo = string.Format("The message \"{0}\" was not processed.", _msg);
                 Console.WriteLine(errorInfo);
                 MessageBox.Show(errorInfo, "Error", MessageBoxButtons.OK);
             }
@@ -365,40 +120,417 @@ namespace Behaviac.Design
             return Plugin.UpdateMode;
         }
 
-        private static void checkBehaviorFiles(string behaviorFilename)
-        {
-            if (_checkedBehaviorFiles.ContainsKey(behaviorFilename))
+        private static void processConnected() {
+            MessageQueue.IsConnected = true;
+
+            NetworkManager.Instance.SendProfiling(Settings.Default.ShowProfilingInfo);
+
+            NetworkManager.Instance.SendText("[start]\n");
+
+            NetworkManager.Instance.SendLoadedBreakpoints();
+
+            Plugin.UpdateMode = UpdateModes.Continue;
+        }
+
+        private static void processWorkspace(string msg) {
+            if (!ms_workspace_handled && Plugin.WorkspaceDelegateHandler != null) {
+                string str_ = msg.Substring(11);
+                string format = "";
+
+                //skip the space
+                int pos = 1;
+
+                for (; pos < str_.Length; ++pos) {
+                    format += str_[pos];
+
+                    if (str_[pos] == ' ') {
+                        break;
+                    }
+                }
+
+                ms_fileFormat = format.Trim();
+
+                Debug.Check(ms_fileFormat == "xml" || ms_fileFormat == "bson");
+
+                //skip the space
+                string str = str_.Substring(pos + 1);
+
+                if (!string.IsNullOrEmpty(str)) {
+                    string wksName = string.Empty;
+
+                    if (str[0] == '\"') {
+                        for (int i = 1; i < str.Length; ++i) {
+                            if (str[i] == '\"') {
+                                wksName = str.Substring(1, i - 1);
+                                break;
+                            }
+                        }
+
+                    } else {
+                        string[] tokens = str.Split(' ');
+                        wksName = tokens[0].Trim(new char[] { ' ', '\"' });
+                    }
+
+                    if (!string.IsNullOrEmpty(wksName)) {
+                        wksName = Path.GetFullPath(wksName);
+
+                        if (!File.Exists(wksName))
+                        {
+                            string errorInfo = string.Format(Resources.WorkspaceDebugErrorInfo, wksName);
+                            Console.WriteLine(errorInfo);
+                            MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
+                        }
+                        else
+                        {
+                            //Plugin_WorkspaceDelegateHandler might be blocked
+                            ms_workspace_handled = true;
+                            Plugin.WorkspaceDelegateHandler(wksName, false);
+                            ms_workspace_handled = false;
+                        }
+
+                        Console.WriteLine("processWorkspace handled!");
+                    }
+
+                    AgentDataPool.TotalFrames = 0;
+                }
+            }
+        }
+
+        private static void processBreaked(string msg) {
+            string msg_real = msg.Substring(9);
+
+            if (msg_real.StartsWith("[applog]"))
+            {
+                FrameStatePool.RespondToCPPBreak(AgentDataPool.TotalFrames, msg_real);
+
+            }
+            else
+            {
+                //[breaked]Ship::Ship_1 ships\basic.xml->BehaviorTree[0]:enter [all/success/failure] [1]
+                string[] tokens = msg_real.Split(' ');
+
+                if (tokens.Length == 4)
+                {
+                    string agentFullname = tokens[0];
+                    //if (string.IsNullOrEmpty(Plugin.DebugAgentInstance))
+                    {
+                        Plugin.DebugAgentInstance = agentFullname;
+                    }
+
+                    string[] nodes = tokens[1].Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (nodes.Length == 2)
+                    {
+                        string[] actions = nodes[1].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (actions.Length == 3)
+                        {
+                            Debug.Check(actions[2].StartsWith(":"));
+                            string actionName = actions[2].Substring(1);
+                            string[] actionResults = tokens[2].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            //although actionResult can be EAR_none or EAR_all, but, as this is the real result of an action
+                            //it can only be success or failure
+                            Debug.Check(actionResults.Length == 1 && (actionResults[0] == "success" || actionResults[0] == "failure") || actionResults[0] == "all");
+
+                            string[] hitCounts = tokens[3].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+                            int hitCount = int.Parse(hitCounts[0]);
+
+                            if (actionName == "plan")
+                            {
+                                NodeTreeList.ShowPlanning(agentFullname, AgentDataPool.TotalFrames, hitCount);
+                            }
+
+                            FrameStatePool.RespondToAPPBreak(agentFullname, AgentDataPool.TotalFrames, nodes[0], actions[1], actionName, actionResults[0], hitCount);
+                        }
+                    }
+                }
+            }
+
+            Plugin.UpdateMode = UpdateModes.Break;
+        }
+
+        private static bool StartsWith(string msg, string keyWord, ref string[] tokens) {
+            if (msg.StartsWith(keyWord)) {
+                int len = keyWord.Length;
+                tokens = msg.Substring(len).Split(' ');
+
+                return true;
+            }
+
+            return false;
+        }
+
+
+        private static bool _ms_planning = false;
+        private static void processPlanning(string msg) {
+            string[] tokens = null;
+
+            if (MessageHandler.StartsWith(msg, "[plan_begin]", ref tokens)) {
+                //[plan_begin]CleaningRobot::RobotController#Controller CleanRooms.xml->Task[0]
+                if (tokens.Length == 3) {
+                    FrameStatePool.PlanBegin(tokens[0], tokens[1], tokens[2]);
+                    _ms_planning = true;
+                }
+
+            } else if (FrameStatePool.PlanningProcess._planning != null) {
+                if (MessageHandler.StartsWith(msg, "[plan_end]", ref tokens)) {
+                    //[plan_end]CleaningRobot::RobotController#Controller CleanRooms.xml->Task[0]
+                    if (tokens.Length == 2) {
+                        FrameStatePool.PlanEnd(tokens[0], tokens[1]);
+                        _ms_planning = false;
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_method_begin]", ref tokens)) {
+                    //[plan_method_begin]CleanRooms.xml->Method[13]
+                    if (tokens.Length == 1) {
+                        FrameStatePool.PlanningMethodBegin(tokens[0]);
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_method_end]", ref tokens)) {
+                    //[plan_method_end]CleanRooms.xml->Method[13] success
+                    if (tokens.Length == 2) {
+                        FrameStatePool.PlanningMethodEnd(tokens[0], tokens[1]);
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_node_begin]", ref tokens)) {
+                    //[plan_node_begin]CleanRooms.xml->Method[8]
+                    if (tokens.Length == 1) {
+                        FrameStatePool.PlanningNodeBegin(tokens[0]);
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_node_pre_failed]", ref tokens)) {
+                    //[plan_node_pre_failed]CleanRooms.xml->Method[1]
+                    if (tokens.Length == 1) {
+                        FrameStatePool.PlanningNodePreFailed(tokens[0]);
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_node_end]", ref tokens)) {
+                    //[plan_node_end]CleanRooms.xml->Method[1] failure
+                    if (tokens.Length == 2) {
+                        FrameStatePool.PlanningNodeEnd(tokens[0], tokens[1]);
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_referencetree_enter]", ref tokens)) {
+                    //[plan_referencetree_enter]CleanRooms.xml->ReferencedBehavior[10] MoveToRoom.xml
+                    if (tokens.Length == 2) {
+                        string fullId = tokens[0];
+                        string behaviorFilename = tokens[1];
+
+                        FrameStatePool.PlanningReferencedEnter(fullId, behaviorFilename);
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_referencetree_exit]", ref tokens)) {
+                    //[plan_referencetree_exit]CleanRooms.xml->ReferencedBehavior[10] MoveToRoom.xml
+                    if (tokens.Length == 2) {
+                        string fullId = tokens[0];
+                        string behaviorFilename = tokens[1];
+
+                        FrameStatePool.PlanningReferencedExit(fullId, behaviorFilename);
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_foreach_begin]", ref tokens)) {
+                    //[plan_foreach_begin]MoveToRoom.xml->DecoratorIterator[5] 0 2
+                    if (tokens.Length == 3) {
+                        string indexStr = tokens[1];
+                        string countStr = tokens[2];
+
+                        FrameStatePool.PlanningForEachBegin(tokens[0], indexStr, countStr);
+                    }
+
+                } else if (MessageHandler.StartsWith(msg, "[plan_foreach_end]", ref tokens)) {
+                    //[plan_foreach_end]MoveToRoom.xml->DecoratorIterator[5] 0 2 success
+                    if (tokens.Length == 4) {
+                        string indexStr = tokens[1];
+                        string countStr = tokens[2];
+                        string result = tokens[3];
+
+                        FrameStatePool.PlanningForEachEnd(tokens[0], indexStr, countStr, result);
+                    }
+
+                } else {
+                    Debug.Check(false);
+                }
+            }
+        }
+
+
+        private static void processReturn(string msg) {
+            // [return]CleaningRobot::RobotController#Controller CleanRooms.xml MoveToRoom.xml
+
+            string[] tokens = msg.Substring(8).Split(' ');
+
+            if (tokens.Length == 2) {
+                string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                Debug.Check(types.Length == 2);
+                string agentType = types[0];
+                string agentName = types[1];
+                string agentFullname = tokens[0];
+
+                //AgentInstancePool.AddInstance(agentType, agentName, true);
+
+                string returnFromTree = tokens[1].Trim(new char[] { '\n' });
+
+                FrameStatePool.SetReturnInfo(agentFullname, returnFromTree);
+            }
+        }
+
+        private static void processJump(string msg) {
+            // [jump]CleaningRobot::RobotController#Controller CleanRooms.xml
+
+            string[] tokens = msg.Substring(6).Split(' ');
+
+            if (tokens.Length == 2) {
+                string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                Debug.Check(types.Length == 2);
+                string agentType = types[0];
+                string agentName = types[1];
+                string agentFullname = tokens[0];
+
+                //AgentInstancePool.AddInstance(agentType, agentName, true);
+                string jumpTree = tokens[1].Trim(new char[] { '\n' });
+
+                checkBehaviorFiles(jumpTree);
+                FrameStatePool.SetJumpInfo(agentFullname, jumpTree, false);
+            }
+        }
+
+        private static void processTick(string msg) {
+            // [tick]Ship::Ship_1 ships\basic.xml->BehaviorTree[0]:enter [all/success/failure] [1]
+            // [tick]Ship::Ship_1 ships\basic.xml->BehaviorTree[0]:update [1]
+
+            string[] tokens = msg.Substring(6).Split(' ');
+
+            if (tokens.Length == 4) {
+                string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                Debug.Check(types.Length == 2);
+                string agentType = types[0];
+                string agentName = types[1];
+                string agentFullname = tokens[0];
+
+                AgentInstancePool.AddInstance(agentType, agentName, true);
+
+                string[] nodes = tokens[1].Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (nodes.Length == 2) {
+                    string behaviorFilename = nodes[0];
+
+                    checkBehaviorFiles(behaviorFilename);
+                    FrameStatePool.SetJumpInfo(agentFullname, behaviorFilename, true);
+
+                    string[] actions = nodes[1].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (actions.Length == 3) {
+                        string[] actionResults = tokens[2].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] hitCounts = tokens[3].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+                        int hitCount = int.Parse(hitCounts[0]);
+                        string nodeId = actions[1];
+
+                        if (actions[2] == ":enter") {
+                            FrameStatePool.EnterNode(agentFullname, AgentDataPool.TotalFrames, behaviorFilename, nodeId, actionResults[0], hitCount);
+
+                        } else if (actions[2] == ":exit") {
+                            FrameStatePool.ExitNode(agentFullname, AgentDataPool.TotalFrames, behaviorFilename, nodeId, actionResults[0], hitCount);
+
+                        } else if (actions[2] == ":update") {
+                            List<string> highlightNodeIds = FrameStatePool.GetHighlightNodeIds(agentFullname, AgentDataPool.TotalFrames, behaviorFilename);
+
+                            if (highlightNodeIds != null && !highlightNodeIds.Contains(nodeId)) {
+                                FrameStatePool.EnterNode(agentFullname, AgentDataPool.TotalFrames, behaviorFilename, nodeId, actionResults[0], hitCount);
+                            }
+
+                        } else if (actions[2] == ":transition") {
+                            FrameStatePool.UpdateTransition(agentFullname, AgentDataPool.TotalFrames, behaviorFilename, nodeId, actionResults[0]);
+
+                        } 
+                    }
+                }
+            }
+        }
+
+        private static void processProperty(string msg) {
+            // Par:   [property]a->10
+            // World: [property]WorldTest::World WorldTest::Property3->10
+            // Agent: [property]AgentTest::AgentTest_1 AgentTest::Property5::type::name->10
+
+            string[] tokens = msg.Substring(10).Split(' ');
+            Debug.Check(tokens.Length > 0);
+
+            string agentType = string.Empty;
+            string agentName = string.Empty;
+            string agentFullname = string.Empty;
+
+            // Par
+            if (tokens.Length == 1) {
+                agentType = string.Empty;
+                agentFullname = tokens[0];
+            }
+
+            // Global or Agent
+            else {
+                string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                Debug.Check(types.Length == 2);
+                agentType = types[0];
+                agentName = types[1];
+                agentFullname = tokens[0];
+
+                AgentInstancePool.AddInstance(agentType, agentName);
+            }
+
+            Debug.Check(!string.IsNullOrEmpty(agentFullname));
+
+            string[] values = tokens[tokens.Length - 1].Split(new string[] { "->", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (values.Length == 2) {
+                string basicValueName = values[0];
+                int index = basicValueName.LastIndexOf(":");
+                basicValueName = basicValueName.Substring(index + 1);
+
+                if (_ms_planning) {
+                    FrameStatePool.PlanProperty(agentFullname, basicValueName, values[1]);
+
+                } else {
+                    if (AgentDataPool.TotalFrames > -1 && !string.IsNullOrEmpty(agentFullname)) {
+                        AgentDataPool.AddValue(agentFullname, basicValueName, AgentDataPool.TotalFrames, values[1]);
+                    }
+                }
+            }
+        }
+
+        private static void checkBehaviorFiles(string behaviorFilename) {
+            if (_checkedBehaviorFiles.ContainsKey(behaviorFilename)) {
                 return;
+            }
 
             _checkedBehaviorFiles[behaviorFilename] = true;
 
-            try
-            {
+            try {
                 string sourceFilename = Path.Combine(Workspace.Current.Folder, behaviorFilename);
                 string exportedFilename = Path.Combine(Workspace.Current.DefaultExportFolder, behaviorFilename);
 
                 //remove the extension
                 int pos = exportedFilename.IndexOf(".xml");
-                if (pos != -1)
-                {
+
+                if (pos != -1) {
                     exportedFilename = exportedFilename.Remove(pos);
                 }
 
                 exportedFilename += string.Format(".{0}", ms_fileFormat);
 
-                if (File.Exists(sourceFilename) && File.Exists(exportedFilename))
-                {
+                if (File.Exists(sourceFilename) && File.Exists(exportedFilename)) {
                     FileInfo sourceFileInfo = new FileInfo(sourceFilename);
                     FileInfo exportedFileInfo = new FileInfo(exportedFilename);
-                    if (sourceFileInfo.LastWriteTime > exportedFileInfo.LastWriteTime)
-                    {
+
+                    TimeSpan ts = sourceFileInfo.LastWriteTime - exportedFileInfo.LastWriteTime;
+
+                    //src file is modified after begin exported?
+                    if (ts.Seconds > 0) {
                         string info = string.Format(Resources.FileModifiedInfo, behaviorFilename);
                         MessageBox.Show(info, Resources.FileModified, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-            }
-            catch (Exception)
-            {
+
+            } catch (Exception) {
             }
         }
     }

@@ -33,34 +33,32 @@
 
 namespace Behaviac.Design
 {
-	partial class BehaviorTreeList
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class BehaviorTreeList
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Component Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BehaviorTreeList));
             this.treeView = new System.Windows.Forms.TreeView();
@@ -68,20 +66,21 @@ namespace Behaviac.Design
             this.expandMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.openBehaviorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newBehaviorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createGroupMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.saveBehaviorContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsBehaviorContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_workspace = new System.Windows.Forms.ToolStripButton();
             this.connectButton = new System.Windows.Forms.ToolStripButton();
-            this.dumpButton = new System.Windows.Forms.ToolStripButton();
+            this.analyzeDumpButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.refreshButton = new System.Windows.Forms.ToolStripButton();
             this.exportAllButton = new System.Windows.Forms.ToolStripButton();
@@ -95,15 +94,15 @@ namespace Behaviac.Design
             this.collapseButton = new System.Windows.Forms.ToolStripButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStrip.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeView
             // 
-            resources.ApplyResources(this.treeView, "treeView");
             this.treeView.AllowDrop = true;
             this.treeView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.treeView.ContextMenuStrip = this.contextMenuStrip;
+            resources.ApplyResources(this.treeView, "treeView");
             this.treeView.ForeColor = System.Drawing.Color.LightGray;
             this.treeView.FullRowSelect = true;
             this.treeView.ImageList = this.imageList;
@@ -120,88 +119,104 @@ namespace Behaviac.Design
             // 
             // contextMenuStrip
             // 
-            resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
             this.contextMenuStrip.BackColor = System.Drawing.Color.DarkGray;
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.expandMenuItem,
             this.collapseMenuItem,
             this.toolStripSeparator4,
+            this.openBehaviorMenuItem,
             this.newBehaviorMenuItem,
             this.createGroupMenuItem,
+            this.renameMenuItem,
             this.deleteMenuItem,
             this.toolStripSeparator10,
             this.saveBehaviorContextMenuItem,
             this.saveAsBehaviorContextMenuItem,
             this.exportMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
+            resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // expandMenuItem
             // 
-            resources.ApplyResources(this.expandMenuItem, "expandMenuItem");
             this.expandMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.expandMenuItem.Name = "expandMenuItem";
+            resources.ApplyResources(this.expandMenuItem, "expandMenuItem");
             this.expandMenuItem.Click += new System.EventHandler(this.expandMenuItem_Click);
             // 
             // collapseMenuItem
             // 
-            resources.ApplyResources(this.collapseMenuItem, "collapseMenuItem");
             this.collapseMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.collapseMenuItem.Name = "collapseMenuItem";
+            resources.ApplyResources(this.collapseMenuItem, "collapseMenuItem");
             this.collapseMenuItem.Click += new System.EventHandler(this.collapseMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.ForeColor = System.Drawing.SystemColors.WindowText;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
+            // openBehaviorMenuItem
+            // 
+            this.openBehaviorMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.openBehaviorMenuItem.Name = "openBehaviorMenuItem";
+            resources.ApplyResources(this.openBehaviorMenuItem, "openBehaviorMenuItem");
+            this.openBehaviorMenuItem.Click += new System.EventHandler(this.openBehaviorMenuItem_Click);
             // 
             // newBehaviorMenuItem
             // 
-            resources.ApplyResources(this.newBehaviorMenuItem, "newBehaviorMenuItem");
             this.newBehaviorMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.newBehaviorMenuItem.Name = "newBehaviorMenuItem";
+            resources.ApplyResources(this.newBehaviorMenuItem, "newBehaviorMenuItem");
             this.newBehaviorMenuItem.Click += new System.EventHandler(this.newBehaviorMenuItem_Click);
             // 
             // createGroupMenuItem
             // 
-            resources.ApplyResources(this.createGroupMenuItem, "createGroupMenuItem");
             this.createGroupMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.createGroupMenuItem.Name = "createGroupMenuItem";
+            resources.ApplyResources(this.createGroupMenuItem, "createGroupMenuItem");
             this.createGroupMenuItem.Click += new System.EventHandler(this.createGroupMenuItem_Click);
+            // 
+            // renameMenuItem
+            // 
+            this.renameMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.renameMenuItem.Name = "renameMenuItem";
+            resources.ApplyResources(this.renameMenuItem, "renameMenuItem");
+            this.renameMenuItem.Click += new System.EventHandler(this.renameMenuItem_Click);
             // 
             // deleteMenuItem
             // 
-            resources.ApplyResources(this.deleteMenuItem, "deleteMenuItem");
             this.deleteMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.deleteMenuItem.Name = "deleteMenuItem";
+            resources.ApplyResources(this.deleteMenuItem, "deleteMenuItem");
             this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
             // 
             // toolStripSeparator10
             // 
-            resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
             this.toolStripSeparator10.ForeColor = System.Drawing.SystemColors.WindowText;
             this.toolStripSeparator10.Name = "toolStripSeparator10";
+            resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
             // 
             // saveBehaviorContextMenuItem
             // 
-            resources.ApplyResources(this.saveBehaviorContextMenuItem, "saveBehaviorContextMenuItem");
             this.saveBehaviorContextMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.saveBehaviorContextMenuItem.Name = "saveBehaviorContextMenuItem";
+            resources.ApplyResources(this.saveBehaviorContextMenuItem, "saveBehaviorContextMenuItem");
             this.saveBehaviorContextMenuItem.Click += new System.EventHandler(this.saveBehaviorContextMenuItem_Click);
             // 
             // saveAsBehaviorContextMenuItem
             // 
-            resources.ApplyResources(this.saveAsBehaviorContextMenuItem, "saveAsBehaviorContextMenuItem");
             this.saveAsBehaviorContextMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.saveAsBehaviorContextMenuItem.Name = "saveAsBehaviorContextMenuItem";
+            resources.ApplyResources(this.saveAsBehaviorContextMenuItem, "saveAsBehaviorContextMenuItem");
             this.saveAsBehaviorContextMenuItem.Click += new System.EventHandler(this.saveAsBehaviorContextMenuItem_Click);
             // 
             // exportMenuItem
             // 
-            resources.ApplyResources(this.exportMenuItem, "exportMenuItem");
             this.exportMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.exportMenuItem.Name = "exportMenuItem";
+            resources.ApplyResources(this.exportMenuItem, "exportMenuItem");
             this.exportMenuItem.Click += new System.EventHandler(this.exportMenuItem_Click);
             // 
             // imageList
@@ -232,24 +247,18 @@ namespace Behaviac.Design
             this.imageList.Images.SetKeyName(21, "operator");
             this.imageList.Images.SetKeyName(22, "prefab");
             // 
-            // folderBrowserDialog
-            // 
-            resources.ApplyResources(this.folderBrowserDialog, "folderBrowserDialog");
-            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            // 
             // timer
             // 
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // toolStrip1
+            // toolStrip
             // 
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
-            this.toolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton_workspace,
             this.connectButton,
-            this.dumpButton,
+            this.analyzeDumpButton,
             this.toolStripSeparator3,
             this.refreshButton,
             this.exportAllButton,
@@ -261,99 +270,100 @@ namespace Behaviac.Design
             this.findFileButton,
             this.expandButton,
             this.collapseButton});
-            this.toolStrip1.Name = "toolStrip1";
+            resources.ApplyResources(this.toolStrip, "toolStrip");
+            this.toolStrip.Name = "toolStrip";
             // 
             // toolStripButton_workspace
             // 
-            resources.ApplyResources(this.toolStripButton_workspace, "toolStripButton_workspace");
             this.toolStripButton_workspace.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.toolStripButton_workspace, "toolStripButton_workspace");
             this.toolStripButton_workspace.Name = "toolStripButton_workspace";
             this.toolStripButton_workspace.Click += new System.EventHandler(this.toolStripButton_workspace_Click);
             // 
             // connectButton
             // 
-            resources.ApplyResources(this.connectButton, "connectButton");
             this.connectButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.connectButton.Image = global::Behaviac.Design.Properties.Resources.connect;
+            resources.ApplyResources(this.connectButton, "connectButton");
             this.connectButton.Name = "connectButton";
             this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
             // 
-            // dumpButton
+            // analyzeDumpButton
             // 
-            resources.ApplyResources(this.dumpButton, "dumpButton");
-            this.dumpButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.dumpButton.Image = global::Behaviac.Design.Properties.Resources.File_Open;
-            this.dumpButton.Name = "dumpButton";
-            this.dumpButton.Click += new System.EventHandler(this.toolStripButton_dump_Click);
+            this.analyzeDumpButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.analyzeDumpButton.Image = global::Behaviac.Design.Properties.Resources.File_Open;
+            resources.ApplyResources(this.analyzeDumpButton, "analyzeDumpButton");
+            this.analyzeDumpButton.Name = "analyzeDumpButton";
+            this.analyzeDumpButton.Click += new System.EventHandler(this.toolStripButton_dump_Click);
             // 
             // toolStripSeparator3
             // 
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // refreshButton
             // 
-            resources.ApplyResources(this.refreshButton, "refreshButton");
             this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.refreshButton, "refreshButton");
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // exportAllButton
             // 
-            resources.ApplyResources(this.exportAllButton, "exportAllButton");
             this.exportAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.exportAllButton, "exportAllButton");
             this.exportAllButton.Name = "exportAllButton";
             this.exportAllButton.Click += new System.EventHandler(this.exportAllButton_Click);
             // 
             // toolStripSeparator12
             // 
-            resources.ApplyResources(this.toolStripSeparator12, "toolStripSeparator12");
             this.toolStripSeparator12.Name = "toolStripSeparator12";
+            resources.ApplyResources(this.toolStripSeparator12, "toolStripSeparator12");
             // 
             // newBehaviorButton
             // 
-            resources.ApplyResources(this.newBehaviorButton, "newBehaviorButton");
             this.newBehaviorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.newBehaviorButton, "newBehaviorButton");
             this.newBehaviorButton.Name = "newBehaviorButton";
             this.newBehaviorButton.Click += new System.EventHandler(this.newBehaviorButton_Click);
             // 
             // createGroupButton
             // 
-            resources.ApplyResources(this.createGroupButton, "createGroupButton");
             this.createGroupButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.createGroupButton, "createGroupButton");
             this.createGroupButton.Name = "createGroupButton";
             this.createGroupButton.Click += new System.EventHandler(this.createGroupButton_Click);
             // 
             // deleteButton
             // 
-            resources.ApplyResources(this.deleteButton, "deleteButton");
             this.deleteButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.deleteButton, "deleteButton");
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // toolStripSeparator5
             // 
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             this.toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             // 
             // findFileButton
             // 
-            resources.ApplyResources(this.findFileButton, "findFileButton");
             this.findFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.findFileButton, "findFileButton");
             this.findFileButton.Name = "findFileButton";
             this.findFileButton.Click += new System.EventHandler(this.findFileButton_Click);
             // 
             // expandButton
             // 
-            resources.ApplyResources(this.expandButton, "expandButton");
             this.expandButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.expandButton, "expandButton");
             this.expandButton.Name = "expandButton";
             this.expandButton.Click += new System.EventHandler(this.expandButton_Click);
             // 
             // collapseButton
             // 
-            resources.ApplyResources(this.collapseButton, "collapseButton");
             this.collapseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.collapseButton, "collapseButton");
             this.collapseButton.Name = "collapseButton";
             this.collapseButton.Click += new System.EventHandler(this.collapseButton_Click);
             // 
@@ -367,30 +377,29 @@ namespace Behaviac.Design
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.treeView);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.toolStrip);
             this.Name = "BehaviorTreeList";
             this.contextMenuStrip.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ImageList imageList;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton newBehaviorButton;
         private System.Windows.Forms.ToolStripButton createGroupButton;
         private System.Windows.Forms.ToolStripButton deleteButton;
         private System.Windows.Forms.ToolStripButton refreshButton;
         private System.Windows.Forms.ToolStripButton toolStripButton_workspace;
         private System.Windows.Forms.ToolStripButton connectButton;
-        private System.Windows.Forms.ToolStripButton dumpButton;
+        private System.Windows.Forms.ToolStripButton analyzeDumpButton;
         private System.Windows.Forms.ToolStripButton expandButton;
         private System.Windows.Forms.ToolStripButton collapseButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -410,5 +419,7 @@ namespace Behaviac.Design
         private System.Windows.Forms.ToolStripMenuItem createGroupMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveBehaviorContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsBehaviorContextMenuItem;
-	}
+        private System.Windows.Forms.ToolStripMenuItem renameMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openBehaviorMenuItem;
+    }
 }

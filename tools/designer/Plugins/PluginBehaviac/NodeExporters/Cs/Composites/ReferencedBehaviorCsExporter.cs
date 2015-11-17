@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -24,7 +24,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            ReferencedBehavior referencedBehavior = node as ReferencedBehavior;
+            return (referencedBehavior != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -32,11 +33,18 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             ReferencedBehavior referencedBehavior = node as ReferencedBehavior;
-            Debug.Check(referencedBehavior != null);
+            if (referencedBehavior == null)
+                return;
 
-            stream.WriteLine("{0}\t\t\tm_referencedBehaviorPath = \"{1}\";", indent, referencedBehavior.ReferenceFilename);
-            stream.WriteLine("{0}\t\t\tbool result = Workspace.Load(this.m_referencedBehaviorPath);", indent);
+            stream.WriteLine("{0}\t\t\tthis.m_referencedBehaviorPath = \"{1}\";", indent, referencedBehavior.ReferenceFilename);
+            stream.WriteLine("{0}\t\t\tbool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);", indent);
             stream.WriteLine("{0}\t\t\tDebug.Check(result);", indent);
+
+            if (referencedBehavior.Task != null)
+            {
+                stream.WriteLine("{0}\t\t\tthis.m_taskMethod = Action.LoadMethod(\"{1}\") as CTaskMethod;", indent, referencedBehavior.Task.GetExportValue());
+                stream.WriteLine("{0}\t\t\tDebug.Check(this.m_taskMethod != null);", indent);
+            }
         }
     }
 }

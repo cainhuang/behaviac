@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_TRAITS_ISENUM_H__INCLUDED
-#define _BEHAVIAC_BASE_TRAITS_ISENUM_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_TRAITS_ISENUM_H_INCLUDED
+#define _BEHAVIAC_BASE_TRAITS_ISENUM_H_INCLUDED
 
 #include "behaviac/base/meta/isclass.h"
 #include "behaviac/base/meta/isfundamental.h"
@@ -23,7 +23,6 @@ namespace behaviac
 {
     namespace Meta
     {
-
         // Result is true only if the provided type is an Enum
         //
         // enum MyEnum { Bleh };
@@ -36,10 +35,10 @@ namespace behaviac
         {
             enum
             {
-                Result =    !IsFundamental< Type >::Result &&
-                            !IsClass< Type >::Result &&
-                            !IsFunction< Type >::Result &&
-                            !IsCompound< Type >::Result
+                Result = !IsFundamental< Type >::Result &&
+                         !IsClass< Type >::Result &&
+                         !IsFunction< Type >::Result &&
+                         !IsCompound< Type >::Result
             };
         };
     }

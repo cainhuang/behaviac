@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -27,7 +27,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            WaitFrames waitFrames = node as WaitFrames;
+            return (waitFrames != null);
         }
 
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
@@ -35,7 +36,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             WaitFrames waitFrames = node as WaitFrames;
-            Debug.Check(waitFrames != null);
+            if (waitFrames == null)
+                return;
 
             if (waitFrames.Frames != null)
             {

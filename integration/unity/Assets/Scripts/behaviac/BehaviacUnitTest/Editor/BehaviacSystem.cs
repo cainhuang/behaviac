@@ -36,140 +36,111 @@ public class BehaviacSystem
         }
     }
     #endregion
-    
-    private bool m_bIsInited = false;
-	protected static BehaviacFileManager fileSystem = null;
 
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-	[DllImport("user32.dll", CharSet=CharSet.Auto)]
-	public static extern int MessageBox(int hWnd, String text, String caption, int options);
-#endif
+    protected static BehaviacFileManager ms_fileSystem = null;
+    private static behaviac.Workspace.EFileFormat ms_fileFormat = behaviac.Workspace.EFileFormat.EFF_default;
+    private static bool ms_bInit = false;
 
-	private static void RespondToBreak (string msg, string title)
-	{
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-		//if (Application.platform == RuntimePlatform.WindowsEditor) 
-		//{
-		//	UnityEditor.EditorUtility.DisplayDialog (title, msg, "Ok");
-		//} 
-		//else if (Application.platform == RuntimePlatform.WindowsPlayer) 
-		//{
-		//	//Application.pause
-		//}
-		MessageBox(0, msg, title, 0);
-#endif
-	}
 
-	public static string exportPath
-	{
-		get
-		{
-			string path = "";
-			if(Application.platform == RuntimePlatform.WindowsEditor)
-			{
-				path = Application.dataPath + "/Resources/behaviac/BehaviacData/exported";
-			}
-			else if(Application.platform == RuntimePlatform.WindowsPlayer)
-			{
-				path = Application.dataPath + "/Resources/behaviac/BehaviacData/exported";
-			}
-			else
-			{
-				path = "Assets/Resources/behaviac/BehaviacData/exported";
-			}
+    private behaviac.Workspace.EFileFormat FileFormat
+    {
+        get
+        {
+            string format = UnityTest.UnitTestView.Format;
 
-			return path;
-		}
-	}
+            if (format == "Xml")
+            {
+                return behaviac.Workspace.EFileFormat.EFF_xml;
+            }
+            else if (format == "Bson")
+            {
+                return behaviac.Workspace.EFileFormat.EFF_bson;
+            }
+            else if (format == "CSharp")
+            {
+                return behaviac.Workspace.EFileFormat.EFF_cs;
+            }
 
-	public static string workspacePath
-	{
-		get
-		{
-			string path = "";
-			if(Application.platform == RuntimePlatform.WindowsEditor)
-			{
-				path = Application.dataPath + "/BehaviorTrees/BTWorkspace";
-			}
-			else if(Application.platform == RuntimePlatform.WindowsPlayer)
-			{
-				path = Application.dataPath + "/BehaviorTrees/BTWorkspace";
-			}
-			else
-			{
-				behaviac.Debug.LogWarning("only for dev!");
-			}
-			
-			return path;
-		}
-	}
+            return behaviac.Workspace.EFileFormat.EFF_default;
+        }
+    }
 
-	public bool init ()
-	{		
-		if (!m_bIsInited) 
-		{
-			m_bIsInited = true;
+    //read from 'WorkspaceFile', prepending with 'WorkspacePath', relative to the exe's path
+    private string FilePath
+    {
+        get
+        {
+            string relativePath = "/Resources/behaviac/exported";
+            string path = "";
 
-			if(fileSystem == null)
-			{
-				fileSystem = new BehaviacFileManager ();
-	        }
+            if (Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                path = Application.dataPath + relativePath;
+            }
+            else if (Application.platform == RuntimePlatform.WindowsPlayer)
+            {
+                path = Application.dataPath + relativePath;
+            }
+            else
+            {
+                path = "Assets" + relativePath;
+            }
 
-			int formatID = getTestFormat();
-			behaviac.Workspace.EFileFormat btFormat = (behaviac.Workspace.EFileFormat)formatID;
+            return path;
+        }
+    }
 
-			string btExportPath = exportPath;
-			behaviac.Workspace.EFileFormat btFileFormat = btFormat;
-			behaviac.Workspace.SetWorkspaceSettings (btExportPath, btFileFormat);            
-			//register names
-			behaviac.Agent.RegisterName<ParTestRegNameAgent>();
 
-			string metaExportPath = workspacePath + "/xmlmeta/UnitTestMeta.xml";
-			behaviac.Workspace.ExportMetas(metaExportPath);
+    public bool Init()
+    {
+        if (ms_fileSystem == null)
+        {
+            ms_fileSystem = new BehaviacFileManager();
+        }
 
-            //TODO
-            behaviac.IVariable.Register<TNS.ST.PER.WRK.kEmployee>("TNS.ST.PER.WRK.kEmployee");
-            behaviac.IVariable.Register<TNS.NE.NAT.eColor>("TNS.NE.NAT.eColor");
-            behaviac.IVariable.Register<ParTestAgentBase>("ParTestAgentBase");
-            behaviac.IVariable.Register<TNS.ST.PER.WRK.kEmployee>("kEmployee");
-            behaviac.IVariable.Register<TNS.NE.NAT.eColor>("eColor");
+        bool bInit = false;
 
-			behaviac.Debug.Log ("Behaviac meta data export over.");
-            
-			behaviac.Workspace.RespondToBreakHandler += RespondToBreak;
+        if (this.FileFormat != ms_fileFormat)
+        {
+            ms_fileFormat = this.FileFormat;
+            bInit = true;
+        }
 
-			//< write log file
-			//behaviac.Config.IsLogging = false;
-			//behaviac.Config.IsSocketing = false;				
-			
-			bool isBlockSocket = false;
-			behaviac.SocketUtils.SetupConnection (isBlockSocket);		
-			behaviac.Agent.SetIdMask (0xffffffff);
-		}
+        //only init it when the file format changed at the init is slow
+        if (bInit)
+        {
+            if (ms_bInit)
+            {
+                behaviac.Workspace.Instance.Cleanup();
 
-		return true;
-	}
+                behaviac.LogManager.Close();
+            }
 
-	public void finl ()
-	{
-			behaviac.Workspace.RespondToBreakHandler -= RespondToBreak;
-			behaviac.SocketUtils.ShutdownConnection ();
-	}
+            ms_bInit = true;
 
-	public int getTestFormat()
-	{
-		GameObject obj = GameObject.Find("@UnitTest_0");
-		if(obj != null)
-			return 1;
+            //< write log file
+            behaviac.Config.IsLogging = true;
+            behaviac.Config.IsSocketing = false;
 
-		obj = GameObject.Find("@UnitTest_1");
-		if(obj != null)
-			return 2;
+            behaviac.Workspace.Instance.FilePath = this.FilePath;
+            behaviac.Workspace.Instance.FileFormat = this.FileFormat;
 
-		obj = GameObject.Find("@UnitTest_2");
-		if(obj != null)
-			return 4;
+            //register names
+            behaviac.Agent.RegisterInstanceName<ParTestRegNameAgent>();
 
-		return -1;
-	}
+            behaviac.Workspace.Instance.ExportMetas("behaviac/workspace/xmlmeta/unittestmeta.xml");
+
+            behaviac.Debug.Log("Behaviac meta data export over.");
+
+            behaviac.Agent.SetIdMask(0xffffffff);
+        }
+
+        return true;
+    }
+
+    public void Uninit()
+    {
+        //do nothing here as it will be uninit just before reinit
+    }
+
 }

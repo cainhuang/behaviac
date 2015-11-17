@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,19 +26,21 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            SequenceStochastic seq = node as SequenceStochastic;
+            return (seq != null);
         }
 
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
         {
-            SequenceStochastic sequenceStochastic = node as SequenceStochastic;
-            Debug.Check(sequenceStochastic != null);
+            SequenceStochastic seq = node as SequenceStochastic;
+            if (seq == null)
+                return;
 
             stream.WriteLine("{0}\tpublic:", indent);
 
             stream.WriteLine("{0}\t\tvoid Initialize(const char* method)", indent);
             stream.WriteLine("{0}\t\t{{", indent);
-            stream.WriteLine("{0}\t\t\tthis->m_method = LoadMethod(method);", indent);
+            stream.WriteLine("{0}\t\t\tthis->m_method = Action::LoadMethod(method);", indent);
             stream.WriteLine("{0}\t\t}}", indent);
         }
 
@@ -46,12 +48,13 @@ namespace PluginBehaviac.NodeExporters
         {
             base.GenerateInstance(node, stream, indent, nodeName, agentType, btClassName);
 
-            SequenceStochastic sequenceStochastic = node as SequenceStochastic;
-            Debug.Check(sequenceStochastic != null);
+            SequenceStochastic seq = node as SequenceStochastic;
+            if (seq == null)
+                return;
 
-            if (sequenceStochastic.RandomGenerator != null)
+            if (seq.RandomGenerator != null)
             {
-                string method = sequenceStochastic.RandomGenerator.GetExportValue().Replace("\"", "\\\"");
+                string method = seq.RandomGenerator.GetExportValue().Replace("\"", "\\\"");
 
                 stream.WriteLine("{0}\t{1}->Initialize(\"{2}\");", indent, nodeName, method);
             }

@@ -16,56 +16,53 @@
 
 namespace behaviac
 {
-	Noop::Noop()
-	{}
+    Noop::Noop()
+    {}
 
-	Noop::~Noop()
-	{}
+    Noop::~Noop()
+    {}
 
-	void Noop::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void Noop::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool Noop::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(pTask);
+    bool Noop::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(pTask);
 
-		if (!Noop::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		//used in unittest
-		//return super::IsValid(pAgent, pTask);
-		return true;
-	}
+        if (!Noop::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
+        //used in unittest
+        //return super::IsValid(pAgent, pTask);
+        return true;
+    }
 
-	BehaviorTask* Noop::createTask() const
-	{
-		NoopTask* pTask = BEHAVIAC_NEW NoopTask();
-		
+    BehaviorTask* Noop::createTask() const
+    {
+        NoopTask* pTask = BEHAVIAC_NEW NoopTask();
 
-		return pTask;
-	}
+        return pTask;
+    }
 
-	void NoopTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void NoopTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void NoopTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void NoopTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void NoopTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
-
+    void NoopTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     bool NoopTask::onenter(Agent* pAgent)
     {
@@ -86,5 +83,4 @@ namespace behaviac
         //...
         return BT_SUCCESS;
     }
-
 }

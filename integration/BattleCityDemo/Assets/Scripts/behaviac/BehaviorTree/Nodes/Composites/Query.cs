@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,11 +19,11 @@ namespace behaviac
     {
         public Query()
         {
-		}
+        }
 
         ~Query()
         {
-		}
+        }
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -33,15 +31,17 @@ namespace behaviac
 
             if (properties.Count > 0)
             {
-                foreach (property_t p in properties)
+                foreach(property_t p in properties)
                 {
                     if (p.name == "Domain")
                     {
                         m_domain = p.value;
+
                     }
                     else if (p.name == "Descriptors")
                     {
                         SetDescriptors(p.value);
+
                     }
                     else
                     {
@@ -49,6 +49,13 @@ namespace behaviac
                     }
                 }
             }
+        }
+
+        public bool CheckReQuerying(Agent pAgent)
+        {
+            bool bTriggered = this.EvaluteCustomCondition(pAgent);
+
+            return bTriggered;
         }
 
         protected override BehaviorTask createTask()
@@ -60,7 +67,7 @@ namespace behaviac
 
         protected string m_domain;
 
-        class Descriptor_t
+        private class Descriptor_t
         {
             public Property Attribute;
             public Property Reference;
@@ -87,24 +94,25 @@ namespace behaviac
             }
         };
 
-        List<Descriptor_t> m_descriptors;
+        private List<Descriptor_t> m_descriptors;
 
-        static Property FindProperty(Descriptor_t q, List<BehaviorTree.Descriptor_t> c)
+        private static Property FindProperty(Descriptor_t q, List<BehaviorTree.Descriptor_t> c)
         {
             //BehaviorTree.Descriptor_t descriptor = c.Find(delegate (BehaviorTree.Descriptor_t it) { return it.Descriptor.GetVariableId() == q.Attribute.GetVariableId(); });
-			for (int i = 0; i < c.Count; ++i)
-			{
-				BehaviorTree.Descriptor_t descriptor = c[i];
-				if (descriptor.Descriptor.GetVariableId() == q.Attribute.GetVariableId())
-				{
-					return descriptor.Descriptor;
-				}
-			}
+            for (int i = 0; i < c.Count; ++i)
+            {
+                BehaviorTree.Descriptor_t descriptor = c[i];
+
+                if (descriptor.Descriptor.VariableId == q.Attribute.VariableId)
+                {
+                    return descriptor.Reference;
+                }
+            }
 
             return null;
         }
 
-        List<Descriptor_t> GetDescriptors()
+        private List<Descriptor_t> GetDescriptors()
         {
             return this.m_descriptors;
         }
@@ -120,9 +128,10 @@ namespace behaviac
             }
         }
 
-        float ComputeSimilarity(List<Descriptor_t> q, List<BehaviorTree.Descriptor_t> c)
+        private float ComputeSimilarity(List<Descriptor_t> q, List<BehaviorTree.Descriptor_t> c)
         {
             float similarity = 0.0f;
+
             for (int i = 0; i < q.Count; ++i)
             {
                 Descriptor_t qi = q[i];
@@ -131,8 +140,9 @@ namespace behaviac
 
                 if (ci != null)
                 {
-                    float dp = qi.Attribute.DifferencePercentage(ci);
-					Debug.Check(dp >= 0.0f && dp <= 1.0f, "dp should be normalized to [0, 1], please check its scale");
+                    float range = qi.Attribute.GetRange();
+                    float dp = qi.Reference.DifferencePercentage(ci, range);
+                    Debug.Check(dp >= 0.0f && dp <= 1.0f, "dp should be normalized to [0, 1], please check its scale");
 
                     similarity += (1.0f - dp) * qi.Weight;
                 }
@@ -141,11 +151,13 @@ namespace behaviac
             return similarity;
         }
 
-        class QueryTask : SingeChildTask
+        private class QueryTask : SingeChildTask
         {
+            private AgentState currentState;
+
             public QueryTask()
             {
-			}
+            }
 
             public override void Init(BehaviorNode node)
             {
@@ -160,23 +172,22 @@ namespace behaviac
             {
                 base.copyto(target);
             }
+
             public override void save(ISerializableNode node)
             {
                 base.save(node);
             }
+
             public override void load(ISerializableNode node)
             {
                 base.load(node);
             }
 
-			protected override bool isContinueTicking()
-			{
-				return true;
-			}
-			
             protected override bool onenter(Agent pAgent)
             {
                 //this.m_root = null;
+                this.currentState = pAgent.Variables.Push(false);
+                Debug.Check(currentState != null);
 
                 if (this.ReQuery(pAgent))
                 {
@@ -187,79 +198,73 @@ namespace behaviac
             }
 
             protected override void onexit(Agent pAgent, EBTStatus s)
-            { }
+            {
+                this.currentState = pAgent.Variables.Push(false);
+                Debug.Check(currentState != null);
+                base.onexit(pAgent, s);
+            }
 
-			public override bool CheckPredicates(Agent pAgent)
-			{
-				//when there are no predicates, not triggered
-				bool bTriggered = false;
-				if (this.m_attachments != null)
-				{
-					bTriggered = base.CheckPredicates(pAgent);
-				}
-				
-				if (bTriggered)
-				{
-					this.ReQuery(pAgent);
-				}
-				
-				return bTriggered;
-			}
-			
-			bool ReQuery(Agent pAgent)
-			{
-				Query pQueryNode = this.GetNode() as Query;
-				
-				if (pQueryNode != null)
-				{
-					List<Query.Descriptor_t> qd = pQueryNode.GetDescriptors();
-					if (qd.Count > 0)
-					{
-						Dictionary<string, BehaviorTree> bs = Workspace.GetBehaviorTrees();
-						
-						BehaviorTree btFound = null;
-						float similarityMax = -1.0f;
-						
-						foreach (BehaviorTree bt in bs.Values)
-						{
-							string domains = bt.GetDomains();
-							
-							if (string.IsNullOrEmpty(pQueryNode.m_domain) || (!string.IsNullOrEmpty(domains) && domains.IndexOf(pQueryNode.m_domain) != -1))
-							{
-								List<BehaviorTree.Descriptor_t> bd = bt.GetDescriptors();
-								float similarity = pQueryNode.ComputeSimilarity(qd, bd);
-								
-								if (similarity > similarityMax)
-								{
-									similarityMax = similarity;
-									btFound = bt;
-								}
-							}
-						}
-						
-						if (btFound != null)
-						{
-							pAgent.btreferencetree(btFound.GetName());
-							//pAgent.btexec();
-							
-							return true;
-						}
-					}
-				}
-				
-				return false;
-			}
+            private bool ReQuery(Agent pAgent)
+            {
+                Query pQueryNode = this.GetNode() as Query;
 
-			protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
-			{
-				Debug.Check(m_returnStatus == EBTStatus.BT_INVALID);
-				///*bool bReQuery = */this.CheckPredicates(pAgent);
+                if (pQueryNode != null)
+                {
+                    List<Query.Descriptor_t> qd = pQueryNode.GetDescriptors();
 
-				//EBTStatus status = base.update(pAgent, childStatus);
-				
-				//return status;
-				return EBTStatus.BT_RUNNING;
-			}
-		}
-	}
+                    if (qd.Count > 0)
+                    {
+                        Dictionary<string, BehaviorTree> bs = Workspace.Instance.GetBehaviorTrees();
+
+                        BehaviorTree btFound = null;
+                        float similarityMax = -1.0f;
+
+                        foreach(BehaviorTree bt in bs.Values)
+                        {
+                            string domains = bt.GetDomains();
+
+                            if (string.IsNullOrEmpty(pQueryNode.m_domain) || (!string.IsNullOrEmpty(domains) && domains.IndexOf(pQueryNode.m_domain) != -1))
+                            {
+                                List<BehaviorTree.Descriptor_t> bd = bt.GetDescriptors();
+                                float similarity = pQueryNode.ComputeSimilarity(qd, bd);
+
+                                if (similarity > similarityMax)
+                                {
+                                    similarityMax = similarity;
+                                    btFound = bt;
+                                }
+                            }
+                        }
+
+                        if (btFound != null)
+                        {
+                            pAgent.btreferencetree(btFound.GetName());
+                            //pAgent.btexec();
+
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
+            {
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
+                Query node = this.m_node as Query;
+
+                if (node.CheckReQuerying(pAgent))
+                {
+                    this.ReQuery(pAgent);
+                }
+
+                //EBTStatus status = base.update(pAgent, childStatus);
+
+                //return status;
+                return EBTStatus.BT_RUNNING;
+            }
+        }
+    }
 }

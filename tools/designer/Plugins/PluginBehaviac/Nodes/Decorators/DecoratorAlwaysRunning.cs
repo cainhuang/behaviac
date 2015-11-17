@@ -20,7 +20,7 @@ using PluginBehaviac.Properties;
 
 namespace PluginBehaviac.Nodes
 {
-    [NodeDesc("Decorators", NodeIcon.Decorator)]
+    //[NodeDesc("Decorators", NodeIcon.Decorator)]
     public class DecoratorAlwaysRunning : Decorator
 	{
         public DecoratorAlwaysRunning()

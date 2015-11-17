@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{1308CF86-BE9E-40FB-B47D-C1AA3E8B69CD}"
@@ -17,6 +17,24 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginBehaviac", "Plugins\PluginBehaviac\PluginBehaviac.csproj", "{326CC795-9695-4B8E-9EB4-5C7EA28B0344}"
 EndProject
 Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 5
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = BehaviacDesigner\\BehaviacDesigner.csproj
+		SccLocalPath1 = .
+		SccProjectFilePathRelativizedFromConnection1 = BehaviacDesigner\\
+		SccProjectUniqueName2 = External\\DockPanel\\WinFormsUI\\WinFormsUI.csproj
+		SccProjectTopLevelParentUniqueName2 = BehaviacDesigner.sln
+		SccLocalPath2 = .
+		SccProjectFilePathRelativizedFromConnection2 = External\\DockPanel\\WinFormsUI\\
+		SccProjectUniqueName3 = BehaviacDesignerBase\\BehaviacDesignerBase.csproj
+		SccLocalPath3 = .
+		SccProjectFilePathRelativizedFromConnection3 = BehaviacDesignerBase\\
+		SccProjectUniqueName4 = Plugins\\PluginBehaviac\\PluginBehaviac.csproj
+		SccProjectTopLevelParentUniqueName4 = BehaviacDesigner.sln
+		SccLocalPath4 = .
+		SccProjectFilePathRelativizedFromConnection4 = Plugins\\PluginBehaviac\\
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms

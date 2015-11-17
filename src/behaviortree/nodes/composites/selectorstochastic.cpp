@@ -16,101 +16,99 @@
 
 namespace behaviac
 {
-	SelectorStochastic::SelectorStochastic()
-	{}
+    SelectorStochastic::SelectorStochastic()
+    {}
 
-	SelectorStochastic::~SelectorStochastic()
-	{}
+    SelectorStochastic::~SelectorStochastic()
+    {}
 
-	void SelectorStochastic::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void SelectorStochastic::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool SelectorStochastic::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!SelectorStochastic::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool SelectorStochastic::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!SelectorStochastic::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	BehaviorTask* SelectorStochastic::createTask() const
-	{
-		SelectorStochasticTask* pTask = BEHAVIAC_NEW SelectorStochasticTask();
-		
+        return super::IsValid(pAgent, pTask);
+    }
 
-		return pTask;
-	}
+    BehaviorTask* SelectorStochastic::createTask() const
+    {
+        SelectorStochasticTask* pTask = BEHAVIAC_NEW SelectorStochasticTask();
 
-	void SelectorStochasticTask::addChild(BehaviorTask* pBehavior)
-	{
-		super::addChild(pBehavior);
-	}
+        return pTask;
+    }
 
+    void SelectorStochasticTask::addChild(BehaviorTask* pBehavior)
+    {
+        super::addChild(pBehavior);
+    }
 
-	void SelectorStochasticTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void SelectorStochasticTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void SelectorStochasticTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void SelectorStochasticTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void SelectorStochasticTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void SelectorStochasticTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
+    bool SelectorStochasticTask::onenter(Agent* pAgent)
+    {
+        CompositeStochasticTask::onenter(pAgent);
 
+        return true;
+    }
 
-	bool SelectorStochasticTask::onenter(Agent* pAgent)
-	{
-		CompositeStochasticTask::onenter(pAgent);
+    EBTStatus SelectorStochasticTask::update(Agent* pAgent, EBTStatus childStatus)
+    {
+        bool bFirst = true;
 
-		return true;
-	}
+        BEHAVIAC_ASSERT(this->m_activeChildIndex < (int)this->m_children.size());
 
-	EBTStatus SelectorStochasticTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-		bool bFirst = true;
+        // Keep going until a child behavior says its running.
+        for (;;)
+        {
+            EBTStatus s = childStatus;
 
-		BEHAVIAC_ASSERT(this->m_activeChildIndex < this->m_children.size());
+            if (!bFirst || s == BT_RUNNING)
+            {
+                uint32_t childIndex = this->m_set[this->m_activeChildIndex];
+                BehaviorTask* pBehavior = this->m_children[childIndex];
+                s = pBehavior->exec(pAgent);
+            }
 
-		// Keep going until a child behavior says its running.
-		for (;;)
-		{
-			EBTStatus s = childStatus;
-			if (!bFirst || s == BT_RUNNING)
-			{
-				uint32_t childIndex = this->m_set[this->m_activeChildIndex];
-				BehaviorTask* pBehavior = this->m_children[childIndex];
-				s = pBehavior->exec(pAgent);
-			}
-			
-			bFirst = false;
+            bFirst = false;
 
-			// If the child succeeds, or keeps running, do the same.
-			if (s != BT_FAILURE)
-			{
-				return s;
-			}
+            // If the child succeeds, or keeps running, do the same.
+            if (s != BT_FAILURE)
+            {
+                return s;
+            }
 
-			// Hit the end of the array, job done!
-			++this->m_activeChildIndex;
-			if (this->m_activeChildIndex >= this->m_children.size())
-			{
-				return BT_FAILURE;
-			}
-		}
-	}
+            // Hit the end of the array, job done!
+            ++this->m_activeChildIndex;
 
-	void SelectorStochasticTask::onexit(Agent* pAgent, EBTStatus s)
-	{
-		CompositeStochasticTask::onexit(pAgent, s);
-	}
+            if (this->m_activeChildIndex >= (int)this->m_children.size())
+            {
+                return BT_FAILURE;
+            }
+        }
+    }
+
+    void SelectorStochasticTask::onexit(Agent* pAgent, EBTStatus s)
+    {
+        CompositeStochasticTask::onexit(pAgent, s);
+    }
 }

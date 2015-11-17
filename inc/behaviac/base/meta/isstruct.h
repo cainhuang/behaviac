@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_TRAITS_ISSTRUCT_H__INCLUDED
-#define _BEHAVIAC_BASE_TRAITS_ISSTRUCT_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_TRAITS_ISSTRUCT_H_INCLUDED
+#define _BEHAVIAC_BASE_TRAITS_ISSTRUCT_H_INCLUDED
 
 #include "behaviac/base/meta/isclass.h"
 

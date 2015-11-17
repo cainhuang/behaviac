@@ -15,8 +15,8 @@
 #error "Use this header only with Microsoft Visual C++ compilers!"
 #endif
 
-#ifndef _MSC_STDINT_H_
-#define _MSC_STDINT_H_
+#ifndef BEHAVIAC_MSC_STDINT_H
+#define BEHAVIAC_MSC_STDINT_H
 
 #ifndef _W64
 #  if !defined(__midl) && (defined(_X86_) || defined(_M_IX86)) && _MSC_VER >= 1300
@@ -52,4 +52,4 @@ typedef _W64 signed int   intptr_t;
 typedef _W64 unsigned int uintptr_t;
 #endif
 
-#endif // _MSC_STDINT_H_
+#endif // BEHAVIAC_MSC_STDINT_H

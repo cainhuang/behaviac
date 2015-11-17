@@ -11,13 +11,12 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BASE_OBJECT_CHECKRESULT_H_
-#define BEHAVIAC_BASE_OBJECT_CHECKRESULT_H_
+#ifndef BEHAVIAC_BASE_OBJECT_CHECKRESULT_H
+#define BEHAVIAC_BASE_OBJECT_CHECKRESULT_H
 #include "behaviac/base/base.h"
 
 namespace behaviac
 {
 }//behaviac
 
-
-#endif//BEHAVIAC_BASE_OBJECT_CHECKRESULT_H_
+#endif//BEHAVIAC_BASE_OBJECT_CHECKRESULT_H

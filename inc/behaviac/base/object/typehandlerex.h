@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_TYPEHANDLEREX_H_
-#define _ENGINESERVICES_TYPEHANDLEREX_H_
+#ifndef BEHAVIAC_ENGINESERVICES_TYPEHANDLEREX_H
+#define BEHAVIAC_ENGINESERVICES_TYPEHANDLEREX_H
 
 // please use the derivation after this class to not have number of parameters errors
 template<class MemberType, bool clearOnLoad>
@@ -39,6 +39,7 @@ struct BasicVectorHandlerWithClearOption
                 if (!State)
                 {
                     CHandlerGuesser<GenericTypeHandler>::Load(elementNode, member[i], CSerializationID(0xDCB67730, "Value"));
+
                 }
                 else
                 {
@@ -64,6 +65,7 @@ struct BasicVectorHandlerWithClearOption
             if (!State)
             {
                 CHandlerGuesser<GenericTypeHandler>::Save(elementNode, member[i], CSerializationID(0xDCB67730, "Value"));
+
             }
             else
             {
@@ -92,36 +94,48 @@ struct BasicVectorHandlerWithClearOption
         SaveHelper< true >(node, member, className, propertyID);
     }
 
-	static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
-		if (types == NULL)
-		{
-			XmlNodeRef memberNode = xmlNode->newChild("Member");
-			memberNode->setAttr("Name", propertyID.GetString());
-			memberNode->setAttr("Type", "enum");
-			if (classFullName)
-			{
-				memberNode->setAttr("Class", classFullName);
-			}
-			if (bStatic)
-			{
-				memberNode->setAttr("Static", "true");
-			}
+        if (types == NULL)
+        {
+            XmlNodeRef memberNode = xmlNode->newChild("Member");
+            memberNode->setAttr("Name", propertyID.GetString());
+            memberNode->setAttr("Type", "enum");
 
-			if (uiWrapper)
-			{
-				uiWrapper->SaveDescription(memberNode);
-			}
-		}
+            if (classFullName)
+            {
+                memberNode->setAttr("Class", classFullName);
+            }
+
+            if (bStatic)
+            {
+                memberNode->setAttr("Static", "true");
+            }
+
+            if (readonlyFlag & 0x1)
+            {
+                memberNode->setAttr("Readonly", "true");
+            }
+
+            if (readonlyFlag & 0x2)
+            {
+                memberNode->setAttr("Property", "true");
+            }
+
+            if (uiWrapper)
+            {
+                uiWrapper->SaveDescription(memberNode);
+            }
+        }
     }
 
     static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
-		BEHAVIAC_UNUSED_VAR(member);
-		BEHAVIAC_UNUSED_VAR(className);
-		BEHAVIAC_UNUSED_VAR(propertyName);
+        BEHAVIAC_UNUSED_VAR(member);
+        BEHAVIAC_UNUSED_VAR(className);
+        BEHAVIAC_UNUSED_VAR(propertyName);
     }
 };
 
@@ -186,37 +200,49 @@ struct BasicMapHandler
         Save(node, member, className, propertyID);
     }
 
-	static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
-		if (types == NULL)
-		{
-			XmlNodeRef memberNode = xmlNode->newChild("Member");
-			memberNode->setAttr("Name", propertyID.GetString());
-			memberNode->setAttr("Type", "behaviac::map");
-			if (classFullName)
-			{
-				memberNode->setAttr("Class", classFullName);
-			}
-			if (bStatic)
-			{
-				memberNode->setAttr("Static", "true");
-			}
+        if (types == NULL)
+        {
+            XmlNodeRef memberNode = xmlNode->newChild("Member");
+            memberNode->setAttr("Name", propertyID.GetString());
+            memberNode->setAttr("Type", "behaviac::map");
 
-			if (uiWrapper)
-			{
-				uiWrapper->SaveDescription(memberNode);
-			}
-		}
+            if (classFullName)
+            {
+                memberNode->setAttr("Class", classFullName);
+            }
+
+            if (bStatic)
+            {
+                memberNode->setAttr("Static", "true");
+            }
+
+            if (readonlyFlag & 0x1)
+            {
+                memberNode->setAttr("Readonly", "true");
+            }
+
+            if (readonlyFlag & 0x2)
+            {
+                memberNode->setAttr("Property", "true");
+            }
+
+            if (uiWrapper)
+            {
+                uiWrapper->SaveDescription(memberNode);
+            }
+        }
     }
 
     static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
     {
-		BEHAVIAC_UNUSED_VAR(types);
+        BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
-		BEHAVIAC_UNUSED_VAR(member);
-		BEHAVIAC_UNUSED_VAR(className);
-		BEHAVIAC_UNUSED_VAR(propertyName);
+        BEHAVIAC_UNUSED_VAR(member);
+        BEHAVIAC_UNUSED_VAR(className);
+        BEHAVIAC_UNUSED_VAR(propertyName);
     }
 };
 
-#endif // #ifndef _ENGINESERVICES_TYPEHANDLEREX_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_TYPEHANDLEREX_H

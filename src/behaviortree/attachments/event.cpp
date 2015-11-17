@@ -16,166 +16,202 @@
 #include "behaviac/behaviortree/nodes/conditions/condition.h"
 
 #include "behaviac/behaviortree/attachments/event.h"
+#include "behaviac/behaviortree/nodes/actions/action.h"
 
 namespace behaviac
 {
-	Event::Event() : m_event(0), m_triggerMode(TM_Transfer), m_bTriggeredOnce(false)
-	{
-	}
+    Event::Event() : m_event(0), m_triggerMode(TM_Transfer), m_bTriggeredOnce(false)
+    {
+    }
 
-	Event::~Event()
-	{
-		BEHAVIAC_DELETE(m_event);
-	}
+    Event::~Event()
+    {
+        BEHAVIAC_DELETE(m_event);
+    }
 
-	CMethodBase* LoadMethod(const char* value);
+    //CMethodBase* LoadMethod(const char* value);
 
-	bool Event::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!Event::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
+    bool Event::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!Event::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-		return super::IsValid(pAgent, pTask);
-	}
+        return super::IsValid(pAgent, pTask);
+    }
 
-	void Event::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
+    void Event::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
 
-		behaviac::string typeName;
-		behaviac::string propertyName;
-		behaviac::string comparatorName;
+        behaviac::string typeName;
+        behaviac::string propertyName;
+        behaviac::string comparatorName;
 
-		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
-		{
-			const property_t& p = (*it);
+        for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+        {
+            const property_t& p = (*it);
 
-			if (strcmp(p.name, "EventName") == 0)
-			{
-				//method
-				this->m_event = LoadMethod(p.value);
-			}
-			else if (strcmp(p.name, "ReferenceFilename") == 0)
-			{
-				this->m_referencedBehaviorPath = p.value;
-			}
-			else if (strcmp(p.name, "TriggeredOnce") == 0)
-			{
-				if (string_icmp(p.value, "true") == 0)
-				{
-					this->m_bTriggeredOnce = true;
-				}
-			}
-			else if (strcmp(p.name, "TriggerMode") == 0)
-			{
-				if (string_icmp(p.value, "Transfer") == 0)
-				{
-					this->m_triggerMode = TM_Transfer;
-				}
-				else if (string_icmp(p.value, "Return") == 0)
-				{
-					this->m_triggerMode = TM_Return;
-				}
-				else
-				{
-					BEHAVIAC_ASSERT(0, "unrecognised trigger mode %s", p.value);
-				}
-			}
-			else
-			{
-				//BEHAVIAC_ASSERT(0, "unrecognised property %s", p.name);
-			}
-		}
-	}
+            if (strcmp(p.name, "EventName") == 0)
+            {
+                //method
+                this->m_event = Action::LoadMethod(p.value);
 
-	BehaviorTask* Event::createTask() const
-	{
-		EventetTask* pTask = BEHAVIAC_NEW EventetTask();
+            }
+            else if (strcmp(p.name, "ReferenceFilename") == 0)
+            {
+                this->m_referencedBehaviorPath = p.value;
 
-		return pTask;
-	}
+            }
+            else if (strcmp(p.name, "TriggeredOnce") == 0)
+            {
+                if (string_icmp(p.value, "true") == 0)
+                {
+                    this->m_bTriggeredOnce = true;
+                }
 
-	EventetTask::EventetTask() : AttachmentTask()
-	{
-	}
+            }
+            else if (strcmp(p.name, "TriggerMode") == 0)
+            {
+                if (string_icmp(p.value, "Transfer") == 0)
+                {
+                    this->m_triggerMode = TM_Transfer;
 
-	EventetTask::~EventetTask()
-	{
-	}
+                }
+                else if (string_icmp(p.value, "Return") == 0)
+                {
+                    this->m_triggerMode = TM_Return;
 
-	bool EventetTask::NeedRestart() const
-	{
-		return true;
-	}
+                }
+                else
+                {
+                    BEHAVIAC_ASSERT(0, "unrecognised trigger mode %s", p.value);
+                }
 
-	void EventetTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+            }
+            else
+            {
+                //BEHAVIAC_ASSERT(0, "unrecognised property %s", p.name);
+            }
+        }
+    }
+    const char* Event::GetEventName()
+    {
+        if (this->m_event != NULL)
+        {
+            return this->m_event->GetName();
+        }
 
-	void EventetTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+        return NULL;
+    }
+    bool Event::TriggeredOnce()
+    {
+        return this->m_bTriggeredOnce;
+    }
+    TriggerMode Event::GetTriggerMode()
+    {
+        return m_triggerMode;
+    }
+    void Event::switchTo(Agent* pAgent)
+    {
+        if (!StringUtils::IsNullOrEmpty(this->m_referencedBehaviorPath.c_str()))
+        {
+            if (pAgent != NULL)
+            {
+                TriggerMode tm = this->GetTriggerMode();
 
-	void EventetTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+                pAgent->bteventtree(this->m_referencedBehaviorPath.c_str(), tm);
+                pAgent->btexec();
+            }
+        }
+    }
+    BehaviorTask* Event::createTask() const
+    {
+        EventetTask* pTask = BEHAVIAC_NEW EventetTask();
 
-	bool EventetTask::onenter(Agent* pAgent)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
+        return pTask;
+    }
 
-		return true;
-	}
+    EventetTask::EventetTask() : AttachmentTask()
+    {
+    }
 
-	void EventetTask::onexit(Agent* pAgent, EBTStatus s)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(s);
-	}
+    EventetTask::~EventetTask()
+    {
+    }
 
-	bool EventetTask::TriggeredOnce() const
-	{
-		const Event* pEventNode = Event::DynamicCast(this->GetNode());
-		return pEventNode->m_bTriggeredOnce;
-	}
+    //bool EventetTask::NeedRestart() const
+    //{
+    //	return true;
+    //}
 
-	TriggerMode EventetTask::GetTriggerMode() const
-	{
-		const Event* pEventNode = Event::DynamicCast(this->GetNode());
-		return pEventNode->m_triggerMode;
-	}
+    void EventetTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	const char* EventetTask::GetEventName() const
-	{
-		const Event* pEventNode = Event::DynamicCast(this->GetNode());
-		return pEventNode->m_event ? pEventNode->m_event->GetName() : NULL;
-	}
+    void EventetTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	EBTStatus EventetTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(childStatus);
-		
-		BEHAVIAC_ASSERT(Event::DynamicCast(this->GetNode()));
-		const Event* pEventNode = (const Event*)(this->GetNode());
-		if (!pEventNode->m_referencedBehaviorPath.empty())
-		{
-			if (pAgent)
-			{
-				TriggerMode tm = this->GetTriggerMode();
+    void EventetTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-				pAgent->bteventtree(pEventNode->m_referencedBehaviorPath.c_str(), tm);
-				EBTStatus s = pAgent->btexec();
-				BEHAVIAC_UNUSED_VAR(s);
-			}
-		}
+    bool EventetTask::onenter(Agent* pAgent)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
 
-		return BT_SUCCESS;
-	}
+        return true;
+    }
 
+    void EventetTask::onexit(Agent* pAgent, EBTStatus s)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(s);
+    }
+
+    bool EventetTask::TriggeredOnce() const
+    {
+        const Event* pEventNode = Event::DynamicCast(this->GetNode());
+        return pEventNode->m_bTriggeredOnce;
+    }
+
+    TriggerMode EventetTask::GetTriggerMode() const
+    {
+        const Event* pEventNode = Event::DynamicCast(this->GetNode());
+        return pEventNode->m_triggerMode;
+    }
+
+    const char* EventetTask::GetEventName() const
+    {
+        const Event* pEventNode = Event::DynamicCast(this->GetNode());
+        return pEventNode->m_event ? pEventNode->m_event->GetName() : NULL;
+    }
+
+    EBTStatus EventetTask::update(Agent* pAgent, EBTStatus childStatus)
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(childStatus);
+
+        BEHAVIAC_ASSERT(Event::DynamicCast(this->GetNode()));
+        const Event* pEventNode = (const Event*)(this->GetNode());
+
+        if (!pEventNode->m_referencedBehaviorPath.empty())
+        {
+            if (pAgent)
+            {
+                TriggerMode tm = this->GetTriggerMode();
+
+                pAgent->bteventtree(pEventNode->m_referencedBehaviorPath.c_str(), tm);
+                EBTStatus s = pAgent->btexec();
+                BEHAVIAC_UNUSED_VAR(s);
+            }
+        }
+
+        return BT_SUCCESS;
+    }
 }

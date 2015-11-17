@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_META_POINTERTYPE_H__INCLUDED
-#define _BEHAVIAC_BASE_META_POINTERTYPE_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_META_POINTERTYPE_H_INCLUDED
+#define _BEHAVIAC_BASE_META_POINTERTYPE_H_INCLUDED
 
 namespace behaviac
 {
@@ -47,8 +47,7 @@ namespace behaviac
         //{
         //    typedef const T* Result;
         //};
-
     }
 }
 
-#endif//_BEHAVIAC_BASE_META_POINTERTYPE_H__INCLUDED
+#endif//_BEHAVIAC_BASE_META_POINTERTYPE_H_INCLUDED

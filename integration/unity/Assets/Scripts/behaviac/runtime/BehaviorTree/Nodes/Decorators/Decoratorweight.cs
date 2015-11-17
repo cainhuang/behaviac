@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,7 @@ namespace behaviac
     {
         public DecoratorWeight()
         {
-		}
+        }
 
         ~DecoratorWeight()
         {
@@ -32,13 +30,12 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
                 if (p.name == "Weight")
                 {
                     string typeName = null;
-                    string propertyName = null;
-                    this.m_weight_var = Condition.LoadRight(p.value, propertyName, ref typeName);
+                    this.m_weight_var = Condition.LoadRight(p.value, ref typeName);
                 }
             }
         }
@@ -63,11 +60,12 @@ namespace behaviac
             return pTask;
         }
 
-        Property m_weight_var;
+        private Property m_weight_var;
 
         public class DecoratorWeightTask : DecoratorTask
         {
-            public DecoratorWeightTask() : base()
+            public DecoratorWeightTask()
+                : base()
             {
             }
 

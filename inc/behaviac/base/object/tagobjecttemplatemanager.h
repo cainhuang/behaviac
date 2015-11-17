@@ -11,9 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_TAGOBJECTTEMPLATEMANAGER_H_
-#define _ENGINESERVICES_TAGOBJECTTEMPLATEMANAGER_H_
-
+#ifndef BEHAVIAC_ENGINESERVICES_TAGOBJECTTEMPLATEMANAGER_H
+#define BEHAVIAC_ENGINESERVICES_TAGOBJECTTEMPLATEMANAGER_H
 
 #include "behaviac/base/core/singleton.h"
 #include "behaviac/base/serialization/serializablenode.h"
@@ -55,4 +54,4 @@ protected:
     BEHAVIAC_DELCARE_SINGLETON(CTagObjectTemplateManager);
 };
 
-#endif //_ENGINESERVICES_TAGOBJECTTEMPLATEMANAGER_H_
+#endif //BEHAVIAC_ENGINESERVICES_TAGOBJECTTEMPLATEMANAGER_H

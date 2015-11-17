@@ -61,49 +61,41 @@ namespace Behaviac.Design
             /// <param name="property">The property we want to show.</param>
             /// <param name="att">The attribute associated with the property.</param>
             public SubItemProperty(Node owner, PropertyInfo property, DesignerProperty att)
-                : base(null, null, __font, Brushes.White, Alignment.Center, false)
-            {
+                : base(null, null, __font, Brushes.White, Alignment.Center, false) {
                 _owner = owner;
                 _property = property;
                 _attribute = att;
             }
 
-            private string getPropertyName(string str)
-            {
-                if (!string.IsNullOrEmpty(str))
-                {
+            private string getPropertyName(string str) {
+                if (!string.IsNullOrEmpty(str)) {
                     int quotationCount = 0;
                     int doubleQuotationCount = 0;
                     int lastSpaceIndex = -1;
 
                     str = str.Trim();
 
-                    for (int i = 0; i < str.Length; ++i)
-                    {
-                        if (str[i] == '\'')
-                        {
-                            if (doubleQuotationCount == 0)
-                            {
+                    for (int i = 0; i < str.Length; ++i) {
+                        if (str[i] == '\'') {
+                            if (doubleQuotationCount == 0) {
                                 if (quotationCount == 0)
-                                    quotationCount++;
+                                { quotationCount++; }
+
                                 else
-                                    quotationCount--;
+                                { quotationCount--; }
                             }
-                        }
-                        else if (str[i] == '"')
-                        {
-                            if (quotationCount == 0)
-                            {
+
+                        } else if (str[i] == '"') {
+                            if (quotationCount == 0) {
                                 if (doubleQuotationCount == 0)
-                                    doubleQuotationCount++;
+                                { doubleQuotationCount++; }
+
                                 else
-                                    doubleQuotationCount--;
+                                { doubleQuotationCount--; }
                             }
-                        }
-                        else if (str[i] == ' ')
-                        {
-                            if (quotationCount == 0 && doubleQuotationCount == 0)
-                            {
+
+                        } else if (str[i] == ' ') {
+                            if (quotationCount == 0 && doubleQuotationCount == 0) {
                                 lastSpaceIndex = i;
                             }
                         }
@@ -115,10 +107,8 @@ namespace Behaviac.Design
                 return string.Empty;
             }
 
-            protected override string Label
-            {
-                get
-                {
+            protected override string Label {
+                get {
                     // get the value from the property
                     object obj = _property.GetValue(_owner, null);
                     string str = _attribute.GetDisplayValue(obj);
@@ -128,8 +118,7 @@ namespace Behaviac.Design
                 }
             }
 
-            public override SubItem Clone(Node newnode)
-            {
+            public override SubItem Clone(Node newnode) {
                 // this subitem is automatically added it does not need to be duplicated
                 return null;
             }

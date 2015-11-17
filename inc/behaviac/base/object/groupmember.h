@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_GROUPMEMBER_H_
-#define _ENGINESERVICES_GROUPMEMBER_H_
+#ifndef BEHAVIAC_ENGINESERVICES_GROUPMEMBER_H
+#define BEHAVIAC_ENGINESERVICES_GROUPMEMBER_H
 
 #include "behaviac/base/object/tagobject.h"
 
@@ -25,8 +25,8 @@
 
 #define BEGIN_GROUP_MEMBER(groupName, propertyFlags) \
     { \
-	typedef CGroupMember<CreateChildNode, propertyFlags> MemberType; \
-	MemberType* property_ = BEHAVIAC_NEW MemberType(groupName, objectType::GetClassTypeName()); \
+        typedef CGroupMember<CreateChildNode, propertyFlags> MemberType; \
+        MemberType* property_ = BEHAVIAC_NEW MemberType(groupName, objectType::GetClassTypeName()); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
         { \
             CTagObject::MembersContainer& ms_members = property_->GetMembers();
@@ -45,15 +45,15 @@ public:
         : CMemberBase(groupName, className)
     {}
 
-	CGroupMember(const CGroupMember& copy) : CMemberBase(copy), ms_members(copy.ms_members)
-	{}
+    CGroupMember(const CGroupMember& copy) : CMemberBase(copy), ms_members(copy.ms_members)
+    {}
 
-	virtual CMemberBase* clone() const
-	{
-		CMemberBase* p = BEHAVIAC_NEW CGroupMember(*this);
+    virtual CMemberBase* clone() const
+    {
+        CMemberBase* p = BEHAVIAC_NEW CGroupMember(*this);
 
-		return p;
-	}
+        return p;
+    }
 
     virtual void Load(CTagObject* parent, const ISerializableNode* node)
     {
@@ -64,6 +64,7 @@ public:
             if (ChildNodeCreate)
             {
                 groupNode = node->findChild(m_propertyID);
+
             }
             else
             {
@@ -77,7 +78,7 @@ public:
 
                 for (; it != itEnd; ++it)
                 {
-					CMemberBase* m = *it;
+                    CMemberBase* m = *it;
                     m->Load(parent, groupNode);
                 }
             }
@@ -93,6 +94,7 @@ public:
             if (ChildNodeCreate)
             {
                 groupNode = node->newChild(m_propertyID);
+
             }
             else
             {
@@ -104,7 +106,7 @@ public:
 
             for (; it != itEnd; ++it)
             {
-				CMemberBase* m = *it;
+                CMemberBase* m = *it;
                 m->Save(parent, groupNode);
             }
         }
@@ -119,6 +121,7 @@ public:
             if (ChildNodeCreate)
             {
                 groupNode = node->findChild(m_propertyID);
+
             }
             else
             {
@@ -132,7 +135,7 @@ public:
 
                 for (; it != itEnd; ++it)
                 {
-					CMemberBase* m = *it;
+                    CMemberBase* m = *it;
                     m->LoadState(parent, groupNode);
                 }
             }
@@ -148,6 +151,7 @@ public:
             if (ChildNodeCreate)
             {
                 groupNode = node->newChild(m_propertyID);
+
             }
             else
             {
@@ -159,7 +163,7 @@ public:
 
             for (; it != itEnd; ++it)
             {
-				CMemberBase* m = *it;
+                CMemberBase* m = *it;
                 m->SaveState(parent, groupNode);
             }
         }
@@ -175,14 +179,16 @@ public:
             {
                 groupNode = xmlNode->newChild("Member");
                 groupNode->setAttr("Name", m_propertyID.GetString());
-				if (this->m_classFullName)
-				{
-					groupNode->setAttr("Class", this->m_classFullName);
-				}
-				if (m_bStatic)
-				{
-					groupNode->setAttr("Static", "true");
-				}
+
+                if (this->m_classFullName)
+                {
+                    groupNode->setAttr("Class", this->m_classFullName);
+                }
+
+                if (m_bStatic)
+                {
+                    groupNode->setAttr("Static", "true");
+                }
             }
 
             CTagObjectDescriptor::MembersVector_t::const_iterator it = ms_members.membersVector.begin();
@@ -190,7 +196,7 @@ public:
 
             for (; it != itEnd; ++it)
             {
-				CMemberBase* m = *it;
+                CMemberBase* m = *it;
                 m->GetUiInfo(types, parent, groupNode);
             }
         }
@@ -214,7 +220,6 @@ private:
     CTagObject::MembersContainer ms_members;
 };
 
-
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////            CONDITIONAL GROUP MEMBER            ////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -223,7 +228,7 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 #define BEGIN_CONDITIONAL_GROUP_MEMBER(groupName, conditionalName, propertyFlags, createChildNode) \
     { \
-		typedef CConditionalGroupMember<objectType, createChildNode, propertyFlags> MemberType; \
+        typedef CConditionalGroupMember<objectType, createChildNode, propertyFlags> MemberType; \
         MemberType* property_ = BEHAVIAC_NEW MemberType(groupName, &objectType::conditionalName); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
         { \
@@ -283,4 +288,4 @@ private:
     bool (ObjectType::*m_condition)(void) const;
 };
 
-#endif // #ifndef _ENGINESERVICES_GROUPMEMBER_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_GROUPMEMBER_H

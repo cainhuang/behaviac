@@ -44,43 +44,31 @@ namespace Behaviac.Design.Nodes
     /// </summary>
     public class Selector : Node
     {
-        private bool _acceptsEvents = false;
+        protected ConnectorSingle _interruptChild;
         protected ConnectorMultiple _genericChildren;
 
         public Selector(string label, string description)
             : base(label, description)
         {
-            _acceptsEvents = true;
-            _genericChildren = new ConnectorMultiple(_children, "", "GenericChildren", 2, int.MaxValue);
+            _interruptChild = new ConnectorSingle(_children, "", Connector.kInterupt);
+            _genericChildren = new ConnectorMultiple(_children, "", Connector.kGeneric, 2, int.MaxValue);
         }
 
-        public override string ExportClass
-        {
+        public override string ExportClass {
             get { return "Selector"; }
         }
 
-        public override bool AcceptsAttachment(Type type)
-        {
-            if (_acceptsEvents)
-            {
-                return type.IsSubclassOf(typeof(Behaviac.Design.Attachments.Predicate));
-            }
-
-            return false;
-        }
-
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(79, 129, 189));
-        protected override Brush DefaultBackgroundBrush
-        {
+        protected override Brush DefaultBackgroundBrush {
             get { return __defaultBackgroundBrush; }
         }
 
-        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
-        {
-            if (_genericChildren.ChildCount < 2)
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.SelectorOnlyOneChildError));
-            else if (_genericChildren.ChildCount < 1)
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.SelectorNoChildrenError));
+        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
+            if (_genericChildren.EnableChildCount < 2)
+            { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.SelectorOnlyOneChildError)); }
+
+            else if (_genericChildren.EnableChildCount < 1)
+            { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.SelectorNoChildrenError)); }
 
             base.CheckForErrors(rootBehavior, result);
         }

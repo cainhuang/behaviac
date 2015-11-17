@@ -42,7 +42,6 @@ uint64_t CHighPerfTimer::GetTimeValue()
     return uint64_t(l.QuadPart);
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 // Variables used by timers
 //////////////////////////////////////////////////////////////////////////
@@ -50,9 +49,9 @@ uint64_t CHighPerfTimer::GetTimeValue()
 struct SInternalTimerVariables
 {
     SInternalTimerVariables()
-        :   m_curTime(0),
-            m_timerStart(0),
-            m_secsPerTick(0.f)
+        : m_curTime(0),
+          m_timerStart(0),
+          m_secsPerTick(0.f)
     {}
     int64_t m_curTime;
     int64_t m_timerStart;
@@ -100,6 +99,7 @@ bool CTimer::Init()
         memcpy(&s_timerVar.m_timerStart, &t, sizeof(s_timerVar.m_timerStart));
         s_timerVar.m_secsPerTick = double(1.0 / double(TTicksPerSec.QuadPart));
         m_pfnUpdate = &GetPerformanceCounterTime;
+
     }
     else
     {

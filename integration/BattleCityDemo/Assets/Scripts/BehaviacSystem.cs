@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -18,72 +18,79 @@ using System;
 using System.Runtime.InteropServices;
 #endif
 
-[AddComponentMenu("BattleCity/BehaviacSystem")]
-public class BehaviacSystem : Singleton<BehaviacSystem>
+[AddComponentMenu("BehaviacSystem")]
+public class BehaviacSystem
 {
-		private bool m_bIsInited = false;
-		protected static BehaviacFileManager fileSystem = null;
+    #region singleon
+    private static BehaviacSystem _instance;
+    public static BehaviacSystem Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new BehaviacSystem();
+            }
 
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-		[DllImport("user32.dll", CharSet=CharSet.Auto)]
-		public static extern int MessageBox(int hWnd, String text, String caption, int options);
-#endif
+            return _instance;
+        }
+    }
+    #endregion
 
+	protected static BehaviacFileManager ms_fileSystem = null;
 
-		private static void RespondToBreak (string msg, string title)
-		{
-//#if UNITY_EDITOR
-//		if (Application.platform == RuntimePlatform.WindowsEditor) 
-//		{
-//			UnityEditor.EditorUtility.DisplayDialog (title, msg, "Ok");
-//		} 
-//#endif
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-			MessageBox(0, title, msg, 0);
-#endif
-		}
+    private string WorkspaceExportPath
+    {
+        get
+        {
+            string relativePath = "/Resources/behaviac/exported";
+            string path = "";
+            if (Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                path = Application.dataPath + relativePath;
+            }
+            else if (Application.platform == RuntimePlatform.WindowsPlayer)
+            {
+                path = Application.dataPath + relativePath;
+            }
+            else
+            {
+                path = "Assets" + relativePath;
+            }
 
-		public bool init ()
-		{		
-			if (!m_bIsInited) 
-			{
-				m_bIsInited = true;
+            return path;
+        }
+    }
 
-				if(fileSystem == null)
-				{
-					fileSystem = new BehaviacFileManager ();
-	            }
-            	//behaviac.Workspace.RegisterBehaviorNode ();
-				
-				//register agents
-				//behaviac.Workspace.RegisterMetas ();				
-				string btExportPath = GameLevelCommon.WorkspaceExportedPath;
-				behaviac.Workspace.EFileFormat btFileFormat = behaviac.Workspace.EFileFormat.EFF_xml;
-				behaviac.Workspace.SetWorkspaceSettings (btExportPath, btFileFormat);            
-				//register names
-				behaviac.Agent.RegisterName<GameLevelCommon> ("GameLevel");
-								
-				string metaExportPath = GameLevelCommon.WorkspacePath + "/xmlmeta/BattleCityMeta.xml";
-				behaviac.Workspace.ExportMetas (metaExportPath);
-				behaviac.Debug.Log ("Behaviac meta data export over.");
+	public bool Init ()
+    {
+        if (ms_fileSystem == null)
+        {
+            ms_fileSystem = new BehaviacFileManager();
+        }
 
-				//behaviac.Workspace.RespondToBreakHandler += RespondToBreak;
+        {
+            //< write log file
+            behaviac.Config.IsLogging = true;
+            //behaviac.Config.IsSocketing = false;
 
-				//< write log file
-				//behaviac.Config.IsLogging = false;
-				//behaviac.Config.IsSocketing = false;				
-				
-				bool isBlockSocket = false;
-				behaviac.SocketUtils.SetupConnection (isBlockSocket);		
-				behaviac.Agent.SetIdMask (0xffffffff);
-			}
+            behaviac.Workspace.Instance.FilePath = this.WorkspaceExportPath;
+            behaviac.Workspace.Instance.FileFormat = behaviac.Workspace.EFileFormat.EFF_xml;
 
-			return true;
-		}
+            //register names
+            behaviac.Agent.RegisterInstanceName<GameLevelCommon>("GameLevel");
+            behaviac.Workspace.Instance.ExportMetas("behaviac/workspace/xmlmeta/BattleCityMeta.xml");
 
-		public void finl ()
-		{
-				behaviac.Workspace.RespondToBreakHandler -= RespondToBreak;
-				behaviac.SocketUtils.ShutdownConnection ();
-		}
+            behaviac.Debug.Log("Behaviac meta data export over.");
+            behaviac.Agent.SetIdMask(0xffffffff);
+        }
+
+        return true;
+    }
+
+    public void Uninit()
+	{
+        behaviac.Workspace.Instance.Cleanup();
+	}
+
 }

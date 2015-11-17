@@ -44,7 +44,7 @@ using System.Runtime.InteropServices;
 using Behaviac.Design.Data;
 using Behaviac.Design.Properties;
 using Behaviac.Design.Attributes;
-using Behaviac.Design.NodeUI;
+using Behaviac.Design.ObjectUI;
 
 namespace Behaviac.Design
 {
@@ -55,52 +55,42 @@ namespace Behaviac.Design
         /// <summary>
         /// The number of property grids available.
         /// </summary>
-        internal static int Count
-        {
+        internal static int Count {
             get { return __propertyGrids.Count; }
         }
 
-        internal static void CloseAll()
-        {
+        internal static void CloseAll() {
             PropertiesDock[] docks = __propertyGrids.ToArray();
-            foreach (PropertiesDock dock in docks)
-            {
+            foreach(PropertiesDock dock in docks) {
                 dock.Close();
             }
         }
 
-        internal static bool ReadOnly
-        {
+        internal static bool ReadOnly {
             set
             {
-                foreach (PropertiesDock dock in __propertyGrids)
-                {
+                foreach(PropertiesDock dock in __propertyGrids) {
                     dock.Enabled = !value;
                 }
             }
         }
 
-        internal static PropertiesDock CreateFloatDock(Nodes.BehaviorNode rootBehavior, object node)
-        {
+        internal static PropertiesDock CreateFloatDock(Nodes.BehaviorNode rootBehavior, object node) {
             PropertiesDock newDock = null;
 
             // Ignore the first one.
-            for (int i = 1; i < __propertyGrids.Count; ++i)
-            {
-                if (__propertyGrids[i].SelectedObject == node)
-                {
+            for (int i = 1; i < __propertyGrids.Count; ++i) {
+                if (__propertyGrids[i].SelectedObject == node) {
                     newDock = __propertyGrids[i];
                     break;
                 }
             }
 
-            if (newDock == null)
-            {
+            if (newDock == null) {
                 newDock = new PropertiesDock();
                 newDock.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.Float);
-            }
-            else
-            {
+
+            } else {
                 newDock.Show();
             }
 
@@ -113,10 +103,8 @@ namespace Behaviac.Design
         /// <summary>
         /// Forces all property grids to reinspect their objects.
         /// </summary>
-        internal static void UpdatePropertyGrids()
-        {
-            foreach (PropertiesDock dock in __propertyGrids)
-            {
+        internal static void UpdatePropertyGrids() {
+            foreach(PropertiesDock dock in __propertyGrids) {
                 dock.SelectedObject = dock.SelectedObject;
             }
         }
@@ -124,20 +112,36 @@ namespace Behaviac.Design
         private Nodes.BehaviorNode _rootBehavior = null;
         private object _selectedObject = null;
 
-        public object SelectedObject
-        {
+        public object SelectedObject {
             get { return _selectedObject; }
 
             set
             {
-                //if (_selectedObject == value)
-                //    return;
+                if (value == null && _selectedObject == value) {
+                    return;
+                }
 
                 RecreatePropertyGrid();
 
                 _selectedObject = value;
 
-                string text = _selectedObject == null ? Resources.Properties : string.Format(Resources.PropertiesOf, _selectedObject.ToString());
+                string text = Resources.Properties;
+
+                if (_selectedObject != null) {
+                    string objCls = _selectedObject.ToString();
+
+                    if (_selectedObject is Nodes.Node) {
+                        Nodes.Node node = _selectedObject as Nodes.Node;
+                        objCls = node.ExportClass;
+
+                    } else if (_selectedObject is Attachments.Attachment) {
+                        Attachments.Attachment attach = _selectedObject as Attachments.Attachment;
+                        objCls = attach.ExportClass;
+                    }
+
+                    text = string.Format(Resources.PropertiesOf, Plugin.GetResourceString(objCls));
+                }
+
                 Text = text;
                 TabText = text;
 
@@ -147,8 +151,8 @@ namespace Behaviac.Design
                 TabText = text;
 
                 propertyGrid.PropertiesVisible(false, false);
-                if (_selectedObject != null)
-                {
+
+                if (_selectedObject != null) {
                     this.SuspendDrawing();
                     this.SuspendLayout();
 
@@ -164,8 +168,7 @@ namespace Behaviac.Design
             }
         }
 
-        private void RecreatePropertyGrid()
-        {
+        private void RecreatePropertyGrid() {
             //propertyGrid.ClearProperties();
 
             propertyGrid.Dispose();
@@ -185,34 +188,33 @@ namespace Behaviac.Design
         private int suspendCounter = 0;
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
-        
-        private const int WM_SETREDRAW = 11; 
 
-        private void SuspendDrawing()
-        {
-            if (suspendCounter == 0)
+        private const int WM_SETREDRAW = 11;
+
+        private void SuspendDrawing() {
+            if (suspendCounter == 0) {
                 SendMessage(this.Handle, WM_SETREDRAW, false, 0);
+            }
+
             suspendCounter++;
         }
 
-        private void ResumeDrawing()
-        {
+        private void ResumeDrawing() {
             suspendCounter--;
-            if (suspendCounter == 0)
-            {
+
+            if (suspendCounter == 0) {
                 SendMessage(this.Handle, WM_SETREDRAW, true, 0);
                 this.Refresh();
             }
         }
         #endregion
 
-        internal static bool InspectObject(Nodes.BehaviorNode rootBehavior, object obj, bool byForce = true)
-        {
-            if (__propertyGrids.Count < 1)
+        internal static bool InspectObject(Nodes.BehaviorNode rootBehavior, object obj, bool byForce = true) {
+            if (__propertyGrids.Count < 1) {
                 return false;
+            }
 
-            if (byForce && Plugin.EditMode == EditModes.Design || __propertyGrids[0].SelectedObject != obj)
-            {
+            if (byForce && Plugin.EditMode == EditModes.Design || __propertyGrids[0].SelectedObject != obj) {
                 __propertyGrids[0]._rootBehavior = rootBehavior;
                 __propertyGrids[0].SelectedObject = obj;
             }
@@ -220,8 +222,7 @@ namespace Behaviac.Design
             return true;
         }
 
-        public PropertiesDock()
-        {
+        public PropertiesDock() {
             InitializeComponent();
 
             __propertyGrids.Add(this);
@@ -233,92 +234,119 @@ namespace Behaviac.Design
             this.Disposed += new EventHandler(PropertiesDock_Disposed);
         }
 
-        void PropertiesDock_Disposed(object sender, EventArgs e)
-        {
+        void PropertiesDock_Disposed(object sender, EventArgs e) {
             this.Disposed -= PropertiesDock_Disposed;
 
-            if (this.propertyGrid != null)
-            {
+            if (this.propertyGrid != null) {
                 this.propertyGrid.Dispose();
                 this.propertyGrid = null;
             }
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
+        protected override void OnClosed(EventArgs e) {
             SelectedObject = null;
             __propertyGrids.Remove(this);
 
             base.OnClosed(e);
         }
 
-        //private void UpdateProperties(IList<DesignerPropertyInfo> properties, List<MethodDef.Param> parameters, string parametersCategory)
-        private void UpdateProperties(IList<DesignerPropertyInfo> properties)
+        class CategorySorter : IComparer<string>
         {
+            public int Compare(string x, string y) {
+                //Node and Comment are below all other categories
+                if (x == "CategoryComment") {
+                    if (y == "NodeBasic") {
+                        return -1;
+                    }
+
+                    return 1;
+
+                } else if (x == "NodeBasic") {
+                    if (y == "CategoryComment") {
+                        return 1;
+                    }
+
+                    return 1;
+                }
+
+                if (y == "CategoryComment") {
+                    if (x == "NodeBasic") {
+                        return 1;
+                    }
+
+                    return -1;
+
+                } else if (y == "NodeBasic") {
+                    if (x == "CategoryComment") {
+                        return -1;
+                    }
+
+                    return -1;
+                }
+
+                int ret = x.CompareTo(y);
+                return ret;
+            }
+        }
+
+        private ObjectUIPolicy uiPolicy = null;
+
+        //private void UpdateProperties(IList<DesignerPropertyInfo> properties, List<MethodDef.Param> parameters, string parametersCategory)
+        private void UpdateProperties(IList<DesignerPropertyInfo> properties) {
             //Console.WriteLine("UpdateProperties");
             //this.SuspendLayout();
 
             List<string> categories = new List<string>();
-            foreach (DesignerPropertyInfo property in properties)
-            {
+            foreach(DesignerPropertyInfo property in properties) {
                 if (!property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoDisplay) &&
                     (property.Attribute.CategoryResourceString != "CategoryVersion" || Settings.Default.ShowVersionInfo) &&
-                    !categories.Contains(property.Attribute.CategoryResourceString))
-                {
+                    !categories.Contains(property.Attribute.CategoryResourceString)) {
                     categories.Add(property.Attribute.CategoryResourceString);
                 }
             }
 
-            categories.Sort();
+            categories.Sort(new CategorySorter());
 
-            Nodes.Node node = SelectedObject as Nodes.Node;
-            List<ParInfo> pars = new List<ParInfo>();
-            bool referrencedPar = false;
-            NodeUIPolicy uiPolicy = null;
-            if (node != null)
-            {
-                node.GetAllPars(ref pars);
+            DefaultObject obj = SelectedObject as DefaultObject;
 
-                uiPolicy = NodeUIPolicy.CreateUIPolicy(node);
-                uiPolicy.Initialize(SelectedObject);
-            }
-            else
-            {
-                Attachments.Attach attachment = SelectedObject as Behaviac.Design.Attachments.Attach;
-                if (attachment != null)
-                {
-                    node = attachment.Node;
-                    referrencedPar = true;
-                    attachment.GetAllPars(ref pars);
-
-                    uiPolicy = NodeUIPolicy.CreateUIPolicy(attachment);
-                    uiPolicy.Initialize(SelectedObject);
-                }
+            if (obj != null) {
+                uiPolicy = obj.CreateUIPolicy();
+                uiPolicy.Initialize(obj);
             }
 
-            if (pars.Count > 0 && !categories.Contains("CategoryPar"))
-            {
-                categories.Add("CategoryPar");
-            }
-
-            foreach (string category in categories)
-            {
+            foreach(string category in categories) {
                 propertyGrid.AddCategory(Plugin.GetResourceString(category), true);
 
-                foreach (DesignerPropertyInfo property in properties)
-                {
+                foreach(DesignerPropertyInfo property in properties) {
                     if (!property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoDisplay) &&
-                        property.Attribute.CategoryResourceString == category)
-                    {
-                        Type type = property.Attribute.GetEditorType(property.Property.GetValue(_selectedObject, null));
-                        Label label = propertyGrid.AddProperty(property.Attribute.DisplayName, type, property.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnly));
+                        property.Attribute.CategoryResourceString == category) {
+                        if (uiPolicy != null && !uiPolicy.ShouldAddProperty(property)) {
+                            continue;
+                        }
+
+                        object value_ = property.Property.GetValue(_selectedObject, null);
+                        Type type = property.Attribute.GetEditorType(value_);
+                        DesignerMethodEnum propertyMethod = property.Attribute as DesignerMethodEnum;
+
+                        if (propertyMethod != null) {
+                            if ((propertyMethod.MethodType & MethodType.Task) == MethodType.Task) {
+                                type = typeof(DesignerMethodEnumEditor);
+                            }
+                        }
+
+                        string displayName = property.Attribute.DisplayName;
+
+                        if (uiPolicy != null) {
+                            displayName = uiPolicy.GetLabel(property);
+                        }
+
+                        Label label = propertyGrid.AddProperty(displayName, type, property.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnly));
 
                         // register description showing
                         label.MouseEnter += new EventHandler(label_MouseEnter);
 
                         // when we found an editor we connect it to the object
-                        if (type != null)
-                        {
+                        if (type != null) {
                             DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
                             editor.SetRootNode((Nodes.Node)this._rootBehavior);
                             editor.SetProperty(property, _selectedObject);
@@ -327,156 +355,203 @@ namespace Behaviac.Design
                             editor.DescriptionWasChanged += editor_DescriptionWasChanged;
                             editor.ValueWasChanged += editor_ValueWasChanged;
 
-                            if (uiPolicy != null)
-                            {
+                            if (uiPolicy != null) {
                                 uiPolicy.AddEditor(editor);
                             }
                         }
 
                         MethodDef method = null;
                         bool methodEditorEnable = true;
-                        DesignerMethodEnum propertyMethod = property.Attribute as DesignerMethodEnum;
-                        if (propertyMethod != null)
-                        {
-                            if (propertyMethod.MethodType != MethodType.Status)
-                            {
-                                method = property.Property.GetValue(_selectedObject, null) as MethodDef;
-                                methodEditorEnable = (propertyMethod.MethodType != MethodType.Event);
+
+                        if (propertyMethod != null) {
+                            if (propertyMethod.MethodType != MethodType.Status) {
+                                method = value_ as MethodDef;
+                                //methodEditorEnable = (propertyMethod.MethodType != MethodType.Event);
                             }
-                        }
-                        else
-                        {
+
+                        } else {
                             DesignerRightValueEnum propertyRV = property.Attribute as DesignerRightValueEnum;
-                            if (propertyRV != null)
-                            {
-                                RightValueDef rv = property.Property.GetValue(_selectedObject, null) as RightValueDef;
-                                if (rv != null && rv.IsMethod)
-                                {
+
+                            if (propertyRV != null) {
+                                RightValueDef rv = value_ as RightValueDef;
+
+                                if (rv != null && rv.IsMethod) {
                                     method = rv.Method;
                                 }
                             }
                         }
 
-                        if (method != null)
-                        {
-                            createParamEditor(method, methodEditorEnable);
+                        if (property.Attribute != null) {
+                            if (method != null) {
+                                if (property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoDisplayOnProperty)) {
+                                    //don't dipslay on the property panel
+                                } else {
+                                    bool bReadonly = property.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnlyParams);
+
+                                    createParamEditor(method, methodEditorEnable, bReadonly);
+                                }
+
+                            } else {
+                                MethodDef.Param arrayIndexElement = null;
+
+                                if (value_ is VariableDef) {
+                                    VariableDef var = value_ as VariableDef;
+                                    arrayIndexElement = var.ArrayIndexElement;
+
+                                } else if (value_ is RightValueDef) {
+                                    RightValueDef varRV = value_ as RightValueDef;
+
+                                    if (varRV.Var != null) {
+                                        arrayIndexElement = varRV.Var.ArrayIndexElement;
+                                    }
+                                }
+
+                                if (arrayIndexElement != null) {
+                                    createArrayIndexEditor("    ", arrayIndexElement);
+                                }
+
+                            }
                         }
                     }
                 }
-
-                if (pars.Count > 0 && "CategoryPar" == category)
-                {
-                    createParEditor(pars, referrencedPar ? typeof(DesignerParComboEnumEditor) : typeof(DesignerParEditor));
-                }
             }
 
-            if (uiPolicy != null)
-            {
+            if (uiPolicy != null) {
                 uiPolicy.Update();
             }
 
             //this.ResumeLayout(false);
         }
 
-        void createParamEditor(MethodDef method, bool enable)
-        {
+        void createArrayIndexEditor(string preBlank, MethodDef.Param arrayIndex) {
+            Type editorType = typeof(DesignerParameterComboEnumEditor);
+            string arugmentsName = preBlank + "Index";
+            bool bReadonly = false;
+            Label label = propertyGrid.AddProperty(arugmentsName, editorType, bReadonly);
+
+            label.MouseEnter += new EventHandler(label_MouseEnter);
+
+            DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
+            editor.Enabled = true;
+            editor.SetParameter(arrayIndex, _selectedObject, bReadonly);
+            editor.ValueWasAssigned();
+            editor.MouseEnter += editor_MouseEnter;
+            editor.DescriptionWasChanged += editor_DescriptionWasChanged;
+            editor.ValueWasChanged += editor_ValueWasChanged;
+        }
+
+        void createParamEditor(MethodDef method, bool enable, bool bReadonlyParent) {
             List<MethodDef.Param> parameters = method.Params;
-            foreach (MethodDef.Param p in parameters)
-            {
+            foreach(MethodDef.Param p in parameters) {
                 Type editorType = typeof(DesignerParameterComboEnumEditor);
                 string arugmentsName = "    " + p.DisplayName;
-                Label label = propertyGrid.AddProperty(arugmentsName, editorType, p.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnly));
+                bool bReadonly = bReadonlyParent | p.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnly);
+                Label label = propertyGrid.AddProperty(arugmentsName, editorType, bReadonly);
 
                 label.MouseEnter += new EventHandler(label_MouseEnter);
 
                 DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
                 editor.Enabled = enable;
-                editor.SetParameter(p, _selectedObject);
+                editor.SetParameter(p, _selectedObject, bReadonly);
                 editor.ValueWasAssigned();
                 editor.MouseEnter += editor_MouseEnter;
                 editor.DescriptionWasChanged += editor_DescriptionWasChanged;
                 editor.ValueWasChanged += editor_ValueWasChanged;
+                //editor.ValueType = p.Attribute.ValueType;
+
+                MethodDef.Param arrayIndexElement = null;
+
+                if (p.Value is VariableDef) {
+                    VariableDef var = p.Value as VariableDef;
+                    arrayIndexElement = var.ArrayIndexElement;
+
+                } else if (p.Value is RightValueDef) {
+                    RightValueDef varRV = p.Value as RightValueDef;
+
+                    if (varRV.Var != null) {
+                        arrayIndexElement = varRV.Var.ArrayIndexElement;
+                    }
+                }
+
+                if (arrayIndexElement != null) {
+                    createArrayIndexEditor("        ", arrayIndexElement);
+                }
             }
         }
 
-        void createParEditor(List<ParInfo> pars, Type editorType)
-        {
-            foreach (ParInfo par in pars)
-            {
-                Label label = propertyGrid.AddProperty(par.Name, editorType, false);
-                label.MouseEnter += new EventHandler(label_MouseEnter);
+        void createParEditor(List<ParInfo> pars, Type editorType) {
+            foreach(ParInfo par in pars) {
+                if (par.Display) {
+                    Label label = propertyGrid.AddProperty(par.BasicName, editorType, false);
+                    label.MouseEnter += new EventHandler(label_MouseEnter);
 
-                DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
-                editor.SetPar(par, SelectedObject);
-                editor.MouseEnter += editor_MouseEnter;
-                editor.ValueWasChanged += editor_ValueWasChanged;
+                    DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
+                    editor.SetPar(par, SelectedObject);
+                    editor.MouseEnter += editor_MouseEnter;
+                    editor.ValueWasChanged += editor_ValueWasChanged;
+                }
             }
         }
 
-        void editor_ValueWasChanged(object sender, DesignerPropertyInfo property)
-        {
+        void editor_ValueWasChanged(object sender, DesignerPropertyInfo property) {
             string text = _selectedObject == null ? Resources.Properties : string.Format(Resources.PropertiesOf, _selectedObject.ToString());
             Text = text;
             TabText = text;
 
             UndoManager.PreSave();
 
-            if (_selectedObject != null)
-            {
+            if (_selectedObject != null) {
                 Nodes.Node node = null;
-                if (_selectedObject is Nodes.Node)
-                    node = (Nodes.Node)_selectedObject;
-                else if (_selectedObject is Attachments.Attachment)
-                    node = ((Attachments.Attachment)_selectedObject).Node;
 
-                if (node != null)
-                {
+                if (_selectedObject is Nodes.Node) {
+                    node = (Nodes.Node)_selectedObject;
+                }
+
+                else if (_selectedObject is Attachments.Attachment) {
+                    node = ((Attachments.Attachment)_selectedObject).Node;
+                }
+
+                if (node != null) {
                     if ((property.Attribute == null || !property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NotPrefabRelated)) &&
-                        !string.IsNullOrEmpty(node.PrefabName))
-                    {
+                        !string.IsNullOrEmpty(node.PrefabName)) {
                         node.HasOwnPrefabData = true;
                     }
 
-                    UndoManager.Save(this._rootBehavior, node.Behavior);
+                    UndoManager.Save(this._rootBehavior);
                 }
             }
 
             UndoManager.PostSave();
 
             // if we change a DesignerNodeProperty other properties of that object might be affected
-            if (property.Attribute is DesignerNodeProperty)
-            {
+            if (property.Attribute is DesignerNodeProperty ||
+                uiPolicy != null && uiPolicy.ShouldUpdatePropertyGrids(property)) {
                 PropertiesDock.UpdatePropertyGrids();
             }
 
-            if (BehaviorTreeViewDock.LastFocused != null)
-            {
+            if (BehaviorTreeViewDock.LastFocused != null) {
                 BehaviorTreeViewDock.LastFocused.Refresh();
             }
         }
 
-        void label_MouseEnter(object sender, EventArgs e)
-        {
+        void label_MouseEnter(object sender, EventArgs e) {
             Label label = (Label)sender;
             DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
 
             propertyGrid.ShowDescription(editor.DisplayName, editor.Description);
         }
 
-        void editor_MouseEnter(object sender, EventArgs e)
-        {
+        void editor_MouseEnter(object sender, EventArgs e) {
             DesignerPropertyEditor editor = (DesignerPropertyEditor)sender;
 
             propertyGrid.ShowDescription(editor.DisplayName, editor.Description);
         }
 
-        void editor_DescriptionWasChanged(string displayName, string description)
-        {
+        void editor_DescriptionWasChanged(string displayName, string description) {
             propertyGrid.ShowDescription(displayName, description);
         }
 
-        void item_Click(object sender, EventArgs e)
-        {
+        void item_Click(object sender, EventArgs e) {
             MenuItem item = (MenuItem)sender;
 
             Type editorType = (Type)item.Tag;
@@ -486,12 +561,16 @@ namespace Behaviac.Design
             Debug.Check(_selectedObject == editor.SelectedObject);
 
             Nodes.Node node = _selectedObject as Nodes.Node;
-            if (node != null)
+
+            if (node != null) {
                 node.OnPropertyValueChanged(true);
+            }
 
             Attachments.Attachment attach = _selectedObject as Attachments.Attachment;
-            if (attach != null)
+
+            if (attach != null) {
                 attach.OnPropertyValueChanged(true);
+            }
 
             SelectedObject = _selectedObject;
         }

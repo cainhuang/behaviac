@@ -46,17 +46,15 @@ namespace Behaviac.Design.Nodes
     /// <summary>
     /// This is the class for all nodes which are part of a behaviour tree and are not view data.
     /// </summary>
-    public abstract partial class Node : BaseNode, NodeTag.DefaultObject, ICloneable
+    public abstract partial class Node : BaseNode, DefaultObject, ICloneable
     {
-        public enum ColorThemes
-        {
+        public enum ColorThemes {
             Default,
             Modern
         }
 
         private static ColorThemes _colorTheme = ColorThemes.Default;
-        public static ColorThemes ColorTheme
-        {
+        public static ColorThemes ColorTheme {
             get { return _colorTheme; }
             set { _colorTheme = value; }
         }
@@ -65,73 +63,61 @@ namespace Behaviac.Design.Nodes
 
         protected readonly static Brush __backgroundBrush = new SolidBrush(Color.FromArgb(30, 99, 120));
 
-        public Brush BackgroundBrush
-        {
+        public Brush BackgroundBrush {
             get
             {
                 if (ColorTheme == ColorThemes.Default)
-                    return DefaultBackgroundBrush;
+                { return DefaultBackgroundBrush; }
 
                 string nodeName = this.GetType().FullName;
+
                 if (BackgroundBrushes.ContainsKey(nodeName))
-                    return BackgroundBrushes[nodeName];
+                { return BackgroundBrushes[nodeName]; }
 
                 return __backgroundBrush;
             }
         }
 
-        protected virtual Brush DefaultBackgroundBrush
-        {
+        protected virtual Brush DefaultBackgroundBrush {
             get { return __backgroundBrush; }
         }
 
-        protected List<ParInfo> _pars = new List<ParInfo>();
-        public List<ParInfo> Pars
-        {
-            get { return _pars; }
-            set { _pars = value; }
+        public virtual Behaviac.Design.ObjectUI.ObjectUIPolicy CreateUIPolicy() {
+            return new Behaviac.Design.ObjectUI.ObjectUIPolicy();
         }
 
         private bool _enable = true;
         [DesignerBoolean("Enable", "Enable or disable itself", "Debug", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoDisplay | DesignerProperty.DesignerFlags.NoExport)]
-        public bool Enable
-        {
+        public bool Enable {
             get { return _enable; }
             set { _enable = value; }
         }
 
-        public virtual bool CanBeDragged()
-        {
+        public virtual bool CanBeDragged() {
             return true;
         }
 
-        public virtual bool CanBeDeleted()
-        {
-            return ParentCanAdoptChildren;
+        public virtual bool CanBeDeleted() {
+            return this.ParentCanAdoptChildren || this.IsFSM;
         }
 
-        public virtual bool CanBeDisabled()
-        {
+        public virtual bool CanBeDisabled() {
             return Enable ? (Parent != null && Parent.Children.Count > 1) : true;
         }
 
-        public virtual bool AlwaysExpanded()
-        {
+        public virtual bool AlwaysExpanded() {
             return false;
         }
 
-        public virtual bool HasPrefixLabel
-        {
+        public virtual bool HasPrefixLabel {
             get { return true; }
         }
 
-        public virtual bool HasMiddleLabel
-        {
-            get { return false; }
+        public virtual string MiddleLabel {
+            get { return null; }
         }
 
-        public virtual bool HasFirstLabel
-        {
+        public virtual bool HasFirstLabel {
             get { return false; }
         }
 
@@ -142,26 +128,26 @@ namespace Behaviac.Design.Nodes
         /// <param name="connector">The connector the node will be added to. Use null for default connector.</param>
         /// <param name="node">The node you want to append.</param>
         /// <returns>Returns true if the child could be added.</returns>
-        public virtual bool AddChildNotModified(Connector connector, Node node)
-        {
+        public virtual bool AddChildNotModified(Connector connector, Node node) {
             Debug.Check(connector != null && _children.HasConnector(connector));
 
-            if (!connector.AcceptsChild(node.GetType()))
-            {
+            if (!connector.AcceptsChild(node)) {
                 //throw new Exception(Resources.ExceptionNodeHasTooManyChildren);
                 return false;
             }
 
-            if (!connector.AddChild(node))
-            {
+            if (!connector.AddChild(node)) {
                 return false;
             }
 
             node._parent = this;
 
-            node.CopyWasModifiedFromParent(this);
-
             return true;
+        }
+
+        public void AddChild(string connectorStr, Node node) {
+            Connector connector = this.GetConnector(connectorStr);
+            this.AddChild(connector, node);
         }
 
         /// <summary>
@@ -170,13 +156,9 @@ namespace Behaviac.Design.Nodes
         /// <param name="connector">The connector the node will be added to. Use null for default connector.</param>
         /// <param name="node">The node you want to append.</param>
         /// <returns>Returns true if the child could be added.</returns>
-        public virtual bool AddChild(Connector connector, Node node)
-        {
+        public virtual bool AddChild(Connector connector, Node node) {
             if (!AddChildNotModified(connector, node))
-                return false;
-
-            // behaviours must be saved
-            BehaviorWasModified();
+            { return false; }
 
             return true;
         }
@@ -188,23 +170,18 @@ namespace Behaviac.Design.Nodes
         /// <param name="node">The node you want to append.</param>
         /// <param name="index">The index of the new node.</param>
         /// <returns>Returns true if the child could be added.</returns>
-        public virtual bool AddChild(Connector connector, Node node, int index)
-        {
+        public virtual bool AddChild(Connector connector, Node node, int index) {
             Debug.Check(connector != null && _children.HasConnector(connector));
 
-            if (!connector.AcceptsChild(node.GetType()))
-            {
+            if (!connector.AcceptsChild(node)) {
                 throw new Exception(Resources.ExceptionNodeHasTooManyChildren);
             }
 
-            if (!connector.AddChild(node, index))
-            {
+            if (!connector.AddChild(node, index)) {
                 return false;
             }
 
             node._parent = this;
-
-            BehaviorWasModified();
 
             return true;
         }
@@ -214,21 +191,26 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="connector">The connector the child is attached to.</param>
         /// <param name="node">The child node we want to remove.</param>
-        public virtual void RemoveChild(Connector connector, Node node)
-        {
+        public virtual void RemoveChild(Connector connector, Node node) {
             Debug.Check(connector != null && _children.HasConnector(connector));
 
             if (!connector.RemoveChild(node))
-                throw new Exception(Resources.ExceptionNodeIsNoChild);
+            { throw new Exception(Resources.ExceptionNodeIsNoChild); }
 
             node._parent = null;
-
-            BehaviorWasModified();
         }
 
-        public new BehaviorNode Behavior
+        //a chance to modify the structure or data
+        public virtual void PostCreate(List<Node.ErrorCheck> result, int version, System.Xml.XmlNode xmlNode)
         {
+        }
+
+        public new BehaviorNode Behavior {
             get { return ((BaseNode)this).Behavior; }
+        }
+
+        public virtual List<ParInfo> LocalVars {
+            get { return null; }
         }
 
         /// <summary>
@@ -236,30 +218,52 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="type">The type of the attachment we want to add.</param>
         /// <returns>Returns if the attachment may be added or not</returns>
-        public virtual bool AcceptsAttachment(Type type)
-        {
-            return type.IsSubclassOf(typeof(Behaviac.Design.Attachments.Event));
+        public virtual bool AcceptsAttachment(Type type) {
+            return type.IsSubclassOf(typeof(Behaviac.Design.Attachments.Attachment));
         }
 
         protected List<Attachments.Attachment> _attachments;
 
-        public IList<Attachments.Attachment> Attachments
-        {
+        private void sortAttachments() {
+            List<Attachments.Attachment> bottomAttachments = new List<Attachments.Attachment>();
+
+            for (int i = _attachments.Count - 1; i >= 0; i--) {
+                if (!_attachments[i].IsPrecondition) {
+                    bottomAttachments.Add(_attachments[i]);
+                    _attachments.RemoveAt(i);
+                }
+            }
+
+            for (int i = bottomAttachments.Count - 1; i >= 0; i--) {
+                _attachments.Add(bottomAttachments[i]);
+            }
+        }
+
+        public IList<Attachments.Attachment> Attachments {
             get { return _attachments; }
         }
 
-        public void AddAttachment(Attachments.Attachment attach)
-        {
+        public void AddAttachment(Attachments.Attachment attach) {
+            Debug.Check(attach != null);
+
             _attachments.Add(attach);
+
+            sortAttachments();
+
+            attach.ResetId();
         }
 
-        public void AddAttachment(Attachments.Attachment attach, int index)
-        {
+        public void AddAttachment(Attachments.Attachment attach, int index) {
+            Debug.Check(attach != null);
+
             _attachments.Insert(index, attach);
+
+            sortAttachments();
+
+            attach.ResetId();
         }
 
-        public void RemoveAttachment(Attachments.Attachment attach)
-        {
+        public void RemoveAttachment(Attachments.Attachment attach) {
             _attachments.Remove(attach);
         }
 
@@ -268,8 +272,7 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The name of the node used for the export process.
         /// </summary>
-        public string ExportName
-        {
+        public string ExportName {
             get { return _exportName; }
         }
 
@@ -278,8 +281,7 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The label shown of the node.
         /// </summary>
-        public string Label
-        {
+        public string Label {
             get { return _label; }
             set { _label = value; }
         }
@@ -289,13 +291,11 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The description of this node.
         /// </summary>
-        public virtual string Description
-        {
+        public virtual string Description {
             get { return /*Resources.ResourceManager.GetString(*/_description/*, Resources.Culture)*/; }
         }
 
-        public virtual object[] GetExcludedEnums(DesignerEnum enumAttr)
-        {
+        public virtual object[] GetExcludedEnums(DesignerEnum enumAttr) {
             return null;
         }
 
@@ -304,12 +304,11 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="label">The label of the behaviour node.</param>
         /// <returns>Returns the created behaviour node.</returns>
-        public static BehaviorNode CreateBehaviorNode(string label)
-        {
+        public static BehaviorNode CreateBehaviorNode(string label) {
             BehaviorNode node = (BehaviorNode)Plugin.BehaviorNodeType.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, null, new object[] { label, true });
 
             if (node == null)
-                throw new Exception(Resources.ExceptionMissingNodeConstructor);
+            { throw new Exception(Resources.ExceptionMissingNodeConstructor); }
 
             return node;
         }
@@ -320,12 +319,14 @@ namespace Behaviac.Design.Nodes
         /// <param name="rootBehavior">The behaviour we are adding the reference to.</param>
         /// <param name="referencedBehavior">The behaviour we are referencing.</param>
         /// <returns>Returns the created referenced behaviour node.</returns>
-        public static ReferencedBehaviorNode CreateReferencedBehaviorNode(BehaviorNode rootBehavior, BehaviorNode referencedBehavior)
-        {
-            ReferencedBehaviorNode node = (ReferencedBehaviorNode)Plugin.ReferencedBehaviorNodeType.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, null, new object[] { rootBehavior, referencedBehavior });
+        public static ReferencedBehaviorNode CreateReferencedBehaviorNode(BehaviorNode rootBehavior, BehaviorNode referencedBehavior, bool isFSM = false) {
+            Type type = isFSM ? Plugin.FSMReferencedBehaviorNodeType : Plugin.ReferencedBehaviorNodeType;
+            Debug.Check(type != null);
+
+            ReferencedBehaviorNode node = (ReferencedBehaviorNode)type.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, null, new object[] { rootBehavior, referencedBehavior });
 
             if (node == null)
-                throw new Exception(Resources.ExceptionMissingNodeConstructor);
+            { throw new Exception(Resources.ExceptionMissingNodeConstructor); }
 
             return node;
         }
@@ -335,15 +336,15 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="type">The type we want to create a node of.</param>
         /// <returns>Returns the created node.</returns>
-        public static Node Create(Type type)
-        {
+        public static Node Create(Type type) {
             Debug.Check(type != null);
 
             // use the type overrides when set
             if (type == typeof(BehaviorNode))
-                type = Plugin.BehaviorNodeType;
+            { type = Plugin.BehaviorNodeType; }
+
             else if (type == typeof(ReferencedBehaviorNode))
-                type = Plugin.ReferencedBehaviorNodeType;
+            { type = Plugin.ReferencedBehaviorNodeType; }
 
             Debug.Check(type != null);
             Debug.Check(!type.IsAbstract);
@@ -351,26 +352,22 @@ namespace Behaviac.Design.Nodes
             Node node = (Node)type.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, null, new object[0]);
 
             if (node == null)
-                throw new Exception(Resources.ExceptionMissingNodeConstructor);
+            { throw new Exception(Resources.ExceptionMissingNodeConstructor); }
 
             return node;
         }
 
-        protected bool _saveChildren = true;
-
         /// <summary>
         /// Determines if the children of this node will be saved. Required for referenced behaviours.
         /// </summary>
-        public bool SaveChildren
-        {
-            get { return _saveChildren; }
+        public virtual bool SaveChildren {
+            get { return true; }
         }
 
         /// <summary>
         /// The name of the class we want to use for the exporter. This is usually the implemented node of the game.
         /// </summary>
-        public virtual string ExportClass
-        {
+        public virtual string ExportClass {
             get { return GetType().FullName; }
         }
 
@@ -379,32 +376,14 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The comment object of the node.
         /// </summary>
-        public Comment CommentObject
-        {
+        public Comment CommentObject {
             get { return _comment; }
             set { _comment = value; }
         }
 
-        private MethodDef _enterAction;
-        [DesignerMethodEnum("EnterAction", "EnterActionDesc", "NodeBasic", DesignerProperty.DisplayMode.List, 0, DesignerProperty.DesignerFlags.BeValid, MethodType.Method | MethodType.AllowNullMethod)]
-        public MethodDef EnterAction
-        {
-            get { return _enterAction; }
-            set { this._enterAction = value; }
-        }
-
-        private MethodDef _exitAction;
-        [DesignerMethodEnum("ExitAction", "ExitActionDesc", "NodeBasic", DesignerProperty.DisplayMode.List, 1, DesignerProperty.DesignerFlags.BeValid, MethodType.Method | MethodType.AllowNullMethod)]
-        public MethodDef ExitAction
-        {
-            get { return _exitAction; }
-            set { this._exitAction = value; }
-        }
-
         private int _id = -1;
         [DesignerInteger("NodeId", "NodeIdDesc", "NodeBasic", DesignerProperty.DisplayMode.NoDisplay, 2, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
-        public int Id
-        {
+        public int Id {
             get { return _id; }
             set { _id = value; }
         }
@@ -414,8 +393,7 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         private string _prefabName = string.Empty;
         [DesignerString("PrefabName", "PrefabNameDesc", "Prefab", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoDisplay | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated)]
-        public string PrefabName
-        {
+        public string PrefabName {
             get { return _prefabName; }
             set { _prefabName = value; }
         }
@@ -425,8 +403,7 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         private int _prefabNodeId = -1;
         [DesignerInteger("PrefabNodeId", "PrefabNodeIdDesc", "Prefab", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.NoDisplay | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
-        public int PrefabNodeId
-        {
+        public int PrefabNodeId {
             get { return _prefabNodeId; }
             set { _prefabNodeId = value; }
         }
@@ -436,21 +413,18 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         private bool _hasOwnPrefabData = false;
         [DesignerBoolean("HasOwnPrefabData", "HasOwnPrefabDataDesc", "Prefab", DesignerProperty.DisplayMode.NoDisplay, 2, DesignerProperty.DesignerFlags.NoDisplay | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated)]
-        public bool HasOwnPrefabData
-        {
+        public bool HasOwnPrefabData {
             get { return _hasOwnPrefabData; }
             set { _hasOwnPrefabData = value; }
         }
 
-        public bool IsPrefabDataDirty()
-        {
+        public bool IsPrefabDataDirty() {
             if (this.HasOwnPrefabData)
-                return true;
+            { return true; }
 
-            foreach (Node child in this.Children)
-            {
+            foreach(Node child in this.Children) {
                 if (child.IsPrefabDataDirty())
-                    return true;
+                { return true; }
             }
 
             return false;
@@ -460,27 +434,26 @@ namespace Behaviac.Design.Nodes
         /// The text of the comment shown for the node and its children.
         /// </summary>
         [DesignerString("NodeCommentText", "NodeCommentTextDesc", "CategoryComment", DesignerProperty.DisplayMode.NoDisplay, 10, DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NoSave | DesignerProperty.DesignerFlags.NotPrefabRelated)]
-        public string CommentText
-        {
+        public string CommentText {
             get { return _comment == null ? string.Empty : _comment.Text; }
 
             set
             {
                 string str = value.Trim();
 
-                if (str.Length < 1)
-                {
+                if (str.Length < 1) {
                     _comment = null;
-                }
-                else
+
+                } else
                 {
                     if (_comment == null)
-                        _comment = new Comment(str);
+                    { _comment = new Comment(str); }
+
                     else
-                        _comment.Text = str;
+                    { _comment.Text = str; }
 
                     if (_comment.Background == CommentColor.NoColor && !string.IsNullOrEmpty(str))
-                        _comment.Background = CommentColor.Gray;
+                    { _comment.Background = CommentColor.Gray; }
                 }
             }
         }
@@ -489,89 +462,44 @@ namespace Behaviac.Design.Nodes
         /// The color of the comment shown for the node and its children.
         /// </summary>
         [DesignerEnum("NodeCommentBackground", "NodeCommentBackgroundDesc", "CategoryComment", DesignerProperty.DisplayMode.NoDisplay, 20, DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NoSave | DesignerProperty.DesignerFlags.NotPrefabRelated, "")]
-        public CommentColor CommentBackground
-        {
+        public CommentColor CommentBackground {
             get { return _comment == null ? CommentColor.NoColor : _comment.Background; }
 
             set
             {
                 if (_comment != null)
-                    _comment.Background = value;
+                { _comment.Background = value; }
             }
         }
 
-        public void ResetId(bool setChildren)
-        {
+        public void ResetId(bool setChildren) {
             Node root = (Node)this.Behavior;
 
-            if (Id == -1 || null != Plugin.GetPreviousObjectById(root, Id, this))
-            {
+            if (Id == -1 || null != Plugin.GetPreviousObjectById(root, Id, this)) {
                 Id = Plugin.NewNodeId(root);
             }
 
-            foreach (Attachments.Attachment attach in Attachments)
-            {
+            foreach(Attachments.Attachment attach in this.Attachments) {
                 attach.Id = Plugin.NewNodeId(root);
             }
 
-            if (setChildren && !(this is ReferencedBehavior))
-            {
-                foreach (Node child in Children)
-                {
+            if (setChildren && !(this is ReferencedBehavior)) {
+                foreach(Node child in this.GetChildNodes()) {
                     child.ResetId(setChildren);
                 }
             }
         }
 
-        private void checkId()
-        {
+        private void checkId() {
             Node root = (Node)this.Behavior;
+
             // If its id has existed, reset it.
-            if (null != Plugin.GetPreviousObjectById(root, Id, this))
-            {
+            if (null != Plugin.GetPreviousObjectById(root, Id, this)) {
                 ResetId(false);
 
-                BehaviorWasModified();
+                if (this.PrefabNodeId < 0)
+                    this.Behavior.TriggerWasModified(this);
             }
-        }
-
-        private int _version;
-        /// <summary>
-        /// The version of this node. Used to update nodes when structure changes.
-        /// </summary>
-        [DesignerInteger("NodeVersion", "NodeVersionDesc", "CategoryVersion", DesignerProperty.DisplayMode.NoDisplay, 2, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NoDisplay, null, int.MinValue, int.MaxValue, 1, null)]
-        public int Version
-        {
-            get { return _version; }
-            set { _version = value; }
-        }
-
-        /// <summary>
-        /// The version of this node. Used to update nodes when structure changes.
-        /// </summary>
-        [DesignerInteger("NodeClassVersion", "NodeClassVersionDesc", "CategoryVersion", DesignerProperty.DisplayMode.NoDisplay, 3, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NoSave | DesignerProperty.DesignerFlags.NoDisplay, null, int.MinValue, int.MaxValue, 1, null)]
-        public int ClassVersion
-        {
-            get { return GetClassVersion(); }
-        }
-
-        /// <summary>
-        /// Returns the current version of the class.
-        /// This function should always look like this: return base.GetClassVersion() +your_version;
-        /// </summary>
-        /// <returns>Version of the class.</returns>
-        public virtual int GetClassVersion()
-        {
-            return 0;
-        }
-
-        /// <summary>
-        /// Is called when the version of a loaded node is lower than the class version and the node needs to be updated.
-        /// </summary>
-        /// <returns>Returns if the update was successful and the version number should be updated.</returns>
-        public virtual bool UpdateVersion()
-        {
-            return true;
         }
 
         /// <summary>
@@ -579,8 +507,7 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="label">The default label of the node.</param>
         /// <param name="description">The description of the node shown to the designer.</param>
-        protected Node(string label, string description)
-        {
+        protected Node(string label, string description) {
             _children = new ConnectedChildren(this);
 
             _label = label;
@@ -588,71 +515,35 @@ namespace Behaviac.Design.Nodes
             _attachments = new List<Attachments.Attachment>();
         }
 
+        public virtual void OnPropertyValueChanged(DesignerPropertyInfo property) {
+        }
+
         /// <summary>
         /// Is called when one of the node's properties were modified.
         /// </summary>
         /// <param name="wasModified">Holds if the event was modified.</param>
-        public void OnPropertyValueChanged(bool wasModified)
-        {
-            if (wasModified)
-            {
-                DoWasModified();
-                BehaviorWasModified();
+        public void OnPropertyValueChanged(bool wasModified) {
+            if (wasModified) {
+                BehaviorNode root = this.Behavior;
+
+                if (root != null)
+                { root.TriggerWasModified(this); }
             }
-        }
-
-        public delegate void WasModifiedEventDelegate(Node node);
-
-        /// <summary>
-        /// Is called when the node was modified.
-        /// </summary>
-        public event WasModifiedEventDelegate WasModified;
-
-        /// <summary>
-        /// For internal use only.
-        /// </summary>
-        public void DoWasModified()
-        {
-            if (WasModified != null)
-                WasModified(this);
         }
 
         public delegate void SubItemAddedEventDelegate(Node node, DesignerPropertyInfo property);
         public event SubItemAddedEventDelegate SubItemAdded;
 
-        public void DoSubItemAdded(DesignerPropertyInfo property)
-        {
+        public void DoSubItemAdded(DesignerPropertyInfo property) {
             if (SubItemAdded != null)
-                SubItemAdded(this, property);
-        }
-
-        /// <summary>
-        /// Mark the behaviour this node belongs to as being modified.
-        /// </summary>
-        public virtual void BehaviorWasModified()
-        {
-            if (_parent != null)
-                ((Node)_parent).BehaviorWasModified();
-        }
-
-        /// <summary>
-        /// Is called after a property of a node was initialised, allowing further processing.
-        /// </summary>
-        /// <param name="property">The property which was initialised.</param>
-        public virtual void PostPropertyInit(DesignerPropertyInfo property)
-        {
+            { SubItemAdded(this, property); }
         }
 
         /// <summary>
         /// Is called after the behaviour was loaded.
         /// </summary>
         /// <param name="behavior">The behaviour this node belongs to.</param>
-        public void PostLoad(BehaviorNode behavior)
-        {
-            // update the version of the node if required
-            if (_version < GetClassVersion() && UpdateVersion())
-                _version = GetClassVersion();
-
+        public void PostLoad(BehaviorNode behavior) {
             checkId();
         }
 
@@ -660,9 +551,7 @@ namespace Behaviac.Design.Nodes
         /// Is called before the behaviour is saved.
         /// </summary>
         /// <param name="behavior">The behaviour this node belongs to.</param>
-        public void PreSave(BehaviorNode behavior)
-        {
-            Version = 1;
+        public void PreSave(BehaviorNode behavior) {
         }
 
         /// <summary>
@@ -670,61 +559,27 @@ namespace Behaviac.Design.Nodes
         /// This is done as the class attribute can be quite long and bad to handle.
         /// </summary>
         /// <returns>Returns the value for ExportType</returns>
-        protected virtual string GetExportType()
-        {
+        protected virtual string GetExportType() {
             return GetType().Name;
         }
 
-        public int NodeCount
-        {
-            get
-            {
-                int nodeCount = 1;
-
-                if (!(this is ReferencedBehavior))
-                {
-                    foreach (Node child in this._children)
-                    {
-                        nodeCount += child.NodeCount;
-                    }
-                }
-
-                return nodeCount;
-            }
-        }
-
-        public virtual void GetAllPars(ref List<ParInfo> pars)
-        {
-            pars.AddRange(this.Pars);
-
-            foreach (Node child in this.Children)
-            {
-                child.GetAllPars(ref pars);
-            }
-        }
-
-        public bool SetPrefab(string prefabName, bool prefabDirty = false, string oldPrefabName = "")
-        {
+        public bool SetPrefab(string prefabName, bool prefabDirty = false, string oldPrefabName = "") {
             bool resetName = false;
-            if (!string.IsNullOrEmpty(oldPrefabName))
-            {
-                if (this.PrefabName == oldPrefabName)
-                {
+
+            if (!string.IsNullOrEmpty(oldPrefabName)) {
+                if (this.PrefabName == oldPrefabName) {
                     this.PrefabName = prefabName;
                     resetName = true;
                 }
-            }
-            else if (string.IsNullOrEmpty(this.PrefabName))
-            {
+
+            } else if (string.IsNullOrEmpty(this.PrefabName)) {
                 this.PrefabName = prefabName;
                 this.PrefabNodeId = this.Id;
                 this.HasOwnPrefabData = prefabDirty;
             }
 
-            if (!(this is ReferencedBehavior))
-            {
-                foreach (Node child in this.Children)
-                {
+            if (!(this is ReferencedBehavior)) {
+                foreach(Node child in this.Children) {
                     resetName |= child.SetPrefab(prefabName, prefabDirty, oldPrefabName);
                 }
             }
@@ -732,14 +587,13 @@ namespace Behaviac.Design.Nodes
             return resetName;
         }
 
-        public bool ClearPrefab(string prefabName)
-        {
+        public bool ClearPrefab(string prefabName) {
             if (string.IsNullOrEmpty(prefabName))
-                return false;
+            { return false; }
 
             bool clear = false;
-            if (this.PrefabName == prefabName)
-            {
+
+            if (this.PrefabName == prefabName) {
                 clear = true;
 
                 this.PrefabName = string.Empty;
@@ -747,10 +601,8 @@ namespace Behaviac.Design.Nodes
                 this.HasOwnPrefabData = false;
             }
 
-            if (!(this is ReferencedBehavior))
-            {
-                foreach (Node child in this.Children)
-                {
+            if (!(this is ReferencedBehavior)) {
+                foreach(Node child in this.Children) {
                     clear |= child.ClearPrefab(prefabName);
                 }
             }
@@ -758,49 +610,38 @@ namespace Behaviac.Design.Nodes
             return clear;
         }
 
-        private void ClearPrefabDirty(string prefabName)
-        {
-            if (this.PrefabName == prefabName)
-            {
+        private void ClearPrefabDirty(string prefabName) {
+            if (this.PrefabName == prefabName) {
                 this.HasOwnPrefabData = false;
             }
 
-            if (!(this is ReferencedBehavior))
-            {
-                foreach (Node child in this.Children)
-                {
+            if (!(this is ReferencedBehavior)) {
+                foreach(Node child in this.Children) {
                     child.ClearPrefabDirty(prefabName);
                 }
             }
         }
 
-        public void RestorePrefab(string prefabName)
-        {
-            if (this.PrefabName == prefabName)
-            {
+        public void RestorePrefab(string prefabName) {
+            if (this.PrefabName == prefabName) {
                 this.PrefabName = string.Empty;
                 this.Id = this.PrefabNodeId;
                 this.PrefabNodeId = -1;
                 this.HasOwnPrefabData = false;
             }
 
-            if (!(this is ReferencedBehavior))
-            {
-                foreach (Node child in this.Children)
-                {
+            if (!(this is ReferencedBehavior)) {
+                foreach(Node child in this.Children) {
                     child.RestorePrefab(prefabName);
                 }
             }
         }
 
-        public bool ResetPrefabInstances(string prefabName, Node instanceRootNode)
-        {
+        public bool ResetPrefabInstances(string prefabName, Node instanceRootNode) {
             bool reset = instanceRootNode.ResetByPrefab(prefabName, this);
 
-            if (!(this is ReferencedBehavior))
-            {
-                foreach (Node child in this.Children)
-                {
+            if (!(this is ReferencedBehavior)) {
+                foreach(Node child in this.Children) {
                     reset |= child.ResetPrefabInstances(prefabName, instanceRootNode);
                 }
             }
@@ -808,12 +649,10 @@ namespace Behaviac.Design.Nodes
             return reset;
         }
 
-        public bool ResetByPrefab(string prefabName, Node prefabNode)
-        {
+        public bool ResetByPrefab(string prefabName, Node prefabNode) {
             bool reset = false;
 
-            if (!this.HasOwnPrefabData && this.PrefabName == prefabName && this.PrefabNodeId == prefabNode.Id)
-            {
+            if (!this.HasOwnPrefabData && this.PrefabName == prefabName && this.PrefabNodeId == prefabNode.Id) {
                 reset = true;
 
                 int preId = this.Id;
@@ -831,58 +670,48 @@ namespace Behaviac.Design.Nodes
 
                 // check the deleted children by the prefab node
                 List<Node> deletedChildren = new List<Node>();
-                foreach (Node child in this.Children)
-                {
-                    if (!child.HasOwnPrefabData && child.PrefabName == prefabName)
-                    {
+                foreach(Node child in this.Children) {
+                    if (!child.HasOwnPrefabData && child.PrefabName == prefabName) {
                         bool bFound = false;
-                        foreach (Node prefabChild in prefabNode.Children)
-                        {
-                            if (child.PrefabNodeId == prefabChild.Id)
-                            {
+                        foreach(Node prefabChild in prefabNode.Children) {
+                            if (child.PrefabNodeId == prefabChild.Id) {
                                 bFound = true;
                                 break;
                             }
                         }
 
-                        if (!bFound)
-                        {
+                        if (!bFound) {
                             deletedChildren.Add(child);
                         }
                     }
                 }
 
-                foreach (Node child in deletedChildren)
-                {
+                foreach(Node child in deletedChildren) {
                     ((Node)child.Parent).RemoveChild(child.ParentConnector, child);
                 }
 
                 // check the added children by the prefab node
                 List<Node> addedChildren = new List<Node>();
                 List<int> indexes = new List<int>();
-                for (int i = 0; i < prefabNode.Children.Count; ++i)
-                {
+
+                for (int i = 0; i < prefabNode.Children.Count; ++i) {
                     Node prefabChild = (Node)prefabNode.Children[i];
                     bool bFound = false;
-                    foreach (Node child in this.Children)
-                    {
+                    foreach(Node child in this.Children) {
                         if (!string.IsNullOrEmpty(prefabChild.PrefabName) && child.PrefabName == prefabChild.PrefabName && child.PrefabNodeId == prefabChild.PrefabNodeId ||
-                            child.PrefabName == prefabName && child.PrefabNodeId == prefabChild.Id)
-                        {
+                            child.PrefabName == prefabName && child.PrefabNodeId == prefabChild.Id) {
                             bFound = true;
                             break;
                         }
                     }
 
-                    if (!bFound)
-                    {
+                    if (!bFound) {
                         addedChildren.Add(prefabChild);
                         indexes.Add(i);
                     }
                 }
 
-                for (int i = 0; i < addedChildren.Count; ++i)
-                {
+                for (int i = 0; i < addedChildren.Count; ++i) {
                     Node child = addedChildren[i].CloneBranch();
                     child.SetPrefab(prefabName);
 
@@ -892,18 +721,17 @@ namespace Behaviac.Design.Nodes
                     Debug.Check(childconn != null);
 
                     if (indexes[i] < this.Children.Count)
-                        this.AddChild(childconn, child, indexes[i]);
+                    { this.AddChild(childconn, child, indexes[i]); }
+
                     else
-                        this.AddChild(childconn, child);
+                    { this.AddChild(childconn, child); }
 
                     child.ResetId(true);
                 }
             }
 
-            if (!(this is ReferencedBehavior))
-            {
-                foreach (Node child in this.Children)
-                {
+            if (!(this is ReferencedBehavior)) {
+                foreach(Node child in this.Children) {
                     reset |= child.ResetByPrefab(prefabName, prefabNode);
                 }
             }
@@ -911,23 +739,22 @@ namespace Behaviac.Design.Nodes
             return reset;
         }
 
-        public Node GetPrefabRoot()
-        {
+        public Node GetPrefabRoot() {
             string prefabName = this.PrefabName;
-            if (!string.IsNullOrEmpty(prefabName))
-            {
+
+            if (!string.IsNullOrEmpty(prefabName)) {
                 Node node = this;
                 Node root = this;
 
-                while (node.Parent != null)
-                {
+                while (node.Parent != null) {
                     string parentPrefabName = ((Node)node.Parent).PrefabName;
-                    if (!string.IsNullOrEmpty(parentPrefabName))
-                    {
+
+                    if (!string.IsNullOrEmpty(parentPrefabName)) {
                         if (parentPrefabName == prefabName)
-                            root = (Node)node.Parent;
+                        { root = (Node)node.Parent; }
+
                         else
-                            break;
+                        { break; }
                     }
 
                     node = (Node)node.Parent;
@@ -939,24 +766,28 @@ namespace Behaviac.Design.Nodes
             return null;
         }
 
-        public BehaviorNode ApplyPrefabInstance()
-        {
+        public BehaviorNode ApplyPrefabInstance() {
             string prefabName = this.PrefabName;
-            if (!string.IsNullOrEmpty(prefabName))
-            {
+
+            if (!string.IsNullOrEmpty(prefabName)) {
                 Node root = this.GetPrefabRoot();
-                if (root != null)
-                {
+
+                if (root != null) {
                     string fullpath = FileManagers.FileManager.GetFullPath(prefabName);
                     BehaviorNode prefabBehavior = BehaviorManager.Instance.LoadBehavior(fullpath);
-                    if (prefabBehavior != null)
-                    {
+
+                    if (prefabBehavior != null) {
+                        Behavior b = this.Behavior as Behavior;
+                        Debug.Check(b != null);
+
+                        b.AgentType.AddPars(b.LocalVars);
+
                         root.ClearPrefabDirty(prefabName);
 
-                        if (((Node)prefabBehavior).Children.Count > 0)
-                        {
+                        if (((Node)prefabBehavior).Children.Count > 0) {
                             ((Node)prefabBehavior).RemoveChild(prefabBehavior.GenericChildren, (Node)((Node)prefabBehavior).Children[0]);
                         }
+
                         Node newnode = root.CloneBranch();
                         newnode.RestorePrefab(prefabName);
                         ((Node)prefabBehavior).AddChild(prefabBehavior.GenericChildren, newnode);
@@ -969,17 +800,21 @@ namespace Behaviac.Design.Nodes
             return null;
         }
 
-        public bool BreakPrefabInstance()
-        {
+        public bool BreakPrefabInstance() {
             string prefabName = this.PrefabName;
-            if (!string.IsNullOrEmpty(prefabName))
-            {
+
+            if (!string.IsNullOrEmpty(prefabName)) {
                 Node root = this.GetPrefabRoot();
 
                 string fullpath = FileManagers.FileManager.GetFullPath(prefabName);
                 Nodes.BehaviorNode prefabBehavior = BehaviorManager.Instance.LoadBehavior(fullpath);
-                if (prefabBehavior != null)
-                {
+
+                if (prefabBehavior != null) {
+                    Behavior b = this.Behavior as Behavior;
+                    Debug.Check(b != null);
+
+                    b.AgentType.AddPars(b.LocalVars);
+
                     root.ResetByPrefab(prefabName, (Node)prefabBehavior);
                 }
 
@@ -989,295 +824,156 @@ namespace Behaviac.Design.Nodes
             return false;
         }
 
+        public void SetEnterExitSlot(List<Nodes.Node.ErrorCheck> result, string actionStr, bool bEnter)
+        {
+            Type t = null;
+
+            if (bEnter)
+            {
+                t = Plugin.GetType("PluginBehaviac.Events.Precondition");
+            }
+            else
+            {
+                t = Plugin.GetType("PluginBehaviac.Events.Effector");
+            }
+
+            Behaviac.Design.Attachments.Attachment a = Behaviac.Design.Attachments.Attachment.Create(t, this);
+            this.AddAttachment(a);
+
+            IList<DesignerPropertyInfo> properties = a.GetDesignerProperties();
+            foreach (DesignerPropertyInfo p in properties)
+            {
+                if (p.Property.Name == "Opl")
+                {
+                    p.SetValueFromString(result, a, actionStr);
+                }
+                else if (p.Property.Name == "Opr")
+                {
+                    p.SetValueFromString(result, a, "const bool true");
+                }
+            }
+        }
+
         /// <summary>
         /// Checks the current node and its children for errors.
         /// </summary>
         /// <param name="rootBehavior">The behaviour we are currently checking.</param>
         /// <param name="result">The list the errors are added to.</param>
-        public virtual void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
-        {
-            if (!Enable)
-            {
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.Disabled));
-            }
+        public virtual void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
+            if (Plugin.EditMode == EditModes.Design) {
+                if (!Enable) {
+                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.Disabled));
+                }
 
-            foreach (ParInfo par in Pars)
-            {
-                List<ErrorCheck> parResult = new List<ErrorCheck>();
-                Plugin.CheckPar(this, par, ref parResult);
-                if (parResult.Count == 0)
-                {
-                    string info = string.Format(Resources.ParWarningInfo, par.Name);
-                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, info));
+                //don't check locals for ReferencedBehavior and Event
+                if (this is Behavior) {
+                    Behavior behavior = this as Behavior;
+                    CheckPars(behavior.LocalVars, ref result);
+                }
+
+                foreach(Node node in _children) {
+                    if (node.Enable)
+                    { node.CheckForErrors(rootBehavior, result); }
+                }
+
+                foreach(Node node in this.FSMNodes) {
+                    node.CheckForErrors(rootBehavior, result);
+                }
+
+                foreach(Attachments.Attachment attachment in _attachments) {
+                    attachment.CheckForErrors(rootBehavior, result);
                 }
             }
+        }
 
-            foreach (Node node in _children)
-            {
-                node.CheckForErrors(rootBehavior, result);
-            }
+        private void CheckPars(List<ParInfo> pars, ref List<ErrorCheck> result) {
+            foreach(ParInfo par in pars) {
+                if (par.Display) {
+                    List<ErrorCheck> parResult = new List<ErrorCheck>();
+                    Plugin.CheckPar(this, par, ref parResult);
 
-            foreach (Attachments.Attachment attachment in _attachments)
-            {
-                attachment.CheckForErrors(rootBehavior, result);
+                    if (parResult.Count == 0) {
+                        string info = string.Format(Resources.ParWarningInfo, par.Name);
+                        result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, info));
+                    }
+                }
             }
         }
 
-        public virtual void ResetMembers(AgentType agentType, bool resetPar)
-        {
-            if (this.EnterAction != null && this.EnterAction.ShouldBeReset(agentType, resetPar))
-            {
-                this.EnterAction = null;
+        public virtual bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null) {
+            bool bReset = false;
+
+            foreach(Attachments.Attachment attach in this.Attachments) {
+                bReset |= attach.ResetMembers(check, agentType, clear, method, property);
             }
 
-            if (this.ExitAction != null && this.ExitAction.ShouldBeReset(agentType, resetPar))
-            {
-                this.ExitAction = null;
+            foreach(Node child in this.GetChildNodes()) {
+                bReset |= child.ResetMembers(check, agentType, clear, method, property);
             }
 
-            foreach (Node child in this.Children)
-            {
-                child.ResetMembers(agentType, resetPar);
-            }
+            return bReset;
         }
 
-        public virtual void GetReferencedFiles(ref List<string> referencedFiles)
-        {
-            foreach (Attachments.Attachment attach in this.Attachments)
-            {
+        public virtual void GetReferencedFiles(ref List<string> referencedFiles) {
+            foreach(Attachments.Attachment attach in this.Attachments) {
                 attach.GetReferencedFiles(ref referencedFiles);
             }
 
-            foreach (Node child in this.Children)
-            {
+            foreach(Node child in this.GetChildNodes()) {
                 child.GetReferencedFiles(ref referencedFiles);
             }
         }
 
-        public virtual bool ResetReferenceBehavior(string referenceFilename)
-        {
+        public virtual bool ResetReferenceBehavior(string referenceFilename) {
             bool reset = false;
 
-            foreach (Node child in this.Children)
-            {
+            foreach(Node child in this.GetChildNodes()) {
                 reset |= child.ResetReferenceBehavior(referenceFilename);
             }
 
             return reset;
         }
 
-        public struct ObjectPair
-        {
-            public ObjectPair(Nodes.Node root, NodeTag.DefaultObject obj)
-            {
-                Root = root;
-                Obj = obj;
-            }
-
-            public Nodes.Node Root;
-            public NodeTag.DefaultObject Obj;
-        }
-
-        public virtual void GetObjectsByType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects)
-        {
+        public virtual void GetObjectsByType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
             if (root == null || string.IsNullOrEmpty(nodeType))
-                return;
+            { return; }
 
             GetObjectsBySelfType(root, nodeType, matchCase, matchWholeWord, ref objects);
 
-            foreach (Attachments.Attachment attach in this.Attachments)
-            {
-                if (!ContainObjectPair(objects, root, attach) && CompareTwoTypes(attach.GetType().Name, nodeType, matchCase, matchWholeWord))
-                    objects.Add(new ObjectPair(root, attach));
+            foreach(Attachments.Attachment attach in this.Attachments) {
+                if (!Plugin.ContainObjectPair(objects, root, attach) && Plugin.CompareTwoTypes(attach.GetType().Name, nodeType, matchCase, matchWholeWord))
+                { objects.Add(new ObjectPair(root, attach)); }
             }
 
-            foreach (Nodes.Node child in this.Children)
-            {
+            foreach(Nodes.Node child in this.GetChildNodes()) {
                 child.GetObjectsByType(root, nodeType, matchCase, matchWholeWord, ref objects);
             }
         }
 
-        protected void GetObjectsBySelfType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects)
-        {
+        protected void GetObjectsBySelfType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
             if (root == null || string.IsNullOrEmpty(nodeType))
-                return;
+            { return; }
 
-            if (!ContainObjectPair(objects, root, this) && CompareTwoTypes(this.GetType().Name, nodeType, matchCase, matchWholeWord))
-                objects.Add(new ObjectPair(root, this));
+            if (!Plugin.ContainObjectPair(objects, root, this) && Plugin.CompareTwoTypes(this.GetType().Name, nodeType, matchCase, matchWholeWord))
+            { objects.Add(new ObjectPair(root, this)); }
         }
 
-        public virtual void GetObjectsByPropertyMethod(Nodes.Node root, string propertyName, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects)
-        {
+        public virtual void GetObjectsByPropertyMethod(Nodes.Node root, string propertyName, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
             if (root == null || string.IsNullOrEmpty(propertyName))
-                return;
+            { return; }
 
-            GetObjectsBySelfPropertyMethod(root, propertyName, matchCase, matchWholeWord, ref objects);
+            Plugin.GetObjectsBySelfPropertyMethod(root, this, propertyName, matchCase, matchWholeWord, ref objects);
 
-            foreach (Nodes.BaseNode child in this.Children)
-            {
-                if (child is Nodes.Node)
-                {
+            foreach(Attachments.Attachment attach in this.Attachments) {
+                Plugin.GetObjectsBySelfPropertyMethod(root, attach, propertyName, matchCase, matchWholeWord, ref objects);
+            }
+
+            foreach(Nodes.BaseNode child in this.GetChildNodes()) {
+                if (child is Nodes.Node) {
                     Nodes.Node childNode = child as Nodes.Node;
                     childNode.GetObjectsByPropertyMethod(root, propertyName, matchCase, matchWholeWord, ref objects);
                 }
             }
-        }
-
-        protected void GetObjectsBySelfPropertyMethod(Nodes.Node root, string propertyName, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects)
-        {
-            if (root == null || string.IsNullOrEmpty(propertyName))
-                return;
-
-            if (!ContainObjectPair(objects, root, this))
-            {
-                bool found = false;
-
-                // search from its members
-                Type type = this.GetType();
-                foreach (System.Reflection.PropertyInfo property in type.GetProperties())
-                {
-                    Attribute[] attributes = (Attribute[])property.GetCustomAttributes(typeof(Behaviac.Design.Attributes.DesignerProperty), false);
-                    if (attributes == null || attributes.Length == 0)
-                    {
-                        continue;
-                    }
-
-                    object value = property.GetValue(this, null);
-                    if (value != null)
-                    {
-                        if (property.PropertyType == typeof(MethodDef))
-                        {
-                            MethodDef method = value as MethodDef;
-                            Debug.Check(method != null);
-
-                            if (CompareTwoTypes(method.Name, propertyName, matchCase, matchWholeWord) ||
-                                CompareTwoTypes(method.DisplayName, propertyName, matchCase, matchWholeWord) ||
-                                CompareTwoTypes(method.GetDisplayValue(), propertyName, matchCase, matchWholeWord) ||
-                                CompareTwoTypes(method.GetExportValue(), propertyName, matchCase, matchWholeWord))
-                            {
-                                found = true;
-                                break;
-                            }
-                        }
-                        else if (property.PropertyType == typeof(VariableDef))
-                        {
-                            VariableDef var = value as VariableDef;
-                            Debug.Check(var != null);
-
-                            if (CompareTwoTypes(var.GetDisplayValue(), propertyName, matchCase, matchWholeWord) ||
-                                CompareTwoTypes(var.GetExportValue(), propertyName, matchCase, matchWholeWord))
-                            {
-                                found = true;
-                                break;
-                            }
-                        }
-                        else if (property.PropertyType == typeof(RightValueDef))
-                        {
-                            RightValueDef rv = value as RightValueDef;
-                            Debug.Check(rv != null);
-
-                            if (CompareTwoTypes(rv.GetDisplayValue(), propertyName, matchCase, matchWholeWord) ||
-                                CompareTwoTypes(rv.GetExportValue(), propertyName, matchCase, matchWholeWord))
-                            {
-                                found = true;
-                                break;
-                            }
-                        }
-                        else if (CompareTwoTypes(value.ToString(), propertyName, matchCase, matchWholeWord))
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-
-                // search from its pars
-                if (!found)
-                {
-                    foreach (ParInfo par in this.Pars)
-                    {
-                        if (CompareTwoTypes(par.Name, propertyName, matchCase, matchWholeWord))
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (found)
-                {
-                    objects.Add(new ObjectPair(root, this));
-                }
-            }
-        }
-
-        public static bool ContainObjectPair(List<ObjectPair> objects, Nodes.Node root, NodeTag.DefaultObject obj)
-        {
-            foreach (ObjectPair objPair in objects)
-            {
-                if (objPair.Root == root && objPair.Obj == obj)
-                    return true;
-            }
-
-            return false;
-        }
-
-        public static bool CompareTwoObjectLists(List<ObjectPair> listA, List<ObjectPair> listB)
-        {
-            Debug.Check(listA != null && listB != null);
-
-            if (listA.Count != listB.Count)
-                return false;
-
-            foreach (ObjectPair obj in listB)
-            {
-                if (!ContainObjectPair(listA, obj.Root, obj.Obj))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private static bool CompareTwoTypes(string strA, string strB, bool matchCase, bool matchWholeWord)
-        {
-            if (matchWholeWord)
-            {
-                if (matchCase)
-                {
-                    if (strA == strB || Plugin.GetResourceString(strA) == strB)
-                        return true;
-                }
-                else
-                {
-                    strB = strB.ToLower();
-                    if (strA.ToLower() == strB)
-                        return true;
-
-                    strA = Plugin.GetResourceString(strA);
-                    if (strA.ToLower() == strB)
-                        return true;
-                }
-            }
-            else
-            {
-                if (matchCase)
-                {
-                    if (strA.Contains(strB) || Plugin.GetResourceString(strA).Contains(strB))
-                        return true;
-                }
-                else
-                {
-                    strB = strB.ToLower();
-                    if (strA.ToLower().Contains(strB))
-                        return true;
-
-                    strA = Plugin.GetResourceString(strA);
-                    if (strA.ToLower().Contains(strB))
-                        return true;
-                }
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -1286,8 +982,7 @@ namespace Behaviac.Design.Nodes
         /// <param name="rootBehavior">The root of the graph of the current view.</param>
         /// <param name="parent">The parent of the NodeViewData created.</param>
         /// <returns>Returns a new NodeViewData object for this node.</returns>
-        public virtual NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior)
-        {
+        public virtual NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior) {
             return new NodeViewDataStyled(parent, rootBehavior, this, null, BackgroundBrush, _label, _description);
         }
 
@@ -1296,46 +991,32 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="list">The list which is searched for the NodeViewData.</param>
         /// <returns>Returns null if no fitting NodeViewData could be found.</returns>
-        public virtual NodeViewData FindNodeViewData(List<NodeViewData> list)
-        {
-            foreach (NodeViewData nvd in list)
-            {
+        public virtual NodeViewData FindNodeViewData(List<NodeViewData> list) {
+            foreach(NodeViewData nvd in list) {
                 if (nvd.Node == this)
-                    return nvd;
+                { return nvd; }
             }
 
             return null;
         }
 
         /// <summary>
-        /// Copies all the event handlers from one node to this one.
-        /// </summary>
-        /// <param name="from">Then node you want to copy the event handlers from.</param>
-        protected virtual void CopyEventHandlers(Node from)
-        {
-            WasModified = from.WasModified;
-        }
-
-        /// <summary>
         /// Internally used by CloneBranch.
         /// </summary>
         /// <param name="newparent">The parent the clone children will be added to.</param>
-        private void CloneChildNodes(Node newparent)
-        {
+        private void CloneChildNodes(Node newparent) {
             // we may not clone children of a referenced behavior
             if (newparent is ReferencedBehaviorNode)
-                return;
+            { return; }
 
-            // for every connector...
-            foreach (Connector connector in _children.Connectors)
-            {
+            // for each connector
+            foreach(Connector connector in _children.Connectors) {
                 // find the one from the new node...
                 Connector localconn = newparent.GetConnector(connector.Identifier);
                 Debug.Check(localconn != null);
 
                 // and duplicate its children into the new node's connector
-                for (int i = 0; i < connector.ChildCount; ++i)
-                {
+                for (int i = 0; i < connector.ChildCount; ++i) {
                     Node child = (Node)connector.GetChild(i);
 
                     Node newchild = (Node)child.Clone();
@@ -1345,24 +1026,53 @@ namespace Behaviac.Design.Nodes
                     child.CloneChildNodes(newchild);
                 }
             }
+
+            // for each FSM node
+            foreach(Node child in this.FSMNodes) {
+                Node newchild = (Node)child.Clone();
+                newparent.AddFSMNode(newchild);
+
+                // do this for the children as well
+                child.CloneChildNodes(newchild);
+            }
+        }
+
+        public string GetFullId() {
+            string fullId = this.Id.ToString();
+            BaseNode n = this;
+
+            while (n != null) {
+                if (n is Behavior) {
+                    Behavior b = n as Behavior;
+
+                    if (b.ParentNode != null) {
+                        fullId = string.Format("{0}:{1}", b.ParentNode.Id, fullId);
+                    }
+
+                    n = b.ParentNode;
+
+                } else {
+                    n = n.Parent;
+                }
+            }
+
+            return fullId;
         }
 
         /// <summary>
         /// Duplicates a node and all of its children.
         /// </summary>
         /// <returns>New node with new children.</returns>
-        public Node CloneBranch()
-        {
+        public Node CloneBranch() {
             Node newnode;
-            if (this is ReferencedBehaviorNode)
-            {
+
+            if (this is ReferencedBehaviorNode) {
                 // if we want to clone the branch of a referenced behaviour we have to create a new behaviour node for that.
                 // this should only be used to visualise stuff, never in the behaviour tree itself!
                 newnode = Create(typeof(BehaviorNode));
                 //newnode.Label= Label;
-            }
-            else
-            {
+
+            } else {
                 newnode = Create(GetType());
                 CloneProperties(newnode);
             }
@@ -1378,8 +1088,7 @@ namespace Behaviac.Design.Nodes
         /// Duplicates this node. Parent and children are not copied.
         /// </summary>
         /// <returns>New node without parent and children.</returns>
-        public virtual object Clone()
-        {
+        public virtual object Clone() {
             Node newnode = Create(GetType());
 
             CloneProperties(newnode);
@@ -1389,13 +1098,11 @@ namespace Behaviac.Design.Nodes
             return newnode;
         }
 
-        private void checkPrefabFile()
-        {
-            if (!string.IsNullOrEmpty(this.PrefabName))
-            {
+        private void checkPrefabFile() {
+            if (!string.IsNullOrEmpty(this.PrefabName)) {
                 string prefabName = FileManagers.FileManager.GetFullPath(this.PrefabName);
-                if (!System.IO.File.Exists(prefabName))
-                {
+
+                if (!System.IO.File.Exists(prefabName)) {
                     this.PrefabName = string.Empty;
                     this.PrefabNodeId = -1;
                     this.HasOwnPrefabData = false;
@@ -1407,17 +1114,15 @@ namespace Behaviac.Design.Nodes
         /// Used to duplicate all properties. Any property added must be duplicated here as well.
         /// </summary>
         /// <param name="newnode">The new node which is supposed to get a copy of the properties.</param>
-        protected virtual void CloneProperties(Node newnode)
-        {
+        protected virtual void CloneProperties(Node newnode) {
             Debug.Check(newnode != null);
 
             // clone properties
-            newnode.Version = this.Version;
+            newnode.ScreenLocation = this.ScreenLocation;
             newnode.Id = this.Id;
             newnode.Enable = this.Enable;
-            newnode.WasModified = this.WasModified;
-            if (this.CommentObject != null)
-            {
+
+            if (this.CommentObject != null) {
                 newnode.CommentObject = this.CommentObject.Clone();
             }
 
@@ -1426,26 +1131,19 @@ namespace Behaviac.Design.Nodes
             newnode.PrefabNodeId = this.PrefabNodeId;
             newnode.HasOwnPrefabData = this.HasOwnPrefabData;
 
-            if (this.EnterAction != null)
-            {
-                newnode.EnterAction = (MethodDef)this.EnterAction.Clone();
-            }
-            if (this.ExitAction != null)
-            {
-                newnode.ExitAction = (MethodDef)this.ExitAction.Clone();
-            }
-
             // clone pars.
-            newnode.Pars.Clear();
-            foreach (ParInfo par in this.Pars)
-            {
-                newnode.Pars.Add(par.Clone(newnode));
+            if (this is Behavior) {
+                Behavior bnew = newnode as Behavior;
+                bnew.LocalVars.Clear();
+
+                foreach(ParInfo par in((Behavior)this).LocalVars) {
+                    bnew.LocalVars.Add(par.Clone(bnew));
+                }
             }
 
             // clone attachements
             newnode.Attachments.Clear();
-            foreach (Attachments.Attachment attach in _attachments)
-            {
+            foreach(Attachments.Attachment attach in _attachments) {
                 newnode.AddAttachment(attach.Clone(newnode));
             }
         }
@@ -1454,18 +1152,15 @@ namespace Behaviac.Design.Nodes
         /// This node will be removed from its parent and its children. The parent tries to adopt all children.
         /// </summary>
         /// <returns>Returns false if the parent cannot apobt the children and the operation fails.</returns>
-        public bool ExtractNode()
-        {
+        public bool ExtractNode() {
             // we cannot adopt children from a referenced behavior
-            if (this is ReferencedBehaviorNode && _parent != null)
-            {
+            if (this is ReferencedBehaviorNode && _parent != null) {
                 ((Node)_parent).RemoveChild(_parentConnector, this);
                 return true;
             }
 
             // check if the parent is allowed to adopt the children
-            if (ParentCanAdoptChildren)
-            {
+            if (ParentCanAdoptChildren) {
                 Connector conn = _parentConnector;
                 Node parent = (Node)_parent;
 
@@ -1475,10 +1170,9 @@ namespace Behaviac.Design.Nodes
                 parent.RemoveChild(conn, this);
 
                 // let the node's parent adopt all the children
-                foreach (Connector connector in _children.Connectors)
-                {
+                foreach(Connector connector in _children.Connectors) {
                     for (int i = 0; i < connector.ChildCount; ++i, ++n)
-                        parent.AddChild(conn, (Node)connector[i], n);
+                    { parent.AddChild(conn, (Node)connector[i], n); }
 
                     // remove the adopted children from the old connector. Do NOT clear the _connector member which already points to the new connector.
                     connector.ClearChildrenInternal();
@@ -1494,8 +1188,7 @@ namespace Behaviac.Design.Nodes
         /// Returns a list of all properties which have a designer attribute attached.
         /// </summary>
         /// <returns>A list of all properties relevant to the designer.</returns>
-        public IList<DesignerPropertyInfo> GetDesignerProperties()
-        {
+        public IList<DesignerPropertyInfo> GetDesignerProperties() {
             return DesignerProperty.GetDesignerProperties(this.GetType());
         }
 
@@ -1504,19 +1197,45 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="comparison">The comparison used to sort the design properties.</param>
         /// <returns>A list of all properties relevant to the designer.</returns>
-        public IList<DesignerPropertyInfo> GetDesignerProperties(Comparison<DesignerPropertyInfo> comparison)
-        {
+        public IList<DesignerPropertyInfo> GetDesignerProperties(Comparison<DesignerPropertyInfo> comparison) {
             return DesignerProperty.GetDesignerProperties(this.GetType(), comparison);
         }
 
-        protected void CopyWasModifiedFromParent(Node parent)
-        {
-            if (parent != null)
-                WasModified = parent.WasModified;
+        public bool AcceptDefaultPropertyByDragAndDrop() {
+            return GetDefaultPropertyByDragAndDrop().Property != null;
         }
 
-        public override string ToString()
+        public bool SetDefaultPropertyByDragAndDrop(string value) {
+            return SetPropertyValue(GetDefaultPropertyNameByDragAndDrop(), value);
+        }
+
+        protected virtual string GetDefaultPropertyNameByDragAndDrop() {
+            return "Method";
+        }
+
+        private DesignerPropertyInfo GetDefaultPropertyByDragAndDrop() {
+            IList<DesignerPropertyInfo> properties = this.GetDesignerProperties();
+            foreach(DesignerPropertyInfo property in properties) {
+                if (property.Property != null && property.Property.Name == GetDefaultPropertyNameByDragAndDrop())
+                { return property; }
+            }
+
+            return new DesignerPropertyInfo();
+        }
+
+        private bool SetPropertyValue(string propName, string value)
         {
+            DesignerPropertyInfo property = GetDefaultPropertyByDragAndDrop();
+
+            if (property.Property != null) {
+                property.SetValueFromString(null, this, value);
+                return true;
+            }
+
+            return false;
+        }
+
+        public override string ToString() {
             return _label;
         }
 
@@ -1524,8 +1243,7 @@ namespace Behaviac.Design.Nodes
         /// Used when a DesignerNodeProperty property is exported to format the output.
         /// </summary>
         /// <returns>The format string used to write out the value.</returns>
-        public virtual string GetNodePropertyExportString()
-        {
+        public virtual string GetNodePropertyExportString() {
             return "\"{0}\"";
         }
 
@@ -1533,8 +1251,7 @@ namespace Behaviac.Design.Nodes
         /// Returns a list of properties that cannot be selected by a DesignerNodeProperty.
         /// </summary>
         /// <returns>Returns names of properties not allowed.</returns>
-        public virtual string[] GetNodePropertyExcludedProperties()
-        {
+        public virtual string[] GetNodePropertyExcludedProperties() {
             return new string[] { "ClassVersion", "Version" };
         }
 
@@ -1543,13 +1260,11 @@ namespace Behaviac.Design.Nodes
         /// </summary>
         /// <param name="propertyName">The name of the property we are checking.</param>
         /// <returns>Returns true if there is an attachement override.</returns>
-        public bool HasOverrride(string propertyName)
-        {
-            foreach (Attachments.Attachment attach in _attachments)
-            {
+        public bool HasOverrride(string propertyName) {
+            foreach(Attachments.Attachment attach in _attachments) {
                 Override overr = attach as Override;
-                if (overr != null && overr.PropertyToOverride == propertyName)
-                {
+
+                if (overr != null && overr.PropertyToOverride == propertyName) {
                     return true;
                 }
             }
@@ -1557,31 +1272,29 @@ namespace Behaviac.Design.Nodes
             return false;
         }
 
-        public string GenerateNewLabel()
-        {
+        public virtual string GenerateNewLabel() {
             // generate the new label with the arguments
             string newlabel = string.Empty;
 
             // check all properties for one which must be shown as a parameter on the node
             IList<DesignerPropertyInfo> properties = this.GetDesignerProperties(DesignerProperty.SortByDisplayOrder);
             int paramCount = 0;
-            for (int p = 0; p < properties.Count; ++p)
-            {
+
+            for (int p = 0; p < properties.Count; ++p) {
                 // property must be shown as a parameter on the node
-                if (properties[p].Attribute.Display == DesignerProperty.DisplayMode.Parameter)
-                {
+                if (properties[p].Attribute.Display == DesignerProperty.DisplayMode.Parameter) {
                     string strProperty = properties[p].GetDisplayValue(this);
 
                     if (paramCount > 0)
-                        newlabel += this.HasMiddleLabel ? " = " : " ";
+                    { newlabel += !string.IsNullOrEmpty(this.MiddleLabel) ? this.MiddleLabel : " "; }
 
-                    if (paramCount == 1 && this.HasFirstLabel)
-                    {
+                    if (paramCount == 1 && this.HasFirstLabel) {
                         newlabel += " = ";
-                    }
-                    else
-                    {
-                        newlabel += " ";
+
+                    } else {
+                        if (paramCount > 0) {
+                            newlabel += " ";
+                        }
                     }
 
                     newlabel += strProperty;
@@ -1590,7 +1303,7 @@ namespace Behaviac.Design.Nodes
             }
 
             if (paramCount > 0 && this.HasPrefixLabel)
-                newlabel = this.Label + "(" + newlabel + ")";
+            { newlabel = this.Label + "(" + newlabel + ")"; }
 
             return newlabel;
         }

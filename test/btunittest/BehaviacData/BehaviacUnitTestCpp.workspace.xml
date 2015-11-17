@@ -1,31 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<workspace name="BehaviacUnitTestCpp" xmlmetafolder="xmlmeta" folder="..\..\..\integration\unity\Assets\BehaviorTrees\BTWorkspace\behaviors" export="exported">
+<workspace name="BehaviacUnitTestCpp" xmlmetafolder="xmlmeta" folder="..\..\..\integration\unity\Assets\behaviac\workspace\behaviors" export="exported">
   <xmlmeta>UnitTestCppMeta.xml</xmlmeta>
   <export>
     <cs>
       <isexported>False</isexported>
-      <filename>generated_behaviors</filename>
+      <exportunifiedfile>True</exportunifiedfile>
     </cs>
     <cpp>
       <isexported>True</isexported>
-      <filename>generated_behaviors</filename>
-      <folder>../../..</folder>
-      <includedfilenames>
-        <includedfilename>btunittest/Agent/AgentNodeTest.h</includedfilename>
-        <includedfilename>btunittest/Agent/EmployeeParTestAgent.h</includedfilename>
-        <includedfilename>btunittest/Agent/ParTestAgent.h</includedfilename>
-        <includedfilename>btunittest/Agent/ParTestAgentBase.h</includedfilename>
-        <includedfilename>btunittest/Agent/ParTestRegNameAgent.h</includedfilename>
-        <includedfilename>btunittest/Agent/UnitTestTypes.h</includedfilename>
-      </includedfilenames>
+      <exportunifiedfile>True</exportunifiedfile>
+      <folder>../..</folder>
     </cpp>
     <xml>
       <isexported>True</isexported>
-      <filename>generated_behaviors</filename>
     </xml>
     <bson>
       <isexported>True</isexported>
-      <filename>generated_behaviors</filename>
     </bson>
   </export>
 </workspace>

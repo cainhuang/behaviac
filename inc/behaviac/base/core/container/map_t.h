@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BASE_MAP_H_
-#define _BASE_MAP_H_
+#ifndef BEHAVIAC_BASE_MAP_H
+#define BEHAVIAC_BASE_MAP_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
@@ -22,13 +22,12 @@
 
 namespace behaviac
 {
-	template<class _Kty, class _Ty,	
-	class _Pr = std::less<_Kty>,	
-	class _Alloc = behaviac::stl_allocator<std::pair<const _Kty, _Ty> > >
-	class map : public std::map<_Kty, _Ty, _Pr, _Alloc>
-	{
-
-	};
+    template < class _Kty, class _Ty,
+             class _Pr = std::less<_Kty>,
+             class _Alloc = behaviac::stl_allocator<std::pair<const _Kty, _Ty> > >
+    class map : public std::map<_Kty, _Ty, _Pr, _Alloc>
+    {
+    };
 }//namespace behaviac
 
-#endif //#ifndef _BASE_MAP_H_
+#endif //#ifndef BEHAVIAC_BASE_MAP_H

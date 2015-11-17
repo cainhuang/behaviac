@@ -43,74 +43,64 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerBooleanEditor : Behaviac.Design.Attributes.DesignerPropertyEditor
     {
-        public DesignerBooleanEditor()
-        {
+        public DesignerBooleanEditor() {
             InitializeComponent();
         }
 
-        public override void SetProperty(DesignerPropertyInfo property, object obj)
-        {
+        public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
             DesignerBoolean boolAtt = property.Attribute as DesignerBoolean;
+
             if (boolAtt != null)
-                checkBox.Checked = (bool)property.Property.GetValue(obj, null);
+            { checkBox.Checked = (bool)property.Property.GetValue(obj, null); }
         }
 
-        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj)
-        {
+        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj) {
             base.SetArrayProperty(arrayProperty, obj);
 
             checkBox.Checked = (arrayProperty.Value != null) ? (bool)arrayProperty.Value : false;
         }
 
-        public override void SetParameter(MethodDef.Param param, object obj)
-        {
-            base.SetParameter(param, obj);
+        public override void SetParameter(MethodDef.Param param, object obj, bool bReadonly) {
+            base.SetParameter(param, obj, bReadonly);
 
             DesignerBoolean boolAtt = param.Attribute as DesignerBoolean;
+
             if (boolAtt != null)
-                checkBox.Checked = (bool)param.Value;
+            { checkBox.Checked = (bool)param.Value; }
         }
 
-        public override void SetVariable(VariableDef variable, object obj)
-        {
+        public override void SetVariable(VariableDef variable, object obj) {
             base.SetVariable(variable, obj);
 
-            if (variable != null)
-            {
+            if (variable != null) {
                 Type valueType = variable.GetValueType();
+
                 if (valueType == typeof(bool))
-                    checkBox.Checked = (bool)variable.Value;
+                { checkBox.Checked = (bool)variable.Value; }
             }
         }
 
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
-        {
+        private void checkBox_CheckedChanged(object sender, EventArgs e) {
             if (!_valueWasAssigned)
-                return;
+            { return; }
 
-            if (_property.Property != null)
-            {
+            if (_property.Property != null) {
                 _property.Property.SetValue(_object, checkBox.Checked, null);
-            }
-            else if (_arrayProperty != null)
-            {
+
+            } else if (_arrayProperty != null) {
                 _arrayProperty.Value = checkBox.Checked;
-            }
-            else if (_param != null)
-            {
+
+            } else if (_param != null) {
                 Debug.Check(_param.Attribute is DesignerBoolean);
                 _param.Value = checkBox.Checked;
-            }
-            else
-            {
-                if (_variable != null)
-                {
+
+            } else {
+                if (_variable != null) {
                     _variable.Value = checkBox.Checked;
-                }
-                else
-                {
+
+                } else {
                     Debug.Check(false);
                 }
             }
@@ -118,15 +108,13 @@ namespace Behaviac.Design.Attributes
             OnValueChanged(_property);
         }
 
-        public override void ReadOnly()
-        {
+        public override void ReadOnly() {
             base.ReadOnly();
 
             checkBox.Enabled = false;
         }
 
-        private void checkBox_MouseEnter(object sender, EventArgs e)
-        {
+        private void checkBox_MouseEnter(object sender, EventArgs e) {
             this.OnMouseEnter(e);
         }
     }

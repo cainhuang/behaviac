@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_CONTAINERUITYPE_H_
-#define _ENGINESERVICES_CONTAINERUITYPE_H_
+#ifndef BEHAVIAC_ENGINESERVICES_CONTAINERUITYPE_H
+#define BEHAVIAC_ENGINESERVICES_CONTAINERUITYPE_H
 
 #include "behaviac/base/object/uitype.h"
 
@@ -52,4 +52,4 @@ public:
 
 #define UiDescriptorAllocate_UiContainerType BEHAVIAC_NEW UiContainerType
 
-#endif // #ifndef _ENGINESERVICES_CONTAINERUITYPE_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_CONTAINERUITYPE_H

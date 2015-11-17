@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_FORMATSTRINGMEMBER_H_
-#define _CORE_FORMATSTRINGMEMBER_H_
+#ifndef BEHAVIAC_CORE_FORMATSTRINGMEMBER_H
+#define BEHAVIAC_CORE_FORMATSTRINGMEMBER_H
 
 #include "behaviac/base/file/formatstring.h"
 
@@ -75,4 +75,4 @@ public:
         return *reinterpret_cast< cls* >( reinterpret_cast< uint8_t* >( this ) - FORMATSTRINGMEMBER_OFFSETOF( cls, name ) ); \
     }
 
-#endif // _CORE_FORMATSTRINGMEMBER_H_
+#endif // BEHAVIAC_CORE_FORMATSTRINGMEMBER_H

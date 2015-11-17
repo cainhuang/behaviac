@@ -11,84 +11,111 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_COMPUTE_H_
-#define BEHAVIAC_BEHAVIORTREE_COMPUTE_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_COMPUTE_H
+#define BEHAVIAC_BEHAVIORTREE_COMPUTE_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
 #include "behaviac/behaviortree/behaviortree_task.h"
 #include "behaviac/agent/agent.h"
+#include "behaviac/property/computer.h"
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup Compute
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup Compute
+    * @{ */
 
-	///Compute
-	/**
-	Compute the result of Operand1 and Operand2 and assign it to the Left Operand.
-	Compute node can perform Add, Sub, Mul and Div operations. a left and right Operand 
-	can be a agent property or a par value.
-	*/
-	class BEHAVIAC_API Compute : public BehaviorNode
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute, BehaviorNode);
+    ///Compute
+    /**
+    Compute the result of Operand1 and Operand2 and assign it to the Left Operand.
+    Compute node can perform Add, Sub, Mul and Div operations. a left and right Operand
+    can be a agent property or a par value.
+    */
+    class BEHAVIAC_API Compute : public BehaviorNode
+    {
+    public:
+        static void RegisterBasicTypes();
+        static void UnRegisterBasicTypes();
 
-		Compute();
-		virtual ~Compute();
-		virtual void load(int version, const char* agentType, const properties_t& properties);
+        static void Cleanup();
+    public:
+        BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute, BehaviorNode);
 
-	protected:
-		virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
+        Compute();
+        virtual ~Compute();
+        virtual void load(int version, const char* agentType, const properties_t& properties);
+        static bool EvaluteCompute(Agent* pAgent, const behaviac::string& typeName, Property* opl, Property* opr1, CMethodBase* opr1_m, EComputeOperator computeOperator, Property* opr2, CMethodBase* opr2_m);
+    protected:
+        virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
 
-			return BT_FAILURE;
-		}
+    private:
+        virtual BehaviorTask* createTask() const;
 
-	private:
-		virtual BehaviorTask* createTask() const;
+        typedef behaviac::map<behaviac::string, VariableComputer*> VariableComputers;
+        typedef VariableComputers::iterator VariableComparatorIterator;
+        static VariableComputers* ms_computers;
+        static VariableComputers& Computers();
 
-	protected:
-		Property*			m_opl;
+        template<typename T>
+        static bool Register(const char* typeName)
+        {
+            Computers()[typeName] = BEHAVIAC_NEW VariableComputerImpl<T>();
 
-		Property*			m_opr1;
-		CMethodBase*		m_opr1_m;
+            return true;
+        }
 
-		Property*			m_opr2;
-		CMethodBase*		m_opr2_m;
+        template<typename T>
+        static void UnRegister(const char* typeName)
+        {
+            VariableComparatorIterator it = Computers().find(typeName);
 
-		EComputeOperator	m_operator;
+            if (it != Computers().end())
+            {
+                VariableComputer* pVariableComputer = it->second;
+                BEHAVIAC_DELETE pVariableComputer;
+                Computers().erase(it);
+            }
+        }
 
-		friend class ComputeTask;
-	};
+    protected:
+        Property*			m_opl;
 
-	class BEHAVIAC_API ComputeTask : public LeafTask
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ComputeTask, LeafTask);
+        Property*			m_opr1;
+        CMethodBase*		m_opr1_m;
 
-		ComputeTask();
-		virtual ~ComputeTask();
+        Property*			m_opr2;
+        CMethodBase*		m_opr2_m;
 
-	protected:
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+        EComputeOperator	m_operator;
 
-		virtual bool isContinueTicking() const;
+        behaviac::string	m_typeName;
 
-		virtual bool onenter(Agent* pAgent);
-		virtual void onexit(Agent* pAgent, EBTStatus s);
-		virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
-	};
-	/*! @} */
-	/*! @} */
+        friend class ComputeTask;
+    };
+
+    class BEHAVIAC_API ComputeTask : public LeafTask
+    {
+    public:
+        BEHAVIAC_DECLARE_DYNAMIC_TYPE(ComputeTask, LeafTask);
+
+        ComputeTask();
+        virtual ~ComputeTask();
+
+    protected:
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
+
+        virtual bool isContinueTicking() const;
+
+        virtual bool onenter(Agent* pAgent);
+        virtual void onexit(Agent* pAgent, EBTStatus s);
+        virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
+    };
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_COMPUTE_H_
+#endif//BEHAVIAC_BEHAVIORTREE_COMPUTE_H

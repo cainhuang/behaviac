@@ -17,7 +17,6 @@
 #include "behaviac/base/file/filemanager.h"
 #include "behaviac/base/core/rapidxml/rapidxml.hpp"
 
-
 //******************************************************************************
 //* XmlParserImp class.
 //******************************************************************************
@@ -50,26 +49,24 @@ XmlParserImp::~XmlParserImp()
     BEHAVIAC_FREE(m_buffer);
 }
 
-
 XmlNodeRef cloneXmlNodeFrom(xml_node<>* xmlnode)
 {
-	XmlNodeRef node = CreateXmlNode(xmlnode->name());
+    XmlNodeRef node = CreateXmlNode(xmlnode->name());
 
-	for (xml_attribute<>* attr = xmlnode->first_attribute();
-		attr; attr = attr->next_attribute())
-	{
-		node->setAttrText(attr->name(), attr->value());
-	}
+    for (xml_attribute<>* attr = xmlnode->first_attribute();
+         attr; attr = attr->next_attribute())
+    {
+        node->setAttrText(attr->name(), attr->value());
+    }
 
-	for (xml_node<>* subNode = xmlnode->first_node(); subNode; subNode = subNode->next_sibling())
-	{
-		XmlNodeRef sub = cloneXmlNodeFrom(subNode);
-		node->addChild(sub);
-	}
+    for (xml_node<>* subNode = xmlnode->first_node(); subNode; subNode = subNode->next_sibling())
+    {
+        XmlNodeRef sub = cloneXmlNodeFrom(subNode);
+        node->addChild(sub);
+    }
 
-	return node;
+    return node;
 }
-
 
 XmlNodeRef XmlParserImp::parse(char* buffer, int bufLen, const char* rootNodeName, behaviac::string& errorString, bool isFinal)
 {
@@ -79,13 +76,12 @@ XmlNodeRef XmlParserImp::parse(char* buffer, int bufLen, const char* rootNodeNam
 
     m_parser.parse<0>(buffer);
 
-	xml_node<>* xmlnode = m_parser.first_node(rootNodeName);
+    xml_node<>* xmlnode = m_parser.first_node(rootNodeName);
 
-	XmlNodeRef node = cloneXmlNodeFrom(xmlnode);
+    XmlNodeRef node = cloneXmlNodeFrom(xmlnode);
 
-	return node;
+    return node;
 }
-
 
 XmlNodeRef XmlParser::parse(const char* fileName, const char* rootNodeName, const char* suffix)
 {
@@ -104,10 +100,11 @@ XmlNodeRef XmlParser::parse(const char* fileName, const char* rootNodeName, cons
         }
 
         return xml;
+
     }
     else
     {
-        BEHAVIAC_ASSERT(0,  "Cannot open XML file : %s\n", fileName);
+        BEHAVIAC_ASSERT(0, "Cannot open XML file : %s\n", fileName);
         return XmlNodeRef();
     }
 }
@@ -147,15 +144,17 @@ XmlNodeRef XmlParser::parse(IFile* file, const char* rootNodeName, const char* s
             }
 
             return ref;
+
         }
         else
         {
             return XmlNodeRef();
         }
+
     }
     else
     {
-        BEHAVIAC_ASSERT(0,  "XmlParse(IFile*) - Invalid file\n");
+        BEHAVIAC_ASSERT(0, "XmlParse(IFile*) - Invalid file\n");
         return XmlNodeRef();
     }
 }
@@ -186,4 +185,3 @@ XmlNodeRef XmlParser::parseBuffer(char* buffer, int size, const char* rootNodeNa
 
     return ref;
 }
-

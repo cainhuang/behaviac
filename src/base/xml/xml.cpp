@@ -14,7 +14,6 @@
 #include "behaviac/base/xml/xml.h"
 #include "behaviac/base/xml/xmlparser.h"
 
-
 #ifdef I_WANT_TO_PUT_BACK_BINXML
 #include "behaviac/base/xml/xml_binary.h"
 #endif
@@ -23,7 +22,6 @@
 #include "behaviac/base/file/filemanager.h"
 #include "behaviac/base/string/stringutils.h"
 #include "behaviac/base/string/pathid.h"
-
 
 /**
  ******************************************************************************
@@ -69,14 +67,16 @@ void XmlString::Insert(char const* string)
         {
             m_str = i->first;
             ++i->second;
+
         }
         else
         {
-            char* copy = (char*) BEHAVIAC_MALLOC_WITHTAG(strlen(string) + 1, "XmlString");
+            char* copy = (char*)BEHAVIAC_MALLOC_WITHTAG(strlen(string) + 1, "XmlString");
             strcpy(copy, string);
             m_table.insert(TableType::value_type(copy, 1));
             m_str = copy;
         }
+
     }
     else
     {
@@ -201,6 +201,7 @@ void CXmlNode::setAttrText(const char* key, const char* text)
         m_attributes.resize(m_attributes.size() + 1);
         m_attributes.back().SetKey(key);
         m_attributes.back().SetValue(text);
+
     }
     else
     {
@@ -216,14 +217,14 @@ void CXmlNode::setAttrText(const char* key, const wchar_t* text)
     {
         m_attributes.resize(m_attributes.size() + 1);
         m_attributes.back().SetKey(key);
-		m_attributes.back().SetValue(text);
+        m_attributes.back().SetValue(text);
+
     }
     else
     {
-		it->SetValue(text);
+        it->SetValue(text);
     }
 }
-
 
 XmlNodeRef CXmlNode::findChild(const char* tag)
 {
@@ -277,7 +278,6 @@ XmlConstNodeRef CXmlNode::findChild(const char* tag) const
     return XmlConstNodeRef(0);
 }
 
-
 XmlNodeRef CXmlNode::findChildSafe(const char* tag)
 {
     XmlNodeRef node = findChild(tag);
@@ -301,7 +301,6 @@ XmlConstNodeRef CXmlNode::findChildSafe(const char* tag) const
 
     return node;
 }
-
 
 //! Adds new child node.
 void CXmlNode::addChild(XmlNodeRef node)
@@ -334,8 +333,8 @@ void CXmlNode::removeAllChilds()
 
 void CXmlNode::swapChilds(int child1, int child2)
 {
-    BEHAVIAC_ASSERT(child1 >= 0 && child1 < static_cast< int >(m_childs.size()));
-    BEHAVIAC_ASSERT(child2 >= 0 && child2 < static_cast< int >(m_childs.size()));
+    BEHAVIAC_ASSERT(child1 >= 0 && child1 < static_cast<int>(m_childs.size()));
+    BEHAVIAC_ASSERT(child2 >= 0 && child2 < static_cast<int>(m_childs.size()));
     std::swap(m_childs[child1], m_childs[child2]);
 }
 
@@ -361,7 +360,6 @@ int	CXmlNode::getChildCount(const char* tag) const
 
     return count;
 }
-
 
 //! Get XML Node child nodes.
 XmlNodeRef CXmlNode::getChild(int i)
@@ -436,13 +434,12 @@ void PushAndConvertToXmlString(const char* inputString, behaviac::string& output
                     break;
 
                 default:
-					outputString.push_back(inputString[c]);
+                    outputString.push_back(inputString[c]);
                     break;
             }
         }
     }
 }
-
 
 void CXmlNode::getXML(behaviac::string& xml, int level) const
 {
@@ -460,6 +457,7 @@ void CXmlNode::getXML(behaviac::string& xml, int level) const
         xml += "<";
         xml += m_tag.c_str();
         AddSpace = true;
+
     }
     else
     {
@@ -483,6 +481,7 @@ void CXmlNode::getXML(behaviac::string& xml, int level) const
         if (AddSpace)
         {
             xml += " />\r\n";
+
         }
         else
         {
@@ -536,6 +535,7 @@ void CXmlNode::getXML(behaviac::wstring& xml, int level) const
         xml += L"<";
         xml += behaviac::StringUtils::Char2Wide(m_tag.c_str());
         AddSpace = true;
+
     }
     else
     {
@@ -548,17 +548,20 @@ void CXmlNode::getXML(behaviac::wstring& xml, int level) const
             xml += L" ";
             xml += behaviac::StringUtils::Char2Wide(it->GetKey());
             xml += L"=\"";
-			if (it->IsWide())
-			{
-				xml += it->GetValueWide();
-			}
-			else
-			{
-				behaviac::string t;
-				PushAndConvertToXmlString(it->GetValue(), t);
 
-				xml += behaviac::StringUtils::Char2Wide(t);
-			}
+            if (it->IsWide())
+            {
+                xml += it->GetValueWide();
+
+            }
+            else
+            {
+                behaviac::string t;
+                PushAndConvertToXmlString(it->GetValue(), t);
+
+                xml += behaviac::StringUtils::Char2Wide(t);
+            }
+
             xml += L"\"";
         }
     }
@@ -569,6 +572,7 @@ void CXmlNode::getXML(behaviac::wstring& xml, int level) const
         if (AddSpace)
         {
             xml += L" />\r\n";
+
         }
         else
         {
@@ -580,12 +584,12 @@ void CXmlNode::getXML(behaviac::wstring& xml, int level) const
 
     xml += L">";
     // Put node content.
-	{
-		behaviac::string t;
-		PushAndConvertToXmlString(m_content.c_str(), t);
+    {
+        behaviac::string t;
+        PushAndConvertToXmlString(m_content.c_str(), t);
 
-		xml += behaviac::StringUtils::Char2Wide(t);
-	}
+        xml += behaviac::StringUtils::Char2Wide(t);
+    }
 
     if (!m_childs.empty())
     {
@@ -634,7 +638,7 @@ void CXmlNode::getXML(behaviac::wstring& xml, int level) const
 //
 //		int sizeoft = sizeof(behaviac::wstring::value_type);
 //		BEHAVIAC_ASSERT(sizeoft == 2);
-//		
+//
 //		fwrite(temp.c_str(), temp.size(), sizeoft, file);
 //
 //        fclose(file);
@@ -649,20 +653,20 @@ void CXmlNode::getXML(behaviac::wstring& xml, int level) const
 //    return false;
 //}
 
-
 bool CXmlNode::saveToFile(const char* fileName) const
 {
     IFile* file = CFileManager::GetInstance()->FileOpen(fileName, CFileSystem::EOpenAccess_Write);
 
     if (file)
     {
-		this->saveToFile(file);
+        this->saveToFile(file);
         CFileManager::GetInstance()->FileClose(file);
         return true;
+
     }
     else
     {
-        BEHAVIAC_ASSERT(0,  "CXmlNode::SaveLevel, cannot open for write %s, xml won't be saved\n", fileName);
+        BEHAVIAC_ASSERT(0, "CXmlNode::SaveLevel, cannot open for write %s, xml won't be saved\n", fileName);
     }
 
     return false;
@@ -673,16 +677,16 @@ bool CXmlNode::saveToFile(IFile* file) const
     if (file)
     {
         //bool result = getXML(file);
-		behaviac::wstring temp;
+        behaviac::wstring temp;
 
-		this->getXML(temp);
+        this->getXML(temp);
 
-		behaviac::string out;
-		behaviac::StringUtils::Wide2Char(out, temp);
-		file->Write(out.c_str(), out.size());
+        behaviac::string out;
+        behaviac::StringUtils::Wide2Char(out, temp);
+        file->Write(out.c_str(), out.size());
 
         return true;
-	}
+    }
 
-	return false;
+    return false;
 }

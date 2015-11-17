@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_CORE_TYPES_H_
-#define _BEHAVIAC_BASE_CORE_TYPES_H_
+#ifndef BEHAVIAC_BASE_CORE_TYPES_H
+#define BEHAVIAC_BASE_CORE_TYPES_H
 
 #include "behaviac/base/core/config.h"
 
@@ -37,40 +37,40 @@ namespace behaviac
     typedef char				Char;
     typedef float				Float32;
     typedef double				Float64;
-#if BEHAVIAC_ARCH_X64
-    typedef unsigned __int64    Address;    //< Adress unsigned word (the size of the ADRESS bus)
+#if BEHAVIAC_COMPILER_64BITS
+    typedef uint64_t            Address;    //< Adress unsigned word (the size of the ADRESS bus)
 #else
-	typedef unsigned long       Address;    //< Address unsigned word (the size of the ADRESS bus)
+    typedef unsigned long       Address;    //< Address unsigned word (the size of the ADRESS bus)
 #endif
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // behaviac min/max value for each types
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const int8_t	S8_Min                    = -128;                         //< Minimum value for a signed 8 bits integer
-    const int8_t	S8_Max                    = 127;                          //< Maximum value for a signed 8 bits integer
-    const uint8_t	U8_Min                    = 0;                            //< Minimum value for a unsigned 8 bits integer
-    const uint8_t	U8_Max                    = 255;                          //< Maximum value for a unsigned 8 bits integer
-    const int16_t	S16_Min                   = -32768;                       //< Minimum value for a signed 16 bits integer
-    const int16_t	S16_Max                   = 32767;                        //< Maximum value for a signed 16 bits integer
-    const uint16_t	U16_Min                   = 0;                            //< Minimum value for a unsigned 16 bits integer
-    const uint16_t	U16_Max                   = 65535;                        //< Maximum value for a unsigned 16 bits integer
-    const int32_t	S32_Min                   = 0x80000000;                   //< Minimum value for a signed 32 bits integer
-    const int32_t	S32_Max                   = 0x7FFFFFFF;                   //< Maximum value for a signed 32 bits integer
-    const uint32_t	U32_Min                   = 0x00000000;                   //< Minimum value for a unsigned 32 bits integer
-    const uint32_t	U32_Max                   = 0xFFFFFFFF;                   //< Maximum value for a unsigned 32 bits integer
-    const int64_t	S64_Min                   = 0x8000000000000000LL;         //< Minimum value for a signed 64 bits integer
-    const int64_t	S64_Max                   = 0x7FFFFFFFFFFFFFFFLL;         //< Maximum value for a signed 64 bits integer
-    const uint64_t	U64_Min                   = 0x0000000000000000ULL;        //< Minimum value for a unsigned 64 bits integer
-    const uint64_t	U64_Max                   = 0xFFFFFFFFFFFFFFFFULL;        //< Maximum value for a unsigned 64 bits integer
+    const int8_t	S8_Min = -128;                         //< Minimum value for a signed 8 bits integer
+    const int8_t	S8_Max = 127;                          //< Maximum value for a signed 8 bits integer
+    const uint8_t	U8_Min = 0;                            //< Minimum value for a unsigned 8 bits integer
+    const uint8_t	U8_Max = 255;                          //< Maximum value for a unsigned 8 bits integer
+    const int16_t	S16_Min = -32768;                       //< Minimum value for a signed 16 bits integer
+    const int16_t	S16_Max = 32767;                        //< Maximum value for a signed 16 bits integer
+    const uint16_t	U16_Min = 0;                            //< Minimum value for a unsigned 16 bits integer
+    const uint16_t	U16_Max = 65535;                        //< Maximum value for a unsigned 16 bits integer
+    const int32_t	S32_Min = 0x80000000;                   //< Minimum value for a signed 32 bits integer
+    const int32_t	S32_Max = 0x7FFFFFFF;                   //< Maximum value for a signed 32 bits integer
+    const uint32_t	U32_Min = 0x00000000;                   //< Minimum value for a unsigned 32 bits integer
+    const uint32_t	U32_Max = 0xFFFFFFFF;                   //< Maximum value for a unsigned 32 bits integer
+    const int64_t	S64_Min = 0x8000000000000000LL;         //< Minimum value for a signed 64 bits integer
+    const int64_t	S64_Max = 0x7FFFFFFFFFFFFFFFLL;         //< Maximum value for a signed 64 bits integer
+    const uint64_t	U64_Min = 0x0000000000000000ULL;        //< Minimum value for a unsigned 64 bits integer
+    const uint64_t	U64_Max = 0xFFFFFFFFFFFFFFFFULL;        //< Maximum value for a unsigned 64 bits integer
 
-    const Float32	Float32_Min           	  = -3.402823466E+38F;            //< Minimum value for a 32 bits float
-    const Float32	Float32_Max				  = 3.402823466E+38F;             //< Maximum value for a 32 bits float
-    const Float32	Float32_Positive_Min	  = 1.175494351E-38F;             //< Smallest representable positive value for a 32 bits float
-    const Float32	Float32_Positive_Max	  = 3.402823466E+38F;             //< Biggest representable positive value for a 32 bits float
-    const int32_t   Float32_MinExp			  = -126;                         //< Minimum binary exponent for 32 bit float
-    const int32_t   Float32_MaxExp			  = 127;                          //< Maximum binary exponent for 32 bit float
+    const Float32	Float32_Min = -3.402823466E+38F;            //< Minimum value for a 32 bits float
+    const Float32	Float32_Max = 3.402823466E+38F;             //< Maximum value for a 32 bits float
+    const Float32	Float32_Positive_Min = 1.175494351E-38F;             //< Smallest representable positive value for a 32 bits float
+    const Float32	Float32_Positive_Max = 3.402823466E+38F;             //< Biggest representable positive value for a 32 bits float
+    const int32_t   Float32_MinExp = -126;                         //< Minimum binary exponent for 32 bit float
+    const int32_t   Float32_MaxExp = 127;                          //< Maximum binary exponent for 32 bit float
 
-    const Float32	Float32_Epsilon			  = 0.000001f;
+    const Float32	Float32_Epsilon = 0.000001f;
 
     inline void GetTypeMin(int8_t& Val)
     {
@@ -151,7 +151,7 @@ namespace behaviac
 #if BEHAVIAC_COMPILER_MSVC
         return ::_isnan(x);
 #else
-    return isnan(x);
+        return isnan(x);
 #endif//BEHAVIAC_COMPILER_MSVC
     }
 
@@ -160,20 +160,22 @@ namespace behaviac
 #if BEHAVIAC_COMPILER_MSVC
         return ::_isnan(x);
 #else
-    return isnan(x);
+        return isnan(x);
 #endif//BEHAVIAC_COMPILER_MSVC
     }
 
     inline int _finite(Float32 x)
     {
-#if BEHAVIAC_COMPILER_MSVC        
+#if BEHAVIAC_COMPILER_MSVC
         return ::_finite(x);
 #elif BEHAVIAC_COMPILER_APPLE
-		if (x <= -INFINITY || x >= INFINITY)
-		{
-			return 0;
-		}
-		return x;
+
+        if (x <= -INFINITY || x >= INFINITY)
+        {
+            return 0;
+        }
+
+        return x;
 #else
         return finite(x);
 #endif//#if BEHAVIAC_COMPILER_MSVC
@@ -181,14 +183,16 @@ namespace behaviac
 
     inline int _finite(Float64 x)
     {
-#if BEHAVIAC_COMPILER_MSVC        
+#if BEHAVIAC_COMPILER_MSVC
         return ::_finite(x);
 #elif BEHAVIAC_COMPILER_APPLE
-		if (x <= -INFINITY || x >= INFINITY)
-		{
-			return 0;
-		}
-		return x;
+
+        if (x <= -INFINITY || x >= INFINITY)
+        {
+            return 0;
+        }
+
+        return x;
 #else
         return finite(x);
 #endif//#if BEHAVIAC_COMPILER_MSVC
@@ -211,7 +215,6 @@ namespace behaviac
         return fabs(x);
     }
 
-
     /// Convert a F32 value to an int32_t
     inline int32_t GetInteger(Float32 x)
     {
@@ -227,9 +230,7 @@ namespace behaviac
         return (int64_t)x;
     }
 
-
 #define BEHAVIAC_ARRAY_NELEMENT(Array) (sizeof(Array)/sizeof(Array[0]))
-
 
     /// Add a index to a pointer and return it casted to type
     /*! \param type     The return type (typically another pointer)
@@ -328,7 +329,6 @@ namespace behaviac
         return GetPositiveINF<T>();
     }
 
-
     template <> inline Float32 GetNAN<>()
     {
         const uint32_t F32_NAN = 0x7FFFFFFF;
@@ -379,7 +379,14 @@ namespace behaviac
         return fabsf(x - y) <= Epsilon;
     }
 
-
+    /// Returns TRUE if two values are equal or closer than the margin of error
+    /*! This function is slower than a == between two types, but when doing complex calculations,
+    two float value will be slightly different due to precision limitation.
+    */
+    inline bool  IsEqualWithEpsilon(Float64 x, Float64 y, Float64 Epsilon = (Float32_Epsilon * 2))
+    {
+        return fabs(x - y) <= Epsilon;
+    }
 
     /// Calculates the square root
     /*! The GetSquareRoot function returns the square-root of x. If x is negative, it returns an indefinite, by default
@@ -402,7 +409,6 @@ namespace behaviac
     {
         return (Float32)((int)(x + (x > 0.0f ? 0.5f : -0.5f)));
     }
-
 
     /// Calculates the ceiling of a value
     /*! The ceil function returns a value representing the smallest integer that is greater than or equal to x.
@@ -511,6 +517,7 @@ namespace behaviac
         if (Value < Min)
         {
             returnVal = Min;
+
         }
         else if (Value > Max)
         {
@@ -527,7 +534,6 @@ namespace behaviac
         a = b;
         b = Temp;
     }
-
 
     /// Return the minimum value between 2
     template<typename _Type>
@@ -587,7 +593,6 @@ namespace behaviac
         return (!Value || !((Value - 1) & Value));
     }
 
-
     /// Rounds a value to the upper value
     /*!
     Align MUST be a power of 2
@@ -637,7 +642,6 @@ namespace behaviac
     \return true if value is aligned, false otherwise
     */
 #define BEHAVIAC_PTR_ALIGNED(Ptr, Align)            BEHAVIAC_ALIGNED(BEHAVIAC_PTR_TO_ADDR(Ptr), (Align))
-
 
     /// Round a Pointer to its lower address
     /*! \param type     The return type (typically another pointer)
@@ -719,10 +723,9 @@ namespace behaviac
 #define BEHAVIAC_GB(Nb)                     BEHAVIAC_MB((Nb)*1024ULL)   ///< Defines for GigaBytes prefix (2 ^ 30)
 #define BEHAVIAC_TB(Nb)                     BEHAVIAC_GB((Nb)*1024ULL)   ///< Defines for TeraBytes prefix (2 ^ 40)
 #define BEHAVIAC_PB(Nb)                     BEHAVIAC_TB((Nb)*1024ULL)   ///< Defines for TeraBytes prefix (2 ^ 40)
-
 }//end of ns
 
 /*! @} */
 /*! @} */
 
-#endif//_BEHAVIAC_BASE_CORE_TYPES_H_
+#endif//BEHAVIAC_BASE_CORE_TYPES_H

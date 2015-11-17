@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: base\boring.xml-->
-<behavior name="base/boring" agenttype="framework::GameObject" version="1">
-  <node class="Action" version="1" id="1">
+<behavior name="base/boring" agenttype="framework::GameObject" version="3">
+  <node class="Action" id="1">
     <property Method="Self.framework::GameObject::GoStraight(10)" />
-    <property PreconditionFailResult="BT_FAILURE" />
     <property ResultOption="BT_RUNNING" />
   </node>
 </behavior>

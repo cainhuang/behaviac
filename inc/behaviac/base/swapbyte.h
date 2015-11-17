@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_SWAPBYTE_H_
-#define _CORE_SWAPBYTE_H_
+#ifndef BEHAVIAC_CORE_SWAPBYTE_H
+#define BEHAVIAC_CORE_SWAPBYTE_H
 
 #include "behaviac/base/core/assert_t.h"
 #include "behaviac/base/core/staticassert.h"
@@ -76,21 +76,21 @@ inline void CSwapByteFull::SwapSized< 1 >(char*)
 template<>
 inline void CSwapByteFull::SwapSized< 2 >(char* p)
 {
-    unsigned short& v = *reinterpret_cast< unsigned short* >(p);
+    unsigned short& v = *reinterpret_cast<unsigned short*>(p);
     v = BYTESWAPED_16(v);
 }
 
 template<>
 inline void CSwapByteFull::SwapSized< 4 >(char* p)
 {
-    unsigned int& v = *reinterpret_cast< unsigned int* >(p);
+    unsigned int& v = *reinterpret_cast<unsigned int*>(p);
     v = BYTESWAPED_32(v);
 }
 
 template<>
 inline void CSwapByteFull::SwapSized< 8 >(char* p)
 {
-    unsigned long long& v = *reinterpret_cast< unsigned long long* >(p);
+    unsigned long long& v = *reinterpret_cast<unsigned long long*>(p);
     v = BYTESWAPED_64(v);
 }
 
@@ -132,7 +132,6 @@ inline void CSwapByteFull::Swap(double& v)
     v = temp.f;
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 // CSwapByteEmpty
 
@@ -154,7 +153,7 @@ public:
     template< typename T >
     static inline void Swap(T& value)
     {
-        BEHAVIAC_UNUSED_VAR(value);        
+        BEHAVIAC_UNUSED_VAR(value);
     }
 };
 
@@ -261,10 +260,10 @@ inline void SwapByteArrayTempl(T* array, uint32_t arraySize)
 {
     for (unsigned int i = 0; i < arraySize; ++i)
     {
-        SwapByteTempl< SWAPPER >(array[ i ]);
+        SwapByteTempl< SWAPPER >(array[i]);
     }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-#endif // #ifndef _CORE_SWAPBYTE_H_
+#endif // #ifndef BEHAVIAC_CORE_SWAPBYTE_H

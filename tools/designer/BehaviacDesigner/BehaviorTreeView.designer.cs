@@ -33,34 +33,32 @@
 
 namespace Behaviac.Design
 {
-	partial class BehaviorTreeView
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class BehaviorTreeView
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Component Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BehaviorTreeView));
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -73,7 +71,8 @@ namespace Behaviac.Design
             this.parameterSettingButton = new System.Windows.Forms.Button();
             this.fitToViewButton = new System.Windows.Forms.Button();
             this.checkButton = new System.Windows.Forms.Button();
-            this.altDragButton = new System.Windows.Forms.Button();
+            this.zoomInButton = new System.Windows.Forms.Button();
+            this.zoomOutButton = new System.Windows.Forms.Button();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fitToViewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -85,6 +84,8 @@ namespace Behaviac.Design
             this.cutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cutTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copySubtreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -93,14 +94,15 @@ namespace Behaviac.Design
             this.breakpointMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enterBreakpointMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitBreakpointMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beakpointPlanning = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.referenceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.savePrefabMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.breakPrefabMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveImageDialog = new System.Windows.Forms.SaveFileDialog();
             this.emptyButton = new System.Windows.Forms.Button();
+            this.saveImageDialog = new System.Windows.Forms.SaveFileDialog();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -209,17 +211,31 @@ namespace Behaviac.Design
             this.checkButton.UseVisualStyleBackColor = true;
             this.checkButton.Click += new System.EventHandler(this.checkButton_Click);
             // 
-            // altDragButton
+            // zoomInButton
             // 
-            this.altDragButton.BackColor = System.Drawing.Color.DimGray;
-            this.altDragButton.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.altDragButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.altDragButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
-            resources.ApplyResources(this.altDragButton, "altDragButton");
-            this.altDragButton.Name = "altDragButton";
-            this.altDragButton.TabStop = false;
-            this.altDragButton.UseVisualStyleBackColor = false;
-            this.altDragButton.Click += new System.EventHandler(this.altDragButton_Click);
+            this.zoomInButton.BackColor = System.Drawing.Color.DimGray;
+            this.zoomInButton.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.zoomInButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.zoomInButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            resources.ApplyResources(this.zoomInButton, "zoomInButton");
+            this.zoomInButton.Name = "zoomInButton";
+            this.zoomInButton.TabStop = false;
+            this.toolTip.SetToolTip(this.zoomInButton, resources.GetString("zoomInButton.ToolTip"));
+            this.zoomInButton.UseVisualStyleBackColor = false;
+            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
+            // 
+            // zoomOutButton
+            // 
+            this.zoomOutButton.BackColor = System.Drawing.Color.DimGray;
+            this.zoomOutButton.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.zoomOutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.zoomOutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            resources.ApplyResources(this.zoomOutButton, "zoomOutButton");
+            this.zoomOutButton.Name = "zoomOutButton";
+            this.zoomOutButton.TabStop = false;
+            this.toolTip.SetToolTip(this.zoomOutButton, resources.GetString("zoomOutButton.ToolTip"));
+            this.zoomOutButton.UseVisualStyleBackColor = false;
+            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
             // contextMenu
             // 
@@ -235,6 +251,8 @@ namespace Behaviac.Design
             this.cutMenuItem,
             this.cutTreeMenuItem,
             this.copyMenuItem,
+            this.copySubtreeMenuItem,
+            this.pasteMenuItem,
             this.deleteMenuItem,
             this.deleteTreeMenuItem,
             this.toolStripSeparator4,
@@ -328,6 +346,22 @@ namespace Behaviac.Design
             resources.ApplyResources(this.copyMenuItem, "copyMenuItem");
             this.copyMenuItem.Click += new System.EventHandler(this.copyMenuItem_Click);
             // 
+            // copySubtreeMenuItem
+            // 
+            this.copySubtreeMenuItem.BackColor = System.Drawing.Color.DarkGray;
+            this.copySubtreeMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.copySubtreeMenuItem.Name = "copySubtreeMenuItem";
+            resources.ApplyResources(this.copySubtreeMenuItem, "copySubtreeMenuItem");
+            this.copySubtreeMenuItem.Click += new System.EventHandler(this.copySubtreeMenuItem_Click);
+            // 
+            // pasteMenuItem
+            // 
+            this.pasteMenuItem.BackColor = System.Drawing.Color.DarkGray;
+            this.pasteMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.pasteMenuItem.Name = "pasteMenuItem";
+            resources.ApplyResources(this.pasteMenuItem, "pasteMenuItem");
+            this.pasteMenuItem.Click += new System.EventHandler(this.pasteMenuItem_Click);
+            // 
             // deleteMenuItem
             // 
             this.deleteMenuItem.BackColor = System.Drawing.Color.DarkGray;
@@ -370,7 +404,8 @@ namespace Behaviac.Design
             // 
             this.breakpointMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.enterBreakpointMenuItem,
-            this.exitBreakpointMenuItem});
+            this.exitBreakpointMenuItem,
+            this.beakpointPlanning});
             this.breakpointMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
             this.breakpointMenuItem.Name = "breakpointMenuItem";
             resources.ApplyResources(this.breakpointMenuItem, "breakpointMenuItem");
@@ -390,6 +425,14 @@ namespace Behaviac.Design
             this.exitBreakpointMenuItem.Name = "exitBreakpointMenuItem";
             resources.ApplyResources(this.exitBreakpointMenuItem, "exitBreakpointMenuItem");
             this.exitBreakpointMenuItem.Click += new System.EventHandler(this.exitBreakpointMenuItem_Click);
+            // 
+            // beakpointPlanning
+            // 
+            this.beakpointPlanning.BackColor = System.Drawing.Color.DarkGray;
+            this.beakpointPlanning.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.beakpointPlanning.Name = "beakpointPlanning";
+            resources.ApplyResources(this.beakpointPlanning, "beakpointPlanning");
+            this.beakpointPlanning.Click += new System.EventHandler(this.enterBreakpointPlanning_Click);
             // 
             // toolStripSeparator3
             // 
@@ -437,11 +480,6 @@ namespace Behaviac.Design
             resources.ApplyResources(this.breakPrefabMenuItem, "breakPrefabMenuItem");
             this.breakPrefabMenuItem.Click += new System.EventHandler(this.breakPrefabMenuItem_Click);
             // 
-            // saveImageDialog
-            // 
-            resources.ApplyResources(this.saveImageDialog, "saveImageDialog");
-            this.saveImageDialog.FilterIndex = 0;
-            // 
             // emptyButton
             // 
             this.emptyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
@@ -452,14 +490,20 @@ namespace Behaviac.Design
             this.emptyButton.Name = "emptyButton";
             this.emptyButton.UseVisualStyleBackColor = false;
             // 
+            // saveImageDialog
+            // 
+            resources.ApplyResources(this.saveImageDialog, "saveImageDialog");
+            this.saveImageDialog.FilterIndex = 0;
+            // 
             // BehaviorTreeView
             // 
             this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.Controls.Add(this.zoomOutButton);
+            this.Controls.Add(this.zoomInButton);
             this.Controls.Add(this.emptyButton);
-            this.Controls.Add(this.altDragButton);
             this.Controls.Add(this.parameterSettingButton);
             this.Controls.Add(this.fitToViewButton);
             this.Controls.Add(this.propertiesButton);
@@ -478,18 +522,18 @@ namespace Behaviac.Design
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.ToolTip toolTip;
-		private System.Windows.Forms.ImageList imageList;
-		private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button exportButton;
-		private System.Windows.Forms.Button saveAsButton;
-		private System.Windows.Forms.Button imageButton;
-		private System.Windows.Forms.SaveFileDialog saveImageDialog;
-		private System.Windows.Forms.Button propertiesButton;
+        private System.Windows.Forms.Button saveAsButton;
+        private System.Windows.Forms.Button imageButton;
+        private System.Windows.Forms.SaveFileDialog saveImageDialog;
+        private System.Windows.Forms.Button propertiesButton;
         private System.Windows.Forms.Button parameterSettingButton;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem deleteMenuItem;
@@ -501,7 +545,6 @@ namespace Behaviac.Design
         private System.Windows.Forms.ToolStripMenuItem referenceMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savePrefabMenuItem;
         private System.Windows.Forms.Button fitToViewButton;
-        private System.Windows.Forms.Button altDragButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem copyMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cutMenuItem;
@@ -520,5 +563,10 @@ namespace Behaviac.Design
         private System.Windows.Forms.ToolStripMenuItem exitBreakpointMenuItem;
         private System.Windows.Forms.Button checkButton;
         private System.Windows.Forms.Button emptyButton;
-	}
+        private System.Windows.Forms.ToolStripMenuItem pasteMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem beakpointPlanning;
+        private System.Windows.Forms.ToolStripMenuItem copySubtreeMenuItem;
+        private System.Windows.Forms.Button zoomInButton;
+        private System.Windows.Forms.Button zoomOutButton;
+    }
 }

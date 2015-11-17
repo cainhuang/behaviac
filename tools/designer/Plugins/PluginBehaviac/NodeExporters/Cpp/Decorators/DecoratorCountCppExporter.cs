@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,7 +26,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            DecoratorCount decoratorCount = node as DecoratorCount;
+            return (decoratorCount != null);
         }
 
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
@@ -34,7 +35,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             DecoratorCount decoratorCount = node as DecoratorCount;
-            Debug.Check(decoratorCount != null);
+            if (decoratorCount == null)
+                return;
 
             if (decoratorCount.Count != null)
             {
@@ -42,7 +44,7 @@ namespace PluginBehaviac.NodeExporters
                 stream.WriteLine("{0}\t\t{{", indent);
                 stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
 
-                string retStr = VariableCppExporter.GenerateCode(decoratorCount.Count, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
+                string retStr = VariableCppExporter.GenerateCode(decoratorCount.Count, false, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
 
                 stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
                 stream.WriteLine("{0}\t\t}}", indent);

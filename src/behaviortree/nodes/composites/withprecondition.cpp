@@ -17,108 +17,109 @@
 
 namespace behaviac
 {
-	WithPrecondition::WithPrecondition()
-	{}
+    WithPrecondition::WithPrecondition()
+    {}
 
-	WithPrecondition::~WithPrecondition()
-	{}
+    WithPrecondition::~WithPrecondition()
+    {}
 
-	void WithPrecondition::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void WithPrecondition::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool WithPrecondition::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!WithPrecondition::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool WithPrecondition::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!WithPrecondition::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	BehaviorTask* WithPrecondition::createTask() const
-	{
-		WithPreconditionTask* pTask = BEHAVIAC_NEW WithPreconditionTask();
-		
+        return super::IsValid(pAgent, pTask);
+    }
 
-		return pTask;
-	}
+    BehaviorTask* WithPrecondition::createTask() const
+    {
+        WithPreconditionTask* pTask = BEHAVIAC_NEW WithPreconditionTask();
 
-	void WithPreconditionTask::addChild(BehaviorTask* pBehavior)
-	{
-		super::addChild(pBehavior);
-	}
+        return pTask;
+    }
 
-	void WithPreconditionTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void WithPreconditionTask::addChild(BehaviorTask* pBehavior)
+    {
+        super::addChild(pBehavior);
+    }
+    bool WithPreconditionTask::GetIsUpdatePrecondition()
+    {
+        return m_bIsUpdatePrecondition;
+    }
+    void   WithPreconditionTask::SetIsUpdatePrecondition(bool value)
+    {
+        this->m_bIsUpdatePrecondition = value;
+    }
+    void WithPreconditionTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
+    void WithPreconditionTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void WithPreconditionTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
-
-	void WithPreconditionTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
-
-
+    void WithPreconditionTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     bool WithPreconditionTask::onenter(Agent* pAgent)
     {
-    	BEHAVIAC_UNUSED_VAR(pAgent);
-		BehaviorTask* pParent = this->GetParent();
-		BEHAVIAC_UNUSED_VAR(pParent);
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BehaviorTask* pParent = this->GetParent();
+        BEHAVIAC_UNUSED_VAR(pParent);
 
-		//when as child of SelctorLoop, it is not ticked normally
-		BEHAVIAC_ASSERT(SelectorLoopTask::DynamicCast(pParent));
+        //when as child of SelctorLoop, it is not ticked normally
+        BEHAVIAC_ASSERT(SelectorLoopTask::DynamicCast(pParent));
 
-		return true;
+        return true;
     }
 
     void WithPreconditionTask::onexit(Agent* pAgent, EBTStatus s)
     {
-    	BEHAVIAC_UNUSED_VAR(pAgent);
-    	BEHAVIAC_UNUSED_VAR(s);
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(s);
 
-		BehaviorTask* pParent = this->GetParent();
-		BEHAVIAC_UNUSED_VAR(pParent);
+        BehaviorTask* pParent = this->GetParent();
+        BEHAVIAC_UNUSED_VAR(pParent);
 
         BEHAVIAC_ASSERT(SelectorLoopTask::DynamicCast(pParent));
     }
 
-	
-	BehaviorTask* WithPreconditionTask::PreconditionNode()
-	{
-		BEHAVIAC_ASSERT(this->m_children.size() == 2);
-
-		return (this->m_children)[0];
-	}
-
-
-	BehaviorTask* WithPreconditionTask::Action()
-	{
-		BEHAVIAC_ASSERT(this->m_children.size() == 2);
-
-		return (this->m_children)[1];
-	}
-
-
     EBTStatus WithPreconditionTask::update(Agent* pAgent, EBTStatus childStatus)
-	{
-		BEHAVIAC_UNUSED_VAR(pAgent);
-		BEHAVIAC_UNUSED_VAR(childStatus);
+    {
+        BEHAVIAC_UNUSED_VAR(pAgent);
+        BEHAVIAC_UNUSED_VAR(childStatus);
 
-		BehaviorTask* pParent = this->GetParent();
-		BEHAVIAC_UNUSED_VAR(pParent);
-		BEHAVIAC_ASSERT(SelectorLoopTask::DynamicCast(pParent));
+        BehaviorTask* pParent = this->GetParent();
+        BEHAVIAC_UNUSED_VAR(pParent);
+        BEHAVIAC_ASSERT(SelectorLoopTask::DynamicCast(pParent));
+        BEHAVIAC_ASSERT(this->m_children.size() == 2);
 
-		return BT_RUNNING;
-	}
+        if (this->m_bIsUpdatePrecondition)
+        {
 
+            BehaviorTask* precond = this->m_children[0];
+            EBTStatus s = precond->exec(pAgent, childStatus);
+
+            return s;
+
+        }
+        else
+        {
+            BehaviorTask* action = this->m_children[1];
+            EBTStatus s = action->exec(pAgent, childStatus);
+
+            return s;
+        }
+    }
 }

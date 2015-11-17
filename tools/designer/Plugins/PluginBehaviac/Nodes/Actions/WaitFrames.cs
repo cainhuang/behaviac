@@ -82,5 +82,19 @@ namespace PluginBehaviac.Nodes
 
             base.CheckForErrors(rootBehavior, result);
         }
+
+        public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null)
+        {
+            bool bReset = false;
+
+            if (this._frames != null)
+            {
+                bReset |= this._frames.ResetMembers(check, agentType, clear, method, property);
+            }
+
+            bReset |= base.ResetMembers(check, agentType, clear, method, property);
+
+            return bReset;
+        }
 	}
 }

@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,7 +26,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            DecoratorLog decoratorLog = node as DecoratorLog;
+            return (decoratorLog != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -34,7 +35,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             DecoratorLog decoratorLog = node as DecoratorLog;
-            Debug.Check(decoratorLog != null);
+            if (decoratorLog == null)
+                return;
 
             stream.WriteLine("{0}\t\t\tm_message = \"{1}\";", indent, decoratorLog.Log);
         }

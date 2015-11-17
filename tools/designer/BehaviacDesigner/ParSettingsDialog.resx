@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -142,7 +142,7 @@
     <value>4, 105</value>
   </data>
   <data name="descLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 25</value>
+    <value>90, 25</value>
   </data>
   <data name="descLabel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -178,7 +178,7 @@
     <value>4, 1</value>
   </data>
   <data name="nameLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 25</value>
+    <value>90, 25</value>
   </data>
   <data name="nameLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -214,7 +214,7 @@
     <value>4, 27</value>
   </data>
   <data name="arrayLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 25</value>
+    <value>90, 25</value>
   </data>
   <data name="arrayLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -250,7 +250,7 @@
     <value>4, 53</value>
   </data>
   <data name="typeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 25</value>
+    <value>90, 25</value>
   </data>
   <data name="typeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -286,13 +286,13 @@
     <value>4, 79</value>
   </data>
   <data name="valueLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 25</value>
+    <value>90, 25</value>
   </data>
   <data name="valueLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="valueLabel.Text" xml:space="preserve">
-    <value>Value:</value>
+    <value>Default Value:</value>
   </data>
   <data name="valueLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -313,10 +313,10 @@
     <value>Fill</value>
   </data>
   <data name="nameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 4</value>
+    <value>101, 4</value>
   </data>
   <data name="nameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 21</value>
+    <value>196, 21</value>
   </data>
   <data name="nameTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -346,10 +346,10 @@
     <value>NoControl</value>
   </data>
   <data name="arrayCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 30</value>
+    <value>101, 30</value>
   </data>
   <data name="arrayCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 19</value>
+    <value>196, 19</value>
   </data>
   <data name="arrayCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -373,10 +373,10 @@
     <value>Popup</value>
   </data>
   <data name="typeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 56</value>
+    <value>101, 56</value>
   </data>
   <data name="typeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 20</value>
+    <value>196, 20</value>
   </data>
   <data name="typeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -400,10 +400,10 @@
     <value>Fill</value>
   </data>
   <data name="valueEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 82</value>
+    <value>101, 82</value>
   </data>
   <data name="valueEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 19</value>
+    <value>196, 19</value>
   </data>
   <data name="valueEditor.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -424,10 +424,10 @@
     <value>Fill</value>
   </data>
   <data name="descTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 108</value>
+    <value>101, 108</value>
   </data>
   <data name="descTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 21</value>
+    <value>196, 21</value>
   </data>
   <data name="descTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -472,7 +472,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="descLabel" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="nameLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="arrayLabel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="typeLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="valueLabel" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="nameTextBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="arrayCheckBox" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="typeComboBox" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="valueEditor" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="descTextBox" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,27.66667,Percent,72.33334" /&gt;&lt;Rows Styles="Absolute,25,Absolute,25,Absolute,25,Absolute,25,Absolute,25" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="descLabel" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="nameLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="arrayLabel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="typeLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="valueLabel" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="nameTextBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="arrayCheckBox" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="typeComboBox" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="valueEditor" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="descTextBox" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,32.33333,Percent,67.66666" /&gt;&lt;Rows Styles="Absolute,25,Absolute,25,Absolute,25,Absolute,25,Absolute,25" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="okButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -838,9 +838,6 @@
         AA//AAAAAAAAD//AAAAAAAAP//AAAAAAAA///gAAAAAAD///AAAAAAAP///AAAAAAH////gAAAAP////
         /AAAAP//////gAAf///////gAP////////AP//////////////8=
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>317, 223</value>

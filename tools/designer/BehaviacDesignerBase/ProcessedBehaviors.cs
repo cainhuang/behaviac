@@ -38,74 +38,71 @@ using Behaviac.Design.Nodes;
 
 namespace Behaviac.Design
 {
-	/// <summary>
-	/// This class is used to handle circular references.
-	/// </summary>
-	public class ProcessedBehaviors
-	{
-		protected List<ReferencedBehaviorNode> _processedBehaviors= new List<ReferencedBehaviorNode>();
+    /// <summary>
+    /// This class is used to handle circular references.
+    /// </summary>
+    public class ProcessedBehaviors
+    {
+        protected List<ReferencedBehaviorNode> _processedBehaviors = new List<ReferencedBehaviorNode>();
 
-		/// <summary>
-		/// Used to create a new list of processed behaviours.
-		/// </summary>
-		public ProcessedBehaviors()
-		{
-		}
+        /// <summary>
+        /// Used to create a new list of processed behaviours.
+        /// </summary>
+        public ProcessedBehaviors() {
+        }
 
-		/// <summary>
-		/// Used to branch a new list for its children.
-		/// </summary>
-		/// <param name="previous">The list of processed behaviours the parent used.</param>
-		protected ProcessedBehaviors(ProcessedBehaviors previous)
-		{
-			_processedBehaviors.AddRange(previous._processedBehaviors);
-		}
+        /// <summary>
+        /// Used to branch a new list for its children.
+        /// </summary>
+        /// <param name="previous">The list of processed behaviours the parent used.</param>
+        protected ProcessedBehaviors(ProcessedBehaviors previous) {
+            _processedBehaviors.AddRange(previous._processedBehaviors);
+        }
 
-		/// <summary>
-		/// Checks if a node may be processed without running into circular references. The node is not added to the list.
-		/// </summary>
-		/// <param name="node">The node we want to process.</param>
-		/// <returns>Returns true when the node may be processed, if not the calling function has to stop.</returns>
-		public bool MayProcessCheckOnly(Node node)
-		{
-			ReferencedBehaviorNode refnode= node as ReferencedBehaviorNode;
-			if(refnode !=null)
-				return !_processedBehaviors.Contains(refnode);
+        /// <summary>
+        /// Checks if a node may be processed without running into circular references. The node is not added to the list.
+        /// </summary>
+        /// <param name="node">The node we want to process.</param>
+        /// <returns>Returns true when the node may be processed, if not the calling function has to stop.</returns>
+        public bool MayProcessCheckOnly(Node node) {
+            ReferencedBehaviorNode refnode = node as ReferencedBehaviorNode;
 
-			return true;
-		}
+            if (refnode != null)
+            { return !_processedBehaviors.Contains(refnode); }
 
-		/// <summary>
-		/// Checks if a node may be processed without running into circular references and adds it to the list.
-		/// </summary>
-		/// <param name="node">The node we want to process.</param>
-		/// <returns>Returns true when the node may be processed, if not the calling function has to stop.</returns>
-		public bool MayProcess(Node node)
-		{
-			ReferencedBehaviorNode refnode= node as ReferencedBehaviorNode;
-			if(refnode !=null)
-			{
-				if(_processedBehaviors.Contains(refnode))
-					return false;
+            return true;
+        }
 
-				_processedBehaviors.Add(refnode);
-			}
+        /// <summary>
+        /// Checks if a node may be processed without running into circular references and adds it to the list.
+        /// </summary>
+        /// <param name="node">The node we want to process.</param>
+        /// <returns>Returns true when the node may be processed, if not the calling function has to stop.</returns>
+        public bool MayProcess(Node node) {
+            ReferencedBehaviorNode refnode = node as ReferencedBehaviorNode;
 
-			return true;
-		}
+            if (refnode != null) {
+                if (_processedBehaviors.Contains(refnode))
+                { return false; }
 
-		/// <summary>
-		/// Branches the list for a node.
-		/// </summary>
-		/// <param name="node">The node we are branching for.</param>
-		/// <returns>A new list which contains the previously processed behaviours for referenced behaviours. For other nodes it returns the same list.</returns>
-		public ProcessedBehaviors Branch(Node node)
-		{
-			ReferencedBehaviorNode refnode= node as ReferencedBehaviorNode;
-			if(refnode !=null)
-				return new ProcessedBehaviors(this);
+                _processedBehaviors.Add(refnode);
+            }
 
-			return this;
-		}
-	}
+            return true;
+        }
+
+        /// <summary>
+        /// Branches the list for a node.
+        /// </summary>
+        /// <param name="node">The node we are branching for.</param>
+        /// <returns>A new list which contains the previously processed behaviours for referenced behaviours. For other nodes it returns the same list.</returns>
+        public ProcessedBehaviors Branch(Node node) {
+            ReferencedBehaviorNode refnode = node as ReferencedBehaviorNode;
+
+            if (refnode != null)
+            { return new ProcessedBehaviors(this); }
+
+            return this;
+        }
+    }
 }

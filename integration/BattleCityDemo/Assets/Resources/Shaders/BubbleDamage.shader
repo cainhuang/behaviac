@@ -1,4 +1,4 @@
-﻿Shader "BattleCityShader/BubbleDamage" 
+Shader "BattleCityShader/BubbleDamage" 
 {
 	Properties 
 	{

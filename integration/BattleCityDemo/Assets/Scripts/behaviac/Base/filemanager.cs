@@ -11,24 +11,29 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.ComponentModel;
-using System.Reflection;
 using UnityEngine;
 
 namespace behaviac
 {
     public class FileManager
     {
+        #region Singleton
+
         private static FileManager ms_instance = null;
+
         public FileManager()
         {
             Debug.Check(ms_instance == null);
             ms_instance = this;
         }
+
+        ~FileManager()
+        {
+            ms_instance = null;
+        }
+
+        #endregion Singleton
 
         public static FileManager Instance
         {
@@ -43,16 +48,16 @@ namespace behaviac
             }
         }
 
-		/// <summary>
-		/// open the specified file, this function should be consistent with 
-		/// Workspace.SetWorkspaceSettings's first param 'workspaceExportPath' and Workspace.Load's first param 'relativePath'
-		/// as 'filePath' is the conbination of workspaceExportPath and relativePath
-		/// 
-		/// you may need to override this function if you gave a customized 'workspaceExportPath' or used a AssetBundle.
-		/// </summary>
-		/// <returns>The open.</returns>
-		/// <param name="filePath">without extension</param>
-		/// <param name="ext">'ext' coult be .xml or .bson</param>
+        /// <summary>
+        /// open the specified file, this function should be consistent with
+        /// Workspace.SetWorkspaceSettings's first param 'workspaceExportPath' and Workspace.Load's first param 'relativePath'
+        /// as 'filePath' is the conbination of workspaceExportPath and relativePath
+        ///
+        /// you may need to override this function if you gave a customized 'workspaceExportPath' or used a AssetBundle.
+        /// </summary>
+        /// <returns>The open.</returns>
+        /// <param name="filePath">without extension</param>
+        /// <param name="ext">'ext' coult be .xml or .bson</param>
         public virtual byte[] FileOpen(string filePath, string ext)
         {
             try
@@ -65,10 +70,10 @@ namespace behaviac
                         ext += ".bytes";
                     }
 
-					filePath += ext;
-					byte[] pBuffer = File.ReadAllBytes(filePath);
-					
-					return pBuffer;
+                    filePath += ext;
+                    byte[] pBuffer = File.ReadAllBytes(filePath);
+
+                    return pBuffer;
                 }
 #else
                 {
@@ -77,7 +82,7 @@ namespace behaviac
                         filePath += ext;
                     }
 
-					//skip 'Resources/'
+                    //skip 'Resources/'
                     int k0 = filePath.IndexOf("Resources");
 
                     if (k0 != -1)
@@ -93,6 +98,7 @@ namespace behaviac
                             behaviac.Debug.LogWarning(msg);
 
                             return null;
+
                         }
                         else
                         {
@@ -100,6 +106,7 @@ namespace behaviac
 
                             return pBuffer;
                         }
+
                     }
                     else
                     {
@@ -108,6 +115,7 @@ namespace behaviac
                     }
                 }
 #endif
+
             }
             catch
             {
@@ -122,9 +130,9 @@ namespace behaviac
         {
         }
 
-		public virtual bool FileExist(string filePath, string ext)
-		{
-			return File.Exists(filePath + ext);
-		}
+        public virtual bool FileExist(string filePath, string ext)
+        {
+            return File.Exists(filePath + ext);
+        }
     }
 }

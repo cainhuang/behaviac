@@ -54,31 +54,29 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerBoolean(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerBooleanEditor), null)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerBooleanEditor), null) {
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             return (bool)obj ? "True" : "False";
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             return (bool)obj ? "true" : "false";
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (type != typeof(bool))
-                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
+            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
 
             str = str.ToLowerInvariant();
+
             if (str == "true")
-                return true;
+            { return true; }
 
             if (str == "false")
-                return false;
+            { return false; }
 
             throw new Exception(string.Format(Resources.ExceptionDesignerAttributeIllegalBooleanValue, str));
         }

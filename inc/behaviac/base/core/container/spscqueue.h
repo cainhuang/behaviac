@@ -11,12 +11,11 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_SPSCQUEUE_H_
-#define BEHAVIAC_SPSCQUEUE_H_
+#ifndef BEHAVIAC_SPSCQUEUE_H
+#define BEHAVIAC_SPSCQUEUE_H
 
 namespace behaviac
 {
-
     template<typename T, uint32_t TSize>
     struct SPSCQueue
     {
@@ -41,7 +40,7 @@ namespace behaviac
 
         void Push(const T& t)
         {
-            uint32_t pushIndex = Load_Relaxed(m_pushIndex) ;
+            uint32_t pushIndex = Load_Relaxed(m_pushIndex);
             const uint32_t index = (pushIndex & (TSize - 1));
             m_buffer[index] = t;
             Store_Release(m_pushIndex, pushIndex + 1);
@@ -61,7 +60,7 @@ namespace behaviac
             const uint32_t index = popIndex & (TSize - 1);
             return &m_buffer[index];
         }
-        void Pop() // use in conjuction with Peek()
+        void Pop()   // use in conjuction with Peek()
         {
             const uint32_t popIndex = Load_Relaxed(m_popIndex);
             Store_Release(m_popIndex, popIndex + 1);
@@ -80,7 +79,6 @@ namespace behaviac
         PadBuffer		m_padding1;
         T				m_buffer[TSize];
     };
-
 } // behaviac
 
-#endif//BEHAVIAC_SPSCQUEUE_H_
+#endif//BEHAVIAC_SPSCQUEUE_H

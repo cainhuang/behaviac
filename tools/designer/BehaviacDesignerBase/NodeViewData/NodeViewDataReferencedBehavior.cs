@@ -45,43 +45,45 @@ namespace Behaviac.Design
     public class NodeViewDataReferencedBehavior : NodeViewDataStyled
     {
         public NodeViewDataReferencedBehavior(NodeViewData parent, Nodes.BehaviorNode rootBehavior, Nodes.ReferencedBehaviorNode node, Pen borderPen, Brush backgroundBrush, string label, string description) :
-            base(parent, rootBehavior, (Node)node, borderPen, backgroundBrush, label, description)
-        {
+            base(parent, rootBehavior, (Node)node, borderPen, backgroundBrush, label, description) {
         }
 
-        /// <summary>
-        /// Used to filter multiple requests to rebuild the subgraph so this happens only once.
-        /// </summary>
-        protected bool _subGraphNeedsToBeRebuilt = true;
+        public override bool CanBeExpanded() {
+            if (Plugin.EditMode == EditModes.Design)
+            { return false; }
 
-        public override bool CanBeExpanded()
-        {
-            BehaviorNode behavior = ((ReferencedBehaviorNode)this.Node).Reference;
-            return !IsBehaviorReferenced(behavior);
+            Debug.Check(this.Node is ReferencedBehavior);
+
+            string fullId = this.FullId;
+            ReferencedBehavior refNode = this.Node as ReferencedBehavior;
+
+            if (refNode.PlanningProcess != null && refNode.PlanningProcess.GetNode(fullId) != null) {
+                return true;
+            }
+
+            return false;
         }
 
-        /// <summary>
-        /// Determines if the node is expanded or not.
-        /// </summary>
-        public override bool IsExpanded
-        {
-            set
-            {
-                base.IsExpanded = value;
-                _subGraphNeedsToBeRebuilt = true;
+        public override bool IsExpanded {
+            set {
+                if (this.CanBeExpanded()) {
+                    base.IsExpanded = value;
+
+                    if (value) {
+                        ReferencedBehaviorNode referencedBehavior = this.Node as ReferencedBehaviorNode;
+
+                        if (referencedBehavior != null && referencedBehavior.Reference == null) {
+                            referencedBehavior.ReferenceFilename = referencedBehavior.ReferenceFilename;
+                        }
+                    }
+                }
             }
         }
 
-        protected override bool NeedsToSynchronizeWithNode()
-        {
-            return _subGraphNeedsToBeRebuilt || base.NeedsToSynchronizeWithNode();
-        }
-
-        public override void DoSynchronizeWithNode(ProcessedBehaviors processedBehaviors)
-        {
+        public override void DoSynchronizeWithNode(ProcessedBehaviors processedBehaviors) {
             // make all connectors changable
             for (int i = 0; i < _children.Connectors.Count; ++i)
-                _children.Connectors[i].IsReadOnly = false;
+            { _children.Connectors[i].IsReadOnly = false; }
 
             base.DoSynchronizeWithNode(processedBehaviors);
         }
@@ -91,11 +93,9 @@ namespace Behaviac.Design
         /// Children are added and removed.
         /// </summary>
         /// <param name="processedBehaviors">A list of previously processed behaviours to deal with circular references.</param>
-        public override void SynchronizeWithNode(ProcessedBehaviors processedBehaviors, bool bForce = false)
-        {
+        public override void SynchronizeWithNode(ProcessedBehaviors processedBehaviors, bool bForce = false) {
             // if we have a circular reference, we must skip it
-            if (!processedBehaviors.MayProcessCheckOnly(_node))
-            {
+            if (!processedBehaviors.MayProcessCheckOnly(_node)) {
                 _children.ClearChildren();
                 return;
             }
@@ -108,20 +108,18 @@ namespace Behaviac.Design
         /// </summary>
         /// <param name="node">The node you want to get the NodeViewData for.</param>
         /// <returns>Returns the first NodeViewData found.</returns>
-        public override NodeViewData FindNodeViewData(Node node)
-        {
+        public override NodeViewData FindNodeViewData(Node node) {
             ReferencedBehaviorNode refnode = (ReferencedBehaviorNode)_node;
 
-            if (node is ReferencedBehaviorNode)
-            {
+            if (node is ReferencedBehaviorNode) {
                 ReferencedBehaviorNode refnode2 = (ReferencedBehaviorNode)node;
+
                 if (_node == node && refnode.Reference == refnode2.Reference)
-                    return this;
-            }
-            else
-            {
+                { return this; }
+
+            } else {
                 if (refnode.Reference == node)
-                    return this;
+                { return this; }
             }
 
             return base.FindNodeViewData(node);
@@ -132,19 +130,18 @@ namespace Behaviac.Design
         /// </summary>
         /// <param name="behavior">The behavior we want to check if it is an ancestor of this node.</param>
         /// <returns>Returns true if this node is a descendant of the given behavior.</returns>
-        public override bool HasParentBehavior(BehaviorNode behavior)
-        {
+        public override bool HasParentBehavior(BehaviorNode behavior) {
             if (behavior == null)
-                return false;
+            { return false; }
 
             ReferencedBehaviorNode refb = (ReferencedBehaviorNode)_node;
             Debug.Check(refb.Reference != null);
 
             if (refb.Reference == behavior)
-                return true;
+            { return true; }
 
             if (Parent == null)
-                return false;
+            { return false; }
 
             return Parent.HasParentBehavior(behavior);
         }
@@ -155,14 +152,12 @@ namespace Behaviac.Design
         /// <param name="processedBehaviors">A list of processed behaviours to handle circular references.</param>
         /// <param name="parent">The node the sub-referenced behaviours will be added to.</param>
         /// <param name="node">The current node we are checking.</param>
-        protected void GenerateReferencedBehaviorsTree(ProcessedBehaviors processedBehaviors, NodeViewData parent, Node node)
-        {
+        protected void GenerateReferencedBehaviorsTree(ProcessedBehaviors processedBehaviors, NodeViewData parent, Node node) {
             if (!processedBehaviors.MayProcess(node))
-                return;
+            { return; }
 
             // check if this is a referenced behaviour
-            if (node is ReferencedBehaviorNode)
-            {
+            if (node is ReferencedBehaviorNode) {
                 // create the dummy node and add it without marking the behaviour as being modified as these are no REAL nodes.
                 NodeViewData rb = node.CreateNodeViewData(parent, _rootBehavior);
 
@@ -171,10 +166,10 @@ namespace Behaviac.Design
 #endif
                 rb.DoSynchronizeWithNode(processedBehaviors);
 
-                Connector conn = parent.GetConnector("GenericChildren");
+                Connector conn = parent.GetConnector(Connector.kGeneric);
                 Debug.Check(conn != null);
 
-                Connector rbconn = parent.GetConnector("GenericChildren");
+                Connector rbconn = parent.GetConnector(Connector.kGeneric);
                 Debug.Check(rbconn != null);
 
                 bool parentReadOnly = conn.IsReadOnly;
@@ -186,61 +181,44 @@ namespace Behaviac.Design
                 conn.IsReadOnly = parentReadOnly;
 
                 // we have a circular reference here. Skip the children
-                if (((ReferencedBehaviorNode)node).Reference == _rootBehavior)
-                {
+                if (((ReferencedBehaviorNode)node).Reference == _rootBehavior) {
                     rbconn.IsReadOnly = true;
                     return;
                 }
 
                 // do the same for all the children
-                foreach (Node child in node.Children)
-                    GenerateReferencedBehaviorsTree(processedBehaviors.Branch(child), rb, child);
+                foreach(Node child in node.Children)
+                GenerateReferencedBehaviorsTree(processedBehaviors.Branch(child), rb, child);
 
                 rbconn.IsReadOnly = true;
-            }
-            else if (node is Impulse)
-            {
+
+            } else if (node is Impulse) {
                 // create the dummy node and add it without marking the behaviour as being modified as these are no REAL nodes.
                 NodeViewData ip = node.CreateNodeViewData(parent, _rootBehavior);
 
                 ip.DoSynchronizeWithNode(processedBehaviors);
 
                 // do the same for all the children
-                foreach (Node child in node.Children)
-                    GenerateReferencedBehaviorsTree(processedBehaviors.Branch(child), ip, child);
+                foreach(Node child in node.Children)
+                GenerateReferencedBehaviorsTree(processedBehaviors.Branch(child), ip, child);
 
-                if (ip.Children.Count > 0)
-                {
-                    Connector conn = parent.GetConnector("GenericChildren");
+                if (ip.Children.Count > 0) {
+                    Connector conn = parent.GetConnector(Connector.kGeneric);
                     Debug.Check(conn != null);
 
-                    Connector ipconn = ip.GetConnector("GenericChildren");
+                    Connector ipconn = ip.GetConnector(Connector.kGeneric);
                     Debug.Check(ipconn != null);
 
                     parent.AddChildNotModified(conn, ip);
 
                     ipconn.IsReadOnly = true;
                 }
-            }
-            else
-            {
+
+            } else {
                 // do the same for all the children
-                foreach (Node child in node.Children)
-                    GenerateReferencedBehaviorsTree(processedBehaviors.Branch(child), parent, child);
+                foreach(Node child in node.Children)
+                GenerateReferencedBehaviorsTree(processedBehaviors.Branch(child), parent, child);
             }
-        }
-
-        /// <summary>
-        /// Is called when the node was double-clicked. Used for referenced behaviours.
-        /// </summary>
-        /// <param name="layoutChanged">Does the layout need to be recalculated?</param>
-        /// <returns>Returns if the node handled the double click or not.</returns>
-        public override bool OnDoubleClick(PointF graphMousePos, out bool layoutChanged)
-        {
-            this.IsExpanded = !this.IsExpanded;
-
-            layoutChanged = true;
-            return true;
         }
     }
 }

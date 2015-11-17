@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_DYNAMICTYPEFACTORYUTILS_H_
-#define _ENGINESERVICES_DYNAMICTYPEFACTORYUTILS_H_
+#ifndef BEHAVIAC_ENGINESERVICES_DYNAMICTYPEFACTORYUTILS_H
+#define BEHAVIAC_ENGINESERVICES_DYNAMICTYPEFACTORYUTILS_H
 
 #include "behaviac/base/dynamictypefactory.h"
 
@@ -46,4 +46,4 @@ namespace DynTypeFactoryUtils
     }
 };
 
-#endif
+#endif//BEHAVIAC_ENGINESERVICES_DYNAMICTYPEFACTORYUTILS_H

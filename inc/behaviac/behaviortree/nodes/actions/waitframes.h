@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_WAITFRAMES_H_
-#define BEHAVIAC_BEHAVIORTREE_WAITFRAMES_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_WAITFRAMES_H
+#define BEHAVIAC_BEHAVIORTREE_WAITFRAMES_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -20,34 +20,34 @@
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup WaitFrames
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup WaitFrames
+    * @{ */
 
-	/**
-	Wait for the specified frames. always return Running until exceeds count.
-	*/
+    /**
+    Wait for the specified frames. always return Running until exceeds count.
+    */
     class BEHAVIAC_API WaitFrames : public BehaviorNode
     {
     public:
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(WaitFrames, BehaviorNode);
 
-		WaitFrames();
-		virtual ~WaitFrames();
+        WaitFrames();
+        virtual ~WaitFrames();
         virtual void load(int version, const char* agentType, const properties_t& properties);
 
-		virtual int GetFrames(Agent* pAgent) const;
+        virtual int GetFrames(Agent* pAgent) const;
 
-	private:
-		virtual BehaviorTask* createTask() const;
+    private:
+        virtual BehaviorTask* createTask() const;
 
     protected:
-		Property*		m_frames_var;
-		CMethodBase*	m_frames_method;
+        Property*		m_frames_var;
+        CMethodBase*	m_frames_method;
 
-		friend class WaitFramesTask;
-    };	
+        friend class WaitFramesTask;
+    };
 
     class BEHAVIAC_API WaitFramesTask : public LeafTask
     {
@@ -57,24 +57,24 @@ namespace behaviac
         WaitFramesTask();
 
     protected:
-		virtual ~WaitFramesTask();
+        virtual ~WaitFramesTask();
 
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
 
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
-		int GetFrames(Agent* pAgent) const;
+        int GetFrames(Agent* pAgent) const;
 
     private:
         int		m_start;
-		int		m_frames;
+        int		m_frames;
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_WAITFRAMES_H_
+#endif//BEHAVIAC_BEHAVIORTREE_WAITFRAMES_H

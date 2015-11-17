@@ -29,730 +29,789 @@
 
 #pragma comment(lib, "winmm.lib")
 #else
- #include <sys/time.h>
+#include <sys/time.h>
 #endif//#if BEHAVIAC_COMPILER_MSVC
 
 namespace behaviac
 {
-	Profiler* Profiler::ms_instance = 0;
+    Profiler* Profiler::ms_instance = 0;
 
-	Profiler* Profiler::GetInstance()
-	{
-		if (!ms_instance)
-		{
-			CreateInstance();
-		}
+    Profiler* Profiler::GetInstance()
+    {
+        if (!ms_instance)
+        {
+            CreateInstance();
+        }
 
-		BEHAVIAC_ASSERT(ms_instance);
-		return ms_instance;
-	}
+        BEHAVIAC_ASSERT(ms_instance);
+        return ms_instance;
+    }
 
-	Profiler* Profiler::CreateInstance()
-	{
-		if (!ms_instance)
-		{
-			Profiler* p = BEHAVIAC_NEW Profiler;
-			ms_instance = p;
-		}
+    Profiler* Profiler::CreateInstance()
+    {
+        if (!ms_instance)
+        {
+            Profiler* p = BEHAVIAC_NEW Profiler;
+            ms_instance = p;
+        }
 
-		return ms_instance;
-	}
+        return ms_instance;
+    }
 
-	void Profiler::DestroyInstance()
-	{
-		BEHAVIAC_DELETE(ms_instance);
-		ms_instance = 0;
-	}
+    void Profiler::DestroyInstance()
+    {
+        BEHAVIAC_DELETE(ms_instance);
+        ms_instance = 0;
+    }
 
-	static const unsigned int LINE_MAX_LENGTH = 1024;
-	static const unsigned int NAME_MAX_LENGTH = 80;
+    static const unsigned int LINE_MAX_LENGTH = 1024;
+    static const unsigned int NAME_MAX_LENGTH = 80;
 
-	/// High-resolution operating system timer used in profiling.
-	class HiresTimer
-	{
-		friend class Profiler;
+    /// High-resolution operating system timer used in profiling.
+    class HiresTimer
+    {
+        friend class Profiler;
 
-	public:
-		/// Construct. Get the starting high-resolution clock value.
-		HiresTimer();
+    public:
+        /// Construct. Get the starting high-resolution clock value.
+        HiresTimer();
 
-		/// Return elapsed microseconds and optionally reset.
-		long long GetUSec(bool reset);
-		/// Reset the timer.
-		void Reset();
+        /// Return elapsed microseconds and optionally reset.
+        long long GetUSec(bool reset);
+        /// Reset the timer.
+        void Reset();
 
-		/// Return if high-resolution timer is supported.
-		static bool IsSupported() { return supported; }
-		/// Return high-resolution timer frequency if supported.
-		static long long GetFrequency() { return frequency; }
+        /// Return if high-resolution timer is supported.
+        static bool IsSupported()
+        {
+            return supported;
+        }
+        /// Return high-resolution timer frequency if supported.
+        static long long GetFrequency()
+        {
+            return frequency;
+        }
 
-	private:
-		/// Starting clock value in CPU ticks.
-		long long startTime_;
+    private:
+        /// Starting clock value in CPU ticks.
+        long long startTime_;
 
-		/// High-resolution timer support flag.
-		static bool supported;
-		/// High-resolution timer frequency.
-		static long long frequency;
-	};
+        /// High-resolution timer support flag.
+        static bool supported;
+        /// High-resolution timer frequency.
+        static long long frequency;
+    };
 
-	/// Profiling data for one block in the profiling tree.
-	class ProfilerBlock
-	{
-	public:
-		BEHAVIAC_DECLARE_MEMORY_OPERATORS(ProfilerBlock);
+    /// Profiling data for one block in the profiling tree.
+    class ProfilerBlock
+    {
+    public:
+        BEHAVIAC_DECLARE_MEMORY_OPERATORS(ProfilerBlock);
 
-		/// Construct with the specified parent block and name.
-		ProfilerBlock(ProfilerBlock* parent, const char* name) : 
-		  name_(name), 
-			  is_debug_block_(false), 
-			  agent_(0), 
-			  time_(0),
-			  maxTime_(0),
-			  count_(0),
-			  parent_(parent),
-			  frameTime_(0),
-			  frameMaxTime_(0),
-			  frameCount_(0),
-			  intervalTime_(0),
-			  intervalMaxTime_(0),
-			  intervalCount_(0),
-			  totalTime_(0),
-			  totalMaxTime_(0),
-			  totalCount_(0)
-		  {
-		  }
+        /// Construct with the specified parent block and name.
+        ProfilerBlock(ProfilerBlock* parent, const char* name) :
+            name_(name),
+            agent_(0),
+            is_debug_block_(false),
+            time_(0),
+            maxTime_(0),
+            count_(0),
+            parent_(parent),
+            frameTime_(0),
+            frameMaxTime_(0),
+            frameCount_(0),
+            intervalTime_(0),
+            intervalMaxTime_(0),
+            intervalCount_(0),
+            totalTime_(0),
+            totalMaxTime_(0),
+            totalCount_(0)
+        {
+        }
 
-		  /// Destruct. Free the child blocks.
-		  ~ProfilerBlock()
-		  {
-			  for (behaviac::vector<ProfilerBlock*>::iterator i = children_.begin(); i != children_.end(); ++i)
-			  {
-				  ProfilerBlock* p = *i;
+        /// Destruct. Free the child blocks.
+        ~ProfilerBlock()
+        {
+            for (behaviac::vector<ProfilerBlock*>::iterator i = children_.begin(); i != children_.end(); ++i)
+            {
+                ProfilerBlock* p = *i;
 
-				  BEHAVIAC_DELETE(p);
-				  *i = 0;
-			  }
-		  }
+                BEHAVIAC_DELETE(p);
+                *i = 0;
+            }
+        }
 
-		  /// begin timing.
-		  void begin()
-		  {
-			  timer_.Reset();
-			  ++count_;
-		  }
+        /// begin timing.
+        void begin()
+        {
+            timer_.Reset();
+            ++count_;
+        }
 
-		  /// end timing.
-		  void end()
-		  {
-			  long long time = timer_.GetUSec(false);
-			  if (time > maxTime_)
-				  maxTime_ = time;
-			  time_ += time;
-		  }
+        /// end timing.
+        void end()
+        {
+            long long time = timer_.GetUSec(false);
 
-		  void send()
-		  {
-			  LogManager::GetInstance()->Log(this->agent_, this->name_.c_str(), (long)this->time_);
-		  }
+            if (time > maxTime_)
+            {
+                maxTime_ = time;
+            }
 
-		  /// end profiling frame and update interval and total values.
-		  void EndFrame()
-		  {
-			  frameTime_ = time_;
-			  frameMaxTime_ = maxTime_;
-			  frameCount_ = count_;
-			  intervalTime_ += time_;
-			  if (maxTime_ > intervalMaxTime_)
-				  intervalMaxTime_ = maxTime_;
-			  intervalCount_ += count_;
-			  totalTime_ += time_;
-			  if (maxTime_ > totalMaxTime_)
-				  totalMaxTime_ = maxTime_;
-			  totalCount_ += count_;
-			  time_ = 0;
-			  maxTime_ = 0;
-			  count_ = 0;
+            time_ += time;
+        }
 
-			  for (behaviac::vector<ProfilerBlock*>::iterator i = children_.begin(); i != children_.end(); ++i)
-			  {
-				  ProfilerBlock* p = *i;
-				  p->EndFrame();
-			  }
-		  }
+        void send()
+        {
+            LogManager::GetInstance()->Log(this->agent_, this->name_.c_str(), (long)this->time_);
+        }
 
-		  /// begin new profiling interval.
-		  void BeginInterval()
-		  {
-			  intervalTime_ = 0;
-			  intervalMaxTime_ = 0;
-			  intervalCount_ = 0;
+        /// end profiling frame and update interval and total values.
+        void EndFrame()
+        {
+            frameTime_ = time_;
+            frameMaxTime_ = maxTime_;
+            frameCount_ = count_;
+            intervalTime_ += time_;
 
-			  for (behaviac::vector<ProfilerBlock*>::iterator i = children_.begin(); i != children_.end(); ++i)
-			  {
-				  ProfilerBlock* p = *i;
+            if (maxTime_ > intervalMaxTime_)
+            {
+                intervalMaxTime_ = maxTime_;
+            }
 
-				  p->BeginInterval();
-			  }
-		  }
+            intervalCount_ += count_;
+            totalTime_ += time_;
 
-		  /// Return child block with the specified name.
-		  ProfilerBlock* GetChild(const char* name)
-		  {
-			  // First check using string pointers only, then resort to actual strcmp
-			  for (behaviac::vector<ProfilerBlock*>::iterator i = children_.begin(); i != children_.end(); ++i)
-			  {
-				  ProfilerBlock* p = *i;
-				  if (p->name_ == name)
-				  {
-					  return p;
-				  }
-			  }
+            if (maxTime_ > totalMaxTime_)
+            {
+                totalMaxTime_ = maxTime_;
+            }
 
-			  ProfilerBlock* newBlock = BEHAVIAC_NEW ProfilerBlock(this, name);
-			  children_.push_back(newBlock);
+            totalCount_ += count_;
+            time_ = 0;
+            maxTime_ = 0;
+            count_ = 0;
 
-			  return newBlock;
-		  }
+            for (behaviac::vector<ProfilerBlock*>::iterator i = children_.begin(); i != children_.end(); ++i)
+            {
+                ProfilerBlock* p = *i;
+                p->EndFrame();
+            }
+        }
 
-		  /// Block name.
-		  const behaviac::string name_;
-		  /// High-resolution timer for measuring the block duration.
-		  HiresTimer timer_;
+        /// begin new profiling interval.
+        void BeginInterval()
+        {
+            intervalTime_ = 0;
+            intervalMaxTime_ = 0;
+            intervalCount_ = 0;
 
-		  const behaviac::Agent* agent_;
+            for (behaviac::vector<ProfilerBlock*>::iterator i = children_.begin(); i != children_.end(); ++i)
+            {
+                ProfilerBlock* p = *i;
 
-		  bool is_debug_block_;
+                p->BeginInterval();
+            }
+        }
 
-		  /// Time on current frame.
-		  long long time_;
-		  /// Maximum time on current frame.
-		  long long maxTime_;
-		  /// Calls on current frame.
-		  unsigned count_;
-		  /// Parent block.
-		  ProfilerBlock* parent_;
-		  /// Child blocks.
-		  behaviac::vector<ProfilerBlock*> children_;
-		  /// Time on the previous frame.
-		  long long frameTime_;
-		  /// Maximum time on the previous frame.
-		  long long frameMaxTime_;
-		  /// Calls on the previous frame.
-		  unsigned frameCount_;
-		  /// Time during current profiler interval.
-		  long long intervalTime_;
-		  /// Maximum time during current profiler interval.
-		  long long intervalMaxTime_;
-		  /// Calls during current profiler interval.
-		  unsigned intervalCount_;
-		  /// Total accumulated time.
-		  long long totalTime_;
-		  /// All-time maximum time.
-		  long long totalMaxTime_;
-		  /// Total accumulated calls.
-		  unsigned totalCount_;
-	private:
-		ProfilerBlock(const ProfilerBlock& c);
-		ProfilerBlock& operator=(const ProfilerBlock& c);
-	};
+        /// Return child block with the specified name.
+        ProfilerBlock* GetChild(const char* name)
+        {
+            // First check using string pointers only, then resort to actual strcmp
+            for (behaviac::vector<ProfilerBlock*>::iterator i = children_.begin(); i != children_.end(); ++i)
+            {
+                ProfilerBlock* p = *i;
 
-	bool HiresTimer::supported(false);
-	long long HiresTimer::frequency(1000);
+                if (p->name_ == name)
+                {
+                    return p;
+                }
+            }
 
-	HiresTimer::HiresTimer()
-	{
-		Reset();
-	}
+            ProfilerBlock* newBlock = BEHAVIAC_NEW ProfilerBlock(this, name);
+            children_.push_back(newBlock);
 
-	long long HiresTimer::GetUSec(bool reset)
-	{
-		long long currentTime;
+            return newBlock;
+        }
+
+        /// Block name.
+        const behaviac::string name_;
+        /// High-resolution timer for measuring the block duration.
+        HiresTimer timer_;
+
+        const behaviac::Agent* agent_;
+
+        bool is_debug_block_;
+
+        /// Time on current frame.
+        long long time_;
+        /// Maximum time on current frame.
+        long long maxTime_;
+        /// Calls on current frame.
+        unsigned count_;
+        /// Parent block.
+        ProfilerBlock* parent_;
+        /// Child blocks.
+        behaviac::vector<ProfilerBlock*> children_;
+        /// Time on the previous frame.
+        long long frameTime_;
+        /// Maximum time on the previous frame.
+        long long frameMaxTime_;
+        /// Calls on the previous frame.
+        unsigned frameCount_;
+        /// Time during current profiler interval.
+        long long intervalTime_;
+        /// Maximum time during current profiler interval.
+        long long intervalMaxTime_;
+        /// Calls during current profiler interval.
+        unsigned intervalCount_;
+        /// Total accumulated time.
+        long long totalTime_;
+        /// All-time maximum time.
+        long long totalMaxTime_;
+        /// Total accumulated calls.
+        unsigned totalCount_;
+    private:
+        ProfilerBlock(const ProfilerBlock& c);
+        ProfilerBlock& operator=(const ProfilerBlock& c);
+    };
+
+    bool HiresTimer::supported(false);
+    long long HiresTimer::frequency(1000);
+
+    HiresTimer::HiresTimer()
+    {
+        Reset();
+    }
+
+    long long HiresTimer::GetUSec(bool reset)
+    {
+        long long currentTime;
 
 #ifdef BEHAVIAC_COMPILER_MSVC
-		if (supported)
-		{
-			LARGE_INTEGER counter;
-			QueryPerformanceCounter(&counter);
-			currentTime = counter.QuadPart;
-		}
-		else
-			currentTime = timeGetTime();
+
+        if (supported)
+        {
+            LARGE_INTEGER counter;
+            QueryPerformanceCounter(&counter);
+            currentTime = counter.QuadPart;
+
+        }
+        else
+        {
+            currentTime = timeGetTime();
+        }
+
 #else
-		struct timeval time;
-		gettimeofday(&time, NULL);
-		currentTime = time.tv_sec * 1000000LL + time.tv_usec;
+        struct timeval time;
+        gettimeofday(&time, NULL);
+        currentTime = time.tv_sec * 1000000LL + time.tv_usec;
 #endif
 
-		long long elapsedTime = currentTime - startTime_;
+        long long elapsedTime = currentTime - startTime_;
 
-		// Correct for possible weirdness with changing internal frequency
-		if (elapsedTime < 0)
-			elapsedTime = 0;
+        // Correct for possible weirdness with changing internal frequency
+        if (elapsedTime < 0)
+        {
+            elapsedTime = 0;
+        }
 
-		if (reset)
-			startTime_ = currentTime;
+        if (reset)
+        {
+            startTime_ = currentTime;
+        }
 
-		return (elapsedTime * 1000000LL) / frequency;
-	}
+        return (elapsedTime * 1000000LL) / frequency;
+    }
 
-	void HiresTimer::Reset()
-	{
+    void HiresTimer::Reset()
+    {
 #ifdef BEHAVIAC_COMPILER_MSVC
-		if (supported)
-		{
-			LARGE_INTEGER counter;
-			QueryPerformanceCounter(&counter);
-			startTime_ = counter.QuadPart;
-		}
-		else
-			startTime_ = timeGetTime();
+
+        if (supported)
+        {
+            LARGE_INTEGER counter;
+            QueryPerformanceCounter(&counter);
+            startTime_ = counter.QuadPart;
+
+        }
+        else
+        {
+            startTime_ = timeGetTime();
+        }
+
 #else
-		struct timeval time;
-		gettimeofday(&time, NULL);
-		startTime_ = time.tv_sec * 1000000LL + time.tv_usec;
+        struct timeval time;
+        gettimeofday(&time, NULL);
+        startTime_ = time.tv_sec * 1000000LL + time.tv_usec;
 #endif
-	}
+    }
 
-
-	Profiler::Profiler() : threads_(0), intervalFrames_(0), totalFrames_(0), frameStarted_(0), outputDebugBlock_(false), m_bHierarchy(true)
-	{
+    Profiler::Profiler() : threads_(0), frameStarted_(0), outputDebugBlock_(false), m_bHierarchy(true), intervalFrames_(0), totalFrames_(0)
+    {
 #ifdef BEHAVIAC_COMPILER_MSVC
-		LARGE_INTEGER frequency;
-		if (QueryPerformanceFrequency(&frequency))
-		{
-			HiresTimer::frequency = frequency.QuadPart;
-			HiresTimer::supported = true;
-		}
+        LARGE_INTEGER frequency;
+
+        if (QueryPerformanceFrequency(&frequency))
+        {
+            HiresTimer::frequency = frequency.QuadPart;
+            HiresTimer::supported = true;
+        }
+
 #else
-		HiresTimer::frequency = 1000000;
-		HiresTimer::supported = true;
+        HiresTimer::frequency = 1000000;
+        HiresTimer::supported = true;
 #endif
-		for (int i = 0; i < kMaxThreads; ++i)
-		{
-			current_[i].clear();
-		}
-	}
 
-	Profiler::~Profiler()
-	{
-		for (int i = 0; i < this->threads_; ++i)
-		{
-			BEHAVIAC_DELETE(current_[i].root);
+        for (int i = 0; i < kMaxThreads; ++i)
+        {
+            current_[i].clear();
+        }
+    }
 
-			current_[i].clear();
-		}
+    Profiler::~Profiler()
+    {
+        for (int i = 0; i < this->threads_; ++i)
+        {
+            BEHAVIAC_DELETE(current_[i].root);
 
-		this->threads_ = 0;
-	}
+            current_[i].clear();
+        }
 
-	const ProfilerBlock* Profiler::GetCurrentBlock() const
-	{
-		ProfilerBlock* current = 0;
-		behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
+        this->threads_ = 0;
+    }
 
-		for (int i = 0; i < this->threads_; ++i)
-		{
-			if (current_[i].threadId == threadId)
-			{
-				current = current_[i].block;
-				break;
-			}
-		}
+    const ProfilerBlock* Profiler::GetCurrentBlock() const
+    {
+        ProfilerBlock* current = 0;
+        behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
 
-		return current; 
-	}
+        for (int i = 0; i < this->threads_; ++i)
+        {
+            if (current_[i].threadId == threadId)
+            {
+                current = current_[i].block;
+                break;
+            }
+        }
 
-	/// Return the root profiling block.
-	const ProfilerBlock* Profiler::GetRootBlock() const
-	{
-		ProfilerBlock* root = 0;
-		behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
+        return current;
+    }
 
-		for (int i = 0; i < this->threads_; ++i)
-		{
-			if (current_[i].threadId == threadId)
-			{
-				root = current_[i].root;
-				break;
-			}
-		}
+    /// Return the root profiling block.
+    const ProfilerBlock* Profiler::GetRootBlock() const
+    {
+        ProfilerBlock* root = 0;
+        behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
 
-		return root;
-	}
+        for (int i = 0; i < this->threads_; ++i)
+        {
+            if (current_[i].threadId == threadId)
+            {
+                root = current_[i].root;
+                break;
+            }
+        }
 
-	void Profiler::BeginBlock(const char* name, const behaviac::Agent* agent, bool bDebugBlock)
-	{
-		ThreadProfilerBlock_t* pThread = 0;
-		ProfilerBlock* current = 0;
-		behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
+        return root;
+    }
 
-		for (int i = 0; i < this->threads_; ++i)
-		{
-			if (current_[i].threadId == threadId)
-			{
-				pThread = &current_[i];
-				if (this->m_bHierarchy)
-				{
-					current = pThread->block;
-				}
-				else
-				{
-					current = pThread->root;
-				}
+    void Profiler::BeginBlock(const char* name, const behaviac::Agent* agent, bool bDebugBlock)
+    {
+        ThreadProfilerBlock_t* pThread = 0;
+        ProfilerBlock* current = 0;
+        behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
 
-				break;
-			}
-		}
+        for (int i = 0; i < this->threads_; ++i)
+        {
+            if (current_[i].threadId == threadId)
+            {
+                pThread = &current_[i];
 
-		if (!pThread)
-		{
-			current = BEHAVIAC_NEW ProfilerBlock(0, "root");
-			int found = this->threads_++;
-			pThread = &current_[found];
-			pThread->threadId = threadId;
-			pThread->root = current;
-			pThread->block = current;
-		}
+                if (this->m_bHierarchy)
+                {
+                    current = pThread->block;
 
-		BEHAVIAC_ASSERT(pThread);
+                }
+                else
+                {
+                    current = pThread->root;
+                }
 
-		current = current->GetChild(name);
-		current->agent_ = agent;
-		current->is_debug_block_ = bDebugBlock;
-		current->begin();
+                break;
+            }
+        }
 
-		if (!this->m_bHierarchy)
-		{
-			BEHAVIAC_ASSERT(pThread->m_currentIndex < ThreadProfilerBlock_t::kMaxBlockDepth);
-			if (pThread->m_currentIndex < ThreadProfilerBlock_t::kMaxBlockDepth)
-			{
-				pThread->m_currentStack[pThread->m_currentIndex++] = pThread->block;
-			}
-		}
+        if (!pThread)
+        {
+            current = BEHAVIAC_NEW ProfilerBlock(0, "root");
+            int found = this->threads_++;
+            pThread = &current_[found];
+            pThread->threadId = threadId;
+            pThread->root = current;
+            pThread->block = current;
+        }
 
-		pThread->block = current;
-	}
+        BEHAVIAC_ASSERT(pThread);
 
-	void Profiler::EndBlock(bool bSend)
-	{
-		ThreadProfilerBlock_t* pThread = 0;
-		ProfilerBlock* current = 0;
-		behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
+        current = current->GetChild(name);
+        current->agent_ = agent;
+        current->is_debug_block_ = bDebugBlock;
+        current->begin();
 
-		for (int i = 0; i < this->threads_; ++i)
-		{
-			if (current_[i].threadId == threadId)
-			{
-				pThread = &current_[i];
-				current = pThread->block;
-				break;
-			}
-		}
+        if (!this->m_bHierarchy)
+        {
+            BEHAVIAC_ASSERT(pThread->m_currentIndex < ThreadProfilerBlock_t::kMaxBlockDepth);
 
-		BEHAVIAC_ASSERT(current);
+            if (pThread->m_currentIndex < ThreadProfilerBlock_t::kMaxBlockDepth)
+            {
+                pThread->m_currentStack[pThread->m_currentIndex++] = pThread->block;
+            }
+        }
 
-		if (this->m_bHierarchy)
-		{
-			//not root
-			if (current->parent_)
-			{
-				current->end();
-				if (bSend)
-				{
-					current->send();
-				}
+        pThread->block = current;
+    }
 
-				current = current->parent_;
+    void Profiler::EndBlock(bool bSend)
+    {
+        ThreadProfilerBlock_t* pThread = 0;
+        ProfilerBlock* current = 0;
+        behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
 
-				pThread->block = current;
-			}
-		}
-		else
-		{
-			current->end();
-			if (bSend)
-			{
-				current->send();
-			}
+        for (int i = 0; i < this->threads_; ++i)
+        {
+            if (current_[i].threadId == threadId)
+            {
+                pThread = &current_[i];
+                current = pThread->block;
+                break;
+            }
+        }
 
-			BEHAVIAC_ASSERT(pThread->m_currentIndex > 0);
-			if (pThread->m_currentIndex > 0)
-			{
-				current = pThread->m_currentStack[--pThread->m_currentIndex];
-				pThread->block = current;
-			}
-		}
-	}
+        BEHAVIAC_ASSERT(current);
 
+        if (this->m_bHierarchy)
+        {
+            //not root
+            if (current->parent_)
+            {
+                current->end();
 
-	void Profiler::BeginFrame()
-	{
-		BEHAVIAC_ASSERT(this->frameStarted_ == 0, "EndFrame should be paired");
-		this->frameStarted_ = 1;
-		this->BeginBlock("RunFrame");
-	}
+                if (bSend)
+                {
+                    current->send();
+                }
 
-	void Profiler::EndFrame()
-	{
-		BEHAVIAC_ASSERT(this->frameStarted_, "BeginFrame should be paired");
+                current = current->parent_;
 
-		ProfilerBlock* root = 0;
-		ProfilerBlock* current = 0;
-		behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
+                pThread->block = current;
+            }
 
-		int found = -1;
-		for (int i = 0; i < this->threads_; ++i)
-		{
-			if (current_[i].threadId == threadId)
-			{
-				current = current_[i].block;
-				root = current_[i].root;
-				found = i;
-				break;
-			}
-		}
+        }
+        else
+        {
+            current->end();
 
-		if (current)
-		{
-			while (current->parent_)
-			{
-				EndBlock();
+            if (bSend)
+            {
+                current->send();
+            }
 
-				current = current->parent_;
-			}
-		}
+            BEHAVIAC_ASSERT(pThread->m_currentIndex > 0);
 
-		++intervalFrames_;
-		++totalFrames_;
+            if (pThread->m_currentIndex > 0)
+            {
+                current = pThread->m_currentStack[--pThread->m_currentIndex];
+                pThread->block = current;
+            }
+        }
+    }
 
-		if (root)
-		{
-			root->EndFrame();
+    void Profiler::BeginFrame()
+    {
+        BEHAVIAC_ASSERT(this->frameStarted_ == 0, "EndFrame should be paired");
+        this->frameStarted_ = 1;
+        this->BeginBlock("RunFrame");
+    }
 
-			BEHAVIAC_ASSERT(found != -1);
-			current_[found].block = root;
-		}
+    void Profiler::EndFrame()
+    {
+        BEHAVIAC_ASSERT(this->frameStarted_, "BeginFrame should be paired");
 
-		this->frameStarted_ = 0;
-	}
+        ProfilerBlock* root = 0;
+        ProfilerBlock* current = 0;
+        behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
 
-	void Profiler::BeginInterval()
-	{
-		ProfilerBlock* root = (ProfilerBlock*)GetRootBlock();
+        int found = -1;
 
-		if (root)
-		{
-			root->BeginInterval();
-		}
+        for (int i = 0; i < this->threads_; ++i)
+        {
+            if (current_[i].threadId == threadId)
+            {
+                current = current_[i].block;
+                root = current_[i].root;
+                found = i;
+                break;
+            }
+        }
 
-		intervalFrames_ = 0;
-	}
+        if (current)
+        {
+            while (current->parent_)
+            {
+                EndBlock();
 
-	behaviac::string Profiler::GetData(bool showUnused, bool showTotal, unsigned maxDepth) const
-	{
-		behaviac::string output;
+                current = current->parent_;
+            }
+        }
 
-		if (!showTotal)
-		{
-			//output += behaviac::string("Block                                                                              Cnt     Avg        Max     Frame       Total\n\n");
-			output += behaviac::string("Block                                                                              Cnt     Avg        Max     Total\n\n");
-		}
-		else
-		{
-			output += behaviac::string("Block                                                                                         Last frame                       Whole execution time\n\n");
-			output += behaviac::string("                                                                                   Cnt     Avg        Max        Total      Cnt      Avg         Max          Total\n\n");
-		}
+        ++intervalFrames_;
+        ++totalFrames_;
 
-		if (!maxDepth)
-			maxDepth = 1;
+        if (root)
+        {
+            root->EndFrame();
 
-		for (int i = 0; i < this->threads_; ++i)
-		{
-			const ProfilerBlock* root = current_[i].root;
+            BEHAVIAC_ASSERT(found != -1);
+            current_[found].block = root;
+        }
 
-			output += behaviac::string(FormatString("Thread %d:\n", current_[i].threadId));
-			this->GetData(root, output, 0, maxDepth, showUnused, showTotal);
-		}
+        this->frameStarted_ = 0;
+    }
 
-		return output;
-	}
+    void Profiler::BeginInterval()
+    {
+        ProfilerBlock* root = (ProfilerBlock*)GetRootBlock();
 
-	void Profiler::GetData(const ProfilerBlock* block, behaviac::string& output, unsigned depth, unsigned maxDepth, bool showUnused, bool showTotal) const
-	{
-		char line[LINE_MAX_LENGTH];
-		char indentedName[LINE_MAX_LENGTH];
+        if (root)
+        {
+            root->BeginInterval();
+        }
 
-		uint32_t intervalFrames = behaviac::Max((uint32_t)intervalFrames_, (uint32_t)1);
-		BEHAVIAC_ASSERT(intervalFrames >= 1);
+        intervalFrames_ = 0;
+    }
 
-		if (depth >= maxDepth)
-			return;
+    behaviac::string Profiler::GetData(bool showUnused, bool showTotal, unsigned maxDepth) const
+    {
+        behaviac::string output;
 
-		// Do not print the root block as it does not collect any actual data
-		if (block->parent_)
-		{
-			if (block->is_debug_block_ && !this->outputDebugBlock_)
-			{
-				return;
-			}
+        if (!showTotal)
+        {
+            //output += behaviac::string("Block                                                                              Cnt     Avg        Max     Frame       Total\n\n");
+            output += behaviac::string("Block                                                                              Cnt     Avg        Max     Total\n\n");
 
-			if (showUnused || block->intervalCount_ || (showTotal && block->totalCount_))
-			{
-				memset(indentedName, ' ', NAME_MAX_LENGTH);
-				indentedName[depth] = 0;
-				BEHAVIAC_ASSERT(block->name_.size() + depth < LINE_MAX_LENGTH);
-				strcat(indentedName, block->name_.c_str());
-				indentedName[strlen(indentedName)] = ' ';
-				indentedName[NAME_MAX_LENGTH] = 0;
+        }
+        else
+        {
+            output += behaviac::string("Block                                                                                         Last frame                       Whole execution time\n\n");
+            output += behaviac::string("                                                                                   Cnt     Avg        Max        Total      Cnt      Avg         Max          Total\n\n");
+        }
 
-				if (!showTotal)
-				{
-					float avg = (block->intervalCount_ ? block->intervalTime_ / block->intervalCount_ : 0.0f) / 1000.0f;
-					float max = block->intervalMaxTime_ / 1000.0f;
-					float frame = block->intervalTime_ / intervalFrames / 1000.0f;
-					float all = block->intervalTime_ / 1000.0f;
-					BEHAVIAC_UNUSED_VAR(frame);
+        if (!maxDepth)
+        {
+            maxDepth = 1;
+        }
 
-					//string_sprintf(line, "%s %5u %10.4f %10.4f %11.4f %9.4f\n", indentedName, block->intervalCount_, avg, max, frame, all);
-					string_sprintf(line, "%s %5u %10.4f %10.4f %9.4f\n", indentedName, block->intervalCount_, avg, max, all);
-				}
-				else
-				{
-					float avg = (block->frameCount_ ? block->frameTime_ / block->frameCount_ : 0.0f) / 1000.0f;
-					float max = block->frameMaxTime_ / 1000.0f;
-					float all = block->frameTime_ / 1000.0f;
+        for (int i = 0; i < this->threads_; ++i)
+        {
+            const ProfilerBlock* root = current_[i].root;
 
-					float totalAvg = (block->totalCount_ ? block->totalTime_ / block->totalCount_ : 0.0f) / 1000.0f;
-					float totalMax = block->totalMaxTime_ / 1000.0f;
-					float totalAll = block->totalTime_ / 1000.0f;
+            output += behaviac::string(FormatString("Thread %d:\n", current_[i].threadId));
+            this->GetData(root, output, 0, maxDepth, showUnused, showTotal);
+        }
 
-					//				Cnt, Avg, Max, Total, Cnt, Avg, Max, Total
-					string_sprintf(line, "%s %5u %10.4f %10.4f %11.4f  %7u %11.4f %11.4f %11.4f\n", indentedName, block->frameCount_, avg, max,
-						all, block->totalCount_, totalAvg, totalMax, totalAll);
-				}
+        return output;
+    }
 
-				output += behaviac::string(line);
-			}
+    void Profiler::GetData(const ProfilerBlock* block, behaviac::string& output, unsigned depth, unsigned maxDepth, bool showUnused, bool showTotal) const
+    {
+        char line[LINE_MAX_LENGTH];
+        char indentedName[LINE_MAX_LENGTH];
 
-			++depth;
-		}
+        uint32_t intervalFrames = behaviac::Max((uint32_t)intervalFrames_, (uint32_t)1);
+        BEHAVIAC_ASSERT(intervalFrames >= 1);
 
-		for (behaviac::vector<ProfilerBlock*>::const_iterator i = block->children_.begin(); i != block->children_.end(); ++i)
-		{
-			ProfilerBlock* p = *i;
+        if (depth >= maxDepth)
+        {
+            return;
+        }
 
-			GetData(p, output, depth, maxDepth, showUnused, showTotal);
-		}
-	}
+        // Do not print the root block as it does not collect any actual data
+        if (block->parent_)
+        {
+            if (block->is_debug_block_ && !this->outputDebugBlock_)
+            {
+                return;
+            }
+
+            if (showUnused || block->intervalCount_ || (showTotal && block->totalCount_))
+            {
+                memset(indentedName, ' ', NAME_MAX_LENGTH);
+                indentedName[depth] = 0;
+                BEHAVIAC_ASSERT(block->name_.size() + depth < LINE_MAX_LENGTH);
+                strcat(indentedName, block->name_.c_str());
+                indentedName[strlen(indentedName)] = ' ';
+                indentedName[NAME_MAX_LENGTH] = 0;
+
+                if (!showTotal)
+                {
+                    float avg = (block->intervalCount_ ? block->intervalTime_ / block->intervalCount_ : 0.0f) / 1000.0f;
+                    float max = block->intervalMaxTime_ / 1000.0f;
+                    float frame = block->intervalTime_ / intervalFrames / 1000.0f;
+                    float all = block->intervalTime_ / 1000.0f;
+                    BEHAVIAC_UNUSED_VAR(frame);
+
+                    //string_sprintf(line, "%s %5u %10.4f %10.4f %11.4f %9.4f\n", indentedName, block->intervalCount_, avg, max, frame, all);
+                    string_sprintf(line, "%s %5u %10.4f %10.4f %9.4f\n", indentedName, block->intervalCount_, avg, max, all);
+
+                }
+                else
+                {
+                    float avg = (block->frameCount_ ? block->frameTime_ / block->frameCount_ : 0.0f) / 1000.0f;
+                    float max = block->frameMaxTime_ / 1000.0f;
+                    float all = block->frameTime_ / 1000.0f;
+
+                    float totalAvg = (block->totalCount_ ? block->totalTime_ / block->totalCount_ : 0.0f) / 1000.0f;
+                    float totalMax = block->totalMaxTime_ / 1000.0f;
+                    float totalAll = block->totalTime_ / 1000.0f;
+
+                    //				Cnt, Avg, Max, Total, Cnt, Avg, Max, Total
+                    string_sprintf(line, "%s %5u %10.4f %10.4f %11.4f  %7u %11.4f %11.4f %11.4f\n", indentedName, block->frameCount_, avg, max,
+                                   all, block->totalCount_, totalAvg, totalMax, totalAll);
+                }
+
+                output += behaviac::string(line);
+            }
+
+            ++depth;
+        }
+
+        for (behaviac::vector<ProfilerBlock*>::const_iterator i = block->children_.begin(); i != block->children_.end(); ++i)
+        {
+            ProfilerBlock* p = *i;
+
+            GetData(p, output, depth, maxDepth, showUnused, showTotal);
+        }
+    }
 }
 #else
 namespace behaviac
 {
-	Profiler::Profiler()
-	{}
+    Profiler::Profiler()
+    {}
 
-	Profiler::~Profiler()
-	{
-	}
+    Profiler::~Profiler()
+    {
+    }
 
-	Profiler* Profiler::GetInstance()
-	{
-		return 0;
-	}
+    Profiler* Profiler::GetInstance()
+    {
+        return 0;
+    }
 
-	Profiler* Profiler::CreateInstance()
-	{
-		return 0;
-	}
-	void Profiler::DestroyInstance()
-	{
-	}
+    Profiler* Profiler::CreateInstance()
+    {
+        return 0;
+    }
+    void Profiler::DestroyInstance()
+    {
+    }
 
-	void Profiler::BeginFrame()
-	{
-	}
+    void Profiler::BeginFrame()
+    {
+    }
 
-	void Profiler::EndFrame()
-	{
-	}
+    void Profiler::EndFrame()
+    {
+    }
 
-	void Profiler::BeginInterval()
-	{
-	}
+    void Profiler::BeginInterval()
+    {
+    }
 
-	/// Return profiling data as text output.
-	behaviac::string Profiler::GetData(bool showUnused, bool showTotal, unsigned maxDepth) const
-	{
-		BEHAVIAC_UNUSED_VAR(showUnused); 
-		BEHAVIAC_UNUSED_VAR(showTotal); 
-		BEHAVIAC_UNUSED_VAR(maxDepth); 
-		
-		return "";
-	}
+    /// Return profiling data as text output.
+    behaviac::string Profiler::GetData(bool showUnused, bool showTotal, unsigned maxDepth) const
+    {
+        BEHAVIAC_UNUSED_VAR(showUnused);
+        BEHAVIAC_UNUSED_VAR(showTotal);
+        BEHAVIAC_UNUSED_VAR(maxDepth);
+
+        return "";
+    }
 }//namespace behaviac
 #endif//#if BEHAVIAC_ENABLE_PROFILING
 
 namespace behaviac
 {
-	void Profiler::SetHierarchy(bool bHierarchy)
-	{
-		BEHAVIAC_UNUSED_VAR(bHierarchy);
+    void Profiler::SetHierarchy(bool bHierarchy)
+    {
+        BEHAVIAC_UNUSED_VAR(bHierarchy);
 #if BEHAVIAC_ENABLE_PROFILING
-		m_bHierarchy = bHierarchy;
+        m_bHierarchy = bHierarchy;
 #endif
-	}
+    }
 
-	void Profiler::SetOutputDebugBlock(bool bOutput)
-	{
-		BEHAVIAC_UNUSED_VAR(bOutput);
+    void Profiler::SetOutputDebugBlock(bool bOutput)
+    {
+        BEHAVIAC_UNUSED_VAR(bOutput);
 #if BEHAVIAC_ENABLE_PROFILING
-		outputDebugBlock_ = bOutput;
+        outputDebugBlock_ = bOutput;
 #endif
-	}
+    }
 }//namespace behaviac
 
 namespace behaviac
 {
-	/// Construct. begin a profiling block with the specified name and optional call count.
-	AutoProfileBlock::AutoProfileBlock(Profiler* profiler, const char* name, bool bDebugBlock) : profiler_(profiler)
-	{
-		BEHAVIAC_UNUSED_VAR(profiler);
-		BEHAVIAC_UNUSED_VAR(name);
-		BEHAVIAC_UNUSED_VAR(bDebugBlock);
+    /// Construct. begin a profiling block with the specified name and optional call count.
+    AutoProfileBlock::AutoProfileBlock(Profiler* profiler, const char* name, bool bDebugBlock) : profiler_(profiler)
+    {
+        BEHAVIAC_UNUSED_VAR(profiler);
+        BEHAVIAC_UNUSED_VAR(name);
+        BEHAVIAC_UNUSED_VAR(bDebugBlock);
 #if BEHAVIAC_ENABLE_PROFILING
-		if (Config::IsProfiling())
-		{
-			if (profiler_)
-				profiler_->BeginBlock(name, 0, bDebugBlock);
-		}
-#endif
-	}
 
-	/// Construct. begin a profiling block with the specified name and optional call count.
-	AutoProfileBlock::AutoProfileBlock(Profiler* profiler, const behaviac::string& name) : profiler_(profiler)
-	{
-		BEHAVIAC_UNUSED_VAR(name);
-		BEHAVIAC_UNUSED_VAR(profiler);
+        if (Config::IsProfiling())
+        {
+            if (profiler_)
+            {
+                profiler_->BeginBlock(name, 0, bDebugBlock);
+            }
+        }
+
+#endif
+    }
+
+    /// Construct. begin a profiling block with the specified name and optional call count.
+    AutoProfileBlock::AutoProfileBlock(Profiler* profiler, const behaviac::string& name) : profiler_(profiler)
+    {
+        BEHAVIAC_UNUSED_VAR(name);
+        BEHAVIAC_UNUSED_VAR(profiler);
 #if BEHAVIAC_ENABLE_PROFILING
-		if (Config::IsProfiling())
-		{
-			if (profiler_)
-				profiler_->BeginBlock(name.c_str());
-		}
+
+        if (Config::IsProfiling())
+        {
+            if (profiler_)
+            {
+                profiler_->BeginBlock(name.c_str());
+            }
+        }
+
 #endif
-	}
+    }
 
-
-	/// Destruct. end the profiling block.
-	AutoProfileBlock::~AutoProfileBlock()
-	{
+    /// Destruct. end the profiling block.
+    AutoProfileBlock::~AutoProfileBlock()
+    {
 #if BEHAVIAC_ENABLE_PROFILING
-		if (Config::IsProfiling())
-		{
-			if (profiler_)
-				profiler_->EndBlock();
-		}
+
+        if (Config::IsProfiling())
+        {
+            if (profiler_)
+            {
+                profiler_->EndBlock();
+            }
+        }
+
 #endif
-	}
+    }
 }

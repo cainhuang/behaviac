@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_CONDITIONS_TRUE_H_
-#define BEHAVIAC_BEHAVIORTREE_CONDITIONS_TRUE_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_CONDITIONS_TRUE_H
+#define BEHAVIAC_BEHAVIORTREE_CONDITIONS_TRUE_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -21,14 +21,14 @@
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup True
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup True
+    * @{ */
 
-	/**
-	True is a leaf node that always return Success. 
-	*/
+    /**
+    True is a leaf node that always return Success.
+    */
     class BEHAVIAC_API True : public ConditionBase
     {
     public:
@@ -37,11 +37,10 @@ namespace behaviac
         True();
         virtual ~True();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-	protected:
-		virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
-	private:
-		virtual BehaviorTask* createTask() const;
-
+    protected:
+        virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
+    private:
+        virtual BehaviorTask* createTask() const;
     };
 
     class BEHAVIAC_API TrueTask : public ConditionBaseTask
@@ -58,15 +57,14 @@ namespace behaviac
         }
 
     protected:
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
 
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
-
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_CONDITIONS_TRUE_H_
+#endif//BEHAVIAC_BEHAVIORTREE_CONDITIONS_TRUE_H

@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public DecoratorCount()
         {
-		}
+        }
+
         ~DecoratorCount()
         {
             this.m_count_var = null;
@@ -31,13 +30,12 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
                 if (p.name == "Count")
                 {
                     string typeName = null;
-                    string propertyName = null;
-                    this.m_count_var = Condition.LoadRight(p.value, propertyName, ref typeName);
+                    this.m_count_var = Condition.LoadRight(p.value, ref typeName);
                 }
             }
         }
@@ -55,7 +53,7 @@ namespace behaviac
             return 0;
         }
 
-        Property m_count_var;
+        private Property m_count_var;
 
         protected abstract class DecoratorCountTask : DecoratorTask
         {
@@ -94,8 +92,7 @@ namespace behaviac
             {
                 base.onenter(pAgent);
 
-                //don't reset the m_n if it is restarted
-                if (this.m_n == 0 || !this.NeedRestart())
+                if (this.m_n == 0)
                 {
                     int count = this.GetCount(pAgent);
 
@@ -105,6 +102,7 @@ namespace behaviac
                     }
 
                     this.m_n = count;
+
                 }
                 else
                 {

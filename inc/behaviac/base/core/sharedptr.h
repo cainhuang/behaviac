@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_SHAREPTR_H_
-#define BEHAVIAC_SHAREPTR_H_
+#ifndef BEHAVIAC_SHAREPTR_H
+#define BEHAVIAC_SHAREPTR_H
 
 namespace behaviac
 {
@@ -20,7 +20,7 @@ namespace behaviac
     class reference_counter
     {
     public:
-        reference_counter(): _cnt(1)
+        reference_counter() : _cnt(1)
         {
         }
 
@@ -43,10 +43,9 @@ namespace behaviac
         volatile int _cnt;
     };
 
-
-	/// The default release policy for shared_ptr, which simply uses the delete operator to delete an object.
-	template <class C>
-	class release_policy
+    /// The default release policy for shared_ptr, which simply uses the delete operator to delete an object.
+    template <class C>
+    class release_policy
     {
     public:
         static void release(C* pObj)
@@ -54,7 +53,6 @@ namespace behaviac
             BEHAVIAC_DELETE(pObj);
         }
     };
-
 
     /// The release policy for shared_ptr holding arrays.
     template <class C>
@@ -67,27 +65,26 @@ namespace behaviac
         }
     };
 
-
-	/// shared_ptr is a "smart" pointer for classes implementing reference counting based garbage collection.
+    /// shared_ptr is a "smart" pointer for classes implementing reference counting based garbage collection.
     template <class C, class RC = reference_counter, class RP = release_policy<C> >
     class shared_ptr
     {
     public:
-        shared_ptr(): _pCounter(BEHAVIAC_NEW(RC)), _ptr(0)
+        shared_ptr() : _pCounter(BEHAVIAC_NEW(RC)), _ptr(0)
         {
         }
 
-        shared_ptr(C* ptr): _pCounter(BEHAVIAC_NEW(RC)), _ptr(ptr)
+        shared_ptr(C* ptr) : _pCounter(BEHAVIAC_NEW(RC)), _ptr(ptr)
         {
         }
 
         template <class Other, class OtherRP>
-        shared_ptr(const shared_ptr<Other, RC, OtherRP>& ptr): _pCounter(ptr._pCounter), _ptr(const_cast<Other*>(ptr.get()))
+        shared_ptr(const shared_ptr<Other, RC, OtherRP>& ptr) : _pCounter(ptr._pCounter), _ptr(const_cast<Other*>(ptr.get()))
         {
             _pCounter->duplicate();
         }
 
-        shared_ptr(const shared_ptr& ptr): _pCounter(ptr._pCounter), _ptr(ptr._ptr)
+        shared_ptr(const shared_ptr& ptr) : _pCounter(ptr._pCounter), _ptr(ptr._ptr)
         {
             _pCounter->duplicate();
         }
@@ -356,7 +353,7 @@ namespace behaviac
             }
         }
 
-        shared_ptr(RC* pCounter, C* ptr): _pCounter(pCounter), _ptr(ptr)
+        shared_ptr(RC* pCounter, C* ptr) : _pCounter(pCounter), _ptr(ptr)
         {
             poco_assert_dbg(_pCounter);
             _pCounter->duplicate();
@@ -369,13 +366,11 @@ namespace behaviac
         template <class OtherC, class OtherRC, class OtherRP> friend class shared_ptr;
     };
 
-
     template <class C, class RC, class RP>
     inline void swap(shared_ptr<C, RC, RP>& p1, shared_ptr<C, RC, RP>& p2)
     {
         p1.swap(p2);
     }
-
 }//namespace behaviac
 
-#endif//BEHAVIAC_SHAREPTR_H_
+#endif//BEHAVIAC_SHAREPTR_H

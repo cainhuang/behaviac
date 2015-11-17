@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _XML_PARSER_H
-#define _XML_PARSER_H
+#ifndef BEHAVIAC_XML_PARSER_H
+#define BEHAVIAC_XML_PARSER_H
 
 #include "behaviac/base/xml/ixml.h"
 
@@ -39,4 +39,4 @@ private:
     behaviac::string m_errorString;
 };
 
-#endif //_XML_PARSER_H
+#endif //BEHAVIAC_XML_PARSER_H

@@ -16,126 +16,123 @@
 
 namespace behaviac
 {
-	DecoratorCountLimit::DecoratorCountLimit()
-	{}
+    DecoratorCountLimit::DecoratorCountLimit()
+    {}
 
-	DecoratorCountLimit::~DecoratorCountLimit()
-	{}
+    DecoratorCountLimit::~DecoratorCountLimit()
+    {}
 
-	void DecoratorCountLimit::load(int version, const char* agentType, const properties_t& properties)
-	{
-		DecoratorCount::load(version, agentType, properties);
-	}
+    void DecoratorCountLimit::load(int version, const char* agentType, const properties_t& properties)
+    {
+        DecoratorCount::load(version, agentType, properties);
+    }
+    bool DecoratorCountLimit::CheckIfReInit(Agent* pAgent)
+    {
+        bool bTriggered = this->EvaluteCustomCondition(pAgent);
 
-	bool DecoratorCountLimit::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!DecoratorCountLimit::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+        return bTriggered;
+    }
 
-	BehaviorTask* DecoratorCountLimit::createTask() const
-	{
-		DecoratorCountLimitTask* pTask = BEHAVIAC_NEW DecoratorCountLimitTask();
-		
-		return pTask;
-	}
+    bool DecoratorCountLimit::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!DecoratorCountLimit::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
-	DecoratorCountLimitTask::DecoratorCountLimitTask() : DecoratorCountTask(), m_bInited(false)
-	{
-	}
+        return super::IsValid(pAgent, pTask);
+    }
 
-	void DecoratorCountLimitTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
+    BehaviorTask* DecoratorCountLimit::createTask() const
+    {
+        DecoratorCountLimitTask* pTask = BEHAVIAC_NEW DecoratorCountLimitTask();
 
-		BEHAVIAC_ASSERT(DecoratorCountLimitTask::DynamicCast(target));
-		DecoratorCountLimitTask* ttask = (DecoratorCountLimitTask*)target;
+        return pTask;
+    }
 
-		ttask->m_bInited = this->m_bInited;
-	}
+    DecoratorCountLimitTask::DecoratorCountLimitTask() : DecoratorCountTask(), m_bInited(false)
+    {
+    }
 
+    void DecoratorCountLimitTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
 
-	void DecoratorCountLimitTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  initId("inited");
-			node->setAttr(initId, this->m_bInited);
-		}
-	}
+        BEHAVIAC_ASSERT(DecoratorCountLimitTask::DynamicCast(target));
+        DecoratorCountLimitTask* ttask = (DecoratorCountLimitTask*)target;
 
-	void DecoratorCountLimitTask::load(ISerializableNode* node)
-	{
-		super::load(node);		
-		
-		if (this->m_status != BT_INVALID)
-		{
-			CSerializationID  initId("inited");
-			behaviac::string attrStr;
-			node->getAttr(initId, attrStr);
-			StringUtils::FromString(attrStr.c_str(), this->m_bInited);
-		}
-	}
+        ttask->m_bInited = this->m_bInited;
+    }
 
+    void DecoratorCountLimitTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
 
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  initId("inited");
+            node->setAttr(initId, this->m_bInited);
+        }
+    }
 
-	bool DecoratorCountLimitTask::CheckPredicates(Agent* pAgent)
-	{
-		if (!this->m_attachments)
-		{
-			return false;
-		}
+    void DecoratorCountLimitTask::load(ISerializableNode* node)
+    {
+        super::load(node);
 
-		return super::CheckPredicates(pAgent);
-	}
+        if (this->m_status != BT_INVALID)
+        {
+            CSerializationID  initId("inited");
+            behaviac::string attrStr;
+            node->getAttr(initId, attrStr);
+            StringUtils::FromString(attrStr.c_str(), this->m_bInited);
+        }
+    }
 
-	bool DecoratorCountLimitTask::onenter(Agent* pAgent)
-	{
-		if (this->CheckPredicates(pAgent))
-		{
-			this->m_bInited = false;
-		}
+    bool DecoratorCountLimitTask::onenter(Agent* pAgent)
+    {
+        DecoratorCountLimit* node = (DecoratorCountLimit*)this->m_node;
 
-		if (!this->m_bInited)
-		{
-			this->m_bInited = true;
+        if (node->CheckIfReInit(pAgent))
+        {
+            this->m_bInited = false;
+        }
 
-			int count = this->GetCount(pAgent);
+        if (!this->m_bInited)
+        {
+            this->m_bInited = true;
 
-			this->m_n = count;
-		}
+            int count = this->GetCount(pAgent);
 
-		//if this->m_n is -1, it is endless
-		if (this->m_n > 0)
-		{
-			this->m_n--;
-			return true;
-		}
-		else if (this->m_n == 0)
-		{
-			return false;
-		}
-		else if (this->m_n == -1)
-		{
-			return true;
-		}
+            this->m_n = count;
+        }
 
-		BEHAVIAC_ASSERT(0);
+        //if this->m_n is -1, it is endless
+        if (this->m_n > 0)
+        {
+            this->m_n--;
+            return true;
 
-		return false;
-	}
+        }
+        else if (this->m_n == 0)
+        {
+            return false;
 
-	EBTStatus DecoratorCountLimitTask::decorate(EBTStatus status)
-	{
-		BEHAVIAC_UNUSED_VAR(status);
-		BEHAVIAC_ASSERT(this->m_n >= 0 || this->m_n == -1);
+        }
+        else if (this->m_n == -1)
+        {
+            return true;
+        }
 
-		return status;
-	}
+        BEHAVIAC_ASSERT(0);
 
+        return false;
+    }
+
+    EBTStatus DecoratorCountLimitTask::decorate(EBTStatus status)
+    {
+        BEHAVIAC_UNUSED_VAR(status);
+        BEHAVIAC_ASSERT(this->m_n >= 0 || this->m_n == -1);
+
+        return status;
+    }
 }//namespace behaviac

@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -82,20 +82,17 @@ namespace PluginBehaviac.DataExporters
             }
         }
 
-        public static string GenerateCode(Behaviac.Design.VariableDef variable, StreamWriter stream, string indent, string typename, string var, string caller, string setValue = null)
+        public static string GenerateCode(Behaviac.Design.VariableDef variable, bool isRefParam, StreamWriter stream, string indent, string typename, string var, string caller, string setValue = null)
         {
             string retStr = string.Empty;
 
-            if (variable.ValueClass == Behaviac.Design.VariableDef.kConst || variable.ValueClass == Behaviac.Design.VariableDef.kPar)
+            if (variable.ValueClass == Behaviac.Design.VariableDef.kConst)
             {
                 bool shouldGenerate = true;
-                if (variable.ValueClass == Behaviac.Design.VariableDef.kConst)
+                Type type = variable.Value.GetType();
+                if (Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type) || Plugin.IsStringType(type))
                 {
-                    Type type = variable.Value.GetType();
-                    if (Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type) || Plugin.IsStringType(type))
-                    {
-                        shouldGenerate = false;
-                    }
+                    shouldGenerate = false;
                 }
 
                 if (shouldGenerate)
@@ -105,7 +102,7 @@ namespace PluginBehaviac.DataExporters
             }
             else if (variable.Property != null)
             {
-                retStr = PropertyCsExporter.GenerateCode(variable.Property, stream, indent, typename, var, caller, setValue);
+                retStr = PropertyCsExporter.GenerateCode(variable.Property, variable.ArrayIndexElement, isRefParam, stream, indent, typename, var, caller, setValue);
             }
 
             return retStr;
@@ -121,17 +118,9 @@ namespace PluginBehaviac.DataExporters
                     StructCsExporter.PostGenerateCode(variable.Value, stream, indent, var, parent, paramName);
                 }
             }
-            else if (variable.ValueClass == Behaviac.Design.VariableDef.kPar)
-            {
-                Behaviac.Design.ParInfo par = variable.Value as Behaviac.Design.ParInfo;
-                if (par != null)
-                {
-                    ParInfoCsExporter.PostGenerateCode(par, stream, indent, typename, var, caller);
-                }
-            }
             else if (variable.Property != null)
             {
-                PropertyCsExporter.PostGenerateCode(variable.Property, stream, indent, typename, var, caller, setValue);
+                PropertyCsExporter.PostGenerateCode(variable.Property, variable.ArrayIndexElement, stream, indent, typename, var, caller, setValue);
             }
         }
     }

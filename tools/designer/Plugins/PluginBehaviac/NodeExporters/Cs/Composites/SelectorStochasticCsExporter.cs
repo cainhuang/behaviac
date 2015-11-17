@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,30 +26,51 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            SelectorStochastic sel = node as SelectorStochastic;
+            return (sel != null);
+        }
+
+        protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
+        {
+            base.GenerateConstructor(node, stream, indent, className);
+
+            SelectorStochastic sel = node as SelectorStochastic;
+            if (sel == null)
+                return;
+
+            if (sel.RandomGenerator != null)
+            {
+                stream.WriteLine("{0}\t\t\tthis.Initialize(\"{1}\");",
+                    indent, sel.RandomGenerator.GetExportValue());
+            }
         }
 
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
         {
-            SelectorStochastic selectorStochastic = node as SelectorStochastic;
-            Debug.Check(selectorStochastic != null);
+            SelectorStochastic sel = node as SelectorStochastic;
+            if (sel == null)
+                return;
 
-            stream.WriteLine("{0}\t\tpublic void Initialize(string method)", indent);
-            stream.WriteLine("{0}\t\t{{", indent);
-            stream.WriteLine("{0}\t\t\tthis.m_method = Action.LoadMethod(method);", indent);
-            stream.WriteLine("{0}\t\t}}", indent);
+            if (sel.RandomGenerator != null)
+            {
+                stream.WriteLine("{0}\t\tpublic void Initialize(string method)", indent);
+                stream.WriteLine("{0}\t\t{{", indent);
+                stream.WriteLine("{0}\t\t\tthis.m_method = Action.LoadMethod(method);", indent);
+                stream.WriteLine("{0}\t\t}}", indent);
+            }
         }
 
         public override void GenerateInstance(Node node, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
         {
             base.GenerateInstance(node, stream, indent, nodeName, agentType, btClassName);
 
-            SelectorStochastic selectorStochastic = node as SelectorStochastic;
-            Debug.Check(selectorStochastic != null);
+            SelectorStochastic sel = node as SelectorStochastic;
+            if (sel == null)
+                return;
 
-            if (selectorStochastic.RandomGenerator != null)
+            if (sel.RandomGenerator != null)
             {
-                string method = selectorStochastic.RandomGenerator.GetExportValue().Replace("\"", "\\\"");
+                string method = sel.RandomGenerator.GetExportValue().Replace("\"", "\\\"");
 
                 stream.WriteLine("{0}\t{1}.Initialize(\"{2}\");", indent, nodeName, method);
             }

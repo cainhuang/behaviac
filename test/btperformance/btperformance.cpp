@@ -11,17 +11,13 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "behaviac/test.h"
+//#include "test.h"
 #include "behaviac/base/base.h"
 #include "behaviac/base/config/config.h"
-
-#include "behaviac/base/socket/socketconnect.h"
-
 #include "behaviac/base/core/profiler/profiler.h"
-
 #include "behaviac/agent/agent.h"
-#include "behaviac/world/world.h"
 #include "behaviac/agent/registermacros.h"
+#include "BehaviacWorkspace.h"
 
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
@@ -30,201 +26,197 @@
 class CPerformanceAgent : public behaviac::Agent
 {
 public:
-	DECLARE_BEHAVIAC_OBJECT(CPerformanceAgent, behaviac::Agent);
+    DECLARE_BEHAVIAC_AGENT(CPerformanceAgent, behaviac::Agent);
 
-	CPerformanceAgent();
-	virtual ~CPerformanceAgent()
-	{}
+    CPerformanceAgent();
+    virtual ~CPerformanceAgent()
+    {}
 
-	void Clear();
-private:
-	float DistanceToEnemy;
-	float HP;
+    void Clear();
+public:
+    float DistanceToEnemy;
+    float HP;
 
-	float Hungry;
-	float Food;
+    float Hungry;
+    float Food;
 
-	float m_internal;
+    float m_internal;
 
-	behaviac::EBTStatus RunAway();
-	void Fire();
+    behaviac::EBTStatus RunAway();
+    void Fire();
 
-	behaviac::EBTStatus SearchForFood();
-	behaviac::EBTStatus Eat();
+    behaviac::EBTStatus SearchForFood();
+    behaviac::EBTStatus Eat();
 
-	behaviac::EBTStatus Wander();
-	behaviac::EBTStatus Fidget();
+    behaviac::EBTStatus Wander();
+    behaviac::EBTStatus Fidget();
 };
 
 CPerformanceAgent::CPerformanceAgent()
 {
-	this->Clear();
+    this->Clear();
 }
 
 void CPerformanceAgent::Clear()
 {
-	DistanceToEnemy = 100;
-	HP = 100;
+    DistanceToEnemy = 100;
+    HP = 100;
 
-	Hungry = 0;
-	Food = 0;
+    Hungry = 0;
+    Food = 0;
 
-	m_internal = 0.0f;
+    m_internal = 0.0f;
 }
 
 #pragma  optimize("", off)
 
 static int FakeSleep(int c)
 {
-	const int kCount = 500 * 500 * c;
-	int result = 0;
-	for (int i = 0; i < kCount; ++i)
-	{
-		result += i;
-		if (result > 10000000)
-		{
-			result = 0;
-		}
-	}
+    const int kCount = 500 * 500 * c;
+    int result = 0;
 
-	return result;
+    for (int i = 0; i < kCount; ++i) {
+        result += i;
+
+        if (result > 10000000) {
+            result = 0;
+        }
+    }
+
+    return result;
 }
 
 //#define TEST_LOGINFO BEHAVIAC_LOGINFO
-#define TEST_LOGINFO 
+#define TEST_LOGINFO
 
 behaviac::EBTStatus CPerformanceAgent::RunAway()
 {
-	BEHAVIAC_PROFILE("FunctionCall");
+    BEHAVIAC_PROFILE("FunctionCall");
 
-	Hungry += 0.015f;
-	DistanceToEnemy += 0.5f;
+    Hungry += 0.015f;
+    DistanceToEnemy += 0.5f;
 
-	TEST_LOGINFO("RunAway HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
-	FakeSleep(1);
-	return behaviac::BT_RUNNING;
+    TEST_LOGINFO("RunAway HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
+    FakeSleep(1);
+    return behaviac::BT_RUNNING;
 }
 
 void CPerformanceAgent::Fire()
 {
-	BEHAVIAC_PROFILE("FunctionCall");
+    BEHAVIAC_PROFILE("FunctionCall");
 
-	HP *= 0.3f;
-	if (DistanceToEnemy > 3.0f)
-	{
-		DistanceToEnemy -= 0.01f;
-	}
+    HP *= 0.3f;
 
-	TEST_LOGINFO("Fire HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
-	FakeSleep(1);
+    if (DistanceToEnemy > 3.0f) {
+        DistanceToEnemy -= 0.01f;
+    }
+
+    TEST_LOGINFO("Fire HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
+    FakeSleep(1);
 }
 
 behaviac::EBTStatus CPerformanceAgent::SearchForFood()
 {
-	BEHAVIAC_PROFILE("FunctionCall");
+    BEHAVIAC_PROFILE("FunctionCall");
 
-	Food += 0.002f;
+    Food += 0.002f;
 
-	TEST_LOGINFO("SearchForFood HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
-	FakeSleep(1);
+    TEST_LOGINFO("SearchForFood HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
+    FakeSleep(1);
 
-	if (Food >= 3.0f)
-	{
-		return behaviac::BT_SUCCESS;
-	}
+    if (Food >= 3.0f) {
+        return behaviac::BT_SUCCESS;
+    }
 
-	return behaviac::BT_RUNNING;
+    return behaviac::BT_RUNNING;
 }
 
 behaviac::EBTStatus CPerformanceAgent::Eat()
 {
-	BEHAVIAC_PROFILE("FunctionCall");
+    BEHAVIAC_PROFILE("FunctionCall");
 
-	Hungry -= 0.04f;
-	HP += 0.01f;
+    Hungry -= 0.04f;
+    HP += 0.01f;
 
-	TEST_LOGINFO("Eat HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
-	FakeSleep(1);
+    TEST_LOGINFO("Eat HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
+    FakeSleep(1);
 
-	if (Hungry <= 0.0f)
-	{
-		Hungry = 0.0f;
-		Food--;
+    if (Hungry <= 0.0f) {
+        Hungry = 0.0f;
+        Food--;
 
-		return behaviac::BT_SUCCESS;
-	}
+        return behaviac::BT_SUCCESS;
+    }
 
-	return behaviac::BT_RUNNING;
+    return behaviac::BT_RUNNING;
 }
 
 behaviac::EBTStatus CPerformanceAgent::Wander()
 {
-	BEHAVIAC_PROFILE("FunctionCall");
+    BEHAVIAC_PROFILE("FunctionCall");
 
-	m_internal += 0.03f;
-	DistanceToEnemy -= 0.01f;
-	HP -= 0.02f;
+    m_internal += 0.03f;
+    DistanceToEnemy -= 0.01f;
+    HP -= 0.02f;
 
-	TEST_LOGINFO("Wander HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
-	FakeSleep(1);
-	if (m_internal > 21.0f)
-	{
-		Hungry += m_internal;
-		m_internal = 0.0f;
-		return behaviac::BT_SUCCESS;
-	}
-	return behaviac::BT_RUNNING;
+    TEST_LOGINFO("Wander HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
+    FakeSleep(1);
+
+    if (m_internal > 21.0f) {
+        Hungry += m_internal;
+        m_internal = 0.0f;
+        return behaviac::BT_SUCCESS;
+    }
+
+    return behaviac::BT_RUNNING;
 }
 
 behaviac::EBTStatus CPerformanceAgent::Fidget()
 {
-	BEHAVIAC_PROFILE("FunctionCall");
+    BEHAVIAC_PROFILE("FunctionCall");
 
-	float smallDistance = this->GetVariable<float>("par_SmallDisance");
-	if (DistanceToEnemy > smallDistance)
-	{
-		DistanceToEnemy -= smallDistance;
-	}
+    float smallDistance = this->GetVariable<float>("par_SmallDisance");
 
-	TEST_LOGINFO("Fidget HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
-	return behaviac::BT_SUCCESS;
+    if (DistanceToEnemy > smallDistance) {
+        DistanceToEnemy -= smallDistance;
+    }
+
+    TEST_LOGINFO("Fidget HP=%f DistanceToEnemy=%f Hungry=%f Food=%f\n", HP, DistanceToEnemy, Hungry, Food);
+    return behaviac::BT_SUCCESS;
 }
 #pragma  optimize("", on)
 
 BEGIN_PROPERTIES_DESCRIPTION(CPerformanceAgent)
-REGISTER_PROPERTY(DistanceToEnemy);
-REGISTER_PROPERTY(HP);
-REGISTER_PROPERTY(Hungry);
-REGISTER_PROPERTY(Food);
+{
+	REGISTER_PROPERTY(DistanceToEnemy);
+	REGISTER_PROPERTY(HP);
+	REGISTER_PROPERTY(Hungry);
+	REGISTER_PROPERTY(Food);
 
-REGISTER_METHOD(RunAway);
-REGISTER_METHOD(Fire);
-REGISTER_METHOD(SearchForFood);
-REGISTER_METHOD(Eat);
-REGISTER_METHOD(Wander);
-REGISTER_METHOD(Fidget);
+	REGISTER_METHOD(RunAway);
+	REGISTER_METHOD(Fire);
+	REGISTER_METHOD(SearchForFood);
+	REGISTER_METHOD(Eat);
+	REGISTER_METHOD(Wander);
+	REGISTER_METHOD(Fidget);
+}
 END_PROPERTIES_DESCRIPTION()
 
-
-#include "generated_behaviors.cpp"
+#include "behaviac_generated/behaviors/generated_behaviors.h"
 
 class CommandLineParameterParser
 {
     int				m_argc;
     const char**	m_argv;
 public:
-	CommandLineParameterParser(int argc, char** argv) : m_argc(argc), m_argv((const char**)argv)
-    {
+    CommandLineParameterParser(int argc, char** argv) : m_argc(argc), m_argv((const char**)argv) {
     }
 
-    bool ParameterExist(const char* szParam)
-    {
+    bool ParameterExist(const char* szParam) {
         bool bMatch = false;
 
-        for (int i = 0; i < m_argc; ++i)
-        {
-            if (strcmp(m_argv[i], szParam) == 0)
-            {
+        for (int i = 0; i < m_argc; ++i) {
+            if (strcmp(m_argv[i], szParam) == 0) {
                 bMatch = true;
                 break;
             }
@@ -233,22 +225,19 @@ public:
         return bMatch;
     }
 
-	int ParameterEqualExist(const char* szParam)
-	{
-		int countAgents = 1;
+    int ParameterEqualExist(const char* szParam) {
+        int countAgents = 1;
 
-		for (int i = 0; i < m_argc; ++i)
-		{
-			if (const char* p = strstr(m_argv[i], szParam))
-			{
-				p += strlen(szParam);
-				countAgents = atoi(p);
-				break;
-			}
-		}
+        for (int i = 0; i < m_argc; ++i) {
+            if (const char* p = strstr(m_argv[i], szParam)) {
+                p += strlen(szParam);
+                countAgents = atoi(p);
+                break;
+            }
+        }
 
-		return countAgents == 0 ? 1 : countAgents;
-	}
+        return countAgents == 0 ? 1 : countAgents;
+    }
 };
 
 void RegisterTypes();
@@ -259,74 +248,70 @@ void btagenttick(behaviac::Workspace::EFileFormat format, int countAgents);
 static void SetExePath()
 {
 #if BEHAVIAC_COMPILER_MSVC
-	TCHAR szCurPath[_MAX_PATH];
+    TCHAR szCurPath[_MAX_PATH];
 
-	GetModuleFileName(NULL, szCurPath, _MAX_PATH);
+    GetModuleFileName(NULL, szCurPath, _MAX_PATH);
 
-	char* p = szCurPath;
+    char* p = szCurPath;
 
-	while (strchr(p, '\\'))
-	{
-		p = strchr(p, '\\');
-		p++;
-	}
+    while (strchr(p, '\\')) {
+        p = strchr(p, '\\');
+        p++;
+    }
 
-	*p = '\0';
+    *p = '\0';
 
-	SetCurrentDirectory(szCurPath);
+    SetCurrentDirectory(szCurPath);
 #endif
 }
 
-
 int main(int argc, char** argv)
 {
-	SetExePath();
+    SetExePath();
 
     CommandLineParameterParser CLPP(argc, argv);
     //if to wait for the key to end
     bool bWait = CLPP.ParameterExist("-wait");
 
-	int countAgents = CLPP.ParameterEqualExist("-agents=");
+    int countAgents = CLPP.ParameterEqualExist("-agents=");
 
-	behaviac::Workspace::EFileFormat format = behaviac::Workspace::EFF_xml;
+    behaviac::Workspace::EFileFormat format = behaviac::Workspace::EFF_xml;
 
-	bool bXml = CLPP.ParameterExist("-xml");
-	if (bXml)
-	{ 
-		format = behaviac::Workspace::EFF_xml;
-	}
+    bool bXml = CLPP.ParameterExist("-xml");
 
-	bool bCpp = CLPP.ParameterExist("-cpp");
-	if (bCpp)
-	{
-		format = behaviac::Workspace::EFF_cpp;
-	}
+    if (bXml) {
+        format = behaviac::Workspace::EFF_xml;
+    }
 
-	bool bBson = CLPP.ParameterExist("-bson");
-	if (bBson)
-	{
-		format = behaviac::Workspace::EFF_bson;
-	}
+    bool bCpp = CLPP.ParameterExist("-cpp");
 
-	CConfig::GetInstance()->LoadConfig("setting.xml");
+    if (bCpp) {
+        format = behaviac::Workspace::EFF_cpp;
+    }
 
-	if (!bWait)
-	{
-		const char* pWait = CConfig::Get("settings", "Wait");
-		if (pWait && strcmp(pWait, "1") == 0)
-		{
-			bWait = true;
-		}
-	}
+    bool bBson = CLPP.ParameterExist("-bson");
 
-	//behaviac::Socket::SetupConnection(false);
+    if (bBson) {
+        format = behaviac::Workspace::EFF_bson;
+    }
 
-	btagenttick(format, countAgents);
+    CConfig::GetInstance()->LoadConfig("setting.xml");
 
-	//behaviac::Socket::ShutdownConnection();
+    if (!bWait) {
+        const char* pWait = CConfig::Get("settings", "Wait");
 
-	if (bWait)
-    {
+        if (pWait && strcmp(pWait, "1") == 0) {
+            bWait = true;
+        }
+    }
+
+    //behaviac::Socket::SetupConnection(false);
+
+    btagenttick(format, countAgents);
+
+    //behaviac::Socket::ShutdownConnection();
+
+    if (bWait) {
         printf("\npress any key to end.\n");
         getchar();
     }
@@ -334,129 +319,121 @@ int main(int argc, char** argv)
     return 0;
 }
 
-struct AgentItem_t
-{
-	CPerformanceAgent*	pA;
-	bool				bGo;
+struct AgentItem_t {
+    CPerformanceAgent*	pA;
+    bool				bGo;
 
-	AgentItem_t() : bGo(true)
-	{
-
-	}
+    AgentItem_t() : bGo(true) {
+    }
 };
 
 void MyMethod(int countAgents, AgentItem_t* agents)
 {
-	bool bLoop = true;
-	while (bLoop)
-	{
-		int c = 0;
-		for (int i = 0; i < countAgents; ++i)
-		{
-			if (agents[i].bGo)
-			{
-				behaviac::EBTStatus s = agents[i].pA->btexec();
+    bool bLoop = true;
 
-				if (s != behaviac::BT_RUNNING)
-				{
-					agents[i].bGo = false;
-					c++;
-				}
-			}
-			else
-			{
-				c++;
-			}
-		}
+    while (bLoop) {
+        int c = 0;
 
-		if (countAgents == c)
-		{
-			bLoop = false;
-		}
-	}
+        for (int i = 0; i < countAgents; ++i) {
+            if (agents[i].bGo) {
+                behaviac::EBTStatus s = agents[i].pA->btexec();
+
+                if (s != behaviac::BT_RUNNING) {
+                    agents[i].bGo = false;
+                    c++;
+                }
+
+            } else {
+                c++;
+            }
+        }
+
+        if (countAgents == c) {
+            bLoop = false;
+        }
+    }
 }
-
 
 void btagenttick(behaviac::Workspace::EFileFormat format, int countAgents)
 {
-	const char* strFormat = "xml";
-	if (format == behaviac::Workspace::EFF_xml)
-	{
-		strFormat = "xml";
-	}
-	else if (format == behaviac::Workspace::EFF_cpp)
-	{
-		strFormat = "cpp";
-	}
-	if (format == behaviac::Workspace::EFF_bson)
-	{
-		strFormat = "bson";
-	}
+    const char* strFormat = "xml";
 
-	printf("\nAgents %d Format %s\n", countAgents, strFormat);
-	BEHAVIAC_LOGMSG("\nAgents %d Format %s\n", countAgents, strFormat);
+    if (format == behaviac::Workspace::EFF_xml) {
+        strFormat = "xml";
 
-	behaviac::Start();
-	behaviac::Agent::Register<CPerformanceAgent>();
+    } else if (format == behaviac::Workspace::EFF_cpp) {
+        strFormat = "cpp";
+    }
 
-	behaviac::Config::SetLogging(false);
-	behaviac::Config::SetSocketing(false);
-	behaviac::Config::SetLogging(false);
-	behaviac::LogManager::GetInstance()->SetFlush(false);
+    if (format == behaviac::Workspace::EFF_bson) {
+        strFormat = "bson";
+    }
 
-	behaviac::Config::SetProfiling(false);
+    printf("\nAgents %d Format %s\n", countAgents, strFormat);
+    BEHAVIAC_LOGMSG("\nAgents %d Format %s\n", countAgents, strFormat);
 
-	behaviac::Workspace::SetWorkspaceSettings("../integration/unity/Assets/Resources/example_workspace/exported", format);
+	behaviac::Workspace::GetInstance()->SetFilePath("../integration/unity_performance/Assets/Resources/behaviac/exported");
+	behaviac::Workspace::GetInstance()->SetFileFormat(format);
 
-	AgentItem_t* agents = BEHAVIAC_NEW AgentItem_t[countAgents];
+    behaviac::Config::SetLogging(false);
+	behaviac::Config::SetLoggingFlush(false);
+    behaviac::Config::SetSocketing(false);
 
-	behaviac::Agent::SetIdMask(0xffffffff);
+    
 
-	for (int i = 0; i < countAgents; ++i)
-	{
-		agents[i].pA = behaviac::Agent::Create<CPerformanceAgent>();
+    behaviac::Agent::Register<CPerformanceAgent>();
 
-		agents[i].pA->SetIdFlag(0);
 
-		agents[i].pA->btload("game/Performance");
-		agents[i].pA->btsetcurrent("game/Performance");
-	}
+    behaviac::Config::SetProfiling(false);
 
-	//run once to warm the oven
-	MyMethod(countAgents, agents);
+    AgentItem_t* agents = BEHAVIAC_NEW AgentItem_t[countAgents];
 
-	behaviac::Config::SetProfiling(true);
-	behaviac::Profiler::GetInstance()->SetOutputDebugBlock(true);
-	behaviac::Profiler::GetInstance()->SetHierarchy(false);
+    behaviac::Agent::SetIdMask(0xffffffff);
 
-	for (int i = 0; i < countAgents; ++i)
-	{
-		agents[i].bGo = true;
-		agents[i].pA->Clear();
-		agents[i].pA->btresetcurrrent();
-	}
+    for (int i = 0; i < countAgents; ++i) {
+        agents[i].pA = behaviac::Agent::Create<CPerformanceAgent>();
 
-	behaviac::Profiler::GetInstance()->BeginFrame();
+        agents[i].pA->SetIdFlag(0);
 
-	MyMethod(countAgents, agents);
+        agents[i].pA->btload("performance/Performance");
+        agents[i].pA->btsetcurrent("performance/Performance");
+    }
 
-	behaviac::Profiler::GetInstance()->EndFrame();
+    //run once to warm the oven
+    MyMethod(countAgents, agents);
 
-	const behaviac::string profile_data = behaviac::Profiler::GetInstance()->GetData(true, false);
+    behaviac::Config::SetProfiling(true);
+    behaviac::Profiler::GetInstance()->SetOutputDebugBlock(true);
+    behaviac::Profiler::GetInstance()->SetHierarchy(false);
 
-	behaviac::string profile_data_m = "\n";
-	profile_data_m += profile_data;
-	profile_data_m += "\n";
+    for (int i = 0; i < countAgents; ++i) {
+        agents[i].bGo = true;
+        agents[i].pA->Clear();
+        agents[i].pA->btresetcurrrent();
+    }
 
-	//BEHAVIAC_LOGMSG("\n%s\n", profile_data_m.c_str());
-	behaviac::ConsoleOut::PrintLines(profile_data_m.c_str());
+    behaviac::Profiler::GetInstance()->BeginFrame();
 
-	behaviac::LogManager::GetInstance()->Flush(0);
+    MyMethod(countAgents, agents);
 
-	BEHAVIAC_DELETE(agents);
+    behaviac::Profiler::GetInstance()->EndFrame();
 
-	behaviac::Agent::UnRegister<CPerformanceAgent>();
-	behaviac::Stop();
+    const behaviac::string profile_data = behaviac::Profiler::GetInstance()->GetData(true, false);
 
-	printf("\ndone\n");
+    behaviac::string profile_data_m = "\n";
+    profile_data_m += profile_data;
+    profile_data_m += "\n";
+
+    //BEHAVIAC_LOGMSG("\n%s\n", profile_data_m.c_str());
+    behaviac::ConsoleOut::PrintLines(profile_data_m.c_str());
+
+    behaviac::LogManager::GetInstance()->Flush(0);
+
+    BEHAVIAC_DELETE(agents);
+
+    behaviac::Agent::UnRegister<CPerformanceAgent>();
+
+    
+
+    printf("\ndone\n");
 }

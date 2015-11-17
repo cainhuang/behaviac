@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,68 +26,62 @@ namespace Behaviac.Design
 {
     public partial class ConnectDialog : Form
     {
-        public ConnectDialog(int portNr)
-        {
+        public ConnectDialog(int portNr) {
             InitializeComponent();
             m_portNr = portNr;
         }
 
-        public String GetServer()
-        {
-            if (IPOnlyNumbersAndDots(tbServer.Text))
+        public String GetServer() {
+            if (IPOnlyNumbersAndDots(tbServer.Text)) {
                 return tbServer.Text;
-            else
+            }
+
+            else {
                 return GetIP(tbServer.Text);
+            }
         }
-        public int GetPort()
-        {
+        public int GetPort() {
             return Convert.ToInt32(tbPort.Text);
         }
 
-        private static String GetLocalIP()
-        {
+        private static String GetLocalIP() {
             String strHostName = Dns.GetHostName();
             return GetIP(strHostName);
         }
-        private static String GetIP(String strHostName)
-        {
+        private static String GetIP(String strHostName) {
             // Find host by name
             IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
 
             // Grab the first IP addresses
             String IPStr = "";
-            foreach (IPAddress ipaddress in iphostentry.AddressList)
-            {
+            foreach(IPAddress ipaddress in iphostentry.AddressList) {
                 IPStr = ipaddress.ToString();
-                if (IPOnlyNumbersAndDots(IPStr))
-                {
+
+                if (IPOnlyNumbersAndDots(IPStr)) {
                     return IPStr;
                 }
             }
             return IPStr;
         }
 
-        private void ConnectDialog_Shown(object sender, EventArgs e)
-        {
+        private void ConnectDialog_Shown(object sender, EventArgs e) {
             tbServer.Text = GetLocalIP();
             tbPort.Text = m_portNr.ToString();
         }
         int m_portNr;
 
-        private void tbPort_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
+        private void tbPort_KeyPress(object sender, KeyPressEventArgs e) {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
         }
-        private static bool IPOnlyNumbersAndDots(String s)
-        {
-            for (int i = 0; i < s.Length; ++i)
-            {
-                if (!char.IsDigit(s[i]) && s[i] != '.')
+        private static bool IPOnlyNumbersAndDots(String s) {
+            for (int i = 0; i < s.Length; ++i) {
+                if (!char.IsDigit(s[i]) && s[i] != '.') {
                     return false;
+                }
             }
+
             return true;
         }
     }

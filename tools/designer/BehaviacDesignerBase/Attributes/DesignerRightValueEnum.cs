@@ -23,8 +23,7 @@ namespace Behaviac.Design.Attributes
     public class DesignerRightValueEnum : DesignerPropertyEnum
     {
         private MethodType _methodType;
-        public MethodType MethodType
-        {
+        public MethodType MethodType {
             get
             {
                 return this._methodType;
@@ -41,62 +40,54 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerRightValueEnum(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, AllowStyles styles, MethodType methodType, string dependedProperty, string dependingProperty, ValueTypes filterType = ValueTypes.All)
-            : base(displayName, description, category, displayMode, displayOrder, flags, styles, dependedProperty, dependingProperty, filterType)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, styles, dependedProperty, dependingProperty, filterType) {
             _methodType = methodType;
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (type != typeof(RightValueDef))
-                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
+            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
 
             if (str.Length == 0 ||
-                str.Length == 2 && str == "\"\"")
-            {
+                str.Length == 2 && str == "\"\"") {
                 return null;
             }
 
-            if (!str.StartsWith("const"))
-            {
+            if (!str.StartsWith("const")) {
                 int pos = str.IndexOf('(');
-                if (pos < 0)
-                {
-                    VariableDef var = this.parsePropertyVar(node, str);
+
+                if (pos < 0) {
+                    VariableDef var = DesignerPropertyEnum.parsePropertyVar(result, node, str);
 
                     return new RightValueDef(var);
-                }
-                else
-                {
-                    //Ship::Getter(100,50,50)
+
+                } else {
                     Behaviac.Design.Nodes.Behavior behavior = node.Behavior as Behaviac.Design.Nodes.Behavior;
+                    AgentType agentType = (behavior != null) ? behavior.AgentType : null;
 
                     string valueClass = VariableDef.kSelfMethod;
-                    MethodDef method = DesignerMethodEnum.parseMethodString(node, behavior.AgentType, this.MethodType, str);
-                    if (method == null)
-                    {
+                    MethodDef method = DesignerMethodEnum.parseMethodString(result, node, agentType, this.MethodType, str);
+
+                    if (method == null) {
                         string className = Plugin.GetClassName(str);
-                        method = DesignerMethodEnum.parseMethodString(node, Plugin.GetInstanceAgentType(className), this.MethodType, str);
+                        method = DesignerMethodEnum.parseMethodString(result, node, Plugin.GetInstanceAgentType(className), this.MethodType, str);
                         valueClass = className + VariableDef.kMethod;
                     }
 
-                    //Debug.Check(method != null);
-
                     string instanceName = Plugin.GetInstanceName(str);
-                    if (!string.IsNullOrEmpty(instanceName))
-                    {
+
+                    if (!string.IsNullOrEmpty(instanceName)) {
                         valueClass = instanceName + VariableDef.kMethod;
                     }
 
                     return new RightValueDef(method, valueClass);
                 }
-            }
-            else
-            {
-                VariableDef var = this.parseConstVar(node, parentObject, str);
 
-                if (var != null)
-                {
+            } else {
+                VariableDef var = this.parseConstVar(result, node, parentObject, str);
+
+                if (var != null) {
                     return new RightValueDef(var);
                 }
             }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -119,55 +119,61 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="saveMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="saveMenuItem.Text" xml:space="preserve">
     <value>保存</value>
   </data>
   <data name="closeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="closeMenuItem.Text" xml:space="preserve">
     <value>关闭</value>
   </data>
   <data name="closeOthersMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="closeOthersMenuItem.Text" xml:space="preserve">
     <value>关闭其他</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 6</value>
+    <value>205, 6</value>
   </data>
   <data name="copyNameMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="copyNameMenuItem.Text" xml:space="preserve">
     <value>复制文件名</value>
   </data>
+  <data name="showMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="showMenuItem.Text" xml:space="preserve">
+    <value>显示在文件列表中的位置</value>
+  </data>
   <data name="openFolderMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="openFolderMenuItem.Text" xml:space="preserve">
     <value>打开所在文件夹</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 6</value>
+    <value>205, 6</value>
   </data>
   <data name="floatMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="floatMenuItem.Text" xml:space="preserve">
     <value>悬浮文件窗体</value>
   </data>
   <data name="dockMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="dockMenuItem.Text" xml:space="preserve">
     <value>停靠文件窗体</value>
   </data>
   <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 170</value>
+    <value>209, 192</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

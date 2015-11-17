@@ -31,26 +31,23 @@ namespace Behaviac.Design.Attributes
         /// <param name="displayOrder">Defines the order the properties will be sorted in when shown in the property grid. Lower come first.</param>
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         public DesignerArrayStruct(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags) {
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             string str = string.Empty;
-            if (obj != null)
-            {
+
+            if (obj != null) {
                 Type type = obj.GetType();
-                if (Plugin.IsArrayType(type))
-                {
+
+                if (Plugin.IsArrayType(type)) {
                     Type itemType = type.GetGenericArguments()[0];
-                    if (Plugin.IsCustomClassType(itemType))
-                    {
+
+                    if (Plugin.IsCustomClassType(itemType)) {
                         System.Collections.IList itemList = (System.Collections.IList)(obj);
-                        foreach (object item in itemList)
-                        {
+                        foreach(object item in itemList) {
                             if (!string.IsNullOrEmpty(str))
-                                str += "|";
+                            { str += "|"; }
 
                             str += "{" + getExportValue(item, itemType) + "}";
                         }
@@ -63,32 +60,31 @@ namespace Behaviac.Design.Attributes
             return str;
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             Debug.Check(Plugin.IsArrayType(type));
-            return ParseStringValue(type, str, node);
+            return ParseStringValue(result, type, str, node);
         }
 
-        public new static object ParseStringValue(Type type, string str, NodeTag.DefaultObject node)
+        public new static object ParseStringValue(List<Nodes.Node.ErrorCheck> result, Type type, string str, DefaultObject node)
         {
             Debug.Check(type != null && Plugin.IsArrayType(type));
 
             object obj = Plugin.CreateInstance(type);
             Debug.Check(obj != null);
 
-            if (!string.IsNullOrEmpty(str))
-            {
+            if (!string.IsNullOrEmpty(str)) {
                 System.Collections.IList list = (System.Collections.IList)obj;
                 Type itemType = type.GetGenericArguments()[0];
 
                 int index = str.IndexOf(':');
-                if (index >= 0)
-                    str = str.Substring(index + 1);
 
-                if (!string.IsNullOrEmpty(str))
-                {
+                if (index >= 0)
+                { str = str.Substring(index + 1); }
+
+                if (!string.IsNullOrEmpty(str)) {
                     System.Collections.IList structArray = (System.Collections.IList)Plugin.CreateInstance(type);
-                    parseStringValue(node, structArray, itemType, str, 0, str.Length - 1);
+                    parseStringValue(result, node, structArray, itemType, str, 0, str.Length - 1);
 
                     return structArray;
                 }
@@ -97,45 +93,40 @@ namespace Behaviac.Design.Attributes
             return obj;
         }
 
-        private string getExportValue(object item, Type itemType)
-        {
+        private string getExportValue(object item, Type itemType) {
             string str = string.Empty;
-            if (item != null)
-            {
+
+            if (item != null) {
                 IList<DesignerPropertyInfo> properties = DesignerProperty.GetDesignerProperties(itemType);
-                foreach (DesignerPropertyInfo property in properties)
-                {
+                foreach(DesignerPropertyInfo property in properties) {
                     if (!property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoSave))
-                        str += property.Property.Name + "=" + property.GetExportValue(item) + ";";
+                    { str += property.Property.Name + "=" + property.GetExportValue(item) + ";"; }
                 }
             }
 
             return str;
         }
 
-        private static int getItemStr(string str, int startIndex, int endIndex, out string propertyName, out string propertyValue)
-        {
+        private static int getItemStr(string str, int startIndex, int endIndex, out string propertyName, out string propertyValue) {
             propertyName = string.Empty;
             propertyValue = string.Empty;
 
             int brackets = 0;
             int itemStartIndex = -1;
-            for (int i = startIndex; i <= endIndex; ++i)
-            {
-                if (str[i] == '{')
-                {
+
+            for (int i = startIndex; i <= endIndex; ++i) {
+                if (str[i] == '{') {
                     brackets++;
+
                     if (brackets == 1)
-                        itemStartIndex = i;
-                }
-                else if (str[i] == '}')
-                {
+                    { itemStartIndex = i; }
+
+                } else if (str[i] == '}') {
                     Debug.Check(brackets > 0);
                     brackets--;
                 }
 
-                if (brackets == 0 && (str[i] == '|' || i == endIndex) )
-                {
+                if (brackets == 0 && (str[i] == '|' || i == endIndex)) {
                     propertyValue = str.Substring(itemStartIndex + 1, i - itemStartIndex - 1);
                     return i + 1;
                 }
@@ -144,19 +135,18 @@ namespace Behaviac.Design.Attributes
             return -1;
         }
 
-        private static void parseStringValue(NodeTag.DefaultObject node, System.Collections.IList structArray, Type itemType, string str, int startIndex, int endIndex)
+        private static void parseStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, System.Collections.IList structArray, Type itemType, string str, int startIndex, int endIndex)
         {
             string propertyName = string.Empty;
             string propertyValue = string.Empty;
 
             int nextIndex = getItemStr(str, startIndex, endIndex, out propertyName, out propertyValue);
 
-            if (nextIndex > 0)
-            {
-                object item = DesignerStruct.ParseStringValue(itemType, null, propertyValue, node);
+            if (nextIndex > 0) {
+                object item = DesignerStruct.ParseStringValue(result, itemType, null, propertyValue, node);
                 structArray.Add(item);
 
-                parseStringValue(node, structArray, itemType, str, nextIndex, endIndex);
+                parseStringValue(result, node, structArray, itemType, str, nextIndex, endIndex);
             }
         }
     }

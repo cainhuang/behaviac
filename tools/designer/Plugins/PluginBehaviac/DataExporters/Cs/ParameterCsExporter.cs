@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -25,13 +25,13 @@ namespace PluginBehaviac.DataExporters
         {
             Behaviac.Design.ParInfo par = param.Value as Behaviac.Design.ParInfo;
             if (par != null)
-                return ParInfoCsExporter.GenerateCode(par, stream, indent, typename, var, caller);
+                return ParInfoCsExporter.GenerateCode(par, param.IsRef, stream, indent, typename, var, caller);
 
             Behaviac.Design.VariableDef v = param.Value as Behaviac.Design.VariableDef;
             if (v != null)
-                return VariableCsExporter.GenerateCode(v, stream, indent, typename, var, caller);
+                return VariableCsExporter.GenerateCode(v, param.IsRef, stream, indent, typename, var, caller);
 
-            return DataCsExporter.GenerateCode(param.Value, stream, indent, typename, var, caller); ;
+            return DataCsExporter.GenerateCode(param.Value, stream, indent, typename, var, caller);
         }
 
         public static void PostGenerateCode(Behaviac.Design.MethodDef.Param param, StreamWriter stream, string indent, string typename, string var, string caller, object parent, string setValue)
@@ -39,7 +39,7 @@ namespace PluginBehaviac.DataExporters
             Behaviac.Design.ParInfo par = param.Value as Behaviac.Design.ParInfo;
             if (par != null)
             {
-                ParInfoCsExporter.PostGenerateCode(par, stream, indent, typename, var, caller);
+                ParInfoCsExporter.PostGenerateCode(par, null, stream, indent, typename, var, caller);
                 return;
             }
 

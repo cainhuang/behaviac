@@ -16,60 +16,53 @@
 
 namespace behaviac
 {
-	DecoratorAlwaysFailure::DecoratorAlwaysFailure()
-	{}
+    DecoratorAlwaysFailure::DecoratorAlwaysFailure()
+    {}
 
-	DecoratorAlwaysFailure::~DecoratorAlwaysFailure()
-	{}
+    DecoratorAlwaysFailure::~DecoratorAlwaysFailure()
+    {}
 
-	void DecoratorAlwaysFailure::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void DecoratorAlwaysFailure::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool DecoratorAlwaysFailure::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!DecoratorAlwaysFailure::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool DecoratorAlwaysFailure::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!DecoratorAlwaysFailure::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
+        return super::IsValid(pAgent, pTask);
+    }
 
-	BehaviorTask* DecoratorAlwaysFailure::createTask() const
-	{
-		DecoratorAlwaysFailureTask* pTask = BEHAVIAC_NEW DecoratorAlwaysFailureTask();
-		
+    BehaviorTask* DecoratorAlwaysFailure::createTask() const
+    {
+        DecoratorAlwaysFailureTask* pTask = BEHAVIAC_NEW DecoratorAlwaysFailureTask();
 
-		return pTask;
-	}
+        return pTask;
+    }
 
-	void DecoratorAlwaysFailureTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void DecoratorAlwaysFailureTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
+    void DecoratorAlwaysFailureTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void DecoratorAlwaysFailureTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void DecoratorAlwaysFailureTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-	void DecoratorAlwaysFailureTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    EBTStatus DecoratorAlwaysFailureTask::decorate(EBTStatus status)
+    {
+        BEHAVIAC_UNUSED_VAR(status);
 
-
-
-	EBTStatus DecoratorAlwaysFailureTask::decorate(EBTStatus status)
-	{
-		BEHAVIAC_UNUSED_VAR(status);
-
-		return BT_FAILURE;
-	}
-
-
+        return BT_FAILURE;
+    }
 }//namespace behaviac

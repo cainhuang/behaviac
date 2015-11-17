@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_META_REMOVECONST_H__INCLUDED
-#define _BEHAVIAC_BASE_META_REMOVECONST_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_META_REMOVECONST_H_INCLUDED
+#define _BEHAVIAC_BASE_META_REMOVECONST_H_INCLUDED
 
 namespace behaviac
 {
@@ -41,7 +41,6 @@ namespace behaviac
         {
             typedef T& Result;
         };
-
 
         template <typename T>
         struct RemoveConst<volatile T>
@@ -78,7 +77,6 @@ namespace behaviac
         {
             typedef typename RemoveConst<T>::Result* volatile Result;
         };
-
     }
 }
 

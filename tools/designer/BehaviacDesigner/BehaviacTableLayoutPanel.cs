@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -24,29 +24,24 @@ namespace Behaviac.Design
 {
     public class BehaviacTableLayoutPanel : TableLayoutPanel
     {
-        protected override void OnCreateControl()
-        {
+        protected override void OnCreateControl() {
             base.OnCreateControl();
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.CacheText, true);
         }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
+        protected override CreateParams CreateParams {
+            get {
                 CreateParams cp = base.CreateParams;
                 cp.ExStyle |= NativeMethodsProxy.WS_EX_COMPOSITED;
                 return cp;
             }
         }
 
-        public void BeginUpdate()
-        {
+        public void BeginUpdate() {
             NativeMethodsProxy.SendMessage(this.Handle, NativeMethodsProxy.WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
         }
 
-        public void EndUpdate()
-        {
+        public void EndUpdate() {
             NativeMethodsProxy.SendMessage(this.Handle, NativeMethodsProxy.WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
             Parent.Invalidate(true);
         }

@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_ACTION_H_
-#define BEHAVIAC_BEHAVIORTREE_ACTION_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_ACTION_H
+#define BEHAVIAC_BEHAVIORTREE_ACTION_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -21,17 +21,17 @@
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup Action
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup Action
+    * @{ */
 
-	///An action is a member function of agent
-	/** 
-	Action node is the bridge between behavior tree and agent member function.
-	a member function can be assigned to an action node. function will be
-	invoked when Action node ticked. function attached can be up to eight parameters most.
-	*/
+    ///An action is a member function of agent
+    /**
+    Action node is the bridge between behavior tree and agent member function.
+    a member function can be assigned to an action node. function will be
+    invoked when Action node ticked. function attached can be up to eight parameters most.
+    */
     class BEHAVIAC_API Action : public BehaviorNode
     {
     public:
@@ -40,28 +40,24 @@ namespace behaviac
         Action();
         virtual ~Action();
         virtual void load(int version, const char* agentType, const properties_t& properties);
+        static CMethodBase* LoadMethod(const char* value_);
+        EBTStatus Execute(Agent* pAgent);
 
-	protected:
-		virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus) 
-        { 
-            BEHAVIAC_UNUSED_VAR(pAgent); 
-            BEHAVIAC_UNUSED_VAR(childStatus); 
- 
-            return BT_FAILURE; 
-        }
+        EBTStatus Execute(const Agent* pAgent, EBTStatus childSatus);
+        static const char* ParseMethodNames(const char* fullName, char* agentIntanceName, char* agentClassName, char* methodName);
+    protected:
+        virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
 
-	private:
-		virtual BehaviorTask* createTask() const;
+    private:
+        virtual BehaviorTask* createTask() const;
 
     protected:
         CMethodBase*		m_method;
         EBTStatus			m_resultOption;
-		CMethodBase*		m_resultFunctor;
-		EBTStatus			m_resultPreconditionFail;
+        CMethodBase*		m_resultFunctor;
 
-		friend class ActionTask;
-    };	
+        friend class ActionTask;
+    };
 
     class BEHAVIAC_API ActionTask : public LeafTask
     {
@@ -72,16 +68,16 @@ namespace behaviac
         virtual ~ActionTask();
 
     protected:
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
 
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_ACTION_H_
+#endif//BEHAVIAC_BEHAVIORTREE_ACTION_H

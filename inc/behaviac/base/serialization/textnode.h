@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_TEXTNODE_H_
-#define _CORE_TEXTNODE_H_
+#ifndef BEHAVIAC_CORE_TEXTNODE_H
+#define BEHAVIAC_CORE_TEXTNODE_H
 
 #include "behaviac/base/serialization/serializablenode.h"
 #include "behaviac/base/xml/ixml.h"
@@ -120,14 +120,14 @@ public:
     }
 
     virtual void setAttrRaw(const CSerializationID& keyID, const char* valueStr, int typeId = 0, int length = 0)
-	{
+    {
         BEHAVIAC_UNUSED_VAR(typeId);
         BEHAVIAC_UNUSED_VAR(length);
-        
-		m_xmlNode->setAttrText(keyID.GetString(), valueStr);
-	}
 
-	virtual void addChild(const CSerializationID& keyID, const ISerializableNode* child);
+        m_xmlNode->setAttrText(keyID.GetString(), valueStr);
+    }
+
+    virtual void addChild(const CSerializationID& keyID, const ISerializableNode* child);
 
     void addChild(XmlNodeRef xmlChild);
 
@@ -151,4 +151,4 @@ private:
     XmlConstNodeRef m_constXmlNode;
 };
 
-#endif //_CORE_TEXTNODE_H_
+#endif //BEHAVIAC_CORE_TEXTNODE_H

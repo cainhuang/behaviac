@@ -11,10 +11,10 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "behaviac/base/base.h"
-#include "behaviac/test.h"
-#include "behaviac/base/config/config.h"
-#include "behaviac/base/core/profiler/profiler.h"
+#include "test.h"
+#include "behaviac/behaviac.h"
+#include "BehaviacWorkspace.h"
+#include "btloadtestsuite.h"
 
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
@@ -51,21 +51,28 @@ public:
 
 int my_main(bool bVerbose)
 {
-	TestSuite& testSuite = TestSuite::getInstance();
-    
-	testSuite.setVerbose(bVerbose);
+    TestSuite& testSuite = TestSuite::getInstance();
 
-	std::cout << "UNIT TEST:" << std::endl;
+    testSuite.setVerbose(bVerbose);
+
+    std::cout << "UNIT TEST:" << std::endl;
+
+    behaviac::Workspace::GetInstance()->SetFilePath("../test/btunittest/BehaviacData/exported");
+    //{
+    //	registerAllTypes();
+    //	behaviac::Workspace::GetInstance()->ExportMetas("../test/btunittest/BehaviacData/xmlmeta/UnitTestCppMeta.xml");
+    //	unregisterAllTypes();
+    //}
+
     bool allPassed = testSuite.runAllTests();
 
-	if (allPassed)
-	{
-		std::cout << std::endl << "ALL TESTS SUCCEED." << std::endl << std::flush;
-	}
+    if (allPassed)
+    {
+        std::cout << std::endl << "ALL TESTS SUCCEED." << std::endl << std::flush;
+    }
 
-	return allPassed ? 0 : 1;
+    return allPassed ? 0 : 1;
 }
-
 
 #if BEHAVIAC_COMPILER_ANDROID
 #include <jni.h>
@@ -90,11 +97,11 @@ int my_main(bool bVerbose)
 
 void btunitest_game(behaviac::Workspace::EFileFormat format);
 
-extern "C" JNIEXPORT void JNICALL Java_com_tencent_tag_behaviac_MainActivity_btutmain(JNIEnv *env,
-                                                             jclass tis, jobject assetManager)
+extern "C" JNIEXPORT void JNICALL Java_com_tencent_tag_behaviac_MainActivity_btutmain(JNIEnv* env,
+        jclass tis, jobject assetManager)
 {
-	BEHAVIAC_UNUSED_VAR(env);
-	BEHAVIAC_UNUSED_VAR(tis);
+    BEHAVIAC_UNUSED_VAR(env);
+    BEHAVIAC_UNUSED_VAR(tis);
     BEHAVIAC_LOGINFO("btutmain begin");
 #if BEHAVIAC_COMPILER_ANDROID && (BEHAVIAC_COMPILER_ANDROID_VER > 8)
     AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
@@ -103,9 +110,9 @@ extern "C" JNIEXPORT void JNICALL Java_com_tencent_tag_behaviac_MainActivity_btu
     CFileManager::GetInstance()->SetAssetManager(mgr);
 #endif
 
-	btunitest_game(behaviac::Workspace::EFF_xml);
+    btunitest_game(behaviac::Workspace::EFF_xml);
 
-	//my_main();
+    //my_main();
     BEHAVIAC_LOGINFO("btutmain end");
 }
 #endif//BEHAVIAC_COMPILER_ANDROID
@@ -113,21 +120,21 @@ extern "C" JNIEXPORT void JNICALL Java_com_tencent_tag_behaviac_MainActivity_btu
 static void SetExePath()
 {
 #if BEHAVIAC_COMPILER_MSVC
-	TCHAR szCurPath[_MAX_PATH];
+    TCHAR szCurPath[_MAX_PATH];
 
-	GetModuleFileName(NULL, szCurPath, _MAX_PATH);
+    GetModuleFileName(NULL, szCurPath, _MAX_PATH);
 
-	char* p = szCurPath;
+    char* p = szCurPath;
 
-	while(strchr(p,'\\'))
-	{
-		p = strchr(p,'\\');
-		p++;
-	}
+    while (strchr(p, '\\'))
+    {
+        p = strchr(p, '\\');
+        p++;
+    }
 
-	*p = '\0';
+    *p = '\0';
 
-	SetCurrentDirectory(szCurPath);
+    SetCurrentDirectory(szCurPath);
 #endif
 }
 
@@ -136,39 +143,38 @@ int main(int argc, char** argv)
 {
     // int BEHAVIAC_UNIQUE_NAME(intVar) = 0;
     // float BEHAVIAC_UNIQUE_NAME(floatVar) = 0.0f;
-	SetExePath();
+    SetExePath();
 
     CommandLineParameterParser CLPP(argc, argv);
     //if to wait for the key to end
     bool bWait = CLPP.ParameterExist("-wait");
 
-	//CConfig::GetInstance()->LoadConfig("setting.xml");
+    //CConfig::GetInstance()->LoadConfig("setting.xml");
 
-	//if (!bWait)
-	//{
-	//	const char* pWait = CConfig::Get("settings", "Wait");
-	//	if (pWait && strcmp(pWait, "1") == 0)
-	//	{
-	//		bWait = true;
-	//	}
-	//}
+    //if (!bWait)
+    //{
+    //	const char* pWait = CConfig::Get("settings", "Wait");
+    //	if (pWait && strcmp(pWait, "1") == 0)
+    //	{
+    //		bWait = true;
+    //	}
+    //}
 
-	//CTimer::GetInstance()->Init();
+    //CTimer::GetInstance()->Init();
 #if ENABLE_MEMORYDUMP
-	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-	//_CrtDumpMemoryLeaks();
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtDumpMemoryLeaks();
 
-	//_crtBreakAlloc
-	//_lRequestCurr
-	static long s_breakalloc = -1;
-	_CrtSetBreakAlloc(s_breakalloc);
+    //_crtBreakAlloc
+    //_lRequestCurr
+    static long s_breakalloc = -1;
+    _CrtSetBreakAlloc(s_breakalloc);
 #endif
 
-	bool bVerbose = false;
-	int result = my_main(bVerbose);
+    bool bVerbose = false;
+    int result = my_main(bVerbose);
 
-
-	if (bWait)
+    if (bWait)
     {
         //BEHAVIAC_ASSERT(allPassed);
         printf("\npress any key to end.\n");

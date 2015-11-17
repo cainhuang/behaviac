@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -25,7 +25,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            Parallel parallel = node as Parallel;
+            return (parallel != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -33,7 +34,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             Parallel parallel = node as Parallel;
-            Debug.Check(parallel != null);
+            if (parallel == null)
+                return;
 
             stream.WriteLine("{0}\t\t\tm_failPolicy = behaviac.FAILURE_POLICY.{1};", indent, parallel.FailurePolicy);
             stream.WriteLine("{0}\t\t\tm_succeedPolicy = behaviac.SUCCESS_POLICY.{1};", indent, parallel.SuccessPolicy);

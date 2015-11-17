@@ -51,8 +51,7 @@ namespace Behaviac.Design
             /// <summary>
             /// The connector represented by this subitem.
             /// </summary>
-            public Connector Connector
-            {
+            public Connector Connector {
                 get { return _connector; }
             }
 
@@ -61,8 +60,7 @@ namespace Behaviac.Design
             /// <summary>
             /// The child attached to the connector and represented by this subitem.
             /// </summary>
-            public BaseNode Child
-            {
+            public BaseNode Child {
                 get { return _child; }
 
                 set
@@ -70,9 +68,11 @@ namespace Behaviac.Design
                     _child = value;
 
 #if DEBUG
+
                     // ensure that the child is indeed connected over the given connector
                     if (value != null)
-                        Debug.Check(_connector.GetChildIndex(value) >= 0);
+                    { Debug.Check(_connector.GetChildIndex(value) >= 0); }
+
 #endif
                 }
             }
@@ -82,14 +82,12 @@ namespace Behaviac.Design
             /// <summary>
             /// The index of the child in the connector.
             /// </summary>
-            public int Index
-            {
+            public int Index {
                 get { return _index; }
                 set { _index = value; }
             }
 
-            protected override string Label
-            {
+            protected override string Label {
                 get { return _connector.GetLabel(Index); }
             }
 
@@ -102,15 +100,13 @@ namespace Behaviac.Design
             /// <param name="child">The child represented by the subitem. Can be null.</param>
             /// <param name="index">The index of the child in the connector. Also a null child has an index!</param>
             public SubItemConnector(Connector connector, BaseNode child, int index)
-                : base(null, null, __font, Brushes.White, Alignment.Right, true)
-            {
+                : base(null, null, __font, Brushes.White, Alignment.Right, true) {
                 _connector = connector;
                 _child = child;
                 _index = index;
             }
 
-            public override SubItem Clone(Node newnode)
-            {
+            public override SubItem Clone(Node newnode) {
                 // the property does not need to be cloned it will be automatically generated
                 return null;
             }

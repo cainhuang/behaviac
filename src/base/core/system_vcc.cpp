@@ -172,6 +172,7 @@ namespace behaviac
         if (g_ExeName[0] != 0)
             memcpy(exeNameBuffer, g_ExeName,
                    (BEHAVIAC_CFG_SETEXENAME_BUF_SIZE > exeNameBufferSize ? exeNameBufferSize : BEHAVIAC_CFG_SETEXENAME_BUF_SIZE));
+
         else
 #endif
         {
@@ -235,11 +236,11 @@ namespace behaviac
 
     void* MemCmpPattern(const void* buffer, uint8_t value, size_t size)
     {
-        uint8_t* ptr             = (uint8_t*)buffer;
-        const uint32_t U32Value  = value << 24 | value << 16 | value << 8 | value;
-        const uint64_t U64Value  = BEHAVIAC_MAKE64(U32Value, U32Value);
-        const uint8_t* U8End     = ptr + size;
-        const uint8_t* U64End    = U8End - sizeof(uint64_t);
+        uint8_t* ptr = (uint8_t*)buffer;
+        const uint32_t U32Value = value << 24 | value << 16 | value << 8 | value;
+        const uint64_t U64Value = BEHAVIAC_MAKE64(U32Value, U32Value);
+        const uint8_t* U8End = ptr + size;
+        const uint8_t* U64End = U8End - sizeof(uint64_t);
 
         while (ptr < U8End && !BEHAVIAC_PTR_ALIGNED(ptr, sizeof(uint64_t)))
         {
@@ -256,6 +257,7 @@ namespace behaviac
             if (*((uint64_t*)ptr) == U64Value)
             {
                 continue;
+
             }
             else
             {
@@ -284,11 +286,11 @@ namespace behaviac
 
     void* MemCmpPatternReverse(const void* buffer, uint8_t value, size_t size)
     {
-        uint8_t* ptr             = (uint8_t*)buffer + size;
-        const uint32_t U32Value  = value << 24 | value << 16 | value << 8 | value;
-        const uint64_t U64Value  = BEHAVIAC_MAKE64(U32Value, U32Value);
-        const uint8_t* U8End     = (uint8_t*)buffer;
-        const uint8_t* U64End    = U8End + sizeof(uint64_t);
+        uint8_t* ptr = (uint8_t*)buffer + size;
+        const uint32_t U32Value = value << 24 | value << 16 | value << 8 | value;
+        const uint64_t U64Value = BEHAVIAC_MAKE64(U32Value, U32Value);
+        const uint8_t* U8End = (uint8_t*)buffer;
+        const uint8_t* U64End = U8End + sizeof(uint64_t);
 
         while (ptr > U8End && !BEHAVIAC_PTR_ALIGNED(ptr, sizeof(uint64_t)))
         {
@@ -307,6 +309,7 @@ namespace behaviac
             if (*((uint64_t*)ptr) == U64Value)
             {
                 continue;
+
             }
             else
             {
@@ -340,7 +343,6 @@ namespace behaviac
     {
         return ::memcpy(dest, src, num);
     }
-
 }
 
 #endif//#if BEHAVIAC_COMPILER_MSVC

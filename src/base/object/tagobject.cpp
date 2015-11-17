@@ -21,129 +21,123 @@
 CTagObjectDescriptorBSS CTagObject::ms_descriptor;
 CTagObjectDescriptor& CTagObject::GetObjectDescriptorDirectly()
 {
-	return ms_descriptor.Get();
+    return ms_descriptor.Get();
 }
-
-#if BEHAVIAC_ENABLE_LUA
-SCRIPTMARSHAL_IMPLEMENT_TYPE(CTagObject);
-#endif//#if BEHAVIAC_ENABLE_LUA
 
 static TagObjectDescriptorMap_t* s_objectDescriptorMap;
 
 TagObjectDescriptorMap_t& GetTagObjectDescriptorMaps()
 {
-	if (!s_objectDescriptorMap)
-	{
-		s_objectDescriptorMap = BEHAVIAC_NEW TagObjectDescriptorMap_t;
-	}
+    if (!s_objectDescriptorMap)
+    {
+        s_objectDescriptorMap = BEHAVIAC_NEW TagObjectDescriptorMap_t;
+    }
 
-	BEHAVIAC_ASSERT(s_objectDescriptorMap);
-	return *s_objectDescriptorMap;
+    BEHAVIAC_ASSERT(s_objectDescriptorMap);
+    return *s_objectDescriptorMap;
 }
-
 
 void CleanupTagObjectDescriptorMaps()
 {
-	if (s_objectDescriptorMap)
-	{
-		TagObjectDescriptorMap_t* classMaps = s_objectDescriptorMap;
-		for (TagObjectDescriptorMap_t::iterator it = classMaps->begin(); it != classMaps->end(); ++it)
-		{
-			//const behaviac::string& className = it->first;
-			CTagObjectDescriptorBSS* pObejctDesc = (CTagObjectDescriptorBSS*)it->second;
-			pObejctDesc->Cleanup();
-		}
+    if (s_objectDescriptorMap)
+    {
+        TagObjectDescriptorMap_t* classMaps = s_objectDescriptorMap;
 
-		s_objectDescriptorMap->clear();
-		BEHAVIAC_DELETE(s_objectDescriptorMap);
-		s_objectDescriptorMap = 0;
-	}
+        for (TagObjectDescriptorMap_t::iterator it = classMaps->begin(); it != classMaps->end(); ++it)
+        {
+            //const behaviac::string& className = it->first;
+            CTagObjectDescriptorBSS* pObejctDesc = (CTagObjectDescriptorBSS*)it->second;
+            pObejctDesc->Cleanup();
+        }
 
-	CTagObject::CleanupObjectDescriptor();
+        s_objectDescriptorMap->clear();
+        BEHAVIAC_DELETE(s_objectDescriptorMap);
+        s_objectDescriptorMap = 0;
+    }
+
+    CTagObject::CleanupObjectDescriptor();
 }
-
 
 void CTagObjectDescriptorBSS::Cleanup()
 {
-	CTagObjectDescriptor* pObejctDescP = this->m_descriptor;
+    CTagObjectDescriptor* pObejctDescP = this->m_descriptor;
 
-	if (pObejctDescP)
-	{
-		for (CTagObject::MethodsContainer::iterator it = pObejctDescP->ms_methods.begin(); 
-			it != pObejctDescP->ms_methods.end(); ++it)
-		{
-			CMethodBase* m = *it;
+    if (pObejctDescP)
+    {
+        for (CTagObject::MethodsContainer::iterator it = pObejctDescP->ms_methods.begin();
+             it != pObejctDescP->ms_methods.end(); ++it)
+        {
+            CMethodBase* m = *it;
 
-			BEHAVIAC_DELETE(m);
-		}
+            BEHAVIAC_DELETE(m);
+        }
 
-		pObejctDescP->ms_methods.clear();
+        pObejctDescP->ms_methods.clear();
 
-		for (CTagObjectDescriptor::MembersVector_t::iterator it = pObejctDescP->ms_members.membersVector.begin(); 
-			it != pObejctDescP->ms_members.membersVector.end(); ++it)
-		{
-			CMemberBase* m = *it;
+        for (CTagObjectDescriptor::MembersVector_t::iterator it = pObejctDescP->ms_members.membersVector.begin();
+             it != pObejctDescP->ms_members.membersVector.end(); ++it)
+        {
+            CMemberBase* m = *it;
 
-			BEHAVIAC_DELETE(m);
-		}
+            BEHAVIAC_DELETE(m);
+        }
 
-		pObejctDescP->ms_members.membersMap.clear();
-		pObejctDescP->ms_members.membersVector.clear();
+        pObejctDescP->ms_members.membersMap.clear();
+        pObejctDescP->ms_members.membersVector.clear();
 
-		if (pObejctDescP->ms_isInitialized)
-		{
-			BEHAVIAC_ASSERT(pObejctDescP->ms_isInitialized);
-			pObejctDescP->ms_isInitialized = false;
-		}
+        if (pObejctDescP->ms_isInitialized)
+        {
+            BEHAVIAC_ASSERT(pObejctDescP->ms_isInitialized);
+            pObejctDescP->ms_isInitialized = false;
+        }
 
-		BEHAVIAC_DELETE(this->m_descriptor);
-		this->m_descriptor = 0;
-	}
+        BEHAVIAC_DELETE(this->m_descriptor);
+        this->m_descriptor = 0;
+    }
 }
 
 const CMemberBase* CTagObjectDescriptor::GetMember(const CStringID& propertyId) const
 {
-	CTagObjectDescriptor::MembersMap_t::const_iterator it = this->ms_members.membersMap.find(propertyId);
+    CTagObjectDescriptor::MembersMap_t::const_iterator it = this->ms_members.membersMap.find(propertyId);
 
-	if (it != this->ms_members.membersMap.end())
-	{
-		const CMemberBase* pMember = it->second;
+    if (it != this->ms_members.membersMap.end())
+    {
+        const CMemberBase* pMember = it->second;
 
-		BEHAVIAC_ASSERT(pMember->GetID().GetID() == propertyId);
+        BEHAVIAC_ASSERT(pMember->GetID().GetID() == propertyId);
 
-		return pMember;
-	}//for	
+        return pMember;
+    }//for
 
-	if (this->m_parent)
-	{
-		const CMemberBase* m = this->m_parent->GetMember(propertyId);
+    if (this->m_parent)
+    {
+        const CMemberBase* m = this->m_parent->GetMember(propertyId);
 
-		return m;
-	}
+        return m;
+    }
 
-	return 0;
+    return 0;
 }
 
 #if BEHAVIAC_ENABLE_NETWORKD
 void CTagObjectDescriptor::ReplicateProperties(CTagObject* parent)
 {
-	if (this->m_parent)
-	{
-		this->m_parent->ReplicateProperties();
-	}
+    if (this->m_parent)
+    {
+        this->m_parent->ReplicateProperties();
+    }
 
-	CTagObjectDescriptor::MembersVector_t::const_iterator it = this->ms_members.membersVector.begin();
-	CTagObjectDescriptor::MembersVector_t::const_iterator itEnd = this->ms_members.membersVector.end();
+    CTagObjectDescriptor::MembersVector_t::const_iterator it = this->ms_members.membersVector.begin();
+    CTagObjectDescriptor::MembersVector_t::const_iterator itEnd = this->ms_members.membersVector.end();
 
-	for (; it != itEnd; ++it)
-	{
-		CMemberBase* m = *it;
+    for (; it != itEnd; ++it)
+    {
+        CMemberBase* m = *it;
 
-		m->ReplicateProperty(parent);
-	}
+        m->ReplicateProperty(parent);
+    }
 }
 #endif
-
 
 void CTagObjectDescriptor::Load(CTagObject* parent, const ISerializableNode* node) const
 {
@@ -152,29 +146,29 @@ void CTagObjectDescriptor::Load(CTagObject* parent, const ISerializableNode* nod
 
     for (; it != itEnd; ++it)
     {
-		CMemberBase* m = *it;
+        CMemberBase* m = *it;
         m->Load(parent, node);
     }
 
-	if (this->m_parent)
-	{
-		this->m_parent->Load(parent, node);
-	}
+    if (this->m_parent)
+    {
+        this->m_parent->Load(parent, node);
+    }
 }
 
 void CTagObjectDescriptor::Save(const CTagObject* parent, ISerializableNode* node) const
 {
-	if (this->m_parent)
-	{
-		this->m_parent->Save(parent, node);
-	}
+    if (this->m_parent)
+    {
+        this->m_parent->Save(parent, node);
+    }
 
     MembersVector_t::const_iterator it = ms_members.membersVector.begin();
     MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
 
     for (; it != itEnd; ++it)
     {
-		CMemberBase* m = *it;
+        CMemberBase* m = *it;
         m->Save(parent, node);
     }
 }
@@ -186,47 +180,48 @@ void CTagObjectDescriptor::LoadState(CTagObject* parent, const ISerializableNode
 
     for (; it != itEnd; ++it)
     {
-		CMemberBase* m = *it;
+        CMemberBase* m = *it;
         m->LoadState(parent, node);
     }
 
-	if (this->m_parent)
-	{
-		this->m_parent->LoadState(parent, node);
-	}
+    if (this->m_parent)
+    {
+        this->m_parent->LoadState(parent, node);
+    }
 }
 
 void CTagObjectDescriptor::SaveState(const CTagObject* parent, ISerializableNode* node) const
 {
-	if (this->m_parent)
-	{
-		this->m_parent->SaveState(parent, node);
-	}
+    if (this->m_parent)
+    {
+        this->m_parent->SaveState(parent, node);
+    }
 
     MembersVector_t::const_iterator it = ms_members.membersVector.begin();
     MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
 
     for (; it != itEnd; ++it)
     {
-		CMemberBase* m = *it;
+        CMemberBase* m = *it;
         m->SaveState(parent, node);
     }
 }
 
 void CTagObjectDescriptor::GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) const
 {
-	if (types == NULL)
-	{
-		xmlNode->setAttr("DisplayName", this->m_displayName);
-		xmlNode->setAttr("Desc", this->m_desc);
-	}
+    if (types == NULL)
+    {
+        xmlNode->setAttr("DisplayName", this->m_displayName);
+        xmlNode->setAttr("Desc", this->m_desc);
+        xmlNode->setAttr("IsRefType", this->m_isRefType);
+    }
 
-	MembersVector_t::const_iterator it = ms_members.membersVector.begin();
+    MembersVector_t::const_iterator it = ms_members.membersVector.begin();
     MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
 
     for (; it != itEnd; ++it)
     {
-		CMemberBase* m = *it;
+        CMemberBase* m = *it;
         m->GetUiInfo(types, parent, xmlNode);
     }
 }
@@ -235,12 +230,12 @@ void CTagObjectDescriptor::GetMethodsDescription(TypesMap_t* types, const CTagOb
 {
     for (MethodsContainer::const_iterator it = ms_methods.begin(); it != ms_methods.end(); ++it)
     {
-		CMethodBase* m = *it;
+        CMethodBase* m = *it;
 
-		//if (string_icmp(m->GetName(), "Func_AgentRef") == 0)
-		//{
-		//	BEHAVIAC_ASSERT(true);
-		//}
+        //if (string_icmp(m->GetName(), "Func_AgentRef") == 0)
+        //{
+        //	BEHAVIAC_ASSERT(true);
+        //}
 
         m->GetUiInfo(types, parent, xmlNode);
     }
@@ -248,10 +243,10 @@ void CTagObjectDescriptor::GetMethodsDescription(TypesMap_t* types, const CTagOb
 
 void CTagObjectDescriptor::PushBackMember(MembersContainer& inMembers, class CMemberBase* toAddMember)
 {
-	//CMemberBase* p2 = toAddMember->clone();
-	//inMembers[toAddMember->GetID().GetString()] = p2;
-	inMembers.membersVector.push_back(toAddMember);
-	inMembers.membersMap[toAddMember->GetID().GetID()] = toAddMember;
+    //CMemberBase* p2 = toAddMember->clone();
+    //inMembers[toAddMember->GetID().GetString()] = p2;
+    inMembers.membersVector.push_back(toAddMember);
+    inMembers.membersMap[toAddMember->GetID().GetID()] = toAddMember;
 }
 
 CTagObjectDescriptor& CTagObject::GetObjectDescriptor()
@@ -261,7 +256,7 @@ CTagObjectDescriptor& CTagObject::GetObjectDescriptor()
 
 void CTagObject::CleanupObjectDescriptor()
 {
-	ms_descriptor.Cleanup();
+    ms_descriptor.Cleanup();
 }
 
 void CTagObject::LoadFromXML(const XmlConstNodeRef& xmlNode)
@@ -336,33 +331,33 @@ void CTagObject::GetMethodParams(const CStringID& name, CTagMethodParams& out_pa
 static EnumClassMap_t* s_enumClasses;
 EnumClassMap_t& GetEnumValueNameMaps()
 {
-	if (!s_enumClasses)
-	{
-		s_enumClasses = BEHAVIAC_NEW EnumClassMap_t;
-	}
+    if (!s_enumClasses)
+    {
+        s_enumClasses = BEHAVIAC_NEW EnumClassMap_t;
+    }
 
-	BEHAVIAC_ASSERT(s_enumClasses);
-	return *s_enumClasses;
+    BEHAVIAC_ASSERT(s_enumClasses);
+    return *s_enumClasses;
 }
-
 
 void CleanupEnumValueNameMaps()
 {
-	if (s_enumClasses)
-	{
-		EnumClassMap_t* enumClasses = s_enumClasses;
-		for (EnumClassMap_t::iterator it = enumClasses->begin(); it != enumClasses->end(); ++it)
-		{
-			EnumClassDescriptionBSS_t* pEnumClassD = (EnumClassDescriptionBSS_t*)it->second;
-			pEnumClassD->descriptor->valueMaps.clear();
-			BEHAVIAC_DELETE(pEnumClassD->descriptor);
-			pEnumClassD->descriptor = 0;
-		}
+    if (s_enumClasses)
+    {
+        EnumClassMap_t* enumClasses = s_enumClasses;
 
-		s_enumClasses->clear();
-		BEHAVIAC_DELETE(s_enumClasses);
-		s_enumClasses = 0;
-	}
+        for (EnumClassMap_t::iterator it = enumClasses->begin(); it != enumClasses->end(); ++it)
+        {
+            EnumClassDescriptionBSS_t* pEnumClassD = (EnumClassDescriptionBSS_t*)it->second;
+            pEnumClassD->descriptor->valueMaps.clear();
+            BEHAVIAC_DELETE(pEnumClassD->descriptor);
+            pEnumClassD->descriptor = 0;
+        }
+
+        s_enumClasses->clear();
+        BEHAVIAC_DELETE(s_enumClasses);
+        s_enumClasses = 0;
+    }
 }
 
 //const EnumValueNameMap_t* GetEnumClassValueNames(const char* enumClassName)
@@ -380,215 +375,225 @@ void CleanupEnumValueNameMaps()
 
 bool Equal_Struct(const CTagObjectDescriptor& object_desc, const CTagObject* lhs, const CTagObject* rhs)
 {
-	CTagObjectDescriptor::MembersVector_t::const_iterator it = object_desc.ms_members.membersVector.begin();
-	CTagObjectDescriptor::MembersVector_t::const_iterator itEnd = object_desc.ms_members.membersVector.end();
+    CTagObjectDescriptor::MembersVector_t::const_iterator it = object_desc.ms_members.membersVector.begin();
+    CTagObjectDescriptor::MembersVector_t::const_iterator itEnd = object_desc.ms_members.membersVector.end();
 
-	for (; it != itEnd; ++it)
-	{
-		CMemberBase* m = *it;
+    for (; it != itEnd; ++it)
+    {
+        CMemberBase* m = *it;
 
-		bool bEqual = m->Equal(lhs, rhs);
-		if (!bEqual)
-		{
-			return false;
-		}
-	}
+        bool bEqual = m->Equal(lhs, rhs);
 
-	return true;
+        if (!bEqual)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 namespace behaviac
 {
-namespace StringUtils
-{
-	XmlNodeRef MakeXmlNodeStruct(const char* str, const behaviac::string& typeNameT)
-	{
-		behaviac::string src = str;
+    namespace StringUtils
+    {
+        XmlNodeRef MakeXmlNodeStruct(const char* str, const behaviac::string& typeNameT)
+        {
+            behaviac::string src = str;
 
-		//{color=0;id=;type={bLive=false;name=0;weight=0;};}
-		//the first char is '{'
-		//the last char is '}'
-		behaviac::string::size_type posCloseBrackets = behaviac::StringUtils::Private::SkipPairedBrackets(src);
-		BEHAVIAC_ASSERT(posCloseBrackets != behaviac::string::npos);
+            //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+            //the first char is '{'
+            //the last char is '}'
+            behaviac::string::size_type posCloseBrackets = behaviac::StringUtils::Private::SkipPairedBrackets(src);
+            BEHAVIAC_ASSERT(posCloseBrackets != behaviac::string::npos);
 
-		bool bIsStructMember = false;
-		XmlNodeRef xmlNode	= CreateXmlNode(typeNameT.c_str());
+            bool bIsStructMember = false;
+            XmlNodeRef xmlNode = CreateXmlNode(typeNameT.c_str());
 
-		//{color=0;id=;type={bLive=false;name=0;weight=0;};}
-		behaviac::string::size_type posBegin = 1; 
-		behaviac::string::size_type posEnd = src.find_first_of(';', posBegin);
-		while (posEnd != behaviac::string::npos)
-		{
-			BEHAVIAC_ASSERT(src[posEnd] == ';');
+            //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+            behaviac::string::size_type posBegin = 1;
+            behaviac::string::size_type posEnd = src.find_first_of(';', posBegin);
 
-			//the last one might be empty
-			if (posEnd > posBegin)
-			{
-				behaviac::string::size_type posEqual = src.find_first_of('=', posBegin);
-				BEHAVIAC_ASSERT(posEqual > posBegin);
+            while (posEnd != behaviac::string::npos)
+            {
+                BEHAVIAC_ASSERT(src[posEnd] == ';');
 
-				int length = posEqual - posBegin;
-				behaviac::string memmberName = src.substr(posBegin, length);
-				behaviac::string memmberValue;
-				char c = src[posEqual + 1];
-				if (c != '{')
-				{
-					length = posEnd - posEqual - 1;
-					memmberValue = src.substr(posEqual + 1, length);
-				}
-				else
-				{
-					bIsStructMember = true;
+                //the last one might be empty
+                if (posEnd > posBegin)
+                {
+                    behaviac::string::size_type posEqual = src.find_first_of('=', posBegin);
+                    BEHAVIAC_ASSERT(posEqual > posBegin);
 
-					const char* pStructBegin = src.c_str();
-					pStructBegin += posEqual + 1;
-					const char* posCloseBrackets_ = behaviac::StringUtils::Private::SkipPairedBrackets(pStructBegin);
-					length = posCloseBrackets_ - pStructBegin + 1;
+                    int length = posEqual - posBegin;
+                    behaviac::string memmberName = src.substr(posBegin, length);
+                    behaviac::string memmberValue;
+                    char c = src[posEqual + 1];
 
-					memmberValue = src.substr(posEqual + 1, length);
+                    if (c != '{')
+                    {
+                        length = posEnd - posEqual - 1;
+                        memmberValue = src.substr(posEqual + 1, length);
 
-					posEnd = posEqual + 1 + length;
-				}
+                    }
+                    else
+                    {
+                        bIsStructMember = true;
 
-				if (bIsStructMember)
-				{
-					XmlNodeRef memberNode = MakeXmlNodeStruct(memmberValue.c_str(), memmberName);
+                        const char* pStructBegin = src.c_str();
+                        pStructBegin += posEqual + 1;
+                        const char* posCloseBrackets_ = behaviac::StringUtils::Private::SkipPairedBrackets(pStructBegin);
+                        length = posCloseBrackets_ - pStructBegin + 1;
 
-					xmlNode->addChild(memberNode);
-				}
-				else
-				{
-					//behaviac::string memmberNameFull = typeNameT + "::" + memmberName;
-					//xmlNode->setAttr(memmberNameFull.c_str(), memmberValue.c_str());
-					xmlNode->setAttr(memmberName.c_str(), memmberValue.c_str());
-				}
-			}
+                        memmberValue = src.substr(posEqual + 1, length);
 
-			bIsStructMember = false;
+                        posEnd = posEqual + 1 + length;
+                    }
 
-			//skip ';'
-			posBegin = posEnd + 1;
+                    if (bIsStructMember)
+                    {
+                        XmlNodeRef memberNode = MakeXmlNodeStruct(memmberValue.c_str(), memmberName);
 
-			//{color=0;id=;type={bLive=false;name=0;weight=0;};}
-			posEnd = src.find_first_of(';', posBegin);
-			if (posEnd > posCloseBrackets)
-			{
-				break;
-			}
-		}
+                        xmlNode->addChild(memberNode);
 
-		return xmlNode;
-	}
+                    }
+                    else
+                    {
+                        //behaviac::string memmberNameFull = typeNameT + "::" + memmberName;
+                        //xmlNode->setAttr(memmberNameFull.c_str(), memmberValue.c_str());
+                        xmlNode->setAttr(memmberName.c_str(), memmberValue.c_str());
+                    }
+                }
 
+                bIsStructMember = false;
 
-	bool MakeStringFromXmlNodeStruct(XmlConstNodeRef xmlNode, behaviac::string& result)
-	{
-		//xmlNode->getXML(result);
-		result = "{";
+                //skip ';'
+                posBegin = posEnd + 1;
 
-		for (int a = 0; a < xmlNode->getAttrCount(); ++a)
-		{
-			const char* tag = xmlNode->getAttrTag(a);
-			const char* value = xmlNode->getAttr(a);
+                //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+                posEnd = src.find_first_of(';', posBegin);
 
-			result += FormatString("%s=%s;", tag, value);
-		}
+                if (posEnd > posCloseBrackets)
+                {
+                    break;
+                }
+            }
 
-		for (int c = 0; c < xmlNode->getChildCount(); ++c)
-		{
-			XmlConstNodeRef childNode = xmlNode->getChild(c);
+            return xmlNode;
+        }
 
-			behaviac::string childString;
+        bool MakeStringFromXmlNodeStruct(XmlConstNodeRef xmlNode, behaviac::string& result)
+        {
+            //xmlNode->getXML(result);
+            result = "{";
 
-			if (MakeStringFromXmlNodeStruct(childNode, childString))
-			{
-				result += childString;
-				result += ";";
-			}
-		}
+            for (int a = 0; a < xmlNode->getAttrCount(); ++a)
+            {
+                const char* tag = xmlNode->getAttrTag(a);
+                const char* value = xmlNode->getAttr(a);
 
-		result += "}";
+                result += FormatString("%s=%s;", tag, value);
+            }
 
-		return true;
-	}
+            for (int c = 0; c < xmlNode->getChildCount(); ++c)
+            {
+                XmlConstNodeRef childNode = xmlNode->getChild(c);
 
+                behaviac::string childString;
 
-	bool ParseForStruct(const char* str, behaviac::string& strT, behaviac::map<CStringID, behaviac::Property*>& props)
-	{
-		const char* pB = str;
+                if (MakeStringFromXmlNodeStruct(childNode, childString))
+                {
+                    result += childString;
+                    result += ";";
+                }
+            }
 
-		while (*str)
-		{
-			char c = *str;
-			if (c == ';' || c == '{' || c == '}')
-			{
-				const char* p = pB;
-				while (p <= str)
-				{
-					strT += *p++;
-				}
+            result += "}";
 
-				pB = str + 1;
-			}
-			else if (c == ' ')
-			{
-				//par or property
-				behaviac::string propName;
-				const char* p = pB;
-				while (*p != '=')
-				{
-					propName += *p++;
-				}
+            return true;
+        }
 
-				//skip '='
-				BEHAVIAC_ASSERT(*p == '=');
-				p++;
+        bool ParseForStruct(const char* str, behaviac::string& strT, behaviac::map<CStringID, behaviac::Property*>& props)
+        {
+            const char* pB = str;
 
-				behaviac::string typeStr;
-				while (*p != ' ')
-				{
-					typeStr += *p++;
-				}
+            while (*str)
+            {
+                char c = *str;
 
-				bool bStatic = false;
-				if (typeStr == "static")
-				{
-					//skip ' '
-					BEHAVIAC_ASSERT(*p == ' ');
-					p++;
+                if (c == ';' || c == '{' || c == '}')
+                {
+                    const char* p = pB;
 
-					while (*p != ' ')
-					{
-						typeStr += *p++;
-					}
+                    while (p <= str)
+                    {
+                        strT += *p++;
+                    }
 
-					bStatic = true;
-				}
+                    pB = str + 1;
 
-				behaviac::string parName;
+                }
+                else if (c == ' ')
+                {
+                    //par or property
+                    behaviac::string propName;
+                    const char* p = pB;
 
-				//skip ' '
-				BEHAVIAC_ASSERT(*str == ' ');
-				str++;
+                    while (*p != '=')
+                    {
+                        propName += *p++;
+                    }
 
-				while (*str != ';')
-				{
-					parName += *str++;
-				}
+                    //skip '='
+                    BEHAVIAC_ASSERT(*p == '=');
+                    p++;
 
-				CStringID propertyId(propName.c_str());
-				props[propertyId] = behaviac::Property::Create(typeStr.c_str(), parName.c_str(), 0, bStatic, false);;
+                    behaviac::string typeStr;
 
-				//skip ';'
-				BEHAVIAC_ASSERT(*str == ';');
+                    while (*p != ' ')
+                    {
+                        typeStr += *p++;
+                    }
 
-				pB = str + 1;
-			}
+                    bool bStatic = false;
 
-			str++;
-		}
+                    if (typeStr == "static")
+                    {
+                        //skip ' '
+                        BEHAVIAC_ASSERT(*p == ' ');
+                        p++;
 
-		return true;
-	}
-}//namespace StringUtils
+                        while (*p != ' ')
+                        {
+                            typeStr += *p++;
+                        }
+
+                        bStatic = true;
+                    }
+
+                    behaviac::string parName;
+
+                    //skip ' '
+                    BEHAVIAC_ASSERT(*str == ' ');
+                    str++;
+
+                    while (*str != ';')
+                    {
+                        parName += *str++;
+                    }
+
+                    CStringID propertyId(propName.c_str());
+                    props[propertyId] = behaviac::Property::Create(typeStr.c_str(), parName.c_str(), bStatic, 0);
+
+                    //skip ';'
+                    BEHAVIAC_ASSERT(*str == ';');
+
+                    pB = str + 1;
+                }
+
+                str++;
+            }
+
+            return true;
+        }
+    }//namespace StringUtils
 }

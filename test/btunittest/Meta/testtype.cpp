@@ -19,8 +19,7 @@
 #include "behaviac/base/meta/ifthenelse.h"
 #include "behaviac/base/meta/issame.h"
 
-#include "behaviac/test.h"
-
+#include "test.h"
 
 SUITE(behaviac)
 {

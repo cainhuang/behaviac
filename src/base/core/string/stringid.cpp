@@ -39,8 +39,6 @@ namespace
     typedef behaviac::map<CStringID::IDType, const char*> StringIdDictionary;
 }
 
-
-
 ////////////////////////////////////////////////////////////////////////////////
 CStringID::CStringID()
     :
@@ -57,7 +55,7 @@ CStringID::CStringID()
 CStringID::~CStringID()
 {
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-	//BEHAVIAC_FREE((void*)m_content);
+    //BEHAVIAC_FREE((void*)m_content);
 #endif//#if BEHAVIAC_STRINGID_USESTRINGCONTENT
 }
 
@@ -71,17 +69,17 @@ bool CStringID::IsValid() const
 static StringIdDictionary* ms_dictionary;
 static StringIdDictionary& GetContentDictionary()
 {
-	if (!ms_dictionary)
-	{
-		ms_dictionary = BEHAVIAC_NEW StringIdDictionary;
-	}
+    if (!ms_dictionary)
+    {
+        ms_dictionary = BEHAVIAC_NEW StringIdDictionary;
+    }
 
-	BEHAVIAC_ASSERT(ms_dictionary);
+    BEHAVIAC_ASSERT(ms_dictionary);
 
-	return *ms_dictionary;
+    return *ms_dictionary;
 }
 #endif//#if BEHAVIAC_STRINGID_USESTRINGCONTENT
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 void CStringID::SetContent(const char* content, bool noCase, bool resolve)
 {
@@ -93,6 +91,7 @@ void CStringID::SetContent(const char* content, bool noCase, bool resolve)
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
     static behaviac::Mutex ms_critialsection;
 #ifdef BEHAVIAC_STRINGID_RESOLVE_CONTENT
+
     if (resolve)
     {
         ms_critialsection.Lock();
@@ -116,13 +115,15 @@ void CStringID::SetContent(const char* content, bool noCase, bool resolve)
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
         m_content = NULL;
 #endif
+
     }
     else
     {
         if (noCase)
         {
-			BEHAVIAC_ASSERT(false);
+            BEHAVIAC_ASSERT(false);
             m_value = CRC32::CalcCRCNoCase(content);
+
         }
         else
         {
@@ -141,6 +142,7 @@ void CStringID::SetContent(const char* content, bool noCase, bool resolve)
                 {
                     BEHAVIAC_LOG3(BEHAVIAC_LOG_INFO, "There is a conflict between two StringID for the CRC 0x%08X.\n%s\n%s\n\nThe result of that is unpredictable but will probably crash.", m_value, content, (*it).second);
                 }
+
             }
             else
             {
@@ -151,6 +153,7 @@ void CStringID::SetContent(const char* content, bool noCase, bool resolve)
             }
 
             m_content = (*it).second;
+
         }
         else
         {
@@ -175,7 +178,6 @@ void CStringID::SetContent(const char* content, bool noCase, bool resolve)
     }
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
 const char* CStringID::c_str() const
@@ -183,6 +185,7 @@ const char* CStringID::c_str() const
     if (m_content == NULL)
     {
         return "";
+
     }
     else
     {
@@ -203,34 +206,34 @@ const char* CStringID::LogStr() const
 {
     static char s_buf[32];
     string_sprintf(s_buf, "%d", m_value);
-	return s_buf;
+    return s_buf;
 }
 
 #endif
 
-
-
 void CStringID::Cleanup()
 {
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-	if (ms_dictionary)
-	{
-		StringIdDictionary* dictionary = ms_dictionary;
 
-		for (StringIdDictionary::iterator it = dictionary->begin(); it != dictionary->end(); ++it)
-		{
-			const char* p = it->second;
+    if (ms_dictionary)
+    {
+        StringIdDictionary* dictionary = ms_dictionary;
 
-			BEHAVIAC_FREE(p);
-		}
+        for (StringIdDictionary::iterator it = dictionary->begin(); it != dictionary->end(); ++it)
+        {
+            const char* p = it->second;
 
-		dictionary->clear();
-		BEHAVIAC_DELETE(ms_dictionary);
-		ms_dictionary = 0;
-	}
+            BEHAVIAC_FREE(p);
+        }
+
+        dictionary->clear();
+        BEHAVIAC_DELETE(ms_dictionary);
+        ms_dictionary = 0;
+    }
+
 #endif//#if BEHAVIAC_STRINGID_USESTRINGCONTENT
 
-	CPathID::ClearDictionary();
+    CPathID::ClearDictionary();
 }
 
 void CStringID::SetContentWithExpectedCRC(const char* content, bool noCase, bool resolve, IDType crc)
@@ -241,6 +244,6 @@ void CStringID::SetContentWithExpectedCRC(const char* content, bool noCase, bool
     if (crc != computedCrc)
     {
         BEHAVIAC_ASSERT(false, "C%sStringID(0x%08X, \"%s\") has wrong CRC (should be 0x%08X!)  RETAIL BUILDS WILL USE THE WRONG VALUE, THIS MUST BE FIXED P0!",
-                   noCase ? "NoCase" : "", crc, content, GetUniqueID());
+                        noCase ? "NoCase" : "", crc, content, GetUniqueID());
     }
 }

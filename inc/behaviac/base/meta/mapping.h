@@ -11,26 +11,25 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIAC_SYSTEM_COMPONENT_DETAILS_TYPEMAPPING_H__INCLUDED
-#define BEHAVIAC_BEHAVIAC_SYSTEM_COMPONENT_DETAILS_TYPEMAPPING_H__INCLUDED
+#ifndef BEHAVIAC_BEHAVIAC_SYSTEM_COMPONENT_DETAILS_TYPEMAPPING_H_INCLUDED
+#define BEHAVIAC_BEHAVIAC_SYSTEM_COMPONENT_DETAILS_TYPEMAPPING_H_INCLUDED
 
 namespace behaviac
 {
     namespace Meta
     {
+        /// TypeMapping utilities
 
-        / TypeMapping utilities
-
-        / Mainly use for type deduction in template method
-        /
+        /// Mainly use for type deduction in template method
+        ///
 
         template< typename T >
-    struct Mapping
-    {
-        typedef Mapping< T > Type;
-        typedef T ValueType;
-    };
-}
+        struct Mapping
+        {
+            typedef Mapping< T > Type;
+            typedef T ValueType;
+        };
+    }
 }
 
 #endif

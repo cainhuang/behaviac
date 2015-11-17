@@ -40,8 +40,7 @@ namespace Behaviac.Design.Nodes
     /// <summary>
     /// Defines if a message from the error check is a message, warning or error.
     /// </summary>
-    public enum ErrorCheckLevel
-    {
+    public enum ErrorCheckLevel {
         Message = 1,
         Warning = 2,
         Error   = 4
@@ -52,15 +51,13 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// This class contains an item from the error check.
         /// </summary>
-        public struct ErrorCheck
-        {
+        public struct ErrorCheck {
             private Node _node;
 
             /// <summary>
             /// The node which was checked.
             /// </summary>
-            public Node Node
-            {
+            public Node Node {
                 get { return _node; }
             }
 
@@ -69,8 +66,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The elevel of the message.
             /// </summary>
-            public ErrorCheckLevel Level
-            {
+            public ErrorCheckLevel Level {
                 get { return _level; }
             }
 
@@ -79,8 +75,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The description of the error.
             /// </summary>
-            public string Description
-            {
+            public string Description {
                 get { return _description; }
             }
 
@@ -90,18 +85,19 @@ namespace Behaviac.Design.Nodes
             /// <param name="node">The node we checked.</param>
             /// <param name="level">The type of message we want to post.</param>
             /// <param name="description">The posted message.</param>
-            public ErrorCheck(Node node, ErrorCheckLevel level, string description)
-            {
+            public ErrorCheck(Node node, ErrorCheckLevel level, string description) {
                 _node = node;
                 _level = level;
-                _description = _node.Label + " : " + description;
+                _description = description;
+
+                if (_node != null)
+                    _description = string.Format("{0}({1}) : {2}", _node.Label, _node.Id, description);
             }
 
-            public ErrorCheck(Node node, string label, ErrorCheckLevel level, string description)
-            {
+            public ErrorCheck(Node node, int id, string label, ErrorCheckLevel level, string description) {
                 _node = node;
                 _level = level;
-                _description = label + " : " + description;
+                _description = string.Format("{0}({1}) : {2}", label, id, description);
             }
         }
     }

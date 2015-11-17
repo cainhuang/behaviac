@@ -22,25 +22,6 @@ using PluginBehaviac.Properties;
 
 namespace PluginBehaviac.Nodes
 {
-    [Behaviac.Design.EnumDesc("PluginBehaviac.Nodes.ComputeOpr", "计算作符", "计算操作符选择")]
-    public enum ComputeOperator
-    {
-        [Behaviac.Design.EnumMemberDesc("Add", "+")]
-        Add,
-
-        [Behaviac.Design.EnumMemberDesc("Sub", "-")]
-        Sub,
-
-        [Behaviac.Design.EnumMemberDesc("Mul", "*")]
-        Mul,
-
-        [Behaviac.Design.EnumMemberDesc("Div", "/")]
-        Div,
-
-        [Behaviac.Design.EnumMemberDesc("Invalid", "x")]
-        Invalid
-    }
-
     [NodeDesc("Actions", "compute_ico")]
     public class Compute : Behaviac.Design.Nodes.Node
 	{
@@ -65,7 +46,7 @@ namespace PluginBehaviac.Nodes
         }
 
         private VariableDef _opl;
-        [DesignerPropertyEnum("OperandLeft", "OperandLeftDesc", "Compute", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.Attributes, "", "Opr1", ValueTypes.Int | ValueTypes.Float)]
+        [DesignerPropertyEnum("OperandLeft", "OperandLeftDesc", "Compute", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.NoReadonly, DesignerPropertyEnum.AllowStyles.Attributes, "", "Opr1", ValueTypes.Int | ValueTypes.Float)]
         public VariableDef Opl
         {
             get { return _opl; }
@@ -80,9 +61,9 @@ namespace PluginBehaviac.Nodes
             set { this._opr1 = value; }
         }
 
-        private ComputeOperator _operator = ComputeOperator.Add;
+        private Behaviac.Design.ComputeOperator _operator = Behaviac.Design.ComputeOperator.Add;
         [DesignerEnum("Operator", "OperatorDesc", "Compute", DesignerProperty.DisplayMode.Parameter, 2, DesignerProperty.DesignerFlags.NoFlags, "ComputeOperaptor")]
-        public ComputeOperator Operator
+        public Behaviac.Design.ComputeOperator Operator
         {
             get { return _operator; }
             set { _operator = value; }
@@ -96,24 +77,28 @@ namespace PluginBehaviac.Nodes
             set { this._opr2 = value; }
         }
 
-        public override void ResetMembers(AgentType agentType, bool resetPar)
+        public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null)
         {
-            if (this.Opl != null && this.Opl.ShouldBeReset(agentType, resetPar))
+            bool bReset = false;
+
+            if (this.Opl != null)
             {
-                this.Opl = null;
+                bReset |= this.Opl.ResetMembers(check, agentType, clear, property);
             }
 
-            if (this.Opr1 != null && this.Opr1.ShouldBeReset(agentType, resetPar))
+            if (this.Opr1 != null)
             {
-                this.Opr1 = null;
+                bReset |= this.Opr1.ResetMembers(check, agentType, clear, method, property);
             }
 
-            if (this.Opr2 != null && this.Opr2.ShouldBeReset(agentType, resetPar))
+            if (this.Opr2 != null)
             {
-                this.Opr2 = null;
+                bReset |= this.Opr2.ResetMembers(check, agentType, clear, method, property);
             }
 
-            base.ResetMembers(agentType, resetPar);
+            bReset |= base.ResetMembers(check, agentType, clear, method, property);
+
+            return bReset;
         }
 
         public override string Description
@@ -157,7 +142,7 @@ namespace PluginBehaviac.Nodes
                     bool bIsBool = false;
                     bool bIsNumber = false;
 
-                    Type type = Plugin.GetTypeFromName(Plugin.GetNativeTypeName(this.Opl.GetValueType()));
+                    Type type = this.Opl.GetValueType();
                     if (type != null)
                     {
                         bIsBool = Plugin.IsBooleanType(type);
@@ -219,6 +204,11 @@ namespace PluginBehaviac.Nodes
                 this.Opr2 == null || this.Opl.ToString() == "" || this.Opr2.ToString() == "")
             {
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Operand is not complete!"));
+            }
+
+            if (this._opr2 != null && this._opr2.Method != null && this._opr2.Method.IsCustomized)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.CustomizedMethodError));
             }
 
             base.CheckForErrors(rootBehavior, result);

@@ -42,7 +42,7 @@ void CTagObjectTemplateManager::ParseTemplates()
 
 void CTagObjectTemplateManager::RegisterTemplateChangeListener(const char* templateName, CTagObject* tagObject)
 {
-	m_templateChangeListeners.insert(std::make_pair(CNoCaseStringID(templateName), tagObject));
+    m_templateChangeListeners.insert(std::make_pair(CNoCaseStringID(templateName), tagObject));
 }
 
 void CTagObjectTemplateManager::UnregisterTemplateChangeListener(const char* templateName)

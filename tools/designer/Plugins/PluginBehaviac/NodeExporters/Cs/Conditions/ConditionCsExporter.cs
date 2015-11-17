@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -25,7 +25,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            PluginBehaviac.Nodes.Condition condition = node as PluginBehaviac.Nodes.Condition;
+            return (condition != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -33,7 +34,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             PluginBehaviac.Nodes.Condition condition = node as PluginBehaviac.Nodes.Condition;
-            Debug.Check(condition != null);
+            if (condition == null)
+                return;
 
             if (condition.Opl != null)
             {
@@ -42,7 +44,7 @@ namespace PluginBehaviac.NodeExporters
 
             if (condition.Opr != null)
             {
-                VariableCsExporter.GenerateClassConstructor(condition.Opr, stream, indent, "opr");
+                RightValueCsExporter.GenerateClassConstructor(condition.Opr, stream, indent, "opr");
             }
         }
 
@@ -51,7 +53,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMember(node, stream, indent);
 
             PluginBehaviac.Nodes.Condition condition = node as PluginBehaviac.Nodes.Condition;
-            Debug.Check(condition != null);
+            if (condition == null)
+                return;
 
             if (condition.Opl != null)
             {
@@ -60,7 +63,7 @@ namespace PluginBehaviac.NodeExporters
 
             if (condition.Opr != null)
             {
-                VariableCsExporter.GenerateClassMember(condition.Opr, stream, indent, "opr");
+                RightValueCsExporter.GenerateClassMember(condition.Opr, stream, indent, "opr");
             }
         }
 
@@ -69,7 +72,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             PluginBehaviac.Nodes.Condition condition = node as PluginBehaviac.Nodes.Condition;
-            Debug.Check(condition != null);
+            if (condition == null)
+                return;
 
             stream.WriteLine("{0}\t\tprotected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)", indent);
             stream.WriteLine("{0}\t\t{{", indent);
@@ -77,14 +81,20 @@ namespace PluginBehaviac.NodeExporters
             string typeName = DataCsExporter.GetGeneratedNativeType(condition.Opl.ValueType);
 
             // opl
-            RightValueCsExporter.GenerateCode(condition.Opl, stream, indent + "\t\t\t", typeName, "opl", string.Empty);
-            if (condition.Opl.IsMethod)
+            if (condition.Opl != null)
             {
-                RightValueCsExporter.PostGenerateCode(condition.Opl, stream, indent + "\t\t\t", typeName, "opl", string.Empty);
+                RightValueCsExporter.GenerateCode(condition.Opl, stream, indent + "\t\t\t", typeName, "opl", string.Empty);
+                if (condition.Opl.IsMethod)
+                    RightValueCsExporter.PostGenerateCode(condition.Opl, stream, indent + "\t\t\t", typeName, "opl", string.Empty);
             }
 
             // opr
-            VariableCsExporter.GenerateCode(condition.Opr, stream, indent + "\t\t\t", typeName, "opr", string.Empty);
+            if (condition.Opr != null)
+            {
+                RightValueCsExporter.GenerateCode(condition.Opr, stream, indent + "\t\t\t", typeName, "opr", string.Empty);
+                if (condition.Opr != null)
+                    RightValueCsExporter.PostGenerateCode(condition.Opr, stream, indent + "\t\t\t", typeName, "opr", string.Empty);
+            }
 
             // Operator
             switch (condition.Operator)

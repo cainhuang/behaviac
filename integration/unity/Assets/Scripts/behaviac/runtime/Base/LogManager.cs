@@ -12,11 +12,8 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Reflection;
 
 namespace behaviac
 {
@@ -59,43 +56,11 @@ namespace behaviac
 #endif
         }
 
-        //        /**
-        //        by default, logging is enable. it can be enabled by this function.
-        //
-        //        when enabled, it is written to the log file.
-        //        when disabled, it is not written to the log file however, it is still sent to the network
-        //        */
-        //        public static void SetEnabled(bool bEnabled)
-        //        {
-        //            ms_bEnabled = bEnabled;
-        //        }
-        //
-        //
-        //        /**
-        //        */
-        //        public static void SetProfilerEnabled(bool bProfilerEnabled)
-        //        {
-        //            ms_bProfilerEnabled = bProfilerEnabled;
-        //        }
-
-        /**
-        by default, the log file is flushed every logging.
-        */
-
-        public static void SetFlush(bool bFlush)
-        {
-#if !BEHAVIAC_RELEASE
-            if (Config.IsLogging)
-            {
-                ms_bFlush = bFlush;
-            }
-#endif
-        }
-
         //action
         public static void Log(Agent pAgent, string btMsg, EActionResult actionResult, LogMode mode)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 //BEHAVIAC_PROFILE("LogManager.LogAction");
@@ -112,13 +77,21 @@ namespace behaviac
                         agentName += pAgent.GetName();
 
                         string actionResultStr = "";
+
                         if (actionResult == EActionResult.EAR_success)
                         {
                             actionResultStr = "success";
+
                         }
                         else if (actionResult == EActionResult.EAR_failure)
                         {
                             actionResultStr = "failure";
+
+                        }
+                        else if (actionResult == EActionResult.EAR_all)
+                        {
+                            actionResultStr = "all";
+
                         }
                         else
                         {
@@ -128,6 +101,7 @@ namespace behaviac
                             if (actionResult == behaviac.EActionResult.EAR_none && mode == behaviac.LogMode.ELM_tick)
                             {
                                 actionResultStr = "running";
+
                             }
                             else
                             {
@@ -138,22 +112,22 @@ namespace behaviac
                         if (mode == LogMode.ELM_continue)
                         {
                             //[continue]Ship.Ship_1 ships\suicide.xml.BehaviorTreeTask[0]:enter [all/success/failure] [1]
-                            int count = Workspace.GetActionCount(btMsg);
+                            int count = Workspace.Instance.GetActionCount(btMsg);
                             Debug.Check(count > 0);
                             string buffer = string.Format("[continue]{0} {1} [{2}] [{3}]\n", agentName, btMsg, actionResultStr, count);
 
                             Output(pAgent, buffer);
-                            SocketUtils.SendText(buffer);
+
                         }
                         else if (mode == LogMode.ELM_breaked)
                         {
                             //[breaked]Ship.Ship_1 ships\suicide.xml.BehaviorTreeTask[0]:enter [all/success/failure] [1]
-                            int count = Workspace.GetActionCount(btMsg);
+                            int count = Workspace.Instance.GetActionCount(btMsg);
                             Debug.Check(count > 0);
                             string buffer = string.Format("[breaked]{0} {1} [{2}] [{3}]\n", agentName, btMsg, actionResultStr, count);
 
                             Output(pAgent, buffer);
-                            SocketUtils.SendText(buffer);
+
                         }
                         else if (mode == LogMode.ELM_tick)
                         {
@@ -161,26 +135,26 @@ namespace behaviac
                             //[tick]Ship.Ship_1 ships\suicide.xml.BehaviorTreeTask[0]:update [1]
                             //[tick]Ship.Ship_1 ships\suicide.xml.Selector[1]:enter [all/success/failure] [1]
                             //[tick]Ship.Ship_1 ships\suicide.xml.Selector[1]:update [1]
-                            int count = Workspace.UpdateActionCount(btMsg);
+                            int count = Workspace.Instance.UpdateActionCount(btMsg);
 
                             string buffer = string.Format("[tick]{0} {1} [{2}] [{3}]\n", agentName, btMsg, actionResultStr, count);
 
                             Output(pAgent, buffer);
-                            SocketUtils.SendText(buffer);
+
                         }
                         else if (mode == LogMode.ELM_jump)
                         {
                             string buffer = string.Format("[jump]{0} {1}\n", agentName, btMsg);
 
                             Output(pAgent, buffer);
-                            SocketUtils.SendText(buffer);
+
                         }
                         else if (mode == LogMode.ELM_return)
                         {
                             string buffer = string.Format("[return]{0} {1}\n", agentName, btMsg);
 
                             Output(pAgent, buffer);
-                            SocketUtils.SendText(buffer);
+
                         }
                         else
                         {
@@ -189,6 +163,18 @@ namespace behaviac
                     }
                 }
             }
+
+#endif
+        }
+
+#if !BEHAVIAC_RELEASE
+        private static Dictionary<string, Dictionary<string, string>> _planningLoggedProperties = new Dictionary<string, Dictionary<string, string>>();
+#endif
+
+        public static void PLanningClearCache()
+        {
+#if !BEHAVIAC_RELEASE
+            _planningLoggedProperties.Clear();
 #endif
         }
 
@@ -196,6 +182,7 @@ namespace behaviac
         public static void Log(Agent pAgent, string typeName, string varName, string value)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 //BEHAVIAC_PROFILE("LogManager.LogVar");
@@ -214,25 +201,53 @@ namespace behaviac
                     //[property]Ship.Ship_1 GameObject.speed.0.000000
                     string buffer;
 
-                    bool bIsPar = Utils.IsParVar(varName);
+                    buffer = string.Format("[property]{0}#{1} {2}->{3}\n", agentClassName, agentInstanceName, varName, value);
 
-                    if (bIsPar)
+                    bool bOutput = true;
+
+                    if (pAgent.PlanningTop >= 0)
                     {
-                        string tn = typeName;
-                        //filter out "signed "
-                        tn.Replace("signed ", "");
+                        string agentFullName = string.Format("{0}#{1}", agentClassName, agentInstanceName);
 
-                        buffer = string.Format("[property]{0}#{1} {2} {3}->{4}\n", agentClassName, agentInstanceName, tn, varName, value);
+                        Dictionary<string, string> p = null;
+
+                        if (!_planningLoggedProperties.ContainsKey(agentFullName))
+                        {
+                            p = new Dictionary<string, string>();
+                            _planningLoggedProperties.Add(agentFullName, p);
+
+                        }
+                        else
+                        {
+                            p = _planningLoggedProperties[agentFullName];
+                        }
+
+                        if (p.ContainsKey(varName))
+                        {
+                            if (p[varName] == value)
+                            {
+                                bOutput = false;
+
+                            }
+                            else
+                            {
+                                p[varName] = value;
+                            }
+
+                        }
+                        else
+                        {
+                            p.Add(varName, value);
+                        }
                     }
-                    else
+
+                    if (bOutput)
                     {
-                        buffer = string.Format("[property]{0}#{1} {2}->{3}\n", agentClassName, agentInstanceName, varName, value);
+                        Output(pAgent, buffer);
                     }
-
-                    Output(pAgent, buffer);
-                    SocketUtils.SendText(buffer);
                 }
             }
+
 #endif
         }
 
@@ -240,9 +255,10 @@ namespace behaviac
         public static void Log(Agent pAgent, string btMsg, long time)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
-                if (ms_bProfilerEnabled)
+                if (Config.IsProfiling)
                 {
                     //BEHAVIAC_PROFILE("LogManager.LogProfiler");
 
@@ -254,9 +270,11 @@ namespace behaviac
                         BehaviorTreeTask bt = !System.Object.ReferenceEquals(pAgent, null) ? pAgent.btgetcurrent() : null;
 
                         string btName;
+
                         if (bt != null)
                         {
                             btName = bt.GetName();
+
                         }
                         else
                         {
@@ -270,10 +288,10 @@ namespace behaviac
                         buffer = string.Format("[profiler]{0}.xml.{1} {2}\n", btName, btMsg, time);
 
                         Output(pAgent, buffer);
-                        SocketUtils.SendText(buffer);
                     }
                 }
             }
+
 #endif
         }
 
@@ -281,6 +299,7 @@ namespace behaviac
         public static void Log(LogMode mode, string filterString, string format, params object[] args)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 //BEHAVIAC_PROFILE("LogManager.LogMode");
@@ -289,6 +308,7 @@ namespace behaviac
                 string buffer = string.Format(format, args);
 
                 string filterStr = filterString;
+
                 if (string.IsNullOrEmpty(filterString))
                 {
                     filterStr = "empty";
@@ -299,19 +319,23 @@ namespace behaviac
                 if (mode == LogMode.ELM_tick)
                 {
                     target = string.Format("[applog]{0}:{1}\n", filterStr, buffer);
+
                 }
                 else if (mode == LogMode.ELM_continue)
                 {
                     target = string.Format("[continue][applog]{0}:{1}\n", filterStr, buffer);
+
                 }
                 else if (mode == LogMode.ELM_breaked)
                 {
                     //[applog]door opened
                     target = string.Format("[breaked][applog]{0}:{1}\n", filterStr, buffer);
+
                 }
                 else if (mode == LogMode.ELM_log)
                 {
                     target = string.Format("[log]{0}:{1}\n", filterStr, buffer);
+
                 }
                 else
                 {
@@ -319,28 +343,30 @@ namespace behaviac
                 }
 
                 Output(null, target);
-                SocketUtils.SendText(target);
             }
+
 #endif
         }
 
         public static void Log(string format, params object[] args)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 // make result string
                 string buffer = string.Format(format, args);
 
                 Output(null, buffer);
-                SocketUtils.SendText(buffer);
             }
+
 #endif
         }
 
         public static void LogWorkspace(string format, params object[] args)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLoggingOrSocketing)
             {
                 // make result string
@@ -348,7 +374,39 @@ namespace behaviac
 
                 Output(null, buffer);
             }
+
 #endif
+        }
+
+        public static void LogVarValue(Agent pAgent, string name, object value)
+        {
+            string valueStr = StringUtils.ToString(value);
+            string typeName = "";
+
+            if (!Object.ReferenceEquals(value, null))
+            {
+                typeName = Utils.GetNativeTypeName(value.GetType());
+
+            }
+            else
+            {
+                typeName = "Agent";
+            }
+
+            string full_name = name;
+
+            if (!Object.ReferenceEquals(pAgent, null))
+            {
+                CMemberBase pMember = pAgent.FindMember(name);
+
+                if (pMember != null)
+                {
+                    string classFullName = pMember.GetClassNameString().Replace(".", "::");
+                    full_name = string.Format("{0}::{1}", classFullName, name);
+                }
+            }
+
+            LogManager.Log(pAgent, typeName, full_name, valueStr);
         }
 
         public static void Warning(string format, params object[] args)
@@ -364,35 +422,36 @@ namespace behaviac
         public static void Flush(Agent pAgent)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLogging)
             {
-                if (ms_bEnabled)
-                {
-                    System.IO.StreamWriter fp = GetFile(pAgent);
+                System.IO.StreamWriter fp = GetFile(pAgent);
 
-                    lock (fp)
-                    {
-                        fp.Flush();
-                    }
+                lock(fp)
+                {
+                    fp.Flush();
                 }
             }
+
 #endif
         }
 
         public static void Close()
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLogging)
             {
                 try
                 {
-                    foreach (System.IO.StreamWriter fp in ms_logs.Values)
+                    foreach(System.IO.StreamWriter fp in ms_logs.Values)
                     {
                         fp.Flush();
                         fp.Close();
                     }
 
                     ms_logs.Clear();
+                    _planningLoggedProperties.Clear();
                 }
                 catch
                 {
@@ -404,86 +463,99 @@ namespace behaviac
         private static System.IO.StreamWriter GetFile(Agent pAgent)
         {
 #if !BEHAVIAC_RELEASE
+
             if (Config.IsLogging)
             {
-                if (ms_bEnabled)
+                System.IO.StreamWriter fp = null;
+                //int agentId = pAgent.GetId();
+                int agentId = -1;
+
+                if (!ms_logs.ContainsKey(agentId))
                 {
-                    System.IO.StreamWriter fp = null;
-                    //int agentId = pAgent.GetId();
-                    int agentId = -1;
+                    string buffer;
 
-                    if (!ms_logs.ContainsKey(agentId))
+                    if (string.IsNullOrEmpty(ms_logFilePath))
                     {
-                        string buffer;
-
-                        if (string.IsNullOrEmpty(ms_logFilePath))
+                        if (agentId == -1)
                         {
-                            if (agentId == -1)
-                            {
-                                buffer = "_behaviac_$_.log";
-                            }
-                            else
-                            {
-                                buffer = string.Format("Agent_$_{0:3}.log", agentId);
-                            }
+                            buffer = "_behaviac_$_.log";
+
                         }
                         else
                         {
-                            buffer = ms_logFilePath;
+                            buffer = string.Format("Agent_$_{0:3}.log", agentId);
                         }
 
-                        fp = new System.IO.StreamWriter(buffer);
-
-                        ms_logs[agentId] = fp;
                     }
                     else
                     {
-                        fp = ms_logs[agentId];
+                        buffer = ms_logFilePath;
                     }
 
-                    return fp;
+                    fp = new System.IO.StreamWriter(buffer);
+
+                    ms_logs[agentId] = fp;
+
                 }
+                else
+                {
+                    fp = ms_logs[agentId];
+                }
+
+                return fp;
             }
+
 #endif
             return null;
         }
 
+        private static uint _msg_index = 0;
+
         private static void Output(Agent pAgent, string msg)
         {
 #if !BEHAVIAC_RELEASE
-            if (Config.IsLogging && ms_bEnabled)
+
+            if (Config.IsLoggingOrSocketing)
             {
+                string txt = string.Format("[{0:00000000}]{1}", _msg_index++, msg);
+
                 System.IO.StreamWriter fp = GetFile(pAgent);
 
                 string szTime = DateTime.Now.ToString();
 
-                //string buffer = FormatString("[%s]%s\n", szTime, msg);
-                string buffer = string.Format("[{0}]{1}", szTime, msg);
+                string buffer = string.Format("[{0}]{1}", szTime, txt);
 
-                //printf(buffer);
-
-                if (fp != null)
+                //socket sending before logging as logging is a 'slow' process
+                if (Config.IsSocketing)
                 {
-                    lock (fp)
-                    {
-                        fp.Write(buffer);
+                    SocketUtils.SendText(txt);
+                }
 
-                        if (ms_bFlush)
+                if (Config.IsLogging)
+                {
+                    //printf(buffer);
+
+                    if (fp != null)
+                    {
+                        lock(fp)
                         {
-                            fp.Flush();
+                            fp.Write(buffer);
+
+                            if (Config.IsLoggingFlush)
+                            {
+                                fp.Flush();
+                            }
                         }
                     }
                 }
             }
+
 #endif
         }
 
 #if !BEHAVIAC_RELEASE
         private static Dictionary<int, System.IO.StreamWriter> ms_logs = new Dictionary<int, StreamWriter>();
         private static string ms_logFilePath;
-        private static bool ms_bEnabled = true;
-        private static bool ms_bProfilerEnabled = true;
-        private static bool ms_bFlush = true;
 #endif
     };
 }//namespace behaviac

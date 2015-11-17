@@ -23,87 +23,143 @@
 #include "behaviac/behaviortree/behaviortree_task.h"
 
 #include "behaviac/behaviortree/nodes/conditions/condition.h"
+#include "behaviac/behaviortree/nodes/actions/compute.h"
+#include "behaviac/htn/plannertask.h"
+
 #include "behaviac/agent/agent.h"
-#include "behaviac/world/world.h"
 
 #include "behaviac/base/file/filemanager.h"
 #include "behaviac/base/file/file.h"
 
 namespace behaviac
 {
-	void CleanupTickingMutex();
+    namespace Socket
+    {
+        /**
+        @param bBlocking
+        if true, block the execution and wait for the connection from the designer
+        if false, wait for the connection from the designer but doesn't block the game
+        */
+        bool SetupConnection(bool bBlocking, unsigned short port);
+        void ShutdownConnection();
+    }
 
-	const char* VersionString()
-	{
-		return BEHAVIAC_VERSION_STRING;
-	}
-	
-	bool Start(const char* versionString)
-	{
-		behaviac::SetMainThread();
 
-        const char* verStr = behaviac::VersionString();
+    void CleanupTickingMutex();
 
-        if (strcmp(verStr, versionString) != 0)
+    static int ms_nStarted = 0;
+
+    bool IsStarted()
+    {
+        return ms_nStarted >= 1;
+    }
+
+    bool BaseStart()
+    {
+        //BEHAVIAC_ASSERT(ms_nStarted == 0, "behaviac::Stop was not invoked! or behaviac::Start had been invoked already!");
+        if (ms_nStarted == 0)
         {
-            BEHAVIAC_LOG2(BEHAVIAC_LOG_ERROR, "[behaviac]Behaviac Start Failed, Your Version %s while DLL Version %s\n", verStr, versionString);
-			BEHAVIAC_ASSERT(0, "[behaviac]Behaviac Start Failed, Your Version %s while DLL Version %s\n", verStr, versionString);
-			BEHAVIAC_LOGERROR("[behaviac]Behaviac Start Failed, Your Version %s while DLL Version %s\n, Please Make sure Debug/Release or Header/Lib are compatible\n", verStr, versionString);
+            ms_nStarted++;
 
-            return false;
+            behaviac::SetMainThread();
+
+            //const char* verStr = behaviac::VersionString();
+
+            //if (strcmp(verStr, versionString) != 0)
+            //{
+            //	BEHAVIAC_LOG2(BEHAVIAC_LOG_ERROR, "[behaviac]Behaviac Start Failed, Your Version %s while DLL Version %s\n", versionString, verStr);
+            //	BEHAVIAC_ASSERT(0, "[behaviac]Behaviac Start Failed, Your Version %s while DLL Version %s\n", versionString, verStr);
+            //	BEHAVIAC_LOGERROR("[behaviac]Behaviac Start Failed, Your Version %s while DLL Version %s\n, Please Make sure Debug/Release or Header/Lib are compatible\n", versionString, verStr);
+
+            //	return false;
+            //}
+
+            behaviac::Workspace::GetInstance()->RegisterBasicNodes();
+
+            bool bSocketing = Config::IsSocketing();
+
+            if (bSocketing)
+            {
+                bool bBlock = Config::IsSocketBlocking();
+                unsigned short port = Config::GetSocketPort();
+
+                Socket::SetupConnection(bBlock, port);
+            }
         }
 
-		behaviac::Workspace::RegisterBasicNodes();
+        return true;
+    }
 
-		return true;
-	}
+    void BaseStop()
+    {
+        //BEHAVIAC_ASSERT(ms_nStarted == 1, "behaviac::Start was not invoked! or behaviac::Stop had been invoked already!");
+        if (ms_nStarted == 1)
+        {
+            ms_nStarted--;
+            BEHAVIAC_ASSERT(ms_nStarted == 0);
 
-	void Stop()
-	{
-		Workspace::UnLoadAll();
-		Workspace::UnRegisterBasicNodes();
-		Workspace::Cleanup();
+            bool bSocketing = Config::IsSocketing();
 
-		BehaviorNode::Cleanup();
+            if (bSocketing)
+            {
+                Socket::ShutdownConnection();
+            }
 
-		CleanupTickingMutex();
+            BehaviorNode::Cleanup();
 
-		//Agent::Cleanup();
-		//Variables::Cleanup();
-		Property::Cleanup();
-		Condition::Cleanup();
-		CStringID::Cleanup();
-		LogManager::DestroyInstance();
+            CleanupTickingMutex();
 
-		CFileManager::Cleanup();
+            //Agent::Cleanup();
+            //Variables::Cleanup();
+            Property::Cleanup();
+            Condition::Cleanup();
+            Compute::Cleanup();
+            CStringID::Cleanup();
+            LogManager::DestroyInstance();
 
-		Context::Cleanup();
-	}
+            CFileManager::Cleanup();
 
-	static behaviac::THREAD_ID_TYPE gs_mainTheadId;
+            Context::Cleanup();
+            AgentProperties::Cleanup();
+            PlannerTask::Cleanup();
+        }
+    }
 
-	void SetMainThread()
-	{
-		gs_mainTheadId = behaviac::GetTID();
-	}
+    bool TryStart()
+    {
+        if (!IsStarted())
+        {
+            bool bOk = BaseStart();
 
-	bool IsMainThread()
-	{
-		behaviac::THREAD_ID_TYPE currentThreadId = behaviac::GetTID();
-		return currentThreadId == gs_mainTheadId;
-	}
+            return bOk;
+        }
 
-	static BreakpointPromptHandler_fn gs_BreakpointPromptHandler = 0;
-	void SetBreakpointPromptHandler(BreakpointPromptHandler_fn fn)
-	{
-		gs_BreakpointPromptHandler = fn;
-	}
+        return true;
+    }
 
-	BreakpointPromptHandler_fn GetBreakpointPromptHandler()
-	{
-		return gs_BreakpointPromptHandler;
-	}
-	
+    static behaviac::THREAD_ID_TYPE gs_mainTheadId;
+
+    void SetMainThread()
+    {
+        gs_mainTheadId = behaviac::GetTID();
+    }
+
+    bool IsMainThread()
+    {
+        behaviac::THREAD_ID_TYPE currentThreadId = behaviac::GetTID();
+        return currentThreadId == gs_mainTheadId;
+    }
+
+    static BreakpointPromptHandler_fn gs_BreakpointPromptHandler = 0;
+    void SetBreakpointPromptHandler(BreakpointPromptHandler_fn fn)
+    {
+        gs_BreakpointPromptHandler = fn;
+    }
+
+    BreakpointPromptHandler_fn GetBreakpointPromptHandler()
+    {
+        return gs_BreakpointPromptHandler;
+    }
 }//namespace behaviac
 
 #endif // BEHAVIAC_SHARED_H_

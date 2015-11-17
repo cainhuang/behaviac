@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -43,8 +43,6 @@ public class GameLevelCommon : behaviac.Agent
 	public static int soilSteelOceanWalkLevel = soilSteelWalkLevel | (1 << (int)eBrickType.OCEAN);
 	[behaviac.MemberMetaInfo()]
 	public bool isPlayerAlive = false;
-
-	[behaviac.MemberMetaInfo()]
 	public int mainCharID = -1;
 
 	public UIManager uiManager = null;
@@ -116,7 +114,7 @@ public class GameLevelCommon : behaviac.Agent
 		}
 		else
 		{
-			result = behaviacSystem.init();
+			result = behaviacSystem.Init();
 			if(!result)
 				Debug.LogError("behaviac system init failed!");
 		}
@@ -334,9 +332,7 @@ public class GameLevelCommon : behaviac.Agent
 
 	void Update()
 	{
-		behaviac.Workspace.LogFrames ();
-		behaviac.Workspace.HandleRequests();
-		behaviac.Workspace.HotReload ();
+		behaviac.Workspace.Instance.Update ();
 
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
@@ -1369,51 +1365,6 @@ public class GameLevelCommon : behaviac.Agent
 		return navGrid;
 	}
 
-	public static string WorkspacePath
-	{
-		get
-		{
-			string path = "";
-			if(Application.platform == RuntimePlatform.WindowsEditor)
-			{
-				path = Application.dataPath + "/BTWorkspace";
-			}
-			else if(Application.platform == RuntimePlatform.WindowsPlayer)
-			{
-				path = Application.dataPath + "/BTWorkspace";
-			}
-			else
-			{
-				behaviac.Debug.LogWarning("only for dev!");
-			}
-			
-			return path;
-		}
-	}
-
-
-	public static string WorkspaceExportedPath
-	{
-		get
-		{
-			string path = "";
-			if(Application.platform == RuntimePlatform.WindowsEditor)
-			{
-				path = Application.dataPath + "/Resources/BehaviacData/exported";
-			}
-			else if(Application.platform == RuntimePlatform.WindowsPlayer)
-			{
-				path = Application.dataPath + "/Resources/BehaviacData/exported";
-			}
-			else
-			{
-				path = "Assets/Resources/BehaviacData/exported";
-			}
-			
-			return path;
-		}
-	}
-
 	//public string m_msgs = "";
 	public string nextLevelName = "";
 	private bool showLevels = false;
@@ -1430,22 +1381,54 @@ public class GameLevelCommon : behaviac.Agent
 		{
 			if(GUI.Button(new Rect(10, Screen.height - 60,150, 50), "Launch Designer"))
 			{
-				string workspacePath = '"' + GameLevelCommon.WorkspacePath + "/BattleCity.workspace.xml";
-				string stdWorkspacePath = workspacePath.Replace("/", "\\");
-				stdWorkspacePath += '"';
-				
-				stdWorkspacePath += " /bt=";
-				stdWorkspacePath += btName;
+                string workspacePath = System.IO.Path.Combine(Application.dataPath, "behaviac/workspace/BattleCity.workspace.xml");
+                string workspacePath2 = workspacePath.Replace("/", "\\");
+                string stdWorkspacePath = string.Format("\"{0}\" /bt={1}", workspacePath2, btName);
 				
 				Debug.Log(stdWorkspacePath);
-				
-				string behaviacDesignerPath = System.Environment.GetEnvironmentVariable("BEHAVIAC_ROOT");
-				behaviacDesignerPath += "tools\\designer\\out\\BehaviacDesigner.exe";
-				
-				//m_debugmsgs = stdWorkspacePath;
+
+                //string[] outputs = new string[2];
+
+                {
+                    bool bExist = false;
+                    string behaviacDesignerPath = System.IO.Path.Combine(Application.dataPath, "..\\..\\..\\tools\\designer\\out\\BehaviacDesigner.exe");
+
+                    //outputs[0] = behaviacDesignerPath;
+
+                    if (System.IO.File.Exists(behaviacDesignerPath))
+                    {
+                        bExist = true;
+                    }
+                    else
+                    {
+                        behaviacDesignerPath = System.IO.Path.Combine(Application.dataPath, "..\\..\\..\\tools\\designer\\out\\BehaviacDesigner_d.exe");
+                        if (System.IO.File.Exists(behaviacDesignerPath))
+                        {
+                            bExist = true;
+                        }
+                        else
+                        {
+                            string behaviacDesignerPathRoot = System.Environment.GetEnvironmentVariable("BEHAVIAC_ROOT");
+                            if (!string.IsNullOrEmpty(behaviacDesignerPathRoot))
+                            {
+                                behaviacDesignerPath = System.IO.Path.Combine(behaviacDesignerPathRoot, "tools\\designer\\out\\BehaviacDesigner.exe");
+                                //outputs[1] = behaviacDesignerPath;
+                                if (System.IO.File.Exists(behaviacDesignerPath))
+                                {
+                                    bExist = true;
+                                }
+                            }
+                        }
+                    }
 #if !UNITY_WEBPLAYER
-				System.Diagnostics.Process.Start(behaviacDesignerPath, stdWorkspacePath);
+                    if (bExist)
+                    {
+                        System.Diagnostics.Process.Start(behaviacDesignerPath, stdWorkspacePath);
+                    }
 #endif
+                }
+
+                //System.IO.File.WriteAllLines("D:\\Temp\\tank_behaviac.log", outputs);
 			}
 		}
 
@@ -1489,10 +1472,10 @@ public class GameLevelCommon : behaviac.Agent
         //Debug.Log (Screen.width);
 		int left = Screen.width - 180;
 		int width = 150;
-		string[] levelNames = new string[]{"Tutorial_1_0", "Tutorial_1_1", "Tutorial_1_2",
+        string[] levelNames = new string[]{"Tutorial_1_0", "Tutorial_6_0", "Tutorial_1_1", "Tutorial_1_2",
 			"Tutorial_1_3", "Tutorial_2_0", "Tutorial_2_1", "Tutorial_3_0", "Tutorial_3_1", "Tutorial_4", "DeathMatch"};
 
-		string[] displayNames = new string[]{"FireRandom", "MoveForwardTurn", "MoveRandom",
+		string[] displayNames = new string[]{"FireRandom", "MoveFire_FSM", "MoveForwardTurn", "MoveRandom",
 			"MoveAndFireRandom", "FindEnemyAndAttack", "DodgeFromBullet", "DestroyAndAttack", "TakeAwardAndAttack", "Survival", "DeathMatch"};
 
 		int loadLevelIndex = 0;

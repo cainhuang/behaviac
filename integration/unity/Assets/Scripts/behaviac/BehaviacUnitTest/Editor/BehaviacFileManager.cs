@@ -18,33 +18,26 @@ using System.IO;
 
 public class BehaviacFileManager: behaviac.FileManager
 {
-	public BehaviacFileManager()
-	{
-	
-	}
-	
-	public override void FileClose(string filePath, string ext, byte[] fileHandle)
-    {
-		base.FileClose(filePath, ext, fileHandle);
+    public BehaviacFileManager() {
+
     }
 
-	public override byte[] FileOpen(string filePath, string ext)
-    {
-		if(Application.platform == RuntimePlatform.WindowsPlayer)
-		{
-			string behaviacPath = filePath + ext;
-			string stdPath = behaviacPath.Replace("/", "\\");
-			FileStream fs = new FileStream(stdPath, FileMode.Open);
-			BinaryReader br = new BinaryReader(fs);
-			byte[] buffer = br.ReadBytes((int)fs.Length);
-			fs.Close();
-			return buffer;
-			//return base.FileOpen(filePath, ext);
-		}
-		else
-		{
-			//behaviac.Debug.Log (filePath);
-			return base.FileOpen(filePath, ext);
-		}
+    public override void FileClose(string filePath, string ext, byte[] fileHandle) {
+        base.FileClose(filePath, ext, fileHandle);
+    }
+
+    public override byte[] FileOpen(string filePath, string ext) {
+        if (Application.platform == RuntimePlatform.WindowsPlayer) {
+            string behaviacPath = filePath + ext;
+            string stdPath = behaviacPath.Replace("/", "\\");
+            FileStream fs = new FileStream(stdPath, FileMode.Open);
+            BinaryReader br = new BinaryReader(fs);
+            byte[] buffer = br.ReadBytes((int)fs.Length);
+            fs.Close();
+            return buffer;
+
+        } else {
+            return base.FileOpen(filePath, ext);
+        }
     }
 }

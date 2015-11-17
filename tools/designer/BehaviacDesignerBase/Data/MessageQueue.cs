@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -37,8 +37,7 @@ namespace Behaviac.Design.Data
         public static ContinueDelegate ContinueHandler;
 
         private static bool _limitMessageCount = false;
-        public static bool LimitMessageCount
-        {
+        public static bool LimitMessageCount {
             get { return _limitMessageCount; }
             set { _limitMessageCount = value; }
         }
@@ -46,30 +45,19 @@ namespace Behaviac.Design.Data
         private static int _maxSavingFileSize = 1024 * 1024 * 1024; // bytes
 
         private static int _maxMessageCount = 10000;
-        public static int MaxMessageCount
-        {
+        public static int MaxMessageCount {
             get { return _maxMessageCount; }
             set { _maxMessageCount = value; }
         }
 
-        private static bool _breakAPP = false;
-        public static bool BreakAPP
-        { 
-            get { return _breakAPP; }
-            set { _breakAPP = value; }
-        }
-
         private static bool _connected = false;
-        public static bool IsConnected
-        {
+        public static bool IsConnected {
             get { return _connected; }
             set { _connected = value; }
         }
 
-        public static void Clear()
-        {
-            lock (_lockObject)
-            {
+        public static void Clear() {
+            lock(_lockObject) {
                 _connected = false;
                 _messages.Clear();
                 _messsageFrameStartIndex.Clear();
@@ -78,57 +66,46 @@ namespace Behaviac.Design.Data
             }
         }
 
-        public static List<string> Messages
-        {
+        public static List<string> Messages {
             get
             {
-                lock (_lockObject)
-                {
+                lock(_lockObject) {
                     return _messages;
                 }
             }
         }
 
-        public static int MessageStartIndex(int frame)
-        {
-            lock (_lockObject)
-            {
+        public static int MessageStartIndex(int frame) {
+            lock(_lockObject) {
                 if (_messsageFrameStartIndex.ContainsKey(frame))
-                    return _messsageFrameStartIndex[frame];
+                { return _messsageFrameStartIndex[frame]; }
             }
 
             return -1;
         }
 
-        public static int MessageFirstFrame()
-        {
-            lock (_lockObject)
-            {
-                foreach (int frame in _messsageFrameStartIndex.Keys)
-                    return frame;
+        public static int MessageFirstFrame() {
+            lock(_lockObject) {
+                foreach(int frame in _messsageFrameStartIndex.Keys)
+                return frame;
             }
 
             return -1;
         }
 
-        public static int CurrentIndex()
-        {
-            lock (_lockObject)
-            {
+        public static int CurrentIndex() {
+            lock(_lockObject) {
                 return _currentIndex;
             }
         }
 
-        public static void PostMessage(string msg)
-        {
-            lock (_lockObject)
-            {
+        public static void PostMessage(string msg) {
+            lock(_lockObject) {
                 _messages.Add(msg);
             }
         }
 
-        public static void PostMessageBuffer(string msg)
-        {
+        public static void PostMessageBuffer(string msg) {
             //lock (_lockObject)
             //{
             //    _messages.Add(msg);
@@ -136,12 +113,10 @@ namespace Behaviac.Design.Data
             _messagesBuffer.Enqueue(msg);
         }
 
-        const long kTimeThreshold = 50;
+        const long kTimeThreshold = 100;
         private static System.Diagnostics.Stopwatch _stopwatch = new System.Diagnostics.Stopwatch();
-        public static void Tick()
-        {
-            if (Plugin.EditMode != EditModes.Design && Plugin.UpdateMode != UpdateModes.Break)
-            {
+        public static void Tick() {
+            if (Plugin.EditMode != EditModes.Design && Plugin.UpdateMode != UpdateModes.Break) {
                 string msgN = null;
                 while (_messagesBuffer.Dequeue(out msgN))
                 {
@@ -151,23 +126,18 @@ namespace Behaviac.Design.Data
                     }
                 }
 
-                lock (_lockObject)
-                {
+                lock(_lockObject) {
                     Debug.Check(ProcessMessageHandler != null);
 
-                    if (_currentIndex < _messages.Count)
-                    {
-                        if (_currentIndex < _messages.Count)
-                        {
+                    if (_currentIndex < _messages.Count) {
+                        if (_currentIndex < _messages.Count) {
                             _stopwatch.Reset();
                             _stopwatch.Start();
 
-                            while (_currentIndex < _messages.Count)
-                            {
+                            while (_currentIndex < _messages.Count) {
                                 string msg = _messages[_currentIndex];
 
-                                if (msg.IndexOf("[frame]") == 10)
-                                {
+                                if (msg.IndexOf("[frame]") == 10) {
                                     int frame = (int.Parse(msg.Substring(17)));
                                     _messsageFrameStartIndex[frame] = _messages.Count - 1;
                                 }
@@ -176,17 +146,16 @@ namespace Behaviac.Design.Data
                                 _currentIndex++;
 
                                 long ms = _stopwatch.ElapsedMilliseconds;
+
                                 if (ms >= kTimeThreshold)
-                                    break;
+                                { break; }
                             }
 
-                            if (Plugin.EditMode == EditModes.Connect && _limitMessageCount)
-                            {
-                                if (_messages.Count > 2 * _maxMessageCount)
-                                {
+                            if (Plugin.EditMode == EditModes.Connect && _limitMessageCount) {
+                                if (_messages.Count > 2 * _maxMessageCount) {
                                     int count = _messages.Count - _maxMessageCount;
-                                    if (count > _currentIndex)
-                                    {
+
+                                    if (count > _currentIndex) {
                                         count = _currentIndex;
                                     }
 
@@ -211,15 +180,12 @@ namespace Behaviac.Design.Data
         }
 
 
-        public static void UpdateMessages()
-        {
-            lock (_lockObject)
-            {
-                while (_currentIndex < _messages.Count)
-                {
+        public static void UpdateMessages() {
+            lock(_lockObject) {
+                while (_currentIndex < _messages.Count) {
                     string msg = _messages[_currentIndex];
-                    if (msg.IndexOf("[frame]") == 10)
-                    {
+
+                    if (msg.IndexOf("[frame]") == 10) {
                         int frame = (int.Parse(msg.Substring(17)));
                         _messsageFrameStartIndex[frame] = _currentIndex;
                     }
@@ -231,59 +197,49 @@ namespace Behaviac.Design.Data
         }
 
 
-        private static void updateMessageIndexes()
-        {
-            try
-            {
+        private static void updateMessageIndexes() {
+            try {
                 _messsageFrameStartIndex.Clear();
-                for (int i = 0; i < _messages.Count; ++i)
-                {
-                    if (_messages[i].StartsWith("[frame]"))
-                    {
+
+                for (int i = 0; i < _messages.Count; ++i) {
+                    if (_messages[i].StartsWith("[frame]")) {
                         int frame = (int.Parse(_messages[i].Substring(7)));
                         _messsageFrameStartIndex[frame] = i;
                     }
                 }
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        public static void Serialize(Stream stream, BinaryFormatter formatter)
-        {
-            lock (_lockObject)
-            {
+        public static void Serialize(Stream stream, BinaryFormatter formatter) {
+            lock(_lockObject) {
                 formatter.Serialize(stream, _messages);
             }
         }
 
-        public static void Deserialize(Stream stream, BinaryFormatter formatter)
-        {
-            try
-            {
+        public static void Deserialize(Stream stream, BinaryFormatter formatter) {
+            try {
                 Clear();
 
                 List<string> messages = LoadLog(Workspace.Current.FileName);
                 _messages.AddRange(messages);
 
                 messages = formatter.Deserialize(stream) as List<string>;
-                if (messages != null)
-                {
+
+                if (messages != null) {
                     _messages.AddRange(messages);
                 }
 
                 _currentIndex = _messages.Count;
 
                 updateMessageIndexes();
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private static string getLogFile(string workspaceFile)
-        {
+        private static string getLogFile(string workspaceFile) {
             workspaceFile = Path.GetFullPath(workspaceFile);
             uint h = (uint)workspaceFile.ToLowerInvariant().GetHashCode();
             string filename = Path.GetFileName(workspaceFile).Replace('.', '_');
@@ -292,66 +248,57 @@ namespace Behaviac.Design.Data
             return Path.Combine(Utilities.GetLogFileDirectory(), logFile);
         }
 
-        public static bool AppendLog(string workspaceFile, int count)
-        {
-            try
-            {
+        public static bool AppendLog(string workspaceFile, int count) {
+            try {
                 string filename = getLogFile(workspaceFile);
-                if (File.Exists(filename))
-                {
+
+                if (File.Exists(filename)) {
                     FileInfo info = new FileInfo(filename);
+
                     if (info.Length > _maxSavingFileSize) // bytes
-                        return false;
+                    { return false; }
                 }
 
                 Stream stream = File.Open(filename, FileMode.Append);
                 BinaryWriter writer = new BinaryWriter(stream);
 
-                for (int i = 0; i < count; ++i)
-                {
+                for (int i = 0; i < count; ++i) {
                     writer.Write(_messages[i]);
                 }
 
                 stream.Close();
 
                 return true;
-            }
-            catch
-            {
+
+            } catch {
             }
 
             return false;
         }
 
-        private static List<string> LoadLog(string workspaceFile)
-        {
+        private static List<string> LoadLog(string workspaceFile) {
             List<string> messages = new List<string>();
 
-            try
-            {
+            try {
                 string filename = getLogFile(workspaceFile);
-                if (File.Exists(filename))
-                {
+
+                if (File.Exists(filename)) {
                     Stream stream = File.Open(filename, FileMode.Open);
                     BinaryReader reader = new BinaryReader(stream);
 
-                    try
-                    {
-                        while (true)
-                        {
+                    try {
+                        while (true) {
                             string msg = reader.ReadString();
                             messages.Add(msg);
                         }
-                    }
-                    catch
-                    {
+
+                    } catch {
                     }
 
                     stream.Close();
                 }
-            }
-            catch
-            {
+
+            } catch {
             }
 
             return messages;

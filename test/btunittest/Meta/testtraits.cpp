@@ -14,7 +14,6 @@
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 
-
 #include "behaviac/base/meta/isenum.h"
 #include "behaviac/base/meta/isclass.h"
 #include "behaviac/base/meta/isfunction.h"
@@ -28,7 +27,7 @@
 #include "behaviac/base/meta/removeall.h"
 #include "behaviac/base/meta/isabstract.h"
 
-#include "behaviac/test.h"
+#include "test.h"
 
 SUITE(behaviac)
 {
@@ -39,20 +38,18 @@ SUITE(behaviac)
         public:
             Im_a_Class() : m_notEmpty(0)
             {
-                
             }
 
         private:
             void fn_access_property()
             {
-                m_notEmpty++;                
+                m_notEmpty++;
             }
 
             int32_t m_notEmpty;
         };
         class Im_an_Empty_Class
         {
-
         };
         class Im_an_abstract_Class
         {
@@ -66,7 +63,6 @@ SUITE(behaviac)
         class BaseClass
         {
         public:
-
         };
         class DerivedClass : public BaseClass
         {
@@ -198,28 +194,28 @@ SUITE(behaviac)
         }
         TEST(TestTrait, FunctionTraitsParamCount)
         {
-            CHECK(0 == behaviac::Meta::FunctionTraits< void () >::ParamCount);
-            CHECK(1 == behaviac::Meta::FunctionTraits< void (int32_t) >::ParamCount);
-            CHECK(2 == behaviac::Meta::FunctionTraits< void (int32_t, int32_t) >::ParamCount);
-            CHECK(3 == behaviac::Meta::FunctionTraits< void (int32_t, int32_t, int32_t) >::ParamCount);
-            CHECK(4 == behaviac::Meta::FunctionTraits< void (int32_t, int32_t, int32_t, int32_t) >::ParamCount);
+            CHECK(0 == behaviac::Meta::FunctionTraits< void() >::ParamCount);
+            CHECK(1 == behaviac::Meta::FunctionTraits< void(int32_t) >::ParamCount);
+            CHECK(2 == behaviac::Meta::FunctionTraits< void(int32_t, int32_t) >::ParamCount);
+            CHECK(3 == behaviac::Meta::FunctionTraits< void(int32_t, int32_t, int32_t) >::ParamCount);
+            CHECK(4 == behaviac::Meta::FunctionTraits< void(int32_t, int32_t, int32_t, int32_t) >::ParamCount);
         }
         TEST(TestTrait, FunctionTraitsParamCount_MixedCompound)
         {
-            CHECK(0 == behaviac::Meta::FunctionTraits< void () >::ParamCount);
-            CHECK(1 == behaviac::Meta::FunctionTraits< void (const int32_t) >::ParamCount);
-            CHECK(2 == behaviac::Meta::FunctionTraits< void (const int32_t, int32_t) >::ParamCount);
-            CHECK(3 == behaviac::Meta::FunctionTraits< void (const int32_t, int32_t*, int32_t) >::ParamCount);
-            CHECK(4 == behaviac::Meta::FunctionTraits< void (const int32_t, int32_t*, int32_t&, int32_t) >::ParamCount);
+            CHECK(0 == behaviac::Meta::FunctionTraits< void() >::ParamCount);
+            CHECK(1 == behaviac::Meta::FunctionTraits< void(const int32_t) >::ParamCount);
+            CHECK(2 == behaviac::Meta::FunctionTraits< void(const int32_t, int32_t) >::ParamCount);
+            CHECK(3 == behaviac::Meta::FunctionTraits< void(const int32_t, int32_t*, int32_t) >::ParamCount);
+            CHECK(4 == behaviac::Meta::FunctionTraits< void(const int32_t, int32_t*, int32_t&, int32_t) >::ParamCount);
         }
         TEST(TestTrait, FunctionTraitsParamType1)
         {
-            typedef behaviac::Meta::FunctionTraits< void (int32_t) > Function;
+            typedef behaviac::Meta::FunctionTraits< void(int32_t) > Function;
             CHECK((behaviac::Meta::IsSame< int32_t, Function::ArgType0 >::Result));
         }
         TEST(TestTrait, FunctionTraitsParamType4)
         {
-            typedef behaviac::Meta::FunctionTraits< void (int32_t, float, uint32_t, Im_a_Class) > Function;
+            typedef behaviac::Meta::FunctionTraits< void(int32_t, float, uint32_t, Im_a_Class) > Function;
             CHECK((behaviac::Meta::IsSame< int32_t, Function::ArgType0 >::Result));
             CHECK((behaviac::Meta::IsSame< float, Function::ArgType1 >::Result));
             CHECK((behaviac::Meta::IsSame< uint32_t, Function::ArgType2 >::Result));
@@ -227,36 +223,36 @@ SUITE(behaviac)
         }
         TEST(TestTrait, FunctionTraitsParamCount0)
         {
-            typedef behaviac::Meta::FunctionTraits< void () > Function;
+            typedef behaviac::Meta::FunctionTraits< void() > Function;
             CHECK(0 == Function::ParamTypeCount< uint32_t >::Result);
         }
         TEST(TestTrait, FunctionTraitsParamCount1)
         {
-            typedef behaviac::Meta::FunctionTraits< void (uint32_t) > Function;
+            typedef behaviac::Meta::FunctionTraits< void(uint32_t) > Function;
             CHECK(1 == Function::ParamTypeCount< uint32_t >::Result);
             CHECK(0 == Function::ParamTypeCount< float >::Result);
         }
         TEST(TestTrait, FunctionTraitsParamCount2)
         {
-            typedef behaviac::Meta::FunctionTraits< void (uint32_t, uint32_t) > Function;
+            typedef behaviac::Meta::FunctionTraits< void(uint32_t, uint32_t) > Function;
             CHECK(2 == Function::ParamTypeCount< uint32_t >::Result);
             CHECK(0 == Function::ParamTypeCount< float >::Result);
         }
         TEST(TestTrait, FunctionTraitsParamCount3)
         {
-            typedef behaviac::Meta::FunctionTraits< void (uint32_t, uint32_t, uint32_t) > Function;
+            typedef behaviac::Meta::FunctionTraits< void(uint32_t, uint32_t, uint32_t) > Function;
             CHECK(3 == Function::ParamTypeCount< uint32_t >::Result);
             CHECK(0 == Function::ParamTypeCount< float >::Result);
         }
         TEST(TestTrait, FunctionTraitsParamCount4)
         {
-            typedef behaviac::Meta::FunctionTraits< void (uint32_t, uint32_t, uint32_t , uint32_t) > Function;
+            typedef behaviac::Meta::FunctionTraits< void(uint32_t, uint32_t, uint32_t, uint32_t) > Function;
             CHECK(4 == Function::ParamTypeCount< uint32_t >::Result);
             CHECK(0 == Function::ParamTypeCount< float >::Result);
         }
         TEST(TestTrait, FunctionTraitsParamCount4DifferentParam)
         {
-            typedef behaviac::Meta::FunctionTraits< void (uint32_t, uint32_t, int32_t , float) > Function;
+            typedef behaviac::Meta::FunctionTraits< void(uint32_t, uint32_t, int32_t, float) > Function;
             CHECK(2 == Function::ParamTypeCount< uint32_t >::Result);
             CHECK(1 == Function::ParamTypeCount< float >::Result);
             CHECK(1 == Function::ParamTypeCount< int32_t >::Result);

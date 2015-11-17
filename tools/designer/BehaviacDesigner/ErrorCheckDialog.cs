@@ -41,54 +41,51 @@ using System.Windows.Forms;
 
 namespace Behaviac.Design
 {
-	internal partial class ErrorCheckDialog : Form
-	{
-		private BehaviorTreeList _behaviorTreeList= null;
-		internal BehaviorTreeList BehaviorTreeList
-		{
-			get { return _behaviorTreeList; }
-			set { _behaviorTreeList= value; }
-		}
+    internal partial class ErrorCheckDialog : Form
+    {
+        private BehaviorTreeList _behaviorTreeList = null;
+        internal BehaviorTreeList BehaviorTreeList {
+            get { return _behaviorTreeList; }
+            set { _behaviorTreeList = value; }
+        }
 
-		private BehaviorTreeView _behaviorTreeView= null;
-		internal BehaviorTreeView BehaviorTreeView
-		{
-			get { return _behaviorTreeView; }
-			set { _behaviorTreeView= value; }
-		}
+        private BehaviorTreeView _behaviorTreeView = null;
+        internal BehaviorTreeView BehaviorTreeView {
+            get { return _behaviorTreeView; }
+            set { _behaviorTreeView = value; }
+        }
 
-		internal ErrorCheckDialog()
-		{
-			InitializeComponent();
-		}
+        internal ErrorCheckDialog() {
+            InitializeComponent();
+        }
 
-        private void listView_Click(object sender, EventArgs e)
-		{
-			// check if there is an item selected
-			if (listView.SelectedItems.Count <1)
-				return;
+        private void listView_Click(object sender, EventArgs e) {
+            // check if there is an item selected
+            if (listView.SelectedItems.Count < 1) {
+                return;
+            }
 
-			// check if this item has a node connected to it. The no-errors message doesn't
-			Nodes.Node node = listView.SelectedItems[0].Tag as Nodes.Node;
-			if (node == null)
-				return;
+            // check if this item has a node connected to it. The no-errors message doesn't
+            Nodes.Node node = listView.SelectedItems[0].Tag as Nodes.Node;
 
-			// show the behaviour and select the node.
-			NodeViewData nvd = _behaviorTreeList.ShowNode(node);
-			Debug.Check(nvd != null);
+            if (node == null) {
+                return;
+            }
 
-			_behaviorTreeView.SelectedNode = nvd;
+            // show the behaviour and select the node.
+            NodeViewData nvd = _behaviorTreeList.ShowNode(node);
+            Debug.Check(nvd != null);
+
+            _behaviorTreeView.SelectedNode = nvd;
             _behaviorTreeView.ShowNode(nvd);
 
             PropertiesDock.InspectObject(nvd.RootBehavior, nvd.Node);
-		}
+        }
 
-        private void listView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
+        private void listView_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Escape) {
                 this.Close();
             }
         }
-	}
+    }
 }

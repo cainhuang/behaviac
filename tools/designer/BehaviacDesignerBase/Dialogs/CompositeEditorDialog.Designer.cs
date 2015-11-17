@@ -24,12 +24,11 @@ namespace Behaviac.Design.Attributes
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -39,22 +38,21 @@ namespace Behaviac.Design.Attributes
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CompositeEditorDialog));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.propertyGrid = new CustomPropertyGridTest.DynamicPropertyGrid();
             this.upButton = new System.Windows.Forms.Button();
             this.downButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.insertButton = new System.Windows.Forms.Button();
             this.appendButton = new System.Windows.Forms.Button();
-            this.propertyGrid = new CustomPropertyGridTest.DynamicPropertyGrid();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // tableLayoutPanel
-            // 
+            //
             this.tableLayoutPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
             this.tableLayoutPanel.Controls.Add(this.propertyGrid, 0, 0);
@@ -65,9 +63,18 @@ namespace Behaviac.Design.Attributes
             this.tableLayoutPanel.Controls.Add(this.insertButton, 1, 4);
             this.tableLayoutPanel.Controls.Add(this.appendButton, 1, 3);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            // 
+            //
+            // propertyGrid
+            //
+            resources.ApplyResources(this.propertyGrid, "propertyGrid");
+            this.propertyGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.propertyGrid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.propertyGrid.ForeColor = System.Drawing.Color.LightGray;
+            this.propertyGrid.Name = "propertyGrid";
+            this.tableLayoutPanel.SetRowSpan(this.propertyGrid, 8);
+            //
             // upButton
-            // 
+            //
             resources.ApplyResources(this.upButton, "upButton");
             this.upButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.upButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
@@ -75,9 +82,9 @@ namespace Behaviac.Design.Attributes
             this.upButton.Name = "upButton";
             this.upButton.UseVisualStyleBackColor = false;
             this.upButton.Click += new System.EventHandler(this.upButton_Click);
-            // 
+            //
             // downButton
-            // 
+            //
             resources.ApplyResources(this.downButton, "downButton");
             this.downButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.downButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
@@ -85,9 +92,9 @@ namespace Behaviac.Design.Attributes
             this.downButton.Name = "downButton";
             this.downButton.UseVisualStyleBackColor = false;
             this.downButton.Click += new System.EventHandler(this.downButton_Click);
-            // 
+            //
             // closeButton
-            // 
+            //
             resources.ApplyResources(this.closeButton, "closeButton");
             this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -96,9 +103,9 @@ namespace Behaviac.Design.Attributes
             this.closeButton.Name = "closeButton";
             this.closeButton.UseVisualStyleBackColor = false;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
-            // 
+            //
             // removeButton
-            // 
+            //
             resources.ApplyResources(this.removeButton, "removeButton");
             this.removeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.removeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
@@ -106,9 +113,9 @@ namespace Behaviac.Design.Attributes
             this.removeButton.Name = "removeButton";
             this.removeButton.UseVisualStyleBackColor = false;
             this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
-            // 
+            //
             // insertButton
-            // 
+            //
             resources.ApplyResources(this.insertButton, "insertButton");
             this.insertButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.insertButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
@@ -116,9 +123,9 @@ namespace Behaviac.Design.Attributes
             this.insertButton.Name = "insertButton";
             this.insertButton.UseVisualStyleBackColor = false;
             this.insertButton.Click += new System.EventHandler(this.insertButton_Click);
-            // 
+            //
             // appendButton
-            // 
+            //
             resources.ApplyResources(this.appendButton, "appendButton");
             this.appendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.appendButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
@@ -126,18 +133,9 @@ namespace Behaviac.Design.Attributes
             this.appendButton.Name = "appendButton";
             this.appendButton.UseVisualStyleBackColor = false;
             this.appendButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
-            // propertyGrid
-            // 
-            resources.ApplyResources(this.propertyGrid, "propertyGrid");
-            this.propertyGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            this.propertyGrid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.propertyGrid.ForeColor = System.Drawing.Color.LightGray;
-            this.propertyGrid.Name = "propertyGrid";
-            this.tableLayoutPanel.SetRowSpan(this.propertyGrid, 8);
-            // 
+            //
             // CompositeEditorDialog
-            // 
+            //
             this.AcceptButton = this.closeButton;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -149,6 +147,7 @@ namespace Behaviac.Design.Attributes
             this.MinimizeBox = false;
             this.Name = "CompositeEditorDialog";
             this.ShowIcon = false;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CompositeEditorDialog_FormClosing);
             this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -41,9 +41,13 @@ using Behaviac.Design.Attributes;
 namespace Behaviac.Design.Nodes
 {
     [Behaviac.Design.EnumDesc("Behaviac.Design.Nodes.OperatorType", true, "OperatorType", "OperatorTypeDesc")]
-    public enum OperatorType
-    {
+    public enum OperatorType {
         //Noop,
+        [Behaviac.Design.EnumMemberDesc("Assignment", true, "=", "OperatorType_Assignment")]
+        Assignment,
+
+        //[Behaviac.Design.EnumMemberDesc("In", true, "in", "OperatorType_In")]
+        //In,
 
         [Behaviac.Design.EnumMemberDesc("And", true, "&&", "OperatorType_And")]
         And,
@@ -73,25 +77,30 @@ namespace Behaviac.Design.Nodes
     /// <summary>
     /// This node represents a condition which can be attached to the behaviour tree.
     /// </summary>
-    public class Condition : Node
+public class Condition : Node
     {
         public Condition(string label, string description)
-            : base(label, description)
-        {
-        }
+            : base(label, description) {
+    }
 
-        private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(200, 100, 39));
-        protected override Brush DefaultBackgroundBrush
-        {
-            get { return __defaultBackgroundBrush; }
-        }
+    public override bool IsCondition {
+        get { return true; }
+    }
 
-        public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior)
-        {
-            NodeViewData nvd = base.CreateNodeViewData(parent, rootBehavior);
-            nvd.ChangeShape(NodeShape.AngleRectangle);
+    private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(200, 100, 39));
+    protected override Brush DefaultBackgroundBrush {
+        get { return __defaultBackgroundBrush; }
+    }
 
-            return nvd;
-        }
+    public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior) {
+        NodeViewData nvd = base.CreateNodeViewData(parent, rootBehavior);
+        nvd.ChangeShape(NodeShape.AngleRectangle);
+
+        return nvd;
+    }
+
+    public override bool AcceptsAttachment(Type type) {
+        return false;
+    }
     }
 }

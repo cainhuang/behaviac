@@ -58,11 +58,5 @@ namespace PluginBehaviac.Nodes
         {
             get { return false; }
         }
-
-        public override bool AcceptsAttachment(Type type)
-        {
-            return type.IsSubclassOf(typeof(Behaviac.Design.Attachments.Predicate));
-        }
-
 	}
 }

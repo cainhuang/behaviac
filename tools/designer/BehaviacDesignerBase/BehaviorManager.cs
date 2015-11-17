@@ -39,61 +39,59 @@ using Behaviac.Design.Properties;
 
 namespace Behaviac.Design
 {
-	/// <summary>
-	/// This interface must be included in every class which is supposed to act as a BehaviorManager.
-	/// This manager is for example used for referenced behaviour nodes to load the actual referenced behaviour.
-	/// </summary>
-	public interface BehaviorManagerInterface
-	{
-		/// <summary>
-		/// Returns a behaviour which has already been loaded.
-		/// </summary>
-		/// <param name="filename">Behaviour file to get the behaviour for.</param>
-		/// <returns>Returns null if the behaviour is not loaded.</returns>
-		Nodes.BehaviorNode GetBehavior(string filename);
+    /// <summary>
+    /// This interface must be included in every class which is supposed to act as a BehaviorManager.
+    /// This manager is for example used for referenced behaviour nodes to load the actual referenced behaviour.
+    /// </summary>
+    public interface BehaviorManagerInterface {
+        /// <summary>
+        /// Returns a behaviour which has already been loaded.
+        /// </summary>
+        /// <param name="filename">Behaviour file to get the behaviour for.</param>
+        /// <returns>Returns null if the behaviour is not loaded.</returns>
+        Nodes.BehaviorNode GetBehavior(string filename);
 
-		/// <summary>
-		/// Loads the given behaviour. If the behaviour was already loaded, it is not loaded a second time.
-		/// </summary>
-		/// <param name="filename">Behaviour file to load.</param>
-		/// <returns>Returns null if the behaviour was not already loaded and could not be loaded.</returns>
-		Nodes.BehaviorNode LoadBehavior(string filename, bool bForce = false);
+        /// <summary>
+        /// Loads the given behaviour. If the behaviour was already loaded, it is not loaded a second time.
+        /// </summary>
+        /// <param name="filename">Behaviour file to load.</param>
+        /// <returns>Returns null if the behaviour was not already loaded and could not be loaded.</returns>
+        Nodes.BehaviorNode LoadBehavior(string filename, bool bForce = false, List<Nodes.Node.ErrorCheck> result = null);
 
-		/// <summary>
-		/// Saves a given behaviour under the filename which is stored in the behaviour's file manager.
-		/// If no file manager exists (new node), the user is asked to choose a name.
-		/// </summary>
-		/// <param name="node">The behaviour node which will be saved.</param>
-		/// <param name="saveas">If true, the user will always be asked for a filename, even when a file manager is already present.</param>
+        /// <summary>
+        /// Saves a given behaviour under the filename which is stored in the behaviour's file manager.
+        /// If no file manager exists (new node), the user is asked to choose a name.
+        /// </summary>
+        /// <param name="node">The behaviour node which will be saved.</param>
+        /// <param name="saveas">If true, the user will always be asked for a filename, even when a file manager is already present.</param>
         /// <returns>Returns the result when the behaviour is saved.</returns>
         FileManagers.SaveResult SaveBehavior(Nodes.BehaviorNode node, bool saveas, bool showNode = true);
 
-		/// <summary>
-		/// Returns a list of all known behaviours.
-		/// </summary>
-		/// <returns>The list with all the filenames.</returns>
-		IList<string> GetAllBehaviorNames();
+        /// <summary>
+        /// Returns a list of all known behaviours.
+        /// </summary>
+        /// <returns>The list with all the filenames.</returns>
+        IList<string> GetAllBehaviorNames();
 
         IList<Nodes.BehaviorNode> GetAllBehaviors();
         IList<Nodes.BehaviorNode> GetAllOpenedBehaviors();
-	}
+    }
 
-	/// <summary>
-	/// The BehaviorManager is simply a static class which allows you to staticly access a class with the BehaviorManagerInterface.
-	/// </summary>
-	public class BehaviorManager
-	{
-		private static BehaviorManagerInterface _instance= null;
+    /// <summary>
+    /// The BehaviorManager is simply a static class which allows you to staticly access a class with the BehaviorManagerInterface.
+    /// </summary>
+    public class BehaviorManager
+    {
+        private static BehaviorManagerInterface _instance = null;
 
-		/// <summary>
-		/// The instance which can be accessed. It is not assign automatically.
-		/// When an object with the BehaviorManagerInterface is created, it must assign itself to BehaviorManager.Instance.
-		/// This value may not be null when nodes are loaded as some require the BehaviorManager to be present.
-		/// </summary>
-		public static BehaviorManagerInterface Instance
-		{
-			get { return _instance; }
-			set	{ _instance = value; }
-		}
-	}
+        /// <summary>
+        /// The instance which can be accessed. It is not assign automatically.
+        /// When an object with the BehaviorManagerInterface is created, it must assign itself to BehaviorManager.Instance.
+        /// This value may not be null when nodes are loaded as some require the BehaviorManager to be present.
+        /// </summary>
+        public static BehaviorManagerInterface Instance {
+            get { return _instance; }
+            set	{ _instance = value; }
+        }
+    }
 }

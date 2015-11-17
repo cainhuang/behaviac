@@ -13,83 +13,83 @@
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/nodes/decorators/decoratorweight.h"
-#include "behaviac/world/world.h"
+#include "behaviac/behaviortree/nodes/conditions/condition.h"
 
 namespace behaviac
 {
-	DecoratorWeight::DecoratorWeight() : m_weight_var(0)
-	{}
+    DecoratorWeight::DecoratorWeight() : m_weight_var(0)
+    {}
 
-	DecoratorWeight::~DecoratorWeight()
-	{
-		BEHAVIAC_DELETE(m_weight_var);
-	}
+    DecoratorWeight::~DecoratorWeight()
+    {
+        BEHAVIAC_DELETE(m_weight_var);
+    }
 
-	Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
+    //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
 
-	void DecoratorWeight::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
+    void DecoratorWeight::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
 
-		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
-		{
-			const property_t& p = (*it);
+        for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+        {
+            const property_t& p = (*it);
 
-			if (strcmp(p.name, "Weight") == 0)
-			{
-				behaviac::string typeName;
-				behaviac::string propertyName;
-				this->m_weight_var = LoadRight(p.value, propertyName, typeName);
-			}
-		}
-	}
+            if (strcmp(p.name, "Weight") == 0)
+            {
+                behaviac::string typeName;
+                behaviac::string propertyName;
+                this->m_weight_var = Condition::LoadRight(p.value, typeName);
+            }
+        }
+    }
 
-	int DecoratorWeight::GetWeight(behaviac::Agent* pAgent) const
-	{
-		if (this->m_weight_var)
-		{
-			BEHAVIAC_ASSERT(this->m_weight_var);
-			TProperty<int>* pP = (TProperty<int>*)this->m_weight_var;
-			uint64_t count = pP->GetValue(pAgent);
+    int DecoratorWeight::GetWeight(behaviac::Agent* pAgent) const
+    {
+        if (this->m_weight_var)
+        {
+            BEHAVIAC_ASSERT(this->m_weight_var);
+            TProperty<int>* pP = (TProperty<int>*)this->m_weight_var;
+            uint64_t count = pP->GetValue(pAgent);
 
-			return (count == ((uint64_t)-1) ? -1 : (int)count);
-		}
+            return (count == ((uint64_t) - 1) ? -1 : (int)count);
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 
-	BehaviorTask* DecoratorWeight::createTask() const
-	{
-		DecoratorWeightTask* pTask = BEHAVIAC_NEW DecoratorWeightTask();
+    BehaviorTask* DecoratorWeight::createTask() const
+    {
+        DecoratorWeightTask* pTask = BEHAVIAC_NEW DecoratorWeightTask();
 
-		return pTask;
-	}
-	
-	void DecoratorWeightTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+        return pTask;
+    }
 
-	void DecoratorWeightTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
+    void DecoratorWeightTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
-	void DecoratorWeightTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
+    void DecoratorWeightTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	int DecoratorWeightTask::GetWeight(behaviac::Agent* pAgent) const
-	{
-		BEHAVIAC_ASSERT(DecoratorWeight::DynamicCast(this->GetNode()));
-		const DecoratorWeight* pNode = (const DecoratorWeight*)(this->GetNode());
+    void DecoratorWeightTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
-		return pNode ? pNode->GetWeight(pAgent) : 0;
-	}
+    int DecoratorWeightTask::GetWeight(behaviac::Agent* pAgent) const
+    {
+        BEHAVIAC_ASSERT(DecoratorWeight::DynamicCast(this->GetNode()));
+        const DecoratorWeight* pNode = (const DecoratorWeight*)(this->GetNode());
 
-	EBTStatus DecoratorWeightTask::decorate(EBTStatus status)
-	{
-		return status;
-	}
+        return pNode ? pNode->GetWeight(pAgent) : 0;
+    }
+
+    EBTStatus DecoratorWeightTask::decorate(EBTStatus status)
+    {
+        return status;
+    }
 }//namespace behaviac

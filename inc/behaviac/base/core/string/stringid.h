@@ -11,35 +11,35 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BASE_STRINGID_H_
-#define BASE_STRINGID_H_
+#ifndef BEHAVIAC_BASE_STRINGID_H
+#define BEHAVIAC_BASE_STRINGID_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
 
 #if !defined(BEHAVIAC_RELEASE)
-	#define		BEHAVIAC_STRINGID_DEBUG 1
+#define		BEHAVIAC_STRINGID_DEBUG 1
 #endif
 
 // Usage of behaviac::string content will eventually be removed in release!
 #ifdef BEHAVIAC_STRINGID_DEBUG
-	#define	BEHAVIAC_STRINGID_USESTRINGCONTENT	1
+#define	BEHAVIAC_STRINGID_USESTRINGCONTENT	1
 #endif
 
 #ifdef BEHAVIAC_STRINGID_DEBUG
-	#define	BEHAVIAC_STRINGID_DEBUG_CASE
+#define	BEHAVIAC_STRINGID_DEBUG_CASE
 #endif
 
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-	// WARNING: Only define if needed for debugging
-	// Note: resolving the content is a "best guess", if the behaviac::string wasn't registered before
-	//       the resolve will fail.
-	#define	BEHAVIAC_STRINGID_RESOLVE_CONTENT
+// WARNING: Only define if needed for debugging
+// Note: resolving the content is a "best guess", if the behaviac::string wasn't registered before
+//       the resolve will fail.
+#define	BEHAVIAC_STRINGID_RESOLVE_CONTENT
 #endif
 
 #if !BEHAVIAC_STRINGID_USESTRINGCONTENT && !defined(BEHAVIAC_STRINGID_RESOLVE_CONTENT) && !defined(BEHAVIAC_STRINGID_DEBUG_CASE)
-	// This should only be defined if we have nothing but the IDType in the CStringID instance.  (i.e. a retail build)
-	#define BEHAVIAC_STRINGID_RETAIL_OPTIM
+// This should only be defined if we have nothing but the IDType in the CStringID instance.  (i.e. a retail build)
+#define BEHAVIAC_STRINGID_RETAIL_OPTIM
 #endif
 
 class CNoCaseStringID;
@@ -63,7 +63,7 @@ public:
 
     //! Creates an Invalid behaviac::string ID.
     CStringID();
-	virtual ~CStringID();
+    virtual ~CStringID();
 
     //! Copy constructor.
     CStringID(const CStringID& other);
@@ -89,7 +89,7 @@ public:
     //! Returns true if the behaviac::string ID is valid.
     bool IsValid() const;
 
-	static void Cleanup();
+    static void Cleanup();
 private:
     //! Sets the content of the behaviac::string ID post-creation.
     void SetContent(const char* content, bool noCase, bool resolve);
@@ -198,7 +198,6 @@ public:
     void SetContent(const char* str);
 };
 
-
 namespace stdext
 {
     template<class Keyval> size_t hash_value(const Keyval& k);
@@ -280,7 +279,6 @@ inline CStringID::CStringID(IDType crc, const char* str)
 
 #endif
 
-
 ////////////////////////////////////////////////////////////////////////////////
 BEHAVIAC_FORCEINLINE const CStringID::IDType& CStringID::GetUniqueID() const
 {
@@ -307,7 +305,6 @@ inline void CStringID::SetContent(const char* str)
 {
     SetContent(str, false, false);
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 inline CNoCaseStringID::CNoCaseStringID()
@@ -368,4 +365,4 @@ inline void CNoCaseStringID::SetContent(const char* str)
     CStringID::SetContent(str, true, false);
 }
 
-#endif //#ifndef BASE_STRINGID_H_
+#endif //#ifndef BEHAVIAC_BASE_STRINGID_H

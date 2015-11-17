@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_ENUMCONTAINERMEMBER_H_
-#define _ENGINESERVICES_ENUMCONTAINERMEMBER_H_
+#ifndef BEHAVIAC_ENGINESERVICES_ENUMCONTAINERMEMBER_H
+#define BEHAVIAC_ENGINESERVICES_ENUMCONTAINERMEMBER_H
 
 #include "behaviac/base/object/containermember.h"
 #include "behaviac/base/object/enummember.h"
@@ -52,6 +52,7 @@ public:
         if (ChildNodeCreate)
         {
             childNode = node->findChild(super::m_propertyID);
+
         }
         else
         {
@@ -83,12 +84,11 @@ struct CEnumContainerMemberFactory
     template<class ObjectType, class ContainerType>
     static CMemberBase* Create(ContainerType ObjectType::* memberPtr, const char* propertyName, const char* elementName, const char* selName, const char* enumName, UiGenericType* uiWrapper, CEnumMember*& enumMember)
     {
-		typedef CEnumContainerMember<ObjectType, ContainerType, ContainerHandler< ContainerProvider< ObjectType, ContainerType >, ContainedTypeHandler >, PropertyFlags, ChildNodeCreate> MemberType;
-		MembetType* enumContainerMember = BEHAVIAC_NEW MembetType(memberPtr, propertyName, elementName, selName, enumName, uiWrapper);
+        typedef CEnumContainerMember<ObjectType, ContainerType, ContainerHandler< ContainerProvider< ObjectType, ContainerType >, ContainedTypeHandler >, PropertyFlags, ChildNodeCreate> MemberType;
+        MembetType* enumContainerMember = BEHAVIAC_NEW MembetType(memberPtr, propertyName, elementName, selName, enumName, uiWrapper);
         enumMember = enumContainerMember->GetEnumMember();
         return enumContainerMember;
     }
 };
 
-
-#endif // #ifndef _ENGINESERVICES_ENUMCONTAINERMEMBER_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_ENUMCONTAINERMEMBER_H

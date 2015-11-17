@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public DecoratorAlwaysRunning()
         {
-		}
+        }
+
         ~DecoratorAlwaysRunning()
         {
         }
@@ -48,9 +47,10 @@ namespace behaviac
             return pTask;
         }
 
-        class DecoratorAlwaysRunningTask : DecoratorTask
+        private class DecoratorAlwaysRunningTask : DecoratorTask
         {
-            public DecoratorAlwaysRunningTask() : base()
+            public DecoratorAlwaysRunningTask()
+                : base()
             {
             }
 
@@ -58,10 +58,12 @@ namespace behaviac
             {
                 base.addChild(pBehavior);
             }
+
             public override void copyto(BehaviorTask target)
             {
                 base.copyto(target);
             }
+
             public override void save(ISerializableNode node)
             {
                 base.save(node);

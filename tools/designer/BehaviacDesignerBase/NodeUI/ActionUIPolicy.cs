@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -17,14 +17,12 @@ using System.Text;
 using Behaviac.Design.Nodes;
 using Behaviac.Design.Attributes;
 
-namespace Behaviac.Design.NodeUI
+namespace Behaviac.Design.ObjectUI
 {
-    class ActionUIPolicy : NodeUIPolicy
+    class ActionUIPolicy : ObjectUIPolicy
     {
-        public override void Update()
-        {
-            if (_obj != null)
-            {
+        public override void Update() {
+            if (_obj != null) {
                 DesignerPropertyEditor resultOptionEditor = GetEditor(_obj, "ResultOption");
                 DesignerPropertyEditor resultFunctorEditor = GetEditor(_obj, "ResultFunctor");
                 Debug.Check(resultOptionEditor != null && resultFunctorEditor != null);
@@ -32,32 +30,29 @@ namespace Behaviac.Design.NodeUI
                 MethodDef method = GetProperty(_obj, "Method") as MethodDef;
                 MethodDef checkMethod = GetProperty(_obj, "ResultFunctor") as MethodDef;
 
-                if (method == null || method.NativeReturnType == "behaviac::EBTStatus")
-                {
+                if (method == null || method.NativeReturnType == "behaviac::EBTStatus") {
                     resultOptionEditor.Enabled = false;
                     resultFunctorEditor.Enabled = false;
-                }
-                else
-                {
+
+                    //ResultOption is set to be SUCCESS by default
+                    SetProperty(_obj, "ResultOption", EBTStatus.BT_INVALID);
+
+                } else {
                     bool enableMethod = true;
                     object prop = GetProperty(_obj, "ResultOption");
-                    if (prop is EBTStatus)
-                    {
+
+                    if (prop is EBTStatus) {
                         EBTStatus checkStatusdProp = (EBTStatus)prop;
+
                         if (EBTStatus.BT_INVALID != checkStatusdProp)
-                            enableMethod = false;
+                        { enableMethod = false; }
                     }
 
                     resultOptionEditor.Enabled = true;
                     resultFunctorEditor.Enabled = enableMethod;
                 }
 
-                if (!resultOptionEditor.Enabled)
-                {
-                    SetProperty(_obj, "ResultOption", EBTStatus.BT_INVALID);
-                }
-                if (!resultFunctorEditor.Enabled)
-                {
+                if (!resultFunctorEditor.Enabled) {
                     SetProperty(_obj, "ResultFunctor", null);
                     resultFunctorEditor.Clear();
                 }

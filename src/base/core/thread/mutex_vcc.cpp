@@ -19,18 +19,18 @@
 namespace behaviac
 {
     struct Mutex::MutexImpl
-    {        
+    {
         CRITICAL_SECTION    _criticalSection;
     };
 
     ////////////////////////////////////////////////////////////////////////////////
     Mutex::Mutex()
-    {        
+    {
         // Be sure that the shadow is large enough
         BEHAVIAC_ASSERT(sizeof(m_Shadow) >= sizeof(MutexImpl));
 
         // Use the shadow as memory space for the platform specific implementation
-		_impl = (MutexImpl*) m_Shadow;
+        _impl = (MutexImpl*)m_Shadow;
 
         InitializeCriticalSection(&_impl->_criticalSection);
     }
@@ -56,14 +56,13 @@ namespace behaviac
     ////////////////////////////////////////////////////////////////////////////////
     bool Mutex::TryLock()
     {
-        #if ((_WIN32_WINNT >= 0x0400))
-            bool Ret = !!TryEnterCriticalSection(&_impl->_criticalSection);
-            return Ret;
-        #else
-            return false;
-        #endif
+#if ((_WIN32_WINNT >= 0x0400))
+        bool Ret = !!TryEnterCriticalSection(&_impl->_criticalSection);
+        return Ret;
+#else
+        return false;
+#endif
     }
-
 }//namespace behaviac
 
 #endif//BEHAVIAC_COMPILER_MSVC

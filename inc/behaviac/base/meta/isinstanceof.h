@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_TRAITS_ISINSTANCEOF_H__INCLUDED
-#define _BEHAVIAC_BASE_TRAITS_ISINSTANCEOF_H__INCLUDED
+#ifndef _BEHAVIAC_BASE_TRAITS_ISINSTANCEOF_H_INCLUDED
+#define _BEHAVIAC_BASE_TRAITS_ISINSTANCEOF_H_INCLUDED
 
 namespace behaviac
 {
@@ -23,7 +23,6 @@ namespace behaviac
             template< typename BaseType, typename DerivedType >
             struct IsInstanceOfImpl;
         }
-
 
         // Answer is true if DerivedType derived from BaseType or is the same than
         // BaseType

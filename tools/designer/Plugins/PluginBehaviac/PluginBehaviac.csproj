@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -10,14 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PluginBehaviac</RootNamespace>
     <AssemblyName>PluginBehaviac</AssemblyName>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -63,6 +59,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -91,14 +88,22 @@
     <Compile Include="NodeExporters\AttachmentExporter.cs" />
     <Compile Include="Exporters\ExporterCpp.cs" />
     <Compile Include="NodeExporters\Cpp\Actions\ComputeCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\Attachments\AttachActionCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\Attachments\EffectorCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\Attachments\PreconditionCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorIteratorCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\FSM\TransitionConditionCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\HTN\TaskCppExporter.cs" />
     <Compile Include="NodeExporters\Cs\Actions\ActionCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Actions\AssignmentCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Actions\ComputeCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Actions\WaitCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Actions\WaitFramesCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\AttachmentCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\Attachments\AttachActionCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\Attachments\PreconditionCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\Attachments\EffectorCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Attachments\EventCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Attachments\PredicateCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Composites\ParallelCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Composites\QueryCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Composites\ReferencedBehaviorCsExporter.cs" />
@@ -106,36 +111,22 @@
     <Compile Include="NodeExporters\Cs\Composites\SelectorStochasticCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Composites\SequenceStochasticCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Conditions\ConditionCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Decorators\DecoratorAlwaysFailureCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Decorators\DecoratorAlwaysRunningCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Decorators\DecoratorAlwaysSuccessCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\Decorators\DecoratorIteratorCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorCountCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Decorators\DecoratorCountLimitCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Decorators\DecoratorFailureUntilCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorFramesCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorLogCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Decorators\DecoratorLoopCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorLoopUntilCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Decorators\DecoratorNotCsExporter.cs" />
-    <Compile Include="NodeExporters\Cs\Decorators\DecoratorSuccessUntilCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorTimeCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorWeightCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\FSM\TransitionConditionCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\HTN\TaskCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\NodeCsExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Actions\ActionCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Actions\AssignmentCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Attachments\PredicateCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Attachments\EventCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Conditions\ConditionCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\AttachmentCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorSuccessUntilCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorNotCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorCountLimitCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorFailureUntilCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorAlwaysSuccessCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorAlwaysRunningCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorAlwaysFailureCppExporter.cs" />
-    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorLoopCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Composites\ReferencedBehaviorCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Decorators\DecoratorCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Decorators\DecoratorWeightCppExporter.cs" />
@@ -161,7 +152,10 @@
     <Compile Include="Nodes\Actions\Wait.cs" />
     <Compile Include="Nodes\Actions\WaitforSignal.cs" />
     <Compile Include="Nodes\Actions\WaitFrames.cs" />
+    <Compile Include="Nodes\Attachments\Effector.cs" />
     <Compile Include="Nodes\Attachments\Event.cs" />
+    <Compile Include="Nodes\Attachments\Precondition.cs" />
+    <Compile Include="Nodes\Attachments\Predicate.cs" />
     <Compile Include="Nodes\Composites\IfElse.cs" />
     <Compile Include="Nodes\Composites\Parallel.cs" />
     <Compile Include="Nodes\Composites\Query.cs" />
@@ -181,6 +175,8 @@
     <Compile Include="Nodes\Decorators\DecoratorCount.cs" />
     <Compile Include="Nodes\Decorators\DecoratorCountLimit.cs" />
     <Compile Include="Nodes\Decorators\DecoratorFrames.cs" />
+    <Compile Include="Nodes\Decorators\DecoratorIterator.cs" />
+    <Compile Include="Nodes\Decorators\DecoratorRepeat.cs" />
     <Compile Include="Nodes\Decorators\DecoratorWeight.cs" />
     <Compile Include="Nodes\Decorators\DecoratorAlwaysFailure.cs" />
     <Compile Include="Nodes\Decorators\DecoratorAlwaysRunning.cs" />
@@ -192,10 +188,16 @@
     <Compile Include="Nodes\Decorators\DecoratorSuccessUntil.cs" />
     <Compile Include="Nodes\Decorators\DecoratorAlwaysSuccess.cs" />
     <Compile Include="Nodes\Decorators\DecoratorTime.cs" />
-    <Compile Include="Nodes\Attachments\Predicate.cs" />
-    <Compile Include="Nodes\Goals\Method.cs" />
-    <Compile Include="Nodes\Goals\Task.cs" />
-    <Compile Include="Nodes\NodeViewDataCompoundTask.cs" />
+    <Compile Include="Nodes\FSM\FSMReferencedBehavior.cs" />
+    <Compile Include="Nodes\FSM\StartCondition.cs" />
+    <Compile Include="Nodes\FSM\State.cs" />
+    <Compile Include="Nodes\FSM\TransitionCondition.cs" />
+    <Compile Include="Nodes\HTN\Method.cs" />
+    <Compile Include="Nodes\HTN\Task.cs" />
+    <Compile Include="NodeUI\EffectorUIPolicy.cs" />
+    <Compile Include="NodeUI\TransitionUIPolicy.cs" />
+    <Compile Include="NodeUI\ParallelUIPolicy.cs" />
+    <Compile Include="NodeUI\PreconditionUIPolicy.cs" />
     <Compile Include="PluginBehaviac.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -258,13 +260,7 @@
     <None Include="Resources\goal_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\method.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ICON__0024_22.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\alwaysSuccess.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ICON__0004_42.png" />
@@ -292,6 +288,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ICON__0008_38.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\preaction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\postaction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\try.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\state.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\task.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\transition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ICON__0028_18.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ICON__0026_20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\method.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

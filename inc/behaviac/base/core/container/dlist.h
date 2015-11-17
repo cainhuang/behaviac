@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BASE_DLIST_H_
-#define BEHAVIAC_BASE_DLIST_H_
+#ifndef BEHAVIAC_BASE_DLIST_H
+#define BEHAVIAC_BASE_DLIST_H
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
@@ -20,7 +20,6 @@
 
 namespace behaviac
 {
-
     /// Double Linked list declaration for elements that belong to a list
     /// \sa DList
 #define BEHAVIAC_DECLARE_DLIST(CLASSNAME)                           \
@@ -49,38 +48,38 @@ public:                                                         \
 
     /// Double Linked list declaration to put in your class declaration.
     /*! This is a typical double linked list class. Its main advantage resides in the fact that there is no
-        dynamic allocation involved, since all your element objects will have in their previous & next pointer
-        space already reserved in their object. To reserve this space in your element object, use the BEHAVIAC_DECLARE_DLIST
-        macro. (You can use BEHAVIAC_DECLARE_DLIST2, BEHAVIAC_DECLARE_DLIST3, etc. if you want your object to be the element of
-        more than a list at the time).
-        Here's an example how to declare your object as a double linked list node.
-        \code
-        class MyClass
-        {
-            BEHAVIAC_DECLARE_DLIST(MyClass)
+    	dynamic allocation involved, since all your element objects will have in their previous & next pointer
+    	space already reserved in their object. To reserve this space in your element object, use the BEHAVIAC_DECLARE_DLIST
+    	macro. (You can use BEHAVIAC_DECLARE_DLIST2, BEHAVIAC_DECLARE_DLIST3, etc. if you want your object to be the element of
+    	more than a list at the time).
+    	Here's an example how to declare your object as a double linked list node.
+    	\code
+    	class MyClass
+    	{
+    	BEHAVIAC_DECLARE_DLIST(MyClass)
 
-            public:
-            MyClass() {  }
-        };
-        \endcode
+    	public:
+    	MyClass() {  }
+    	};
+    	\endcode
 
-           Note:
+    	Note:
 
-        Howard Hinnant Jul 4 1998, 2:00 am
+    	Howard Hinnant Jul 4 1998, 2:00 am
 
-        You're not doing anything wrong.  This is a limitation of the current
-        compiler.  Nested classes of template classes must be defined within the
-        class.  Work is underway to remove this restriction.
+    	You're not doing anything wrong.  This is a limitation of the current
+    	compiler.  Nested classes of template classes must be defined within the
+    	class.  Work is underway to remove this restriction.
 
-        -Howard
+    	-Howard
 
-        Senior Library and Performance Engineer
-        Metrowerks
+    	Senior Library and Performance Engineer
+    	Metrowerks
 
-        ---
-        This is the case on CodeWarrior on GameCube.
-    */
-    class BEHAVIAC_API DList: public SList
+    	---
+    	This is the case on CodeWarrior on GameCube.
+    	*/
+    class BEHAVIAC_API DList : public SList
     {
     public:
 
@@ -147,24 +146,23 @@ public:                                                         \
             NODETYPE*      m_pNext[NBLIST];
             /// Previous pointer
             NODETYPE*      m_pPrev[NBLIST];
-
         }; // Class Node
 
-		//find could be very slow
-		//#define _SLOW_ASSERT(x) BEHAVIAC_ASSERT(x)
-		#define _SLOW_ASSERT(x)
+        //find could be very slow
+        //#define _SLOW_ASSERT(x) BEHAVIAC_ASSERT(x)
+#define _SLOW_ASSERT(x)
 
         /// DList DRoot is the root object that will handle the double linked list
         /*! The root object is a template, and receive an object type as template parameter. This object
-            type must have the BEHAVIAC_DECLARE_DLIST in his declaration.
-        */
+        	type must have the BEHAVIAC_DECLARE_DLIST in his declaration.
+        	*/
         template <typename NODETYPE, int LISTNB = 0>
-        class DRoot: public SList::SRoot<NODETYPE, LISTNB>
+        class DRoot : public SList::SRoot<NODETYPE, LISTNB>
         {
         public:
 
             /// Constructor sets the SRoot as an empty list
-            inline DRoot(): SList::SRoot<NODETYPE, LISTNB>()
+            inline DRoot() : SList::SRoot<NODETYPE, LISTNB>()
             {
                 BEHAVIAC_STATIC_ASSERT(LISTNB < NODETYPE::LLIST_MAX_LINKS);
             }
@@ -182,6 +180,7 @@ public:                                                         \
                 if (this->m_pHead)
                 {
                     InsertBefore(*this->m_pHead, NewNode);
+
                 }
                 else
                 {
@@ -203,6 +202,7 @@ public:                                                         \
                 if (node)
                 {
                     InsertAfter(*(node), NewNode);
+
                 }
                 else
                 {
@@ -212,11 +212,11 @@ public:                                                         \
 
             /// Insert an element in a double linked list before a specified node
             /*! The Element must be initialized and not currently in a list
-                \param CurrentNode The Node currently in the list, that will be linked after the new node
-                \param NewNode A reference on the node to add
-                \return None
-                \sa InsertAfter()
-            */
+            	\param CurrentNode The Node currently in the list, that will be linked after the new node
+            	\param NewNode A reference on the node to add
+            	\return None
+            	\sa InsertAfter()
+            	*/
             inline void InsertBefore(NODETYPE& CurrentNode, NODETYPE& NewNode)
             {
                 BEHAVIAC_ASSERT(!IsLinked(NewNode, LISTNB));
@@ -230,6 +230,7 @@ public:                                                         \
                 if (NewNode.m_llist.m_pPrev[LISTNB])
                 {
                     NewNode.m_llist.m_pPrev[LISTNB]->m_llist.m_pNext[LISTNB] = &NewNode;
+
                 }
                 else
                 {
@@ -239,11 +240,11 @@ public:                                                         \
 
             /// Insert an element in a double linked list after a specified node
             /*! The Element must be initialized and not currently in a list
-                \param CurrentNode The Node currently in the list, that will be linked before the new node
-                \param NewNode A reference on the node to add
-                \return None
-                \sa InsertBefore()
-            */
+            	\param CurrentNode The Node currently in the list, that will be linked before the new node
+            	\param NewNode A reference on the node to add
+            	\return None
+            	\sa InsertBefore()
+            	*/
             inline void InsertAfter(NODETYPE& CurrentNode, NODETYPE& NewNode)
             {
                 BEHAVIAC_ASSERT(!IsLinked(NewNode, LISTNB));
@@ -257,6 +258,7 @@ public:                                                         \
                 if (NewNode.m_llist.m_pNext[LISTNB])
                 {
                     NewNode.m_llist.m_pNext[LISTNB]->m_llist.m_pPrev[LISTNB] = &NewNode;
+
                 }
                 else
                 {
@@ -266,9 +268,9 @@ public:                                                         \
 
             /// Unlink the first element of the double linked list (Head).
             /*! If the list is empty, 0 is returned.
-                \return A pointer on the first element, removed from the list or 0 if the list is empty.
-                \sa Empty()
-            */
+            	\return A pointer on the first element, removed from the list or 0 if the list is empty.
+            	\sa Empty()
+            	*/
             inline NODETYPE* PopFront(void)
             {
                 NODETYPE* pResult = this->m_pHead;
@@ -280,6 +282,7 @@ public:                                                         \
                     if (this->m_pHead)
                     {
                         this->m_pHead->m_llist.m_pPrev[LISTNB] = 0;
+
                     }
                     else
                     {
@@ -294,9 +297,9 @@ public:                                                         \
 
             /// Unlink the last element of the double linked list (Tail).
             /*! If the list is empty, 0 is returned.
-                \return A pointer on the last element, removed from the list or 0 if the list is empty.
-                \sa Empty()
-            */
+            	\return A pointer on the last element, removed from the list or 0 if the list is empty.
+            	\sa Empty()
+            	*/
             inline NODETYPE* PopBack(void)
             {
                 NODETYPE* pResult = this->m_pTail;
@@ -308,6 +311,7 @@ public:                                                         \
                     if (this->m_pTail)
                     {
                         this->m_pTail->m_llist.m_pNext[LISTNB] = 0;
+
                     }
                     else
                     {
@@ -322,9 +326,9 @@ public:                                                         \
 
             /// Unlink an element of a double linked list.
             /*! The Element must be in the specified list.
-                \return None
-                \sa PopFront(), PopBack()
-            */
+            	\return None
+            	\sa PopFront(), PopBack()
+            	*/
             inline void Remove(NODETYPE& OldNode)
             {
                 _SLOW_ASSERT(this->Find(OldNode));
@@ -334,10 +338,12 @@ public:                                                         \
                 if (OldNode.m_llist.m_pPrev[LISTNB])
                 {
                     OldNode.m_llist.m_pPrev[LISTNB]->m_llist.m_pNext[LISTNB] = OldNode.m_llist.m_pNext[LISTNB];
+
                 }
                 else if (this->m_pHead == &OldNode)
                 {
                     this->m_pHead = OldNode.m_llist.m_pNext[LISTNB];
+
                 }
                 else
                 {
@@ -349,10 +355,12 @@ public:                                                         \
                 if (OldNode.m_llist.m_pNext[LISTNB])
                 {
                     OldNode.m_llist.m_pNext[LISTNB]->m_llist.m_pPrev[LISTNB] = OldNode.m_llist.m_pPrev[LISTNB];
+
                 }
                 else if (this->m_pTail == &OldNode)
                 {
                     this->m_pTail = OldNode.m_llist.m_pPrev[LISTNB];
+
                 }
                 else
                 {
@@ -374,9 +382,9 @@ public:                                                         \
 
             /// Unlink an element & put it back to the back of the list
             /*! The Element must be in the specified list.
-                \return None
-                \sa Remove(), PushBack()
-            */
+            	\return None
+            	\sa Remove(), PushBack()
+            	*/
             inline void MoveToBack(NODETYPE& NodeToMove)
             {
                 _SLOW_ASSERT(this->Find(NodeToMove));
@@ -388,6 +396,7 @@ public:                                                         \
                     if (NodeToMove.m_llist.m_pPrev[LISTNB])
                     {
                         NodeToMove.m_llist.m_pPrev[LISTNB]->m_llist.m_pNext[LISTNB] = NodeToMove.m_llist.m_pNext[LISTNB];
+
                     }
                     else
                     {
@@ -406,7 +415,7 @@ public:                                                         \
             /*! An Iterator is always created from a root double linked list. By default, it internal index
             will always point on the first element of the double linked list (the head).
             */
-            class DIterator: public SList::SRoot<NODETYPE, LISTNB>::SIterator
+            class DIterator : public SList::SRoot<NODETYPE, LISTNB>::SIterator
             {
             public:
 
@@ -488,9 +497,7 @@ public:                                                         \
                     ((DRoot<NODETYPE, LISTNB>*)(this->m_pHead))->Remove(*pTmp);
                     return(pTmp);
                 }
-
             }; // class DIterator
-
         }; // class DRoot
 
         //// Generic Services
@@ -517,7 +524,6 @@ public:                                                         \
     {
         return node.m_llist.m_pPrev[LISTNB];
     }
-
 }//end of namespace
 
-#endif // #ifndef BEHAVIAC_BASE_DLIST_H_
+#endif // #ifndef BEHAVIAC_BASE_DLIST_H

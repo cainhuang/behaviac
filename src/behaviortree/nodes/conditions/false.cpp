@@ -16,53 +16,48 @@
 
 namespace behaviac
 {
-	False::False()
-	{}
+    False::False()
+    {}
 
-	False::~False()
-	{}
+    False::~False()
+    {}
 
-	void False::load(int version, const char* agentType, const properties_t& properties)
-	{
-		super::load(version, agentType, properties);
-	}
+    void False::load(int version, const char* agentType, const properties_t& properties)
+    {
+        super::load(version, agentType, properties);
+    }
 
-	bool False::IsValid(Agent* pAgent, BehaviorTask* pTask) const
-	{
-		if (!False::DynamicCast(pTask->GetNode()))
-		{
-			return false;
-		}
-	
-		return super::IsValid(pAgent, pTask);
-	}
+    bool False::IsValid(Agent* pAgent, BehaviorTask* pTask) const
+    {
+        if (!False::DynamicCast(pTask->GetNode()))
+        {
+            return false;
+        }
 
+        return super::IsValid(pAgent, pTask);
+    }
 
-	BehaviorTask* False::createTask() const
-	{
-		FalseTask* pTask = BEHAVIAC_NEW FalseTask();
-		
+    BehaviorTask* False::createTask() const
+    {
+        FalseTask* pTask = BEHAVIAC_NEW FalseTask();
 
-		return pTask;
-	}
+        return pTask;
+    }
 
-	void FalseTask::copyto(BehaviorTask* target) const
-	{
-		super::copyto(target);
-	}
+    void FalseTask::copyto(BehaviorTask* target) const
+    {
+        super::copyto(target);
+    }
 
+    void FalseTask::save(ISerializableNode* node) const
+    {
+        super::save(node);
+    }
 
-	void FalseTask::save(ISerializableNode* node) const
-	{
-		super::save(node);
-	}
-
-	void FalseTask::load(ISerializableNode* node)
-	{
-		super::load(node);
-	}
-
-
+    void FalseTask::load(ISerializableNode* node)
+    {
+        super::load(node);
+    }
 
     EBTStatus FalseTask::update(Agent* pAgent, EBTStatus childStatus)
     {
@@ -71,5 +66,4 @@ namespace behaviac
 
         return BT_FAILURE;
     }
-
 }

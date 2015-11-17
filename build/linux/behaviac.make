@@ -26,8 +26,8 @@ ifeq ($(config),debug64)
   DEFINES   += -D_DEBUG -DDEBUG -D_LIB
   INCLUDES  += -I../../inc
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -Wall -Wextra -ffast-math -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -Wall -Wextra -Werror -ffast-math -m64 -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8
+  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions 
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -m64 -L/usr/lib64
   LDDEPS    +=
@@ -48,32 +48,10 @@ ifeq ($(config),release64)
   DEFINES   += -DNDEBUG -D_LIB
   INCLUDES  += -I../../inc
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -ffast-math -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -Werror -ffast-math -m64 -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8
+  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions 
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -s -m64 -L/usr/lib64
-  LDDEPS    +=
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
-  define PREBUILDCMDS
-  endef
-  define PRELINKCMDS
-  endef
-  define POSTBUILDCMDS
-  endef
-endif
-
-ifeq ($(config),profile64)
-  OBJDIR     = ../../intermediate/profile/linux/behaviac/x64
-  TARGETDIR  = ../../lib
-  TARGET     = $(TARGETDIR)/libbehaviac_profilestatic_linux_gmake.a
-  DEFINES   += -DNDEBUG -DBEHAVIAC_CFG_PROFILE -D_LIB
-  INCLUDES  += -I../../inc
-  ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -ffast-math -g -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8 /Z7
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
-  ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -m64 -L/usr/lib64 /DEBUG 
   LDDEPS    +=
   LIBS      += $(LDDEPS)
   LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
@@ -90,9 +68,11 @@ OBJECTS := \
 	$(OBJDIR)/context.o \
 	$(OBJDIR)/namedevent.o \
 	$(OBJDIR)/propertynode.o \
-	$(OBJDIR)/state.o \
+	$(OBJDIR)/state_t.o \
+	$(OBJDIR)/taskmethod.o \
 	$(OBJDIR)/base.o \
 	$(OBJDIR)/convertutf.o \
+	$(OBJDIR)/custommethod.o \
 	$(OBJDIR)/dynamictype.o \
 	$(OBJDIR)/dynamictypefactory.o \
 	$(OBJDIR)/md5.o \
@@ -120,7 +100,6 @@ OBJECTS := \
 	$(OBJDIR)/wrapper.o \
 	$(OBJDIR)/wrapper_gcc.o \
 	$(OBJDIR)/wrapper_vcc.o \
-	$(OBJDIR)/entityproxy.o \
 	$(OBJDIR)/file.o \
 	$(OBJDIR)/filemanager.o \
 	$(OBJDIR)/filesystemvisitor.o \
@@ -132,14 +111,6 @@ OBJECTS := \
 	$(OBJDIR)/tagobject.o \
 	$(OBJDIR)/tagobjecttemplatemanager.o \
 	$(OBJDIR)/randomgenerator.o \
-	$(OBJDIR)/functionhandler.o \
-	$(OBJDIR)/scriptmarshal.o \
-	$(OBJDIR)/scriptobject.o \
-	$(OBJDIR)/scriptreference.o \
-	$(OBJDIR)/scriptserialisation.o \
-	$(OBJDIR)/scriptserializablenode.o \
-	$(OBJDIR)/scriptsystem.o \
-	$(OBJDIR)/scriptutils.o \
 	$(OBJDIR)/textnode.o \
 	$(OBJDIR)/socketconnect.o \
 	$(OBJDIR)/extensionconfig.o \
@@ -153,8 +124,10 @@ OBJECTS := \
 	$(OBJDIR)/behaviortree.o \
 	$(OBJDIR)/behaviortree_task.o \
 	$(OBJDIR)/registernodes.o \
+	$(OBJDIR)/attachaction.o \
+	$(OBJDIR)/Effector.o \
 	$(OBJDIR)/event.o \
-	$(OBJDIR)/predicate.o \
+	$(OBJDIR)/Precondition.o \
 	$(OBJDIR)/action.o \
 	$(OBJDIR)/assignment.o \
 	$(OBJDIR)/compute.o \
@@ -187,19 +160,31 @@ OBJECTS := \
 	$(OBJDIR)/decoratorcountlimit.o \
 	$(OBJDIR)/decoratorfailureuntil.o \
 	$(OBJDIR)/decoratorframes.o \
+	$(OBJDIR)/decoratoriterator.o \
 	$(OBJDIR)/decoratorlog.o \
 	$(OBJDIR)/decoratorloop.o \
 	$(OBJDIR)/decoratorloopuntil.o \
 	$(OBJDIR)/decoratornot.o \
+	$(OBJDIR)/decoratorrepeat.o \
 	$(OBJDIR)/decoratorsuccessuntil.o \
 	$(OBJDIR)/decoratortime.o \
 	$(OBJDIR)/decoratorweight.o \
+	$(OBJDIR)/fsm.o \
+	$(OBJDIR)/fsmstate.o \
+	$(OBJDIR)/startcondition.o \
+	$(OBJDIR)/transitioncondition.o \
+	$(OBJDIR)/agentproperties.o \
+	$(OBJDIR)/agentstate.o \
+	$(OBJDIR)/htnmethod.o \
+	$(OBJDIR)/planner.o \
+	$(OBJDIR)/plannertask.o \
+	$(OBJDIR)/task.o \
 	$(OBJDIR)/network.o \
 	$(OBJDIR)/comparator.o \
+	$(OBJDIR)/computer.o \
 	$(OBJDIR)/method.o \
 	$(OBJDIR)/properties.o \
 	$(OBJDIR)/property.o \
-	$(OBJDIR)/world.o \
 
 RESOURCES := \
 
@@ -276,7 +261,11 @@ $(OBJDIR)/propertynode.o: ../../src/agent/propertynode.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/state.o: ../../src/agent/state.cpp
+$(OBJDIR)/state_t.o: ../../src/agent/state_t.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/taskmethod.o: ../../src/agent/taskmethod.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
@@ -285,6 +274,10 @@ $(OBJDIR)/base.o: ../../src/base/base.cpp
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/convertutf.o: ../../src/base/convertutf.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/custommethod.o: ../../src/base/custommethod.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
@@ -396,10 +389,6 @@ $(OBJDIR)/wrapper_vcc.o: ../../src/base/core/thread/wrapper_vcc.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/entityproxy.o: ../../src/base/entity/entityproxy.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
 $(OBJDIR)/file.o: ../../src/base/file/file.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
@@ -441,38 +430,6 @@ $(OBJDIR)/tagobjecttemplatemanager.o: ../../src/base/object/tagobjecttemplateman
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/randomgenerator.o: ../../src/base/randomgenerator/randomgenerator.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/functionhandler.o: ../../src/base/script/functionhandler.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/scriptmarshal.o: ../../src/base/script/scriptmarshal.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/scriptobject.o: ../../src/base/script/scriptobject.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/scriptreference.o: ../../src/base/script/scriptreference.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/scriptserialisation.o: ../../src/base/script/scriptserialisation.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/scriptserializablenode.o: ../../src/base/script/scriptserializablenode.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/scriptsystem.o: ../../src/base/script/scriptsystem.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/scriptutils.o: ../../src/base/script/scriptutils.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
@@ -528,11 +485,19 @@ $(OBJDIR)/registernodes.o: ../../src/behaviortree/registernodes.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
+$(OBJDIR)/attachaction.o: ../../src/behaviortree/attachments/attachaction.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/Effector.o: ../../src/behaviortree/attachments/Effector.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
 $(OBJDIR)/event.o: ../../src/behaviortree/attachments/event.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/predicate.o: ../../src/behaviortree/attachments/predicate.cpp
+$(OBJDIR)/Precondition.o: ../../src/behaviortree/attachments/Precondition.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
@@ -664,6 +629,10 @@ $(OBJDIR)/decoratorframes.o: ../../src/behaviortree/nodes/decorators/decoratorfr
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
+$(OBJDIR)/decoratoriterator.o: ../../src/behaviortree/nodes/decorators/decoratoriterator.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
 $(OBJDIR)/decoratorlog.o: ../../src/behaviortree/nodes/decorators/decoratorlog.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
@@ -680,6 +649,10 @@ $(OBJDIR)/decoratornot.o: ../../src/behaviortree/nodes/decorators/decoratornot.c
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
+$(OBJDIR)/decoratorrepeat.o: ../../src/behaviortree/nodes/decorators/decoratorrepeat.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
 $(OBJDIR)/decoratorsuccessuntil.o: ../../src/behaviortree/nodes/decorators/decoratorsuccessuntil.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
@@ -692,11 +665,55 @@ $(OBJDIR)/decoratorweight.o: ../../src/behaviortree/nodes/decorators/decoratorwe
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
+$(OBJDIR)/fsm.o: ../../src/fsm/fsm.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/fsmstate.o: ../../src/fsm/fsmstate.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/startcondition.o: ../../src/fsm/startcondition.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/transitioncondition.o: ../../src/fsm/transitioncondition.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/agentproperties.o: ../../src/htn/agentproperties.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/agentstate.o: ../../src/htn/agentstate.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/htnmethod.o: ../../src/htn/htnmethod.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/planner.o: ../../src/htn/planner.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/plannertask.o: ../../src/htn/plannertask.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/task.o: ../../src/htn/task.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
 $(OBJDIR)/network.o: ../../src/network/network.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/comparator.o: ../../src/property/comparator.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/computer.o: ../../src/property/computer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
@@ -709,10 +726,6 @@ $(OBJDIR)/properties.o: ../../src/property/properties.cpp
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/property.o: ../../src/property/property.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/world.o: ../../src/world/world.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

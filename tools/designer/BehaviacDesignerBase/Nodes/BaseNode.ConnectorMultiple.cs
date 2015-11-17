@@ -47,8 +47,7 @@ namespace Behaviac.Design.Nodes
             /// <summary>
             /// The children connected to the connector.
             /// </summary>
-            public IList<BaseNode> Children
-            {
+            public IList<BaseNode> Children {
                 get { return _children.AsReadOnly(); }
             }
 
@@ -61,41 +60,47 @@ namespace Behaviac.Design.Nodes
             /// <param name="minCount">The minimum number of connectors shown on the node.</param>
             /// <param name="maxCount">The maximum number of children which can be connected via this connector.</param>
             public ConnectorMultiple(ConnectedChildren connectedChildren, string label, string identifier, int minCount, int maxCount)
-                : base(connectedChildren, label, identifier, minCount, maxCount)
-            {
+                : base(connectedChildren, label, identifier, minCount, maxCount) {
             }
 
-            public override int ChildCount
-            {
+            public override int EnableChildCount {
+                get {
+                    int count = 0;
+                    foreach(BaseNode node in _children) {
+                        if (node is Node && ((Node)node).Enable)
+                        { count++; }
+                    }
+                    return count;
+                }
+            }
+
+            public override int ChildCount {
                 get { return _children.Count; }
             }
 
-            public override BaseNode GetChild(int index)
-            {
+            public override BaseNode GetChild(int index) {
                 return _children[index];
             }
 
-            public override bool AddChild(BaseNode node)
-            {
+            public override bool AddChild(BaseNode node) {
                 // check if we we may add the node
                 if (_children.Count >= _maxCount || _isReadOnly)
-                    return false;
+                { return false; }
 
                 node._parentConnector = this;
                 _children.Add(node);
                 _connectedChildren.RequiresRebuild();
 
                 if (node is NodeViewData)
-                    AddSubItem(node);
+                { AddSubItem(node); }
 
                 return true;
             }
 
-            public override bool AddChild(BaseNode node, int index)
-            {
+            public override bool AddChild(BaseNode node, int index) {
                 // check if we we may add the node
                 if (_children.Count >= _maxCount || _isReadOnly)
-                    return false;
+                { return false; }
 
                 node._parentConnector = this;
                 _children.Insert(index, node);
@@ -106,15 +111,12 @@ namespace Behaviac.Design.Nodes
                 return true;
             }
 
-            public override bool AcceptsChildren(IList<Type> children, bool acceptEvenFull = false)
-            {
-                if (_children == null || children.Count < 1)
-                {
+            public override bool AcceptsChildren(IList<BaseNode> children, bool acceptEvenFull = false) {
+                if (_children == null || children.Count < 1) {
                     return true;
                 }
 
-                if (_isReadOnly)
-                {
+                if (_isReadOnly) {
                     return false;
                 }
 
@@ -123,11 +125,9 @@ namespace Behaviac.Design.Nodes
                 return acceptEvenFull ? true : (total <= _maxCount);
             }
 
-            public override bool RemoveChild(BaseNode node)
-            {
+            public override bool RemoveChild(BaseNode node) {
                 // check if we can remove the node
-                if (!_isReadOnly && _children.Remove(node))
-                {
+                if (!_isReadOnly && _children.Remove(node)) {
                     node._parentConnector = null;
 
                     _connectedChildren.RequiresRebuild();
@@ -140,11 +140,10 @@ namespace Behaviac.Design.Nodes
                 return false;
             }
 
-            public override void ClearChildren()
-            {
+            public override void ClearChildren() {
                 // clear the connector for every child
-                foreach (BaseNode node in _children)
-                    node._parentConnector = null;
+                foreach(BaseNode node in _children)
+                node._parentConnector = null;
 
                 _children.Clear();
                 _connectedChildren.RequiresRebuild();
@@ -152,21 +151,18 @@ namespace Behaviac.Design.Nodes
                 ClearSubItems();
             }
 
-            public override void ClearChildrenInternal()
-            {
+            public override void ClearChildrenInternal() {
                 _children.Clear();
                 _connectedChildren.RequiresRebuild();
 
                 //ClearSubItems();
             }
 
-            public override int GetChildIndex(BaseNode node)
-            {
+            public override int GetChildIndex(BaseNode node) {
                 return _children.IndexOf(node);
             }
 
-            public override Connector Clone(ConnectedChildren connectedChildren)
-            {
+            public override Connector Clone(ConnectedChildren connectedChildren) {
                 return new ConnectorMultiple(connectedChildren, _label, _identifier, _minCount, _maxCount);
             }
         }

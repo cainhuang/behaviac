@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,7 @@ namespace behaviac
     {
         public WaitFrames()
         {
-		}
+        }
 
         ~WaitFrames()
         {
@@ -30,17 +28,17 @@ namespace behaviac
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
                 if (p.name == "Frames")
                 {
-                    string propertyName = null;
-
                     int pParenthesis = p.value.IndexOf('(');
+
                     if (pParenthesis == -1)
                     {
                         string typeName = null;
-                        this.m_frames_var = Condition.LoadRight(p.value, propertyName, ref typeName);
+                        this.m_frames_var = Condition.LoadRight(p.value, ref typeName);
+
                     }
                     else
                     {
@@ -59,6 +57,7 @@ namespace behaviac
                 int frames = (int)this.m_frames_var.GetValue(pAgent);
 
                 return frames;
+
             }
             else if (this.m_frames_method != null)
             {
@@ -77,10 +76,10 @@ namespace behaviac
             return pTask;
         }
 
-        Property m_frames_var;
-        CMethodBase m_frames_method;
+        private Property m_frames_var;
+        private CMethodBase m_frames_method;
 
-        class WaitFramesTask : LeafTask
+        private class WaitFramesTask : LeafTask
         {
             public WaitFramesTask()
             {
@@ -130,7 +129,10 @@ namespace behaviac
 
             protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
             {
-                this.m_start += (int)(Workspace.GetDeltaFrames());
+                Debug.Check(childStatus == EBTStatus.BT_RUNNING);
+
+                this.m_start += Workspace.Instance.DeltaFrames;
+
                 if (this.m_start >= this.m_frames)
                 {
                     return EBTStatus.BT_SUCCESS;
@@ -139,7 +141,7 @@ namespace behaviac
                 return EBTStatus.BT_RUNNING;
             }
 
-            int GetFrames(Agent pAgent)
+            private int GetFrames(Agent pAgent)
             {
                 Debug.Check(this.GetNode() is WaitFrames);
                 WaitFrames pWaitNode = (WaitFrames)(this.GetNode());
@@ -147,8 +149,8 @@ namespace behaviac
                 return pWaitNode != null ? pWaitNode.GetFrames(pAgent) : 0;
             }
 
-            int m_start;
-            int m_frames;
+            private int m_start;
+            private int m_frames;
         }
     }
 }

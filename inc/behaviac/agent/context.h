@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_CONTEXT_H_
-#define _BEHAVIAC_CONTEXT_H_
+#ifndef BEHAVIAC_CONTEXT_H
+#define BEHAVIAC_CONTEXT_H
 
 #include "behaviac/base/base.h"
 
@@ -24,121 +24,161 @@
 
 #include "behaviac/behaviortree/behaviortree_task.h"
 #include "behaviac/agent/state.h"
-
-class CNamedEvent;
-
+#include "behaviac/agent/context.h"
 namespace behaviac
 {
-	class Property;
-	class World;
-	class Agent;
-	class BehaviorTreeTask;
-	class Variables;
-	class State_t;
+    class Property;
+    class Agent;
+    class BehaviorTreeTask;
+    class Variables;
+    class State_t;
+    class CNamedEvent;
 
-	/*! \addtogroup Agent
-	* @{
-	* \addtogroup Context
-	* @{ */
+    /*! \addtogroup Agent
+    * @{
+    * \addtogroup Context
+    * @{ */
 
-	/// The Context class
-	/*!
-	I don't know what is this!
-	*/
-	class BEHAVIAC_API Context
-	{
-	private:
-		typedef behaviac::map<int, Context*> Contexts_t;
-		static Contexts_t* ms_contexts;
+    /// The Context class
+    /*!
+    I don't know what is this!
+    */
+    class BEHAVIAC_API Context
+    {
+    private:
+        typedef behaviac::map<int, Context*> Contexts_t;
 
-	public:
-		static Context& GetContext(int contextId);
+        static Contexts_t* ms_contexts;
 
-		/**
-		to cleanup the specified context.
+        void LogCurrentState();
 
-		by default, contextId = -1, it cleans up all the contexts
-		*/
-		static void Cleanup(int contextId = -1);
+    public:
+        //void btexec();
+        void RemoveAgent(Agent* pAgent);
+        void AddAgent(Agent* pAgent);
+        static void execAgents(int contextId);
+        static Context& GetContext(int contextId);
+        template<typename VariableType>
+        const VariableType* GetStaticVariable(const char* staticClassName, uint32_t variableId)
+        {
+            BEHAVIAC_ASSERT(!StringUtils::IsNullOrEmpty(staticClassName));
 
-		static void LogCurrentStates();
+            if (m_static_variables.find(staticClassName) == m_static_variables.end())
+            {
+                m_static_variables[staticClassName] = Variables();
+            }
 
-	public:
-		virtual ~Context();
+            const Variables& variables = m_static_variables[staticClassName];
+            return variables.Get<VariableType>(NULL, false, NULL, variableId);
+        }
 
-		void SetWorld(World* pWorld);
+        /**
+        to cleanup the specified context.
 
-		/// return the world, if bCreate == true, it will create a world if there is not one yet
-		World* GetWorld(bool bCreate = true);
+        by default, contextId = -1, it cleans up all the contexts
+        */
+        static void Cleanup(int contextId = -1);
 
-		void ResetChangedVariables();
+        static void LogCurrentStates(int contextId);
 
-		/**
-		log changed static variables(propery) for the specified agent class or all agent classes
+    public:
+        virtual ~Context();
 
-		@param agentClassName
-		if null, it logs for all the agent class
-		*/
-		void LogStaticVariables(const char* agentClassName = 0);
+        void ResetChangedVariables();
 
-		/**
-		if staticClassName is no null, it is for static variable
-		*/
-		template<typename VariableType>
-		void SetStaticVariable(const CMemberBase* pMember, const char* variableName, const VariableType& value, const char* staticClassName, uint32_t varableId);
+        /**
+        log changed static variables(propery) for the specified agent class or all agent classes
 
-		const CNamedEvent* FindEventStatic(const char* eventName, const char* className);
-		void InsertEventGlobal(const char* className, CNamedEvent* pEvent);
-		CNamedEvent* FindNamedEventTemplate(const CTagObject::MethodsContainer& methods, const char* eventName);
+        @param agentClassName
+        if null, it logs for all the agent class
+        */
+        void LogStaticVariables(const char* agentClassName = 0);
 
-		/**
-		bind 'agentInstanceName' to 'pAgentInstance'. 
-		'agentInstanceName' should have been registered to the class of 'pAgentInstance' or its parent class.
+        /**
+        if staticClassName is no null, it is for static variable
+        */
+        template<typename VariableType>
+        void SetStaticVariable(const CMemberBase* pMember, const char* variableName, const VariableType& value, const char* staticClassName, uint32_t varableId);
 
-		@sa RegisterName
-		*/
-		bool BindInstance(const char* agentInstanceName, Agent* pAgentInstance);
+        const CNamedEvent* FindEventStatic(const char* eventName, const char* className);
+        void InsertEventGlobal(const char* className, CNamedEvent* pEvent);
+        CNamedEvent* FindNamedEventTemplate(const CTagObject::MethodsContainer& methods, const char* eventName);
 
-		/**
-		unbind 'agentInstanceName' from 'pAgentInstance'. 
-		'agentInstanceName' should have been bound to 'pAgentInstance'.
+        /**
+        bind 'agentInstanceName' to 'pAgentInstance'.
+        'agentInstanceName' should have been registered to the class of 'pAgentInstance' or its parent class.
 
-		@sa RegisterName, BindInstance, CreateInstance
-		*/
-		bool UnbindInstance(const char* agentInstanceName);
+        @sa RegisterInstanceName
+        */
+        bool BindInstance(const char* agentInstanceName, Agent* pAgentInstance);
 
-		Agent* GetInstance(const char* agentInstanceName);
+        /**
+        unbind 'agentInstanceName' from 'pAgentInstance'.
+        'agentInstanceName' should have been bound to 'pAgentInstance'.
 
-		bool Save(States_t& states);
-		bool Load(const States_t& states);
+        @sa RegisterInstanceName, BindInstance, CreateInstance
+        */
+        bool UnbindInstance(const char* agentInstanceName);
 
-	protected:
-		Context(int contextId);
+        Agent* GetInstance(const char* agentInstanceName);
 
-		void CleanupStaticVariables();
-		void CleanupInstances();
+        bool Save(States_t& states);
+        bool Load(const States_t& states);
 
-	private:
-		typedef behaviac::map<behaviac::string, Agent*> NamedAgents_t;
-		NamedAgents_t m_namedAgents;
-	
-		typedef behaviac::map<behaviac::string, Variables> AgentTypeStaticVariables_t;
-		AgentTypeStaticVariables_t	m_static_variables;
+        typedef behaviac::map<int, Agent*> Agents_t;
+        struct HeapItem_t
+        {
+            int priority;
+            Agents_t agents;
+        };
+        behaviac::vector<HeapItem_t> m_agents;
+        void SetAgents(behaviac::vector<HeapItem_t> value);
+        behaviac::vector<HeapItem_t> GetAgents();
 
-		typedef behaviac::map<CStringID, CNamedEvent*> AgentEvents_t;
-		typedef behaviac::map<behaviac::string, AgentEvents_t> AgentStaticEvents_t;
-		AgentStaticEvents_t	ms_eventInfosGlobal;
+        struct HeapFinder_t
+        {
+            int priority;
+            HeapFinder_t(int p) : priority(p)
+            {}
 
-		int m_context_id;
-		World*	m_world;
-		bool	m_bCreatedByMe;
+            bool operator()(const HeapItem_t& item) const
+            {
+                return item.priority == priority;
+            }
+        };
 
-	};
-	/*! @} */
-	/*! @} */
+        struct  HeapCompare_t
+        {
+            bool operator()(const HeapItem_t& lhs, const HeapItem_t& rhs) const
+            {
+                return lhs.priority < rhs.priority;
+            }
+        };
+    protected:
+        Context(int contextId);
+
+        void CleanupStaticVariables();
+        void CleanupInstances();
+
+        void execAgents_();
+    private:
+        typedef behaviac::map<behaviac::string, Agent*> NamedAgents_t;
+        NamedAgents_t m_namedAgents;
+
+        typedef behaviac::map<behaviac::string, Variables> AgentTypeStaticVariables_t;
+        AgentTypeStaticVariables_t	m_static_variables;
+
+        typedef behaviac::map<CStringID, CNamedEvent*> AgentEvents_t;
+        typedef behaviac::map<behaviac::string, AgentEvents_t> AgentStaticEvents_t;
+        AgentStaticEvents_t	ms_eventInfosGlobal;
+
+        int     m_context_id;
+        bool    m_bCreatedByMe;
+    };
+    /*! @} */
+    /*! @} */
 }
 
 #include "context.inl"
 
-
-#endif//#ifndef _BEHAVIAC_CONTEXT_H_
+#endif//#ifndef BEHAVIAC_CONTEXT_H

@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_REAL_BASETYPE_EXIST_H__INCLUDED
-#define _BEHAVIAC_REAL_BASETYPE_EXIST_H__INCLUDED
+#ifndef _BEHAVIAC_REAL_BASETYPE_EXIST_H_INCLUDED
+#define _BEHAVIAC_REAL_BASETYPE_EXIST_H_INCLUDED
 
 namespace behaviac
 {

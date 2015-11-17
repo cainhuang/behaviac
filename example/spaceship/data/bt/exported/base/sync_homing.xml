@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: base\sync_homing.xml-->
-<behavior name="base/sync_homing" agenttype="framework::GameObject" version="1">
+<behavior name="base/sync_homing" agenttype="framework::GameObject" version="3">
   <pars>
     <par name="par_homing_a" type="int" value="0" />
   </pars>
-  <node class="Sequence" version="1" id="1">
-    <node class="WaitforSignal" version="1" id="2">
-      <attachment class="Predicate" id="3">
-        <property BinaryOperator="And" />
-        <property Operator="Equal" />
-        <property Opl="bool framework::WorldState.framework::WorldState::SyncSignal" />
-        <property Opr="const bool true" />
-      </attachment>
+  <node class="Sequence" id="1">
+    <node class="WaitforSignal" id="2">
+      <custom>
+        <node class="Condition" id="0">
+          <property Operator="Equal" />
+          <property Opl="bool framework::WorldState.framework::WorldState::SyncSignal" />
+          <property Opr="const bool true" />
+        </node>
+      </custom>
     </node>
-    <node class="Parallel" version="1" id="4">
+    <node class="Parallel" id="4">
       <property ChildFinishPolicy="CHILDFINISH_LOOP" />
       <property ExitPolicy="EXIT_NONE" />
       <property FailurePolicy="FAIL_ON_ONE" />
       <property SuccessPolicy="SUCCEED_ON_ALL" />
-      <node class="Action" version="1" id="5">
+      <node class="Action" id="5">
         <property Method="Self.framework::GameObject::TurnTowardsTarget(2)" />
-        <property PreconditionFailResult="BT_FAILURE" />
         <property ResultOption="BT_RUNNING" />
       </node>
-      <node class="Action" version="1" id="6">
+      <node class="Action" id="6">
         <property Method="Self.framework::GameObject::GoStraight(10)" />
-        <property PreconditionFailResult="BT_FAILURE" />
         <property ResultOption="BT_RUNNING" />
       </node>
     </node>

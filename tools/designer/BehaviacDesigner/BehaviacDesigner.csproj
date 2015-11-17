@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -10,14 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Behaviac.Design</RootNamespace>
     <AssemblyName>BehaviacDesigner</AssemblyName>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <ApplicationIcon>BT.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -25,7 +21,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -40,6 +36,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -128,6 +125,66 @@
     <Compile Include="BreakPointsDock.Designer.cs">
       <DependentUpon>BreakPointsDock.cs</DependentUpon>
     </Compile>
+    <Compile Include="CallStackDock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CallStackDock.Designer.cs">
+      <DependentUpon>CallStackDock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaTypePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MetaTypePanel.Designer.cs">
+      <DependentUpon>MetaTypePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditEnumMemberPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditEnumMemberPanel.Designer.cs">
+      <DependentUpon>EditEnumMemberPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaPropertyPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MetaPropertyPanel.Designer.cs">
+      <DependentUpon>MetaPropertyPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaMethodPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MetaMethodPanel.Designer.cs">
+      <DependentUpon>MetaMethodPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaTypeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetaTypeDialog.Designer.cs">
+      <DependentUpon>MetaTypeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditEnumMemberDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditEnumMemberDialog.Designer.cs">
+      <DependentUpon>EditEnumMemberDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrequentlyUsedNodesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrequentlyUsedNodesDialog.Designer.cs">
+      <DependentUpon>FrequentlyUsedNodesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaPropertyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetaPropertyDialog.Designer.cs">
+      <DependentUpon>MetaPropertyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaMethodDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetaMethodDialog.Designer.cs">
+      <DependentUpon>MetaMethodDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="MetaStoreDock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +223,16 @@
     </Compile>
     <Compile Include="MessageHandler.cs" />
     <Compile Include="MruMenu.cs" />
+    <Compile Include="OokiiDialog\COMGuids.cs" />
+    <Compile Include="OokiiDialog\ErrorHelper.cs" />
+    <Compile Include="OokiiDialog\NativeMethods.cs" />
+    <Compile Include="OokiiDialog\SafeHandles.cs" />
+    <Compile Include="OokiiDialog\ShellComInterfaces.cs" />
+    <Compile Include="OokiiDialog\ShellWrapperDefinitions.cs" />
+    <Compile Include="OokiiDialog\VistaFolderBrowserDialog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OokiiDialog\WindowHandleWrapper.cs" />
     <Compile Include="ParSettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,12 +262,6 @@
     </Compile>
     <Compile Include="ParametersDock.Designer.cs">
       <DependentUpon>ParametersDock.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ParSettingsDock.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ParSettingsDock.Designer.cs">
-      <DependentUpon>ParSettingsDock.cs</DependentUpon>
     </Compile>
     <Compile Include="EditWorkspaceDialog.cs">
       <SubType>Form</SubType>
@@ -310,6 +371,69 @@
     <EmbeddedResource Include="ControlsDialog.zh-CN.resx">
       <DependentUpon>ControlsDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CallStackDock.resx">
+      <DependentUpon>CallStackDock.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CallStackDock.zh-CN.resx">
+      <DependentUpon>CallStackDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaTypePanel.resx">
+      <DependentUpon>MetaTypePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaTypePanel.zh-CN.resx">
+      <DependentUpon>MetaTypePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditEnumMemberPanel.resx">
+      <DependentUpon>EditEnumMemberPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditEnumMemberPanel.zh-CN.resx">
+      <DependentUpon>EditEnumMemberPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaMethodPanel.zh-CN.resx">
+      <DependentUpon>MetaMethodPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaPropertyPanel.resx">
+      <DependentUpon>MetaPropertyPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaMethodPanel.resx">
+      <DependentUpon>MetaMethodPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaPropertyPanel.zh-CN.resx">
+      <DependentUpon>MetaPropertyPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaTypeDialog.resx">
+      <DependentUpon>MetaTypeDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaTypeDialog.zh-CN.resx">
+      <DependentUpon>MetaTypeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditEnumMemberDialog.resx">
+      <DependentUpon>EditEnumMemberDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditEnumMemberDialog.zh-CN.resx">
+      <DependentUpon>EditEnumMemberDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrequentlyUsedNodesDialog.resx">
+      <DependentUpon>FrequentlyUsedNodesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrequentlyUsedNodesDialog.zh-CN.resx">
+      <DependentUpon>FrequentlyUsedNodesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaMethodDialog.zh-CN.resx">
+      <DependentUpon>MetaMethodDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaPropertyDialog.resx">
+      <DependentUpon>MetaPropertyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaPropertyDialog.zh-CN.resx">
+      <DependentUpon>MetaPropertyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaMethodDialog.resx">
+      <DependentUpon>MetaMethodDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="MetaStoreDock.resx">
       <DependentUpon>MetaStoreDock.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -378,10 +502,6 @@
     <EmbeddedResource Include="ParSettingsDialog.zh-CN.resx">
       <DependentUpon>ParSettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ParSettingsDock.zh-CN.resx">
-      <DependentUpon>ParSettingsDock.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.zh-CN.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -404,10 +524,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ParametersDock.resx">
       <DependentUpon>ParametersDock.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ParSettingsDock.resx">
-      <DependentUpon>ParSettingsDock.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EditWorkspaceDialog.resx">
@@ -480,6 +596,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BT.ico" />
+    <Content Include="OokiiDialog\license.txt" />
     <Content Include="Resources\Backward.png" />
     <Content Include="Resources\BT.ico" />
     <Content Include="Resources\document_new.png" />
@@ -491,7 +608,6 @@
     <Content Include="Resources\Pause.png" />
     <Content Include="Resources\Play.png" />
     <None Include="Resources\prefab.ico" />
-    <Content Include="Resources\refresh.png" />
     <Content Include="Resources\Repeat.png" />
     <Content Include="Resources\Search.png" />
     <Content Include="Resources\Skip-backward.png" />

@@ -72,8 +72,7 @@ namespace Behaviac.Design
             /// The width of the font being drawn.
             /// </summary>
             protected float _width;
-            public override float Width
-            {
+            public override float Width {
                 get { return _width; }
             }
 
@@ -84,14 +83,17 @@ namespace Behaviac.Design
 
             protected abstract string Label { get; }
 
-            protected string DisplayLabel
-            {
+            protected string DisplayLabel {
                 get
                 {
+                    //TODO:remove it after tweaking the displaying of such signals
+                    if (this.Label == "InterruptIf") {
+                        return "";
+                    }
+
                     if (NodeViewData.IsDisplayLengthLimited &&
-                        !string.IsNullOrEmpty(this.Label) &&
-                        this.Label.Length > NodeViewData.LimitedDisplayLength)
-                    {
+                    !string.IsNullOrEmpty(this.Label) &&
+                    this.Label.Length > NodeViewData.LimitedDisplayLength) {
                         return this.Label.Substring(0, NodeViewData.LimitedDisplayLength) + "...";
                     }
 
@@ -99,16 +101,18 @@ namespace Behaviac.Design
                 }
             }
 
-            public override void Update(NodeViewData node, Graphics graphics)
-            {
+            public virtual Brush BackgroundBrush {
+                get { return IsSelected ? _backgroundSelected : _backgroundNormal; }
+            }
+
+            public override void Update(NodeViewData node, Graphics graphics) {
                 // calculate the extent used by the label
                 _width = MeasureDisplayStringWidth(graphics, this.DisplayLabel, _labelFont).Width;
             }
 
-            public override void Draw(Graphics graphics, NodeViewData nvd, RectangleF boundingBox)
-            {
+            public override void Draw(Graphics graphics, NodeViewData nvd, RectangleF boundingBox) {
                 // render background
-                DrawBackground(graphics, nvd, _selected ? _backgroundSelected : _backgroundNormal);
+                DrawBackground(graphics, nvd, this.BackgroundBrush);
 
                 // render the label
                 PointF center = new PointF(boundingBox.Left + boundingBox.Width * 0.5f, boundingBox.Top + boundingBox.Height * 0.5f);
@@ -116,8 +120,7 @@ namespace Behaviac.Design
                 SizeF labelSize = MeasureDisplayStringWidth(graphics, this.DisplayLabel, _labelFont);
 
                 // draw text
-                switch (_alignment)
-                {
+                switch (_alignment) {
                     case (Alignment.Left):
                         graphics.DrawString(this.DisplayLabel, _labelFont, _labelBrush, boundingBox.Left + 6.0f, center.Y - labelSize.Height * 0.5f);
                         break;
@@ -130,8 +133,6 @@ namespace Behaviac.Design
                         graphics.DrawString(this.DisplayLabel, _labelFont, _labelBrush, boundingBox.Right - labelSize.Width - 6.0f, center.Y - labelSize.Height * 0.5f);
                         break;
                 }
-
-                //graphics.DrawRectangle(Pens.Red, boundingBox.X, boundingBox.Y, boundingBox.Width, boundingBox.Height);
             }
 
             /// <summary>
@@ -144,8 +145,7 @@ namespace Behaviac.Design
             /// <param name="alignment">The alignment of the label.</param>
             /// <param name="showParallelToLabel">Holds if the subitem will be drawn next to the node's label or below it.</param>
             protected SubItemText(Brush backgroundNormal, Brush backgroundSelected, Font labelFont, Brush labelBrush, Alignment alignment, bool showParallelToLabel)
-                : base(showParallelToLabel)
-            {
+                : base(showParallelToLabel) {
                 _backgroundNormal = backgroundNormal;
                 _backgroundSelected = backgroundSelected;
                 _labelFont = labelFont;
@@ -153,8 +153,7 @@ namespace Behaviac.Design
                 _alignment = alignment;
             }
 
-            public override string ToString()
-            {
+            public override string ToString() {
                 return this.Label;
             }
         }

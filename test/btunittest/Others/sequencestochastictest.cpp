@@ -12,56 +12,56 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "../behaviortest.h"
-#include "behaviac/test.h"
+#include "test.h"
 #include "behaviac/behaviortree/nodes/composites/sequencestochastic.h"
 
 using namespace behaviac;
 
-
-TEST(btunittest, sequencestochastic_trivial)
-{
-	behaviac::Start();
-    SequenceStochasticTask* node = BEHAVIAC_NEW SequenceStochasticTask();
-
-	DecoratorCountMock countMock1(1);
-    node->addChild(BEHAVIAC_NEW SuccessAfter(&countMock1));
-    behaviac::Agent* pAgent = 0;
-    CHECK_EQUAL(BT_SUCCESS, node->exec(pAgent));
-    BEHAVIAC_DELETE(node);
-	behaviac::Stop();
-}
-
-TEST(btunittest, sequencestochastic_FiftyFifty)
-{
-	behaviac::Start();
-    SequenceStochasticTask* node = BEHAVIAC_NEW SequenceStochasticTask();
-
-	DecoratorCountMock countMock1(1);
-    node->addChild(BEHAVIAC_NEW SuccessAfter(&countMock1));
-    node->addChild(BEHAVIAC_NEW FailureAfter(&countMock1));
-    behaviac::Agent* pAgent = 0;
-    int successes = 0, failures = 0;
-
-    for (int i = 0 ; i < 10000; i++)
-    {
-        node->reset(0);
-
-        switch (node->exec(pAgent))
-        {
-            case BT_FAILURE:
-                failures++;
-                break;
-
-            case BT_SUCCESS:
-                successes++;
-                break;
-            default:
-                break;
-        }
-    }
-
-	CHECK_EQUAL(10000, failures);
-
-    BEHAVIAC_DELETE(node);
-	behaviac::Stop();
-}
+//TEST(btunittest, sequencestochastic_trivial)
+//{
+//
+//    SequenceStochasticTask* node = BEHAVIAC_NEW SequenceStochasticTask();
+//
+//    DecoratorCountMock countMock1(1);
+//    node->addChild(BEHAVIAC_NEW SuccessAfter(&countMock1));
+//    behaviac::Agent* pAgent = 0;
+//    CHECK_EQUAL(BT_SUCCESS, node->exec(pAgent));
+//    BEHAVIAC_DELETE(node);
+//
+//}
+//
+//TEST(btunittest, sequencestochastic_FiftyFifty)
+//{
+//
+//    SequenceStochasticTask* node = BEHAVIAC_NEW SequenceStochasticTask();
+//
+//    DecoratorCountMock countMock1(1);
+//    node->addChild(BEHAVIAC_NEW SuccessAfter(&countMock1));
+//    node->addChild(BEHAVIAC_NEW FailureAfter(&countMock1));
+//    behaviac::Agent* pAgent = 0;
+//    int successes = 0, failures = 0;
+//
+//    for (int i = 0; i < 10000; i++)
+//    {
+//        node->reset(0);
+//
+//        switch (node->exec(pAgent))
+//        {
+//            case BT_FAILURE:
+//                failures++;
+//                break;
+//
+//            case BT_SUCCESS:
+//                successes++;
+//                break;
+//
+//            default:
+//                break;
+//        }
+//    }
+//
+//    CHECK_EQUAL(10000, failures);
+//
+//    BEHAVIAC_DELETE(node);
+//
+//}

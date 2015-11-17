@@ -43,8 +43,7 @@ namespace Behaviac.Design
     public class NodeViewDataStyled : NodeViewData
     {
         private readonly static Pen __defaultCurrentBorderPen = new Pen(Brushes.GreenYellow, 3.0f);
-        protected static Pen DefaultCurrentBorderPen
-        {
+        protected static Pen DefaultCurrentBorderPen {
             get
             {
                 __defaultCurrentBorderPen.DashStyle = DashStyle.Dash;
@@ -54,7 +53,7 @@ namespace Behaviac.Design
 
         protected readonly static Pen __defaultSelectedBorderPen = new Pen(Brushes.GreenYellow, 5.0f);
         protected readonly static Pen __highlightedBorderPen = new Pen(Brushes.Gold, 4.0f);
-        protected readonly static Pen __updatedBorderPen = new Pen(Brushes.Gray, 4.0f);
+        protected readonly static Pen __updatedBorderPen = new Pen(Brushes.Olive, 4.0f);
         protected readonly static Pen __prefabBorderPen = new Pen(Brushes.Linen, 2.0f);
         protected readonly static Font __defaultLabelFont = new Font("Calibri,Arial", 8.0f, FontStyle.Regular);
         protected readonly static Font __profileLabelFont = new Font("Calibri,Arial", 6.0f, FontStyle.Regular);
@@ -62,30 +61,28 @@ namespace Behaviac.Design
 
         public NodeViewDataStyled(NodeViewData parent, BehaviorNode rootBehavior, Node node, Pen borderPen, Brush backgroundBrush, string label, string description, int minWidth = 120, int minHeight = 35) :
             base(parent, rootBehavior, node,
-                NodeShape.RoundedRectangle,
-                new Style(backgroundBrush, null, Brushes.White),
-                new Style(null, DefaultCurrentBorderPen, null),
-                new Style(null, __defaultSelectedBorderPen, null),
-                new Style(GetDraggedBrush(backgroundBrush), null, null),
-                new Style(null, __highlightedBorderPen, null),
-                new Style(null, __updatedBorderPen, null),
-                new Style(null, __prefabBorderPen, null),
-                label, __defaultLabelFont, __profileLabelFont, __profileLabelBoldFont, minWidth, minHeight, description)
-        {
+                 NodeShape.RoundedRectangle,
+                 new Style(backgroundBrush, null, Brushes.White),
+                 new Style(null, DefaultCurrentBorderPen, null),
+                 new Style(null, __defaultSelectedBorderPen, null),
+                 new Style(GetDraggedBrush(backgroundBrush), null, null),
+                 new Style(null, __highlightedBorderPen, null),
+                 new Style(null, __updatedBorderPen, null),
+                 new Style(null, __prefabBorderPen, null),
+                 label, __defaultLabelFont, __profileLabelFont, __profileLabelBoldFont, minWidth, minHeight, description) {
         }
 
         public NodeViewDataStyled(NodeViewData parent, BehaviorNode rootBehavior, Node node, Pen borderPen, Brush backgroundBrush, Brush draggedBackgroundBrush, string label, string description, int minWidth = 120, int minHeight = 35) :
             base(parent, rootBehavior, node,
-                NodeShape.RoundedRectangle,
-                new Style(backgroundBrush, null, Brushes.White),
-                new Style(null, DefaultCurrentBorderPen, null),
-                new Style(null, __defaultSelectedBorderPen, null),
-                new Style(draggedBackgroundBrush, null, null),
-                new Style(null, __highlightedBorderPen, null),
-                new Style(null, __updatedBorderPen, null),
-                new Style(null, __prefabBorderPen, null),
-                label, __defaultLabelFont, __profileLabelFont, __profileLabelBoldFont, minWidth, minHeight, description)
-        {
+                 NodeShape.RoundedRectangle,
+                 new Style(backgroundBrush, null, Brushes.White),
+                 new Style(null, DefaultCurrentBorderPen, null),
+                 new Style(null, __defaultSelectedBorderPen, null),
+                 new Style(draggedBackgroundBrush, null, null),
+                 new Style(null, __highlightedBorderPen, null),
+                 new Style(null, __updatedBorderPen, null),
+                 new Style(null, __prefabBorderPen, null),
+                 label, __defaultLabelFont, __profileLabelFont, __profileLabelBoldFont, minWidth, minHeight, description) {
         }
     }
 }

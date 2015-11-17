@@ -47,8 +47,7 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// The type a property must be of to be shown in the designer.
         /// </summary>
-        public Type[] SupportedTypes
-        {
+        public Type[] SupportedTypes {
             get { return _supportedTypes; }
         }
 
@@ -63,37 +62,34 @@ namespace Behaviac.Design.Attributes
         /// <param name="flags">Defines the designer flags stored for the property.</param>
         /// <param name="supportedTypes">The enum values which will be excluded from the values shown in the designer.</param>
         public DesignerNodeProperty(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, Type[] supportedTypes)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNodePropertyEditor), null)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNodePropertyEditor), null) {
             _supportedTypes = supportedTypes;
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             if (obj == null)
-                return string.Empty;
+            { return string.Empty; }
 
             return ((string)obj).Replace("\"", string.Empty);
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             if (obj == null)
-                return "\"\"";
+            { return "\"\""; }
 
             string s = (string)obj;
-            if (string.IsNullOrEmpty(s))
-            {
+
+            if (string.IsNullOrEmpty(s)) {
                 return "\"\"";
             }
 
             return string.Format("\"{0}\"", s);
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (type != typeof(string))
-                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
+            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
 
             return str;
         }

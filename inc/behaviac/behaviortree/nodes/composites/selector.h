@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BEHAVIORTREE_SELECTOR_H_
-#define BEHAVIAC_BEHAVIORTREE_SELECTOR_H_
+#ifndef BEHAVIAC_BEHAVIORTREE_SELECTOR_H
+#define BEHAVIAC_BEHAVIORTREE_SELECTOR_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
@@ -20,20 +20,20 @@
 
 namespace behaviac
 {
-	/*! \addtogroup treeNodes Behavior Tree
-	* @{
-	* \addtogroup ReferencedBehavior
-	* @{ */
+    /*! \addtogroup treeNodes Behavior Tree
+    * @{
+    * \addtogroup ReferencedBehavior
+    * @{ */
 
-	///Execute behaviors from first to last
-	/**
-	Selectors tick each of their children one at a time from top to bottom. If a child returns 
-	Success, then so does the Selector. If it returns Failure, the Selector will move on to the
-	next child in line and return Running.If a child returns Running, so does the Selector and 
-	that same child will be ticked again next time the Selector is ticked. Once the Selector 
-	reaches the end of its child list, it returns Failure and resets its child index ¨C meaning 
-	the first child in the line will be ticked on the next tick of the Selector.
-	*/
+    ///Execute behaviors from first to last
+    /**
+    Selectors tick each of their children one at a time from top to bottom. If a child returns
+    Success, then so does the Selector. If it returns Failure, the Selector will move on to the
+    next child in line and return Running.If a child returns Running, so does the Selector and
+    that same child will be ticked again next time the Selector is ticked. Once the Selector
+    reaches the end of its child list, it returns Failure and resets its child index ¨C meaning
+    the first child in the line will be ticked on the next tick of the Selector.
+    */
     class BEHAVIAC_API Selector : public BehaviorNode
     {
     public:
@@ -41,12 +41,15 @@ namespace behaviac
 
         Selector();
         virtual ~Selector();
+        virtual bool decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner);
         virtual void load(int version, const char* agentType, const properties_t& properties);
-	protected:
-		virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
-	private:
-		virtual BehaviorTask* createTask() const;
-
+        EBTStatus SelectorUpdate(Agent* pAgent, EBTStatus childStatus, int& activeChildIndex, behaviac::vector<BehaviorTask*>& children);
+        virtual bool Evaluate(const Agent* pAgent);
+        bool CheckIfInterrupted(Agent* pAgent);
+    protected:
+        virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
+    private:
+        virtual BehaviorTask* createTask() const;
     };
 
     class BEHAVIAC_API SelectorTask : public CompositeTask
@@ -54,18 +57,18 @@ namespace behaviac
     public:
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(SelectorTask, CompositeTask);
         SelectorTask();
-		virtual ~SelectorTask();
+        virtual ~SelectorTask();
     protected:
-		virtual void copyto(BehaviorTask* target) const;
-		virtual void save(ISerializableNode* node) const;
-		virtual void load(ISerializableNode* node);
+        virtual void copyto(BehaviorTask* target) const;
+        virtual void save(ISerializableNode* node) const;
+        virtual void load(ISerializableNode* node);
 
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
     };
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 }
 
-#endif//BEHAVIAC_BEHAVIORTREE_SELECTOR_H_
+#endif//BEHAVIAC_BEHAVIORTREE_SELECTOR_H

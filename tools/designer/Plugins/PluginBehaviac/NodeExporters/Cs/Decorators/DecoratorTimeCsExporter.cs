@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,7 +26,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            DecoratorTime decoratorTime = node as DecoratorTime;
+            return (decoratorTime != null);
         }
 
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
@@ -34,14 +35,15 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             DecoratorTime decoratorTime = node as DecoratorTime;
-            Debug.Check(decoratorTime != null);
+            if (decoratorTime == null)
+                return;
 
             if (decoratorTime.Time != null)
             {
                 stream.WriteLine("{0}\t\tprotected override int GetTime(Agent pAgent)", indent);
                 stream.WriteLine("{0}\t\t{{", indent);
 
-                string retStr = VariableCsExporter.GenerateCode(decoratorTime.Time, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
+                string retStr = VariableCsExporter.GenerateCode(decoratorTime.Time, false, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
 
                 stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
                 stream.WriteLine("{0}\t\t}}", indent);

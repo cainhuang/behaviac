@@ -20,14 +20,14 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug64)
-  OBJDIR     = ../../intermediate/debug/gmake/btunittest/x64
+  OBJDIR     = ../../intermediate/debug/linux/btunittest/x64
   TARGETDIR  = ../../bin
   TARGET     = $(TARGETDIR)/btunittest_debugstatic_linux_gmake.exe
   DEFINES   += -D_DEBUG -DDEBUG
   INCLUDES  += -I../../inc -I../../inc -I../../../../include -I../../test/btunittest
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -Wall -Wextra -ffast-math -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8  -Wno-unused-parameter -Wno-unused-variable
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -Wall -Wextra -Werror -ffast-math -m64 -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8 -Wno-unused-parameter -Wno-unused-variable
+  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions 
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L../../../../lib -L../../lib -m64 -L/usr/lib64
   LDDEPS    += ../../lib/libbehaviac_debugstatic_linux_gmake.a
@@ -42,14 +42,14 @@ ifeq ($(config),debug64)
 endif
 
 ifeq ($(config),release64)
-  OBJDIR     = ../../intermediate/release/gmake/btunittest/x64
+  OBJDIR     = ../../intermediate/release/linux/btunittest/x64
   TARGETDIR  = ../../bin
   TARGET     = $(TARGETDIR)/btunittest_releasestatic_linux_gmake.exe
-  DEFINES   += -DWIN32 -DNDEBUG
+  DEFINES   += -DNDEBUG
   INCLUDES  += -I../../inc -I../../inc -I../../../../include -I../../test/btunittest
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -ffast-math -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8 -Wno-unused-parameter -Wno-unused-variable
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -Werror -ffast-math -m64 -Wno-strict-aliasing -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8 -Wno-unused-parameter -Wno-unused-variable
+  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions 
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L../../../../lib -L../../lib -s -m64 -L/usr/lib64
   LDDEPS    += ../../lib/libbehaviac_releasestatic_linux_gmake.a
@@ -63,36 +63,32 @@ ifeq ($(config),release64)
   endef
 endif
 
-ifeq ($(config),profile64)
-  OBJDIR     = ../../intermediate/profile/gmake/btunittest/x64
-  TARGETDIR  = ../../bin
-  TARGET     = $(TARGETDIR)/btunittest_profilestatic_linux_gmake.exe
-  DEFINES   += -DWIN32 -DNDEBUG -DBEHAVIAC_CFG_PROFILE -D_CONSOLE
-  INCLUDES  += -I../../inc -I../../inc -I../../../../include -I../../test/btunittest
-  ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -ffast-math -m64 -Wno-reorder -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -finput-charset=UTF-8 /Od /Z7 -Wno-unused-parameter -Wno-unused-variable
-  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions -fno-rtti
-  ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../../lib -L../../lib -s -m64 -L/usr/lib64 /DEBUG 
-  LDDEPS    += ../../lib/libbehaviac_profilestatic_win32_gmake.a
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS) -lpthread
-  define PREBUILDCMDS
-  endef
-  define PRELINKCMDS
-  endef
-  define POSTBUILDCMDS
-  endef
-endif
-
 OBJECTS := \
+	$(OBJDIR)/behaviacsystem.o \
+	$(OBJDIR)/BehaviacWorkspace.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/AgentArrayAccessTest.o \
 	$(OBJDIR)/AgentNodeTest.o \
+	$(OBJDIR)/CustomPropertyAgent.o \
 	$(OBJDIR)/EmployeeParTestAgent.o \
+	$(OBJDIR)/FSMAgentTest.o \
+	$(OBJDIR)/HTNAgentHouse.o \
+	$(OBJDIR)/HTNAgentHouseBase.o \
+	$(OBJDIR)/HTNAgentTravel.o \
 	$(OBJDIR)/ParTestAgent.o \
 	$(OBJDIR)/ParTestAgentBase.o \
 	$(OBJDIR)/ParTestRegNameAgent.o \
+	$(OBJDIR)/PreconEffectorAgent.o \
+	$(OBJDIR)/PreconEffectorTest.o \
+	$(OBJDIR)/PropertyReadonlyAgent.o \
 	$(OBJDIR)/UnitTestTypes.o \
+	$(OBJDIR)/ArrayAccessTest.o \
+	$(OBJDIR)/PreconEffectorUintTest.o \
+	$(OBJDIR)/customizedtypes.o \
+	$(OBJDIR)/fsmtestbase_0.o \
+	$(OBJDIR)/fsmunittest.o \
+	$(OBJDIR)/htnhouseunittest.o \
+	$(OBJDIR)/htntravelunittest.o \
 	$(OBJDIR)/testtraits.o \
 	$(OBJDIR)/testtype.o \
 	$(OBJDIR)/DecorationNodeUnitTest.o \
@@ -112,6 +108,7 @@ OBJECTS := \
 	$(OBJDIR)/selectorstochastictest.o \
 	$(OBJDIR)/sequencestochastictest.o \
 	$(OBJDIR)/ParPropertyUnitTest.o \
+	$(OBJDIR)/PropertyReadonlyUnitTest.o \
 
 RESOURCES := \
 
@@ -172,7 +169,19 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -MMD -MP $(DEFINES) $(INCLUDES) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
+$(OBJDIR)/behaviacsystem.o: ../../test/btunittest/behaviacsystem.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/BehaviacWorkspace.o: ../../test/btunittest/BehaviacWorkspace.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
 $(OBJDIR)/main.o: ../../test/btunittest/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/AgentArrayAccessTest.o: ../../test/btunittest/Agent/AgentArrayAccessTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
@@ -180,7 +189,27 @@ $(OBJDIR)/AgentNodeTest.o: ../../test/btunittest/Agent/AgentNodeTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
+$(OBJDIR)/CustomPropertyAgent.o: ../../test/btunittest/Agent/CustomPropertyAgent.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
 $(OBJDIR)/EmployeeParTestAgent.o: ../../test/btunittest/Agent/EmployeeParTestAgent.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/FSMAgentTest.o: ../../test/btunittest/Agent/FSMAgentTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/HTNAgentHouse.o: ../../test/btunittest/Agent/HTNAgentHouse.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/HTNAgentHouseBase.o: ../../test/btunittest/Agent/HTNAgentHouseBase.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/HTNAgentTravel.o: ../../test/btunittest/Agent/HTNAgentTravel.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
@@ -196,7 +225,47 @@ $(OBJDIR)/ParTestRegNameAgent.o: ../../test/btunittest/Agent/ParTestRegNameAgent
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
+$(OBJDIR)/PreconEffectorAgent.o: ../../test/btunittest/Agent/PreconEffectorAgent.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/PreconEffectorTest.o: ../../test/btunittest/Agent/PreconEffectorTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/PropertyReadonlyAgent.o: ../../test/btunittest/Agent/PropertyReadonlyAgent.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
 $(OBJDIR)/UnitTestTypes.o: ../../test/btunittest/Agent/UnitTestTypes.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/ArrayAccessTest.o: ../../test/btunittest/ArrayAccessTest/ArrayAccessTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/PreconEffectorUintTest.o: ../../test/btunittest/attachments/PreconEffectorUintTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/customizedtypes.o: ../../test/btunittest/behaviac_generated/types/customizedtypes.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/fsmtestbase_0.o: ../../test/btunittest/FSMTest/fsmtestbase_0.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/fsmunittest.o: ../../test/btunittest/FSMTest/fsmunittest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/htnhouseunittest.o: ../../test/btunittest/HTNTest/htnhouseunittest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/htntravelunittest.o: ../../test/btunittest/HTNTest/htntravelunittest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
@@ -273,6 +342,10 @@ $(OBJDIR)/sequencestochastictest.o: ../../test/btunittest/Others/sequencestochas
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/ParPropertyUnitTest.o: ../../test/btunittest/ParPropertyTest/ParPropertyUnitTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/PropertyReadonlyUnitTest.o: ../../test/btunittest/ParPropertyTest/PropertyReadonlyUnitTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

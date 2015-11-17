@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -24,17 +24,14 @@ namespace Behaviac.Design.Attachments.Overrides
     public class OverrideRandom : Override
     {
         public OverrideRandom(Node node)
-            : base(node, Resources.OverrideRandom, Resources.OverrideRandomDesc)
-        {
+            : base(node, Resources.OverrideRandom, Resources.OverrideRandomDesc) {
         }
 
-        public override string ExportClass
-        {
+        public override string ExportClass {
             get { return "OverrideRandom"; }
         }
 
-        protected override void CloneProperties(Attachment newattach)
-        {
+        protected override void CloneProperties(Attachment newattach) {
             base.CloneProperties(newattach);
 
             Override newoverride = (Override)newattach;
@@ -43,8 +40,7 @@ namespace Behaviac.Design.Attachments.Overrides
         protected float _min;
 
         [DesignerFloat("RandomMin", "RandomMinDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, "PropertyToOverride", 0, 0, 0, 0, null)]
-        public float Min
-        {
+        public float Min {
             get { return _min; }
             set { _min = value; }
         }
@@ -52,8 +48,7 @@ namespace Behaviac.Design.Attachments.Overrides
         protected float _max;
 
         [DesignerFloat("RandomMax", "RandomMaxDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, "PropertyToOverride", 0, 0, 0, 0, null)]
-        public float Max
-        {
+        public float Max {
             get { return _max; }
             set { _max = value; }
         }

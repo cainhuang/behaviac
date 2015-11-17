@@ -11,61 +11,59 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_STATE_H_
-#define _BEHAVIAC_STATE_H_
+#ifndef BEHAVIAC_STATE_H
+#define BEHAVIAC_STATE_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/property/properties.h"
 
 namespace behaviac
 {
-	class Property;
-	class World;
-	class BehaviorTreeTask;
+    class Property;
+    class BehaviorTreeTask;
 
-	/*! \addtogroup Agent
-	* @{
-	* \addtogroup State_t
-	* @{ */
+    /*! \addtogroup Agent
+    * @{
+    * \addtogroup State_t
+    * @{ */
 
-	/// The State_t class
-	/*!
-	I don't know what is this!
-	*/
+    /// The State_t class
+    /*!
+    I don't know what is this!
+    */
 
-	class BEHAVIAC_API State_t
-	{
-	protected:
-		Variables			m_vars;
-		BehaviorTreeTask*	m_bt;
-		behaviac::string	m_agentType;
+    class BEHAVIAC_API State_t
+    {
+    protected:
+        Variables			m_vars;
+        BehaviorTreeTask*	m_bt;
+        behaviac::string	m_agentType;
 
-		friend class Agent;
-		friend class Context;
-	public:
-		State_t();
-		State_t(const State_t& c);
-		virtual ~State_t();
+        friend class Agent;
+        friend class Context;
+    public:
+        State_t();
+        State_t(const State_t& c);
+        virtual ~State_t();
 
-		void Clear();
+        void Clear();
 
-		bool SaveToFile(const char* fileName, Agent* pAgent = 0) const;
-		bool LoadFromFile(const char* fileName, Agent* pAgent = 0);
+        bool SaveToFile(const char* fileName, Agent* pAgent = 0) const;
+        bool LoadFromFile(const char* fileName, Agent* pAgent = 0);
 
-		bool SaveToFile(IFile* file, Agent* pAgent = 0) const;
-		virtual bool LoadFromFile(IFile* file, Agent* pAgent = 0);
-	protected:
-		XmlNodeRef SaveToXmlNode(Agent* pAgent) const;
-		void LoadFromXmlNode(CTextNode& node, Agent* pAgent);
+        bool SaveToFile(IFile* file, Agent* pAgent = 0) const;
+        virtual bool LoadFromFile(IFile* file, Agent* pAgent = 0);
+    protected:
+        XmlNodeRef SaveToXmlNode(Agent* pAgent) const;
+        void LoadFromXmlNode(CTextNode& node, Agent* pAgent);
 
-		State_t& operator=(const State_t& c);
-	};
+        State_t& operator=(const State_t& c);
+    };
 
-	/*! @} */
-	/*! @} */
+    /*! @} */
+    /*! @} */
 
-	typedef behaviac::map<const behaviac::string, State_t> States_t;
+    typedef behaviac::map<const behaviac::string, State_t> States_t;
 }
 
-
-#endif//#ifndef _BEHAVIAC_STATE_H_
+#endif//#ifndef BEHAVIAC_STATE_H

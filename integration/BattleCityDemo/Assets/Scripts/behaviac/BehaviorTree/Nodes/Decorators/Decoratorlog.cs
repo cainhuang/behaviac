@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,8 @@ namespace behaviac
     {
         public DecoratorLog()
         {
-		}
+        }
+
         ~DecoratorLog()
         {
         }
@@ -30,7 +29,7 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
                 if (p.name == "Log")
                 {
@@ -58,7 +57,7 @@ namespace behaviac
 
         protected string m_message;
 
-        class DecoratorLogTask : DecoratorTask
+        private class DecoratorLogTask : DecoratorTask
         {
             public DecoratorLogTask()
                 : base()

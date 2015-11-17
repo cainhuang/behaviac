@@ -29,15 +29,13 @@ namespace Behaviac.Design.Attachments.Overrides
         protected string _propertyToOverride = string.Empty;
 
         [DesignerNodeProperty("OverrideProperty", "OverridePropertyDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoExport, new Type[] { typeof(int), typeof(float), typeof(Enum) })]
-        public string PropertyToOverride
-        {
+        public string PropertyToOverride {
             get { return _propertyToOverride; }
             set { _propertyToOverride = value; }
         }
 
 
-        public override string ExportClass
-        {
+        public override string ExportClass {
             get { return "Override"; }
         }
 
@@ -46,12 +44,10 @@ namespace Behaviac.Design.Attachments.Overrides
         /// </summary>
         /// <param name="node">The node this override belongs to.</param>
         public Override(Nodes.Node node, string label, string description)
-            : base(node, label, description)
-        {
+            : base(node, label, description) {
         }
 
-        public override NodeViewData.SubItemAttachment CreateSubItem()
-        {
+        public override NodeViewData.SubItemAttachment CreateSubItem() {
             return new NodeViewData.SubItemOverride(this);
         }
     }

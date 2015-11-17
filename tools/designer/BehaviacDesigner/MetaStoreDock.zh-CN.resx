@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -119,49 +119,101 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="instanceLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
+    <value>59, 12</value>
   </data>
   <data name="instanceLabel.Text" xml:space="preserve">
     <value>实例名称:</value>
   </data>
   <data name="closeButton.Text" xml:space="preserve">
-    <value>关闭</value>
+    <value>取消</value>
+  </data>
+  <data name="instanceComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 195</value>
+  </data>
+  <data name="instanceComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 20</value>
+  </data>
+  <data name="memberTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 222</value>
+  </data>
+  <data name="memberTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 20</value>
   </data>
   <data name="memberTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
+    <value>59, 12</value>
   </data>
   <data name="memberTypeLabel.Text" xml:space="preserve">
     <value>成员类型:</value>
   </data>
-  <data name="memberDescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
-  </data>
-  <data name="memberDescriptionLabel.Text" xml:space="preserve">
-    <value>成员描述:</value>
-  </data>
-  <data name="memberDescLabel.Text" xml:space="preserve">
-    <value>选择一个方法或属性，并拖拽到属性窗口</value>
-  </data>
   <data name="memberFilterLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
+    <value>59, 12</value>
   </data>
   <data name="memberFilterLabel.Text" xml:space="preserve">
     <value>筛选字符:</value>
   </data>
-  <data name="memberFilterCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 65</value>
+  <data name="memberFilterTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 250</value>
   </data>
-  <data name="memberFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 17</value>
-  </data>
-  <data name="memberFilterCheckBox.Text" xml:space="preserve">
-    <value>作为开始</value>
+  <data name="memberFilterTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 21</value>
   </data>
   <data name="memberListLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
+    <value>59, 12</value>
   </data>
   <data name="memberListLabel.Text" xml:space="preserve">
     <value>成员列表:</value>
+  </data>
+  <data name="memberCountLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 277</value>
+  </data>
+  <data name="typeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 12</value>
+  </data>
+  <data name="typeLabel.Text" xml:space="preserve">
+    <value>类型列表:</value>
+  </data>
+  <data name="addMemberButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>504, 300</value>
+  </data>
+  <data name="addMemberButton.Text" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="removeMemberButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>504, 327</value>
+  </data>
+  <data name="removeMemberButton.Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="addTypeButton.Text" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="removeTypeButton.Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="okButton.Text" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="memberFilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="memberFilterCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>504, 255</value>
+  </data>
+  <data name="memberFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 16</value>
+  </data>
+  <data name="memberFilterCheckBox.Text" xml:space="preserve">
+    <value>开始于</value>
+  </data>
+  <data name="downMemberButton.Text" xml:space="preserve">
+    <value>往下</value>
+  </data>
+  <data name="upMemberButton.Text" xml:space="preserve">
+    <value>往上</value>
+  </data>
+  <data name="applyButton.Text" xml:space="preserve">
+    <value>应用</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5029,6 +5081,6 @@
 </value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>元信息浏览</value>
+    <value>元信息浏览器</value>
   </data>
 </root>

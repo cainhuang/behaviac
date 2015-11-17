@@ -17,179 +17,174 @@ using NUnit.Framework;
 
 namespace BehaviorNodeUnitTest
 {
-	[TestFixture]
-	[Category ("EnterExitActionUnitTest")]
-	internal class EnterExitActionUnitTest
-	{
-		AgentNodeTest testAgent = null;
-		
-		[TestFixtureSetUp]  
-		public void initGlobalTestEnv()  
-		{
-			BehaviacSystem.Instance.init();
-			
-			GameObject testAgentObject = new GameObject();
-			testAgentObject.name = "@UnitTestAgent";
-			testAgentObject.transform.localPosition = Vector3.zero;
-			testAgentObject.transform.localRotation = Quaternion.identity;
-			testAgentObject.transform.localScale = Vector3.one;
-			testAgent = testAgentObject.AddComponent<AgentNodeTest>();			
-			testAgent.init();
-		}
-		
-		[TestFixtureTearDown]  
-		public void finlGlobalTestEnv()  
-		{
-			testAgent.finl();			
-			BehaviacSystem.Instance.finl();
-		}
-		
-		[SetUp]  
-		public void initTestEnv()  
-		{
-		}
-		
-		[TearDown]  
-		public void finlTestEnv()  
-		{
-			behaviac.Workspace.UnLoadAll();
-		}
-		
-		[Test]
-		[Category ("test_enter_exit_action_0")]
-		public void test_enter_exit_action_0 ()
-		{
-			testAgent.btsetcurrent("node_test/enter_exit_action_ut_0");
-			testAgent.resetProperties();
+    [TestFixture]
+    [Category("EnterExitActionUnitTest")]
+    internal class EnterExitActionUnitTest
+    {
+        AgentNodeTest testAgent = null;
 
-			behaviac.EBTStatus status = testAgent.btexec();
-			//Assert.AreEqual(1, testAgent.action_0_enter_count);
-			Assert.AreEqual(1, testAgent.action_1_enter_count);
-			Assert.AreEqual(1, testAgent.action_2_enter_count);
+        [TestFixtureSetUp]
+        public void initGlobalTestEnv() {
+            BehaviacSystem.Instance.Init();
 
-			//Assert.AreEqual(0, testAgent.action_0_exit_count);
-			Assert.AreEqual(0, testAgent.action_1_exit_count);
-			Assert.AreEqual(0, testAgent.action_2_exit_count);
+            GameObject testAgentObject = new GameObject();
+            testAgentObject.name = "@UnitTestAgent";
+            testAgentObject.transform.localPosition = Vector3.zero;
+            testAgentObject.transform.localRotation = Quaternion.identity;
+            testAgentObject.transform.localScale = Vector3.one;
+            testAgent = testAgentObject.AddComponent<AgentNodeTest>();
+            testAgent.init();
+        }
 
-			Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
-			int loopCount = 1000;
-			while(loopCount > 0)
-			{
-				status = testAgent.btexec();
-				//Assert.AreEqual(1, testAgent.action_0_enter_count);
-				Assert.AreEqual(1, testAgent.action_1_enter_count);
-				Assert.AreEqual(1, testAgent.action_2_enter_count);
-				
-				//Assert.AreEqual(0, testAgent.action_0_exit_count);
-				Assert.AreEqual(0, testAgent.action_1_exit_count);
-				Assert.AreEqual(0, testAgent.action_2_exit_count);
-                
+        [TestFixtureTearDown]
+        public void finlGlobalTestEnv() {
+            testAgent.finl();
+            BehaviacSystem.Instance.Uninit();
+        }
+
+        [SetUp]
+        public void initTestEnv() {
+        }
+
+        [TearDown]
+        public void finlTestEnv() {
+            behaviac.Workspace.Instance.UnLoadAll();
+        }
+
+        [Test]
+        [Category("test_enter_exit_action_0")]
+        public void test_enter_exit_action_0() {
+            testAgent.btsetcurrent("node_test/enter_exit_action_ut_0");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            //Assert.AreEqual(1, testAgent.action_0_enter_count);
+            Assert.AreEqual(1, testAgent.action_1_enter_count);
+            Assert.AreEqual(1, testAgent.action_2_enter_count);
+            Assert.AreEqual("enter_test", testAgent.testVar_str_0);
+
+            //Assert.AreEqual(0, testAgent.action_0_exit_count);
+            Assert.AreEqual(0, testAgent.action_1_exit_count);
+            Assert.AreEqual(0, testAgent.action_2_exit_count);
+
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            int loopCount = 1000;
+
+            while (loopCount > 0) {
+                status = testAgent.btexec();
+                //Assert.AreEqual(1, testAgent.action_0_enter_count);
+                Assert.AreEqual(1, testAgent.action_1_enter_count);
+                Assert.AreEqual(1, testAgent.action_2_enter_count);
+
+                //Assert.AreEqual(0, testAgent.action_0_exit_count);
+                Assert.AreEqual(0, testAgent.action_1_exit_count);
+                Assert.AreEqual(0, testAgent.action_2_exit_count);
+
                 Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
-				--loopCount;
-			}
+                --loopCount;
+            }
 
-			//
-			testAgent.testVar_0 = 0;
-			status = testAgent.btexec();
-			//Assert.AreEqual(1, testAgent.action_0_enter_count);
-			Assert.AreEqual(1, testAgent.action_1_enter_count);
-			Assert.AreEqual(1, testAgent.action_2_enter_count);
-			
-			//Assert.AreEqual(1, testAgent.action_0_exit_count);
-			Assert.AreEqual(1, testAgent.action_1_exit_count);
-			Assert.AreEqual(1, testAgent.action_2_exit_count);
-			
-			Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+            //
+            testAgent.testVar_0 = 0;
+            status = testAgent.btexec();
+            //Assert.AreEqual(1, testAgent.action_0_enter_count);
+            Assert.AreEqual(1, testAgent.action_1_enter_count);
+            Assert.AreEqual(1, testAgent.action_2_enter_count);
+            Assert.AreEqual("exit_test", testAgent.testVar_str_0);
 
-			loopCount = 100;
-			while(loopCount > 0)
-            {
-				status = testAgent.btexec();
-				--loopCount;
-			}
+            //Assert.AreEqual(1, testAgent.action_0_exit_count);
+            Assert.AreEqual(1, testAgent.action_1_exit_count);
+            Assert.AreEqual(1, testAgent.action_2_exit_count);
 
-			//Assert.AreEqual(101, testAgent.action_0_enter_count);
-			Assert.AreEqual(101, testAgent.action_1_enter_count);
-			Assert.AreEqual(101, testAgent.action_2_enter_count);
-			
-			//Assert.AreEqual(101, testAgent.action_0_exit_count);
-			Assert.AreEqual(101, testAgent.action_1_exit_count);
-			Assert.AreEqual(101, testAgent.action_2_exit_count);
-            
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+
+            loopCount = 100;
+
+            while (loopCount > 0) {
+                status = testAgent.btexec();
+                --loopCount;
+            }
+
+            //Assert.AreEqual(101, testAgent.action_0_enter_count);
+            Assert.AreEqual(101, testAgent.action_1_enter_count);
+            Assert.AreEqual(101, testAgent.action_2_enter_count);
+
+            //Assert.AreEqual(101, testAgent.action_0_exit_count);
+            Assert.AreEqual(101, testAgent.action_1_exit_count);
+            Assert.AreEqual(101, testAgent.action_2_exit_count);
+
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
         }
 
-		[Test]
-		[Category ("test_enter_exit_action_1")]
-		public void test_enter_exit_action_1 ()
-		{
-			testAgent.btsetcurrent("node_test/enter_exit_action_ut_1");
-			testAgent.resetProperties();
-			
-			behaviac.EBTStatus status = testAgent.btexec();
-			//Assert.AreEqual(1, testAgent.action_0_enter_count);
-			Assert.AreEqual(1, testAgent.action_1_enter_count);
+        [Test]
+        [Category("test_enter_exit_action_1")]
+        public void test_enter_exit_action_1() {
+            testAgent.btsetcurrent("node_test/enter_exit_action_ut_1");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            //Assert.AreEqual(1, testAgent.action_0_enter_count);
+            Assert.AreEqual(1, testAgent.action_1_enter_count);
             Assert.AreEqual(1, testAgent.action_2_enter_count);
 
-			//Assert.AreEqual(0, testAgent.action_0_exit_count);
-			Assert.AreEqual(0, testAgent.action_1_exit_count);
-			Assert.AreEqual(0, testAgent.action_2_exit_count);
+            //Assert.AreEqual(0, testAgent.action_0_exit_count);
+            Assert.AreEqual(0, testAgent.action_1_exit_count);
+            Assert.AreEqual(0, testAgent.action_2_exit_count);
 
-			Assert.AreEqual(3, testAgent.testVar_1);
-			Assert.AreEqual("hello", testAgent.testVar_str_0);
-			
-			Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            Assert.AreEqual(3, testAgent.testVar_1);
+            Assert.AreEqual("hello", testAgent.testVar_str_0);
 
-			testAgent.testVar_0 = 0;
-			status = testAgent.btexec();
-			//Assert.AreEqual(1, testAgent.action_0_enter_count);
-			Assert.AreEqual(1, testAgent.action_1_enter_count);
-			Assert.AreEqual(1, testAgent.action_2_enter_count);
-			
-			//Assert.AreEqual(1, testAgent.action_0_exit_count);
-			Assert.AreEqual(1, testAgent.action_1_exit_count);
-			Assert.AreEqual(1, testAgent.action_2_exit_count);
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
 
-			Assert.AreEqual(5, testAgent.testVar_1);
-			Assert.AreEqual("world", testAgent.testVar_str_0);
-            
-            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
-		}
+            testAgent.testVar_0 = 0;
+            status = testAgent.btexec();
+            //Assert.AreEqual(1, testAgent.action_0_enter_count);
+            Assert.AreEqual(1, testAgent.action_1_enter_count);
+            Assert.AreEqual(1, testAgent.action_2_enter_count);
 
-		[Test]
-		[Category ("test_enter_exit_action_2")]
-		public void test_enter_exit_action_2 ()
-		{
-			testAgent.btsetcurrent("node_test/enter_exit_action_ut_2");
-			testAgent.resetProperties();
-			
-			behaviac.EBTStatus status = testAgent.btexec();
-			Assert.AreEqual(1, testAgent.action_0_enter_count);
-			Assert.AreEqual(1, testAgent.action_1_enter_count);
-			Assert.AreEqual(1, testAgent.action_2_enter_count);
-			
-			Assert.AreEqual(1, testAgent.action_0_exit_count);
-			Assert.AreEqual(0, testAgent.action_1_exit_count);
-			Assert.AreEqual(0, testAgent.action_2_exit_count);
-			
-			Assert.AreEqual(3, testAgent.testVar_1);
-			Assert.AreEqual("hello", testAgent.testVar_str_0);
-			
-			Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
-			
-			testAgent.testVar_0 = 0;
-			status = testAgent.btexec();
-			Assert.AreEqual(2, testAgent.action_0_enter_count);
-			Assert.AreEqual(1, testAgent.action_1_enter_count);
-			Assert.AreEqual(1, testAgent.action_2_enter_count);
-			
-			Assert.AreEqual(2, testAgent.action_0_exit_count);
-			Assert.AreEqual(1, testAgent.action_1_exit_count);
+            //Assert.AreEqual(1, testAgent.action_0_exit_count);
+            Assert.AreEqual(1, testAgent.action_1_exit_count);
             Assert.AreEqual(1, testAgent.action_2_exit_count);
-            
+
             Assert.AreEqual(5, testAgent.testVar_1);
             Assert.AreEqual("world", testAgent.testVar_str_0);
-            
+
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+        }
+
+        [Test]
+        [Category("test_enter_exit_action_2")]
+        public void test_enter_exit_action_2() {
+            testAgent.btsetcurrent("node_test/enter_exit_action_ut_2");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            Assert.AreEqual(1, testAgent.action_0_enter_count);
+            Assert.AreEqual(1, testAgent.action_1_enter_count);
+            Assert.AreEqual(1, testAgent.action_2_enter_count);
+
+            Assert.AreEqual(1, testAgent.action_0_exit_count);
+            Assert.AreEqual(0, testAgent.action_1_exit_count);
+            Assert.AreEqual(0, testAgent.action_2_exit_count);
+
+            Assert.AreEqual(3, testAgent.testVar_1);
+            Assert.AreEqual("hello", testAgent.testVar_str_0);
+
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            testAgent.testVar_0 = 0;
+            status = testAgent.btexec();
+            Assert.AreEqual(2, testAgent.action_0_enter_count);
+            Assert.AreEqual(1, testAgent.action_1_enter_count);
+            Assert.AreEqual(1, testAgent.action_2_enter_count);
+
+            Assert.AreEqual(2, testAgent.action_0_exit_count);
+            Assert.AreEqual(1, testAgent.action_1_exit_count);
+            Assert.AreEqual(1, testAgent.action_2_exit_count);
+
+            Assert.AreEqual(5, testAgent.testVar_1);
+            Assert.AreEqual("world", testAgent.testVar_str_0);
+
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
         }
     }

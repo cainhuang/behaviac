@@ -12,57 +12,79 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.ComponentModel;
-using System.Globalization;
 
 namespace behaviac
 {
-    class DefaultWorld : World
-    {
-        public DefaultWorld()
-        {
-
-        }
-    }
-
     public class Context
     {
         private static Dictionary<int, Context> ms_contexts = new Dictionary<int, Context>();
 
         private Dictionary<string, Agent> m_namedAgents = new Dictionary<string, Agent>();
         private Dictionary<string, Variables> m_static_variables = new Dictionary<string, Variables>();
-        private Dictionary<string, Dictionary<CStringID, CNamedEvent>> ms_eventInfosGlobal = new Dictionary<string, Dictionary<CStringID, CNamedEvent>>();
 
-        int m_context_id;
-        World m_world;
-
-        Context(int contextId)
+        public struct HeapItem_t : IComparable<HeapItem_t>
         {
-            m_world = null;
+            public int priority;
+            public Dictionary<int, Agent> agents;
+
+            public int CompareTo(HeapItem_t other)
+            {
+                if (this.priority < other.priority)
+                {
+                    return -1;
+
+                }
+                else if (this.priority > other.priority)
+                {
+                    return 1;
+                }
+
+                return 0;
+            }
+        }
+
+        private List<HeapItem_t> m_agents;
+
+        public List<HeapItem_t> Agents
+        {
+            get
+            {
+                if (m_agents == null)
+                {
+                    m_agents = new List<HeapItem_t>();
+                }
+
+                return m_agents;
+            }
+            set
+            {
+                m_agents = value;
+            }
+        }
+
+        private int m_context_id;
+
+        private Context(int contextId)
+        {
             m_context_id = contextId;
         }
 
         ~Context()
         {
-            this.m_world = null;
-
             this.CleanupStaticVariables();
             this.CleanupInstances();
-
-            ms_eventInfosGlobal.Clear();
         }
 
-		int GetContextId()
-		{
-			return this.m_context_id;
-		}
+        private int GetContextId()
+        {
+            return this.m_context_id;
+        }
 
         public static Context GetContext(int contextId)
         {
             Debug.Check(contextId >= 0);
+
             if (ms_contexts.ContainsKey(contextId))
             {
                 Context pContext = ms_contexts[contextId];
@@ -75,7 +97,6 @@ namespace behaviac
             return pC;
         }
 
-
         public static void Cleanup(int contextId)
         {
             if (ms_contexts != null)
@@ -84,12 +105,14 @@ namespace behaviac
                 {
                     ms_contexts.Clear();
                     //ms_contexts = null;
+
                 }
                 else
                 {
                     if (ms_contexts.ContainsKey(contextId))
                     {
                         ms_contexts.Remove(contextId);
+
                     }
                     else
                     {
@@ -99,56 +122,14 @@ namespace behaviac
             }
         }
 
-        public void SetWorld(World pWorld)
-        {
-            if (this.m_world == null)
-            {
-                this.m_world = pWorld;
-            }
-            else
-            {
-                if (pWorld != null)
-                {
-                    if (this.m_world is DefaultWorld)
-                    {
-                        //in case world is not created before all agents
-                        //copy the agents from the old world to the new one
-                        pWorld.Agents = this.m_world.Agents;
-                        this.m_world.Agents.Clear();
-                    }
-                }
-
-                this.m_world = pWorld;
-            }
-        }
-
-        public World GetWorld(bool bCreate)
-        {
-            if (System.Object.ReferenceEquals(m_world, null))
-            {
-                //check if an Workspace is already in the scene
-                //m_world = UnityEngine.Object.FindObjectOfType(typeof(World)) as World;
-                if (bCreate && System.Object.ReferenceEquals(m_world, null))
-                {
-                    UnityEngine.GameObject o = new UnityEngine.GameObject("_world_");
-
-                    UnityEngine.GameObject.DontDestroyOnLoad(o);
-                    m_world = o.AddComponent<DefaultWorld>();
-                }
-            }
-
-            //Debug.Check(m_world != null);
-
-            return m_world;
-        }
-
         /**
         log changed static variables(propery) for the specified agent class or all agent classes
 
         @param agentClassName
         if null, it logs for all the agent class
         */
-        public void LogStaticVariables(string agentClassName)
+
+        private void LogStaticVariables(string agentClassName)
         {
             if (!string.IsNullOrEmpty(agentClassName))
             {
@@ -158,33 +139,165 @@ namespace behaviac
 
                     variables.Log(null, false);
                 }
+
             }
             else
             {
-                foreach (Variables variables in m_static_variables.Values)
+                foreach(Variables variables in m_static_variables.Values)
                 {
                     variables.Log(null, false);
                 }
             }
         }
 
-        public static void LogCurrentStates()
+        public static void AddAgent(Agent pAgent)
         {
-            if (ms_contexts != null)
+            Context c = Context.GetContext(pAgent.GetContextId());
+
+            c.addAgent_(pAgent);
+        }
+
+        public static void RemoveAgent(Agent pAgent)
+        {
+            Context c = Context.GetContext(pAgent.GetContextId());
+
+            c.removeAgent_(pAgent);
+        }
+
+        private void addAgent_(Agent pAgent)
+        {
+            //ASSERT_MAIN_THREAD();
+            int agentId = pAgent.GetId();
+            int priority = pAgent.GetPriority();
+            int itemIndex = this.Agents.FindIndex(delegate(HeapItem_t h)
             {
-                foreach (Context pContext in ms_contexts.Values)
+                return h.priority == priority;
+            });
+
+            if (itemIndex == -1)
+            {
+                HeapItem_t pa = new HeapItem_t();
+                pa.agents = new Dictionary<int, Agent>();
+                pa.priority = priority;
+                pa.agents[agentId] = pAgent;
+                this.Agents.Add(pa);
+
+            }
+            else
+            {
+                this.Agents[itemIndex].agents[agentId] = pAgent;
+            }
+        }
+
+        private void removeAgent_(Agent pAgent)
+        {
+            //ASSERT_MAIN_THREAD();
+
+            int agentId = pAgent.GetId();
+            int priority = pAgent.GetPriority();
+            int itemIndex = this.Agents.FindIndex(delegate(HeapItem_t h)
+            {
+                return h.priority == priority;
+            });
+
+            if (itemIndex != -1)
+            {
+                if (this.Agents[itemIndex].agents.ContainsKey(agentId))
                 {
-                    if (!Object.ReferenceEquals(pContext.m_world, null))
-                    {
-                        pContext.m_world.LogCurrentStates();
-                    }
+                    this.Agents[itemIndex].agents.Remove(agentId);
                 }
             }
         }
 
-        void CleanupStaticVariables()
+        public static void execAgents(int contextId)
         {
-            foreach (Variables variables in m_static_variables.Values)
+            if (contextId >= 0)
+            {
+                Context pContext = Context.GetContext(contextId);
+
+                pContext.execAgents_();
+
+            }
+            else
+            {
+                foreach(Context pContext in ms_contexts.Values)
+                {
+                    pContext.execAgents_();
+                }
+            }
+        }
+
+        private void execAgents_()
+        {
+            this.Agents.Sort();
+
+            for (int i = 0; i < this.Agents.Count; ++i)
+            {
+                HeapItem_t pa = this.Agents[i];
+                foreach(Agent pA in pa.agents.Values)
+                {
+                    if (pA.IsActive())
+                    {
+                        pA.btexec();
+
+                        //in case IsExecAgents was set to false by pA's bt
+                        if (!Workspace.Instance.IsExecAgents)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (Agent.IdMask() != 0)
+            {
+                this.LogStaticVariables(null);
+            }
+        }
+
+        private void LogCurrentState()
+        {
+            string msg = string.Format("LogCurrentStates {0} {1}", this.m_context_id, this.Agents.Count);
+            behaviac.Debug.Log(msg);
+
+            //force to log vars
+            foreach(HeapItem_t pa in this.Agents)
+            {
+                foreach(Agent pA in pa.agents.Values)
+                {
+                    if (pA.IsMasked())
+                    {
+                        pA.LogVariables(true);
+                    }
+                }
+            }
+
+            this.LogStaticVariables(null);
+        }
+
+        public static void LogCurrentStates(int contextId)
+        {
+            Debug.Check(ms_contexts != null);
+
+            if (contextId >= 0)
+            {
+                Context pContext = Context.GetContext(contextId);
+
+                pContext.LogCurrentState();
+
+            }
+            else
+            {
+                foreach(Context pContext in ms_contexts.Values)
+                {
+                    pContext.LogCurrentState();
+                }
+            }
+        }
+
+        private void CleanupStaticVariables()
+        {
+            foreach(Variables variables in m_static_variables.Values)
             {
                 variables.Clear();
             }
@@ -194,13 +307,13 @@ namespace behaviac
 
         public void ResetChangedVariables()
         {
-            foreach (Variables variables in m_static_variables.Values)
+            foreach(Variables variables in m_static_variables.Values)
             {
                 variables.Reset();
             }
         }
 
-        void CleanupInstances()
+        private void CleanupInstances()
         {
             //foreach (KeyValuePair<string, Agent> p in m_namedAgents)
             //{
@@ -212,6 +325,23 @@ namespace behaviac
 
             m_namedAgents.Clear();
         }
+
+        public object GetStaticVariable(string staticClassName, uint variableId)
+        {
+            Debug.Check(!string.IsNullOrEmpty(staticClassName));
+
+            if (!m_static_variables.ContainsKey(staticClassName))
+            {
+                m_static_variables[staticClassName] = new Variables();
+            }
+
+            Variables variables = m_static_variables[staticClassName];
+            return variables.GetObject(null, false, null, variableId);
+        }
+
+        /**
+        if staticClassName is no null, it is for static variable
+        */
         /// <summary>
         /// if the caller's third parameter's type is object
         /// </summary>
@@ -231,11 +361,10 @@ namespace behaviac
             }
 
             Variables variables = m_static_variables[staticClassName];
-            variables.SetObject(null, pMember, variableName, value, variableId);
+            //TODO: ture and false add by notice by below
+            variables.SetObject(true, null, false, pMember, variableName, value, variableId);
         }
-        /**
-        if staticClassName is no null, it is for static variable
-        */
+
         public void SetStaticVariable<VariableType>(CMemberBase pMember, string variableName, VariableType value, string staticClassName, uint variableId)
         {
             Debug.Check(!string.IsNullOrEmpty(variableName));
@@ -247,10 +376,10 @@ namespace behaviac
             }
 
             Variables variables = m_static_variables[staticClassName];
-			variables.Set(null, pMember, variableName, value, variableId);
+            variables.Set(true, null, false, pMember, variableName, value, variableId);
         }
 
-        static bool GetClassNameString(string variableName, ref string className)
+        private static bool GetClassNameString(string variableName, ref string className)
         {
             Debug.Check(!string.IsNullOrEmpty(variableName));
 
@@ -262,6 +391,7 @@ namespace behaviac
                 className = variableName.Substring(0, pSep - 1);
 
                 return true;
+
             }
             else
             {
@@ -270,41 +400,6 @@ namespace behaviac
             }
 
             //return false;
-        }
-
-        public CNamedEvent FindEventStatic(string eventName, string className)
-        {
-            if (ms_eventInfosGlobal.ContainsKey(className))
-            {
-                Dictionary<CStringID, CNamedEvent> events = ms_eventInfosGlobal[className];
-                CStringID eventID = new CStringID(eventName);
-
-                if (events.ContainsKey(eventID))
-                {
-                    CNamedEvent pEvent = events[eventID];
-                    return pEvent;
-                }
-            }
-
-            return null;
-        }
-
-        public void InsertEventGlobal(string className, CNamedEvent pEvent)
-        {
-            CNamedEvent toFind = FindEventStatic(className, pEvent.Name);
-            if (toFind == null)
-            {
-                if (!ms_eventInfosGlobal.ContainsKey(className))
-                {
-                    ms_eventInfosGlobal.Add(className, new Dictionary<CStringID, CNamedEvent>());
-                }
-
-                Dictionary<CStringID, CNamedEvent> events = ms_eventInfosGlobal[className];
-
-                CNamedEvent e = (CNamedEvent)pEvent.clone();
-                CStringID eventId = new CStringID(e.Name);
-                events.Add(eventId, e);
-            }
         }
 
         public CNamedEvent FindNamedEventTemplate(List<CMethodBase> methods, string eventName)
@@ -317,16 +412,11 @@ namespace behaviac
                 CMethodBase pMethod = methods[i];
                 string methodName = pMethod.Name;
                 CStringID methodID = new CStringID(methodName);
+
                 if (methodID == eventID && pMethod.IsNamedEvent())
                 {
                     Debug.Check(pMethod is CNamedEvent);
                     CNamedEvent pNamedMethod = (CNamedEvent)pMethod;
-
-                    if (pNamedMethod.IsStatic())
-                    {
-                        InsertEventGlobal(pNamedMethod.GetClassNameString(), pNamedMethod);
-                        return pNamedMethod;
-                    }
 
                     return pNamedMethod;
                 }
@@ -336,11 +426,12 @@ namespace behaviac
         }
 
         /**
-        bind 'agentInstanceName' to 'pAgentInstance'. 
+        bind 'agentInstanceName' to 'pAgentInstance'.
         'agentInstanceName' should have been registered to the class of 'pAgentInstance' or its parent class.
 
-        @sa RegisterName
+        @sa RegisterInstanceName
         */
+
         public bool BindInstance(Agent pAgentInstance, string agentInstanceName)
         {
             if (string.IsNullOrEmpty(agentInstanceName))
@@ -360,6 +451,7 @@ namespace behaviac
 
                     return true;
                 }
+
             }
             else
             {
@@ -374,16 +466,17 @@ namespace behaviac
             return BindInstance(pAgentInstance, null);
         }
 
-
         /**
-        unbind 'agentInstanceName' from 'pAgentInstance'. 
+        unbind 'agentInstanceName' from 'pAgentInstance'.
         'agentInstanceName' should have been bound to 'pAgentInstance'.
 
-        @sa RegisterName, BindInstance, CreateInstance
+        @sa RegisterInstanceName, BindInstance, CreateInstance
         */
+
         public bool UnbindInstance(string agentInstanceName)
         {
             Debug.Check(!string.IsNullOrEmpty(agentInstanceName));
+
             if (Agent.IsNameRegistered(agentInstanceName))
             {
                 if (m_namedAgents.ContainsKey(agentInstanceName))
@@ -392,12 +485,12 @@ namespace behaviac
 
                     return true;
                 }
+
             }
             else
             {
                 Debug.Check(false);
             }
-
 
             return false;
         }
@@ -411,6 +504,7 @@ namespace behaviac
         public Agent GetInstance(string agentInstanceName)
         {
             bool bValidName = !string.IsNullOrEmpty(agentInstanceName);
+
             if (bValidName)
             {
                 string className = null;
@@ -431,7 +525,7 @@ namespace behaviac
 
         public bool Save(Dictionary<string, Agent.State_t> states)
         {
-            foreach (KeyValuePair<string, Variables> pair in m_static_variables)
+            foreach(KeyValuePair<string, Variables> pair in m_static_variables)
             {
                 string className = pair.Key;
                 Variables variables = pair.Value;
@@ -447,7 +541,7 @@ namespace behaviac
 
         public bool Load(Dictionary<string, Agent.State_t> states)
         {
-            foreach (KeyValuePair<string, Agent.State_t> it in states)
+            foreach(KeyValuePair<string, Agent.State_t> it in states)
             {
                 if (m_static_variables.ContainsKey(it.Key))
                 {

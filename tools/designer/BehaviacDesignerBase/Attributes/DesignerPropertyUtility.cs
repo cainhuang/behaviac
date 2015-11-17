@@ -25,44 +25,40 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The given object.</param>
         /// <returns>Returns the string value for displaying the object.</returns>
-        public static string RetrieveDisplayValue(object obj, object parent = null, string paramName = null, int indexInArray = -1)
-        {
+        public static string RetrieveDisplayValue(object obj, object parent = null, string paramName = null, int indexInArray = -1) {
             string str = string.Empty;
-            if (obj != null)
-            {
+
+            if (obj != null) {
                 Type type = obj.GetType();
 
                 // ISerializableData type
-                if (obj is ISerializableData)
-                {
+                if (obj is ISerializableData) {
                     str = ((ISerializableData)obj).GetDisplayValue();
                 }
+
                 // Array type
-                else if (Plugin.IsArrayType(type))
-                {
+                else if (Plugin.IsArrayType(type)) {
                     str = DesignerArray.RetrieveDisplayValue(obj);
                 }
+
                 // Struct type
-                else if (Plugin.IsCustomClassType(type))
-                {
+                else if (Plugin.IsCustomClassType(type)) {
                     str = DesignerStruct.RetrieveDisplayValue(obj, parent, paramName, indexInArray);
                 }
+
                 // Enum type
-                else if (type.IsEnum)
-                {
+                else if (type.IsEnum) {
                     str = DesignerEnum.GetDisplayName(obj);
                 }
+
                 // Other types
-                else
-                {
+                else {
                     str = obj.ToString();
 
-                    if (Plugin.IsStringType(type))
-                    {
+                    if (Plugin.IsStringType(type)) {
                         str = string.Format("\"{0}\"", str);
-                    }
-                    else
-                    {
+
+                    } else {
                         string[] tokens = str.Split(' ');
                         str = tokens[tokens.Length - 1];
                     }
@@ -77,37 +73,48 @@ namespace Behaviac.Design.Attributes
         /// </summary>
         /// <param name="obj">The given object.</param>
         /// <returns>Returns the string value for saving or exporting the object.</returns>
-        public static string RetrieveExportValue(object obj, object parent = null, string paramName = null)
-        {
+        public static string RetrieveExportValue(object obj, object parent = null, string paramName = null) {
             string str = "\"\"";
-            if (obj != null)
-            {
+
+            if (obj != null) {
                 Type type = obj.GetType();
 
                 // ISerializableData type
-                if (obj is ISerializableData)
-                {
+                if (obj is ISerializableData) {
                     str = ((ISerializableData)obj).GetExportValue();
                 }
+
                 // Array type
-                else if (Plugin.IsArrayType(type))
-                {
+                else if (Plugin.IsArrayType(type)) {
                     str = DesignerArray.RetrieveExportValue(obj);
                 }
+
                 // Struct type
-                else if (Plugin.IsCustomClassType(type))
-                {
+                else if (Plugin.IsCustomClassType(type)) {
                     str = DesignerStruct.RetrieveExportValue(obj, parent, paramName, true);
                 }
+
                 // Other types
-                else
-                {
-                    str = obj.ToString();
+                else {
+                    if (obj is char) {
+                        char c = (char)obj;
+
+                        if (c == '\0') {
+                            str = "";
+
+                        } else {
+                            str = obj.ToString();
+                        }
+
+                    } else {
+                        str = obj.ToString();
+                    }
 
                     if (Plugin.IsStringType(type))
-                        str = string.Format("\"{0}\"", str);
+                    { str = string.Format("\"{0}\"", str); }
+
                     else if (Plugin.IsBooleanType(type))
-                        str = str.ToLowerInvariant();
+                    { str = str.ToLowerInvariant(); }
                 }
             }
 
@@ -121,10 +128,10 @@ namespace Behaviac.Design.Attributes
         /// <param name="str">The string value of the created object.</param>
         /// <param name="node">The owner node of the created object.</param>
         /// <returns>Returns the created object.</returns>
-        public static object ParseStringValue(Type type, string str, NodeTag.DefaultObject node)
+        public static object ParseStringValue(List<Nodes.Node.ErrorCheck> result, Type type, string str, DefaultObject node)
         {
             object obj = null;
-            Plugin.InvokeTypeParser(type, str, (object value) => obj = value, node);
+            Plugin.InvokeTypeParser(result, type, str, (object value) => obj = value, node);
 
             return obj;
         }

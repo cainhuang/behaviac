@@ -43,191 +43,164 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerStringEditor : Behaviac.Design.Attributes.DesignerPropertyEditor
     {
-        public DesignerStringEditor()
-        {
+        public DesignerStringEditor() {
             InitializeComponent();
         }
 
-        public override void ReadOnly()
-        {
+        public override void ReadOnly() {
             base.ReadOnly();
 
             textBox.ReadOnly = true;
         }
 
-        public override void SetProperty(DesignerPropertyInfo property, object obj)
-        {
+        public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
             object v = property.Property.GetValue(obj, null);
 
-            if (Plugin.IsCharType(v.GetType()))
-            {
-                textBox.MaxLength = 1;
-            }
+            if (v != null) {
+                if (Plugin.IsCharType(v.GetType())) {
+                    textBox.MaxLength = 1;
+                }
 
-            textBox.Text = trimQuotes(v.ToString());
+                textBox.Text = trimQuotes(v.ToString());
+
+            } else {
+                Debug.Check(false);
+            }
         }
 
-        private string trimQuotes(string text)
-        {
+        private string trimQuotes(string text) {
             char[] toTrim = {'"'};
             return text.Trim(toTrim);
         }
 
-        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj)
-        {
+        public override void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj) {
             base.SetArrayProperty(arrayProperty, obj);
 
             textBox.Text = (arrayProperty.Value != null) ? trimQuotes(arrayProperty.Value.ToString()) : string.Empty;
 
-            if (Plugin.IsCharType(arrayProperty.Value.GetType()))
-            {
+            if (Plugin.IsCharType(arrayProperty.Value.GetType())) {
                 textBox.MaxLength = 1;
             }
         }
 
-        public override void SetParameter(MethodDef.Param param, object obj)
-        {
-            base.SetParameter(param, obj);
+        public override void SetParameter(MethodDef.Param param, object obj, bool bReadonly) {
+            base.SetParameter(param, obj, bReadonly);
 
-            if (Plugin.IsCharType(param.Value.GetType()))
-            {
+            if (Plugin.IsCharType(param.Value.GetType())) {
                 textBox.MaxLength = 1;
             }
 
             textBox.Text = trimQuotes(param.Value.ToString());
         }
 
-        public override void SetVariable(VariableDef variable, object obj)
-        {
+        public override void SetVariable(VariableDef variable, object obj) {
             base.SetVariable(variable, obj);
 
-            if (variable != null)
-            {
+            if (variable != null) {
                 string str = trimQuotes(variable.Value.ToString());
-                if (textBox.Text != str)
-                {
+
+                if (textBox.Text != str) {
                     textBox.Text = str;
 
                     _modified = true;
                     valueChanged();
                 }
 
-                if (Plugin.IsCharType(variable.GetValueType()))
-                {
+                if (Plugin.IsCharType(variable.GetValueType())) {
                     textBox.MaxLength = 1;
                 }
             }
         }
 
-        private void valueChanged()
-        {
+        private void valueChanged() {
             if (!_valueWasAssigned)
-                return;
+            { return; }
 
-            if (_property.Property != null)
-            {
-                if (Plugin.IsCharType(_property.Property.PropertyType))
-                {
+            if (_property.Property != null) {
+                if (Plugin.IsCharType(_property.Property.PropertyType)) {
                     char c = GetChar(textBox.Text);
 
                     _property.Property.SetValue(_object, c, null);
-                }
-                else
-                {
+
+                } else {
                     _property.Property.SetValue(_object, textBox.Text, null);
                 }
-            }
-            else if (_arrayProperty != null)
-            {
-                if (Plugin.IsCharType(_arrayProperty.ItemType))
-                {
+
+            } else if (_arrayProperty != null) {
+                if (Plugin.IsCharType(_arrayProperty.ItemType)) {
                     char c = GetChar(textBox.Text);
 
                     _arrayProperty.Value = c;
-                }
-                else
-                {
+
+                } else {
                     _arrayProperty.Value = textBox.Text;
                 }
-            }
-            else if (_param != null)
-            {
+
+            } else if (_param != null) {
                 Debug.Check(_param.Attribute is DesignerString);
-                if (Plugin.IsCharType(_param.Value.GetType()))
-                {
+
+                if (Plugin.IsCharType(_param.Value.GetType())) {
                     char c = GetChar(textBox.Text);
 
                     _param.Value = c;
-                }
-                else
-                {
+
+                } else {
                     _param.Value = textBox.Text;
                 }
-            }
-            else if (_variable != null)
-            {
-                if (Plugin.IsCharType(_variable.GetValueType()))
-                {
+
+            } else if (_variable != null) {
+                if (Plugin.IsCharType(_variable.GetValueType())) {
                     char c = GetChar(textBox.Text);
 
                     _variable.Value = c;
-                }
-                else
-                {
+
+                } else {
                     _variable.Value = textBox.Text;
                 }
-            }
-            else
-            {
+
+            } else {
                 Debug.Check(false);
             }
 
-            if (_modified)
-            {
+            if (_modified) {
                 OnValueChanged(_property);
 
                 _modified = false;
             }
         }
 
-        private char GetChar(string t)
-        {
+        private char GetChar(string t) {
             char c = 'A';
-            if (t.Length >= 1)
-            {
+
+            if (t.Length >= 1) {
                 c = textBox.Text[0];
             }
 
             return c;
         }
 
-        private void textBox_LostFocus(object sender, EventArgs e)
-        {
+        private void textBox_LostFocus(object sender, EventArgs e) {
             valueChanged();
         }
 
-        private void textBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
+        private void textBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
                 valueChanged();
             }
         }
 
         private bool _modified = false;
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {
+        private void textBox_TextChanged(object sender, EventArgs e) {
             //valueChanged();
             if (!_valueWasAssigned)
-                return;
+            { return; }
 
             _modified = true;
         }
 
-        private void textBox_MouseEnter(object sender, EventArgs e)
-        {
+        private void textBox_MouseEnter(object sender, EventArgs e) {
             this.OnMouseEnter(e);
         }
     }

@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: ships\7_signal.xml-->
-<behavior name="ships/7_signal" agenttype="framework::Ship" version="1">
-  <pars>
-    <par name="par_a" type="bool" value="false" />
-    <par name="par_b" type="int" value="0" />
-  </pars>
-  <node class="DecoratorLoop" version="1" id="1">
+<behavior name="ships/7_signal" agenttype="framework::Ship" version="3">
+  <node class="DecoratorLoop" id="1">
     <property Count="const int 1" />
     <property DecorateWhenChildEnds="true" />
-    <node class="Sequence" version="1" id="2">
-      <node class="Parallel" version="1" id="3">
+    <node class="Sequence" id="2">
+      <node class="Parallel" id="3">
         <property ChildFinishPolicy="CHILDFINISH_ONCE" />
         <property ExitPolicy="EXIT_NONE" />
         <property FailurePolicy="FAIL_ON_ONE" />
         <property SuccessPolicy="SUCCEED_ON_ALL" />
-        <node class="DecoratorLoop" version="1" id="4">
+        <node class="DecoratorLoop" id="4">
           <property Count="const int 3" />
           <property DecorateWhenChildEnds="true" />
-          <node class="Sequence" version="1" id="5">
-            <node class="Action" version="1" id="6">
+          <node class="Sequence" id="5">
+            <node class="Action" id="6">
               <property Method="Self.framework::Ship::Fire()" />
-              <property PreconditionFailResult="BT_FAILURE" />
               <property ResultFunctor="Self.framework::Ship::checkresult(false)" />
               <property ResultOption="BT_INVALID" />
             </node>
-            <node class="Wait" version="1" id="0">
+            <node class="Wait" id="0">
               <property IgnoreTimeScale="false" />
               <property Time="const float 1000" />
             </node>
           </node>
         </node>
-        <node class="Action" version="1" id="8">
+        <node class="Action" id="8">
           <property Method="Self.framework::Ship::GotoPoint(500,50,80)" />
-          <property PreconditionFailResult="BT_FAILURE" />
           <property ResultFunctor="Self.framework::Ship::checkresult(false)" />
           <property ResultOption="BT_INVALID" />
         </node>
       </node>
-      <node class="Assignment" version="1" id="9">
+      <node class="Assignment" id="9">
         <property Opl="bool framework::WorldState.framework::WorldState::SyncSignal" />
         <property Opr="const bool true" />
       </node>
-      <node class="Noop" version="1" id="11" />
+      <node class="Noop" id="11" />
     </node>
   </node>
 </behavior>

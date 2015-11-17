@@ -15,38 +15,33 @@
 
 #include "behaviac/base/core/memory/memory.h"
 
-
 namespace behaviac
 {
-	static IMemAllocator* gs_pMemoryAllocator;
-	IMemAllocator& GetMemoryAllocator()
-	{
-		if (gs_pMemoryAllocator)
-		{
-			return *gs_pMemoryAllocator;
-		}
+    static IMemAllocator* gs_pMemoryAllocator;
+    IMemAllocator& GetMemoryAllocator()
+    {
+        if (gs_pMemoryAllocator)
+        {
+            return *gs_pMemoryAllocator;
+        }
 
-		return behaviac::GetDefaultMemoryAllocator();
-	}
+        return behaviac::GetDefaultMemoryAllocator();
+    }
 
+    void SetMemoryAllocator(IMemAllocator& allocator)
+    {
+        gs_pMemoryAllocator = &allocator;
+    }
 
-	void SetMemoryAllocator(IMemAllocator& allocator)
-	{
-		gs_pMemoryAllocator = &allocator;
-	}
+    const STagOperatorNewType& STagOperatorNewType::GetInstance()
+    {
+        static STagOperatorNewType DEFAULT_TYPE;
+        return DEFAULT_TYPE;
+    }
 
-
-	const STagOperatorNewType& STagOperatorNewType::GetInstance()
-	{
-		static STagOperatorNewType DEFAULT_TYPE;
-		return DEFAULT_TYPE;
-	}
-
-
-	const STagOperatorNewArrayType& STagOperatorNewArrayType::GetInstance()
-	{
-		static STagOperatorNewArrayType DEFAULT_TYPE;
-		return DEFAULT_TYPE;
-	}
-
+    const STagOperatorNewArrayType& STagOperatorNewArrayType::GetInstance()
+    {
+        static STagOperatorNewArrayType DEFAULT_TYPE;
+        return DEFAULT_TYPE;
+    }
 }

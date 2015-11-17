@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_BASE_TIME_TIMER_H_
-#define _BEHAVIAC_BASE_TIME_TIMER_H_
+#ifndef BEHAVIAC_BASE_TIME_TIMER_H
+#define BEHAVIAC_BASE_TIME_TIMER_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/core/string/formatstring.h"
@@ -64,7 +64,7 @@ public:
         return m_startTime;
     }
 
-protected :
+protected:
     uint64_t m_startTime;
 };
 
@@ -74,8 +74,8 @@ class BEHAVIAC_API CTimerAutoProfiler
 {
 public:
     CTimerAutoProfiler(behaviac::Float32& timeMeasure)
-        :	m_timeMeasure(timeMeasure),
-            m_startTime(CHighPerfTimer::GetTimeValue())
+        : m_timeMeasure(timeMeasure),
+          m_startTime(CHighPerfTimer::GetTimeValue())
     {
     }
 
@@ -94,7 +94,7 @@ private:
 class BEHAVIAC_API CTimerAutoProfilerLog
 {
 public:
-    CTimerAutoProfilerLog(const char* tag): m_timerTag(tag), m_startTime(CHighPerfTimer::GetTimeValue())
+    CTimerAutoProfilerLog(const char* tag) : m_timerTag(tag), m_startTime(CHighPerfTimer::GetTimeValue())
     {
     }
 
@@ -108,7 +108,6 @@ private:
     const uint64_t    m_startTime;
     CTimerAutoProfilerLog& operator=(const CTimerAutoProfilerLog&);
 };
-
 
 //! Implements all common timing routines
 class BEHAVIAC_API CTimer
@@ -211,7 +210,7 @@ public:
 private:
     unsigned int m_ulFrameCounter;
 
-    typedef float(* TimeUpdateFunc)();
+    typedef float(*TimeUpdateFunc)();
     TimeUpdateFunc m_pfnUpdate;
 
     double		m_BaseTime;
@@ -236,5 +235,4 @@ private:
     uint64_t   m_iLockedFrameRateLastTime;
 };
 
-
-#endif //_BEHAVIAC_BASE_TIME_TIMER_H_
+#endif //BEHAVIAC_BASE_TIME_TIMER_H

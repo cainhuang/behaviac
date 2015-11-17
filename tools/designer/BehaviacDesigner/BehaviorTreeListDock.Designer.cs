@@ -1,4 +1,4 @@
-﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -33,34 +33,32 @@
 
 namespace Behaviac.Design
 {
-	partial class BehaviorTreeListDock
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class BehaviorTreeListDock
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
 
-		#region Windows Form Designer generated code
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BehaviorTreeListDock));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.behaviorTreeList = new Behaviac.Design.BehaviorTreeList();
@@ -69,43 +67,43 @@ namespace Behaviac.Design
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // splitContainer
-            // 
+            //
             resources.ApplyResources(this.splitContainer, "splitContainer");
             this.splitContainer.Name = "splitContainer";
-            // 
+            //
             // splitContainer.Panel1
-            // 
+            //
             this.splitContainer.Panel1.Controls.Add(this.behaviorTreeList);
             resources.ApplyResources(this.splitContainer.Panel1, "splitContainer.Panel1");
-            // 
+            //
             // splitContainer.Panel2
-            // 
+            //
             this.splitContainer.Panel2.Controls.Add(this.nodeTreeList);
             resources.ApplyResources(this.splitContainer.Panel2, "splitContainer.Panel2");
-            // 
+            //
             // behaviorTreeList
-            // 
+            //
             this.behaviorTreeList.BehaviorFolder = "";
             resources.ApplyResources(this.behaviorTreeList, "behaviorTreeList");
             this.behaviorTreeList.Name = "behaviorTreeList";
-            // 
+            //
             // nodeTreeList
-            // 
+            //
             resources.ApplyResources(this.nodeTreeList, "nodeTreeList");
             this.nodeTreeList.Name = "nodeTreeList";
-            // 
+            //
             // BehaviorTreeListDock
-            // 
+            //
             resources.ApplyResources(this, "$this");
             this.CloseButton = false;
             this.CloseButtonVisible = false;
             this.Controls.Add(this.splitContainer);
-            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)(((((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)));
+            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)(((((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft)
+                                                                          | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight)
+                                                                         | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop)
+                                                                        | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)));
             this.Name = "BehaviorTreeListDock";
             this.ShowIcon = false;
             this.TabText = "Workspace";
@@ -114,12 +112,12 @@ namespace Behaviac.Design
             this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         internal BehaviorTreeList behaviorTreeList;
         private System.Windows.Forms.SplitContainer splitContainer;
         internal NodeTreeList nodeTreeList;
-	}
+    }
 }

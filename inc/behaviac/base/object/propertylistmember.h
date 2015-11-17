@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _ENGINESERVICES_PROPERTYLISTMEMBER_H_
-#define _ENGINESERVICES_PROPERTYLISTMEMBER_H_
+#ifndef BEHAVIAC_ENGINESERVICES_PROPERTYLISTMEMBER_H
+#define BEHAVIAC_ENGINESERVICES_PROPERTYLISTMEMBER_H
 
 #include "behaviac/base/object/tagobject.h"
 #include "behaviac/base/object/member.h"
@@ -48,17 +48,15 @@ public:
         : CMemberBase(propertyName, className), m_memberPtr(memberPtr), m_uiWrapper(uiWrapper)
     {}
 
+    CPropertlyListMember(const CPropertlyListMember& copy) : CMemberBase(copy), m_memberPtr(copy.m_memberPtr), m_uiWrapper(copy.m_uiWrapper)
+    {}
 
-	CPropertlyListMember(const CPropertlyListMember& copy) : CMemberBase(copy), m_memberPtr(copy.m_memberPtr), m_uiWrapper(copy.m_uiWrapper)
-	{}
+    virtual CMemberBase* clone() const
+    {
+        CMemberBase* p = BEHAVIAC_NEW CPropertlyListMember(*this);
 
-	virtual CMemberBase* clone() const
-	{
-		CMemberBase* p = BEHAVIAC_NEW CPropertlyListMember(*this);
-
-		return p;
-	}
-
+        return p;
+    }
 
     virtual void Load(CTagObject* parent, const ISerializableNode* node)
     {
@@ -116,14 +114,15 @@ public:
                 XmlNodeRef childNode = xmlNode->newChild("Member");
                 childNode->setAttr("Name", propDescriptor.GetID());
 
-				if (this->m_classFullName)
-				{
-					memberNode->setAttr("Class", this->m_classFullName);
-				}
-				if (m_bStatic)
-				{
-					memberNode->setAttr("Static", "true");
-				}
+                if (this->m_classFullName)
+                {
+                    memberNode->setAttr("Class", this->m_classFullName);
+                }
+
+                if (m_bStatic)
+                {
+                    memberNode->setAttr("Static", "true");
+                }
 
                 childNode->setAttr("ContainerElement", true);
 
@@ -137,11 +136,12 @@ public:
 
     virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
     {
-		XmlNodeRef childNode = xmlNode;
-		if (types == NULL)
-		{
-			childNode = xmlNode->newChild(m_propertyID.GetString());
-		}
+        XmlNodeRef childNode = xmlNode;
+
+        if (types == NULL)
+        {
+            childNode = xmlNode->newChild(m_propertyID.GetString());
+        }
 
         m_handler.GetMethodsDescription(types, childNode, (ObjectType*)parent, ((ObjectType*)parent)->*m_memberPtr);
     }
@@ -151,16 +151,15 @@ private:
     UiGenericType* m_uiWrapper;
 };
 
-
 template <uint32_t PropertyFlags>
 struct CPropertlyListMemberFactory
 {
     template<class ObjectType>
     static CMemberBase* Create(CPropertyList * ObjectType::* memberPtr, const char* propertyName, UiGenericType* uiWrapper)
     {
-		typedef CPropertlyListMember<ObjectType, PropertyFlags> MemberType;
+        typedef CPropertlyListMember<ObjectType, PropertyFlags> MemberType;
         return BEHAVIAC_NEW MemberType(memberPtr, propertyName, uiWrapper);
     }
 };
 
-#endif // #ifndef _ENGINESERVICES_PROPERTYLISTMEMBER_H_
+#endif // #ifndef BEHAVIAC_ENGINESERVICES_PROPERTYLISTMEMBER_H

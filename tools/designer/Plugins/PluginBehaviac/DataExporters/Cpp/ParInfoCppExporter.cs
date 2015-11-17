@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -15,43 +15,120 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Behaviac.Design;
 using Behaviac.Design.Attributes;
 
 namespace PluginBehaviac.DataExporters
 {
     public class ParInfoCppExporter
     {
-        public static string GenerateCode(Behaviac.Design.ParInfo par, StreamWriter stream, string indent, string typename, string var, string caller)
+        public static string GenerateCode(Behaviac.Design.PropertyDef property, bool isRefParam, StreamWriter stream, string indent, string typename, string var, string caller)
         {
             bool shouldDefineType = true;
             if (string.IsNullOrEmpty(typename))
             {
                 shouldDefineType = false;
-                typename = DataCppExporter.GetGeneratedNativeType(par.NativeType);
+                typename = property.NativeType;
+            }
+            else if (typename == "System::Object")
+            {
+                typename = property.NativeType;
             }
 
-            uint id = Behaviac.Design.CRC32.CalcCRC(par.Name);
-            stream.WriteLine("{0}BEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, par.Name, id);
+            if (!typename.EndsWith("*") && Plugin.IsRefType(property.Type))
+            {
+                typename += "*";
+            }
 
-            typename = DataCppExporter.GetBasicGeneratedNativeType(typename);
-            string retStr = string.Format("pAgent->GetVariable<{0} >({1}u)", typename, id);
+            bool isListType = (typename == "IList");
+            bool isString = (typename == "char*" || typename == "const char*");
+
+            if (isListType)
+            {
+                typename = property.NativeType;
+            }
+
+            typename = DataCppExporter.GetGeneratedNativeType(typename);
+            if (property.IsArrayElement && !typename.StartsWith("vector<") && !typename.StartsWith("behaviac::vector<"))
+            {
+                typename = string.Format("vector<{0} >", typename);
+            }
+
+            string varType = typename;
+            string propBasicName = property.BasicName.Replace("[]", "");
+            uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+            string retStr = string.Format("({0}&)pAgent->GetVariable<{1} >({2}u)", typename, varType, id);
+
+            if (isString)
+            {
+                retStr = string.Format("(char*)((behaviac::string&)pAgent->GetVariable<behaviac::string>({0}u)).c_str()", id);
+            }
 
             if (!string.IsNullOrEmpty(var))
             {
-                if (shouldDefineType)
-                    stream.WriteLine("{0}{1}& {2} = ({1}&){3};", indent, typename, var, retStr);
+                stream.WriteLine("{0}BEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
+
+                if (shouldDefineType || isRefParam)
+                {
+                    if (isListType)
+                    {
+                        typename = string.Format("TList<{0} >", property.NativeType);
+                        retStr = string.Format("&({0})", retStr);
+                    }
+                    else if (!isString)
+                    {
+                        typename = typename + "&";
+                    }
+
+                    stream.WriteLine("{0}{1} {2} = {3};", indent, typename, var, retStr);
+                }
                 else
+                {
                     stream.WriteLine("{0}{1} = {2};", indent, var, retStr);
+                }
             }
 
             return retStr;
         }
 
-        public static void PostGenerateCode(Behaviac.Design.ParInfo par, StreamWriter stream, string indent, string typename, string var, string caller)
+        public static void PostGenerateCode(Behaviac.Design.PropertyDef property, StreamWriter stream, string indent, string typename, string var, string caller)
         {
-            uint id = Behaviac.Design.CRC32.CalcCRC(par.Name);
-            stream.WriteLine("{0}BEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, par.Name, id);
-            stream.WriteLine("{0}pAgent->SetVariable(\"{1}\", {2}, {3}u);", indent, par.Name, var, id);
+            string propBasicName = property.BasicName.Replace("[]", "");
+            uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+            bool isListType = (typename == "IList");
+            bool isString = (typename == "char*" || typename == "const char*");
+
+            if (isListType)
+            {
+                var = string.Format("*{0}.vector_", var);
+            }
+            else if (isString)
+            {
+                var = string.Format("behaviac::string({0})", var);
+            }
+
+            stream.WriteLine("{0}BEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
+            stream.WriteLine("{0}pAgent->SetVariable(\"{1}\", {2}, {3}u);", indent, propBasicName, var, id);
+        }
+
+        public static string GetProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent)
+        {
+            string retStr = string.Empty;
+            if (property != null)
+            {
+                string typename = DataCppExporter.GetGeneratedNativeType(property.NativeType);
+                if (property.IsArrayElement && !typename.StartsWith("behaviac::vector<"))
+                {
+                    typename = string.Format("behaviac::vector<{0} >", typename);
+                }
+
+                string propBasicName = property.BasicName.Replace("[]", "");
+                uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+
+                retStr = string.Format("({0})pAgent->GetVariable<{0} >({1}u)", typename, id);
+            }
+
+            return retStr;
         }
     }
 }

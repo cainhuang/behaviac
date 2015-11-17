@@ -25,30 +25,27 @@ namespace Behaviac.Design.Attributes
 {
     public partial class DesignerPropertyComboEnumEditor : Behaviac.Design.Attributes.DesignerPropertyEditor
     {
-        public DesignerPropertyComboEnumEditor()
-        {
+        public DesignerPropertyComboEnumEditor() {
             InitializeComponent();
         }
 
-        public override void ReadOnly()
-        {
+        public override void ReadOnly() {
             base.ReadOnly();
 
             typeComboBox.Enabled = false;
+
             if (this.propertyEditor != null)
-                this.propertyEditor.ReadOnly();
+            { this.propertyEditor.ReadOnly(); }
         }
 
         private bool _methodOnly = false;
         private bool _allowConst = true;
-        private bool _allowPar = true;
         private List<string> _names = new List<string>();
         private List<string> _types = new List<string>();
         private List<string> _currentNames = new List<string>();
         private bool _isReady = false;
 
-        public override void SetProperty(DesignerPropertyInfo property, object obj)
-        {
+        public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
             _isReady = false;
@@ -62,31 +59,19 @@ namespace Behaviac.Design.Attributes
             _types.Clear();
 
             int defaultSelect = 0;
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Const))
-            {
+
+            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Const)) {
                 _methodOnly = false;
                 _allowConst = true;
 
                 _names.Add(VariableDef.kConst);
                 _types.Add(VariableDef.kConst);
-            }
-            else
-            {
+
+            } else {
                 _allowConst = false;
             }
 
-            _allowPar = false;
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Par))
-            {
-                _allowPar = true;
-                _methodOnly = false;
-
-                _names.Add(VariableDef.kPar);
-                _types.Add(VariableDef.kPar);
-            }
-
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Self))
-            {
+            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Self)) {
                 _methodOnly = false;
 
                 _names.Add(VariableDef.kSelf);
@@ -94,27 +79,22 @@ namespace Behaviac.Design.Attributes
                 defaultSelect = _types.Count - 1;
             }
 
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Global))
-            {
+            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Global)) {
                 _methodOnly = false;
 
-                foreach (Plugin.InstanceName_t instanceName in Plugin.InstanceNames)
-                {
+                foreach(Plugin.InstanceName_t instanceName in Plugin.InstanceNames) {
                     _names.Add(instanceName.name_);
                     _types.Add(instanceName.displayName_);
                 }
             }
 
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.SelfMethod))
-            {
+            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.SelfMethod)) {
                 _names.Add(VariableDef.kSelfMethod);
                 _types.Add(VariableDef.kSelfMethod);
             }
 
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.GlobalMethod))
-            {
-                foreach (Plugin.InstanceName_t instanceName in Plugin.InstanceNames)
-                {
+            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.GlobalMethod)) {
+                foreach(Plugin.InstanceName_t instanceName in Plugin.InstanceNames) {
                     _names.Add(instanceName.name_ + VariableDef.kMethod);
                     _types.Add(instanceName.displayName_ + VariableDef.kMethod);
                 }
@@ -123,45 +103,37 @@ namespace Behaviac.Design.Attributes
             typeComboBox.Enabled = (_types.Count > 1);
 
             if (property.Property.PropertyType == null)
-                throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, property.Property.Name));
+            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, property.Property.Name)); }
 
             object propertyMember = property.Property.GetValue(obj, null);
             VariableDef variable = propertyMember as VariableDef;
             RightValueDef variableRV = propertyMember as RightValueDef;
 
             //right value's default should be const
-            if (enumAtt != null && enumAtt.DependedProperty != null && enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Const))
-            {
+            if (enumAtt != null && enumAtt.DependedProperty != null && enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Const)) {
                 defaultSelect = 0;
             }
 
             int typeIndex = -1;
 
-            if (variableRV == null)
-            {
-                if (variable != null)
-                {
+            if (variableRV == null) {
+                if (variable != null) {
                     typeIndex = getComboIndex(variable.ValueClass);
-                }
-                else
-                {
+
+                } else {
                     typeIndex = defaultSelect;
                 }
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(variableRV.ValueClass))
-                {
+
+            } else {
+                if (!string.IsNullOrEmpty(variableRV.ValueClass)) {
                     typeIndex = getComboIndex(variableRV.ValueClass);
-                }
-                else
-                {
+
+                } else {
                     typeIndex = 0;
                 }
             }
 
-            if (_types.Count > 0 && typeIndex > -1)
-            {
+            if (_types.Count > 0 && typeIndex > -1) {
                 // Keep only one type for efficiency.
                 _currentNames.Clear();
                 _currentNames.Add(_names[typeIndex]);
@@ -174,78 +146,63 @@ namespace Behaviac.Design.Attributes
             _isReady = true;
 
             string selectedText = ((string)typeComboBox.SelectedItem);
-            setPropertyEditor(CreateEditor(_property, _object,
-                _allowConst && selectedText == VariableDef.kConst,
-                selectedText == VariableDef.kPar,
-                variableRV != null ? variableRV.IsMethod : false));
+            setPropertyEditor(CreateEditor(selectedText, _property, _object,
+                                           _allowConst && selectedText == VariableDef.kConst,
+                                           variableRV != null ? variableRV.IsMethod : false));
         }
 
-        private void typeComboBox_DropDown(object sender, EventArgs e)
-        {
+        private void typeComboBox_DropDown(object sender, EventArgs e) {
             _currentNames = _names;
 
-            if (string.IsNullOrEmpty(typeComboBox.Text))
-            {
-                foreach (string t in _types)
-                {
+            if (string.IsNullOrEmpty(typeComboBox.Text)) {
+                foreach(string t in _types) {
                     if (!typeComboBox.Items.Contains(t))
-                        typeComboBox.Items.Add(t);
+                    { typeComboBox.Items.Add(t); }
                 }
-            }
-            else
-            {
+
+            } else {
                 int index = -1;
-                for (int i = 0; i < _types.Count; ++i)
-                {
-                    if (typeComboBox.Text == _types[i])
-                    {
+
+                for (int i = 0; i < _types.Count; ++i) {
+                    if (typeComboBox.Text == _types[i]) {
                         index = i;
                         break;
                     }
                 }
 
-                if (index > -1)
-                {
-                    for (int i = index - 1; i >= 0; --i)
-                    {
+                if (index > -1) {
+                    for (int i = index - 1; i >= 0; --i) {
                         if (!typeComboBox.Items.Contains(_types[i]))
-                            typeComboBox.Items.Insert(0, _types[i]);
+                        { typeComboBox.Items.Insert(0, _types[i]); }
                     }
 
-                    for (int i = index + 1; i < _types.Count; ++i)
-                    {
+                    for (int i = index + 1; i < _types.Count; ++i) {
                         if (!typeComboBox.Items.Contains(_types[i]))
-                            typeComboBox.Items.Add(_types[i]);
+                        { typeComboBox.Items.Add(_types[i]); }
                     }
                 }
             }
         }
 
-        private void setPropertyEditor(DesignerPropertyEditor editor)
-        {
+        private void setPropertyEditor(DesignerPropertyEditor editor) {
             this.propertyEditor = editor;
 
-            if (this.propertyEditor != null)
-            {
+            if (this.propertyEditor != null) {
                 this.propertyEditor.MouseEnter += typeComboBox_MouseEnter;
                 this.propertyEditor.DescriptionWasChanged += propertyEditor_DescriptionWasChanged;
             }
         }
 
-        private int getComboIndex(string valueType)
-        {
-            if (_methodOnly)
-            {
-                if (valueType == VariableDef.kSelfMethod)
-                {
-                    //self::method 
+        private int getComboIndex(string valueType) {
+            if (_methodOnly) {
+                if (valueType == VariableDef.kSelfMethod) {
+                    //self::method
                     return 0;
-                }
-                else
-                {
+
+                } else {
                     int pos = valueType.IndexOf(VariableDef.kMethod);
-                    if (pos != -1)
-                    {
+
+                    if (pos != -1) {
                         //self::method world::method player::method
                         string classType = valueType.Substring(0, pos);
                         return Plugin.InstanceNameIndex(classType) + 1;
@@ -254,38 +211,29 @@ namespace Behaviac.Design.Attributes
             }
 
             int indexBegin = _allowConst ? 1 : 0;
-            int indexOffset = _allowPar ? 2 : 1;
+            int indexOffset = 1;
 
-            if (valueType == VariableDef.kConst)
-            {
+            if (valueType == VariableDef.kConst) {
                 return 0;
-            }
-            else if (valueType == VariableDef.kPar)
-            {
+
+            } else if (valueType == VariableDef.kSelf) {
+                //[const] [par] self world player self::method
                 return indexBegin;
-            }
-            else if (valueType == VariableDef.kSelf)
-            {
-                //[const] [par] self world player self::method 
-                return indexBegin + (_allowPar ? 1 : 0);
-            }
-            else if (valueType == VariableDef.kSelfMethod)
-            {
-                //[const] [par] self world player self::method 
+
+            } else if (valueType == VariableDef.kSelfMethod) {
+                //[const] [par] self world player self::method
                 return indexBegin + indexOffset + Plugin.InstanceNames.Count;
-            }
-            else
-            {
+
+            } else {
                 int pos = valueType.IndexOf(VariableDef.kMethod);
-                if (pos != -1)
-                {
+
+                if (pos != -1) {
                     //[const] [par] self world player self::method world::method player::method
                     string instanceName = valueType.Substring(0, pos);
                     int index = Plugin.InstanceNameIndex(instanceName);
                     return index + indexBegin + indexOffset + Plugin.InstanceNames.Count + 1;
-                }
-                else
-                {
+
+                } else {
                     //[const] [par] self world player
                     int index = Plugin.InstanceNameIndex(valueType);
                     return index + indexBegin + indexOffset;
@@ -293,103 +241,96 @@ namespace Behaviac.Design.Attributes
             }
         }
 
-        private PropertyInfo getDependedProperty(DesignerPropertyInfo prop, object obj)
-        {
+        private PropertyInfo getDependedProperty(DesignerPropertyInfo prop, object obj) {
             Debug.Check(obj != null);
 
             DesignerPropertyEnum propertyAttr = prop.Attribute as DesignerPropertyEnum;
+
             if (propertyAttr != null && !string.IsNullOrEmpty(propertyAttr.DependedProperty))
-                return obj.GetType().GetProperty(propertyAttr.DependedProperty);
+            { return obj.GetType().GetProperty(propertyAttr.DependedProperty); }
 
             return null;
         }
 
-        private Type getDependedPropertyType(DesignerPropertyInfo prop, object obj)
-        {
+        private Type getDependedPropertyType(DesignerPropertyInfo prop, object obj) {
             Debug.Check(obj != null);
 
             PropertyInfo pi = getDependedProperty(prop, obj);
-            if (pi != null)
-            {
+
+            if (pi != null) {
                 object propertyMember = pi.GetValue(obj, null);
 
                 VariableDef variable = propertyMember as VariableDef;
+
                 if (variable != null)
-                    return variable.GetValueType();
+                { return variable.GetValueType(); }
 
                 RightValueDef varRV = propertyMember as RightValueDef;
+
                 if (varRV != null)
-                    return varRV.ValueType;
+                { return varRV.ValueType; }
 
                 MethodDef method = propertyMember as MethodDef;
+
                 if (method != null)
-                    return method.ReturnType;
+                { return method.ReturnType; }
             }
 
             return null;
         }
 
-        private Type getPropertyType(DesignerPropertyInfo prop, object obj, string valueClass)
-        {
-            if (prop.Property != null && obj != null)
-            {
+        private Type getPropertyType(DesignerPropertyInfo prop, object obj, string valueClass) {
+            if (prop.Property != null && obj != null) {
                 object propertyMember = prop.Property.GetValue(obj, null);
-                if (propertyMember != null)
-                {
+
+                if (propertyMember != null) {
                     VariableDef variable = propertyMember as VariableDef;
-                    if (variable != null)
-                    {
+
+                    if (variable != null) {
                         variable.ValueClass = valueClass;
                         return variable.GetValueType();
                     }
 
                     RightValueDef varRV = propertyMember as RightValueDef;
+
                     if (varRV != null)
-                        return varRV.ValueType;
+                    { return varRV.ValueType; }
                 }
             }
 
-            if (prop.Attribute != null)
-            {
+            if (prop.Attribute != null) {
                 DesignerPropertyEnum enumAtt = prop.Attribute as DesignerPropertyEnum;
+
                 if (enumAtt != null)
-                    return enumAtt.FilterType;
+                { return enumAtt.FilterType; }
             }
 
             return null;
         }
 
-        private Type GetEditorType(DesignerPropertyInfo prop, object obj, bool isConst, bool isPar, bool isFunction)
-        {
-            if (isConst)
-            {
+        private Type GetEditorType(DesignerPropertyInfo prop, object obj, bool isConst, bool isFunction) {
+            if (isConst) {
                 Type type = getDependedPropertyType(prop, obj);
+
                 if (type == null)
-                    type = getPropertyType(prop, obj, VariableDef.kConst);
+                { type = getPropertyType(prop, obj, VariableDef.kConst); }
 
                 if (type != null)
-                    return Plugin.InvokeEditorType(type);
-            }
-            else if (isPar)
-            {
-                return typeof(DesignerParEnumEditor);
-            }
-            else if (isFunction)
-            {
+                { return Plugin.InvokeEditorType(type); }
+
+            } else if (isFunction) {
                 return typeof(DesignerMethodEnumEditor);
-            }
-            else
-            {
+
+            } else {
                 return typeof(DesignerPropertyEnumEditor);
             }
 
             return null;
         }
 
-        private void setEditor(DesignerPropertyEditor editor, DesignerPropertyInfo prop, object obj, bool isConst, bool isPar, bool isFunction)
+        private void setEditor(string valueType, DesignerPropertyEditor editor, DesignerPropertyInfo prop, object obj, bool isConst, bool isFunction)
         {
-            if (editor != null)
-            {
+            if (editor != null) {
                 editor.SetRootNode(this._root);
 
                 object propertyMember = prop.Property.GetValue(obj, null);
@@ -399,125 +340,71 @@ namespace Behaviac.Design.Attributes
                 DesignerPropertyEnum enumAtt = prop.Attribute as DesignerPropertyEnum;
                 DesignerRightValueEnum enumAttRV = prop.Attribute as DesignerRightValueEnum;
 
-                if (isConst)
-                {
+                if (isConst) {
+                    bool bHasDepend = false;
                     Type dependVarType = getDependedPropertyType(prop, obj);
-                    if (dependVarType == null)
-                    {
+
+                    if (dependVarType == null) {
                         dependVarType = getPropertyType(prop, obj, VariableDef.kConst);
+
+                    } else {
+                        bHasDepend = true;
                     }
+
                     Debug.Check(dependVarType != null);
 
                     object defaultValue = Plugin.DefaultValue(dependVarType);
                     Debug.Check(defaultValue != null);
 
-                    if (var == null)
-                    {
+                    //for a const bool, to use true as the default when it is the right operand
+                    if (bHasDepend && (defaultValue is bool)) {
+                        defaultValue = true;
+                    }
+
+                    if (var == null) {
                         var = new VariableDef(defaultValue);
                     }
 
                     if (var.Value == null || var.Value.GetType() != defaultValue.GetType())
-                        var.Value = defaultValue;
+                    { var.Value = defaultValue; }
 
                     var.ValueClass = VariableDef.kConst;
 
-                    if (enumAttRV == null)
-                    {
+                    if (enumAttRV == null) {
                         prop.Property.SetValue(obj, var, null);
                         editor.SetVariable(var, obj);
+
                         if (enumAtt != null)
-                            editor.SetRange(enumAtt.MinValue, enumAtt.MaxValue);
-                    }
-                    else
-                    {
-                        if (varRV == null || varRV.Var == null || varRV.ValueClass != var.ValueClass || varRV.ValueType != var.GetValueType())
-                        {
+                        { editor.SetRange(enumAtt.MinValue, enumAtt.MaxValue); }
+
+                    } else {
+                        if (varRV == null || varRV.Var == null || varRV.ValueClass != var.ValueClass || varRV.ValueType != var.GetValueType()) {
                             varRV = new RightValueDef(var);
                         }
 
                         prop.Property.SetValue(obj, varRV, null);
                         editor.SetVariable(varRV.Var, obj);
                     }
-                }
-                else if (isPar)
-                {
-                    Type dependVarType = getDependedPropertyType(prop, obj);
-                    //if (dependVarType == null)
-                    //    dependVarType = getPropertyType(prop, obj, VariableDef.kPar);
-                    if (dependVarType == null)
-                        dependVarType = prop.Attribute.FilterType;
 
-                    object defaultValue = Plugin.DefaultValue((var != null) ? var.GetValueType() : dependVarType);
-
-                    if (varRV == null || varRV.ValueClass != VariableDef.kPar)
-                    {
-                        if (var == null)
-                        {
-                            ParInfo par = new ParInfo(obj as Nodes.Node);
-                            par.Variable = new VariableDef(defaultValue);
-
-                            var = new VariableDef(par);
-                        }
-
-                        if (var.Value == null)
-                        {
-                            ParInfo par = new ParInfo(obj as Nodes.Node);
-                            par.Variable = new VariableDef(defaultValue);
-
-                            var.Value = par;
-                        }
-
-                        var.ValueClass = VariableDef.kPar;
-                    }
-
-                    editor.FilterType = dependVarType;
-
-                    if (enumAttRV == null)
-                    {
-                        prop.Property.SetValue(obj, var, null);
-                        editor.SetVariable(var, obj);
-                    }
-                    else
-                    {
-                        if (var != null && 
-                            (varRV == null || varRV.Var == null || 
-                                (varRV.ValueClass != var.ValueClass || (var.GetValueType() != null && varRV.ValueType != var.GetValueType())
-                                )
-                            )
-                           )
-                        {
-                            varRV = new RightValueDef(var);
-                        }
-
-                        prop.Property.SetValue(obj, varRV, null);
-                        editor.SetVariable(varRV.Var, obj);
-                    }
-                }
-                else
-                {
+                } else {
                     // VariableDef
-                    if (enumAttRV == null)
-                    {
-                        if (var == null)
-                        {
+                    if (enumAttRV == null) {
+                        if (var == null) {
                             var = new VariableDef(null);
                             prop.Property.SetValue(obj, var, null);
                         }
 
-                        if (var != null && typeComboBox.SelectedIndex > -1)
-                            var.ValueClass = _currentNames[typeComboBox.SelectedIndex];
+                        var.ValueClass = valueType;
                     }
+
                     // RightValueDef
-                    else
-                    {
-                        if (varRV == null)
-                        {
+                    else {
+                        if (varRV == null) {
                             varRV = new RightValueDef(var);
                             prop.Property.SetValue(obj, varRV, null);
                         }
 
-                        if (typeComboBox.SelectedIndex > -1)
-                            varRV.ValueClass = _currentNames[typeComboBox.SelectedIndex];
+                        varRV.ValueClass = valueType;
                     }
 
                     editor.ValueType = prop.Attribute.ValueType;
@@ -525,17 +412,19 @@ namespace Behaviac.Design.Attributes
                 }
 
                 editor.ValueWasAssigned();
+                OnValueChanged(_property);
+                this.ValueWasAssigned();
             }
         }
 
-        private DesignerPropertyEditor CreateEditor(DesignerPropertyInfo prop, object obj, bool isConst, bool isPar, bool isFunction)
-        {
+        private DesignerPropertyEditor CreateEditor(string valueType, DesignerPropertyInfo prop, object obj, bool isConst, bool isFunction) {
             if (flowLayoutPanel.Controls.Count > 1)
-                flowLayoutPanel.Controls.RemoveAt(1);
+            { flowLayoutPanel.Controls.RemoveAt(1); }
 
-            Type editorType = GetEditorType(prop, obj, isConst, isPar, isFunction);
+            Type editorType = GetEditorType(prop, obj, isConst, isFunction);
+
             if (editorType == null)
-                return null;
+            { return null; }
 
             DesignerPropertyEditor editor = (DesignerPropertyEditor)editorType.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, null, new object[0]);
             editor.Location = new System.Drawing.Point(74, 1);
@@ -544,65 +433,60 @@ namespace Behaviac.Design.Attributes
             editor.TabIndex = 1;
             editor.ValueWasChanged += new DesignerPropertyEditor.ValueChanged(editor_ValueWasChanged);
 
-            setEditor(editor, prop, obj, isConst, isPar, isFunction);
+            setEditor(valueType, editor, prop, obj, isConst, isFunction);
 
             flowLayoutPanel.Controls.Add(editor);
             return editor;
         }
 
-        private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_isReady && typeComboBox.SelectedItem != null)
-            {
+        private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            if (_isReady && typeComboBox.SelectedItem != null) {
                 _property.Property.SetValue(_object, null, null);
 
                 string selectedText = ((string)typeComboBox.SelectedItem);
                 int pos = selectedText.IndexOf("::");
-                setPropertyEditor(CreateEditor(_property, _object,
-                    _allowConst && selectedText == VariableDef.kConst,
-                    selectedText == VariableDef.kPar,
-                    pos != -1));
-
-                OnValueChanged(_property);
+                setPropertyEditor(CreateEditor(selectedText,
+                                                _property, _object,
+                                                _allowConst && selectedText == VariableDef.kConst,
+                                                pos != -1));
 
                 this.RereshProperty(true, _property);
+
+                OnValueChanged(_property);
             }
         }
 
-        private void editor_ValueWasChanged(object sender, DesignerPropertyInfo property)
-        {
+        private void editor_ValueWasChanged(object sender, DesignerPropertyInfo property) {
             // Set the owner for the method.
-            if (_property.Property != null)
-            {
+            if (_property.Property != null) {
                 object propertyMember = _property.Property.GetValue(_object, null);
                 RightValueDef varRV = propertyMember as RightValueDef;
-                if (varRV != null && varRV.IsMethod)
-                {
+
+                if (varRV != null && varRV.IsMethod) {
                     int methodIndex = -1;
                     int offset = 0;
-                    for (int i = 0; i < typeComboBox.Items.Count; ++i)
-                    {
+
+                    for (int i = 0; i < typeComboBox.Items.Count; ++i) {
                         string item = typeComboBox.Items[i].ToString();
                         int pos = item.IndexOf(VariableDef.kMethod);
-                        if (pos != -1)
-                        {
+
+                        if (pos != -1) {
                             methodIndex = i;
+
                             if (item == VariableDef.kSelfMethod)
-                                offset = 1;
+                            { offset = 1; }
 
                             break;
                         }
                     }
 
-                    if (methodIndex != -1)
-                    {
+                    if (methodIndex != -1) {
                         Debug.Check(varRV.Method != null);
-                        if (typeComboBox.SelectedIndex - methodIndex - offset >= 0)
-                        {
+
+                        if (typeComboBox.SelectedIndex - methodIndex - offset >= 0) {
                             varRV.Method.Owner = Plugin.InstanceNames[typeComboBox.SelectedIndex - methodIndex - offset].name_;
-                        }
-                        else
-                        {
+
+                        } else {
                             varRV.Method.Owner = VariableDef.kSelf;
                         }
                     }
@@ -612,19 +496,16 @@ namespace Behaviac.Design.Attributes
             OnValueChanged(_property);
         }
 
-        private void flowLayoutPanel_Resize(object sender, EventArgs e)
-        {
+        private void flowLayoutPanel_Resize(object sender, EventArgs e) {
             if (this.propertyEditor != null)
-                this.propertyEditor.Width = flowLayoutPanel.Width - typeComboBox.Width - 5;
+            { this.propertyEditor.Width = flowLayoutPanel.Width - typeComboBox.Width - 5; }
         }
 
-        private void typeComboBox_MouseEnter(object sender, EventArgs e)
-        {
+        private void typeComboBox_MouseEnter(object sender, EventArgs e) {
             this.OnMouseEnter(e);
         }
 
-        private void propertyEditor_DescriptionWasChanged(string displayName, string description)
-        {
+        private void propertyEditor_DescriptionWasChanged(string displayName, string description) {
             this.OnDescriptionChanged(displayName, description);
         }
     }

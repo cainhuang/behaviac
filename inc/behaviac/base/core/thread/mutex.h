@@ -11,14 +11,13 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_BASE_THREAD_MUTEX_H_
-#define BEHAVIAC_BASE_THREAD_MUTEX_H_
+#ifndef BEHAVIAC_BASE_THREAD_MUTEX_H
+#define BEHAVIAC_BASE_THREAD_MUTEX_H
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
 
 namespace behaviac
 {
-
     /// used for large wait times.
     class BEHAVIAC_API Mutex
     {
@@ -50,23 +49,21 @@ namespace behaviac
         uint8_t        m_Shadow[kMutexShadowSize];
     };
 
+    class BEHAVIAC_API ScopedLock
+    {
+        Mutex& m_mutex_;
+        ScopedLock& operator=(ScopedLock& cs);
+    public:
+        ScopedLock(Mutex& cs) : m_mutex_(cs)
+        {
+            m_mutex_.Lock();
+        }
 
-	class BEHAVIAC_API ScopedLock
-	{
-		Mutex& m_mutex_;
-		ScopedLock& operator=(ScopedLock& cs);
-	public:
-		ScopedLock(Mutex& cs) : m_mutex_(cs)
-		{
-			m_mutex_.Lock();
-		}
-
-		~ScopedLock()
-		{
-			m_mutex_.Unlock();
-		}
-	};
-
+        ~ScopedLock()
+        {
+            m_mutex_.Unlock();
+        }
+    };
 }//namespace behaviac
 
-#endif //BEHAVIAC_BASE_THREAD_MUTEX_H_
+#endif //BEHAVIAC_BASE_THREAD_MUTEX_H

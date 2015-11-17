@@ -1,4 +1,4 @@
-﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -41,66 +41,53 @@ using System.Windows.Forms;
 
 namespace Behaviac.Design
 {
-	internal partial class BehaviorTreeViewDock : WeifenLuo.WinFormsUI.Docking.DockContent
-	{
+    internal partial class BehaviorTreeViewDock : WeifenLuo.WinFormsUI.Docking.DockContent
+    {
         private static List<string> __saved_bt_paths = new List<string>();
-        public static List<string> LastOpenedBehaviors
-        {
+        public static List<string> LastOpenedBehaviors {
             get { return __saved_bt_paths; }
         }
 
-		private static List<BehaviorTreeViewDock> __instances = new List<BehaviorTreeViewDock>();
-		internal static IList<BehaviorTreeViewDock> Instances
-		{
-			get { return __instances.AsReadOnly(); }
-		}
+        private static List<BehaviorTreeViewDock> __instances = new List<BehaviorTreeViewDock>();
+        internal static IList<BehaviorTreeViewDock> Instances {
+            get { return __instances.AsReadOnly(); }
+        }
 
-		private static BehaviorTreeViewDock __lastFocusedInstance = null;
-		internal static BehaviorTreeViewDock LastFocused
-		{
-			get { return __lastFocusedInstance; }
-		}
+        private static BehaviorTreeViewDock __lastFocusedInstance = null;
+        internal static BehaviorTreeViewDock LastFocused {
+            get { return __lastFocusedInstance; }
+        }
 
-        internal static bool ReadOnly
-        {
+        internal static bool ReadOnly {
             set
             {
-                foreach (BehaviorTreeViewDock dock in __instances)
-                {
+                foreach(BehaviorTreeViewDock dock in __instances) {
                     dock.BehaviorTreeView.ReadOnly = value;
                 }
             }
         }
 
-        internal static void ClearHighlights()
-        {
-            foreach (BehaviorTreeViewDock dock in __instances)
-            {
+        internal static void ClearHighlights() {
+            foreach(BehaviorTreeViewDock dock in __instances) {
                 dock.BehaviorTreeView.ClearHighlights();
             }
         }
 
-        internal static void ClearHighlightBreakPoint()
-        {
-            foreach (BehaviorTreeViewDock dock in __instances)
-            {
+        internal static void ClearHighlightBreakPoint() {
+            foreach(BehaviorTreeViewDock dock in __instances) {
                 dock.BehaviorTreeView.ClearHighlightBreakPoint();
             }
         }
 
-        internal static void RefreshAll()
-        {
-            foreach (BehaviorTreeViewDock dock in __instances)
-            {
+        internal static void RefreshAll() {
+            foreach(BehaviorTreeViewDock dock in __instances) {
                 dock.BehaviorTreeView.Redraw();
             }
         }
 
-        internal static void CloseAll()
-        {
+        internal static void CloseAll() {
             BehaviorTreeViewDock[] behaviorTreeViewDocks = __instances.ToArray();
-            foreach (BehaviorTreeViewDock dock in behaviorTreeViewDocks)
-            {
+            foreach(BehaviorTreeViewDock dock in behaviorTreeViewDocks) {
                 __saved_bt_paths.Add(dock._behaviorTreeView.RootNode.RelativePath);
                 dock.Hide();
                 dock.Close();
@@ -110,12 +97,9 @@ namespace Behaviac.Design
             __lastFocusedInstance = null;
         }
 
-        internal static void CloseBehaviorTreeViewDock(Nodes.BehaviorNode node)
-        {
-            foreach (BehaviorTreeViewDock dock in __instances)
-            {
-                if (dock.BehaviorTreeView.RootNode == node)
-                {
+        internal static void CloseBehaviorTreeViewDock(Nodes.BehaviorNode node) {
+            foreach(BehaviorTreeViewDock dock in __instances) {
+                if (dock.BehaviorTreeView.RootNode == node) {
                     dock.Hide();
                     dock.Close();
 
@@ -126,84 +110,87 @@ namespace Behaviac.Design
             }
         }
 
-		internal static BehaviorTreeViewDock GetBehaviorTreeViewDock(Nodes.BehaviorNode node)
-		{
-			foreach (BehaviorTreeViewDock dock in __instances)
-			{
-				if (dock.BehaviorTreeView.RootNode == node)
-					return dock;
-			}
+        internal static BehaviorTreeViewDock GetBehaviorTreeViewDock(Nodes.BehaviorNode node) {
+            foreach(BehaviorTreeViewDock dock in __instances) {
+                if (dock.BehaviorTreeView.RootNode == node) {
+                    return dock;
+                }
+            }
 
-			return null;
-		}
+            return null;
+        }
 
-		internal static BehaviorTreeView GetBehaviorTreeView(Nodes.BehaviorNode node)
-		{
-			foreach (BehaviorTreeViewDock dock in __instances)
-			{
-				if (dock.BehaviorTreeView.RootNode == node)
-					return dock.BehaviorTreeView;
-			}
+        internal static BehaviorTreeView GetBehaviorTreeView(Nodes.BehaviorNode node) {
+            foreach(BehaviorTreeViewDock dock in __instances) {
+                if (dock.BehaviorTreeView.RootNode == node) {
+                    return dock.BehaviorTreeView;
+                }
+            }
 
-			return null;
-		}
+            return null;
+        }
 
-        internal void MakeFocused()
-		{
-            if (__lastFocusedInstance != this)
-            {
+        internal void MakeFocused() {
+            if (__lastFocusedInstance != this) {
                 __lastFocusedInstance = this;
 
                 _behaviorTreeView.Redraw();
             }
-		}
+        }
 
-        internal bool SaveBehaviorWhenClosing
-        {
+        internal bool SaveBehaviorWhenClosing {
             set
             {
-                if (_behaviorTreeView != null)
+                if (_behaviorTreeView != null) {
                     _behaviorTreeView.SaveBehaviorWhenClosing = value;
+                }
             }
         }
 
-		private BehaviorTreeView _behaviorTreeView;
-		internal BehaviorTreeView BehaviorTreeView
-		{
-			get { return _behaviorTreeView; }
+        private BehaviorTreeView _behaviorTreeView;
+        internal BehaviorTreeView BehaviorTreeView {
+            get { return _behaviorTreeView; }
 
-			set
-			{
-				if (_behaviorTreeView != null)
-					throw new Exception("BehaviorTreeView already assigned");
+            set
+            {
+                if (_behaviorTreeView != null) {
+                    throw new Exception("BehaviorTreeView already assigned");
+                }
 
-				_behaviorTreeView = value;
-				Controls.Add(_behaviorTreeView);
+                _behaviorTreeView = value;
+                Controls.Add(_behaviorTreeView);
 
-				_behaviorTreeView.MouseDown += BehaviorTreeView_MouseDown;
-				_behaviorTreeView.RootNode.WasSaved += RootNode_WasSaved;
-			}
-		}
+                if (_behaviorTreeView != null && _behaviorTreeView.RootNode != null) {
+                    _behaviorTreeView.MouseDown += BehaviorTreeView_MouseDown;
+                    _behaviorTreeView.RootNode.WasModified += RootNode_WasModified;
+                    _behaviorTreeView.RootNode.WasSaved += RootNode_WasSaved;
+                }
+            }
+        }
 
-		void BehaviorTreeView_MouseDown(object sender, MouseEventArgs e)
-		{
-			MakeFocused();
-		}
+        void BehaviorTreeView_MouseDown(object sender, MouseEventArgs e) {
+            MakeFocused();
+        }
 
-		protected override void OnGotFocus(EventArgs e)
-		{
-			MakeFocused();
+        protected override void OnGotFocus(EventArgs e) {
+            MakeFocused();
 
-			base.OnGotFocus(e);
-		}
+            base.OnGotFocus(e);
+        }
 
-		void RootNode_WasSaved(Behaviac.Design.Nodes.BehaviorNode node)
-		{
-            Text = TabText = ((Nodes.Node)node).Label;
-		}
+        private void RootNode_WasModified(Nodes.BehaviorNode root, Nodes.Node node) {
+            if (root == _behaviorTreeView.RootNode) {
+                Text = TabText = "*" + ((Nodes.Node)root).Label;
+            }
+        }
 
-        public BehaviorTreeViewDock()
-        {
+        private void RootNode_WasSaved(Nodes.BehaviorNode root) {
+            if (root == _behaviorTreeView.RootNode) {
+                Text = TabText = ((Nodes.Node)root).Label;
+            }
+        }
+
+        public BehaviorTreeViewDock() {
             InitializeComponent();
 
             this.TabPageContextMenuStrip = this.contextMenu;
@@ -211,35 +198,33 @@ namespace Behaviac.Design
             __instances.Add(this);
         }
 
-		protected override void OnClosed(EventArgs e)
-		{
-			if (__lastFocusedInstance == this)
-				__lastFocusedInstance = null;
+        protected override void OnClosed(EventArgs e) {
+            if (__lastFocusedInstance == this) {
+                __lastFocusedInstance = null;
+            }
 
-			__instances.Remove(this);
+            __instances.Remove(this);
 
-			_behaviorTreeView.RootNode.WasSaved -= RootNode_WasSaved;
+            if (_behaviorTreeView != null && _behaviorTreeView.RootNode != null) {
+                _behaviorTreeView.RootNode.WasModified -= RootNode_WasModified;
+                _behaviorTreeView.RootNode.WasSaved -= RootNode_WasSaved;
+            }
 
-			base.OnClosed(e);
-		}
+            base.OnClosed(e);
+        }
 
-        private void saveMenuItem_Click(object sender, EventArgs e)
-        {
+        private void saveMenuItem_Click(object sender, EventArgs e) {
             MainWindow.Instance.SaveBehavior(false);
         }
 
-        private void closeMenuItem_Click(object sender, EventArgs e)
-        {
+        private void closeMenuItem_Click(object sender, EventArgs e) {
             this.Close();
         }
 
-        private void closeOthersMenuItem_Click(object sender, EventArgs e)
-        {
+        private void closeOthersMenuItem_Click(object sender, EventArgs e) {
             BehaviorTreeViewDock[] behaviorTreeViewDocks = __instances.ToArray();
-            foreach (BehaviorTreeViewDock dock in behaviorTreeViewDocks)
-            {
-                if (dock != this)
-                {
+            foreach(BehaviorTreeViewDock dock in behaviorTreeViewDocks) {
+                if (dock != this) {
                     dock.Hide();
                     dock.Close();
 
@@ -248,44 +233,41 @@ namespace Behaviac.Design
             }
         }
 
-        private void copyNameMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private void copyNameMenuItem_Click(object sender, EventArgs e) {
+            try {
                 string filename = FileManagers.FileManager.GetRelativePath(this.BehaviorTreeView.RootNode.Filename);
                 Clipboard.SetText(filename);
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void openFolderMenuItem_Click(object sender, EventArgs e)
+        private void showMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
+            string filename = this.BehaviorTreeView.RootNode.Filename;
+            MainWindow.Instance.BehaviorTreeList.ShowBehaviorTreeNode(filename);
+        }
+
+        private void openFolderMenuItem_Click(object sender, EventArgs e) {
+            try {
                 string folder = System.IO.Path.GetDirectoryName(this.BehaviorTreeView.RootNode.Filename);
                 System.Diagnostics.Process.Start(folder);
-            }
-            catch
-            {
+
+            } catch {
             }
         }
 
-        private void floatMenuItem_Click(object sender, EventArgs e)
-        {
+        private void floatMenuItem_Click(object sender, EventArgs e) {
             this.IsFloat = true;
         }
 
-        private void dockMenuItem_Click(object sender, EventArgs e)
-        {
+        private void dockMenuItem_Click(object sender, EventArgs e) {
             this.IsFloat = false;
         }
 
-        private void contextMenu_Opening(object sender, CancelEventArgs e)
-        {
+        private void contextMenu_Opening(object sender, CancelEventArgs e) {
             this.floatMenuItem.Enabled = !this.IsFloat;
             this.dockMenuItem.Enabled = this.IsFloat;
         }
-	}
+    }
 }

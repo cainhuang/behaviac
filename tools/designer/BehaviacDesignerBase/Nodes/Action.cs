@@ -47,73 +47,85 @@ namespace Behaviac.Design.Nodes
     public class Action : Node
     {
         public Action(string label, string description)
-            : base(label, description)
-        {
+            : base(label, description) {
         }
 
-        private MethodDef _method = null;
+        protected MethodDef _method = null;
         [DesignerMethodEnum("AgentMethod", "AgentMethodDesc", "Action", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, MethodType.Method)]
-        public MethodDef Method
-        {
+        public virtual MethodDef Method {
             get { return _method; }
             set { this._method = value; }
         }
 
-        private EBTStatus _methodResultOption = EBTStatus.BT_INVALID;
+        protected EBTStatus _methodResultOption = EBTStatus.BT_SUCCESS;
         [DesignerEnum("StatusOption", "StatusOptionDesc", "Action", DesignerProperty.DisplayMode.NoDisplay, 2, DesignerProperty.DesignerFlags.NoFlags, "")]
-        public EBTStatus ResultOption
-        {
+        public EBTStatus ResultOption {
             get { return _methodResultOption; }
             set { _methodResultOption = value; }
         }
 
         private MethodDef _methodResultFunctor = null;
         [DesignerMethodEnum("StatusFunctor", "StatusFunctorDesc", "Action", DesignerProperty.DisplayMode.NoDisplay, 3, DesignerProperty.DesignerFlags.NoFlags, MethodType.Status, ValueTypes.All, "Method")]
-        public MethodDef ResultFunctor
-        {
+        public MethodDef ResultFunctor {
             get { return _methodResultFunctor; }
             set { this._methodResultFunctor = value; }
         }
 
-        private EBTStatus _preconditionFailedResult = EBTStatus.BT_FAILURE;
-        [DesignerEnum("PreconditionFailResult", "PreconditionFailResultDesc", "Action", DesignerProperty.DisplayMode.NoDisplay, 4, DesignerProperty.DesignerFlags.NoFlags, "PreconditionFailResult")]
-        public EBTStatus PreconditionFailResult
-        {
-            get { return _preconditionFailedResult; }
-            set { _preconditionFailedResult = value; }
-        }
+        //private EBTStatus _preconditionFailedResult = EBTStatus.BT_FAILURE;
+        //[DesignerEnum("PreconditionFailResult", "PreconditionFailResultDesc", "Action", DesignerProperty.DisplayMode.NoDisplay, 4, DesignerProperty.DesignerFlags.NoFlags, "PreconditionFailResult")]
+        //public EBTStatus PreconditionFailResult
+        //{
+        //    get { return _preconditionFailedResult; }
+        //    set { _preconditionFailedResult = value; }
+        //}
 
-        public override string Description
-        {
-            get
-            {
+        public override string Description {
+            get {
                 string str = base.Description;
+
                 if (_method != null)
-                    str += '\n' + _method.GetExportValue();
+                { str += '\n' + _method.GetPrototype(); }
 
                 return str;
             }
         }
 
-        public override void ResetMembers(AgentType agentType, bool resetPar)
-        {
-            if (this.Method != null && this.Method.ShouldBeReset(agentType, resetPar))
-            {
-                this.Method = null;
+        public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null) {
+            bool bReset = false;
+
+            if (this.Method != null) {
+                if (method != null && this.Method.Name == method.OldName &&
+                    (clear || this.Method.ShouldBeCleared(agentType))) {
+                    bReset = true;
+
+                    if (!check)
+                    { this.Method = null; }
+
+                } else {
+                    bReset |= this.Method.ResetMembers(check, agentType, clear, method, property);
+                }
             }
 
-            if (this.ResultFunctor != null && this.ResultFunctor.ShouldBeReset(agentType, resetPar))
-            {
-                this.ResultFunctor = null;
+            if (this.ResultFunctor != null) {
+                if (method != null && this.ResultFunctor.Name == method.OldName &&
+                    (clear || this.Method.ShouldBeCleared(agentType))) {
+                    bReset = true;
+
+                    if (!check)
+                    { this.ResultFunctor = null; }
+
+                } else {
+                    bReset |= this.ResultFunctor.ResetMembers(check, agentType, clear, method, property);
+                }
             }
 
-            base.ResetMembers(agentType, resetPar);
+            bReset |= base.ResetMembers(check, agentType, clear, method, property);
+
+            return bReset;
         }
 
-        public override object[] GetExcludedEnums(DesignerEnum enumAttr)
-        {
-            if (enumAttr != null && enumAttr.ExcludeTag == "PreconditionFailResult")
-            {
+        public override object[] GetExcludedEnums(DesignerEnum enumAttr) {
+            if (enumAttr != null && enumAttr.ExcludeTag == "PreconditionFailResult") {
                 //only success/failture are valid
                 object[] status = new object[] { EBTStatus.BT_INVALID, EBTStatus.BT_RUNNING};
 
@@ -122,82 +134,91 @@ namespace Behaviac.Design.Nodes
 
             return null;
         }
-        
-        protected override void CloneProperties(Node newnode)
-        {
+
+        protected override void CloneProperties(Node newnode) {
             base.CloneProperties(newnode);
 
             Action right = (Action)newnode;
 
             if (_method != null)
-                right._method = (MethodDef)_method.Clone();
+            { right._method = (MethodDef)_method.Clone(); }
 
             right._methodResultOption = _methodResultOption;
 
             if (_methodResultFunctor != null)
-                right._methodResultFunctor = (MethodDef)_methodResultFunctor.Clone();
+            { right._methodResultFunctor = (MethodDef)_methodResultFunctor.Clone(); }
         }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(157, 75, 39));
-        protected override Brush DefaultBackgroundBrush
-        {
+        protected override Brush DefaultBackgroundBrush {
             get { return __defaultBackgroundBrush; }
         }
 
-        public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior)
-        {
+        public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior) {
             NodeViewData nvd = base.CreateNodeViewData(parent, rootBehavior);
             nvd.ChangeShape(NodeShape.Rectangle);
 
             return nvd;
         }
 
+        public override Behaviac.Design.ObjectUI.ObjectUIPolicy CreateUIPolicy() {
+            return new Behaviac.Design.ObjectUI.ActionUIPolicy();
+        }
+
         private static bool ms_NoResultTreatAsError = true;
-        public static bool NoResultTreatAsError
-        {
+        public static bool NoResultTreatAsError {
             set
             {
                 ms_NoResultTreatAsError = value;
             }
         }
 
-        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
-        {
+        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
             if (this.Method == null
 #if USE_NOOP
                 || this.Method == MethodDef.Noop
 #endif//#if USE_NOOP
-)
-            {
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoMethod));
-            }
-            else
-            {
+               ) {
+                bool bAllowNullMethod = false;
+                System.Reflection.PropertyInfo fi = this.GetType().GetProperty("Method");
+                Attribute[] attributes = (Attribute[])fi.GetCustomAttributes(typeof(DesignerMethodEnum), false);
+
+                if (attributes.Length > 0) {
+                    DesignerMethodEnum designerProperty = ((DesignerMethodEnum)attributes[0]);
+
+                    if ((designerProperty.MethodType & MethodType.AllowNullMethod) == MethodType.AllowNullMethod) {
+                        bAllowNullMethod = true;
+                    }
+                }
+
+                if (!bAllowNullMethod) {
+                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoMethod));
+                }
+
+            } else {
+                if (this.Method.IsCustomized) {
+                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.CustomizedMethodError));
+                }
+
                 bool isParamCompleted = true;
-                foreach (MethodDef.Param param in this.Method.Params)
-                {
-                    if (param.Value == null)
-                    {
+                foreach(MethodDef.Param param in this.Method.Params) {
+                    if (param.Value == null) {
                         isParamCompleted = false;
                         break;
                     }
                 }
-                if (!isParamCompleted)
-                {
+
+                if (!isParamCompleted) {
                     result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoParam));
                 }
 
-                if (this.Method.NativeReturnType != "behaviac::EBTStatus")
-                {
-                    if (EBTStatus.BT_INVALID == this.ResultOption)
-                    {
-                        if (this.ResultFunctor == null)
-                        {
+                if (this.Method.NativeReturnType != "behaviac::EBTStatus") {
+                    if (EBTStatus.BT_INVALID == this.ResultOption) {
+                        if (this.ResultFunctor == null) {
                             ErrorCheckLevel checkLevel = ms_NoResultTreatAsError ? ErrorCheckLevel.Error : ErrorCheckLevel.Warning;
                             result.Add(new Node.ErrorCheck(this, checkLevel, Resources.NoResultFunctor));
-                        }
-                        else if (!Plugin.IsMatchedStatusMethod(this.Method, this.ResultFunctor))
-                        {
+
+                        } else if (!Plugin.IsMatchedStatusMethod(this.Method, this.ResultFunctor)) {
                             result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.WrongResultFunctor));
                         }
                     }

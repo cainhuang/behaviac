@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CORE_SERIALIZABLENODE_H_
-#define _CORE_SERIALIZABLENODE_H_
+#ifndef BEHAVIAC_CORE_SERIALIZABLENODE_H
+#define BEHAVIAC_CORE_SERIALIZABLENODE_H
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/xml/ixml.h"
@@ -25,22 +25,21 @@ class ISerializableNode;
 template <typename T>
 bool FromBinary(const uint8_t* binaryData, T& value)
 {
-	//BEHAVIAC_ASSERT(0, "please provide your specification!");
-	value = *(T*)binaryData;
+    //BEHAVIAC_ASSERT(0, "please provide your specification!");
+    value = *(T*)binaryData;
 
-	return true;
+    return true;
 }
 
 template <typename T>
 uint8_t* ToBinary(const T& value)
 {
-	//static T s_binary_temp;
+    //static T s_binary_temp;
 
-	//BEHAVIAC_ASSERT(0, "please provide your specification!");
-	//return (uint8_t*)&s_binary_temp;
-	return (uint8_t*)&value;
+    //BEHAVIAC_ASSERT(0, "please provide your specification!");
+    //return (uint8_t*)&s_binary_temp;
+    return (uint8_t*)&value;
 }
-
 
 class CSerializationID
 {
@@ -176,13 +175,13 @@ class BEHAVIAC_API ISerializableNode : private CRefCounted // refcount interface
 public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(ISerializableNode);
 
-	ISerializableNode(bool bText, bool bSwap = true) : m_bText(bText), m_bSwap(bSwap)
-	{}
+    ISerializableNode(bool bText, bool bSwap = true) : m_bText(bText), m_bSwap(bSwap)
+    {}
 
-	bool IsText() const
-	{
-		return this->m_bText;
-	}
+    bool IsText() const
+    {
+        return this->m_bText;
+    }
 
     virtual ~ISerializableNode() {};
 
@@ -215,7 +214,7 @@ public:
     /**
     to get the raw value for the specified key to 'valueData', whose type id is typeId, and length is 'length'
 
-	@return the raw value behaviac::string
+    @return the raw value behaviac::string
     */
     virtual const char* getAttrRaw(const CSerializationID& keyID, int typeId = 0, int length = 0) const
     {
@@ -225,89 +224,93 @@ public:
 
         BEHAVIAC_ASSERT(0);
 
-		return 0;
+        return 0;
     }
 
     /**
     to set the raw value for the specified key to 'valueData', whose type id is typeId, and length is 'length'
     */
     virtual void setAttrRaw(const CSerializationID& keyID, const char* valueStr, int typeId = 0, int length = 0)
-	{
+    {
         BEHAVIAC_UNUSED_VAR(keyID);
         BEHAVIAC_UNUSED_VAR(valueStr);
         BEHAVIAC_UNUSED_VAR(typeId);
         BEHAVIAC_UNUSED_VAR(length);
 
-		BEHAVIAC_ASSERT(0);
-	}
+        BEHAVIAC_ASSERT(0);
+    }
 
-
-	template <class T>
+    template <class T>
     void setAttr(const CSerializationID& keyID, const T& value)
-	{
-		int typeId = ::GetClassTypeNumberId<T>();
+    {
+        int typeId = ::GetClassTypeNumberId<T>();
 
-		if (this->m_bText)
-		{
-			behaviac::string str = behaviac::StringUtils::ToString(value);
-			this->setAttrRaw(keyID, str.c_str(), typeId, sizeof(T));
-		}
-		else
-		{
-			uint8_t* binaryData = ToBinary(value);
-			if (binaryData)
-			{
-				if (this->m_bSwap)
-				{
-					SwapByte(*(T*)binaryData);
-				}
+        if (this->m_bText)
+        {
+            behaviac::string str = behaviac::StringUtils::ToString(value);
+            this->setAttrRaw(keyID, str.c_str(), typeId, sizeof(T));
 
-				this->setAttrRaw(keyID, (const char*)binaryData, typeId, sizeof(T));
-			}
-		}
-	}
-    
-	template <class T>
-	bool getAttr(const CSerializationID& keyID, T& value) const
-	{
-		int typeId = ::GetClassTypeNumberId<T>();
+        }
+        else
+        {
+            uint8_t* binaryData = ToBinary(value);
 
-		if (this->m_bText)
-		{
-			const char* valueStr = this->getAttrRaw(keyID, typeId, sizeof(T));
-			if (valueStr)
-			{
-				if (behaviac::StringUtils::FromString(valueStr, value))
-				{
-					return true;
-				}
-				else
-				{
-					BEHAVIAC_LOGWARNING("Fail to read a (%s) from the value (%s) in the xml attribute (%s) in xml node (%s)\n", 
-						GetClassTypeName((T*)0), 
-						(strlen(valueStr) < 64 ? valueStr : behaviac::StringUtils::printf("__too_long_[%u]_to_display__", strlen(valueStr)).c_str()), 
-						keyID.GetString(), getTag().GetString());
-					return false;
-				}
-			}
-		}
-		else
-		{
-			const char* p =  this->getAttrRaw(keyID, typeId, sizeof(T));
+            if (binaryData)
+            {
+                if (this->m_bSwap)
+                {
+                    SwapByte(*(T*)binaryData);
+                }
 
-			if (p)
-			{
-				bool bOk = FromBinary((uint8_t*)p, value);
-				
-				if (bOk && this->m_bSwap)
-				{
-					SwapByte(value);
-				}
-			}
-		}
+                this->setAttrRaw(keyID, (const char*)binaryData, typeId, sizeof(T));
+            }
+        }
+    }
 
-		return false;
-	}
+    template <class T>
+    bool getAttr(const CSerializationID& keyID, T& value) const
+    {
+        int typeId = ::GetClassTypeNumberId<T>();
+
+        if (this->m_bText)
+        {
+            const char* valueStr = this->getAttrRaw(keyID, typeId, sizeof(T));
+
+            if (valueStr)
+            {
+                if (behaviac::StringUtils::FromString(valueStr, value))
+                {
+                    return true;
+
+                }
+                else
+                {
+                    BEHAVIAC_LOGWARNING("Fail to read a (%s) from the value (%s) in the xml attribute (%s) in xml node (%s)\n",
+                                        GetClassTypeName((T*)0),
+                                        (strlen(valueStr) < 64 ? valueStr : behaviac::StringUtils::printf("__too_long_[%u]_to_display__", strlen(valueStr)).c_str()),
+                                        keyID.GetString(), getTag().GetString());
+                    return false;
+                }
+            }
+
+        }
+        else
+        {
+            const char* p = this->getAttrRaw(keyID, typeId, sizeof(T));
+
+            if (p)
+            {
+                bool bOk = FromBinary((uint8_t*)p, value);
+
+                if (bOk && this->m_bSwap)
+                {
+                    SwapByte(value);
+                }
+            }
+        }
+
+        return false;
+    }
 
     // Node
     virtual void addChild(const CSerializationID& keyID, const ISerializableNode* child)
@@ -327,8 +330,8 @@ protected:
         return SerializableNodeRef(node);
     }
 
-	bool	m_bText;
-	bool	m_bSwap;
+    bool	m_bText;
+    bool	m_bSwap;
 };
 
 class SerializableNodeIt
@@ -496,4 +499,4 @@ inline SerializableNodeRef& SerializableNodeRef::operator=(ISerializableNode* no
     return *this;
 }
 
-#endif //_CORE_SERIALIZABLENODE_H_
+#endif //BEHAVIAC_CORE_SERIALIZABLENODE_H

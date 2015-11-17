@@ -16,32 +16,32 @@
 // Description: Memory allocator helper
 //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef BEHAVIAC_MEMORY_MEMALLOC_H_
-#define BEHAVIAC_MEMORY_MEMALLOC_H_
+#ifndef BEHAVIAC_MEMORY_MEMALLOC_H
+#define BEHAVIAC_MEMORY_MEMALLOC_H
 
 #include "behaviac/base/core/config.h"
 
 namespace behaviac
 {
-	class BEHAVIAC_API PtrSizeRegister
-	{
-	public:
-		PtrSizeRegister()
-		{
-		}
-		virtual ~PtrSizeRegister()
-		{
-		}
+    class BEHAVIAC_API PtrSizeRegister
+    {
+    public:
+        PtrSizeRegister()
+        {
+        }
+        virtual ~PtrSizeRegister()
+        {
+        }
 
-		virtual void RegisterPtrSize(const void* ptr, size_t bytes) = 0;
-		virtual void UnRegisterPtr(const void* ptr) = 0;
+        virtual void RegisterPtrSize(const void* ptr, size_t bytes) = 0;
+        virtual void UnRegisterPtr(const void* ptr) = 0;
 
-		virtual size_t GetAllocatedSize() const = 0;
-		virtual size_t GetMemoryUsage() const = 0;
+        virtual size_t GetAllocatedSize() const = 0;
+        virtual size_t GetMemoryUsage() const = 0;
 
-		static PtrSizeRegister* Create();
-		static void Destroy(PtrSizeRegister*);
-	};
+        static PtrSizeRegister* Create();
+        static void Destroy(PtrSizeRegister*);
+    };
 
     /*! \addtogroup Memory
      * @{
@@ -62,15 +62,15 @@ namespace behaviac
         {
         }
 
-		/// to vefify the allocator 
-		/** 
-		return true if the allocator is 'correct'
-		return false if it is corrupt or anything is wrong
-		*/
-		virtual bool Verify() const
-		{
-			return true;
-		}
+        /// to vefify the allocator
+        /**
+        return true if the allocator is 'correct'
+        return false if it is corrupt or anything is wrong
+        */
+        virtual bool Verify() const
+        {
+            return true;
+        }
 
         /// To be implemented by derived allocators
         /// Alloc, allocate a block of memory of at least Size bytes
@@ -88,7 +88,6 @@ namespace behaviac
         \return A pointer on the new block allocated or 0 if not enough memory.
         */
         virtual void* Realloc(void* pOldPtr, size_t size, const char* tag, const char* pFile, unsigned int Line) = 0;
-
 
         /// Free a block of memory previously allocated with Alloc or Realloc
         /*! \param  pData  A pointer on a block of data allocated. Null pointer should be handled correctly by the allocator
@@ -123,15 +122,15 @@ namespace behaviac
 
         /// Returns the name of the allocator
         virtual const char* GetName(void) const
-		{
-			return "IMemAllocator";
-		}
+        {
+            return "IMemAllocator";
+        }
 
         /// Returns the maximum size that can be allocated
         virtual uint32_t GetMaxAllocationSize(void) const
-		{
-			return (uint32_t)-1;
-		}
+        {
+            return (uint32_t) - 1;
+        }
 
         /// Returns the real memory size allocated by the allocator for a precise pointer
         /*! \param pData            The pointer on the data block allocated
@@ -143,11 +142,11 @@ namespace behaviac
         virtual uint32_t GetAllocatedSize() const = 0;
     };
 
-	/// Call this function to retreive the Allocator used by default
-	BEHAVIAC_API IMemAllocator& GetDefaultMemoryAllocator();
+    /// Call this function to retreive the Allocator used by default
+    BEHAVIAC_API IMemAllocator& GetDefaultMemoryAllocator();
 
-	/// Call this function to cleanup the Allocator used by default
-	BEHAVIAC_API void CleanupDefaultMemoryAllocator();
+    /// Call this function to cleanup the Allocator used by default
+    BEHAVIAC_API void CleanupDefaultMemoryAllocator();
 }
 
 #define BEHAVIAC_ALLOCATOR_MALLOC_WITHBEHAVIAC_FILELINE(allocator, size, tag, file, line)							(allocator)->Alloc(size, tag, file, line)
@@ -174,4 +173,4 @@ namespace behaviac
 /*! @} */
 /*! @} */
 
-#endif//BEHAVIAC_MEMORY_MEMALLOC_H_
+#endif//BEHAVIAC_MEMORY_MEMALLOC_H

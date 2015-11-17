@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -124,6 +124,9 @@
     <value>取消</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="nameLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 7</value>
+  </data>
   <data name="nameLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>34, 13</value>
   </data>
@@ -133,14 +136,14 @@
   <data name="pluginListBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 220</value>
   </data>
-  <data name="importXMLButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>250, 191</value>
+  <data name="XMLButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>313, 194</value>
   </data>
-  <data name="importXMLButton.Text" xml:space="preserve">
+  <data name="XMLButton.Text" xml:space="preserve">
     <value>浏览...</value>
   </data>
-  <data name="xmlFolderTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 191</value>
+  <data name="XMLTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 193</value>
   </data>
   <data name="metaLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 175</value>
@@ -154,14 +157,17 @@
   <data name="workspaceButton.Text" xml:space="preserve">
     <value>浏览...</value>
   </data>
+  <data name="locationLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 48</value>
+  </data>
   <data name="locationLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 13</value>
   </data>
   <data name="locationLabel.Text" xml:space="preserve">
     <value>工作区位置:</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 92</value>
+  <data name="sourceTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 109</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 13</value>
@@ -169,8 +175,14 @@
   <data name="label1.Text" xml:space="preserve">
     <value>源位置:</value>
   </data>
-  <data name="buttonSource.Text" xml:space="preserve">
+  <data name="sourceButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>313, 108</value>
+  </data>
+  <data name="sourceButton.Text" xml:space="preserve">
     <value>浏览...</value>
+  </data>
+  <data name="exportTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 150</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 133</value>
@@ -181,10 +193,10 @@
   <data name="label2.Text" xml:space="preserve">
     <value>导出位置:</value>
   </data>
-  <data name="buttonExport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>250, 146</value>
+  <data name="exportButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>313, 149</value>
   </data>
-  <data name="buttonExport.Text" xml:space="preserve">
+  <data name="exportButton.Text" xml:space="preserve">
     <value>浏览...</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

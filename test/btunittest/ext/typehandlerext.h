@@ -11,8 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef _BEHAVIAC_EXT_TYPEHANDLEREXT_H_
-#define _BEHAVIAC_EXT_TYPEHANDLEREXT_H_
+#ifndef BEHAVIAC_EXT_TYPEHANDLEREXT_H
+#define BEHAVIAC_EXT_TYPEHANDLEREXT_H
 
 #include "range.h"
 
@@ -40,38 +40,40 @@ struct GenericTypeHandler< TRange<T> >
         Save(node, member, className, propertyID);
     }
 
-	static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const T& member, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const T& member, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
-		if (types == NULL)
-		{
-			XmlNodeRef memberNode = xmlNode->newChild("Member");
-			memberNode->setAttr("Name", propertyID.GetString());
-			memberNode->setAttr("DisplayName", displayName);
-			memberNode->setAttr("Desc", desc);
-			memberNode->setAttr("Type", "TRange");
-			if (classFullName)
-			{
-				memberNode->setAttr("Class", classFullName);
-			}
-			if (bStatic)
-			{
-				memberNode->setAttr("Static", "true");
-			}
+        if (types == NULL)
+        {
+            XmlNodeRef memberNode = xmlNode->newChild("Member");
+            memberNode->setAttr("Name", propertyID.GetString());
+            memberNode->setAttr("DisplayName", displayName);
+            memberNode->setAttr("Desc", desc);
+            memberNode->setAttr("Type", "TRange");
 
-			if (uiWrapper)
-			{
-				uiWrapper->SaveDescription(memberNode);
-			}
-		}
+            if (classFullName)
+            {
+                memberNode->setAttr("Class", classFullName);
+            }
+
+            if (bStatic)
+            {
+                memberNode->setAttr("Static", "true");
+            }
+
+            if (uiWrapper)
+            {
+                uiWrapper->SaveDescription(memberNode);
+            }
+        }
     }
 
     static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const TRange<T>& member, const char* propertyName)
     {
-		BEHAVIAC_UNUSED_VAR(types);
+        BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
-		BEHAVIAC_UNUSED_VAR(member);
-		BEHAVIAC_UNUSED_VAR(propertyName);
+        BEHAVIAC_UNUSED_VAR(member);
+        BEHAVIAC_UNUSED_VAR(propertyName);
     }
 };
 
-#endif//_BEHAVIAC_EXT_TYPEHANDLEREXT_H_
+#endif//BEHAVIAC_EXT_TYPEHANDLEREXT_H

@@ -40,13 +40,13 @@ namespace PluginBehaviac.Nodes
             get { return false; }
         }
 
-        public override bool HasMiddleLabel
+        public override string MiddleLabel
         {
-            get { return true; }
+            get { return " = "; }
         }
 
         private VariableDef _opl;
-        [DesignerPropertyEnum("OperandLeft", "OperandLeftDesc", "Assignment", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.Attributes, "", "Opr")]
+        [DesignerPropertyEnum("OperandLeft", "OperandLeftDesc", "Assignment", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.NoReadonly, DesignerPropertyEnum.AllowStyles.Attributes, "", "Opr")]
         public VariableDef Opl
         {
             get { return _opl; }
@@ -57,7 +57,16 @@ namespace PluginBehaviac.Nodes
         [DesignerRightValueEnum("OperandRight", "OperandRightDesc", "Assignment", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "Opl", "")]
         public RightValueDef Opr
         {
-            get { return _opr; }
+            get
+            {
+                if (_opl != null && _opr != null)
+                {
+                    _opr.NativeType = _opl.NativeType;
+                }
+
+                return _opr;
+            }
+
             set { this._opr = value; }
         }
 
@@ -80,19 +89,23 @@ namespace PluginBehaviac.Nodes
             return null;
         }
 
-        public override void ResetMembers(AgentType agentType, bool resetPar)
+        public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null)
         {
-            if (this.Opl != null && this.Opl.ShouldBeReset(agentType, resetPar))
+            bool bReset = false;
+
+            if (this.Opl != null)
             {
-                this.Opl = null;
+                bReset |= this.Opl.ResetMembers(check, agentType, clear, property);
             }
 
-            if (this.Opr != null && this.Opr.ShouldBeReset(agentType, resetPar))
+            if (this.Opr != null)
             {
-                this.Opr = null;
+                bReset |= this.Opr.ResetMembers(check, agentType, clear, method, property);
             }
 
-            base.ResetMembers(agentType, resetPar);
+            bReset |= base.ResetMembers(check, agentType, clear, method, property);
+
+            return bReset;
         }
 
         protected override void CloneProperties(Node newnode)
@@ -110,10 +123,15 @@ namespace PluginBehaviac.Nodes
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
-            if (this.Opl == null || this.Opr == null || this.Opl.ToString() == "" || this.Opr.ToString() == "" || 
-                this.Opl.GetValueType() != this.Opr.ValueType)
+            if (this.Opl == null || this.Opr == null || this.Opl.ToString() == "" || this.Opr.ToString() == "" ||
+                !Plugin.CheckTwoTypes(this.Opl.GetValueType(), this.Opr.ValueType))
             {
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.OperandError));
+            }
+
+            if (this.Opr != null && this.Opr.IsMethod && this.Opr.Method != null && this.Opr.Method.IsCustomized)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.CustomizedMethodError));
             }
 
             base.CheckForErrors(rootBehavior, result);

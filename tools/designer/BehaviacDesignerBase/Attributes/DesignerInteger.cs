@@ -48,32 +48,28 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// The units the value is represented in.
         /// </summary>
-        public string Units
-        {
+        public string Units {
             get { return Plugin.GetResourceString(_units); }
         }
 
         /// <summary>
         /// The minimum value of the property.
         /// </summary>
-        public int Min
-        {
+        public int Min {
             get { return _min; }
         }
 
         /// <summary>
         /// The maximum value of the property.
         /// </summary>
-        public int Max
-        {
+        public int Max {
             get { return _max; }
         }
 
         /// <summary>
         /// The minimum value added or substracted when changing the property's value.
         /// </summary>
-        public int Steps
-        {
+        public int Steps {
             get { return _steps; }
         }
 
@@ -92,8 +88,7 @@ namespace Behaviac.Design.Attributes
         /// <param name="steps">The minimum value added or substracted when changing the property's value.</param>
         /// <param name="units">The units the value is represented in.</param>
         public DesignerInteger(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags, string linkedToProperty, int min, int max, int steps, string units)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNumberEditor), linkedToProperty)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNumberEditor), linkedToProperty) {
             _min = min;
             _max = max;
             _steps = steps;
@@ -101,32 +96,30 @@ namespace Behaviac.Design.Attributes
         }
 
         public DesignerInteger(string displayName, string description, string category, DisplayMode displayMode, int displayOrder, DesignerFlags flags)
-            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNumberEditor), null)
-        {
+            : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerNumberEditor), null) {
             _min = int.MinValue;
             _max = int.MaxValue;
             _steps = 1;
             _units = null;
         }
 
-        public override string GetDisplayValue(object obj)
-        {
+        public override string GetDisplayValue(object obj) {
             return string.Format(CultureInfo.InvariantCulture, "{0}", (int)obj);
         }
 
-        public override string GetExportValue(object owner, object obj)
-        {
+        public override string GetExportValue(object owner, object obj) {
             return obj.ToString();
         }
 
-        public override object FromStringValue(NodeTag.DefaultObject node, object parentObject, Type type, string str)
+        public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (type != typeof(int))
-                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
+            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
 
-            int result;
-            if (int.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out result))
-                return result;
+            int resultValue;
+
+            if (int.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out resultValue))
+            { return resultValue; }
 
             throw new Exception(string.Format(Resources.ExceptionDesignerAttributeIllegalIntegerValue, str));
         }

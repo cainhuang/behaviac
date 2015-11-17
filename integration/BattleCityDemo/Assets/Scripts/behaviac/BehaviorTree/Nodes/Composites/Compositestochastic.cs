@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace behaviac
@@ -21,7 +19,7 @@ namespace behaviac
     {
         public CompositeStochastic()
         {
-		}
+        }
 
         ~CompositeStochastic()
         {
@@ -32,7 +30,7 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach (property_t p in properties)
+            foreach(property_t p in properties)
             {
                 if (p.name == "RandomGenerator")
                 {
@@ -40,12 +38,20 @@ namespace behaviac
                     {
                         this.m_method = Action.LoadMethod(p.value);
                     }//if (p.value[0] != '\0')
+
                 }
                 else
                 {
                     //Debug.Check(0, "unrecognised property %s", p.name);
                 }
             }
+        }
+
+        public bool CheckIfInterrupted(Agent pAgent)
+        {
+            bool bInterrupted = this.EvaluteCustomCondition(pAgent);
+
+            return bInterrupted;
         }
 
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
@@ -64,30 +70,32 @@ namespace behaviac
         {
             public CompositeStochasticTask()
             {
-			}
+            }
 
             ~CompositeStochasticTask()
             {
             }
 
-			//generate a random float value between 0 and 1.
+            //generate a random float value between 0 and 1.
             public static float GetRandomValue(CMethodBase method, Agent pAgent)
             {
-				float value = 0;
-				if (method != null)
+                float value = 0;
+
+                if (method != null)
                 {
-					value = (float)method.Invoke(pAgent);
+                    value = (float)method.Invoke(pAgent);
+
                 }
                 else
                 {
-					value = RandomGenerator.GetInstance().GetRandom();
+                    value = RandomGenerator.GetInstance().GetRandom();
                 }
 
-				Debug.Check(value >= 0.0f && value < 1.0f);
-				return value;
-			}
+                Debug.Check(value >= 0.0f && value < 1.0f);
+                return value;
+            }
 
-			public override void copyto(BehaviorTask target)
+            public override void copyto(BehaviorTask target)
             {
                 base.copyto(target);
 
@@ -122,63 +130,32 @@ namespace behaviac
 
             protected override void onexit(Agent pAgent, EBTStatus s)
             {
+                base.onexit(pAgent, s);
             }
-
-//            protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
-//            {
-//                bool bFirst = true;
-//
-//                Debug.Check(this.m_activeChildIndex != CompositeTask.InvalidChildIndex);
-//
-//                // Keep going until a child behavior says its running.
-//                for (; ; )
-//                {
-//                    EBTStatus s = childStatus;
-//                    if (!bFirst || s == EBTStatus.BT_RUNNING)
-//                    {
-//                        int childIndex = this.m_set[this.m_activeChildIndex];
-//                        BehaviorTask pBehavior = this.m_children[childIndex];
-//                        s = pBehavior.exec(pAgent);
-//                    }
-//
-//                    bFirst = false;
-//                    // If the child succeeds, or keeps running, do the same.
-//                    if (s != EBTStatus.BT_FAILURE)
-//                    {
-//                        return s;
-//                    }
-//
-//                    // Hit the end of the array, job done!
-//                    ++this.m_activeChildIndex;
-//                    if (this.m_activeChildIndex >= this.m_children.Count)
-//                    {
-//                        return EBTStatus.BT_FAILURE;
-//                    }
-//                }
-//            }
 
             private void random_child(Agent pAgent)
             {
                 Debug.Check(this.GetNode() == null || this.GetNode() is CompositeStochastic);
                 CompositeStochastic pNode = (CompositeStochastic)(this.GetNode());
 
-				int n = this.m_children.Count;
+                int n = this.m_children.Count;
+
                 if (this.m_set.Count != n)
                 {
-					this.m_set.Clear();
+                    this.m_set.Clear();
 
-					for (int i = 0; i < n; ++i)
-					{
-						this.m_set.Add(i);
-					}
+                    for (int i = 0; i < n; ++i)
+                    {
+                        this.m_set.Add(i);
+                    }
                 }
 
                 for (int i = 0; i < n; ++i)
                 {
-					int index1 = (int)(n * GetRandomValue(pNode != null ? pNode.m_method : null, pAgent));
+                    int index1 = (int)(n * GetRandomValue(pNode != null ? pNode.m_method : null, pAgent));
                     Debug.Check(index1 < n);
 
-					int index2 = (int)(n * GetRandomValue(pNode != null ? pNode.m_method : null, pAgent));
+                    int index2 = (int)(n * GetRandomValue(pNode != null ? pNode.m_method : null, pAgent));
                     Debug.Check(index2 < n);
 
                     //swap

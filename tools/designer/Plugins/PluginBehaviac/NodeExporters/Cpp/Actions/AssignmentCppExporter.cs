@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,7 +26,8 @@ namespace PluginBehaviac.NodeExporters
     {
         protected override bool ShouldGenerateClass(Node node)
         {
-            return true;
+            Assignment assignment = node as Assignment;
+            return (assignment != null);
         }
 
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
@@ -34,7 +35,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateConstructor(node, stream, indent, className);
 
             Assignment assignment = node as Assignment;
-            Debug.Check(assignment != null);
+            if (assignment == null)
+                return;
 
             if (assignment.Opr != null)
             {
@@ -47,7 +49,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMember(node, stream, indent);
 
             Assignment assignment = node as Assignment;
-            Debug.Check(assignment != null);
+            if (assignment == null)
+                return;
 
             if (assignment.Opr != null)
             {
@@ -60,7 +63,8 @@ namespace PluginBehaviac.NodeExporters
             base.GenerateMethod(node, stream, indent);
 
             Assignment assignment = node as Assignment;
-            Debug.Check(assignment != null);
+            if (assignment == null)
+                return;
 
             stream.WriteLine("{0}\t\tvirtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)", indent);
             stream.WriteLine("{0}\t\t{{", indent);
@@ -70,29 +74,48 @@ namespace PluginBehaviac.NodeExporters
 
             if (assignment.Opl != null && assignment.Opr != null)
             {
-                if (assignment.Opl.IsPar)
-                {
-                    ParInfo par = assignment.Opl.Value as ParInfo;
-                    if (par != null)
-                    {
-                        RightValueCppExporter.GenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType, "opr", "opr");
-                        uint id = Behaviac.Design.CRC32.CalcCRC(par.Name);
-                        stream.WriteLine("{0}\t\t\tBEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, par.Name, id);
-                        stream.WriteLine("{0}\t\t\tpAgent->SetVariable(\"{1}\", opr, {2}u);", indent, par.Name, id);
-                    }
-                }
-                else
-                {
-                    string opl = VariableCppExporter.GenerateCode(assignment.Opl, stream, indent + "\t\t\t", string.Empty, string.Empty, "opl");
-                    RightValueCppExporter.GenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType, "opr", "opr");
-                    stream.WriteLine("{0}\t\t\t{1} = opr;", indent, opl);
+                PropertyDef prop = assignment.Opl.Property;
 
-                    VariableCppExporter.PostGenerateCode(assignment.Opl, stream, indent + "\t\t\t", assignment.Opl.NativeType, "opl", string.Empty);
+                if (prop != null)
+                {
+                    RightValueCppExporter.GenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType, "opr", "opr");
+
+                    string property = PropertyCppExporter.GetProperty(prop, assignment.Opl.ArrayIndexElement, stream, indent + "\t\t\t", "opl", "assignment");
+                    string propName = prop.BasicName.Replace("[]", "");
+
+                    if (prop.IsArrayElement && assignment.Opl.ArrayIndexElement != null)
+                    {
+                        ParameterCppExporter.GenerateCode(assignment.Opl.ArrayIndexElement, stream, indent + "\t\t\t", "int", "opl_index", "assignment_opl");
+                        property = string.Format("({0})[opl_index]", property);
+                    }
+
+                    string opr = "opr";
+                    if (!Plugin.IsArrayType(prop.Type))
+                    {
+                        if (assignment.Opr.Var != null && assignment.Opr.Var.ArrayIndexElement != null)
+                        {
+                            ParameterCppExporter.GenerateCode(assignment.Opr.Var.ArrayIndexElement, stream, indent + "\t\t\t", "int", "opr_index", "assignment_opr");
+                            opr = string.Format("({0})[opr_index]", opr);
+                        }
+                    }
+
+                    if (!prop.IsArrayElement && (prop.IsPar || prop.IsCustomized))
+                    {
+                        string propBasicName = prop.BasicName.Replace("[]", "");
+                        uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+
+                        stream.WriteLine("{0}\t\t\tBEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
+                        stream.WriteLine("{0}\t\t\tpAgent->SetVariable(\"{1}\", {2}, {3}u);", indent, propBasicName, opr, id);
+                    }
+                    else
+                    {
+                        stream.WriteLine("{0}\t\t\t{1} = {2};", indent, property, opr);
+                    }
                 }
 
                 if (assignment.Opr.IsMethod)
                 {
-                    RightValueCppExporter.PostGenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType, "opr", string.Empty);
+                    RightValueCsExporter.PostGenerateCode(assignment.Opr, stream, indent + "\t\t\t", assignment.Opr.NativeType, "opr", string.Empty);
                 }
             }
 

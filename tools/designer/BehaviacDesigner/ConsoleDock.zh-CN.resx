@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,25 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="selectAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
-  </data>
-  <data name="selectAllMenuItem.Text" xml:space="preserve">
-    <value>选择全部</value>
-  </data>
-  <data name="copyMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
-  </data>
   <data name="copyMenuItem.Text" xml:space="preserve">
-    <value>复制</value>
-  </data>
-  <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 48</value>
+    <value>复制全部</value>
   </data>
   <data name="limitCountCheckBox.Text" xml:space="preserve">
     <value>是否限制Log数量？</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="logCountNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
     <value>223, 3</value>
   </data>
@@ -144,6 +132,12 @@
   </data>
   <data name="logCountLabel.Text" xml:space="preserve">
     <value>最大Log数量:</value>
+  </data>
+  <data name="buttonCopyAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>312, 1</value>
+  </data>
+  <data name="buttonCopyAll.Text" xml:space="preserve">
+    <value>复制全部</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

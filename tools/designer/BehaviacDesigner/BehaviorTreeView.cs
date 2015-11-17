@@ -55,11 +55,8 @@ namespace Behaviac.Design
     {
         private Timer toolTipTimer = new Timer();
 
-        public BehaviorTreeView()
-        {
+        public BehaviorTreeView() {
             InitializeComponent();
-
-            setPanModeUI(this);
 
             this.Disposed += new EventHandler(BehaviorTreeView_Disposed);
 
@@ -67,37 +64,36 @@ namespace Behaviac.Design
             this.toolTipTimer.Tick += new EventHandler(toolTipTimer_Tick);
         }
 
-        private void BehaviorTreeView_Disposed(object sender, EventArgs e)
-        {
+        private void BehaviorTreeView_Disposed(object sender, EventArgs e) {
             this.Disposed -= BehaviorTreeView_Disposed;
 
-            if (this.toolTip != null)
-            {
+            if (this.toolTip != null) {
                 this.toolTip.Dispose();
                 this.toolTip = null;
             }
         }
 
-        private void toolTipTimer_Tick(object sender, EventArgs e)
-        {
+        private void toolTipTimer_Tick(object sender, EventArgs e) {
             this.toolTipTimer.Stop();
 
-            if (_currentNode != null)
-            {
-                if (_currentExpandNode != null)
-                {
-                    this.toolTip.Show(Resources.ExpandAllInfo, this, new Point((int)_currentNode.DisplayBoundingBox.X - 20, (int)_currentNode.DisplayBoundingBox.Y - 5 - 18));
-                }
-                else
-                {
-                    string[] tokens = _currentNode.ToolTip.Split('\n');
-                    this.toolTip.Show(_currentNode.ToolTip, this, new Point((int)_currentNode.DisplayBoundingBox.X - 20, (int)_currentNode.DisplayBoundingBox.Y - 5 - 18 * tokens.Length));
+            if (_currentNode != null) {
+                if (_currentExpandNode != null) {
+                    if (_nodeToolTip == Resources.ExpandAllInfo) {
+                        this.toolTip.Show(_nodeToolTip, this, new Point((int)_currentNode.DisplayBoundingBox.X - 20, (int)_currentNode.DisplayBoundingBox.Y - 5 - 18));
+                    }
+
+                    else {
+                        this.toolTip.Show(_nodeToolTip, this, new Point((int)(_currentNode.DisplayBoundingBox.X + _currentNode.DisplayBoundingBox.Width) - 20, (int)_currentNode.DisplayBoundingBox.Y - 5 - 18));
+                    }
+
+                } else {
+                    string[] tokens = _nodeToolTip.Split('\n');
+                    this.toolTip.Show(_nodeToolTip, this, new Point((int)_currentNode.DisplayBoundingBox.X - 20, (int)_currentNode.DisplayBoundingBox.Y - 5 - 18 * tokens.Length));
                 }
             }
         }
 
-        protected override void OnCreateControl()
-        {
+        protected override void OnCreateControl() {
             base.OnCreateControl();
 
             this.ReadOnly = (Plugin.EditMode != EditModes.Design);
@@ -108,35 +104,35 @@ namespace Behaviac.Design
         }
 
         private bool _saveBehaviorWhenClosing = true;
-        public bool SaveBehaviorWhenClosing
-        {
+        public bool SaveBehaviorWhenClosing {
             set { _saveBehaviorWhenClosing = value; }
         }
 
-        private void ParentForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!ParentForm.Visible || CloseReason.UserClosing != e.CloseReason)
+        private void ParentForm_FormClosing(object sender, FormClosingEventArgs e) {
+            if (!ParentForm.Visible || CloseReason.UserClosing != e.CloseReason) {
                 return;
+            }
 
-            if (_saveBehaviorWhenClosing)
-            {
+            if (_saveBehaviorWhenClosing) {
                 bool[] result;
-                List<BehaviorNode> behaviors = new List<BehaviorNode>() { RootNode };
+                List<BehaviorNode> behaviors = new List<BehaviorNode>() {
+                    RootNode
+                };
                 e.Cancel = (FileManagers.SaveResult.Cancelled == MainWindow.Instance.SaveBehaviors(behaviors, out result));
 
-                if (e.Cancel)
+                if (e.Cancel) {
                     return;
+                }
             }
 
             ParentForm.FormClosing -= ParentForm_FormClosing;
             DesignerPropertyEditor.PropertyChanged -= RefreshProperty;
             UndoQueue.ModifyNodeHandler -= UndoQueue_ModifyNodeHandler;
-            _rootNode.Node.WasModified -= nodeViewData_WasModified;
-            _rootNode.RootBehavior.AgentTypeChanged -= agentTypeChanged;
+            _rootNodeView.RootBehavior.WasModified -= nodeViewData_WasModified;
+            _rootNodeView.RootBehavior.AgentTypeChanged -= agentTypeChanged;
         }
 
-        public bool ReadOnly
-        {
+        public bool ReadOnly {
             set
             {
                 bool disabled = !value;
@@ -155,22 +151,21 @@ namespace Behaviac.Design
         /// </summary>
         /// <param name="processedBehaviors">A list of processed behaviours to avoid circular references.</param>
         /// <param name="node">The node we want to register on and its children.</param>
-        private void RegisterReferencedBehaviors(ProcessedBehaviors processedBehaviors, Node node)
-        {
-            if (!processedBehaviors.MayProcess(node))
+        private void RegisterReferencedBehaviors(ProcessedBehaviors processedBehaviors, Node node) {
+            if (!processedBehaviors.MayProcess(node)) {
                 return;
+            }
 
             // check if this is a referenced behaviour. If so register the view on the ReferencedBehaviorWasModified event.
-            if (node is ReferencedBehaviorNode)
-            {
+            if (node is ReferencedBehaviorNode) {
                 ReferencedBehaviorNode refnode = (ReferencedBehaviorNode)node;
 
                 refnode.ReferencedBehaviorWasModified += new ReferencedBehavior.ReferencedBehaviorWasModifiedEventDelegate(refnode_ReferencedBehaviorWasModified);
             }
 
             // check the children
-            foreach (Node child in node.Children)
-                RegisterReferencedBehaviors(processedBehaviors.Branch(child), child);
+            foreach(Node child in node.Children)
+            RegisterReferencedBehaviors(processedBehaviors.Branch(child), child);
         }
 
         /// <summary>
@@ -189,65 +184,70 @@ namespace Behaviac.Design
         private Pen _edgePen = new Pen(Brushes.Snow, 3.0f);
 
         /// <summary>
+        /// The pen used to draw the edges when being selected.
+        /// </summary>
+        private Pen _edgePenSelected = new Pen(Brushes.Gold, 3.0f);
+
+        /// <summary>
         /// The pen used to draw the edges when highlighting.
         /// </summary>
-        private Pen _edgePenHighlight = new Pen(Brushes.Gold, 3.0f);
+        private Pen _edgePenHighlighted = new Pen(Brushes.GreenYellow, 4.0f);
 
         /// <summary>
         /// The pen used to draw the edges when updating.
         /// </summary>
-        private Pen _edgePenUpdate = new Pen(Brushes.Gray, 3.0f);
+        private Pen _edgePenUpdate = new Pen(Brushes.Olive, 3.0f);
 
         /// <summary>
         /// The pen used to draw the edges connecting sub-referenced nodes.
         /// </summary>
         private Pen _edgePenReadOnly = new Pen(Brushes.LightGray, 3.0f);
 
-        private NodeViewData _rootNode;
-        public NodeViewData RootNodeView
-        {
-            get { return _rootNode; }
+        private NodeViewData _rootNodeView;
+        public NodeViewData RootNodeView {
+            get { return _rootNodeView; }
         }
 
         /// <summary>
         /// The behaviour visualised in this view.
         /// </summary>
-        public Nodes.BehaviorNode RootNode
-        {
-            get { return _rootNode.RootBehavior; }
+        public Nodes.BehaviorNode RootNode {
+            get { return _rootNodeView.RootBehavior; }
 
             set
             {
                 // assign the new behaviour
-                _rootNode = ((Node)value).CreateNodeViewData(null, value);
-                _nodeLayoutManager = new NodeLayoutManager(_rootNode, _edgePen, _edgePenHighlight, _edgePenUpdate, _edgePenReadOnly, false);
+                _rootNodeView = ((Node)value).CreateNodeViewData(null, value);
+                _nodeLayoutManager = new NodeLayoutManager(_rootNodeView, _edgePen, _edgePenSelected, _edgePenHighlighted, _edgePenUpdate, _edgePenReadOnly, false);
 
                 // register the view to be updated when any referenced behaviour changes
                 ProcessedBehaviors processedBehaviors = new ProcessedBehaviors();
-                RegisterReferencedBehaviors(processedBehaviors, _rootNode.Node);
+                RegisterReferencedBehaviors(processedBehaviors, _rootNodeView.Node);
 
                 // automtically centre the behaviour
                 _pendingCenterBehavior = true;
 
-                _rootNode.Node.WasModified += nodeViewData_WasModified;
-                _rootNode.RootBehavior.AgentTypeChanged += agentTypeChanged;
+                _rootNodeView.RootBehavior.WasModified += nodeViewData_WasModified;
+                _rootNodeView.RootBehavior.AgentTypeChanged += agentTypeChanged;
             }
         }
 
-        private void UndoQueue_ModifyNodeHandler(Nodes.BehaviorNode behavior, bool reference)
-        {
-            if (this.RootNode == behavior)
-            {
+        private void UndoQueue_ModifyNodeHandler(Nodes.BehaviorNode behavior, bool reference) {
+            if (this.RootNode == behavior) {
                 //_behaviorTreeList.TriggerShowBehavior(behavior);
-                this.LayoutChanged();
+                this.Redraw();
 
-                if (!reference)
-                {
+                if (!reference) {
                     SelectedNode = null;
                     PropertiesDock.InspectObject(this.RootNode, null);
 
-                    if (ParSettingsDock.IsVisible())
-                        ParSettingsDock.Inspect((Node)behavior);
+                    if (this.RootNode.AgentType != null) {
+                        this.RootNode.AgentType.AddPars(((Behavior)this.RootNode).LocalVars);
+                    }
+
+                    if (MetaStoreDock.IsVisible()) {
+                        MetaStoreDock.Inspect(this.Parent as BehaviorTreeViewDock);
+                    }
 
                     this.ParentForm.Show();
                     this.ParentForm.Focus();
@@ -259,14 +259,11 @@ namespace Behaviac.Design
         /// Handles when the root node changes.
         /// </summary>
         /// <param name="node">The node which was changed, in our case always the root node.</param>
-        private void nodeViewData_WasModified(Node node)
-        {
+        private void nodeViewData_WasModified(BehaviorNode root, Node node) {
             LayoutChanged();
         }
 
-        /// <summary>
-        /// The last known transformed mouse position.
-        /// </summary>
+        private PointF _startMousePosition;
         private PointF _lastMousePosition;
 
         /// <summary>
@@ -289,14 +286,12 @@ namespace Behaviac.Design
         /// <summary>
         /// The currently selected node.
         /// </summary>
-        public NodeViewData SelectedNode
-        {
+        public NodeViewData SelectedNode {
             get { return _selectedNode; }
 
             set
             {
-                if (_selectedNode != value)
-                {
+                if (_selectedNode != value) {
                     // set new selected node and update the graph
                     _selectedNode = value;
 
@@ -310,78 +305,86 @@ namespace Behaviac.Design
         HighlightBreakPoint _highlightBreakPoint = null;
         private List<string> _highlightedNodeIds = null;
         private List<string> _updatedNodeIds = null;
+        private List<string> _highlightedTransitionIds = null;
         private Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> _profileInfos = null;
 
-        public void ClearHighlights()
-        {
+        public void ClearHighlights() {
             _highlightBreakPoint = null;
             _highlightedNodeIds = null;
             _updatedNodeIds = null;
+            _highlightedTransitionIds = null;
             _profileInfos = null;
 
             Invalidate();
         }
 
-        public void ClearHighlightBreakPoint()
-        {
+        public void ClearHighlightBreakPoint() {
             _highlightBreakPoint = null;
 
             Invalidate();
         }
 
-        public void SetHighlights(List<string> highlightedNodeIds, List<string> updatedNodeIds, HighlightBreakPoint highlightBreakPoint, Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> profileInfos)
+        public void SetHighlights(List<string> highlightedTransitionIds, List<string> highlightedNodeIds, List<string> updatedNodeIds, HighlightBreakPoint highlightBreakPoint, Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> profileInfos)
         {
             bool shouldRefresh = (_highlightBreakPoint != highlightBreakPoint);
-            if (shouldRefresh && highlightBreakPoint != null)
-            {
+
+            if (shouldRefresh && highlightBreakPoint != null) {
                 SelectedNode = RootNodeView.FindNodeViewData(highlightBreakPoint.NodeId);
-                if (ClickNode != null)
+
+                if (ClickNode != null) {
                     ClickNode(SelectedNode);
+                }
             }
 
-            if (!shouldRefresh)
+            if (!shouldRefresh) {
+                shouldRefresh = !compareTwoLists(_highlightedTransitionIds, highlightedTransitionIds);
+            }
+
+            if (!shouldRefresh) {
                 shouldRefresh = !compareTwoLists(_updatedNodeIds, updatedNodeIds);
+            }
 
-            if (!shouldRefresh)
+            if (!shouldRefresh) {
                 shouldRefresh = !compareTwoLists(_highlightedNodeIds, highlightedNodeIds);
+            }
 
-            if (!shouldRefresh)
+            if (!shouldRefresh) {
                 shouldRefresh = !compareTwoDicts(_profileInfos, profileInfos);
+            }
 
+            _highlightedTransitionIds = highlightedTransitionIds;
             _highlightBreakPoint = highlightBreakPoint;
             _highlightedNodeIds = highlightedNodeIds;
             _updatedNodeIds = updatedNodeIds;
             _profileInfos = profileInfos;
 
-            if (shouldRefresh)
-            {
+            if (shouldRefresh) {
                 List<string> allExpandedIds = new List<string>();
-                if (_highlightedNodeIds != null)
-                {
+
+                if (_highlightedNodeIds != null) {
                     allExpandedIds.AddRange(_highlightedNodeIds);
                 }
-                if (_updatedNodeIds != null)
-                {
-                    foreach (string id in _updatedNodeIds)
-                    {
-                        if (!allExpandedIds.Contains(id))
+
+                if (_updatedNodeIds != null) {
+                    foreach(string id in _updatedNodeIds) {
+                        if (!allExpandedIds.Contains(id)) {
                             allExpandedIds.Add(id);
+                        }
                     }
                 }
 
                 bool layoutChanged = false;
-                foreach (string id in allExpandedIds)
-                {
+                foreach(string id in allExpandedIds) {
                     NodeViewData nvd = RootNodeView.FindNodeViewData(id);
-                    if (nvd != null && !nvd.IsExpanded && nvd.CanBeExpanded())
-                    {
+
+                    if (nvd != null && !nvd.IsExpanded && nvd.CanBeExpanded()) {
                         nvd.IsExpanded = true;
+                        this._pendingCenterBehavior = true;
                         layoutChanged = true;
                     }
                 }
 
-                if (layoutChanged)
-                {
+                if (layoutChanged) {
                     LayoutChanged();
                 }
 
@@ -389,41 +392,45 @@ namespace Behaviac.Design
             }
         }
 
-        private bool compareTwoLists(List<string> strA, List<string> strB)
-        {
-            if (strA == strB)
+        private bool compareTwoLists(List<string> strA, List<string> strB) {
+            if (strA == strB) {
                 return true;
+            }
 
-            if (strA == null)
+            if (strA == null) {
                 return (strB == null);
+            }
 
-            if (strB == null || strA.Count != strB.Count)
+            if (strB == null || strA.Count != strB.Count) {
                 return false;
+            }
 
-            foreach (string str in strB)
-            {
-                if (!strA.Contains(str))
+            foreach(string str in strB) {
+                if (!strA.Contains(str)) {
                     return false;
+                }
             }
 
             return true;
         }
 
-        private bool compareTwoDicts(Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> dictA, Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> dictB)
-        {
-            if (dictA == dictB)
+        private bool compareTwoDicts(Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> dictA, Dictionary<string, FrameStatePool.NodeProfileInfos.ProfileInfo> dictB) {
+            if (dictA == dictB) {
                 return true;
+            }
 
-            if (dictA == null)
+            if (dictA == null) {
                 return (dictB == null);
+            }
 
-            if (dictB == null || dictA.Count != dictB.Count)
+            if (dictB == null || dictA.Count != dictB.Count) {
                 return false;
+            }
 
-            foreach (string key in dictB.Keys)
-            {
-                if (!dictA.ContainsKey(key) || !dictA[key].Equals(dictB[key]))
+            foreach(string key in dictB.Keys) {
+                if (!dictA.ContainsKey(key) || !dictA[key].Equals(dictB[key])) {
                     return false;
+                }
             }
 
             return true;
@@ -433,14 +440,12 @@ namespace Behaviac.Design
         /// Stores the node you want to be selected when no layout currenty exists for the node.
         /// </summary>
         private Node _selectedNodePending = null;
-        internal Node SelectedNodePending
-        {
+        internal Node SelectedNodePending {
             set { _selectedNodePending = value; }
         }
 
         private Attachments.Attachment _selectedAttachmentPending = null;
-        internal Attachments.Attachment SelectedAttachmentPending
-        {
+        internal Attachments.Attachment SelectedAttachmentPending {
             set { _selectedAttachmentPending = value; }
         }
 
@@ -449,12 +454,23 @@ namespace Behaviac.Design
         /// </summary>
         private NodeViewData _selectedNodePendingParent = null;
 
+        private enum FSMDragModes {
+            kNone,
+            kLeft,
+            kRight
+        }
+
+        private FSMDragModes _fsmDragMode = FSMDragModes.kNone;
+        private NodeViewData.SubItem _fsmSubItem = null;
+        private RectangleF _fsmItemBoundingBox = RectangleF.Empty;
+
         /// <summary>
         /// The node the mouse is currently hovering over.
         /// </summary>
         private NodeViewData _currentNode = null;
 
         private NodeViewData _currentExpandNode = null;
+        private string _nodeToolTip = "";
 
         /// <summary>
         /// The sub item attachment which the mouse is currently dragged.
@@ -466,7 +482,7 @@ namespace Behaviac.Design
         /// <summary>
         /// The defaults of the node which is dragged in from the node explorer. This is needed for the child mode data.
         /// </summary>
-        private NodeTag.DefaultObject _dragNodeDefaults = null;
+        private DefaultObject _dragNodeDefaults = null;
 
         /// <summary>
         /// The node another node is dragged over which should always be the same as _currentNode.
@@ -488,8 +504,7 @@ namespace Behaviac.Design
         /// <summary>
         /// The BehaviorTreeList of the editor which manages all the behaviours.
         /// </summary>
-        internal BehaviorTreeList BehaviorTreeList
-        {
+        internal BehaviorTreeList BehaviorTreeList {
             get { return _behaviorTreeList; }
 
             set
@@ -507,8 +522,7 @@ namespace Behaviac.Design
         /// <summary>
         /// The padding between the nodes.
         /// </summary>
-        internal SizeF NodePadding
-        {
+        internal SizeF NodePadding {
             get { return _nodeLayoutManager.Padding; }
             set { _nodeLayoutManager.Padding = value; }
         }
@@ -518,14 +532,12 @@ namespace Behaviac.Design
         /// <summary>
         /// Marks the current layout as obsolete and causes the view to redraw the graph.
         /// </summary>
-        private void LayoutChanged()
-        {
+        private void LayoutChanged() {
             _nodeLayoutManager.MarkLayoutChanged();
             Invalidate();
         }
 
-        public void Redraw()
-        {
+        public void Redraw() {
             _forceChangeLayout = true;
             LayoutChanged();
         }
@@ -535,22 +547,19 @@ namespace Behaviac.Design
         /// </summary>
         private enum NodeAttachMode { None, Left, Right, Top, Bottom, Attachment, Center };
 
-        private bool replaceNode(Node node, Node newnode)
-        {
-            if (node == null || node.ParentConnector == null || newnode == null)
+        private bool replaceNode(Node node, Node newnode) {
+            if (node == null || !node.IsFSM && node.ParentConnector == null || newnode == null) {
                 return false;
+            }
 
             bool replaced = (node.Children.Count == 0);
 
-            if (!replaced && newnode.CanAdoptChildren(node))
-            {
-                foreach (Node.Connector connector in node.Connectors)
-                {
+            if (!replaced && newnode.CanAdoptChildren(node)) {
+                foreach(Node.Connector connector in node.Connectors) {
                     Node.Connector newConnector = newnode.GetConnector(connector.Identifier);
-                    if (newConnector != null)
-                    {
-                        for (int i = 0; i < connector.ChildCount; ++i)
-                        {
+
+                    if (newConnector != null) {
+                        for (int i = 0; i < connector.ChildCount; ++i) {
                             replaced |= newnode.AddChild(newConnector, (Node)connector.GetChild(i));
                         }
 
@@ -561,38 +570,85 @@ namespace Behaviac.Design
 
             if (replaced)
             {
-                Node.Connector parentConnector = node.ParentConnector;
-                Debug.Check(parentConnector != null);
-
-                int index = parentConnector.GetChildIndex(node);
-                Debug.Check(index >= 0);
-
                 Node parentNode = (Node)node.Parent;
-                parentNode.RemoveChild(parentConnector, node);
-                parentNode.AddChild(parentConnector, newnode, index);
+
+                if (node.IsFSM)
+                {
+                    Debug.Check(newnode.IsFSM);
+
+                    parentNode.RemoveFSMNode(node);
+                    parentNode.AddFSMNode(newnode);
+
+                    newnode.ScreenLocation = node.ScreenLocation;
+                }
+                else
+                {
+                    Node.Connector parentConnector = node.ParentConnector;
+                    Debug.Check(parentConnector != null);
+
+                    int index = parentConnector.GetChildIndex(node);
+                    Debug.Check(index >= 0);
+
+                    parentNode.RemoveChild(parentConnector, node);
+                    parentNode.AddChild(parentConnector, newnode, index);
+                }
+
+                foreach (Attachments.Attachment attach in node.Attachments)
+                {
+                    if (attach != null && newnode.AcceptsAttachment(attach.GetType()))
+                        newnode.AddAttachment(attach);
+                }
             }
 
             return replaced;
         }
 
         //return true if rootBehavior's agent type is derived from the agent type of childBehavior.
-        public static bool IsCompatibleAgentType(Behavior rootBehavior, Behavior childBehavior)
-        {
-            if (rootBehavior != null && childBehavior != null && rootBehavior.AgentType != null && childBehavior.AgentType != null)
-            {
+        public static bool IsCompatibleAgentType(Behavior rootBehavior, Behavior childBehavior) {
+            if (rootBehavior != null && childBehavior != null && rootBehavior.AgentType != null && childBehavior.AgentType != null) {
                 string rootBTAgent = rootBehavior.AgentType.ToString();
                 string childBTAgent = childBehavior.AgentType.ToString();
 
                 // the agent type specified at root bt should be derived from the agent type at child bt
-                if (!Plugin.IsAgentDerived(rootBTAgent, childBTAgent))
-                {
+                if (!Plugin.IsAgentDerived(rootBTAgent, childBTAgent)) {
                     string errorMsg = string.Format(Resources.AgentErrorInfo, rootBTAgent, rootBehavior.Label, childBTAgent, childBehavior.Label);
-                    MessageBox.Show(errorMsg, Resources.LoadError, MessageBoxButtons.OK);
+                    MessageBox.Show(errorMsg, Resources.DesignerError, MessageBoxButtons.OK);
                     return false;
                 }
             }
 
             return true;
+        }
+
+        private Attachments.Attachment addFSMNode(Node node, PointF mousePos) {
+            if (node != null && node.IsFSM) {
+                node.ScreenLocation = _nodeLayoutManager.ViewToGraph(mousePos);
+
+                Node rootNode = _rootNodeView.RootBehavior as Node;
+                rootNode.AddFSMNode(node);
+
+                if (rootNode.FSMNodes.Count == 1) {
+                    Attachments.Attachment startCondition = null;
+                    foreach(Attachments.Attachment attachment in rootNode.Attachments) {
+                        if (attachment.IsStartCondition) {
+                            startCondition = attachment;
+                            break;
+                        }
+                    }
+
+                    if (startCondition == null) {
+                        startCondition = node.CreateStartCondition(rootNode);
+
+                        if (startCondition != null) {
+                            rootNode.AddAttachment(startCondition);
+                        }
+                    }
+
+                    return startCondition;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -602,82 +658,69 @@ namespace Behaviac.Design
         /// <param name="mode">The way the new node will be attached.</param>
         /// <param name="nodetag">The tag of the you want to create.</param>
         /// <param name="label">The label of the new node.</param>
-        private void InsertNewNode(NodeViewData nvd, NodeAttachMode mode, NodeTag nodetag)
-        {
-            // check if the attach mode is valid
-            if (mode == NodeAttachMode.Attachment || mode == NodeAttachMode.None)
-                throw new Exception("A node cannot be created with the given attach mode");
-
-            if (nodetag.Type != NodeTagType.Behavior && nodetag.Type != NodeTagType.Prefab && nodetag.Type != NodeTagType.Node)
+        private void InsertNewNode(NodeViewData nvd, NodeAttachMode mode, NodeTag nodetag, PointF mousePos) {
+            if (nodetag.Type != NodeTagType.Behavior && nodetag.Type != NodeTagType.Prefab && nodetag.Type != NodeTagType.Node) {
                 throw new Exception("Only behaviours, prefabs and nodes can be attached to a behaviour tree");
+            }
 
-            Node node = nvd.Node;
             Node newnode = null;
             bool isPrefabInstance = false;
 
             // when we attach a behaviour we must create a special referenced behaviour node
-            if (nodetag.Type == NodeTagType.Behavior || nodetag.Type == NodeTagType.Prefab)
-            {
-                if (!File.Exists(nodetag.Filename))
-                {
-                    if (!SaveBehavior(nodetag.Filename))
+            if (nodetag.Type == NodeTagType.Behavior || nodetag.Type == NodeTagType.Prefab) {
+                if (!File.Exists(nodetag.Filename)) {
+                    if (!SaveBehavior(nodetag.Filename)) {
                         return;
+                    }
                 }
 
                 // get the behavior we want to reference
                 BehaviorNode behavior = _behaviorTreeList.LoadBehavior(nodetag.Filename);
 
                 // a behaviour reference itself
-                if (nvd.IsBehaviorReferenced(behavior))
-                {
-                    if (DialogResult.Cancel == MessageBox.Show(Resources.CircularReferencedInfo, Resources.Warning, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                if (nvd != null && nvd.IsBehaviorReferenced(behavior)) {
+                    if (DialogResult.Cancel == MessageBox.Show(Resources.CircularReferencedInfo, Resources.Warning, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning)) {
                         return;
+                    }
                 }
 
-                if (nodetag.Type == NodeTagType.Prefab)
-                {
+                if (nodetag.Type == NodeTagType.Prefab) {
                     behavior = (BehaviorNode)behavior.Clone();
                 }
 
-                Behavior rootB = _rootNode.RootBehavior as Behavior;
+                Behavior rootB = _rootNodeView.RootBehavior as Behavior;
                 Behavior b = behavior as Behavior;
 
-                if (rootB.AgentType == null)
-                {
+                if (rootB.AgentType == null) {
                     rootB.AgentType = b.AgentType;
-                }
-                else if (!IsCompatibleAgentType(rootB, b))
-                {
+
+                } else if (!IsCompatibleAgentType(rootB, b)) {
                     return;
                 }
 
                 // behavior
-                if (nodetag.Type == NodeTagType.Behavior)
-                {
+                if (nodetag.Type == NodeTagType.Behavior) {
                     // create the referenced behaviour node for the behaviour
-                    ReferencedBehaviorNode refnode = Node.CreateReferencedBehaviorNode(_rootNode.RootBehavior, behavior);
+                    ReferencedBehaviorNode refnode = Node.CreateReferencedBehaviorNode(_rootNodeView.RootBehavior, behavior, mode == NodeAttachMode.None || ((Node)this.RootNode).IsFSM);
 
                     // register the view so it gets updated when the referenced behaviour gets updated.
                     refnode.ReferencedBehaviorWasModified += new ReferencedBehavior.ReferencedBehaviorWasModifiedEventDelegate(refnode_ReferencedBehaviorWasModified);
 
                     newnode = (Node)refnode;
-                    newnode.CommentText = Resources.ThisIsReferenceTree;
+                    //the comment seems too long to overlap the node
+                    //newnode.CommentText = Resources.ThisIsReferenceTree;
                     newnode.CommentBackground = Node.CommentColor.Gray;
                 }
+
                 // prefab
-                else
-                {
+                else {
                     // Copy all Pars from the prefab file into the current behavior node.
                     List<ParInfo> pars = new List<ParInfo>();
-                    foreach (ParInfo par in b.Pars)
-                    {
+                    foreach(ParInfo par in b.LocalVars) {
                         bool found = false;
-                        foreach (ParInfo rootPar in rootB.Pars)
-                        {
-                            if (par.Name == rootPar.Name)
-                            {
-                                if (par.Type != rootPar.Type)
-                                {
+                        foreach(ParInfo rootPar in rootB.LocalVars) {
+                            if (par.Name == rootPar.Name) {
+                                if (par.Type != rootPar.Type) {
                                     string errorMsg = string.Format(Resources.ParErrorInfo, par.Name, b.Label, rootB.Label);
                                     MessageBox.Show(errorMsg, Resources.LoadError, MessageBoxButtons.OK);
                                     return;
@@ -688,18 +731,17 @@ namespace Behaviac.Design
                             }
                         }
 
-                        if (!found)
+                        if (!found) {
                             pars.Add(par);
+                        }
                     }
 
-                    rootB.Pars.AddRange(pars);
-                    if (ParSettingsDock.IsVisible())
-                        ParSettingsDock.Inspect((Node)_rootNode.RootBehavior);
+                    rootB.LocalVars.AddRange(pars);
 
                     // The first child should be the root node of the prefab tree.
                     Node behaviorNode = (Node)behavior;
-                    if (behaviorNode.Children.Count > 0)
-                    {
+
+                    if (behaviorNode.Children.Count > 0) {
                         newnode = (Node)behaviorNode.Children[0];
 
                         string prefab = Path.GetFileNameWithoutExtension(behavior.Filename);
@@ -710,107 +752,141 @@ namespace Behaviac.Design
                         newnode.SetPrefab(prefabName);
                     }
                 }
-            }
-            else
-            {
+
+            } else {
                 // simply create the node which is supposed to be created.
                 newnode = Node.Create(nodetag.NodeType);
             }
 
-            if (newnode == null)
+            if (newnode == null) {
                 return;
+            }
 
             // update label
             newnode.OnPropertyValueChanged(false);
 
+            Node node = (nvd != null) ? nvd.Node : null;
+
+            if (node == null) {
+                mode = NodeAttachMode.None;
+            }
+
+            Attachments.Attachment startCondition = null;
+
             // attach the new node with the correct mode
-            switch (mode)
-            {
-                // the new node is inserted in front of the target node
-                case (NodeAttachMode.Left):
-                    Node parent = (Node)node.Parent;
+            switch (mode) {
+                    // the new node is inserted in front of the target node
+                case NodeAttachMode.Left:
+                    if (node != null) {
+                        Node parent = (Node)node.Parent;
 
-                    int k = node.ParentConnector.GetChildIndex(node);
+                        int k = node.ParentConnector.GetChildIndex(node);
 
-                    Node.Connector conn = node.ParentConnector;
-                    Debug.Check(conn != null);
+                        Node.Connector conn = node.ParentConnector;
+                        Debug.Check(conn != null);
 
-                    parent.RemoveChild(conn, node);
-                    parent.AddChild(conn, newnode, k);
+                        parent.RemoveChild(conn, node);
+                        parent.AddChild(conn, newnode, k);
 
-                    Node.Connector newconn = newnode.GetConnector(conn.Identifier);
-                    Debug.Check(newconn != null);
-                    newnode.AddChild(newconn, node);
+                        Node.Connector newconn = newnode.GetConnector(conn.Identifier);
+                        Debug.Check(newconn != null);
+                        newnode.AddChild(newconn, node);
 
-                    // automatically select the new node
-                    _selectedNodePending = newnode;
-                    _selectedNodePendingParent = nvd.Parent;
-                    break;
-
-                // the new node is simply added to the target node's children
-                case (NodeAttachMode.Right):
-                    node.AddChild(_dragTargetConnector, newnode);
-
-                    // automatically select the new node
-                    _selectedNodePending = newnode;
-                    _selectedNodePendingParent = nvd;
-                    break;
-
-                // the new node is placed above the target node
-                case (NodeAttachMode.Top):
-                    int n = _dragTargetNode.Node.ParentConnector.GetChildIndex(node);
-                    ((Node)node.Parent).AddChild(_dragTargetNode.Node.ParentConnector, newnode, n);
-
-                    // automatically select the new node
-                    _selectedNodePending = newnode;
-                    _selectedNodePendingParent = nvd.Parent;
-                    break;
-
-                // the new node is placed below the target node
-                case (NodeAttachMode.Bottom):
-                    int m = _dragTargetNode.Node.ParentConnector.GetChildIndex(node);
-                    ((Node)node.Parent).AddChild(_dragTargetNode.Node.ParentConnector, newnode, m + 1);
-
-                    // automatically select the new node
-                    _selectedNodePending = newnode;
-                    _selectedNodePendingParent = nvd.Parent;
-                    break;
-
-                // the node will replace the target node
-                case (NodeAttachMode.Center):
-                    if (replaceNode(node, newnode))
-                    {
                         // automatically select the new node
                         _selectedNodePending = newnode;
                         _selectedNodePendingParent = nvd.Parent;
                     }
+
+                    break;
+
+                    // the new node is simply added to the target node's children
+                case NodeAttachMode.Right:
+                    if (newnode != null && newnode.IsFSM) {
+                        startCondition = this.addFSMNode(newnode, mousePos);
+
+                        newnode.ScreenLocation = new PointF(_rootNodeView.BoundingBox.Left + _rootNodeView.BoundingBox.Width * 1.5f, _rootNodeView.BoundingBox.Top);
+
+                    } else if (node != null) {
+                        node.AddChild(_dragTargetConnector, newnode);
+
+                        _dragTargetConnector.IsExpanded = true;
+
+                        // automatically select the new node
+                        _selectedNodePending = newnode;
+                        _selectedNodePendingParent = nvd;
+                    }
+
+                    break;
+
+                    // the new node is placed above the target node
+                case NodeAttachMode.Top:
+                    if (node != null) {
+                        int n = _dragTargetNode.Node.ParentConnector.GetChildIndex(node);
+                        ((Node)node.Parent).AddChild(_dragTargetNode.Node.ParentConnector, newnode, n);
+
+                        // automatically select the new node
+                        _selectedNodePending = newnode;
+                        _selectedNodePendingParent = nvd.Parent;
+                    }
+
+                    break;
+
+                    // the new node is placed below the target node
+                case NodeAttachMode.Bottom:
+                    if (node != null) {
+                        int m = _dragTargetNode.Node.ParentConnector.GetChildIndex(node);
+                        ((Node)node.Parent).AddChild(_dragTargetNode.Node.ParentConnector, newnode, m + 1);
+
+                        // automatically select the new node
+                        _selectedNodePending = newnode;
+                        _selectedNodePendingParent = nvd.Parent;
+                    }
+
+                    break;
+
+                    // the node will replace the target node
+                case NodeAttachMode.Center:
+                    if (node != null && replaceNode(node, newnode)) {
+                        // automatically select the new node
+                        _selectedNodePending = newnode;
+                        _selectedNodePendingParent = nvd.Parent;
+
+                        this.Redraw();
+                    }
+
+                    break;
+
+                case NodeAttachMode.None:
+                    if (newnode != null && newnode.IsFSM) {
+                        startCondition = this.addFSMNode(newnode, mousePos);
+                    }
+
                     break;
             }
 
             // After being created, its Id should be reset.
-            if (newnode != null)
-            {
+            if (newnode != null) {
                 newnode.ResetId(isPrefabInstance);
 
                 // set the prefab dirty for the current parent
-                if (newnode.Parent != null)
-                {
+                if (newnode.Parent != null) {
                     Node parent = (Node)newnode.Parent;
-                    if (!string.IsNullOrEmpty(parent.PrefabName))
-                    {
+
+                    if (!string.IsNullOrEmpty(parent.PrefabName)) {
                         parent.HasOwnPrefabData = true;
-                        if (!isPrefabInstance)
-                        {
+
+                        if (!isPrefabInstance) {
                             newnode.SetPrefab(parent.PrefabName);
                             newnode.HasOwnPrefabData = true;
                         }
                     }
                 }
 
-                if (nodetag.Type == NodeTagType.Behavior || nodetag.Type == NodeTagType.Prefab)
-                    ExpandedNodePool.SetExpandedNode(newnode.Behavior.RelativePath, newnode.Id.ToString(), false);
+                if (startCondition != null) {
+                    startCondition.TargetFSMNodeId = newnode.Id;
+                }
 
-                UndoManager.Save(this.RootNode, newnode.Behavior);
+                UndoManager.Save(this.RootNode);
             }
 
             // the layout needs to be recalculated
@@ -821,8 +897,7 @@ namespace Behaviac.Design
         /// Handles when a referenced behaviour is modified.
         /// </summary>
         /// <param name="node">The referenced behaviour node whose referenced behaviour is modified.</param>
-        void refnode_ReferencedBehaviorWasModified(ReferencedBehaviorNode node)
-        {
+        void refnode_ReferencedBehaviorWasModified(ReferencedBehaviorNode node) {
             LayoutChanged();
         }
 
@@ -831,11 +906,29 @@ namespace Behaviac.Design
         /// </summary>
         private PointF _graphOrigin = new PointF(0.0f, 0.0f);
 
+        private bool AdoptNodeByAncestor(BaseNode target, BaseNode node) {
+            if (target != null && target.CanAdopt(node)) {
+                target = target.Parent;
+
+                // check if there is a Method node on the parent path
+                while (target != null) {
+                    if (target is Nodes.Method) {
+                        return target.CanAdopt(node);
+                    }
+
+                    target = target.Parent;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Handles the drawing and updating of the graph.
         /// </summary>
-        protected override void OnPaint(PaintEventArgs e)
-        {
+        protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
 
             // calculate the mouse position in the graph
@@ -843,44 +936,37 @@ namespace Behaviac.Design
 
             // when the layout was changed it needs to be recalculated
             bool layoutChanged = _nodeLayoutManager.LayoutChanged;
-            if (layoutChanged)
-            {
+
+            if (layoutChanged) {
                 _nodeLayoutManager.UpdateLayout(e.Graphics, _forceChangeLayout);
                 _forceChangeLayout = false;
             }
 
             // center the root behaviour if requested
-            if (_pendingCenterBehavior)
-            {
+            if (_pendingCenterBehavior) {
                 _pendingCenterBehavior = false;
-                CenterNode(_rootNode);
+                CenterNode(_rootNodeView);
             }
 
             // select the pending node
-            if (_selectedNodePending != null)
-            {
-                if (_selectedNodePendingParent != null)
-                {
-                    if (_selectedNodePendingParent.CanBeExpanded() && !_selectedNodePendingParent.IsExpanded)
-                    {
+            if (_selectedNodePending != null) {
+                if (_selectedNodePendingParent != null) {
+                    if (_selectedNodePendingParent.CanBeExpanded() && !_selectedNodePendingParent.IsExpanded) {
                         _selectedNodePendingParent.IsExpanded = true;
                         LayoutChanged();
                     }
 
                     SelectedNode = _selectedNodePendingParent.GetChild(_selectedNodePending);
-                }
-                else
-                {
+
+                } else {
                     SelectedNode = RootNodeView.FindNodeViewData(_selectedNodePending);
                 }
 
-                if (SelectedNode != null)
-                {
-                    //if (SelectedNode.CanBeExpanded() && !SelectedNode.IsExpanded)
-                    //{
-                    //    SelectedNode.IsExpanded = true;
-                    //    LayoutChanged();
-                    //}
+                if (SelectedNode != null) {
+                    if (SelectedNode.CanBeExpanded() && !SelectedNode.IsExpanded) {
+                        SelectedNode.IsExpanded = true;
+                        LayoutChanged();
+                    }
 
                     SelectedNode.SelectedSubItem = SelectedNode.GetSubItem(_selectedAttachmentPending);
                     ShowNode(SelectedNode);
@@ -890,27 +976,27 @@ namespace Behaviac.Design
                 _selectedNodePendingParent = null;
                 _selectedAttachmentPending = null;
 
-                if (ClickEvent != null)
+                if (ClickEvent != null) {
                     ClickEvent(SelectedNode);
+                }
             }
 
             // check if we must keep the original position of the mouse
-            if (_maintainMousePosition)
-            {
+            if (_maintainMousePosition) {
                 _maintainMousePosition = false;
 
                 // move the graph so that _graphOrigin is at the same position in the view as it was before
                 float mouseX = (graphMousePos.X - _graphOrigin.X) * _nodeLayoutManager.Scale + _nodeLayoutManager.Offset.X;
                 float mouseY = (graphMousePos.Y - _graphOrigin.Y) * _nodeLayoutManager.Scale + _nodeLayoutManager.Offset.Y;
+
                 _nodeLayoutManager.Offset = new PointF(mouseX, mouseY);
             }
-            // check if we must keep the original position of _maintainNodePosition
-            else if (_maintainNodePosition != null)
-            {
-                // move the graph so that _graphOrigin is at the same position in the view as it was before
-                RectangleF bbox = _maintainNodePosition.BoundingBox;
 
-                PointF viewpos = new PointF(bbox.Location.X * _nodeLayoutManager.Scale, bbox.Location.Y * _nodeLayoutManager.Scale);
+            // check if we must keep the original position of _maintainNodePosition
+            else if (_maintainNodePosition != null) {
+                // move the graph so that _graphOrigin is at the same position in the view as it was before
+                RectangleF bbox = _maintainNodePosition.IsFSM ? _maintainNodePosition.GetTotalBoundingBox() : _maintainNodePosition.BoundingBox;
+                PointF viewpos = new PointF(bbox.X * _nodeLayoutManager.Scale, bbox.Y * _nodeLayoutManager.Scale);
 
                 _nodeLayoutManager.Offset = new PointF(_graphOrigin.X - viewpos.X, _graphOrigin.Y - viewpos.Y);
             }
@@ -919,17 +1005,13 @@ namespace Behaviac.Design
             _maintainNodePosition = null;
 
             // draw the graph to the view
-            _nodeLayoutManager.DrawGraph(e.Graphics, graphMousePos, _currentNode, SelectedNode, _highlightedNodeIds, _updatedNodeIds, _highlightBreakPoint, _profileInfos);
+            _nodeLayoutManager.DrawGraph(e.Graphics, graphMousePos, _currentNode, SelectedNode, _highlightedNodeIds, _updatedNodeIds, _highlightedTransitionIds, _highlightBreakPoint, _profileInfos);
 
             // check if we are currently dragging a node and we must draw additional data
-            if (_dragTargetNode != null && (KeyCtrlIsDown && _movedNode != null || _dragTargetNode.Node != _movedNode))
-            {
-                if (_dragAttachMode == NodeAttachMode.Attachment)
-                {
+            if (_dragTargetNode != null && _dragAttachment == null && (KeyCtrlIsDown && _movedNode != null || _dragTargetNode.Node != _movedNode)) {
+                if (_dragAttachMode == NodeAttachMode.Attachment) {
                     // we could draw some stuff for attachements here
-                }
-                else
-                {
+                } else {
                     // draw the arrows for the attach modes
 
                     // get the bounding box of the node
@@ -961,73 +1043,70 @@ namespace Behaviac.Design
 
                     // update for dragging in a new node
                     BehaviorNode behavior = _dragNodeDefaults as BehaviorNode;
-                    if (behavior != null && behavior.FileManager == null)
+
+                    if (behavior != null && behavior.FileManager == null) {
                         behavior = null;
+                    }
 
                     // the node that is currently dragged
                     Node draggedNode = (_movedNode != null) ? _movedNode : (_dragNodeDefaults as Node);
-                    //Debug.Check(draggedNode != null);
-                    if (draggedNode == null)
+
+                    if (draggedNode == null) {
                         return;
+                    }
 
-                    bool canBeAdoptedByParent = _dragTargetNode.Node.Parent != null &&
-                        _dragTargetNode.Node.Parent.CanAdopt(draggedNode);
-
-                    bool targetCanBeAdoptedByParent = (_movedNode == null) || (_movedNode.ParentConnector != null) && _movedNode.ParentConnector.AcceptsChild(_dragTargetNode.Node.GetType());
-                    //bool targetCanBeAdoptedByParent = true;
-
-                    bool hasParentBehavior = _dragTargetNode.HasParentBehavior(behavior);
-                    //bool parentHasParentBehavior = (_dragTargetNode.Parent != null) && _dragTargetNode.Parent.HasParentBehavior(behavior);
-                    bool parentHasParentBehavior = (_dragTargetNode.Parent == null);
                     Node.Connector parentConnector = _dragTargetNode.Node.ParentConnector;
+                    bool canBeAdoptedByParent = parentConnector != null && (!parentConnector.IsAsChild || AdoptNodeByAncestor(_dragTargetNode.Node.Parent, draggedNode));
+                    //bool targetCanBeAdoptedByParent = (_movedNode == null) || (_movedNode.ParentConnector != null) && _movedNode.ParentConnector.AcceptsChild(_dragTargetNode.Node);
+                    bool hasParentBehavior = _dragTargetNode.HasParentBehavior(behavior);
+                    bool parentHasParentBehavior = (_dragTargetNode.Parent == null);
 
-                    bool mayTop = canBeAdoptedByParent && targetCanBeAdoptedByParent && !parentHasParentBehavior &&
-                        parentConnector != null && parentConnector.AcceptsChild(draggedNode.GetType());
+                    bool isFSM = _rootNodeView.IsFSM || (_rootNodeView.Children.Count == 0);
+
+                    bool mayTop = !isFSM && canBeAdoptedByParent /*&& targetCanBeAdoptedByParent*/ && !parentHasParentBehavior &&
+                                  parentConnector != null && parentConnector.AcceptsChild(draggedNode);
 
                     bool mayBottom = mayTop;
 
-                    bool mayCenter = canBeAdoptedByParent && !parentHasParentBehavior &&
-                        draggedNode.GetType() != _dragTargetNode.Node.GetType() &&
-                        parentConnector != null && !parentConnector.IsReadOnly && parentConnector.AcceptsChild(draggedNode.GetType(), true) &&
-                        draggedNode.CanAdoptChildren(_dragTargetNode.Node);
+                    bool mayCenter = !parentHasParentBehavior && (_rootNodeView.IsFSM && draggedNode.IsFSM || canBeAdoptedByParent && 
+                                     draggedNode.GetType() != _dragTargetNode.Node.GetType() &&
+                                     parentConnector != null && !parentConnector.IsReadOnly && parentConnector.AcceptsChild(draggedNode, true) &&
+                                     draggedNode.CanAdoptChildren(_dragTargetNode.Node));
 
-                    bool mayLeft = (_dragTargetNode.Node.Parent != _movedNode) &&
-                        canBeAdoptedByParent && !parentHasParentBehavior && !hasParentBehavior &&
-                        parentConnector != null && !parentConnector.IsReadOnly && parentConnector.AcceptsChild(draggedNode.GetType(), true) &&
-                        !(draggedNode is BehaviorNode) && draggedNode.CanAdoptNode(_dragTargetNode.Node);
+                    bool mayLeft = !isFSM && (_dragTargetNode.Node.Parent != _movedNode) &&
+                                   canBeAdoptedByParent && !parentHasParentBehavior && !hasParentBehavior &&
+                                   parentConnector != null && !parentConnector.IsReadOnly && parentConnector.AcceptsChild(draggedNode, true) &&
+                                   !(draggedNode is BehaviorNode) && draggedNode.CanAdoptNode(_dragTargetNode.Node);
 
                     // update for moving an existing node
                     bool dragTargetHasParentMovedNode = false;
-                    if (_movedNode != null)
-                    {
+
+                    if (_movedNode != null) {
                         mayCenter = false;
                         dragTargetHasParentMovedNode = KeyShiftIsDown && _dragTargetNode.Node.HasParent(_movedNode);
 
                         // a node may not dragged on itself and may not dragged on one of its own children
-                        if (_dragTargetNode.Node == _movedNode || dragTargetHasParentMovedNode)
-                        {
+                        if (_dragTargetNode.Node == _movedNode || dragTargetHasParentMovedNode) {
                             //mayTop = KeyCtrlIsDown;
-                            mayTop &= KeyCtrlIsDown && (_dragTargetNode.Node.ParentConnector != null) && _dragTargetNode.Node.ParentConnector.AcceptsChild(_movedNode.GetType());
+                            mayTop &= KeyCtrlIsDown && (_dragTargetNode.Node.ParentConnector != null) && _dragTargetNode.Node.ParentConnector.AcceptsChild(_movedNode);
                             mayBottom = mayTop;
                             mayLeft = false;
-                        }
-                        else
-                        {
+
+                        } else {
                             // a dragged node cannot be placed in the same position again
                             mayTop &= (KeyCtrlIsDown || _dragTargetNode.Node.PreviousNode != _movedNode);
                             mayBottom &= (KeyCtrlIsDown || _dragTargetNode.Node.NextNode != _movedNode);
                             mayLeft &= _movedNode.CanAdoptChildren(_dragTargetNode.Node) && (!KeyShiftIsDown || _movedNode.Children.Count == 0);
                         }
                     }
-                    if (_copiedNode != null)
-                    {
+
+                    if (_copiedNode != null) {
                         mayCenter = false;
                         mayLeft &= _copiedNode.CanAdoptChildren(_dragTargetNode.Node) && (!KeyShiftIsDown || _copiedNode.Children.Count == 0);
-                        mayTop &= (_dragTargetNode.Node.ParentConnector != null) && _dragTargetNode.Node.ParentConnector.AcceptsChild(_copiedNode.GetType());
+                        mayTop &= (_dragTargetNode.Node.ParentConnector != null) && _dragTargetNode.Node.ParentConnector.AcceptsChild(_copiedNode);
                         mayBottom = mayTop;
-                    }
-                    else if (_clipboardPasteMode)
-                    {
+
+                    } else if (_clipboardPasteMode) {
                         mayCenter = false;
                         mayLeft &= !KeyShiftIsDown;
                     }
@@ -1039,105 +1118,89 @@ namespace Behaviac.Design
                     PointF[] vertices = new PointF[3];
 
                     // draw the top arrow if this action is allowed
-                    if (mayTop)
-                    {
+                    if (mayTop) {
                         vertices[0] = new PointF(centerX - arrowHalfWidth, top.Bottom - innerOffset);
                         vertices[1] = new PointF(centerX, top.Top + innerOffset);
                         vertices[2] = new PointF(centerX + arrowHalfWidth, top.Bottom - innerOffset);
-                        if (top.Contains(graphMousePos))
-                        {
+
+                        if (top.Contains(graphMousePos)) {
                             _dragAttachMode = NodeAttachMode.Top;
                             e.Graphics.FillPolygon(Brushes.White, vertices);
-                        }
-                        else
-                        {
+
+                        } else {
                             e.Graphics.FillPolygon(Brushes.Black, vertices);
                         }
                     }
 
                     // draw the bottom arrow if this action is allowed
-                    if (mayBottom)
-                    {
+                    if (mayBottom) {
                         vertices[0] = new PointF(centerX - arrowHalfWidth, bottom.Top + innerOffset);
                         vertices[1] = new PointF(centerX + arrowHalfWidth, bottom.Top + innerOffset);
                         vertices[2] = new PointF(centerX, bottom.Bottom - innerOffset);
-                        if (_dragAttachMode == NodeAttachMode.None && bottom.Contains(graphMousePos))
-                        {
+
+                        if (_dragAttachMode == NodeAttachMode.None && bottom.Contains(graphMousePos)) {
                             _dragAttachMode = NodeAttachMode.Bottom;
                             e.Graphics.FillPolygon(Brushes.White, vertices);
-                        }
-                        else
-                        {
+
+                        } else {
                             e.Graphics.FillPolygon(Brushes.Black, vertices);
                         }
                     }
 
                     // draw the center rectangle if this action is allowed
-                    if (mayCenter)
-                    {
-                        if (center.Contains(graphMousePos))
-                        {
+                    if (mayCenter) {
+                        if (center.Contains(graphMousePos)) {
                             _dragAttachMode = NodeAttachMode.Center;
                             e.Graphics.FillRectangle(Brushes.White, centerX - arrowHalfWidth * 0.5f, centerY - innerOffset * 2.0f, arrowHalfWidth, innerOffset * 4.0f);
-                        }
-                        else
-                        {
+
+                        } else {
                             e.Graphics.FillRectangle(Brushes.Black, centerX - arrowHalfWidth * 0.5f, centerY - innerOffset * 2.0f, arrowHalfWidth, innerOffset * 4.0f);
                         }
                     }
 
                     // draw the left arrow if this action is allowed
-                    if (mayLeft)
-                    {
+                    if (mayLeft) {
                         vertices[0] = new PointF(left.Right - innerOffset, left.Top + innerOffset);
                         vertices[1] = new PointF(left.Right - innerOffset, left.Bottom - innerOffset);
                         vertices[2] = new PointF(left.Left + innerOffset, left.Top + left.Height * 0.5f);
-                        if (_dragAttachMode == NodeAttachMode.None && left.Contains(graphMousePos))
-                        {
+
+                        if (_dragAttachMode == NodeAttachMode.None && left.Contains(graphMousePos)) {
                             _dragAttachMode = NodeAttachMode.Left;
                             e.Graphics.FillPolygon(Brushes.White, vertices);
-                        }
-                        else
-                        {
+
+                        } else {
                             e.Graphics.FillPolygon(Brushes.Black, vertices);
                         }
                     }
 
                     // draw the right arrow if this action is allowed
-                    foreach (Node.Connector connector in _dragTargetNode.Connectors)
-                    {
+                    foreach(Node.Connector connector in _dragTargetNode.Connectors) {
                         RectangleF bboxConnector = _dragTargetNode.GetConnectorBoundingBox(bbox, connector);
-
-                        //e.Graphics.DrawRectangle(Pens.Red, bboxConnector.X, bboxConnector.Y, bboxConnector.Width, bboxConnector.Height);
-
                         RectangleF right = new RectangleF(bboxConnector.Right - offset, bboxConnector.Y, offset, bboxConnector.Height);
 
-                        bool mayRight = !dragTargetHasParentMovedNode &&
+                        bool mayRight = !_rootNodeView.IsFSM && !dragTargetHasParentMovedNode &&
                                         !hasParentBehavior &&
                                         !connector.IsReadOnly &&
-                                        connector.AcceptsChild(draggedNode.GetType()) &&
-                                        _dragTargetNode.Node.CanAdopt(draggedNode);
+                                        connector.AcceptsChild(draggedNode) &&
+                                        (!connector.IsAsChild || AdoptNodeByAncestor(_dragTargetNode.Node, draggedNode));
 
-                        if (mayRight && _movedNode != null && connector == _movedNode.ParentConnector)
-                        {
+                        if (mayRight && draggedNode != null && connector == draggedNode.ParentConnector) {
                             mayRight = false;
                         }
 
-                        if (mayRight)
-                        {
+                        if (mayRight) {
                             float inOffset = bboxConnector.Height > innerOffset * 4.0f ? innerOffset : 3.0f;
 
                             vertices[0] = new PointF(right.Left + inOffset, right.Top + inOffset);
                             vertices[1] = new PointF(right.Right - inOffset, right.Top + right.Height * 0.5f);
                             vertices[2] = new PointF(right.Left + inOffset, right.Bottom - inOffset);
-                            if (_dragAttachMode == NodeAttachMode.None && right.Contains(graphMousePos))
-                            {
+
+                            if (_dragAttachMode == NodeAttachMode.None && right.Contains(graphMousePos)) {
                                 _dragTargetConnector = _dragTargetNode.Node.GetConnector(connector.Identifier);
                                 _dragAttachMode = NodeAttachMode.Right;
                                 e.Graphics.FillPolygon(Brushes.White, vertices);
-                            }
-                            else
-                            {
+
+                            } else {
                                 e.Graphics.FillPolygon(Brushes.Black, vertices);
                             }
                         }
@@ -1149,91 +1212,210 @@ namespace Behaviac.Design
             //e.Graphics.DrawRectangle(Pens.Red, graphMousePos.X -1.0f, graphMousePos.Y -1.0f, 2.0f, 2.0f);
 
             //when we are dragging an existing node we draw a small graph representing it
-            if (_movedNodeGraph != null)
-            {
+            if (_movedNodeGraph != null) {
                 // update the layout for the graph. This happens only once inside the function.
                 _movedNodeGraph.UpdateLayout(e.Graphics);
 
                 // offset the graph to the mouse position
                 _movedNodeGraph.Offset = new PointF(_nodeLayoutManager.Offset.X + graphMousePos.X * _nodeLayoutManager.Scale,
-                                        _nodeLayoutManager.Offset.Y + graphMousePos.Y * _nodeLayoutManager.Scale - _movedNodeGraph.RootNodeLayout.LayoutRectangle.Height * 0.5f * _movedNodeGraph.Scale);
+                                                    _nodeLayoutManager.Offset.Y + graphMousePos.Y * _nodeLayoutManager.Scale - _movedNodeGraph.RootNodeLayout.LayoutRectangle.Height * 0.5f * _movedNodeGraph.Scale);
 
                 // draw the graph
                 _movedNodeGraph.DrawGraph(e.Graphics, graphMousePos);
             }
 
-            if (_currentNode != null && _dragAttachment != null && _dragTargetAttachment != null && _dragAttachment != _dragTargetAttachment)
-            {
+            // attachment
+            if (_currentNode != null && _dragTargetNode != null &&
+                _dragAttachment != null && _dragTargetAttachment != null && _dragAttachment != _dragTargetAttachment &&
+                _dragTargetNode.Node.AcceptsAttachment(_dragAttachment.Attachment.GetType())) {
                 _dragAttachMode = NodeAttachMode.None;
 
-                SubItemRegin regin = _currentNode.GetSubItemRegin(graphMousePos);
-                int itemIndex = _currentNode.GetSubItemIndex(_dragAttachment);
-                int targetItemIndex = _currentNode.GetSubItemIndex(_dragTargetAttachment);
+                Attachments.Attachment sourceAttach = _dragAttachment.SelectableObject as Attachments.Attachment;
+                Attachments.Attachment targetAttach = _dragTargetAttachment.SelectableObject as Attachments.Attachment;
 
-                if (regin != SubItemRegin.Out && itemIndex >= 0 && targetItemIndex >= 0)
+                if (sourceAttach != null && targetAttach != null &&
+                    sourceAttach.IsPrecondition == targetAttach.IsPrecondition &&
+                    sourceAttach.IsTransition == targetAttach.IsTransition &&
+                    sourceAttach.IsEffector == targetAttach.IsEffector)
                 {
-                    RectangleF bbox = _currentNode.GetSubItemBoundingBox(graphMousePos);
+                    SubItemRegin regin = _dragTargetNode.GetSubItemRegin(graphMousePos);
+                    int itemIndex = _currentNode.GetSubItemIndex(_dragAttachment);
+                    int targetItemIndex = _dragTargetNode.GetSubItemIndex(_dragTargetAttachment);
 
+                    if (regin != SubItemRegin.Out && itemIndex >= 0 && targetItemIndex >= 0) {
+                        RectangleF bbox = _dragTargetNode.GetSubItemBoundingBox(graphMousePos);
+
+                        const float offset = 8.0f;
+                        const float innerOffset = 2.0f;
+
+                        float centerX = bbox.Left + bbox.Width * 0.5f;
+                        float centerY = bbox.Top + bbox.Height * 0.5f;
+                        float centerBoxX = bbox.X + bbox.Width * 0.4f;
+                        float arrowHalfWidth = bbox.Width * 0.12f;
+
+                        RectangleF top = new RectangleF(centerX - arrowHalfWidth, bbox.Top, arrowHalfWidth * 2.0f, offset);
+                        RectangleF bottom = new RectangleF(centerX - arrowHalfWidth, bbox.Bottom - offset, arrowHalfWidth * 2.0f, offset);
+
+                        PointF[] vertices = new PointF[3];
+
+                        switch (regin) {
+                            case SubItemRegin.Top:
+                                if (KeyCtrlIsDown || _currentNode != _dragTargetNode || itemIndex != targetItemIndex - 1) {
+                                    vertices[0] = new PointF(centerX - arrowHalfWidth, top.Bottom - innerOffset);
+                                    vertices[1] = new PointF(centerX, top.Top + innerOffset);
+                                    vertices[2] = new PointF(centerX + arrowHalfWidth, top.Bottom - innerOffset);
+
+                                    if (top.Contains(graphMousePos)) {
+                                        _dragAttachMode = NodeAttachMode.Top;
+                                        e.Graphics.FillPolygon(Brushes.White, vertices);
+
+                                    } else {
+                                        e.Graphics.FillPolygon(Brushes.Black, vertices);
+                                    }
+                                }
+
+                                break;
+
+                            case SubItemRegin.Bottom:
+                                if (KeyCtrlIsDown || _currentNode != _dragTargetNode || itemIndex != targetItemIndex + 1) {
+                                    vertices[0] = new PointF(centerX - arrowHalfWidth, bottom.Top + innerOffset);
+                                    vertices[1] = new PointF(centerX + arrowHalfWidth, bottom.Top + innerOffset);
+                                    vertices[2] = new PointF(centerX, bottom.Bottom - innerOffset);
+
+                                    if (bottom.Contains(graphMousePos)) {
+                                        _dragAttachMode = NodeAttachMode.Bottom;
+                                        e.Graphics.FillPolygon(Brushes.White, vertices);
+
+                                    } else {
+                                        e.Graphics.FillPolygon(Brushes.Black, vertices);
+                                    }
+                                }
+
+                                break;
+                        }
+                    }
+                }
+            }
+
+            if (_movedSubItem != null) {
+                NodeViewData.SubItemText subitem = _movedSubItem as NodeViewData.SubItemText;
+
+                if (subitem != null) {
+                    RectangleF boundingBox = new RectangleF(graphMousePos, new SizeF(50, 12));
+                    e.Graphics.FillRectangle(subitem.BackgroundBrush, boundingBox);
+                }
+            }
+
+            // draw FSM related
+            DrawFSMArrow(e, graphMousePos);
+            DrawFSMDragCurve(e, graphMousePos);
+
+            //the first time of paint, to collapse plan failed branch by default
+            Behavior b = this.RootNode as Behavior;
+
+            if (b.PlanIsCollapseFailedBranch > 0) {
+                if (b.PlanIsCollapseFailedBranch == Behavior.kPlanIsCollapseFailedBranch) {
+                    NodeViewData root = (NodeViewData)this.RootNodeView.Children[0];
+                    CollapseFailedBrach(root);
+                }
+
+                b.PlanIsCollapseFailedBranch--;
+
+                this.CenterNode(this._rootNodeView);
+                this.LayoutChanged();
+            }
+        }
+
+        private void DrawFSMArrow(PaintEventArgs e, PointF graphMousePos) {
+            if (_currentNode != null) {
+                NodeViewData.SubItem subItem;
+                RectangleF bbox;
+                NodeViewData.RangeType rangeType = _currentNode.CheckFSMArrowRange(graphMousePos, out subItem, out bbox);
+
+                if (rangeType != NodeViewData.RangeType.kNode) {
                     const float offset = 8.0f;
-                    const float innerOffset = 2.0f;
-
+                    PointF[] vertices = new PointF[3];
                     float centerX = bbox.Left + bbox.Width * 0.5f;
                     float centerY = bbox.Top + bbox.Height * 0.5f;
-                    float centerBoxX = bbox.X + bbox.Width * 0.4f;
-                    float arrowHalfWidth = bbox.Width * 0.12f;
 
-                    RectangleF top = new RectangleF(centerX - arrowHalfWidth, bbox.Top, arrowHalfWidth * 2.0f, offset);
-                    RectangleF bottom = new RectangleF(centerX - arrowHalfWidth, bbox.Bottom - offset, arrowHalfWidth * 2.0f, offset);
+                    if (graphMousePos.X < bbox.Left + bbox.Width * 0.5f) {
+                        vertices[0] = new PointF(bbox.Left + offset, centerY - offset * 0.6f);
+                        vertices[1] = new PointF(bbox.Left, centerY);
+                        vertices[2] = new PointF(bbox.Left + offset, centerY + offset * 0.6f);
 
-                    PointF[] vertices = new PointF[3];
+                    } else {
+                        vertices[0] = new PointF(bbox.Right - offset, centerY - offset * 0.6f);
+                        vertices[1] = new PointF(bbox.Right, centerY);
+                        vertices[2] = new PointF(bbox.Right - offset, centerY + offset * 0.6f);
+                    }
 
-                    switch (regin)
-                    {
-                        case SubItemRegin.Top:
-                            if (itemIndex != targetItemIndex - 1)
-                            {
-                                vertices[0] = new PointF(centerX - arrowHalfWidth, top.Bottom - innerOffset);
-                                vertices[1] = new PointF(centerX, top.Top + innerOffset);
-                                vertices[2] = new PointF(centerX + arrowHalfWidth, top.Bottom - innerOffset);
-                                if (top.Contains(graphMousePos))
-                                {
-                                    _dragAttachMode = NodeAttachMode.Top;
-                                    e.Graphics.FillPolygon(Brushes.White, vertices);
-                                }
-                                else
-                                {
-                                    e.Graphics.FillPolygon(Brushes.Black, vertices);
-                                }
-                            }
-                            break;
+                    if (rangeType != NodeViewData.RangeType.kNode) {
+                        e.Graphics.FillPolygon(Brushes.White, vertices);
+                    }
 
-                        case SubItemRegin.Bottom:
-                            if (itemIndex != targetItemIndex + 1)
-                            {
-                                vertices[0] = new PointF(centerX - arrowHalfWidth, bottom.Top + innerOffset);
-                                vertices[1] = new PointF(centerX + arrowHalfWidth, bottom.Top + innerOffset);
-                                vertices[2] = new PointF(centerX, bottom.Bottom - innerOffset);
-                                if (bottom.Contains(graphMousePos))
-                                {
-                                    _dragAttachMode = NodeAttachMode.Bottom;
-                                    e.Graphics.FillPolygon(Brushes.White, vertices);
-                                }
-                                else
-                                {
-                                    e.Graphics.FillPolygon(Brushes.Black, vertices);
-                                }
-                            }
-                            break;
+                    else {
+                        e.Graphics.FillPolygon(Brushes.Black, vertices);
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// The node copied to the clipboard.
-        /// </summary>
-        private static Node _clipboardNode = null;
+        private void DrawFSMDragCurve(PaintEventArgs e, PointF graphMousePos) {
+            if (_fsmDragMode != FSMDragModes.kNone) {
+                RectangleF bbox = _fsmItemBoundingBox;
+                Pen pen = new Pen(System.Drawing.Brushes.LightGray, 3.0f);
+                pen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDot;
+                pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
+                pen.CustomEndCap = new System.Drawing.Drawing2D.AdjustableArrowCap(pen.Width, pen.Width);
 
+                float penHalfWidth = pen.Width * 0.5f;
+                float centerY = bbox.Top + bbox.Height * 0.5f;
+                PointF startPos = new PointF(bbox.Left, centerY - penHalfWidth);
+
+                if (_fsmDragMode == FSMDragModes.kRight) {
+                    startPos.X = bbox.Right;
+                }
+
+                float middleX = startPos.X + (graphMousePos.X - startPos.X) * 0.5f;
+
+                e.Graphics.DrawBezier(pen,
+                                      startPos.X, startPos.Y,
+                                      middleX, startPos.Y,
+                                      middleX, graphMousePos.Y,
+                                      graphMousePos.X, graphMousePos.Y);
+            }
+        }
+
+        private void CollapseFailedBrach(NodeViewData nv) {
+            Behavior b = nv.Node.Behavior as Behavior;
+
+            if (b.PlanningProcess != null) {
+                FrameStatePool.PlanningState nodeState = b.PlanningProcess.GetNode(nv.FullId);
+
+                if (nodeState != null) {
+                    //if (!nodeState._bOk || nodeState._bPreFailed)
+                    if (nodeState._bPreFailed) {
+                        nv.IsExpanded = false;
+                        return;
+                    }
+
+                } else {
+                    nv.IsExpanded = false;
+                    return;
+                }
+            }
+
+            if (nv.Children.Count > 0) {
+                nv.IsExpanded = true;
+
+                foreach(NodeViewData c in nv.Children) {
+                    CollapseFailedBrach(c);
+                }
+            }
+        }
+
+        private static Node _clipboardNode = null;
+        private static NodeViewData.SubItem _clipboardSubItem = null;
         private static NodeViewData _clipboardRootNode = null;
 
         /// <summary>
@@ -1256,52 +1438,18 @@ namespace Behaviac.Design
         /// </summary>
         private NodeLayoutManager _movedNodeGraph = null;
 
-        private void BehaviorTreeView_MouseLeave(object sender, EventArgs e)
-        {
+        private NodeViewData.SubItem _movedSubItem = null;
+
+        private void BehaviorTreeView_MouseLeave(object sender, EventArgs e) {
             this.toolTipTimer.Stop();
             this.toolTip.Hide(this);
-        }
-
-        private PointF _panStartMousePosition;
-
-        private static bool _isPanMode = false;
-        private static bool IsPanMode
-        {
-            get
-            {
-                return _isPanMode;
-            }
-
-            set
-            {
-                _isPanMode = value;
-
-                try
-                {
-                    foreach (BehaviorTreeViewDock dock in BehaviorTreeViewDock.Instances)
-                    {
-                        setPanModeUI(dock.BehaviorTreeView);
-                    }
-                }
-                catch
-                {
-                }
-            }
-        }
-
-        private static void setPanModeUI(BehaviorTreeView view)
-        {
-            view.altDragButton.Image = IsPanMode ? Resources.Transform_move1 : Resources.Transform_move2;
-            view.toolTip.SetToolTip(view.altDragButton, IsPanMode ? Resources.PanMode : Resources.NormalMode);
         }
 
         /// <summary>
         /// Handles when the mouse is moved.
         /// </summary>
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            if (_lostFocus)
-            {
+        protected override void OnMouseMove(MouseEventArgs e) {
+            if (_lostFocus) {
                 _lostFocus = false;
 
                 // update the last ouse position
@@ -1313,112 +1461,157 @@ namespace Behaviac.Design
             }
 
             // returns the mouse under the mouse cursor
-            NodeViewData nodeFound = _rootNode.IsInside(e.Location);
+            NodeViewData nodeFound = _rootNodeView.GetInsideNode(e.Location);
+            NodeViewData.SubItem subItemFound = null;
+
+            if (nodeFound != null) {
+                subItemFound = nodeFound.GetSubItem(nodeFound, _nodeLayoutManager.ViewToGraph(e.Location));
+
+            } else {
+                this.toolTip.Hide(this);
+            }
 
             // clear previously stored node which can cause problems when dragging to another view
             //_dragTargetNode = null;
 
-            // if a different node is the current one, update it
-            if (nodeFound != _currentNode || _currentExpandNode != null)
-            {
-                if (_dragAttachment == null)
-                {
+            if (nodeFound != null || _currentExpandNode != null || subItemFound != null) {
+                if (_dragAttachment == null) {
                     _currentNode = nodeFound;
                 }
 
-                if (nodeFound == null)
-                {
-                    this.toolTip.Hide(this);
-                }
-                else if (Settings.Default.ShowNodeToolTips)
-                {
-                    if (!string.IsNullOrEmpty(nodeFound.ToolTip))
+                if (Settings.Default.ShowNodeToolTips) {
+                    if (nodeFound != null) {
+                        _nodeToolTip = (subItemFound != null) ? subItemFound.ToolTip : nodeFound.ToolTip;
+                    }
+
+                    if (!string.IsNullOrEmpty(_nodeToolTip)) {
                         this.toolTipTimer.Start();
+                    }
                 }
 
                 Invalidate();
             }
 
             // check if we are currently dragging the graph
-            if ((e.Button == MouseButtons.Middle || e.Button == MouseButtons.Left && IsPanMode) && _lastMousePosition != e.Location && !this.contextMenu.Visible)
-            {
-                _isGraphDragged = true;
+            if ((e.Button == MouseButtons.Middle || (e.Button == MouseButtons.Left && _objectDragType == ObjectDragTypes.kGraph)) && _lastMousePosition != e.Location && !this.contextMenu.Visible) {
+                Cursor = Cursors.SizeAll;
 
                 // move the graph according to the last mouse position
                 _nodeLayoutManager.Offset = new PointF(_nodeLayoutManager.Offset.X - (_lastMousePosition.X - e.X), _nodeLayoutManager.Offset.Y - (_lastMousePosition.Y - e.Y));
 
                 Invalidate();
             }
+
             // check if we start duplicating an existing node step 1
-            else if (e.Button == MouseButtons.Left && KeyCtrlIsDown && _lastMousePosition != e.Location && _dragNodeDefaults == null && _copiedNode == null && _currentNode != null && !(_currentNode.Node is BehaviorNode))
-            {
-                _movedNode = null;
-                _copiedNode = _currentNode.Node;
+            else if (e.Button == MouseButtons.Left && KeyCtrlIsDown && _lastMousePosition != e.Location && _dragNodeDefaults == null && _copiedNode == null && _currentNode != null && !(_currentNode.Node is BehaviorNode)) {
+                if (_objectDragType == ObjectDragTypes.kNode) { // node
+                    _movedNode = null;
+                    _copiedNode = _currentNode.Node;
 
-                // create the layout manager used to draw the graph
-                _movedNodeGraph = new NodeLayoutManager(_copiedNode.CloneBranch().CreateNodeViewData(null, _rootNode.RootBehavior), _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenHighlight, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, true);
-                _movedNodeGraph.Scale = 0.3f;
-                _movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
+                    // create the layout manager used to draw the graph
+                    _movedNodeGraph = new NodeLayoutManager(_copiedNode.CloneBranch().CreateNodeViewData(null, _rootNodeView.RootBehavior), _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenSelected, _nodeLayoutManager.EdgePenHighlighted, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, true);
+                    _movedNodeGraph.Scale = 0.3f;
+                    _movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
 
-                // use the existing node as the node defaults
-                _dragNodeDefaults = _copiedNode;
+                    // use the existing node as the node defaults
+                    _dragNodeDefaults = _copiedNode;
 
-                Invalidate();
-            }
-            // check if we are duplicating an existing node step 2
-            else if (e.Button == MouseButtons.Left && KeyCtrlIsDown && _copiedNode != null)
-            {
-                _movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
-
-                _dragTargetNode = _currentNode;
-
-                Cursor = _currentNode == null ? Cursors.No : Cursors.Default;
-
-                //Point movedGraphGraphPos= new Point(e.Location.X + _movedNodeGraph.Offset.X, e.Location.Y + _movedNodeGraph.Offset.Y /-2);
-                //_movedNodeGraph.Location= movedGraphGraphPos;
-
-                Invalidate();
-            }
-            // check if we start dragging an existing node step 1
-            else if (e.Button == MouseButtons.Left && _lastMousePosition != e.Location && !KeyCtrlIsDown && _movedNode == null && _currentNode != null && !(_currentNode.Node is BehaviorNode))
-            {
-                if (_isNodeDragged) // node
-                {
-                    if (KeyShiftIsDown || _currentNode.Node.ParentCanAdoptChildren)
-                    {
-                        _movedNode = _currentNode.Node;
-
-                        // create the layout manager used to draw the graph
-                        if (_movedNodeGraph == null)
-                            _movedNodeGraph = new NodeLayoutManager(_movedNode.CloneBranch().CreateNodeViewData(null, _rootNode.RootBehavior), _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenHighlight, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, true);
-                        _movedNodeGraph.Scale = 0.3f;
-                        _movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
-                    }
-                }
-                else // attachment
-                {
-                    _movedNodeGraph = null;
-
-                    if (_dragAttachment == null)
-                    {
+                } else if (_objectDragType == ObjectDragTypes.kAttachment) { // attachment
+                    if (_dragAttachment == null) {
                         NodeViewData.SubItem subItem = _currentNode.GetSubItem(_currentNode, _nodeLayoutManager.ViewToGraph(e.Location));
                         _dragAttachment = subItem as NodeViewData.SubItemAttachment;
                     }
-                    else
-                    {
-                        NodeViewData.SubItem subItem = _currentNode.GetSubItem(_currentNode, _nodeLayoutManager.ViewToGraph(e.Location));
-                        _dragTargetAttachment = subItem as NodeViewData.SubItemAttachment;
+                }
 
-                        Invalidate();
+                Invalidate();
+            }
+
+            // check if we are duplicating an existing node step 2
+            else if (e.Button == MouseButtons.Left && KeyCtrlIsDown && (_copiedNode != null || _dragAttachment != null)) {
+                if (_objectDragType == ObjectDragTypes.kNode) { // node
+                    _movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
+
+                    _dragTargetNode = _currentNode;
+
+                    Cursor = _currentNode == null ? Cursors.No : Cursors.Default;
+
+                    //Point movedGraphGraphPos= new Point(e.Location.X + _movedNodeGraph.Offset.X, e.Location.Y + _movedNodeGraph.Offset.Y /-2);
+                    //_movedNodeGraph.Location= movedGraphGraphPos;
+
+                } else if (_objectDragType == ObjectDragTypes.kAttachment) { // attachment
+                    _dragTargetNode = nodeFound;
+
+                    if (_dragTargetNode != null) {
+                        NodeViewData.SubItem subItem = _dragTargetNode.GetSubItem(_dragTargetNode, _nodeLayoutManager.ViewToGraph(e.Location));
+                        _dragTargetAttachment = subItem as NodeViewData.SubItemAttachment;
                     }
                 }
+
+                Invalidate();
             }
+
+            // check if we start dragging an existing node step 1
+            else if (e.Button == MouseButtons.Left && _lastMousePosition != e.Location && !KeyCtrlIsDown && _movedNode == null && _currentNode != null) {
+                if (_objectDragType == ObjectDragTypes.kNode) { // node
+                    if (_currentNode.CanBeDragged())
+                    {
+                        if (_currentNode.IsFSM)
+                        {
+                            PointF currentGraphMousePos = _nodeLayoutManager.ViewToGraph(e.Location);
+                            PointF lastGraphMousePos = _nodeLayoutManager.ViewToGraph(_lastMousePosition);
+
+                            _currentNode.ScreenLocation = new PointF(_currentNode.ScreenLocation.X + currentGraphMousePos.X - lastGraphMousePos.X,
+                                                                     _currentNode.ScreenLocation.Y + currentGraphMousePos.Y - lastGraphMousePos.Y);
+
+                            LayoutChanged();
+
+                        }
+                        else if ((KeyShiftIsDown || _currentNode.Node.ParentCanAdoptChildren))
+                        {
+                            _movedNode = _currentNode.Node;
+
+                            // create the layout manager used to draw the graph
+                            if (_movedNodeGraph == null)
+                            {
+                                _movedNodeGraph = new NodeLayoutManager(_movedNode.CloneBranch().CreateNodeViewData(null, _rootNodeView.RootBehavior), _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenSelected, _nodeLayoutManager.EdgePenHighlighted, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, true);
+                            }
+
+                            _movedNodeGraph.Scale = 0.3f;
+                            //_movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
+                            _movedNodeGraph.RenderDepth = int.MaxValue;
+                        }
+                    }
+
+                } else if (_objectDragType == ObjectDragTypes.kAttachment) { // attachment
+                    if (_fsmDragMode == FSMDragModes.kNone && Plugin.EditMode == EditModes.Design) {
+                        _movedNodeGraph = null;
+                        _dragTargetNode = nodeFound;
+
+                        if (_dragAttachment == null) {
+                            NodeViewData.SubItem subItem = _currentNode.GetSubItem(_currentNode, _nodeLayoutManager.ViewToGraph(e.Location));
+                            _dragAttachment = subItem as NodeViewData.SubItemAttachment;
+
+                            if (_dragAttachment != null) {
+                                _movedSubItem = _dragAttachment.Clone(_currentNode.Node);
+                            }
+
+                        } else if (_dragTargetNode != null) {
+                            NodeViewData.SubItem subItem = _dragTargetNode.GetSubItem(_dragTargetNode, _nodeLayoutManager.ViewToGraph(e.Location));
+                            _dragTargetAttachment = subItem as NodeViewData.SubItemAttachment;
+                        }
+                    }
+                }
+
+                Invalidate();
+            }
+
             // check if we start dragging an existing node step 2
-            else if (e.Button == MouseButtons.Left && _movedNode != null && !_clipboardPasteMode)
-            {
+            else if (e.Button == MouseButtons.Left && _movedNode != null && !_clipboardPasteMode) {
                 // create the layout manager used to draw the graph
-                if (_movedNodeGraph == null)
-                    _movedNodeGraph = new NodeLayoutManager(_movedNode.CloneBranch().CreateNodeViewData(null, _rootNode.RootBehavior), _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenHighlight, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, true);
+                if (_movedNodeGraph == null) {
+                    _movedNodeGraph = new NodeLayoutManager(_movedNode.CloneBranch().CreateNodeViewData(null, _rootNodeView.RootBehavior), _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenSelected, _nodeLayoutManager.EdgePenHighlighted, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, true);
+                }
+
                 _movedNodeGraph.Scale = 0.3f;
                 _movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
 
@@ -1428,34 +1621,31 @@ namespace Behaviac.Design
                 Cursor = _currentNode == null ? Cursors.No : Cursors.Default;
 
                 Invalidate();
-            }
-            else if (e.Button == MouseButtons.Right && IsPanMode && _panStartMousePosition != e.Location)
-            {
-                int delta = e.X - (int)_panStartMousePosition.X + (int)_panStartMousePosition.Y - e.Y;
-                scaleGraph(delta / 16, false);
-            }
-            else if (_clipboardPasteMode)
-            {
-                if (_movedNodeGraph != null)
-                    _movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
+
+            } else if (_clipboardPasteMode) {
+                if (_movedNodeGraph != null) {
+                    //_movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
+                    _movedNodeGraph.RenderDepth = int.MaxValue;
+                }
 
                 _dragTargetNode = _currentNode;
 
                 Cursor = _currentNode == null ? Cursors.No : Cursors.Default;
 
                 Invalidate();
-            }
-            else if (_currentNode != null && _dragAttachment == null)
-            {
+
+            } else if (_currentNode != null && _dragAttachment == null) {
                 // Highlight the expand/collapse flag
                 PointF graphMousePos = _nodeLayoutManager.ViewToGraph(e.Location);
-                if (_currentNode.IsInExpandRange(graphMousePos))
-                {
+                bool isInExandRange = _currentNode.IsInExpandRange(graphMousePos);
+                bool isInExandConnectorRange = _currentNode.IsInExpandConnectorRange(graphMousePos);
+
+                if (isInExandRange || isInExandConnectorRange) {
                     _currentExpandNode = _currentNode;
+                    _nodeToolTip = isInExandRange ? Resources.ExpandAllInfo : Resources.ExpandConnectorInfo;
                     Invalidate();
-                }
-                else if (_currentExpandNode != null)
-                {
+
+                } else if (_currentExpandNode != null) {
                     _currentExpandNode = null;
                     Invalidate();
                 }
@@ -1467,18 +1657,20 @@ namespace Behaviac.Design
             base.OnMouseMove(e);
         }
 
-        private void scaleGraph(int delta, bool maintainMousePos)
-        {
+        private void scaleGraph(float delta, bool maintainMousePos) {
             // calculate the new scale
-            float newscale = _nodeLayoutManager.Scale + 0.001f * delta;
+            float newscale = _nodeLayoutManager.Scale + delta;
 
-            // if the scale is too low or too high skip it
-            if (newscale < 0.1f || newscale > 2.0f)
-                return;
+            if (newscale < 0.1f) {
+                newscale = 0.1f;
+            }
+
+            if (newscale > 2.0f) {
+                newscale = 2.0f;
+            }
 
             // maintain the current mouse position while zooming
-            if (maintainMousePos)
-            {
+            if (maintainMousePos) {
                 _maintainMousePosition = true;
                 _graphOrigin = _nodeLayoutManager.ViewToGraph(_lastMousePosition);
             }
@@ -1491,9 +1683,8 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when the mouse wheel is used.
         /// </summary>
-        protected override void OnMouseWheel(MouseEventArgs e)
-        {
-            scaleGraph(e.Delta, true);
+        protected override void OnMouseWheel(MouseEventArgs e) {
+            scaleGraph(0.001f * e.Delta, true);
 
             //base.OnMouseWheel(e);
         }
@@ -1501,39 +1692,46 @@ namespace Behaviac.Design
         /// <summary>
         /// Returns if the ctrl key is currently down or not.
         /// </summary>
-        private bool KeyCtrlIsDown
-        {
+        private bool KeyCtrlIsDown {
             get { return (Control.ModifierKeys & Keys.Control) != Keys.None; }
         }
 
         /// <summary>
         /// Returns if the shift key is currently down or not.
         /// </summary>
-        private bool KeyShiftIsDown
-        {
+        private bool KeyShiftIsDown {
             get { return (Control.ModifierKeys & Keys.Shift) != Keys.None; }
         }
 
         /// <summary>
         /// Returns if the alt key is currently down or not.
         /// </summary>
-        private bool KeyAltIsDown
-        {
+        private bool KeyAltIsDown {
             get { return (Control.ModifierKeys & Keys.Alt) != Keys.None; }
         }
 
-        private bool MoveSubItem(NodeViewData nvd, NodeViewData.SubItemAttachment sourceAttachment, NodeViewData.SubItemAttachment targetAttachment, bool insertPreviously)
-        {
-            if (nvd != null && sourceAttachment != null && targetAttachment != null &&
-                nvd.SetSubItem(nvd, targetAttachment, sourceAttachment, insertPreviously))
-            {
-                // set the prefab dirty for the current node
-                if (!string.IsNullOrEmpty(nvd.Node.PrefabName))
-                {
-                    nvd.Node.HasOwnPrefabData = true;
+        private bool MoveSubItem(NodeViewData sourceNvd, NodeViewData targetNvd, NodeViewData.SubItemAttachment sourceAttachment, NodeViewData.SubItemAttachment targetAttachment, bool insertPreviously, bool isCopied) {
+            if (sourceNvd != null && targetNvd != null && sourceAttachment != null &&
+                sourceNvd.SetSubItem(targetNvd, sourceAttachment, targetAttachment, insertPreviously, isCopied)) {
+                // set the prefab dirty for the node
+                if (!string.IsNullOrEmpty(sourceNvd.Node.PrefabName)) {
+                    sourceNvd.Node.HasOwnPrefabData = true;
                 }
 
-                UndoManager.Save(this.RootNode, nvd.Node.Behavior);
+                if (!string.IsNullOrEmpty(targetNvd.Node.PrefabName)) {
+                    targetNvd.Node.HasOwnPrefabData = true;
+                }
+
+                SelectedNode = targetNvd;
+
+                // call the ClickEvent event handler
+                if (ClickEvent != null) {
+                    ClickEvent(SelectedNode);
+                }
+
+                UndoManager.Save(this.RootNode);
+
+                LayoutChanged();
 
                 return true;
             }
@@ -1546,16 +1744,46 @@ namespace Behaviac.Design
         /// </summary>
         protected override void OnMouseUp(MouseEventArgs e)
         {
+            _movedSubItem = null;
+
+            // check if we were dragging a transition for the FSM.
+            if (e.Button == MouseButtons.Left && _currentNode != null && ((_objectDragType == ObjectDragTypes.kNode) && _currentNode.IsFSM || _fsmSubItem != null && _fsmDragMode != FSMDragModes.kNone)) {
+                if (Plugin.EditMode == EditModes.Design && _startMousePosition != e.Location) {
+                    // drag and move the fsm node
+                    if ((_objectDragType == ObjectDragTypes.kNode) && _currentNode.IsFSM) {
+                        UndoManager.Save(this.RootNode);
+
+                        LayoutChanged();
+                    }
+
+                    // drag and connector the target node
+                    else {
+                        NodeViewData targetNvd = _rootNodeView.GetInsideNode(e.Location);
+
+                        if (targetNvd != null && targetNvd.IsFSM && (targetNvd.Parent != null) && _fsmSubItem is NodeViewData.SubItemAttachment) {
+                            NodeViewData.SubItemAttachment subItemAttachment = _fsmSubItem as NodeViewData.SubItemAttachment;
+
+                            if (subItemAttachment.Attachment != null && subItemAttachment.Attachment.TargetFSMNodeId != targetNvd.Node.Id) {
+                                subItemAttachment.Attachment.TargetFSMNodeId = targetNvd.Node.Id;
+
+                                UndoManager.Save(this.RootNode);
+
+                                LayoutChanged();
+                            }
+                        }
+                    }
+                }
+            }
+
             // check if we were dragging an existing sub item.
-            if (e.Button == MouseButtons.Left && _currentNode != null && _dragAttachment != null && _dragTargetAttachment != null &&
-                (_dragAttachMode == NodeAttachMode.Top || _dragAttachMode == NodeAttachMode.Bottom))
-            {
-                NodeViewData.SubItem targetSubItem = _currentNode.GetSubItem(_currentNode, _nodeLayoutManager.ViewToGraph(e.Location));
-                if (targetSubItem != null && targetSubItem != _dragAttachment)
-                {
+            else if (e.Button == MouseButtons.Left && _currentNode != null && _dragTargetNode != null && _dragAttachment != null) {
+                NodeViewData.SubItem targetSubItem = _dragTargetNode.GetSubItem(_dragTargetNode, _nodeLayoutManager.ViewToGraph(e.Location));
+
+                if (KeyCtrlIsDown || targetSubItem != _dragAttachment) {
                     NodeViewData.SubItemAttachment targetAttachment = targetSubItem as NodeViewData.SubItemAttachment;
-                    if (targetAttachment != null && this.MoveSubItem(_currentNode, targetAttachment, _dragAttachment, _dragAttachMode == NodeAttachMode.Top))
-                    {
+
+                    if ((_currentNode != _dragTargetNode || targetAttachment != null) &&
+                        this.MoveSubItem(_currentNode, _dragTargetNode, _dragAttachment, targetAttachment, _dragAttachMode == NodeAttachMode.Top, KeyCtrlIsDown)) {
                         _currentNode.ClickEvent(_currentNode, _nodeLayoutManager.ViewToGraph(e.Location));
 
                         LayoutChanged();
@@ -1568,24 +1796,20 @@ namespace Behaviac.Design
             }
 
             // check if we were dragging or copying an existing node.
-            else if (e.Button == MouseButtons.Left && (_movedNode != null || _copiedNode != null || _clipboardPasteMode))
-            {
+            else if (e.Button == MouseButtons.Left && (_movedNode != null || _copiedNode != null || _clipboardPasteMode)) {
                 // if we have a valid target node continue
-                if (_dragTargetNode != null)
-                {
+                if (_dragTargetNode != null) {
                     Node sourceNode = null;
-                    if (_copiedNode != null)
-                    {
+
+                    if (_copiedNode != null) {
                         bool cloneBranch = !(_copiedNode is ReferencedBehavior);
                         sourceNode = (KeyShiftIsDown && cloneBranch) ? (Nodes.Node)_copiedNode.CloneBranch() : (Nodes.Node)_copiedNode.Clone();
-                    }
-                    else if (_clipboardPasteMode)
-                    {
+
+                    } else if (_clipboardPasteMode) {
                         bool cloneBranch = !(_clipboardNode is ReferencedBehavior);
-                        sourceNode = (KeyShiftIsDown && cloneBranch) ? (Nodes.Node)_clipboardNode.CloneBranch() : (Nodes.Node)_clipboardNode.Clone();
-                    }
-                    else if (_movedNode != null)
-                    {
+                        sourceNode = (/*KeyShiftIsDown && */cloneBranch) ? (Nodes.Node)_clipboardNode.CloneBranch() : (Nodes.Node)_clipboardNode.Clone();
+
+                    } else if (_movedNode != null) {
                         sourceNode = _movedNode;
                     }
 
@@ -1593,52 +1817,55 @@ namespace Behaviac.Design
                     Node sourceParent = (Node)sourceNode.Parent;
                     BehaviorNode sourceBehavior = sourceNode.Behavior;
 
-                    if (_dragTargetNode.Node == sourceNode)
+                    if (_dragTargetNode.Node == sourceNode) {
                         _dragAttachMode = NodeAttachMode.None;
+                    }
 
                     if (_dragAttachMode == NodeAttachMode.Top ||
                         _dragAttachMode == NodeAttachMode.Bottom ||
                         _dragAttachMode == NodeAttachMode.Left ||
                         _dragAttachMode == NodeAttachMode.Right ||
-                        _dragAttachMode == NodeAttachMode.Center)
-                    {
+                        _dragAttachMode == NodeAttachMode.Center) {
                         // set the prefab dirty for its previous parent
-                        if (sourceParent != null && !string.IsNullOrEmpty(sourceParent.PrefabName))
-                        {
+                        if (sourceParent != null && !string.IsNullOrEmpty(sourceParent.PrefabName)) {
                             sourceParent.HasOwnPrefabData = true;
                         }
 
-                        if (KeyShiftIsDown)
-                        {
-                            if (sourceParent != null)
+                        if (KeyShiftIsDown) {
+                            if (sourceParent != null) {
                                 sourceParent.RemoveChild(sourceNode.ParentConnector, sourceNode);
-                        }
-                        else
-                        {
+                            }
+
+                        } else {
                             sourceNode.ExtractNode();
                         }
                     }
 
                     // move the dragged node to the target node, according to the attach mode
-                    switch (_dragAttachMode)
-                    {
-                        // the node will be placed above the target node
+                    switch (_dragAttachMode) {
+                            // the node will be placed above the target node
                         case (NodeAttachMode.Top):
                             int n = _dragTargetNode.Node.ParentConnector.GetChildIndex(_dragTargetNode.Node);
                             ((Node)_dragTargetNode.Node.Parent).AddChild(_dragTargetNode.Node.ParentConnector, sourceNode, n);
 
+                            _selectedNodePending = sourceNode;
+                            _selectedNodePendingParent = _dragTargetNode.Parent;
+
                             LayoutChanged();
                             break;
 
-                        // the node will be placed below the target node
+                            // the node will be placed below the target node
                         case (NodeAttachMode.Bottom):
                             int m = _dragTargetNode.Node.ParentConnector.GetChildIndex(_dragTargetNode.Node);
                             ((Node)_dragTargetNode.Node.Parent).AddChild(_dragTargetNode.Node.ParentConnector, sourceNode, m + 1);
 
+                            _selectedNodePending = sourceNode;
+                            _selectedNodePendingParent = _dragTargetNode.Parent;
+
                             LayoutChanged();
                             break;
 
-                        // the node will be placed in front of the target node
+                            // the node will be placed in front of the target node
                         case (NodeAttachMode.Left):
                             Node parent = (Node)_dragTargetNode.Node.Parent;
                             Node.Connector conn = _dragTargetNode.Node.ParentConnector;
@@ -1653,79 +1880,63 @@ namespace Behaviac.Design
 
                             sourceNode.AddChild(sourceConn, _dragTargetNode.Node);
 
+                            _selectedNodePending = sourceNode;
+                            _selectedNodePendingParent = _dragTargetNode.Parent;
+
                             LayoutChanged();
                             break;
 
-                        // the node will simply attached to the target node
+                            // the node will simply attached to the target node
                         case (NodeAttachMode.Right):
                             _dragTargetNode.Node.AddChild(_dragTargetConnector, sourceNode);
 
+                            _selectedNodePending = sourceNode;
+                            _selectedNodePendingParent = _dragTargetNode;
+
                             LayoutChanged();
                             break;
 
-                        // the node will replace the target node
+                            // the node will replace the target node
                         case (NodeAttachMode.Center):
-                            if (replaceNode(_dragTargetNode.Node, sourceNode))
-                            {
+                            if (replaceNode(_dragTargetNode.Node, sourceNode)) {
                                 LayoutChanged();
                             }
+
                             break;
                     }
 
-                    if (_dragAttachMode != NodeAttachMode.None)
-                    {
+                    if (_dragAttachMode != NodeAttachMode.None) {
                         // If cloning a node, its Id should be reset.
-                        if (_copiedNode != null || _clipboardPasteMode)
-                        {
+                        if (_copiedNode != null || _clipboardPasteMode) {
                             // Cross two different behavior files
-                            if (_clipboardPasteMode && _clipboardRootNode != this.RootNodeView)
-                            {
-                                try
-                                {
+                            if (_clipboardPasteMode && _clipboardRootNode != this.RootNodeView) {
+                                try {
                                     // Copy the used Pars from the current behavior to the new one.
-                                    if (_clipboardNode != null && _clipboardRootNode != null)
-                                    {
-                                        bool isParAdded = false;
-                                        foreach (ParInfo par in (_clipboardRootNode.Node).Pars)
-                                        {
+                                    if (_clipboardNode != null && _clipboardRootNode != null && _clipboardRootNode.Node is Behavior) {
+                                        foreach(ParInfo par in((Behavior)(_clipboardRootNode.Node)).LocalVars) {
                                             List<Node.ErrorCheck> result = new List<Node.ErrorCheck>();
                                             Plugin.CheckPar(_clipboardNode, par, ref result);
-                                            if (result.Count > 0)
-                                            {
+
+                                            if (result.Count > 0) {
                                                 bool bExist = false;
-                                                foreach (ParInfo p in ((Node)this.RootNode).Pars)
-                                                {
-                                                    if (p.Name == par.Name)
-                                                    {
+                                                foreach(ParInfo p in((Behavior)this.RootNode).LocalVars) {
+                                                    if (p.Name == par.Name) {
                                                         bExist = true;
                                                         break;
                                                     }
                                                 }
-                                                if (!bExist)
-                                                {
-                                                    isParAdded = true;
-                                                    ((Node)this.RootNode).Pars.Add(par);
+
+                                                if (!bExist) {
+                                                    ((Behavior)this.RootNode).LocalVars.Add(par);
                                                 }
-                                            }
-                                        }
-
-                                        if (isParAdded)
-                                        {
-                                            if (ParSettingsDock.IsVisible())
-                                            {
-                                                ParSettingsDock.Inspect((Node)_rootNode.RootBehavior);
-
-                                                this.Focus();
-                                                this.Parent.Focus();
                                             }
                                         }
                                     }
 
                                     // reset its properties and methods
-                                    sourceNode.ResetMembers(this.RootNode.AgentType, true);
-                                }
-                                catch
-                                {
+                                    sourceNode.ResetMembers(false, this.RootNode.AgentType, true);
+
+                                } catch {
                                 }
                             }
 
@@ -1737,23 +1948,21 @@ namespace Behaviac.Design
                         sourceNode.OnPropertyValueChanged(false);
 
                         // set the prefab dirty for its current parent
-                        if (sourceNode.Parent != null)
-                        {
+                        if (sourceNode.Parent != null) {
                             Node parent = (Node)sourceNode.Parent;
-                            if (!string.IsNullOrEmpty(parent.PrefabName))
-                            {
+
+                            if (!string.IsNullOrEmpty(parent.PrefabName)) {
                                 parent.HasOwnPrefabData = true;
                                 sourceNode.SetPrefab(parent.PrefabName, true);
                             }
                         }
 
-                        UndoManager.Save(this.RootNode, sourceBehavior, _dragTargetNode.Node.Behavior);
+                        UndoManager.Save(this.RootNode);
                     }
                 }
 
                 // reset all the drag data
-                if (!_clipboardPasteMode)
-                {
+                if (!_clipboardPasteMode) {
                     _copiedNode = null;
                     _movedNode = null;
                     _dragTargetNode = null;
@@ -1766,8 +1975,7 @@ namespace Behaviac.Design
             }
 
             // popup the menu for the current hit node
-            else if (e.Button == MouseButtons.Right && !IsPanMode && !KeyAltIsDown && !KeyCtrlIsDown && !KeyShiftIsDown && !_isGraphDragged)
-            {
+            else if (e.Button == MouseButtons.Right && !KeyAltIsDown && !KeyCtrlIsDown && !KeyShiftIsDown) {
                 bool itemEnabled = (SelectedNode != null && SelectedNode.Node.Parent != null);
                 itemEnabled &= (Plugin.EditMode == EditModes.Design);
 
@@ -1775,14 +1983,16 @@ namespace Behaviac.Design
                 deleteTreeMenuItem.ShortcutKeys = Keys.Shift | Keys.Delete;
 
                 cutMenuItem.Enabled = SelectedNodeCanBeCut();
-                cutTreeMenuItem.Enabled = SelectedTreeCanBeCut();
+                cutTreeMenuItem.Enabled = (SelectedNode != null) && !SelectedNode.IsFSM && SelectedTreeCanBeCut();
                 copyMenuItem.Enabled = itemEnabled;
+                copySubtreeMenuItem.Enabled = (SelectedNode != null) && !SelectedNode.IsFSM;
+                pasteMenuItem.Enabled = SelectedNodeCanBePasted();
                 deleteMenuItem.Enabled = SelectedNodeCanBeDeleted();
-                deleteTreeMenuItem.Enabled = SelectedTreeCanBeDeleted();
+                deleteTreeMenuItem.Enabled = (SelectedNode != null) && !SelectedNode.IsFSM && SelectedTreeCanBeDeleted();
 
-                bool isReferencedBehavior = itemEnabled && SelectedNode.Node is ReferencedBehavior;
+                bool isReferencedBehavior = SelectedNode != null && SelectedNode.Node is ReferencedBehavior;
                 bool isEvent = SelectedNode != null && SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject is Attachments.Event;
-                referenceMenuItem.Enabled = itemEnabled || isEvent;
+                referenceMenuItem.Enabled = itemEnabled || isReferencedBehavior || isEvent;
                 referenceMenuItem.Text = (isReferencedBehavior || isEvent) ? Resources.OpenReference : Resources.SaveReference;
 
                 disableMenuItem.Enabled = itemEnabled && SelectedNode.Node.CanBeDisabled();
@@ -1796,8 +2006,7 @@ namespace Behaviac.Design
                 bool isPrefabInstance = SelectedNode != null && !string.IsNullOrEmpty(SelectedNode.Node.PrefabName);
                 breakPrefabMenuItem.Enabled = itemEnabled && isPrefabInstance;
 
-                if (isPrefabInstance)
-                {
+                if (isPrefabInstance) {
                     string fullpath = FileManagers.FileManager.GetFullPath(SelectedNode.Node.PrefabName);
                     isPrefabInstance = File.Exists(fullpath);
                 }
@@ -1805,128 +2014,163 @@ namespace Behaviac.Design
                 savePrefabMenuItem.Enabled = itemEnabled;
                 savePrefabMenuItem.Text = isPrefabInstance ? Resources.OpenPrefab : Resources.SavePrefab;
 
-                if (SelectedNode != null)
-                {
+                if (SelectedNode != null) {
                     Node prefabRoot = SelectedNode.Node.GetPrefabRoot();
                     string relativeFilename = FileManagers.FileManager.GetRelativePath(this.RootNode.Filename);
                     applyMenuItem.Enabled = itemEnabled && isPrefabInstance && SelectedNode.Node.PrefabName != relativeFilename && prefabRoot.IsPrefabDataDirty();
                 }
 
                 breakpointMenuItem.Enabled = SelectedNode != null && SelectedNode.Parent != null;
-                if (SelectedNode != null)
-                {
+
+                if (SelectedNode != null) {
                     enterBreakpointMenuItem.Text = SelectedNode.GetBreakpointOperation(HighlightBreakPoint.kEnter);
                     exitBreakpointMenuItem.Text = SelectedNode.GetBreakpointOperation(HighlightBreakPoint.kExit);
+
+                    this.beakpointPlanning.Visible = false;
+
+                    if (SelectedNode.Node is Task) {
+                        this.beakpointPlanning.Visible = true;
+                        beakpointPlanning.Text = SelectedNode.GetBreakpointOperation(HighlightBreakPoint.kPlanning);
+                    }
                 }
 
                 contextMenu.Show(this, new Point(e.X, e.Y));
             }
 
             Cursor = Cursors.Default;
+            _fsmDragMode = FSMDragModes.kNone;
+
+            // redraw the graph
+            Invalidate();
 
             base.OnMouseUp(e);
         }
 
-        public bool SelectedNodeCanBeCut()
-        {
-            return Plugin.EditMode == EditModes.Design &&
-                SelectedNode != null &&
-                SelectedNode.Node.Parent != null &&
-                SelectedNode.CanBeDeleted();
+        public bool SelectedNodeCanBePasted() {
+            return _clipboardNode != null && _clipboardNode.IsFSM ||
+                   SelectedNode != null &&
+                   (_clipboardSubItem != null &&
+                    _clipboardSubItem.SelectableObject != null &&
+                    SelectedNode.Node.AcceptsAttachment(_clipboardSubItem.SelectableObject.GetType()));
         }
 
-        public bool SelectedTreeCanBeCut()
-        {
+        public bool SelectedNodeCanBeCut() {
+            if (Plugin.EditMode == EditModes.Design && SelectedNode != null) {
+                // node
+                if (SelectedNode.SelectedSubItem == null && SelectedNode.Node.Parent != null) {
+                    return SelectedNode.CanBeDeleted();
+                }
+
+                // attachment
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool SelectedTreeCanBeCut() {
             return SelectedTreeCanBeDeleted();
         }
 
-        public bool SelectedNodeCanBeDeleted()
-        {
+        public bool SelectedNodeCanBeDeleted() {
             return Plugin.EditMode == EditModes.Design &&
-                SelectedNode != null &&
-                (SelectedNode.SelectedSubItem != null ||
-                SelectedNode.Node.Parent != null && SelectedNode.CanBeDeleted());
+                   SelectedNode != null &&
+                   (SelectedNode.SelectedSubItem != null ||
+                    SelectedNode.Node.Parent != null && SelectedNode.CanBeDeleted());
         }
 
-        public bool SelectedTreeCanBeDeleted()
-        {
+        public bool SelectedTreeCanBeDeleted() {
             return Plugin.EditMode == EditModes.Design &&
-                SelectedNode != null &&
-                SelectedNode.Node.Parent != null &&
-                SelectedNode.CanBeDeleted(true);
+                   SelectedNode != null &&
+                   SelectedNode.Node.Parent != null &&
+                   SelectedNode.CanBeDeleted(true);
         }
 
-        /// <summary>
-        /// Holds whether or not the whole graph is dragged.
-        /// </summary>
-        private bool _isGraphDragged = false;
+        enum ObjectDragTypes {
+            kNone,
+            kNode,
+            kAttachment,
+            kGraph
+        }
 
-        /// <summary>
-        /// Holds whether or not a node is dragged.
-        /// </summary>
-        private bool _isNodeDragged = false;
+        private ObjectDragTypes _objectDragType = ObjectDragTypes.kNone;
 
         /// <summary>
         /// Handles when a mouse button was pressed.
         /// </summary>
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
+        protected override void OnMouseDown(MouseEventArgs e) {
             // the graph has not yet been dragged
+            _startMousePosition = e.Location;
             _lastMousePosition = e.Location;
-            _isGraphDragged = false;
-            _isNodeDragged = false;
+            _objectDragType = ObjectDragTypes.kNone;
             _dragAttachment = null;
             _dragTargetAttachment = null;
+            _movedSubItem = null;
+            _fsmDragMode = FSMDragModes.kNone;
 
-            if (!_clipboardPasteMode)
-            {
-                _currentNode = _rootNode.IsInside(_lastMousePosition);
+            if (!_clipboardPasteMode) {
+                _currentNode = _rootNodeView.GetInsideNode(_lastMousePosition);
                 _dragTargetNode = null;
                 _movedNodeGraph = null;
                 _movedNode = null;
-                if (_currentNode != null)
-                {
-                    _isNodeDragged = _currentNode.CanBeDragged() && !KeyCtrlIsDown &&
-                        (KeyShiftIsDown || _currentNode.Node.ParentCanAdoptChildren);
+
+                if (_currentNode != null) {
+                    if (KeyCtrlIsDown || _currentNode.IsFSM || _currentNode.CanBeDragged() &&
+                        (KeyShiftIsDown || _currentNode.Node.ParentCanAdoptChildren)) {
+                        _objectDragType = ObjectDragTypes.kNode;
+                    }
                 }
-            }
-            else
-            {
-                if (_currentNode == null)
-                {
-                    _currentNode = _rootNode.IsInside(e.Location);
+
+            } else {
+                if (_currentNode == null) {
+                    _currentNode = _rootNodeView.GetInsideNode(_lastMousePosition);
                 }
-                if (_dragTargetNode == null)
-                {
+
+                if (_dragTargetNode == null) {
                     _dragTargetNode = _currentNode;
                 }
             }
 
-            // update the mouse cursor when dragging nodes
-            if (IsPanMode || e.Button == MouseButtons.Middle)
-            {
-                _panStartMousePosition = e.Location;
-
-                Cursor = (e.Button == MouseButtons.Right) ? Cursors.NoMove2D : Cursors.SizeAll;
-            }
-            else if (e.Button == MouseButtons.Left && _currentNode != null)
-            {
+            if (e.Button == MouseButtons.Left && _currentNode != null) {
                 Debug.Check(_nodeLayoutManager != null);
                 NodeViewData.SubItem subItem = _currentNode.GetSubItem(_currentNode, _nodeLayoutManager.ViewToGraph(e.Location));
                 NodeViewData.SubItemAttachment attach = subItem as NodeViewData.SubItemAttachment;
-                if (attach != null && attach.IsSelected)
-                {
-                    _isNodeDragged = false;
+
+                if (attach != null && attach.IsSelected) {
+                    _objectDragType = ObjectDragTypes.kAttachment;
+                }
+
+                PointF graphMousePos = _nodeLayoutManager.ViewToGraph(_lastMousePosition);
+                NodeViewData.RangeType rangeType = _currentNode.CheckFSMArrowRange(graphMousePos, out _fsmSubItem, out _fsmItemBoundingBox);
+
+                if (rangeType != NodeViewData.RangeType.kNode) {
+                    _objectDragType = ObjectDragTypes.kNone;
+
+                    if (Plugin.EditMode == EditModes.Design)
+                    {
+                        if (rangeType == NodeViewData.RangeType.kFSMLeftArrow)
+                        {
+                            _fsmDragMode = FSMDragModes.kLeft;
+                        }
+
+                        else if (rangeType == NodeViewData.RangeType.kFSMRightArrow)
+                        {
+                            _fsmDragMode = FSMDragModes.kRight;
+                        }
+                    }
                 }
             }
 
+            if (_currentNode == null) {
+                _objectDragType = ObjectDragTypes.kGraph;
+            }
+
             // focus the view if not focused
-            if (!Focused)
-            {
+            if (!Focused) {
                 // we focus twice to avoid an issue with focusing the view
                 Parent.Focus();
 
-				//OnMouseDown will cal OnGotFocus as well
+                //OnMouseDown will cal OnGotFocus as well
                 //Focus();
             }
 
@@ -1947,18 +2191,17 @@ namespace Behaviac.Design
         /// </summary>
         public ClickEventEventDelegate ClickEvent;
 
-        /// <summary>
-        /// Handles when the user performs a click.
-        /// </summary>
-        protected override void OnMouseClick(MouseEventArgs e)
+        private void mouseClicked(MouseEventArgs e)
         {
             // check if the user did not drag the graph and clicked it instead
-            if (!_isGraphDragged && (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right))
+            if ((e.Button == MouseButtons.Left || e.Button == MouseButtons.Right) && (_startMousePosition == e.Location))
             {
+                PointF graphMousePos = _nodeLayoutManager.ViewToGraph(e.Location);
+
                 if (e.Button == MouseButtons.Left && _currentNode != null && _dragAttachment == null)
                 {
-                    PointF graphMousePos = _nodeLayoutManager.ViewToGraph(e.Location);
                     bool layoutChanged = false;
+
                     if (_currentNode.OnClick(KeyCtrlIsDown, graphMousePos, out layoutChanged))
                     {
                         if (layoutChanged)
@@ -1979,13 +2222,36 @@ namespace Behaviac.Design
                 // assign the new selected node. Checks if the selected node is already this one.
                 SelectedNode = _currentNode;
 
-                // check if we click the event
                 if (clickEvent)
                 {
                     // perform click event on the node as the node's have to handle their events.
                     SelectedNode.ClickEvent(SelectedNode, _nodeLayoutManager.ViewToGraph(e.Location));
                     Invalidate();
 
+                }
+                else
+                {
+                    Pen pen = _nodeLayoutManager.EdgePen.Clone() as Pen;
+                    pen.Width = pen.Width * 4;
+                    NodeViewData.SubItemAttachment attach = this.RootNodeView.GetSubItemByDrawnPath(graphMousePos, pen);
+
+                    if (attach != null)
+                    {
+                        NodeViewData nvd = this.RootNodeView.FindNodeViewData(attach.Attachment.Node);
+
+                        if (nvd != null)
+                        {
+                            SelectedNode = nvd;
+                            nvd.SelectedSubItem = attach;
+
+                            clickEvent = true;
+                        }
+                    }
+                }
+
+                // check if we click the event
+                if (clickEvent)
+                {
                     // call the ClickEvent event handler
                     if (ClickEvent != null)
                     {
@@ -2001,22 +2267,33 @@ namespace Behaviac.Design
                     return;
                 }
             }
+        }
+
+        /// <summary>
+        /// Handles when the user performs a click.
+        /// </summary>
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            mouseClicked(e);
 
             base.OnMouseClick(e);
         }
 
-        private void RefreshProperty()
-        {
-            if (BehaviorTreeViewDock.LastFocused == null || BehaviorTreeViewDock.LastFocused.BehaviorTreeView != this)
+        private void RefreshProperty() {
+            if (BehaviorTreeViewDock.LastFocused == null || BehaviorTreeViewDock.LastFocused.BehaviorTreeView != this) {
                 return;
+            }
 
             object selectedNode = null;
-            if (SelectedNode != null)
-            {
-                if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject != null)
+
+            if (SelectedNode != null) {
+                if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject != null) {
                     selectedNode = SelectedNode.SelectedSubItem.SelectableObject;
-                else
+                }
+
+                else {
                     selectedNode = SelectedNode.Node;
+                }
             }
 
             PropertiesDock.InspectObject(this.RootNode, selectedNode);
@@ -2025,53 +2302,53 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when the user doucle-clicks.
         /// </summary>
-        protected override void OnMouseDoubleClick(MouseEventArgs e)
-        {
+        protected override void OnMouseDoubleClick(MouseEventArgs e) {
             // when the user double-clicked a node and the graph was not dragged and it was the left mouse button, continue
-            if (_currentNode != null && !_isGraphDragged && e.Button == MouseButtons.Left)
-            {
+            if (_currentNode != null && e.Button == MouseButtons.Left) {
                 // call double-clicked on the node
                 PointF graphMousePos = _nodeLayoutManager.ViewToGraph(e.Location);
                 bool layoutChanged = false;
-                if (_currentNode.OnDoubleClick(graphMousePos, out layoutChanged))
-                {
+
+                if (_currentNode.OnDoubleClick(graphMousePos, out layoutChanged)) {
                     // check if the node requires the layout to be updated, for example when expanding or collapsing referenced behaviours
-                    if (layoutChanged)
-                    {
+                    if (layoutChanged) {
                         // keep the position of the current node
                         KeepNodePosition(_currentNode);
 
                         LayoutChanged();
-                    }
-                    else
-                    {
+
+                    } else {
                         Invalidate();
                     }
                 }
+                else if (!_currentNode.CanBeExpanded())
+                {
+                    openReferenceBehavior(false);
+                }
             }
-            else
-            {
-                base.OnMouseDoubleClick(e);
-            }
+
+            base.OnMouseDoubleClick(e);
         }
 
-        private bool SwitchSelection()
-        {
-            if (SelectedNode != null)
-            {
-                if (SelectedNode.SelectedSubItem == null) // Node -> Attachment
-                {
+        private bool SwitchSelection() {
+            if (SelectedNode != null) {
+                if (SelectedNode.SelectedSubItem == null) { // Node -> Attachment
                     SelectedNode.SelectFirstSubItem();
-                    if (SelectedNode.SelectedSubItem != null && ClickEvent != null)
+
+                    if (SelectedNode.SelectedSubItem != null && ClickEvent != null) {
                         ClickEvent(SelectedNode);
-                    else
+                    }
+
+                    else {
                         return false;
-                }
-                else // Attachment -> Node
-                {
+                    }
+
+                } else { // Attachment -> Node
                     SelectedNode.SelectedSubItem = null;
-                    if (ClickNode != null)
+
+                    if (ClickNode != null) {
                         ClickNode(SelectedNode);
+                    }
                 }
 
                 return true;
@@ -2080,28 +2357,23 @@ namespace Behaviac.Design
             return false;
         }
 
-        private void MoveNode(bool insertPreviously)
-        {
-            if (SelectedNode != null)
-            {
+        private void MoveNode(bool insertPreviously) {
+            if (SelectedNode != null) {
                 Node node = SelectedNode.Node as Node;
                 Node parent = node.Parent as Node;
                 BaseNode.Connector connector = node.ParentConnector;
 
-                if (parent != null && connector != null)
-                {
+                if (parent != null && connector != null) {
                     int n = connector.GetChildIndex(node);
                     Debug.Check(n >= 0 && n < connector.ChildCount);
 
-                    if (insertPreviously)
-                    {
+                    if (insertPreviously) {
                         Debug.Check(n > 0);
 
                         parent.RemoveChild(connector, node);
                         parent.AddChild(connector, node, n - 1);
-                    }
-                    else
-                    {
+
+                    } else {
                         Debug.Check(n < connector.ChildCount - 1);
 
                         parent.RemoveChild(connector, node);
@@ -2112,12 +2384,11 @@ namespace Behaviac.Design
                     _selectedNodePendingParent = SelectedNode.Parent;
 
                     // set the prefab dirty for the current node
-                    if (!string.IsNullOrEmpty(node.PrefabName))
-                    {
+                    if (!string.IsNullOrEmpty(node.PrefabName)) {
                         node.HasOwnPrefabData = true;
                     }
 
-                    UndoManager.Save(this.RootNode, node.Behavior);
+                    UndoManager.Save(this.RootNode);
                 }
             }
         }
@@ -2125,41 +2396,40 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when a key is released.
         /// </summary>
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
+        protected override void OnKeyUp(KeyEventArgs e) {
+            switch (e.KeyCode) {
                 case (Keys.Enter):
-                    if (SelectedNode != null)
-                    {
-                        if (KeyCtrlIsDown)
+                    if (SelectedNode != null) {
+                        if (KeyCtrlIsDown) {
                             SelectedNode.ExpandAll(!SelectedNode.IsExpanded);
-                        else
+                        }
+
+                        else {
                             SelectedNode.IsExpanded = !SelectedNode.IsExpanded;
+                        }
 
                         LayoutChanged();
 
                         e.Handled = true;
                     }
+
                     break;
 
-                // store when the alt key is released
-                case (Keys.Menu):
-                    IsPanMode = false;
-                    break;
-
-                // store when the shift key is released
+                    // store when the shift key is released
                 case (Keys.ShiftKey):
+
                     // update the drawn graph for dragging and duplicating
-                    if (_movedNodeGraph != null)
-                    {
+                    if (_movedNodeGraph != null) {
                         _movedNodeGraph.RenderDepth = 0;
                         Invalidate();
                     }
+
                     break;
 
-                // paste from clipboard
+                    // paste from clipboard
                 case (Keys.V):
+                    PasteSelectedNode();
+
                     _clipboardPasteMode = false;
 
                     // reset all the drag data
@@ -2177,80 +2447,85 @@ namespace Behaviac.Design
                 case (Keys.Right):
                 case (Keys.Up):
                 case (Keys.Down):
-                    if (SelectedNode == null)
+                    if (e.Control)
                     {
+                        break;
+                    }
+
+                    if (SelectedNode == null) {
                         SelectedNode = this.RootNodeView;
-                        if (ClickNode != null)
+
+                        if (ClickNode != null) {
                             ClickNode(SelectedNode);
+                        }
 
                         LayoutChanged();
                         break;
                     }
 
-                    switch (e.KeyCode)
-                    {
+                    switch (e.KeyCode) {
                         case (Keys.Left):
-                            if (SelectedNode != null && SelectedNode.Parent != null)
-                            {
+                            if (SelectedNode != null && SelectedNode.Parent != null) {
                                 SelectedNode = SelectedNode.Parent;
-                                if (ClickNode != null)
+
+                                if (ClickNode != null) {
                                     ClickNode(SelectedNode);
+                                }
 
                                 LayoutChanged();
                             }
+
                             break;
 
                         case (Keys.Right):
-                            if (SelectedNode != null && SelectedNode.Children.Count > 0)
-                            {
+                            if (SelectedNode != null && SelectedNode.Children.Count > 0) {
                                 SelectedNode = SelectedNode.Children[0] as NodeViewData;
-                                if (ClickNode != null)
+
+                                if (ClickNode != null) {
                                     ClickNode(SelectedNode);
+                                }
 
                                 LayoutChanged();
                             }
+
                             break;
 
                         case (Keys.Up):
-                            if (SelectedNode != null)
-                            {
-                                if (!KeyShiftIsDown || !SwitchSelection())
-                                {
+                            if (SelectedNode != null) {
+                                if (!KeyShiftIsDown || !SwitchSelection()) {
                                     // Node
-                                    if (SelectedNode.SelectedSubItem == null)
-                                    {
-                                        if (SelectedNode.PreviousNode != null)
-                                        {
-                                            if (KeyCtrlIsDown) // Move
-                                            {
+                                    if (SelectedNode.SelectedSubItem == null) {
+                                        if (SelectedNode.PreviousNode != null) {
+                                            if (KeyCtrlIsDown) { // Move
                                                 MoveNode(true);
-                                            }
-                                            else // Select
-                                            {
+
+                                            } else { // Select
                                                 SelectedNode = SelectedNode.PreviousNode as NodeViewData;
-                                                if (ClickNode != null)
+
+                                                if (ClickNode != null) {
                                                     ClickNode(SelectedNode);
+                                                }
                                             }
                                         }
                                     }
+
                                     // Attachment
-                                    else
-                                    {
+                                    else {
                                         NodeViewData.SubItem previousItem = SelectedNode.PreviousSelectedSubItem;
-                                        if (previousItem != null)
-                                        {
-                                            if (KeyCtrlIsDown) // Move
-                                            {
+
+                                        if (previousItem != null) {
+                                            if (KeyCtrlIsDown) { // Move
                                                 NodeViewData.SubItemAttachment sourceItem = SelectedNode.SelectedSubItem as NodeViewData.SubItemAttachment;
                                                 NodeViewData.SubItemAttachment targetItem = previousItem as NodeViewData.SubItemAttachment;
-                                                MoveSubItem(SelectedNode, sourceItem, targetItem, true);
+                                                MoveSubItem(SelectedNode, SelectedNode, sourceItem, targetItem, true, false);
                                                 SelectedNode.SelectedSubItem = sourceItem;
-                                            }
-                                            else // Select
-                                            {
+
+                                            } else { // Select
                                                 SelectedNode.SelectedSubItem = previousItem;
-                                                if (ClickEvent != null)
+
+                                                if (ClickEvent != null) {
                                                     ClickEvent(SelectedNode);
+                                                }
                                             }
                                         }
                                     }
@@ -2258,48 +2533,45 @@ namespace Behaviac.Design
 
                                 LayoutChanged();
                             }
+
                             break;
 
                         case (Keys.Down):
-                            if (SelectedNode != null)
-                            {
-                                if (!KeyShiftIsDown || !SwitchSelection())
-                                {
+                            if (SelectedNode != null) {
+                                if (!KeyShiftIsDown || !SwitchSelection()) {
                                     // Node
-                                    if (SelectedNode.SelectedSubItem == null)
-                                    {
-                                        if (SelectedNode.NextNode != null)
-                                        {
-                                            if (KeyCtrlIsDown) // Move
-                                            {
+                                    if (SelectedNode.SelectedSubItem == null) {
+                                        if (SelectedNode.NextNode != null) {
+                                            if (KeyCtrlIsDown) { // Move
                                                 MoveNode(false);
-                                            }
-                                            else // Select
-                                            {
+
+                                            } else { // Select
                                                 SelectedNode = SelectedNode.NextNode as NodeViewData;
-                                                if (ClickNode != null)
+
+                                                if (ClickNode != null) {
                                                     ClickNode(SelectedNode);
+                                                }
                                             }
                                         }
                                     }
+
                                     // Attachment
-                                    else
-                                    {
+                                    else {
                                         NodeViewData.SubItem nextItem = SelectedNode.NextSelectedSubItem;
-                                        if (nextItem != null)
-                                        {
-                                            if (KeyCtrlIsDown) // Move
-                                            {
+
+                                        if (nextItem != null) {
+                                            if (KeyCtrlIsDown) { // Move
                                                 NodeViewData.SubItemAttachment sourceItem = SelectedNode.SelectedSubItem as NodeViewData.SubItemAttachment;
                                                 NodeViewData.SubItemAttachment targetItem = nextItem as NodeViewData.SubItemAttachment;
-                                                MoveSubItem(SelectedNode, sourceItem, targetItem, false);
+                                                MoveSubItem(SelectedNode, SelectedNode, sourceItem, targetItem, false, false);
                                                 SelectedNode.SelectedSubItem = sourceItem;
-                                            }
-                                            else // Select
-                                            {
+
+                                            } else { // Select
                                                 SelectedNode.SelectedSubItem = nextItem;
-                                                if (ClickEvent != null)
+
+                                                if (ClickEvent != null) {
                                                     ClickEvent(SelectedNode);
+                                                }
                                             }
                                         }
                                     }
@@ -2307,8 +2579,10 @@ namespace Behaviac.Design
 
                                 LayoutChanged();
                             }
+
                             break;
                     }
+
                     break;
 
                 default:
@@ -2320,53 +2594,54 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when a key is pressed.
         /// </summary>
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                // store when the alt key is pressed
-                case (Keys.Menu):
-                    IsPanMode = true;
-                    break;
-
-                // store when the control key is pressed
+        protected override void OnKeyDown(KeyEventArgs e) {
+            switch (e.KeyCode) {
+                    // store when the control key is pressed
                 case (Keys.ControlKey):
-                    if (_copiedNode == null && _movedNode == null)
-                    {
+                    if (_copiedNode == null && _movedNode == null) {
                         Cursor = Cursors.Default;
                     }
+
                     break;
 
-                // store when the shift key is pressed
+                    // store when the shift key is pressed
                 case (Keys.ShiftKey):
+
                     // update the drawn graph for dragging and duplicating
-                    if (_movedNodeGraph != null)
-                    {
+                    if (_movedNodeGraph != null) {
                         _movedNodeGraph.RenderDepth = int.MaxValue;
                         Invalidate();
                     }
+
                     break;
 
-                // copy to clipboard
-                case (Keys.C):
-                    if (KeyCtrlIsDown)
-                    {
-                        CopySelectedNode();
+                    // cut to clipboard
+                case (Keys.X):
+                    if (KeyCtrlIsDown) {
+                        CutSelectedNode(KeyShiftIsDown);
                     }
+
                     break;
 
-                // paste from clipboard
+                    // copy to clipboard
+                case (Keys.C):
+                    if (KeyCtrlIsDown) {
+                        CopySelectedNode(KeyShiftIsDown);
+                    }
+
+                    break;
+
+                    // paste from clipboard
                 case (Keys.V):
-                    if (!_clipboardPasteMode)
-                    {
+                    if (!_clipboardPasteMode) {
                         _clipboardPasteMode = KeyCtrlIsDown && _clipboardNode != null;
 
-                        if (_clipboardPasteMode)
-                        {
+                        if (_clipboardPasteMode) {
                             // create the layout manager used to draw the graph
-                            _movedNodeGraph = new NodeLayoutManager(_clipboardNode.CloneBranch().CreateNodeViewData(null, _rootNode.RootBehavior), _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenHighlight, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, true);
+                            _movedNodeGraph = new NodeLayoutManager(_clipboardNode.CloneBranch().CreateNodeViewData(null, _rootNodeView.RootBehavior), _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenSelected, _nodeLayoutManager.EdgePenHighlighted, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, true);
                             _movedNodeGraph.Scale = 0.3f;
-                            _movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
+                            //_movedNodeGraph.RenderDepth = KeyShiftIsDown ? int.MaxValue : 0;
+                            _movedNodeGraph.RenderDepth = int.MaxValue;
 
                             // use the existing node as the node defaults
                             _dragNodeDefaults = _clipboardNode;
@@ -2374,56 +2649,102 @@ namespace Behaviac.Design
                             Invalidate();
                         }
                     }
+
                     break;
 
-                // cut to clipboard
-                case (Keys.X):
-                    if (KeyCtrlIsDown)
-                    {
-                        CutSelectedNode(KeyShiftIsDown);
-                    }
-                    break;
-
-                // handle when the delete key is pressed
+                    // handle when the delete key is pressed
                 case (Keys.Delete):
                     DeleteSelectedNode(KeyShiftIsDown);
                     break;
 
                 case (Keys.E):
-                    if (e.Control)
-                    {
-                        CenterNode(_rootNode);
+                    if (e.Control) {
+                        CenterNode(_rootNodeView);
                     }
+
+                    break;
+
+                case (Keys.Oemplus):
+                    if (e.Control) {
+                        scaleGraph(0.1f * _nodeLayoutManager.Scale, false);
+                    }
+
+                    break;
+
+                case (Keys.OemMinus):
+                    if (e.Control) {
+                        scaleGraph(-0.1f * _nodeLayoutManager.Scale, false);
+                    }
+
                     break;
 
                 case (Keys.K):
-                    if (e.Control)
-                    {
-                        CheckErrors(_rootNode.RootBehavior, false);
+                    if (e.Control) {
+                        CheckErrors(_rootNodeView.RootBehavior, false);
                     }
+
                     break;
 
                 case (Keys.F9):
-                    if (SelectedNode != null)
-                    {
-                        if (e.Shift)
-                        {
+                    if (SelectedNode != null) {
+                        if (e.Shift) {
                             SelectedNode.SetBreakpoint(HighlightBreakPoint.kExit);
-                        }
-                        else
-                        {
+
+                        } else if (e.Control) {
+                            SelectedNode.SetBreakpoint(HighlightBreakPoint.kPlanning);
+
+                        } else {
                             SelectedNode.SetBreakpoint(HighlightBreakPoint.kEnter);
                         }
+
                         LayoutChanged();
+                    }
+
+                    break;
+
+                case (Keys.F8):
+                    toggleEnableNode();
+                    break;
+
+                case (Keys.Left):
+                case (Keys.Right):
+                case (Keys.Up):
+                case (Keys.Down):
+                    if (e.Control)
+                    {
+                        switch (e.KeyCode)
+                        {
+                            case (Keys.Left):
+                                _nodeLayoutManager.Offset = new PointF(_nodeLayoutManager.Offset.X - 10, _nodeLayoutManager.Offset.Y);
+                                Invalidate();
+                                break;
+
+                            case (Keys.Right):
+                                _nodeLayoutManager.Offset = new PointF(_nodeLayoutManager.Offset.X + 10, _nodeLayoutManager.Offset.Y);
+                                Invalidate();
+                                break;
+
+                            case (Keys.Up):
+                                _nodeLayoutManager.Offset = new PointF(_nodeLayoutManager.Offset.X, _nodeLayoutManager.Offset.Y - 10);
+                                Invalidate();
+                                break;
+
+                            case (Keys.Down):
+                                _nodeLayoutManager.Offset = new PointF(_nodeLayoutManager.Offset.X, _nodeLayoutManager.Offset.Y + 10);
+                                Invalidate();
+                                break;
+                        }
+                        break;
                     }
                     break;
 
-                default: base.OnKeyDown(e); break;
+                default:
+                    base.OnKeyDown(e);
+                    break;
             }
         }
 
-        protected override bool ProcessKeyPreview(ref Message msg)
-        {
+        protected override bool ProcessKeyPreview(ref Message msg) {
             const int WM_KEYDOWN = 0x100;
             const int WM_SYSKEYDOWN = 0x104;
             const int WM_KEYUP = 0x101;
@@ -2434,74 +2755,71 @@ namespace Behaviac.Design
 
             emptyButton.Focus();
 
-            if (msg.Msg == WM_KEYDOWN || msg.Msg == WM_SYSKEYDOWN)
-            {
+            if (msg.Msg == WM_KEYDOWN || msg.Msg == WM_SYSKEYDOWN) {
                 OnKeyDown(e);
-            }
-            else if (msg.Msg == WM_KEYUP || msg.Msg == WM_SYSKEYUP)
-            {
+
+            } else if (msg.Msg == WM_KEYUP || msg.Msg == WM_SYSKEYUP) {
                 OnKeyUp(e);
             }
 
-            if (e.Handled)
-            {
+            if (e.Handled) {
                 return true;
             }
 
             return base.ProcessKeyPreview(ref msg);
         }
 
-        private void altDragButton_Click(object sender, EventArgs e)
-        {
-            if (!KeyAltIsDown)
-            {
-                IsPanMode = !IsPanMode;
-            }
+        private void fitToViewButton_Click(object sender, EventArgs e) {
+            CenterNode(_rootNodeView);
 
             emptyButton.Focus();
         }
 
-        private void fitToViewButton_Click(object sender, EventArgs e)
-        {
-            CenterNode(_rootNode);
+        private void zoomInButton_Click(object sender, EventArgs e) {
+            scaleGraph(0.1f * _nodeLayoutManager.Scale, false);
 
             emptyButton.Focus();
         }
 
-        private void fitToViewMenuItem_Click(object sender, EventArgs e)
-        {
-            CenterNode(_rootNode);
+        private void zoomOutButton_Click(object sender, EventArgs e) {
+            scaleGraph(-0.1f * _nodeLayoutManager.Scale, false);
+
+            emptyButton.Focus();
         }
 
-        private void disableMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
-            {
+        private void fitToViewMenuItem_Click(object sender, EventArgs e) {
+            CenterNode(_rootNodeView);
+        }
+
+        private void toggleEnableNode() {
+            if (SelectedNode != null) {
                 Debug.Check(SelectedNode.Node != null);
                 SelectedNode.Node.Enable = !SelectedNode.Node.Enable;
 
-                SelectedNode.Node.BehaviorWasModified();
                 if (ClickNode != null)
+                {
                     ClickNode(SelectedNode);
+                }
 
-                UndoManager.Save(this.RootNode, SelectedNode.Node.Behavior);
+                UndoManager.Save(this.RootNode);
             }
         }
 
-        private void KeepNodePosition(NodeViewData nvd)
-        {
+        private void disableMenuItem_Click(object sender, EventArgs e) {
+            toggleEnableNode();
+        }
+
+        private void KeepNodePosition(NodeViewData nvd) {
             // keep the position of the current node
-            if (nvd != null)
+            if (nvd != null && !nvd.IsFSM)
             {
                 _maintainNodePosition = nvd;
                 _graphOrigin = _maintainNodePosition.DisplayBoundingBox.Location;
             }
         }
 
-        private void expandMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
-            {
+        private void expandMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
                 SelectedNode.IsExpanded = true;
 
                 KeepNodePosition(SelectedNode);
@@ -2509,10 +2827,8 @@ namespace Behaviac.Design
             }
         }
 
-        private void collapseMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
-            {
+        private void collapseMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
                 SelectedNode.IsExpanded = false;
 
                 KeepNodePosition(SelectedNode);
@@ -2520,10 +2836,8 @@ namespace Behaviac.Design
             }
         }
 
-        private void expandAllMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
-            {
+        private void expandAllMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
                 SelectedNode.ExpandAll(true);
 
                 KeepNodePosition(SelectedNode);
@@ -2531,10 +2845,8 @@ namespace Behaviac.Design
             }
         }
 
-        private void collapseAllMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
-            {
+        private void collapseAllMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
                 SelectedNode.ExpandAll(false);
 
                 KeepNodePosition(SelectedNode);
@@ -2542,82 +2854,143 @@ namespace Behaviac.Design
             }
         }
 
-        private void cutMenuItem_Click(object sender, EventArgs e)
-        {
+        private void cutMenuItem_Click(object sender, EventArgs e) {
             CutSelectedNode();
         }
 
-        private void cutTreeMenuItem_Click(object sender, EventArgs e)
-        {
+        private void cutTreeMenuItem_Click(object sender, EventArgs e) {
             CutSelectedNode(true);
         }
 
-        private void copyMenuItem_Click(object sender, EventArgs e)
-        {
+        private void copyMenuItem_Click(object sender, EventArgs e) {
             CopySelectedNode();
         }
 
-        private void deleteMenuItem_Click(object sender, EventArgs e)
-        {
+        private void copySubtreeMenuItem_Click(object sender, EventArgs e) {
+            CopySelectedNode(true);
+        }
+
+        private void pasteMenuItem_Click(object sender, EventArgs e) {
+            PasteSelectedNode();
+        }
+
+        private void deleteMenuItem_Click(object sender, EventArgs e) {
             DeleteSelectedNode();
         }
 
-        private void deleteTreeMenuItem_Click(object sender, EventArgs e)
-        {
+        private void deleteTreeMenuItem_Click(object sender, EventArgs e) {
             DeleteSelectedNode(true);
         }
 
-        public void CutSelectedNode(bool cutSubTree = false)
-        {
-            if (SelectedNode == null || Plugin.EditMode != EditModes.Design)
+        public void CutSelectedNode(bool cutSubTree = false) {
+            if (SelectedNode == null || Plugin.EditMode != EditModes.Design) {
                 return;
+            }
 
-            _clipboardRootNode = this.RootNodeView;
-            if (SelectedNode.Node is ReferencedBehavior)
-            {
-                _clipboardNode = (Node)SelectedNode.Node;
-            }
-            else
-            {
-                _clipboardNode = cutSubTree ? (Node)SelectedNode.Node.CloneBranch() : (Node)SelectedNode.Node.Clone();
-            }
+            CopySelectedNode(cutSubTree);
 
             DeleteSelectedNode(cutSubTree);
         }
 
-        public void CopySelectedNode()
-        {
-            if (SelectedNode == null || Plugin.EditMode != EditModes.Design)
+        public void CopySelectedNode(bool copySubTree = false) {
+            if (SelectedNode == null || Plugin.EditMode != EditModes.Design) {
                 return;
+            }
 
             _clipboardRootNode = this.RootNodeView;
-            if (SelectedNode.Node is ReferencedBehavior)
-            {
-                _clipboardNode = (Node)SelectedNode.Node;
-            }
-            else
-            {
-                _clipboardNode = (Node)SelectedNode.Node.CloneBranch();
+            _clipboardNode = null;
+            _clipboardSubItem = null;
+
+            if (SelectedNode.SelectedSubItem == null) {
+                if (SelectedNode.Node is ReferencedBehavior) {
+                    _clipboardNode = (Node)SelectedNode.Node;
+                }
+
+                else {
+                    _clipboardNode = copySubTree ? (Node)SelectedNode.Node.CloneBranch() : (Node)SelectedNode.Node.Clone();
+                }
+
+            } else {
+                _clipboardSubItem = SelectedNode.SelectedSubItem;
             }
         }
 
-        private void removeBreakpoints(NodeViewData nvd, bool removeChildren)
-        {
-            if (nvd == null || RootNode == null || string.IsNullOrEmpty(RootNode.Filename))
+        public void PasteSelectedNode() {
+            if (Plugin.EditMode != EditModes.Design) {
                 return;
+            }
+
+            if (_clipboardNode != null) {
+                if (_clipboardNode.IsFSM) {
+                    Node newnode = (Node)_clipboardNode.Clone();
+
+                    // clear all targets
+                    foreach(Attachments.Attachment attach in newnode.Attachments) {
+                        if (attach.IsFSM) {
+                            attach.TargetFSMNodeId = int.MinValue;
+                        }
+                    }
+
+                    this.addFSMNode(newnode, _lastMousePosition);
+
+                    newnode.ResetId(true);
+
+                    // automatically select the new node
+                    _selectedNodePending = newnode;
+
+                    UndoManager.Save(this.RootNode);
+
+                    LayoutChanged();
+                }
+
+            } else if (_clipboardSubItem != null && _clipboardSubItem.SelectableObject != null) {
+                if (SelectedNode != null) {
+                    Attachments.Attachment attach = _clipboardSubItem.SelectableObject as Attachments.Attachment;
+
+                    if (attach != null && SelectedNode.Node.AcceptsAttachment(attach.GetType())) {
+                        attach = attach.Clone(SelectedNode.Node);
+                        attach.ResetId();
+
+                        // clear its target
+                        if (attach.IsFSM) {
+                            attach.TargetFSMNodeId = int.MinValue;
+                        }
+
+                        SelectedNode.Node.AddAttachment(attach);
+
+                        SelectedNode.SelectedSubItem = _clipboardSubItem.Clone(SelectedNode.Node);
+                        SelectedNode.AddSubItem(SelectedNode.SelectedSubItem);
+
+                        if (ClickEvent != null) {
+                            ClickEvent(SelectedNode);
+                        }
+
+                        UndoManager.Save(this.RootNode);
+
+                        LayoutChanged();
+                    }
+                }
+            }
+        }
+
+        private void removeBreakpoints(NodeViewData nvd, bool removeChildren) {
+            if (nvd == null || RootNode == null || string.IsNullOrEmpty(RootNode.Filename)) {
+                return;
+            }
 
             string behaviorFilename = RootNode.MakeRelative(RootNode.Filename);
-            if (string.IsNullOrEmpty(behaviorFilename))
+
+            if (string.IsNullOrEmpty(behaviorFilename)) {
                 return;
+            }
 
             string[] actionNames = { HighlightBreakPoint.kEnter, HighlightBreakPoint.kExit };
             string fullId = nvd.FullId;
 
-            foreach (string actionName in actionNames)
-            {
+            foreach(string actionName in actionNames) {
                 DebugDataPool.BreakPoint breakPoint = DebugDataPool.FindBreakPoint(behaviorFilename, fullId, actionName);
-                if (breakPoint != null)
-                {
+
+                if (breakPoint != null) {
                     DebugDataPool.Action action = breakPoint.FindAction(actionName);
                     Debug.Check(action != null);
 
@@ -2625,128 +2998,155 @@ namespace Behaviac.Design
                 }
             }
 
-            if (removeChildren)
-            {
-                foreach (BaseNode child in nvd.Children)
-                {
+            if (removeChildren) {
+                foreach(BaseNode child in nvd.Children) {
                     NodeViewData childNvd = child as NodeViewData;
-                    if (childNvd != null)
+
+                    if (childNvd != null) {
                         removeBreakpoints(childNvd, removeChildren);
+                    }
                 }
             }
         }
 
-        public void DeleteSelectedNode(bool deleteSubTree = false)
-        {
-            if (SelectedNode == null || Plugin.EditMode != EditModes.Design)
+        public void DeleteSelectedNode(bool deleteSubTree = false) {
+            if (SelectedNode == null || Plugin.EditMode != EditModes.Design) {
                 return;
+            }
 
             deleteSubTree &= SelectedNode.CanBeDeleted(true);
 
             // when we have a node selected which is not the root node, continue
-            if (SelectedNode != null && (SelectedNode.SelectedSubItem != null || SelectedNode.Node.Parent != null))
-            {
+            if (SelectedNode != null && (SelectedNode.SelectedSubItem != null || SelectedNode.Node.Parent != null)) {
                 BehaviorNode sourceBehavior = SelectedNode.Node.Behavior;
 
                 // check whether we have to delete an event or a node
-                if (SelectedNode.SelectedSubItem == null)
-                {
-                    if (deleteSubTree || SelectedNode.CanBeDeleted())
-                    {
+                if (SelectedNode.SelectedSubItem == null) {
+                    if (deleteSubTree || SelectedNode.CanBeDeleted()) {
                         // store the selected node
                         Node node = SelectedNode.Node;
 
-                        if (node.Parent != null)
-                        {
+                        if (node.Parent != null) {
                             Node parent = (Node)node.Parent;
-                            if (!string.IsNullOrEmpty(parent.PrefabName))
-                            {
+
+                            if (!string.IsNullOrEmpty(parent.PrefabName)) {
                                 parent.HasOwnPrefabData = true;
                             }
                         }
 
                         // select the next node automatically
-                        if (node.NextNode != null)
-                        {
+                        if (node.NextNode != null) {
                             _selectedNodePending = node.NextNode as Node;
                             _selectedNodePendingParent = SelectedNode.Parent;
-                        }
-                        else if (node.PreviousNode != null)
-                        {
+
+                        } else if (node.PreviousNode != null) {
                             _selectedNodePending = node.PreviousNode as Node;
                             _selectedNodePendingParent = SelectedNode.Parent;
-                        }
-                        else if (node.Parent != null)
-                        {
+
+                        } else if (node.Parent != null) {
                             _selectedNodePending = node.Parent as Node;
                             _selectedNodePendingParent = SelectedNode.Parent != null ? SelectedNode.Parent.Parent : null;
-                        }
-                        else
-                        {
+
+                        } else {
                             _selectedNodePending = null;
                             _selectedNodePendingParent = null;
                         }
 
-                        if (deleteSubTree)
-                        {
-                            // remove the node
-                            ((Node)node.Parent).RemoveChild(node.ParentConnector, node);
+                        bool isDeleted = false;
 
-                            // keep the root node in the view
-                            KeepNodePosition(RootNodeView);
+                        if (deleteSubTree) {
+                            if (node.Parent != null) {
+                                ((Node)node.Parent).RemoveChild(node.ParentConnector, node);
 
-                            // remove all breakpoints
-                            removeBreakpoints(SelectedNode, true);
-                        }
-                        else if (node.ExtractNode())
-                        {
+                                // keep the root node in the view
+                                KeepNodePosition(RootNodeView);
+
+                                // remove all breakpoints
+                                removeBreakpoints(SelectedNode, true);
+
+                                isDeleted = true;
+                            }
+
+                        } else if (node.IsFSM) {
+                            if (node.Parent != null && node.Parent.RemoveFSMNode(node)) {
+                                // remove its breakpoints
+                                removeBreakpoints(SelectedNode, false);
+
+                                isDeleted = true;
+                            }
+
+                        } else if (node.ExtractNode()) {
                             // remove its breakpoints
                             removeBreakpoints(SelectedNode, false);
-                        }
-                        else
-                        {
+
+                            isDeleted = true;
+
+                        } else {
                             _selectedNodePending = null;
                             _selectedNodePendingParent = null;
                         }
 
-                        UndoManager.Save(this.RootNode, sourceBehavior);
+                        if (isDeleted)
+                        {
+                            Node root = (Node)this.RootNode;
+                            if (root.FSMNodes.Count == 0)
+                            {
+                                // remove the Start condition for the FSM root node
+                                for (int i = 0; i < root.Attachments.Count; ++i)
+                                {
+                                    if (root.Attachments[i].IsStartCondition)
+                                    {
+                                        root.Attachments.RemoveAt(i);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            UndoManager.Save(this.RootNode);
+                        }
 
                         SelectedNode = null;
                         _currentNode = null;
                     }
-                }
-                else
-                {
+
+                } else {
                     NodeViewData.SubItem nextItem = SelectedNode.NextSelectedSubItem;
-                    if (nextItem == null)
-                    {
+
+                    if (nextItem == null) {
                         nextItem = SelectedNode.PreviousSelectedSubItem;
                     }
 
                     // just let the node delete the selected subitem
-                    if (SelectedNode.RemoveSelectedSubItem())
-                    {
+                    if (SelectedNode.RemoveSelectedSubItem()) {
                         Node node = SelectedNode.Node;
-                        if (!string.IsNullOrEmpty(node.PrefabName))
-                        {
+
+                        if (!string.IsNullOrEmpty(node.PrefabName)) {
                             node.HasOwnPrefabData = true;
                         }
 
-                        SelectedNode.Node.BehaviorWasModified();
-
-                        UndoManager.Save(this.RootNode, SelectedNode.Node.Behavior);
+                        UndoManager.Save(this.RootNode);
 
                         // select the next subitem automatically
-                        if (nextItem != null)
-                        {
+                        if (nextItem != null) {
                             SelectedNode.SelectedSubItem = nextItem;
-                            if (ClickEvent != null)
+
+                            // update all labels of its subitems
+                            foreach(NodeViewData.SubItem subItem in SelectedNode.SubItems) {
+                                NodeViewData.SubItemAttachment attach = subItem as NodeViewData.SubItemAttachment;
+
+                                if (attach != null && attach.Attachment != null) {
+                                    attach.Attachment.OnPropertyValueChanged(false);
+                                }
+                            }
+
+                            if (ClickEvent != null) {
                                 ClickEvent(SelectedNode);
-                        }
-                        else
-                        {
-                            if (ClickNode != null)
+                            }
+
+                        } else {
+                            if (ClickNode != null) {
                                 ClickNode(SelectedNode);
+                            }
                         }
                     }
                 }
@@ -2756,72 +3156,79 @@ namespace Behaviac.Design
             }
         }
 
-        private void enterBreakpointMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
-            {
+        private void enterBreakpointMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
                 SelectedNode.SetBreakpoint(HighlightBreakPoint.kEnter);
                 LayoutChanged();
             }
         }
 
-        private void exitBreakpointMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
-            {
+        private void exitBreakpointMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
                 SelectedNode.SetBreakpoint(HighlightBreakPoint.kExit);
                 LayoutChanged();
             }
         }
 
-        private void referenceMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode == null)
-                return;
+        private void enterBreakpointPlanning_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
+                Debug.Check(SelectedNode.Node is Task);
 
-            if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject is Attachments.Event)
-            {
+                SelectedNode.SetBreakpoint(HighlightBreakPoint.kPlanning);
+                LayoutChanged();
+            }
+        }
+
+        private void openReferenceBehavior(bool shouldBeSaved) {
+            if (SelectedNode == null) {
+                return;
+            }
+
+            if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject is Attachments.Event) {
                 // Open the referenced tree file in the event.
                 Attachments.Event evt = SelectedNode.SelectedSubItem.SelectableObject as Attachments.Event;
                 UIUtilities.ShowBehaviorTree(evt.ReferenceFilename);
-            }
-            else if (SelectedNode.Node != null)
-            {
+
+            } else if (SelectedNode.Node != null) {
                 // Open the referenced tree file.
-                if (SelectedNode.Node is ReferencedBehavior)
-                {
+                if (SelectedNode.Node is ReferencedBehavior) {
                     ReferencedBehavior refBehavior = SelectedNode.Node as ReferencedBehavior;
                     UIUtilities.ShowBehaviorTree(refBehavior.ReferenceFilename);
                 }
+
                 // Save as a referenced tree file.
-                else
-                {
+                else if (shouldBeSaved) {
                     saveAsReferencedTree();
                 }
             }
         }
 
-        private void saveAsReferencedTree()
-        {
+        private void referenceMenuItem_Click(object sender, EventArgs e) {
+            openReferenceBehavior(true);
+        }
+
+        private void saveAsReferencedTree() {
             if (SelectedNode == null ||
-                SelectedNode == _rootNode ||
-                _rootNode.RootBehavior.FileManager == null)
+                SelectedNode == _rootNodeView ||
+                _rootNodeView.RootBehavior.FileManager == null) {
                 return;
+            }
 
-            string folder = _rootNode.RootBehavior.Folder;
-            if (string.IsNullOrEmpty(folder))
-                folder = Path.GetDirectoryName(_rootNode.RootBehavior.FileManager.Filename);
+            string folder = _rootNodeView.RootBehavior.Folder;
 
-            string ext = Path.GetExtension(_rootNode.RootBehavior.FileManager.Filename);
+            if (string.IsNullOrEmpty(folder)) {
+                folder = Path.GetDirectoryName(_rootNodeView.RootBehavior.FileManager.Filename);
+            }
+
+            string ext = Path.GetExtension(_rootNodeView.RootBehavior.FileManager.Filename);
             string filename = Path.Combine(folder, "rf_" + SelectedNode.Node.ExportClass);
             filename = Path.ChangeExtension(filename, ext);
 
-            using (SaveAsDialog saveAsDialog = new SaveAsDialog(true))
-            {
+            using(SaveAsDialog saveAsDialog = new SaveAsDialog(true)) {
                 saveAsDialog.Text = Resources.SaveAsReference;
                 saveAsDialog.FileName = _behaviorTreeList.GetUniqueFileName(filename);
-                if (saveAsDialog.ShowDialog() == DialogResult.OK)
-                {
+
+                if (saveAsDialog.ShowDialog() == DialogResult.OK) {
                     filename = saveAsDialog.FileName;
 
                     // Remove the selected node.
@@ -2833,15 +3240,16 @@ namespace Behaviac.Design
                     // Create a new behavior node.
                     BehaviorNode behaviorNode = Node.CreateBehaviorNode(SelectedNode.Node.ExportClass);
                     ((Node)behaviorNode).AddChild(behaviorNode.GenericChildren, SelectedNode.Node);
-                    ((Behavior)behaviorNode).AgentType = ((Behavior)_rootNode.RootBehavior).AgentType;
+                    ((Behavior)behaviorNode).AgentType = ((Behavior)_rootNodeView.RootBehavior).AgentType;
 
                     // Copy the used Pars from the current behavior to the new one.
-                    foreach (ParInfo par in ((Node)_rootNode.RootBehavior).Pars)
-                    {
+                    foreach(ParInfo par in((Behavior)_rootNodeView.RootBehavior).LocalVars) {
                         List<Node.ErrorCheck> result = new List<Node.ErrorCheck>();
                         Plugin.CheckPar(SelectedNode.Node, par, ref result);
-                        if (result.Count > 0)
-                            ((Node)behaviorNode).Pars.Add(par);
+
+                        if (result.Count > 0) {
+                            ((Behavior)behaviorNode).LocalVars.Add(par);
+                        }
                     }
 
                     // Save the new behavior node.
@@ -2854,7 +3262,7 @@ namespace Behaviac.Design
                     behaviorNode = _behaviorTreeList.LoadBehavior(filename);
 
                     // Create a referenced node to hold the new behavior node.
-                    ReferencedBehaviorNode refNode = Node.CreateReferencedBehaviorNode(_rootNode.RootBehavior, behaviorNode);
+                    ReferencedBehaviorNode refNode = Node.CreateReferencedBehaviorNode(_rootNodeView.RootBehavior, behaviorNode);
                     refNode.ReferencedBehaviorWasModified += new ReferencedBehavior.ReferencedBehaviorWasModifiedEventDelegate(refnode_ReferencedBehaviorWasModified);
 
                     // Add the new referenced node.
@@ -2866,52 +3274,55 @@ namespace Behaviac.Design
                     _selectedNodePendingParent = SelectedNode.Parent;
 
                     newNode.ResetId(true);
-                    UndoManager.Save(this.RootNode, newNode.Behavior);
+                    UndoManager.Save(this.RootNode);
 
                     LayoutChanged();
                 }
             }
         }
 
-        private void savePrefabMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode == null)
+        private void savePrefabMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode == null) {
                 return;
-
-            // If it is a prefab instance, open this prefab.
-            if (!string.IsNullOrEmpty(SelectedNode.Node.PrefabName))
-            {
-                string fullpath = FileManagers.FileManager.GetFullPath(SelectedNode.Node.PrefabName);
-                if (UIUtilities.ShowBehaviorTree(fullpath) != null)
-                    return;
             }
 
-            if (SelectedNode == RootNodeView || RootNodeView.RootBehavior.FileManager == null)
+            // If it is a prefab instance, open this prefab.
+            if (!string.IsNullOrEmpty(SelectedNode.Node.PrefabName)) {
+                string fullpath = FileManagers.FileManager.GetFullPath(SelectedNode.Node.PrefabName);
+
+                if (UIUtilities.ShowBehaviorTree(fullpath) != null) {
+                    return;
+                }
+            }
+
+            if (SelectedNode == RootNodeView || RootNodeView.RootBehavior.FileManager == null) {
                 return;
+            }
 
             // Get the Prefabs folder.
             string prefabGroupName = Plugin.GetResourceString("PrefabGroupName");
             string folder = Directory.GetParent(Workspace.Current.Folder).FullName;
             folder = Path.Combine(folder, prefabGroupName);
-            if (!Directory.Exists(folder))
+
+            if (!Directory.Exists(folder)) {
                 Directory.CreateDirectory(folder);
+            }
 
             // Get the full name of the file.
             string filename = Path.Combine(folder, "pf_" + SelectedNode.Node.ExportClass);
-            string ext = Path.GetExtension(_rootNode.RootBehavior.FileManager.Filename);
+            string ext = Path.GetExtension(_rootNodeView.RootBehavior.FileManager.Filename);
             filename = Path.ChangeExtension(filename, ext);
 
-            using (SaveAsDialog saveAsDialog = new SaveAsDialog(false))
-            {
+            using(SaveAsDialog saveAsDialog = new SaveAsDialog(false)) {
                 saveAsDialog.Text = Resources.SaveAsPrefab;
                 saveAsDialog.FileName = _behaviorTreeList.GetUniqueFileName(filename);
-                if (saveAsDialog.ShowDialog() == DialogResult.OK)
-                {
+
+                if (saveAsDialog.ShowDialog() == DialogResult.OK) {
                     filename = saveAsDialog.FileName;
 
                     // Create a new behavior node.
                     BehaviorNode behaviorNode = Node.CreateBehaviorNode(SelectedNode.Node.ExportClass);
-                    behaviorNode.AgentType = _rootNode.RootBehavior.AgentType;
+                    behaviorNode.AgentType = _rootNodeView.RootBehavior.AgentType;
                     ((Node)behaviorNode).AddChild(behaviorNode.GenericChildren, SelectedNode.Node.CloneBranch());
 
                     string prefabName = FileManagers.FileManager.GetRelativePath(filename);
@@ -2920,19 +3331,19 @@ namespace Behaviac.Design
                     SelectedNode.Node.SetPrefab(prefabName);
                     SelectedNode.IsExpanded = false;
 
-                    if (string.IsNullOrEmpty(SelectedNode.Node.CommentText))
-                    {
+                    if (string.IsNullOrEmpty(SelectedNode.Node.CommentText)) {
                         string prefab = Path.GetFileNameWithoutExtension(prefabName);
                         SelectedNode.Node.CommentText = string.Format("Prefab[{0}]", prefab);
                     }
 
                     // Copy the used Pars from the current behavior to the new one.
-                    foreach (ParInfo par in ((Node)_rootNode.RootBehavior).Pars)
-                    {
+                    foreach(ParInfo par in((Behavior)_rootNodeView.RootBehavior).LocalVars) {
                         List<Node.ErrorCheck> result = new List<Node.ErrorCheck>();
                         Plugin.CheckPar(SelectedNode.Node, par, ref result);
-                        if (result.Count > 0)
-                            ((Node)behaviorNode).Pars.Add(par);
+
+                        if (result.Count > 0) {
+                            ((Behavior)behaviorNode).LocalVars.Add(par);
+                        }
                     }
 
                     // Save the new behavior node.
@@ -2947,50 +3358,41 @@ namespace Behaviac.Design
             }
         }
 
-        private void applyMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
-            {
+        private void applyMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
                 BehaviorNode prefabBehavior = SelectedNode.Node.ApplyPrefabInstance();
-                if (prefabBehavior != null)
-                {
-                    UndoManager.Save(prefabBehavior);
 
-                    if (this.RootNode.IsModified)
-                        ((Node)this.RootNode).BehaviorWasModified();
+                if (prefabBehavior != null) {
+                    UndoManager.Save(prefabBehavior);
                 }
             }
         }
 
-        private void breakPrefabMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null && SelectedNode.Node.BreakPrefabInstance())
-            {
+        private void breakPrefabMenuItem_Click(object sender, EventArgs e) {
+            if (SelectedNode != null && SelectedNode.Node.BreakPrefabInstance()) {
                 UndoManager.Save(this.RootNode);
-
-                if (this.RootNode.IsModified)
-                    ((Node)this.RootNode).BehaviorWasModified();
             }
         }
 
         /// <summary>
         /// Handles when a tree node is dragged on the view.
         /// </summary>
-        private void BehaviorTreeView_DragOver(object sender, DragEventArgs e)
-        {
+        private void BehaviorTreeView_DragOver(object sender, DragEventArgs e) {
             // get the node we are dragging over
             Point pt = PointToClient(new Point(e.X, e.Y));
-            NodeViewData nodeFound = _rootNode.IsInside(new PointF(pt.X, pt.Y));
+            NodeViewData nodeFound = _rootNodeView.GetInsideNode(new PointF(pt.X, pt.Y));
+
+            // update last know mouse position
+            _lastMousePosition = new PointF(pt.X, pt.Y);
 
             // update the current node
-            if (nodeFound != _currentNode)
-            {
+            if (nodeFound != _currentNode) {
                 _currentNode = nodeFound;
                 Invalidate();
             }
+
             // when we are moving on a node we must keep drawing as the ttach ode might change but not the node
-            else if (nodeFound != null)
-            {
+            else if (nodeFound != null) {
                 Invalidate();
             }
 
@@ -3000,118 +3402,171 @@ namespace Behaviac.Design
             // deny drop by default
             e.Effect = DragDropEffects.None;
 
+            // process dragging the property and method string value from the Meta Browser
+            string dragItem = (string)e.Data.GetData(DataFormats.Text);
+
+            if (!string.IsNullOrEmpty(dragItem) &&
+                _dragTargetNode != null && _dragTargetNode.Node != null &&
+                _dragTargetNode.Node.AcceptDefaultPropertyByDragAndDrop()) {
+                e.Effect = DragDropEffects.Move;
+
+                _dragAttachMode = NodeAttachMode.None;
+
+                return;
+            }
+
             // make sure the correct drag attach mode is set
-            if (_dragTargetNode != null)
-            {
-                if (_dragNodeDefaults is Nodes.Node && _dragAttachMode == NodeAttachMode.Attachment)
-                {
+            if (_dragTargetNode != null) {
+                if (_dragNodeDefaults is Nodes.Node && _dragAttachMode == NodeAttachMode.Attachment) {
                     _dragAttachMode = NodeAttachMode.None;
-                }
-                else if (_dragNodeDefaults is Attachments.Attachment && _dragAttachMode != NodeAttachMode.Attachment)
-                {
+
+                } else if (_dragNodeDefaults is Attachments.Attachment && _dragAttachMode != NodeAttachMode.Attachment) {
                     _dragAttachMode = NodeAttachMode.Attachment;
                 }
             }
 
             // check if we are trying to drop a node on another one
-            if (_dragTargetNode != null && (e.KeyState & 1/*left mouse button*/) > 0 && _dragNodeDefaults is Nodes.Node)
-            {
-                e.Effect = DragDropEffects.Move;
-            }
-            // check if we are trying attach an attachement to a node
-            else if (_dragTargetNode != null && (e.KeyState & 1/*left mouse button*/) > 0 && _dragNodeDefaults is Attachments.Attachment && _dragTargetNode.Node.AcceptsAttachment(_dragNodeDefaults.GetType()))
-            {
-                e.Effect = DragDropEffects.Move;
+            if (_dragTargetNode != null && (e.KeyState & 1/*left mouse button*/) > 0) {
+                if (_dragNodeDefaults != null &&
+                    (_dragNodeDefaults is Nodes.Node && (_dragAttachMode != NodeAttachMode.None || !(_dragNodeDefaults is Nodes.BehaviorNode) || !(_dragTargetNode.Node is Nodes.BehaviorNode)) ||
+                     _dragNodeDefaults is Attachments.Attachment && _dragTargetNode.Node.AcceptsAttachment(_dragNodeDefaults.GetType()))) {
+                    e.Effect = DragDropEffects.Move;
+                }
             }
 
             // If this is an empty node, no effect for it.
-            if (_dragTargetNode == null || _dragTargetNode.Node == null)
+            if (_dragTargetNode == null || _dragTargetNode.Node == null || _dragNodeDefaults == null ||
+                _dragAttachMode == NodeAttachMode.None && !(_dragNodeDefaults is Nodes.BehaviorNode)) {
                 e.Effect = DragDropEffects.None;
+            }
 
-            // update last know mouse position
-            _lastMousePosition = new PointF(pt.X, pt.Y);
+            if (_rootNodeView.IsFSM || _rootNodeView.Children.Count == 0) { // fsm or empty behavior
+                if (_dragNodeDefaults != null) {
+                    if (_dragNodeDefaults is Node) {
+                        Node dragNode = _dragNodeDefaults as Node;
+
+                        if (dragNode.IsFSM || dragNode is Behavior) {
+                            if (_dragTargetNode == null) {
+                                e.Effect = DragDropEffects.Move;
+                            }
+                            //else if (_dragNodeDefaults is Nodes.BehaviorNode) {
+                            //    e.Effect = DragDropEffects.None;
+                            //}
+                        }
+
+                    } else if (_dragNodeDefaults is Attachments.Attachment) {
+                        Attachments.Attachment dragAttachment = _dragNodeDefaults as Attachments.Attachment;
+
+                        if (dragAttachment.IsFSM) {
+                            if (_dragTargetNode != null && !(_dragTargetNode.Node is Nodes.BehaviorNode) &&
+                                _dragTargetNode.Node.AcceptsAttachment(dragAttachment.GetType())) {
+                                e.Effect = DragDropEffects.Move;
+                            }
+
+                            else {
+                                e.Effect = DragDropEffects.None;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
         /// Handles when dropping a tree node on the view.
         /// </summary>
-        private void BehaviorTreeView_DragDrop(object sender, DragEventArgs e)
-        {
-            //make sure the view is focused
+        private void BehaviorTreeView_DragDrop(object sender, DragEventArgs e) {
+            // make sure the view is focused
             Focus();
+
+            // drag the property or method into the node
+            string dragItem = (string)e.Data.GetData(DataFormats.Text);
+
+            if (!string.IsNullOrEmpty(dragItem) && _dragTargetNode != null && _dragTargetNode.Node != null) {
+                if (_dragTargetNode.Node.SetDefaultPropertyByDragAndDrop(dragItem)) {
+                    if (ClickNode != null) {
+                        ClickNode(_dragTargetNode);
+                    }
+
+                    UndoManager.Save(this.RootNode);
+
+                    LayoutChanged();
+                }
+
+                return;
+            }
 
             // get source node
             TreeNode sourceNode = (TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode");
+
+            if (sourceNode == null) {
+                return;
+            }
+
             NodeTag sourceNodeTag = (NodeTag)sourceNode.Tag;
 
             // keep the current node position
-            KeepNodePosition(_dragTargetNode);
+            //KeepNodePosition(_dragTargetNode);
 
-            bool bDragBTOverNode = sourceNodeTag.Type == NodeTagType.Behavior && _dragTargetNode is Behaviac.Design.NodeViewData;
+            bool bDragBTOverNode = !((Node)this.RootNode).IsFSM && sourceNodeTag.Type == NodeTagType.Behavior && _dragTargetNode is Behaviac.Design.NodeViewData;
 
             // check if we are dropping an attach
             // or if we are dropping a bt to a node and the indicator is not left/right/up/bottom/center
             if (_dragAttachMode == NodeAttachMode.Attachment ||
-                (bDragBTOverNode && (_dragAttachMode == NodeAttachMode.None || _dragAttachMode == NodeAttachMode.Attachment)))
-            {
+                (bDragBTOverNode && (_dragAttachMode == NodeAttachMode.None || _dragAttachMode == NodeAttachMode.Attachment))) {
                 Attachments.Attachment attach = null;
 
                 // when we attach a behaviour we must create a special referenced behaviour node
-                if (bDragBTOverNode)
-                {
+                if (bDragBTOverNode) {
                     //drag an event(a bt) to a node
-                    if (File.Exists(sourceNodeTag.Filename))
-                    {
+                    if (File.Exists(sourceNodeTag.Filename)) {
                         // get the behavior we want to reference
                         BehaviorNode behavior = _behaviorTreeList.LoadBehavior(sourceNodeTag.Filename);
-                        Behavior rootB = _rootNode.RootBehavior as Behavior;
+                        Behavior rootB = _rootNodeView.RootBehavior as Behavior;
                         Behavior b = behavior as Behavior;
 
-                        if (!IsCompatibleAgentType(rootB, b))
-                        {
+                        if (!b.CanBeAttached || !IsCompatibleAgentType(rootB, b))
                             return;
-                        }
 
                         attach = Behaviac.Design.Attachments.Attachment.Create(typeof(Behaviac.Design.Attachments.Event), _dragTargetNode.Node);
                         Behaviac.Design.Attachments.Event evt = (Behaviac.Design.Attachments.Event)attach;
                         evt.ReferencedBehavior = behavior;
                     }
-                }
-                else
-                {
+
+                } else if (_dragTargetNode != null) {
                     Debug.Check(_dragAttachMode == NodeAttachMode.Attachment);
 
                     // add the attach to the target node
                     attach = Behaviac.Design.Attachments.Attachment.Create(sourceNodeTag.NodeType, _dragTargetNode.Node);
                 }
 
-                attach.OnPropertyValueChanged(false);
+                if (_dragTargetNode != null && _dragTargetNode.Node.AcceptsAttachment(attach.GetType())) {
+                    attach.OnPropertyValueChanged(false);
 
-                _dragTargetNode.Node.AddAttachment(attach);
+                    attach.ResetId();
+                    _dragTargetNode.Node.AddAttachment(attach);
 
-                NodeViewData.SubItemAttachment sub = attach.CreateSubItem();
+                    NodeViewData.SubItemAttachment sub = attach.CreateSubItem();
+                    _dragTargetNode.AddSubItem(sub);
 
-                _dragTargetNode.AddSubItem(sub);
-                _dragTargetNode.Node.BehaviorWasModified();
+                    SelectedNode = _dragTargetNode;
+                    SelectedNode.SelectedSubItem = sub;
 
-                SelectedNode = _dragTargetNode;
-                SelectedNode.SelectedSubItem = sub;
+                    // call the ClickEvent event handler
+                    if (ClickEvent != null) {
+                        ClickEvent(SelectedNode);
+                    }
 
-                // call the ClickEvent event handler
-                if (ClickEvent != null)
-                    ClickEvent(SelectedNode);
+                    UndoManager.Save(this.RootNode);
 
-                // After being created, its Id should be reset.
-                attach.ResetId();
-
-                UndoManager.Save(this.RootNode, _dragTargetNode.Node.Behavior);
-
-                LayoutChanged();
+                    LayoutChanged();
+                }
             }
-            else if (_dragAttachMode != NodeAttachMode.None)
-            {
+
+            //else if (_dragAttachMode != NodeAttachMode.None)
+            else {
                 // attach a new node to the target node
-                InsertNewNode(_dragTargetNode, _dragAttachMode, sourceNodeTag);
+                InsertNewNode(_dragTargetNode, _dragAttachMode, sourceNodeTag, this.PointToClient(new Point(e.X, e.Y)));
             }
 
             // reset drag stuff
@@ -3125,18 +3580,19 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when a tree node is dragged into the view.
         /// </summary>
-        private void BehaviorTreeView_DragEnter(object sender, DragEventArgs e)
-        {
+        private void BehaviorTreeView_DragEnter(object sender, DragEventArgs e) {
             TreeNode sourceNode = (TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode");
-            if (sourceNode == null)
-                return;
 
-            NodeTag sourceNodeTag = sourceNode.Tag as NodeTag;
-            if (sourceNodeTag == null)
-                return;
+            if (sourceNode != null) {
+                NodeTag sourceNodeTag = sourceNode.Tag as NodeTag;
 
-            // store the tree node's defaults
-            _dragNodeDefaults = sourceNodeTag.Defaults;
+                if (sourceNodeTag == null) {
+                    return;
+                }
+
+                // store the tree node's defaults
+                _dragNodeDefaults = sourceNodeTag.Defaults;
+            }
         }
 
         /// <summary>
@@ -3152,15 +3608,13 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when the check for errors button is pressed.
         /// </summary>
-        private void checkButton_Click(object sender, EventArgs e)
-        {
-            CheckErrors(_rootNode.RootBehavior, false);
+        private void checkButton_Click(object sender, EventArgs e) {
+            CheckErrors(_rootNodeView.RootBehavior, false);
 
             emptyButton.Focus();
         }
 
-        private void agentTypeChanged(AgentType agentType)
-        {
+        private void agentTypeChanged(AgentType agentType) {
             //CheckErrors(_rootNode.RootBehavior, true);
 
             //PropertiesDock.UpdatePropertyGrids();
@@ -3168,24 +3622,24 @@ namespace Behaviac.Design
             this.Redraw();
         }
 
-        public void CheckErrors(Behaviac.Design.Nodes.BehaviorNode node, bool errorDialogHidesIfNoError)
-        {
+        public void CheckErrors(Behaviac.Design.Nodes.BehaviorNode node, bool errorDialogHidesIfNoError) {
             // check the current behaviour for errors
             List<Node.ErrorCheck> result = new List<Node.ErrorCheck>();
-            _rootNode.Node.CheckForErrors(node, result);
+            _rootNodeView.Node.CheckForErrors(node, result);
 
-            if (errorDialogHidesIfNoError && result.Count == 0)
+            if (errorDialogHidesIfNoError && result.Count == 0) {
                 return;
+            }
 
             string groupLabel = node.GetPathLabel(_behaviorTreeList.BehaviorFolder);
             ShowErrorDialog(Resources.ErrorCheck, groupLabel, result);
         }
 
-        public void ShowErrorDialog(string title, string groupLabel, List<Node.ErrorCheck> result)
-        {
+        public void ShowErrorDialog(string title, string groupLabel, List<Node.ErrorCheck> result) {
             // store the old position of the check dialogue and close it
-            if (_errorCheckDialog != null)
+            if (_errorCheckDialog != null) {
                 _errorCheckDialog.Close();
+            }
 
             // prepare the new dialogue
             _errorCheckDialog = new ErrorCheckDialog();
@@ -3196,26 +3650,22 @@ namespace Behaviac.Design
             _errorCheckDialog.FormClosed += new FormClosedEventHandler(errorCheckDialog_FormClosed);
 
             // add the errors to the check dialogue
-            foreach (Node.ErrorCheck check in result)
-            {
+            foreach(Node.ErrorCheck check in result) {
                 BehaviorNode behavior = check.Node.Behavior;
 
                 // group the errors by the behaviour their occured in
 
                 // get the group for the error's behaviour
                 ListViewGroup group = null;
-                foreach (ListViewGroup grp in _errorCheckDialog.listView.Groups)
-                {
-                    if (grp.Tag == behavior)
-                    {
+                foreach(ListViewGroup grp in _errorCheckDialog.listView.Groups) {
+                    if (grp.Tag == behavior) {
                         group = grp;
                         break;
                     }
                 }
 
                 // if there is no group, create it
-                if (group == null)
-                {
+                if (group == null) {
                     group = new ListViewGroup(groupLabel);
                     group.Tag = behavior;
                     _errorCheckDialog.listView.Groups.Add(group);
@@ -3226,8 +3676,7 @@ namespace Behaviac.Design
                 item.Group = group;
                 item.Tag = check.Node;
 
-                switch (check.Level)
-                {
+                switch (check.Level) {
                     case (ErrorCheckLevel.Message):
                         item.ImageIndex = 0;
                         break;
@@ -3245,22 +3694,23 @@ namespace Behaviac.Design
             }
 
             // if no errors were found, tell the user so
-            if (result.Count < 1)
+            if (result.Count < 1) {
                 _errorCheckDialog.listView.Items.Add(new ListViewItem("No Errors.", (int)ErrorCheckLevel.Message));
+            }
 
             // show the dialogue
             _errorCheckDialog.Show();
 
             // set its position to the position of the previous dialogue
-            if (_hasOldCheckDialogPosition)
+            if (_hasOldCheckDialogPosition) {
                 _errorCheckDialog.Location = _previousCheckDialogPosition;
+            }
         }
 
         /// <summary>
         /// Handles when the error check dialogue is closed
         /// </summary>
-        void errorCheckDialog_FormClosed(object sender, FormClosedEventArgs e)
-        {
+        void errorCheckDialog_FormClosed(object sender, FormClosedEventArgs e) {
             // store its previous position
             _previousCheckDialogPosition = _errorCheckDialog.Location;
             _hasOldCheckDialogPosition = true;
@@ -3269,33 +3719,36 @@ namespace Behaviac.Design
             _errorCheckDialog = null;
         }
 
-        public void Export()
-        {
-            try
-            {
+        public void Export() {
+            try {
                 List<Node.ErrorCheck> result = new List<Node.ErrorCheck>();
-                _rootNode.Node.CheckForErrors(_rootNode.RootBehavior, result);
+                _rootNodeView.Node.CheckForErrors(_rootNodeView.RootBehavior, result);
 
                 bool hasErrors = Plugin.GetErrorChecks(result, ErrorCheckLevel.Error).Count > 0;
                 bool hasWarnings = Plugin.GetErrorChecks(result, ErrorCheckLevel.Warning).Count > 0;
                 bool ignoreErrors = false;
 
-                if (!hasErrors && hasWarnings)
-                {
+                if (!hasErrors && hasWarnings) {
                     DialogResult dr = MessageBox.Show(Resources.ExportWarningInfo, Resources.ExportWarning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (dr == DialogResult.Yes)
+
+                    if (dr == DialogResult.Yes) {
                         ignoreErrors = true;
-                    else
+                    }
+
+                    else {
                         hasErrors = true;
+                    }
                 }
 
-                if (hasErrors)
-                    CheckErrors(_rootNode.RootBehavior, true);
-                else
-                    _behaviorTreeList.ExportBehavior(_rootNode.RootBehavior, "", ignoreErrors);
-            }
-            catch (Exception ex)
-            {
+                if (hasErrors) {
+                    CheckErrors(_rootNodeView.RootBehavior, true);
+                }
+
+                else {
+                    _behaviorTreeList.ExportBehavior(_rootNodeView.RootBehavior, "", ignoreErrors);
+                }
+
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.ExportError, MessageBoxButtons.OK);
             }
         }
@@ -3303,8 +3756,7 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when the export button is pressed
         /// </summary>
-        private void exportButton_Click(object sender, EventArgs e)
-        {
+        private void exportButton_Click(object sender, EventArgs e) {
             Export();
 
             emptyButton.Focus();
@@ -3313,17 +3765,15 @@ namespace Behaviac.Design
         /// <summary>
         /// Save the behavior file.
         /// </summary>
-        public bool Save(bool saveAs)
-        {
-            return MainWindow.Instance.SaveBehavior(_rootNode.RootBehavior, saveAs);
+        public bool Save(bool saveAs) {
+            return MainWindow.Instance.SaveBehavior(_rootNodeView.RootBehavior, saveAs);
         }
 
-        private bool SaveBehavior(string filename)
-        {
+        private bool SaveBehavior(string filename) {
             Debug.Check(_behaviorTreeList != null);
             BehaviorNode behavior = _behaviorTreeList.GetBehavior(filename);
-            if (behavior != null)
-            {
+
+            if (behavior != null) {
                 return MainWindow.Instance.SaveBehavior(behavior, false);
             }
 
@@ -3333,8 +3783,7 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when the save button is pressed.
         /// </summary>
-        private void saveButton_Click(object sender, EventArgs e)
-        {
+        private void saveButton_Click(object sender, EventArgs e) {
             Save(false);
 
             emptyButton.Focus();
@@ -3343,8 +3792,7 @@ namespace Behaviac.Design
         /// <summary>
         /// Handles when the save-as button is pressed.
         /// </summary>
-        private void saveAsButton_Click(object sender, EventArgs e)
-        {
+        private void saveAsButton_Click(object sender, EventArgs e) {
             Save(true);
 
             emptyButton.Focus();
@@ -3354,41 +3802,60 @@ namespace Behaviac.Design
         /// Centres the given node in the view.
         /// </summary>
         /// <param name="node">The node which will be centred.</param>
-        internal void CenterNode(NodeViewData node)
-        {
+        internal void CenterNode(NodeViewData node) {
             _maintainNodePosition = node;
 
             // we use the existing maintain position stuff for that
-            RectangleF bbox = node.BoundingBox;
+            RectangleF bbox = node.IsFSM ? node.GetTotalBoundingBox() : node.BoundingBox;
 
-            // if the node was not yet shown there is no bounding box so we simply use the min height for that
+            float width = bbox.Width <= 0.0f ? node.MinWidth : bbox.Width;
             float height = bbox.Height <= 0.0f ? node.MinHeight : bbox.Height;
-
-            _graphOrigin = new PointF(20.0f, ClientSize.Height * 0.5f - height * 0.5f);
 
             // Scale the whole graph to the suitable size in the view.
             float viewWidth = ClientSize.Width - 30;
             float viewHeight = ClientSize.Height - 30;
+            bool isWidthScale = false;
 
-            if (viewWidth > 0 && viewHeight > 0)
-            {
+            if (viewWidth > 0 && viewHeight > 0) {
                 SizeF totalSize = node.GetTotalSize(_nodeLayoutManager.Padding.Width, int.MaxValue);
                 float scale = 1.0f;
 
-                if (totalSize.Width / totalSize.Height < viewWidth / viewHeight)
+                if (totalSize.Width / totalSize.Height < viewWidth / viewHeight) {
                     scale = viewHeight / totalSize.Height;
-                else
+                    isWidthScale = false;
+                }
+
+                else {
                     scale = viewWidth / totalSize.Width;
+                    isWidthScale = true;
+                }
 
                 const float MinScale = 0.1f;
                 const float MaxScale = 2.0f;
 
-                if (scale < MinScale)
+                if (scale < MinScale) {
                     _nodeLayoutManager.Scale = MinScale;
-                else if (scale > MaxScale)
+                }
+
+                else if (scale > MaxScale) {
                     _nodeLayoutManager.Scale = MaxScale;
-                else
+                }
+
+                else {
                     _nodeLayoutManager.Scale = scale;
+                }
+            }
+
+            if (node.IsFSM)
+            {
+                if (isWidthScale)
+                    _graphOrigin = new PointF(0.0f, ClientSize.Height * 0.5f - height * 0.5f * _nodeLayoutManager.Scale);
+                else
+                    _graphOrigin = new PointF(ClientSize.Width * 0.5f - width * 0.5f * _nodeLayoutManager.Scale, 0.0f);
+            }
+            else
+            {
+                _graphOrigin = new PointF(20.0f, ClientSize.Height * 0.5f - height * 0.5f);
             }
 
             Invalidate();
@@ -3398,23 +3865,23 @@ namespace Behaviac.Design
         /// Shows the given node in the view.
         /// </summary>
         /// <param name="node">The node which will be centred.</param>
-        internal void ShowNode(NodeViewData node)
-        {
+        internal void ShowNode(NodeViewData node) {
             // Expand all of its parents.
             bool layoutChanged = false;
             NodeViewData parent = node.Parent;
-            while (parent != null)
-            {
-                if (!parent.IsExpanded)
-                {
+
+            while (parent != null) {
+                if (!parent.IsExpanded) {
                     parent.IsExpanded = true;
                     layoutChanged = true;
                 }
+
                 parent = parent.Parent;
             }
 
-            if (layoutChanged)
+            if (layoutChanged) {
                 LayoutChanged();
+            }
 
             // we use the existing maintain position stuff for that
             RectangleF bbox = node.BoundingBox;
@@ -3428,8 +3895,7 @@ namespace Behaviac.Design
 
             // If this display bounding box is in the view, the node need not be moved.
             if (displayBox.X >= 0 && displayBox.X <= ClientSize.Width - width &&
-                displayBox.Y >= 0 && displayBox.Y <= ClientSize.Height - height)
-            {
+                displayBox.Y >= 0 && displayBox.Y <= ClientSize.Height - height) {
                 return;
             }
 
@@ -3450,24 +3916,22 @@ namespace Behaviac.Design
         /// </summary>
         /// <param name="node">The node which will be centred.</param>
         /// <returns>Returns the NodeViewData of the node which was centred.</returns>
-        internal NodeViewData CenterNode(Node node)
-        {
-            NodeViewData nvd = _rootNode.FindNodeViewData(node);
-            if (nvd != null)
+        internal NodeViewData CenterNode(Node node) {
+            NodeViewData nvd = _rootNodeView.FindNodeViewData(node);
+
+            if (nvd != null) {
                 CenterNode(nvd);
+            }
 
             return nvd;
         }
 
-        internal void SaveImage()
-        {
-            if (saveImageDialog.ShowDialog() == DialogResult.OK)
-            {
-                NodeLayoutManager nlm = new NodeLayoutManager(_nodeLayoutManager.RootNodeLayout, _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenHighlight, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, false);
+        internal void SaveImage() {
+            if (saveImageDialog.ShowDialog() == DialogResult.OK) {
+                NodeLayoutManager nlm = new NodeLayoutManager(_nodeLayoutManager.RootNodeLayout, _nodeLayoutManager.EdgePen, _nodeLayoutManager.EdgePenSelected, _nodeLayoutManager.EdgePenHighlighted, _nodeLayoutManager.EdgePenUpdate, _nodeLayoutManager.EdgePenReadOnly, false);
                 nlm.Offset = new PointF(1.0f, 1.0f);
 
-                using (Graphics g = CreateGraphics())
-                {
+                using(Graphics g = CreateGraphics()) {
                     nlm.UpdateLayout(g);
                 }
 
@@ -3492,60 +3956,53 @@ namespace Behaviac.Design
                     img = new Bitmap(newimageSize.Width, newimageSize.Height);
                 }
 
-                using (Graphics graphics = Graphics.FromImage(img))
-                {
+                using(Graphics graphics = Graphics.FromImage(img)) {
                     nlm.DrawGraph(graphics, new PointF());
                 }
 
-                if (needsSave)
+                if (needsSave) {
                     img.Save(saveImageDialog.FileName);
+                }
 
                 img.Dispose();
 
-                if (formGraphics != null)
-                {
+                if (formGraphics != null) {
                     formGraphics.ReleaseHdc(hdc);
                     formGraphics.Dispose();
                 }
             }
         }
 
-        private void imageButton_Click(object sender, EventArgs e)
-        {
+        private void imageButton_Click(object sender, EventArgs e) {
             SaveImage();
 
             emptyButton.Focus();
         }
 
-        private void propertiesButton_Click(object sender, EventArgs e)
-        {
-            if (SelectedNode != null)
+        private void propertiesButton_Click(object sender, EventArgs e) {
+            if (SelectedNode != null) {
                 PropertiesDock.CreateFloatDock(SelectedNode.RootBehavior, SelectedNode.Node);
+            }
 
             emptyButton.Focus();
         }
 
-        private void parameterSettingButton_Click(object sender, EventArgs e)
-        {
-            if (_rootNode != null)
-                ParSettingsDock.Inspect(_rootNode.Node);
+        private void parameterSettingButton_Click(object sender, EventArgs e) {
+            MetaStoreDock.Inspect(null);
 
             emptyButton.Focus();
         }
 
-        protected override void OnGotFocus(EventArgs e)
-        {
+        protected override void OnGotFocus(EventArgs e) {
             base.OnGotFocus(e);
 
             object selectedNode = null;
-            if (SelectedNode != null)
-            {
-                if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject != null)
-                {
+
+            if (SelectedNode != null) {
+                if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject != null) {
                     selectedNode = SelectedNode.SelectedSubItem.SelectableObject;
-                }
-                else
-                {
+
+                } else {
                     selectedNode = SelectedNode.Node;
                 }
             }
@@ -3553,13 +4010,10 @@ namespace Behaviac.Design
             PropertiesDock.InspectObject(this.RootNode, selectedNode, false);
         }
 
-        protected override void OnLostFocus(EventArgs e)
-        {
+        protected override void OnLostFocus(EventArgs e) {
             base.OnLostFocus(e);
 
             _lostFocus = true;
-
-            IsPanMode = false;
         }
     }
 }

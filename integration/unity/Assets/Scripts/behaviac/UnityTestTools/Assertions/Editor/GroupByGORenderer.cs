@@ -5,29 +5,26 @@ using UnityEngine;
 
 namespace UnityTest
 {
-	public class GroupByGORenderer : AssertionListRenderer<GameObject>
-	{
-		protected override IEnumerable<IGrouping<GameObject, AssertionComponent>> GroupResult (IEnumerable<AssertionComponent> assertionComponents)
-		{
-			return assertionComponents.GroupBy (c => c.gameObject);
-		}
+    public class GroupByGORenderer : AssertionListRenderer<GameObject>
+    {
+        protected override IEnumerable<IGrouping<GameObject, AssertionComponent>> GroupResult(IEnumerable<AssertionComponent> assertionComponents) {
+            return assertionComponents.GroupBy(c => c.gameObject);
+        }
 
-		protected override bool PrintFoldout (bool isFolded, GameObject key)
-		{
-			isFolded = base.PrintFoldout (isFolded,
-										key);
+        protected override bool PrintFoldout(bool isFolded, GameObject key) {
+            isFolded = base.PrintFoldout(isFolded,
+                                         key);
 
-			EditorGUILayout.ObjectField (key,
-										typeof (GameObject),
-										true,
-										GUILayout.ExpandWidth (false));
+            EditorGUILayout.ObjectField(key,
+                                        typeof(GameObject),
+                                        true,
+                                        GUILayout.ExpandWidth(false));
 
-			return isFolded;
-		}
+            return isFolded;
+        }
 
-		protected override string GetFoldoutDisplayName (GameObject key)
-		{
-			return key.name;
-		}
-	}
+        protected override string GetFoldoutDisplayName(GameObject key) {
+            return key.name;
+        }
+    }
 }
