@@ -1211,7 +1211,7 @@ namespace Behaviac.Design
                         }
 
                         // update the selected node and expand it so you can drag an item into a collapsed sub folder
-                        targetNode.TreeView.SelectedNode = targetNode;
+                        //targetNode.TreeView.SelectedNode = targetNode;
                         targetNode.Expand();
                         e.Effect = DragDropEffects.Move;
                     }
