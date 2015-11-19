@@ -41,7 +41,7 @@ traceHTML: |
 			<tbody>
 			{% for type in site.download.typeList %}
 				<tr>
-					<td><a href="{{ site.download.base }}elf-{{ site.release.latest.version }}{{ type.suffix }}">elf-{{ site.release.latest.version }}{{ type.suffix }}</a></td>
+					<td><a href="{{ site.download.base }}behaviac-{{ site.release.latest.version }}{{ type.suffix }}">behaviac-{{ site.release.latest.version }}{{ type.suffix }}</a></td>
 					<td>{{ type.title }} ({{ site.release.latest.file[type.type].size }} KB)</td>
 					<td><code>{{ site.release.latest.file[type.type].sha1 }}</code></td>
 				</tr>
@@ -49,8 +49,6 @@ traceHTML: |
 			</tbody>
 		</table>
 	</div>
-	
-	<p>除了下载已发布的版本，你还可以根据具体的需求利用<a href="{{ site.links.builder.url }}" target="_blank">在线的jslib-builder</a>进行自由定制打包。</p>
 	
 	<h2>历史版本</h2>
 	
@@ -65,9 +63,9 @@ traceHTML: |
 		<tbody>
 		{% for release in site.release.history %}
 			<tr id="{{ release.version }}">
-				<td class="{% if release.current %}current{% endif %}">{% if release.note %}<a href="{{ release.note }}" title="elf+js {{ release.version }} 发布日志">{{ release.version }}</a>{% else %}{{ release.version }}{% endif %}{% if release.current %} <span class="new">(当前最新)</span>{% endif %}</td>
+				<td class="{% if release.current %}current{% endif %}">{% if release.note %}<a href="{{ release.note }}" title="behaviac {{ release.version }} 发布日志">{{ release.version }}</a>{% else %}{{ release.version }}{% endif %}{% if release.current %} <span class="new">(当前最新)</span>{% endif %}</td>
 				<td>{{ release.date }}</td>
-				<td><a href="{{ site.download.base }}elf-{{ release.version }}{{ site.download.type.min.suffix }}">压缩版本</a> | <a href="{{ site.download.base }}elf-{{ release.version }}{{ site.download.type.src.suffix }}">源码</a></td>
+				<td><a href="{{ site.download.base }}behaviac-{{ release.version }}{{ site.download.type.min.suffix }}">压缩版本</a> | <a href="{{ site.download.base }}behaviac-{{ release.version }}{{ site.download.type.src.suffix }}">源码</a></td>
 			</tr>
 		{% endfor %}
 		</tbody>
