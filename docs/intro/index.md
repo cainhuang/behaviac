@@ -11,7 +11,6 @@ traceHTML:
     <span class="sub-path">/ 索引</span>
 ---
 
-大部分进阶的功能我们都会基于js.*这个命名空间来讲述，如果把elf看做是使用方便瑞士军刀的话，那么jslib就是核心工具包中真正的一刀一斧，每一个类都是一把解决问题的利器，这样在elf针对使用便捷的封装之下才有了最坚实的基础。
 
 {% include docs/intro-menu.tpl %}
 

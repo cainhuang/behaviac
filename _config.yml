@@ -6,7 +6,7 @@ permalink: /blog/posts/:title.html
 exclude:
   - README.md
 
-host: https://github.com/TencentOpen/behaviac/
+host: http://tencentopen.github.io/behaviac/
 
 modules:
     blog:
@@ -87,7 +87,7 @@ release:
             * 3.2.2
 
 download:
-    base: https://github.com/TencentOpen/behaviac/
+    base: http://tencentopen.github.io/behaviac/
     type:
         gzip: &down_type_gzip
             type: gzip
@@ -112,10 +112,10 @@ download:
 links:
     api:
         text: API参考手册
-        url:  https://github.com/TencentOpen/behaviac/
+        url:  http://tencentopen.github.io/behaviac/
     builder:
         text: 在线jslib-builder
-        url:  https://github.com/TencentOpen/behaviac/
+        url:  http://tencentopen.github.io/behaviac/
     changelog:
         text: 变更记录
         url:  /docs/changelog.html
