@@ -1,134 +1,62 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Behaviac by TencentOpen</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Behaviac</h1>
-      <h2 class="project-tagline">behaviac is a framework of the game AI development, and it also can be used as a rapid game prototype design tool.   behaviac supports the behavior tree, finite state machine and hierarchical task network.  Behaviors can be designed and debugged in the designer, exported and executed by the game. The designer can only run on the Windows platforms.   The run time library is implemented with C++ and C#, and it supports all major platforms (Windows, Linux, Android, iOS, Unity etc.) and Unity. The C++ version is suitable for the client and server side.</h2>
-      <a href="https://github.com/TencentOpen/behaviac" class="btn">View on GitHub</a>
-      <a href="https://github.com/TencentOpen/behaviac/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/TencentOpen/behaviac/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+---
+layout: page
+title:  体验愉悦的JavaScript开发
+author: mytharcher
 
-    <section class="main-content">
-      <h1>
-<a id="what-is-behaviac" class="anchor" href="#what-is-behaviac" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is behaviac</h1>
+tags: [elf,js,elfjs,JavaScript,library]
 
-<ul>
-<li>behaviac is a framework of the game AI development, and it also can be used as a rapid game prototype design tool. </li>
-<li>behaviac supports the behavior tree, finite state machine and hierarchical task network.</li>
-<li>Behaviors can be designed and debugged in the designer, exported and executed by the game.</li>
-<li>The designer can only run on the Windows platforms. </li>
-<li>The run time library is implemented with C++ and C#, and it supports all major platforms (Windows, Linux, Android, iOS, Unity etc.) and Unity. The C++ version is suitable for the client and server side.</li>
-</ul>
+pageClass: page-type-home
 
-<h1>
-<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Use?</h1>
+styles:
+  - /assets/css/index.css
 
-<p>The documents, Behaviac Overview.pdf and Behaviac Tutorial.pdf, are in the docs folder, and they
-can also be found on the help menu of the designer.</p>
+---
 
-<p>You can start to use behaviac from the two game demos:</p>
-
-<ul>
-<li>C++: The Spaceship demo on the example folder is implemented with C++. To debug, the Working
-Directory on the Property Pages should be set as $(TargetDir), and the Environment should be set
-as PATH=../example/spaceship/SDL2/lib/x86;</li>
-<li>C#: The BattleCity demo on the integration folder is implemented with C#, which should be
-opened on the Unity engine. Please check the documents to learn how to integrate the behaviac
-runtime into the Unity engine.</li>
-</ul>
-
-<h1>
-<a id="how-to-compile" class="anchor" href="#how-to-compile" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Compile?</h1>
-
-<p>If you want to compile the project, you should do as followings:</p>
-
-<ul>
-<li>Designer: The BehaviacDesigner.sln on the tools/designer folder should be opened with VS2010 or above.</li>
-<li>Runtime:
-
-<ol>
-<li>Run the premake.bat in the build folder to create the project files，which are used to compile
-the behaviac runtime.</li>
-<li>The make file of Linux is modified from the make file of gmake.</li>
-</ol>
-</li>
-</ul>
-
-<h1>
-<a id="others" class="anchor" href="#others" aria-hidden="true"><span class="octicon octicon-link"></span></a>Others</h1>
-
-<p>Please check the docs on the docs folder to get more details.</p>
-
-<hr>
-
-<h1>
-<a id="什么是behaviac" class="anchor" href="#%E4%BB%80%E4%B9%88%E6%98%AFbehaviac" aria-hidden="true"><span class="octicon octicon-link"></span></a>什么是behaviac？</h1>
-
-<ul>
-<li>behaviac是游戏AI的开发框架，也是游戏原型的快速设计工具。</li>
-<li>支持行为树BT，状态机FSM，HTN等多种范式，方便的编辑和调试。</li>
-<li>支持全平台，适用于客户端和服务器，助力游戏快速迭代开发。</li>
-<li>编辑器只能在Windows平台运行</li>
-<li>但运行时库采用C++和C#两种语言实现了两个版本，支持大多数主流平台（Windows,Linux, Android, iOS, Unity等）。</li>
-</ul>
-
-<h1>
-<a id="如何使用" class="anchor" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>如何使用？</h1>
-
-<p>相关文档Behaviac Overview和Behaviac Tutorial保存在文件夹docs中，也可以在编辑器的帮助菜单项里找到这些文档。</p>
-
-<p>可以从附带的2个游戏demo开始学习该组件：</p>
-
-<ol>
-<li>C++版：example文件夹中spaceship是基于C++版的游戏demo，为了跟踪调试，需将项目属性页里面的“工作目录”手动
-设为$(TargetDir)，“环境”设为PATH=../example/spaceship/SDL2/lib/x86;</li>
-<li>C#版：integration文件夹中的BattleCityDemo是基于C#版的游戏demo，需要在Unity引擎中打开，如何将behaviac运
-行时库整合到Unity引擎，请详看文档。</li>
-</ol>
-
-<h1>
-<a id="如何编译" class="anchor" href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91" aria-hidden="true"><span class="octicon octicon-link"></span></a>如何编译？</h1>
-
-<p>对于获得全部源码并需自己编译的情况，需要对编辑器和运行时库进行如下操作：</p>
-
-<ol>
-<li>编辑器：tools/designer文件夹中的BehaviacDesigner.sln是编辑器的工程文件，需要VS2010以上版本打开。</li>
-<li>运行时库：
-
-<ol>
-<li>运行build文件夹中的premake.bat，生成相关的工程文件，这些工程文件用于编译生成behaviac的运行时库</li>
-<li>linux版本的make文件是从gmake版本的make文件经过少量修改而得的</li>
-</ol>
-</li>
-</ol>
-
-<h1>
-<a id="其他事项" class="anchor" href="#%E5%85%B6%E4%BB%96%E4%BA%8B%E9%A1%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>其他事项</h1>
-
-<ul>
-<li>更多细节可以参考文件夹docs中附带的文档。 </li>
-<li>可以通过如下链接观看教学视频 :   <a href="http://gad.qq.com/tool/detail/2">http://gad.qq.com/tool/detail/2</a>.</li>
-<li>QQ群：433547396</li>
-</ul>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/TencentOpen/behaviac">Behaviac</a> is maintained by <a href="https://github.com/TencentOpen">TencentOpen</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
-</html>
+<div id="Preview">
+	<div class="layout-section">
+		<div class="layout-content">
+			<p class="minor">elf [elf]<br />小精灵, 矮人, 淘气鬼, 恶作剧的人, 恶人</p>
+			<p class="content"><span class="word-decorator simple">简单</span> <span class="word-decorator plus">+</span> <span class="word-decorator agile">灵巧</span> <span class="word-decorator plus">+</span> <span class="word-decorator free">自由</span> <span class="word-decorator equal">=</span> <span class="word-decorator result">愉悦的开发！</span></p>
+			<p class="support">
+				<label>浏览器支持</label>
+				<img src="assets/img/icon-ie.png" alt="IE" title="IE 6+" />
+				<img src="assets/img/icon-firefox.png" alt="Firefox" title="Firefox 2+" />
+				<img src="assets/img/icon-chrome.png" alt="Chrome" title="Chrome 9+" />
+				<img src="assets/img/icon-safari.png" alt="Safari" title="Safari 4+" />
+				<img src="assets/img/icon-opera.png" alt="Opera" title="Opera 9+" />
+			</p>
+		</div>
+	</div>
+	<div class="layout-aside">
+		<h3></h3>
+		<p class="download-switch"><label for="DownloadMinifiedRadio"><input type="radio" name="downloadSwitch" id="DownloadMinifiedRadio" value="{{ site.download.base }}elf-{{ site.release.latest.version }}{{ site.download.type.min.suffix }}" checked />下载压缩版本</label> <label for="DownloadSourceRadio"><input type="radio" name="downloadSwitch" id="DownloadSourceRadio" value="{{ site.download.base }}elf-{{ site.release.latest.version }}{{ site.download.type.src.suffix }}" />下载源码</label></p>
+		<p class="download-button"><a href="{{ site.download.base }}elf-{{ site.release.latest.version }}{{ site.download.type.min.suffix }}" id="DownloadButton" class="button green">Download</a> 或 <a href="{{ site.links.builder.url }}">自由定制打包</a></p>
+		<p class="version">当前版本：<strong><a href="/downloads/#{{ site.release.latest.version }}">{{ site.release.latest.version }}</a></strong> | <a href="/downloads/">查看所有版本</a></p>
+		<p class="license"></p>
+	</div>
+</div>
+<div id="Products">
+	<ul>
+		<li id="Jslib" class="product">
+			<div class="item-icon"><img src="/assets/img/jslib-icon.png" /></div>
+			<div class="content-block">
+				<h4>JavaScript Library</h4>
+				<p>jslib是elf+js的核心项目，按照Java包命名的结构提供了大量的常规工具，诸如类管理、DOM操作、Ajax处理、动画效果、文本处理等。</p>
+			</div>
+		</li>
+		<li id="Elfjs" class="product">
+			<div class="item-icon"><img src="/assets/img/elfjs-icon.png" /></div>
+			<div class="content-block">
+				<h4>elf+js</h4>
+				<p>elf基于jslib的功能，为开发人员愉悦的书写代码而设计。大量常用功能的快捷书写形式能给你带来和jQuery一样飞一般的享受！</p>
+			</div>
+		</li>
+		<li id="Builder" class="product">
+			<div class="item-icon"><img src="/assets/img/packer-icon.png" /></div>
+			<div class="content-block">
+				<h4>jslib-builder</h4>
+				<p>jslib-builder是一个基于一种注释语法的基础库打包器。使用jslib-builder可以方便的定制属于你自己的JavaScript基础库。</p>
+			</div>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,16 @@
+---
+layout: blog
+title:  博客 - Blog
+
+feed: http://elf.js.org/blog/atom.xml
+
+traceHTML: |
+    / <a href="/blog/">博客</a>
+    <span class="sub-path">/ 全部文章</span>
+---
+
+{% assign list = site.posts %}
+{% assign preview = true %}
+{% include blog/list.tpl %}
+
+<!-- TODO: Achieve -->

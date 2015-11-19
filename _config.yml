@@ -1,0 +1,142 @@
+markdown: kramdown
+permalink: pretty
+pygments: true
+safe: false
+permalink: /blog/posts/:title.html
+exclude:
+  - README.md
+
+host: https://github.com/TencentOpen/behaviac/
+
+modules:
+    blog:
+        release: 发布记录
+        introduction: 给点解释
+        communication: 信访交流
+
+        name: blog
+        title: 博客
+        categories:
+          - name:  release
+            title: 发布记录
+
+          - name:  introduction
+            title: 给点解释
+
+          - name:  communication
+            title: 信访交流
+
+    docs:
+        name: docs
+        title: 文档
+        categories:
+          - name:  intro
+            title: 功能介绍
+
+          - name:  support
+            title: 帮助与支持
+
+          - name:  develop
+            title: 参与贡献
+
+release:
+    latest: &latest_release
+        current:  true
+        version:  3.2.2
+        date:     2015-11-19
+        note:     /blog/posts/0.5.1-release-note.html
+        file:
+            src:
+                size: 250
+                sha1: 292b3d655e93c52cb0491badbde75b55cbb933ef
+            min:
+                size: 57
+                sha1: e9f04e3a0c78fd919de6d6e2bdb53199bfd0b161
+            gzip:
+                size: 18
+                sha1: 98530a2a1896e2a0664b8587147c4d755a4d62c2
+        extract: |
+            此版本修复了一些次要问题。
+        changes: |
+            * 增加`js.dom.Attribute.remove()`方法；
+            * 修改`js.net.Ajax`类的`pureText`属性为`enctype`，可供更多配置；
+            * 修改`js.text.Template`类，编译时会去除换行和变量名头尾空格；
+            * 修复`js.util.Namespace.get()`方法获取`0`和`false`值被忽略的bug；
+            * 增加`js.util.Processor.asyncQueue()`方法的调用对象`locals`配置；
+            * 修复部分TAB和SPACE混用的问题；
+
+    history:
+      - *latest_release
+
+      - version:  3.2.2
+        date:     2015-11-19
+        note:     /blog/posts/0.4.0-release-note.html
+        file:
+            src:
+                size: 221
+                sha1: d33b1ab7041d5d965905d375d3f3040beccdb9b5
+            min:
+                size: 48
+                sha1: 8f5d56ef21fe5c691cc1516366293da2e27ee76d
+            gzip:
+                size: 16
+                sha1: 417ef8d904f5eadfa68765e9b546709c16b74c66
+        extract: |
+            此版本增加了一些兼容性事件的支持，并修复一些问题。
+        changes: |
+            * 3.2.2
+
+download:
+    base: https://github.com/TencentOpen/behaviac/
+    type:
+        gzip: &down_type_gzip
+            type: gzip
+            title: GZip压缩
+            suffix: .min.js.gz
+
+        min: &down_type_min
+            type: min
+            title: GCC压缩
+            suffix: .min.js
+
+        src: &down_type_src
+            type: src
+            title: 源码
+            suffix: .js
+
+    typeList:
+      - *down_type_gzip
+      - *down_type_min
+      - *down_type_src
+
+links:
+    api:
+        text: API参考手册
+        url:  https://github.com/TencentOpen/behaviac/
+    builder:
+        text: 在线jslib-builder
+        url:  https://github.com/TencentOpen/behaviac/
+    changelog:
+        text: 变更记录
+        url:  /docs/changelog.html
+    download:
+        text: 下载
+        url:  /downloads/
+
+meta:
+    authors:
+      - name: behaviac
+        email: tencentgame@tencent.com
+        gravatar: 1cd8c12591616d8c22aaa624f8c07834
+
+    gravatar:
+        base: http://cn.gravatar.com/avatar/
+        param: ?s=
+
+testing:
+    group:
+      - &test
+        name:  测试分类锚点
+        title: testanchor
+
+      - *test
