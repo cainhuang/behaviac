@@ -1,1 +1,0 @@
-<form action="/search/" method="get" class="search-box"><input type="search" name="q" placeholder="搜索" /><button type="submit" class="button">Q</button></form>
