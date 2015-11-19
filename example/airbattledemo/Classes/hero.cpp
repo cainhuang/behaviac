@@ -1,25 +1,59 @@
 #include "hero.h"
 #include "PlaneHero.h"
 #include "GameScene.h"
+#include "enemy.h"
+#include "PlaneEnemy.h"
 USING_NS_CC;
+/*
+void dead(); //飞机挂掉
+Enemy* findAnEnemy();//find an enemy plane
+bool isWillBeCrashEnemy(Enemy* enemy, Point position);//test whether hero will be crash enemy at position
 
+Enemy* getEnemyInFrontOfPosition(Point position);// get Enemy in front of position
+Enemy* getNearestEnemy();//get the nearest enemy
+Enemy* getNearestEnemy(Point position);//get the nearest enemy
+
+void AdjustHeroPosition(Hero* hero);
+void setHeroPlaneUnderPosition(Point targetPosition);
+//m_isAI表示是否使用AI
+bool m_isAI;
+void setAI(bool value);
+//ai动作
+void AIAction(float level);
+*/
 BEGIN_PROPERTIES_DESCRIPTION(Hero)
 {
     REGISTER_PROPERTY(m_isAI);
 
-    //REGISTER_METHOD(findAnEnemy);
-    //REGISTER_METHOD(isWillBeCrashEnemy).PARAM_DISPLAY_INFO(L"Enemy").PARAM_DISPLAY_INFO(L"position");
-    //REGISTER_METHOD(getEnemyInFrontOfPosition).PARAM_DISPLAY_INFO(L"position");
+    REGISTER_METHOD(findAnNearestEnemy);
+    REGISTER_METHOD(isWillBeCrashOnNearestEnemy);
 
-    //REGISTER_METHOD(AdjustHeroPosition).PARAM_DISPLAY_INFO(L"hero");
-    //REGISTER_METHOD(setHeroPlaneUnderPosition).PARAM_DISPLAY_INFO(L"_targetPosition");
+    REGISTER_METHOD(EscapeEnemyCrash);
+    REGISTER_METHOD(hasEnemyInFrontCanAttack);
+    REGISTER_METHOD(findAnEnemyAndAttack);
+
+    REGISTER_METHOD(AdjustHeroPosition);
+    REGISTER_METHOD(wait20Frame);
+    //REGISTER_METHOD(setHeroPlaneUnderPosition).PARAM_DISPLAY_INFO(L"targetPosition");
     
 }
 END_PROPERTIES_DESCRIPTION()
 
+/******************************************************************
+Function    : Hero::Hero()
+Date        : 2015-11-18 17:46:09
+Author      : Quinn Pan
+Parameter   : 
+Return      : 
+Desc        : construct function
+******************************************************************/
 Hero::Hero()
 {
     m_plane = PlaneHero::create();
+    this->btload("hero");
+    this->btsetcurrent("hero");
+    waitTime = 20;
+    m_isAI = true;
 }
 
 Hero::~Hero()
@@ -27,48 +61,85 @@ Hero::~Hero()
 
 }
 
-void  Hero::dead(){
-    //飞机挂掉
-}
-
-Node* Hero::findAnEnemy()//find an enemy plane
+/******************************************************************
+Function    : void findAnNearestEnemy()
+Date        : 2015-11-18 10:28:29
+Author      : Quinn Pan
+Parameter   :
+Return      :
+Desc        : find an nearest enemy
+******************************************************************/
+void Hero::findAnNearestEnemy()
 {
-    return m_plane->findAnEnemy();
+    m_plane->findAnNearestEnemy();
 }
 
-bool  Hero::isWillBeCrashEnemy(Node* enemy, Point position)//test whether hero will be crash enemy at position
+/******************************************************************
+Function    : bool Hero::isWillBeCrashOnNearestEnemy()
+Date        : 2015-11-18 17:46:54
+Author      : Quinn Pan
+Parameter   : 
+Return      : 
+Desc        : tell whether the hero will be crash on the nearest enemy
+******************************************************************/
+bool Hero::isWillBeCrashOnNearestEnemy()
 {
-    return m_plane->isWillBeCrashEnemy(enemy, position);
+    return m_plane->isWillBeCrashOnNearestEnemy();
 }
 
-Node* Hero::getEnemyInFrontOfPosition(Point position)// get Enemy in front of position
+/******************************************************************
+Function    : void Hero::EscapeEnemyCrash()
+Date        : 2015-11-18 17:49:09
+Author      : Quinn Pan
+Parameter   : 
+Return      : 
+Desc        : escape crash on enemy
+******************************************************************/
+void Hero::EscapeEnemyCrash()
 {
-    return m_plane->getEnemyInFrontOfPosition(position);
+    return m_plane->EscapeEnemyCrash();
 }
 
-Node* Hero::getNearestEnemy()//get the nearest enemy
+
+bool Hero::hasEnemyInFrontCanAttack()
 {
-    return m_plane->getNearestEnemy();
+    return m_plane->hasEnemyInFrontCanAttack();
 }
 
-Node* Hero::getNearestEnemy(Point position)//get the nearest enemy 
+void Hero::findAnEnemyAndAttack()
 {
-    return m_plane->getNearestEnemy(position);
+    m_plane->findAnEnemyAndAttack();
 }
 
-void  Hero::AdjustHeroPosition(Node* hero)
+void Hero::AdjustHeroPosition()
 {
-    return m_plane->AdjustHeroPosition(hero);
+    m_plane->AdjustHeroPosition(this->m_plane);
+}
+bool Hero::wait20Frame(){
+    waitTime--;
+    if (waitTime == 0)
+    {
+        waitTime = 20;
+        return true;
+    }
+    return false;
+
 }
 
-void  Hero::setHeroPlaneUnderPosition(Point targetPosition)
-{
-    return m_plane->setHeroPlaneUnderPosition(targetPosition);
-}
-
+/******************************************************************
+Function    : void  Hero::setAI(bool value)
+Date        : 2015-11-18 17:51:01
+Author      : Quinn Pan
+Parameter   : 
+Return      : 
+Desc        : enable AI 
+******************************************************************/
 void  Hero::setAI(bool value)
 {
-    return m_plane->setAI(value);
+    this->m_plane->clearScreenDebugInfo();
+    m_isAI = value;
+    this->SetActive(value);
+    //return m_plane->setAI(value);
 }
 
 //AI action

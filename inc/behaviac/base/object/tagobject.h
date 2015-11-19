@@ -324,30 +324,30 @@ BEHAVIAC_API bool Equal_Struct(const CTagObjectDescriptor& object_desc, const CT
 ////////////////////////////////////////////////////////////////////////////////
 
 
-#define ACCESS_PROPERTY_METHOD				\
-    template<typename T, typename R>		\
-    BEHAVIAC_FORCEINLINE R& _Get_Property_();					\
-    \
-    template<typename T, typename R>										\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_();													\
-    template<typename T, typename R, typename P0>							\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&);												\
-    template<typename T, typename R, typename P0, typename P1>				\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&, P1&);											\
-    template<typename T, typename R, typename P0, typename P1, typename P2>	\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&, P1&, P2&);										\
-    template<typename T, typename R, typename P0, typename P1, typename P2, typename P3>										\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&, P1&, P2&, P3&);																						\
-    template<typename T, typename R, typename P0, typename P1, typename P2, typename P3, typename P4>							\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&, P1&, P2&, P3&, P4&);																				\
-    template<typename T, typename R, typename P0, typename P1, typename P2, typename P3, typename P4, typename P5>				\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&, P1&, P2&, P3&, P4&, P5&);																			\
-    template<typename T, typename R, typename P0, typename P1, typename P2, typename P3, typename P4, typename P5, typename P6>	\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&, P1&, P2&, P3&, P4&, P5&, P6&);																									\
+#define ACCESS_PROPERTY_METHOD													\
+    template<typename T, typename R>											\
+    BEHAVIAC_FORCEINLINE R& _Get_Property_();									\
+																				\
+    template<typename T, typename R>											\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_();									\
+    template<typename T, typename R, typename P0>								\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0);								\
+    template<typename T, typename R, typename P0, typename P1>					\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0, P1);							\
+    template<typename T, typename R, typename P0, typename P1, typename P2>		\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0, P1, P2);																									\
+    template<typename T, typename R, typename P0, typename P1, typename P2, typename P3>																	\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0, P1, P2, P3);																							\
+    template<typename T, typename R, typename P0, typename P1, typename P2, typename P3, typename P4>														\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0, P1, P2, P3, P4);																						\
+    template<typename T, typename R, typename P0, typename P1, typename P2, typename P3, typename P4, typename P5>											\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0, P1, P2, P3, P4, P5);																					\
+    template<typename T, typename R, typename P0, typename P1, typename P2, typename P3, typename P4, typename P5, typename P6>								\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0, P1, P2, P3, P4, P5, P6);																				\
     template<typename T, typename R, typename P0, typename P1, typename P2, typename P3, typename P4, typename P5, typename P6, typename P7>				\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&, P1&, P2&, P3&, P4&, P5&, P6&, P7&);																								\
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0, P1, P2, P3, P4, P5, P6, P7);																		\
     template<typename T, typename R, typename P0, typename P1, typename P2, typename P3, typename P4, typename P5, typename P6, typename P7, typename P8>	\
-    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0&, P1&, P2&, P3&, P4&, P5&, P6&, P7&, P8&);
+    BEHAVIAC_FORCEINLINE R _Execute_Method_(P0, P1, P2, P3, P4, P5, P6, P7, P8);
 
 #define DECLARE_BEHAVIAC_OBJECT_SIMPLE(className, parentClassName)				\
     private:                                                                    \
@@ -363,6 +363,7 @@ BEHAVIAC_API bool Equal_Struct(const CTagObjectDescriptor& object_desc, const CT
     static CTagObjectDescriptorBSS ms_descriptor;								\
     \
     public:                                                                     \
+	const static bool ms_bIsRefType = true;										\
     static CTagObjectDescriptor& GetObjectDescriptor();							\
     static CTagObjectDescriptor& GetObjectDescriptorDirectly();					\
     virtual const CTagObjectDescriptor& GetDescriptor() const					\
@@ -380,8 +381,6 @@ the corresponding BEGIN_PROPERTIES_DESCRIPTION/END_PROPERTIES_DESCRIPTION in the
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(classFullNameWithNamespace)								\
     BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(classFullNameWithNamespace, parentClassName);			\
     DECLARE_BEHAVIAC_OBJECT_SIMPLE(classFullNameWithNamespace, parentClassName);				\
-    static bool IsAgentType()																	\
-    { return true; }																			\
     ACCESS_PROPERTY_METHOD
 
 
@@ -464,7 +463,7 @@ struct RegisterPropertiesGetter<T, true>
         TagObjectDescriptorMap_t::iterator it = maps.find(classNameStr);		\
         if (it != maps.end()) {													\
             BEHAVIAC_LOG1(BEHAVIAC_LOG_WARNING, "%s duplated in BEGIN_PROPERTIES_DESCRIPTION!\n", classNameStr);\
-        }																		\
+		        }																		\
         maps[classNameStr] = &className::ms_descriptor;							\
         RegisterParent();                                                       \
         CTagObjectDescriptor::MembersContainer& ms_members = className::GetObjectDescriptorDirectly().ms_members;\
@@ -473,10 +472,10 @@ struct RegisterPropertiesGetter<T, true>
         BEHAVIAC_UNUSED_VAR(ms_methods);                                        \
         typedef className objectType;                                           \
         objectType::GetObjectDescriptorDirectly().ms_isInitialized = true;		\
-        objectType::GetObjectDescriptorDirectly().m_isRefType = className::IsAgentType();\
-        if (className::IsAgentType()) {\
+        objectType::GetObjectDescriptorDirectly().m_isRefType = className::ms_bIsRefType;\
+        if (objectType::GetObjectDescriptorDirectly().m_isRefType) {\
             behaviac::TypeRegister::Register<className*>(classNameStr);\
-        }
+		        }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 #define BEGIN_TEMPLATE1_PROPERTIES_DESCRIPTION(className)                       \
@@ -496,7 +495,7 @@ struct RegisterPropertiesGetter<T, true>
         TagObjectDescriptorMap_t::iterator it = maps.find(classNameStr);		\
         if (it != maps.end()) {													\
             BEHAVIAC_LOG1(BEHAVIAC_LOG_WARNING, "%s duplated in BEGIN_PROPERTIES_DESCRIPTION!\n", classNameStr);\
-        }														\
+		        }														\
         maps[classNameStr] = &className<T>::ms_descriptor;						\
         RegisterParent();                                                       \
         CTagObjectDescriptor::MembersContainer& ms_members = className<T>::GetObjectDescriptorDirectly().ms_members;\
@@ -510,20 +509,20 @@ struct RegisterPropertiesGetter<T, true>
 //deparated, to use CLASS_DISPLAY_INFO
 #define CLASS_DISPLAYNAME(displayName)    objectType::GetObjectDescriptorDirectly().m_displayName = displayName;
 #define CLASS_DESC(desc)    objectType::GetObjectDescriptorDirectly().m_desc = desc;
-#define CLASS_IS_REF_TYPE(isRefType)    objectType::GetObjectDescriptorDirectly().m_isRefType = isRefType;
 
 #define CLASS_DISPLAY_INFO(displayName, desc)									\
     objectType::GetObjectDescriptorDirectly().m_displayName = displayName;		\
     if (desc) {objectType::GetObjectDescriptorDirectly().m_desc = desc;}		\
-    else {objectType::GetObjectDescriptorDirectly().m_desc = displayName;}
+	    else {objectType::GetObjectDescriptorDirectly().m_desc = displayName;}
 
 ////////////////////////////////////////////////////////////////////////////////
 // No-virtual CTagObject declaration
 ////////////////////////////////////////////////////////////////////////////////
-#define DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO_BASE(className)			\
+#define DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO_BASE(className, bRefType)	\
     protected:                                                                  \
     static CTagObjectDescriptorBSS ms_descriptor;								\
     public:                                                                     \
+	const static bool ms_bIsRefType = bRefType;									\
     static CTagObjectDescriptor& GetObjectDescriptor();							\
     static CTagObjectDescriptor& GetObjectDescriptorDirectly();					\
     void Load(const ISerializableNode* node)                                    \
@@ -562,29 +561,29 @@ struct RegisterPropertiesGetter<T, true>
     static void RegisterParent() {}                                             \
     static void RegisterProperties();
 
-#define DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO(className)					\
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO_BASE(className)				\
-    bool Equal(const className& rhs)	const									\
+#define DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO(className, bRefType)	\
+    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO_BASE(className, bRefType)	\
+    bool Equal(const className& rhs)	const								\
     {																		\
         const CTagObjectDescriptor& object_desc = className::GetObjectDescriptor();	\
         return Equal_Struct(object_desc, (const CTagObject*)this, (const CTagObject*)&rhs); \
     }																		\
-    bool operator==(const className& rhs)	const								\
+    bool operator==(const className& rhs)	const							\
     {																		\
-        return this->Equal(rhs);														\
+        return this->Equal(rhs);												\
     }																		\
-    bool operator!=(const className& rhs)	const								\
+    bool operator!=(const className& rhs)	const							\
     {																		\
-        return !this->Equal(rhs);													\
+        return !this->Equal(rhs);											\
     }																		\
-    bool FromString(const char* str)											\
+    bool FromString(const char* str)										\
     {																		\
-        return behaviac::StringUtils::FromString_Struct(str, *this);				\
+        return behaviac::StringUtils::FromString_Struct(str, *this);		\
     }																		\
-    behaviac::string ToString() const											\
+    behaviac::string ToString() const										\
     {																		\
-        return behaviac::StringUtils::ToString_Struct(*this);						\
-    }
+        return behaviac::StringUtils::ToString_Struct(*this);				\
+    }																		
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //#define DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BUT_DYNAMICTYPE(className)
@@ -597,26 +596,69 @@ classFullNameWithNamespace is the class full name with namespace, like test_ns::
 even the class is delared in a namespace, it is still advised to use the full name with the name space.
 the corresponding BEGIN_PROPERTIES_DESCRIPTION/END_PROPERTIES_DESCRIPTION in the cpp can be put in or out of that namespace.
 */
-#define DECLARE_BEHAVIAC_OBJECT_STRUCT(classFullNameWithNamespace)				\
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO(classFullNameWithNamespace)		\
-    static bool IsOfMyKind(const CTagObject*)										\
-    { return true; }																\
-    static bool IsAgentType()														\
-    { return false; }																\
-    static const char* GetClassTypeName()											\
+#define DECLARE_BEHAVIAC_OBJECT_STRUCT_V2(classFullNameWithNamespace, bRefType)			\
+    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO(classFullNameWithNamespace, bRefType)	\
+    static bool IsOfMyKind(const CTagObject*)											\
+    { return true; }																	\
+    static const char* GetClassTypeName()												\
     { return #classFullNameWithNamespace; }
+
+#define DECLARE_BEHAVIAC_OBJECT_STRUCT_V1(classFullNameWithNamespace) DECLARE_BEHAVIAC_OBJECT_STRUCT_V2(classFullNameWithNamespace, false)
+
+
+/**
+DECLARE_BEHAVIAC_STRUCT can accept 1 or 2 parameters
+
+the 1st param is the full class name with the namespace if any, like test_ns::AgentTest, 
+even the class is delared in a namespace, it is still advised to use the full name with the name space.
+the corresponding BEGIN_PROPERTIES_DESCRIPTION/END_PROPERTIES_DESCRIPTION in the cpp can be put in or out of that namespace.
+
+the 2nd param is true or false indicating if the class is a ref type. a ref type is used as a pointer.
+*/
+#define DECLARE_BEHAVIAC_STRUCT(...) _BEHAVIAC_ARGUMENT_SELECTOR2_((__VA_ARGS__, DECLARE_BEHAVIAC_OBJECT_STRUCT_V2, DECLARE_BEHAVIAC_OBJECT_STRUCT_V1))(__VA_ARGS__)
+#define _BEHAVIAC_ARGUMENT_SELECTOR2_(__args) _BEHAVIAC_GET_2TH_ARGUMENT_ __args
+#define _BEHAVIAC_GET_2TH_ARGUMENT_(__p1,__p2,__n,...) __n
+
+//deprecated, to use DECLARE_BEHAVIAC_STRUCT 
+#define DECLARE_BEHAVIAC_OBJECT_STRUCT DECLARE_BEHAVIAC_STRUCT
+
+
+/**
+ex: BEHAVIAC_EXTEND_EXISTING_TYPE(myNode, cocos2d::Node)
+*/
+#define BEHAVIAC_EXTEND_EXISTING_TYPE(myType, existingType)				\
+	M_SPECIALIZE_TYPE_HANDLER(existingType);							\
+	template <>															\
+	inline CTagObjectDescriptor& GetObjectDescriptor<existingType>()	\
+	{																	\
+		return myType::GetObjectDescriptor();							\
+	}																	\
+	template <>															\
+	inline void RegisterProperties<existingType>()						\
+	{																	\
+		myType::RegisterProperties();									\
+	}																	\
+	namespace behaviac													\
+	{																	\
+		namespace Meta													\
+		{																\
+			template <>													\
+			struct TypeMapper<existingType>								\
+			{															\
+				typedef myType Type;									\
+			};															\
+		}																\
+	}
 
 /**
 DECLARE_BEHAVIAC_OBJECT_GENERICSBASE is only used for IList and System::Object,
-in general, please use DECLARE_BEHAVIAC_OBJECT_STRUCT, unless you know what you are doing
+in general, please use DECLARE_BEHAVIAC_STRUCT, unless you know what you are doing
 */
 #define DECLARE_BEHAVIAC_OBJECT_GENERICSBASE(classFullNameWithNamespace)					\
-    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO_BASE(classFullNameWithNamespace)	\
-    static bool IsOfMyKind(const CTagObject*)										\
-    { return true; }																\
-    static bool IsAgentType()														\
-    { return false; }																\
-    static const char* GetClassTypeName()											\
+    DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO_BASE(classFullNameWithNamespace, false)	\
+    static bool IsOfMyKind(const CTagObject*)												\
+    { return true; }																		\
+    static const char* GetClassTypeName()													\
     { return #classFullNameWithNamespace; }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -748,12 +790,12 @@ BEHAVIAC_API EnumClassMap_t& GetEnumValueNameMaps();
 BEHAVIAC_API void CleanupEnumValueNameMaps();
 
 /**
-you need to accompany DECLARE_BEHAVIAC_OBJECT_ENUM(ENUMCLASS_FullNameWithNamespace)
+you need to accompany DECLARE_BEHAVIAC_ENUM(ENUMCLASS_FullNameWithNamespace)
 in the cpp, BEGIN_ENUM_DESCRIPTION/END_ENUM_DESCRIPTION
 
-DECLARE_BEHAVIAC_OBJECT_ENUM(namespace::ENUMCLASS_FullNameWithNamespace, EnumClass) should be defined in the global namespace.
+DECLARE_BEHAVIAC_ENUM(namespace::ENUMCLASS_FullNameWithNamespace, EnumClass) should be defined in the global namespace.
 */
-#define DECLARE_BEHAVIAC_OBJECT_ENUM(ENUMCLASS_FullNameWithNamespace, EnumClassName)										\
+#define DECLARE_BEHAVIAC_ENUM(ENUMCLASS_FullNameWithNamespace, EnumClassName)										\
     BEHAVIAC_OVERRIDE_TYPE_NAME(ENUMCLASS_FullNameWithNamespace);															\
     SPECIALIZE_TYPE_HANDLER(ENUMCLASS_FullNameWithNamespace, BasicTypeHandlerEnum<ENUMCLASS_FullNameWithNamespace>);		\
     SPECIALIZE_TYPE_HANDLER(behaviac::vector<ENUMCLASS_FullNameWithNamespace>, BasicTypeHandlerEnum<behaviac::vector<ENUMCLASS_FullNameWithNamespace> >);\
@@ -796,6 +838,10 @@ DECLARE_BEHAVIAC_OBJECT_ENUM(namespace::ENUMCLASS_FullNameWithNamespace, EnumCla
         EnumClassDescriptionBSS_t& enumClassDescBSS = EnumClassName##GetEnumClassValueNames();\
         maps[enumClassName] = &enumClassDescBSS;									\
         EnumClassDescription_t& enumClassDesc = *enumClassDescBSS.descriptor;
+
+
+//deprecated, to use DECLARE_BEHAVIAC_ENUM 
+#define DECLARE_BEHAVIAC_OBJECT_ENUM DECLARE_BEHAVIAC_ENUM
 
 //deparated, to use ENUMCLASS_DISPLAY_INFO
 #define ENUMCLASS_DISPLAYNAME(displayName_)    enumClassDesc.m_displayName = displayName_;

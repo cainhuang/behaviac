@@ -91,7 +91,7 @@ namespace behaviac
         static void Output(uint32_t Filter, const char* pStr);
 
         static void OutputLine(const char* pStr);
-        static void OutputDecoratedLine(const char* pStr);
+		static void OutputDecoratedLine(uint32_t LogFilter, const char* pStr);
 
         // Test if init, and if not, init the object. Should be @ beginning of every public function
         // since ConsoleOut can be called before behaviac is even initialized.

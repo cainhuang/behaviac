@@ -153,7 +153,7 @@ namespace behaviac
         BaseType	data;
     };
 
-#define ANYTYPE(P)	behaviac::Any_t<P, behaviac::Meta::IsPtr<P>::Result, behaviac::Meta::IsAgent<P>::Result>
+#define ANYTYPE(P)	behaviac::Any_t<P, behaviac::Meta::IsPtr<P>::Result, behaviac::Meta::IsRefType<P>::Result>
 
     typedef behaviac::vector<IAny*> Variants_t;
 

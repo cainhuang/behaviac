@@ -91,12 +91,27 @@ LOAD_TEST(btunittest, fsm_ut_1)
     //switch to Exit
     testAgent->Message = FSMAgentTest::Exit;
     status = testAgent->btexec();
-    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+    status = testAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+    status = testAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+
     InactiveCount = testAgent->GetVariable<int>("InactiveCount");
     CHECK_EQUAL(1, InactiveCount);
     ExitCount = testAgent->GetVariable<long>("ExitCount");
     CHECK_EQUAL(1, ExitCount);
     CHECK_EQUAL(7, testAgent->TestVar);
+
+	//reenter again
+	testAgent->Message = FSMAgentTest::Invalid;
+	status = testAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+	InactiveCount = testAgent->GetVariable<int>("InactiveCount");
+	CHECK_EQUAL(0, InactiveCount);
+	CHECK_EQUAL(8, testAgent->TestVar);
+
     finlTestEnvFSM(testAgent);
 }
 
@@ -118,7 +133,7 @@ LOAD_TEST(btunittest, fsm_ref_bt)
     CHECK_EQUAL(true, "HC" == testBtAgent->testVar_str_0);
 
     status = testBtAgent->btexec();
-    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
     CHECK_EQUAL(4, testBtAgent->testVar_0);
 
     CHECK_FLOAT_EQUAL(1.8f, testBtAgent->testVar_2);

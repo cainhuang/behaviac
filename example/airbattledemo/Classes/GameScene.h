@@ -95,8 +95,6 @@ private:
     //void setHeroPlaneUnderPosition(CCPoint _targetPosition);
     //m_isAI表示是否使用AI
     bool m_isAI;
-    //ai动作
-    void AIAction(float level);
     //m_canBossRefresh表示可否刷新boss，每隔dt秒可以刷新一次
     void resetBoss(float dt);
     NPC * m_NPC;

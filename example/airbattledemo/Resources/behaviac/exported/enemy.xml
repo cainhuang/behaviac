@@ -31,7 +31,7 @@
           <property Opr="Self.Enemy::getRandomSpeedByInitSpeed(float Self.Enemy::initSpeed)" />
         </node>
         <node class="Action" id="7">
-          <property Method="Self.Enemy::setSpeed(float Self.Enemy::initSpeed)" />
+          <property Method="Self.Enemy::setSpeed(float Self.Enemy::randomSpeed)" />
           <property ResultOption="BT_SUCCESS" />
         </node>
         <node class="WaitFrames" id="6">

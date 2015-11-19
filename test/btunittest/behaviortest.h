@@ -27,8 +27,6 @@
 
 #include "behaviac/behaviortree/nodes/conditions/condition.h"
 
-#include "ext/types.h"
-
 //behaviac::Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
 
 class BEHAVIAC_API DecoratorLoopTaskMask : public behaviac::DecoratorLoopTask

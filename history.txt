@@ -1,3 +1,11 @@
+2015-11-19	3.2.2
+	Fix a bug for setting the file version.
+	Fix a bug for creating a workspace.
+	waitstate/waitframesstate/waittransition/alwaystransition added
+
+2015-11-18	3.2.0
+	Fix a bug for generating C++ and C# behavior codes.
+
 2015-11-17	3.1.9
 	Close the meta file after loading.
 	Improve the export options for the cmd mode.

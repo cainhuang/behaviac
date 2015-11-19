@@ -482,6 +482,7 @@ namespace BehaviorNodeUnitTest
 
             Assert.AreEqual(1500, testAgent.testVar_0);
             Assert.AreEqual(1800, testAgent.testVar_1);
+            Assert.AreEqual("null", testAgent.testVar_str_0);
             Assert.AreEqual(2, StaticAgent.sInt);
         }
 
@@ -494,7 +495,12 @@ namespace BehaviorNodeUnitTest
 
             Assert.AreEqual(1.8f, testAgent.testVar_2);
             Assert.AreEqual(4.5f, testAgent.testVar_3);
-            Assert.AreEqual(true, "HC" == testAgent.testVar_str_0);
+            Assert.AreEqual("HC", testAgent.testVar_str_0);
+
+            Assert.AreEqual("NODE", testAgent.testVar_str_1);
+            TestNS.Float2 float2 = testAgent.GetVariable<TestNS.Float2>("testFloat2");
+            Assert.AreEqual(1.0f, float2.x);
+            Assert.AreEqual(1.0f, float2.y);
         }
 
         [Test]

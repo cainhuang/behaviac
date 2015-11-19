@@ -37,6 +37,13 @@
 		</agent>
 		<agent classfullname="Hero" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
 			<Member Name="m_isAI" DisplayName="" Desc="" Type="bool" Class="Hero" />
+			<Method Name="findAnNearestEnemy" DisplayName="" Desc="" Class="Hero" ReturnType="void" />
+			<Method Name="isWillBeCrashOnNearestEnemy" DisplayName="" Desc="" Class="Hero" ReturnType="bool" />
+			<Method Name="EscapeEnemyCrash" DisplayName="" Desc="" Class="Hero" ReturnType="void" />
+			<Method Name="hasEnemyInFrontCanAttack" DisplayName="" Desc="" Class="Hero" ReturnType="bool" />
+			<Method Name="findAnEnemyAndAttack" DisplayName="" Desc="" Class="Hero" ReturnType="void" />
+			<Method Name="AdjustHeroPosition" DisplayName="" Desc="" Class="Hero" ReturnType="void" />
+			<Method Name="wait20Frame" DisplayName="" Desc="" Class="Hero" ReturnType="bool" />
 		</agent>
 		<agent classfullname="NPC" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
 			<Member Name="Level1Up_Score" DisplayName="" Desc="" Type="int" Class="NPC" />

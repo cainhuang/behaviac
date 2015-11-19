@@ -915,6 +915,8 @@ namespace behaviac
     {
         if (!_balckboard_bound)
         {
+			//this->m_variables.Clear();
+
             AgentProperties* bb = AgentProperties::Get(this->GetObjectTypeName());
 
             if (bb != NULL)

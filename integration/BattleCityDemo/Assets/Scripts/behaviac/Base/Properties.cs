@@ -1490,7 +1490,6 @@ namespace behaviac
                 if (pVar.m_instantiated == 0)
                 {
                     pVar.SetProperty(property_);
-
                 }
                 else
                 {
@@ -1674,6 +1673,11 @@ namespace behaviac
                 if (pVar.m_instantiated > 0)
                 {
                     return pVar.GetValueObject(pAgent);
+                }
+                else
+                {
+                    string msg = string.Format("A Local '{0}' has been out of scope!", pVar.Name);
+                    Debug.LogWarning(msg);
                 }
             }
 

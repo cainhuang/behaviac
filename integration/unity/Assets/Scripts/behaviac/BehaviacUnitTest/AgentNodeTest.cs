@@ -13,6 +13,20 @@
 
 using UnityEngine;
 
+namespace TestNS
+{
+    public class Node
+	{
+        public string name;
+	};
+
+    public struct Float2
+    {
+        public float x;
+        public float y;
+    };
+}
+
 [behaviac.TypeMetaInfo()]
 public class AgentNodeTest : behaviac.Agent
 {
@@ -33,6 +47,9 @@ public class AgentNodeTest : behaviac.Agent
 
     [behaviac.MemberMetaInfo()]
     public string testVar_str_0 = string.Empty;
+
+    [behaviac.MemberMetaInfo()]
+    public string testVar_str_1 = string.Empty;
 
     //// event
     //[behaviac.EventMetaInfo()]
@@ -69,6 +86,7 @@ public class AgentNodeTest : behaviac.Agent
         action_2_exit_count = 0;
 
         testVar_str_0 = string.Empty;
+        this.Variables.Clear();
     }
 
     public void init() {
@@ -139,8 +157,32 @@ public class AgentNodeTest : behaviac.Agent
 
     [behaviac.MethodMetaInfo()]
     public void testGameObject(GameObject go) {
-        testVar_str_0 = go.name;
+        if (go != null)
+            testVar_str_0 = go.name;
+        else
+            testVar_str_0 = "null";
     }
+
+    [behaviac.MethodMetaInfo()]
+    TestNS.Node createExtendedNode()
+	{
+		TestNS.Node n = new TestNS.Node();
+		n.name = "NODE";
+		return n;
+	}
+
+    [behaviac.MethodMetaInfo()]
+   	void testExtendedRefType(TestNS.Node go)
+	{
+        testVar_str_1 = go.name;
+	}
+
+    [behaviac.MethodMetaInfo()]
+	void testExtendedStruct(ref TestNS.Float2 f)
+	{
+		f.x = 1.0f;
+		f.y = 1.0f;
+	}
 
     [behaviac.MethodMetaInfo()]
     public behaviac.EBTStatus switchRef(string refTree) {

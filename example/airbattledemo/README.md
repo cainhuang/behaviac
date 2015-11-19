@@ -23,4 +23,3 @@ please refer to 'https://github.com/cocos2d/cocos2d-x/blob/v3/README.md' to setu
 	in the Project Property, Debugging, Set Working Directory: $(ProjectDir)../Resources,
 	in the Project Property, Debugging, Set Environment: PATH=..\..\..\bin
 ```
-

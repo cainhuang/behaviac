@@ -77,15 +77,13 @@ namespace behaviac
 
         public:
             bool Execute(Agent* pAgent) const;
-            bool Execute(Agent* pAgent, EBTStatus methodResult) const;
         };
     protected:
         ActionConfig* m_ActionConfig;
         virtual void load(int version, const char* agentType, const properties_t& properties);
 
     public:
-        virtual bool Evaluate(const Agent* pAgent);
-        bool Evaluate(Agent* pAgent, EBTStatus methodResult);
+        virtual bool Evaluate(Agent* pAgent);
     protected:
         virtual BehaviorTask* createTask() const;
     };

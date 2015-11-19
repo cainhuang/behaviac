@@ -355,7 +355,7 @@ struct TStruct_GetClassTypeNumberId
 {
     static int GetClassTypeNumberId()
     {
-        int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsAgent<T>::Result>::GetClassTypeNumberId();
+		int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
 
         return ret;
     }
@@ -367,9 +367,9 @@ struct TStruct_GetClassTypeNumberId< const T >
     static int GetClassTypeNumberId()
     {
         //typedef typename behaviac::Meta::RemoveConst<T>::Result BaseType;
-        //int ret = GetClassTypeNumberIdSelector<BaseType, behaviac::Meta::IsAgent<BaseType>::Result>::GetClassTypeNumberId();
+        //int ret = GetClassTypeNumberIdSelector<BaseType, behaviac::Meta::IsRefType<BaseType>::Result>::GetClassTypeNumberId();
         //int ret = GetClassTypeNumberId<BaseType>();
-        int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsAgent<T>::Result>::GetClassTypeNumberId();
+		int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
 
         return ret;
     }
@@ -381,7 +381,7 @@ inline int GetClassTypeNumberId()
 {
     //int ret = TStruct_GetClassTypeNumberId<T, behaviac::Meta::IsConst<T>::Result>::GetClassTypeNumberId();
     int ret = TStruct_GetClassTypeNumberId<T>::GetClassTypeNumberId();
-    //int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsAgent<T>::Result>::GetClassTypeNumberId();
+    //int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
 
     return ret;
 }

@@ -41,7 +41,9 @@ void TGetUiInfo_(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode, 
     {
         if (objDesc.ms_isInitialized)
         {
-            const char* typeName = GetClassTypeName((T*)0);
+            typedef REAL_BASETYPE(T)		TBaseType;
+
+			const char* typeName = GetClassTypeName((TBaseType*)0);
 
             if (types->find(typeName) == types->end())
             {
@@ -60,10 +62,12 @@ struct ClassUiInfoGetterStruct
     {
         if (types != NULL)
         {
-            RegisterPropertiesGetter<MemberType, false>::_RegisterProperties();
-            const CTagObjectDescriptor& objDesc = ObjectDescriptorGettter<MemberType, false>::_GetObjectDescriptor();
+			typedef REAL_BASETYPE(MemberType)		TBaseType;
 
-            TGetUiInfo_<MemberType>(types, memberNode, objDesc);
+			RegisterPropertiesGetter<TBaseType, false>::_RegisterProperties();
+			const CTagObjectDescriptor& objDesc = ObjectDescriptorGettter<TBaseType, false>::_GetObjectDescriptor();
+
+			TGetUiInfo_<TBaseType>(types, memberNode, objDesc);
         }
     }
 };
@@ -473,7 +477,7 @@ struct GenericTypeHandler<MemberType*>
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
 
-        SaveSelector<MemberType, behaviac::Meta::IsAgent<MemberType>::Result>::Save(node, member, className, propertyID);
+		SaveSelector<MemberType, behaviac::Meta::IsRefType<MemberType>::Result>::Save(node, member, className, propertyID);
     }
 
     static void LoadState(const ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)

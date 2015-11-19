@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -289,7 +289,11 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("#include \"behaviac/fsm/fsm.h\"");
             file.WriteLine("#include \"behaviac/fsm/state.h\"");
             file.WriteLine("#include \"behaviac/fsm/startcondition.h\"");
-            file.WriteLine("#include \"behaviac/fsm/transitioncondition.h\"\r\n");
+            file.WriteLine("#include \"behaviac/fsm/transitioncondition.h\"");
+            file.WriteLine("#include \"behaviac/fsm/waitstate.h\"");
+            file.WriteLine("#include \"behaviac/fsm/waitframesstate.h\"");
+            file.WriteLine("#include \"behaviac/fsm/alwaystransition.h\"");
+            file.WriteLine("#include \"behaviac/fsm/waittransition.h\"\r\n");
 
             // write included files for the game agents
             if (this.IncludedFilenames != null)
@@ -379,33 +383,15 @@ namespace PluginBehaviac.Exporters
                         string paramStr = string.Empty;
                         for (int i = 0; i < method.Params.Count; ++i)
                         {
-                            string basicNativeType = DataCppExporter.GetBasicGeneratedNativeType(method.Params[i].NativeType, false);
-                            string  refStr = string.Empty;
-                            if (basicNativeType != "char*" && basicNativeType != "char *")
-                            {
-                                if (basicNativeType.EndsWith("*"))
-                                {
-                                    refStr = "&";
-
-                                    basicNativeType = basicNativeType.Remove(basicNativeType.Length - 1);
-                                }
-                                basicNativeType = basicNativeType.Trim();
-                            }
-
                             if (i > 0)
                             {
                                 paramStrDef += ", ";
                                 paramStr += ", ";
                             }
 
-                            string refConstStr = "&";
-                            if (basicNativeType.EndsWith("&"))
-                            {
-                                refConstStr = string.Empty;
-                            }
-
-                            paramStrDef += string.Format("{0}{1} p{2}", basicNativeType, refConstStr, i);
-                            paramStr += string.Format("{0}p{1}", refStr, i);
+                            string basicNativeType = DataCppExporter.GetGeneratedNativeType(method.Params[i].NativeType);
+                            paramStrDef += string.Format("{0} p{1}", basicNativeType, i);
+                            paramStr += string.Format("p{0}", i);
                         }
 
                         string methodName = method.Name.Replace("::", "_");
@@ -764,7 +750,7 @@ namespace PluginBehaviac.Exporters
                             file.WriteLine();
                         }
 
-                        file.WriteLine("\tDECLARE_BEHAVIAC_OBJECT_STRUCT({0});", customizedStruct.Name);
+                        file.WriteLine("DECLARE_BEHAVIAC_STRUCT({0});", customizedStruct.Name);
 
                         file.WriteLine("};");
                     }
@@ -776,7 +762,7 @@ namespace PluginBehaviac.Exporters
                         for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
                         {
                             CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
-                            file.WriteLine("DECLARE_BEHAVIAC_OBJECT_ENUM({0}, {0});", customizedEnum.Name);
+                            file.WriteLine("DECLARE_BEHAVIAC_ENUM({0}, {0});", customizedEnum.Name);
                         }
                     }
 

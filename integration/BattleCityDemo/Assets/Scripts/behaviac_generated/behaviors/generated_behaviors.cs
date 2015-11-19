@@ -1005,7 +1005,7 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_ActorCount") == 515203555u);
 			int opr = pAgent.GetVariable<int>(515203555u);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_ActorCount") == 515203555u);
-			pAgent.SetVariable<int>("GameLevelCommon::parT_ActorCount", opr, 515203555u);
+			pAgent.SetVariable<int>("GameLevelCommon::parT_ActorCount", (int)opr, 515203555u);
 			bool op = opl < opr;
 			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
 		}
@@ -1211,7 +1211,7 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_ActorCount") == 515203555u);
 			int opr = pAgent.GetVariable<int>(515203555u);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_ActorCount") == 515203555u);
-			pAgent.SetVariable<int>("GameLevelCommon::parT_ActorCount", opr, 515203555u);
+			pAgent.SetVariable<int>("GameLevelCommon::parT_ActorCount", (int)opr, 515203555u);
 			bool op = opl == opr;
 			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
 		}
@@ -5296,11 +5296,27 @@ namespace behaviac
 	{
 		public State_bt_Tank_FSM_MoveFire_node1()
 		{
-			this.m_resultOption = EBTStatus.BT_INVALID;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			behaviac.EBTStatus result = (behaviac.EBTStatus)((GameActor)pAgent).moveForward();
+			return behaviac.EBTStatus.BT_RUNNING;
+		}
+	}
+
+	class Precondition_bt_Tank_FSM_MoveFire_attach4 : behaviac.Precondition
+	{
+		public Precondition_bt_Tank_FSM_MoveFire_attach4()
+		{
+			this.Phase = Precondition.EPhase.E_UPDATE;
+			this.IsAnd = true;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			behaviac.EBTStatus opr2 = (behaviac.EBTStatus)((GameActor)pAgent).moveForward();
+			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
+			pAgent.SetVariable("Status", opr2, 525979889u);
 			return result;
 		}
 	}
@@ -5314,7 +5330,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			bool op = true;
+			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
+			behaviac.EBTStatus opl = pAgent.GetVariable<behaviac.EBTStatus>(525979889u);
+			behaviac.EBTStatus opr2 = behaviac.EBTStatus.BT_FAILURE;
+			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
 			return result;
@@ -5325,14 +5344,14 @@ namespace behaviac
 	{
 		public State_bt_Tank_FSM_MoveFire_node2()
 		{
-			this.m_resultOption = EBTStatus.BT_INVALID;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("rotateAngle") == 1077650265u);
 			float method_p0 = pAgent.GetVariable<float>(1077650265u);
-			behaviac.EBTStatus result = (behaviac.EBTStatus)((GameActor)pAgent).rotateToAngle(method_p0);
-			return result;
+			((GameActor)pAgent).rotateToAngle(method_p0);
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -5400,11 +5419,27 @@ namespace behaviac
 	{
 		public State_bt_Tank_FSM_MoveFire_node7()
 		{
-			this.m_resultOption = EBTStatus.BT_INVALID;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			behaviac.EBTStatus result = (behaviac.EBTStatus)((Player)pAgent).fire();
+			return behaviac.EBTStatus.BT_RUNNING;
+		}
+	}
+
+	class Precondition_bt_Tank_FSM_MoveFire_attach12 : behaviac.Precondition
+	{
+		public Precondition_bt_Tank_FSM_MoveFire_attach12()
+		{
+			this.Phase = Precondition.EPhase.E_UPDATE;
+			this.IsAnd = true;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			behaviac.EBTStatus opr2 = (behaviac.EBTStatus)((Player)pAgent).fire();
+			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
+			pAgent.SetVariable("Status", opr2, 525979889u);
 			return result;
 		}
 	}
@@ -5418,7 +5453,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			bool op = true;
+			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
+			behaviac.EBTStatus opl = pAgent.GetVariable<behaviac.EBTStatus>(525979889u);
+			behaviac.EBTStatus opr2 = behaviac.EBTStatus.BT_SUCCESS;
+			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
 			return result;
@@ -5429,12 +5467,12 @@ namespace behaviac
 	{
 		public State_bt_Tank_FSM_MoveFire_node9()
 		{
-			this.m_resultOption = EBTStatus.BT_INVALID;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			behaviac.EBTStatus result = (behaviac.EBTStatus)((Player)pAgent).aimToAngle(((GameActor)pAgent).currentOrientation);
-			return result;
+			((Player)pAgent).aimToAngle(((GameActor)pAgent).currentOrientation);
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -5488,6 +5526,15 @@ namespace behaviac
 					node1.SetAgentType("Player");
 #endif
 					// attachments
+					{
+						Precondition_bt_Tank_FSM_MoveFire_attach4 attach4 = new Precondition_bt_Tank_FSM_MoveFire_attach4();
+						attach4.SetClassNameString("Precondition");
+						attach4.SetId(4);
+#if !BEHAVIAC_RELEASE
+						attach4.SetAgentType("Player");
+#endif
+						node1.Attach(attach4, true, false, false);
+					}
 					{
 						Transition_bt_Tank_FSM_MoveFire_attach5 attach5 = new Transition_bt_Tank_FSM_MoveFire_attach5();
 						attach5.SetClassNameString("Transition");
@@ -5546,6 +5593,15 @@ namespace behaviac
 					node7.SetAgentType("Player");
 #endif
 					// attachments
+					{
+						Precondition_bt_Tank_FSM_MoveFire_attach12 attach12 = new Precondition_bt_Tank_FSM_MoveFire_attach12();
+						attach12.SetClassNameString("Precondition");
+						attach12.SetId(12);
+#if !BEHAVIAC_RELEASE
+						attach12.SetAgentType("Player");
+#endif
+						node7.Attach(attach12, true, false, false);
+					}
 					{
 						Transition_bt_Tank_FSM_MoveFire_attach8 attach8 = new Transition_bt_Tank_FSM_MoveFire_attach8();
 						attach8.SetClassNameString("Transition");
@@ -7968,12 +8024,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_moveTarget") == 3204785006u);
-			UnityEngine.Vector3 method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(3204785006u);
-			method_p0 = (UnityEngine.Vector3)var_method_p0;
+			UnityEngine.Vector3 method_p0 = pAgent.GetVariable<UnityEngine.Vector3>(3204785006u);
 			((Player)pAgent).getTarget(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_moveTarget") == 3204785006u);
-			pAgent.SetVariable<UnityEngine.Vector3>("Player::parT_moveTarget", method_p0, 3204785006u);
+			pAgent.SetVariable<UnityEngine.Vector3>("Player::parT_moveTarget", (UnityEngine.Vector3)method_p0, 3204785006u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -7987,24 +8041,14 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par_w") == 1468995396u);
-			float method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1468995396u);
-			if (var_method_p0 != null)
-				method_p0 = (float)var_method_p0;
-			else
-				method_p0 = 0;
+			float method_p0 = pAgent.GetVariable<float>(1468995396u);
 			Debug.Check(behaviac.Utils.MakeVariableId("par_index") == 4149689662u);
-			int method_p1;
-			object var_method_p1 = pAgent.GetVariableObject(4149689662u);
-			if (var_method_p1 != null)
-				method_p1 = (int)var_method_p1;
-			else
-				method_p1 = 0;
+			int method_p1 = pAgent.GetVariable<int>(4149689662u);
 			((Player)pAgent).getInfo(ref method_p0, ref method_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("par_w") == 1468995396u);
-			pAgent.SetVariable<float>("Player::par_w", method_p0, 1468995396u);
+			pAgent.SetVariable<float>("Player::par_w", (float)method_p0, 1468995396u);
 			Debug.Check(behaviac.Utils.MakeVariableId("par_index") == 4149689662u);
-			pAgent.SetVariable<int>("Player::par_index", method_p1, 4149689662u);
+			pAgent.SetVariable<int>("Player::par_index", (int)method_p1, 4149689662u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}

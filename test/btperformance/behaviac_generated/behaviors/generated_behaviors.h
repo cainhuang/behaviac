@@ -68,9 +68,14 @@ and you also need to include your agent types' headers before it:
 #include "behaviac/behaviortree/attachments/precondition.h"
 #include "behaviac/behaviortree/attachments/effector.h"
 #include "behaviac/htn/task.h"
+#include "behaviac/fsm/fsm.h"
 #include "behaviac/fsm/state.h"
 #include "behaviac/fsm/startcondition.h"
 #include "behaviac/fsm/transitioncondition.h"
+#include "behaviac/fsm/waitstate.h"
+#include "behaviac/fsm/waitframesstate.h"
+#include "behaviac/fsm/alwaystransition.h"
+#include "behaviac/fsm/waittransition.h"
 
 // You should set the agent header files of your game
 // when exporting cpp files in the behaviac editor:

@@ -178,7 +178,7 @@ namespace behaviac
         return super::IsValid(pAgent, pTask);
     }
 
-    bool Condition::Evaluate(const Agent* pAgent)
+    bool Condition::Evaluate(Agent* pAgent)
     {
         if (this->m_comparator != NULL)
         {

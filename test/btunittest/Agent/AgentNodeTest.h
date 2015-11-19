@@ -17,6 +17,8 @@
 #include "behaviac/agent/agent.h"
 #include "behaviac/agent/registermacros.h"
 #include "Agent/UnitTestTypes.h"
+#include "ext/extendreftype.h"
+#include "ext/extendstruct.h"
 
 using TNS::NE::NAT::eColor;
 using TNS::NE::NAT::WHITE;
@@ -39,9 +41,10 @@ namespace UnityEngine
 
         behaviac::string name;
 
-        DECLARE_BEHAVIAC_OBJECT_STRUCT(UnityEngine::GameObject);
+        DECLARE_BEHAVIAC_STRUCT(UnityEngine::GameObject, true);
     };
 }
+
 
 class AgentNodeTest : public behaviac::Agent
 {
@@ -57,6 +60,7 @@ public:
     float testVar_3;
     int waiting_timeout_interval;
     behaviac::string testVar_str_0;
+    behaviac::string testVar_str_1;
 
     int event_test_var_int;
     bool event_test_var_bool;
@@ -142,9 +146,30 @@ public:
 
     void testGameObject(UnityEngine::GameObject* go)
     {
-        BEHAVIAC_ASSERT(go != NULL);
-        testVar_str_0 = go->name;
+        if (go != NULL)
+			testVar_str_0 = go->name;
+		else
+			testVar_str_0 = "null";
     }
+
+	TestNS::Node* createExtendedNode()
+	{
+		TestNS::Node* n = BEHAVIAC_NEW TestNS::Node();
+		n->name = "NODE";
+		return n;
+	}
+
+	void testExtendedRefType(TestNS::Node* go)
+	{
+		BEHAVIAC_ASSERT(go != NULL);
+		testVar_str_1 = go->name;
+	}
+
+	void testExtendedStruct(TestNS::Float2& f)
+	{
+		f.x = 1.0f;
+		f.y = 1.0f;
+	}
 
     behaviac::EBTStatus switchRef(const behaviac::string& refTree)
     {

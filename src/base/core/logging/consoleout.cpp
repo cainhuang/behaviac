@@ -142,7 +142,7 @@ namespace behaviac
         count = 0;
 
         //the first line
-        OutputDecoratedLine(line);
+		OutputDecoratedLine(Filter, line);
 
         while (*pStr != '\0')
         {
@@ -269,7 +269,7 @@ namespace behaviac
         //you can call ConsoleOut::SetEnableMask(0) to disable the output
         if (EnableMask != 0)
         {
-            OutputDecoratedLine(pStr);
+			OutputDecoratedLine(LogFilter, pStr);
         }
     }
 
@@ -328,11 +328,45 @@ namespace behaviac
         gs_lock->Unlock();
     }
 
-    void ConsoleOut::OutputDecoratedLine(const char* pStr)
+	static const char* GetLogFilterString(uint32_t LogFilter)
+	{
+		const char* szStr = "NONE";
+
+		if (LogFilter == BEHAVIAC_LOG_INFO)
+		{ 
+			szStr = "INFO";
+		}
+		else if (LogFilter == BEHAVIAC_LOG_MSG)
+		{
+			szStr = "MSG";
+		}
+		else if (LogFilter == BEHAVIAC_LOG_WARNING)
+		{
+			szStr = "WARN";
+		}
+		else if (LogFilter == BEHAVIAC_LOG_ERROR)
+		{
+			szStr = "ERROR";
+		}
+		else if (LogFilter == BEHAVIAC_LOG_CRITICAL)
+		{
+			szStr = "FATAL";
+		}
+		else
+		{
+			BEHAVIAC_ASSERT(true);
+		}
+
+		return szStr;
+	}
+
+	void ConsoleOut::OutputDecoratedLine(uint32_t LogFilter, const char* pStr)
     {
         behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
         time_t tTime = time(NULL);
         tm* ptmCurrent = localtime(&tTime);
+
+		const char* LogFilterStr = GetLogFilterString(LogFilter);
 
         char szTime[64];
         string_snprintf(szTime, sizeof(szTime) - 1,
@@ -343,9 +377,9 @@ namespace behaviac
         const int kMaxStringLength = 2048;
         char temp[kMaxStringLength];
 #if !BEHAVIAC_COMPILER_GCC_LINUX
-        string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %04d][%s]%s", index, (int)threadId, szTime, pStr);
+        string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %04d][%s][%s]%s", index, (int)threadId, szTime, LogFilterStr, pStr);
 #else
-        string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %p][%s]%s", index, threadId, szTime, pStr);
+		string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %p][%s][%s]%s", index, threadId, szTime, LogFilterStr, pStr);
 #endif
         temp[kMaxStringLength - 1] = '\0';
 

@@ -767,4 +767,34 @@
   <data name="FSM" xml:space="preserve">
     <value>状态机</value>
   </data>
+  <data name="IsEndState" xml:space="preserve">
+    <value>结束状态</value>
+  </data>
+  <data name="IsEndStateDesc" xml:space="preserve">
+    <value>当到达‘结束状态’的时候，状态机结束。</value>
+  </data>
+  <data name="WaitFramesState" xml:space="preserve">
+    <value>等待帧数状态</value>
+  </data>
+  <data name="WaitFramesStateDesc" xml:space="preserve">
+    <value>等待帧数状态</value>
+  </data>
+  <data name="WaitState" xml:space="preserve">
+    <value>等待状态</value>
+  </data>
+  <data name="WaitStateDesc" xml:space="preserve">
+    <value>等待状态</value>
+  </data>
+  <data name="AlwaysTransition" xml:space="preserve">
+    <value>总是转换</value>
+  </data>
+  <data name="AlwaysTransitionDesc" xml:space="preserve">
+    <value>总是转换</value>
+  </data>
+  <data name="WaitTransition" xml:space="preserve">
+    <value>等待转换</value>
+  </data>
+  <data name="WaitTransitionDesc" xml:space="preserve">
+    <value>等待转换</value>
+  </data>
 </root>

@@ -44,7 +44,7 @@ namespace behaviac
         virtual bool decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner);
         virtual void load(int version, const char* agentType, const properties_t& properties);
         EBTStatus SelectorUpdate(Agent* pAgent, EBTStatus childStatus, int& activeChildIndex, behaviac::vector<BehaviorTask*>& children);
-        virtual bool Evaluate(const Agent* pAgent);
+        virtual bool Evaluate(Agent* pAgent);
         bool CheckIfInterrupted(Agent* pAgent);
     protected:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;

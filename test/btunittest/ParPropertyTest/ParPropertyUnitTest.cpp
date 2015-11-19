@@ -29,6 +29,8 @@ void registerAllTypes()
     behaviac::TypeRegister::Register<TNS::ST::kCar>("TNS::ST::kCar");
     behaviac::TypeRegister::Register<TNS::NE::NAT::eColor>("TNS::NE::NAT::eColor");
     behaviac::TypeRegister::Register<UnityEngine::GameObject>("UnityEngine::GameObject");
+    behaviac::TypeRegister::Register<TestNS::Node>("TestNS::Node");
+    behaviac::TypeRegister::Register<TestNS::Float2>("TestNS::Float2");
 
     behaviac::Agent::Register<EmployeeParTestAgent>();
 
@@ -65,6 +67,9 @@ void unregisterAllTypes()
     behaviac::Agent::UnRegister<AgentArrayAccessTest>();
     behaviac::Agent::UnRegister<PropertyReadonlyAgent>();
     behaviac::Agent::UnRegister<PreconEffectorAgent>();
+
+	behaviac::TypeRegister::UnRegister<TestNS::Node>("TestNS::Node");
+	behaviac::TypeRegister::UnRegister<TestNS::Float2>("TestNS::Float2");
 
     behaviac::TypeRegister::UnRegister<UnityEngine::GameObject>("UnityEngine::GameObject");
     behaviac::TypeRegister::UnRegister<TNS::NE::NAT::eColor>("TNS::NE::NAT::eColor");

@@ -23,6 +23,7 @@
 #endif
 
 #define BEHAVIAC_COMPILER_MSVC 1
+#define BEHAVIAC_BIGENDIAN			1
 
 #if _MSC_VER >= 1600
 #define BEHAVIAC_COMPILER_MSVC2010 1
@@ -51,6 +52,7 @@
 #include "TargetConditionals.h"
 
 #define BEHAVIAC_COMPILER_APPLE 1
+#define BEHAVIAC_BIGENDIAN			1
 #define BEHAVIAC_COMPILER_NAME "gcc-apple"
 
 #if defined(__LP64__)
@@ -63,6 +65,7 @@
 
 #elif ANDROID
 #define BEHAVIAC_COMPILER_ANDROID 1
+#define BEHAVIAC_BIGENDIAN			1
 #define BEHAVIAC_COMPILER_NAME "gcc-android"
 
 #if defined(__LP64__)
@@ -75,6 +78,7 @@
 
 #elif __CYGWIN__
 #define BEHAVIAC_COMPILER_GCC_CYGWIN 1
+#define BEHAVIAC_BIGENDIAN			1
 #define BEHAVIAC_COMPILER_NAME "gcc-cygwin"
 #if __GNUC__ < 4 || __GNUC_MINOR < 6
 #define nullptr 0
@@ -85,6 +89,7 @@
 #endif
 
 #elif defined(__linux__)
+#define BEHAVIAC_BIGENDIAN			1
 #define BEHAVIAC_COMPILER_GCC_LINUX 1
 #define BEHAVIAC_COMPILER_NAME "gcc-linux"
 
@@ -94,7 +99,13 @@
 #else
 #error Unsupported C++ compiler
 
+//#define BEHAVIAC_BIGENDIAN			1
+
 #endif // _MSC_VER
+
+#if !defined(BEHAVIAC_BIGENDIAN)
+	#error please define BEHAVIAC_BIGENDIAN 
+#endif
 
 #define INTRINSIC_PARAM(type) const type&
 

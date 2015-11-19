@@ -123,6 +123,7 @@ namespace behaviac
         ///create instance property,
         ///create class scope static property
         static Property* Create(const char* typeName, const char* valueStr);
+		static Property*  Create(const char* typeName, const char* nameStr, const char* valueStr);
         static Property* Create(const char* typeName, const char* fullName, bool bIsStatic, const char* arrayIndexStr);
         static Property* Create(const char* typeName, const char* instanceName, const char* agentType, const char* propertyName, const char* valueStr);
 
@@ -166,10 +167,32 @@ namespace behaviac
         static Properties_t& Properties();
 
         static const char* ParseInstanceNameProperty(const char* fullName, char* agentIntanceName, char* agentType);
+
+		template<typename T, bool bRefType>
+		struct CreatorSelector
+		{
+			static void Register(PropertyCreators_t& creators, const char* typeName)
+			{
+				creators[typeName] = &Creator<T>;
+			}
+		};
+
+		template<typename T>
+		struct CreatorSelector<T, true>
+		{
+			static void Register(PropertyCreators_t& creators, const char* typeName)
+			{
+				typedef REAL_BASETYPE(T) BaseType;
+
+				creators[typeName] = &Creator<BaseType*>;
+			}
+		};
+
         template<typename T>
         static bool Register(const char* typeName)
         {
-            PropertyCreators()[typeName] = &Creator<T>;
+			PropertyCreators_t& creators = PropertyCreators();
+			CreatorSelector<T, behaviac::Meta::IsRefType<T>::Result>::Register(creators, typeName);
 
             return true;
         }

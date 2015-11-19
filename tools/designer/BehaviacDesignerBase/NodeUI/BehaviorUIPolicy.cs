@@ -21,15 +21,5 @@ namespace Behaviac.Design.ObjectUI
 {
     class BehaviorUIPolicy : ObjectUIPolicy
     {
-        public override void Update() {
-            if (_obj != null) {
-                //DesignerPropertyEditor enterActionEditor = GetEditor(_obj, "EnterAction");
-                //DesignerPropertyEditor exitActionEditor = GetEditor(_obj, "ExitAction");
-                //Debug.Check(enterActionEditor != null && exitActionEditor != null);
-
-                //enterActionEditor.Enabled = false;
-                //exitActionEditor.Enabled = false;
-            }
-        }
     }
 }

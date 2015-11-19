@@ -62,7 +62,11 @@
 
 #include "behaviac/fsm/fsm.h"
 #include "behaviac/fsm/state.h"
+#include "behaviac/fsm/waitstate.h"
+#include "behaviac/fsm/waitframesstate.h"
+#include "behaviac/fsm/alwaystransition.h"
 #include "behaviac/fsm/transitioncondition.h"
+#include "behaviac/fsm/waittransition.h"
 #include "behaviac/htn/task.h"
 #include "behaviac/htn/method.h"
 
@@ -124,6 +128,10 @@ namespace behaviac
         BehaviorNode::Register<FSM>();
         BehaviorNode::Register<State>();
         BehaviorNode::Register<Transition>();
+        BehaviorNode::Register<WaitState>();
+        BehaviorNode::Register<WaitFramesState>();
+        BehaviorNode::Register<AlwaysTransition>();
+		BehaviorNode::Register<WaitTransition>();
         BehaviorNode::Register<Task>();
         BehaviorNode::Register<Method>();
     }
@@ -184,6 +192,10 @@ namespace behaviac
         BehaviorNode::UnRegister<FSM>();
         BehaviorNode::UnRegister<State>();
         BehaviorNode::UnRegister<Transition>();
+        BehaviorNode::UnRegister<WaitState>();
+        BehaviorNode::UnRegister<WaitFramesState>();
+        BehaviorNode::UnRegister<AlwaysTransition>();
+        BehaviorNode::UnRegister<WaitTransition>();
         BehaviorNode::UnRegister<Task>();
         BehaviorNode::UnRegister<Method>();
     }

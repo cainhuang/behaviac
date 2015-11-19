@@ -236,7 +236,6 @@ void CTagObjectDescriptor::GetMethodsDescription(TypesMap_t* types, const CTagOb
         //{
         //	BEHAVIAC_ASSERT(true);
         //}
-
         m->GetUiInfo(types, parent, xmlNode);
     }
 }

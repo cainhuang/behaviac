@@ -44,29 +44,6 @@ namespace PluginBehaviac.Events
             get { return true; }
         }
 
-        public enum TransitionMode
-        {
-            [Behaviac.Design.EnumMemberDesc("Condition", "condition")]
-            Condition,
-
-            [Behaviac.Design.EnumMemberDesc("Success", "if successful")]
-            Success,
-
-            [Behaviac.Design.EnumMemberDesc("Failure", "if failed")]
-            Failure,
-
-            [Behaviac.Design.EnumMemberDesc("End", "if ended")]
-            End
-        }
-
-        private TransitionMode _mode = TransitionMode.Condition;
-        [DesignerEnum("TransitionMode", "TransitionModeDesc", "Operation", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, "")]
-        public TransitionMode Mode
-        {
-            get { return _mode; }
-            set { _mode = value; }
-        }
-
         private RightValueDef _opl;
         [DesignerRightValueEnum("OperandLeft", "OperandLeftDesc", "Operation", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.NoReadonly, DesignerPropertyEnum.AllowStyles.AttributesMethod, MethodType.Getter, "", "", ValueTypes.All)]
         public RightValueDef Opl
@@ -118,7 +95,6 @@ namespace PluginBehaviac.Events
             {
                 string str = base.Description;
 
-                if (this._mode == TransitionMode.Condition)
                 {
                     if (_opl != null)
                         str += "\n" + _opl.GetExportValue();
@@ -127,10 +103,6 @@ namespace PluginBehaviac.Events
 
                     if (_opr2 != null)
                         str += "\n" + _opr2.GetExportValue();
-                }
-                else
-                {
-                    str = DesignerEnum.GetDisplayName(this._mode);
                 }
 
                 return str;
@@ -141,7 +113,6 @@ namespace PluginBehaviac.Events
         {
             string str = string.Empty;
 
-            if (this._mode == TransitionMode.Condition)
             {
                 bool isCompare = this.Operator >= OperatorTypes.Equal && this.Operator <= OperatorTypes.LessEqual;
 
@@ -160,10 +131,6 @@ namespace PluginBehaviac.Events
                     if (_opr2 != null)
                         str += _opr2.GetDisplayValue();
                 }
-            }
-            else
-            {
-                str = DesignerEnum.GetDisplayName(this._mode); 
             }
 
             return str;
@@ -234,7 +201,6 @@ namespace PluginBehaviac.Events
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<Node.ErrorCheck> result)
         {
-            if (this._mode == TransitionMode.Condition)
             {
                 if (this._opl == null)
                 {
@@ -249,15 +215,6 @@ namespace PluginBehaviac.Events
                 if (this._opl != null && this._opl.Method != null && this._opl.Method.IsCustomized)
                 {
                     result.Add(new Node.ErrorCheck(this.Node, this.Id, this.Label, ErrorCheckLevel.Error, Resources.CustomizedMethodError));
-                }
-            }
-            else
-            {
-                State s = (State)this.Node;
-
-                if (s.Method == null) 
-                {
-                    result.Add(new Node.ErrorCheck(this.Node, ErrorCheckLevel.Error, "No State Method is specified!"));
                 }
             }
 

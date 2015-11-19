@@ -824,4 +824,34 @@ it only returns success or failure and never returns running.
   <data name="FSM" xml:space="preserve">
     <value>FSM</value>
   </data>
+  <data name="IsEndState" xml:space="preserve">
+    <value>IsEndState</value>
+  </data>
+  <data name="IsEndStateDesc" xml:space="preserve">
+    <value>when an 'End State' is entered, the FSM is ended.</value>
+  </data>
+  <data name="WaitFramesState" xml:space="preserve">
+    <value>WaitFramesState</value>
+  </data>
+  <data name="WaitFramesStateDesc" xml:space="preserve">
+    <value>WaitFramesState</value>
+  </data>
+  <data name="WaitState" xml:space="preserve">
+    <value>WaitState</value>
+  </data>
+  <data name="WaitStateDesc" xml:space="preserve">
+    <value>WaitState</value>
+  </data>
+  <data name="AlwaysTransition" xml:space="preserve">
+    <value>AlwaysTransition</value>
+  </data>
+  <data name="AlwaysTransitionDesc" xml:space="preserve">
+    <value>Always Transition</value>
+  </data>
+  <data name="WaitTransition" xml:space="preserve">
+    <value>WaitTransition</value>
+  </data>
+  <data name="WaitTransitionDesc" xml:space="preserve">
+    <value>WaitTransition can only be appended to WaitState or WaitFramesState</value>
+  </data>
 </root>

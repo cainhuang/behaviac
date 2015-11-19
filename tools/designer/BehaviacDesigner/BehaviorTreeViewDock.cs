@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -85,28 +85,45 @@ namespace Behaviac.Design
             }
         }
 
-        internal static void CloseAll() {
-            BehaviorTreeViewDock[] behaviorTreeViewDocks = __instances.ToArray();
-            foreach(BehaviorTreeViewDock dock in behaviorTreeViewDocks) {
-                __saved_bt_paths.Add(dock._behaviorTreeView.RootNode.RelativePath);
-                dock.Hide();
-                dock.Close();
+        internal static void CloseAll()
+        {
+            try
+            {
+                BehaviorTreeViewDock[] behaviorTreeViewDocks = __instances.ToArray();
+                foreach (BehaviorTreeViewDock dock in behaviorTreeViewDocks)
+                {
+                    __saved_bt_paths.Add(dock._behaviorTreeView.RootNode.RelativePath);
+                    dock.Hide();
+                    dock.Close();
+                }
+            }
+            catch
+            {
             }
 
             __instances.Clear();
             __lastFocusedInstance = null;
         }
 
-        internal static void CloseBehaviorTreeViewDock(Nodes.BehaviorNode node) {
-            foreach(BehaviorTreeViewDock dock in __instances) {
-                if (dock.BehaviorTreeView.RootNode == node) {
-                    dock.Hide();
-                    dock.Close();
+        internal static void CloseBehaviorTreeViewDock(Nodes.BehaviorNode node)
+        {
+            try
+            {
+                foreach (BehaviorTreeViewDock dock in __instances)
+                {
+                    if (dock.BehaviorTreeView.RootNode == node)
+                    {
+                        dock.Hide();
+                        dock.Close();
 
-                    __instances.Remove(dock);
+                        __instances.Remove(dock);
 
-                    break;
+                        break;
+                    }
                 }
+            }
+            catch
+            {
             }
         }
 

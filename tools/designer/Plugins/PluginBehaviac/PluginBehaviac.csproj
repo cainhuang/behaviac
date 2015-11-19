@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -92,7 +92,12 @@
     <Compile Include="NodeExporters\Cpp\Attachments\EffectorCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Attachments\PreconditionCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Decorators\DecoratorIteratorCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\FSM\AlwaysTransitionCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\FSM\WaitTransitionCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\FSM\StateCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\FSM\TransitionConditionCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\FSM\WaitFramesStateCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\FSM\WaitStateCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\HTN\TaskCppExporter.cs" />
     <Compile Include="NodeExporters\Cs\Actions\ActionCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Actions\AssignmentCsExporter.cs" />
@@ -119,7 +124,12 @@
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorLoopUntilCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorTimeCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorWeightCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\FSM\AlwaysTransitionCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\FSM\WaitTransitionCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\FSM\StateCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\FSM\TransitionConditionCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\FSM\WaitStateCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\FSM\WaitFramesStateCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\HTN\TaskCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\NodeCsExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Actions\ActionCppExporter.cs" />
@@ -188,10 +198,15 @@
     <Compile Include="Nodes\Decorators\DecoratorSuccessUntil.cs" />
     <Compile Include="Nodes\Decorators\DecoratorAlwaysSuccess.cs" />
     <Compile Include="Nodes\Decorators\DecoratorTime.cs" />
+    <Compile Include="Nodes\FSM\AlwaysTransition.cs" />
     <Compile Include="Nodes\FSM\FSMReferencedBehavior.cs" />
     <Compile Include="Nodes\FSM\StartCondition.cs" />
     <Compile Include="Nodes\FSM\State.cs" />
+    <Compile Include="Nodes\FSM\StateBase.cs" />
     <Compile Include="Nodes\FSM\TransitionCondition.cs" />
+    <Compile Include="Nodes\FSM\WaitFramesState.cs" />
+    <Compile Include="Nodes\FSM\WaitState.cs" />
+    <Compile Include="Nodes\FSM\WaitTransition.cs" />
     <Compile Include="Nodes\HTN\Method.cs" />
     <Compile Include="Nodes\HTN\Task.cs" />
     <Compile Include="NodeUI\EffectorUIPolicy.cs" />

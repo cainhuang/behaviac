@@ -176,9 +176,16 @@ namespace Behaviac.Design
 
                         if (!File.Exists(wksName))
                         {
-                            string errorInfo = string.Format(Resources.WorkspaceDebugErrorInfo, wksName);
-                            Console.WriteLine(errorInfo);
-                            MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
+                            try
+                            {
+                                MainWindow.Instance.BehaviorTreeList.Timer.Enabled = false;
+                                string errorInfo = string.Format(Resources.WorkspaceDebugErrorInfo, wksName);
+                                Console.WriteLine(errorInfo);
+                                MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
+                            }
+                            catch
+                            {
+                            }
                         }
                         else
                         {

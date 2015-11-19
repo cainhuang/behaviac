@@ -16,10 +16,12 @@ using System.Collections.Generic;
 namespace behaviac
 {
     // ============================================================================
-    public class State : Action
+    public class State : BehaviorNode
     {
         public State()
         {
+            m_bIsEndState = false;
+            m_method = null;
         }
 
         ~State()
@@ -30,6 +32,27 @@ namespace behaviac
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
+
+            foreach (property_t p in properties)
+            {
+                if (p.name == "Method")
+                {
+                    if (!string.IsNullOrEmpty(p.value))
+                    {
+                        this.m_method = Action.LoadMethod(p.value);
+                    }//if (p.value[0] != '\0')
+                }
+                else if (p.name == "IsEndState")
+                {
+                    if (!string.IsNullOrEmpty(p.value))
+                    {
+                        if (p.value == "true")
+                        {
+                            this.m_bIsEndState = true;
+                        }
+                    }
+                }
+            }
         }
 
         public override void Attach(BehaviorNode pAttachment, bool bIsPrecondition, bool bIsEffector, bool bIsTransition)
@@ -64,17 +87,34 @@ namespace behaviac
             return base.IsValid(pAgent, pTask);
         }
 
+        public bool IsEndState
+        {
+            get
+            {
+                return this.m_bIsEndState;
+            }
+        }
+
+        public EBTStatus Execute(Agent pAgent)
+        {
+            EBTStatus result = EBTStatus.BT_RUNNING;
+
+            if (this.m_method != null)
+            {
+                this.m_method.Invoke(pAgent);
+            }
+            else
+            {
+                result = this.update_impl(pAgent, EBTStatus.BT_RUNNING);
+            }
+
+            return result;
+        }
         protected override BehaviorTask createTask()
         {
             StateTask pTask = new StateTask();
 
             return pTask;
-        }
-
-        protected override EBTStatus update_impl(Agent pAgent, EBTStatus childStatus)
-        {
-            //when no method is specified, use the configured result status
-            return this.m_resultOption;
         }
 
         //nextStateId holds the next state id if it returns running when a certain transition is satisfied
@@ -85,13 +125,20 @@ namespace behaviac
 
             //when no method is specified(m_method == null),
             //'update_impl' is used to return the configured result status for both xml/bson and c#
-            EBTStatus result = this.Execute(pAgent, EBTStatus.BT_RUNNING);
+            EBTStatus result = this.Execute(pAgent);
 
-            bool bTransitioned = UpdateTransitions(pAgent, this, this.m_transitions, ref nextStateId, result);
-
-            if (bTransitioned)
+            if (this.m_bIsEndState)
             {
                 result = EBTStatus.BT_SUCCESS;
+            }
+            else
+            {
+                bool bTransitioned = UpdateTransitions(pAgent, this, this.m_transitions, ref nextStateId, result);
+
+                if (bTransitioned)
+                {
+                    result = EBTStatus.BT_SUCCESS;
+                }
             }
 
             return result;
@@ -107,7 +154,7 @@ namespace behaviac
                 {
                     Transition transition = transitions[i];
 
-                    if (transition.Evaluate(pAgent, result))
+                    if (transition.Evaluate(pAgent))
                     {
                         nextStateId = transition.TargetStateId;
                         Debug.Check(nextStateId != -1);
@@ -130,6 +177,9 @@ namespace behaviac
 
             return bTransitioned;
         }
+
+        protected bool m_bIsEndState;
+        protected CMethodBase m_method;
 
         protected List<Transition> m_transitions;
 
@@ -158,10 +208,21 @@ namespace behaviac
                 base.load(node);
             }
 
-            int m_nextStateId = -1;
+            protected int m_nextStateId = -1;
             public override int GetNextStateId()
             {
                 return m_nextStateId;
+            }
+
+            public bool IsEndState
+            {
+                get
+                {
+                    Debug.Check(this.GetNode() is State, "node is not an State");
+                    State pStateNode = (State)(this.GetNode());
+
+                    return pStateNode.IsEndState;
+                }
             }
 
             protected override bool onenter(Agent pAgent)

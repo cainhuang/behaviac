@@ -59,7 +59,7 @@
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="19" Opl="static string Self.EmployeeParTestAgent::STV_STR_0" Opr="Self.EmployeeParTestAgent::Func_StringIR(static string Self.EmployeeParTestAgent::STV_STR_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
-              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="17" Opl="static behaviac::Agent* Self.EmployeeParTestAgent::STV_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentIR(static behaviac::Agent* Self.EmployeeParTestAgent::STV_AGENT_0)" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="17" Opl="static behaviac::Agent Self.EmployeeParTestAgent::STV_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentIR(static behaviac::Agent Self.EmployeeParTestAgent::STV_AGENT_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="18" Opl="static vector&lt;float&gt; Self.EmployeeParTestAgent::STV_LIST_F_0" Opr="Self.EmployeeParTestAgent::Func_SingleListIR(static vector&lt;float&gt; Self.EmployeeParTestAgent::STV_LIST_F_0)" PrefabName="" PrefabNodeId="-1">
@@ -68,7 +68,7 @@
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="16" Opl="static vector&lt;string&gt; Self.EmployeeParTestAgent::STV_LIST_STR_0" Opr="Self.EmployeeParTestAgent::Func_StringListIR(static vector&lt;string&gt; Self.EmployeeParTestAgent::STV_LIST_STR_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
-              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="20" Opl="static vector&lt;behaviac::Agent*&gt; Self.EmployeeParTestAgent::STV_LIST_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentListIR(static vector&lt;behaviac::Agent*&gt; Self.EmployeeParTestAgent::STV_LIST_AGENT_0)" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="20" Opl="static behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::STV_LIST_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentListIR(static behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::STV_LIST_AGENT_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
             </Connector>

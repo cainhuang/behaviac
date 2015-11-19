@@ -72,6 +72,10 @@ and you also need to include your agent types' headers before it:
 #include "behaviac/fsm/state.h"
 #include "behaviac/fsm/startcondition.h"
 #include "behaviac/fsm/transitioncondition.h"
+#include "behaviac/fsm/waitstate.h"
+#include "behaviac/fsm/waitframesstate.h"
+#include "behaviac/fsm/alwaystransition.h"
+#include "behaviac/fsm/waittransition.h"
 
 // You should set the agent header files of your game
 // when exporting cpp files in the behaviac editor:
@@ -121,7 +125,7 @@ template<> BEHAVIAC_FORCEINLINE int Enemy::_Execute_Method_<METHOD_TYPE_Enemy_ge
 }
 
 struct METHOD_TYPE_Enemy_getRandomSpeedByInitSpeed { };
-template<> BEHAVIAC_FORCEINLINE float Enemy::_Execute_Method_<METHOD_TYPE_Enemy_getRandomSpeedByInitSpeed>(float& p0)
+template<> BEHAVIAC_FORCEINLINE float Enemy::_Execute_Method_<METHOD_TYPE_Enemy_getRandomSpeedByInitSpeed>(float p0)
 {
 	return this->Enemy::getRandomSpeedByInitSpeed(p0);
 }
@@ -139,7 +143,7 @@ template<> BEHAVIAC_FORCEINLINE bool Enemy::_Execute_Method_<METHOD_TYPE_Enemy_i
 }
 
 struct METHOD_TYPE_Enemy_setSpeed { };
-template<> BEHAVIAC_FORCEINLINE void Enemy::_Execute_Method_<METHOD_TYPE_Enemy_setSpeed>(float& p0)
+template<> BEHAVIAC_FORCEINLINE void Enemy::_Execute_Method_<METHOD_TYPE_Enemy_setSpeed>(float p0)
 {
 	this->Enemy::setSpeed(p0);
 }
@@ -150,6 +154,48 @@ template<> BEHAVIAC_FORCEINLINE bool& Hero::_Get_Property_<PROPERTY_TYPE_Hero_m_
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)offsetof(Hero, Hero::m_isAI);
 	return *(reinterpret_cast<bool*>(pc));
+}
+
+struct METHOD_TYPE_Hero_AdjustHeroPosition { };
+template<> BEHAVIAC_FORCEINLINE void Hero::_Execute_Method_<METHOD_TYPE_Hero_AdjustHeroPosition>()
+{
+	this->Hero::AdjustHeroPosition();
+}
+
+struct METHOD_TYPE_Hero_EscapeEnemyCrash { };
+template<> BEHAVIAC_FORCEINLINE void Hero::_Execute_Method_<METHOD_TYPE_Hero_EscapeEnemyCrash>()
+{
+	this->Hero::EscapeEnemyCrash();
+}
+
+struct METHOD_TYPE_Hero_findAnEnemyAndAttack { };
+template<> BEHAVIAC_FORCEINLINE void Hero::_Execute_Method_<METHOD_TYPE_Hero_findAnEnemyAndAttack>()
+{
+	this->Hero::findAnEnemyAndAttack();
+}
+
+struct METHOD_TYPE_Hero_findAnNearestEnemy { };
+template<> BEHAVIAC_FORCEINLINE void Hero::_Execute_Method_<METHOD_TYPE_Hero_findAnNearestEnemy>()
+{
+	this->Hero::findAnNearestEnemy();
+}
+
+struct METHOD_TYPE_Hero_hasEnemyInFrontCanAttack { };
+template<> BEHAVIAC_FORCEINLINE bool Hero::_Execute_Method_<METHOD_TYPE_Hero_hasEnemyInFrontCanAttack>()
+{
+	return this->Hero::hasEnemyInFrontCanAttack();
+}
+
+struct METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy { };
+template<> BEHAVIAC_FORCEINLINE bool Hero::_Execute_Method_<METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy>()
+{
+	return this->Hero::isWillBeCrashOnNearestEnemy();
+}
+
+struct METHOD_TYPE_Hero_wait20Frame { };
+template<> BEHAVIAC_FORCEINLINE bool Hero::_Execute_Method_<METHOD_TYPE_Hero_wait20Frame>()
+{
+	return this->Hero::wait20Frame();
 }
 
 struct PROPERTY_TYPE_NPC_Level1Up_Score { };
@@ -201,13 +247,13 @@ template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_lev
 }
 
 struct METHOD_TYPE_NPC_getLevel { };
-template<> BEHAVIAC_FORCEINLINE int NPC::_Execute_Method_<METHOD_TYPE_NPC_getLevel>(int& p0)
+template<> BEHAVIAC_FORCEINLINE int NPC::_Execute_Method_<METHOD_TYPE_NPC_getLevel>(int p0)
 {
 	return this->NPC::getLevel(p0);
 }
 
 struct METHOD_TYPE_NPC_setLeveUpScore { };
-template<> BEHAVIAC_FORCEINLINE void NPC::_Execute_Method_<METHOD_TYPE_NPC_setLeveUpScore>(int& p0, int& p1)
+template<> BEHAVIAC_FORCEINLINE void NPC::_Execute_Method_<METHOD_TYPE_NPC_setLeveUpScore>(int p0, int p1)
 {
 	this->NPC::setLeveUpScore(p0, p1);
 }
@@ -356,8 +402,8 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			BEHAVIAC_ASSERT(behaviac::MakeVariableId("initSpeed") == 1002713030u);
-			float& method_p0 = (float&)pAgent->GetVariable<float >(1002713030u);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("randomSpeed") == 1466300189u);
+			float& method_p0 = (float&)pAgent->GetVariable<float >(1466300189u);
 			((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_setSpeed, void, float >(method_p0);
 			return BT_SUCCESS;
 		}
@@ -491,6 +537,998 @@ namespace behaviac
 					node0->SetHasEvents(node0->HasEvents() | node3->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
+			}
+			return true;
+		}
+	};
+
+	// Source file: enemy_fsm
+
+	class State_bt_enemy_fsm_node1 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_enemy_fsm_node1, State);
+		State_bt_enemy_fsm_node1()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			return BT_RUNNING;
+		}
+	};
+
+	class Precondition_bt_enemy_fsm_attach3 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach3, Precondition);
+		Precondition_bt_enemy_fsm_attach3()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr2 = ((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_getEnemyType, int >();
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("enemyType") == 257823859u);
+			pAgent->SetVariable("enemyType", opr2, 257823859u);
+			return result;
+		}
+	};
+
+	class Precondition_bt_enemy_fsm_attach4 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach4, Precondition);
+		Precondition_bt_enemy_fsm_attach4()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("m_init_speed") == 552343623u);
+			vector<float >& opr2 = (vector<float >&)pAgent->GetVariable<vector<float > >(552343623u);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("initSpeed") == 1002713030u);
+			pAgent->SetVariable("initSpeed", opr2, 1002713030u);
+			return result;
+		}
+	};
+
+	class Precondition_bt_enemy_fsm_attach5 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach5, Precondition);
+		Precondition_bt_enemy_fsm_attach5()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("initSpeed") == 1002713030u);
+			float& opl_p0 = (float&)pAgent->GetVariable<float >(1002713030u);
+			((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_setSpeed, void, float >(opl_p0);
+			return result;
+		}
+	};
+
+	class Transition_bt_enemy_fsm_attach6 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_enemy_fsm_attach6, Transition);
+		Transition_bt_enemy_fsm_attach6()
+		{
+			this->SetTargetStateId(2);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_isAlive, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class State_bt_enemy_fsm_node2 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_enemy_fsm_node2, State);
+		State_bt_enemy_fsm_node2()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			return BT_RUNNING;
+		}
+	};
+
+	class Precondition_bt_enemy_fsm_attach7 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach7, Precondition);
+		Precondition_bt_enemy_fsm_attach7()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("initSpeed") == 1002713030u);
+			float& opr2_p0 = (float&)pAgent->GetVariable<float >(1002713030u);
+			float opr2 = ((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_getRandomSpeedByInitSpeed, float, float >(opr2_p0);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("randomSpeed") == 1466300189u);
+			pAgent->SetVariable("randomSpeed", opr2, 1466300189u);
+			return result;
+		}
+	};
+
+	class Precondition_bt_enemy_fsm_attach8 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach8, Precondition);
+		Precondition_bt_enemy_fsm_attach8()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("randomSpeed") == 1466300189u);
+			float& opl_p0 = (float&)pAgent->GetVariable<float >(1466300189u);
+			((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_setSpeed, void, float >(opl_p0);
+			return result;
+		}
+	};
+
+	class Transition_bt_enemy_fsm_attach11 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_enemy_fsm_attach11, Transition);
+		Transition_bt_enemy_fsm_attach11()
+		{
+			this->SetTargetStateId(9);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_isAlive, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class Transition_bt_enemy_fsm_attach15 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_enemy_fsm_attach15, Transition);
+		Transition_bt_enemy_fsm_attach15()
+		{
+			this->SetTargetStateId(14);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_isAlive, bool >();
+			bool opr2 = false;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class State_bt_enemy_fsm_node9 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_enemy_fsm_node9, State);
+		State_bt_enemy_fsm_node9()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			return BT_RUNNING;
+		}
+	};
+
+	class Precondition_bt_enemy_fsm_attach10 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach10, Precondition);
+		Precondition_bt_enemy_fsm_attach10()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr2 = 1;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("frameCount") == 542998324u);
+			pAgent->SetVariable("frameCount", opr2, 542998324u);
+			return result;
+		}
+	};
+
+	class Precondition_bt_enemy_fsm_attach12 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach12, Precondition);
+		Precondition_bt_enemy_fsm_attach12()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("frameCount") == 542998324u);
+			int& opr1 = (int&)pAgent->GetVariable<int >(542998324u);
+			int opr2 = 1;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("frameCount") == 542998324u);
+			pAgent->SetVariable("frameCount", (int)(opr1 + opr2), 542998324u);
+			return result;
+		}
+	};
+
+	class Transition_bt_enemy_fsm_attach13 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_enemy_fsm_attach13, Transition);
+		Transition_bt_enemy_fsm_attach13()
+		{
+			this->SetTargetStateId(2);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("frameCount") == 542998324u);
+			int& opl = (int&)pAgent->GetVariable<int >(542998324u);
+			int opr2 = 30;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class State_bt_enemy_fsm_node14 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_enemy_fsm_node14, State);
+		State_bt_enemy_fsm_node14()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			return BT_RUNNING;
+		}
+	};
+
+	class bt_enemy_fsm
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId(-1);
+			pBT->SetName("enemy_fsm");
+			pBT->SetIsFSM(true);
+#if !defined(BEHAVIAC_RELEASE)
+			pBT->SetAgentType("Enemy");
+#endif
+			// pars
+			pBT->AddPar("Enemy", "int", "frameCount", "0");
+			// attachments
+			// children
+			{
+				FSM* fsm = BEHAVIAC_NEW FSM();
+				fsm->SetClassNameString("FSM");
+				fsm->SetId(-1);
+				fsm->SetInitialId(1);
+#if !defined(BEHAVIAC_RELEASE)
+				fsm->SetAgentType("Enemy");
+#endif
+				{
+					State_bt_enemy_fsm_node1* node1 = BEHAVIAC_NEW State_bt_enemy_fsm_node1;
+					node1->SetClassNameString("State");
+					node1->SetId(1);
+#if !defined(BEHAVIAC_RELEASE)
+					node1->SetAgentType("Enemy");
+#endif
+					// attachments
+					{
+						Precondition_bt_enemy_fsm_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach3;
+						attach3->SetClassNameString("Precondition");
+						attach3->SetId(3);
+#if !defined(BEHAVIAC_RELEASE)
+						attach3->SetAgentType("Enemy");
+#endif
+						node1->Attach(attach3, true, false, false);
+						node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach3) != 0));
+					}
+					{
+						Precondition_bt_enemy_fsm_attach4* attach4 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach4;
+						attach4->SetClassNameString("Precondition");
+						attach4->SetId(4);
+#if !defined(BEHAVIAC_RELEASE)
+						attach4->SetAgentType("Enemy");
+#endif
+						node1->Attach(attach4, true, false, false);
+						node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach4) != 0));
+					}
+					{
+						Precondition_bt_enemy_fsm_attach5* attach5 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach5;
+						attach5->SetClassNameString("Precondition");
+						attach5->SetId(5);
+#if !defined(BEHAVIAC_RELEASE)
+						attach5->SetAgentType("Enemy");
+#endif
+						node1->Attach(attach5, true, false, false);
+						node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach5) != 0));
+					}
+					{
+						Transition_bt_enemy_fsm_attach6* attach6 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach6;
+						attach6->SetClassNameString("Transition");
+						attach6->SetId(6);
+#if !defined(BEHAVIAC_RELEASE)
+						attach6->SetAgentType("Enemy");
+#endif
+						node1->Attach(attach6, false, false, true);
+						node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach6) != 0));
+					}
+					fsm->AddChild(node1);
+					fsm->SetHasEvents(fsm->HasEvents() | node1->HasEvents());
+				}
+				{
+					State_bt_enemy_fsm_node2* node2 = BEHAVIAC_NEW State_bt_enemy_fsm_node2;
+					node2->SetClassNameString("State");
+					node2->SetId(2);
+#if !defined(BEHAVIAC_RELEASE)
+					node2->SetAgentType("Enemy");
+#endif
+					// attachments
+					{
+						Precondition_bt_enemy_fsm_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach7;
+						attach7->SetClassNameString("Precondition");
+						attach7->SetId(7);
+#if !defined(BEHAVIAC_RELEASE)
+						attach7->SetAgentType("Enemy");
+#endif
+						node2->Attach(attach7, true, false, false);
+						node2->SetHasEvents(node2->HasEvents() | (Event::DynamicCast(attach7) != 0));
+					}
+					{
+						Precondition_bt_enemy_fsm_attach8* attach8 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach8;
+						attach8->SetClassNameString("Precondition");
+						attach8->SetId(8);
+#if !defined(BEHAVIAC_RELEASE)
+						attach8->SetAgentType("Enemy");
+#endif
+						node2->Attach(attach8, true, false, false);
+						node2->SetHasEvents(node2->HasEvents() | (Event::DynamicCast(attach8) != 0));
+					}
+					{
+						Transition_bt_enemy_fsm_attach11* attach11 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach11;
+						attach11->SetClassNameString("Transition");
+						attach11->SetId(11);
+#if !defined(BEHAVIAC_RELEASE)
+						attach11->SetAgentType("Enemy");
+#endif
+						node2->Attach(attach11, false, false, true);
+						node2->SetHasEvents(node2->HasEvents() | (Event::DynamicCast(attach11) != 0));
+					}
+					{
+						Transition_bt_enemy_fsm_attach15* attach15 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach15;
+						attach15->SetClassNameString("Transition");
+						attach15->SetId(15);
+#if !defined(BEHAVIAC_RELEASE)
+						attach15->SetAgentType("Enemy");
+#endif
+						node2->Attach(attach15, false, false, true);
+						node2->SetHasEvents(node2->HasEvents() | (Event::DynamicCast(attach15) != 0));
+					}
+					fsm->AddChild(node2);
+					fsm->SetHasEvents(fsm->HasEvents() | node2->HasEvents());
+				}
+				{
+					State_bt_enemy_fsm_node9* node9 = BEHAVIAC_NEW State_bt_enemy_fsm_node9;
+					node9->SetClassNameString("State");
+					node9->SetId(9);
+#if !defined(BEHAVIAC_RELEASE)
+					node9->SetAgentType("Enemy");
+#endif
+					// attachments
+					{
+						Precondition_bt_enemy_fsm_attach10* attach10 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach10;
+						attach10->SetClassNameString("Precondition");
+						attach10->SetId(10);
+#if !defined(BEHAVIAC_RELEASE)
+						attach10->SetAgentType("Enemy");
+#endif
+						node9->Attach(attach10, true, false, false);
+						node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach10) != 0));
+					}
+					{
+						Precondition_bt_enemy_fsm_attach12* attach12 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach12;
+						attach12->SetClassNameString("Precondition");
+						attach12->SetId(12);
+#if !defined(BEHAVIAC_RELEASE)
+						attach12->SetAgentType("Enemy");
+#endif
+						node9->Attach(attach12, true, false, false);
+						node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach12) != 0));
+					}
+					{
+						Transition_bt_enemy_fsm_attach13* attach13 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach13;
+						attach13->SetClassNameString("Transition");
+						attach13->SetId(13);
+#if !defined(BEHAVIAC_RELEASE)
+						attach13->SetAgentType("Enemy");
+#endif
+						node9->Attach(attach13, false, false, true);
+						node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach13) != 0));
+					}
+					fsm->AddChild(node9);
+					fsm->SetHasEvents(fsm->HasEvents() | node9->HasEvents());
+				}
+				{
+					State_bt_enemy_fsm_node14* node14 = BEHAVIAC_NEW State_bt_enemy_fsm_node14;
+					node14->SetClassNameString("State");
+					node14->SetId(14);
+#if !defined(BEHAVIAC_RELEASE)
+					node14->SetAgentType("Enemy");
+#endif
+					fsm->AddChild(node14);
+					fsm->SetHasEvents(fsm->HasEvents() | node14->HasEvents());
+				}
+				pBT->AddChild(fsm);
+			}
+			return true;
+		}
+	};
+
+	// Source file: hero
+
+	class State_bt_hero_node1 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_hero_node1, State);
+		State_bt_hero_node1()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_findAnNearestEnemy, void >();
+			return BT_RUNNING;
+		}
+	};
+
+	class Transition_bt_hero_attach2 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach2, Transition);
+		Transition_bt_hero_attach2()
+		{
+			this->SetTargetStateId(3);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class Transition_bt_hero_attach13 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach13, Transition);
+		Transition_bt_hero_attach13()
+		{
+			this->SetTargetStateId(9);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy, bool >();
+			bool opr2 = false;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class State_bt_hero_node3 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_hero_node3, State);
+		State_bt_hero_node3()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_EscapeEnemyCrash, void >();
+			return BT_RUNNING;
+		}
+	};
+
+	class Transition_bt_hero_attach8 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach8, Transition);
+		Transition_bt_hero_attach8()
+		{
+			this->SetTargetStateId(3);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class Transition_bt_hero_attach5 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach5, Transition);
+		Transition_bt_hero_attach5()
+		{
+			this->SetTargetStateId(4);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy, bool >();
+			bool opr2 = false;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class State_bt_hero_node4 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_hero_node4, State);
+		State_bt_hero_node4()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_hasEnemyInFrontCanAttack, bool >();
+			return BT_RUNNING;
+		}
+	};
+
+	class Transition_bt_hero_attach6 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach6, Transition);
+		Transition_bt_hero_attach6()
+		{
+			this->SetTargetStateId(9);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_hasEnemyInFrontCanAttack, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class Transition_bt_hero_attach7 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach7, Transition);
+		Transition_bt_hero_attach7()
+		{
+			this->SetTargetStateId(10);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_hasEnemyInFrontCanAttack, bool >();
+			bool opr2 = false;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class State_bt_hero_node9 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_hero_node9, State);
+		State_bt_hero_node9()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_findAnEnemyAndAttack, void >();
+			return BT_RUNNING;
+		}
+	};
+
+	class Transition_bt_hero_attach11 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach11, Transition);
+		Transition_bt_hero_attach11()
+		{
+			this->SetTargetStateId(10);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Get_Property_<PROPERTY_TYPE_Hero_m_isAI, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class State_bt_hero_node10 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_hero_node10, State);
+		State_bt_hero_node10()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_AdjustHeroPosition, void >();
+			return BT_RUNNING;
+		}
+	};
+
+	class Transition_bt_hero_attach12 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach12, Transition);
+		Transition_bt_hero_attach12()
+		{
+			this->SetTargetStateId(14);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Get_Property_<PROPERTY_TYPE_Hero_m_isAI, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class State_bt_hero_node14 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_hero_node14, State);
+		State_bt_hero_node14()
+		{
+			this->m_bIsEndState = false;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_wait20Frame, bool >();
+			return BT_RUNNING;
+		}
+	};
+
+	class Transition_bt_hero_attach15 : public Transition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_hero_attach15, Transition);
+		Transition_bt_hero_attach15()
+		{
+			this->SetTargetStateId(1);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((Hero*)pAgent)->_Execute_Method_<METHOD_TYPE_Hero_wait20Frame, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class bt_hero
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId(-1);
+			pBT->SetName("hero");
+			pBT->SetIsFSM(true);
+#if !defined(BEHAVIAC_RELEASE)
+			pBT->SetAgentType("Hero");
+#endif
+			// attachments
+			// children
+			{
+				FSM* fsm = BEHAVIAC_NEW FSM();
+				fsm->SetClassNameString("FSM");
+				fsm->SetId(-1);
+				fsm->SetInitialId(1);
+#if !defined(BEHAVIAC_RELEASE)
+				fsm->SetAgentType("Hero");
+#endif
+				{
+					State_bt_hero_node1* node1 = BEHAVIAC_NEW State_bt_hero_node1;
+					node1->SetClassNameString("State");
+					node1->SetId(1);
+#if !defined(BEHAVIAC_RELEASE)
+					node1->SetAgentType("Hero");
+#endif
+					// attachments
+					{
+						Transition_bt_hero_attach2* attach2 = BEHAVIAC_NEW Transition_bt_hero_attach2;
+						attach2->SetClassNameString("Transition");
+						attach2->SetId(2);
+#if !defined(BEHAVIAC_RELEASE)
+						attach2->SetAgentType("Hero");
+#endif
+						node1->Attach(attach2, false, false, true);
+						node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach2) != 0));
+					}
+					{
+						Transition_bt_hero_attach13* attach13 = BEHAVIAC_NEW Transition_bt_hero_attach13;
+						attach13->SetClassNameString("Transition");
+						attach13->SetId(13);
+#if !defined(BEHAVIAC_RELEASE)
+						attach13->SetAgentType("Hero");
+#endif
+						node1->Attach(attach13, false, false, true);
+						node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach13) != 0));
+					}
+					fsm->AddChild(node1);
+					fsm->SetHasEvents(fsm->HasEvents() | node1->HasEvents());
+				}
+				{
+					State_bt_hero_node3* node3 = BEHAVIAC_NEW State_bt_hero_node3;
+					node3->SetClassNameString("State");
+					node3->SetId(3);
+#if !defined(BEHAVIAC_RELEASE)
+					node3->SetAgentType("Hero");
+#endif
+					// attachments
+					{
+						Transition_bt_hero_attach8* attach8 = BEHAVIAC_NEW Transition_bt_hero_attach8;
+						attach8->SetClassNameString("Transition");
+						attach8->SetId(8);
+#if !defined(BEHAVIAC_RELEASE)
+						attach8->SetAgentType("Hero");
+#endif
+						node3->Attach(attach8, false, false, true);
+						node3->SetHasEvents(node3->HasEvents() | (Event::DynamicCast(attach8) != 0));
+					}
+					{
+						Transition_bt_hero_attach5* attach5 = BEHAVIAC_NEW Transition_bt_hero_attach5;
+						attach5->SetClassNameString("Transition");
+						attach5->SetId(5);
+#if !defined(BEHAVIAC_RELEASE)
+						attach5->SetAgentType("Hero");
+#endif
+						node3->Attach(attach5, false, false, true);
+						node3->SetHasEvents(node3->HasEvents() | (Event::DynamicCast(attach5) != 0));
+					}
+					fsm->AddChild(node3);
+					fsm->SetHasEvents(fsm->HasEvents() | node3->HasEvents());
+				}
+				{
+					State_bt_hero_node4* node4 = BEHAVIAC_NEW State_bt_hero_node4;
+					node4->SetClassNameString("State");
+					node4->SetId(4);
+#if !defined(BEHAVIAC_RELEASE)
+					node4->SetAgentType("Hero");
+#endif
+					// attachments
+					{
+						Transition_bt_hero_attach6* attach6 = BEHAVIAC_NEW Transition_bt_hero_attach6;
+						attach6->SetClassNameString("Transition");
+						attach6->SetId(6);
+#if !defined(BEHAVIAC_RELEASE)
+						attach6->SetAgentType("Hero");
+#endif
+						node4->Attach(attach6, false, false, true);
+						node4->SetHasEvents(node4->HasEvents() | (Event::DynamicCast(attach6) != 0));
+					}
+					{
+						Transition_bt_hero_attach7* attach7 = BEHAVIAC_NEW Transition_bt_hero_attach7;
+						attach7->SetClassNameString("Transition");
+						attach7->SetId(7);
+#if !defined(BEHAVIAC_RELEASE)
+						attach7->SetAgentType("Hero");
+#endif
+						node4->Attach(attach7, false, false, true);
+						node4->SetHasEvents(node4->HasEvents() | (Event::DynamicCast(attach7) != 0));
+					}
+					fsm->AddChild(node4);
+					fsm->SetHasEvents(fsm->HasEvents() | node4->HasEvents());
+				}
+				{
+					State_bt_hero_node9* node9 = BEHAVIAC_NEW State_bt_hero_node9;
+					node9->SetClassNameString("State");
+					node9->SetId(9);
+#if !defined(BEHAVIAC_RELEASE)
+					node9->SetAgentType("Hero");
+#endif
+					// attachments
+					{
+						Transition_bt_hero_attach11* attach11 = BEHAVIAC_NEW Transition_bt_hero_attach11;
+						attach11->SetClassNameString("Transition");
+						attach11->SetId(11);
+#if !defined(BEHAVIAC_RELEASE)
+						attach11->SetAgentType("Hero");
+#endif
+						node9->Attach(attach11, false, false, true);
+						node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach11) != 0));
+					}
+					fsm->AddChild(node9);
+					fsm->SetHasEvents(fsm->HasEvents() | node9->HasEvents());
+				}
+				{
+					State_bt_hero_node10* node10 = BEHAVIAC_NEW State_bt_hero_node10;
+					node10->SetClassNameString("State");
+					node10->SetId(10);
+#if !defined(BEHAVIAC_RELEASE)
+					node10->SetAgentType("Hero");
+#endif
+					// attachments
+					{
+						Transition_bt_hero_attach12* attach12 = BEHAVIAC_NEW Transition_bt_hero_attach12;
+						attach12->SetClassNameString("Transition");
+						attach12->SetId(12);
+#if !defined(BEHAVIAC_RELEASE)
+						attach12->SetAgentType("Hero");
+#endif
+						node10->Attach(attach12, false, false, true);
+						node10->SetHasEvents(node10->HasEvents() | (Event::DynamicCast(attach12) != 0));
+					}
+					fsm->AddChild(node10);
+					fsm->SetHasEvents(fsm->HasEvents() | node10->HasEvents());
+				}
+				{
+					State_bt_hero_node14* node14 = BEHAVIAC_NEW State_bt_hero_node14;
+					node14->SetClassNameString("State");
+					node14->SetId(14);
+#if !defined(BEHAVIAC_RELEASE)
+					node14->SetAgentType("Hero");
+#endif
+					// attachments
+					{
+						Transition_bt_hero_attach15* attach15 = BEHAVIAC_NEW Transition_bt_hero_attach15;
+						attach15->SetClassNameString("Transition");
+						attach15->SetId(15);
+#if !defined(BEHAVIAC_RELEASE)
+						attach15->SetAgentType("Hero");
+#endif
+						node14->Attach(attach15, false, false, true);
+						node14->SetHasEvents(node14->HasEvents() | (Event::DynamicCast(attach15) != 0));
+					}
+					fsm->AddChild(node14);
+					fsm->SetHasEvents(fsm->HasEvents() | node14->HasEvents());
+				}
+				pBT->AddChild(fsm);
 			}
 			return true;
 		}
@@ -836,6 +1874,8 @@ namespace behaviac
 		virtual void RegisterBehaviorsImplement()
 		{
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("enemy", bt_enemy::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("enemy_fsm", bt_enemy_fsm::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("hero", bt_hero::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("npc", bt_npc::Create);
 		}
 	};

@@ -65,13 +65,29 @@ namespace BehaviorNodeUnitTest
             {
                 //switch to Exit
                 testAgent.Message = FSMAgentTest.EMessage.Exit;
+
+                status = testAgent.btexec();
+                Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+                status = testAgent.btexec();
+                Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
                 status = testAgent.btexec();
                 Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+
                 int InactiveCount = testAgent.GetVariable<int>("InactiveCount");
                 Assert.AreEqual(1, InactiveCount);
                 long ExitCount = testAgent.GetVariable<long>("ExitCount");
                 Assert.AreEqual(1, ExitCount);
                 Assert.AreEqual(7, testAgent.TestVar);
+            }
+
+            {
+                	//reenter again
+                testAgent.Message = FSMAgentTest.EMessage.Invalid;
+                status = testAgent.btexec();
+                Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+                int InactiveCount = testAgent.GetVariable<int>("InactiveCount");
+                Assert.AreEqual(0, InactiveCount);
+                Assert.AreEqual(8, testAgent.TestVar);
             }
 
         }
@@ -95,7 +111,7 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(true, "HC" == testBtAgent.testVar_str_0);
 
             status = testBtAgent.btexec();
-            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
             Assert.AreEqual(4, testBtAgent.testVar_0);
 
             Assert.AreEqual(1.8f, testBtAgent.testVar_2);

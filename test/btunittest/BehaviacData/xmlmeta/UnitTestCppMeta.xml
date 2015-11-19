@@ -23,6 +23,13 @@
 		</enumtype>
 		<struct Type="IList" DisplayName="" Desc="" IsRefType="false" />
 		<struct Type="System::Object" DisplayName="" Desc="" IsRefType="false" />
+		<struct Type="TestNS::Float2" DisplayName="" Desc="" IsRefType="false">
+			<Member Name="x" DisplayName="" Desc="" Type="float" Class="myFloat2" />
+			<Member Name="y" DisplayName="" Desc="" Type="float" Class="myFloat2" />
+		</struct>
+		<struct Type="TestNS::Node" DisplayName="" Desc="" IsRefType="true">
+			<Member Name="name" DisplayName="" Desc="" Type="string" Class="myNode" />
+		</struct>
 		<struct Type="TNS::ST::kCar" DisplayName="" Desc="" IsRefType="false">
 			<Member Name="brand" DisplayName="" Desc="" Type="string" Class="TNS::ST::kCar" />
 			<Member Name="price" DisplayName="" Desc="" Type="int" Class="TNS::ST::kCar" />
@@ -283,6 +290,13 @@
 			<Method Name="createGameObject" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="UnityEngine::GameObject*" />
 			<Method Name="testGameObject" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
 				<Param DisplayName="" Desc="" Type="UnityEngine::GameObject*" />
+			</Method>
+			<Method Name="createExtendedNode" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="TestNS::Node*" />
+			<Method Name="testExtendedRefType" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
+				<Param DisplayName="" Desc="" Type="TestNS::Node*" />
+			</Method>
+			<Method Name="testExtendedStruct" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
+				<Param DisplayName="" Desc="" Type="TestNS::Float2&amp;" />
 			</Method>
 			<Method Name="switchRef" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus">
 				<Param DisplayName="" Desc="" Type="const string&amp;" />

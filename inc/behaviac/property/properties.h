@@ -93,7 +93,7 @@ namespace behaviac
 
             this->m_property = p;
         }
-        string Name()
+        behaviac::string Name()
         {
             return m_name;
         }

@@ -9,19 +9,19 @@
         <Comment Background="NoColor" Text="" />
         <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="10" Operator="Assign" Opl="int Self.FSMAgentTest::FoodCount" Opr1="&quot;&quot;" Opr2="const int 0" Phase="Enter" PrefabAttachmentId="-1" />
         <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="2" Operator="Add" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 1" Phase="Update" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="1:{Operator=Add;Opl=ubyte Self.FSMAgentTest::EffectorCount;Opr1=ubyte Self.FSMAgentTest::EffectorCount;Opr2=const ubyte 1;}" Id="5" Mode="Condition" Operator="GreaterEqual" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 10" PrefabAttachmentId="-1" TargetFSMNodeId="1" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="1:{Operator=Add;Opl=&quot;&quot;;Opr1=&quot;&quot;;Opr2=const ubyte 1;}" Id="5" Mode="Condition" Operator="GreaterEqual" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 10" PrefabAttachmentId="-1" TargetFSMNodeId="1" />
       </Node>
       <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="1" Method="Self.FSMAgentTest::active_update()" Name="Eat" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_RUNNING" ScreenLocationX="8.578621" ScreenLocationY="-256.0267">
         <Comment Background="NoColor" Text="" />
         <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="6" Operator="Sub" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 2" Phase="Update" PrefabAttachmentId="-1" />
         <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="11" Operator="Add" Opl="int Self.FSMAgentTest::EnergyCount" Opr1="int Self.FSMAgentTest::EnergyCount" Opr2="const int 1" Phase="Update" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="1:{Operator=Add;Opl=ubyte Self.FSMAgentTest::EffectorCount;Opr1=ubyte Self.FSMAgentTest::EffectorCount;Opr2=const ubyte 1;}" Id="7" Mode="Condition" Operator="LessEqual" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 0" PrefabAttachmentId="-1" TargetFSMNodeId="3" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="1:{Operator=Add;Opl=&quot;&quot;;Opr1=&quot;&quot;;Opr2=const ubyte 1;}" Id="7" Mode="Condition" Operator="LessEqual" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 0" PrefabAttachmentId="-1" TargetFSMNodeId="3" />
         <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="12" Mode="Condition" Operator="GreaterEqual" Opl="int Self.FSMAgentTest::EnergyCount" Opr1="&quot;&quot;" Opr2="const int 5" PrefabAttachmentId="-1" TargetFSMNodeId="4" />
       </Node>
       <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="4" Method="Self.FSMAgentTest::pause_update()" Name="Sleep" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_RUNNING" ScreenLocationX="-172.4871" ScreenLocationY="-79.68321">
         <Comment Background="NoColor" Text="" />
         <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="9" Operator="Sub" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 1" Phase="Enter" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="1:{Operator=Add;Opl=ubyte Self.FSMAgentTest::EffectorCount;Opr1=ubyte Self.FSMAgentTest::EffectorCount;Opr2=const ubyte 1;}" Id="8" Mode="Condition" Operator="LessEqual" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 0" PrefabAttachmentId="-1" TargetFSMNodeId="3" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="1:{Operator=Add;Opl=&quot;&quot;;Opr1=&quot;&quot;;Opr2=const ubyte 1;}" Id="8" Mode="Condition" Operator="LessEqual" Opl="int Self.FSMAgentTest::FoodCount" Opr1="int Self.FSMAgentTest::FoodCount" Opr2="const int 0" PrefabAttachmentId="-1" TargetFSMNodeId="3" />
       </Node>
     </FSMNodes>
   </Node>

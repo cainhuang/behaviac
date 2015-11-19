@@ -23,33 +23,7 @@
 
 #include "behaviac/base/meta/meta.h"
 #include "behaviac/base/meta/isenum.h"
-
-namespace behaviac
-{
-    namespace Meta
-    {
-        template<typename Type>
-        struct HasToString
-        {
-        private:
-
-            template<typename U, behaviac::string(U::*)() const> struct SFINAE {};
-
-            template< typename U >
-            static Yes Tester(SFINAE<U, &U::ToString>*);
-
-            template<typename U>
-            static No Tester(...);
-
-        public:
-
-            enum
-            {
-                Result = sizeof(Tester<Type>(0)) == sizeof(Yes)
-            };
-        };
-    }
-}
+#include "behaviac/base/meta/types.h"
 
 template<typename T>
 behaviac::string EnumValueToString(const T& v);

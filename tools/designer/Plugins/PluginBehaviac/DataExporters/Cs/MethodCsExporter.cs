@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -26,13 +26,17 @@ namespace PluginBehaviac.DataExporters
         {
             Debug.Check(!string.IsNullOrEmpty(var));
 
-            if (method.Params.Count == 0)
-                return;
-
             string paramsName = getParamsName(var, "");
             if (!method.IsPublic)
             {
-                stream.WriteLine("{0}\t\t\t{1} = new object[{2}];", indent, paramsName, method.Params.Count);
+                if (method.Params.Count == 0)
+                {
+                    stream.WriteLine("{0}\t\t\t{1} = null;", indent, paramsName);
+                }
+                else
+                {
+                    stream.WriteLine("{0}\t\t\t{1} = new object[{2}];", indent, paramsName, method.Params.Count);
+                }
             }
 
             for (int i = 0; i < method.Params.Count; ++i)
@@ -92,9 +96,6 @@ namespace PluginBehaviac.DataExporters
         public static void GenerateClassMember(Behaviac.Design.MethodDef method, StreamWriter stream, string indent, string var)
         {
             Debug.Check(!string.IsNullOrEmpty(var));
-
-            if (method.Params.Count == 0)
-                return;
 
             if (!method.IsPublic)
             {

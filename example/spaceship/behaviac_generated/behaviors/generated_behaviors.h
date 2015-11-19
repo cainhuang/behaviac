@@ -72,6 +72,10 @@ and you also need to include your agent types' headers before it:
 #include "behaviac/fsm/state.h"
 #include "behaviac/fsm/startcondition.h"
 #include "behaviac/fsm/transitioncondition.h"
+#include "behaviac/fsm/waitstate.h"
+#include "behaviac/fsm/waitframesstate.h"
+#include "behaviac/fsm/alwaystransition.h"
+#include "behaviac/fsm/waittransition.h"
 
 // You should set the agent header files of your game
 // when exporting cpp files in the behaviac editor:
@@ -145,7 +149,7 @@ namespace framework
 	}
 
 	struct METHOD_TYPE_framework_GameObject_GoStraight { };
-	template<> BEHAVIAC_FORCEINLINE void GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_GoStraight>(int& p0)
+	template<> BEHAVIAC_FORCEINLINE void GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_GoStraight>(int p0)
 	{
 		this->framework::GameObject::GoStraight(p0);
 	}
@@ -157,13 +161,13 @@ namespace framework
 	}
 
 	struct METHOD_TYPE_framework_GameObject_projectileNearby { };
-	template<> BEHAVIAC_FORCEINLINE bool GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_projectileNearby>(float& p0)
+	template<> BEHAVIAC_FORCEINLINE bool GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_projectileNearby>(float p0)
 	{
 		return this->framework::GameObject::projectileNearby(p0);
 	}
 
 	struct METHOD_TYPE_framework_GameObject_TurnTowardsTarget { };
-	template<> BEHAVIAC_FORCEINLINE int GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_TurnTowardsTarget>(float& p0)
+	template<> BEHAVIAC_FORCEINLINE int GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_TurnTowardsTarget>(float p0)
 	{
 		return this->framework::GameObject::TurnTowardsTarget(p0);
 	}
@@ -173,13 +177,13 @@ namespace framework
 namespace framework
 {
 	struct METHOD_TYPE_framework_Ship_checkresult { };
-	template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_checkresult>(bool& p0)
+	template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_checkresult>(bool p0)
 	{
 		return this->framework::Ship::checkresult(p0);
 	}
 
 	struct METHOD_TYPE_framework_Ship_DestroyAllNearbyProjectiles { };
-	template<> BEHAVIAC_FORCEINLINE void Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_DestroyAllNearbyProjectiles>(float& p0)
+	template<> BEHAVIAC_FORCEINLINE void Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_DestroyAllNearbyProjectiles>(float p0)
 	{
 		this->framework::Ship::DestroyAllNearbyProjectiles(p0);
 	}
@@ -203,13 +207,13 @@ namespace framework
 	}
 
 	struct METHOD_TYPE_framework_Ship_GotoPoint { };
-	template<> BEHAVIAC_FORCEINLINE bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GotoPoint>(float& p0, float& p1, float& p2)
+	template<> BEHAVIAC_FORCEINLINE bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GotoPoint>(float p0, float p1, float p2)
 	{
 		return this->framework::Ship::GotoPoint(p0, p1, p2);
 	}
 
 	struct METHOD_TYPE_framework_Ship_GotoPointRelative { };
-	template<> BEHAVIAC_FORCEINLINE bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GotoPointRelative>(float& p0, float& p1, float& p2)
+	template<> BEHAVIAC_FORCEINLINE bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GotoPointRelative>(float p0, float p1, float p2)
 	{
 		return this->framework::Ship::GotoPointRelative(p0, p1, p2);
 	}
@@ -255,7 +259,7 @@ namespace framework
 	}
 
 	struct METHOD_TYPE_framework_WorldState_SpawnShip { };
-	template<> BEHAVIAC_FORCEINLINE void WorldState::_Execute_Method_<METHOD_TYPE_framework_WorldState_SpawnShip>(int& p0)
+	template<> BEHAVIAC_FORCEINLINE void WorldState::_Execute_Method_<METHOD_TYPE_framework_WorldState_SpawnShip>(int p0)
 	{
 		this->framework::WorldState::SpawnShip(p0);
 	}

@@ -142,7 +142,7 @@ namespace PluginBehaviac.Events
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<Node.ErrorCheck> result)
         {
-            if (this.Node != null && this.Node.IsFSM && this._operator >= OperatorTypes.Equal)
+            if (this.Node != null && this.Node.IsFSM && this._operator >= OperatorTypes.Equal && this._operator < OperatorTypes.Invalid)
             {
                 result.Add(new Node.ErrorCheck(this.Node, ErrorCheckLevel.Error, "The operator can not be comparer!"));
             }

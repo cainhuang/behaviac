@@ -41,18 +41,6 @@ namespace Behaviac.Design.ObjectUI
                 DesignerPropertyInfo operatorProp = DesignerProperty.GetDesignerProperty(_obj.GetType(), "Operator");
                 DesignerPropertyInfo opr2Prop = DesignerProperty.GetDesignerProperty(_obj.GetType(), "Opr2");
 
-                if (property.Property == oplProp.Property ||
-                    property.Property == opr1Prop.Property ||
-                    property.Property == operatorProp.Property ||
-                    property.Property == opr2Prop.Property)
-                {
-                    PluginBehaviac.Events.TransitionCondition.TransitionMode mode = (PluginBehaviac.Events.TransitionCondition.TransitionMode)GetProperty(_obj, "Mode");
-                    if (mode != PluginBehaviac.Events.TransitionCondition.TransitionMode.Condition)
-                    {
-                        return false;
-                    }
-                }
-
                 // compare
                 if (operatorType >= OperatorTypes.Equal && operatorType <= OperatorTypes.LessEqual)
                 {
@@ -67,10 +55,8 @@ namespace Behaviac.Design.ObjectUI
         {
             DesignerPropertyInfo oplProp = DesignerProperty.GetDesignerProperty(_obj.GetType(), "Opl");
             DesignerPropertyInfo operatorProp = DesignerProperty.GetDesignerProperty(_obj.GetType(), "Operator");
-            DesignerPropertyInfo modeProp = DesignerProperty.GetDesignerProperty(_obj.GetType(), "Mode");
 
-
-            return property.Property == oplProp.Property || property.Property == operatorProp.Property || property.Property == modeProp.Property;
+            return property.Property == oplProp.Property || property.Property == operatorProp.Property;
         }
 
         public override string GetLabel(DesignerPropertyInfo property)

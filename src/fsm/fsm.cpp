@@ -1,4 +1,5 @@
 #include "behaviac/fsm/fsm.h"
+#include "behaviac/fsm/state.h"
 
 namespace behaviac
 {
@@ -105,29 +106,28 @@ namespace behaviac
 		while (bLoop)
 		{
 			BehaviorTask* currentState = this->GetChildById(this->m_currentNodeId);
-			status = currentState->exec(pAgent);
+			currentState->exec(pAgent);
 
-			int nextStateId = currentState->GetNextStateId();
-
-			//ends
-			if (status != BT_RUNNING)
+			if (StateTask::DynamicCast(currentState) != 0)
 			{
-				if (nextStateId == -1)
+				StateTask* pStateTask = (StateTask*)currentState;
+
+				if (pStateTask->IsEndState())
 				{
-					return status;
-				}
-				else
-				{
-					status = BT_RUNNING;
+					return BT_SUCCESS;
 				}
 			}
 
+			int nextStateId = currentState->GetNextStateId();
+
 			if (nextStateId == -1)
 			{
+				//if not transitioned, don't go on next state, to exit
 				bLoop = false;
 			}
 			else
 			{
+				//if transitioned, go on next state
 				this->m_currentNodeId = nextStateId;
 			}
 		}

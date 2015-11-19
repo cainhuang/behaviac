@@ -28,6 +28,7 @@
       <property name="currentOrientation" type="float" member="true" static="false" agent="GameActor" />
       <property name="force" type="eGameForce" member="true" static="false" agent="GameActor" />
       <property name="gameScore" type="int" member="true" static="false" agent="GameActor" />
+      <property name="Status" type="behaviac::EBTStatus" member="false" static="false" defaultvalue="BT_INVALID" />
     </properties>
   </agent>
 </agents>

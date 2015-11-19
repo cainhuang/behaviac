@@ -10,6 +10,7 @@ public class PreconEffectorAgent : behaviac.Agent
         this.count_success = 0;
         this.count_failure = 0;
         this.count_both = 0;
+        this.Variables.Clear();
     }
 
     public void init() {

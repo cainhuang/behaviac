@@ -1233,6 +1233,7 @@ namespace Behaviac.Design
                                             UndoManager.Save(root);
                                         }
 
+                                        agent.RemoveProperty(prop);
                                         agent.AddProperty(curProp);
 
                                         this.memberListBox.Items.Add(new MemberItem(Customized_Str + curProp.DisplayName, curProp));

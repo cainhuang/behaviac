@@ -208,7 +208,7 @@ public interface BehaviorNode :
             get { return _version; }
             set
             {
-                if (value > _version)
+                //if (value > _version)
                 { _version = value; }
             }
         }

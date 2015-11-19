@@ -14,6 +14,8 @@
 #ifndef BEHAVIAC_VECTOR_EXT_H
 #define BEHAVIAC_VECTOR_EXT_H
 
+#include "behaviac/property/operators.inl"
+
 //simulate c#'s IList and System.Object
 namespace System
 {
@@ -91,6 +93,48 @@ struct BEHAVIAC_API IList
 template<typename T>
 struct BEHAVIAC_API TList : public IList
 {
+private:
+	template <typename TYPE>
+	struct find_predcate
+	{
+		const TYPE& d;
+		find_predcate(const TYPE& d_) : d(d_)
+		{
+
+		}
+
+		find_predcate(const find_predcate& c) : d(c.d)
+		{}
+
+		bool operator()(const TYPE& v)
+		{
+			if (behaviac::Details::Equal(d, v))
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		bool operator>(const TYPE& v)
+		{
+			if (behaviac::Details::Less(d, v))
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		find_predcate& operator=(const find_predcate& c)
+		{
+			this->d = c.d;
+
+			return *this;
+		}
+	};
+
+public:
     typedef typename behaviac::Meta::IsVector<T>::ElementType ElementType;
     DECLARE_BEHAVIAC_OBJECT_GENERICSBASE(TList);
     bool bRelease;
@@ -116,7 +160,10 @@ struct BEHAVIAC_API TList : public IList
     virtual void remove(const System::Object& o)
     {
         const ElementType& d = *(ElementType*)&o;
-        typename behaviac::vector<ElementType>::iterator it = std::find(this->vector_->begin(), this->vector_->end(), d);
+		
+		find_predcate<ElementType> p(d);
+
+        typename behaviac::vector<ElementType>::iterator it = std::find_if(this->vector_->begin(), this->vector_->end(), p);
 
         if (it != this->vector_->end())
         {
@@ -132,7 +179,8 @@ struct BEHAVIAC_API TList : public IList
     virtual bool contains(const System::Object& o)
     {
         const ElementType& d = *(ElementType*)&o;
-        typename behaviac::vector<ElementType>::iterator it = std::find(this->vector_->begin(), this->vector_->end(), d);
+		find_predcate<ElementType> p(d);
+		typename behaviac::vector<ElementType>::iterator it = std::find_if(this->vector_->begin(), this->vector_->end(), p);
         return it != this->vector_->end();
     }
 

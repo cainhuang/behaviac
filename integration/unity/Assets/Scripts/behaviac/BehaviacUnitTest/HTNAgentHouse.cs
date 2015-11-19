@@ -6,6 +6,7 @@ using System.Collections;
 public class HTNAgentHouse : HTNAgentHouseBase
 {
     public void resetProperties() {
+        this.Variables.Clear();
     }
 
     public void init() {

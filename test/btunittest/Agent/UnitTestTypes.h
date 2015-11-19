@@ -47,7 +47,7 @@ namespace TNS
                 color = NE::NAT::RED;
             }
 
-            DECLARE_BEHAVIAC_OBJECT_STRUCT(TNS::ST::kCar);
+            DECLARE_BEHAVIAC_STRUCT(TNS::ST::kCar);
         };
 
         namespace PER
@@ -78,7 +78,7 @@ namespace TNS
                         boss = NULL;
                     }
 
-                    DECLARE_BEHAVIAC_OBJECT_STRUCT(TNS::ST::PER::WRK::kEmployee);
+                    DECLARE_BEHAVIAC_STRUCT(TNS::ST::PER::WRK::kEmployee);
                 };
             }
         }
@@ -86,6 +86,6 @@ namespace TNS
     }
 }
 
-DECLARE_BEHAVIAC_OBJECT_ENUM(TNS::NE::NAT::eColor, eColor);
+DECLARE_BEHAVIAC_ENUM(TNS::NE::NAT::eColor, eColor);
 
 SPECIALIZE_TYPE_HANDLER(behaviac::vector<TNS::ST::PER::WRK::kEmployee>, BasicTypeHandler< behaviac::vector<TNS::ST::PER::WRK::kEmployee> >);

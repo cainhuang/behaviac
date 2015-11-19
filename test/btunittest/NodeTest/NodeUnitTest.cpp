@@ -446,6 +446,7 @@ LOAD_TEST(btunittest, action_ut_0)
     behaviac::EBTStatus status = myTestAgent->btexec();
     CHECK_EQUAL(1500, myTestAgent->testVar_0);
     CHECK_EQUAL(1800, myTestAgent->testVar_1);
+    CHECK_EQUAL("null", myTestAgent->testVar_str_0);
 
     behaviac::Agent::Destroy(pStaticAgent);
 
@@ -459,6 +460,12 @@ LOAD_TEST(btunittest, action_ut_1)
     behaviac::EBTStatus status = myTestAgent->btexec();
     CHECK_FLOAT_EQUAL(1.8f, myTestAgent->testVar_2);
     CHECK_FLOAT_EQUAL(4.5f, myTestAgent->testVar_3);
+
+	CHECK_EQUAL("HC", myTestAgent->testVar_str_0);
+	CHECK_EQUAL("NODE", myTestAgent->testVar_str_1);
+	const TestNS::Float2& float2 = myTestAgent->GetVariable<TestNS::Float2>("testFloat2");
+	CHECK_FLOAT_EQUAL(1.0f, float2.x);
+	CHECK_FLOAT_EQUAL(1.0f, float2.y);
     finlTestEnvNode(myTestAgent);
 }
 

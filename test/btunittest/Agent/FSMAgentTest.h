@@ -76,6 +76,6 @@ public:
     }
 };
 
-DECLARE_BEHAVIAC_OBJECT_ENUM(FSMAgentTest::EMessage, EMessage)
+DECLARE_BEHAVIAC_ENUM(FSMAgentTest::EMessage, EMessage)
 
 #endif//BTUNITEST_FSMAGENTTEST_H_

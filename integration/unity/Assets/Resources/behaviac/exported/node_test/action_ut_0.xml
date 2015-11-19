@@ -6,6 +6,7 @@
     <par name="par_int_type_0" type="int" value="0" />
     <par name="par_int_type_1" type="int" value="0" />
     <par name="par_int_type_2" type="int" value="300" />
+    <par name="par_go" type="UnityEngine::GameObject" value="null" />
   </pars>
   <node class="Sequence" id="0">
     <node class="Compute" id="1">
@@ -30,6 +31,10 @@
     </node>
     <node class="Action" id="5">
       <property Method="Self.AgentNodeTest::setTestVar_1(int Self.AgentNodeTest::par_int_type_0)" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Action" id="7">
+      <property Method="Self.AgentNodeTest::testGameObject(null)" />
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Action" id="6">

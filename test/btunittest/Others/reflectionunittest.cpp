@@ -37,7 +37,7 @@ struct TypeTest2_t
     TypeTest2_t() : name(10), weight(5.0f), bLive(true)
     {}
 
-    DECLARE_BEHAVIAC_OBJECT_STRUCT(TypeTest2_t);
+    DECLARE_BEHAVIAC_STRUCT(TypeTest2_t);
 };
 
 class ObjectTest : public CTagObject
@@ -57,7 +57,7 @@ public:
         Param2_t() : color(0), id(0)
         {}
 
-        DECLARE_BEHAVIAC_OBJECT_STRUCT(Param2_t);
+        DECLARE_BEHAVIAC_STRUCT(Param2_t);
     };
 
     void method0()
@@ -193,7 +193,7 @@ class CGrassMorphData : public CTagObject
 public:
     struct SMorph
     {
-        DECLARE_BEHAVIAC_OBJECT_STRUCT(SMorph);
+        DECLARE_BEHAVIAC_STRUCT(SMorph);
 
         //CStringID m_name;
         behaviac::string	m_name;
@@ -285,7 +285,7 @@ END_PROPERTIES_DESCRIPTION()
 #if BEHAVIAC_COMPILER_MSVC
 struct SAttachement
 {
-    DECLARE_BEHAVIAC_OBJECT_STRUCT(SAttachement);
+    DECLARE_BEHAVIAC_STRUCT(SAttachement);
     SAttachement(
         int _boneIndex = -1,
         const bool _freezeRotation = false)
@@ -329,7 +329,7 @@ BEHAVIAC_OVERRIDE_TYPE_NAME(EVisibleAIObjectType);
 
 class CMoveModel
 {
-    DECLARE_BEHAVIAC_OBJECT_STRUCT(CMoveModel);
+    DECLARE_BEHAVIAC_STRUCT(CMoveModel);
 
     CMoveModel() : m_entityObjectType(VISIBLEOBJECT_TYPE_UNDEFINED)
     {}
@@ -405,7 +405,7 @@ public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CSequenceManager);
 
 public:
-    DECLARE_BEHAVIAC_OBJECT_STRUCT(CSequenceManager);
+    DECLARE_BEHAVIAC_STRUCT(CSequenceManager);
 
 public:
     void CleanUp();
@@ -448,7 +448,7 @@ class CSceneObjectHandle
     template< typename U >
     friend class CSceneObjectContainer;
 
-    DECLARE_BEHAVIAC_OBJECT_STRUCT(CSceneObjectHandle)
+    DECLARE_BEHAVIAC_STRUCT(CSceneObjectHandle)
     // construction
 public:
     CSceneObjectHandle();
@@ -483,7 +483,7 @@ class CSceneObject
     // construction
 public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CSceneObject)
-    DECLARE_BEHAVIAC_OBJECT_STRUCT(CSceneObject);
+    DECLARE_BEHAVIAC_STRUCT(CSceneObject);
     CSceneObject();
 };
 

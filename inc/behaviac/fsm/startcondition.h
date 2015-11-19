@@ -29,11 +29,21 @@ namespace behaviac
         {
             m_targetId = -1;
         }
-        ~StartCondition()
+        virtual ~StartCondition()
         {
         }
 
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
+		virtual void ApplyEffects(Agent* pAgent, BehaviorNode::EPhase  phase) const;
+		int GetTargetStateId()
+		{
+			return this->m_targetId;
+		}
+
+		void SetTargetStateId(int value)
+		{
+			this->m_targetId = value;
+		}
 
     protected:
         virtual void load(int version, const char* agentType, const properties_t& properties);
@@ -43,23 +53,10 @@ namespace behaviac
             BEHAVIAC_ASSERT(false);
             return NULL;
         }
-    public:
-        virtual void ApplyEffects(Agent* pAgent, BehaviorNode::EPhase  phase) const;
 
         // ============================================================================
     protected:
         int m_targetId ;
-    public:
-        int GetTargetStateId()
-        {
-            return this->m_targetId;
-        }
-        void SetTargetStateId(int value)
-        {
-            this->m_targetId = value;
-        }
-
-    protected:
         behaviac::vector<Effector::EffectorConfig*> m_effectors;
     };
 }

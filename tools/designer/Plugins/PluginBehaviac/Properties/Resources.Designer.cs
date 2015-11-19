@@ -99,6 +99,24 @@ namespace PluginBehaviac.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AlwaysTransition.
+        /// </summary>
+        internal static string AlwaysTransition {
+            get {
+                return ResourceManager.GetString("AlwaysTransition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always Transition.
+        /// </summary>
+        internal static string AlwaysTransitionDesc {
+            get {
+                return ResourceManager.GetString("AlwaysTransitionDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to And.
         /// </summary>
         internal static string And {
@@ -1123,6 +1141,24 @@ namespace PluginBehaviac.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IsEndState.
+        /// </summary>
+        internal static string IsEndState {
+            get {
+                return ResourceManager.GetString("IsEndState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to when an &apos;End State&apos; is entered, the FSM is ended..
+        /// </summary>
+        internal static string IsEndStateDesc {
+            get {
+                return ResourceManager.GetString("IsEndStateDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Method.
         /// </summary>
         internal static string Method {
@@ -2114,6 +2150,60 @@ namespace PluginBehaviac.Properties {
         internal static string WaitFramesDesc {
             get {
                 return ResourceManager.GetString("WaitFramesDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitFramesState.
+        /// </summary>
+        internal static string WaitFramesState {
+            get {
+                return ResourceManager.GetString("WaitFramesState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitFramesState.
+        /// </summary>
+        internal static string WaitFramesStateDesc {
+            get {
+                return ResourceManager.GetString("WaitFramesStateDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitState.
+        /// </summary>
+        internal static string WaitState {
+            get {
+                return ResourceManager.GetString("WaitState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitState.
+        /// </summary>
+        internal static string WaitStateDesc {
+            get {
+                return ResourceManager.GetString("WaitStateDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitTransition.
+        /// </summary>
+        internal static string WaitTransition {
+            get {
+                return ResourceManager.GetString("WaitTransition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitTransition can only be appended to WaitState or WaitFramesState.
+        /// </summary>
+        internal static string WaitTransitionDesc {
+            get {
+                return ResourceManager.GetString("WaitTransitionDesc", resourceCulture);
             }
         }
         

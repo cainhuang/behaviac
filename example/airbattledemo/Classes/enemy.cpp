@@ -19,19 +19,21 @@ BEGIN_PROPERTIES_DESCRIPTION(Enemy)
 }
 END_PROPERTIES_DESCRIPTION()
 
+/******************************************************************
+Function    : Enemy::Enemy()
+Date        : 2015-11-18 17:45:24
+Author      : Quinn Pan
+Parameter   : 
+Return      : 
+Desc        : construct function
+******************************************************************/
 Enemy::Enemy()
 {
+    //this->btload("enemy_fsm");
+    //this->btsetcurrent("enemy_fsm");
     this->btload("enemy");
     this->btsetcurrent("enemy");
     speed = 20.0f;
-}
-
-Enemy::Enemy(int type)
-{
-    m_plane = PlaneEnemy::createWithEnemyType(type);
-    m_plane->myAgent = this;
-    this->btload("enemy");
-    this->btsetcurrent("enemy");
 }
 
 Enemy::~Enemy()
@@ -46,12 +48,28 @@ void Enemy::createAnEnemyWithType(int type)
     m_plane->myAgent = this;
 }
 
+/******************************************************************
+Function    : PlaneEnemy* Enemy::getPlane()
+Date        : 2015-11-18 17:41:41
+Author      : Quinn Pan
+Parameter   : 
+Return      : 
+Desc        : get agent's plane
+******************************************************************/
 PlaneEnemy* Enemy::getPlane()
 {
     return m_plane;
 }
 
 
+/******************************************************************
+Function    : void Enemy::setPlane(Node* plane)
+Date        : 2015-11-18 17:42:12
+Author      : Quinn Pan
+Parameter   : 
+Return      : 
+Desc        : set the agent's plane
+******************************************************************/
 void Enemy::setPlane(Node* plane)
 {
     this->m_plane = (PlaneEnemy*)plane;
@@ -148,8 +166,6 @@ Desc        : tell the enemy is live or not
 ******************************************************************/
 bool Enemy::isAlive()
 {
-    
-    
     if (this->m_plane)
     {
         return true;
@@ -157,7 +173,7 @@ bool Enemy::isAlive()
     else
     {
         //this->SetActive(false);
-        
+        //if the enemy is dead, then add this agent's behaviac to GanmeScene's agent delete queue.
         GameScene::addBehaviacAgentDeleteQueue((behaviac::Agent*)this);
         return false;
     }

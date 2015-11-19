@@ -11,7 +11,6 @@ public:
     DECLARE_BEHAVIAC_OBJECT(Enemy, behaviac::Agent);
 
     Enemy();
-    Enemy(int type);
 
     ~Enemy();
 

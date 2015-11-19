@@ -167,7 +167,9 @@ namespace Behaviac.Design
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) {
             MetaStoreDock.CheckSave();
 
-            e.Cancel = (FileManagers.SaveResult.Cancelled == saveLayout(Plugin.EditMode, __layoutFile, true));
+            e.Cancel = (FileManagers.SaveResult.Cancelled == CheckSavingBehaviors());
+            if (!e.Cancel)
+                saveLayout(Plugin.EditMode, __layoutFile, true);
         }
 
         internal void UpdateUIState(EditModes editMode) {
@@ -221,7 +223,6 @@ namespace Behaviac.Design
                     this.analyzeDumpMenuItem.Text = Resources.StopAnalyzingDump;
                     this.analyzeDumpMenuItem.Enabled = true;
                     break;
-
             }
         }
 
@@ -407,60 +408,70 @@ namespace Behaviac.Design
             Focus();
         }
 
-        private FileManagers.SaveResult saveLayout(EditModes editMode, string layoutFile, bool isClosing = false) {
-            FileManagers.SaveResult saveres = FileManagers.SaveResult.Cancelled;
+        public FileManagers.SaveResult CheckSavingBehaviors()
+        {
+            FileManagers.SaveResult saveResult = FileManagers.SaveResult.Cancelled;
 
-            if (behaviorTreeList != null) {
+            if (behaviorTreeList != null)
+            {
                 // add all the new behaviours to the list of unsaved ones
                 List<BehaviorNode> behaviorsToSave = new List<BehaviorNode>();
                 behaviorsToSave.AddRange(behaviorTreeList.NewBehaviors);
 
                 // add all loaded and modified behaviours to the unsaved ones
-                foreach(BehaviorNode node in behaviorTreeList.LoadedBehaviors) {
-                    if (node.IsModified) {
+                foreach (BehaviorNode node in behaviorTreeList.LoadedBehaviors)
+                {
+                    if (node.IsModified)
+                    {
                         behaviorsToSave.Add(node);
                     }
                 }
 
                 // ask the user what to do with them
                 bool[] result;
-                saveres = SaveBehaviors(behaviorsToSave, out result);
+                saveResult = SaveBehaviors(behaviorsToSave, out result);
             }
 
+            return saveResult;
+        }
+
+        private void saveLayout(EditModes editMode, string layoutFile, bool isClosing)
+        {
             // store GUI related stuff
-            if (saveres == FileManagers.SaveResult.Succeeded) {
-                if (Workspace.Current != null) {
-                    // Save the debug info.
-                    DebugDataPool.Save(Workspace.Current.FileName);
-                }
-
-                if (!isClosing) {
-                    preSaveLayout(editMode);
-                }
-
-                // store the layout and ensure the folder exists
-                string dir = System.IO.Path.GetDirectoryName(layoutFile);
-
-                if (!System.IO.Directory.Exists(dir)) {
-                    System.IO.Directory.CreateDirectory(dir);
-                }
-
-                dockPanel.SaveAsXml(layoutFile);
-
-                // store the application's settings
-                if (this.WindowState == FormWindowState.Normal) {
-                    Settings.Default.MainWindowLocation = Location;
-                    Settings.Default.MainWindowSize = Size;
-                    Settings.Default.MainWindowState = FormWindowState.Normal;
-
-                } else if (this.WindowState == FormWindowState.Maximized) {
-                    Settings.Default.MainWindowState = FormWindowState.Maximized;
-                }
-
-                Settings.Default.Save();
+            if (Workspace.Current != null)
+            {
+                // Save the debug info.
+                DebugDataPool.Save(Workspace.Current.FileName);
             }
 
-            return saveres;
+            if (!isClosing)
+            {
+                preSaveLayout(editMode);
+            }
+
+            // store the layout and ensure the folder exists
+            string dir = System.IO.Path.GetDirectoryName(layoutFile);
+
+            if (!System.IO.Directory.Exists(dir))
+            {
+                System.IO.Directory.CreateDirectory(dir);
+            }
+
+            dockPanel.SaveAsXml(layoutFile);
+
+            // store the application's settings
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Settings.Default.MainWindowLocation = Location;
+                Settings.Default.MainWindowSize = Size;
+                Settings.Default.MainWindowState = FormWindowState.Normal;
+            }
+            else if (this.WindowState == FormWindowState.Maximized)
+            {
+                Settings.Default.MainWindowState = FormWindowState.Maximized;
+            }
+
+            Settings.Default.Save();
         }
 
         /// <summary>
@@ -743,7 +754,7 @@ namespace Behaviac.Design
                 UndoManager.ClearAll();
 
                 if (curEditMode == EditModes.Design) {
-                    saveLayout(preEditMode, __layoutDebugFile);
+                    saveLayout(preEditMode, __layoutDebugFile, false);
 
                     if (this.WindowState != FormWindowState.Normal) {
                         this.Hide();
@@ -753,7 +764,7 @@ namespace Behaviac.Design
                     loadLayout(curEditMode, __layoutDesignFile, true);
 
                 } else {
-                    saveLayout(preEditMode, __layoutDesignFile);
+                    saveLayout(preEditMode, __layoutDesignFile, false);
 
                     if (this.WindowState != FormWindowState.Normal) {
                         this.Hide();
@@ -787,7 +798,8 @@ namespace Behaviac.Design
         {
             bool bWorkspaceChanged = false;
 
-            workspacePath = Path.GetFullPath(workspacePath);
+            if (!string.IsNullOrEmpty(workspacePath))
+                workspacePath = Path.GetFullPath(workspacePath);
 
             if (Workspace.Current == null)
             {

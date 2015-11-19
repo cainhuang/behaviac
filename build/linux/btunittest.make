@@ -85,6 +85,7 @@ OBJECTS := \
 	$(OBJDIR)/ArrayAccessTest.o \
 	$(OBJDIR)/PreconEffectorUintTest.o \
 	$(OBJDIR)/customizedtypes.o \
+	$(OBJDIR)/extendreftype.o \
 	$(OBJDIR)/fsmtestbase_0.o \
 	$(OBJDIR)/fsmunittest.o \
 	$(OBJDIR)/htnhouseunittest.o \
@@ -250,6 +251,10 @@ $(OBJDIR)/PreconEffectorUintTest.o: ../../test/btunittest/attachments/PreconEffe
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/customizedtypes.o: ../../test/btunittest/behaviac_generated/types/customizedtypes.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/extendreftype.o: ../../test/btunittest/ext/extendreftype.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

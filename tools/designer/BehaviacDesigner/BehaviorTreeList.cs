@@ -574,12 +574,12 @@ namespace Behaviac.Design
             // if there is no tree node, simply output the first available name
             if (nodes.Count < 1) {
                 used = i;
-                return string.Format("{0} {1}", label, i);
+                return string.Format("{0}_{1}", label, i);
             }
 
             do {
                 // generate the new label
-                string newlabel = string.Format("{0} {1}", label, i);
+                string newlabel = string.Format("{0}_{1}", label, i);
 
                 // check if there is any node with this name
                 bool found = false;
@@ -845,7 +845,7 @@ namespace Behaviac.Design
 
         public void NewBehavior() {
             // create a new behavior node with a unique label
-            string label = GetUniqueLabel(Plugin.GetResourceString("NewBehavior"), _lastNewBehavior, out _lastNewBehavior);
+            string label = GetUniqueLabel("NewBehavior", _lastNewBehavior, out _lastNewBehavior);
             BehaviorNode behavior = Node.CreateBehaviorNode(label);
             behavior.TriggerWasModified(behavior as Node);
 
@@ -2112,11 +2112,14 @@ namespace Behaviac.Design
             }
         }
 
-        public void HandleConnect() {
-            try {
+        public void HandleConnect()
+        {
+            try
+            {
                 if (Plugin.EditMode == EditModes.Connect || NetworkManager.Instance.IsConnected())
                 {
-                    if (Settings.Default.DumpConnectData) {
+                    if (Settings.Default.DumpConnectData)
+                    {
                         this.DumpLogFile();
                     }
 
@@ -2124,24 +2127,32 @@ namespace Behaviac.Design
                     Plugin.DebugAgentInstance = string.Empty;
 
                     Plugin.EditMode = EditModes.Design;
+                }
+                else
+                {
+                    FileManagers.SaveResult saveResult = MainWindow.Instance.CheckSavingBehaviors();
+                    if (saveResult != FileManagers.SaveResult.Cancelled)
+                    {
+                        this.Timer.Enabled = true;
 
-                } else {
-                    using(ConnectDialog cd = new ConnectDialog(NetworkManager.ServerPort)) {
-                        if (cd.ShowDialog(this) == DialogResult.OK) {
-                            NetworkManager.ServerIP = cd.GetServer();
-                            NetworkManager.ServerPort = cd.GetPort();
+                        using (ConnectDialog cd = new ConnectDialog(NetworkManager.ServerPort))
+                        {
+                            if (cd.ShowDialog(this) == DialogResult.OK)
+                            {
+                                NetworkManager.ServerIP = cd.GetServer();
+                                NetworkManager.ServerPort = cd.GetPort();
 
-                            //it is too early now to send Settings.Default.BreakAPP to app as
-                            //it will cause inconsistence in breakpoints checking
-                            //BreakAPP can only be sent to cpp after all the breakpoints info have been sent
-                            if (NetworkManager.Instance.Connect(cd.GetServer(), cd.GetPort())) {
-                                Plugin.EditMode = EditModes.Connect;
+                                if (NetworkManager.Instance.Connect(cd.GetServer(), cd.GetPort()))
+                                {
+                                    Plugin.EditMode = EditModes.Connect;
+                                }
                             }
                         }
                     }
                 }
-
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Debug.Check(false, ex.Message);
             }
         }

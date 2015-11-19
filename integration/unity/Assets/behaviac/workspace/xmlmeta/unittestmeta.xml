@@ -30,6 +30,13 @@
     </enumtype>
     <struct Type="System::Object" DisplayName="Object" Desc="Object" IsRefType="true" />
     <struct Type="UnityEngine::GameObject" DisplayName="GameObject" Desc="GameObject" IsRefType="true" />
+    <struct Type="TestNS::Node" DisplayName="Node" Desc="Node" IsRefType="true">
+      <Member Name="name" DisplayName="name" Desc="name" Type="string" Class="TestNS::Node" Public="true" />
+    </struct>
+    <struct Type="TestNS::Float2" DisplayName="Float2" Desc="Float2" IsRefType="false">
+      <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="TestNS::Float2" Public="true" />
+      <Member Name="y" DisplayName="y" Desc="y" Type="float" Class="TestNS::Float2" Public="true" />
+    </struct>
     <struct Type="UnityEngine::Vector3" DisplayName="Vector3" Desc="Vector3" IsRefType="false">
       <Member Name="kEpsilon" DisplayName="kEpsilon" Desc="kEpsilon" Type="float" Class="UnityEngine::Vector3" Readonly="true" Static="true" Public="true" />
       <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="UnityEngine::Vector3" Public="true" />
@@ -87,6 +94,7 @@
       <Member Name="testVar_3" DisplayName="" Desc="" Type="float" Class="AgentNodeTest" Public="true" />
       <Member Name="waiting_timeout_interval" DisplayName="" Desc="" Type="int" Class="AgentNodeTest" Public="true" />
       <Member Name="testVar_str_0" DisplayName="" Desc="" Type="string" Class="AgentNodeTest" Public="true" />
+      <Member Name="testVar_str_1" DisplayName="" Desc="" Type="string" Class="AgentNodeTest" Public="true" />
       <Method Name="setEventVarInt" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="var" Desc="var" Type="int" />
       </Method>
@@ -117,6 +125,13 @@
       <Method Name="createGameObject" DisplayName="" Desc="" ReturnType="UnityEngine::GameObject*" Class="AgentNodeTest" Public="true" />
       <Method Name="testGameObject" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="go" Desc="go" Type="UnityEngine::GameObject*" />
+      </Method>
+      <Method Name="createExtendedNode" DisplayName="" Desc="" ReturnType="TestNS::Node" Class="AgentNodeTest" />
+      <Method Name="testExtendedRefType" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest">
+        <Param DisplayName="go" Desc="go" Type="TestNS::Node" />
+      </Method>
+      <Method Name="testExtendedStruct" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest">
+        <Param DisplayName="f" Desc="f" Type="TestNS::Float2&amp;" IsRef="true" />
       </Method>
       <Method Name="switchRef" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest" Public="true">
         <Param DisplayName="refTree" Desc="refTree" Type="string" />

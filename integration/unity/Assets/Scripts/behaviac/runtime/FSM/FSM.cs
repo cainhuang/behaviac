@@ -131,29 +131,28 @@ namespace behaviac
                 while (bLoop)
                 {
                     BehaviorTask currentState = this.GetChildById(this.m_currentNodeId);
-                    status = currentState.exec(pAgent);
+                    currentState.exec(pAgent);
 
-                    int nextStateId = currentState.GetNextStateId();
-
-                    //ends
-                    if (status != EBTStatus.BT_RUNNING)
+                    if (currentState is State.StateTask)
                     {
-                        if (nextStateId == -1)
+                        State.StateTask pStateTask = (State.StateTask)currentState;
+
+                        if (pStateTask.IsEndState)
                         {
-                            return status;
-                        }
-                        else
-                        {
-                            status = EBTStatus.BT_RUNNING;
+                            return EBTStatus.BT_SUCCESS;
                         }
                     }
 
+                    int nextStateId = currentState.GetNextStateId();
+
                     if (nextStateId == -1)
                     {
+                        //if not transitioned, don't go on next state, to exit
                         bLoop = false;
                     }
                     else
                     {
+                        //if transitioned, go on next state
                         this.m_currentNodeId = nextStateId;
                     }
                 }

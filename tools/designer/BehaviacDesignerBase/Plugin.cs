@@ -1130,6 +1130,9 @@ namespace Behaviac.Design
         {
             if (type != null)
             {
+                if (Plugin.GetAgentType(type.Name) != null)
+                    return true;
+
                 Attribute[] attributes = (Attribute[])type.GetCustomAttributes(typeof(Behaviac.Design.ClassDescAttribute), false);
                 if (attributes.Length > 0)
                 {
@@ -1882,7 +1885,7 @@ namespace Behaviac.Design
                 }
 
                 // children
-                foreach(BaseNode child in node.Children) {
+                foreach(BaseNode child in node.GetChildNodes()) {
                     if (child is Node && !(child is ReferencedBehaviorNode)) {
                         Node childNode = child as Node;
                         CheckPar(childNode, par, ref result);

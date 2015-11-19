@@ -29,7 +29,7 @@ namespace UnityEngine
         {
         }
 
-        DECLARE_BEHAVIAC_OBJECT_STRUCT(UnityEngine::Vector3);
+        DECLARE_BEHAVIAC_STRUCT(UnityEngine::Vector3);
     };
 }
 

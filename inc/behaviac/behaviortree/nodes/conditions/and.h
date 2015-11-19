@@ -37,7 +37,7 @@ namespace behaviac
         And();
         virtual ~And();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-        virtual bool Evaluate(const Agent* pAgent);
+        virtual bool Evaluate(Agent* pAgent);
     protected:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
     private:

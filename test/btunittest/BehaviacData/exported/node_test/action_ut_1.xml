@@ -7,6 +7,7 @@
     <par name="par_float_type_0" type="float" value="0" />
     <par name="par_float_type_1" type="float" value="0" />
     <par name="par_float_type_2" type="float" value="2.7" />
+    <par name="local_node" type="TestNS::Node" value="null" />
   </pars>
   <node class="Sequence" id="0">
     <node class="Compute" id="3">
@@ -39,6 +40,18 @@
     </node>
     <node class="Action" id="6">
       <property Method="Self.AgentNodeTest::testGameObject(UnityEngine::GameObject Self.AgentNodeTest::par_go)" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Assignment" id="8">
+      <property Opl="TestNS::Node Self.AgentNodeTest::local_node" />
+      <property Opr="Self.AgentNodeTest::createExtendedNode()" />
+    </node>
+    <node class="Action" id="10">
+      <property Method="Self.AgentNodeTest::testExtendedRefType(TestNS::Node Self.AgentNodeTest::local_node)" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Action" id="9">
+      <property Method="Self.AgentNodeTest::testExtendedStruct(TestNS::Float2 Self.AgentNodeTest::testFloat2)" />
       <property ResultOption="BT_SUCCESS" />
     </node>
   </node>

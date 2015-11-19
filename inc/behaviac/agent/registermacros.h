@@ -35,9 +35,9 @@
     _addMember(ms_members, CMemberFactory::Create<DefaultTypeHandler, EPersistenceType_Description | EPersistenceType_UiInfo> \
                (objectType::GetClassTypeName(), memberNameStr, &objectType::getter, &objectType::settter, UiDescriptorAllocate_##DefaultUiInfo))
 
-#define REGISTER_PROPERTY(...) ARGUMENT_SELECTOR4((__VA_ARGS__, REGISTER_PROPERTY_V3, REGISTER_PROPERTY_V2, REGISTER_PROPERTY_V1))(__VA_ARGS__)
-#define ARGUMENT_SELECTOR4(__args) GET_4TH_ARGUMENT __args
-#define GET_4TH_ARGUMENT(__p1,__p2,__p3,__n,...) __n
+#define REGISTER_PROPERTY(...) _BEHAVIAC_ARGUMENT_SELECTOR4_((__VA_ARGS__, REGISTER_PROPERTY_V3, REGISTER_PROPERTY_V2, REGISTER_PROPERTY_V1))(__VA_ARGS__)
+#define _BEHAVIAC_ARGUMENT_SELECTOR4_(__args) _BEHAVIAC_GET_4TH_ARGUMENT_ __args
+#define _BEHAVIAC_GET_4TH_ARGUMENT_(__p1,__p2,__p3,__n,...) __n
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///register method

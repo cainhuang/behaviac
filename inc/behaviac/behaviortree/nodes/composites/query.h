@@ -61,7 +61,7 @@ namespace behaviac
                 BEHAVIAC_DELETE(Reference);
             }
 
-            DECLARE_BEHAVIAC_OBJECT_STRUCT(Query::Descriptor_t);
+            DECLARE_BEHAVIAC_STRUCT(Query::Descriptor_t);
         };
 
         typedef behaviac::vector<Descriptor_t> Descriptors_t;

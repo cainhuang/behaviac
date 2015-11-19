@@ -22,6 +22,7 @@
 #include "behaviac/behaviortree/behaviortree.h"
 #include "behaviac/base/workspace.h"
 #include "behaviac/base/file/filemanager.h"
+#include "behaviac/property/typeregister.h"
 
 
 #endif // BEHAVIAC_BEHAVIAC_H

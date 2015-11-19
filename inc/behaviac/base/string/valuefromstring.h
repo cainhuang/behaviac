@@ -25,32 +25,6 @@
 #include "behaviac/base/meta/isenum.h"
 #include "behaviac/base/meta/types.h"
 
-namespace behaviac
-{
-    namespace Meta
-    {
-        template<typename Type>
-        struct HasFromString
-        {
-        private:
-
-            template<typename U, bool (U::*)(const char*)> struct SFINAE {};
-
-            template< typename U >
-            static Yes Tester(SFINAE<U, &U::FromString>*);
-
-            template<typename U>
-            static No Tester(...);
-
-        public:
-
-            enum
-            {
-                Result = sizeof(Tester<Type>(0)) == sizeof(Yes)
-            };
-        };
-    }
-}
 
 template<typename T>
 bool EnumValueFromString(const char* valueStr, T& v);
@@ -91,7 +65,7 @@ namespace behaviac
             template<typename T>
             inline bool FromString(const char* str, T& val)
             {
-                bool result = FromStringSelector<T, behaviac::Meta::IsAgent<T>::Result>::FromString(str, val);
+				bool result = FromStringSelector<T, behaviac::Meta::IsRefType<T>::Result>::FromString(str, val);
 
                 return result;
             }

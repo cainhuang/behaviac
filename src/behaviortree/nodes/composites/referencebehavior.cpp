@@ -252,7 +252,7 @@ namespace behaviac
 
 		EBTStatus result = this->m_subTree->exec(pAgent);
 
-		bool bTransitioned = State::UpdateTransitions(pAgent, pNode, pNode->m_transitions, this->m_nextStateId, result);
+		bool bTransitioned = State::UpdateTransitions(pAgent, pNode, pNode->m_transitions, this->m_nextStateId);
 
 		if (bTransitioned)
 		{

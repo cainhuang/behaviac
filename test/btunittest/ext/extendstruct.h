@@ -37,11 +37,6 @@ namespace TestNS
 }
 //////////////////////////////////////////////////////////////////////////
 
-#undef M_SPECIALIZE_TYPE_HANDLER_COMPOUND
-
-#define M_SPECIALIZE_TYPE_HANDLER_COMPOUND()            M_SPECIALIZE_TYPE_HANDLER(TestNS::Float2);
-
-M_SPECIALIZE_TYPE_HANDLER_COMPOUND()
 
 //
 struct myFloat2
@@ -49,7 +44,7 @@ struct myFloat2
     float x;
     float y;
 
-    DECLARE_BEHAVIAC_OBJECT_STRUCT(myFloat2);
+    DECLARE_BEHAVIAC_STRUCT(myFloat2);
 
     myFloat2()
     {}
@@ -59,28 +54,7 @@ struct myFloat2
     }
 };
 
-template <>
-inline CTagObjectDescriptor& GetObjectDescriptor<TestNS::Float2>()
-{
-    return myFloat2::GetObjectDescriptor();
-}
-
-template <>
-inline void RegisterProperties<TestNS::Float2>()
-{
-    myFloat2::RegisterProperties();
-}
-
-//add the following to a cpp
-//BEGIN_PROPERTIES_DESCRIPTION(myFloat2)
-//{
-//	CLASS_DISPLAYNAME(L"")
-//	CLASS_DESC(L"")
-//
-//	REGISTER_PROPERTY(x);
-//	REGISTER_PROPERTY(y);
-//}
-//END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_EXTEND_EXISTING_TYPE(myFloat2, TestNS::Float2);
 
 namespace behaviac
 {
@@ -92,7 +66,7 @@ namespace behaviac
             template<>
             inline behaviac::string ToString(const TestNS::Float2& val)
             {
-                //myFloat2::ToString is defined by DECLARE_BEHAVIAC_OBJECT_STRUCT(myFloat2)
+                //myFloat2::ToString is defined by DECLARE_BEHAVIAC_STRUCT(myFloat2)
                 myFloat2 temp(val);
                 return temp.ToString();
             }
@@ -102,7 +76,7 @@ namespace behaviac
             {
                 myFloat2 temp;
 
-                //myFloat2::FromString is defined by DECLARE_BEHAVIAC_OBJECT_STRUCT(myFloat2)
+                //myFloat2::FromString is defined by DECLARE_BEHAVIAC_STRUCT(myFloat2)
                 if (temp.FromString(str))
                 {
                     val.x = temp.x;
@@ -135,7 +109,22 @@ namespace behaviac
         {
             return behaviac::IsEqualWithEpsilon(lhs.x, rhs.x) && behaviac::IsEqualWithEpsilon(lhs.y, rhs.y);
         }
-    }
+   }
 }
+
+//add the following to a cpp
+//BEGIN_PROPERTIES_DESCRIPTION(myFloat2)
+//{
+//	CLASS_DISPLAYNAME(L"")
+//	CLASS_DESC(L"")
+//
+//	REGISTER_PROPERTY(x);
+//	REGISTER_PROPERTY(y);
+//}
+//END_PROPERTIES_DESCRIPTION()
+
+//add the following to register/unregister
+//behaviac::TypeRegister::Register<TestNS::Float2>("TestNS::Float2");
+//behaviac::TypeRegister::UnRegister<TestNS::Float2>("TestNS::Float2");
 
 #endif//_BEHAVIAC_EXTDEND_STRUCT_H_

@@ -142,7 +142,7 @@ namespace behaviac
         };
     }
 
-    const int kMaxTextLength = 228;
+	const uint32_t kMaxTextLength = 228;
 
     struct Text
     {

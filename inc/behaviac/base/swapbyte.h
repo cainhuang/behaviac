@@ -174,16 +174,7 @@ public:
 };
 
 //////////////////////////////////////////////////////////////////////////
-// Typedefs to make everything explicit
-// note : maybe we should make a SwapByte_Native.inl and include it here
-
-#if 0
-//#define BEHAVIAC_BIGENDIAN
-#else
-#define BEHAVIAC_LITTLEENDIAN
-#endif
-
-#ifdef BEHAVIAC_BIGENDIAN
+#if BEHAVIAC_BIGENDIAN
 typedef CSwapByteFull	CSwapByteNativeToLittle;
 typedef CSwapByteFull	CSwapByteLittleToNative;
 typedef CSwapByteEmpty	CSwapByteNativeToBig;

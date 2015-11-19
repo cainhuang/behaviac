@@ -1282,6 +1282,7 @@ namespace behaviac
                     this.m_currentBT = pTask;
 
                     this.m_bBbBound = false;
+                    this.Variables.Clear();
                     //string pThisTree = this.m_currentBT.GetName();
                     //this.LogJumpTree(pThisTree);
                 }
@@ -1294,6 +1295,7 @@ namespace behaviac
         {
             if (!this.m_bBbBound)
             {
+                //this.Variables.Clear();
                 AgentProperties bb = AgentProperties.Get(this.GetClassTypeName());
 
                 if (bb != null)

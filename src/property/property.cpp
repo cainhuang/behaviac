@@ -317,6 +317,15 @@ namespace behaviac
         return p;
     }
 
+	Property*  Property::Create(const char* typeName, const char* nameStr, const char* valueStr)
+	{
+		bool bConst = false;
+
+		Property*  p = Property::create(0, bConst, typeName, nameStr, 0, valueStr);
+
+		return p;
+	}
+
     const char* Property::GetInstanceName()
     {
         return this->m_instanceName.c_str();

@@ -224,29 +224,6 @@ namespace behaviac
         return bValid;
     }
 
-    bool AttachAction::ActionConfig::Execute(Agent* pAgent, EBTStatus methodResult) const
-    {
-        if (this->m_mode == TM_Condition)
-        {
-            return this->Execute(pAgent);
-        }
-        else if (this->m_mode == TM_Success && methodResult == BT_SUCCESS)
-        {
-            return true;
-        }
-        else if (this->m_mode == TM_Failure && methodResult == BT_FAILURE)
-        {
-            return true;
-        }
-        else if (this->m_mode == TM_End && (methodResult == BT_SUCCESS || methodResult == BT_FAILURE))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-
     //implement the methods of AttachAction
     AttachAction::AttachAction()
     {
@@ -263,20 +240,7 @@ namespace behaviac
         this->m_ActionConfig->load(properties);
     }
 
-    bool AttachAction::Evaluate(Agent* pAgent, EBTStatus methodResult)
-    {
-        bool bValid = this->m_ActionConfig->Execute(pAgent, methodResult);
-
-        if (!bValid)
-        {
-            EBTStatus childStatus = BT_INVALID;
-            bValid = (BT_SUCCESS == this->update_impl((Agent*)pAgent, childStatus));
-        }
-
-        return bValid;
-    }
-
-    bool AttachAction::Evaluate(const Agent* pAgent)
+    bool AttachAction::Evaluate(Agent* pAgent)
     {
         bool bValid = this->m_ActionConfig->Execute((Agent*)pAgent);
 

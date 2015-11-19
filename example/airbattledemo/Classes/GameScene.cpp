@@ -118,7 +118,8 @@ bool GameScene::init()
     auto hero = m_Hero->getPlane();
     addChild(hero, 0, HERO_TAG);
     hero->setPosition(Vec2(winSize.width / 2, hero->getContentSize().height / 2 + 10));
-    hero->setAI(m_isAI);
+    //hero->setAI(m_isAI);
+    m_Hero->setAI(m_isAI);
 
     //auto herobody = PhysicsBody::createBox(hero->getContentSize()); //这样设置不太精准
     auto herobody = PhysicsBody::create();
@@ -188,11 +189,13 @@ bool GameScene::init()
         {
             //物理调试绘图关
             this->getScene()->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_NONE);
+            this->m_Hero->getPlane()->enableShowScreenDebugInfo(false);
         }
         if (keyCode == EventKeyboard::KeyCode::KEY_D)
         {
             //物理调试绘图开 
             this->getScene()->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+            this->m_Hero->getPlane()->enableShowScreenDebugInfo(true);
         }
         
     };
@@ -264,6 +267,7 @@ void GameScene::gameover()
     publishScore(); //存储游戏分数
     cleanBehaviacAgentDeleteQueue();
     behaviac::Agent::Destroy(m_NPC);
+    behaviac::Agent::Destroy(m_Hero);
     auto scene = TransitionFade::create(2.0, GameOverScene::createScene());
     Director::getInstance()->replaceScene(scene);
 }
@@ -271,8 +275,9 @@ void GameScene::gameover()
 void GameScene::AIButtonCallBack(Ref* pSender)//点击AI按钮回调函数
 {
     m_isAI = !m_isAI;
-    PlaneHero* hero = m_Hero->getPlane();
-    hero->setAI(m_isAI);
+    m_Hero->setAI(m_isAI);
+    //PlaneHero* hero = m_Hero->getPlane();
+    //hero->setAI(m_isAI);
 
 }
 

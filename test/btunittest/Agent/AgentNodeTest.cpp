@@ -46,8 +46,6 @@ namespace UnityEngine
 {
     BEGIN_PROPERTIES_DESCRIPTION(GameObject)
     {
-        CLASS_IS_REF_TYPE(true);
-
         REGISTER_PROPERTY(name);
     }
     END_PROPERTIES_DESCRIPTION()
@@ -82,6 +80,9 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
     REGISTER_METHOD(exit_action_2);
     REGISTER_METHOD(createGameObject);
     REGISTER_METHOD(testGameObject);
+	REGISTER_METHOD(createExtendedNode);
+	REGISTER_METHOD(testExtendedRefType);
+	REGISTER_METHOD(testExtendedStruct);
     REGISTER_METHOD(switchRef);
 }
 END_PROPERTIES_DESCRIPTION()

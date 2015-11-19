@@ -563,7 +563,7 @@ namespace behaviac
     {
         if (this->m_customCondition != NULL)
         {
-            return this->m_customCondition->Evaluate(pAgent);
+            return this->m_customCondition->Evaluate((Agent*)pAgent);
         }
 
         return false;
@@ -716,7 +716,6 @@ namespace behaviac
                         this->m_bDecorateWhenChildEnds = true;
                     }
                 }//if (p.value[0] != '\0')
-
             }
             else
             {

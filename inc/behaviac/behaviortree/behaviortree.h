@@ -217,7 +217,7 @@ namespace behaviac
         virtual void Attach(BehaviorNode* pAttachment, bool bIsPrecondition, bool bIsEffector, bool bIsTransition);
         void Attach(BehaviorNode* pAttachment, bool bIsPrecondition, bool bIsEffector);
 
-        virtual bool Evaluate(const Agent* pAgent)
+        virtual bool Evaluate(Agent* pAgent)
         {
             BEHAVIAC_UNUSED_VAR(pAgent);
             BEHAVIAC_ASSERT(false, "Only Condition/Sequence/And/Or allowed");
@@ -388,7 +388,7 @@ namespace behaviac
                 BEHAVIAC_DELETE(this->Reference);
             }
 
-            DECLARE_BEHAVIAC_OBJECT_STRUCT(BehaviorTree::Descriptor_t);
+            DECLARE_BEHAVIAC_STRUCT(BehaviorTree::Descriptor_t);
         };
 
         typedef behaviac::vector<Descriptor_t>	Descriptors_t;

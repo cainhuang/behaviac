@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -45,48 +45,47 @@ namespace PluginBehaviac.DataExporters
             {
                 stream.WriteLine("{0}Debug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
 
-                if (isRefParam)
-                {
-                    if (shouldDefineType)
-                        stream.WriteLine("{0}{1} {2};", indent, typename, var);
+                //if (isRefParam)
+                //{
+                //    if (shouldDefineType)
+                //        stream.WriteLine("{0}{1} {2};", indent, typename, var);
 
-                    stream.WriteLine("{0}object var_{1} = pAgent.GetVariableObject({2}u);", indent, var, id);
+                //    Type type = property.Type;
+                //    if (type != null && (type.IsValueType || Plugin.IsEnumType(type) || Plugin.IsStringType(type)))
+                //    {
+                //        stream.WriteLine("{0}object var_{1} = pAgent.GetVariableObject({2}u);", indent, var, id);
+                //        stream.WriteLine("{0}if (var_{1} != null)", indent, var);
+                //        stream.WriteLine("{0}\t{1} = ({2})var_{1};", indent, var, typename);
+                //        stream.WriteLine("{0}else", indent, var);
 
-                    Type type = property.Type;
-                    if (type != null && (type.IsValueType || Plugin.IsEnumType(type) || Plugin.IsStringType(type)))
-                    {
-                        stream.WriteLine("{0}if (var_{1} != null)", indent, var);
-                        stream.WriteLine("{0}\t{1} = ({2})var_{1};", indent, var, typename);
-                        stream.WriteLine("{0}else", indent, var);
+                //        if (!Plugin.IsArrayType(property.Type) && !Plugin.IsCustomClassType(property.Type))
+                //        {
+                //            object defaultObj = Plugin.DefaultValue(property.Type);
+                //            Debug.Check(defaultObj != null);
 
-                        if (!Plugin.IsArrayType(property.Type) && !Plugin.IsCustomClassType(property.Type))
-                        {
-                            object defaultObj = Plugin.DefaultValue(property.Type);
-                            Debug.Check(defaultObj != null);
+                //            string objStr = DesignerPropertyUtility.RetrieveExportValue(defaultObj);
+                //            if (defaultObj is char)
+                //            {
+                //                objStr = "(char)0";
+                //            }
+                //            else if (Plugin.IsEnumType(defaultObj.GetType()))
+                //            {
+                //                objStr = string.Format("{0}.{1}", typename, objStr);
+                //            }
 
-                            string objStr = DesignerPropertyUtility.RetrieveExportValue(defaultObj);
-                            if (defaultObj is char)
-                            {
-                                objStr = "(char)0";
-                            }
-                            else if (Plugin.IsEnumType(defaultObj.GetType()))
-                            {
-                                objStr = string.Format("{0}.{1}", typename, objStr);
-                            }
-
-                            stream.WriteLine("{0}\t{1} = {2};", indent, var, objStr);
-                        }
-                        else
-                        {
-                            stream.WriteLine("{0}\t{1} = new {2}();", indent, var, DataCsExporter.GetGeneratedNativeType(property.Type));
-                        }
-                    }
-                    else
-                    {
-                        stream.WriteLine("{0}{1} = ({2})var_{1};", indent, var, typename);
-                    }
-                }
-                else
+                //            stream.WriteLine("{0}\t{1} = {2};", indent, var, objStr);
+                //        }
+                //        else
+                //        {
+                //            stream.WriteLine("{0}\t{1} = new {2}();", indent, var, DataCsExporter.GetGeneratedNativeType(property.Type));
+                //        }
+                //    }
+                //    else
+                //    {
+                //        stream.WriteLine("{0}{1} = ({2})pAgent.GetVariableObject({3}u);", indent, var, typename, id);
+                //    }
+                //}
+                //else
                 {
                     if (shouldDefineType)
                         stream.WriteLine("{0}{1} {2} = {3};", indent, typename, var, retStr);
@@ -110,8 +109,7 @@ namespace PluginBehaviac.DataExporters
             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
             stream.WriteLine("{0}Debug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
-            stream.WriteLine("{0}pAgent.SetVariable<{1}>(\"{2}\", {3}, {4}u);", indent, typename, property.Name, var, id);
-
+            stream.WriteLine("{0}pAgent.SetVariable<{1}>(\"{2}\", ({1}){3}, {4}u);", indent, typename, property.Name, var, id);
         }
 
         public static string GetProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent)

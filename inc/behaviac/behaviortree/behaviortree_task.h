@@ -446,6 +446,6 @@ namespace behaviac
     };
 } // namespace behaviac
 
-DECLARE_BEHAVIAC_OBJECT_ENUM(behaviac::EBTStatus, EBTStatus);
+DECLARE_BEHAVIAC_ENUM(behaviac::EBTStatus, EBTStatus);
 
 #endif//BEHAVIAC_BEHAVIORTREE_TASK_H

@@ -49,8 +49,6 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
     behaviac::Config::SetSocketBlocking(false);
     behaviac::Config::SetSocketPort(8081);
 
-
-
     behaviac::Agent::Register<CBTPlayer>();
 
     behaviac::Agent::RegisterInstanceName<CBTPlayer>("player1");
@@ -101,7 +99,7 @@ void CleanupBehaviac()
 
     behaviac::Agent::UnRegister<CBTPlayer>();
 
-
+	behaviac::Workspace::GetInstance()->Cleanup();
 }
 
 //cmdline: behaviorTreePath Count ifprint fileformat
@@ -109,14 +107,16 @@ int main(int argc, char** argv)
 {
     SetExePath();
 
-    if (argc <= 1)
-    {
-        cout << "usage: btPath [loopCout] [0|1] [xml|cpp|bson]\n";
+    cout << "usage: btPath [loopCout] [0|1] [xml|cpp|bson]\n\n";
 
-        return -1;
-    }
+	const char* szTreeName = "demo_running";
+	if (argc > 1)
+	{
+		szTreeName = argv[1];
+	}
 
-    const char* szTreeName = argc > 1 ? argv[1] : "player";
+	cout << "bt:" << szTreeName << "\n\n";
+
     int iCount = argc > 2 ? atoi(argv[2]) : 0;
     g_bMovePrint = argc > 3 && atoi(argv[3]) != 0 ? true : false;
 

@@ -106,6 +106,7 @@ namespace behaviac
 			bb->AddProperty("float", false, "testVar_3", "0", "AgentNodeTest");
 			bb->AddProperty("string", false, "testVar_str_0", "", "AgentNodeTest");
 			bb->AddProperty("int", false, "waiting_timeout_interval", "0", "AgentNodeTest");
+			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
 
 			// CustomPropertyAgent
 			bb = BEHAVIAC_NEW AgentProperties("CustomPropertyAgent");

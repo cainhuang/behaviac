@@ -169,10 +169,14 @@ OBJECTS := \
 	$(OBJDIR)/decoratorsuccessuntil.o \
 	$(OBJDIR)/decoratortime.o \
 	$(OBJDIR)/decoratorweight.o \
+	$(OBJDIR)/alwaystransition.o \
 	$(OBJDIR)/fsm.o \
 	$(OBJDIR)/fsmstate.o \
 	$(OBJDIR)/startcondition.o \
 	$(OBJDIR)/transitioncondition.o \
+	$(OBJDIR)/waitframesstate.o \
+	$(OBJDIR)/waitstate.o \
+	$(OBJDIR)/waittransition.o \
 	$(OBJDIR)/agentproperties.o \
 	$(OBJDIR)/agentstate.o \
 	$(OBJDIR)/htnmethod.o \
@@ -665,6 +669,10 @@ $(OBJDIR)/decoratorweight.o: ../../src/behaviortree/nodes/decorators/decoratorwe
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
+$(OBJDIR)/alwaystransition.o: ../../src/fsm/alwaystransition.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
 $(OBJDIR)/fsm.o: ../../src/fsm/fsm.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
@@ -678,6 +686,18 @@ $(OBJDIR)/startcondition.o: ../../src/fsm/startcondition.cpp
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/transitioncondition.o: ../../src/fsm/transitioncondition.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/waitframesstate.o: ../../src/fsm/waitframesstate.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/waitstate.o: ../../src/fsm/waitstate.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/waittransition.o: ../../src/fsm/waittransition.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

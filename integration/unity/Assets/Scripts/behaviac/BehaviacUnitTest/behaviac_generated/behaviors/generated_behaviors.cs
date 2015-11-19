@@ -429,13 +429,13 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ref_bt_ut_node1()
 		{
-			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			this.m_bIsEndState = false;
 			method_p0 = 1;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((AgentNodeTest)pAgent).setTestVar_0(method_p0);
-			return EBTStatus.BT_SUCCESS;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 		int method_p0;
 	}
@@ -462,11 +462,11 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ref_bt_ut_node3()
 		{
-			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			return EBTStatus.BT_SUCCESS;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -633,12 +633,12 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ref_fsm_ut_node3()
 		{
-			this.m_resultOption = EBTStatus.BT_RUNNING;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((FSMAgentTest)pAgent).inactive_update();
-			return EBTStatus.BT_RUNNING;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -717,11 +717,11 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ref_fsm_ut_node2()
 		{
-			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			this.m_bIsEndState = true;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			return EBTStatus.BT_SUCCESS;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -764,12 +764,12 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ref_fsm_ut_node4()
 		{
-			this.m_resultOption = EBTStatus.BT_RUNNING;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((FSMAgentTest)pAgent).pause_update();
-			return EBTStatus.BT_RUNNING;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -1101,12 +1101,12 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ut_0_node3()
 		{
-			this.m_resultOption = EBTStatus.BT_RUNNING;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((FSMAgentTest)pAgent).inactive_update();
-			return EBTStatus.BT_RUNNING;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -1169,12 +1169,12 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ut_0_node1()
 		{
-			this.m_resultOption = EBTStatus.BT_RUNNING;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((FSMAgentTest)pAgent).active_update();
-			return EBTStatus.BT_RUNNING;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -1258,12 +1258,12 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ut_0_node4()
 		{
-			this.m_resultOption = EBTStatus.BT_RUNNING;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((FSMAgentTest)pAgent).pause_update();
-			return EBTStatus.BT_RUNNING;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -1452,12 +1452,12 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ut_1_node3()
 		{
-			this.m_resultOption = EBTStatus.BT_RUNNING;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((FSMAgentTest)pAgent).inactive_update();
-			return EBTStatus.BT_RUNNING;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -1500,7 +1500,7 @@ namespace behaviac
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_1_attach6()
 		{
-			this.TargetStateId = 2;
+			this.TargetStateId = 18;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
@@ -1536,12 +1536,12 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ut_1_node1()
 		{
-			this.m_resultOption = EBTStatus.BT_RUNNING;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((FSMAgentTest)pAgent).active_update();
-			return EBTStatus.BT_RUNNING;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -1602,11 +1602,11 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ut_1_node2()
 		{
-			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			this.m_bIsEndState = true;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			return EBTStatus.BT_SUCCESS;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -1649,12 +1649,12 @@ namespace behaviac
 	{
 		public State_bt_node_test_fsm_fsm_ut_1_node4()
 		{
-			this.m_resultOption = EBTStatus.BT_RUNNING;
+			this.m_bIsEndState = false;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			((FSMAgentTest)pAgent).pause_update();
-			return EBTStatus.BT_RUNNING;
+			return behaviac.EBTStatus.BT_RUNNING;
 		}
 	}
 
@@ -1726,6 +1726,25 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("PauseCount") == 3020354788u);
 			pAgent.SetVariable("PauseCount", (short)(opr1 + opr2), 3020354788u);
 			return result;
+		}
+	}
+
+	class WaitFramesState_bt_node_test_fsm_fsm_ut_1_node18 : behaviac.WaitFramesState
+	{
+		public WaitFramesState_bt_node_test_fsm_fsm_ut_1_node18()
+		{
+		}
+		protected override int GetFrames(Agent pAgent)
+		{
+			return 3;
+		}
+	}
+
+	class WaitTransition_bt_node_test_fsm_fsm_ut_1_attach20 : behaviac.WaitTransition
+	{
+		public WaitTransition_bt_node_test_fsm_fsm_ut_1_attach20()
+		{
+			this.TargetStateId = 2;
 		}
 	}
 
@@ -1910,6 +1929,26 @@ namespace behaviac
 					}
 					fsm.AddChild(node4);
 					fsm.SetHasEvents(fsm.HasEvents() | node4.HasEvents());
+				}
+				{
+					WaitFramesState_bt_node_test_fsm_fsm_ut_1_node18 node18 = new WaitFramesState_bt_node_test_fsm_fsm_ut_1_node18();
+					node18.SetClassNameString("WaitFramesState");
+					node18.SetId(18);
+#if !BEHAVIAC_RELEASE
+					node18.SetAgentType("FSMAgentTest");
+#endif
+					// attachments
+					{
+						WaitTransition_bt_node_test_fsm_fsm_ut_1_attach20 attach20 = new WaitTransition_bt_node_test_fsm_fsm_ut_1_attach20();
+						attach20.SetClassNameString("WaitTransition");
+						attach20.SetId(20);
+#if !BEHAVIAC_RELEASE
+						attach20.SetAgentType("FSMAgentTest");
+#endif
+						node18.Attach(attach20, false, false, true);
+					}
+					fsm.AddChild(node18);
+					fsm.SetHasEvents(fsm.HasEvents() | node18.HasEvents());
 				}
 				bt.AddChild(fsm);
 			}
@@ -3139,16 +3178,11 @@ namespace behaviac
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("start") == 537854745u);
-			int opl_p0;
-			object var_opl_p0 = pAgent.GetVariableObject(537854745u);
-			if (var_opl_p0 != null)
-				opl_p0 = (int)var_opl_p0;
-			else
-				opl_p0 = 0;
+			int opl_p0 = pAgent.GetVariable<int>(537854745u);
 			bool opl = (bool)((HTNAgentTravel)pAgent).exist_start(ref opl_p0);
 			bool opr2 = true;
 			Debug.Check(behaviac.Utils.MakeVariableId("start") == 537854745u);
-			pAgent.SetVariable<int>("HTNAgentTravel::start", opl_p0, 537854745u);
+			pAgent.SetVariable<int>("HTNAgentTravel::start", (int)opl_p0, 537854745u);
 			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
@@ -3167,16 +3201,11 @@ namespace behaviac
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("finish") == 3620922618u);
-			int opl_p0;
-			object var_opl_p0 = pAgent.GetVariableObject(3620922618u);
-			if (var_opl_p0 != null)
-				opl_p0 = (int)var_opl_p0;
-			else
-				opl_p0 = 0;
+			int opl_p0 = pAgent.GetVariable<int>(3620922618u);
 			bool opl = (bool)((HTNAgentTravel)pAgent).exist_finish(ref opl_p0);
 			bool opr2 = true;
 			Debug.Check(behaviac.Utils.MakeVariableId("finish") == 3620922618u);
-			pAgent.SetVariable<int>("HTNAgentTravel::finish", opl_p0, 3620922618u);
+			pAgent.SetVariable<int>("HTNAgentTravel::finish", (int)opl_p0, 3620922618u);
 			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
@@ -3465,13 +3494,11 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("_$local_task_param_$_0") == 2009726548u);
 			int opl_p0 = pAgent.GetVariable<int>(2009726548u);
 			Debug.Check(behaviac.Utils.MakeVariableId("as") == 2746731747u);
-			List<int> opl_p1;
-			object var_opl_p1 = pAgent.GetVariableObject(2746731747u);
-			opl_p1 = (List<int>)var_opl_p1;
+			List<int> opl_p1 = pAgent.GetVariable<List<int>>(2746731747u);
 			bool opl = (bool)((HTNAgentTravel)pAgent).exist_airports(opl_p0, ref opl_p1);
 			bool opr2 = true;
 			Debug.Check(behaviac.Utils.MakeVariableId("as") == 2746731747u);
-			pAgent.SetVariable<List<int>>("HTNAgentTravel::as", opl_p1, 2746731747u);
+			pAgent.SetVariable<List<int>>("HTNAgentTravel::as", (List<int>)opl_p1, 2746731747u);
 			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
@@ -3492,16 +3519,11 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("_$local_task_param_$_1") == 1859309333u);
 			int opl_p0 = pAgent.GetVariable<int>(1859309333u);
 			Debug.Check(behaviac.Utils.MakeVariableId("ay") == 1498948713u);
-			int opl_p1;
-			object var_opl_p1 = pAgent.GetVariableObject(1498948713u);
-			if (var_opl_p1 != null)
-				opl_p1 = (int)var_opl_p1;
-			else
-				opl_p1 = 0;
+			int opl_p1 = pAgent.GetVariable<int>(1498948713u);
 			bool opl = (bool)((HTNAgentTravel)pAgent).exist_airport(opl_p0, ref opl_p1);
 			bool opr2 = true;
 			Debug.Check(behaviac.Utils.MakeVariableId("ay") == 1498948713u);
-			pAgent.SetVariable<int>("HTNAgentTravel::ay", opl_p1, 1498948713u);
+			pAgent.SetVariable<int>("HTNAgentTravel::ay", (int)opl_p1, 1498948713u);
 			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
@@ -4419,6 +4441,20 @@ namespace behaviac
 		}
 	}
 
+	class Action_bt_node_test_action_ut_0_node7 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_0_node7()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).testGameObject(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+		UnityEngine.GameObject method_p0;
+	}
+
 	class Action_bt_node_test_action_ut_0_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_0_node6()
@@ -4447,6 +4483,7 @@ namespace behaviac
 			bt.AddPar("AgentNodeTest", "int", "par_int_type_0", "0");
 			bt.AddPar("AgentNodeTest", "int", "par_int_type_1", "0");
 			bt.AddPar("AgentNodeTest", "int", "par_int_type_2", "300");
+			bt.AddPar("AgentNodeTest", "UnityEngine.GameObject", "par_go", "null");
 			// children
 			{
 				Sequence node0 = new Sequence();
@@ -4505,6 +4542,16 @@ namespace behaviac
 #endif
 					node0.AddChild(node5);
 					node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_0_node7 node7 = new Action_bt_node_test_action_ut_0_node7();
+					node7.SetClassNameString("Action");
+					node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+					node7.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node7);
+					node0.SetHasEvents(node0.HasEvents() | node7.HasEvents());
 				}
 				{
 					Action_bt_node_test_action_ut_0_node6 node6 = new Action_bt_node_test_action_ut_0_node6();
@@ -4633,6 +4680,59 @@ namespace behaviac
 		}
 	}
 
+	class Assignment_bt_node_test_action_ut_1_node8 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_1_node8()
+		{
+			opr_params = null;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			TestNS.Node opr = (TestNS.Node)AgentExtra_Generated.ExecuteMethod(pAgent, "createExtendedNode", opr_params);
+			Debug.Check(behaviac.Utils.MakeVariableId("local_node") == 3573395359u);
+			pAgent.SetVariable<TestNS.Node>("local_node", opr, 3573395359u);
+			return result;
+		}
+		object[] opr_params;
+	}
+
+	class Action_bt_node_test_action_ut_1_node10 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_1_node10()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_params = new object[1];
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			Debug.Check(behaviac.Utils.MakeVariableId("local_node") == 3573395359u);
+			method_params[0] = pAgent.GetVariable<TestNS.Node>(3573395359u);
+			AgentExtra_Generated.ExecuteMethod(pAgent, "testExtendedRefType", method_params);
+			return EBTStatus.BT_SUCCESS;
+		}
+		object[] method_params;
+	}
+
+	class Action_bt_node_test_action_ut_1_node9 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_1_node9()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_params = new object[1];
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			Debug.Check(behaviac.Utils.MakeVariableId("testFloat2") == 2452701783u);
+			method_params[0] = pAgent.GetVariable<TestNS.Float2>(2452701783u);
+			AgentExtra_Generated.ExecuteMethod(pAgent, "testExtendedStruct", method_params);
+			Debug.Check(behaviac.Utils.MakeVariableId("testFloat2") == 2452701783u);
+			pAgent.SetVariable<TestNS.Float2>("AgentNodeTest::testFloat2", (TestNS.Float2)method_params[0], 2452701783u);
+			return EBTStatus.BT_SUCCESS;
+		}
+		object[] method_params;
+	}
+
 	public static class bt_node_test_action_ut_1
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -4649,6 +4749,7 @@ namespace behaviac
 			bt.AddPar("AgentNodeTest", "float", "par_float_type_0", "0");
 			bt.AddPar("AgentNodeTest", "float", "par_float_type_1", "0");
 			bt.AddPar("AgentNodeTest", "float", "par_float_type_2", "2.7");
+			bt.AddPar("AgentNodeTest", "TestNS.Node", "local_node", "null");
 			// children
 			{
 				Sequence node0 = new Sequence();
@@ -4727,6 +4828,36 @@ namespace behaviac
 #endif
 					node0.AddChild(node6);
 					node0.SetHasEvents(node0.HasEvents() | node6.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_1_node8 node8 = new Assignment_bt_node_test_action_ut_1_node8();
+					node8.SetClassNameString("Assignment");
+					node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+					node8.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node8);
+					node0.SetHasEvents(node0.HasEvents() | node8.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_1_node10 node10 = new Action_bt_node_test_action_ut_1_node10();
+					node10.SetClassNameString("Action");
+					node10.SetId(10);
+#if !BEHAVIAC_RELEASE
+					node10.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node10);
+					node0.SetHasEvents(node0.HasEvents() | node10.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_1_node9 node9 = new Action_bt_node_test_action_ut_1_node9();
+					node9.SetClassNameString("Action");
+					node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+					node9.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node9);
+					node0.SetHasEvents(node0.HasEvents() | node9.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}
@@ -19961,12 +20092,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_agent_0") == 3876418331u);
-			behaviac.Agent method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(3876418331u);
-			method_p0 = (behaviac.Agent)var_method_p0;
+			behaviac.Agent method_p0 = pAgent.GetVariable<behaviac.Agent>(3876418331u);
 			((EmployeeParTestAgent)pAgent).Func_AgentRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_agent_0") == 3876418331u);
-			pAgent.SetVariable<behaviac.Agent>("EmployeeParTestAgent::par2_agent_0", method_p0, 3876418331u);
+			pAgent.SetVariable<behaviac.Agent>("EmployeeParTestAgent::par2_agent_0", (behaviac.Agent)method_p0, 3876418331u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -19980,12 +20109,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_agent_list_0") == 1126732011u);
-			List<behaviac.Agent> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1126732011u);
-			method_p0 = (List<behaviac.Agent>)var_method_p0;
+			List<behaviac.Agent> method_p0 = pAgent.GetVariable<List<behaviac.Agent>>(1126732011u);
 			((EmployeeParTestAgent)pAgent).Func_AgentListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_agent_list_0") == 1126732011u);
-			pAgent.SetVariable<List<behaviac.Agent>>("EmployeeParTestAgent::par2_agent_list_0", method_p0, 1126732011u);
+			pAgent.SetVariable<List<behaviac.Agent>>("EmployeeParTestAgent::par2_agent_list_0", (List<behaviac.Agent>)method_p0, 1126732011u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -19999,15 +20126,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_double_0") == 2183367433u);
-			double method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2183367433u);
-			if (var_method_p0 != null)
-				method_p0 = (double)var_method_p0;
-			else
-				method_p0 = 0;
+			double method_p0 = pAgent.GetVariable<double>(2183367433u);
 			((EmployeeParTestAgent)pAgent).Func_DoubleRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_double_0") == 2183367433u);
-			pAgent.SetVariable<double>("EmployeeParTestAgent::par2_double_0", method_p0, 2183367433u);
+			pAgent.SetVariable<double>("EmployeeParTestAgent::par2_double_0", (double)method_p0, 2183367433u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20021,15 +20143,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_single_0") == 3120166065u);
-			float method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(3120166065u);
-			if (var_method_p0 != null)
-				method_p0 = (float)var_method_p0;
-			else
-				method_p0 = 0;
+			float method_p0 = pAgent.GetVariable<float>(3120166065u);
 			((EmployeeParTestAgent)pAgent).Func_SingleRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_single_0") == 3120166065u);
-			pAgent.SetVariable<float>("EmployeeParTestAgent::par2_single_0", method_p0, 3120166065u);
+			pAgent.SetVariable<float>("EmployeeParTestAgent::par2_single_0", (float)method_p0, 3120166065u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20043,12 +20160,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_single_list_0") == 3448877207u);
-			List<float> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(3448877207u);
-			method_p0 = (List<float>)var_method_p0;
+			List<float> method_p0 = pAgent.GetVariable<List<float>>(3448877207u);
 			((EmployeeParTestAgent)pAgent).Func_SingleListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_single_list_0") == 3448877207u);
-			pAgent.SetVariable<List<float>>("EmployeeParTestAgent::par2_single_list_0", method_p0, 3448877207u);
+			pAgent.SetVariable<List<float>>("EmployeeParTestAgent::par2_single_list_0", (List<float>)method_p0, 3448877207u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20062,15 +20177,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_string_0") == 351984746u);
-			string method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(351984746u);
-			if (var_method_p0 != null)
-				method_p0 = (string)var_method_p0;
-			else
-				method_p0 = "";
+			string method_p0 = pAgent.GetVariable<string>(351984746u);
 			((EmployeeParTestAgent)pAgent).Func_StringRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_string_0") == 351984746u);
-			pAgent.SetVariable<string>("EmployeeParTestAgent::par2_string_0", method_p0, 351984746u);
+			pAgent.SetVariable<string>("EmployeeParTestAgent::par2_string_0", (string)method_p0, 351984746u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20084,12 +20194,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_string_list_0") == 1339885043u);
-			List<string> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1339885043u);
-			method_p0 = (List<string>)var_method_p0;
+			List<string> method_p0 = pAgent.GetVariable<List<string>>(1339885043u);
 			((EmployeeParTestAgent)pAgent).Func_StringListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_string_list_0") == 1339885043u);
-			pAgent.SetVariable<List<string>>("EmployeeParTestAgent::par2_string_list_0", method_p0, 1339885043u);
+			pAgent.SetVariable<List<string>>("EmployeeParTestAgent::par2_string_list_0", (List<string>)method_p0, 1339885043u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20103,15 +20211,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_uint_0") == 868709384u);
-			uint method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(868709384u);
-			if (var_method_p0 != null)
-				method_p0 = (uint)var_method_p0;
-			else
-				method_p0 = 0;
+			uint method_p0 = pAgent.GetVariable<uint>(868709384u);
 			((EmployeeParTestAgent)pAgent).Func_UIntRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_uint_0") == 868709384u);
-			pAgent.SetVariable<uint>("EmployeeParTestAgent::par2_uint_0", method_p0, 868709384u);
+			pAgent.SetVariable<uint>("EmployeeParTestAgent::par2_uint_0", (uint)method_p0, 868709384u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20125,15 +20228,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_ulong_0") == 4274832167u);
-			ulong method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(4274832167u);
-			if (var_method_p0 != null)
-				method_p0 = (ulong)var_method_p0;
-			else
-				method_p0 = 0;
+			ulong method_p0 = pAgent.GetVariable<ulong>(4274832167u);
 			((EmployeeParTestAgent)pAgent).Func_ULongRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_ulong_0") == 4274832167u);
-			pAgent.SetVariable<ulong>("EmployeeParTestAgent::par2_ulong_0", method_p0, 4274832167u);
+			pAgent.SetVariable<ulong>("EmployeeParTestAgent::par2_ulong_0", (ulong)method_p0, 4274832167u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20147,15 +20245,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_longlong_0") == 1021248696u);
-			long method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1021248696u);
-			if (var_method_p0 != null)
-				method_p0 = (long)var_method_p0;
-			else
-				method_p0 = 0;
+			long method_p0 = pAgent.GetVariable<long>(1021248696u);
 			((EmployeeParTestAgent)pAgent).Func_LongLongRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_longlong_0") == 1021248696u);
-			pAgent.SetVariable<long>("EmployeeParTestAgent::par2_longlong_0", method_p0, 1021248696u);
+			pAgent.SetVariable<long>("EmployeeParTestAgent::par2_longlong_0", (long)method_p0, 1021248696u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20169,15 +20262,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_ulonglong_0") == 386357671u);
-			ulong method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(386357671u);
-			if (var_method_p0 != null)
-				method_p0 = (ulong)var_method_p0;
-			else
-				method_p0 = 0;
+			ulong method_p0 = pAgent.GetVariable<ulong>(386357671u);
 			((EmployeeParTestAgent)pAgent).Func_ULongLongRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_ulonglong_0") == 386357671u);
-			pAgent.SetVariable<ulong>("EmployeeParTestAgent::par2_ulonglong_0", method_p0, 386357671u);
+			pAgent.SetVariable<ulong>("EmployeeParTestAgent::par2_ulonglong_0", (ulong)method_p0, 386357671u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20191,15 +20279,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_SzString_0") == 2318984205u);
-			string method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2318984205u);
-			if (var_method_p0 != null)
-				method_p0 = (string)var_method_p0;
-			else
-				method_p0 = "";
+			string method_p0 = pAgent.GetVariable<string>(2318984205u);
 			((EmployeeParTestAgent)pAgent).Func_SzStringRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_SzString_0") == 2318984205u);
-			pAgent.SetVariable<string>("EmployeeParTestAgent::par2_SzString_0", method_p0, 2318984205u);
+			pAgent.SetVariable<string>("EmployeeParTestAgent::par2_SzString_0", (string)method_p0, 2318984205u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20213,15 +20296,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_CSzStrng_0") == 1084657673u);
-			string method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1084657673u);
-			if (var_method_p0 != null)
-				method_p0 = (string)var_method_p0;
-			else
-				method_p0 = "";
+			string method_p0 = pAgent.GetVariable<string>(1084657673u);
 			((EmployeeParTestAgent)pAgent).Func_CSzStringRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par2_CSzStrng_0") == 1084657673u);
-			pAgent.SetVariable<string>("EmployeeParTestAgent::par2_CSzStrng_0", method_p0, 1084657673u);
+			pAgent.SetVariable<string>("EmployeeParTestAgent::par2_CSzStrng_0", (string)method_p0, 1084657673u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20235,15 +20313,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_short_0") == 3228030786u);
-			short method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(3228030786u);
-			if (var_method_p0 != null)
-				method_p0 = (short)var_method_p0;
-			else
-				method_p0 = 0;
+			short method_p0 = pAgent.GetVariable<short>(3228030786u);
 			((ParTestAgent)pAgent).Func_ShortRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_short_0") == 3228030786u);
-			pAgent.SetVariable<short>("EmployeeParTestAgent::par1_short_0", method_p0, 3228030786u);
+			pAgent.SetVariable<short>("EmployeeParTestAgent::par1_short_0", (short)method_p0, 3228030786u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20257,15 +20330,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_int_0") == 2735162453u);
-			int method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2735162453u);
-			if (var_method_p0 != null)
-				method_p0 = (int)var_method_p0;
-			else
-				method_p0 = 0;
+			int method_p0 = pAgent.GetVariable<int>(2735162453u);
 			((ParTestAgent)pAgent).Func_IntRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_int_0") == 2735162453u);
-			pAgent.SetVariable<int>("EmployeeParTestAgent::par1_int_0", method_p0, 2735162453u);
+			pAgent.SetVariable<int>("EmployeeParTestAgent::par1_int_0", (int)method_p0, 2735162453u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20279,12 +20347,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_int_list_0") == 2093180786u);
-			List<int> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2093180786u);
-			method_p0 = (List<int>)var_method_p0;
+			List<int> method_p0 = pAgent.GetVariable<List<int>>(2093180786u);
 			((ParTestAgent)pAgent).Func_IntListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_int_list_0") == 2093180786u);
-			pAgent.SetVariable<List<int>>("EmployeeParTestAgent::par1_int_list_0", method_p0, 2093180786u);
+			pAgent.SetVariable<List<int>>("EmployeeParTestAgent::par1_int_list_0", (List<int>)method_p0, 2093180786u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20298,15 +20364,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_long_0") == 1828293308u);
-			long method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1828293308u);
-			if (var_method_p0 != null)
-				method_p0 = (long)var_method_p0;
-			else
-				method_p0 = 0;
+			long method_p0 = pAgent.GetVariable<long>(1828293308u);
 			((ParTestAgent)pAgent).Func_LongRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_long_0") == 1828293308u);
-			pAgent.SetVariable<long>("EmployeeParTestAgent::par1_long_0", method_p0, 1828293308u);
+			pAgent.SetVariable<long>("EmployeeParTestAgent::par1_long_0", (long)method_p0, 1828293308u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20320,12 +20381,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_kemployee_0") == 4045482770u);
-			TNS.ST.PER.WRK.kEmployee method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(4045482770u);
-			method_p0 = (TNS.ST.PER.WRK.kEmployee)var_method_p0;
+			TNS.ST.PER.WRK.kEmployee method_p0 = pAgent.GetVariable<TNS.ST.PER.WRK.kEmployee>(4045482770u);
 			((ParTestAgent)pAgent).Func_kEmployeeRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_kemployee_0") == 4045482770u);
-			pAgent.SetVariable<TNS.ST.PER.WRK.kEmployee>("EmployeeParTestAgent::par1_kemployee_0", method_p0, 4045482770u);
+			pAgent.SetVariable<TNS.ST.PER.WRK.kEmployee>("EmployeeParTestAgent::par1_kemployee_0", (TNS.ST.PER.WRK.kEmployee)method_p0, 4045482770u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20339,12 +20398,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_kemployee_list_0") == 506976637u);
-			List<TNS.ST.PER.WRK.kEmployee> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(506976637u);
-			method_p0 = (List<TNS.ST.PER.WRK.kEmployee>)var_method_p0;
+			List<TNS.ST.PER.WRK.kEmployee> method_p0 = pAgent.GetVariable<List<TNS.ST.PER.WRK.kEmployee>>(506976637u);
 			((ParTestAgent)pAgent).Func_kEmployeeListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_kemployee_list_0") == 506976637u);
-			pAgent.SetVariable<List<TNS.ST.PER.WRK.kEmployee>>("EmployeeParTestAgent::par1_kemployee_list_0", method_p0, 506976637u);
+			pAgent.SetVariable<List<TNS.ST.PER.WRK.kEmployee>>("EmployeeParTestAgent::par1_kemployee_list_0", (List<TNS.ST.PER.WRK.kEmployee>)method_p0, 506976637u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20358,15 +20415,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_ushort_0") == 109865111u);
-			ushort method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(109865111u);
-			if (var_method_p0 != null)
-				method_p0 = (ushort)var_method_p0;
-			else
-				method_p0 = 0;
+			ushort method_p0 = pAgent.GetVariable<ushort>(109865111u);
 			((ParTestAgent)pAgent).Func_UShortRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par1_ushort_0") == 109865111u);
-			pAgent.SetVariable<ushort>("EmployeeParTestAgent::par1_ushort_0", method_p0, 109865111u);
+			pAgent.SetVariable<ushort>("EmployeeParTestAgent::par1_ushort_0", (ushort)method_p0, 109865111u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20380,15 +20432,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_boolean_0") == 1912381985u);
-			bool method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1912381985u);
-			if (var_method_p0 != null)
-				method_p0 = (bool)var_method_p0;
-			else
-				method_p0 = false;
+			bool method_p0 = pAgent.GetVariable<bool>(1912381985u);
 			((ParTestAgentBase)pAgent).Func_BooleanRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_boolean_0") == 1912381985u);
-			pAgent.SetVariable<bool>("EmployeeParTestAgent::par0_boolean_0", method_p0, 1912381985u);
+			pAgent.SetVariable<bool>("EmployeeParTestAgent::par0_boolean_0", (bool)method_p0, 1912381985u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20402,12 +20449,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_boolean_list_0") == 109714028u);
-			List<bool> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(109714028u);
-			method_p0 = (List<bool>)var_method_p0;
+			List<bool> method_p0 = pAgent.GetVariable<List<bool>>(109714028u);
 			((ParTestAgentBase)pAgent).Func_BooleanListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_boolean_list_0") == 109714028u);
-			pAgent.SetVariable<List<bool>>("EmployeeParTestAgent::par0_boolean_list_0", method_p0, 109714028u);
+			pAgent.SetVariable<List<bool>>("EmployeeParTestAgent::par0_boolean_list_0", (List<bool>)method_p0, 109714028u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20421,15 +20466,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_byte_0") == 2120958860u);
-			byte method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2120958860u);
-			if (var_method_p0 != null)
-				method_p0 = (byte)var_method_p0;
-			else
-				method_p0 = 0;
+			byte method_p0 = pAgent.GetVariable<byte>(2120958860u);
 			((ParTestAgentBase)pAgent).Func_ByteRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_byte_0") == 2120958860u);
-			pAgent.SetVariable<byte>("EmployeeParTestAgent::par0_byte_0", method_p0, 2120958860u);
+			pAgent.SetVariable<byte>("EmployeeParTestAgent::par0_byte_0", (byte)method_p0, 2120958860u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20443,12 +20483,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_byte_list_0") == 1459492261u);
-			List<byte> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1459492261u);
-			method_p0 = (List<byte>)var_method_p0;
+			List<byte> method_p0 = pAgent.GetVariable<List<byte>>(1459492261u);
 			((ParTestAgentBase)pAgent).Func_ByteListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_byte_list_0") == 1459492261u);
-			pAgent.SetVariable<List<byte>>("EmployeeParTestAgent::par0_byte_list_0", method_p0, 1459492261u);
+			pAgent.SetVariable<List<byte>>("EmployeeParTestAgent::par0_byte_list_0", (List<byte>)method_p0, 1459492261u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20462,15 +20500,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_char_0") == 1968762578u);
-			char method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1968762578u);
-			if (var_method_p0 != null)
-				method_p0 = (char)var_method_p0;
-			else
-				method_p0 = (char)0;
+			char method_p0 = pAgent.GetVariable<char>(1968762578u);
 			((ParTestAgentBase)pAgent).Func_CharRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_char_0") == 1968762578u);
-			pAgent.SetVariable<char>("EmployeeParTestAgent::par0_char_0", method_p0, 1968762578u);
+			pAgent.SetVariable<char>("EmployeeParTestAgent::par0_char_0", (char)method_p0, 1968762578u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20484,12 +20517,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_char_list_0") == 2869241813u);
-			List<char> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2869241813u);
-			method_p0 = (List<char>)var_method_p0;
+			List<char> method_p0 = pAgent.GetVariable<List<char>>(2869241813u);
 			((ParTestAgentBase)pAgent).Func_CharListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_char_list_0") == 2869241813u);
-			pAgent.SetVariable<List<char>>("EmployeeParTestAgent::par0_char_list_0", method_p0, 2869241813u);
+			pAgent.SetVariable<List<char>>("EmployeeParTestAgent::par0_char_list_0", (List<char>)method_p0, 2869241813u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20503,15 +20534,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_ecolor_0") == 3914433730u);
-			TNS.NE.NAT.eColor method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(3914433730u);
-			if (var_method_p0 != null)
-				method_p0 = (TNS.NE.NAT.eColor)var_method_p0;
-			else
-				method_p0 = TNS.NE.NAT.eColor.RED;
+			TNS.NE.NAT.eColor method_p0 = pAgent.GetVariable<TNS.NE.NAT.eColor>(3914433730u);
 			((ParTestAgentBase)pAgent).Func_eColorRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_ecolor_0") == 3914433730u);
-			pAgent.SetVariable<TNS.NE.NAT.eColor>("EmployeeParTestAgent::par0_ecolor_0", method_p0, 3914433730u);
+			pAgent.SetVariable<TNS.NE.NAT.eColor>("EmployeeParTestAgent::par0_ecolor_0", (TNS.NE.NAT.eColor)method_p0, 3914433730u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20525,12 +20551,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_ecolor_list_0") == 1963776920u);
-			List<TNS.NE.NAT.eColor> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(1963776920u);
-			method_p0 = (List<TNS.NE.NAT.eColor>)var_method_p0;
+			List<TNS.NE.NAT.eColor> method_p0 = pAgent.GetVariable<List<TNS.NE.NAT.eColor>>(1963776920u);
 			((ParTestAgentBase)pAgent).Func_eColorListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_ecolor_list_0") == 1963776920u);
-			pAgent.SetVariable<List<TNS.NE.NAT.eColor>>("EmployeeParTestAgent::par0_ecolor_list_0", method_p0, 1963776920u);
+			pAgent.SetVariable<List<TNS.NE.NAT.eColor>>("EmployeeParTestAgent::par0_ecolor_list_0", (List<TNS.NE.NAT.eColor>)method_p0, 1963776920u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20544,15 +20568,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_sbyte_0") == 968869870u);
-			sbyte method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(968869870u);
-			if (var_method_p0 != null)
-				method_p0 = (sbyte)var_method_p0;
-			else
-				method_p0 = 0;
+			sbyte method_p0 = pAgent.GetVariable<sbyte>(968869870u);
 			((ParTestAgentBase)pAgent).Func_SByteRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_sbyte_0") == 968869870u);
-			pAgent.SetVariable<sbyte>("EmployeeParTestAgent::par0_sbyte_0", method_p0, 968869870u);
+			pAgent.SetVariable<sbyte>("EmployeeParTestAgent::par0_sbyte_0", (sbyte)method_p0, 968869870u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -20566,12 +20585,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_sbyte_list_0") == 2290963684u);
-			List<sbyte> method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2290963684u);
-			method_p0 = (List<sbyte>)var_method_p0;
+			List<sbyte> method_p0 = pAgent.GetVariable<List<sbyte>>(2290963684u);
 			((ParTestAgentBase)pAgent).Func_SByteListRef(ref method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("par0_sbyte_list_0") == 2290963684u);
-			pAgent.SetVariable<List<sbyte>>("EmployeeParTestAgent::par0_sbyte_list_0", method_p0, 2290963684u);
+			pAgent.SetVariable<List<sbyte>>("EmployeeParTestAgent::par0_sbyte_list_0", (List<sbyte>)method_p0, 2290963684u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -23370,7 +23387,7 @@ namespace behaviac
 			int method_p0 = pAgent.GetVariable<int>(3849503314u);
 			((PropertyReadonlyAgent)pAgent).FnWithOutParam(out method_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("c_Int") == 3849503314u);
-			pAgent.SetVariable<int>("PropertyReadonlyAgent::c_Int", method_p0, 3849503314u);
+			pAgent.SetVariable<int>("PropertyReadonlyAgent::c_Int", (int)method_p0, 3849503314u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -25193,12 +25210,10 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("c_ListInts") == 2521109666u);
-			IList method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2521109666u);
-			method_p0 = (IList)var_method_p0;
+			IList method_p0 = pAgent.GetVariable<IList>(2521109666u);
 			behaviac.Agent.VectorAdd(ref method_p0, ((AgentArrayAccessTest)pAgent).Int);
 			Debug.Check(behaviac.Utils.MakeVariableId("c_ListInts") == 2521109666u);
-			pAgent.SetVariable<IList>("AgentArrayAccessTest::c_ListInts", method_p0, 2521109666u);
+			pAgent.SetVariable<IList>("AgentArrayAccessTest::c_ListInts", (IList)method_p0, 2521109666u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -25212,14 +25227,12 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("c_ListInts") == 2521109666u);
-			IList method_p0;
-			object var_method_p0 = pAgent.GetVariableObject(2521109666u);
-			method_p0 = (IList)var_method_p0;
+			IList method_p0 = pAgent.GetVariable<IList>(2521109666u);
 			Debug.Check(behaviac.Utils.MakeVariableId("c_Int") == 3849503314u);
 			System.Object method_p1 = pAgent.GetVariable<System.Object>(3849503314u);
 			behaviac.Agent.VectorRemove(ref method_p0, method_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("c_ListInts") == 2521109666u);
-			pAgent.SetVariable<IList>("AgentArrayAccessTest::c_ListInts", method_p0, 2521109666u);
+			pAgent.SetVariable<IList>("AgentArrayAccessTest::c_ListInts", (IList)method_p0, 2521109666u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}

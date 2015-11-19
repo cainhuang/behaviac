@@ -25,26 +25,59 @@ namespace behaviac
         template<typename T>
         static bool Register(const char* typeName)
         {
-            behaviac::Property::Register<T>(typeName);
-            behaviac::Condition::Register<T>(typeName);
-
-            const char* szVectorType = FormatString("vector<%s>", typeName);
-            behaviac::Property::Register<behaviac::vector<T> >(szVectorType);
-            behaviac::Condition::Register<behaviac::vector<T> >(szVectorType);
-
+			RegisterSelector<T, behaviac::Meta::IsRefType<T>::Result>::Register(typeName);
             return true;
         }
 
         template<typename T>
         static void UnRegister(const char* typeName)
         {
-            behaviac::Property::UnRegister<T>(typeName);
-            behaviac::Condition::UnRegister<T>(typeName);
-
-            const char* szVectorType = FormatString("vector<%s>", typeName);
-            behaviac::Property::UnRegister<behaviac::vector<T> >(szVectorType);
-            behaviac::Condition::UnRegister<behaviac::vector<T> >(szVectorType);
+			RegisterSelector<T, behaviac::Meta::IsRefType<T>::Result>::UnRegister(typeName);
         }
+
+	private:
+		template<typename T, bool bRefType>
+		struct RegisterSelector
+		{
+			static void Register(const char* typeName)
+			{
+				behaviac::Property::Register<T>(typeName);
+				behaviac::Condition::Register<T>(typeName);
+
+				const char* szVectorType = FormatString("vector<%s>", typeName);
+				behaviac::Property::Register<behaviac::vector<T> >(szVectorType);
+				behaviac::Condition::Register<behaviac::vector<T> >(szVectorType);
+			}
+
+			static void UnRegister(const char* typeName)
+			{
+				behaviac::Property::UnRegister<T>(typeName);
+				behaviac::Condition::UnRegister<T>(typeName);
+
+				const char* szVectorType = FormatString("vector<%s>", typeName);
+				behaviac::Property::UnRegister<behaviac::vector<T> >(szVectorType);
+				behaviac::Condition::UnRegister<behaviac::vector<T> >(szVectorType);
+			}
+
+		};
+
+		template<typename T>
+		struct RegisterSelector<T, true>
+		{
+			typedef REAL_BASETYPE(T) BaseType;
+			typedef BaseType* PointerType;
+
+			static void Register(const char* typeName)
+			{
+				RegisterSelector<PointerType, false>::Register(typeName);
+			}
+
+			static void UnRegister(const char* typeName)
+			{
+				RegisterSelector<PointerType, false>::UnRegister(typeName);
+			}
+
+		};
 
     };
 }

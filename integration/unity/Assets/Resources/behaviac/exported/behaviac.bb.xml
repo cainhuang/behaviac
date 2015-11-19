@@ -17,7 +17,9 @@
       <property name="testVar_2" type="float" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_3" type="float" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_str_0" type="string" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_str_1" type="string" member="true" static="false" agent="AgentNodeTest" />
       <property name="waiting_timeout_interval" type="int" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
     </properties>
     <methods>
       <method name="event_test_int" agent="AgentNodeTest">

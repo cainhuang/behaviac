@@ -21,7 +21,7 @@ namespace behaviac
 
     DecoratorNot::~DecoratorNot()
     {}
-    bool DecoratorNot::Evaluate(const Agent* pAgent)
+    bool DecoratorNot::Evaluate(Agent* pAgent)
     {
         BEHAVIAC_ASSERT(this->m_children->size() == 1);
         bool ret = (*this->m_children)[0]->Evaluate(pAgent);

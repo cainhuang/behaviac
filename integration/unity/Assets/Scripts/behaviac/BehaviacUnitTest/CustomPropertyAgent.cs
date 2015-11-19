@@ -4,6 +4,7 @@
 public class CustomPropertyAgent : behaviac.Agent
 {
     public void resetProperties() {
+        this.Variables.Clear();
     }
 
     public void init() {

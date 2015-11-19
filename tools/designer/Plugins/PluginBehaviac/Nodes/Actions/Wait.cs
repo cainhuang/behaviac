@@ -78,6 +78,8 @@ namespace PluginBehaviac.Nodes
             Wait dec = (Wait)newnode;
             if (_time != null)
                 dec._time = (VariableDef)_time.Clone();
+
+            dec._ignoreTimeScale = this._ignoreTimeScale;
         }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(157, 75, 39));

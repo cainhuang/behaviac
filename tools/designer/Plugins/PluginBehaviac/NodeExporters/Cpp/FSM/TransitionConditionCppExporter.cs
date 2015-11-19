@@ -84,7 +84,6 @@ namespace PluginBehaviac.NodeExporters
             stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(childStatus);", indent);
             stream.WriteLine("{0}\t\t\tEBTStatus result = BT_SUCCESS;", indent);
 
-            if (transition.Mode == TransitionCondition.TransitionMode.Condition)
             {
                 string typeName = Plugin.GetNativeTypeName(transition.Opl.ValueType);
 
@@ -131,10 +130,6 @@ namespace PluginBehaviac.NodeExporters
                         stream.WriteLine("{0}\t\t\tbool op = false;", indent);
                         break;
                 }
-            }
-            else
-            {
-                stream.WriteLine("{0}\t\t\tbool op = true;", indent);
             }
 
             stream.WriteLine("{0}\t\t\tif (!op)", indent);

@@ -272,7 +272,7 @@ namespace behaviac
         return m_variables.IsExisting(variableId);
     }
 
-    template<typename VariableType, bool bAgent>
+    template<typename VariableType, bool bRefType>
     struct VariableGettterDispatcher
     {
         static const VariableType* Get(const AgentState& variables, const Agent* pAgent, Property* pProperty, uint32_t variableId)
@@ -282,6 +282,35 @@ namespace behaviac
         }
     };
 
+	template<typename VariableType, bool bAgentType>
+	struct AgentVariableGettterDispatcher
+	{
+		static void Assert(const VariableType* pp)
+		{
+		}
+	};
+
+	template<typename VariableType>
+	struct AgentVariableGettterDispatcher<VariableType, true>
+	{
+		static void Assert(const VariableType* pp)
+		{
+			if (pp && *pp)
+			{
+				VariableType p = *pp;
+				typedef PARAM_BASETYPE(VariableType)	BaseAgentType;
+				const char* nameBaseAgentType = GetClassTypeName((BaseAgentType*)0);
+
+				BEHAVIAC_ASSERT(p->IsAKindOf(CStringID(nameBaseAgentType)));
+				BEHAVIAC_UNUSED_VAR(p);
+				BEHAVIAC_UNUSED_VAR(nameBaseAgentType);
+				//BEHAVIAC_ASSERT(BaseAgentType::DynamicCast(*p));
+
+				BEHAVIAC_ASSERT(Agent::DynamicCast(p));
+			}
+		}
+	};
+
     template<typename VariableType>
     struct VariableGettterDispatcher<VariableType, true>
     {
@@ -290,19 +319,7 @@ namespace behaviac
             const VariableType* pV = variables.Get<VariableType>(pAgent, true, pProperty->GetMember(), variableId);
             const VariableType* pp = pV;
 
-            if (pp && *pp)
-            {
-                VariableType p = *pp;
-                typedef PARAM_BASETYPE(VariableType)	BaseAgentType;
-                const char* nameBaseAgentType = GetClassTypeName((BaseAgentType*)0);
-                BEHAVIAC_ASSERT(p->IsAKindOf(CStringID(nameBaseAgentType)));
-                BEHAVIAC_UNUSED_VAR(p);
-                BEHAVIAC_UNUSED_VAR(nameBaseAgentType);
-                //BEHAVIAC_ASSERT(BaseAgentType::DynamicCast(*p));
-
-                BEHAVIAC_ASSERT(Agent::DynamicCast(p));
-            }
-
+			AgentVariableGettterDispatcher<VariableType, behaviac::Meta::IsAgent<VariableType>::Result>::Assert(pp);
             return pp;
         }
     };
@@ -330,10 +347,10 @@ namespace behaviac
             return *pVal;
         }
 
-        return *VariableGettterDispatcher<VariableType, behaviac::Meta::IsAgent<VariableType>::Result>::Get(this->m_variables, this, pProperty, variableId);
+		return *VariableGettterDispatcher<VariableType, behaviac::Meta::IsRefType<VariableType>::Result>::Get(this->m_variables, this, pProperty, variableId);
     }
 
-    template<typename VariableType, bool bAgent>
+    template<typename VariableType, bool bRefType>
     struct VariableSettterDispatcher
     {
         static void Set(AgentState& variables, bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t variableId)
@@ -578,7 +595,7 @@ namespace behaviac
             }
             else
             {
-                VariableSettterDispatcher<VariableType, behaviac::Meta::IsAgent<VariableType>::Result>::Set(this->m_variables, true, this, bLocal, pMember, variableName, value, varableId);
+				VariableSettterDispatcher<VariableType, behaviac::Meta::IsRefType<VariableType>::Result>::Set(this->m_variables, true, this, bLocal, pMember, variableName, value, varableId);
             }
         }
     }
@@ -691,7 +708,7 @@ namespace behaviac
             pVar = (VariableTypeType*)it->second;
 
             //BEHAVIAC_ASSERT(pVar->GetTypeId() == GetClassTypeNumberId<VariableType>() ||
-            //	(pVar->GetTypeId() == GetClassTypeNumberId<void*>() && behaviac::Meta::IsAgent<VariableType>::Result));
+            //	(pVar->GetTypeId() == GetClassTypeNumberId<void*>() && behaviac::Meta::IsRefType<VariableType>::Result));
             //TODO: IsRefType
             //BEHAVIAC_ASSERT(GetClassTypeNumberId<VariableType>() == GetClassTypeNumberId<IList>() ||
             //	GetClassTypeNumberId<VariableType>() == GetClassTypeNumberId<System::Object>() ||
@@ -739,6 +756,10 @@ namespace behaviac
             {
                 return &pVar->GetValue(pAgent);
             }
+			else
+			{
+				BEHAVIAC_LOGWARNING("A Local '%s' has been out of scope!\n", pVar->Name().c_str());
+			}
         }
 
         return NULL;

@@ -5,6 +5,43 @@
 
 namespace behaviac
 {
+	State::State() : m_bIsEndState(false), m_method(0)
+	{
+	}
+
+	State::~State()
+	{
+        BEHAVIAC_DELETE(m_method);
+	}
+
+	void State::load(int version, const char* agentType, const properties_t& properties)
+	{
+		super::load(version, agentType, properties);
+
+		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+		{
+			const property_t& p = (*it);
+
+			if (strcmp(p.name, "Method") == 0)
+			{
+				if (p.value[0] != '\0')
+				{
+					this->m_method = Action::LoadMethod(p.value);
+				}
+			}
+			else if (strcmp(p.name, "IsEndState") == 0)
+			{
+				if (p.value[0] != '\0')
+				{
+					if (StringUtils::StrEqual(p.value, "true"))
+					{
+						this->m_bIsEndState = true;
+					}
+				}//if (p.value[0] != '\0')
+			}
+		}
+	}
+
     void State::Attach(BehaviorNode* pAttachment, bool bIsPrecondition, bool bIsEffector, bool bIsTransition)
     {
         if (bIsTransition)
@@ -15,6 +52,7 @@ namespace behaviac
             BEHAVIAC_ASSERT(pTransition != 0);
             this->m_transitions.push_back(pTransition);
 
+    //time£º2015-07-24 15:49:05
             return;
         }
 
@@ -39,6 +77,44 @@ namespace behaviac
 		return pTask;
 	}
 
+	bool State::IsEndState() const
+	{
+		return this->m_bIsEndState;
+	}
+
+	int SetNodeId(int nodeId);
+	void ClearNodeId(int slot);
+
+	EBTStatus State::update_impl(Agent* pAgent, EBTStatus childStatus)
+	{
+		BEHAVIAC_UNUSED_VAR(pAgent);
+		BEHAVIAC_UNUSED_VAR(childStatus);
+		return BT_RUNNING;
+	}
+
+	EBTStatus State::Execute(Agent* pAgent)
+	{
+		EBTStatus result = BT_RUNNING;
+
+		if (this->m_method)
+		{
+			int nodeId = this->GetId();
+
+			int slot = SetNodeId(nodeId);
+			BEHAVIAC_ASSERT(slot != -1, "no empty slot found!");
+
+			const Agent* pParent = this->m_method->GetParentAgent(pAgent);
+			this->m_method->run(pParent, pAgent);
+
+			ClearNodeId(slot);
+		}
+		else
+		{
+			result = this->update_impl((Agent*)pAgent, BT_RUNNING);
+		}
+
+		return result;
+	}
 
 	//nextStateId holds the next state id if it returns running when a certain transition is satisfied
 	//otherwise, it returns success or failure if it ends
@@ -48,13 +124,21 @@ namespace behaviac
 
 		//when no method is specified(m_method == 0),
 		//'update_impl' is used to return the configured result status for both xml/bson and c#
-		EBTStatus result = this->Execute(pAgent, BT_RUNNING);
+		EBTStatus result = this->Execute(pAgent);
 
-		bool bTransitioned = UpdateTransitions(pAgent, this, (const behaviac::vector<Transition*>*)&this->m_transitions, nextStateId, result);
-
-		if (bTransitioned)
+		if (this->m_bIsEndState)
 		{
 			result = BT_SUCCESS;
+		}
+		else
+		{
+			bool bTransitioned = UpdateTransitions(pAgent, this, (const behaviac::vector<Transition*>*)&this->m_transitions, nextStateId);
+
+			if (bTransitioned)
+			{
+				//it will transition to another state, set result as success so as it exits
+				result = BT_SUCCESS;
+			}
 		}
 
 		return result;
@@ -62,7 +146,7 @@ namespace behaviac
 
 	void CHECK_BREAKPOINT(Agent* pAgent, const BehaviorNode* b, const char* action, EActionResult actionResult);
 
-	bool State::UpdateTransitions(Agent* pAgent, const BehaviorNode* node, const behaviac::vector<Transition*>* transitions, int& nextStateId, EBTStatus result)
+	bool State::UpdateTransitions(Agent* pAgent, const BehaviorNode* node, const behaviac::vector<Transition*>* transitions, int& nextStateId)
 	{
 		BEHAVIAC_UNUSED_VAR(node);
 		bool bTransitioned = false;
@@ -73,7 +157,7 @@ namespace behaviac
 			{
 				Transition* transition = (*transitions)[i];
 
-				if (transition->Evaluate(pAgent, result))
+				if (transition->Evaluate(pAgent))
 				{
 					nextStateId = transition->GetTargetStateId();
 					BEHAVIAC_ASSERT(nextStateId != -1);
@@ -123,6 +207,15 @@ namespace behaviac
 	int StateTask::GetNextStateId() const
 	{
 		return m_nextStateId;
+	}
+
+	bool StateTask::IsEndState() const
+	{
+		BEHAVIAC_ASSERT(State::DynamicCast(this->GetNode()) != 0, "node is not an State");
+
+		State* pStateNode = (State*)(this->GetNode());
+
+		return pStateNode->IsEndState();
 	}
 
 	bool StateTask::onenter(Agent* pAgent)

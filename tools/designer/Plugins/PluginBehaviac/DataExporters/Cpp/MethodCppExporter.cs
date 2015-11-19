@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -44,7 +44,11 @@ namespace PluginBehaviac.DataExporters
                         }
                         else if (Plugin.IsCustomClassType(type))
                         {
-                            if (DesignerStruct.IsPureConstDatum(obj, method, method.Params[i].Name))
+                            if (Plugin.IsRefType(type))
+                            {
+                                stream.WriteLine("{0}\t\t\t{1} = NULL;", indent, param);
+                            }
+                            else if (DesignerStruct.IsPureConstDatum(obj, method, method.Params[i].Name))
                             {
                                 StructCppExporter.GenerateCode(obj, stream, indent + "\t\t\t", param, null, "");
                             }
@@ -68,13 +72,8 @@ namespace PluginBehaviac.DataExporters
                 if (!method.Params[i].IsProperty && !method.Params[i].IsLocalVar)
                 {
                     string basicNativeType = DataCppExporter.GetBasicGeneratedNativeType(method.Params[i].NativeType);
-                    if (DataCppExporter.IsPtr(basicNativeType) && !DataCppExporter.IsAgentPtr((basicNativeType)))
-                    {
-                        basicNativeType = basicNativeType.Replace("*", "");
-                        basicNativeType = basicNativeType.Trim();
-                    }
-
                     string param = var + "_p" + i;
+
                     stream.WriteLine("{0}\t\t{1} {2};", indent, basicNativeType, param);
                 }
             }
@@ -87,23 +86,11 @@ namespace PluginBehaviac.DataExporters
 
             for (int i = 0; i < method.Params.Count; ++i)
             {
-                //bool isConst = method.Params[i].NativeType.StartsWith("const ");
                 string nativeType = DataCppExporter.GetGeneratedNativeType(method.Params[i].NativeType);
-                bool isPointRefType = nativeType.EndsWith("*&");
                 string basicNativeType = DataCppExporter.GetBasicGeneratedNativeType(nativeType);
                 string param = (string.IsNullOrEmpty(var) ? caller : var) + "_p" + i;
 
-                string paramBasicType = basicNativeType;
-                if (!isPointRefType && DataCppExporter.IsPtr(paramBasicType))
-                {
-                    paramBasicType = paramBasicType.Replace("*", "");
-                    paramBasicType = paramBasicType.Trim();
-                }
-                //if (isConst)
-                //{
-                //    paramBasicType = "const " + paramBasicType;
-                //}
-                allParamTypes += ", " + paramBasicType;
+                allParamTypes += ", " + nativeType;
 
                 if (method.Params[i].IsProperty || method.Params[i].IsLocalVar) // property
                 {
@@ -139,10 +126,6 @@ namespace PluginBehaviac.DataExporters
                 if (basicNativeType == "System::Object")
                 {
                     param = "*(System::Object*)&" + param;
-                }
-                else if (!isPointRefType && DataCppExporter.IsPtr(basicNativeType))
-                {
-                    param = "*" + param;
                 }
 
                 if (i > 0)

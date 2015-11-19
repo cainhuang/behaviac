@@ -196,8 +196,7 @@ namespace behaviac
                 //members are skipped
                 BEHAVIAC_ASSERT(Agent::FindMemberBase(agentType, memberId) == 0);
 #endif
-                Property* p = Property::Create(typeStr.c_str(), nameStr.c_str());
-                p->SetDefaultValueString(valueStr.c_str());
+				Property* p = Property::Create(typeStr.c_str(), nameStr.c_str(), valueStr.c_str());
 
                 IVariable* pVar = p->CreateVar();
 

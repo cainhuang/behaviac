@@ -217,7 +217,6 @@ namespace behaviac
                 {
                     this->m_method = Action::LoadMethod(p.value);
                 }
-
             }
             else if (strcmp(p.name, "ResultOption") == 0)
             {
@@ -276,7 +275,7 @@ namespace behaviac
 
     int SetNodeId(int nodeId);
     void ClearNodeId(int slot);
-    //time£º2015-07-24 15:49:05
+
     //Execute(Agent* pAgent)method hava be change to Execute(Agent* pAgent, EBTStatus childStatus)
     EBTStatus Action::Execute(const Agent* pAgent, EBTStatus childStatus)
     {

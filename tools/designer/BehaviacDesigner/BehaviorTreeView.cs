@@ -859,6 +859,10 @@ namespace Behaviac.Design
                 case NodeAttachMode.None:
                     if (newnode != null && newnode.IsFSM) {
                         startCondition = this.addFSMNode(newnode, mousePos);
+
+                        // automatically select the new node
+                        _selectedNodePending = newnode;
+                        _selectedNodePendingParent = this.RootNodeView;
                     }
 
                     break;

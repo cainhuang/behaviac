@@ -37,7 +37,7 @@ namespace behaviac
         return super::IsValid(pAgent, pTask);
     }
 
-    bool Or::Evaluate(const Agent* pAgent)
+    bool Or::Evaluate(Agent* pAgent)
     {
         bool ret = true;
 

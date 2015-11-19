@@ -82,7 +82,6 @@ namespace PluginBehaviac.NodeExporters
             stream.WriteLine("{0}\t\t{{", indent);
             stream.WriteLine("{0}\t\t\tEBTStatus result = EBTStatus.BT_SUCCESS;", indent);
 
-            if (transition.Mode == TransitionCondition.TransitionMode.Condition)
             {
                 string typeName = Plugin.GetNativeTypeName(transition.Opl.ValueType);
                 typeName = typeName.Replace("::", ".");
@@ -130,9 +129,6 @@ namespace PluginBehaviac.NodeExporters
                         stream.WriteLine("{0}\t\t\tbool op = false;", indent);
                         break;
                 }
-            }
-            else {
-                stream.WriteLine("{0}\t\t\tbool op = true;", indent);
             }
 
             stream.WriteLine("{0}\t\t\tif (!op)", indent);

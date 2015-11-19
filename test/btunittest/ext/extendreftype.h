@@ -36,17 +36,10 @@ namespace TestNS
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-#undef M_SPECIALIZE_TYPE_HANDLER_COMPOUND
-
-#define M_SPECIALIZE_TYPE_HANDLER_COMPOUND()            M_SPECIALIZE_TYPE_HANDLER(TestNS::Node);
-
-M_SPECIALIZE_TYPE_HANDLER_COMPOUND()
-
 //
 struct myNode
 {
-	DECLARE_BEHAVIAC_OBJECT_STRUCT(myNode, true);
+	DECLARE_BEHAVIAC_STRUCT(myNode, true);
 
 	myNode()
 	{}
@@ -58,28 +51,7 @@ struct myNode
 	behaviac::string name;
 };
 
-template <>
-inline CTagObjectDescriptor& GetObjectDescriptor<TestNS::Node>()
-{
-	return myNode::GetObjectDescriptor();
-}
-
-template <>
-inline void RegisterProperties<TestNS::Node>()
-{
-	myNode::RegisterProperties();
-}
-
-//add the following to a cpp
-//BEGIN_PROPERTIES_DESCRIPTION(myNode)
-//{
-//	CLASS_DISPLAYNAME(L"")
-//	CLASS_DESC(L"")
-//
-//	REGISTER_PROPERTY(x);
-//	REGISTER_PROPERTY(y);
-//}
-//END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_EXTEND_EXISTING_TYPE(myNode, TestNS::Node);
 
 namespace behaviac
 {
@@ -91,7 +63,7 @@ namespace behaviac
 			template<>
 			inline behaviac::string ToString(const TestNS::Node& val)
 			{
-				//myNode::ToString is defined by DECLARE_BEHAVIAC_OBJECT_STRUCT(myNode)
+				//myNode::ToString is defined by DECLARE_BEHAVIAC_STRUCT(myNode)
 				myNode temp(val);
 				return temp.ToString();
 			}
@@ -101,7 +73,7 @@ namespace behaviac
 			{
 				myNode temp;
 
-				//myNode::FromString is defined by DECLARE_BEHAVIAC_OBJECT_STRUCT(myNode)
+				//myNode::FromString is defined by DECLARE_BEHAVIAC_STRUCT(myNode)
 				if (temp.FromString(str))
 				{
 					return true;
@@ -132,5 +104,21 @@ namespace behaviac
 		}
 	}
 }
+
+//add the following to a cpp
+//BEGIN_PROPERTIES_DESCRIPTION(myNode)
+//{
+//	CLASS_DISPLAYNAME(L"")
+//	CLASS_DESC(L"")
+//
+//	REGISTER_PROPERTY(x);
+//	REGISTER_PROPERTY(y);
+//}
+//END_PROPERTIES_DESCRIPTION()
+
+
+//add the following to register/unregister
+//behaviac::TypeRegister::Register<TestNS::Node>("TestNS::Node");
+//behaviac::TypeRegister::UnRegister<TestNS::Node>("TestNS::Node");
 
 #endif//_BEHAVIAC_EXTENDREFTYPE_H_

@@ -296,22 +296,9 @@ namespace behaviac
 
             this.m_ActionConfig.load(properties);
         }
-        public bool Evaluate(Agent pAgent, EBTStatus methodResult)
-        {
-            bool bValid = this.m_ActionConfig.Execute(pAgent, methodResult);
-
-            if (!bValid)
-            {
-                EBTStatus childStatus = EBTStatus.BT_INVALID;
-                bValid = (EBTStatus.BT_SUCCESS == this.update_impl(pAgent, childStatus));
-            }
-
-            return bValid;
-        }
 
         public override bool Evaluate(Agent pAgent)
         {
-
             bool bValid = this.m_ActionConfig.Execute(pAgent);
 
             if (!bValid)

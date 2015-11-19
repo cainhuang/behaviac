@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 class PlaneHero;
+class Enemy;
 class Hero :
     public behaviac::Agent
 {
@@ -12,25 +13,23 @@ public:
 
     Hero();
     ~Hero();
-    void dead(); //飞机挂掉
-    Node* findAnEnemy();//find an enemy plane
-    bool isWillBeCrashEnemy(Node* enemy, Point position);//test whether hero will be crash enemy at position
 
-    Node* getEnemyInFrontOfPosition(Point position);// get Enemy in front of position
-    Node* getNearestEnemy();//get the nearest enemy
-    Node* getNearestEnemy(Point position);//get the nearest enemy 
-
-    void AdjustHeroPosition(Node* hero);
-    void setHeroPlaneUnderPosition(Point targetPosition);
+    void findAnNearestEnemy();
+    bool isWillBeCrashOnNearestEnemy();
+    void EscapeEnemyCrash();
+    bool hasEnemyInFrontCanAttack();
+    void findAnEnemyAndAttack();
+    void AdjustHeroPosition();
+    bool wait20Frame();
     //m_isAI表示是否使用AI
     bool m_isAI;
     void setAI(bool value);
-    //ai动作
+    //do Ai action automatic
     void AIAction(float level);
 private:
-    Node* nearestEnemy;
+    Enemy* nearestEnemy;
     PlaneHero* m_plane;
-
+    int waitTime;
 public:
 
     PlaneHero* getPlane();

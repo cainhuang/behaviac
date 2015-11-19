@@ -411,7 +411,7 @@ public:
 
         if (defaultParam.IsValid())
         {
-            DefaulParamSetValueSelector<StoredType, ParamBaseType, behaviac::Meta::IsAgent<ParamType>::Result>::SetValue(this->m_param, defaultParam);
+            DefaulParamSetValueSelector<StoredType, ParamBaseType, behaviac::Meta::IsRefType<ParamType>::Result>::SetValue(this->m_param, defaultParam);
         }
 
         int typeId = GetClassTypeNumberId<ParamBaseType>();
@@ -841,7 +841,7 @@ public:
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsAgent<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
+                DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsRefType<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType1>();
@@ -862,7 +862,7 @@ public:
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsAgent<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
+                DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsRefType<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType2>();
@@ -1436,7 +1436,7 @@ class CGenericMethodStatic3_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsAgent<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
+                DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsRefType<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType1>();
@@ -1457,7 +1457,7 @@ class CGenericMethodStatic3_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsAgent<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
+                DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsRefType<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType2>();
@@ -1478,7 +1478,7 @@ class CGenericMethodStatic3_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsAgent<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
+                DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsRefType<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType3>();
@@ -2130,7 +2130,7 @@ class CGenericMethodStatic4_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsAgent<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
+                DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsRefType<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType1>();
@@ -2151,7 +2151,7 @@ class CGenericMethodStatic4_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsAgent<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
+                DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsRefType<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType2>();
@@ -2172,7 +2172,7 @@ class CGenericMethodStatic4_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsAgent<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
+                DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsRefType<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType3>();
@@ -2193,7 +2193,7 @@ class CGenericMethodStatic4_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsAgent<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
+                DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsRefType<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType4>();
@@ -2925,7 +2925,7 @@ class CGenericMethodStatic5_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsAgent<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
+                DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsRefType<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType1>();
@@ -2946,7 +2946,7 @@ class CGenericMethodStatic5_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsAgent<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
+                DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsRefType<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType2>();
@@ -2967,7 +2967,7 @@ class CGenericMethodStatic5_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsAgent<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
+                DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsRefType<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType3>();
@@ -2988,7 +2988,7 @@ class CGenericMethodStatic5_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsAgent<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
+                DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsRefType<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType4>();
@@ -3009,7 +3009,7 @@ class CGenericMethodStatic5_ : public CMethodBase
 
             if (defaultParam.IsValid())
             {
-                DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsAgent<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
+                DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsRefType<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
             }
 
             int typeId = GetClassTypeNumberId<ParamBaseType5>();
@@ -3035,27 +3035,27 @@ class CGenericMethodStatic5_ : public CMethodBase
     {
         if (paramIndex == 0)
         {
-            DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsAgent<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
+            DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsRefType<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
 
         }
         else if (paramIndex == 1)
         {
-            DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsAgent<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
+            DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsRefType<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
 
         }
         else if (paramIndex == 2)
         {
-            DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsAgent<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
+            DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsRefType<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
 
         }
         else if (paramIndex == 3)
         {
-            DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsAgent<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
+            DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsRefType<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
 
         }
         else if (paramIndex == 4)
         {
-            DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsAgent<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
+            DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsRefType<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
 
         }
         else
@@ -3952,32 +3952,32 @@ class CGenericMethodStatic6_ : public CMethodBase
     {
         if (paramIndex == 0)
         {
-            DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsAgent<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
+            DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsRefType<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
 
         }
         else if (paramIndex == 1)
         {
-            DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsAgent<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
+            DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsRefType<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
 
         }
         else if (paramIndex == 2)
         {
-            DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsAgent<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
+            DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsRefType<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
 
         }
         else if (paramIndex == 3)
         {
-            DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsAgent<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
+            DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsRefType<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
 
         }
         else if (paramIndex == 4)
         {
-            DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsAgent<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
+            DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsRefType<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
 
         }
         else if (paramIndex == 5)
         {
-            DefaulParamSetValueSelector<StoredType6, ParamBaseType6, behaviac::Meta::IsAgent<ParamType6>::Result>::SetValue(this->m_param6, defaultParam);;
+            DefaulParamSetValueSelector<StoredType6, ParamBaseType6, behaviac::Meta::IsRefType<ParamType6>::Result>::SetValue(this->m_param6, defaultParam);;
 
         }
         else
@@ -4971,37 +4971,37 @@ class CGenericMethodStatic7_ : public CMethodBase
     {
         if (paramIndex == 0)
         {
-            DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsAgent<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
+            DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsRefType<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
 
         }
         else if (paramIndex == 1)
         {
-            DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsAgent<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
+            DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsRefType<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
 
         }
         else if (paramIndex == 2)
         {
-            DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsAgent<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
+            DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsRefType<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
 
         }
         else if (paramIndex == 3)
         {
-            DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsAgent<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
+            DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsRefType<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
 
         }
         else if (paramIndex == 4)
         {
-            DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsAgent<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
+            DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsRefType<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
 
         }
         else if (paramIndex == 5)
         {
-            DefaulParamSetValueSelector<StoredType6, ParamBaseType6, behaviac::Meta::IsAgent<ParamType6>::Result>::SetValue(this->m_param6, defaultParam);;
+            DefaulParamSetValueSelector<StoredType6, ParamBaseType6, behaviac::Meta::IsRefType<ParamType6>::Result>::SetValue(this->m_param6, defaultParam);;
 
         }
         else if (paramIndex == 6)
         {
-            DefaulParamSetValueSelector<StoredType7, ParamBaseType7, behaviac::Meta::IsAgent<ParamType7>::Result>::SetValue(this->m_param7, defaultParam);;
+            DefaulParamSetValueSelector<StoredType7, ParamBaseType7, behaviac::Meta::IsRefType<ParamType7>::Result>::SetValue(this->m_param7, defaultParam);;
 
         }
         else
@@ -6090,42 +6090,42 @@ class CGenericMethodStatic8_ : public CMethodBase
     {
         if (paramIndex == 0)
         {
-            DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsAgent<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
+            DefaulParamSetValueSelector<StoredType1, ParamBaseType1, behaviac::Meta::IsRefType<ParamType1>::Result>::SetValue(this->m_param1, defaultParam);;
 
         }
         else if (paramIndex == 1)
         {
-            DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsAgent<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
+            DefaulParamSetValueSelector<StoredType2, ParamBaseType2, behaviac::Meta::IsRefType<ParamType2>::Result>::SetValue(this->m_param2, defaultParam);;
 
         }
         else if (paramIndex == 2)
         {
-            DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsAgent<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
+            DefaulParamSetValueSelector<StoredType3, ParamBaseType3, behaviac::Meta::IsRefType<ParamType3>::Result>::SetValue(this->m_param3, defaultParam);;
 
         }
         else if (paramIndex == 3)
         {
-            DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsAgent<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
+            DefaulParamSetValueSelector<StoredType4, ParamBaseType4, behaviac::Meta::IsRefType<ParamType4>::Result>::SetValue(this->m_param4, defaultParam);;
 
         }
         else if (paramIndex == 4)
         {
-            DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsAgent<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
+            DefaulParamSetValueSelector<StoredType5, ParamBaseType5, behaviac::Meta::IsRefType<ParamType5>::Result>::SetValue(this->m_param5, defaultParam);;
 
         }
         else if (paramIndex == 5)
         {
-            DefaulParamSetValueSelector<StoredType6, ParamBaseType6, behaviac::Meta::IsAgent<ParamType6>::Result>::SetValue(this->m_param6, defaultParam);;
+            DefaulParamSetValueSelector<StoredType6, ParamBaseType6, behaviac::Meta::IsRefType<ParamType6>::Result>::SetValue(this->m_param6, defaultParam);;
 
         }
         else if (paramIndex == 6)
         {
-            DefaulParamSetValueSelector<StoredType7, ParamBaseType7, behaviac::Meta::IsAgent<ParamType7>::Result>::SetValue(this->m_param7, defaultParam);;
+            DefaulParamSetValueSelector<StoredType7, ParamBaseType7, behaviac::Meta::IsRefType<ParamType7>::Result>::SetValue(this->m_param7, defaultParam);;
 
         }
         else if (paramIndex == 7)
         {
-            DefaulParamSetValueSelector<StoredType8, ParamBaseType8, behaviac::Meta::IsAgent<ParamType8>::Result>::SetValue(this->m_param8, defaultParam);;
+            DefaulParamSetValueSelector<StoredType8, ParamBaseType8, behaviac::Meta::IsRefType<ParamType8>::Result>::SetValue(this->m_param8, defaultParam);;
 
         }
         else

@@ -68,6 +68,7 @@ and you also need to include your agent types' headers before it:
 #include "behaviac/behaviortree/attachments/precondition.h"
 #include "behaviac/behaviortree/attachments/effector.h"
 #include "behaviac/htn/task.h"
+#include "behaviac/fsm/fsm.h"
 #include "behaviac/fsm/state.h"
 #include "behaviac/fsm/startcondition.h"
 #include "behaviac/fsm/transitioncondition.h"
@@ -140,13 +141,13 @@ template<> BEHAVIAC_FORCEINLINE bool CBTPlayer::_Execute_Method_<METHOD_TYPE_CBT
 }
 
 struct METHOD_TYPE_CBTPlayer_MoveAhead { };
-template<> BEHAVIAC_FORCEINLINE void CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_MoveAhead>(int& p0)
+template<> BEHAVIAC_FORCEINLINE void CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_MoveAhead>(int p0)
 {
 	this->CBTPlayer::MoveAhead(p0);
 }
 
 struct METHOD_TYPE_CBTPlayer_MoveBack { };
-template<> BEHAVIAC_FORCEINLINE void CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_MoveBack>(int& p0)
+template<> BEHAVIAC_FORCEINLINE void CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_MoveBack>(int p0)
 {
 	this->CBTPlayer::MoveBack(p0);
 }

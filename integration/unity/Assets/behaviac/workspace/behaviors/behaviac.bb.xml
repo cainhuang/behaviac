@@ -19,6 +19,9 @@
       </properties>
     </agent>
     <agent type="AgentNodeTest" base="behaviac::Agent" disp="AgentNodeTest" desc="AgentNodeTest">
+      <properties>
+        <property name="testFloat2" type="XMLPluginBehaviac.TestNS_Float2" classname="AgentNodeTest" defaultvalue="{x=0;y=0;}" static="false" public="true" readonly="false" disp="testFloat2" desc="local_node" />
+      </properties>
       <methods>
         <method name="event_test_int" returntype="System.Boolean" classname="AgentNodeTest" static="false" public="true" istask="true" disp="event_test_int" desc="event_test_int">
           <parameter name="val_int" type="System.Int32" disp="val_int" desc="val_int" />
