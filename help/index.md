@@ -3,34 +3,19 @@ layout: page
 title: Getting Help
 ---
 
-Need help with Jekyll? Try these resources.
+Need help with Behaviac? Try these resources.
 
-### [Google](https://google.com)
+### [QQ Group](http://shang.qq.com/wpa/qunwpa?idkey=69333ec202c5f472a0278180aea08f65deb799e4c1ce2ee40224afce8599a8d9)
 
-Add **jekyll** to almost any query, and you'll find just what you need.
+If you have any questions, please Join the QQ group(UID: <a href="http://jq.qq.com/?_wv=1027&k=bahF0B">433547396</a>). You can get more help than you expect.
 
-### [Jekyll Talk](https://talk.jekyllrb.com/)
+### [Behaviac on GitHub](https://github.com/TencentOpen/behaviac)
 
-Jekyll Talk is our official Discourse forum. Here, users and contributors
-can ask questions and discuss all aspects of Jekyll.
+Almost all resoures about behaviac.
 
-### [Jekyll on StackOverflow](http://stackoverflow.com/questions/tagged/jekyll)
+### [Behaviac on Tencent GAD](http://gad.qq.com/tool/detail/2)
 
-StackOverflow is a staple of any developer's diet. Check out the Jekyll tag
-on StackOverflow for an answer to your question. Not there? Ask a new
-question!
+One of our offical websites, you can get some videos and docs on it.
 
-### [Jekyll IRC Channel](irc:irc.freenode.net/jekyll)
 
-Get live support at **#jekyll** on **irc.freenode.net**, the official
-Jekyll IRC channel.
 
-### [jekyll/jekyll](https://github.com/jekyll/jekyll/issues)
-
-Search through the issues on the main Jekyll development. Think you've
-found a bug? File a new issue.
-
-### [@jekyllrb on Twitter](https://twitter.com/jekyllrb)
-
-The official Jekyll Twitter account. It's not checked often, so try the
-above first.
