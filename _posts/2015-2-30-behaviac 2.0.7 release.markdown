@@ -1,0 +1,11 @@
+---
+layout: news_item
+title: 'Behaviac 2.0.7 Release'
+date: 2015-02-23 21:06:51 -0800
+author: pjkui
+categories: [community]
+---
+
+We're super excited to announce the behaviac 2.0.7 was released!
+
+Come join the fun!
