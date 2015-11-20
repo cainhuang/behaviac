@@ -8,14 +8,14 @@ google_analytics_id: UA-50755011-1
 
 repository: https://github.com/pjkui/behaviac
 help_url: https://github.com/pjkui/behaviac
-
+baseurl: /behaviac
 collections:
   docs:
     output: true
 
 name: Jekyll • Simple, blog-aware, static sites
 description: Transform your plain text into static websites and blogs
-url: http://pjkui.github.io/behaviac
+url: http://pjkui.github.io/behaviac/
 
 gems:
   - jekyll-feed
