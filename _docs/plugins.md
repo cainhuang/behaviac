@@ -480,6 +480,14 @@ end
 
 ## Hooks
 
+<div class="note unreleased">
+  <h5>Support for hooks is currently unreleased.</h5>
+  <p>
+    In order to use this feature, <a href="/docs/installation/#pre-releases">
+    install the latest development version of Jekyll</a>.
+  </p>
+</div>
+
 Using hooks, your plugin can exercise fine-grained control over various aspects
 of the build process. If your plugin defines any hooks, Jekyll will call them
 at pre-defined points.
@@ -491,13 +499,13 @@ custom functionality every time Jekyll renders a post, you could register a
 hook like this:
 
 {% highlight ruby %}
-Jekyll::Hooks.register :posts, :post_render do |post|
+Jekyll::Hooks.register :post, :post_render do |post|
   # code to call after Jekyll renders a post
 end
 {% endhighlight %}
 
-Jekyll provides hooks for <code>:site</code>, <code>:pages</code>,
-<code>:posts</code>, and <code>:documents</code>. In all cases, Jekyll calls your
+Jekyll provides hooks for <code>:site</code>, <code>:page</code>,
+<code>:post</code>, and <code>:document</code>. In all cases, Jekyll calls your
 hooks with the container object as the first callback parameter. But in the
 case of <code>:pre_render</code>, your hook will also receive a payload hash as
 a second parameter which allows you full control over the variables that are
@@ -524,17 +532,6 @@ The complete list of available hooks is below:
       </td>
       <td>
         <p>Just after site reset</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <p><code>:site</code></p>
-      </td>
-      <td>
-        <p><code>:post_read</code></p>
-      </td>
-      <td>
-        <p>After site data has been read and loaded from disk</p>
       </td>
     </tr>
     <tr>
@@ -572,7 +569,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:pages</code></p>
+        <p><code>:page</code></p>
       </td>
       <td>
         <p><code>:post_init</code></p>
@@ -583,7 +580,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:pages</code></p>
+        <p><code>:page</code></p>
       </td>
       <td>
         <p><code>:pre_render</code></p>
@@ -594,7 +591,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:pages</code></p>
+        <p><code>:page</code></p>
       </td>
       <td>
         <p><code>:post_render</code></p>
@@ -605,7 +602,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:pages</code></p>
+        <p><code>:page</code></p>
       </td>
       <td>
         <p><code>:post_write</code></p>
@@ -616,7 +613,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:posts</code></p>
+        <p><code>:post</code></p>
       </td>
       <td>
         <p><code>:post_init</code></p>
@@ -627,7 +624,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:posts</code></p>
+        <p><code>:post</code></p>
       </td>
       <td>
         <p><code>:pre_render</code></p>
@@ -638,7 +635,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:posts</code></p>
+        <p><code>:post</code></p>
       </td>
       <td>
         <p><code>:post_render</code></p>
@@ -649,7 +646,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:posts</code></p>
+        <p><code>:post</code></p>
       </td>
       <td>
         <p><code>:post_write</code></p>
@@ -660,18 +657,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:documents</code></p>
-      </td>
-      <td>
-        <p><code>:post_init</code></p>
-      </td>
-      <td>
-        <p>Whenever a document is initialized</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <p><code>:documents</code></p>
+        <p><code>:document</code></p>
       </td>
       <td>
         <p><code>:pre_render</code></p>
@@ -682,7 +668,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:documents</code></p>
+        <p><code>:document</code></p>
       </td>
       <td>
         <p><code>:post_render</code></p>
@@ -693,7 +679,7 @@ The complete list of available hooks is below:
     </tr>
     <tr>
       <td>
-        <p><code>:documents</code></p>
+        <p><code>:document</code></p>
       </td>
       <td>
         <p><code>:post_write</code></p>
@@ -735,7 +721,6 @@ LESS.js files during generation.
 - [Jekyll Auto Image by Merlos](https://github.com/merlos/jekyll-auto-image): Gets the first image of a post. Useful to list your posts with images or to add [twitter cards](https://dev.twitter.com/cards/overview) to your site.
 - [Jekyll Portfolio Generator by Shannon Babincsak](https://github.com/codeinpink/jekyll-portfolio-generator): Generates project pages and computes related projects out of project data files.
 - [Jekyll-Umlauts by Arne Gockeln](https://github.com/webchef/jekyll-umlauts): This generator replaces all german umlauts (äöüß) case sensitive with html.
-- [Jekyll Flickr Plugin](https://github.com/lawmurray/indii-jekyll-flickr) by [Lawrence Murray](http://www.indii.org): Generates posts for photos uploaded to a Flickr photostream.
 
 #### Converters
 
@@ -835,8 +820,6 @@ LESS.js files during generation.
 - [Fetch remote file content](https://github.com/dimitri-koenig/jekyll-plugins) by [Dimitri König](https://www.dimitrikoenig.net/): Using `remote_file_content` tag you can fetch the content of a remote file and include it as if you would put the content right into your markdown file yourself. Very useful for including code from github repo's to always have a current repo version.
 - [jekyll-asciinema](https://github.com/mnuessler/jekyll-asciinema): A tag for embedding asciicasts recorded with [asciinema](https://asciinema.org) in your Jekyll pages.
 - [Jekyll-Youtube](https://github.com/dommmel/jekyll-youtube)  A Liquid tag that embeds Youtube videos. The default emded markup is responsive but you can also specify your own by using an include/partial.
-- [Jekyll Flickr Plugin](https://github.com/lawmurray/indii-jekyll-flickr) by [Lawrence Murray](http://www.indii.org): Embeds Flickr photosets (albums) as a gallery of thumbnails, with lightbox links to larger images.
-
 
 #### Collections
 
@@ -871,8 +854,7 @@ LESS.js files during generation.
 - [Jekyll CO₂](https://github.com/wdenton/jekyll-co2): Generates HTML showing the monthly change in atmospheric CO₂ at the Mauna Loa observatory in Hawaii.
 - [remote-include](http://www.northfieldx.co.uk/remote-include/): Includes files using remote URLs
 - [jekyll-minifier](https://github.com/digitalsparky/jekyll-minifier): Minifies HTML, XML, CSS, and Javascript both inline and as separate files utilising yui-compressor and htmlcompressor.
-- [Jekyll views router](https://bitbucket.org/nyufac/jekyll-views-router): Simple router between generator plugins and templates.
-- [Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin): Jekyll 3.0-compatible multi-language plugin for posts, pages and includes.
+- [Jekyll views router](https://bitbucket.org/nyufac/jekyll-views-router): Simple router between generator plugins and templates. 
 
 #### Editors
 
