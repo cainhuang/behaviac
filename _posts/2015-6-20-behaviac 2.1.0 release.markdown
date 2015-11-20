@@ -1,6 +1,6 @@
 ---
 layout: news_item
-title: 'Join the Discussion at Jekyll Talk'
+title: 'Behaviac 2.0.7 Release'
 date: 2015-6-20 21:06:51 -0800
 author: pjkui
 categories: [community]
