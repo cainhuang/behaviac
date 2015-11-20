@@ -430,7 +430,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("enemy");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -704,36 +704,13 @@ namespace behaviac
 		}
 	};
 
-	class Transition_bt_enemy_fsm_attach11 : public Transition
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_enemy_fsm_attach11, Transition);
-		Transition_bt_enemy_fsm_attach11()
-		{
-			this->SetTargetStateId(9);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			EBTStatus result = BT_SUCCESS;
-			bool opl = ((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_isAlive, bool >();
-			bool opr2 = true;
-			bool op = Details::Equal(opl, opr2);
-			if (!op)
-				result = BT_FAILURE;
-			return result;
-		}
-	};
-
 	class Transition_bt_enemy_fsm_attach15 : public Transition
 	{
 	public:
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_enemy_fsm_attach15, Transition);
 		Transition_bt_enemy_fsm_attach15()
 		{
-			this->SetTargetStateId(14);
+			this->SetTargetStateId(19);
 		}
 	protected:
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
@@ -750,72 +727,13 @@ namespace behaviac
 		}
 	};
 
-	class State_bt_enemy_fsm_node9 : public State
+	class Transition_bt_enemy_fsm_attach11 : public Transition
 	{
 	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_enemy_fsm_node9, State);
-		State_bt_enemy_fsm_node9()
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_enemy_fsm_attach11, Transition);
+		Transition_bt_enemy_fsm_attach11()
 		{
-			this->m_bIsEndState = false;
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			return BT_RUNNING;
-		}
-	};
-
-	class Precondition_bt_enemy_fsm_attach10 : public Precondition
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach10, Precondition);
-		Precondition_bt_enemy_fsm_attach10()
-		{
-			this->SetPhase(Precondition::E_ENTER);
-			this->SetIsAnd(true);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr2 = 1;
-			BEHAVIAC_ASSERT(behaviac::MakeVariableId("frameCount") == 542998324u);
-			pAgent->SetVariable("frameCount", opr2, 542998324u);
-			return result;
-		}
-	};
-
-	class Precondition_bt_enemy_fsm_attach12 : public Precondition
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_enemy_fsm_attach12, Precondition);
-		Precondition_bt_enemy_fsm_attach12()
-		{
-			this->SetPhase(Precondition::E_ENTER);
-			this->SetIsAnd(true);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			BEHAVIAC_ASSERT(behaviac::MakeVariableId("frameCount") == 542998324u);
-			int& opr1 = (int&)pAgent->GetVariable<int >(542998324u);
-			int opr2 = 1;
-			BEHAVIAC_ASSERT(behaviac::MakeVariableId("frameCount") == 542998324u);
-			pAgent->SetVariable("frameCount", (int)(opr1 + opr2), 542998324u);
-			return result;
-		}
-	};
-
-	class Transition_bt_enemy_fsm_attach13 : public Transition
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Transition_bt_enemy_fsm_attach13, Transition);
-		Transition_bt_enemy_fsm_attach13()
-		{
-			this->SetTargetStateId(2);
+			this->SetTargetStateId(16);
 		}
 	protected:
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
@@ -823,9 +741,8 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			BEHAVIAC_ASSERT(behaviac::MakeVariableId("frameCount") == 542998324u);
-			int& opl = (int&)pAgent->GetVariable<int >(542998324u);
-			int opr2 = 30;
+			bool opl = ((Enemy*)pAgent)->_Execute_Method_<METHOD_TYPE_Enemy_isAlive, bool >();
+			bool opr2 = true;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
 				result = BT_FAILURE;
@@ -833,11 +750,37 @@ namespace behaviac
 		}
 	};
 
-	class State_bt_enemy_fsm_node14 : public State
+	class WaitFramesState_bt_enemy_fsm_node16 : public WaitFramesState
 	{
 	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_enemy_fsm_node14, State);
-		State_bt_enemy_fsm_node14()
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(WaitFramesState_bt_enemy_fsm_node16, WaitFramesState);
+		WaitFramesState_bt_enemy_fsm_node16()
+		{
+		}
+	protected:
+		virtual int GetFrames(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 3;
+		}
+	};
+
+	class WaitTransition_bt_enemy_fsm_attach17 : public WaitTransition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(WaitTransition_bt_enemy_fsm_attach17, WaitTransition);
+		WaitTransition_bt_enemy_fsm_attach17()
+		{
+			this->SetTargetStateId(2);
+		}
+	protected:
+	};
+
+	class State_bt_enemy_fsm_node19 : public State
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(State_bt_enemy_fsm_node19, State);
+		State_bt_enemy_fsm_node19()
 		{
 			this->m_bIsEndState = false;
 		}
@@ -856,7 +799,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("enemy_fsm");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -869,7 +812,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId(-1);
+				fsm->SetId((uint32_t)-1);
 				fsm->SetInitialId(1);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("Enemy");
@@ -954,16 +897,6 @@ namespace behaviac
 						node2->SetHasEvents(node2->HasEvents() | (Event::DynamicCast(attach8) != 0));
 					}
 					{
-						Transition_bt_enemy_fsm_attach11* attach11 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach11;
-						attach11->SetClassNameString("Transition");
-						attach11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
-						attach11->SetAgentType("Enemy");
-#endif
-						node2->Attach(attach11, false, false, true);
-						node2->SetHasEvents(node2->HasEvents() | (Event::DynamicCast(attach11) != 0));
-					}
-					{
 						Transition_bt_enemy_fsm_attach15* attach15 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach15;
 						attach15->SetClassNameString("Transition");
 						attach15->SetId(15);
@@ -973,59 +906,49 @@ namespace behaviac
 						node2->Attach(attach15, false, false, true);
 						node2->SetHasEvents(node2->HasEvents() | (Event::DynamicCast(attach15) != 0));
 					}
+					{
+						Transition_bt_enemy_fsm_attach11* attach11 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach11;
+						attach11->SetClassNameString("Transition");
+						attach11->SetId(11);
+#if !defined(BEHAVIAC_RELEASE)
+						attach11->SetAgentType("Enemy");
+#endif
+						node2->Attach(attach11, false, false, true);
+						node2->SetHasEvents(node2->HasEvents() | (Event::DynamicCast(attach11) != 0));
+					}
 					fsm->AddChild(node2);
 					fsm->SetHasEvents(fsm->HasEvents() | node2->HasEvents());
 				}
 				{
-					State_bt_enemy_fsm_node9* node9 = BEHAVIAC_NEW State_bt_enemy_fsm_node9;
-					node9->SetClassNameString("State");
-					node9->SetId(9);
+					WaitFramesState_bt_enemy_fsm_node16* node16 = BEHAVIAC_NEW WaitFramesState_bt_enemy_fsm_node16;
+					node16->SetClassNameString("WaitFramesState");
+					node16->SetId(16);
 #if !defined(BEHAVIAC_RELEASE)
-					node9->SetAgentType("Enemy");
+					node16->SetAgentType("Enemy");
 #endif
 					// attachments
 					{
-						Precondition_bt_enemy_fsm_attach10* attach10 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach10;
-						attach10->SetClassNameString("Precondition");
-						attach10->SetId(10);
+						WaitTransition_bt_enemy_fsm_attach17* attach17 = BEHAVIAC_NEW WaitTransition_bt_enemy_fsm_attach17;
+						attach17->SetClassNameString("WaitTransition");
+						attach17->SetId(17);
 #if !defined(BEHAVIAC_RELEASE)
-						attach10->SetAgentType("Enemy");
+						attach17->SetAgentType("Enemy");
 #endif
-						node9->Attach(attach10, true, false, false);
-						node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach10) != 0));
+						node16->Attach(attach17, false, false, true);
+						node16->SetHasEvents(node16->HasEvents() | (Event::DynamicCast(attach17) != 0));
 					}
-					{
-						Precondition_bt_enemy_fsm_attach12* attach12 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach12;
-						attach12->SetClassNameString("Precondition");
-						attach12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
-						attach12->SetAgentType("Enemy");
-#endif
-						node9->Attach(attach12, true, false, false);
-						node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach12) != 0));
-					}
-					{
-						Transition_bt_enemy_fsm_attach13* attach13 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach13;
-						attach13->SetClassNameString("Transition");
-						attach13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
-						attach13->SetAgentType("Enemy");
-#endif
-						node9->Attach(attach13, false, false, true);
-						node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach13) != 0));
-					}
-					fsm->AddChild(node9);
-					fsm->SetHasEvents(fsm->HasEvents() | node9->HasEvents());
+					fsm->AddChild(node16);
+					fsm->SetHasEvents(fsm->HasEvents() | node16->HasEvents());
 				}
 				{
-					State_bt_enemy_fsm_node14* node14 = BEHAVIAC_NEW State_bt_enemy_fsm_node14;
-					node14->SetClassNameString("State");
-					node14->SetId(14);
+					State_bt_enemy_fsm_node19* node19 = BEHAVIAC_NEW State_bt_enemy_fsm_node19;
+					node19->SetClassNameString("State");
+					node19->SetId(19);
 #if !defined(BEHAVIAC_RELEASE)
-					node14->SetAgentType("Enemy");
+					node19->SetAgentType("Enemy");
 #endif
-					fsm->AddChild(node14);
-					fsm->SetHasEvents(fsm->HasEvents() | node14->HasEvents());
+					fsm->AddChild(node19);
+					fsm->SetHasEvents(fsm->HasEvents() | node19->HasEvents());
 				}
 				pBT->AddChild(fsm);
 			}
@@ -1356,7 +1279,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("hero");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1367,7 +1290,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId(-1);
+				fsm->SetId((uint32_t)-1);
 				fsm->SetInitialId(1);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("Hero");
@@ -1722,7 +1645,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("npc");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)

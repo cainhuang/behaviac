@@ -1554,7 +1554,7 @@ public partial class NodeViewData : BaseNode
 
         graphics.DrawPath(edgePen, attachment.DrawnPath);
 
-        bool isIn = attachment.DrawnPath.IsOutlineVisible(startPos.X + 0.01f, startPos.Y + 0.01f, edgePen);
+        //bool isIn = attachment.DrawnPath.IsOutlineVisible(startPos.X + 0.01f, startPos.Y + 0.01f, edgePen);
         //Debug.Check(isIn);
     }
 
@@ -1585,13 +1585,14 @@ public partial class NodeViewData : BaseNode
                             Pen pen = edgePen;
                             bool isHighlighted = (highlightedTransitionIds != null) && highlightedTransitionIds.Contains(subItemAttachment.Attachment.Id.ToString());
                             if (isHighlighted)
-                            {
                                 pen = edgePenUpdate;
-                            }
                             else if (subItemAttachment.IsSelected)
-                            {
                                 pen = edgePenSelected;
-                            }
+
+                            if (subItemAttachment.Attachment.Enable)
+                                pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+                            else
+                                pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
 
                             RectangleF subitemBoundingBox = this.GetSubItemBoundingBox(this.BoundingBox, i);
 

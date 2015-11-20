@@ -11,7 +11,6 @@ using PluginBehaviac.Nodes;
 
 namespace PluginBehaviac.Events
 {
-    [NodeDesc("FSM", "transition_icon")]
     class WaitTransition : StartCondition
     {
         public WaitTransition(Node node)
@@ -34,9 +33,19 @@ namespace PluginBehaviac.Events
             return "Transition";
         }
 
+        public override bool CanBeDisabled()
+        {
+            return true;
+        }
+
         public override bool IsStartCondition
         {
             get { return false; }
+        }
+
+        public override bool CanBeDeleted
+        {
+            get { return true; }
         }
     }
 }

@@ -83,8 +83,7 @@ namespace behaviac
 
             this->m_frames_method->run(pParent, pAgent);
 
-            int frames = 0;
-            this->m_frames_method->GetReturnValue(pParent, frames);
+			int frames = this->m_frames_method->GetReturnValue<int>(pParent);
 
             return frames;
         }

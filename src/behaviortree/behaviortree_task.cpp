@@ -173,7 +173,7 @@ namespace behaviac
 
     //max number of threads used for BT ticking.
     //usually, only 1 thread is used for BT ticking.
-    const static int kMaxThreads = 32;
+	const static uint32_t kMaxThreads = 32;
 
     struct ThreadStatus_t
     {
@@ -210,7 +210,7 @@ namespace behaviac
         {
             behaviac::ScopedLock lock(GetTickingMutex());
 
-            for (int i = 0; i < kMaxThreads; ++i)
+			for (uint32_t i = 0; i < kMaxThreads; ++i)
             {
                 const ThreadStatus_t& ts = gs_lastStatus[i];
 
@@ -227,15 +227,15 @@ namespace behaviac
         return BT_INVALID;
     }
 
-    int SetNodeId(int nodeId)
+	uint32_t SetNodeId(uint32_t nodeId)
     {
         THREAD_ID_TYPE tid = behaviac::GetTID();
 
-        int slot = -1;
+		uint32_t slot = (uint32_t)-1;
         {
             behaviac::ScopedLock lock(GetTickingMutex());
 
-            for (int i = 0; i < kMaxThreads; ++i)
+			for (uint32_t i = 0; i < kMaxThreads; ++i)
             {
                 ThreadStatus_t& ts = gs_lastStatus[i];
 
@@ -253,7 +253,7 @@ namespace behaviac
         return slot;
     }
 
-    void ClearNodeId(int slot)
+    void ClearNodeId(uint32_t slot)
     {
         THREAD_ID_TYPE tid = behaviac::GetTID();
 
@@ -276,7 +276,7 @@ namespace behaviac
         {
             behaviac::ScopedLock lock(GetTickingMutex());
 
-            for (int i = 0; i < kMaxThreads; ++i)
+			for (uint32_t i = 0; i < kMaxThreads; ++i)
             {
                 const ThreadStatus_t& ts = gs_lastStatus[i];
 
@@ -456,7 +456,6 @@ namespace behaviac
             if (status == BT_FAILURE)
             {
                 phase = Effector::E_FAILURE;
-
             }
             else
             {
@@ -476,7 +475,6 @@ namespace behaviac
             if (status == BT_SUCCESS)
             {
                 CHECK_BREAKPOINT(pAgent, this->m_node, "exit", EAR_success);
-
             }
             else
             {

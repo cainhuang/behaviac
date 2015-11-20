@@ -443,7 +443,7 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("\t\t{");
 
             file.WriteLine("\t\t\tpBT->SetClassNameString(\"BehaviorTree\");");
-            file.WriteLine("\t\t\tpBT->SetId(-1);");
+            file.WriteLine("\t\t\tpBT->SetId((uint32_t)-1);");
             file.WriteLine("\t\t\tpBT->SetName(\"{0}\");", filename);
             file.WriteLine("\t\t\tpBT->SetIsFSM({0});", ((Node)behavior).IsFSM ? "true" : "false");
             file.WriteLine("#if !defined(BEHAVIAC_RELEASE)");
@@ -471,7 +471,7 @@ namespace PluginBehaviac.Exporters
                 file.WriteLine("\t\t\t{");
                 file.WriteLine("\t\t\t\tFSM* fsm = BEHAVIAC_NEW FSM();");
                 file.WriteLine("\t\t\t\tfsm->SetClassNameString(\"FSM\");");
-                file.WriteLine("\t\t\t\tfsm->SetId(-1);");
+                file.WriteLine("\t\t\t\tfsm->SetId((uint32_t)-1);");
                 file.WriteLine("\t\t\t\tfsm->SetInitialId({0});", behavior.InitialStateId);
                 file.WriteLine("#if !defined(BEHAVIAC_RELEASE)");
                 file.WriteLine("\t\t\t\tfsm->SetAgentType(\"{0}\");", agentType);
@@ -554,6 +554,9 @@ namespace PluginBehaviac.Exporters
         {
             foreach (Behaviac.Design.Attachments.Attachment attach in node.Attachments)
             {
+                if (!attach.Enable)
+                    continue;
+
                 string nodeName = string.Format("attach{0}", attach.Id);
 
                 AttachmentCppExporter attachmentExporter = AttachmentCppExporter.CreateInstance(attach);
@@ -568,7 +571,7 @@ namespace PluginBehaviac.Exporters
                 file.WriteLine("{0}// attachments", indent);
                 foreach (Behaviac.Design.Attachments.Attachment attach in node.Attachments)
                 {
-                    if (attach.IsStartCondition)
+                    if (!attach.Enable || attach.IsStartCondition)
                         continue;
 
                     file.WriteLine("{0}{{", indent);

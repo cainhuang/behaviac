@@ -54,10 +54,14 @@ namespace Behaviac.Design
         }
 
         internal static void WriteLine(string log) {
-            if (_dock != null) {
+            if (_dock != null && log != null) {
                 _dock.errorListBox.BeginUpdate();
 
-                _dock.errorListBox.Items.Add(log);
+                string[] lines = log.Split('\n');
+                foreach (string line in lines)
+                {
+                    _dock.errorListBox.Items.Add(line);
+                }
 
                 if (_shouldScroll) {
                     scrollToEnd();

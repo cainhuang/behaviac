@@ -393,7 +393,7 @@ namespace behaviac
 
 #endif//BEHAVIAC_HOTRELOAD
 
-        LogWorkspaceInfo();
+        //LogWorkspaceInfo();
 #endif
 
         return true;

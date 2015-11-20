@@ -46,6 +46,7 @@ struct myNode
 
 	myNode(const TestNS::Node& v)
 	{
+		BEHAVIAC_UNUSED_VAR(v);
 	}
 
 	behaviac::string name;
@@ -71,6 +72,8 @@ namespace behaviac
 			template<>
 			inline bool FromString(const char* str, TestNS::Node& val)
 			{
+				BEHAVIAC_UNUSED_VAR(val);
+
 				myNode temp;
 
 				//myNode::FromString is defined by DECLARE_BEHAVIAC_STRUCT(myNode)

@@ -1999,8 +1999,21 @@ namespace Behaviac.Design
                 referenceMenuItem.Enabled = itemEnabled || isReferencedBehavior || isEvent;
                 referenceMenuItem.Text = (isReferencedBehavior || isEvent) ? Resources.OpenReference : Resources.SaveReference;
 
-                disableMenuItem.Enabled = itemEnabled && SelectedNode.Node.CanBeDisabled();
-                disableMenuItem.Text = (SelectedNode != null && SelectedNode.Node.Enable) ? Resources.DisableNode : Resources.EnableNode;
+                disableMenuItem.Enabled = false;
+                if (itemEnabled)
+                {
+                    if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject is Attachments.Attachment)
+                    {
+                        Attachments.Attachment attach = SelectedNode.SelectedSubItem.SelectableObject as Attachments.Attachment;
+                        disableMenuItem.Enabled = attach.CanBeDisabled();
+                        disableMenuItem.Text = attach.Enable ? Resources.DisableNode : Resources.EnableNode;
+                    }
+                    else
+                    {
+                        disableMenuItem.Enabled = SelectedNode.Node.CanBeDisabled();
+                        disableMenuItem.Text = SelectedNode.Node.Enable ? Resources.DisableNode : Resources.EnableNode;
+                    }
+                }
 
                 expandMenuItem.Enabled = (SelectedNode != null && SelectedNode.CanBeExpanded());
                 collapseMenuItem.Enabled = expandMenuItem.Enabled;
@@ -2797,12 +2810,19 @@ namespace Behaviac.Design
 
         private void toggleEnableNode() {
             if (SelectedNode != null) {
-                Debug.Check(SelectedNode.Node != null);
-                SelectedNode.Node.Enable = !SelectedNode.Node.Enable;
-
-                if (ClickNode != null)
+                if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject is Attachments.Attachment)
                 {
-                    ClickNode(SelectedNode);
+                    Attachments.Attachment attach = SelectedNode.SelectedSubItem.SelectableObject as Attachments.Attachment;
+                    attach.Enable = !attach.Enable;
+                }
+                else if (SelectedNode.Node != null)
+                {
+                    SelectedNode.Node.Enable = !SelectedNode.Node.Enable;
+
+                    if (ClickNode != null)
+                    {
+                        ClickNode(SelectedNode);
+                    }
                 }
 
                 UndoManager.Save(this.RootNode);

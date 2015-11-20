@@ -2133,8 +2133,6 @@ namespace Behaviac.Design
                     FileManagers.SaveResult saveResult = MainWindow.Instance.CheckSavingBehaviors();
                     if (saveResult != FileManagers.SaveResult.Cancelled)
                     {
-                        this.Timer.Enabled = true;
-
                         using (ConnectDialog cd = new ConnectDialog(NetworkManager.ServerPort))
                         {
                             if (cd.ShowDialog(this) == DialogResult.OK)

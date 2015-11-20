@@ -94,8 +94,8 @@ namespace behaviac
         {
             ((CMethodBase*)from)->Invoke(pAgentFrom);
 
-            VariableType retV;
-            ((CMethodBase*)from)->GetReturnValue(pAgentFrom, retV);
+			VariableType retV = ((CMethodBase*)from)->GetReturnValue<VariableType>(pAgentFrom);
+            
             this->SetValue(pAgentTo, retV);
         }
 
@@ -628,8 +628,8 @@ namespace behaviac
     {
         ((CMethodBase*)from)->Invoke(pAgentFrom);
 
-        VariableType retV;
-        ((CMethodBase*)from)->GetReturnValue(pAgentFrom, retV, index);
+		VariableType retV = ((CMethodBase*)from)->GetReturnValue<VariableType>(pAgentFrom, index);
+       
         TProperty<VariableType>* thisT = (TProperty<VariableType>*)this;
         thisT->SetValue(pAgentTo, retV);
     }

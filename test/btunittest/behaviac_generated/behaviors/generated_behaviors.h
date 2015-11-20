@@ -1717,7 +1717,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/fsm/action_ut_1_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1864,7 +1864,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/fsm/bt_ref_fsm");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2048,7 +2048,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ref_bt_ut");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2059,7 +2059,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId(-1);
+				fsm->SetId((uint32_t)-1);
 				fsm->SetInitialId(1);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("AgentNodeTest");
@@ -2496,7 +2496,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ref_fsm_ut");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2507,7 +2507,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId(-1);
+				fsm->SetId((uint32_t)-1);
 				fsm->SetInitialId(3);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("FSMAgentTest");
@@ -2958,7 +2958,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ut_0");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2969,7 +2969,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId(-1);
+				fsm->SetId((uint32_t)-1);
 				fsm->SetInitialId(3);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("FSMAgentTest");
@@ -3487,7 +3487,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ut_1");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3498,7 +3498,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId(-1);
+				fsm->SetId((uint32_t)-1);
 				fsm->SetInitialId(3);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("FSMAgentTest");
@@ -4135,7 +4135,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/htn/house/build_house");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -4593,7 +4593,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/htn/house/construct");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -4925,7 +4925,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/htn/house/root");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -5156,7 +5156,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/htn/travel/root");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -5330,7 +5330,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/htn/travel/travel");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -5560,7 +5560,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/htn/travel/travel_by_air");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -5850,7 +5850,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6129,7 +6129,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6284,7 +6284,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/repeat/repeat_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6362,7 +6362,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_noop_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6571,7 +6571,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6876,7 +6876,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7113,7 +7113,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7298,7 +7298,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7438,7 +7438,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7602,7 +7602,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7787,7 +7787,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7939,7 +7939,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/action_waitframes_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8071,7 +8071,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/circular_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8236,7 +8236,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/condition_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8364,7 +8364,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/condition_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8562,7 +8562,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/condition_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8768,7 +8768,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/condition_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -9184,7 +9184,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_alwaysfailure_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -9494,7 +9494,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_alwaysrunning_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -9790,7 +9790,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_alwayssuccess_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -9993,7 +9993,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10125,7 +10125,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10286,7 +10286,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10486,7 +10486,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10611,7 +10611,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_failureuntil_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10666,7 +10666,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_failureuntil_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10759,7 +10759,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_frames_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10968,7 +10968,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_log_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11188,7 +11188,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11338,7 +11338,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11483,7 +11483,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11616,7 +11616,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_loop_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11729,7 +11729,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_loop_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11837,7 +11837,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11945,7 +11945,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12053,7 +12053,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12128,7 +12128,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_successuntil_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12183,7 +12183,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/decoration_successuntil_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12331,7 +12331,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12575,7 +12575,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12857,7 +12857,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13011,7 +13011,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/event_subtree_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13102,7 +13102,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/event_subtree_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13214,7 +13214,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/event_subtree_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13346,7 +13346,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/event_subtree_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13525,7 +13525,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/event_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13684,7 +13684,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/event_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13793,7 +13793,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/if_else_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13890,7 +13890,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/if_else_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14039,7 +14039,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/parallel_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14208,7 +14208,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/parallel_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14377,7 +14377,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/parallel_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14546,7 +14546,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/parallel_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14715,7 +14715,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/parallel_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14876,7 +14876,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15073,7 +15073,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15334,7 +15334,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15486,7 +15486,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15613,7 +15613,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15779,7 +15779,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15945,7 +15945,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16130,7 +16130,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16335,7 +16335,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16578,7 +16578,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_5");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16794,7 +16794,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16960,7 +16960,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17126,7 +17126,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17311,7 +17311,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17516,7 +17516,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17759,7 +17759,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_5");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17907,7 +17907,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/query_subtree_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17977,7 +17977,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/query_subtree_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18047,7 +18047,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/query_subtree_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18191,7 +18191,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/query_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18374,7 +18374,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/query_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18557,7 +18557,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/query_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18740,7 +18740,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/query_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18883,7 +18883,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/reference_sub_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18945,7 +18945,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/reference_sub_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18992,7 +18992,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/reference_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19059,7 +19059,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19186,7 +19186,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19313,7 +19313,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19440,7 +19440,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19567,7 +19567,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19713,7 +19713,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_5");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19951,7 +19951,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20159,7 +20159,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20367,7 +20367,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20527,7 +20527,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20619,7 +20619,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20711,7 +20711,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20827,7 +20827,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20943,7 +20943,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21059,7 +21059,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21175,7 +21175,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21291,7 +21291,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/selector_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21421,7 +21421,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21513,7 +21513,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21605,7 +21605,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21697,7 +21697,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21813,7 +21813,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/sequence_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21929,7 +21929,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/sequence_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22045,7 +22045,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/sequence_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22161,7 +22161,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/sequence_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22255,7 +22255,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/wait_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22339,7 +22339,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("node_test/wait_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22455,7 +22455,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/const_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22721,7 +22721,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/custom_property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22975,7 +22975,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/local_out_scope");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -23774,7 +23774,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/par_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -24850,7 +24850,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/par_as_ref_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -25854,7 +25854,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/property_as_left_value");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -26780,7 +26780,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -27679,7 +27679,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/property_as_ref_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -28124,7 +28124,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/readonly_default");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -28453,7 +28453,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/register_name_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -28823,7 +28823,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/static_member_function_test_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -29342,7 +29342,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/static_property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -29911,7 +29911,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/static_property_as_ref_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -30315,7 +30315,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("par_test/vector_test");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)

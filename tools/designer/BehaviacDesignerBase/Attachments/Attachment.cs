@@ -61,6 +61,11 @@ namespace Behaviac.Design.Attachments
             return atta;
         }
 
+        public virtual bool CanBeDisabled()
+        {
+            return this.Enable ? false : true;
+        }
+
         public bool CanBeAttached
         {
             get { return true; }
@@ -135,8 +140,16 @@ namespace Behaviac.Design.Attachments
             _description = description;
         }
 
+        private bool _enable = true;
+        [DesignerBoolean("Enable", "EnableDesc", "Debug", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoDisplay | DesignerProperty.DesignerFlags.NoExport)]
+        public bool Enable
+        {
+            get { return _enable; }
+            set { _enable = value; }
+        }
+
         private int _id;
-        [DesignerInteger("AttachmentId", "AttachmentIdDesc", "Attachment", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
+        [DesignerInteger("AttachmentId", "AttachmentIdDesc", "Debug", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
         public int Id {
             get { return _id; }
             set { _id = value; }
@@ -229,6 +242,7 @@ namespace Behaviac.Design.Attachments
 
         protected virtual void CloneProperties(Attachment newattach) {
             newattach._id = this._id;
+            newattach._enable = this._enable;
             newattach._prefabAttachmentId = this._prefabAttachmentId;
             //newattach._node = this._node; // The node should be the new one.
             newattach._label = this._label;

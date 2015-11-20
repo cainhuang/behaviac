@@ -1258,35 +1258,26 @@ public:
     be careful to use this function only when you know the return type
     */
     template <typename R>
-    bool GetReturnValue(const CTagObject* parent, R& returnValue)
+    R GetReturnValue(const CTagObject* parent)
     {
         BEHAVIAC_UNUSED_VAR(parent);
+		BEHAVIAC_ASSERT(this->m_return);
 
-        if (this->m_return)
-        {
-            returnValue = ((behaviac::AsyncValue<R>*)this->m_return)->get();
-            return true;
-        }
-
-        return false;
+		R returnValue = ((behaviac::AsyncValue<R>*)this->m_return)->get();
+		return returnValue;
     }
 
     /**
     be careful to use this function only when you know the return type
     */
     template <typename R>
-    bool GetReturnValue(const CTagObject* parent, R& returnValue, int index)
+    R GetReturnValue(const CTagObject* parent, int index)
     {
         BEHAVIAC_UNUSED_VAR(parent);
-
-        if (this->m_return)
-        {
-            behaviac::vector<R>& returnVec = ((behaviac::AsyncValue<behaviac::vector<R> >*)this->m_return)->get();
-            returnValue = returnVec[index];
-            return true;
-        }
-
-        return false;
+		BEHAVIAC_ASSERT(this->m_return);
+		behaviac::vector<R>& returnVec = ((behaviac::AsyncValue<behaviac::vector<R> >*)this->m_return)->get();
+		R returnValue = returnVec[index];
+		return returnValue;
     }
 
     const char* GetReturnString(const CTagObject* parent) const

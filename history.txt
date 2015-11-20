@@ -1,3 +1,8 @@
+2015-11-20	3.2.3
+	fix bugs in the connecting debugging
+	fix compiling errors on linux
+	fix bugs in WaitState 
+
 2015-11-19	3.2.2
 	Fix a bug for setting the file version.
 	Fix a bug for creating a workspace.

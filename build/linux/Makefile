@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := behaviac btunittest usertest btremotetest
+PROJECTS := behaviac btunittest usertest demo_running btremotetest
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -24,6 +24,10 @@ usertest: behaviac
 	@echo "==== Building usertest ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f usertest.make
 
+demo_running: behaviac
+	@echo "==== Building demo_running ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f demo_running.make
+
 btremotetest: behaviac
 	@echo "==== Building btremotetest ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f btremotetest.make
@@ -32,6 +36,7 @@ clean:
 	@${MAKE} --no-print-directory -C . -f behaviac.make clean
 	@${MAKE} --no-print-directory -C . -f btunittest.make clean
 	@${MAKE} --no-print-directory -C . -f usertest.make clean
+	@${MAKE} --no-print-directory -C . -f demo_running.make clean
 	@${MAKE} --no-print-directory -C . -f btremotetest.make clean
 
 help:
@@ -47,6 +52,7 @@ help:
 	@echo "   behaviac"
 	@echo "   btunittest"
 	@echo "   usertest"
+	@echo "   demo_running"
 	@echo "   btremotetest"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"

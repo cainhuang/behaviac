@@ -295,7 +295,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("base/boring");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -376,7 +376,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("base/homing");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -446,7 +446,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("base/slowboring");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -548,7 +548,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("base/sync_homing");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -968,7 +968,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("projectile/projectile_test");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1363,7 +1363,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/0_basic");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1572,7 +1572,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/1_1_suicide");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1780,7 +1780,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/1_2_suicide");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1962,7 +1962,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/1_3_suicide");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2376,7 +2376,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/2_basic_probability");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2823,7 +2823,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/3_basic_move");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3080,7 +3080,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/4_destroy_projectiles");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3386,7 +3386,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/5_group");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3716,7 +3716,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/6_director");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3968,7 +3968,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("ships/7_signal");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)

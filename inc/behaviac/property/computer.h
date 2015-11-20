@@ -91,13 +91,10 @@ namespace behaviac
         {
             TProperty<VariableType>* pTP_opr1 = (TProperty<VariableType>*)_opr1;
             opr1 = pTP_opr1->GetValue(pSelf);
-
         }
         else
         {
-            bool bOk = _opr1_m->GetReturnValue(pSelf, opr1);
-            BEHAVIAC_UNUSED_VAR(bOk);
-            BEHAVIAC_ASSERT(bOk);
+			opr1 = _opr1_m->GetReturnValue<VariableType>(pSelf);
         }
 
         VariableType opr2;
@@ -106,13 +103,10 @@ namespace behaviac
         {
             TProperty<VariableType>* pTP_opr2 = (TProperty<VariableType>*)_opr2;
             opr2 = pTP_opr2->GetValue(pSelf);
-
         }
         else
         {
-            bool bOk = _opr2_m->GetReturnValue(pSelf, opr2);
-            BEHAVIAC_ASSERT(bOk);
-            BEHAVIAC_UNUSED_VAR(bOk);
+			opr2 = _opr2_m->GetReturnValue<VariableType>(pSelf);
         }
 
         VariableType result;

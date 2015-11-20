@@ -196,7 +196,7 @@ namespace behaviac
 
     void ConnectorImpl::SendInitialProperties()
     {
-        Workspace::GetInstance()->LogWorkspaceInfo();
+        Workspace::GetInstance()->LogCurrentStates();
     }
 }
 

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using Behaviac.Design;
-using PluginBehaviac.Properties;
 using Behaviac.Design.Nodes;
 using Behaviac.Design.Attributes;
 using Behaviac.Design.Attachments;
+using PluginBehaviac.Events;
+using PluginBehaviac.Properties;
 
 namespace PluginBehaviac.Nodes
 {
-    [NodeDesc("FSM", NodeIcon.Wait)]
+    [NodeDesc("FSM:State", NodeIcon.Wait)]
     public class WaitState : StateBase
     {
         public WaitState()
@@ -37,7 +38,7 @@ namespace PluginBehaviac.Nodes
 
         public override bool AcceptsAttachment(Type type)
         {
-            return true;
+            return type == typeof(WaitTransition);
         }
 
         private bool _ignoreTimeScale = false;

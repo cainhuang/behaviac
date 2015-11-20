@@ -68,8 +68,7 @@ namespace behaviac
 
 			this->m_frames_method->run(pParent, pAgent);
 
-			int frames = 0;
-			this->m_frames_method->GetReturnValue(pParent, frames);
+			int frames = this->m_frames_method->GetReturnValue<int>(pParent);
 
 			return frames;
 		}
@@ -156,6 +155,8 @@ namespace behaviac
 	bool WaitFramesStateTask::onenter(Agent* pAgent)
 	{
 		BEHAVIAC_UNUSED_VAR(pAgent);
+
+        this->m_nextStateId = -1;
 
 		this->m_start = 0;
 		this->m_frames = this->GetFrames(pAgent);

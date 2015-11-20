@@ -273,8 +273,8 @@ namespace behaviac
         return pTask;
     }
 
-    int SetNodeId(int nodeId);
-    void ClearNodeId(int slot);
+	uint32_t SetNodeId(uint32_t nodeId);
+	void ClearNodeId(uint32_t slot);
 
     //Execute(Agent* pAgent)method hava be change to Execute(Agent* pAgent, EBTStatus childStatus)
     EBTStatus Action::Execute(const Agent* pAgent, EBTStatus childStatus)
@@ -286,10 +286,10 @@ namespace behaviac
             //#if BEHAVIAC_ENABLE_PROFILING
             //			BEHAVIAC_PROFILE("Node");
             //#endif
-            int nodeId = this->GetId();
+			uint32_t nodeId = this->GetId();
 
-            int slot = SetNodeId(nodeId);
-            BEHAVIAC_ASSERT(slot != -1, "no empty slot found!");
+			uint32_t slot = SetNodeId(nodeId);
+            BEHAVIAC_ASSERT(slot != (uint32_t)-1, "no empty slot found!");
 
             const Agent* pParent = this->m_method->GetParentAgent(pAgent);
             this->m_method->run(pParent, pAgent);
@@ -312,7 +312,6 @@ namespace behaviac
             }
 
             ClearNodeId(slot);
-
         }
         else
         {

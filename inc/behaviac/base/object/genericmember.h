@@ -541,6 +541,10 @@ public:
 
     virtual void Set(const CTagObject* parent, const void* value, int typeId) const
     {
+		BEHAVIAC_UNUSED_VAR(parent);
+		BEHAVIAC_UNUSED_VAR(value);
+		BEHAVIAC_UNUSED_VAR(typeId);
+
         BEHAVIAC_ASSERT(false);
     }
 

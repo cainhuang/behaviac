@@ -86,13 +86,6 @@ namespace Behaviac.Design.Nodes
             return new Behaviac.Design.ObjectUI.ObjectUIPolicy();
         }
 
-        private bool _enable = true;
-        [DesignerBoolean("Enable", "Enable or disable itself", "Debug", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoDisplay | DesignerProperty.DesignerFlags.NoExport)]
-        public bool Enable {
-            get { return _enable; }
-            set { _enable = value; }
-        }
-
         public virtual bool CanBeDragged() {
             return true;
         }
@@ -101,8 +94,8 @@ namespace Behaviac.Design.Nodes
             return this.ParentCanAdoptChildren || this.IsFSM;
         }
 
-        public virtual bool CanBeDisabled() {
-            return Enable ? (Parent != null && Parent.Children.Count > 1) : true;
+        public bool CanBeDisabled() {
+            return this.Enable ? (Parent != null && Parent.Children.Count > 1) : true;
         }
 
         public virtual bool AlwaysExpanded() {
@@ -381,8 +374,16 @@ namespace Behaviac.Design.Nodes
             set { _comment = value; }
         }
 
+        private bool _enable = true;
+        [DesignerBoolean("Enable", "EnableDesc", "Debug", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoDisplay | DesignerProperty.DesignerFlags.NoExport)]
+        public bool Enable
+        {
+            get { return _enable; }
+            set { _enable = value; }
+        }
+
         private int _id = -1;
-        [DesignerInteger("NodeId", "NodeIdDesc", "NodeBasic", DesignerProperty.DisplayMode.NoDisplay, 2, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
+        [DesignerInteger("NodeId", "NodeIdDesc", "Debug", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.ReadOnly | DesignerProperty.DesignerFlags.NoExport | DesignerProperty.DesignerFlags.NotPrefabRelated, null, int.MinValue, int.MaxValue, 1, null)]
         public int Id {
             get { return _id; }
             set { _id = value; }

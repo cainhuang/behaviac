@@ -82,8 +82,8 @@ namespace behaviac
 		return this->m_bIsEndState;
 	}
 
-	int SetNodeId(int nodeId);
-	void ClearNodeId(int slot);
+	uint32_t SetNodeId(uint32_t nodeId);
+	void ClearNodeId(uint32_t slot);
 
 	EBTStatus State::update_impl(Agent* pAgent, EBTStatus childStatus)
 	{
@@ -98,10 +98,10 @@ namespace behaviac
 
 		if (this->m_method)
 		{
-			int nodeId = this->GetId();
+			uint32_t nodeId = this->GetId();
 
-			int slot = SetNodeId(nodeId);
-			BEHAVIAC_ASSERT(slot != -1, "no empty slot found!");
+			uint32_t slot = SetNodeId(nodeId);
+			BEHAVIAC_ASSERT(slot != (uint32_t)-1, "no empty slot found!");
 
 			const Agent* pParent = this->m_method->GetParentAgent(pAgent);
 			this->m_method->run(pParent, pAgent);

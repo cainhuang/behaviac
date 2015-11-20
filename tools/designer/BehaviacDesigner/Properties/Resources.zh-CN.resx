@@ -209,10 +209,10 @@
     <value>终止分析导出文件</value>
   </data>
   <data name="DisableNode" xml:space="preserve">
-    <value>禁用节点</value>
+    <value>禁用</value>
   </data>
   <data name="EnableNode" xml:space="preserve">
-    <value>激活节点</value>
+    <value>激活</value>
   </data>
   <data name="OpenReference" xml:space="preserve">
     <value>打开引用行为树</value>
@@ -684,6 +684,10 @@
   </data>
   <data name="WorkspaceDebugErrorInfo" xml:space="preserve">
     <value>找不到工作区文件："{0}" 
-请确保工作区的导出位置跟运行时端所用的路径保持一致！</value>
+可能是由于工作区的导出位置跟运行时端使用的文件路径不一致造成的。
+请确保提前打开运行时端所用的工作区。</value>
+  </data>
+  <data name="EnableDesc" xml:space="preserve">
+    <value>激活或者禁用自己</value>
   </data>
 </root>

@@ -310,8 +310,6 @@ namespace behaviac
                     val = "";
                     return true;
                 }
-
-                return false;
             }
 
             inline bool FromString(const char* str, behaviac::wstring& val)

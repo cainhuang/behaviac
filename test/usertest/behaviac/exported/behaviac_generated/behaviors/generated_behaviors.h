@@ -72,6 +72,10 @@ and you also need to include your agent types' headers before it:
 #include "behaviac/fsm/state.h"
 #include "behaviac/fsm/startcondition.h"
 #include "behaviac/fsm/transitioncondition.h"
+#include "behaviac/fsm/waitstate.h"
+#include "behaviac/fsm/waitframesstate.h"
+#include "behaviac/fsm/alwaystransition.h"
+#include "behaviac/fsm/waittransition.h"
 
 // You should set the agent header files of your game
 // when exporting cpp files in the behaviac editor:
@@ -231,7 +235,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("demo_running");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -351,7 +355,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("monster");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -602,7 +606,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId(-1);
+			pBT->SetId((uint32_t)-1);
 			pBT->SetName("player");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)

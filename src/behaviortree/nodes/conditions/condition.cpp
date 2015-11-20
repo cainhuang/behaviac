@@ -284,7 +284,7 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(childStatus);
 
-        EBTStatus result = BT_FAILURE;
+        // EBTStatus result = BT_FAILURE;
 
         BEHAVIAC_ASSERT(Condition::DynamicCast(this->GetNode()));
         Condition* pConditionNode = (Condition*)(this->GetNode());
@@ -292,7 +292,5 @@ namespace behaviac
         bool ret = pConditionNode->Evaluate(pAgent);
 
         return ret ? BT_SUCCESS : BT_FAILURE;
-
-        return result;
     }
 }

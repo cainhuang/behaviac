@@ -1,3 +1,16 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// Tencent is pleased to support the open source community by making behaviac available.
+////
+//// Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
+////
+//// Licensed under the BSD 3-Clause License (the "License"); you may not use this file except in compliance with
+//// the License. You may obtain a copy of the License at http://opensource.org/licenses/BSD-3-Clause
+////
+//// Unless required by applicable law or agreed to in writing, software distributed under the License is
+//// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//// See the License for the specific language governing permissions and limitations under the License.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #include "behaviac/behaviac.h"
 
 #include "BTPlayer.h"
@@ -17,11 +30,6 @@ using namespace behaviac;
 
 
 CBTPlayer* g_player = NULL;
-CBTPlayer* g_player1 = NULL;
-
-bool g_bMovePrint = true;
-unsigned int g_uiRunCount = 0;
-
 
 static void SetExePath()
 {
@@ -53,10 +61,10 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
 
     behaviac::Agent::RegisterInstanceName<CBTPlayer>("player1");
 
-    behaviac::Workspace::GetInstance()->SetFilePath("../test/usertest/behaviac/exported");
+    behaviac::Workspace::GetInstance()->SetFilePath("../test/demo_running/behaviac/exported");
     behaviac::Workspace::GetInstance()->SetFileFormat(ff);
 
-    behaviac::Workspace::GetInstance()->ExportMetas("../test/usertest/behaviac/btest.xml");
+    behaviac::Workspace::GetInstance()->ExportMetas("../test/demo_running/behaviac/demo_running.xml");
 
     //behaviac::Agent::SetIdMask(kIdMask_Wolrd | kIdMask_Opponent);
     behaviac::Workspace::GetInstance()->SetDeltaFrames(1);
@@ -70,7 +78,6 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
 bool InitPlayer(const char* pszTreeName)
 {
     g_player = behaviac::Agent::Create<CBTPlayer>();
-    g_player1 = behaviac::Agent::Create<CBTPlayer>("player1");
 
     bool bRet = false;
     bRet = g_player->btload(pszTreeName);
@@ -78,19 +85,12 @@ bool InitPlayer(const char* pszTreeName)
 
     g_player->btsetcurrent(pszTreeName);
 
-    bRet = g_player1->btload(pszTreeName);
-    assert(bRet);
-
-    g_player1->btsetcurrent(pszTreeName);
-
-
     return bRet;
 }
 
 void CleanupPlayer()
 {
     behaviac::Agent::Destroy(g_player);
-    behaviac::Agent::Destroy(g_player1);
 }
 
 void CleanupBehaviac()
@@ -107,81 +107,27 @@ int main(int argc, char** argv)
 {
     SetExePath();
 
-    cout << "usage: btPath [loopCout] [0|1] [xml|cpp|bson]\n\n";
-
 	const char* szTreeName = "demo_running";
-	if (argc > 1)
-	{
-		szTreeName = argv[1];
-	}
 
 	cout << "bt:" << szTreeName << "\n\n";
 
-    int iCount = argc > 2 ? atoi(argv[2]) : 0;
-    g_bMovePrint = argc > 3 && atoi(argv[3]) != 0 ? true : false;
-
-    const char* ffParam = argc > 4 ? argv[4] : "xml";
-
     behaviac::Workspace::EFileFormat ff = behaviac::Workspace::EFF_xml;
-
-    if (behaviac::StringUtils::StrEqualNoCase(ffParam, "xml"))
-    {
-        ff = behaviac::Workspace::EFF_xml;
-    }
-    else if (behaviac::StringUtils::StrEqualNoCase(ffParam, "bson"))
-    {
-        ff = behaviac::Workspace::EFF_bson;
-    }
-    else if (behaviac::StringUtils::StrEqualNoCase(ffParam, "cpp"))
-    {
-        ff = behaviac::Workspace::EFF_cpp;
-    }
-    else
-    {
-        BEHAVIAC_ASSERT(false);
-        cout << "unrecognized file format " << ffParam << std::endl;
-    }
-
 
     InitBehavic(ff);
     InitPlayer(szTreeName);
-
-    //if (iCount > 0)
-    //{
-    //	cout << "initialized successfully,  executing...\n";
-    //}
 
     clock_t start = clock();
 
     int i  = 0;
 
-    if (iCount == 0)
-    {
-        int frames = 0;
-        behaviac::EBTStatus status = behaviac::BT_RUNNING;
+	int frames = 0;
+	behaviac::EBTStatus status = behaviac::BT_RUNNING;
 
-        while (status == behaviac::BT_RUNNING)
-        {
-            cout << "frame " << ++frames << std::endl;
-            status = g_player->btexec();
-        }
-    }
-    else
-    {
-        while (i++ < iCount)
-        {
-            behaviac::Workspace::GetInstance()->Update();
-        };
-    }
-
-    clock_t finish = clock();
-
-    if (iCount > 0)
-    {
-        float duration = (float)(finish - start) / CLOCKS_PER_SEC;
-
-        cout << "format " << ffParam << " duration(seconds):" << duration << " RunCount:" << g_uiRunCount << endl;
-    }
+	while (status == behaviac::BT_RUNNING)
+	{
+		cout << "frame " << ++frames << std::endl;
+		status = g_player->btexec();
+	}
 
     CleanupPlayer();
     CleanupBehaviac();

@@ -29,10 +29,10 @@ Desc        : construct function
 ******************************************************************/
 Enemy::Enemy()
 {
-    //this->btload("enemy_fsm");
-    //this->btsetcurrent("enemy_fsm");
-    this->btload("enemy");
-    this->btsetcurrent("enemy");
+    this->btload("enemy_fsm");
+    this->btsetcurrent("enemy_fsm");
+    //this->btload("enemy");
+    //this->btsetcurrent("enemy");
     speed = 20.0f;
 }
 
@@ -172,7 +172,7 @@ bool Enemy::isAlive()
     }
     else
     {
-        //this->SetActive(false);
+        
         //if the enemy is dead, then add this agent's behaviac to GanmeScene's agent delete queue.
         GameScene::addBehaviacAgentDeleteQueue((behaviac::Agent*)this);
         return false;

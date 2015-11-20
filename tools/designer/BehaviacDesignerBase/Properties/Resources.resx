@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -835,5 +835,11 @@ Are your sure continue the undo/redo operation?</value>
   </data>
   <data name="HTN" xml:space="preserve">
     <value>HTN</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Transition" xml:space="preserve">
+    <value>Transition</value>
   </data>
 </root>

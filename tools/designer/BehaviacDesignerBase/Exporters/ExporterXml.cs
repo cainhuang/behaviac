@@ -348,6 +348,9 @@ namespace Behaviac.Design.Exporters
 
         protected void ExportAttachments(XmlWriter file, Node node) {
             foreach(Attachments.Attachment a in node.Attachments) {
+                if (!a.Enable)
+                    continue;
+
                 file.WriteStartElement("attachment");
 
                 Type type = a.GetType();

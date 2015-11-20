@@ -135,10 +135,12 @@ namespace behaviac
 	bool WaitStateTask::onenter(Agent* pAgent)
 	{
 		BEHAVIAC_UNUSED_VAR(pAgent);
+        
+        this->m_nextStateId = -1;
+
 		if (this->GetIgnoreTimeScale())
 		{
 			this->m_start = Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f;
-
 		}
 		else
 		{

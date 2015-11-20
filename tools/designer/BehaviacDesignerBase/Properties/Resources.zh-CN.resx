@@ -834,4 +834,10 @@
   <data name="HTN" xml:space="preserve">
     <value>任务网络</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Transition" xml:space="preserve">
+    <value>转换</value>
+  </data>
 </root>

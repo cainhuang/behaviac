@@ -426,7 +426,7 @@ namespace behaviac
 
         return 0;
     }
-    BehaviorNode* BehaviorNode::GetChildById(int nodeId) const
+	BehaviorNode* BehaviorNode::GetChildById(uint32_t nodeId) const
     {
         size_t m_childCount = this->m_children->size();
 
@@ -486,14 +486,14 @@ namespace behaviac
         return this->m_className;
     }
 
-    int BehaviorNode::GetId() const
+	uint32_t BehaviorNode::GetId() const
     {
         //BEHAVIAC_ASSERT(this->m_id != INVALID_NODE_ID);
 
         return this->m_id;
     }
 
-    void BehaviorNode::SetId(int id)
+	void BehaviorNode::SetId(uint32_t id)
     {
         this->m_id = id;
     }
@@ -1340,7 +1340,7 @@ namespace behaviac
         }
 
         this->SetClassNameString("BehaviorTree");
-        this->SetId(-1);
+		this->SetId((uint32_t)-1);
 
         if (fsm && StringUtils::StrEqual(fsm, "true"))
         {
@@ -1613,7 +1613,7 @@ namespace behaviac
                 }
 
                 this->SetClassNameString("BehaviorTree");
-                this->SetId(-1);
+				this->SetId((uint32_t)-1);
 
                 this->m_bIsFSM = bFsm;
 

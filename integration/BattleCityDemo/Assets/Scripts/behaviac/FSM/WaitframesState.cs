@@ -115,6 +115,8 @@ namespace behaviac
 
             protected override bool onenter(Agent pAgent)
             {
+                this.m_nextStateId = -1;
+
                 this.m_start = 0;
                 this.m_frames = this.GetFrames(pAgent);
 

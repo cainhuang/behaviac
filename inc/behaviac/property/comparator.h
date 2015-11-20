@@ -157,9 +157,7 @@ namespace behaviac
         {
             BEHAVIAC_ASSERT(this->m_lhs_m);
             this->m_lhs_m->Invoke(agentL);
-            bool bOk = this->m_lhs_m->GetReturnValue(agentL, lhs);
-            BEHAVIAC_ASSERT(bOk);
-            BEHAVIAC_UNUSED_VAR(bOk);
+			lhs = this->m_lhs_m->template GetReturnValue<VariableType>(agentL);
         }
 
         VariableType rhs;
@@ -175,16 +173,18 @@ namespace behaviac
         {
             BEHAVIAC_ASSERT(this->m_rhs_m);
             this->m_rhs_m->Invoke(agentR);
-            bool bOk = this->m_rhs_m->GetReturnValue(agentR, rhs);
-            BEHAVIAC_ASSERT(bOk);
-            BEHAVIAC_UNUSED_VAR(bOk);
+			rhs = this->m_rhs_m->template GetReturnValue<VariableType>(agentR);
         }
 
         switch (this->m_comparisonType)
         {
             case VariableComparisonType_Assignment:
                 BEHAVIAC_ASSERT(this->m_lhs && pTP_lhs);
-                pTP_lhs->SetValue(agentL, rhs);
+				if (this->m_lhs && pTP_lhs)
+				{
+					pTP_lhs->SetValue(agentL, rhs);
+				}
+
                 break;
 
             case VariableComparisonType_Equal:
@@ -244,9 +244,7 @@ namespace behaviac
             {
                 BEHAVIAC_ASSERT(this->m_lhs_m);
                 this->m_lhs_m->Invoke(agentL);
-                bool bOk = this->m_lhs_m->GetReturnValue(agentL, lhs);
-                BEHAVIAC_UNUSED_VAR(bOk);
-                BEHAVIAC_ASSERT(bOk);
+                lhs = this->m_lhs_m->GetReturnValue<bool>(agentL);
             }
 
             bool rhs = false;
@@ -262,9 +260,7 @@ namespace behaviac
             {
                 BEHAVIAC_ASSERT(this->m_rhs_m);
                 this->m_rhs_m->Invoke(agentR);
-                bool bOk = this->m_rhs_m->GetReturnValue(agentR, rhs);
-                BEHAVIAC_UNUSED_VAR(bOk);
-                BEHAVIAC_ASSERT(bOk);
+				rhs = this->m_rhs_m->GetReturnValue<bool>(agentR);
             }
 
             switch (this->m_comparisonType)

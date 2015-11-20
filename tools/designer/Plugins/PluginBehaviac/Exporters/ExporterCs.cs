@@ -404,6 +404,9 @@ namespace PluginBehaviac.Exporters
         {
             foreach (Behaviac.Design.Attachments.Attachment attach in node.Attachments)
             {
+                if (!attach.Enable)
+                    continue;
+
                 string nodeName = string.Format("attach{0}", attach.Id);
 
                 AttachmentCsExporter attachmentExporter = AttachmentCsExporter.CreateInstance(attach);
@@ -418,7 +421,7 @@ namespace PluginBehaviac.Exporters
                 file.WriteLine("{0}// attachments", indent);
                 foreach (Behaviac.Design.Attachments.Attachment attach in node.Attachments)
                 {
-                    if (attach.IsStartCondition)
+                    if (!attach.Enable || attach.IsStartCondition)
                         continue;
 
                     file.WriteLine("{0}{{", indent);

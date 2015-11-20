@@ -209,16 +209,11 @@ namespace behaviac
 
     void PlannerTaskComplex::RemoveChild(PlannerTask* childTask)
     {
+        BEHAVIAC_UNUSED_VAR(childTask);
         BEHAVIAC_ASSERT(this->m_children.size() > 0 && this->m_children[this->m_children.size() - 1] == childTask);
 
         //this->m_children.Remove(childTask);
-        for (behaviac::vector<BehaviorTask*>::iterator it = this->m_children.begin(); it != this->m_children.end(); it++)
-        {
-            if (*it == childTask)
-            {
-                m_children.erase(it);
-            }
-        }
+		this->m_children.pop_back();
     }
 
     PlannerTaskComplex::PlannerTaskComplex(BehaviorNode* node, Agent* pAgent)

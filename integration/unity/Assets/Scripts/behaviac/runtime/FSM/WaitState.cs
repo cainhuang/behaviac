@@ -124,10 +124,11 @@ namespace behaviac
 
             protected override bool onenter(Agent pAgent)
             {
+                this.m_nextStateId = -1;
+
                 if (this.GetIgnoreTimeScale())
                 {
                     this.m_start = Workspace.Instance.TimeSinceStartup * 1000.0f;
-
                 }
                 else
                 {

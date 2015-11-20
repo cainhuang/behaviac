@@ -106,6 +106,7 @@ namespace behaviac
 		while (bLoop)
 		{
 			BehaviorTask* currentState = this->GetChildById(this->m_currentNodeId);
+            //BEHAVIAC_ASSERT(currentState->GetNextStateId() == -1, "m_nextStateId is not reset to -1 in onenter");
 			currentState->exec(pAgent);
 
 			if (StateTask::DynamicCast(currentState) != 0)

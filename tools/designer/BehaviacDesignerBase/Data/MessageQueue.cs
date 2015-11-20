@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -136,6 +136,7 @@ namespace Behaviac.Design.Data
 
                             while (_currentIndex < _messages.Count) {
                                 string msg = _messages[_currentIndex];
+                                _currentIndex++;
 
                                 if (msg.IndexOf("[frame]") == 10) {
                                     int frame = (int.Parse(msg.Substring(17)));
@@ -143,7 +144,6 @@ namespace Behaviac.Design.Data
                                 }
 
                                 ProcessMessageHandler(msg);
-                                _currentIndex++;
 
                                 long ms = _stopwatch.ElapsedMilliseconds;
 

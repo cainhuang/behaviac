@@ -38,7 +38,6 @@ namespace Behaviac.Design
         private static bool ms_workspace_handled = false;
         private static string ms_fileFormat = "xml";
 
-
         private static UpdateModes processMessage(string _msg) {
             try {
                 //skip index
@@ -178,24 +177,28 @@ namespace Behaviac.Design
                         {
                             try
                             {
-                                MainWindow.Instance.BehaviorTreeList.Timer.Enabled = false;
                                 string errorInfo = string.Format(Resources.WorkspaceDebugErrorInfo, wksName);
-                                Console.WriteLine(errorInfo);
-                                MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
+
+                                ErrorInfoDock.Inspect();
+                                ErrorInfoDock.WriteLine(errorInfo);
+
+                                //MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
                             }
                             catch
                             {
                             }
-                        }
-                        else
-                        {
-                            //Plugin_WorkspaceDelegateHandler might be blocked
-                            ms_workspace_handled = true;
-                            Plugin.WorkspaceDelegateHandler(wksName, false);
-                            ms_workspace_handled = false;
+
+                            if (Workspace.Current != null)
+                            {
+                                wksName = Workspace.Current.FileName;
+                                if (!string.IsNullOrEmpty(wksName))
+                                    wksName = Path.GetFullPath(wksName);
+                            }
                         }
 
-                        Console.WriteLine("processWorkspace handled!");
+                        ms_workspace_handled = true;
+                        Plugin.WorkspaceDelegateHandler(wksName, false);
+                        ms_workspace_handled = false;
                     }
 
                     AgentDataPool.TotalFrames = 0;

@@ -376,6 +376,7 @@ public:
     //[behaviac.MethodMetaInfo("2 # SMF_Agent", "A")]
     static behaviac::Agent* Func_AgentSMF(behaviac::Agent* par)
     {
+		BEHAVIAC_UNUSED_VAR(par);
         behaviac::Agent* tv = NULL;
         //		if(par == NULL)
         //			tv = this;

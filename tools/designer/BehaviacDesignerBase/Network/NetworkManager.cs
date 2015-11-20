@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -223,12 +223,17 @@ namespace Behaviac.Design.Network
             }
 
             Debug.Check(data.Length <= maxLen);
-            maxLen = data.Length - 1;
+            if (data.Length <= maxLen)
+            {
+                maxLen = data.Length - 1;
 
-            string ret = ecode.GetString(data, dataIdx, maxLen);
-            char[] zeroChars = { '\0', '?' };
+                string ret = ecode.GetString(data, dataIdx, maxLen);
+                char[] zeroChars = { '\0', '?' };
 
-            return ret.TrimEnd(zeroChars);
+                return ret.TrimEnd(zeroChars);
+            }
+
+            return "[Error]The length of the message is above the Max value!";
         }
 
         int[] m_packets = new int[(int)SocketPacket.CommandID.MAX];
@@ -269,19 +274,6 @@ namespace Behaviac.Design.Network
 
         private void handleText(byte[] msgData) {
             string text = GetStringFromBuffer(msgData, 1, kMaxTextLength, true);
-            //int pos = text.IndexOf("][");
-            //if (pos != -1)
-            //{
-            //    string indexStr = text.Substring(1, pos - 1);
-            //    int index = int.Parse(indexStr);
-            //    if (_lastIndex != -1)
-            //    {
-            //        Debug.Check(_lastIndex + 1 == index);
-            //    }
-
-            //    _lastIndex = index;
-            //}
-
             MessageQueue.PostMessageBuffer(text);
         }
 

@@ -137,7 +137,7 @@
     <value>..\Resources\File-Open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EnableNode" xml:space="preserve">
-    <value>Enable Node</value>
+    <value>Enable</value>
   </data>
   <data name="Folder_Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Folder-Open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -227,7 +227,7 @@
     <value>Properties</value>
   </data>
   <data name="DisableNode" xml:space="preserve">
-    <value>Disable Node</value>
+    <value>Disable</value>
   </data>
   <data name="ConnectServer" xml:space="preserve">
     <value>Connect Server</value>
@@ -699,6 +699,10 @@ Are you sure to continue?</value>
   </data>
   <data name="WorkspaceDebugErrorInfo" xml:space="preserve">
     <value>The workspace file "{0}" can not be found.
-Please check the exported location of the workspace is the right one on the runtime side.</value>
+It is possible that the export location of the workspace is not the one which is used by the runtime.
+Please be sure to open the workspace which is used by the runtime!</value>
+  </data>
+  <data name="EnableDesc" xml:space="preserve">
+    <value>Enable or disable itself</value>
   </data>
 </root>

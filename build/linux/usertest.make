@@ -66,7 +66,7 @@ endif
 
 OBJECTS := \
 	$(OBJDIR)/BTPlayer.o \
-	$(OBJDIR)/bttest.o \
+	$(OBJDIR)/usertest.o \
 
 RESOURCES := \
 
@@ -131,7 +131,7 @@ $(OBJDIR)/BTPlayer.o: ../../test/usertest/BTPlayer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/bttest.o: ../../test/usertest/bttest.cpp
+$(OBJDIR)/usertest.o: ../../test/usertest/usertest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

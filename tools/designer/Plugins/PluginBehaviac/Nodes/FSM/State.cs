@@ -10,7 +10,7 @@ using Behaviac.Design.Attachments;
 
 namespace PluginBehaviac.Nodes
 {
-    [NodeDesc("FSM", "state_icon")]
+    [NodeDesc("FSM:State", "state_icon")]
     public class State : StateBase
     {
         public State()

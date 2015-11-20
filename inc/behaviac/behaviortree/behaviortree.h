@@ -54,7 +54,7 @@ Success/Failure indicating a complete run and its result.
 
 namespace behaviac
 {
-    const int INVALID_NODE_ID = -2;
+	const uint32_t INVALID_NODE_ID = (uint32_t)-2;
 
     class Property;
     class Agent;
@@ -201,7 +201,7 @@ namespace behaviac
 
         uint32_t GetChildrenCount() const;
         const BehaviorNode* GetChild(uint32_t index) const;
-        BehaviorNode* GetChildById(int nodeId) const;
+		BehaviorNode* GetChildById(uint32_t nodeId) const;
         uint32_t GetAttachmentsCount() const;
         const BehaviorNode* GetAttachment(uint32_t index) const;
 
@@ -265,8 +265,8 @@ namespace behaviac
         void SetClassNameString(const char* className);
         const behaviac::string& GetClassNameString() const;
 
-        int GetId() const;
-        void SetId(int id);
+		uint32_t GetId() const;
+		void SetId(uint32_t id);
 
         void SetAgentType(const behaviac::string& agentType);
 
@@ -295,7 +295,7 @@ namespace behaviac
         behaviac::vector<BehaviorNode*>		m_preconditions;
 
         behaviac::string		m_className;
-        int						m_id;
+		uint32_t				m_id;
         behaviac::string		m_agentType;
         char					m_enter_precond;
         char					m_update_precond;

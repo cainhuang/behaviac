@@ -443,7 +443,7 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Node.
+        ///   Looks up a localized string similar to Disable.
         /// </summary>
         internal static string DisableNode {
             get {
@@ -607,7 +607,16 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable Node.
+        ///   Looks up a localized string similar to Enable or disable itself.
+        /// </summary>
+        internal static string EnableDesc {
+            get {
+                return ResourceManager.GetString("EnableDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
         /// </summary>
         internal static string EnableNode {
             get {
@@ -1713,7 +1722,8 @@ namespace Behaviac.Design.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to The workspace file &quot;{0}&quot; can not be found.
-        ///Please check the exported location of the workspace is the right one on the runtime side..
+        ///It is possible that the export location of the workspace is not the one which is used by the runtime.
+        ///Please be sure to open the workspace which is used by the runtime!.
         /// </summary>
         internal static string WorkspaceDebugErrorInfo {
             get {

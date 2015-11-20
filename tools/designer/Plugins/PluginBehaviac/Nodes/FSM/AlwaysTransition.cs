@@ -11,7 +11,7 @@ using PluginBehaviac.Nodes;
 
 namespace PluginBehaviac.Events
 {
-    [NodeDesc("FSM", "transition_icon")]
+    [NodeDesc("FSM:Transition", "transition_icon")]
     class AlwaysTransition : StartCondition
     {
         public AlwaysTransition(Node node)
@@ -34,9 +34,19 @@ namespace PluginBehaviac.Events
             return "Always";
         }
 
+        public override bool CanBeDisabled()
+        {
+            return true;
+        }
+
         public override bool IsStartCondition
         {
             get { return false; }
+        }
+
+        public override bool CanBeDeleted
+        {
+            get { return true; }
         }
     }
 }

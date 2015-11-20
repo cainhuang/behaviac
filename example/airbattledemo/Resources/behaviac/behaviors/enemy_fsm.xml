@@ -19,16 +19,14 @@
         <Comment Background="NoColor" Text="" />
         <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="7" Operator="Assign" Opl="float Self.Enemy::randomSpeed" Opr1="&quot;&quot;" Opr2="Self.Enemy::getRandomSpeedByInitSpeed(float Self.Enemy::initSpeed)" Phase="Enter" PrefabAttachmentId="-1" />
         <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="8" Operator="Invalid" Opl="Self.Enemy::setSpeed(float Self.Enemy::randomSpeed)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Enter" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="11" Operator="Equal" Opl="Self.Enemy::isAlive()" Opr1="&quot;&quot;" Opr2="const bool true" PrefabAttachmentId="-1" TargetFSMNodeId="9" />
-        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="15" Operator="Equal" Opl="Self.Enemy::isAlive()" Opr1="&quot;&quot;" Opr2="const bool false" PrefabAttachmentId="-1" TargetFSMNodeId="14" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="15" Operator="Equal" Opl="Self.Enemy::isAlive()" Opr1="&quot;&quot;" Opr2="const bool false" PrefabAttachmentId="-1" TargetFSMNodeId="19" />
+        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="11" Operator="Equal" Opl="Self.Enemy::isAlive()" Opr1="&quot;&quot;" Opr2="const bool true" PrefabAttachmentId="-1" TargetFSMNodeId="16" />
       </Node>
-      <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="9" IsEndState="false" Method="&quot;&quot;" Name="Idling" PrefabName="" PrefabNodeId="-1" ScreenLocationX="222.8331" ScreenLocationY="235.7257">
+      <Node Class="PluginBehaviac.Nodes.WaitFramesState" Enable="true" Frames="const int 3" HasOwnPrefabData="false" Id="16" IsEndState="false" Name="等待帧数状态" PrefabName="" PrefabNodeId="-1" ScreenLocationX="236.6541" ScreenLocationY="170.6596">
         <Comment Background="NoColor" Text="" />
-        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="10" Operator="Assign" Opl="int Self.Enemy::frameCount" Opr1="&quot;&quot;" Opr2="const int 1" Phase="Enter" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="12" Operator="Add" Opl="int Self.Enemy::frameCount" Opr1="int Self.Enemy::frameCount" Opr2="const int 1" Phase="Enter" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Id="13" Operator="Equal" Opl="int Self.Enemy::frameCount" Opr1="&quot;&quot;" Opr2="const int 30" PrefabAttachmentId="-1" TargetFSMNodeId="2" />
+        <Attachment Class="PluginBehaviac.Events.WaitTransition" Id="17" PrefabAttachmentId="-1" TargetFSMNodeId="2" />
       </Node>
-      <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="14" IsEndState="false" Method="&quot;&quot;" Name="death" PrefabName="" PrefabNodeId="-1" ScreenLocationX="-45.33344" ScreenLocationY="303.5">
+      <Node Class="PluginBehaviac.Nodes.State" Enable="true" HasOwnPrefabData="false" Id="19" IsEndState="false" Method="&quot;&quot;" Name="Death" PrefabName="" PrefabNodeId="-1" ScreenLocationX="87.11562" ScreenLocationY="346">
         <Comment Background="NoColor" Text="" />
       </Node>
     </FSMNodes>

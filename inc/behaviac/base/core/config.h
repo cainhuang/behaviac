@@ -34,8 +34,6 @@
 //unreferenced formal parameter
 #pragma warning(disable : 4100)
 
-#pragma warning(disable : 4505) // unreferenced local function has been removed
-
 #pragma warning(disable : 4127) // conditional expression is constant
 
 //warning C4702: unreachable code

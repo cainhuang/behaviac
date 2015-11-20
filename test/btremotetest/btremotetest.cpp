@@ -120,7 +120,7 @@ void btagenttick()
 	}
 }
 
-#if 1
+#if 0
 class TestAgent : public behaviac::Agent
 {};
 

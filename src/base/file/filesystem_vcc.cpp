@@ -455,6 +455,7 @@ void CFileSystem::Visit
 
 void CFileSystem::HandleDamageDisk(const char* szFilename)
 {
+	BEHAVIAC_UNUSED_VAR(szFilename);
 #ifndef _DEBUG
     //	uint32_t error = GetLastError();
     //	FatalError::DamagedDisc( szFilename );
@@ -531,6 +532,8 @@ bool CFileSystem::isFullPath(const char* szFilename)
 
 void CFileSystem::ReadError(Handle file)
 {
+	BEHAVIAC_UNUSED_VAR(file);
+
     uint32_t error = GetLastError();
     char text[256];
     text[0] = '\0';
@@ -957,6 +960,8 @@ static bool s_bThreadFinish = false;
 
 DWORD WINAPI ThreadFunc(LPVOID lpvd)
 {
+	BEHAVIAC_UNUSED_VAR(lpvd);
+
     behaviac::vector<ModifiedFile_t> modifiedFiles;
 
     VECCHANGES vecChanges;

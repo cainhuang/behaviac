@@ -88,8 +88,7 @@ namespace behaviac
             //}
 
             method->run(pParent, pAgent);
-            bool bOk = method->GetReturnValue(pParent, value);
-            BEHAVIAC_UNUSED_VAR(bOk);
+			value = method->GetReturnValue<double>(pParent);
 
         }
         else

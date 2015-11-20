@@ -413,6 +413,42 @@ solution "behaviac"
 			
 		defines "_CONSOLE"
 		
+	project "demo_running"
+		if string.match(action, "xcode") ~= nil then
+			kind     "WindowedApp"
+		else
+			kind     "ConsoleApp"
+		end
+		
+		files  { 
+			"../test/demo_running/**.h", 
+			"../test/demo_running/**.cpp"
+			}
+			
+		includedirs { "../inc", 
+			"../../../include", 
+			"../test/demo_running/"
+			}
+
+		libdirs { "../lib/"  }
+			
+		links "behaviac"
+		linkLib("behaviac", false, true);
+		
+		setTargetObjDir("../bin")
+		
+		if string.match(action, "gmake") ~= nil or string.match(action, "xcode") ~= nil or string.match(action, "jni") ~= nil then	
+			configuration {}
+				buildoptions { 
+					"-Wno-unused-parameter",
+					"-Wno-unused-variable",
+				}
+		end
+
+		--configuration  {"vs2008 or vs2010", "Debug or Release"}
+			
+		defines "_CONSOLE"
+		
 	project "btremotetest"
 		kind     "ConsoleApp"
 		files  { 
