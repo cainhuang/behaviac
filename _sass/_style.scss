@@ -7,7 +7,7 @@
 }
 
 body {
-  font: 300 21px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 300 21px Lato, 'Helvetica Neue', Helvetica,'Microsoft JhengHei','Microsoft Yahei', Arial, sans-serif;
   color: #ddd;
   background-color: #333;
   border-top: 5px solid #fc0;
@@ -995,4 +995,37 @@ code.output {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.query_input{
+  border-radius:3px;
+  padding: 8px 10px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+  background-color: #223d4c;
+  border: 1px solid #677c89;
+  border-bottom-color: #6b808d;
+  border-radius: 3px 0px 0 3px;
+}
+.query_btn{
+  border-radius:3px;
+  padding: 8px 10px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+  background-color: #333333;
+  border: 1px solid #677c89;
+  border-bottom-color: #6b808d;
+  min-width:40px;
+}
+
+.first_detail_info{
+  font-size:36px;
+  color: #4169E1;
+  font-style: italic;
 }
