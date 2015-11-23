@@ -40,6 +40,12 @@ Others
 ======
 Please check the docs on the docs folder to get more details.
 
+Thanks To
+======
+
+[panyihua](https://github.com/panyihua): Hot reload for linux
+
+Thank you for making such a valuable contribution to our behaviac project.
 
 ----------
 
@@ -84,3 +90,8 @@ Please check the docs on the docs folder to get more details.
  - 可以通过如下链接观看教学视频 :   [http://gad.qq.com/tool/detail/2](http://gad.qq.com/tool/detail/2).
  - QQ群：433547396
  
+致谢
+======
+[panyihua](https://github.com/panyihua): Hot reload for linux 
+
+感谢你们为行为树项目作出的卓越贡献，也欢迎更多的人加入我们。每一次有价值的提交都会让我们有新的进步。
