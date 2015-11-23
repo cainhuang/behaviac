@@ -16,3 +16,72 @@
     </nav>
   </div>
 </header>
+
+<script src="{{site.baseurl}}/js/jquery.js"></script>
+<script src="{{site.baseurl}}/js/lunr.min.js"></script>
+<script src="{{site.baseurl}}/search.js"></script>
+<script>
+$(function() {
+  $("#query_btn").click(function()
+  {
+    search();
+  })
+  $("#query_input").keypress(function(e) {
+    if(e.which == 13) {
+      e.preventDefault();
+      search();
+    }
+  });
+})
+function search() {
+  var result = idx.search($("#query_input").val());
+  if(result && result.length > 0) {
+    var result_str="";
+    for(var i=0;i<result.length;i++)
+    {
+      id=result[i].ref;
+      doc=docs.filter(function(q){return q.id===id})[0];
+      title=doc['title'].substr(0,40);
+      content=doc["content"].substr(0,40);
+      result_str+=
+      "<p class=\"line\">"+
+          "<span class=\"path\"><a href=\""+id+"\" target=\"_blank\">"+title+"</a></span>"+
+          "<span class=\"prompt\">$:</span>"+
+          "<span class=\"command\">"+content+"</span>"+
+      "</p>";
+      // result_str+="<li>"+id+"</li>\n";
+      // result_str+="<p class=\"line\">"+id+"<span>"++"</span></li>\n";
+    }
+    // alert(result_str);
+    //show the search result
+    $("#query_result").html(result_str);
+ 
+  } else {
+    alert("Found nothing");
+  }
+}
+</script>
+
+<section class="quickstart">
+  <div class="grid">
+    <div class="unit one-fifth center-on-mobiles">
+      <h3>Search <em>:</em></h3>
+    </div>
+    <div class="unit four-fifths code">
+      <p class="title">Quick-start Search</p>
+      <div class="shell">
+        <form class="line">
+          <div class="input-append">
+            <input class="query_input three-fifths" type="search" name="q" id="query_input" placeholder="Enter keywords..."/>
+            <button class="query_btn one-fifths" type="button" id="query_btn">GO!</button>
+          </div>
+        </form>
+
+          <ul id="query_result" class="four-fifths">
+
+          </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</section>

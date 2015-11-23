@@ -3,7 +3,7 @@ layout: news_item
 title: 'Behaviac 2.1.1 Released'
 date: 2015-06-26 21:06:51 -0800
 author: pjkui
-categories: [community]
+categories: [news]
 ---
 
 We're super excited to announce the behaviac 2.1.1 was released!
