@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Tencent Behaviac &bull; Simple, Game AI, Offfical Website
+title: Tencent behaviac &bull; Simple, Game AI, Offfical Website
 overview: true
 ---
 
@@ -13,6 +13,7 @@ overview: true
             <h1>behaviac</h1>
             <p>
             behaviac是游戏AI的开发框架组件，也是游戏原型的快速设计工具。支持行为树BT，状态机FSM，HTN等多种范式，方便的编辑和调试。支持全平台，适用于客户端和服务器，助力游戏快速迭代开发。
+            <a href="{{site.baseurl}}/docs/home/">详情 &rarr;</a>
             </p>
           </div>
         </div>
@@ -27,20 +28,21 @@ overview: true
     <div class="unit one-third">
       <h2>Simple/简单</h2>
       <p>
-        Use behaviac on your projects is very simple. 
-        No more databases, comment moderation, or pesky updates to install—just <em>your content</em>.
+        集成简单，方便 
       </p>
-      <a href="{{site.baseurl}}/docs/usage/">How Behaviac works &rarr;</a>
+      <a href="{{site.baseurl}}/docs/usage/">How behaviac works &rarr;</a>
     </div>
     <div class="unit one-third">
       <h2>Flexible/灵活</h2>
-      <p><a href="http://daringfireball.net/projects/markdown/">Markdown</a> (or <a href="http://redcloth.org/textile">Textile</a>), <a href="https://github.com/Shopify/liquid/wiki">Liquid</a>, HTML <span class="amp">&amp;</span> CSS go in. Static sites come out ready for deployment.</p>
-      <a href="/docs/templates/">Behaviac template guide &rarr;</a>
+      <p> 
+        操作方便，直观
+      </p>
+      <a href="/docs/">behaviac guide &rarr;</a>
     </div>
     <div class="unit one-third">
       <h2>Powerful/强大</h2>
       <p>
-        Support Multiple Game Engins.
+        作为组件，可以集成进任何引擎：
         Unity 3D, Cocos2d-x, SDL...
       </p>
       <a href="/docs/migrations/">Samples &rarr;</a>
@@ -55,7 +57,25 @@ overview: true
       <div class="grid pane">
         <div class="unit whole center-on-mobiles">
           <div class="pane-content">
-            <p>behaviac有编辑器和运行时两部分，基于元信息</p>
+            <p>behaviac有编辑器和运行时两部分，整个系统基于元信息:</p>
+            <img src="img/overview/meta.png" width="500" height="251" alt="meta">
+            <ul>
+              <li>
+                在游戏里导出元信息
+              </li>
+              <li>
+                在编辑器里使用导出的元信息创建行为树或状态机等
+              </li>
+              <li>
+                在编辑器里导出行为树或状态机等为xml，bson或c++，c#
+              </li>
+              <li>
+                在游戏里加载并执行导出的行为树或状态机
+              </li>
+              <li>
+                或者，使用编辑器作为原型设计开发工具
+              </li>
+            </ul>
           </div>
         </div>
         <div class="clear"></div>

@@ -3,3 +3,4 @@ _site/
 pkg/
 test/
 .sass-cache/
+/*.sublime-workspace

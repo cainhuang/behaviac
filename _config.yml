@@ -13,9 +13,9 @@ collections:
   docs:
     output: true
 
-name: Behaviac • Simple, Game AI, Offfical  Website
+name: behaviac • Simple, Game AI, Offfical  Website
 description: Advance Game AI framework, support Unity 3D, Cocos 2d, SDL and other game engine.
-url: http://tencentopen.github.io/behaviac/
+url: http://tencentopen.github.io/behaviac
 
 gems:
   - jekyll-feed
