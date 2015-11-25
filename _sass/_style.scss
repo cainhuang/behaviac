@@ -62,7 +62,7 @@ nav {
 }
 
 .main-nav {
-  margin-top: 52px;
+  margin-top: 0px;
 
   li {
     margin-right: 10px;
@@ -1051,4 +1051,15 @@ code.output {
 }
 .input-append{
   text-align: center;
+}
+.tencentOpen_logo{
+  float: right;
+  display: block;
+  width: 180px;
+  height: 50px;
+}
+.main-nav ul{
+  width: 100%;
+  float: left;
+  margin-bottom: 10px;
 }
