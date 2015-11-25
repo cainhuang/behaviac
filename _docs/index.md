@@ -17,6 +17,7 @@ permalink: /docs/home/
  - 运行时支持全平台，有C++和C#两个版本，原生支持Unity
  - 已被《天天炫斗》、《QQ飞车》、《全民突击》、《全民夺宝》、《九龙战》等游戏及其他更多预研项目使用
  - 所有代码，包括编辑器和运行时[全部开源https://github.com/TencentOpen/behaviac](https://github.com/TencentOpen/behaviac)
+ - <a href="{{site.baseurl}}/docs/home/">详情 &rarr;</a>
 
 ## 其他说明
 
