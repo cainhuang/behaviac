@@ -1,5 +1,5 @@
 {
   "id"    : "{{site.baseurl}}{{ post.url }}",
   "title"   : "{{ post.title }}",
-  "content" : "{{ post.content | strip_html | strip_newlines | remove:'\"'  }}"
+  "content" : "{{ post.content | strip_html | strip_newlines | remove:'"' }}"
 }
