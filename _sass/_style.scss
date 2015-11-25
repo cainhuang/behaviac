@@ -291,12 +291,14 @@ footer {
       background-image: linear-gradient(top, #f7f7f7 0%,#cfcfcf 7%,#aaaaaa 100%);
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#aaaaaa',GradientType=0 );
       border-bottom: 1px solid #111;
+      margin-left: 0px;
     }
 
     .shell {
       padding: 20px;
       text-shadow: none;
       margin: 0 20px;
+      margin-left: 0px;
       background-color: #171717;
       @include border-radius(0 0 5px 5px);
       @include box-shadow(0 5px 30px rgba(0,0,0,.3));
@@ -1031,17 +1033,22 @@ code.output {
   color: #4169E1;
   font-style: italic;
 }
+
 .index_desc_list{
- margin:0px;
- margin-left:30px;
- padding-left:300px;
+  margin:0px;
+  margin-left:30px;
+  padding-left:300px;
 }
+
 .QR_code{
-width: 166px;
-position: fixed;
-bottom: 20%;
-right: 25px;
-font-size: 0;
-line-height: 0;
-z-index: 100;
+  width: 166px;
+  position: fixed;
+  bottom: 20%;
+  right: 25px;
+  font-size: 0;
+  line-height: 0;
+  z-index: 100;
+}
+.input-append{
+  text-align: center;
 }
