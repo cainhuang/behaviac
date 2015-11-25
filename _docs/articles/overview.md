@@ -1,8 +1,6 @@
 ---
 layout: docs
 title: behaviac概述
-author: cainhuang
-categories: [docs]
 permalink: /docs/overview/
 ---
 

@@ -1,8 +1,6 @@
 ---
 layout: docs
 title: 行为树的基本概念及进阶
-author: jonygli
-categories: [docs]
 permalink: /docs/concepts/
 ---
 

@@ -1,8 +1,6 @@
 ---
 layout: docs
 title: behaviac升级的步骤及注意事项
-author: jonygli
-categories: [docs]
 permalink: /docs/updatenotes/
 ---
 

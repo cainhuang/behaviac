@@ -1,8 +1,4 @@
 - title: Getting Started
   docs:
-  - home
-  - quickstart
-  - installation
-  - usage
-  - structure
-  - configuration
+  - overview
+  - concepts
