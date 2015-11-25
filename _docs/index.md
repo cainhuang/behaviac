@@ -35,7 +35,8 @@ permalink: /docs/home/
 </div>
  -->
 
- <div class="note warning">
+<!-- 
+<div class="note warning">
   <h5>警告</h5>
   <p>需要小心注意的信息</p>
 </div>
@@ -44,6 +45,14 @@ permalink: /docs/home/
   <h5>还没有发布的功能</h5>
   <p>未来版本的功能，还没有发布</p>
 </div>
-------------------------
-如果在使用或阅读的过程中，有什么好的建议，反馈等，请 [添加问题]({{ site.repository }}/issues/new)， 
-我们将在合适的时机包含进来。 
+ -->
+ ------------------------
+如果在使用或阅读的过程中，有什么好的建议，反馈等，您可以
+
+- [添加问题]({{ site.repository }}/issues/new)
+- 或[添加文档]({{ site.repository }}/new/gh-pages)
+
+并且PR回来，我们将在合适的时机包含进来。让我们一起完善和丰富behaviac的资料。behaviac的成长壮大离不开您的参与。
+
+
+
