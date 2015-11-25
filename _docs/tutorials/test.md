@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: tutorials
+title: 教程1
 author: jonygli
 permalink: /docs/tutorials/test/
 ---

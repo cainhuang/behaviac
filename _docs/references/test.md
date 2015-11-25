@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: references
+title: 手册1
 author: jonygli
 permalink: /docs/references/test/
 ---
