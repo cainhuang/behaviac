@@ -1,12 +1,11 @@
 ---
 layout: docs
-title: 欢迎访问behaviac的资料
+title: 欢迎访问behaviac
 author: jonygli
 permalink: /docs/home/
 ---
 
-有关behaviac的所有文档，教程等使用资料都将在本网站提供。我们也鼓励您来提高资料的
-有效性。
+有关behaviac的所有文档，教程等使用资料都将在本网站提供。我们也鼓励您来提高资料的有效性。
 
 ## behaviac到底是什么
 

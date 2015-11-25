@@ -1,21 +1,27 @@
 <!-- website navigation-->
 <ul>
   <li class="{% if page.overview %}current{% endif %}">
-    <a href="{{site.baseurl}}/">Home</a>
+    <a href="{{site.baseurl}}/">首页</a>
   </li>
   <li class="{% if page.url contains '/docs/' %}current{% endif %}">
-    <a href="{{site.baseurl}}/docs/home/">Doc<span class="show-on-mobiles">s</span><span class="hide-on-mobiles">umentation</span></a>
+    <a href="{{site.baseurl}}/docs/home/">文章</span></a>
+  </li>
+  <li class="{% if page.url contains 'tutorials' %}current{% endif %}">
+    <a href="{{site.baseurl}}/docs/tutorials/">教程</span></a>
+  </li>
+  <li class="{% if page.url contains 'references' %}current{% endif %}">
+    <a href="{{site.baseurl}}/docs/references/">手册</span></a>
   </li>
   <li class="{% if page.author %}current{% endif %}">
-    <a href="{{site.baseurl}}/news/">News</a>
+    <a href="{{site.baseurl}}/news/">版本</a>
   </li>
   <li>
-    <a href="{{site.baseurl}}/help/">Help</a>
-  </li>
-    <li>
-    <a href="{{site.baseurl}}/FAQ/">FAQ</a>
+    <a href="{{site.baseurl}}/FAQ/">问答</a>
   </li>
   <li>
-    <a href="{{ site.repository }}"><span class="hide-on-mobiles">View on </span>GitHub</a>
+    <a href="{{site.baseurl}}/help/">联系</a>
+  </li>
+  <li>
+    <a href="{{ site.repository }}"><span class="hide-on-mobiles">GitHub</a>
   </li>
 </ul>

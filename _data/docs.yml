@@ -4,3 +4,12 @@
   - articles/concepts
   - articles/overview
 
+- title: 教程 
+  docs:
+  - tutorials/test
+
+
+- title: 手册 
+  docs:
+  - references/test
+
