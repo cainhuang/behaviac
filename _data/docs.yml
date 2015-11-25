@@ -1,6 +1,6 @@
 - title: 文章列表 
   docs:
-  - updatenotes
-  - concepts
-  - overview
+  - articles/updatenotes
+  - articles/concepts
+  - articles/overview
 

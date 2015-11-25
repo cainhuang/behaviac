@@ -1,7 +1,8 @@
 ---
 layout: docs
 title: 行为树的基本概念及进阶
-permalink: /docs/concepts/
+author: jonygli
+permalink: /docs/articles/concepts/
 ---
 
 开发游戏AI的目标之一就是要找到一个简单，可扩展的编辑逻辑的方案，从而加速游戏开发的迭代速度。在“行为系统图”中，行为系统（Behavior System）响应游戏中的各种信息，进行决策以挑选接下来将要执行的行动并且监控该行动的执行。

@@ -1,7 +1,8 @@
 ---
 layout: docs
 title: behaviac概述
-permalink: /docs/overview/
+author: cainhuangyy
+permalink: /docs/articles/overview/
 ---
 
 ## 1 项目概况

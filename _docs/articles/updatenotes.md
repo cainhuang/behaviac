@@ -1,7 +1,8 @@
 ---
 layout: docs
 title: behaviac升级的步骤及注意事项
-permalink: /docs/updatenotes/
+author: jonygli
+permalink: /docs/articles/updatenotes/
 ---
 
 ##相比2.x版本，3.x版本有若干重大改动
