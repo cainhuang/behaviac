@@ -25,15 +25,31 @@ $(function() {
   $("#query_btn").click(function()
   {
     search();
-  })
+  });
   $("#query_input").keypress(function(e) {
     if(e.which == 13) {
       e.preventDefault();
       search();
     }
+    
   });
+
+  $("#query_input").change(function(e) {
+    
+    if($("#query_input").val()=="")
+    {
+      $("#query_result").html("");
+      return ;
+    }
+  });
+  
 })
 function search() {
+  if($("#query_input").val()=="")
+    {
+      $("#query_result").html("");
+      return ;
+  }
   var result = idx.search($("#query_input").val());
   if(result && result.length > 0) {
     var result_str="";
@@ -57,7 +73,13 @@ function search() {
     $("#query_result").html(result_str);
  
   } else {
-    alert("Found nothing");
+    result_str = 
+      "<p class=\"line\">"+
+          "<span class=\"path\">Result</span>"+
+          "<span class=\"prompt\">$:</span>"+
+          "<span class=\"command\">Empty</span>"+
+      "</p>";
+    $("#query_result").html(result_str);
   }
 }
 </script>
