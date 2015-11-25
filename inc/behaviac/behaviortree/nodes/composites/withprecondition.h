@@ -62,6 +62,7 @@ namespace behaviac
 
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
+        virtual EBTStatus update_current(Agent* pAgent, EBTStatus childStatus);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
     private:
         bool m_bIsUpdatePrecondition;

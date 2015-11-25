@@ -377,8 +377,9 @@ namespace Behaviac.Design
                 foreach(string id in allExpandedIds) {
                     NodeViewData nvd = RootNodeView.FindNodeViewData(id);
 
-                    if (nvd != null && !nvd.IsExpanded && nvd.CanBeExpanded()) {
-                        nvd.IsExpanded = true;
+                    if (nvd != null && !nvd.CheckAllParentsExpanded())
+                    {
+                        nvd.SetAllParentsExpanded();
                         this._pendingCenterBehavior = true;
                         layoutChanged = true;
                     }
@@ -3564,7 +3565,8 @@ namespace Behaviac.Design
                     attach = Behaviac.Design.Attachments.Attachment.Create(sourceNodeTag.NodeType, _dragTargetNode.Node);
                 }
 
-                if (_dragTargetNode != null && _dragTargetNode.Node.AcceptsAttachment(attach.GetType())) {
+                if (_dragTargetNode != null && attach != null && _dragTargetNode.Node.AcceptsAttachment(attach.GetType()))
+                {
                     attach.OnPropertyValueChanged(false);
 
                     attach.ResetId();

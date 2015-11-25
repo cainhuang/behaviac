@@ -51,22 +51,10 @@ public class AgentNodeTest : behaviac.Agent
     [behaviac.MemberMetaInfo()]
     public string testVar_str_1 = string.Empty;
 
-    //// event
-    //[behaviac.EventMetaInfo()]
-    //delegate bool event_test_void();
-
-    //[behaviac.EventMetaInfo()]
-    //delegate bool event_test_int(int val_int);
-
-    //[behaviac.EventMetaInfo()]
-    //delegate bool event_test_int_bool(int val_int, bool val_bool);
-
-    //[behaviac.EventMetaInfo()]
-    //delegate bool event_test_int_bool_float(int val_int, bool val_bool, float val_float);
-
     public int event_test_var_int = -1;
     public bool event_test_var_bool = false;
     public float event_test_var_float = -1.0f;
+    public AgentNodeTest event_test_var_agent = null;
 
     public void resetProperties() {
         testVar_0 = -1;
@@ -76,6 +64,7 @@ public class AgentNodeTest : behaviac.Agent
         event_test_var_int = -1;
         event_test_var_bool = false;
         event_test_var_float = -1.0f;
+        event_test_var_agent = null;
         waiting_timeout_interval = 0;
 
         action_0_enter_count = 0;
@@ -110,6 +99,12 @@ public class AgentNodeTest : behaviac.Agent
     [behaviac.MethodMetaInfo()]
     public void setEventVarFloat(float var) {
         event_test_var_float = var;
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public void setEventVarAgent(AgentNodeTest agent)
+    {
+        event_test_var_agent = agent;
     }
 
     [behaviac.MethodMetaInfo()]
@@ -236,4 +231,10 @@ public class AgentNodeTest : behaviac.Agent
         testVar_str_0 = str;
         action_2_exit_count++;
     }
+}
+
+
+[behaviac.TypeMetaInfo()]
+public class ChildNodeTest : AgentNodeTest
+{
 }

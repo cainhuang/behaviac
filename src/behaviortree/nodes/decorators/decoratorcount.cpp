@@ -22,7 +22,6 @@ namespace behaviac
 
     DecoratorCount::~DecoratorCount()
     {
-        BEHAVIAC_DELETE(m_count_var);
     }
 
     //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);

@@ -202,26 +202,19 @@ namespace behaviac
         */
         bool CheckAppLogFilter(const char* filter);
 
-        void LogFrames();
 
         /**
         wait for the continue request from the designer after the breakpoint
         */
         void WaitforContinue();
 
-        /**
-        handle the requests from the designer
-
-        @return true if the continue message is handled from the designer
-        */
-        bool HandleRequests();
+		void DebugUpdate();
 
         /**
         hot reload the modified behaviors.
         */
         void SetAutoHotReload(bool enable);
         bool GetAutoHotReload();
-        void HotReload();
         void RecordBTAgentMapping(const char* relativePath, Agent* agent);
 
         /**
@@ -271,6 +264,15 @@ namespace behaviac
         void ParseProperty(const behaviac::vector<behaviac::string>& tokens);
         void ParseProfiling(const behaviac::vector<behaviac::string>& tokens);
         void ParseAppLogFilter(const behaviac::vector<behaviac::string>& tokens);
+
+		void LogFrames();
+		/**
+		handle the requests from the designer
+
+		@return true if the continue message is handled from the designer
+		*/
+		bool HandleRequests();
+		void HotReload();
 
         /**
         @return false if 'path' is not a valid path holding valid data

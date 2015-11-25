@@ -1270,10 +1270,18 @@ namespace behaviac
 
         if (pNamedMethod)
         {
-            CNamedEvent* pEvent = (CNamedEvent*)pNamedMethod->clone();
-
-            CStringID eventID(eventName);
-            this->m_eventInfos[eventID] = pEvent;
+			CNamedEvent* pEvent = 0;
+			CStringID eventID(eventName);
+			AgentEvents_t::iterator it = this->m_eventInfos.find(eventID);
+			if (it == this->m_eventInfos.end())
+			{
+				CNamedEvent* pEvent = (CNamedEvent*)pNamedMethod->clone();
+				this->m_eventInfos[eventID] = pEvent;
+			}
+			else
+			{
+				pEvent = it->second;
+			}
 
             return pEvent;
         }

@@ -52,13 +52,11 @@ namespace behaviac
             Descriptor_t() : Attribute(0), Reference(0), Weight(0.0f)
             {}
 
-            Descriptor_t(const Descriptor_t& copy) : Attribute(copy.Attribute->clone()), Reference(copy.Reference->clone()), Weight(copy.Weight)
+            Descriptor_t(const Descriptor_t& copy) : Attribute(copy.Attribute), Reference(copy.Reference), Weight(copy.Weight)
             {}
 
             ~Descriptor_t()
             {
-                BEHAVIAC_DELETE(Attribute);
-                BEHAVIAC_DELETE(Reference);
             }
 
             DECLARE_BEHAVIAC_STRUCT(Query::Descriptor_t);

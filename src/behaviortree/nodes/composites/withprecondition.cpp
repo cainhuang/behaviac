@@ -95,6 +95,14 @@ namespace behaviac
         BEHAVIAC_ASSERT(SelectorLoopTask::DynamicCast(pParent));
     }
 
+	EBTStatus WithPreconditionTask::update_current(Agent* pAgent, EBTStatus childStatus)
+	{
+		EBTStatus s = this->update(pAgent, childStatus);
+
+		return s;
+	}
+
+
     EBTStatus WithPreconditionTask::update(Agent* pAgent, EBTStatus childStatus)
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
@@ -107,12 +115,10 @@ namespace behaviac
 
         if (this->m_bIsUpdatePrecondition)
         {
-
             BehaviorTask* precond = this->m_children[0];
             EBTStatus s = precond->exec(pAgent, childStatus);
 
             return s;
-
         }
         else
         {

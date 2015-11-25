@@ -82,8 +82,8 @@ namespace behaviac
 
             public Descriptor_t(Descriptor_t copy)
             {
-                Attribute = copy.Attribute.clone();
-                Reference = copy.Reference.clone();
+                Attribute = copy.Attribute;
+                Reference = copy.Reference;
                 Weight = copy.Weight;
             }
 

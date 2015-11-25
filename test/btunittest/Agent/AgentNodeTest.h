@@ -65,6 +65,7 @@ public:
     int event_test_var_int;
     bool event_test_var_bool;
     float event_test_var_float;
+	AgentNodeTest* event_test_var_agent;
 
     // enter action and exit action
     int action_0_enter_count;
@@ -99,6 +100,11 @@ public:
     void setEventVarFloat(float var)
     {
         event_test_var_float = var;
+    }
+
+    void setEventVarAgent(AgentNodeTest* agent)
+    {
+        event_test_var_agent = agent;
     }
 
     int getConstOne()
@@ -215,4 +221,14 @@ public:
         testVar_str_0 = str;
         action_2_exit_count++;
     }
+};
+
+
+class ChildNodeTest : public AgentNodeTest
+{
+public:
+    ChildNodeTest(int var_0);
+    virtual ~ChildNodeTest();
+
+    DECLARE_BEHAVIAC_AGENT(ChildNodeTest, AgentNodeTest);
 };

@@ -28,8 +28,6 @@ namespace behaviac
 
     Assignment::~Assignment()
     {
-        BEHAVIAC_DELETE(m_opl);
-        BEHAVIAC_DELETE(m_opr);
         BEHAVIAC_DELETE(m_opr_m);
     }
 

@@ -755,7 +755,7 @@ namespace PluginBehaviac.Exporters
 
                 foreach (MethodDef method in methods)
                 {
-                    if (method.IsCustomized && method.IsNamedEvent)
+                    if (method.IsNamedEvent)
                     {
                         hasEvents = true;
                         break;
@@ -866,7 +866,7 @@ namespace PluginBehaviac.Exporters
 
                 foreach (MethodDef method in methods)
                 {
-                    if (method.IsCustomized && method.IsNamedEvent)
+                    if (method.IsNamedEvent)
                     {
                         hasEvents = true;
                         break;
@@ -891,7 +891,7 @@ namespace PluginBehaviac.Exporters
 
                     foreach (MethodDef method in methods)
                     {
-                        if (method.IsCustomized && method.IsNamedEvent)
+                        if (method.IsNamedEvent)
                         {
                             file.WriteLine("\n\t\t\tcustomeMethod = new CTaskMethod(\"{0}\", \"{1}\");", agent.AgentTypeName, method.BasicName);
 

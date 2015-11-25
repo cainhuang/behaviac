@@ -669,15 +669,21 @@ namespace behaviac
         this->m_bExecAgents = bExecAgents;
     }
 
+
+	void Workspace::DebugUpdate()
+	{
+		this->LogFrames();
+		this->HandleRequests();
+
+		if (this->GetAutoHotReload())
+		{
+			this->HotReload();
+		}
+	}
+
     void Workspace::Update()
     {
-        this->LogFrames();
-        this->HandleRequests();
-
-        if (this->GetAutoHotReload())
-        {
-            this->HotReload();
-        }
+		this->DebugUpdate();
 
         if (this->m_bExecAgents)
         {
@@ -1108,6 +1114,8 @@ namespace behaviac
         m_behaviortrees.clear();
 
         m_workspace_file[0] = '\0';
+
+		AgentProperties::UnloadLocals();
     }
 
     void Workspace::SetAutoHotReload(bool enable)

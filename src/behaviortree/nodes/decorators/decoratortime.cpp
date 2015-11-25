@@ -23,7 +23,6 @@ namespace behaviac
 
     DecoratorTime::~DecoratorTime()
     {
-        BEHAVIAC_DELETE(m_time_var);
     }
 
     //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);

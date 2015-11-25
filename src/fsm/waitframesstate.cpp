@@ -13,7 +13,6 @@ namespace behaviac
 
 	WaitFramesState::~WaitFramesState()
 	{
-        BEHAVIAC_DELETE(this->m_frames_var);
         BEHAVIAC_DELETE(this->m_frames_method);
 	}
 

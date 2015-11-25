@@ -1680,7 +1680,6 @@ namespace behaviac
                 CNamedEvent pEvent = this.EventInfos[eventID];
 
                 return pEvent;
-
             }
             else
             {
@@ -1691,9 +1690,17 @@ namespace behaviac
 
                 if (pNamedMethod != null)
                 {
-                    CNamedEvent pEvent = (CNamedEvent)pNamedMethod.clone();
+                    CNamedEvent pEvent = null;
+                    if (this.EventInfos.ContainsKey(eventID))
+                    {
+                        pEvent = this.EventInfos[eventID];
+                    }
+                    else
+                    {
+                        pEvent = (CNamedEvent)pNamedMethod.clone();
 
-                    this.EventInfos[eventID] = pEvent;
+                        this.EventInfos[eventID] = pEvent;
+                    }
 
                     return pEvent;
                 }

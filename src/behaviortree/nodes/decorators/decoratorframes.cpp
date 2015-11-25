@@ -24,7 +24,6 @@ namespace behaviac
 
     DecoratorFrames::~DecoratorFrames()
     {
-        BEHAVIAC_DELETE(m_frames_var);
     }
 
     //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);

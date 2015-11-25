@@ -52,12 +52,10 @@ namespace behaviac
                 if (strcmp(p.name, "Domain") == 0)
                 {
                     m_domain = p.value;
-
                 }
                 else if (strcmp(p.name, "Descriptors") == 0)
                 {
                     SetDescriptors(p.value);
-
                 }
                 else
                 {
@@ -83,11 +81,11 @@ namespace behaviac
     {
         behaviac::StringUtils::FromString(descriptors, this->m_descriptors);
 
-        for (size_t i = 0; i < this->m_descriptors.size(); ++i)
-        {
-            Descriptor_t& d = this->m_descriptors[i];
-            d.Attribute->SetDefaultValue(d.Reference);
-        }
+        //for (size_t i = 0; i < this->m_descriptors.size(); ++i)
+        //{
+        //    Descriptor_t& d = this->m_descriptors[i];
+        //    d.Attribute->SetDefaultValue(d.Reference);
+        //}
     }
 
     bool Query::PropertyFinder_t::operator()(const BehaviorTree::Descriptor_t& other)
@@ -106,7 +104,7 @@ namespace behaviac
 
         if (it != c.end())
         {
-            return it->Descriptor;
+            return it->Reference;
         }
 
         return 0;
@@ -124,7 +122,7 @@ namespace behaviac
 
             if (ci)
             {
-                float dp = qi.Attribute->DifferencePercentage(ci);
+				float dp = qi.Attribute->DifferencePercentage(qi.Reference, ci);
 
                 BEHAVIAC_ASSERT(dp >= 0.0f && dp <= 1.0f, "dp should be normalized to [0, 1], please check its scale");
 

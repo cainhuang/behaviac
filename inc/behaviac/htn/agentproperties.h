@@ -44,7 +44,7 @@ namespace behaviac
         static Property* GetProperty(const char* agentType, const char* variableName);
         static Property* GetProperty(const char* agentType, uint32_t variableId);
         static AgentProperties* Get(const char* agentType);
-        static void UnloadLoacals();
+        static void UnloadLocals();
 
         static void Cleanup();
 

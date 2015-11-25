@@ -35,7 +35,7 @@ namespace behaviac
                 behaviac::Property* valueProperty = this->m_params[i];
                 BEHAVIAC_ASSERT(valueProperty);
 
-                behaviac::string paramName = FormatString("%s%d", BehaviorNode::LOCAL_TASK_PARAM_PRE, i);
+                behaviac::string paramName = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, i);
                 this->SetTaskParam(pAgent, agentT, paramName.c_str(), valueProperty);
             }
         }

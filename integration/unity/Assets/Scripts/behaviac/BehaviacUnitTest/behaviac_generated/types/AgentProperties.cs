@@ -35,6 +35,18 @@ namespace behaviac
 			bb.AddProperty("int", false, "waiting_timeout_interval", "0", "AgentNodeTest");
 			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
 
+			// ChildNodeTest
+			bb = new AgentProperties("ChildNodeTest");
+			agent_type_blackboards["ChildNodeTest"] = bb;
+			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
+			bb.AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
+			bb.AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
+			bb.AddProperty("float", false, "testVar_2", "0", "ChildNodeTest");
+			bb.AddProperty("float", false, "testVar_3", "0", "ChildNodeTest");
+			bb.AddProperty("string", false, "testVar_str_0", "", "ChildNodeTest");
+			bb.AddProperty("string", false, "testVar_str_1", "", "ChildNodeTest");
+			bb.AddProperty("int", false, "waiting_timeout_interval", "0", "ChildNodeTest");
+
 			// CustomPropertyAgent
 			bb = new AgentProperties("CustomPropertyAgent");
 			agent_type_blackboards["CustomPropertyAgent"] = bb;
@@ -252,6 +264,42 @@ namespace behaviac
 			customeMethod = new CTaskMethod("AgentNodeTest", "task_test");
 			customeMethod.AddParamType("int");
 			customeMethod.AddParamType("float");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("AgentNodeTest", "event_test_agent");
+			customeMethod.AddParamType("AgentNodeTest");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			// ChildNodeTest
+			objectDesc = Agent.GetDescriptorByName("ChildNodeTest");
+			customeMethod = new CTaskMethod("ChildNodeTest", "root");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("ChildNodeTest", "event_test_int");
+			customeMethod.AddParamType("int");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("ChildNodeTest", "event_test_int_bool");
+			customeMethod.AddParamType("int");
+			customeMethod.AddParamType("bool");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("ChildNodeTest", "event_test_int_bool_float");
+			customeMethod.AddParamType("int");
+			customeMethod.AddParamType("bool");
+			customeMethod.AddParamType("float");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("ChildNodeTest", "event_test_void");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("ChildNodeTest", "task_test");
+			customeMethod.AddParamType("int");
+			customeMethod.AddParamType("float");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("ChildNodeTest", "event_test_agent");
+			customeMethod.AddParamType("AgentNodeTest");
 			objectDesc.ms_methods.Add(customeMethod);
 
 			// HTNAgentHouse

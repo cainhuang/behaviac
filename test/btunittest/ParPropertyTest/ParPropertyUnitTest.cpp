@@ -24,6 +24,7 @@ void registerAllTypes()
 
     //< new types
     behaviac::Agent::Register<AgentNodeTest>();
+    behaviac::Agent::Register<ChildNodeTest>();
 
     behaviac::TypeRegister::Register<TNS::ST::PER::WRK::kEmployee>("TNS::ST::PER::WRK::kEmployee");
     behaviac::TypeRegister::Register<TNS::ST::kCar>("TNS::ST::kCar");
@@ -59,7 +60,6 @@ void unregisterAllTypes()
     //behaviac::Agent::UnRegister<ParTestAgentBase>();
     //behaviac::Agent::UnRegister<ParTestAgent>();
 
-
     behaviac::Agent::UnRegister<HTNAgentHouse>();
     behaviac::Agent::UnRegister<FSMAgentTest>();
     behaviac::Agent::UnRegister<HTNAgentTravel>();
@@ -75,6 +75,7 @@ void unregisterAllTypes()
     behaviac::TypeRegister::UnRegister<TNS::NE::NAT::eColor>("TNS::NE::NAT::eColor");
     behaviac::TypeRegister::UnRegister<TNS::ST::PER::WRK::kEmployee>("TNS::ST::PER::WRK::kEmployee");
 
+    behaviac::Agent::UnRegister<ChildNodeTest>();
     behaviac::Agent::UnRegister<AgentNodeTest>();
 
     behaviac::TypeRegister::UnRegister<UnityEngine::Vector3>("UnityEngine::Vector3");
@@ -88,7 +89,6 @@ AgentNodeTest* initTestEnvNode(const char* treePath, behaviac::Workspace::EFileF
     behaviac::Profiler::CreateInstance();
     behaviac::Config::SetSocketing(false);
     behaviac::Config::SetLogging(false);
-
 
     registerAllTypes();
     AgentNodeTest* testAgent = AgentNodeTest::DynamicCast(behaviac::Agent::Create<AgentNodeTest>());

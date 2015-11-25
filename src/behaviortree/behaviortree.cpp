@@ -51,8 +51,6 @@ namespace rapidxml
 
 namespace behaviac
 {
-    const char* BehaviorNode::LOCAL_TASK_PARAM_PRE = "_$local_task_param_$_";
-
     static const char* kStrBehavior = "behavior";
     static const char* kStrAgentType = "agenttype";
 
@@ -140,14 +138,6 @@ namespace behaviac
 
         if (this->m_pars)
         {
-            for (Properties_t::iterator it = this->m_pars->begin(); it != this->m_pars->end(); ++it)
-            {
-                Property* pProperty = *it;
-                Property::DeleteFromCache(pProperty);
-
-                BEHAVIAC_DELETE(pProperty);
-            }
-
             this->m_pars->clear();
             BEHAVIAC_DELETE(this->m_pars);
             this->m_pars = 0;
@@ -517,9 +507,6 @@ namespace behaviac
         {
             pProperty = AgentProperties::AddLocal(agentType, type, name, value);
         }
-
-        //clone it to avoid to be deleted twice
-        pProperty = pProperty->clone();
 
         if (!this->m_pars)
         {

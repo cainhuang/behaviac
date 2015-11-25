@@ -59,8 +59,6 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
 
     behaviac::Agent::Register<CBTPlayer>();
 
-    behaviac::Agent::RegisterInstanceName<CBTPlayer>("player1");
-
     behaviac::Workspace::GetInstance()->SetFilePath("../test/demo_running/behaviac/exported");
     behaviac::Workspace::GetInstance()->SetFileFormat(ff);
 
@@ -95,8 +93,6 @@ void CleanupPlayer()
 
 void CleanupBehaviac()
 {
-    behaviac::Agent::UnRegisterInstanceName<CBTPlayer>("player1");
-
     behaviac::Agent::UnRegister<CBTPlayer>();
 
 	behaviac::Workspace::GetInstance()->Cleanup();

@@ -27,6 +27,12 @@
       <property TriggeredOnce="false" />
       <property TriggerMode="Return" />
     </attachment>
+    <attachment class="Event" id="8" flag="event">
+      <property ReferenceFilename="node_test/event_subtree_4" />
+      <property Task="Self.AgentNodeTest::event_test_agent(null)" />
+      <property TriggeredOnce="false" />
+      <property TriggerMode="Transfer" />
+    </attachment>
     <node class="WaitforSignal" id="5">
       <custom>
         <node class="Condition" id="6">

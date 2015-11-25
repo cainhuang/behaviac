@@ -812,7 +812,7 @@ namespace behaviac
         public void SetParam<ParamType>(Agent pAgent, ParamType param)
         {
             Debug.Check(this.m_paramTypes != null && m_paramTypes.Count == 1);
-            Debug.Check(this.m_paramTypes[0] == typeof(ParamType), "SetParam's Param is not compatible");
+            Debug.Check(this.m_paramTypes[0] == typeof(ParamType) || typeof(ParamType).IsSubclassOf(this.m_paramTypes[0]), "SetParam's Param is not compatible");
 
             //string eventName = string.Format("{0}_param0", this.Name);
             AgentState currentState = pAgent.Variables.Push(false);
@@ -827,8 +827,8 @@ namespace behaviac
         public void SetParam<ParamType1, ParamType2>(Agent pAgent, ParamType1 param1, ParamType2 param2)
         {
             Debug.Check(this.m_paramTypes != null && m_paramTypes.Count == 2);
-            Debug.Check(this.m_paramTypes[0] == typeof(ParamType1), "SetParam's Param1 is not compatible");
-            Debug.Check(this.m_paramTypes[1] == typeof(ParamType2), "SetParam's Param2 is not compatible");
+            Debug.Check(this.m_paramTypes[0] == typeof(ParamType1) || typeof(ParamType1).IsSubclassOf(this.m_paramTypes[0]), "SetParam's Param1 is not compatible");
+            Debug.Check(this.m_paramTypes[1] == typeof(ParamType2) || typeof(ParamType2).IsSubclassOf(this.m_paramTypes[1]), "SetParam's Param2 is not compatible");
 
             AgentState currentState = pAgent.Variables.Push(false);
             Debug.Check(currentState != null);
@@ -844,9 +844,9 @@ namespace behaviac
         public void SetParam<ParamType1, ParamType2, ParamType3>(Agent pAgent, ParamType1 param1, ParamType2 param2, ParamType3 param3)
         {
             Debug.Check(this.m_paramTypes != null && m_paramTypes.Count == 3);
-            Debug.Check(this.m_paramTypes[0] == typeof(ParamType1), "SetParam's Param1 is not compatible");
-            Debug.Check(this.m_paramTypes[1] == typeof(ParamType2), "SetParam's Param2 is not compatible");
-            Debug.Check(this.m_paramTypes[2] == typeof(ParamType3), "SetParam's Param3 is not compatible");
+            Debug.Check(this.m_paramTypes[0] == typeof(ParamType1) || typeof(ParamType1).IsSubclassOf(this.m_paramTypes[0]), "SetParam's Param1 is not compatible");
+            Debug.Check(this.m_paramTypes[1] == typeof(ParamType2) || typeof(ParamType2).IsSubclassOf(this.m_paramTypes[1]), "SetParam's Param2 is not compatible");
+            Debug.Check(this.m_paramTypes[2] == typeof(ParamType3) || typeof(ParamType3).IsSubclassOf(this.m_paramTypes[2]), "SetParam's Param3 is not compatible");
 
             AgentState currentState = pAgent.Variables.Push(false);
             Debug.Check(currentState != null);

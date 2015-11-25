@@ -88,7 +88,6 @@ public:
 
     virtual ~ParamVariablePrimitiveBase()
     {
-        BEHAVIAC_DELETE(this->prop);
         this->prop = 0;
     }
 
@@ -103,8 +102,7 @@ public:
 
         if (copy.prop)
         {
-            this->prop = copy.prop->clone();
-
+            this->prop = copy.prop;
         }
         else
         {
@@ -506,7 +504,7 @@ public:
             const CStringID& propId = it->first;
             behaviac::Property* p = it->second;
 
-            this->m_props[propId] = p->clone();
+            this->m_props[propId] = p;
         }
     }
 

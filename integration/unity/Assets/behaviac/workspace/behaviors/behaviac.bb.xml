@@ -11,11 +11,6 @@
     </struct>
   </types>
   <agents>
-    <agent type="HTNAgentHouseBase" base="behaviac::Agent" disp="HTNAgentHouseBase" desc="HTNAgentHouseBase">
-      <properties>
-        <property name="Money" type="System.Int32" classname="HTNAgentHouseBase" defaultvalue="0" static="false" public="true" readonly="false" disp="Money" desc="MemberProperty" />
-      </properties>
-    </agent>
     <agent type="AgentArrayAccessTest" base="behaviac::Agent" disp="AgentArrayAccessTest" desc="AgentArrayAccessTest">
       <properties>
         <property name="c_Int" type="System.Int32" classname="AgentArrayAccessTest" defaultvalue="0" static="false" public="true" readonly="false" disp="c_Int" desc="AgentArrayAccessTest::c_Int" />
@@ -45,6 +40,9 @@
           <parameter name="count" type="System.Int32" disp="count" desc="" />
           <parameter name="weight" type="System.Single" disp="weight" desc="" />
         </method>
+        <method name="event_test_agent" returntype="System.Void" classname="AgentNodeTest" static="false" public="true" istask="true" disp="event_test_agent" desc="event_test_agent">
+          <parameter name="agent" type="XMLPluginBehaviac.AgentNodeTest" disp="agent" desc="" />
+        </method>
       </methods>
     </agent>
     <agent type="CustomPropertyAgent" base="behaviac::Agent" disp="CustomPropertyAgent" desc="CustomPropertyAgent">
@@ -69,6 +67,11 @@
         <property name="ExitCount" type="System.Int64" classname="FSMAgentTest" defaultvalue="0" static="false" public="true" readonly="false" disp="ExitCount" desc="ExitCount" />
         <property name="FoodCount" type="System.Int32" classname="FSMAgentTest" defaultvalue="0" static="false" public="true" readonly="false" disp="FoodCount" desc="FoodCount" />
         <property name="EnergyCount" type="System.Int32" classname="FSMAgentTest" defaultvalue="0" static="false" public="true" readonly="false" disp="EnergyCount" desc="EnergyCount" />
+      </properties>
+    </agent>
+    <agent type="HTNAgentHouseBase" base="behaviac::Agent" disp="HTNAgentHouseBase" desc="HTNAgentHouseBase">
+      <properties>
+        <property name="Money" type="System.Int32" classname="HTNAgentHouseBase" defaultvalue="0" static="false" public="true" readonly="false" disp="Money" desc="MemberProperty" />
       </properties>
     </agent>
     <agent type="HTNAgentHouse" base="HTNAgentHouseBase" disp="HTNAgentHouse" desc="HTNAgentHouse">

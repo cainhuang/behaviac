@@ -181,6 +181,32 @@ public partial class NodeViewData : BaseNode
         }
     }
 
+    public bool CheckAllParentsExpanded()
+    {
+        NodeViewData parent = this;
+        while (parent != null)
+        {
+            if (!parent.IsExpanded && parent.CanBeExpanded())
+                return false;
+
+            parent = parent.Parent;
+        }
+
+        return true;
+    }
+
+    public void SetAllParentsExpanded()
+    {
+        NodeViewData parent = this;
+        while (parent != null)
+        {
+            if (parent.CanBeExpanded())
+                parent.IsExpanded = true;
+
+            parent = parent.Parent;
+        }
+    }
+
     public void ExpandAll(bool isExpanded) {
         this.IsExpanded = isExpanded;
         foreach(NodeViewData nvd in this.Children) {

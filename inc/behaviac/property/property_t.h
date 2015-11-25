@@ -153,9 +153,9 @@ namespace behaviac
             return result;
         }
 
-        virtual float DifferencePercentage(const Property* other) const
+		virtual float DifferencePercentage(const Property* reference, const Property* other) const
         {
-            return const_cast<CMemberBase*>(this->m_memberBase)->DifferencePercentage(this, other);
+			return const_cast<CMemberBase*>(this->m_memberBase)->DifferencePercentage(reference, other);
         }
 
         virtual void Instantiate(Agent* pAgent)
@@ -283,8 +283,8 @@ namespace behaviac
         {
             if (this->m_parent != 0)
             {
-                const VariableType* pVariableType = this->GetVectorElement(pSelf);
-                return *pVariableType;
+                const VariableType& var = this->GetVectorElement(pSelf);
+				return var;
             }
 
             if (pSelf == 0 || m_bIsConst)
@@ -315,7 +315,7 @@ namespace behaviac
             }
         }
 
-        const VariableType* GetVectorElement(const Agent* pSelf) const;
+        const VariableType& GetVectorElement(const Agent* pSelf) const;
         void SetVectorElement(Agent* pSelf, const VariableType& v);
 
 
@@ -330,8 +330,8 @@ namespace behaviac
             {
                 if (this->m_parent != NULL)
                 {
-                    const VariableType* pVariableType = this->GetVectorElement(pSelf);
-                    return *pVariableType;
+                    const VariableType& var = this->GetVectorElement(pSelf);
+					return var;
                 }
 
                 const char* staticClassName = NULL;
@@ -411,8 +411,12 @@ namespace behaviac
         virtual void* GetVectorElementFrom(Agent* pAgentFrom, int index)
         {
             const VariableType& retV_vec = this->GetValue(pAgentFrom);
+#if BEHAVIAC_COMPILER_APPLE
+			//xcode, it reports compiling error, so to use a static here, not perfect
+			static ElementType retV = retV_vec[index];
+#else
             const ElementType& retV = retV_vec[index];
-
+#endif//BEHAVIAC_COMPILER_APPLE
             return (void*)&retV;
         }
 
@@ -667,7 +671,7 @@ namespace behaviac
     }
 
     template<typename VariableType, bool bVector>
-    const VariableType* TTProperty<VariableType, bVector>::GetVectorElement(const Agent* pSelf) const
+    const VariableType& TTProperty<VariableType, bVector>::GetVectorElement(const Agent* pSelf) const
     {
         BEHAVIAC_ASSERT(this->m_index != NULL);
         Agent* parentParent = this->m_parent->GetParentAgent(pSelf);
@@ -676,7 +680,7 @@ namespace behaviac
         TProperty<int>* pTIndex = (TProperty<int>*)this->m_index;
         int index = (int)pTIndex->GetValue(indexParent);
 
-        VariableType* pVariableType = (VariableType*)this->m_parent->GetVectorElementFrom(parentParent, index);
+        const VariableType& pVariableType = *(const VariableType*)this->m_parent->GetVectorElementFrom(parentParent, index);
 
         return pVariableType;
     }

@@ -67,11 +67,7 @@ namespace behaviac
 
     Compute::~Compute()
     {
-        BEHAVIAC_DELETE(m_opl);
-        BEHAVIAC_DELETE(m_opr1);
         BEHAVIAC_DELETE(m_opr1_m);
-
-        BEHAVIAC_DELETE(m_opr2);
         BEHAVIAC_DELETE(m_opr2_m);
     }
 

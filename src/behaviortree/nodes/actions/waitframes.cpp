@@ -25,7 +25,6 @@ namespace behaviac
 
     WaitFrames::~WaitFrames()
     {
-        BEHAVIAC_DELETE(this->m_frames_var);
         BEHAVIAC_DELETE(this->m_frames_method);
     }
 

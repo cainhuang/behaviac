@@ -682,6 +682,7 @@ namespace Behaviac.Design
                     } else if (this.memberTypeComboBox.SelectedIndex == (int)MemberType.Method ||
                                this.memberTypeComboBox.SelectedIndex == (int)MemberType.Task) {
                         MethodDef method = getMethodByIndex(memberIndex);
+                        bool canBeEdit = true;
 
                         if (method != null && method.IsCustomized) {
                             this.removeMemberButton.Enabled = true;
@@ -689,6 +690,7 @@ namespace Behaviac.Design
                             this.downMemberButton.Enabled = true;
 
                         } else {
+                            canBeEdit = false;
                             this.removeMemberButton.Enabled = false;
                             this.upMemberButton.Enabled = false;
                             this.downMemberButton.Enabled = false;
@@ -696,7 +698,7 @@ namespace Behaviac.Design
 
                         if (method != null && this._metaMethodPanel != null)
                         {
-                            this._metaMethodPanel.Initialize(agent, method, (MemberType)this.memberTypeComboBox.SelectedIndex);
+                            this._metaMethodPanel.Initialize(canBeEdit, agent, method, (MemberType)this.memberTypeComboBox.SelectedIndex);
                             this._metaMethodPanel.Show();
                         }
                     }

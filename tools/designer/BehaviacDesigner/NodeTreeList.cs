@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -94,12 +94,30 @@ namespace Behaviac.Design
 
                 this.treeView.ExpandAll();
 
+                this.treeView.SelectedNode = this.getFirstLeaf(this.treeView.Nodes);
+                setDebugInstance();
+
                 AgentInstancePool.AddInstanceHandler += AgentInstancePool_AddInstanceHandler;
                 FrameStatePool.AddPlanningHanlder += AgentInstancePool_AddPlanningHandler;
 
                 Plugin.DebugAgentHandler -= DebugAgentInstance_SetHandler;
                 Plugin.DebugAgentHandler += DebugAgentInstance_SetHandler;
             }
+        }
+
+        private TreeNode getFirstLeaf(TreeNodeCollection nodes)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                if (node.Nodes.Count == 0)
+                    return node;
+
+                TreeNode leaf = getFirstLeaf(node.Nodes);
+                if (leaf != null)
+                    return leaf;
+            }
+
+            return null;
         }
 
         private void DebugAgentInstance_SetHandler(string agentName) {
@@ -188,28 +206,34 @@ namespace Behaviac.Design
             this.contextMenuStrip.Show(this, new Point(e.X, e.Y));
         }
 
-        private void treeView_DoubleClick(object sender, EventArgs e) {
-            if (Plugin.EditMode == EditModes.Design) {
+        private void setDebugInstance()
+        {
+            if (Plugin.EditMode == EditModes.Design)
                 return;
-            }
 
             TreeNode treeNode = this.treeView.SelectedNode;
 
-            if (treeNode == null) {
+            if (treeNode == null)
                 return;
-            }
 
-            if (treeNode.Tag != null && treeNode.Tag is FrameStatePool.PlanningProcess) {
+            if (treeNode.Tag != null && treeNode.Tag is FrameStatePool.PlanningProcess)
+            {
                 //planning
                 FrameStatePool.PlanningProcess planning = treeNode.Tag as FrameStatePool.PlanningProcess;
                 showPlanning(planning);
-
-            } else if (!isFoldNode(treeNode)) {
+            }
+            else if (!isFoldNode(treeNode))
+            {
                 //this.debugLabel.Text = "Debug : " + treeNode.Text;
                 Plugin.DebugAgentInstance = treeNode.Name;
 
                 ShowInstanceProperty();
             }
+        }
+
+        private void treeView_DoubleClick(object sender, EventArgs e)
+        {
+            setDebugInstance();
         }
 
         private void expandButton_Click(object sender, EventArgs e) {
@@ -221,11 +245,7 @@ namespace Behaviac.Design
         }
 
         private void debugMenuItem_Click(object sender, EventArgs e) {
-            if (Plugin.EditMode == EditModes.Design) {
-                return;
-            }
-
-            treeView_DoubleClick(sender, e);
+            setDebugInstance();
         }
 
         public void ShowInstanceProperty() {
@@ -313,7 +333,6 @@ namespace Behaviac.Design
             if (root == null) {
                 root = this.treeView;
             }
-
 
             root.BeginUpdate();
             root.Nodes.Clear();

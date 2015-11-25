@@ -1280,7 +1280,7 @@ namespace behaviac
             }
         }
 
-        public void Update()
+        public void DebugUpdate()
         {
             this.LogFrames();
             this.HandleRequests();
@@ -1289,6 +1289,11 @@ namespace behaviac
             {
                 this.HotReload();
             }
+        }
+
+        public void Update()
+        {
+            this.DebugUpdate();
 
             if (this.m_bExecAgents)
             {

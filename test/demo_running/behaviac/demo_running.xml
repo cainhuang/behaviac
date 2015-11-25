@@ -37,7 +37,4 @@
 			<Method Name="Action3" DisplayName="" Desc="" Class="CBTPlayer" ReturnType="behaviac::EBTStatus" />
 		</agent>
 	</agents>
-	<instances>
-		<instance name="player1" class="CBTPlayer" DisplayName="player1" Desc="player1" />
-	</instances>
 </metas>

@@ -22,7 +22,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#if !BEHAVIAC_COMPILER_GCC_CYGWIN
+#if BEHAVIAC_COMPILER_GCC_LINUX
 #include <stdio.h>
 #include <sys/inotify.h>
 #include <sys/stat.h>
@@ -420,7 +420,7 @@ void CFileSystem::ReadError(Handle file)
     BEHAVIAC_ASSERT(0);
 }
 
-#if !BEHAVIAC_COMPILER_GCC_CYGWIN
+#if BEHAVIAC_COMPILER_GCC_LINUX
 class InotifyDir
 {
 public:
@@ -716,7 +716,7 @@ static void* ThreadFunc(void* arg)
 bool CFileSystem::StartMonitoringDirectory(const wchar_t* dir)
 {
     BEHAVIAC_UNUSED_VAR(dir);
-#if !BEHAVIAC_COMPILER_GCC_CYGWIN
+#if BEHAVIAC_COMPILER_GCC_LINUX
 
     if (!s_bThreadFinish)
     {
@@ -738,21 +738,23 @@ bool CFileSystem::StartMonitoringDirectory(const wchar_t* dir)
     pthread_detach(tid);
 #endif
 
-    return false;
+    return true;
 }
 
 void CFileSystem::StopMonitoringDirectory()
 {
-#if !BEHAVIAC_COMPILER_GCC_CYGWIN
+#if BEHAVIAC_COMPILER_GCC_LINUX
+	pthread_mutex_lock(&s_mutex);
     s_bThreadFinish = true;
     s_ModifiedFiles.clear();
+	pthread_mutex_unlock(&s_mutex);
 #endif
 }
 
 void CFileSystem::GetModifiedFiles(behaviac::vector<behaviac::string>& modifiedFiles)
 {
     BEHAVIAC_UNUSED_VAR(modifiedFiles);
-#if !BEHAVIAC_COMPILER_GCC_CYGWIN
+#if BEHAVIAC_COMPILER_GCC_LINUX
     modifiedFiles.clear();
 
     if (s_ModifiedFiles.empty())

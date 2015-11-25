@@ -124,6 +124,11 @@ namespace behaviac
             }
         }
 
+        protected override EBTStatus update_current(Agent pAgent, EBTStatus childStatus)
+        {
+            return this.update(pAgent, childStatus);
+        }
+
         protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
         {
             BehaviorTask pParent = this.GetParent();

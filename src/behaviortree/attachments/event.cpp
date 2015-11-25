@@ -53,16 +53,14 @@ namespace behaviac
         {
             const property_t& p = (*it);
 
-            if (strcmp(p.name, "EventName") == 0)
+            if (strcmp(p.name, "Task") == 0)
             {
                 //method
                 this->m_event = Action::LoadMethod(p.value);
-
             }
             else if (strcmp(p.name, "ReferenceFilename") == 0)
             {
                 this->m_referencedBehaviorPath = p.value;
-
             }
             else if (strcmp(p.name, "TriggeredOnce") == 0)
             {
@@ -70,25 +68,21 @@ namespace behaviac
                 {
                     this->m_bTriggeredOnce = true;
                 }
-
             }
             else if (strcmp(p.name, "TriggerMode") == 0)
             {
                 if (string_icmp(p.value, "Transfer") == 0)
                 {
                     this->m_triggerMode = TM_Transfer;
-
                 }
                 else if (string_icmp(p.value, "Return") == 0)
                 {
                     this->m_triggerMode = TM_Return;
-
                 }
                 else
                 {
                     BEHAVIAC_ASSERT(0, "unrecognised trigger mode %s", p.value);
                 }
-
             }
             else
             {
@@ -96,6 +90,7 @@ namespace behaviac
             }
         }
     }
+
     const char* Event::GetEventName()
     {
         if (this->m_event != NULL)
@@ -105,14 +100,17 @@ namespace behaviac
 
         return NULL;
     }
+
     bool Event::TriggeredOnce()
     {
         return this->m_bTriggeredOnce;
     }
+
     TriggerMode Event::GetTriggerMode()
     {
         return m_triggerMode;
     }
+
     void Event::switchTo(Agent* pAgent)
     {
         if (!StringUtils::IsNullOrEmpty(this->m_referencedBehaviorPath.c_str()))
@@ -126,6 +124,7 @@ namespace behaviac
             }
         }
     }
+
     BehaviorTask* Event::createTask() const
     {
         EventetTask* pTask = BEHAVIAC_NEW EventetTask();

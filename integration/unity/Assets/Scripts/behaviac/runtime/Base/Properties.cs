@@ -223,10 +223,6 @@ namespace behaviac
                 m_strNativeTypeName = Utils.GetNativeTypeName(value).Replace("::", ".");
             }
         }
-        public Property clone()
-        {
-            return new Property(this);
-        }
 
         public void SetFrom(Agent pAgentFrom, Property from, Agent pAgentTo)
         {
@@ -672,7 +668,6 @@ namespace behaviac
 
                 if (pProperty.InstanceName != instanceName)
                 {
-                    pProperty = pProperty.clone();
                     Debug.Check(pProperty.Name == variableName);
                     pProperty.InstanceName = instanceName;
                 }

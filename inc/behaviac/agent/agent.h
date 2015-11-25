@@ -414,6 +414,18 @@ namespace behaviac
         template<typename TAGENT>
         static TAGENT* Create(const char* agentInstanceName = 0, int contextId = 0, short priority = 0);
 
+		template<typename TAGENT, typename T1>
+        static TAGENT* Create(T1 p1, const char* agentInstanceName, int contextId, short priority);
+
+		template<typename TAGENT, typename T1, typename T2>
+		static TAGENT* Create(T1 p1, T2 p2, const char* agentInstanceName, int contextId, short priority);
+
+		template<typename TAGENT, typename T1, typename T2, typename T3>
+		static TAGENT* Create(T1 p1, T2 p2, T3 p3, const char* agentInstanceName, int contextId, short priority);
+
+		template<typename TAGENT, typename T1, typename T2, typename T3, typename T4>
+		static TAGENT* Create(T1 p1, T2 p2, T3 p3, T4 p4, const char* agentInstanceName, int contextId, short priority);
+
         /**
         destroy the agent created by 'Create'
 
@@ -491,6 +503,11 @@ namespace behaviac
         //to stop a class from being able to be copied, either via copy constructor or assignment.
         Agent(const Agent&);
         Agent& operator=(const Agent&);
+
+		template<typename TAGENT>
+		static TAGENT* GetAgentInstance(const char* agentInstanceName, int contextId, bool& bToBind);
+
+		static void InitAgent(Agent* pAgent, const char* agentInstanceName, const char* agentInstanceNameAny, bool bToBind, int contextId, short priority);
 
         static CFactory<Agent>* ms_factory;
         static CFactory<Agent>& Factory();

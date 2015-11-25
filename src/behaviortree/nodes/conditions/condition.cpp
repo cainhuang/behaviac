@@ -25,8 +25,6 @@ namespace behaviac
 
     Condition::~Condition()
     {
-        BEHAVIAC_DELETE(m_opl);
-        BEHAVIAC_DELETE(m_opr);
         BEHAVIAC_DELETE(m_opl_m);
         BEHAVIAC_DELETE(m_opr_m);
         BEHAVIAC_DELETE(m_comparator);

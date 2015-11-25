@@ -37,7 +37,7 @@ void finlTestEnvArray(AgentArrayAccessTest* testAgent)
     behaviac::Profiler::DestroyInstance();
 }
 
-LOAD_TEST(btunittest, event_ut_0)
+LOAD_TEST(btunittest, vector_test)
 {
     AgentArrayAccessTest* testAgent = initTestEnvArray("par_test/vector_test", format);
     testAgent->resetProperties();

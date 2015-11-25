@@ -75,8 +75,6 @@ namespace behaviac
 
         const char* GetInstanceNameString() const;
 
-        virtual Property* clone() = 0;
-
         virtual int GetTypeId() const = 0;
 
         virtual void SetFrom(Agent* pAgentfrom, behaviac::IAsyncValue* from, Agent* pAgentTo) = 0;
@@ -109,7 +107,7 @@ namespace behaviac
         //ParentType GetParentType() const;
 
         Agent* GetParentAgent(const Agent* pAgent) const;
-        virtual float DifferencePercentage(const Property* other) const = 0;
+		virtual float DifferencePercentage(const Property* reference, const Property* other) const = 0;
 
         Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
 

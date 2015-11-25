@@ -24,7 +24,6 @@ namespace behaviac
 
     Wait::~Wait()
     {
-        BEHAVIAC_DELETE(this->m_time_var);
     }
 
     //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);

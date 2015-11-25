@@ -150,13 +150,14 @@ namespace behaviac
 #endif//USE_DOCUMENET
     };
 
+	#define BEHAVIAC_LOCAL_TASK_PARAM_PRE "_$local_task_param_$_"
+
     /**
     * Base class for BehaviorTree Nodes. This is the static part
     */
     class BEHAVIAC_API BehaviorNode : public CDynamicType
     {
     public:
-        static const char* LOCAL_TASK_PARAM_PRE;
         enum EPhase
         {
             E_SUCCESS,
@@ -378,14 +379,12 @@ namespace behaviac
             {}
 
             Descriptor_t(const Descriptor_t& copy)
-                : Descriptor(copy.Descriptor ? copy.Descriptor->clone() : NULL)
-                , Reference(copy.Reference ? copy.Reference->clone() : NULL)
+                : Descriptor(copy.Descriptor)
+                , Reference(copy.Reference)
             {}
 
             ~Descriptor_t()
             {
-                BEHAVIAC_DELETE(this->Descriptor);
-                BEHAVIAC_DELETE(this->Reference);
             }
 
             DECLARE_BEHAVIAC_STRUCT(BehaviorTree::Descriptor_t);

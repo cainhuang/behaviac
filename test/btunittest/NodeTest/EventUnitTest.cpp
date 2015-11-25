@@ -14,55 +14,83 @@
 #include "../btloadtestsuite.h"
 #include "behaviac/base/core/profiler/profiler.h"
 
-//LOAD_TEST(btunittest, event_ut_0)
-//{
-//	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/event_ut_0", format);
-//	myTestAgent->resetProperties();
-//
-//	myTestAgent->FireEvent("event_test_void");
-//	behaviac::EBTStatus status = myTestAgent->btexec();
-//
-//	CHECK_EQUAL(behaviac::BT_RUNNING, status);
-//
-//	myTestAgent->FireEvent("event_test_void");
-//	CHECK_EQUAL(true, myTestAgent->event_test_var_bool);
-//
-//	status = myTestAgent->btexec();
-//	CHECK_EQUAL(behaviac::BT_RUNNING, status);
-//
-//	myTestAgent->resetProperties();
-//	myTestAgent->FireEvent("event_test_int", 13);
-//	CHECK_EQUAL(13, myTestAgent->event_test_var_int);
-//
-//	status = myTestAgent->btexec();
-//	CHECK_EQUAL(behaviac::BT_RUNNING, status);
-//
-//	myTestAgent->resetProperties();
-//	myTestAgent->FireEvent("event_test_int_bool", 15, true);
-//	CHECK_EQUAL(true, myTestAgent->event_test_var_bool);
-//	CHECK_EQUAL(15, myTestAgent->event_test_var_int);
-//
-//	status = myTestAgent->btexec();
-//	CHECK_EQUAL(behaviac::BT_RUNNING, status);
-//
-//	myTestAgent->resetProperties();
-//	myTestAgent->FireEvent("event_test_int_bool_float", 15, true, 27.3f);
-//	CHECK_EQUAL(true, myTestAgent->event_test_var_bool);
-//	CHECK_EQUAL(15, myTestAgent->event_test_var_int);
-//	CHECK_EQUAL(27.3f, myTestAgent->event_test_var_float);
-//
-//	status = myTestAgent->btexec();
-//	CHECK_EQUAL(behaviac::BT_RUNNING, status);
-//
-//	myTestAgent->resetProperties();
-//	myTestAgent->testVar_0 = 0;
-//	status = myTestAgent->btexec();
-//	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-//	CHECK_EQUAL(0, myTestAgent->testVar_1);
-//
-//	myTestAgent->FireEvent("event_test_int_bool_float", 19, true, 11.9f);
-//	CHECK_EQUAL(false, myTestAgent->event_test_var_bool);
-//	CHECK_EQUAL(-1, myTestAgent->event_test_var_int);
-//	CHECK_EQUAL(-1.0f, myTestAgent->event_test_var_float);
-//	finlTestEnvNode(myTestAgent);
-//}
+LOAD_TEST(btunittest, event_ut_0)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/event_ut_0", format);
+
+	ChildNodeTest* childTestAgent = ChildNodeTest::DynamicCast(behaviac::Agent::Create<ChildNodeTest>(100, "ChildNodeTest", 0, 0));
+	CHECK_EQUAL(100, childTestAgent->testVar_0);
+
+	myTestAgent->resetProperties();
+
+	behaviac::EBTStatus status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	myTestAgent->FireEvent("event_test_void");
+	CHECK_EQUAL(true, myTestAgent->event_test_var_bool);
+
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	myTestAgent->resetProperties();
+	myTestAgent->btsetcurrent("node_test/event_ut_0");
+	myTestAgent->btexec();
+	myTestAgent->FireEvent("event_test_int", 13);
+	CHECK_EQUAL(13, myTestAgent->event_test_var_int);
+			
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	myTestAgent->resetProperties();
+	myTestAgent->btsetcurrent("node_test/event_ut_0");
+	myTestAgent->btexec();
+	myTestAgent->FireEvent("event_test_int_bool", 15, true);
+	CHECK_EQUAL(true, myTestAgent->event_test_var_bool);
+	CHECK_EQUAL(15, myTestAgent->event_test_var_int);
+
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	myTestAgent->resetProperties();
+	myTestAgent->btexec();
+	myTestAgent->FireEvent("event_test_int_bool_float", 15, true, 27.3f);
+	CHECK_EQUAL(true, myTestAgent->event_test_var_bool);
+	CHECK_EQUAL(15, myTestAgent->event_test_var_int);
+	CHECK_FLOAT_EQUAL(27.3f, myTestAgent->event_test_var_float);
+
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	myTestAgent->resetProperties();
+	myTestAgent->btsetcurrent("node_test/event_ut_0");
+	myTestAgent->btexec();
+	myTestAgent->testVar_0 = 0;
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+	CHECK_EQUAL(0, myTestAgent->testVar_1);
+
+	myTestAgent->FireEvent("event_test_int_bool_float", 19, true, 11.9f);
+	CHECK_EQUAL(false, myTestAgent->event_test_var_bool);
+	CHECK_EQUAL(-1, myTestAgent->event_test_var_int);
+	CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->event_test_var_float);
+
+	myTestAgent->resetProperties();
+	myTestAgent->btsetcurrent("node_test/event_ut_0");
+	myTestAgent->btexec();
+
+	CHECK_EQUAL(NULL, myTestAgent->event_test_var_agent);
+	myTestAgent->FireEvent("event_test_agent", myTestAgent);
+	CHECK_EQUAL(true, myTestAgent->event_test_var_agent != NULL);
+
+	myTestAgent->resetProperties();
+	myTestAgent->btsetcurrent("node_test/event_ut_0");
+	myTestAgent->btexec();
+
+	CHECK_EQUAL(NULL, myTestAgent->event_test_var_agent);
+	myTestAgent->FireEvent("event_test_agent", childTestAgent);
+	CHECK_EQUAL(true, myTestAgent->event_test_var_agent != NULL);
+
+	BEHAVIAC_DELETE(childTestAgent);
+
+	finlTestEnvNode(myTestAgent);
+}

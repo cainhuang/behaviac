@@ -591,7 +591,6 @@ namespace behaviac
         if (this->m_status == BT_RUNNING)
         {
             bEnterResult = true;
-
         }
         else
         {
@@ -615,7 +614,6 @@ namespace behaviac
                     LogManager::GetInstance()->Log(pAgent, btStr.c_str(), EAR_none, ELM_tick);
                 }
             }
-
 #endif
             bool bValid = true;
             int _tempPrecndCount = this->m_node != 0 ? this->m_node->PreconditionsCount() : 0;
@@ -642,7 +640,6 @@ namespace behaviac
 
                 //this node is possibly ticked by its parent or by the topBranch who records it as currrent node
                 //so, we can't here reset the topBranch's current node
-
             }
             else
             {
@@ -653,7 +650,6 @@ namespace behaviac
                     tree->SetCurrentTask(this);
                 }
             }
-
         }
         else
         {
@@ -1647,39 +1643,34 @@ namespace behaviac
 
     bool BranchTask::onevent(Agent* pAgent, const char* eventName)
     {
-        bool bGoOn = true;
-
-        if (this->m_status == BT_RUNNING && this->m_node->HasEvents())
+        if (this->m_node->HasEvents())
         {
+	        bool bGoOn = true;
+
             if (this->m_currentTask)
             {
                 bGoOn = this->oneventCurrentNode(pAgent, eventName);
             }
+
+			if (bGoOn)
+			{
+				bGoOn = super::onevent(pAgent, eventName);
+			}
         }
 
-        return bGoOn;
+        return true;
     }
 
     bool LeafTask::onevent(Agent* pAgent, const char* eventName)
     {
-        bool bGoOn = BehaviorTask::onevent(pAgent, eventName);
+        bool bGoOn = super::onevent(pAgent, eventName);
 
         return bGoOn;
     }
 
     bool BehaviorTreeTask::onevent(Agent* pAgent, const char* eventName)
     {
-        if (this->m_node->HasEvents())
-        {
-            bool bGoOn = this->m_root->onevent(pAgent, eventName);
-
-            if (bGoOn && !BehaviorTask::onevent(pAgent, eventName))
-            {
-                return false;
-            }
-        }
-
-        return true;
+		return super::onevent(pAgent, eventName);
     }
 
     void BehaviorTreeTask::Save(ISerializableNode* node) const

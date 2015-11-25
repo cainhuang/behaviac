@@ -191,7 +191,9 @@ namespace behaviac
     }
 
     Property::~Property()
-    {}
+    {
+		BEHAVIAC_ASSERT(true);
+	}
 
     void Property::SetRefName(const char* refParName)
     {
@@ -357,15 +359,12 @@ namespace behaviac
 
             if (strcmp(pProperty->GetInstanceName(), instanceName) != 0)
             {
-                pProperty = pProperty->clone();
-
                 //Properties().insert(std::pair<Property*, bool>(pProperty, true));
                 BEHAVIAC_ASSERT(strcmp(pProperty->Name(), variableName) == 0);
                 pProperty->SetInstanceName(instanceName);
             }
             else
             {
-                pProperty = pProperty->clone();
             }
 
 

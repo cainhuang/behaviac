@@ -22,6 +22,7 @@ namespace BehaviorNodeUnitTest
     internal class EventUnitTest
     {
         AgentNodeTest testAgent = null;
+        ChildNodeTest testChild = null;
 
         [TestFixtureSetUp]
         public void initGlobalTestEnv() {
@@ -34,11 +35,15 @@ namespace BehaviorNodeUnitTest
             testAgentObject.transform.localScale = Vector3.one;
             testAgent = testAgentObject.AddComponent<AgentNodeTest>();
             testAgent.init();
+
+            testChild = testAgentObject.AddComponent<ChildNodeTest>();
+            testChild.init();
         }
 
         [TestFixtureTearDown]
         public void finlGlobalTestEnv() {
             testAgent.finl();
+            testChild.finl();
             BehaviacSystem.Instance.Uninit();
         }
 
@@ -58,7 +63,6 @@ namespace BehaviorNodeUnitTest
             testAgent.resetProperties();
 
             behaviac.EBTStatus status = testAgent.btexec();
-
             Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
 
             testAgent.FireEvent("event_test_void");
@@ -109,6 +113,24 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(false, testAgent.event_test_var_bool);
             Assert.AreEqual(-1, testAgent.event_test_var_int);
             Assert.AreEqual(-1.0f, testAgent.event_test_var_float);
+
+            testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/event_ut_0");
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            Assert.AreEqual(null, testAgent.event_test_var_agent);
+            testAgent.FireEvent("event_test_agent", testAgent);
+            Assert.AreNotEqual(null, testAgent.event_test_var_agent);
+
+            testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/event_ut_0");
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            Assert.AreEqual(null, testAgent.event_test_var_agent);
+            testAgent.FireEvent("event_test_agent", testChild);
+            Assert.AreNotEqual(null, testAgent.event_test_var_agent);
         }
 
         [Test]

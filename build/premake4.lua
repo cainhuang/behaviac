@@ -266,6 +266,11 @@ solution "behaviac"
 			-- flags   { "Symbols" }			
 	end
 
+	warningUninitialized="-Wno-maybe-uninitialized"
+	if string.match(action, "xcode") ~= nil then
+		warningUninitialized="-Wno-uninitialized"
+	end
+
 	if string.match(action, "gmake") ~= nil or string.match(action, "xcode") ~= nil or string.match(action, "jni") ~= nil then	
 		configuration {}
 			buildoptions { 
@@ -273,7 +278,7 @@ solution "behaviac"
 				"-Wno-invalid-offsetof", -- invalid access to non-static data member ¡®xxx¡¯  of NULL object
 				"-Wno-array-bounds", -- array index 'x' is past the end of the array
 				"-Wno-unused-local-typedefs", --warning: typedef '_static_assert_typedef_' locally defined but not used
-				"-Wno-maybe-uninitialized", --warning: 'lhs' may be used uninitialized in this function
+				warningUninitialized, --warning: 'lhs' may be used uninitialized in this function
 				"-Woverloaded-virtual", 
 				"-Wnon-virtual-dtor",
 				"-Wfloat-equal", 

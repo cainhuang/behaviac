@@ -30,6 +30,7 @@ void AgentNodeTest::resetProperties()
     event_test_var_int = -1;
     event_test_var_bool = false;
     event_test_var_float = -1.0f;
+	event_test_var_agent = NULL;
     waiting_timeout_interval = 0;
 
     action_0_enter_count = 0;
@@ -65,6 +66,7 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
     REGISTER_METHOD(setEventVarInt);
     REGISTER_METHOD(setEventVarBool);
     REGISTER_METHOD(setEventVarFloat);
+    REGISTER_METHOD(setEventVarAgent);
     REGISTER_METHOD(getConstOne);
     REGISTER_METHOD(setTestVar_0);
     REGISTER_METHOD(setTestVar_1);
@@ -84,5 +86,20 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
 	REGISTER_METHOD(testExtendedRefType);
 	REGISTER_METHOD(testExtendedStruct);
     REGISTER_METHOD(switchRef);
+}
+END_PROPERTIES_DESCRIPTION()
+
+
+ChildNodeTest::ChildNodeTest(int var_0)
+{
+	testVar_0 = var_0;
+}
+
+ChildNodeTest::~ChildNodeTest()
+{
+}
+
+BEGIN_PROPERTIES_DESCRIPTION(ChildNodeTest)
+{
 }
 END_PROPERTIES_DESCRIPTION()

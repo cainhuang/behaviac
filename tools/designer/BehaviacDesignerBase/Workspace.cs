@@ -1136,7 +1136,7 @@ namespace Behaviac.Design
                             IList<MethodDef> methods = agent.GetMethods();
                             bool hasCustomizedMethod = false;
                             foreach(MethodDef method in methods) {
-                                if (method.IsCustomized) {
+                                if (method.IsNamedEvent) {
                                     hasCustomizedMethod = true;
                                     break;
                                 }
@@ -1186,7 +1186,7 @@ namespace Behaviac.Design
 
                                     foreach(MethodDef method in methods) {
                                         //skip root, but custom method is included
-                                        if (method.IsCustomized || method.IsInherited) {
+                                        if (method.IsNamedEvent) {
                                             xmlWrtier.WriteStartElement("method");
 
                                             xmlWrtier.WriteAttributeString("name", method.BasicName);
@@ -1264,7 +1264,7 @@ namespace Behaviac.Design
                         IList<MethodDef> methods = agent.GetMethods();
                         bool hasCustomizedMethod = false;
                         foreach(MethodDef method in methods) {
-                            if (method.IsCustomized && (method.MemberType == MemberType.Task)) {
+                            if (method.IsNamedEvent) {
                                 hasCustomizedMethod = true;
                                 break;
                             }
@@ -1318,8 +1318,7 @@ namespace Behaviac.Design
 
                                 foreach(MethodDef method in methods) {
                                     //skip root and those other custom method
-                                    if ((method.IsCustomized || method.IsInherited) && (method.MemberType == MemberType.Task)) {
-                                        Debug.Check(method.IsCustomized);
+                                    if (method.IsNamedEvent) {
                                         serializer.WriteStartElement("method");
 
                                         serializer.WriteString(method.BasicName);

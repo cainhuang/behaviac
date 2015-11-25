@@ -108,6 +108,17 @@ namespace behaviac
 			bb->AddProperty("int", false, "waiting_timeout_interval", "0", "AgentNodeTest");
 			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
 
+			// ChildNodeTest
+			bb = BEHAVIAC_NEW AgentProperties("ChildNodeTest");
+			AgentProperties::SetAgentTypeBlackboards("ChildNodeTest", bb);
+			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
+			bb->AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
+			bb->AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
+			bb->AddProperty("float", false, "testVar_2", "0", "ChildNodeTest");
+			bb->AddProperty("float", false, "testVar_3", "0", "ChildNodeTest");
+			bb->AddProperty("string", false, "testVar_str_0", "", "ChildNodeTest");
+			bb->AddProperty("int", false, "waiting_timeout_interval", "0", "ChildNodeTest");
+
 			// CustomPropertyAgent
 			bb = BEHAVIAC_NEW AgentProperties("CustomPropertyAgent");
 			AgentProperties::SetAgentTypeBlackboards("CustomPropertyAgent", bb);
@@ -269,6 +280,42 @@ namespace behaviac
 			customeMethod = BEHAVIAC_NEW CTaskMethod("AgentNodeTest", "task_test");
 			customeMethod->AddParamType("int");
 			customeMethod->AddParamType("float");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("AgentNodeTest", "event_test_agent");
+			customeMethod->AddParamType("AgentNodeTest");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			// ChildNodeTest
+			objectDesc = (CTagObjectDescriptor*)Agent::GetDescriptorByName("ChildNodeTest");
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "root");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "event_test_int");
+			customeMethod->AddParamType("int");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "event_test_int_bool");
+			customeMethod->AddParamType("int");
+			customeMethod->AddParamType("bool");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "event_test_int_bool_float");
+			customeMethod->AddParamType("int");
+			customeMethod->AddParamType("bool");
+			customeMethod->AddParamType("float");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "event_test_void");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "task_test");
+			customeMethod->AddParamType("int");
+			customeMethod->AddParamType("float");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "event_test_agent");
+			customeMethod->AddParamType("AgentNodeTest");
 			objectDesc->ms_methods.push_back(customeMethod);
 
 			// HTNAgentHouse

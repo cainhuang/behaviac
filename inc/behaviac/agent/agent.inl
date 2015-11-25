@@ -19,30 +19,17 @@ namespace behaviac
         return IsRegistered(agentClassName);
     }
 
-    template<typename TAGENT>
-    BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(const char* agentInstanceName, int contextId, short priority)
+	template<typename TAGENT>
+    BEHAVIAC_FORCEINLINE TAGENT* Agent::GetAgentInstance(const char* agentInstanceName, int contextId, bool& bToBind)
     {
-        bool bNameProvided = false;
-        const char* agentInstanceNameAny = agentInstanceName;
-
-        if (!agentInstanceName)
-        {
-            agentInstanceNameAny = TAGENT::GetClassTypeName();
-        }
-        else
-        {
-            bNameProvided = true;
-        }
-
-        bool bToBind = false;
-
         TAGENT* pA = 0;
+        bToBind = false;
 
-        if (Agent::IsInstanceNameRegistered(agentInstanceNameAny))
+        if (Agent::IsInstanceNameRegistered(agentInstanceName))
         {
             Context& c = Context::GetContext(contextId);
 
-            Agent* a = c.GetInstance(agentInstanceNameAny);
+            Agent* a = c.GetInstance(agentInstanceName);
 
             if (a)
             {
@@ -56,22 +43,142 @@ namespace behaviac
             }
         }
 
+		return pA;
+	}
+
+	BEHAVIAC_FORCEINLINE void Agent::InitAgent(Agent* pAgent, const char* agentInstanceName, const char* agentInstanceNameAny, bool bToBind, int contextId, short priority)
+	{
+		const char* szAgentInstanceName = (agentInstanceName || bToBind) ? agentInstanceNameAny : agentInstanceName;
+
+		Init_(contextId, pAgent, priority, szAgentInstanceName);
+
+		if (bToBind)
+		{
+			Context& c = Context::GetContext(contextId);
+			c.BindInstance(agentInstanceNameAny, pAgent);
+		}
+	}
+
+	template<typename TAGENT>
+    BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(const char* agentInstanceName, int contextId, short priority)
+    {
+        const char* agentInstanceNameAny = agentInstanceName;
+        if (!agentInstanceName)
+        {
+            agentInstanceNameAny = TAGENT::GetClassTypeName();
+        }
+
+		bool bToBind = false;
+		TAGENT* pA = GetAgentInstance<TAGENT>(agentInstanceNameAny, contextId, bToBind);
+
         if (pA == 0)
         {
             //TAGENT should be derived from Agent
             Agent* pAgent = BEHAVIAC_NEW TAGENT();
-
-            const char* szAgentInstanceName = (bNameProvided || bToBind) ? agentInstanceNameAny : agentInstanceName;
-
-            Init_(contextId, pAgent, priority, szAgentInstanceName);
             BEHAVIAC_ASSERT(TAGENT::DynamicCast(pAgent));
-            pA = (TAGENT*)pAgent;
 
-            if (bToBind)
-            {
-                Context& c = Context::GetContext(contextId);
-                c.BindInstance(agentInstanceNameAny, pA);
-            }
+			pA = (TAGENT*)pAgent;
+			InitAgent(pA, agentInstanceName, agentInstanceNameAny, bToBind, contextId, priority);
+        }
+
+        return pA;
+    }
+
+	template<typename TAGENT, typename T1>
+    BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(T1 p1, const char* agentInstanceName, int contextId, short priority)
+    {
+        const char* agentInstanceNameAny = agentInstanceName;
+        if (!agentInstanceName)
+        {
+            agentInstanceNameAny = TAGENT::GetClassTypeName();
+        }
+
+		bool bToBind = false;
+		TAGENT* pA = GetAgentInstance<TAGENT>(agentInstanceNameAny, contextId, bToBind);
+
+        if (pA == 0)
+        {
+            //TAGENT should be derived from Agent
+            Agent* pAgent = BEHAVIAC_NEW TAGENT(p1);
+            BEHAVIAC_ASSERT(TAGENT::DynamicCast(pAgent));
+
+			pA = (TAGENT*)pAgent;
+			InitAgent(pA, agentInstanceName, agentInstanceNameAny, bToBind, contextId, priority);
+        }
+
+        return pA;
+    }
+
+	template<typename TAGENT, typename T1, typename T2>
+    BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(T1 p1, T2 p2, const char* agentInstanceName, int contextId, short priority)
+    {
+        const char* agentInstanceNameAny = agentInstanceName;
+        if (!agentInstanceName)
+        {
+            agentInstanceNameAny = TAGENT::GetClassTypeName();
+        }
+
+		bool bToBind = false;
+		TAGENT* pA = GetAgentInstance<TAGENT>(agentInstanceNameAny, contextId, bToBind);
+
+        if (pA == 0)
+        {
+            //TAGENT should be derived from Agent
+            Agent* pAgent = BEHAVIAC_NEW TAGENT(p1, p2);
+            BEHAVIAC_ASSERT(TAGENT::DynamicCast(pAgent));
+
+			pA = (TAGENT*)pAgent;
+			InitAgent(pA, agentInstanceName, agentInstanceNameAny, bToBind, contextId, priority);
+        }
+
+        return pA;
+    }
+
+	template<typename TAGENT, typename T1, typename T2, typename T3>
+    BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(T1 p1, T2 p2, T3 p3, const char* agentInstanceName, int contextId, short priority)
+    {
+        const char* agentInstanceNameAny = agentInstanceName;
+        if (!agentInstanceName)
+        {
+            agentInstanceNameAny = TAGENT::GetClassTypeName();
+        }
+
+		bool bToBind = false;
+		TAGENT* pA = GetAgentInstance<TAGENT>(agentInstanceNameAny, contextId, bToBind);
+
+        if (pA == 0)
+        {
+            //TAGENT should be derived from Agent
+            Agent* pAgent = BEHAVIAC_NEW TAGENT(p1, p2, p3);
+            BEHAVIAC_ASSERT(TAGENT::DynamicCast(pAgent));
+
+			pA = (TAGENT*)pAgent;
+			InitAgent(pA, agentInstanceName, agentInstanceNameAny, bToBind, contextId, priority);
+        }
+
+        return pA;
+    }
+
+	template<typename TAGENT, typename T1, typename T2, typename T3, typename T4>
+    BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(T1 p1, T2 p2, T3 p3, T4 p4, const char* agentInstanceName, int contextId, short priority)
+    {
+        const char* agentInstanceNameAny = agentInstanceName;
+        if (!agentInstanceName)
+        {
+            agentInstanceNameAny = TAGENT::GetClassTypeName();
+        }
+
+		bool bToBind = false;
+		TAGENT* pA = GetAgentInstance<TAGENT>(agentInstanceNameAny, contextId, bToBind);
+
+        if (pA == 0)
+        {
+            //TAGENT should be derived from Agent
+            Agent* pAgent = BEHAVIAC_NEW TAGENT(p1, p2, p3, p4);
+            BEHAVIAC_ASSERT(TAGENT::DynamicCast(pAgent));
+
+			pA = (TAGENT*)pAgent;
+			InitAgent(pA, agentInstanceName, agentInstanceNameAny, bToBind, contextId, priority);
         }
 
         return pA;
@@ -516,8 +623,6 @@ namespace behaviac
         //after TAGENT::RegisterProperties()
         RegisterTypeToMetas<TAGENT>(false);
 
-        Factory().Register<TAGENT>();
-
         return true;
     }
 
@@ -532,8 +637,6 @@ namespace behaviac
 
         //Agent::UnRegisterProperties(meta);
         //handled in CleanupMetas
-
-        Factory().UnRegister<TAGENT>();
     }
 
     template<typename TAGENT>
@@ -862,57 +965,79 @@ namespace behaviac
         return result1;
     }
 
+	template<typename T, bool bStruct>
+	struct UserDefinedTypeAssert
+	{
+		static bool IsAKindOf(T p, const char* szType)
+		{
+			return false;
+		}
+	};
+
+	template<typename T>
+	struct UserDefinedTypeAssert<T, true>
+	{
+		static bool IsAKindOf(T p, const char* szType)
+		{
+			return p->IsAKindOf(CStringID(szType));
+		}
+	};
+
+	template<typename T>
+	static bool IsChildOf(T child, const char* baseClass)
+	{
+		//agent or user defined struct
+		return UserDefinedTypeAssert<T, behaviac::Meta::IsPtr<T>::Result && behaviac::Meta::IsRefType<T>::Result>::IsAKindOf(child, baseClass);
+	}
 
     template<typename ParamType>
     void CNamedEvent::SetParam(Agent* pAgent, ParamType param)
     {
         BEHAVIAC_ASSERT(this->m_paramTypes.size() == 1);
-        BEHAVIAC_ASSERT(this->m_paramTypes[0] == GetClassTypeName((ParamType*)0), "SetParam's Param is not compatible");
+		BEHAVIAC_ASSERT(this->m_paramTypes[0] == ::GetClassTypeName((ParamType*)0) || IsChildOf(param, this->m_paramTypes[0].c_str()), "SetParam's Param is not compatible");
 
-        //string eventName = string.Format("{0}_param0", this->Name);
         AgentState* currentState = pAgent->m_variables.Push(false);
 
-        behaviac::string eventName = FormatString("%s%d", BehaviorNode::LOCAL_TASK_PARAM_PRE, 0);
+		BEHAVIAC_UNUSED_VAR(currentState);
 
-        //AgentProperties agentT = AgentProperties.Get(pAgent->GetClassTypeName());
-        pAgent->SetVariable(eventName, param);
+        behaviac::string eventName = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
+
+        pAgent->SetVariable(eventName.c_str(), param);
     }
 
     template<typename ParamType1, typename ParamType2>
     void CNamedEvent::SetParam(Agent* pAgent, ParamType1 param1, ParamType2 param2)
     {
         BEHAVIAC_ASSERT(this->m_paramTypes.size() == 2);
-        BEHAVIAC_ASSERT(this->m_paramTypes[0] == GetClassTypeName((ParamType1*)0), "SetParam's Param1 is not compatible");
-        BEHAVIAC_ASSERT(this->m_paramTypes[1] == GetClassTypeName((ParamType2*)0), "SetParam's Param2 is not compatible");
+        BEHAVIAC_ASSERT(this->m_paramTypes[0] == ::GetClassTypeName((ParamType1*)0) || IsChildOf(param1, this->m_paramTypes[0].c_str()), "SetParam's Param1 is not compatible");
+        BEHAVIAC_ASSERT(this->m_paramTypes[1] == ::GetClassTypeName((ParamType2*)0) || IsChildOf(param2, this->m_paramTypes[1].c_str()), "SetParam's Param2 is not compatible");
 
         AgentState* currentState = pAgent->m_variables.Push(false);
+		BEHAVIAC_UNUSED_VAR(currentState);
 
-        //AgentProperties agentT = AgentProperties.Get(pAgent->GetClassTypeName());
-
-        behaviac::string eventName1 = FormatString("%s%d", BehaviorNode::LOCAL_TASK_PARAM_PRE, 0);
-        pAgent->SetVariable(eventName1, param1);
-        behaviac::string eventName2 = FormatString("%s%d", BehaviorNode::LOCAL_TASK_PARAM_PRE, 1);
-        pAgent->SetVariable(eventName2, param2);
+        behaviac::string eventName1 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
+        pAgent->SetVariable(eventName1.c_str(), param1);
+        behaviac::string eventName2 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 1);
+        pAgent->SetVariable(eventName2.c_str(), param2);
     }
 
     template<typename ParamType1, typename ParamType2, typename ParamType3>
     void CNamedEvent::SetParam(Agent* pAgent, ParamType1 param1, ParamType2 param2, ParamType3 param3)
     {
         BEHAVIAC_ASSERT(this->m_paramTypes.size() == 3);
-        BEHAVIAC_ASSERT(this->m_paramTypes[0] == GetClassTypeName((ParamType1*)0), "SetParam's Param1 is not compatible");
-        BEHAVIAC_ASSERT(this->m_paramTypes[1] == GetClassTypeName((ParamType2*)0), "SetParam's Param2 is not compatible");
-        BEHAVIAC_ASSERT(this->m_paramTypes[2] == GetClassTypeName((ParamType3*)0), "SetParam's Param3 is not compatible");
+        BEHAVIAC_ASSERT(this->m_paramTypes[0] == ::GetClassTypeName((ParamType1*)0) || IsChildOf(param1, this->m_paramTypes[0].c_str()), "SetParam's Param1 is not compatible");
+        BEHAVIAC_ASSERT(this->m_paramTypes[1] == ::GetClassTypeName((ParamType2*)0) || IsChildOf(param2, this->m_paramTypes[1].c_str()), "SetParam's Param2 is not compatible");
+        BEHAVIAC_ASSERT(this->m_paramTypes[2] == ::GetClassTypeName((ParamType3*)0) || IsChildOf(param3, this->m_paramTypes[2].c_str()), "SetParam's Param3 is not compatible");
 
         AgentState* currentState = pAgent->m_variables.Push(false);
+		BEHAVIAC_UNUSED_VAR(currentState);
 
-        //AgentProperties agentT = AgentProperties.Get(pAgent->GetClassTypeName());
-
-        behaviac::string eventName1 = FormatString("%s%d", BehaviorNode::LOCAL_TASK_PARAM_PRE, 0);
-        pAgent->SetVariable(eventName1, param1);
-        behaviac::string eventName2 = FormatString("%s%d", BehaviorNode::LOCAL_TASK_PARAM_PRE, 1);
-        pAgent->SetVariable(eventName2, param2);
-        behaviac::string eventName3 = FormatString("%s%d", BehaviorNode::LOCAL_TASK_PARAM_PRE, 2);
-        pAgent->SetVariable(eventName3, param3);
+        behaviac::string eventName1 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
+        pAgent->SetVariable(eventName1.c_str(), param1);
+        behaviac::string eventName2 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 1);
+        pAgent->SetVariable(eventName2.c_str(), param2);
+        behaviac::string eventName3 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 2);
+        pAgent->SetVariable(eventName3.c_str(), param3);
     }
 
 }//namespace behaviac

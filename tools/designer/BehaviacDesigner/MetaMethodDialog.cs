@@ -33,7 +33,7 @@ namespace Behaviac.Design
 
             this.Owner = MainWindow.Instance;
 
-            this.metaMethodPanel.Initialize(agent, method, memberType);
+            this.metaMethodPanel.Initialize(true, agent, method, memberType);
         }
 
         public MethodDef GetMethod()

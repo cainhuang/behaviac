@@ -10574,6 +10574,81 @@ namespace behaviac
 		}
 	}
 
+	// Source file: node_test/event_subtree_4
+
+	class Task_bt_node_test_event_subtree_4_node0 : behaviac.Task
+	{
+		public Task_bt_node_test_event_subtree_4_node0()
+		{
+			this.m_task = Action.LoadMethod("Self.AgentNodeTest::event_test_agent(null)") as CTaskMethod;
+			Debug.Check(this.m_task != null);
+			this.m_bHTN = false;
+		}
+	}
+
+	class Action_bt_node_test_event_subtree_4_node2 : behaviac.Action
+	{
+		public Action_bt_node_test_event_subtree_4_node2()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			Debug.Check(behaviac.Utils.MakeVariableId("_$local_task_param_$_0") == 2009726548u);
+			AgentNodeTest method_p0 = pAgent.GetVariable<AgentNodeTest>(2009726548u);
+			((AgentNodeTest)pAgent).setEventVarAgent(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	public static class bt_node_test_event_subtree_4
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/event_subtree_4");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// pars
+			bt.AddPar("AgentNodeTest", "AgentNodeTest", "_$local_task_param_$_0", "null");
+			// children
+			{
+				Task_bt_node_test_event_subtree_4_node0 node0 = new Task_bt_node_test_event_subtree_4_node0();
+				node0.SetClassNameString("Task");
+				node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+				node0.SetAgentType("AgentNodeTest");
+#endif
+				bt.AddChild(node0);
+				{
+					Sequence node1 = new Sequence();
+					node1.SetClassNameString("Sequence");
+					node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+					node1.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node1);
+					{
+						Action_bt_node_test_event_subtree_4_node2 node2 = new Action_bt_node_test_event_subtree_4_node2();
+						node2.SetClassNameString("Action");
+						node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+						node2.SetAgentType("AgentNodeTest");
+#endif
+						node1.AddChild(node2);
+						node1.SetHasEvents(node1.HasEvents() | node2.HasEvents());
+					}
+					node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
+			}
+			return true;
+		}
+	}
+
 	// Source file: node_test/event_ut_0
 
 	class Event_bt_node_test_event_ut_0_attach1 : behaviac.Event
@@ -10626,6 +10701,21 @@ namespace behaviac
 		public Event_bt_node_test_event_ut_0_attach4()
 		{
 			this.Initialize("Self.AgentNodeTest::event_test_int_bool_float(0,false,0)", "node_test/event_subtree_3", TriggerMode.TM_Return, false);
+		}
+		public void Initialize(string eventName, string referencedBehavior, TriggerMode mode, bool once)
+		{
+			this.m_event = Action.LoadMethod(eventName);
+			this.m_referencedBehaviorPath = referencedBehavior;
+			this.m_triggerMode = mode;
+			this.m_bTriggeredOnce = once;
+		}
+	}
+
+	class Event_bt_node_test_event_ut_0_attach8 : behaviac.Event
+	{
+		public Event_bt_node_test_event_ut_0_attach8()
+		{
+			this.Initialize("Self.AgentNodeTest::event_test_agent(null)", "node_test/event_subtree_4", TriggerMode.TM_Transfer, false);
 		}
 		public void Initialize(string eventName, string referencedBehavior, TriggerMode mode, bool once)
 		{
@@ -10724,6 +10814,16 @@ namespace behaviac
 #endif
 					node0.Attach(attach4, false, false, false);
 					node0.SetHasEvents(node0.HasEvents() | (attach4 is Event));
+				}
+				{
+					Event_bt_node_test_event_ut_0_attach8 attach8 = new Event_bt_node_test_event_ut_0_attach8();
+					attach8.SetClassNameString("Event");
+					attach8.SetId(8);
+#if !BEHAVIAC_RELEASE
+					attach8.SetAgentType("AgentNodeTest");
+#endif
+					node0.Attach(attach8, false, false, false);
+					node0.SetHasEvents(node0.HasEvents() | (attach8 is Event));
 				}
 				bt.AddChild(node0);
 				{

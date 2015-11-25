@@ -104,6 +104,9 @@
       <Method Name="setEventVarFloat" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="var" Desc="var" Type="float" />
       </Method>
+      <Method Name="setEventVarAgent" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
+        <Param DisplayName="agent" Desc="agent" Type="AgentNodeTest*" />
+      </Method>
       <Method Name="getConstOne" DisplayName="" Desc="" ReturnType="int" Class="AgentNodeTest" Public="true" />
       <Method Name="setTestVar_0" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="var" Desc="var" Type="int" />
@@ -153,6 +156,7 @@
         <Param DisplayName="str" Desc="str" Type="string" />
       </Method>
     </agent>
+    <agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="ChildNodeTest" Desc="ChildNodeTest" IsRefType="true" />
     <agent classfullname="CustomPropertyAgent" base="behaviac::Agent" DisplayName="CustomPropertyAgent" Desc="CustomPropertyAgent" IsRefType="true">
       <Member Name="IntMemberConst" DisplayName="" Desc="" Type="int" Class="CustomPropertyAgent" Readonly="true" Static="true" Public="true" />
       <Member Name="BoolMemberReadonly" DisplayName="" Desc="" Type="bool" Class="CustomPropertyAgent" Readonly="true" Public="true" />

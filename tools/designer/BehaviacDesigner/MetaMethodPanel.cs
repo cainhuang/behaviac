@@ -152,7 +152,7 @@ namespace Behaviac.Design
             set { _isModified = true; }
         }
 
-        public void Initialize(AgentType agent, MethodDef method, MemberType memberType)
+        public void Initialize(bool canBeEdit, AgentType agent, MethodDef method, MemberType memberType)
         {
             _initialized = false;
             _isModified = false;
@@ -208,16 +208,16 @@ namespace Behaviac.Design
             this.isStaticCheckBox.Checked = _method.IsStatic;
             this.isPublicCheckBox.Checked = _method.IsPublic;
 
-            this.nameTextBox.Enabled = _method.IsCustomized;
-            this.returnTypeComboBox.Enabled = (memberType != MemberType.Task) ? _method.IsCustomized : false;
-            this.arrayCheckBox.Enabled = (memberType != MemberType.Task) ? _method.IsCustomized : false;
-            this.isStaticCheckBox.Enabled = _method.IsCustomized;
-            this.isPublicCheckBox.Enabled = _method.IsCustomized;
-            this.dispTextBox.Enabled = _method.IsCustomized;
-            this.descTextBox.Enabled = _method.IsCustomized;
-            this.addParamButton.Enabled = _method.IsCustomized;
-            this.removeParamButton.Enabled = _method.IsCustomized;
-            this.tableLayoutPanel.Enabled = _method.IsCustomized;
+            this.nameTextBox.Enabled = canBeEdit;
+            this.returnTypeComboBox.Enabled = (memberType != MemberType.Task) ? canBeEdit : false;
+            this.arrayCheckBox.Enabled = (memberType != MemberType.Task) ? canBeEdit : false;
+            this.isStaticCheckBox.Enabled = canBeEdit;
+            this.isPublicCheckBox.Enabled = canBeEdit;
+            this.dispTextBox.Enabled = canBeEdit;
+            this.descTextBox.Enabled = canBeEdit;
+            this.addParamButton.Enabled = canBeEdit;
+            this.removeParamButton.Enabled = canBeEdit;
+            this.tableLayoutPanel.Enabled = canBeEdit;
 
             _initialized = true;
         }

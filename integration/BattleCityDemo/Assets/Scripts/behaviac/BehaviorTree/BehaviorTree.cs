@@ -1787,8 +1787,8 @@ namespace behaviac
 
             public Descriptor_t(Descriptor_t copy)
             {
-                Descriptor = copy.Descriptor != null ? copy.Descriptor.clone() : null;
-                Reference = copy.Reference != null ? copy.Reference.clone() : null;
+                Descriptor = copy.Descriptor;
+                Reference = copy.Reference;
             }
 
             ~Descriptor_t()

@@ -96,6 +96,42 @@
         <parameter name="count" type="int" />
         <parameter name="weight" type="float" />
       </method>
+      <method name="event_test_agent" agent="AgentNodeTest">
+        <parameter name="agent" type="AgentNodeTest" />
+      </method>
+    </methods>
+  </agent>
+  <agent type="ChildNodeTest" base="AgentNodeTest">
+    <properties>
+      <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
+      <property name="testVar_0" type="int" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_2" type="float" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_3" type="float" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_str_0" type="string" member="true" static="false" agent="AgentNodeTest" />
+      <property name="waiting_timeout_interval" type="int" member="true" static="false" agent="AgentNodeTest" />
+    </properties>
+    <methods>
+      <method name="event_test_int" agent="AgentNodeTest">
+        <parameter name="val_int" type="int" />
+      </method>
+      <method name="event_test_int_bool" agent="AgentNodeTest">
+        <parameter name="val_int" type="int" />
+        <parameter name="val_bool" type="bool" />
+      </method>
+      <method name="event_test_int_bool_float" agent="AgentNodeTest">
+        <parameter name="val_int" type="int" />
+        <parameter name="val_bool" type="bool" />
+        <parameter name="val_float" type="float" />
+      </method>
+      <method name="event_test_void" agent="AgentNodeTest" />
+      <method name="task_test" agent="AgentNodeTest">
+        <parameter name="count" type="int" />
+        <parameter name="weight" type="float" />
+      </method>
+      <method name="event_test_agent" agent="AgentNodeTest">
+        <parameter name="agent" type="AgentNodeTest" />
+      </method>
     </methods>
   </agent>
   <agent type="CustomPropertyAgent" base="behaviac::Agent">
@@ -112,11 +148,6 @@
       <property name="c_Enum" type="TNS::NE::NAT::eColor" member="false" static="false" defaultvalue="RED" />
       <property name="c_Location" type="UnityEngine::Vector3" member="false" static="false" defaultvalue="{x=0;y=0;z=0;}" />
     </properties>
-    <methods>
-      <method name="PIR_IntArray" agent="CustomPropertyAgent">
-        <parameter name="intArray" type="vector&lt;int&gt;" />
-      </method>
-    </methods>
   </agent>
   <agent type="EmployeeParTestAgent" base="ParTestAgent">
     <properties>

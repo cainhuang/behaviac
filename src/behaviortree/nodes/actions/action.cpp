@@ -153,14 +153,12 @@ namespace behaviac
         {
             BEHAVIAC_LOGWARNING("No Method %s::%s registered\n", agentClassName, methodName);
             BEHAVIAC_ASSERT(0, "No Method %s::%s registered\n", agentClassName, methodName);
-
         }
         else
         {
             if (Agent::IsInstanceNameRegistered(agentIntanceName))
             {
                 method->SetInstanceNameString(agentIntanceName, PT_INSTANCE);
-
             }
             else
             {

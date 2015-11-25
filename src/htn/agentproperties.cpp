@@ -187,7 +187,7 @@ namespace behaviac
         return NULL;
     }
 
-    void AgentProperties::UnloadLoacals()
+    void AgentProperties::UnloadLocals()
     {
         for (map<behaviac::string, AgentProperties*>::iterator it = agent_type_blackboards.begin(); it != agent_type_blackboards.end(); it++)
         {
