@@ -2,10 +2,13 @@
 ---
 var docs = 
 [
-  {% for post in site.posts limit:100 %}
-  {% include post.json %},
-  {% endfor %}
+    {% for post in site.posts limit:100 %}
+    {% include post.json %},
+    {% endfor %}
   
+    {% for post in site.docs limit:100 %}
+    {% include post.json %},
+    {% endfor %}
 ];
   // init lunr
 var idx = lunr(function () {
@@ -14,6 +17,8 @@ var idx = lunr(function () {
     })
 
 // add each document to be index
+
 for(var index in docs) {
   idx.add(docs[index]);
 }
+
