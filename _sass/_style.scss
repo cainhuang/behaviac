@@ -343,7 +343,8 @@ footer {
   }
 
   img {
-    margin: -30px 0 0;
+    margin:0;
+    margin-top:35px;
     width: 180px;
     height: 150px;
   }
@@ -361,7 +362,8 @@ footer {
 
     img {
       float: left;
-      margin: -20px -30px -30px -50px;
+      margin: 0px;
+      margin-top:35px;
       width: 300px;
       height: 251px;
     }
@@ -377,7 +379,7 @@ footer {
     .pane:after {
       content: " ";
       float: right;
-      background: url(../img/footer-arrow.png) top left no-repeat;
+      /*ackground: url(../img/footer-arrow.png) top left no-repeat;*/
       width: 73px;
       height: 186px;
       position: absolute;
@@ -1028,4 +1030,9 @@ code.output {
   font-size:36px;
   color: #4169E1;
   font-style: italic;
+}
+.index_desc_list{
+ margin:0px;
+ margin-left:30px;
+ padding-left:300px;
 }
