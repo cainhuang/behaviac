@@ -1,8 +1,10 @@
 ---
 layout: docs
 title: behaviac升级的步骤及注意事项
+date: 2015-11-21
 author: jonygli
 permalink: /docs/articles/updatenotes/
+categories: [doc]
 ---
 
 ##每次升级版本的流程是

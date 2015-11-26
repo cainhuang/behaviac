@@ -1,8 +1,10 @@
 ---
 layout: docs
 title: behaviac概述
+date: 2015-11-20
 author: cainhuang
 permalink: /docs/articles/overview/
+categories: [doc]
 ---
 
 ## 1 项目概况
