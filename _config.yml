@@ -13,8 +13,8 @@ collections:
   docs:
     output: true
 
-name: behaviac • Simple, Game AI, Offfical  Website
-description: Advance Game AI framework, support Unity 3D, Cocos 2d, SDL and other game engine.
+name: behaviac • 游戏AI开发框架组件
+description: 游戏AI开发框架组件, support Unity 3D, Cocos 2d, SDL and other game engines.
 url: http://tencentopen.github.io/behaviac
 
 gems:
