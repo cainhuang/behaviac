@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: behaviac概述
-author: cainhuangyy
+author: cainhuang
 permalink: /docs/articles/overview/
 ---
 

@@ -12,7 +12,17 @@ layout: default
           <div class="improve right hide-on-mobiles">
             <a href="https://github.com/TencentOpen/behaviac/blob/gh-pages/{{ page.path }}"><i class="fa fa-pencil"></i> &nbsp;Improve this page</a>
           </div>
-          <h1>{{ page.title }}</h1>
+          <h1>
+            <a href="{{site.baseurl}}{{ page.url }}">
+              {{ page.title }}
+            </a>
+          </h1>
+          <div class="post-meta">
+            <a href="https://github.com/{{ page.author }}" class="post-author">
+              <img src="https://github.com/{{ page.author }}.png" class="avatar" alt="{{ page.author }} avatar" width="24" height="24">
+              {{ page.author }}
+            </a>
+          </div>
           {{ content }}
           {% include section_nav.html %}
           <br/>
