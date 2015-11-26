@@ -5,16 +5,16 @@ author: jonygli
 permalink: /docs/articles/updatenotes/
 ---
 
+##每次升级版本的流程是
+1. 用最新的代码把你们的游戏能够编译运行（如果可能首先删除旧的的代码，用新代码替换）
+2. 导出最新的meta的xml文件
+3. 用最新版本的编辑器打开老的workspace，重新导出
+4. 用3中导出的新的文件运行游戏
+
 ##相比2.x版本，3.x版本有若干重大改动
 1. meta browser， 变量的使用更加统一和方便
 2. preaction/postaction，任何一个节点都可以添加前置和后置，统一了用法和体验
 3. 支持了FSM
-
-##从2.x升级到3.x版本的流程是
-1. 用最新的代码把你们的游戏能够编译运行（如果可能首先删除旧的2.x的代码）
-2. 导出最新的meta的xml文件
-3. 用最新的3.x的编辑器打开老的workspace，重新导出
-4. 用3中导出的新的文件运行游戏
 
 ##相比2.x版本，API的改动（请参考test/unittest或test/usertest中的代码）：
 * behaviac::Start, behaviac::Stop removed
