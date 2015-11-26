@@ -5,7 +5,7 @@ author: jonygli
 permalink: /docs/home/
 ---
 
-有关behaviac的所有文档，教程等使用资料都将在本网站提供。我们也鼓励您来提高资料的有效性。
+有关behaviac的所有文档，教程等使用资料都将在本网站提供。我们也鼓励您来提高资料的有效性。非常欢迎和感谢您来丰富各种相关文档和资料。
 
 ## behaviac到底是什么
 
@@ -51,7 +51,7 @@ permalink: /docs/home/
 - [添加问题]({{ site.repository }}/issues/new)
 - 或[添加文档]({{ site.repository }}/new/gh-pages)
 
-并且PR回来，我们将在合适的时机包含进来。让我们一起完善和丰富behaviac的资料。behaviac的成长壮大离不开您的参与。
+并且PR回来，在合适的时机将会包含进来，并且属于您的荣誉也将一并分享。让我们一起完善和丰富behaviac的文档。behaviac的成长壮大离不开您的参与。
 
 
 
