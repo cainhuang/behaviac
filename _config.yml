@@ -1,4 +1,7 @@
-markdown: kramdown
+markdown: redcarpet2
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+
 highlighter: pygments
 baseurl: /behaviac
 permalink: /:categories/:year/:month/:day/:title/
@@ -13,8 +16,8 @@ collections:
   docs:
     output: true
 
-name: behaviac • Simple, Game AI, Offcial  Website
-description: Advance Game AI framework, support Unity 3D, Cocos 2d, SDL and other game engine.
+name: behaviac Game AI, Behavior Tree, Finite State Machine, Hierarchical Task Network, BT FSM HTN
+description: Advanced Game AI framework, Prototype Design, Client and Server, Unity 3D, Cocos2d-x, SDL and other game engine.
 url: http://tencentopen.github.io/behaviac
 
 gems:
