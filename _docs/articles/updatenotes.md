@@ -19,16 +19,17 @@ categories: [doc]
 3. 支持了FSM
 
 ##相比2.x版本，API的改动（请参考test/unittest或test/usertest中的代码）：
-* behaviac::Start, behaviac::Stop removed
-* LogManager::SetEnable removed, to use Config::SetLogging
-* World removed
-* SetWorkspaceSettings removed
-* REGISTER_EVENT removed
+* ~~behaviac::Start~~, ~~behaviac::Stop~~
+* ~~LogManager::SetEnable~~, to use Config::SetLogging
+* ~~World~~
+* ~~SetWorkspaceSettings~~
+* ~~REGISTER_EVENT~~
 * bttick rename to btexec
 * DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL rename to DECLARE_BEHAVIAC_OBJECT_STRUCT
-* REGISTER_METHOD_CHECKRESULT removed
+* ~~REGISTER_METHOD_CHECKRESULT~~
 * RegisterName  -> RegisterIntanceName, UnRegisterName  -> UnRegisterIntanceName 
 * behaviac::Property::Registger, behaviac::Condition::Register  -> behaviac::TypeRegister::Register, UnRegister类似
 * 在所有加载BT之前，调用behaviac::Workspace::GetInstance()->SetFilePath和behaviac:: Workspace::GetInstance()->SetFileFormat来设置路径和格式
 * behaviac::Workspace::ExportMetas修改为behaviac::Workspace::GetInstance()->ExportMetas，其他相应的对Workspace的函数的调用也要类似的修改
+* ~~Workspace::LogFrames~~ and ~~Workspace::HandleRequests~~ removed, Workspace::DebugUpdate added 
 * behaviac::World::GetInstance()->btexec()修改为behaviac::Workspace::GetInstance()->Update()
