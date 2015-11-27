@@ -17,16 +17,15 @@ zh:
 en:
     - title: Articles list 
       docs:
-      - zh/articles/updatenotes
-      - zh/articles/concepts
-      - zh/articles/overview
+      - en/articles/test
+
 
     - title: tutorials 
       docs:
-      - zh/tutorials/test
+      - en/tutorials/test
 
 
     - title: references 
       docs:
-      - zh/references/test
+      - en/references/test
 
