@@ -82,7 +82,7 @@ t:
       url: "/zh/help/"
 
 baseurl: /behaviac
-permalink: /:title/
+permalink: /:year/:month/:day/:title.html
 excerpt_separator: ""
 
 gauges_id: 503c5af6613f5d0f19000027
