@@ -3,7 +3,7 @@ layout: docs
 title: "Welcome use behaviac[just copy from Chinese]"
 date: 2015-11-20
 author: jonygli
-permalink: /docs/en/home
+permalink: /docs/en/home/
 categories: [doc]
 lang: en
 ---

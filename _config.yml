@@ -54,7 +54,7 @@ t:
       url: "/en/"
     docs:
       name: "Docs"
-      url: "/docs/en/home"
+      url: "/docs/en/home/"
     news:
       name: "News"
       url: "/en/news/"
@@ -63,14 +63,14 @@ t:
       url: "/en/faq/"
     help:
       name: "Help"
-      url: "/en/help"
+      url: "/en/help/"
   zh:
     home:
       name: "首页"
       url: "/"
     docs:
       name: "文章"
-      url: "/docs/zh/home"
+      url: "/docs/zh/home/"
     news:
       name: "版本"
       url: "/zh/news/"
@@ -79,7 +79,7 @@ t:
       url: "/zh/faq/"
     help:
       name: "帮助"
-      url: "/zh/help"
+      url: "/zh/help/"
 
 baseurl: /behaviac
 permalink: /:title/
