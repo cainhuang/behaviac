@@ -31,4 +31,5 @@ categories: [doc]
 * behaviac::Property::Registger, behaviac::Condition::Register  -> behaviac::TypeRegister::Register, UnRegister类似
 * 在所有加载BT之前，调用behaviac::Workspace::GetInstance()->SetFilePath和behaviac:: Workspace::GetInstance()->SetFileFormat来设置路径和格式
 * behaviac::Workspace::ExportMetas修改为behaviac::Workspace::GetInstance()->ExportMetas，其他相应的对Workspace的函数的调用也要类似的修改
+* ~~Workspace::LogFrames~~ and ~~Workspace::HandleRequests~~ removed, Workspace::DebugUpdate added 
 * behaviac::World::GetInstance()->btexec()修改为behaviac::Workspace::GetInstance()->Update()
