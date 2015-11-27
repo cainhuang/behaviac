@@ -1,0 +1,11 @@
+---
+layout: news
+title: News
+permalink: /zh/news/
+author: all
+lang: zh
+---
+{% assign posts = site.posts | where:"lang", page.lang%}
+{% for post in posts %}
+  {% include news_item.html %}
+{% endfor %}

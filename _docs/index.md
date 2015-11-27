@@ -5,6 +5,7 @@ date: 2015-11-20
 author: jonygli
 permalink: /docs/home/
 categories: [doc]
+
 ---
 
 有关behaviac的所有文档，教程等使用资料都将在本网站提供。非常欢迎和感谢您来丰富各种相关文档和资料。

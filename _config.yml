@@ -1,7 +1,75 @@
 markdown: kramdown
 highlighter: pygments
+defaults:
+  -
+    scope:
+      path: _posts/en
+    values:
+      layout: default
+      lang: en
+  -
+    scope:
+      path: _posts/fr
+    values:
+      layout: default
+      lang: fr
+  -
+    scope:
+      path: _posts/zh
+    values:
+      layout: default
+      lang: zh
+  -
+    scope:
+      path: zh
+    values:
+      lang: zh
+  -
+    scope:
+      path: en
+    values:
+      lang: en
+  - scope:
+      path: _docs
+    values:
+      lang: zh
+
+t:
+  en:
+    home:
+      name: "Home"
+      url: "/en/"
+    docs:
+      name: "Docs"
+      url: "/docs/home"
+    news:
+      name: "News"
+      url: "/en/news/"
+    faq:
+      name: "FAQ"
+      url: "/en/faq/"
+    help:
+      name: "Help"
+      url: "/en/help"
+  zh:
+    home:
+      name: "首页"
+      url: "/"
+    docs:
+      name: "文章"
+      url: "/docs/home"
+    news:
+      name: "版本"
+      url: "/zh/news/"
+    faq:
+      name: "问答"
+      url: "/zh/faq/"
+    help:
+      name: "帮助"
+      url: "/zh/help"
+
 baseurl: /behaviac
-permalink: /:categories/:year/:month/:day/:title/
+permalink: /:title/
 excerpt_separator: ""
 
 gauges_id: 503c5af6613f5d0f19000027
@@ -9,6 +77,7 @@ google_analytics_id: UA-11132649-2
 
 repository: https://github.com/TencentOpen/behaviac
 help_url: https://github.com/TencentOpen/behaviac
+
 collections:
   docs:
     output: true
@@ -16,6 +85,8 @@ collections:
 name: behaviac • Simple, Game AI, Offcial  Website
 description: Advance Game AI framework, support Unity 3D, Cocos 2d, SDL and other game engine.
 url: http://tencentopen.github.io/behaviac
+
+
 
 gems:
   - jekyll-feed

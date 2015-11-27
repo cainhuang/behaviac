@@ -1,0 +1,10 @@
+---
+layout: news
+title: Releases
+permalink: /en/news/releases/
+author: all
+---
+{% assign posts =  site.categories.release | where: "lang", page.lang %}
+{% for post in posts %}
+  {% include news_item.html %}
+{% endfor %}

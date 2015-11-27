@@ -1,27 +1,32 @@
 <!-- website navigation-->
+
 <ul>
+{% assign lang_str = page.lang %}
+{% if page.lang == null %}
+  {% assign lang_str = "zh" %}
+{% endif %}
+
   <li class="{% if page.overview %}current{% endif %}">
-    <a href="{{site.baseurl}}/">首页</a>
+    <a href="{{site.baseurl}}{{site.t[lang_str].home.url}}">{{site.t[lang_str].home.name}}</a>
   </li>
   <li class="{% if page.url contains '/docs/' %}current{% endif %}">
-    <a href="{{site.baseurl}}/docs/home/">文章</span></a>
+    <a href="{{site.baseurl}}{{site.t[lang_str].docs.url}}">{{site.t[lang_str].docs.name}}</a>
   </li>
-  <!-- <li class="{% if page.url contains 'tutorials' %}current{% endif %}">
-    <a href="{{site.baseurl}}/docs/tutorials/">教程</span></a>
+  <li class="{% if page.url contains '/news/' %}current{% endif %}">
+    <a href="{{site.baseurl}}{{site.t[lang_str].news.url}}">{{site.t[lang_str].news.name}}</a>
   </li>
-  <li class="{% if page.url contains 'references' %}current{% endif %}">
-    <a href="{{site.baseurl}}/docs/references/">手册</span></a>
-  </li> -->
-  <li class="{% if page.author %}current{% endif %}">
-    <a href="{{site.baseurl}}/news/">版本</a>
+  <li class="{% if page.url contains '/faq/' %}current{% endif %}">
+    <a href="{{site.baseurl}}{{site.t[lang_str].faq.url}}">{{site.t[lang_str].faq.name}}</a>
   </li>
-  <li>
-    <a href="{{site.baseurl}}/FAQ/">问答</a>
-  </li>
-  <li>
-    <a href="{{site.baseurl}}/help/">联系</a>
+  <li class="{% if page.url contains '/help/' %}current{% endif %}">
+    <a href="{{site.baseurl}}{{site.t[lang_str].help.url}}">{{site.t[lang_str].help.name}}</a>
   </li>
   <li>
     <a href="{{ site.repository }}"><span class="hide-on-mobiles">GitHub</a>
   </li>
+  <span class="multilingual">
+      <a href="{{site.baseurl}}/">简体中文</a> | 
+      <a href="{{site.baseurl}}/en/">ENGLISH</option>
+    </select>
+  </span>
 </ul>
