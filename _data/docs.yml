@@ -1,15 +1,32 @@
-- title: 文章列表 
-  docs:
-  - articles/updatenotes
-  - articles/concepts
-  - articles/overview
+zh:
+    - title: 文章列表 
+      docs:
+      - zh/articles/updatenotes
+      - zh/articles/concepts
+      - zh/articles/overview
 
-- title: 教程 
-  docs:
-  - tutorials/test
+    - title: 教程 
+      docs:
+      - zh/tutorials/test
 
 
-- title: 手册 
-  docs:
-  - references/test
+    - title: 手册 
+      docs:
+      - zh/references/test
+
+en:
+    - title: Articles list 
+      docs:
+      - zh/articles/updatenotes
+      - zh/articles/concepts
+      - zh/articles/overview
+
+    - title: tutorials 
+      docs:
+      - zh/tutorials/test
+
+
+    - title: references 
+      docs:
+      - zh/references/test
 

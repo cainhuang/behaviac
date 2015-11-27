@@ -1,16 +1,16 @@
 ---
 layout: docs
-title: 欢迎访问behaviac
+title: [Just copy from Chinese]欢迎访问behaviac
 date: 2015-11-20
 author: jonygli
-permalink: /docs/zh/home/
+permalink: /docs/en/home/
 categories: [doc]
-
+lang: en
 ---
 
 有关behaviac的所有文档，教程等使用资料都将在本网站提供。非常欢迎和感谢您来丰富各种相关文档和资料。
 
-## behaviac到底是什么
+## behaviac到底是什么[Just copy from Chinese]
 
  - behaviac是游戏AI的开发框架组件，也是游戏原型的快速设计工具
  - 支持持行为树（BT），状态机（FSM），层次任务网络（HTN）等多种范式

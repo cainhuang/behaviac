@@ -29,7 +29,17 @@ defaults:
       lang: zh
   -
     scope:
+      path: _docs/zh
+    values:
+      lang: zh
+  -
+    scope:
       path: en
+    values:
+      lang: en
+  -
+    scope:
+      path: _docs/en
     values:
       lang: en
   - scope:
@@ -44,7 +54,7 @@ t:
       url: "/en/"
     docs:
       name: "Docs"
-      url: "/docs/home"
+      url: "/docs/en/home"
     news:
       name: "News"
       url: "/en/news/"
@@ -60,7 +70,7 @@ t:
       url: "/"
     docs:
       name: "文章"
-      url: "/docs/home"
+      url: "/docs/zh/home"
     news:
       name: "版本"
       url: "/zh/news/"

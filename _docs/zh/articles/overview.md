@@ -3,7 +3,7 @@ layout: docs
 title: behaviac概述
 date: 2015-11-20
 author: cainhuang
-permalink: /docs/articles/overview/
+permalink: /docs/zh/articles/overview/
 categories: [doc]
 ---
 

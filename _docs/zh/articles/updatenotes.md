@@ -3,7 +3,7 @@ layout: docs
 title: behaviac升级的步骤及注意事项
 date: 2015-11-21
 author: jonygli
-permalink: /docs/articles/updatenotes/
+permalink: /docs/zh/articles/updatenotes/
 categories: [doc]
 ---
 

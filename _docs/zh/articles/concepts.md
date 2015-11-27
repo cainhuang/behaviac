@@ -3,7 +3,7 @@ layout: docs
 title: 行为树的基本概念及进阶
 date: 2015-11-22
 author: jonygli
-permalink: /docs/articles/concepts/
+permalink: /docs/zh/articles/concepts/
 categories: [doc]
 ---
 
