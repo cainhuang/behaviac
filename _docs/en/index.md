@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: "Welcome use behaviac[just copy from Chinese]"
+title: "Welcome use behaviac"
 date: 2015-11-20
 author: jonygli
 permalink: /docs/en/home/
