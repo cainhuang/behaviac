@@ -5,6 +5,7 @@
 			//"path": "${project_path:${folder}}", 
 			"path": "/E/LLLL/repository/web/behaviac_github_docs/behaviac", 
 			"path": ".",
+			"folder_exclude_patterns":["_site"],
 		}
 	]
 }
