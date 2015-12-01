@@ -4,7 +4,6 @@ title: 欢迎访问behaviac
 date: 2015-11-20
 author: jonygli
 permalink: /docs/zh/home/
-categories: [doc]
 lang: zh
 ---
 

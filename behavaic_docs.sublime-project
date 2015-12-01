@@ -4,8 +4,7 @@
 		{
 			//"path": "${project_path:${folder}}", 
 			"path": "/E/LLLL/repository/web/behaviac_github_docs/behaviac", 
-			"file_exclude_patterns":["*.exe", "*.dll", "*.pdb", "*.ilk", "*.manifest", "*.idb"],
-			"folder_exclude_patterns":["intermediate", "lib", "_site", ".sass-cache"]
+			"path": ".",
 		}
 	]
 }

@@ -1,8 +1,6 @@
-markdown: redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data", "strikethrough"]
-
-highlighter: pygments
+highlighter: true
+markdown: kramdown
+permalink: pretty
 defaults:
   -
     scope:
@@ -31,20 +29,24 @@ defaults:
     scope:
       path: _docs/zh
     values:
+      layout: default
       lang: zh
   -
     scope:
       path: en
     values:
+      layout: default
       lang: en
   -
     scope:
       path: _docs/en
     values:
+      layout: default
       lang: en
   - scope:
       path: _docs
     values:
+      layout: default
       lang: zh
 
 t:
@@ -82,7 +84,7 @@ t:
       url: "/zh/help/"
 
 baseurl: /behaviac
-permalink: /:year/:month/:day/:title.html
+permalink: /:title/
 excerpt_separator: ""
 
 gauges_id: 503c5af6613f5d0f19000027
@@ -95,13 +97,8 @@ collections:
   docs:
     output: true
 
-name: behaviac • Simple, Game AI, Offcial  Website
-description: Advance Game AI framework, support Unity 3D, Cocos 2d, SDL and other game engine.
 name: behaviac Game AI, Behavior Tree, Finite State Machine, Hierarchical Task Network, BT FSM HTN
 description: Advanced Game AI framework, Prototype Design, Client and Server, Unity 3D, Cocos2d-x, SDL and other game engine.
 url: http://tencentopen.github.io/behaviac
-
-
-
 gems:
   - jekyll-feed
