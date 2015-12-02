@@ -117,7 +117,7 @@ behaviac组件包括编辑器（Designer）和运行时（Runtime）两大部分
 
 在运行时端，也即游戏代码端，通过注册（C++通过宏的方式，C#通过标记Attribute的方式，如代码段3.1.1和3.1.2所示）并导出供行为树引擎和编辑器使用的XML元信息。运行时端主要是由程序员编写Agent子类及其属性和方法，然后调用相关接口将这些元信息导出，就可以在编辑器中对这些元信息进行使用。
 
-```
+```cpp
 BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
 {
     //CLASS_DISPLAYNAME(L"测试behaviac::Agent")
@@ -161,7 +161,7 @@ END_PROPERTIES_DESCRIPTION()
 ```
 代码3.1.1 在C++中通过宏注册元信息
 
-```
+```cs
 [behaviac.TypeMetaInfo()]
 public class AgentNodeTest : behaviac.Agent
 {
