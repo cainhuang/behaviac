@@ -5,6 +5,7 @@ date: 2015-11-20 11:33:26 +0800
 author: cainhuang
 permalink: /docs/zh/articles/overview/
 categories: [doc]
+lang: zh
 ---
 
 ## 1 项目概况
@@ -114,15 +115,85 @@ behaviac组件包括编辑器（Designer）和运行时（Runtime）两大部分
 
 运行时库产生一个描述Agent元信息的XML文件。注意图3.1中元信息的双向箭头，“双向”表示运行时端可以导出元信息给编辑器使用，在编辑器中也可以编辑并导出元信息到运行时端。
 
-在运行时端，也即游戏代码端，通过注册（C++通过宏的方式，C#通过标记Attribute的方式，如图3.1.1和3.1.2所示）并导出供行为树引擎和编辑器使用的XML元信息。运行时端主要是由程序员编写Agent子类及其属性和方法，然后调用相关接口将这些元信息导出，就可以在编辑器中对这些元信息进行使用。
+在运行时端，也即游戏代码端，通过注册（C++通过宏的方式，C#通过标记Attribute的方式，如代码段3.1.1和3.1.2所示）并导出供行为树引擎和编辑器使用的XML元信息。运行时端主要是由程序员编写Agent子类及其属性和方法，然后调用相关接口将这些元信息导出，就可以在编辑器中对这些元信息进行使用。
 
-![]({{site.baseurl}}/img/overview/macro.png)
+```
+BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
+{
+    //CLASS_DISPLAYNAME(L"测试behaviac::Agent")
+    //CLASS_DESC(L"测试behaviac::Agent的说明")
+    REGISTER_PROPERTY(testVar_0);
+    REGISTER_PROPERTY(testVar_1).DISPLAYNAME(L"testVar_1").DESC(L"testVar_1 property").RANGE(100);
+    REGISTER_PROPERTY(testVar_2);
+    REGISTER_PROPERTY(testVar_3);
+    REGISTER_PROPERTY(waiting_timeout_interval);
+    REGISTER_PROPERTY(testVar_str_0);
 
-图3.1.1 在C++中通过宏注册元信息
+    REGISTER_METHOD(setEventVarInt);
+    REGISTER_METHOD(setEventVarBool);
+    REGISTER_METHOD(setEventVarFloat);
+    REGISTER_METHOD(setEventVarAgent);
+    REGISTER_METHOD(getConstOne);
+    REGISTER_METHOD(setTestVar_0);
+    REGISTER_METHOD(setTestVar_1);
+    REGISTER_METHOD(setTestVar_2);
+    REGISTER_METHOD(setTestVar_0_2);
+    REGISTER_METHOD(setTestVar_R);
+    REGISTER_METHOD(setTestVar_3);
+    REGISTER_METHOD(enter_action_0);
+    REGISTER_METHOD(exit_action_0);
+    REGISTER_METHOD(enter_action_1);
+    REGISTER_METHOD(exit_action_1);
+    REGISTER_METHOD(enter_action_2);
+    REGISTER_METHOD(exit_action_2);
+    REGISTER_METHOD(createGameObject);
+    REGISTER_METHOD(testGameObject);
+	REGISTER_METHOD(createExtendedNode);
+	REGISTER_METHOD(testExtendedRefType);
+	REGISTER_METHOD(testExtendedStruct);
+    REGISTER_METHOD(switchRef);
 
-![]({{site.baseurl}}/img/overview/attribute.png)
+	REGISTER_METHOD(CanSeeEnemy);
+	REGISTER_METHOD(Move);
+	REGISTER_METHOD(MoveToTarget);
+}
+END_PROPERTIES_DESCRIPTION()
+```
+代码3.1.1 在C++中通过宏注册元信息
 
-图3.1.2 在C#中通过Attribute标记元信息
+```
+[behaviac.TypeMetaInfo()]
+public class AgentNodeTest : behaviac.Agent
+{
+    [behaviac.MemberMetaInfo()]
+    public int testVar_0 = -1;
+
+    [behaviac.MemberMetaInfo("testVar_1", "testVar_1 property", 100)]
+    public int testVar_1 = -1;
+
+    [behaviac.MemberMetaInfo()]
+    public float testVar_2 = -1.0f;
+
+    [behaviac.MemberMetaInfo()]
+    public float testVar_3 = -1.0f;
+
+    [behaviac.MemberMetaInfo()]
+    public int waiting_timeout_interval = 0;
+
+    [behaviac.MemberMetaInfo()]
+    public string testVar_str_0 = string.Empty;
+
+    [behaviac.MemberMetaInfo()]
+    public string testVar_str_1 = string.Empty;
+
+    public bool m_bCanSee = false;
+
+    public int event_test_var_int = -1;
+    public bool event_test_var_bool = false;
+    public float event_test_var_float = -1.0f;
+    public AgentNodeTest event_test_var_agent = null;
+```
+代码3.1.2 在C#中通过Attribute标记元信息
 
 此外，behaviac组件的特色之一就是编辑器中也可以创建和编辑元信息。编辑器主要交给策划编辑行为树，也可以编辑元信息。策划在项目开始初期，也就是程序员还没把代码写出来之前，策划就可以自己手动的创建一些Agent类型、属性和方法等元信息。这样可以加速游戏原型的创建，也就是策划不用等程序员，就可以进行游戏原型的编辑。
 

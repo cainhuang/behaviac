@@ -5,6 +5,7 @@ date: 2015-11-21 11:33:26 +0800
 author: jonygli
 permalink: /docs/zh/articles/updatenotes/
 categories: [doc]
+lang: zh
 ---
 
 ##每次升级版本的流程是
