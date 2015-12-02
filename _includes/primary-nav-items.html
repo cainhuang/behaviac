@@ -9,17 +9,23 @@
   <li class="{% if page.overview %}current{% endif %}">
     <a href="{{site.baseurl}}{{site.t[lang_str].home.url}}">{{site.t[lang_str].home.name}}</a>
   </li>
-  <li class="{% if page.url contains '/docs/' %}current{% endif %}">
+  <li class="{% if page.url contains '/article/' %}current{% endif %}">
     <a href="{{site.baseurl}}{{site.t[lang_str].docs.url}}">{{site.t[lang_str].docs.name}}</a>
   </li>
-  <li class="{% if page.url contains '/news/' %}current{% endif %}">
-    <a href="{{site.baseurl}}{{site.t[lang_str].news.url}}">{{site.t[lang_str].news.name}}</a>
+  <li class="{% if page.url contains '/references/' %}current{% endif %}">
+    <a href="{{site.baseurl}}{{site.t[lang_str].references.url}}">{{site.t[lang_str].references.name}}</a>
+  </li>
+  <li class="{% if page.url contains '/tutorials/' %}current{% endif %}">
+    <a href="{{site.baseurl}}{{site.t[lang_str].tutorials.url}}">{{site.t[lang_str].tutorials.name}}</a>
   </li>
   <li class="{% if page.url contains '/faq/' %}current{% endif %}">
     <a href="{{site.baseurl}}{{site.t[lang_str].faq.url}}">{{site.t[lang_str].faq.name}}</a>
   </li>
   <li class="{% if page.url contains '/help/' %}current{% endif %}">
     <a href="{{site.baseurl}}{{site.t[lang_str].help.url}}">{{site.t[lang_str].help.name}}</a>
+  </li>
+  <li class="{% if page.url contains '/news/' %}current{% endif %}">
+    <a href="https://github.com/TencentOpen/behaviac/releases">{{site.t[lang_str].news.name}}</a>
   </li>
   <li>
     <a href="{{ site.repository }}"><span class="hide-on-mobiles">GitHub</a>

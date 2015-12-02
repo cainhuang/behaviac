@@ -1,10 +1,10 @@
 ---
-layout: docs
+layout: docs_relatives
 title: 欢迎访问behaviac
 date: 2015-11-20 11:33:26 +0800
 author: jonygli
-permalink: /docs/zh/home/
-categories: [doc_]
+permalink: /docs/zh/article/
+categories: [doc]
 lang: zh
 ---
 

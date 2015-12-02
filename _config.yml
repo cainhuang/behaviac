@@ -90,7 +90,13 @@ t:
       url: "/en/"
     docs:
       name: "Docs"
-      url: "/docs/en/home/"
+      url: "/docs/en/article/"
+    references:
+      name: "References"
+      url: "/docs/en/references/"
+    tutorials:
+      name: "Tutorials"
+      url: "/docs/en/tutorials/"
     news:
       name: "News"
       url: "/en/news/"
@@ -100,13 +106,21 @@ t:
     help:
       name: "Help"
       url: "/en/help/"
+    relatedPaper:
+      name: "Related Paper"
   zh:
     home:
       name: "首页"
       url: "/"
     docs:
       name: "文章"
-      url: "/docs/zh/home/"
+      url: "/docs/zh/article/"
+    references:
+      name: "手册"
+      url: "/docs/zh/references/"
+    tutorials:
+      name: "教程"
+      url: "/docs/zh/tutorials/"
     news:
       name: "版本"
       url: "/zh/news/"
@@ -116,3 +130,5 @@ t:
     help:
       name: "帮助"
       url: "/zh/help/"
+    relatedPaper:
+      name: "相关资料"

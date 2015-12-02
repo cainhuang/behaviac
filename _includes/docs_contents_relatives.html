@@ -1,0 +1,12 @@
+<div class="unit one-fifth hide-on-mobiles">
+  <aside>
+    <h4>{{site.t[page.lang].relatedPaper.name}}</h4>
+    <ul>
+    {% for p in site.docs %}
+        {% if p.lang == page.lang and p.categories == page.categories %}
+        <li><a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+  </aside>
+</div>

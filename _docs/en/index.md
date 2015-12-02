@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs_relatives
 title: "Welcome use behaviac"
 date: 2015-11-20 11:33:26 +0800
 author: jonygli

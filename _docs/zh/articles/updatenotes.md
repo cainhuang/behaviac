@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs_relatives
 title: behaviac升级的步骤及注意事项
 date: 2015-11-21 11:33:26 +0800
 author: jonygli

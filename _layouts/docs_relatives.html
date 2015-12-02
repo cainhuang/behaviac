@@ -1,0 +1,60 @@
+---
+layout: default
+---
+
+  <section class="docs">
+    <div class="grid">
+
+      {% include docs_contents_mobile.html %}
+
+      <div class="unit four-fifths">
+        <article>
+          <div class="improve right hide-on-mobiles">
+            <a href="https://github.com/TencentOpen/behaviac/blob/gh-pages/{{ page.relative_path }}"><i class="fa fa-pencil"></i> &nbsp;Improve this page</a>
+          </div>
+          <h1>
+            <a href="{{site.baseurl}}{{ page.url }}">
+              {{ page.title }}
+            </a>
+          </h1>
+          <span class="post-category">
+            <span class="label">
+              {{ page.categories[0] }}
+            </span>
+          </span>          
+          <div class="post-meta">
+            <a href="https://github.com/{{ page.author }}" class="post-author">
+              <img src="https://github.com/{{ page.author }}.png" class="avatar" alt="{{ page.author }} avatar" width="24" height="24">
+              {{ page.author }}
+            </a>
+          </div>
+          {{ content }}
+          {% include section_nav.html %}
+          <br/>
+            <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="{{page.url}}" data-title="{{page.title}}" data-url="{{site.baseurl}}{{page.url}}"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"behaviac"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+          <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tqf" data-cmd="tqf" title="分享到腾讯朋友"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["weixin","fbook","tsina","tqq","twi","youdao","qzone","tqf","sqq","linkedin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","fbook","tsina","tqq","twi","youdao","qzone","tqf","sqq","linkedin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+        </article>
+      </div>
+
+      {% include docs_contents_relatives.html %}
+
+      <div class="clear"></div>
+
+    </div>
+  </section>

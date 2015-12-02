@@ -1,11 +1,11 @@
 ---
 layout: docs_relatives
-title: tutorials
+title: REFERENCES
 date: 2015-11-22 11:26:14 +0800
 author: jonygli
-permalink: /docs/zh/references/
+permalink: /docs/en/references/
 categories: [reference]
-lang: zh
+lang: en
 ---
 
-手册
+REFERENCES
