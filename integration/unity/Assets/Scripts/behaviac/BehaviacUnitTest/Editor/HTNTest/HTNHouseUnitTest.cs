@@ -40,7 +40,6 @@ namespace BehaviorNodeUnitTest
 
             bool house = testAgent.GetVariable<bool>("House");
             Assert.AreEqual(true, house);
-
         }
 
     }

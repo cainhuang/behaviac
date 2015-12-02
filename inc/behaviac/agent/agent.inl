@@ -922,7 +922,6 @@ namespace behaviac
             {
                 //top
                 stackIndex = this->state_stack.size() - 1;
-
             }
             else
             {
@@ -934,7 +933,6 @@ namespace behaviac
 
             //if there are something in the state stack, it is used for planning, so, don't really set member
             t->Set(false, pAgent, bLocal, NULL, variableName, value, varId);
-
         }
         else
         {
@@ -1039,6 +1037,5 @@ namespace behaviac
         behaviac::string eventName3 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 2);
         pAgent->SetVariable(eventName3.c_str(), param3);
     }
-
 }//namespace behaviac
 

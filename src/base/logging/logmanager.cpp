@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "behaviac/base/logging/logging.h"
+#include "behaviac/base/logging/logmanager.h"
 #include "behaviac/behaviortree/behaviortree.h"
 #include "behaviac/agent/agent.h"
 #include "behaviac/property/property_t.h"
@@ -74,7 +74,6 @@ namespace behaviac
                     if (agentId == -1)
                     {
                         string_snprintf(buffer, 64, "_behaviac_$_.log");
-
                     }
                     else
                     {
@@ -82,7 +81,6 @@ namespace behaviac
                     }
 
                     pLogFile = buffer;
-
                 }
                 else
                 {
@@ -91,7 +89,6 @@ namespace behaviac
 
                 fp = fopen(pLogFile, "wt");
                 this->m_logs[agentId] = fp;
-
             }
             else
             {
@@ -325,7 +322,7 @@ namespace behaviac
         }
     }
 
-    void LogManager::LogWorkspace(const char* format, ...)
+    void LogManager::LogWorkspace(bool bSend, const char* format, ...)
     {
         if (Config::IsLoggingOrSocketing())
         {
@@ -338,7 +335,11 @@ namespace behaviac
             va_end(arglist);
 
             this->Output(0, buffer);
-            Socket::SendWorkspace(buffer);
+
+			if (bSend)
+			{
+				Socket::SendWorkspace(buffer);
+			}
         }
     }
 

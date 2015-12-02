@@ -259,6 +259,7 @@ namespace Behaviac.Design.Attributes
                 _methods.Clear();
             }
 
+            valueComboBox.Text = "";
             valueComboBox.Items.Clear();
 
             setValueComboBox();

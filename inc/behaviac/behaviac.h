@@ -18,7 +18,7 @@
 #include "behaviac/agent/agent.h"
 #include "behaviac/agent/registermacros.h"
 #include "behaviac/base/core/profiler/profiler.h"
-#include "behaviac/base/logging/logging.h"
+#include "behaviac/base/logging/logmanager.h"
 #include "behaviac/behaviortree/behaviortree.h"
 #include "behaviac/base/workspace.h"
 #include "behaviac/base/file/filemanager.h"

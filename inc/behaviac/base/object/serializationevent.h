@@ -46,7 +46,7 @@ public:
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -57,7 +57,7 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -68,7 +68,7 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -79,7 +79,7 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -90,14 +90,14 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
         BEHAVIAC_UNUSED_VAR(types);
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);

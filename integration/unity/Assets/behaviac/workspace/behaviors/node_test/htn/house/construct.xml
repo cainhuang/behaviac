@@ -6,8 +6,8 @@
     <Connector Identifier="GenericChildren">
       <Node Class="PluginBehaviac.Nodes.Task" Enable="true" HasOwnPrefabData="false" Id="0" PrefabName="" PrefabNodeId="-1" Prototype="Self.HTNAgentHouse::construct()">
         <Comment Background="NoColor" Text="" />
-        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="1" Operator="Equal" Opl="bool Self.HTNAgentHouse::Permit" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Enter" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.Effector" Id="2" Operator="Assign" Opl="bool Self.HTNAgentHouse::HouseBuilt" Opr1="const bool true" Opr2="const bool true" Phase="Success" PrefabAttachmentId="-1" />
+        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="1" Operator="Equal" Opl="bool Self.HTNAgentHouse::Permit" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Enter" PrefabAttachmentId="-1" />
+        <Attachment Class="PluginBehaviac.Events.Effector" Enable="true" Id="2" Operator="Assign" Opl="bool Self.HTNAgentHouse::HouseBuilt" Opr1="const bool true" Opr2="const bool true" Phase="Success" PrefabAttachmentId="-1" />
         <Connector Identifier="GenericChildren">
           <Node Class="PluginBehaviac.Nodes.Method" Enable="true" HasOwnPrefabData="false" Id="9" PrefabName="" PrefabNodeId="-1">
             <Comment Background="NoColor" Text="" />

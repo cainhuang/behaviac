@@ -936,6 +936,5 @@ namespace ParUnitTest
             Assert.AreEqual(true, parTestAgent.TV_LIST_BOOL_0[1]);
             Assert.AreEqual(false, parTestAgent.TV_LIST_BOOL_0[2]);
         }
-
     }
 }

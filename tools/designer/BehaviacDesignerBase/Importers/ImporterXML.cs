@@ -209,8 +209,8 @@ namespace Behaviac.Design.Importers
                     }
                 }
 
-                if (Workspace.CumtomizedTypesXMLNode != null) {
-                    foreach(XmlNode typeNode in Workspace.CumtomizedTypesXMLNode.ChildNodes) {
+                if (Workspace.CustomizedTypesXMLNode != null) {
+                    foreach(XmlNode typeNode in Workspace.CustomizedTypesXMLNode.ChildNodes) {
                         typesNodes.Add(typeNode);
                     }
                 }

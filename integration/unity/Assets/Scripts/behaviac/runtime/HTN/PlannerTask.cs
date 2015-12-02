@@ -99,7 +99,6 @@ namespace behaviac
 
         public override void traverse(NodeHandler_t handler, Agent pAgent, object user_data)
         { }
-
     }
 
     #endregion PlannerTask
@@ -273,7 +272,6 @@ namespace behaviac
                 }
 
                 this.m_n = count;
-
             }
             else
             {
@@ -379,12 +377,16 @@ namespace behaviac
 
         protected override bool CheckPreconditions(Agent pAgent, bool bIsAlive)
         {
-            this.currentState = pAgent.Variables.Push(false);
-            Debug.Check(currentState != null);
+            if (!bIsAlive)
+            {
+                //only try to Push when enter
+                this.currentState = pAgent.Variables.Push(false);
+                Debug.Check(currentState != null);
+            }
 
             bool bOk = base.CheckPreconditions(pAgent, bIsAlive);
 
-            if (!bOk)
+            if (!bIsAlive && !bOk)
             {
                 this.currentState.Pop();
                 this.currentState = null;

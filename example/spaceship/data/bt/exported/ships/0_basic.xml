@@ -10,24 +10,20 @@
     <property ExitPolicy="EXIT_NONE" />
     <property FailurePolicy="FAIL_ON_ONE" />
     <property SuccessPolicy="SUCCEED_ON_ALL" />
-    <node class="DecoratorLoop" id="2">
-      <property Count="const int -1" />
-      <property DecorateWhenChildEnds="true" />
-      <node class="Sequence" id="3">
-        <node class="Condition" id="4">
-          <property Operator="Equal" />
-          <property Opl="Self.framework::GameObject::alignedWithPlayer()" />
-          <property Opr="const bool true" />
-        </node>
-        <node class="Action" id="5">
-          <property Method="Self.framework::Ship::Fire()" />
-          <property ResultFunctor="Self.framework::Ship::checkresult(false)" />
-          <property ResultOption="BT_INVALID" />
-        </node>
-        <node class="Wait" id="6">
-          <property IgnoreTimeScale="false" />
-          <property Time="float Self.framework::Ship::par_c" />
-        </node>
+    <node class="Sequence" id="3">
+      <node class="Condition" id="4">
+        <property Operator="Equal" />
+        <property Opl="Self.framework::GameObject::alignedWithPlayer()" />
+        <property Opr="const bool true" />
+      </node>
+      <node class="Wait" id="6">
+        <property IgnoreTimeScale="false" />
+        <property Time="float Self.framework::Ship::par_c" />
+      </node>
+      <node class="Action" id="5">
+        <property Method="Self.framework::Ship::Fire()" />
+        <property ResultFunctor="Self.framework::Ship::checkresult(false)" />
+        <property ResultOption="BT_INVALID" />
       </node>
     </node>
     <node class="Action" id="7">

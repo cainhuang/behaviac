@@ -104,54 +104,48 @@ typedef unsigned char	UTFBoolean; /* 0 or 1 */
 #define UNI_MAX_UTF32 (UTF32)0x7FFFFFFF
 #define UNI_MAX_LEGAL_UTF32 (UTF32)0x0010FFFF
 
-enum ConversionResult
+namespace behaviac
 {
-    conversionOK, 		/* conversion successful */
-    sourceExhausted,	/* partial character in source, but hit end */
-    targetExhausted,	/* insuff. room in target for conversion */
-    sourceIllegal		/* source sequence is illegal/malformed */
-};
+	enum ConversionResult
+	{
+		conversionOK, 		/* conversion successful */
+		sourceExhausted,	/* partial character in source, but hit end */
+		targetExhausted,	/* insuff. room in target for conversion */
+		sourceIllegal		/* source sequence is illegal/malformed */
+	};
 
-enum ConversionFlags
-{
-    strictConversion = 0,
-    lenientConversion
-};
+	enum ConversionFlags
+	{
+		strictConversion = 0,
+		lenientConversion
+	};
 
-/* This is for C++ and does no harm in C */
-#ifdef __cplusplus
-extern "C" {
-#endif
+	ConversionResult BEHAVIAC_API ConvertUTF8toUTF16(
+		const UTF8** sourceStart, const UTF8* sourceEnd,
+		UTF16** targetStart, UTF16* targetEnd, ConversionFlags flags);
 
-    ConversionResult BEHAVIAC_API ConvertUTF8toUTF16(
-        const UTF8** sourceStart, const UTF8* sourceEnd,
-        UTF16** targetStart, UTF16* targetEnd, ConversionFlags flags);
+	ConversionResult BEHAVIAC_API ConvertUTF16toUTF8(
+		const UTF16** sourceStart, const UTF16* sourceEnd,
+		UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags);
 
-    ConversionResult BEHAVIAC_API ConvertUTF16toUTF8(
-        const UTF16** sourceStart, const UTF16* sourceEnd,
-        UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags);
+	ConversionResult BEHAVIAC_API ConvertUTF8toUTF32(
+		const UTF8** sourceStart, const UTF8* sourceEnd,
+		UTF32** targetStart, UTF32* targetEnd, ConversionFlags flags);
 
-    ConversionResult BEHAVIAC_API ConvertUTF8toUTF32(
-        const UTF8** sourceStart, const UTF8* sourceEnd,
-        UTF32** targetStart, UTF32* targetEnd, ConversionFlags flags);
+	ConversionResult BEHAVIAC_API ConvertUTF32toUTF8(
+		const UTF32** sourceStart, const UTF32* sourceEnd,
+		UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags);
 
-    ConversionResult BEHAVIAC_API ConvertUTF32toUTF8(
-        const UTF32** sourceStart, const UTF32* sourceEnd,
-        UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags);
+	ConversionResult BEHAVIAC_API ConvertUTF16toUTF32(
+		const UTF16** sourceStart, const UTF16* sourceEnd,
+		UTF32** targetStart, UTF32* targetEnd, ConversionFlags flags);
 
-    ConversionResult BEHAVIAC_API ConvertUTF16toUTF32(
-        const UTF16** sourceStart, const UTF16* sourceEnd,
-        UTF32** targetStart, UTF32* targetEnd, ConversionFlags flags);
+	ConversionResult BEHAVIAC_API ConvertUTF32toUTF16(
+		const UTF32** sourceStart, const UTF32* sourceEnd,
+		UTF16** targetStart, UTF16* targetEnd, ConversionFlags flags);
 
-    ConversionResult BEHAVIAC_API ConvertUTF32toUTF16(
-        const UTF32** sourceStart, const UTF32* sourceEnd,
-        UTF16** targetStart, UTF16* targetEnd, ConversionFlags flags);
-
-    UTFBoolean BEHAVIAC_API isLegalUTF8Sequence(const UTF8* source, const UTF8* sourceEnd);
-
-#ifdef __cplusplus
-}
-#endif
+	UTFBoolean BEHAVIAC_API isLegalUTF8Sequence(const UTF8* source, const UTF8* sourceEnd);
+}//namespace behaviac
 
 #endif //CONVERTUTF_H
 /* --------------------------------------------------------------------- */

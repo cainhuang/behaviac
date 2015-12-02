@@ -16,7 +16,7 @@
 #include "behaviac/base/core/factory.h"
 #include "behaviac/base/core/logging/log.h"
 
-bool FactoryNewUnregisterSub(FactoryContainer* creators, const CStringID& typeID)
+bool FactoryNewUnregisterSub(FactoryContainer* creators, const behaviac::CStringID& typeID)
 {
     creators->Lock();
     SFactoryBucket bucket(typeID, NULL);
@@ -37,7 +37,7 @@ bool FactoryNewUnregisterSub(FactoryContainer* creators, const CStringID& typeID
     return false;
 }
 
-bool FactoryNewRegisterSub(FactoryContainer* creators, const CStringID& typeID, void* typeConstructor)
+bool FactoryNewRegisterSub(FactoryContainer* creators, const behaviac::CStringID& typeID, void* typeConstructor)
 {
     SFactoryBucket bucket(typeID, typeConstructor);
     creators->Lock();

@@ -13,72 +13,76 @@
 
 #include "behaviac/base/file/filesystemvisitor.h"
 
-CVectorFileSystemVisitor::CVectorFileSystemVisitor(behaviac::vector< behaviac::string >& vec, bool storeFullPath, uint32_t maximumSize, bool keepCase)
-    : m_vec(vec)
-    , m_storeFullPath(storeFullPath)
-    , m_maximumSize(maximumSize)
-    , m_keepCase(keepCase)
+
+namespace behaviac
 {
-}
+	CVectorFileSystemVisitor::CVectorFileSystemVisitor(behaviac::vector< behaviac::string >& vec, bool storeFullPath, uint32_t maximumSize, bool keepCase)
+		: m_vec(vec)
+		, m_storeFullPath(storeFullPath)
+		, m_maximumSize(maximumSize)
+		, m_keepCase(keepCase)
+	{
+	}
 
-bool CVectorFileSystemVisitor::EnterDirectory(const char* fullDirPath, const char* dirName)
-{
-    BEHAVIAC_UNUSED_VAR(dirName);
-    BEHAVIAC_UNUSED_VAR(fullDirPath);
-    return true;
-}
+	bool CVectorFileSystemVisitor::EnterDirectory(const char* fullDirPath, const char* dirName)
+	{
+		BEHAVIAC_UNUSED_VAR(dirName);
+		BEHAVIAC_UNUSED_VAR(fullDirPath);
+		return true;
+	}
 
-bool CVectorFileSystemVisitor::VisitFile(const char* fullFilePath, const char* fileName)
-{
-    m_vec.push_back(behaviac::string());
-    behaviac::string& str = m_vec.back();
-    str = m_storeFullPath ? fullFilePath : fileName;
+	bool CVectorFileSystemVisitor::VisitFile(const char* fullFilePath, const char* fileName)
+	{
+		m_vec.push_back(behaviac::string());
+		behaviac::string& str = m_vec.back();
+		str = m_storeFullPath ? fullFilePath : fileName;
 
-    if (!m_keepCase)
-    {
-        str = make_lower(str);
-    }
+		if (!m_keepCase)
+		{
+			str = make_lower(str);
+		}
 
-    return m_maximumSize == 0 || m_vec.size() < m_maximumSize;
-}
+		return m_maximumSize == 0 || m_vec.size() < m_maximumSize;
+	}
 
-bool CVectorFileSystemVisitor::VisitDirectory(const char* fullDirPath, const char* dirName)
-{
-    return VisitFile(fullDirPath, dirName);
-}
+	bool CVectorFileSystemVisitor::VisitDirectory(const char* fullDirPath, const char* dirName)
+	{
+		return VisitFile(fullDirPath, dirName);
+	}
 
-void CVectorFileSystemVisitor::ExitDirectory()
-{
-}
+	void CVectorFileSystemVisitor::ExitDirectory()
+	{
+	}
 
-CCounterFileSystemVisitor::CCounterFileSystemVisitor(uint32_t maximumSize)
-    : m_maximumSize(maximumSize)
-    , m_count(0)
-{
-}
+	CCounterFileSystemVisitor::CCounterFileSystemVisitor(uint32_t maximumSize)
+		: m_maximumSize(maximumSize)
+		, m_count(0)
+	{
+	}
 
-bool CCounterFileSystemVisitor::EnterDirectory(const char* fullDirPath, const char* dirName)
-{
-    BEHAVIAC_UNUSED_VAR(fullDirPath);
-    BEHAVIAC_UNUSED_VAR(dirName);
+	bool CCounterFileSystemVisitor::EnterDirectory(const char* fullDirPath, const char* dirName)
+	{
+		BEHAVIAC_UNUSED_VAR(fullDirPath);
+		BEHAVIAC_UNUSED_VAR(dirName);
 
-    return true;
-}
+		return true;
+	}
 
-bool CCounterFileSystemVisitor::VisitFile(const char* fullFilePath, const char* fileName)
-{
-    BEHAVIAC_UNUSED_VAR(fullFilePath);
-    BEHAVIAC_UNUSED_VAR(fileName);
+	bool CCounterFileSystemVisitor::VisitFile(const char* fullFilePath, const char* fileName)
+	{
+		BEHAVIAC_UNUSED_VAR(fullFilePath);
+		BEHAVIAC_UNUSED_VAR(fileName);
 
-    ++m_count;
-    return m_maximumSize == 0 || m_count < m_maximumSize;
-}
+		++m_count;
+		return m_maximumSize == 0 || m_count < m_maximumSize;
+	}
 
-bool CCounterFileSystemVisitor::VisitDirectory(const char* fullDirPath, const char* dirName)
-{
-    return VisitFile(fullDirPath, dirName);
-}
+	bool CCounterFileSystemVisitor::VisitDirectory(const char* fullDirPath, const char* dirName)
+	{
+		return VisitFile(fullDirPath, dirName);
+	}
 
-void CCounterFileSystemVisitor::ExitDirectory()
-{
-}
+	void CCounterFileSystemVisitor::ExitDirectory()
+	{
+	}
+}//namespace behaviac

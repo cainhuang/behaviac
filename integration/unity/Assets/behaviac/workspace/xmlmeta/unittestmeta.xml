@@ -139,6 +139,12 @@
       <Method Name="switchRef" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest" Public="true">
         <Param DisplayName="refTree" Desc="refTree" Type="string" />
       </Method>
+      <Method Name="CanSeeEnemy" DisplayName="" Desc="" ReturnType="bool" Class="AgentNodeTest" />
+      <Method Name="Stop" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" />
+      <Method Name="IsTargetValid" DisplayName="" Desc="" ReturnType="bool" Class="AgentNodeTest" />
+      <Method Name="SelectTarget" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" />
+      <Method Name="Move" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest" />
+      <Method Name="MoveToTarget" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest" />
       <Method Name="enter_action_0" DisplayName="" Desc="" ReturnType="bool" Class="AgentNodeTest" Public="true" />
       <Method Name="exit_action_0" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true" />
       <Method Name="enter_action_1" DisplayName="" Desc="" ReturnType="bool" Class="AgentNodeTest" Public="true">

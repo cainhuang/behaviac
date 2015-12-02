@@ -38,12 +38,10 @@ namespace behaviac
                 {
                     //method
                     this.m_event = Action.LoadMethod(p.value);
-
                 }
                 else if (p.name == "ReferenceFilename")
                 {
                     this.m_referencedBehaviorPath = p.value;
-
                 }
                 else if (p.name == "TriggeredOnce")
                 {
@@ -51,25 +49,21 @@ namespace behaviac
                     {
                         this.m_bTriggeredOnce = true;
                     }
-
                 }
                 else if (p.name == "TriggerMode")
                 {
                     if (p.value == "Transfer")
                     {
                         this.m_triggerMode = TriggerMode.TM_Transfer;
-
                     }
                     else if (p.value == "Return")
                     {
                         this.m_triggerMode = TriggerMode.TM_Return;
-
                     }
                     else
                     {
                         Debug.Check(false, string.Format("unrecognised trigger mode {0}", p.value));
                     }
-
                 }
                 else
                 {

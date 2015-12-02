@@ -15,7 +15,7 @@
 #include "behaviac/base/core/types.h"
 #include "behaviac/base/core/string/formatstring.h"
 
-#include "behaviac/base/logging/logging.h"
+#include "behaviac/base/logging/logmanager.h"
 #include "behaviac/agent/agent.h"
 
 #include <cstdio>

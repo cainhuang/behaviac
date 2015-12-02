@@ -304,6 +304,12 @@
 			<Method Name="switchRef" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus">
 				<Param DisplayName="" Desc="" Type="const string&amp;" />
 			</Method>
+			<Method Name="Stop" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void" />
+			<Method Name="SelectTarget" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void" />
+			<Method Name="IsTargetValid" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="bool" />
+			<Method Name="CanSeeEnemy" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="bool" />
+			<Method Name="Move" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus" />
+			<Method Name="MoveToTarget" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus" />
 		</agent>
 		<agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="" Desc="" IsRefType="true" />
 		<agent classfullname="CustomPropertyAgent" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">

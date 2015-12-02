@@ -876,9 +876,11 @@ namespace behaviac
         {
             Packet packet(commandId, s_seq.Next());
 
-            Text* pT = (Text*)packet.data;
-            strncpy(pT->buffer, text, kMaxTextLength);
-            pT->buffer[kMaxTextLength] = '\0';
+            char* pT = (char*)packet.data;
+			BEHAVIAC_ASSERT(kMaxTextLength < kMaxPacketDataSize);
+
+            strncpy(pT, text, kMaxTextLength);
+            pT[kMaxTextLength] = '\0';
             this->AddPacket(packet, true);
             gs_packetsStats.texts++;
         }

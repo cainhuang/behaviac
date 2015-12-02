@@ -53,7 +53,7 @@
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="14" Opl="behaviac::Agent Self.EmployeeParTestAgent::TV_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentSMF(behaviac::Agent Self.EmployeeParTestAgent::TV_AGENT_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
-              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="15" Opl="behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentListSMF(behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="15" Opl="vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentListSMF(vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
             </Connector>

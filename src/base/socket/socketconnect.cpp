@@ -23,7 +23,7 @@
 
 #include "behaviac/behaviortree/behaviortree.h"
 #include "behaviac/behaviortree/behaviortree_task.h"
-#include "behaviac/base/logging/logging.h"
+#include "behaviac/base/logging/logmanager.h"
 #include "behaviac/agent/context.h"
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
@@ -289,7 +289,7 @@ namespace behaviac
 
                         behaviac::string msg = FormatString("[workspace] %s \"%s\"\n", formatString, workspaceName.c_str());
                         //behaviac::Socket::SendText(msg.c_str());
-                        LogManager::GetInstance()->LogWorkspace(msg.c_str());
+                        LogManager::GetInstance()->LogWorkspace(true, msg.c_str());
 
                         s_tracer.SetWorkspaceSent(true);
                     }

@@ -407,7 +407,6 @@ namespace behaviac
                 RespondToBreakHandler(msg, title);
 
                 return;
-
             }
             else
             {
@@ -496,7 +495,6 @@ namespace behaviac
                     if (this.FileFormat == EFileFormat.EFF_xml)
                     {
                         filter = "*.xml";
-
                     }
                     else if (this.FileFormat == EFileFormat.EFF_bson)
                     {
@@ -552,7 +550,7 @@ namespace behaviac
 
             PlannerTask.Cleanup();
 
-            LogManager.Close();
+            LogManager.Instance.Close();
 
             this.m_bInited = false;
         }
@@ -597,7 +595,7 @@ namespace behaviac
                 string formatString = (format == Workspace.EFileFormat.EFF_xml ? "xml" : "bson");
 
                 string msg = string.Format("[workspace] {0} \"{1}\"\n", formatString, wksAbsPath);
-                LogManager.LogWorkspace(msg);
+                LogManager.Instance.LogWorkspace(msg);
             }
         }
 
@@ -636,7 +634,6 @@ namespace behaviac
 
 #endif
                 }
-
             }
             catch (Exception e)
             {
@@ -688,7 +685,6 @@ namespace behaviac
                         }
 
                         m_workspaceExportPathAbs = Path.Combine(m_workspaceExportPathAbs, workspaceExportPath);
-
                     }
                     else
                     {
@@ -1026,12 +1022,10 @@ namespace behaviac
             if (tokens[1] == "add")
             {
                 bAdd = true;
-
             }
             else if (tokens[1] == "remove")
             {
                 bRemove = true;
-
             }
             else
             {
@@ -1043,17 +1037,14 @@ namespace behaviac
             if (tokens[3] == "all")
             {
                 Debug.Check(bp.action_result == EActionResult.EAR_all);
-
             }
             else if (tokens[3] == "success")
             {
                 bp.action_result = EActionResult.EAR_success;
-
             }
             else if (tokens[3] == "failure")
             {
                 bp.action_result = EActionResult.EAR_failure;
-
             }
             else
             {
@@ -1075,7 +1066,6 @@ namespace behaviac
                 if (pose != -1)
                 {
                     size = pose - posb - 1;
-
                 }
                 else
                 {
@@ -1091,7 +1081,6 @@ namespace behaviac
             if (bAdd)
             {
                 m_breakpoints[bpid] = bp;
-
             }
             else if (bRemove)
             {
@@ -1104,12 +1093,10 @@ namespace behaviac
             if (tokens[1] == "true")
             {
                 Config.IsProfiling = true;
-
             }
             else if (tokens[1] == "false")
             {
                 Config.IsProfiling = false;
-
             }
             else
             {
@@ -1163,7 +1150,7 @@ namespace behaviac
 
         protected void LogFrames()
         {
-            LogManager.Log("[frame]{0}\n", m_frame++);
+            LogManager.Instance.Log("[frame]{0}\n", m_frame++);
         }
 
         protected void WaitforContinue()
@@ -1254,7 +1241,6 @@ namespace behaviac
                         bContinue = true;
                     }
                 }
-
             }
             else
             {
@@ -1352,7 +1338,6 @@ namespace behaviac
                     if (m_applogFilter == "ALL")
                     {
                         return true;
-
                     }
                     else
                     {
@@ -1380,7 +1365,6 @@ namespace behaviac
                 if (!m_actions_count.ContainsKey(actionId))
                 {
                     m_actions_count[actionId] = count;
-
                 }
                 else
                 {
@@ -1575,7 +1559,6 @@ namespace behaviac
                     if (f == EFileFormat.EFF_xml)
                     {
                         bLoadResult = pBT.load_xml(pBuffer);
-
                     }
                     else
                     {
@@ -1589,7 +1572,6 @@ namespace behaviac
                     Debug.LogError(string.Format("'{0}' doesn't exist!, Please override Workspace and its GetWorkspaceExportPath()", fullPath));
                     Debug.Check(false);
                 }
-
             }
             else if (f == EFileFormat.EFF_cs)
             {
@@ -1606,7 +1588,6 @@ namespace behaviac
                     if (BTCreators.ContainsKey(relativePath))
                     {
                         m = BTCreators[relativePath];
-
                     }
                     else
                     {
@@ -1629,21 +1610,18 @@ namespace behaviac
                     {
                         object[] args = { pBT };
                         bLoadResult = (bool)m.Invoke(null, args);
-
                     }
                     else
                     {
                         Debug.Check(false);
                         Debug.LogError("The generated_behaviors.cs file should be added into the app.");
                     }
-
                 }
                 catch (Exception e)
                 {
                     string errorInfo = string.Format("The behavior {0} failed to be loaded : {1}", relativePath, e.Message);
                     Debug.LogError(errorInfo);
                 }
-
             }
             else
             {
@@ -1658,7 +1636,6 @@ namespace behaviac
                 {
                     Debug.Check(BehaviorTrees[pBT.GetName()] == pBT);
                 }
-
             }
             else
             {
@@ -1666,7 +1643,6 @@ namespace behaviac
                 {
                     bool removed = BehaviorTrees.Remove(relativePath);
                     Debug.Check(removed);
-
                 }
                 else if (bCleared)
                 {
@@ -1690,7 +1666,6 @@ namespace behaviac
                 if (FileManager.Instance.FileExist(fullPath, ext))
                 {
                     f = EFileFormat.EFF_xml;
-
                 }
                 else
                 {
@@ -1700,7 +1675,6 @@ namespace behaviac
                     if (FileManager.Instance.FileExist(fullPath, ext))
                     {
                         f = EFileFormat.EFF_bson;
-
                     }
                     else
                     {
@@ -1708,12 +1682,10 @@ namespace behaviac
                         f = EFileFormat.EFF_cs;
                     }
                 }
-
             }
             else if (f == EFileFormat.EFF_xml || f == EFileFormat.EFF_cs)
             {
                 ext = ".xml";
-
             }
             else if (f == EFileFormat.EFF_bson)
             {
@@ -1735,7 +1707,6 @@ namespace behaviac
             if (BehaviorTrees.ContainsKey(relativePath))
             {
                 return BehaviorTrees[relativePath];
-
             }
             else
             {
@@ -1758,7 +1729,6 @@ namespace behaviac
             {
                 // ./dummy_bt
                 return false;
-
             }
             else if (relativePath[0] == '/' || relativePath[0] == '\\')
             {
@@ -1791,7 +1761,6 @@ namespace behaviac
             if (BehaviorTrees.ContainsKey(relativePath))
             {
                 bt = BehaviorTrees[relativePath];
-
             }
             else
             {
@@ -1930,7 +1899,6 @@ namespace behaviac
                 {
                     baseTypeName += "*";
                 }
-
             }
             else if (Utils.IsArrayType(type))
             {
@@ -1956,7 +1924,6 @@ namespace behaviac
             if (getter != null)
             {
                 return getter.IsPublic;
-
             }
             else
             {
@@ -1986,7 +1953,6 @@ namespace behaviac
             if (getter != null)
             {
                 return getter.IsStatic;
-
             }
             else
             {
@@ -2712,7 +2678,6 @@ namespace behaviac
                                     xmlWriter.WriteAttributeString("IsRefType", "true");
 
                                     ExportType(xmlWriter, agentType, true, onlyExportPublicMembers);
-
                                 }
                                 else
                                 {
@@ -2753,7 +2718,6 @@ namespace behaviac
                     //TODO:names
 
                     return true;
-
                 }
                 catch (Exception ex)
                 {
@@ -2920,7 +2884,6 @@ namespace behaviac
                 if (x.bIsInherited && !y.bIsInherited)
                 {
                     return -1;
-
                 }
                 else if (!x.bIsInherited && y.bIsInherited)
                 {
@@ -2930,7 +2893,6 @@ namespace behaviac
                 if (x.type.IsSubclassOf(y.type))
                 {
                     return 1;
-
                 }
                 else if (y.type.IsSubclassOf(x.type))
                 {
@@ -3143,7 +3105,6 @@ namespace behaviac
                     memberDesc = (behaviac.MemberMetaInfoAttribute)attributes1[0];
                     bToRegister = true;
                 }
-
             }
             else
             {
@@ -3169,7 +3130,6 @@ namespace behaviac
                 {
                     RegisterType(memberType, false);
                 }
-
             }
             else
             {

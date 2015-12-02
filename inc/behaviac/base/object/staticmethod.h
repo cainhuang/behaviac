@@ -42,23 +42,23 @@ public:
         this->m_methodPtr = copy.m_methodPtr;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -304,22 +304,22 @@ public:
         this->m_paramRangeValid = copy.m_paramRangeValid;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param.LoadFromXML(parent, xmlNode, "param1");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param.SaveToXML(parent, xmlNode, "param1");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -356,7 +356,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -682,23 +682,23 @@ public:
         this->m_paramRangeValid2 = copy.m_paramRangeValid2;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -735,7 +735,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -1241,25 +1241,25 @@ class CGenericMethodStatic3_ : public CMethodBase
         this->m_paramRangeValid3 = copy.m_paramRangeValid3;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
         this->m_param3.LoadFromXML(parent, xmlNode, "param3");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
         this->m_param3.SaveToXML(parent, xmlNode, "param3");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -1296,7 +1296,7 @@ class CGenericMethodStatic3_ : public CMethodBase
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -1900,7 +1900,7 @@ class CGenericMethodStatic4_ : public CMethodBase
         this->m_paramRangeValid4 = copy.m_paramRangeValid4;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -1908,7 +1908,7 @@ class CGenericMethodStatic4_ : public CMethodBase
         this->m_param4.LoadFromXML(parent, xmlNode, "param4");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -1916,11 +1916,11 @@ class CGenericMethodStatic4_ : public CMethodBase
         this->m_param4.SaveToXML(parent, xmlNode, "param4");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -1957,7 +1957,7 @@ class CGenericMethodStatic4_ : public CMethodBase
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -2660,7 +2660,7 @@ class CGenericMethodStatic5_ : public CMethodBase
         this->m_paramRangeValid5 = copy.m_paramRangeValid5;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -2669,7 +2669,7 @@ class CGenericMethodStatic5_ : public CMethodBase
         this->m_param5.LoadFromXML(parent, xmlNode, "param5");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -2678,11 +2678,11 @@ class CGenericMethodStatic5_ : public CMethodBase
         this->m_param5.SaveToXML(parent, xmlNode, "param5");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -2719,7 +2719,7 @@ class CGenericMethodStatic5_ : public CMethodBase
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -3556,7 +3556,7 @@ class CGenericMethodStatic6_ : public CMethodBase
         this->m_paramRangeValid6 = copy.m_paramRangeValid6;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -3566,7 +3566,7 @@ class CGenericMethodStatic6_ : public CMethodBase
         this->m_param6.LoadFromXML(parent, xmlNode, "param6");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -3576,11 +3576,11 @@ class CGenericMethodStatic6_ : public CMethodBase
         this->m_param6.SaveToXML(parent, xmlNode, "param6");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -3617,7 +3617,7 @@ class CGenericMethodStatic6_ : public CMethodBase
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -4525,7 +4525,7 @@ class CGenericMethodStatic7_ : public CMethodBase
         this->m_paramRangeValid7 = copy.m_paramRangeValid7;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -4536,7 +4536,7 @@ class CGenericMethodStatic7_ : public CMethodBase
         this->m_param7.LoadFromXML(parent, xmlNode, "param7");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -4547,11 +4547,11 @@ class CGenericMethodStatic7_ : public CMethodBase
         this->m_param7.SaveToXML(parent, xmlNode, "param7");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -4588,7 +4588,7 @@ class CGenericMethodStatic7_ : public CMethodBase
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -5594,7 +5594,7 @@ class CGenericMethodStatic8_ : public CMethodBase
         this->m_paramRangeValid8 = copy.m_paramRangeValid8;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -5606,7 +5606,7 @@ class CGenericMethodStatic8_ : public CMethodBase
         this->m_param8.LoadFromXML(parent, xmlNode, "param8");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -5618,11 +5618,11 @@ class CGenericMethodStatic8_ : public CMethodBase
         this->m_param8.SaveToXML(parent, xmlNode, "param8");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -5659,7 +5659,7 @@ class CGenericMethodStatic8_ : public CMethodBase
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {

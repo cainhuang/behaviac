@@ -85,6 +85,94 @@ LOAD_TEST(btunittest, selector_loop_ut_4)
     finlTestEnvNode(myTestAgent);
 }
 
+LOAD_TEST(btunittest, selector_loop_ut_5)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_5", format);
+	myTestAgent->resetProperties();
+	behaviac::EBTStatus s = myTestAgent->btexec();
+
+	CHECK_EQUAL(behaviac::BT_SUCCESS, s);
+	CHECK_EQUAL(1, myTestAgent->testVar_0);
+
+    finlTestEnvNode(myTestAgent);
+}
+
+
+LOAD_TEST(btunittest, selector_loop_ut_6)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_6", format);
+	myTestAgent->resetProperties();
+
+	myTestAgent->m_bCanSee = false;
+	const int kCount = 5;
+	for (int i = 0; i <kCount; ++i)
+	{
+		behaviac::EBTStatus s = myTestAgent->btexec();
+		CHECK_EQUAL(behaviac::BT_RUNNING, s);
+		CHECK_EQUAL(2, myTestAgent->testVar_0);
+	}
+
+	myTestAgent->m_bCanSee = true;
+
+	behaviac::EBTStatus s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, s);
+	CHECK_EQUAL(1, myTestAgent->testVar_0);
+
+	s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, s);
+	CHECK_EQUAL(1, myTestAgent->testVar_0);
+
+	myTestAgent->m_bCanSee = false;
+
+	s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, s);
+	CHECK_EQUAL(2, myTestAgent->testVar_0);
+
+	s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, s);
+	CHECK_EQUAL(2, myTestAgent->testVar_0);
+
+	myTestAgent->m_bCanSee = true;
+
+	s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, s);
+	CHECK_EQUAL(1, myTestAgent->testVar_0);
+
+    finlTestEnvNode(myTestAgent);
+}
+
+LOAD_TEST(btunittest, selector_loop_ut_7)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_7", format);
+	myTestAgent->resetProperties();
+
+	myTestAgent->m_bCanSee = false;
+	const int kCount = 5;
+	for (int i = 0; i <kCount; ++i)
+	{
+		behaviac::EBTStatus s = myTestAgent->btexec();
+		CHECK_EQUAL(behaviac::BT_RUNNING, s);
+		CHECK_EQUAL(2, myTestAgent->testVar_0);
+		CHECK_EQUAL(i + 1, myTestAgent->testVar_1);
+	}
+
+	myTestAgent->m_bCanSee = true;
+
+	behaviac::EBTStatus s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, s);
+	CHECK_EQUAL(1, myTestAgent->testVar_0);
+	CHECK_EQUAL(6, myTestAgent->testVar_1);
+
+	myTestAgent->m_bTargetValid = false;
+
+	s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, s);
+	CHECK_EQUAL(1, myTestAgent->testVar_0);
+	CHECK_EQUAL(3, myTestAgent->testVar_1);
+
+    finlTestEnvNode(myTestAgent);
+}
+
 //< selector node test
 LOAD_TEST(btunittest, selector_ut_0)
 {

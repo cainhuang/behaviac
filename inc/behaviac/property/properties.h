@@ -17,7 +17,7 @@
 #include "behaviac/base/base.h"
 #include "behaviac/base/object/tagobject.h"
 #include "behaviac/base/object/typehandler.h"
-#include "behaviac/base/logging/logging.h"
+#include "behaviac/base/logging/logmanager.h"
 #include "behaviac/base/string/valuetostring.h"
 #include "behaviac/property/operators.inl"
 #include "behaviac/property/property.h"

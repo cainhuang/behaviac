@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -48,7 +48,7 @@ namespace PluginBehaviac.Nodes
 			return nvd;
 		}
 
-        public override bool AcceptsAttachment(Type type)
+        public override bool AcceptsAttachment(DefaultObject obj)
         {
             return false;
         }

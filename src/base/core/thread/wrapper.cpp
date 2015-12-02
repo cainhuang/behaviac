@@ -27,6 +27,8 @@ namespace behaviac
 
     ThreadInt::ThreadInt()
     {
+		m_inited = false;
+
         //this is a globle, m_inited is 0 anyway
         this->Init();
     }

@@ -89,7 +89,6 @@ namespace UnityTest
             return GetType().Name + " assertion failed.\n(" + go + ")." + thisPropertyPath + " failed. Value: " + objVal;
         }
 
-
     }
 
     public abstract class ActionBaseGeneric<T> : ActionBase

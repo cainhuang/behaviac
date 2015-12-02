@@ -92,7 +92,6 @@ namespace behaviac
                         CMethodBase m = Action.LoadMethod(p.value);
                         this.m_task = m as CTaskMethod;
                     }//if (p.value[0] != '\0')
-
                 }
                 else if (p.name == "IsHTN")
                 {
@@ -175,7 +174,6 @@ namespace behaviac
                 EBTStatus status = _planner.Update();
 
                 return status;
-
             }
             else
             {

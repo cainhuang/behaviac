@@ -46,7 +46,7 @@
             </node>
             <node class="Wait" id="4">
               <property IgnoreTimeScale="false" />
-              <property Time="const int 2000" />
+              <property Time="const float 2000" />
             </node>
           </node>
           <node class="Sequence" id="19">

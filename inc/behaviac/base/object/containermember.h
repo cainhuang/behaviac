@@ -62,11 +62,11 @@ public:
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_Description_Load) && ObjectType::IsOfMyKind(parent))
         {
-            const ISerializableNode* childNode;
+            const behaviac::ISerializableNode* childNode;
 
             if (ChildNodeCreate)
             {
@@ -85,11 +85,11 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_Description_Save) && ObjectType::IsOfMyKind(parent))
         {
-            ISerializableNode* childNode;
+            behaviac::ISerializableNode* childNode;
 
             if (ChildNodeCreate)
             {
@@ -105,11 +105,11 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_State_Load) && ObjectType::IsOfMyKind(parent))
         {
-            const ISerializableNode* childNode;
+            const behaviac::ISerializableNode* childNode;
 
             if (ChildNodeCreate)
             {
@@ -128,11 +128,11 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_State_Save) && ObjectType::IsOfMyKind(parent))
         {
-            ISerializableNode* childNode;
+            behaviac::ISerializableNode* childNode;
 
             if (ChildNodeCreate)
             {
@@ -148,13 +148,13 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         int readonlyFlag = this->READONLYFLAG();
 
         if ((PropertyFlags & EPersistenceType_UiInfo) && ObjectType::IsOfMyKind(parent))
         {
-            XmlNodeRef memberNode = xmlNode;
+			behaviac::XmlNodeRef memberNode = xmlNode;
 
             if (ChildNodeCreate && types == NULL)
             {
@@ -193,9 +193,9 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
-        XmlNodeRef childNode = xmlNode;
+		behaviac::XmlNodeRef childNode = xmlNode;
 
         if (types == NULL)
         {

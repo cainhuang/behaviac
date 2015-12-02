@@ -35,7 +35,7 @@ enum ParentType
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename T>
-void TGetUiInfo_(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode, const CTagObjectDescriptor& objDesc)
+void TGetUiInfo_(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode, const CTagObjectDescriptor& objDesc)
 {
     if (types != NULL)
     {
@@ -58,7 +58,7 @@ void TGetUiInfo_(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode, 
 template <typename MemberType, bool bStruct>
 struct ClassUiInfoGetterStruct
 {
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode)
     {
         if (types != NULL)
         {
@@ -76,7 +76,7 @@ struct ClassUiInfoGetterStruct
 template <bool bStruct>
 struct ClassUiInfoGetterStruct<IList, bStruct>
 {
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode)
     {
         if (types != NULL)
         {
@@ -91,7 +91,7 @@ struct ClassUiInfoGetterStruct<IList, bStruct>
 template <bool bStruct>
 struct ClassUiInfoGetterStruct<System::Object, bStruct>
 {
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode)
     {
         if (types != NULL)
         {
@@ -107,7 +107,7 @@ struct ClassUiInfoGetterStruct<System::Object, bStruct>
 template <typename MemberType>
 struct ClassUiInfoGetterStruct<MemberType, true>
 {
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode)
     {
         if (types != NULL)
         {
@@ -128,7 +128,7 @@ struct ClassUiInfoGetterStruct<MemberType, true>
 template <typename MemberType, bool bIsEnum>
 struct EnumClassUiInfoGetter
 {
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode)
     {
         ClassUiInfoGetterStruct<MemberType, behaviac::Meta::HasFromString<MemberType>::Result>::GetUiInfo(types, memberNode);
     }
@@ -137,7 +137,7 @@ struct EnumClassUiInfoGetter
 template <typename MemberType>
 struct EnumClassUiInfoGetter<MemberType, true>
 {
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode)
     {
         BEHAVIAC_UNUSED_VAR(memberNode);
 
@@ -158,7 +158,7 @@ struct EnumClassUiInfoGetter<MemberType, true>
 template <typename MemberType, bool bIsVector>
 struct VectorTypeUiInfoGetter
 {
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode)
     {
         BEHAVIAC_UNUSED_VAR(memberNode);
 
@@ -169,7 +169,7 @@ struct VectorTypeUiInfoGetter
 template <typename MemberType>
 struct VectorTypeUiInfoGetter<MemberType, true>
 {
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef& memberNode)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef& memberNode)
     {
         typedef typename behaviac::Meta::IsVector<MemberType>::ElementType ElementType_t;
 
@@ -184,13 +184,13 @@ struct VectorTypeUiInfoGetter<MemberType, true>
 template<class MemberType>
 struct GenericTypeHandler
 {
-    static bool Load(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool Load(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(member);
 
         // If property ID is empty use the current node to load
-        const ISerializableNode* memberNode = (propertyID.GetID().IsValid()) ? node->findChild(propertyID) : node;
+        const behaviac::ISerializableNode* memberNode = (propertyID.GetID().IsValid()) ? node->findChild(propertyID) : node;
 
         if (memberNode)
         {
@@ -201,23 +201,23 @@ struct GenericTypeHandler
         return false;
     }
 
-    static void Save(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(member);
 
         // Create a new node if the property ID is not empty, otherwise serialize it to the current node
-        ISerializableNode* memberNode = (propertyID.GetID().IsValid()) ? node->newChild(propertyID) : node;
+        behaviac::ISerializableNode* memberNode = (propertyID.GetID().IsValid()) ? node->newChild(propertyID) : node;
         member.Save(memberNode);
     }
 
-    static bool LoadState(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool LoadState(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(member);
 
         // If property ID is empty use the current node to load
-        const ISerializableNode* memberNode = (propertyID.GetID().IsValid()) ? node->findChild(propertyID) : node;
+        const behaviac::ISerializableNode* memberNode = (propertyID.GetID().IsValid()) ? node->findChild(propertyID) : node;
 
         if (memberNode)
         {
@@ -228,20 +228,20 @@ struct GenericTypeHandler
         return false;
     }
 
-    static void SaveState(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(member);
 
         // Create a new node if the property ID is not empty, otherwise serialize it to the current node
-        ISerializableNode* memberNode = (propertyID.GetID().IsValid()) ? node->newChild(propertyID) : node;
+        behaviac::ISerializableNode* memberNode = (propertyID.GetID().IsValid()) ? node->newChild(propertyID) : node;
         member.SaveState(memberNode);
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         // Create a new node if the property ID is not empty, otherwise serialize it to the current node
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -273,7 +273,6 @@ struct GenericTypeHandler
                 {
                     memberNode->setAttr("Property", "true");
                 }
-
             }
 
         }
@@ -295,13 +294,13 @@ struct GenericTypeHandler
         }
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(member);
 
         // TODO
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -311,16 +310,16 @@ struct GenericTypeHandler
         member.GetMethodsDescription(types, memberNode);
     }
 
-    static void LoadFromXML(const ISerializableNode& xmlNode, MemberType& member, const char* className, const char* propertyName)
+    static void LoadFromXML(const behaviac::ISerializableNode& xmlNode, MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(xmlNode);
         BEHAVIAC_UNUSED_VAR(member);
         BEHAVIAC_UNUSED_VAR(propertyName);
-        CSerializationID serializationId(propertyName);
+        behaviac::CSerializationID serializationId(propertyName);
         GenericTypeHandler<MemberType>::Load(&xmlNode, member, className, serializationId);
     }
 
-    static void SaveToXML(ISerializableNode& xmlNode, MemberType& member, const char* className, const char* propertyName)
+    static void SaveToXML(behaviac::ISerializableNode& xmlNode, MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(xmlNode);
         BEHAVIAC_UNUSED_VAR(member);
@@ -333,12 +332,12 @@ struct GenericTypeHandler
 template<class MemberType>
 struct NoDescriptionTypeHandler
 {
-    static bool Load(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool Load(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(member);
 
-        const ISerializableNode* memberNode = node->findChild(propertyID);
+        const behaviac::ISerializableNode* memberNode = node->findChild(propertyID);
 
         if (memberNode)
         {
@@ -349,18 +348,18 @@ struct NoDescriptionTypeHandler
         return false;
     }
 
-    static void Save(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(member);
 
-        ISerializableNode* memberNode = node->newChild(propertyID);
+        behaviac::ISerializableNode* memberNode = node->newChild(propertyID);
         member.Save(memberNode);
     }
 
-    static bool LoadState(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool LoadState(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
-        const ISerializableNode* memberNode = node->findChild(propertyID);
+        const behaviac::ISerializableNode* memberNode = node->findChild(propertyID);
 
         if (memberNode)
         {
@@ -371,16 +370,16 @@ struct NoDescriptionTypeHandler
         return false;
     }
 
-    static void SaveState(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(member);
 
-        ISerializableNode* memberNode = node->newChild(propertyID);
+        behaviac::ISerializableNode* memberNode = node->newChild(propertyID);
         member.SaveState(memberNode);
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -393,7 +392,7 @@ struct NoDescriptionTypeHandler
         BEHAVIAC_UNUSED_VAR(propertyID);
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -406,7 +405,7 @@ struct NoDescriptionTypeHandler
 template<class MemberType>
 struct GenericTypeHandler<MemberType*>
 {
-    static void Load(const ISerializableNode* node, MemberType*& member, const char* className, const CSerializationID& propertyID)
+    static void Load(const behaviac::ISerializableNode* node, MemberType*& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -415,12 +414,11 @@ struct GenericTypeHandler<MemberType*>
 
         if (member)
         {
-            const ISerializableNode* memberNode = node->findChild(propertyID);
+            const behaviac::ISerializableNode* memberNode = node->findChild(propertyID);
 
             if (memberNode)
             {
                 member->Load(memberNode);
-
             }
             else
             {
@@ -437,7 +435,7 @@ struct GenericTypeHandler<MemberType*>
     template < typename T, bool bAgent >
     struct SaveSelector
     {
-        static void Save(ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+        static void Save(behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
         {
             BEHAVIAC_UNUSED_VAR(node);
             BEHAVIAC_UNUSED_VAR(member);
@@ -446,7 +444,7 @@ struct GenericTypeHandler<MemberType*>
 
             if (member)
             {
-                ISerializableNode* memberNode = node->newChild(propertyID);
+                behaviac::ISerializableNode* memberNode = node->newChild(propertyID);
                 member->Save(memberNode);
             }
         }
@@ -455,7 +453,7 @@ struct GenericTypeHandler<MemberType*>
     template < typename T >
     struct SaveSelector < T, true >
     {
-        static void Save(ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+        static void Save(behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
         {
             BEHAVIAC_UNUSED_VAR(node);
             BEHAVIAC_UNUSED_VAR(member);
@@ -464,13 +462,13 @@ struct GenericTypeHandler<MemberType*>
 
             //if (member)
             //{
-            //	ISerializableNode* memberNode = node->newChild(propertyID);
+            //	behaviac::ISerializableNode* memberNode = node->newChild(propertyID);
             //	member->Save(memberNode);
             //}
         }
     };
 
-    static void Save(ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -480,7 +478,7 @@ struct GenericTypeHandler<MemberType*>
 		SaveSelector<MemberType, behaviac::Meta::IsRefType<MemberType>::Result>::Save(node, member, className, propertyID);
     }
 
-    static void LoadState(const ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void LoadState(const behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -489,7 +487,7 @@ struct GenericTypeHandler<MemberType*>
 
         if (member)
         {
-            const ISerializableNode* memberNode = node->findChild(propertyID);
+            const behaviac::ISerializableNode* memberNode = node->findChild(propertyID);
 
             if (memberNode)
             {
@@ -498,7 +496,7 @@ struct GenericTypeHandler<MemberType*>
         }
     }
 
-    static void SaveState(ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -507,12 +505,12 @@ struct GenericTypeHandler<MemberType*>
 
         if (member)
         {
-            ISerializableNode* memberNode = node->newChild(propertyID);
+            behaviac::ISerializableNode* memberNode = node->newChild(propertyID);
             member->SaveState(memberNode);
         }
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, MemberType* const& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, MemberType* const& member, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -522,7 +520,7 @@ struct GenericTypeHandler<MemberType*>
 
         if (types == NULL)
         {
-            XmlNodeRef memberNode = xmlNode->newChild("Member");
+            behaviac::XmlNodeRef memberNode = xmlNode->newChild("Member");
             memberNode->setAttr("Name", propertyID.GetString());
             memberNode->setAttr("DisplayName", displayName);
             memberNode->setAttr("Desc", desc);
@@ -561,7 +559,7 @@ struct GenericTypeHandler<MemberType*>
         }
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, MemberType* const& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, MemberType* const& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -570,7 +568,7 @@ struct GenericTypeHandler<MemberType*>
         BEHAVIAC_UNUSED_VAR(propertyName);
 
         // TODO
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -580,7 +578,7 @@ struct GenericTypeHandler<MemberType*>
         member->GetMethodsDescription(types, memberNode);
     }
 
-    static void SaveToXML(ISerializableNode& xmlNode, const MemberType* member, const char* className, const char* propertyName)
+    static void SaveToXML(behaviac::ISerializableNode& xmlNode, const MemberType* member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(xmlNode);
         BEHAVIAC_UNUSED_VAR(member);
@@ -595,9 +593,9 @@ struct GenericTypeHandler< MemberType[ArraySize] >
 {
     typedef MemberType Array[ArraySize];
 
-    static void Load(const ISerializableNode* node, Array& array, const CSerializationID& propertyID)
+    static void Load(const behaviac::ISerializableNode* node, Array& array, const behaviac::CSerializationID& propertyID)
     {
-        const ISerializableNode* arrayNode = node->findChild(propertyID);
+        const behaviac::ISerializableNode* arrayNode = node->findChild(propertyID);
 
         if (arrayNode)
         {
@@ -610,9 +608,9 @@ struct GenericTypeHandler< MemberType[ArraySize] >
         }
     }
 
-    static void Save(ISerializableNode* node, Array& array, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, Array& array, const behaviac::CSerializationID& propertyID)
     {
-        ISerializableNode* arrayNode = node->newChild(propertyID);
+        behaviac::ISerializableNode* arrayNode = node->newChild(propertyID);
 
         for (uint32_t i = 0; i < ArraySize; ++i)
         {
@@ -622,9 +620,9 @@ struct GenericTypeHandler< MemberType[ArraySize] >
         }
     }
 
-    static void LoadState(const ISerializableNode* node, Array& array, const CSerializationID& propertyID)
+    static void LoadState(const behaviac::ISerializableNode* node, Array& array, const behaviac::CSerializationID& propertyID)
     {
-        const ISerializableNode* arrayNode = node->findChild(propertyID);
+        const behaviac::ISerializableNode* arrayNode = node->findChild(propertyID);
 
         if (arrayNode)
         {
@@ -637,9 +635,9 @@ struct GenericTypeHandler< MemberType[ArraySize] >
         }
     }
 
-    static void SaveState(ISerializableNode* node, const Array& array, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, const Array& array, const behaviac::CSerializationID& propertyID)
     {
-        ISerializableNode* arrayNode = node->newChild(propertyID);
+        behaviac::ISerializableNode* arrayNode = node->newChild(propertyID);
 
         for (uint32_t i = 0; i < ArraySize; ++i)
         {
@@ -649,12 +647,12 @@ struct GenericTypeHandler< MemberType[ArraySize] >
         }
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const Array& array, const char* className, const char* classFullName, const CSerializationID& propertyID, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const Array& array, const char* className, const char* classFullName, const behaviac::CSerializationID& propertyID, UiGenericType* uiWrapper)
     {
         BEHAVIAC_ASSERT(!"Not implemented");
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const Array& array, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const Array& array, const char* className, const char* propertyName)
     {
         BEHAVIAC_ASSERT(!"Not implemented");
     }
@@ -665,15 +663,15 @@ struct GenericTypeHandler<behaviac::vector<MemberType> >
 {
     typedef behaviac::vector<MemberType> Array;
 
-    static void Load(const ISerializableNode* node, Array& _array, const CSerializationID& propertyID)
+    static void Load(const behaviac::ISerializableNode* node, Array& _array, const behaviac::CSerializationID& propertyID)
     {
-        const ISerializableNode* arrayNode = node->findChild(propertyID);
+        const behaviac::ISerializableNode* arrayNode = node->findChild(propertyID);
 
         if (arrayNode)
         {
             uint32_t ArraySize;
 
-            const IXmlNode* xmlNode = (IXmlNode*)arrayNode;
+            const behaviac::IXmlNode* xmlNode = (behaviac::IXmlNode*)arrayNode;
             xmlNode->getAttr("Count", ArraySize);
 
             _array.resize(ArraySize);
@@ -687,9 +685,9 @@ struct GenericTypeHandler<behaviac::vector<MemberType> >
         }
     }
 
-    static void Save(ISerializableNode* node, Array& _array, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, Array& _array, const behaviac::CSerializationID& propertyID)
     {
-        ISerializableNode* arrayNode = node->newChild(propertyID);
+        behaviac::ISerializableNode* arrayNode = node->newChild(propertyID);
 
         uint32_t ArraySize = _array.size();
 
@@ -701,9 +699,9 @@ struct GenericTypeHandler<behaviac::vector<MemberType> >
         }
     }
 
-    static void LoadState(const ISerializableNode* node, Array& _array, const CSerializationID& propertyID)
+    static void LoadState(const behaviac::ISerializableNode* node, Array& _array, const behaviac::CSerializationID& propertyID)
     {
-        const ISerializableNode* arrayNode = node->findChild(propertyID);
+        const behaviac::ISerializableNode* arrayNode = node->findChild(propertyID);
 
         if (arrayNode)
         {
@@ -718,9 +716,9 @@ struct GenericTypeHandler<behaviac::vector<MemberType> >
         }
     }
 
-    static void SaveState(ISerializableNode* node, const Array& _array, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, const Array& _array, const behaviac::CSerializationID& propertyID)
     {
-        ISerializableNode* arrayNode = node->newChild(propertyID);
+        behaviac::ISerializableNode* arrayNode = node->newChild(propertyID);
         uint32_t ArraySize = _array.size();
 
         for (uint32_t i = 0; i < ArraySize; ++i)
@@ -731,12 +729,12 @@ struct GenericTypeHandler<behaviac::vector<MemberType> >
         }
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const Array& _array, const char* className, const char* classFullName, const CSerializationID& propertyID, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const Array& _array, const char* className, const char* classFullName, const behaviac::CSerializationID& propertyID, UiGenericType* uiWrapper)
     {
         BEHAVIAC_ASSERT(!"Not implemented");
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const Array& _array, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const Array& _array, const char* className, const char* propertyName)
     {
         BEHAVIAC_ASSERT(!"Not implemented");
     }
@@ -751,7 +749,7 @@ struct GenericTypeHandler<behaviac::vector<MemberType> >
 template<class MemberType>
 struct NoChildTypeHandler
 {
-    static bool Load(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool Load(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -760,7 +758,7 @@ struct NoChildTypeHandler
         return true;
     }
 
-    static void Save(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -768,7 +766,7 @@ struct NoChildTypeHandler
         member.Save(node);
     }
 
-    static bool LoadState(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool LoadState(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -777,7 +775,7 @@ struct NoChildTypeHandler
         return true;
     }
 
-    static void SaveState(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -785,7 +783,7 @@ struct NoChildTypeHandler
         member.SaveState(node);
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(classFullName);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -798,13 +796,13 @@ struct NoChildTypeHandler
         member.GetMembersDescription(types, xmlNode);
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyName);
 
         // TODO
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -818,7 +816,7 @@ struct NoChildTypeHandler
 template<class MemberType>
 struct NoChildTypeHandler<MemberType*>
 {
-    static void Load(const ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void Load(const behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -829,7 +827,7 @@ struct NoChildTypeHandler<MemberType*>
         }
     }
 
-    static void Save(ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -840,7 +838,7 @@ struct NoChildTypeHandler<MemberType*>
         }
     }
 
-    static void LoadState(const ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void LoadState(const behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -851,7 +849,7 @@ struct NoChildTypeHandler<MemberType*>
         }
     }
 
-    static void SaveState(ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         BEHAVIAC_UNUSED_VAR(propertyID);
@@ -862,7 +860,7 @@ struct NoChildTypeHandler<MemberType*>
         }
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, MemberType* const& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, MemberType* const& member, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(classFullName);
@@ -879,12 +877,12 @@ struct NoChildTypeHandler<MemberType*>
         //}
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, MemberType* const& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, MemberType* const& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(className);
 
         // TODO
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -902,19 +900,19 @@ struct NoChildTypeHandler<MemberType*>
 template<class MemberType>
 struct BasicTypeHandlerBase
 {
-    static bool Load(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool Load(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         return false;
     }
 
-    static void Save(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
 
         //if (className)
         //{
         //	behaviac::string propertyName = FormatString("%s::%s", className, propertyID.GetString());
-        //	CSerializationID pId(propertyName.c_str());
+        //	behaviac::CSerializationID pId(propertyName.c_str());
 
         //	node->setAttr(pId, member);
         //}
@@ -924,18 +922,18 @@ struct BasicTypeHandlerBase
         }
     }
 
-    static bool LoadState(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool LoadState(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         return false;
     }
 
-    static void SaveState(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         //if (className)
         //{
         //	behaviac::string propertyName = FormatString("%s::%s", className, propertyID.GetString());
-        //	CSerializationID pId(propertyName.c_str());
+        //	behaviac::CSerializationID pId(propertyName.c_str());
 
         //	node->setAttr(pId, member);
         //}
@@ -945,11 +943,11 @@ struct BasicTypeHandlerBase
         }
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(member);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -989,7 +987,7 @@ struct BasicTypeHandlerBase
         VectorTypeUiInfoGetter<MemberType, behaviac::Meta::IsVector<MemberType>::Result>::GetUiInfo(types, memberNode);
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -1000,21 +998,21 @@ struct BasicTypeHandlerBase
         BEHAVIAC_ASSERT(0, "unimplmented");
     }
 
-    static void LoadFromXML(const ISerializableNode& node, MemberType& member, const char* className, const char* propertyName)
+    static void LoadFromXML(const behaviac::ISerializableNode& node, MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
         BEHAVIAC_UNUSED_VAR(propertyName);
-        CSerializationID serializationId(propertyName);
+        behaviac::CSerializationID serializationId(propertyName);
         GenericTypeHandler<MemberType>::Load(&node, member, className, serializationId);
     }
 
-    static void SaveToXML(ISerializableNode& node, MemberType& member, const char* className, const char* propertyName)
+    static void SaveToXML(behaviac::ISerializableNode& node, MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
         BEHAVIAC_UNUSED_VAR(propertyName);
-        CSerializationID serializationId(propertyName);
+        behaviac::CSerializationID serializationId(propertyName);
         GenericTypeHandler<MemberType>::Save(&node, member, className, serializationId);
     }
 };
@@ -1022,13 +1020,13 @@ struct BasicTypeHandlerBase
 template<class MemberType>
 struct BasicTypeHandlerNonConst : public BasicTypeHandlerBase<MemberType>
 {
-    static bool Load(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool Load(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         //if (className)
         //{
         //	behaviac::string propertyName = FormatString("%s::%s", className, propertyID.GetString());
-        //	CSerializationID pId(propertyName.c_str());
+        //	behaviac::CSerializationID pId(propertyName.c_str());
 
         //	return node->getAttr(pId, member);
         //}
@@ -1038,14 +1036,14 @@ struct BasicTypeHandlerNonConst : public BasicTypeHandlerBase<MemberType>
         }
     }
 
-    static bool LoadState(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool LoadState(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
 
         //if (className)
         //{
         //	behaviac::string propertyName = FormatString("%s::%s", className, propertyID.GetString());
-        //	CSerializationID pId(propertyName.c_str());
+        //	behaviac::CSerializationID pId(propertyName.c_str());
 
         //	return node->getAttr(pId, member);
         //}
@@ -1083,38 +1081,38 @@ struct BasicTypeHandler : public BasicTypeHandlerSelector<MemberType, behaviac::
 template<class MemberType>
 struct BasicTypeHandlerEnum
 {
-    static bool Load(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool Load(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
 
         return node->getAttr(propertyID, member);
     }
 
-    static void Save(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
 
         node->setAttr(propertyID, member);
     }
 
-    static bool LoadState(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool LoadState(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         return node->getAttr(propertyID, member);
     }
 
-    static void SaveState(ISerializableNode* node, const MemberType& member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, const MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(className);
         node->setAttr(propertyID, member);
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(classFullName);
         BEHAVIAC_UNUSED_VAR(member);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -1155,7 +1153,7 @@ struct BasicTypeHandlerEnum
         EnumClassUiInfoGetter<MemberType, behaviac::Meta::IsEnum<MemberType>::Result>::GetUiInfo(types, memberNode);
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -1164,21 +1162,21 @@ struct BasicTypeHandlerEnum
         BEHAVIAC_UNUSED_VAR(propertyName);
     }
 
-    static void LoadFromXML(const ISerializableNode& node, MemberType& member, const char* className, const char* propertyName)
+    static void LoadFromXML(const behaviac::ISerializableNode& node, MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
         BEHAVIAC_UNUSED_VAR(propertyName);
-        CSerializationID serializationId(propertyName);
+        behaviac::CSerializationID serializationId(propertyName);
         GenericTypeHandler<MemberType>::Load(&node, member, className, serializationId);
     }
 
-    static void SaveToXML(ISerializableNode& node, MemberType& member, const char* className, const char* propertyName)
+    static void SaveToXML(behaviac::ISerializableNode& node, MemberType& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
         BEHAVIAC_UNUSED_VAR(propertyName);
-        CSerializationID serializationId(propertyName);
+        behaviac::CSerializationID serializationId(propertyName);
         GenericTypeHandler<MemberType>::Save(&node, member, className, serializationId);
     }
 };
@@ -1207,9 +1205,9 @@ M_PRIMITIVE_TYPES();
     BEHAVIAC_OVERRIDE_TYPE_NAME(type);
 
 #define M_SPECIALIZE_TYPE_HANDLER_COMPOUND()			\
-    M_SPECIALIZE_TYPE_HANDLER(CStringID);				\
-    M_SPECIALIZE_TYPE_HANDLER(CNoCaseStringID);			\
-    M_SPECIALIZE_TYPE_HANDLER(CPathID);
+    M_SPECIALIZE_TYPE_HANDLER(behaviac::CStringID);				\
+    M_SPECIALIZE_TYPE_HANDLER(behaviac::CNoCaseStringID);			\
+    M_SPECIALIZE_TYPE_HANDLER(behaviac::CPathID);
 
 M_SPECIALIZE_TYPE_HANDLER_COMPOUND()
 
@@ -1222,7 +1220,7 @@ template <class MemberType>
 class CNotImplementedTypeHandler
 {
 public:
-    static bool Load(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool Load(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -1233,7 +1231,7 @@ public:
         return false;
     }
 
-    static void Save(ISerializableNode* node, MemberType const& member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, MemberType const& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -1243,7 +1241,7 @@ public:
         BEHAVIAC_LOGERROR("Not implemented");
     }
 
-    static bool LoadState(const ISerializableNode* node, MemberType& member, const char* className, const CSerializationID& propertyID)
+    static bool LoadState(const behaviac::ISerializableNode* node, MemberType& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -1254,7 +1252,7 @@ public:
         return false;
     }
 
-    static void SaveState(ISerializableNode* node, MemberType const& member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, MemberType const& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -1264,7 +1262,7 @@ public:
         BEHAVIAC_LOGERROR("Not implemented");
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, MemberType const& member, const char* className, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, MemberType const& member, const char* className, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -1275,7 +1273,7 @@ public:
         BEHAVIAC_LOGERROR("Not implemented");
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, MemberType const& member, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, MemberType const& member, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -1297,37 +1295,37 @@ class CHandlerGuesser
 {
 public:
     template <class offsetmemberType>
-    static void Load(const ISerializableNode* node, offsetmemberType& offsetmember, const char* className, const CSerializationID& propertyID)
+    static void Load(const behaviac::ISerializableNode* node, offsetmemberType& offsetmember, const char* className, const behaviac::CSerializationID& propertyID)
     {
         MemberHandler<offsetmemberType>::Load(node, offsetmember, className, propertyID);
     }
 
     template <class offsetmemberType>
-    static void Save(ISerializableNode* node, const offsetmemberType& offsetmember, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, const offsetmemberType& offsetmember, const char* className, const behaviac::CSerializationID& propertyID)
     {
         MemberHandler<offsetmemberType>::Save(node, offsetmember, className, propertyID);
     }
 
     template <class offsetmemberType>
-    static void LoadState(const ISerializableNode* node, offsetmemberType& offsetmember, const char* className, const CSerializationID& propertyID)
+    static void LoadState(const behaviac::ISerializableNode* node, offsetmemberType& offsetmember, const char* className, const behaviac::CSerializationID& propertyID)
     {
         MemberHandler<offsetmemberType>::LoadState(node, offsetmember, className, propertyID);
     }
 
     template <class offsetmemberType>
-    static void SaveState(ISerializableNode* node, const offsetmemberType& offsetmember, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, const offsetmemberType& offsetmember, const char* className, const behaviac::CSerializationID& propertyID)
     {
         MemberHandler<offsetmemberType>::SaveState(node, offsetmember, className, propertyID);
     }
 
     template <class offsetmemberType>
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const offsetmemberType& offsetmember, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const offsetmemberType& offsetmember, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         MemberHandler<offsetmemberType>::GetUiInfo(types, xmlNode, offsetmember, bStatic, readonlyFlag, classFullName, propertyID, displayName, desc, uiWrapper);
     }
 
     template <class offsetmemberType>
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const offsetmemberType& offsetmember, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const offsetmemberType& offsetmember, const char* className, const char* propertyName)
     {
         MemberHandler<offsetmemberType>::GetMethodsDescription(types, xmlNode, offsetmember, className, propertyName);
     }
@@ -1347,10 +1345,10 @@ struct NoVirtualPointerTypeHandler : public CNotImplementedTypeHandler<MemberTyp
 template<class MemberType>
 struct NoVirtualPointerTypeHandler<MemberType*>
 {
-    static void Load(const ISerializableNode* node, MemberType*& member, const char* className, const CSerializationID& propertyID)
+    static void Load(const behaviac::ISerializableNode* node, MemberType*& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         member = BEHAVIAC_NEW MemberType;
-        const ISerializableNode* memberNode = propertyID.GetID().IsValid() ? node->findChild(propertyID) : node;
+        const behaviac::ISerializableNode* memberNode = propertyID.GetID().IsValid() ? node->findChild(propertyID) : node;
 
         if (memberNode)
         {
@@ -1358,33 +1356,33 @@ struct NoVirtualPointerTypeHandler<MemberType*>
         }
     }
 
-    static void Save(ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         if (member)
         {
-            ISerializableNode* memberNode = propertyID.GetID().IsValid() ? node->newChild(propertyID) : node;
+            behaviac::ISerializableNode* memberNode = propertyID.GetID().IsValid() ? node->newChild(propertyID) : node;
             member->Save(memberNode);
         }
     }
 
-    static void LoadState(const ISerializableNode* node, MemberType*& member, const char* className, const CSerializationID& propertyID)
+    static void LoadState(const behaviac::ISerializableNode* node, MemberType*& member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         // Currently not supported because the behavior could be error prone, because
         // of the possibility that the user would pass a vector that is not empty.
         CNotImplementedTypeHandler<MemberType*>::LoadState(node, member, className, propertyID);
     }
 
-    static void SaveState(ISerializableNode* node, MemberType* member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, MemberType* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         // Currently not implemented because it is assumed that LoadState() is error prone in this case.
         CNotImplementedTypeHandler<MemberType*>::SaveState(node, member, className, propertyID);
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, MemberType* const& member, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, MemberType* const& member, bool bStatic, const char* classFullName, const behaviac::CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         if (types == NULL)
         {
-            XmlNodeRef memberNode = xmlNode->newChild("Member");
+            behaviac::XmlNodeRef memberNode = xmlNode->newChild("Member");
             memberNode->setAttr("Name", propertyID.GetString());
             memberNode->setAttr("DisplayName", displayName);
             memberNode->setAttr("Desc", desc);
@@ -1413,10 +1411,10 @@ struct NoVirtualPointerTypeHandler<MemberType*>
         }
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, MemberType* const& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, MemberType* const& member, const char* className, const char* propertyName)
     {
         // TODO
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {

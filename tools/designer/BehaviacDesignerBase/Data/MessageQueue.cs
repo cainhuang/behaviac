@@ -185,8 +185,8 @@ namespace Behaviac.Design.Data
                 while (_currentIndex < _messages.Count) {
                     string msg = _messages[_currentIndex];
 
-                    if (msg.IndexOf("[frame]") == 10) {
-                        int frame = (int.Parse(msg.Substring(17)));
+                    if (msg.IndexOf("[frame]") == 0) {
+                        int frame = (int.Parse(msg.Substring(7)));
                         _messsageFrameStartIndex[frame] = _currentIndex;
                     }
 

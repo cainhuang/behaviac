@@ -128,14 +128,14 @@ public:
     {
     }
 
-    virtual void        Load(CTagObject* parent, const ISerializableNode* node) = 0;
-    virtual void        Save(const CTagObject* parent, ISerializableNode* node) = 0;
-    virtual void        LoadState(CTagObject* parent, const ISerializableNode* node) = 0;
-    virtual void        SaveState(const CTagObject* parent, ISerializableNode* node) = 0;
-    virtual void        GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) = 0;
-    virtual void        GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) = 0;
+    virtual void        Load(CTagObject* parent, const behaviac::ISerializableNode* node) = 0;
+    virtual void        Save(const CTagObject* parent, behaviac::ISerializableNode* node) = 0;
+    virtual void        LoadState(CTagObject* parent, const behaviac::ISerializableNode* node) = 0;
+    virtual void        SaveState(const CTagObject* parent, behaviac::ISerializableNode* node) = 0;
+    virtual void        GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) = 0;
+    virtual void        GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) = 0;
     virtual CMemberBase* clone() const = 0;
-    virtual CSerializationID GetID() const
+    virtual behaviac::CSerializationID GetID() const
     {
         return m_propertyID;
     }
@@ -374,7 +374,7 @@ protected:
     behaviac::NetworkRole		m_netRole;
     const char*					m_classFullName;
     behaviac::string			m_instaceName;
-    CSerializationID            m_propertyID;
+    behaviac::CSerializationID            m_propertyID;
 
     behaviac::wstring			m_displayName;
     behaviac::wstring			m_desc;

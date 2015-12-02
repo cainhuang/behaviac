@@ -102,7 +102,6 @@ namespace behaviac
                         return true;
                     }
                 }
-
             }
             catch (Exception e)
             {
@@ -128,7 +127,6 @@ namespace behaviac
             if (this.m_pBuffer[end] == 0)
             {
                 return true;
-
             }
             else
             {
@@ -146,7 +144,6 @@ namespace behaviac
             if (bEatEod)
             {
                 this.m_BinaryReader.BaseStream.Position++;
-
             }
             else
             {
@@ -175,7 +172,6 @@ namespace behaviac
             if (BitConverter.IsLittleEndian)
             {
                 return i;
-
             }
             else
             {
@@ -200,7 +196,6 @@ namespace behaviac
             if (BitConverter.IsLittleEndian)
             {
                 return us;
-
             }
             else
             {
@@ -225,7 +220,6 @@ namespace behaviac
             if (BitConverter.IsLittleEndian)
             {
                 return f;
-
             }
             else
             {
@@ -469,7 +463,6 @@ namespace behaviac
                         if (c.Name == "attachment")
                         {
                             bHasEvents = this.load_attachment(version, agentType, bHasEvents, c);
-
                         }
                         else if (c.Name == "custom")
                         {
@@ -477,7 +470,6 @@ namespace behaviac
                             XmlNode customNode = c.ChildNodes[0];
                             BehaviorNode pChildNode = BehaviorNode.load(agentType, customNode, version);
                             this.m_customCondition = pChildNode;
-
                         }
                         else if (c.Name == "node")
                         {
@@ -486,7 +478,6 @@ namespace behaviac
 
                             this.AddChild(pChildNode);
                         }
-
                     }
                     else
                     {
@@ -545,12 +536,10 @@ namespace behaviac
                     if (flagStr == "precondition")
                     {
                         bIsPrecondition = true;
-
                     }
                     else if (flagStr == "effector")
                     {
                         bIsEffector = true;
-
                     }
                     else if (flagStr == "transition")
                     {
@@ -565,7 +554,6 @@ namespace behaviac
                 }
 
                 return bHasEvents;
-
             }
             catch (Exception ex)
             {
@@ -592,7 +580,6 @@ namespace behaviac
                     }
 
                     return true;
-
                 }
                 else if (node.Name == "pars")
                 {
@@ -606,7 +593,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             catch (Exception ex)
             {
@@ -674,7 +660,6 @@ namespace behaviac
                             if (c.Tag == "attachment")
                             {
                                 bHasEvents = this.load_attachment(version, agentType, bHasEvents, c);
-
                             }
                             else if (c.Tag == "custom")
                             {
@@ -682,7 +667,6 @@ namespace behaviac
                                 SecurityElement customNode = (SecurityElement)c.Children[0];
                                 BehaviorNode pChildNode = BehaviorNode.load(agentType, customNode, version);
                                 this.m_customCondition = pChildNode;
-
                             }
                             else if (c.Tag == "node")
                             {
@@ -754,12 +738,10 @@ namespace behaviac
                     if (flagStr == "precondition")
                     {
                         bIsPrecondition = true;
-
                     }
                     else if (flagStr == "effector")
                     {
                         bIsEffector = true;
-
                     }
                     else if (flagStr == "transition")
                     {
@@ -774,7 +756,6 @@ namespace behaviac
                 }
 
                 return bHasEvents;
-
             }
             catch (Exception ex)
             {
@@ -800,7 +781,6 @@ namespace behaviac
                     }
 
                     return true;
-
                 }
                 else if (c.Tag == "pars")
                 {
@@ -817,7 +797,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             catch (Exception ex)
             {
@@ -946,35 +925,29 @@ namespace behaviac
                     try
                     {
                         this.load_properties(version, agentType, d);
-
                     }
                     catch (Exception e)
                     {
                         Debug.Check(false, e.Message);
                     }
-
                 }
                 else if (type == BsonDeserizer.BsonTypes.BT_ParsElement)
                 {
                     this.load_pars(version, agentType, d);
-
                 }
                 else if (type == BsonDeserizer.BsonTypes.BT_AttachmentsElement)
                 {
                     this.load_attachments(version, agentType, d, bIsTransition);
 
                     this.m_bHasEvents |= this.HasEvents();
-
                 }
                 else if (type == BsonDeserizer.BsonTypes.BT_Custom)
                 {
                     this.load_custom(version, agentType, d);
-
                 }
                 else if (type == BsonDeserizer.BsonTypes.BT_NodeElement)
                 {
                     this.load_children(version, agentType, d);
-
                 }
                 else
                 {
@@ -1030,7 +1003,6 @@ namespace behaviac
                     this.m_loadAttachment = true;
                     this.load_properties_pars_attachments_children(version, agentType, d, false);
                     this.m_loadAttachment = false;
-
                 }
                 else
                 {
@@ -1068,14 +1040,12 @@ namespace behaviac
                 if (type == BsonDeserizer.BsonTypes.BT_ParsElement)
                 {
                     this.load_pars(version, agentType, d);
-
                 }
                 else if (type == BsonDeserizer.BsonTypes.BT_AttachmentsElement)
                 {
                     this.load_attachments(version, agentType, d, bIsTransition);
 
                     this.m_bHasEvents |= this.HasEvents();
-
                 }
                 else
                 {
@@ -1138,23 +1108,19 @@ namespace behaviac
                 if (phase == Precondition.EPhase.E_ENTER)
                 {
                     this.m_enter_precond++;
-
                 }
                 else if (phase == Precondition.EPhase.E_UPDATE)
                 {
                     this.m_update_precond++;
-
                 }
                 else if (phase == Precondition.EPhase.E_BOTH)
                 {
                     this.m_both_precond++;
-
                 }
                 else
                 {
                     Debug.Check(false);
                 }
-
             }
             else if (bIsEffector)
             {
@@ -1174,23 +1140,19 @@ namespace behaviac
                 if (phase == Effector.EPhase.E_SUCCESS)
                 {
                     this.m_success_effectors++;
-
                 }
                 else if (phase == Effector.EPhase.E_FAILURE)
                 {
                     this.m_failure_effectors++;
-
                 }
                 else if (phase == Effector.EPhase.E_BOTH)
                 {
                     this.m_both_effectors++;
-
                 }
                 else
                 {
                     Debug.Check(false);
                 }
-
             }
             else
             {
@@ -1360,7 +1322,6 @@ namespace behaviac
             {
                 firstValidPrecond = false;
                 lastCombineValue = taskBoolean;
-
             }
             else
             {
@@ -1581,7 +1542,6 @@ namespace behaviac
                     if (p.name == "Domains")
                     {
                         m_domains = p.value;
-
                     }
                     else if (p.name == "DescriptorRefs")
                     {
@@ -1596,7 +1556,6 @@ namespace behaviac
                                 d.Descriptor.SetDefaultValue(d.Reference);
                             }
                         }
-
                     }
                     else
                     {
@@ -1676,7 +1635,6 @@ namespace behaviac
                 this.load_properties_pars_attachments_children(true, version, agentType, behaviorNode);
 
                 return true;
-
             }
             catch (Exception e)
             {
@@ -1725,7 +1683,6 @@ namespace behaviac
                         return true;
                     }
                 }
-
             }
             catch (Exception e)
             {

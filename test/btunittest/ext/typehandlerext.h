@@ -40,7 +40,7 @@ struct GenericTypeHandler< TRange<T> >
         Save(node, member, className, propertyID);
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const T& member, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const T& member, bool bStatic, const char* classFullName, const CSerializationID& propertyID, const behaviac::wstring& displayName, const behaviac::wstring& desc, UiGenericType* uiWrapper)
     {
         if (types == NULL)
         {
@@ -67,7 +67,7 @@ struct GenericTypeHandler< TRange<T> >
         }
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const TRange<T>& member, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, const TRange<T>& member, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);

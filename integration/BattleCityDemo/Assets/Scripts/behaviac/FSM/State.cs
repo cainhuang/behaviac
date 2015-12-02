@@ -246,7 +246,6 @@ namespace behaviac
 
                 return result;
             }
-
         }
 
     }

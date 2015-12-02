@@ -33,7 +33,6 @@ namespace behaviac
 					behaviac::string typeName;
 					behaviac::string propertyName;
 					this->m_frames_var = Condition::LoadRight(p.value, typeName);
-
 				}
 				else
 				{
@@ -53,7 +52,6 @@ namespace behaviac
 			uint64_t frames = pP->GetValue(pAgent);
 
 			return (frames == ((uint64_t)-1) ? -1 : (int)frames);
-
 		}
 		else if (this->m_frames_method)
 		{
@@ -99,7 +97,6 @@ namespace behaviac
 
 	WaitFramesStateTask::~WaitFramesStateTask()
 	{
-
 	}
 
 	void WaitFramesStateTask::copyto(BehaviorTask* target) const
@@ -193,7 +190,6 @@ namespace behaviac
 
 		return BT_RUNNING;
 	}
-
 }
 
 

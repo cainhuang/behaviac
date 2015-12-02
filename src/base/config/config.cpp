@@ -19,171 +19,174 @@
 
 #include "behaviac/base/core/crc.h"
 
-BEHAVIAC_IMPLEMNT_SINGLETON(CConfig);
-
-const char* CConfig::Get(const char* section, const char* key)
+namespace behaviac
 {
-    CStringID sectionid(section);
-    CStringID id(key);
-    behaviac::map< CStringID, behaviac::string >& category = GetInstance()->m_settings[sectionid];
-    return category[id].c_str();
-}
+	BEHAVIAC_IMPLEMNT_SINGLETON(CConfig);
 
-const behaviac::map< CStringID, behaviac::string >& CConfig::GetSection(const char* section)
-{
-    CStringID sectionid(section);
-    return GetInstance()->m_settings[sectionid];
-}
+	const char* CConfig::Get(const char* section, const char* key)
+	{
+		CStringID sectionid(section);
+		CStringID id(key);
+		behaviac::map< CStringID, behaviac::string >& category = GetInstance()->m_settings[sectionid];
+		return category[id].c_str();
+	}
 
-void CConfig::Set(const char* section, const char* key, const char* value)
-{
-    CStringID sectionid(section);
-    CStringID id(key);
-    behaviac::map< CStringID, behaviac::string >& category = GetInstance()->m_settings[sectionid];
-    category[id] = value;
-}
+	const behaviac::map< CStringID, behaviac::string >& CConfig::GetSection(const char* section)
+	{
+		CStringID sectionid(section);
+		return GetInstance()->m_settings[sectionid];
+	}
 
-bool CConfig::Exists(const char* section, const char* key)
-{
-    CStringID sectionid(section);
-    CStringID id(key);
-    TSectionsXmlInfoMap& settingsMap = GetInstance()->m_settings;
-    TSectionsXmlInfoMap::iterator settingsIter = settingsMap.find(sectionid);
+	void CConfig::Set(const char* section, const char* key, const char* value)
+	{
+		CStringID sectionid(section);
+		CStringID id(key);
+		behaviac::map< CStringID, behaviac::string >& category = GetInstance()->m_settings[sectionid];
+		category[id] = value;
+	}
 
-    if (settingsIter == settingsMap.end())
-    {
-        return false;
-    }
+	bool CConfig::Exists(const char* section, const char* key)
+	{
+		CStringID sectionid(section);
+		CStringID id(key);
+		TSectionsXmlInfoMap& settingsMap = GetInstance()->m_settings;
+		TSectionsXmlInfoMap::iterator settingsIter = settingsMap.find(sectionid);
 
-    TSectionXmlInfoMap& sectionMap = (*settingsIter).second;
-    TSectionXmlInfoMap::iterator sectionIter = sectionMap.find(id);
+		if (settingsIter == settingsMap.end())
+		{
+			return false;
+		}
 
-    if (sectionIter == sectionMap.end())
-    {
-        return false;
-    }
+		TSectionXmlInfoMap& sectionMap = (*settingsIter).second;
+		TSectionXmlInfoMap::iterator sectionIter = sectionMap.find(id);
 
-    return true;
-}
+		if (sectionIter == sectionMap.end())
+		{
+			return false;
+		}
 
-bool CConfig::SectionExists(const char* section)
-{
-    CStringID sectionid(section);
-    TSectionsXmlInfoMap& settingsMap = GetInstance()->m_settings;
-    TSectionsXmlInfoMap::iterator settingsIter = settingsMap.find(sectionid);
+		return true;
+	}
 
-    if (settingsIter == settingsMap.end())
-    {
-        return false;
-    }
+	bool CConfig::SectionExists(const char* section)
+	{
+		CStringID sectionid(section);
+		TSectionsXmlInfoMap& settingsMap = GetInstance()->m_settings;
+		TSectionsXmlInfoMap::iterator settingsIter = settingsMap.find(sectionid);
 
-    return true;
-}
+		if (settingsIter == settingsMap.end())
+		{
+			return false;
+		}
 
-XmlConstNodeRef CConfig::GetSectionXmlInfo(const char* section)
-{
-    behaviac::map< CStringID, XmlConstNodeRef >::iterator it = GetInstance()->m_settingsXmlInfo.find(CStringID(section));
+		return true;
+	}
 
-    if (it != GetInstance()->m_settingsXmlInfo.end())
-    {
-        return (*it).second;
-    }
+	XmlConstNodeRef CConfig::GetSectionXmlInfo(const char* section)
+	{
+		behaviac::map< CStringID, XmlConstNodeRef >::iterator it = GetInstance()->m_settingsXmlInfo.find(CStringID(section));
 
-    return XmlConstNodeRef();
-}
+		if (it != GetInstance()->m_settingsXmlInfo.end())
+		{
+			return (*it).second;
+		}
 
-CConfig::CConfig(void)
-{
-}
+		return XmlConstNodeRef();
+	}
 
-void CConfig::MergeSections(const char* sourceSectionName, const char* destinationSectionName, bool overrideIfPresent)
-{
-    const CStringID sourceSectionID(sourceSectionName);
-    const CStringID destinationSectionID(destinationSectionName);
-    const TSectionXmlInfoMap& sourceSection = m_settings[sourceSectionID];
-    TSectionXmlInfoMap& destinationSection = m_settings[destinationSectionID];
-    TSectionXmlInfoMap::const_iterator it = sourceSection.begin();
-    TSectionXmlInfoMap::const_iterator itEnd = sourceSection.end();
+	CConfig::CConfig(void)
+	{
+	}
 
-    for (; it != itEnd; ++it)
-    {
-        TSectionXmlInfoMap::iterator itDest = destinationSection.find((*it).first);
+	void CConfig::MergeSections(const char* sourceSectionName, const char* destinationSectionName, bool overrideIfPresent)
+	{
+		const CStringID sourceSectionID(sourceSectionName);
+		const CStringID destinationSectionID(destinationSectionName);
+		const TSectionXmlInfoMap& sourceSection = m_settings[sourceSectionID];
+		TSectionXmlInfoMap& destinationSection = m_settings[destinationSectionID];
+		TSectionXmlInfoMap::const_iterator it = sourceSection.begin();
+		TSectionXmlInfoMap::const_iterator itEnd = sourceSection.end();
 
-        if (itDest == destinationSection.end())
-        {
-            destinationSection.insert(*it);
+		for (; it != itEnd; ++it)
+		{
+			TSectionXmlInfoMap::iterator itDest = destinationSection.find((*it).first);
 
-        }
-        else if (overrideIfPresent)
-        {
-            (*itDest).second = (*it).second;
-        }
-    }
-}
+			if (itDest == destinationSection.end())
+			{
+				destinationSection.insert(*it);
 
-bool CConfig::LoadConfig(const char* Config)
-{
-    if (!CFileManager::GetInstance()->FileExists(Config))
-    {
-        return false;
-    }
+			}
+			else if (overrideIfPresent)
+			{
+				(*itDest).second = (*it).second;
+			}
+		}
+	}
 
-    behaviac::string configfile(Config);
-    XmlParser parser;
-    XmlConstNodeRef root = parser.parse(configfile.c_str(), "config");
+	bool CConfig::LoadConfig(const char* Config)
+	{
+		if (!behaviac::CFileManager::GetInstance()->FileExists(Config))
+		{
+			return false;
+		}
 
-    if (root)
-    {
-        for (int i = 0; i < root->getChildCount(); i++)
-        {
-            XmlConstNodeRef section = root->getChild(i);
+		behaviac::string configfile(Config);
+		XmlParser parser;
+		XmlConstNodeRef root = parser.parse(configfile.c_str(), "config");
 
-            if (section)
-            {
-                int generatedId = 0;
-                CStringID sectionId(section->getTag());
+		if (root)
+		{
+			for (int i = 0; i < root->getChildCount(); i++)
+			{
+				XmlConstNodeRef section = root->getChild(i);
 
-                for (int j = 0; j < section->getChildCount(); j++)
-                {
-                    XmlConstNodeRef setting = section->getChild(j);
+				if (section)
+				{
+					int generatedId = 0;
+					CStringID sectionId(section->getTag());
 
-                    if (string_icmp(setting->getTag(), "XmlInfo") != 0)
-                    {
-                        behaviac::string id, value, console;
-                        CStringID sid;
+					for (int j = 0; j < section->getChildCount(); j++)
+					{
+						XmlConstNodeRef setting = section->getChild(j);
 
-                        if (setting->getAttr("id", id))
-                        {
-                            sid.SetContent(id.c_str());
+						if (string_icmp(setting->getTag(), "XmlInfo") != 0)
+						{
+							behaviac::string id, value, console;
+							CStringID sid;
 
-                        }
-                        else
-                        {
-                            sid.SetContent(behaviac::StringUtils::ToString(generatedId++).c_str());
-                        }
+							if (setting->getAttr("id", id))
+							{
+								sid.SetContent(id.c_str());
 
-                        setting->getAttr("string", value);
-                        m_settings[sectionId][sid] = value;
+							}
+							else
+							{
+								sid.SetContent(behaviac::StringUtils::ToString(generatedId++).c_str());
+							}
 
-                    }
-                    else
-                    {
-                        // store the xml node for this section
-                        m_settingsXmlInfo[sectionId] = setting;
-                    }
-                }
-            }
-        }
+							setting->getAttr("string", value);
+							m_settings[sectionId][sid] = value;
 
-    }
-    else
-    {
-        return false;
-    }
+						}
+						else
+						{
+							// store the xml node for this section
+							m_settingsXmlInfo[sectionId] = setting;
+						}
+					}
+				}
+			}
 
-    return true;
-}
+		}
+		else
+		{
+			return false;
+		}
 
-CConfig::~CConfig(void)
-{
-}
+		return true;
+	}
+
+	CConfig::~CConfig(void)
+	{
+	}
+}//namespace behaviac

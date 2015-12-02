@@ -49,7 +49,7 @@ public:
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_Description_Load))
         {
@@ -57,7 +57,7 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_Description_Save))
         {
@@ -65,7 +65,7 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_State_Load))
         {
@@ -73,7 +73,7 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_State_Save))
         {
@@ -81,7 +81,7 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         if ((PropertyFlags & EPersistenceType_UiInfo))
         {
@@ -90,7 +90,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         CHandlerGuesser<MemberHandler>::GetMethodsDescription(types, xmlNode, (((ObjectType*)parent)->*m_memberPtr)[m_offset], this->m_classFullName, m_propertyID.GetString());
     }

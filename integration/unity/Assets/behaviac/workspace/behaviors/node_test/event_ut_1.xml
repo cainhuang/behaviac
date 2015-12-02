@@ -6,7 +6,7 @@
     <Connector Identifier="GenericChildren">
       <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="0" PrefabName="" PrefabNodeId="-1">
         <Comment Background="NoColor" Text="" />
-        <Attachment Class="Behaviac.Design.Attachments.Event" Id="1" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_2" Task="Self.AgentNodeTest::event_test_int_bool(0,false)" TriggeredOnce="false" TriggerMode="Transfer" />
+        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="1" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_2" Task="Self.AgentNodeTest::event_test_int_bool(0,false)" TriggeredOnce="false" TriggerMode="Transfer" />
         <Connector Identifier="GenericChildren">
           <Node Class="PluginBehaviac.Nodes.WaitforSignal" Enable="true" HasOwnPrefabData="false" Id="5" PrefabName="" PrefabNodeId="-1">
             <Comment Background="NoColor" Text="" />

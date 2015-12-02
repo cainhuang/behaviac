@@ -54,7 +54,7 @@ Success/Failure indicating a complete run and its result.
 
 namespace behaviac
 {
-	const uint32_t INVALID_NODE_ID = (uint32_t)-2;
+	const uint16_t INVALID_NODE_ID = (uint16_t)-2;
 
     class Property;
     class Agent;
@@ -224,9 +224,11 @@ namespace behaviac
             BEHAVIAC_ASSERT(false, "Only Condition/Sequence/And/Or allowed");
             return false;
         }
+
         //return true for Parallel, SelectorLoop, etc., which is responsible to update all its children just like sub trees
         //so that they are treated as a return-running node and the next update will continue them.
         virtual bool IsManagingChildrenAsSubTrees() const;
+
         void InstantiatePars(Agent* pAgent) const;
         void UnInstantiatePars(Agent* pAgent) const;
 
@@ -266,8 +268,8 @@ namespace behaviac
         void SetClassNameString(const char* className);
         const behaviac::string& GetClassNameString() const;
 
-		uint32_t GetId() const;
-		void SetId(uint32_t id);
+		uint16_t GetId() const;
+		void SetId(uint16_t id);
 
         void SetAgentType(const behaviac::string& agentType);
 
@@ -278,26 +280,13 @@ namespace behaviac
     private:
         virtual BehaviorTask* createTask() const = 0;
 
-        virtual bool enteraction_impl(Agent* pAgent)
-        {
-            BEHAVIAC_UNUSED_VAR(pAgent);
-            return false;
-        }
-        virtual bool exitaction_impl(Agent* pAgent)
-        {
-            BEHAVIAC_UNUSED_VAR(pAgent);
-            return false;
-        }
-    public:
-        //return Preconditions' Count
-        int PreconditionsCount() const;
     private:
         static CFactory<BehaviorNode>* ms_factory;
-        behaviac::vector<BehaviorNode*>		m_preconditions;
+        behaviac::vector<BehaviorNode*>	m_preconditions;
 
         behaviac::string		m_className;
-		uint32_t				m_id;
         behaviac::string		m_agentType;
+		uint16_t				m_id;
         char					m_enter_precond;
         char					m_update_precond;
         char					m_both_precond;
@@ -403,7 +392,7 @@ namespace behaviac
         BehaviorTree();
         virtual ~BehaviorTree();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-
+        virtual bool IsManagingChildrenAsSubTrees() const;
     private:
         virtual BehaviorTask* createTask() const;
         bool load_xml(char* pBuffer);

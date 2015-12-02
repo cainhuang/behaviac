@@ -122,7 +122,7 @@ struct PROPERTY_TYPE_CBTPlayer_m_iBaseSpeed { };
 template<> BEHAVIAC_FORCEINLINE unsigned int& CBTPlayer::_Get_Property_<PROPERTY_TYPE_CBTPlayer_m_iBaseSpeed>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(CBTPlayer, CBTPlayer::m_iBaseSpeed);
+	pc += (int)BEHAVIAC_OFFSETOF(CBTPlayer, CBTPlayer::m_iBaseSpeed);
 	return *(reinterpret_cast<unsigned int*>(pc));
 }
 
@@ -235,7 +235,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("demo_running");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -355,7 +355,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("monster");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -606,7 +606,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("player");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)

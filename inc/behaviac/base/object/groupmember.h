@@ -55,11 +55,11 @@ public:
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_Description_Load)
         {
-            const ISerializableNode* groupNode;
+            const behaviac::ISerializableNode* groupNode;
 
             if (ChildNodeCreate)
             {
@@ -85,11 +85,11 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_Description_Save)
         {
-            ISerializableNode* groupNode;
+            behaviac::ISerializableNode* groupNode;
 
             if (ChildNodeCreate)
             {
@@ -112,11 +112,11 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_State_Load)
         {
-            const ISerializableNode* groupNode;
+            const behaviac::ISerializableNode* groupNode;
 
             if (ChildNodeCreate)
             {
@@ -142,11 +142,11 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_State_Save)
         {
-            ISerializableNode* groupNode;
+            behaviac::ISerializableNode* groupNode;
 
             if (ChildNodeCreate)
             {
@@ -169,11 +169,11 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         if (PropertyFlags & EPersistenceType_UiInfo)
         {
-            XmlNodeRef groupNode = xmlNode;
+            behaviac::XmlNodeRef groupNode = xmlNode;
 
             if (ChildNodeCreate && types == NULL)
             {
@@ -202,7 +202,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -244,7 +244,7 @@ public:
         : CGroupMember<ChildNodeCreate, PropertyFlags>(groupName), m_condition(condition)
     {}
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_Description_Load) && (((ObjectType*)parent)->*m_condition)())
         {
@@ -252,7 +252,7 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_Description_Save) && (((ObjectType*)parent)->*m_condition)())
         {
@@ -260,7 +260,7 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_State_Load) && (((ObjectType*)parent)->*m_condition)())
         {
@@ -268,7 +268,7 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if ((PropertyFlags & EPersistenceType_State_Save) && (((ObjectType*)parent)->*m_condition)())
         {
@@ -276,7 +276,7 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         if ((PropertyFlags & EPersistenceType_UiInfo) && (((ObjectType*)parent)->*m_condition)())
         {

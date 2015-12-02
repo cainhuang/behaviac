@@ -85,7 +85,6 @@ namespace behaviac
                             this.m_mode = TransitionMode.End;
                             break;
                     }
-
                 }
                 else if (p.name == "Opl")
                 {
@@ -97,7 +96,6 @@ namespace behaviac
                         {
                             string typeName = null;
                             this.m_opl = Condition.LoadRight(p.value, ref typeName);
-
                         }
                         else
                         {
@@ -105,7 +103,6 @@ namespace behaviac
                             this.m_opl_m = Action.LoadMethod(p.value);
                         }
                     }
-
                 }
                 else if (p.name == "Opr1")
                 {
@@ -117,7 +114,6 @@ namespace behaviac
                         {
                             string typeName = null;
                             this.m_opr1 = Condition.LoadRight(p.value, ref typeName);
-
                         }
                         else
                         {
@@ -125,7 +121,6 @@ namespace behaviac
                             this.m_opr1_m = Action.LoadMethod(p.value);
                         }
                     }
-
                 }
                 else if (p.name == "Operator")
                 {
@@ -181,7 +176,6 @@ namespace behaviac
                             this.m_operator = EOperatorType.E_LESSEQUAL;
                             break;
                     }
-
                 }
                 else if (p.name == "Opr2")
                 {
@@ -192,7 +186,6 @@ namespace behaviac
                         if (pParenthesis == -1)
                         {
                             this.m_opr2 = Condition.LoadRight(p.value, ref opr2TypeName);
-
                         }
                         else
                         {
@@ -200,7 +193,6 @@ namespace behaviac
                             this.m_opr2_m = Action.LoadMethod(p.value);
                         }
                     }
-
                 }
                 else
                 {

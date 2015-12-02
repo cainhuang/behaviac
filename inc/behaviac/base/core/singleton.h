@@ -30,14 +30,14 @@ in cpp:
 BEHAVIAC_IMPLEMNT_SINGLETON(CSequenceManager);
 */
 
-#define BEHAVIAC_DELCARE_SINGLETON(T)										\
-    protected:																\
+#define BEHAVIAC_DELCARE_SINGLETON(T)									\
+    protected:															\
     static T* ms_singleton;												\
     static T* GetInstance_();											\
     static void SetInstance_(T*);										\
     T(const T&);														\
     const T& operator=(const T&);										\
-    public:																	\
+    public:																\
     static inline T* GetInstance()										\
     {																	\
         if (!GetInstance_())											\

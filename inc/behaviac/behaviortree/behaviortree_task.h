@@ -79,8 +79,8 @@ namespace behaviac
         virtual void load(ISerializableNode* node) = 0;
 
         const behaviac::string& GetClassNameString() const;
-        int GetId() const;
-        void SetId(int id);
+		uint16_t GetId() const;
+		void SetId(uint16_t id);
 
         EBTStatus exec(Agent* pAgent);
         EBTStatus exec(Agent* pAgent, EBTStatus childStatus);
@@ -93,13 +93,6 @@ namespace behaviac
         EBTStatus GetStatus() const;
 
         const BehaviorNode* GetNode() const;
-
-        /**
-        a branch is a node whose isContinueTicking returns true
-
-        BehaviorTreeTask, DecoratorTask, ParallelTask, SelectorLoopTask, etc.
-        */
-        BranchTask* GetParentBranch();
 
         void SetParent(BranchTask* parent)
         {
@@ -152,9 +145,6 @@ namespace behaviac
         BehaviorTask();
         virtual ~BehaviorTask();
 
-        /**
-        @sa isContinueTicking
-        */
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
         virtual EBTStatus update_current(Agent* pAgent, EBTStatus childStatus);
 
@@ -164,19 +154,8 @@ namespace behaviac
         void Clear();
 
     private:
+		bool CheckParentUpdatePreconditions(Agent* pAgent);
         BranchTask*		GetTopManageBranchTask();
-        ///return true if it is continuing running for the next exec
-        /**
-        this virtual function is used for those nodes which will run continuously in the next exec
-        so that the tree can record it to exec it directly in the next exec.
-
-        so usually, the leaf nodes except the condition nodes need to override it to return true.
-        the branch nodes usually return false. however, parallel need to return true.
-        */
-        virtual bool isContinueTicking() const
-        {
-            return false;
-        }
 
         friend bool abort_handler(BehaviorTask* task, Agent* pAgent, void* user_data);
         friend bool reset_handler(BehaviorTask* task, Agent* pAgent, void* user_data);
@@ -194,7 +173,8 @@ namespace behaviac
         BranchTask*				m_parent;
         typedef behaviac::vector<AttachmentTask*> Attachments;
         Attachments*			m_attachments;
-        int						m_id;
+		uint16_t				m_id;
+		bool					m_bHasManagingParent;
     private:
 
         //access m_status
@@ -243,11 +223,6 @@ namespace behaviac
         virtual void save(ISerializableNode* node) const;
         virtual void load(ISerializableNode* node);
 
-        virtual bool isContinueTicking() const
-        {
-            return true;
-        }
-
         virtual bool onevent(Agent* pAgent, const char* eventName);
     };
 
@@ -285,14 +260,6 @@ namespace behaviac
         virtual EBTStatus update_current(Agent* pAgent, EBTStatus childStatus);
         EBTStatus resume_branch(Agent* pAgent, EBTStatus status);
     private:
-        //to access isContinueTicking
-        friend class BehaviorTask;
-
-        virtual bool isContinueTicking() const
-        {
-            return false;
-        }
-
         bool oneventCurrentNode(Agent* pAgent, const char* eventName);
 
     protected:
@@ -382,12 +349,6 @@ namespace behaviac
         virtual EBTStatus decorate(EBTStatus status) = 0;
 
     private:
-        virtual bool isContinueTicking() const
-        {
-            return true;
-        }
-
-    private:
         bool m_bDecorateWhenChildEnds;
     };
 
@@ -439,10 +400,6 @@ namespace behaviac
     private:
         bool load(const char* file);
 
-        virtual bool isContinueTicking() const
-        {
-            return true;
-        }
     };
 } // namespace behaviac
 

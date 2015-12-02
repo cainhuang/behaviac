@@ -50,7 +50,7 @@ namespace Behaviac.Design
         private BehaviorNode _node;
         private bool _ignoreErrors;
         private TreeNode _selectedTreeRoot;
-
+        private bool _initialized = false;
         private bool _isDirty = false;
 
         public bool ExportCustomizedMeta() {
@@ -58,6 +58,8 @@ namespace Behaviac.Design
         }
 
         public ExportDialog(BehaviorTreeList behaviorTreeList, BehaviorNode node, bool ignoreErrors, TreeNode selectedTreeRoot, int formatIndex) {
+            _initialized = false;
+
             InitializeComponent();
 
             _behaviorTreeList = behaviorTreeList;
@@ -95,6 +97,8 @@ namespace Behaviac.Design
             }
 
             changeExportFormat(exportIndex);
+
+            _initialized = true;
         }
 
         /// <summary>
@@ -237,13 +241,83 @@ namespace Behaviac.Design
             }
         }
 
-        private void SetFileCountLabel() {
+        private int SetFileCountLabel() {
             int exportedFileCount = 0;
             int uncheckedFilesCount = 0;
             int errorsFilesCount = 0;
             SetFileCount(this.treeView.Nodes, ref exportedFileCount, ref uncheckedFilesCount, ref errorsFilesCount);
 
             this.fileCountLabel.Text = string.Format(Resources.ExportFileCountInfo, exportedFileCount, errorsFilesCount);
+
+            return errorsFilesCount;
+        }
+
+        private void ShowNodes(TreeNodeCollection treenodes, bool onlyShowFaultBehaviors)
+        {
+            List<TreeNode> removedNodes = new List<TreeNode>();
+
+            foreach (TreeNode node in treenodes)
+            {
+                NodeTag nodetag = (NodeTag)node.Tag;
+                bool isRemoved = false;
+
+                if (nodetag.Type == NodeTagType.Behavior)
+                {
+                    if (onlyShowFaultBehaviors && (node.Checked || node.ForeColor != SystemColors.GrayText))
+                    {
+                        removedNodes.Add(node);
+                        isRemoved = true;
+                    }
+                }
+
+                if (!isRemoved)
+                    ShowNodes(node.Nodes, onlyShowFaultBehaviors);
+            }
+
+            foreach (TreeNode node in removedNodes)
+            {
+                node.Remove();
+            }
+        }
+
+        private bool hasLeaf(TreeNode node)
+        {
+            NodeTag nodetag = (NodeTag)node.Tag;
+            if (nodetag.Type == NodeTagType.Behavior)
+                return true;
+
+            foreach (TreeNode child in node.Nodes)
+            {
+                if (hasLeaf(child))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private void RemoveEmptyNodes(TreeNodeCollection treenodes)
+        {
+            List<TreeNode> removedNodes = new List<TreeNode>();
+
+            foreach (TreeNode node in treenodes)
+            {
+                NodeTag nodetag = (NodeTag)node.Tag;
+                bool isRemoved = false;
+
+                if (nodetag.Type == NodeTagType.BehaviorFolder && !hasLeaf(node))
+                {
+                    removedNodes.Add(node);
+                    isRemoved = true;
+                }
+
+                if (!isRemoved)
+                    RemoveEmptyNodes(node.Nodes);
+            }
+
+            foreach (TreeNode node in removedNodes)
+            {
+                node.Remove();
+            }
         }
 
         /// <summary>
@@ -319,7 +393,9 @@ namespace Behaviac.Design
                 if (!tnode.Checked && tnode.Nodes.Count > 0) {
                     int checkedChildCount = 0;
                     foreach(TreeNode childNode in tnode.Nodes) {
-                        if (childNode.Checked) {
+                        NodeTag childTag = (NodeTag)childNode.Tag;
+                        if (childNode.Checked || childTag.Type != NodeTagType.Behavior && childNode.Nodes.Count == 0)
+                        {
                             checkedChildCount++;
                         }
                     }
@@ -359,8 +435,16 @@ namespace Behaviac.Design
 
             _isCheckingByTypeChanged = true;
 
+            this.treeView.Hide();
             this.treeView.Nodes.Clear();
-            CopyTreeNodes(_behaviorTreeList.GetBehaviorTreeNodes(), this.treeView.Nodes);
+
+            TreeNode root = _behaviorTreeList.GetBehaviorGroup();
+            TreeNode newRoot = new TreeNode(root.Text, 0, 0);
+            newRoot.Tag = root.Tag;
+
+            this.treeView.Nodes.Add(newRoot);
+
+            CopyTreeNodes(root.Nodes, newRoot.Nodes);
 
             TreeNode subTreeRoot = (_selectedTreeRoot != null) ? getNodeByTag(this.treeView.Nodes, _selectedTreeRoot.Tag) : null;
             ExporterInfo exporter = Plugin.Exporters[exportIndex];
@@ -391,47 +475,87 @@ namespace Behaviac.Design
 
             this.treeView.Select();
 
-            SetFileCountLabel();
+            int errorsFilesCount = SetFileCountLabel();
+
+            bool showFaultBehaviors = _initialized ? onlyShowErrorsCheckBox.Checked : (errorsFilesCount > 0);
+
+            exportBehaviorsLabel.Text = showFaultBehaviors ? Resources.FaultBehaviors : Resources.ExportBehaviors;
+            if (!_initialized && showFaultBehaviors)
+            {
+                onlyShowErrorsCheckBox.Checked = true;
+            }
+
+            ShowNodes(this.treeView.Nodes, showFaultBehaviors);
+
+            RemoveEmptyNodes(this.treeView.Nodes);
+
+            this.treeView.Show();
 
             _isCheckingByTypeChanged = false;
         }
 
-        private void exportSettingGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) {
-                return;
+        private void update()
+        {
+            for (int i = 0; i < this.exportSettingGridView.Rows.Count; ++i)
+            {
+                DataGridViewRow row = this.exportSettingGridView.Rows[i];
+                bool enabled = (bool)row.Cells["Enable"].EditedFormattedValue;
+                if (enabled)
+                {
+                    setExportSetting(i, 0);
+                    break;
+                }
             }
+        }
 
-            DataGridViewRow row = this.exportSettingGridView.Rows[e.RowIndex];
+        private void setExportSetting(int rowIndex, int columnIndex)
+        {
+            if (rowIndex < 0 || columnIndex < 0)
+                return;
+
+            DataGridViewRow row = this.exportSettingGridView.Rows[rowIndex];
             int exportIndex = Plugin.GetExporterIndex("", (string)row.Cells["Format"].Value);
             ExporterInfo info = Plugin.Exporters[exportIndex];
 
-            if (e.ColumnIndex == 0) { // Enable
+            if (columnIndex == 0) // Enable
+            {
                 Debug.Check(Workspace.Current != null);
                 Workspace.Current.SetExportInfo(info.ID, (bool)row.Cells["Enable"].EditedFormattedValue, Workspace.Current.ExportedUnifiedFile(info.ID));
 
                 exportIndex = -1;
 
-                for (int index = 0; index < Plugin.Exporters.Count; ++index) {
+                for (int index = 0; index < Plugin.Exporters.Count; ++index)
+                {
                     info = Plugin.Exporters[index];
 
                     if (Workspace.Current.ShouldBeExported(info.ID) &&
-                        (exportIndex == -1 || info.HasSettings)) {
+                        (exportIndex == -1 || info.HasSettings))
+                    {
                         exportIndex = index;
                     }
                 }
 
-                if (exportIndex != -1) {
+                if (exportIndex != -1)
+                {
                     changeExportFormat(exportIndex);
                     _isDirty = true;
                 }
-
-            } else if (e.ColumnIndex == 2) { // Settings
-                if (info.HasSettings) {
-                    using(ExportSettingDialog dialog = new ExportSettingDialog(info)) {
+            }
+            else if (columnIndex == 2) // Settings
+            {
+                if (info.HasSettings)
+                {
+                    using (ExportSettingDialog dialog = new ExportSettingDialog(info))
+                    {
                         dialog.ShowDialog();
                     }
                 }
             }
+        }
+
+        private void exportSettingGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            setExportSetting(e.RowIndex, e.ColumnIndex);
         }
 
         private void ExportDialog_FormClosed(object sender, FormClosedEventArgs e) {
@@ -443,7 +567,15 @@ namespace Behaviac.Design
 
         private void treeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            MainWindow.Instance.BehaviorTreeList.OpenBehavior(e.Node);
+            MainWindow.Instance.BehaviorTreeList.OpenBehavior(e.Node, true);
+        }
+
+        private void onlyShowErrorsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_initialized)
+            {
+                update();
+            }
         }
     }
 }

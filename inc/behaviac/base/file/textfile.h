@@ -21,8 +21,11 @@
 #include <vector>
 #include <string>
 
-BEHAVIAC_API char* LoadTextFileAsBuffer(const char* fileName);
-BEHAVIAC_API bool LoadTextFileAsStringArray(const char* fileName, behaviac::vector<behaviac::string>& stringArray);
-BEHAVIAC_API void ConvertTextBufferAsStringArray(const char* buffer, behaviac::vector<behaviac::string>& stringArray);
+namespace behaviac
+{
+	BEHAVIAC_API char* LoadTextFileAsBuffer(const char* fileName);
+	BEHAVIAC_API bool LoadTextFileAsStringArray(const char* fileName, behaviac::vector<behaviac::string>& stringArray);
+	BEHAVIAC_API void ConvertTextBufferAsStringArray(const char* buffer, behaviac::vector<behaviac::string>& stringArray);
+}//namespace behaviac
 
 #endif // #ifndef BEHAVIAC_CORE_TEXTFILE_H

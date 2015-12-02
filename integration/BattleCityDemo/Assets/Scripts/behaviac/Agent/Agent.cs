@@ -359,7 +359,6 @@ namespace behaviac
                 if (pIt != -1)
                 {
                     typeName = typeFullName.Substring(pIt + 1);
-
                 }
                 else
                 {
@@ -375,7 +374,6 @@ namespace behaviac
                 {
                     typeId = 0;
                     ms_agent_type_index[typeFullName] = 1;
-
                 }
                 else
                 {
@@ -383,7 +381,6 @@ namespace behaviac
                 }
 
                 this.name += string.Format("{0}_{1}_{2}", typeName, typeId, this.m_id);
-
             }
             else
             {
@@ -449,7 +446,6 @@ namespace behaviac
                 Context c = Context.GetContext(contextId);
 
                 val = c.GetStaticVariable(staticClassName, variableId);
-
             }
             else
             {
@@ -472,7 +468,6 @@ namespace behaviac
                     Context c = Context.GetContext(contextId);
 
                     c.SetStaticVariableObject(pMember, variableName, value, staticClassName, variableId);
-
                 }
                 else
                 {
@@ -497,7 +492,6 @@ namespace behaviac
                 if (!string.IsNullOrEmpty(displayName))
                 {
                     displayName_ = displayName;
-
                 }
                 else
                 {
@@ -507,7 +501,6 @@ namespace behaviac
                 if (!string.IsNullOrEmpty(desc))
                 {
                     desc_ = desc;
-
                 }
                 else
                 {
@@ -1353,7 +1346,6 @@ namespace behaviac
                             s = this.m_currentBT.exec(this);
                             break;
                         }
-
                     }
                     else
                     {
@@ -1363,7 +1355,6 @@ namespace behaviac
                 }
 
                 return s;
-
             }
             else
             {
@@ -1377,7 +1368,7 @@ namespace behaviac
         {
 #if !BEHAVIAC_RELEASE
             string msg = string.Format("{0}.xml", newTree);
-            LogManager.Log(this, msg, EActionResult.EAR_none, LogMode.ELM_jump);
+            LogManager.Instance.Log(this, msg, EActionResult.EAR_none, LogMode.ELM_jump);
 #endif
         }
 
@@ -1385,7 +1376,7 @@ namespace behaviac
         {
 #if !BEHAVIAC_RELEASE
             string msg = string.Format("{0}.xml", returnFromTree);
-            LogManager.Log(this, msg, EActionResult.EAR_none, LogMode.ELM_return);
+            LogManager.Instance.Log(this, msg, EActionResult.EAR_none, LogMode.ELM_return);
 #endif
         }
 
@@ -1719,7 +1710,6 @@ namespace behaviac
                 Debug.Check(currentState != null);
 
                 pEvent.SetFired(this, true);
-
             }
             else
             {
@@ -1735,7 +1725,6 @@ namespace behaviac
             {
                 pEvent.SetParam(this, param);
                 pEvent.SetFired(this, true);
-
             }
             else
             {
@@ -1751,7 +1740,6 @@ namespace behaviac
             {
                 pEvent.SetParam(this, param1, param2);
                 pEvent.SetFired(this, true);
-
             }
             else
             {
@@ -1767,7 +1755,6 @@ namespace behaviac
             {
                 pEvent.SetParam(this, param1, param2, param3);
                 pEvent.SetFired(this, true);
-
             }
             else
             {

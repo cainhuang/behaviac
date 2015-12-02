@@ -107,12 +107,10 @@ namespace behaviac
                 {
                     this.m_n--;
                     return true;
-
                 }
                 else if (this.m_n == 0)
                 {
                     return false;
-
                 }
                 else if (this.m_n == -1)
                 {

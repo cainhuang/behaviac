@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -32,14 +32,8 @@ namespace Behaviac.Design
         {
             private string _name;
             public string Name {
-                get
-                {
-                    return this._name;
-                }
-                set
-                {
-                    this._name = value;
-                }
+                get { return this._name; }
+                set { this._name = value; }
             }
 
             private System.Windows.Forms.Label _nameLabel;
@@ -80,7 +74,8 @@ namespace Behaviac.Design
             if (agentType != null) {
                 IList<PropertyDef> properties = agentType.GetProperties();
                 foreach(PropertyDef p in properties) {
-                    if (!p.IsAddedAutomatically) {
+                    if (!p.IsArrayElement) 
+                    {
                         addRowControl(p);
                     }
                 }
@@ -215,12 +210,13 @@ namespace Behaviac.Design
             RowControl rowControl = new RowControl();
             _rowControls.Add(rowControl);
 
+            rowControl.Name = property.BasicName;
+
             rowControl.NameLabel = new System.Windows.Forms.Label();
             rowControl.NameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             rowControl.NameLabel.Margin = new System.Windows.Forms.Padding(0);
             rowControl.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             rowControl.NameLabel.Text = property.DisplayName;
-            rowControl.Name = property.BasicName;
             this.tableLayoutPanel.Controls.Add(rowControl.NameLabel, 0, rowIndex);
 
             rowControl.TypeLabel = new System.Windows.Forms.Label();
@@ -271,7 +267,7 @@ namespace Behaviac.Design
 
                     if (!string.IsNullOrEmpty(value)) {
                         string valueType = row.TypeLabel.Text;
-                        string valueName = row.NameLabel.Text;
+                        string valueName = row.Name;
 
                         if (AgentDataPool.CurrentFrame > -1) {
                             AgentDataPool.AddValue(_agentFullname, valueName, AgentDataPool.CurrentFrame, value);

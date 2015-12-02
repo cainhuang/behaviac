@@ -70,7 +70,6 @@ namespace behaviac
 
                     string strVale = strRemaining.Substring(p + 1);
                     opr = Property.Create(typeName, strVale);
-
                 }
                 else
                 {
@@ -94,14 +93,12 @@ namespace behaviac
                 if (tokens.Count == 3)
                 {
                     opr = Property.Create(typeName, tokens[2], true, null);
-
                 }
                 else
                 {
                     Debug.Check(tokens.Count == 4);
                     opr = Property.Create(typeName, tokens[2], true, tokens[3]);
                 }
-
             }
             else
             {
@@ -111,7 +108,6 @@ namespace behaviac
                 if (tokens.Count == 2)
                 {
                     opr = Property.Create(typeName, tokens[1], false, null);
-
                 }
                 else
                 {
@@ -140,7 +136,6 @@ namespace behaviac
                 if (p.name == "Operator")
                 {
                     comparatorName = p.value;
-
                 }
                 else if (p.name == "Opl")
                 {
@@ -149,13 +144,11 @@ namespace behaviac
                     if (pParenthesis == -1)
                     {
                         this.m_opl = LoadLeft(p.value);
-
                     }
                     else
                     {
                         this.m_opl_m = Action.LoadMethod(p.value);
                     }
-
                 }
                 else if (p.name == "Opr")
                 {
@@ -164,13 +157,11 @@ namespace behaviac
                     if (pParenthesis == -1)
                     {
                         this.m_opr = LoadRight(p.value, ref typeName);
-
                     }
                     else
                     {
                         this.m_opr_m = Action.LoadMethod(p.value);
                     }
-
                 }
                 else
                 {
@@ -199,7 +190,6 @@ namespace behaviac
             if (this.m_comparator != null)
             {
                 return this.m_comparator.Execute(pAgent);
-
             }
             else
             {

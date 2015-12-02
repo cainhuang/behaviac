@@ -44,7 +44,7 @@ END_ENUM_DESCRIPTION()
 
 namespace behaviac
 {
-    BehaviorTask::BehaviorTask() : m_status(BT_INVALID), m_node(0), m_parent(0), m_attachments(0)
+	BehaviorTask::BehaviorTask() : m_status(BT_INVALID), m_node(0), m_parent(0), m_attachments(0), m_id((uint16_t)-1), m_bHasManagingParent(false)
     {
     }
 
@@ -73,7 +73,7 @@ namespace behaviac
     {
         this->m_status = BT_INVALID;
         this->m_parent = 0;
-        this->m_id = -1;
+		this->m_id = (uint16_t)-1;
         this->FreeAttachments();
 
         this->m_node = 0;
@@ -143,19 +143,12 @@ namespace behaviac
         return s_subBT;
     }
 
-    int BehaviorTask::GetId() const
+	uint16_t BehaviorTask::GetId() const
     {
-        //if (this->m_node)
-        //{
-        //	return this->m_node->GetId();
-        //}
-
-        //static int s_subBTId(0);
-        //return s_subBTId;
         return this->m_id;
     }
 
-    void BehaviorTask::SetId(int id)
+	void BehaviorTask::SetId(uint16_t id)
     {
         this->m_id = id;
     }
@@ -413,6 +406,8 @@ namespace behaviac
 
         if (bResult)
         {
+			this->m_bHasManagingParent = false;
+
             bResult = this->onenter(pAgent);
 
             if (!bResult)
@@ -431,6 +426,7 @@ namespace behaviac
 
         return bResult;
     }
+
     bool BehaviorTask::CheckPreconditions(Agent* pAgent, bool bIsAlive)
     {
         bool bResult = true;
@@ -445,6 +441,7 @@ namespace behaviac
 
         return bResult;
     }
+
     void BehaviorTask::onexit_action(Agent* pAgent, EBTStatus status)
     {
         this->onexit(pAgent, status);
@@ -500,19 +497,16 @@ namespace behaviac
                 //to overwrite the child branch
                 tree = (BranchTask*)task;
                 break;
-
             }
             else if (task->m_node ? task->m_node->IsManagingChildrenAsSubTrees() : false)
             {
                 //until it is Parallel/SelectorLoop, it's child is used as tree to store current task
                 break;
-
             }
             else if (BranchTask::DynamicCast(task) != 0)
             {
                 //this if must be after BehaviorTreeTask and IsManagingChildrenAsSubTrees
                 tree = (BranchTask*)task;
-
             }
             else
             {
@@ -615,13 +609,7 @@ namespace behaviac
                 }
             }
 #endif
-            bool bValid = true;
-            int _tempPrecndCount = this->m_node != 0 ? this->m_node->PreconditionsCount() : 0;
-
-            if (_tempPrecndCount > 0)
-            {
-                bValid = this->m_node->CheckPreconditions(pAgent, true);
-            }
+			bool bValid = this->CheckParentUpdatePreconditions(pAgent);
 
             if (bValid)
             {
@@ -658,6 +646,62 @@ namespace behaviac
 
         return this->m_status;
     }
+
+	bool BehaviorTask::CheckParentUpdatePreconditions(Agent* pAgent)
+	{
+		bool bValid = true;
+
+		if (this->m_bHasManagingParent)
+		{
+			bool bHasManagingParent = false;
+			const int kMaxParentsCount = 512;
+			int parentsCount = 0;
+			BehaviorTask* parents[kMaxParentsCount];
+
+			BranchTask* parentBranch = this->GetParent();
+
+			parents[parentsCount++] = this;
+
+			//back track the parents until the managing branch
+			while (parentBranch != 0)
+			{
+				BEHAVIAC_ASSERT(parentsCount < kMaxParentsCount, "weird tree!");
+
+				parents[parentsCount++] = parentBranch;
+
+				if (parentBranch->GetCurrentTask() == this)
+				{
+					//BEHAVIAC_ASSERT(parentBranch->GetNode()->IsManagingChildrenAsSubTrees());
+
+					bHasManagingParent = true;
+					break;
+				}
+
+				parentBranch = parentBranch->GetParent();
+			}
+
+			if (bHasManagingParent)
+			{
+				for (int i = parentsCount - 1; i >= 0; --i)
+				{
+					BehaviorTask* pb = parents[i];
+
+					bValid = pb->CheckPreconditions(pAgent, true);
+
+					if (!bValid)
+					{
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			bValid = this->CheckPreconditions(pAgent, true);
+		}
+
+		return bValid;
+	}
 
     bool abort_handler(BehaviorTask* node, Agent* pAgent, void* user_data)
     {
@@ -764,6 +808,7 @@ namespace behaviac
             {
                 BEHAVIAC_ASSERT(this->m_currentTask != this);
                 this->m_currentTask = task;
+				task->m_bHasManagingParent = true;
             }
         }
         else
@@ -773,25 +818,6 @@ namespace behaviac
                 this->m_currentTask = task;
 			}
         }
-    }
-
-    BranchTask* BehaviorTask::GetParentBranch()
-    {
-        BehaviorTask* pTopNode = this->m_parent;
-
-        while (pTopNode)
-        {
-            BranchTask* pBranch = BranchTask::DynamicCast(pTopNode);
-
-            if (pBranch && pBranch->isContinueTicking())
-            {
-                return pBranch;
-            }
-
-            pTopNode = pTopNode->m_parent;
-        }
-
-        return 0;
     }
 
     EBTStatus BehaviorTask::GetStatus() const
@@ -1001,16 +1027,27 @@ namespace behaviac
             this->m_currentTask = 0;
 
             //back track the parents until the branch
-            while (parentBranch != 0 && parentBranch != this)
+            while (parentBranch != 0)
             {
-                status = parentBranch->exec(pAgent, status);
+				if (parentBranch == this)
+				{
+					status = parentBranch->update(pAgent, status);
+				}
+				else
+				{
+					status = parentBranch->exec(pAgent, status);
+				}
 
                 if (status == BT_RUNNING)
                 {
                     return BT_RUNNING;
                 }
 
-                BEHAVIAC_ASSERT(parentBranch->m_status == status);
+				BEHAVIAC_ASSERT(parentBranch == this || parentBranch->m_status == status);
+				if (parentBranch == this)
+				{
+					break;
+				}
 
                 parentBranch = parentBranch->GetParent();
             }
@@ -1030,7 +1067,6 @@ namespace behaviac
         if (_tNode->IsManagingChildrenAsSubTrees())
         {
             parent = (BranchTask*)this->m_currentTask;
-
         }
         else
         {
@@ -1052,7 +1088,7 @@ namespace behaviac
 		if (this->m_currentTask != 0)
 		{
 			status = this->execCurrentTask(pAgent);
-			BEHAVIAC_ASSERT((status == BT_RUNNING && this->m_currentTask != 0) ||
+			BEHAVIAC_ASSERT(status == BT_RUNNING ||
 				(status != BT_RUNNING && this->m_currentTask == 0));
 		}
 		else

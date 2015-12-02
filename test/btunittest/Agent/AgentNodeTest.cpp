@@ -41,6 +41,9 @@ void AgentNodeTest::resetProperties()
     action_2_exit_count = 0;
 
     testVar_str_0 = "";
+
+	m_bCanSee = false;
+	m_bTargetValid = false;
 }
 
 namespace UnityEngine
@@ -86,6 +89,14 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
 	REGISTER_METHOD(testExtendedRefType);
 	REGISTER_METHOD(testExtendedStruct);
     REGISTER_METHOD(switchRef);
+
+	REGISTER_METHOD(Stop);
+	REGISTER_METHOD(SelectTarget);
+
+	REGISTER_METHOD(IsTargetValid);
+	REGISTER_METHOD(CanSeeEnemy);
+	REGISTER_METHOD(Move);
+	REGISTER_METHOD(MoveToTarget);
 }
 END_PROPERTIES_DESCRIPTION()
 

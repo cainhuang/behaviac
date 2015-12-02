@@ -382,7 +382,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("performance/Performance");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)

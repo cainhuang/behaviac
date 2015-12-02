@@ -45,10 +45,6 @@ namespace behaviac
     {
     }
 
-    bool ConditionBaseTask::isContinueTicking() const
-    {
-        return false;
-    }
 
     bool ConditionBaseTask::onenter(Agent* pAgent)
     {

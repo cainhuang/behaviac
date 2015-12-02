@@ -98,7 +98,6 @@ namespace behaviac
                             behaviac.Debug.LogWarning(msg);
 
                             return null;
-
                         }
                         else
                         {
@@ -106,7 +105,6 @@ namespace behaviac
 
                             return pBuffer;
                         }
-
                     }
                     else
                     {
@@ -115,7 +113,6 @@ namespace behaviac
                     }
                 }
 #endif
-
             }
             catch
             {

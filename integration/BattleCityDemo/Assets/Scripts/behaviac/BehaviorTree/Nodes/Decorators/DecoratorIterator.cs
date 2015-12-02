@@ -87,13 +87,11 @@ namespace behaviac
                     if (pParenthesis == -1)
                     {
                         this.m_opl = Condition.LoadLeft(p.value);
-
                     }
                     else
                     {
                         Debug.Check(false);
                     }
-
                 }
                 else if (p.name == "Opr")
                 {
@@ -102,14 +100,12 @@ namespace behaviac
                     if (pParenthesis == -1)
                     {
                         this.m_opr = Condition.LoadRight(p.value, ref typeName);
-
                     }
                     else
                     {
                         //method
                         this.m_opr_m = Action.LoadMethod(p.value);
                     }
-
                 }
                 else
                 {
@@ -147,7 +143,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (this.m_opr != null)
             {
@@ -165,7 +160,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else
             {

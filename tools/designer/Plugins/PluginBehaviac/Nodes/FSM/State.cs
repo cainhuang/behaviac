@@ -75,11 +75,6 @@ namespace PluginBehaviac.Nodes
             return base.CanBeAdoptedBy(parent) && (parent is Behavior) && (parent.IsFSM || (parent.Children.Count == 0)) && (parent.FSMNodes.Count == 0);
         }
 
-        public override bool AcceptsAttachment(Type type)
-        {
-            return true;
-        }
-
         protected override void CloneProperties(Node newnode)
         {
             base.CloneProperties(newnode);

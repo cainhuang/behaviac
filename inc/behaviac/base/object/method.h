@@ -64,7 +64,7 @@ namespace behaviac
 template <typename MemberType, bool bAgent>
 struct SaveToXMLDispatcher
 {
-    static void SaveToXML(ISerializableNode& xmlNode, const MemberType& value, const char* paramName)
+    static void SaveToXML(behaviac::ISerializableNode& xmlNode, const MemberType& value, const char* paramName)
     {
         GenericTypeHandler<MemberType>::SaveToXML(xmlNode, const_cast<MemberType&>(value), 0, paramName);
     }
@@ -73,7 +73,7 @@ struct SaveToXMLDispatcher
 template <typename MemberType>
 struct SaveToXMLDispatcher<MemberType, true>
 {
-    static void SaveToXML(ISerializableNode& xmlNode, const MemberType& value, const char* paramName)
+    static void SaveToXML(behaviac::ISerializableNode& xmlNode, const MemberType& value, const char* paramName)
     {
         GenericTypeHandler<MemberType>::SaveToXML(xmlNode, value, 0, paramName);
     }
@@ -110,11 +110,11 @@ public:
         }
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode, const char* paramName)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode, const char* paramName)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        CSerializationID id(paramName);
+        behaviac::CSerializationID id(paramName);
         const char* str = xmlNode.getAttrRaw(id);
 
         if (str)
@@ -141,7 +141,7 @@ public:
         }
     }
 
-    void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode, const char* paramName)
+    void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode, const char* paramName)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
@@ -223,11 +223,11 @@ public:
 		return GetValueSelector<T, behaviac::Meta::IsRefType<T>::Result, behaviac::Meta::IsPtr<T>::Result>::GetValue(this->param);
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode, const char* paramName)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode, const char* paramName)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        CSerializationID id(paramName);
+        behaviac::CSerializationID id(paramName);
         const char* str = xmlNode.getAttrRaw(id);
 
         if (str)
@@ -280,11 +280,11 @@ public:
         return this->param.c_str();
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode, const char* paramName)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode, const char* paramName)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        CSerializationID id(paramName);
+        behaviac::CSerializationID id(paramName);
         const char* str = xmlNode.getAttrRaw(id);
 
         if (str)
@@ -340,11 +340,11 @@ public:
         return this->param.c_str();
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode, const char* paramName)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode, const char* paramName)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        CSerializationID id(paramName);
+        behaviac::CSerializationID id(paramName);
         const char* str = xmlNode.getAttrRaw(id);
 
         if (str)
@@ -406,7 +406,7 @@ namespace behaviac
 {
     namespace StringUtils
     {
-        BEHAVIAC_API bool ParseForStruct(const char* str, behaviac::string& strT, behaviac::map<CStringID, behaviac::Property*>& props);
+        BEHAVIAC_API bool ParseForStruct(const char* str, behaviac::string& strT, behaviac::map<behaviac::CStringID, behaviac::Property*>& props);
     }
 }
 
@@ -419,9 +419,9 @@ public:
         this->param = 0;
     }
 
-    void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode, const char* paramName)
+    void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode, const char* paramName)
     {
-        CSerializationID id(paramName);
+        behaviac::CSerializationID id(paramName);
         const char* str = xmlNode.getAttrRaw(id);
 
         if (str && string_icmp(str, "null") == 0)
@@ -454,11 +454,11 @@ public:
         this->m_props.clear();
     }
 
-    void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode, const char* paramName)
+    void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode, const char* paramName)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        CSerializationID id(paramName);
+        behaviac::CSerializationID id(paramName);
         const char* str = xmlNode.getAttrRaw(id);
 
         if (str)
@@ -501,7 +501,7 @@ public:
         for (PropsMap_t::iterator it = this->m_props.begin();
              it != this->m_props.end(); ++it)
         {
-            const CStringID& propId = it->first;
+            const behaviac::CStringID& propId = it->first;
             behaviac::Property* p = it->second;
 
             this->m_props[propId] = p;
@@ -511,7 +511,7 @@ public:
     void SetVariableRegistry(const CTagObject* parHolder, const T& value);
 
 private:
-    typedef behaviac::map<CStringID, behaviac::Property*> PropsMap_t;
+    typedef behaviac::map<behaviac::CStringID, behaviac::Property*> PropsMap_t;
     PropsMap_t		m_props;
 };
 
@@ -1098,11 +1098,11 @@ public:
         BEHAVIAC_DELETE(this->m_return);
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode) = 0;
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode) = 0;
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) = 0;
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode) = 0;
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode) = 0;
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) = 0;
 
-    inline const CSerializationID& GetID() const
+    inline const behaviac::CSerializationID& GetID() const
     {
         return m_propertyID;
     }
@@ -1557,7 +1557,7 @@ protected:
     const char*						m_classFullName;
     behaviac::string				m_instanceName;
     const char*						m_propertyName;
-    CSerializationID				m_propertyID;
+    behaviac::CSerializationID				m_propertyID;
 
     behaviac::wstring				m_displayName;
     behaviac::wstring				m_desc;
@@ -1577,7 +1577,7 @@ protected:
 template<typename T, bool bComplexType>
 struct UserTypeInfo
 {
-    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, XmlNodeRef memberNode)
+    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, behaviac::XmlNodeRef memberNode)
     {
         BEHAVIAC_UNUSED_VAR(returnType);
         BEHAVIAC_UNUSED_VAR(memberNode);
@@ -1586,7 +1586,7 @@ struct UserTypeInfo
 };
 
 template<typename T>
-void TExportType_(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef memberNode)
+void TExportType_(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef memberNode)
 {
     if (types != NULL)
     {
@@ -1606,7 +1606,7 @@ void TExportType_(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef memberNode)
 template<bool bComplexType>
 struct UserTypeInfo<IList, bComplexType>
 {
-    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, XmlNodeRef memberNode)
+    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, behaviac::XmlNodeRef memberNode)
     {
         BEHAVIAC_UNUSED_VAR(returnType);
         TExportType_<IList>(types, memberNode);
@@ -1616,7 +1616,7 @@ struct UserTypeInfo<IList, bComplexType>
 template<bool bComplexType>
 struct UserTypeInfo<System::Object, bComplexType>
 {
-    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, XmlNodeRef memberNode)
+    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, behaviac::XmlNodeRef memberNode)
     {
         BEHAVIAC_UNUSED_VAR(returnType);
         TExportType_<System::Object>(types, memberNode);
@@ -1626,7 +1626,7 @@ struct UserTypeInfo<System::Object, bComplexType>
 template<typename T, bool bEnum>
 struct UserTypeInfoStruct
 {
-    static void Export(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef memberNode)
+    static void Export(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef memberNode)
     {
         TExportType_<T>(types, memberNode);
     }
@@ -1635,7 +1635,7 @@ struct UserTypeInfoStruct
 template<typename T>
 struct UserTypeInfoStruct<T, true>
 {
-    static void Export(CTagTypeDescriptor::TypesMap_t* types, XmlNodeRef memberNode)
+    static void Export(CTagTypeDescriptor::TypesMap_t* types, behaviac::XmlNodeRef memberNode)
     {
         EnumClassUiInfoGetter<T, true>::GetUiInfo(types, memberNode);
     }
@@ -1644,12 +1644,12 @@ struct UserTypeInfoStruct<T, true>
 template<typename T>
 struct UserTypeInfo<T, true>
 {
-    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, XmlNodeRef memberNode)
+    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, behaviac::XmlNodeRef memberNode)
     {
         BEHAVIAC_UNUSED_VAR(returnType);
         //if (returnType)
         //{
-        //	XmlNodeRef memberNode1 = memberNode->newChild("ReturnType");
+        //	behaviac::XmlNodeRef memberNode1 = memberNode->newChild("ReturnType");
         //	const char* typeName = GetClassTypeName((T*)0);
         //	memberNode1->setAttr("Type", typeName);
         //	UserTypeInfoStruct<T, behaviac::Meta::IsEnum<T>::Result>::Export(types, memberNode1);
@@ -1664,7 +1664,7 @@ struct UserTypeInfo<T, true>
 template<typename T>
 struct UserTypeInfoExport
 {
-    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, XmlNodeRef memberNode)
+    static void Export(CTagTypeDescriptor::TypesMap_t* types, bool returnType, behaviac::XmlNodeRef memberNode)
     {
 		typedef REAL_BASETYPE(T)		TBaseType;
 
@@ -1720,24 +1720,24 @@ public:
         this->m_methodPtr = copy.m_methodPtr;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -2072,21 +2072,21 @@ public:
         this->m_paramRangeValid = copy.m_paramRangeValid;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param.LoadFromXML(parent, xmlNode, "param1");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param.SaveToXML(parent, xmlNode, "param1");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -2123,7 +2123,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -2486,23 +2486,23 @@ public:
         this->m_paramRangeValid2 = copy.m_paramRangeValid2;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -2539,7 +2539,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -2659,7 +2659,6 @@ public:
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -2680,7 +2679,6 @@ public:
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
-
         }
         else
         {
@@ -3093,25 +3091,25 @@ public:
         this->m_paramRangeValid3 = copy.m_paramRangeValid3;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
         this->m_param3.LoadFromXML(parent, xmlNode, "param3");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
         this->m_param3.SaveToXML(parent, xmlNode, "param3");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -3148,7 +3146,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -3301,7 +3299,6 @@ public:
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -3322,7 +3319,6 @@ public:
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -3343,7 +3339,6 @@ public:
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
-
         }
         else
         {
@@ -3790,7 +3785,7 @@ public:
         this->m_paramRangeValid4 = copy.m_paramRangeValid4;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
@@ -3800,7 +3795,7 @@ public:
         this->m_param4.LoadFromXML(parent, xmlNode, "param4");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -3808,11 +3803,11 @@ public:
         this->m_param4.SaveToXML(parent, xmlNode, "param4");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -3849,7 +3844,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -4035,7 +4030,6 @@ public:
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -4056,7 +4050,6 @@ public:
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -4077,7 +4070,6 @@ public:
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -4098,7 +4090,6 @@ public:
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
-
         }
         else
         {
@@ -4585,7 +4576,7 @@ public:
         this->m_paramRangeValid5 = copy.m_paramRangeValid5;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -4594,7 +4585,7 @@ public:
         this->m_param5.LoadFromXML(parent, xmlNode, "param5");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -4603,11 +4594,11 @@ public:
         this->m_param5.SaveToXML(parent, xmlNode, "param5");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -4644,7 +4635,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -4863,7 +4854,6 @@ public:
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -4884,7 +4874,6 @@ public:
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -4905,7 +4894,6 @@ public:
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -4926,7 +4914,6 @@ public:
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName5.empty())
         {
@@ -4947,7 +4934,6 @@ public:
                 this->m_min5 = rangeMin;
                 this->m_max5 = rangeMax;
             }
-
         }
         else
         {
@@ -5482,7 +5468,7 @@ public:
         this->m_paramRangeValid6 = copy.m_paramRangeValid6;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -5492,7 +5478,7 @@ public:
         this->m_param6.LoadFromXML(parent, xmlNode, "param6");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -5502,11 +5488,11 @@ public:
         this->m_param6.SaveToXML(parent, xmlNode, "param6");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -5543,7 +5529,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -5795,7 +5781,6 @@ public:
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -5816,7 +5801,6 @@ public:
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -5837,7 +5821,6 @@ public:
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -5858,7 +5841,6 @@ public:
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName5.empty())
         {
@@ -5879,7 +5861,6 @@ public:
                 this->m_min5 = rangeMin;
                 this->m_max5 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName6.empty())
         {
@@ -5900,7 +5881,6 @@ public:
                 this->m_min6 = rangeMin;
                 this->m_max6 = rangeMax;
             }
-
         }
         else
         {
@@ -6479,7 +6459,7 @@ public:
         this->m_paramRangeValid7 = copy.m_paramRangeValid7;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -6490,7 +6470,7 @@ public:
         this->m_param7.LoadFromXML(parent, xmlNode, "param7");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -6501,11 +6481,11 @@ public:
         this->m_param7.SaveToXML(parent, xmlNode, "param7");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -6542,7 +6522,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -6827,7 +6807,6 @@ public:
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -6848,7 +6827,6 @@ public:
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -6869,7 +6847,6 @@ public:
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -6890,7 +6867,6 @@ public:
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName5.empty())
         {
@@ -6911,7 +6887,6 @@ public:
                 this->m_min5 = rangeMin;
                 this->m_max5 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName6.empty())
         {
@@ -6932,7 +6907,6 @@ public:
                 this->m_min6 = rangeMin;
                 this->m_max6 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName7.empty())
         {
@@ -6953,7 +6927,6 @@ public:
                 this->m_min7 = rangeMin;
                 this->m_max7 = rangeMax;
             }
-
         }
         else
         {
@@ -7578,7 +7551,7 @@ public:
         this->m_paramRangeValid8 = copy.m_paramRangeValid8;
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.LoadFromXML(parent, xmlNode, "param1");
         this->m_param2.LoadFromXML(parent, xmlNode, "param2");
@@ -7590,7 +7563,7 @@ public:
         this->m_param8.LoadFromXML(parent, xmlNode, "param8");
     }
 
-    virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+    virtual void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode)
     {
         this->m_param1.SaveToXML(parent, xmlNode, "param1");
         this->m_param2.SaveToXML(parent, xmlNode, "param2");
@@ -7602,11 +7575,11 @@ public:
         this->m_param8.SaveToXML(parent, xmlNode, "param8");
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -7643,7 +7616,7 @@ public:
 
         UserTypeInfoExport<R>::Export(types, true, memberNode);
 
-        XmlNodeRef paramNode = memberNode;
+        behaviac::XmlNodeRef paramNode = memberNode;
 
         if (types == NULL)
         {
@@ -7961,7 +7934,6 @@ public:
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -7982,7 +7954,6 @@ public:
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -8003,7 +7974,6 @@ public:
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -8024,7 +7994,6 @@ public:
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName5.empty())
         {
@@ -8045,7 +8014,6 @@ public:
                 this->m_min5 = rangeMin;
                 this->m_max5 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName6.empty())
         {
@@ -8066,7 +8034,6 @@ public:
                 this->m_min6 = rangeMin;
                 this->m_max6 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName7.empty())
         {
@@ -8087,7 +8054,6 @@ public:
                 this->m_min7 = rangeMin;
                 this->m_max7 = rangeMax;
             }
-
         }
         else if (m_paramDisplayName8.empty())
         {
@@ -8108,7 +8074,6 @@ public:
                 this->m_min8 = rangeMin;
                 this->m_max8 = rangeMax;
             }
-
         }
         else
         {

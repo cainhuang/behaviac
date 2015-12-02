@@ -165,7 +165,10 @@ namespace Behaviac.Design.Attributes
 
                 update();
 
-                OnValueChanged(new DesignerPropertyInfo());
+                if (dialog.IsModified)
+                {
+                    OnValueChanged(new DesignerPropertyInfo());
+                }
             }
         }
 

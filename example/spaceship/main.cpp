@@ -22,9 +22,6 @@
 #include "./framework/Projectile.h"
 #include "./framework/WorldState.h"
 
-#include "behaviac/base/socket/socketconnect.h"
-#include "behaviac/base/logging/logging.h"
-
 #include "behaviac/base/core/profiler/profiler.h"
 
 //only for cpp format

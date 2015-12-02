@@ -75,6 +75,8 @@ public:
     int action_2_enter_count;
     int action_2_exit_count;
 
+	bool m_bCanSee;
+	bool m_bTargetValid;
 public:
     virtual void resetProperties();
 
@@ -221,6 +223,35 @@ public:
         testVar_str_0 = str;
         action_2_exit_count++;
     }
+
+	void Stop()
+	{
+	}
+
+	void SelectTarget()
+	{
+		m_bTargetValid = true;
+	}
+
+	bool IsTargetValid() const
+	{
+		return m_bTargetValid;
+	}
+
+	bool CanSeeEnemy() const
+	{
+		return m_bCanSee;
+	}
+
+	behaviac::EBTStatus Move()
+	{
+		return behaviac::BT_RUNNING;
+	}
+
+	behaviac::EBTStatus MoveToTarget()
+	{
+		return behaviac::BT_RUNNING;
+	}
 };
 
 

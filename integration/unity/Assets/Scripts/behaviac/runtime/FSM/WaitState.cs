@@ -41,7 +41,6 @@ namespace behaviac
                 if (p.name == "IgnoreTimeScale")
                 {
                     this.m_ignoreTimeScale = (p.value == "true");
-
                 }
                 else if (p.name == "Time")
                 {

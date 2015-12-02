@@ -862,7 +862,6 @@ namespace Behaviac.Design
                     Plugin.AgentTypes.Add(agentType);
 
                     resetAllTypes(agentType.AgentTypeName);
-
                 }
                 else if (metaType == MetaTypePanel.MetaTypes.Enum)
                 {
@@ -872,7 +871,6 @@ namespace Behaviac.Design
                     CustomizedTypeManager.Instance.Enums.Add(customizedEnum);
 
                     resetAllTypes(customizedEnum.Name);
-
                 }
                 else if (metaType == MetaTypePanel.MetaTypes.Struct)
                 {
@@ -918,6 +916,9 @@ namespace Behaviac.Design
                     string disp = Customized_Str + customizedStruct.Name;
                     this.typeListBox.Items[typeSelectedIndex] = disp;
                 }
+
+                // refresh the workspace to load the type
+                save(true);
             }
         }
 
@@ -956,6 +957,9 @@ namespace Behaviac.Design
                 }
 
                 this.typeListBox.SelectedIndex = index;
+
+                // refresh the workspace to load the type
+                save(true);
             }
         }
 
@@ -1055,14 +1059,14 @@ namespace Behaviac.Design
 
                                 this.memberListBox.Items.Add(Customized_Str + enumMember.DisplayName);
                                 this.memberListBox.SelectedIndex = this.memberListBox.Items.Count - 1;
+
+                                // refresh the workspace to load the type
+                                save(true);
                             }
                         }
 
                         // struct
                         else {
-                            // for selecting the new created enum or struct types
-                            save(true);
-
                             CustomizedStruct customizedStruct = CustomizedTypeManager.Instance.Structs[index - Plugin.AgentTypes.Count - CustomizedTypeManager.Instance.Enums.Count];
                             MetaPropertyDialog propertyDialog = new MetaPropertyDialog(true, null, customizedStruct, null, false);
 
@@ -1076,6 +1080,9 @@ namespace Behaviac.Design
 
                                 this.memberListBox.Items.Add(Customized_Str + prop.DisplayName);
                                 this.memberListBox.SelectedIndex = this.memberListBox.Items.Count - 1;
+
+                                // refresh the workspace to load the type
+                                save(true);
                             }
                         }
                     }
@@ -1311,6 +1318,9 @@ namespace Behaviac.Design
                                 this.memberListBox.Items[memberIndex] = Customized_Str + enumMember.DisplayName;
 
                                 bEdit = true;
+
+                                // refresh the workspace to load the type
+                                save(true);
                             }
                         }
                         // struct
@@ -1318,9 +1328,6 @@ namespace Behaviac.Design
                         {
                             if (this._metaPropertyPanel != null)
                             {
-                                // for selecting the new created enum or struct types
-                                save(true);
-
                                 Workspace.Current.IsBlackboardDirty = true;
 
                                 PropertyDef prop = this._metaPropertyPanel.GetProperty();
@@ -1331,6 +1338,9 @@ namespace Behaviac.Design
                                 this.memberListBox.Items[memberIndex] = Customized_Str + prop.DisplayName;
 
                                 bEdit = true;
+
+                                // refresh the workspace to load the type
+                                save(true);
                             }
                         }
                     }
@@ -1454,6 +1464,9 @@ namespace Behaviac.Design
 
                         BehaviorTreeViewDock.RefreshAll();
                         PropertiesDock.UpdatePropertyGrids();
+
+                        // refresh the workspace to load the type
+                        save(true);
                     }
                 }
             }

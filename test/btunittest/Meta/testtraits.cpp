@@ -260,7 +260,6 @@ SUITE(behaviac)
         TEST(TestTrait, IsConst)
         {
             typedef const int ConstInt;
-            typedef int Int;
             CHECK((behaviac::Meta::IsConst< ConstInt >::Result));
             CHECK(!(behaviac::Meta::IsConst< int >::Result));
         }

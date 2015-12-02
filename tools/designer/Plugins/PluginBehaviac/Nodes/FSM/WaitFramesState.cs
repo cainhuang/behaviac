@@ -36,9 +36,9 @@ namespace PluginBehaviac.Nodes
             return base.CanBeAdoptedBy(parent) && (parent is Behavior) && (parent.IsFSM || (parent.Children.Count == 0)) && (parent.FSMNodes.Count == 0);
         }
 
-        public override bool AcceptsAttachment(Type type)
+        public override bool AcceptsAttachment(DefaultObject obj)
         {
-            return type == typeof(WaitTransition);
+            return (obj != null) && (obj is WaitTransition);
         }
 
         private RightValueDef _frames;

@@ -152,7 +152,7 @@ struct PROPERTY_TYPE_Hero_m_isAI { };
 template<> BEHAVIAC_FORCEINLINE bool& Hero::_Get_Property_<PROPERTY_TYPE_Hero_m_isAI>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(Hero, Hero::m_isAI);
+	pc += (int)BEHAVIAC_OFFSETOF(Hero, Hero::m_isAI);
 	return *(reinterpret_cast<bool*>(pc));
 }
 
@@ -202,7 +202,7 @@ struct PROPERTY_TYPE_NPC_Level1Up_Score { };
 template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level1Up_Score>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(NPC, NPC::Level1Up_Score);
+	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::Level1Up_Score);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -210,7 +210,7 @@ struct PROPERTY_TYPE_NPC_Level2Up_Score { };
 template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level2Up_Score>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(NPC, NPC::Level2Up_Score);
+	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::Level2Up_Score);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -218,7 +218,7 @@ struct PROPERTY_TYPE_NPC_Level3Up_Score { };
 template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level3Up_Score>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(NPC, NPC::Level3Up_Score);
+	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::Level3Up_Score);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -226,7 +226,7 @@ struct PROPERTY_TYPE_NPC_Level4Up_Score { };
 template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level4Up_Score>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(NPC, NPC::Level4Up_Score);
+	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::Level4Up_Score);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -234,7 +234,7 @@ struct PROPERTY_TYPE_NPC_m_canBossRefresh { };
 template<> BEHAVIAC_FORCEINLINE bool& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_canBossRefresh>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(NPC, NPC::m_canBossRefresh);
+	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::m_canBossRefresh);
 	return *(reinterpret_cast<bool*>(pc));
 }
 
@@ -242,7 +242,7 @@ struct PROPERTY_TYPE_NPC_m_level { };
 template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_level>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(NPC, NPC::m_level);
+	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::m_level);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -430,7 +430,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("enemy");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -799,7 +799,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("enemy_fsm");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -812,7 +812,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId((uint32_t)-1);
+				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(1);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("Enemy");
@@ -1279,7 +1279,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("hero");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1290,7 +1290,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId((uint32_t)-1);
+				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(1);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("Hero");
@@ -1645,7 +1645,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("npc");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)

@@ -90,7 +90,7 @@ public:
         //}
     }
 
-    void GetUiInfo(const XmlNodeRef& xmlNode, const ParentType* parent, const CPropertyList& propertyList, const CSerializationID& propertyID, UiGenericType* uiWrapper)
+    void GetUiInfo(const behaviac::XmlNodeRef& xmlNode, const ParentType* parent, const CPropertyList& propertyList, const CSerializationID& propertyID, UiGenericType* uiWrapper)
     {
         //Provider provider(const_cast<ParentType*>(parent), const_cast<ContainerType&>(container), EPersistenceType_UiInfo);
         //contained_type* element = provider.GetFirstElement();
@@ -108,7 +108,7 @@ public:
         //}
     }
 
-    void GetMethodsDescription(const XmlNodeRef& xmlNode, const ParentType* parent, const ContainerType& container)
+    void GetMethodsDescription(const behaviac::XmlNodeRef& xmlNode, const ParentType* parent, const ContainerType& container)
     {
         BEHAVIAC_LOGERROR("Not implemented");
     }

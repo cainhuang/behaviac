@@ -322,7 +322,6 @@ namespace behaviac
             }
 
             this->m_n = count;
-
         }
         else
         {
@@ -415,12 +414,16 @@ namespace behaviac
 
     bool PlannerTaskReference::CheckPreconditions(Agent* pAgent, bool bIsAlive)
     {
-        this->currentState = pAgent->m_variables.Push(false);
-        BEHAVIAC_ASSERT(this->currentState != NULL);
+		if (!bIsAlive)
+		{
+			//only try to Push when enter
+			this->currentState = pAgent->m_variables.Push(false);
+			BEHAVIAC_ASSERT(this->currentState != NULL);
+		}
 
         bool bOk = PlannerTaskComplex::CheckPreconditions(pAgent, bIsAlive);
 
-        if (!bOk)
+		if (!bIsAlive && !bOk)
         {
             this->currentState->Pop();
             this->currentState = NULL;
@@ -466,6 +469,7 @@ namespace behaviac
 
         BEHAVIAC_ASSERT(this->currentState != NULL);
         this->currentState->Pop();
+		this->currentState = 0;
     }
 
     EBTStatus PlannerTaskReference::update(Agent* pAgent, EBTStatus childStatus)
@@ -480,7 +484,7 @@ namespace behaviac
 
         EBTStatus status = BT_RUNNING;
 
-        pNode->SetTaskParams(pAgent);
+        //pNode->SetTaskParams(pAgent);
 
         if (pNode->RootTaskNode() == NULL)
         {

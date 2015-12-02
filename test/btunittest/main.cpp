@@ -107,7 +107,7 @@ extern "C" JNIEXPORT void JNICALL Java_com_tencent_tag_behaviac_MainActivity_btu
     AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
     BEHAVIAC_ASSERT(mgr);
 
-    CFileManager::GetInstance()->SetAssetManager(mgr);
+    behaviac::CFileManager::GetInstance()->SetAssetManager(mgr);
 #endif
 
     btunitest_game(behaviac::Workspace::EFF_xml);
@@ -138,7 +138,6 @@ static void SetExePath()
 #endif
 }
 
-#if !BEHAVIAC_COMPILER_APPLE_IPHONE
 int main(int argc, char** argv)
 {
     // int BEHAVIAC_UNIQUE_NAME(intVar) = 0;
@@ -183,4 +182,3 @@ int main(int argc, char** argv)
 
     return result;
 }
-#endif//

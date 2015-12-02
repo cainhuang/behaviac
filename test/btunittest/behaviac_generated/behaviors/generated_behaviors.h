@@ -177,7 +177,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_BOOL_0 { };
 template<> BEHAVIAC_FORCEINLINE bool& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_BOOL_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_BOOL_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_BOOL_0);
 	return *(reinterpret_cast<bool*>(pc));
 }
 
@@ -185,7 +185,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_BYTE_0 { };
 template<> BEHAVIAC_FORCEINLINE unsigned char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_BYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_BYTE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_BYTE_0);
 	return *(reinterpret_cast<unsigned char*>(pc));
 }
 
@@ -193,7 +193,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_CHAR_0 { };
 template<> BEHAVIAC_FORCEINLINE char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_CHAR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_CHAR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_CHAR_0);
 	return *(reinterpret_cast<char*>(pc));
 }
 
@@ -201,7 +201,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_ECOLOR_0 { };
 template<> BEHAVIAC_FORCEINLINE TNS::NE::NAT::eColor& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_ECOLOR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_ECOLOR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_ECOLOR_0);
 	return *(reinterpret_cast<TNS::NE::NAT::eColor*>(pc));
 }
 
@@ -209,7 +209,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BOOL_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<bool>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BOOL_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_LIST_BOOL_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_BOOL_0);
 	return *(reinterpret_cast<behaviac::vector<bool>*>(pc));
 }
 
@@ -217,7 +217,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BYTE_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<unsigned char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_LIST_BYTE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_BYTE_0);
 	return *(reinterpret_cast<behaviac::vector<unsigned char>*>(pc));
 }
 
@@ -225,7 +225,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_CHAR_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_CHAR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_LIST_CHAR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_CHAR_0);
 	return *(reinterpret_cast<behaviac::vector<char>*>(pc));
 }
 
@@ -233,7 +233,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_ECOLOR_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::NE::NAT::eColor>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_ECOLOR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_LIST_ECOLOR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_ECOLOR_0);
 	return *(reinterpret_cast<behaviac::vector<TNS::NE::NAT::eColor>*>(pc));
 }
 
@@ -241,7 +241,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_SBYTE_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<signed char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_SBYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_LIST_SBYTE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_SBYTE_0);
 	return *(reinterpret_cast<behaviac::vector<signed char>*>(pc));
 }
 
@@ -249,7 +249,7 @@ struct PROPERTY_TYPE_ParTestAgentBase_TV_SBYTE_0 { };
 template<> BEHAVIAC_FORCEINLINE signed char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_SBYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgentBase, ParTestAgentBase::TV_SBYTE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_SBYTE_0);
 	return *(reinterpret_cast<signed char*>(pc));
 }
 
@@ -435,7 +435,7 @@ struct PROPERTY_TYPE_ParTestAgent_TV_INT_0 { };
 template<> BEHAVIAC_FORCEINLINE int& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_INT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgent, ParTestAgent::TV_INT_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_INT_0);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -443,7 +443,7 @@ struct PROPERTY_TYPE_ParTestAgent_TV_KEMPLOYEE_0 { };
 template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgent, ParTestAgent::TV_KEMPLOYEE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_KEMPLOYEE_0);
 	return *(reinterpret_cast<TNS::ST::PER::WRK::kEmployee*>(pc));
 }
 
@@ -451,7 +451,7 @@ struct PROPERTY_TYPE_ParTestAgent_TV_LIST_INT_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<int>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LIST_INT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgent, ParTestAgent::TV_LIST_INT_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_LIST_INT_0);
 	return *(reinterpret_cast<behaviac::vector<int>*>(pc));
 }
 
@@ -459,7 +459,7 @@ struct PROPERTY_TYPE_ParTestAgent_TV_LIST_KEMPLOYEE_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LIST_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgent, ParTestAgent::TV_LIST_KEMPLOYEE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_LIST_KEMPLOYEE_0);
 	return *(reinterpret_cast<behaviac::vector<TNS::ST::PER::WRK::kEmployee>*>(pc));
 }
 
@@ -467,7 +467,7 @@ struct PROPERTY_TYPE_ParTestAgent_TV_LONG_0 { };
 template<> BEHAVIAC_FORCEINLINE long& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LONG_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgent, ParTestAgent::TV_LONG_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_LONG_0);
 	return *(reinterpret_cast<long*>(pc));
 }
 
@@ -475,7 +475,7 @@ struct PROPERTY_TYPE_ParTestAgent_TV_SHORT_0 { };
 template<> BEHAVIAC_FORCEINLINE short& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_SHORT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgent, ParTestAgent::TV_SHORT_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_SHORT_0);
 	return *(reinterpret_cast<short*>(pc));
 }
 
@@ -483,7 +483,7 @@ struct PROPERTY_TYPE_ParTestAgent_TV_USHORT_0 { };
 template<> BEHAVIAC_FORCEINLINE unsigned short& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_USHORT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestAgent, ParTestAgent::TV_USHORT_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_USHORT_0);
 	return *(reinterpret_cast<unsigned short*>(pc));
 }
 
@@ -587,7 +587,7 @@ struct PROPERTY_TYPE_AgentArrayAccessTest_Int { };
 template<> BEHAVIAC_FORCEINLINE int& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_Int>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(AgentArrayAccessTest, AgentArrayAccessTest::Int);
+	pc += (int)BEHAVIAC_OFFSETOF(AgentArrayAccessTest, AgentArrayAccessTest::Int);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -595,7 +595,7 @@ struct PROPERTY_TYPE_AgentArrayAccessTest_ListInts { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<int>& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_ListInts>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(AgentArrayAccessTest, AgentArrayAccessTest::ListInts);
+	pc += (int)BEHAVIAC_OFFSETOF(AgentArrayAccessTest, AgentArrayAccessTest::ListInts);
 	return *(reinterpret_cast<behaviac::vector<int>*>(pc));
 }
 
@@ -603,7 +603,7 @@ struct PROPERTY_TYPE_AgentNodeTest_testVar_0 { };
 template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(AgentNodeTest, AgentNodeTest::testVar_0);
+	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_0);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -611,7 +611,7 @@ struct PROPERTY_TYPE_AgentNodeTest_testVar_1 { };
 template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(AgentNodeTest, AgentNodeTest::testVar_1);
+	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_1);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -619,7 +619,7 @@ struct PROPERTY_TYPE_AgentNodeTest_testVar_2 { };
 template<> BEHAVIAC_FORCEINLINE float& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(AgentNodeTest, AgentNodeTest::testVar_2);
+	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_2);
 	return *(reinterpret_cast<float*>(pc));
 }
 
@@ -627,7 +627,7 @@ struct PROPERTY_TYPE_AgentNodeTest_testVar_3 { };
 template<> BEHAVIAC_FORCEINLINE float& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(AgentNodeTest, AgentNodeTest::testVar_3);
+	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_3);
 	return *(reinterpret_cast<float*>(pc));
 }
 
@@ -635,7 +635,7 @@ struct PROPERTY_TYPE_AgentNodeTest_testVar_str_0 { };
 template<> BEHAVIAC_FORCEINLINE string& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_str_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(AgentNodeTest, AgentNodeTest::testVar_str_0);
+	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_str_0);
 	return *(reinterpret_cast<string*>(pc));
 }
 
@@ -643,8 +643,14 @@ struct PROPERTY_TYPE_AgentNodeTest_waiting_timeout_interval { };
 template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_waiting_timeout_interval>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(AgentNodeTest, AgentNodeTest::waiting_timeout_interval);
+	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::waiting_timeout_interval);
 	return *(reinterpret_cast<int*>(pc));
+}
+
+struct METHOD_TYPE_AgentNodeTest_CanSeeEnemy { };
+template<> BEHAVIAC_FORCEINLINE bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_CanSeeEnemy>()
+{
+	return this->AgentNodeTest::CanSeeEnemy();
 }
 
 struct METHOD_TYPE_AgentNodeTest_createExtendedNode { };
@@ -699,6 +705,30 @@ struct METHOD_TYPE_AgentNodeTest_getConstOne { };
 template<> BEHAVIAC_FORCEINLINE int AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstOne>()
 {
 	return this->AgentNodeTest::getConstOne();
+}
+
+struct METHOD_TYPE_AgentNodeTest_IsTargetValid { };
+template<> BEHAVIAC_FORCEINLINE bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_IsTargetValid>()
+{
+	return this->AgentNodeTest::IsTargetValid();
+}
+
+struct METHOD_TYPE_AgentNodeTest_Move { };
+template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_Move>()
+{
+	return this->AgentNodeTest::Move();
+}
+
+struct METHOD_TYPE_AgentNodeTest_MoveToTarget { };
+template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_MoveToTarget>()
+{
+	return this->AgentNodeTest::MoveToTarget();
+}
+
+struct METHOD_TYPE_AgentNodeTest_SelectTarget { };
+template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_SelectTarget>()
+{
+	this->AgentNodeTest::SelectTarget();
 }
 
 struct METHOD_TYPE_AgentNodeTest_setEventVarAgent { };
@@ -761,6 +791,12 @@ template<> BEHAVIAC_FORCEINLINE float AgentNodeTest::_Execute_Method_<METHOD_TYP
 	return this->AgentNodeTest::setTestVar_R();
 }
 
+struct METHOD_TYPE_AgentNodeTest_Stop { };
+template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_Stop>()
+{
+	this->AgentNodeTest::Stop();
+}
+
 struct METHOD_TYPE_AgentNodeTest_switchRef { };
 template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_switchRef>(string& p0)
 {
@@ -789,7 +825,7 @@ struct PROPERTY_TYPE_CustomPropertyAgent_BoolMemberReadonly { };
 template<> BEHAVIAC_FORCEINLINE bool& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_BoolMemberReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(CustomPropertyAgent, CustomPropertyAgent::BoolMemberReadonly);
+	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::BoolMemberReadonly);
 	return *(reinterpret_cast<bool*>(pc));
 }
 
@@ -797,7 +833,7 @@ struct PROPERTY_TYPE_CustomPropertyAgent_FloatPropertyReadonly { };
 template<> BEHAVIAC_FORCEINLINE float& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_FloatPropertyReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(CustomPropertyAgent, CustomPropertyAgent::FloatPropertyReadonly);
+	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::FloatPropertyReadonly);
 	return *(reinterpret_cast<float*>(pc));
 }
 
@@ -812,7 +848,7 @@ struct PROPERTY_TYPE_CustomPropertyAgent_IntProperty { };
 template<> BEHAVIAC_FORCEINLINE int& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_IntProperty>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(CustomPropertyAgent, CustomPropertyAgent::IntProperty);
+	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::IntProperty);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -820,7 +856,7 @@ struct PROPERTY_TYPE_CustomPropertyAgent_Location { };
 template<> BEHAVIAC_FORCEINLINE UnityEngine::Vector3& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_Location>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(CustomPropertyAgent, CustomPropertyAgent::Location);
+	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::Location);
 	return *(reinterpret_cast<UnityEngine::Vector3*>(pc));
 }
 
@@ -828,7 +864,7 @@ struct PROPERTY_TYPE_CustomPropertyAgent_StringMemberReadonly { };
 template<> BEHAVIAC_FORCEINLINE string& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_StringMemberReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(CustomPropertyAgent, CustomPropertyAgent::StringMemberReadonly);
+	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::StringMemberReadonly);
 	return *(reinterpret_cast<string*>(pc));
 }
 
@@ -884,7 +920,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_AGENT_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::Agent*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_AGENT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_AGENT_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_AGENT_0);
 	return *(reinterpret_cast<behaviac::Agent**>(pc));
 }
 
@@ -892,7 +928,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_CSZSTR_0 { };
 template<> BEHAVIAC_FORCEINLINE char*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_CSZSTR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_CSZSTR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_CSZSTR_0);
 	return *(reinterpret_cast<char**>(pc));
 }
 
@@ -900,7 +936,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_D_0 { };
 template<> BEHAVIAC_FORCEINLINE double& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_D_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_D_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_D_0);
 	return *(reinterpret_cast<double*>(pc));
 }
 
@@ -908,7 +944,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_F_0 { };
 template<> BEHAVIAC_FORCEINLINE float& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_F_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_F_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_F_0);
 	return *(reinterpret_cast<float*>(pc));
 }
 
@@ -916,7 +952,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_AGENT_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<behaviac::Agent*>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_AGENT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_AGENT_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_AGENT_0);
 	return *(reinterpret_cast<behaviac::vector<behaviac::Agent*>*>(pc));
 }
 
@@ -924,7 +960,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_F_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<float>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_F_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_F_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_F_0);
 	return *(reinterpret_cast<behaviac::vector<float>*>(pc));
 }
 
@@ -932,7 +968,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_STR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_STR_0);
 	return *(reinterpret_cast<behaviac::vector<string>*>(pc));
 }
 
@@ -940,7 +976,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LL_0 { };
 template<> BEHAVIAC_FORCEINLINE long long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LL_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_LL_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LL_0);
 	return *(reinterpret_cast<long long*>(pc));
 }
 
@@ -948,7 +984,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0 { };
 template<> BEHAVIAC_FORCEINLINE string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_STR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_STR_0);
 	return *(reinterpret_cast<string*>(pc));
 }
 
@@ -956,7 +992,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_SZSTR_0 { };
 template<> BEHAVIAC_FORCEINLINE char*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_SZSTR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_SZSTR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_SZSTR_0);
 	return *(reinterpret_cast<char**>(pc));
 }
 
@@ -964,7 +1000,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_UINT_0 { };
 template<> BEHAVIAC_FORCEINLINE unsigned int& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_UINT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_UINT_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_UINT_0);
 	return *(reinterpret_cast<unsigned int*>(pc));
 }
 
@@ -972,7 +1008,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_ULL_0 { };
 template<> BEHAVIAC_FORCEINLINE unsigned long long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_ULL_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_ULL_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_ULL_0);
 	return *(reinterpret_cast<unsigned long long*>(pc));
 }
 
@@ -980,7 +1016,7 @@ struct PROPERTY_TYPE_EmployeeParTestAgent_TV_ULONG_0 { };
 template<> BEHAVIAC_FORCEINLINE unsigned long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_ULONG_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(EmployeeParTestAgent, EmployeeParTestAgent::TV_ULONG_0);
+	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_ULONG_0);
 	return *(reinterpret_cast<unsigned long*>(pc));
 }
 
@@ -1186,7 +1222,7 @@ struct PROPERTY_TYPE_FSMAgentTest_Message { };
 template<> BEHAVIAC_FORCEINLINE FSMAgentTest::EMessage& FSMAgentTest::_Get_Property_<PROPERTY_TYPE_FSMAgentTest_Message>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(FSMAgentTest, FSMAgentTest::Message);
+	pc += (int)BEHAVIAC_OFFSETOF(FSMAgentTest, FSMAgentTest::Message);
 	return *(reinterpret_cast<FSMAgentTest::EMessage*>(pc));
 }
 
@@ -1353,7 +1389,7 @@ struct PROPERTY_TYPE_ParTestRegNameAgent_TV_AGENT_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::Agent*& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_AGENT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestRegNameAgent, ParTestRegNameAgent::TV_AGENT_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_AGENT_0);
 	return *(reinterpret_cast<behaviac::Agent**>(pc));
 }
 
@@ -1361,7 +1397,7 @@ struct PROPERTY_TYPE_ParTestRegNameAgent_TV_BYTE_0 { };
 template<> BEHAVIAC_FORCEINLINE unsigned char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_BYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestRegNameAgent, ParTestRegNameAgent::TV_BYTE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_BYTE_0);
 	return *(reinterpret_cast<unsigned char*>(pc));
 }
 
@@ -1369,7 +1405,7 @@ struct PROPERTY_TYPE_ParTestRegNameAgent_TV_CHAR_0 { };
 template<> BEHAVIAC_FORCEINLINE char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_CHAR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestRegNameAgent, ParTestRegNameAgent::TV_CHAR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_CHAR_0);
 	return *(reinterpret_cast<char*>(pc));
 }
 
@@ -1377,7 +1413,7 @@ struct PROPERTY_TYPE_ParTestRegNameAgent_TV_KEMPLOYEE_0 { };
 template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestRegNameAgent, ParTestRegNameAgent::TV_KEMPLOYEE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_KEMPLOYEE_0);
 	return *(reinterpret_cast<TNS::ST::PER::WRK::kEmployee*>(pc));
 }
 
@@ -1385,7 +1421,7 @@ struct PROPERTY_TYPE_ParTestRegNameAgent_TV_LIST_KEMPLOYEE_0 { };
 template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_LIST_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestRegNameAgent, ParTestRegNameAgent::TV_LIST_KEMPLOYEE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_LIST_KEMPLOYEE_0);
 	return *(reinterpret_cast<behaviac::vector<TNS::ST::PER::WRK::kEmployee>*>(pc));
 }
 
@@ -1393,7 +1429,7 @@ struct PROPERTY_TYPE_ParTestRegNameAgent_TV_SBYTE_0 { };
 template<> BEHAVIAC_FORCEINLINE signed char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_SBYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestRegNameAgent, ParTestRegNameAgent::TV_SBYTE_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_SBYTE_0);
 	return *(reinterpret_cast<signed char*>(pc));
 }
 
@@ -1401,7 +1437,7 @@ struct PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0 { };
 template<> BEHAVIAC_FORCEINLINE string& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(ParTestRegNameAgent, ParTestRegNameAgent::TV_STR_0);
+	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_STR_0);
 	return *(reinterpret_cast<string*>(pc));
 }
 
@@ -1457,7 +1493,7 @@ struct PROPERTY_TYPE_PreconEffectorAgent_count_both { };
 template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(PreconEffectorAgent, PreconEffectorAgent::count_both);
+	pc += (int)BEHAVIAC_OFFSETOF(PreconEffectorAgent, PreconEffectorAgent::count_both);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -1465,7 +1501,7 @@ struct PROPERTY_TYPE_PreconEffectorAgent_count_failure { };
 template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(PreconEffectorAgent, PreconEffectorAgent::count_failure);
+	pc += (int)BEHAVIAC_OFFSETOF(PreconEffectorAgent, PreconEffectorAgent::count_failure);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -1473,7 +1509,7 @@ struct PROPERTY_TYPE_PreconEffectorAgent_count_success { };
 template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(PreconEffectorAgent, PreconEffectorAgent::count_success);
+	pc += (int)BEHAVIAC_OFFSETOF(PreconEffectorAgent, PreconEffectorAgent::count_success);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -1481,7 +1517,7 @@ struct PROPERTY_TYPE_PreconEffectorAgent_ret { };
 template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(PreconEffectorAgent, PreconEffectorAgent::ret);
+	pc += (int)BEHAVIAC_OFFSETOF(PreconEffectorAgent, PreconEffectorAgent::ret);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -1501,7 +1537,7 @@ struct PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonly { };
 template<> BEHAVIAC_FORCEINLINE int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(PropertyReadonlyAgent, PropertyReadonlyAgent::MemberReadonly);
+	pc += (int)BEHAVIAC_OFFSETOF(PropertyReadonlyAgent, PropertyReadonlyAgent::MemberReadonly);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -1509,7 +1545,7 @@ struct PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonlyAs { };
 template<> BEHAVIAC_FORCEINLINE int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonlyAs>()
 {
 	unsigned char* pc = (unsigned char*)this;
-	pc += (int)offsetof(PropertyReadonlyAgent, PropertyReadonlyAgent::MemberReadonlyAs);
+	pc += (int)BEHAVIAC_OFFSETOF(PropertyReadonlyAgent, PropertyReadonlyAgent::MemberReadonlyAs);
 	return *(reinterpret_cast<int*>(pc));
 }
 
@@ -1723,7 +1759,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/action_ut_1_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1870,7 +1906,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/bt_ref_fsm");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2054,7 +2090,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ref_bt_ut");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2065,7 +2101,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId((uint32_t)-1);
+				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(1);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("AgentNodeTest");
@@ -2502,7 +2538,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ref_fsm_ut");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2513,7 +2549,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId((uint32_t)-1);
+				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(3);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("FSMAgentTest");
@@ -2964,7 +3000,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ut_0");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2975,7 +3011,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId((uint32_t)-1);
+				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(3);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("FSMAgentTest");
@@ -3493,7 +3529,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ut_1");
 			pBT->SetIsFSM(true);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3504,7 +3540,7 @@ namespace behaviac
 			{
 				FSM* fsm = BEHAVIAC_NEW FSM();
 				fsm->SetClassNameString("FSM");
-				fsm->SetId((uint32_t)-1);
+				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(3);
 #if !defined(BEHAVIAC_RELEASE)
 				fsm->SetAgentType("FSMAgentTest");
@@ -4141,7 +4177,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/house/build_house");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -4599,7 +4635,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/house/construct");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -4931,7 +4967,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/house/root");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -5162,7 +5198,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/travel/root");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -5336,7 +5372,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/travel/travel");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -5566,7 +5602,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/travel/travel_by_air");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -5856,7 +5892,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6135,7 +6171,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6290,7 +6326,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/repeat/repeat_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6368,7 +6404,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_noop_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6577,7 +6613,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -6882,7 +6918,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7119,7 +7155,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7304,7 +7340,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7444,7 +7480,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7608,7 +7644,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7793,7 +7829,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -7945,7 +7981,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_waitframes_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8077,7 +8113,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/circular_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8242,7 +8278,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/condition_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8370,7 +8406,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/condition_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8568,7 +8604,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/condition_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -8774,7 +8810,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/condition_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -9190,7 +9226,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_alwaysfailure_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -9500,7 +9536,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_alwaysrunning_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -9796,7 +9832,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_alwayssuccess_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -9999,7 +10035,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10131,7 +10167,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10292,7 +10328,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10492,7 +10528,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10617,7 +10653,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_failureuntil_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10672,7 +10708,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_failureuntil_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10765,7 +10801,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_frames_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -10974,7 +11010,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_log_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11194,7 +11230,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11344,7 +11380,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11489,7 +11525,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11622,7 +11658,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loop_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11735,7 +11771,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loop_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11843,7 +11879,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -11951,7 +11987,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12059,7 +12095,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12134,7 +12170,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_successuntil_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12189,7 +12225,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_successuntil_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12337,7 +12373,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12581,7 +12617,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -12863,7 +12899,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13017,7 +13053,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13108,7 +13144,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13220,7 +13256,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13352,7 +13388,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13457,7 +13493,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13631,7 +13667,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13801,7 +13837,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -13910,7 +13946,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/if_else_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14007,7 +14043,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/if_else_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14156,7 +14192,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14325,7 +14361,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14494,7 +14530,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14663,7 +14699,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14832,7 +14868,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -14993,7 +15029,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15190,7 +15226,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15451,7 +15487,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15603,7 +15639,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15730,7 +15766,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -15896,7 +15932,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16062,7 +16098,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16247,7 +16283,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16452,7 +16488,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16695,7 +16731,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_5");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -16911,7 +16947,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17077,7 +17113,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17243,7 +17279,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17428,7 +17464,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17633,7 +17669,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -17876,7 +17912,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_5");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18024,7 +18060,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_subtree_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18094,7 +18130,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_subtree_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18164,7 +18200,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_subtree_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18308,7 +18344,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18491,7 +18527,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18674,7 +18710,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -18857,7 +18893,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19000,7 +19036,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/reference_sub_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19062,7 +19098,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/reference_sub_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19109,7 +19145,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/reference_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19176,7 +19212,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19303,7 +19339,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19430,7 +19466,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19557,7 +19593,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19684,7 +19720,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19830,7 +19866,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_5");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -19936,6 +19972,785 @@ namespace behaviac
 					node0->SetHasEvents(node0->HasEvents() | node7->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
+			}
+			return true;
+		}
+	};
+
+	// Source file: node_test/selector_loop_ut_6
+
+	class DecoratorLoop_bt_node_test_selector_loop_ut_6_node9 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_node_test_selector_loop_ut_6_node9, DecoratorLoop);
+		DecoratorLoop_bt_node_test_selector_loop_ut_6_node9()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 10;
+		}
+	};
+
+	class Condition_bt_node_test_selector_loop_ut_6_node4 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_selector_loop_ut_6_node4, Condition);
+		Condition_bt_node_test_selector_loop_ut_6_node4()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_CanSeeEnemy, bool >();
+			bool opr = true;
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
+	class Action_bt_node_test_selector_loop_ut_6_node5 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_selector_loop_ut_6_node5, Action);
+		Action_bt_node_test_selector_loop_ut_6_node5()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			behaviac::EBTStatus result = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_Move, behaviac::EBTStatus >();
+			return result;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_6_attach7 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_6_attach7, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_6_attach7()
+		{
+			this->SetPhase(Precondition::E_UPDATE);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = opr2;
+			return result;
+		}
+	};
+
+	class Action_bt_node_test_selector_loop_ut_6_node6 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_selector_loop_ut_6_node6, Action);
+		Action_bt_node_test_selector_loop_ut_6_node6()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			behaviac::EBTStatus result = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_MoveToTarget, behaviac::EBTStatus >();
+			return result;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_6_attach8 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_6_attach8, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_6_attach8()
+		{
+			this->SetPhase(Precondition::E_UPDATE);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr2 = 2;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = opr2;
+			return result;
+		}
+	};
+
+	class bt_node_test_selector_loop_ut_6
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/selector_loop_ut_6");
+			pBT->SetIsFSM(false);
+#if !defined(BEHAVIAC_RELEASE)
+			pBT->SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_selector_loop_ut_6_node9* node9 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_selector_loop_ut_6_node9;
+				node9->SetClassNameString("DecoratorLoop");
+				node9->SetId(9);
+#if !defined(BEHAVIAC_RELEASE)
+				node9->SetAgentType("AgentNodeTest");
+#endif
+				pBT->AddChild(node9);
+				{
+					SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
+					node0->SetClassNameString("SelectorLoop");
+					node0->SetId(0);
+#if !defined(BEHAVIAC_RELEASE)
+					node0->SetAgentType("AgentNodeTest");
+#endif
+					node9->AddChild(node0);
+					{
+						WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
+						node1->SetClassNameString("WithPrecondition");
+						node1->SetId(1);
+#if !defined(BEHAVIAC_RELEASE)
+						node1->SetAgentType("AgentNodeTest");
+#endif
+						node0->AddChild(node1);
+						{
+							Condition_bt_node_test_selector_loop_ut_6_node4* node4 = BEHAVIAC_NEW Condition_bt_node_test_selector_loop_ut_6_node4;
+							node4->SetClassNameString("Condition");
+							node4->SetId(4);
+#if !defined(BEHAVIAC_RELEASE)
+							node4->SetAgentType("AgentNodeTest");
+#endif
+							node1->AddChild(node4);
+							node1->SetHasEvents(node1->HasEvents() | node4->HasEvents());
+						}
+						{
+							Action_bt_node_test_selector_loop_ut_6_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_6_node5;
+							node5->SetClassNameString("Action");
+							node5->SetId(5);
+#if !defined(BEHAVIAC_RELEASE)
+							node5->SetAgentType("AgentNodeTest");
+#endif
+							// attachments
+							{
+								Precondition_bt_node_test_selector_loop_ut_6_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_6_attach7;
+								attach7->SetClassNameString("Precondition");
+								attach7->SetId(7);
+#if !defined(BEHAVIAC_RELEASE)
+								attach7->SetAgentType("AgentNodeTest");
+#endif
+								node5->Attach(attach7, true, false, false);
+								node5->SetHasEvents(node5->HasEvents() | (Event::DynamicCast(attach7) != 0));
+							}
+							node1->AddChild(node5);
+							node1->SetHasEvents(node1->HasEvents() | node5->HasEvents());
+						}
+						node0->SetHasEvents(node0->HasEvents() | node1->HasEvents());
+					}
+					{
+						WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
+						node2->SetClassNameString("WithPrecondition");
+						node2->SetId(2);
+#if !defined(BEHAVIAC_RELEASE)
+						node2->SetAgentType("AgentNodeTest");
+#endif
+						node0->AddChild(node2);
+						{
+							True* node3 = BEHAVIAC_NEW True;
+							node3->SetClassNameString("True");
+							node3->SetId(3);
+#if !defined(BEHAVIAC_RELEASE)
+							node3->SetAgentType("AgentNodeTest");
+#endif
+							node2->AddChild(node3);
+							node2->SetHasEvents(node2->HasEvents() | node3->HasEvents());
+						}
+						{
+							Action_bt_node_test_selector_loop_ut_6_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_6_node6;
+							node6->SetClassNameString("Action");
+							node6->SetId(6);
+#if !defined(BEHAVIAC_RELEASE)
+							node6->SetAgentType("AgentNodeTest");
+#endif
+							// attachments
+							{
+								Precondition_bt_node_test_selector_loop_ut_6_attach8* attach8 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_6_attach8;
+								attach8->SetClassNameString("Precondition");
+								attach8->SetId(8);
+#if !defined(BEHAVIAC_RELEASE)
+								attach8->SetAgentType("AgentNodeTest");
+#endif
+								node6->Attach(attach8, true, false, false);
+								node6->SetHasEvents(node6->HasEvents() | (Event::DynamicCast(attach8) != 0));
+							}
+							node2->AddChild(node6);
+							node2->SetHasEvents(node2->HasEvents() | node6->HasEvents());
+						}
+						node0->SetHasEvents(node0->HasEvents() | node2->HasEvents());
+					}
+					node9->SetHasEvents(node9->HasEvents() | node0->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node9->HasEvents());
+			}
+			return true;
+		}
+	};
+
+	// Source file: node_test/selector_loop_ut_7
+
+	class Action_bt_node_test_selector_loop_ut_7_node16 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_selector_loop_ut_7_node16, Action);
+		Action_bt_node_test_selector_loop_ut_7_node16()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_SelectTarget, void >();
+			return BT_SUCCESS;
+		}
+	};
+
+	class Assignment_bt_node_test_selector_loop_ut_7_node21 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_selector_loop_ut_7_node21, Assignment);
+		Assignment_bt_node_test_selector_loop_ut_7_node21()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr = 0;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = opr;
+			return result;
+		}
+	};
+
+	class DecoratorLoop_bt_node_test_selector_loop_ut_7_node9 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_node_test_selector_loop_ut_7_node9, DecoratorLoop);
+		DecoratorLoop_bt_node_test_selector_loop_ut_7_node9()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return -1;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_7_attach14 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_7_attach14, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_7_attach14()
+		{
+			this->SetPhase(Precondition::E_BOTH);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_IsTargetValid, bool >();
+			bool opr2 = true;
+			bool op = Details::Equal(opl, opr2);
+			if (!op)
+				result = BT_FAILURE;
+			return result;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_7_attach17 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_7_attach17, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_7_attach17()
+		{
+			this->SetPhase(Precondition::E_UPDATE);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Effector_bt_node_test_selector_loop_ut_7_attach18 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_selector_loop_ut_7_attach18, Effector);
+		Effector_bt_node_test_selector_loop_ut_7_attach18()
+		{
+			this->SetPhase(Effector::E_SUCCESS);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr2 = 0;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = opr2;
+			return result;
+		}
+	};
+
+	class Condition_bt_node_test_selector_loop_ut_7_node4 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_selector_loop_ut_7_node4, Condition);
+		Condition_bt_node_test_selector_loop_ut_7_node4()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_CanSeeEnemy, bool >();
+			bool opr = true;
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
+	class Action_bt_node_test_selector_loop_ut_7_node5 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_selector_loop_ut_7_node5, Action);
+		Action_bt_node_test_selector_loop_ut_7_node5()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			behaviac::EBTStatus result = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_Move, behaviac::EBTStatus >();
+			return result;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_7_attach7 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_7_attach7, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_7_attach7()
+		{
+			this->SetPhase(Precondition::E_UPDATE);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = opr2;
+			return result;
+		}
+	};
+
+	class Action_bt_node_test_selector_loop_ut_7_node6 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_selector_loop_ut_7_node6, Action);
+		Action_bt_node_test_selector_loop_ut_7_node6()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			behaviac::EBTStatus result = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_MoveToTarget, behaviac::EBTStatus >();
+			return result;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_7_attach8 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_7_attach8, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_7_attach8()
+		{
+			this->SetPhase(Precondition::E_UPDATE);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr2 = 2;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = opr2;
+			return result;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_7_attach19 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_7_attach19, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_7_attach19()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = opr2;
+			return result;
+		}
+	};
+
+	class Action_bt_node_test_selector_loop_ut_7_node12 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_selector_loop_ut_7_node12, Action);
+		Action_bt_node_test_selector_loop_ut_7_node12()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_Stop, void >();
+			return BT_SUCCESS;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_7_attach20 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_7_attach20, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_7_attach20()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Action_bt_node_test_selector_loop_ut_7_node13 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_selector_loop_ut_7_node13, Action);
+		Action_bt_node_test_selector_loop_ut_7_node13()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_SelectTarget, void >();
+			return BT_SUCCESS;
+		}
+	};
+
+	class Precondition_bt_node_test_selector_loop_ut_7_attach22 : public Precondition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Precondition_bt_node_test_selector_loop_ut_7_attach22, Precondition);
+		Precondition_bt_node_test_selector_loop_ut_7_attach22()
+		{
+			this->SetPhase(Precondition::E_ENTER);
+			this->SetIsAnd(true);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class bt_node_test_selector_loop_ut_7
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/selector_loop_ut_7");
+			pBT->SetIsFSM(false);
+#if !defined(BEHAVIAC_RELEASE)
+			pBT->SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				Sequence* node15 = BEHAVIAC_NEW Sequence;
+				node15->SetClassNameString("Sequence");
+				node15->SetId(15);
+#if !defined(BEHAVIAC_RELEASE)
+				node15->SetAgentType("AgentNodeTest");
+#endif
+				pBT->AddChild(node15);
+				{
+					Action_bt_node_test_selector_loop_ut_7_node16* node16 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node16;
+					node16->SetClassNameString("Action");
+					node16->SetId(16);
+#if !defined(BEHAVIAC_RELEASE)
+					node16->SetAgentType("AgentNodeTest");
+#endif
+					node15->AddChild(node16);
+					node15->SetHasEvents(node15->HasEvents() | node16->HasEvents());
+				}
+				{
+					Assignment_bt_node_test_selector_loop_ut_7_node21* node21 = BEHAVIAC_NEW Assignment_bt_node_test_selector_loop_ut_7_node21;
+					node21->SetClassNameString("Assignment");
+					node21->SetId(21);
+#if !defined(BEHAVIAC_RELEASE)
+					node21->SetAgentType("AgentNodeTest");
+#endif
+					node15->AddChild(node21);
+					node15->SetHasEvents(node15->HasEvents() | node21->HasEvents());
+				}
+				{
+					Selector* node10 = BEHAVIAC_NEW Selector;
+					node10->SetClassNameString("Selector");
+					node10->SetId(10);
+#if !defined(BEHAVIAC_RELEASE)
+					node10->SetAgentType("AgentNodeTest");
+#endif
+					node15->AddChild(node10);
+					{
+						DecoratorLoop_bt_node_test_selector_loop_ut_7_node9* node9 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_selector_loop_ut_7_node9;
+						node9->SetClassNameString("DecoratorLoop");
+						node9->SetId(9);
+#if !defined(BEHAVIAC_RELEASE)
+						node9->SetAgentType("AgentNodeTest");
+#endif
+						// attachments
+						{
+							Precondition_bt_node_test_selector_loop_ut_7_attach14* attach14 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach14;
+							attach14->SetClassNameString("Precondition");
+							attach14->SetId(14);
+#if !defined(BEHAVIAC_RELEASE)
+							attach14->SetAgentType("AgentNodeTest");
+#endif
+							node9->Attach(attach14, true, false, false);
+							node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach14) != 0));
+						}
+						{
+							Precondition_bt_node_test_selector_loop_ut_7_attach17* attach17 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach17;
+							attach17->SetClassNameString("Precondition");
+							attach17->SetId(17);
+#if !defined(BEHAVIAC_RELEASE)
+							attach17->SetAgentType("AgentNodeTest");
+#endif
+							node9->Attach(attach17, true, false, false);
+							node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach17) != 0));
+						}
+						{
+							Effector_bt_node_test_selector_loop_ut_7_attach18* attach18 = BEHAVIAC_NEW Effector_bt_node_test_selector_loop_ut_7_attach18;
+							attach18->SetClassNameString("Effector");
+							attach18->SetId(18);
+#if !defined(BEHAVIAC_RELEASE)
+							attach18->SetAgentType("AgentNodeTest");
+#endif
+							node9->Attach(attach18, false, true, false);
+							node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach18) != 0));
+						}
+						node10->AddChild(node9);
+						{
+							SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
+							node0->SetClassNameString("SelectorLoop");
+							node0->SetId(0);
+#if !defined(BEHAVIAC_RELEASE)
+							node0->SetAgentType("AgentNodeTest");
+#endif
+							node9->AddChild(node0);
+							{
+								WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
+								node1->SetClassNameString("WithPrecondition");
+								node1->SetId(1);
+#if !defined(BEHAVIAC_RELEASE)
+								node1->SetAgentType("AgentNodeTest");
+#endif
+								node0->AddChild(node1);
+								{
+									Condition_bt_node_test_selector_loop_ut_7_node4* node4 = BEHAVIAC_NEW Condition_bt_node_test_selector_loop_ut_7_node4;
+									node4->SetClassNameString("Condition");
+									node4->SetId(4);
+#if !defined(BEHAVIAC_RELEASE)
+									node4->SetAgentType("AgentNodeTest");
+#endif
+									node1->AddChild(node4);
+									node1->SetHasEvents(node1->HasEvents() | node4->HasEvents());
+								}
+								{
+									Action_bt_node_test_selector_loop_ut_7_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node5;
+									node5->SetClassNameString("Action");
+									node5->SetId(5);
+#if !defined(BEHAVIAC_RELEASE)
+									node5->SetAgentType("AgentNodeTest");
+#endif
+									// attachments
+									{
+										Precondition_bt_node_test_selector_loop_ut_7_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach7;
+										attach7->SetClassNameString("Precondition");
+										attach7->SetId(7);
+#if !defined(BEHAVIAC_RELEASE)
+										attach7->SetAgentType("AgentNodeTest");
+#endif
+										node5->Attach(attach7, true, false, false);
+										node5->SetHasEvents(node5->HasEvents() | (Event::DynamicCast(attach7) != 0));
+									}
+									node1->AddChild(node5);
+									node1->SetHasEvents(node1->HasEvents() | node5->HasEvents());
+								}
+								node0->SetHasEvents(node0->HasEvents() | node1->HasEvents());
+							}
+							{
+								WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
+								node2->SetClassNameString("WithPrecondition");
+								node2->SetId(2);
+#if !defined(BEHAVIAC_RELEASE)
+								node2->SetAgentType("AgentNodeTest");
+#endif
+								node0->AddChild(node2);
+								{
+									True* node3 = BEHAVIAC_NEW True;
+									node3->SetClassNameString("True");
+									node3->SetId(3);
+#if !defined(BEHAVIAC_RELEASE)
+									node3->SetAgentType("AgentNodeTest");
+#endif
+									node2->AddChild(node3);
+									node2->SetHasEvents(node2->HasEvents() | node3->HasEvents());
+								}
+								{
+									Action_bt_node_test_selector_loop_ut_7_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node6;
+									node6->SetClassNameString("Action");
+									node6->SetId(6);
+#if !defined(BEHAVIAC_RELEASE)
+									node6->SetAgentType("AgentNodeTest");
+#endif
+									// attachments
+									{
+										Precondition_bt_node_test_selector_loop_ut_7_attach8* attach8 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach8;
+										attach8->SetClassNameString("Precondition");
+										attach8->SetId(8);
+#if !defined(BEHAVIAC_RELEASE)
+										attach8->SetAgentType("AgentNodeTest");
+#endif
+										node6->Attach(attach8, true, false, false);
+										node6->SetHasEvents(node6->HasEvents() | (Event::DynamicCast(attach8) != 0));
+									}
+									node2->AddChild(node6);
+									node2->SetHasEvents(node2->HasEvents() | node6->HasEvents());
+								}
+								node0->SetHasEvents(node0->HasEvents() | node2->HasEvents());
+							}
+							node9->SetHasEvents(node9->HasEvents() | node0->HasEvents());
+						}
+						node10->SetHasEvents(node10->HasEvents() | node9->HasEvents());
+					}
+					{
+						Sequence* node11 = BEHAVIAC_NEW Sequence;
+						node11->SetClassNameString("Sequence");
+						node11->SetId(11);
+#if !defined(BEHAVIAC_RELEASE)
+						node11->SetAgentType("AgentNodeTest");
+#endif
+						// attachments
+						{
+							Precondition_bt_node_test_selector_loop_ut_7_attach19* attach19 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach19;
+							attach19->SetClassNameString("Precondition");
+							attach19->SetId(19);
+#if !defined(BEHAVIAC_RELEASE)
+							attach19->SetAgentType("AgentNodeTest");
+#endif
+							node11->Attach(attach19, true, false, false);
+							node11->SetHasEvents(node11->HasEvents() | (Event::DynamicCast(attach19) != 0));
+						}
+						node10->AddChild(node11);
+						{
+							Action_bt_node_test_selector_loop_ut_7_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node12;
+							node12->SetClassNameString("Action");
+							node12->SetId(12);
+#if !defined(BEHAVIAC_RELEASE)
+							node12->SetAgentType("AgentNodeTest");
+#endif
+							// attachments
+							{
+								Precondition_bt_node_test_selector_loop_ut_7_attach20* attach20 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach20;
+								attach20->SetClassNameString("Precondition");
+								attach20->SetId(20);
+#if !defined(BEHAVIAC_RELEASE)
+								attach20->SetAgentType("AgentNodeTest");
+#endif
+								node12->Attach(attach20, true, false, false);
+								node12->SetHasEvents(node12->HasEvents() | (Event::DynamicCast(attach20) != 0));
+							}
+							node11->AddChild(node12);
+							node11->SetHasEvents(node11->HasEvents() | node12->HasEvents());
+						}
+						{
+							Action_bt_node_test_selector_loop_ut_7_node13* node13 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node13;
+							node13->SetClassNameString("Action");
+							node13->SetId(13);
+#if !defined(BEHAVIAC_RELEASE)
+							node13->SetAgentType("AgentNodeTest");
+#endif
+							// attachments
+							{
+								Precondition_bt_node_test_selector_loop_ut_7_attach22* attach22 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach22;
+								attach22->SetClassNameString("Precondition");
+								attach22->SetId(22);
+#if !defined(BEHAVIAC_RELEASE)
+								attach22->SetAgentType("AgentNodeTest");
+#endif
+								node13->Attach(attach22, true, false, false);
+								node13->SetHasEvents(node13->HasEvents() | (Event::DynamicCast(attach22) != 0));
+							}
+							node11->AddChild(node13);
+							node11->SetHasEvents(node11->HasEvents() | node13->HasEvents());
+						}
+						node10->SetHasEvents(node10->HasEvents() | node11->HasEvents());
+					}
+					node15->SetHasEvents(node15->HasEvents() | node10->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node15->HasEvents());
 			}
 			return true;
 		}
@@ -20068,7 +20883,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20276,7 +21091,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20484,7 +21299,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20644,7 +21459,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20736,7 +21551,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20828,7 +21643,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -20944,7 +21759,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21060,7 +21875,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21176,7 +21991,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21292,7 +22107,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21408,7 +22223,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_4");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21538,7 +22353,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21630,7 +22445,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21722,7 +22537,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21814,7 +22629,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -21930,7 +22745,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22046,7 +22861,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22162,7 +22977,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_ut_2");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22278,7 +23093,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_ut_3");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22372,7 +23187,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/wait_ut_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22456,7 +23271,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/wait_ut_1");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22572,7 +23387,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/const_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -22838,7 +23653,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/custom_property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -23092,7 +23907,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/local_out_scope");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -23891,7 +24706,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/par_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -24967,7 +25782,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/par_as_ref_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -25971,7 +26786,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/property_as_left_value");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -26897,7 +27712,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -27796,7 +28611,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/property_as_ref_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -28241,7 +29056,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/readonly_default");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -28570,7 +29385,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/register_name_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -28940,7 +29755,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/static_member_function_test_0");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -29459,7 +30274,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/static_property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -30028,7 +30843,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/static_property_as_ref_param");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -30432,7 +31247,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/vector_test");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -30646,6 +31461,8 @@ namespace behaviac
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_loop_ut_3", bt_node_test_selector_loop_ut_3::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_loop_ut_4", bt_node_test_selector_loop_ut_4::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_loop_ut_5", bt_node_test_selector_loop_ut_5::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_loop_ut_6", bt_node_test_selector_loop_ut_6::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_loop_ut_7", bt_node_test_selector_loop_ut_7::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_probability_ut_0", bt_node_test_selector_probability_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_probability_ut_1", bt_node_test_selector_probability_ut_1::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_probability_ut_2", bt_node_test_selector_probability_ut_2::Create);

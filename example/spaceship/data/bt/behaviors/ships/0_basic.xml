@@ -10,22 +10,17 @@
       <Node Class="PluginBehaviac.Nodes.Parallel" ChildFinishPolicy="CHILDFINISH_LOOP" Enable="true" ExitPolicy="EXIT_NONE" FailurePolicy="FAIL_ON_ONE" HasOwnPrefabData="false" Id="1" PrefabName="" PrefabNodeId="-1" SuccessPolicy="SUCCEED_ON_ALL">
         <Comment Background="NoColor" Text="" />
         <Connector Identifier="GenericChildren">
-          <Node Class="PluginBehaviac.Nodes.DecoratorLoop" Count="const int -1" DecorateWhenChildEnds="true" Enable="true" HasOwnPrefabData="false" Id="2" PrefabName="" PrefabNodeId="-1">
+          <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="3" PrefabName="" PrefabNodeId="-1">
             <Comment Background="NoColor" Text="" />
             <Connector Identifier="GenericChildren">
-              <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="3" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.Condition" Enable="true" HasOwnPrefabData="false" Id="4" Operator="Equal" Opl="Self.framework::GameObject::alignedWithPlayer()" Opr="const bool true" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
-                <Connector Identifier="GenericChildren">
-                  <Node Class="PluginBehaviac.Nodes.Condition" Enable="true" HasOwnPrefabData="false" Id="4" Operator="Equal" Opl="Self.framework::GameObject::alignedWithPlayer()" Opr="const bool true" PrefabName="" PrefabNodeId="-1">
-                    <Comment Background="NoColor" Text="" />
-                  </Node>
-                  <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="5" Method="Self.framework::Ship::Fire()" PrefabName="" PrefabNodeId="-1" ResultFunctor="Self.framework::Ship::checkresult(false)" ResultOption="BT_INVALID">
-                    <Comment Background="NoColor" Text="" />
-                  </Node>
-                  <Node Class="PluginBehaviac.Nodes.Wait" Enable="true" HasOwnPrefabData="false" Id="6" IgnoreTimeScale="false" PrefabName="" PrefabNodeId="-1" Time="float Self.framework::Ship::par_c">
-                    <Comment Background="NoColor" Text="" />
-                  </Node>
-                </Connector>
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Wait" Enable="true" HasOwnPrefabData="false" Id="6" IgnoreTimeScale="false" PrefabName="" PrefabNodeId="-1" Time="float Self.framework::Ship::par_c">
+                <Comment Background="NoColor" Text="" />
+              </Node>
+              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="5" Method="Self.framework::Ship::Fire()" PrefabName="" PrefabNodeId="-1" ResultFunctor="Self.framework::Ship::checkresult(false)" ResultOption="BT_INVALID">
+                <Comment Background="NoColor" Text="" />
               </Node>
             </Connector>
           </Node>

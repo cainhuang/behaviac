@@ -596,7 +596,7 @@ namespace Behaviac.Design
 
                 foreach (Attachments.Attachment attach in node.Attachments)
                 {
-                    if (attach != null && newnode.AcceptsAttachment(attach.GetType()))
+                    if (attach != null && newnode.AcceptsAttachment(attach))
                         newnode.AddAttachment(attach);
                 }
             }
@@ -1232,7 +1232,7 @@ namespace Behaviac.Design
             // attachment
             if (_currentNode != null && _dragTargetNode != null &&
                 _dragAttachment != null && _dragTargetAttachment != null && _dragAttachment != _dragTargetAttachment &&
-                _dragTargetNode.Node.AcceptsAttachment(_dragAttachment.Attachment.GetType())) {
+                _dragTargetNode.Node.AcceptsAttachment(_dragAttachment.Attachment)) {
                 _dragAttachMode = NodeAttachMode.None;
 
                 Attachments.Attachment sourceAttach = _dragAttachment.SelectableObject as Attachments.Attachment;
@@ -2069,7 +2069,7 @@ namespace Behaviac.Design
                    SelectedNode != null &&
                    (_clipboardSubItem != null &&
                     _clipboardSubItem.SelectableObject != null &&
-                    SelectedNode.Node.AcceptsAttachment(_clipboardSubItem.SelectableObject.GetType()));
+                    SelectedNode.Node.AcceptsAttachment(_clipboardSubItem.SelectableObject));
         }
 
         public bool SelectedNodeCanBeCut() {
@@ -2972,7 +2972,7 @@ namespace Behaviac.Design
                 if (SelectedNode != null) {
                     Attachments.Attachment attach = _clipboardSubItem.SelectableObject as Attachments.Attachment;
 
-                    if (attach != null && SelectedNode.Node.AcceptsAttachment(attach.GetType())) {
+                    if (attach != null && SelectedNode.Node.AcceptsAttachment(attach)) {
                         attach = attach.Clone(SelectedNode.Node);
                         attach.ResetId();
 
@@ -3454,14 +3454,15 @@ namespace Behaviac.Design
             if (_dragTargetNode != null && (e.KeyState & 1/*left mouse button*/) > 0) {
                 if (_dragNodeDefaults != null &&
                     (_dragNodeDefaults is Nodes.Node && (_dragAttachMode != NodeAttachMode.None || !(_dragNodeDefaults is Nodes.BehaviorNode) || !(_dragTargetNode.Node is Nodes.BehaviorNode)) ||
-                     _dragNodeDefaults is Attachments.Attachment && _dragTargetNode.Node.AcceptsAttachment(_dragNodeDefaults.GetType()))) {
+                     _dragNodeDefaults is Attachments.Attachment && _dragTargetNode.Node.AcceptsAttachment(_dragNodeDefaults))) {
                     e.Effect = DragDropEffects.Move;
                 }
             }
 
             // If this is an empty node, no effect for it.
             if (_dragTargetNode == null || _dragTargetNode.Node == null || _dragNodeDefaults == null ||
-                _dragAttachMode == NodeAttachMode.None && !(_dragNodeDefaults is Nodes.BehaviorNode)) {
+                _dragAttachMode == NodeAttachMode.None && !_dragTargetNode.Node.AcceptsAttachment(_dragNodeDefaults))
+            {
                 e.Effect = DragDropEffects.None;
             }
 
@@ -3484,7 +3485,7 @@ namespace Behaviac.Design
 
                         if (dragAttachment.IsFSM) {
                             if (_dragTargetNode != null && !(_dragTargetNode.Node is Nodes.BehaviorNode) &&
-                                _dragTargetNode.Node.AcceptsAttachment(dragAttachment.GetType())) {
+                                _dragTargetNode.Node.AcceptsAttachment(dragAttachment)) {
                                 e.Effect = DragDropEffects.Move;
                             }
 
@@ -3565,7 +3566,7 @@ namespace Behaviac.Design
                     attach = Behaviac.Design.Attachments.Attachment.Create(sourceNodeTag.NodeType, _dragTargetNode.Node);
                 }
 
-                if (_dragTargetNode != null && attach != null && _dragTargetNode.Node.AcceptsAttachment(attach.GetType()))
+                if (_dragTargetNode != null && attach != null && _dragTargetNode.Node.AcceptsAttachment(attach))
                 {
                     attach.OnPropertyValueChanged(false);
 

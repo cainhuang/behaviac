@@ -130,11 +130,6 @@ namespace behaviac
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
         virtual EBTStatus update_current(Agent* pAgent, EBTStatus childStatus);
-    private:
-        virtual bool isContinueTicking() const
-        {
-            return true;
-        }
     };
     /*! @} */
     /*! @} */

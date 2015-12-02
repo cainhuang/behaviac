@@ -16,7 +16,7 @@
 #include "behaviac/base/object/member.h"
 #include "behaviac/base/object/method.h"
 
-#include "behaviac/base/logging/logging.h"
+#include "behaviac/base/logging/logmanager.h"
 
 CTagObjectDescriptorBSS CTagObject::ms_descriptor;
 CTagObjectDescriptor& CTagObject::GetObjectDescriptorDirectly()
@@ -96,7 +96,7 @@ void CTagObjectDescriptorBSS::Cleanup()
     }
 }
 
-const CMemberBase* CTagObjectDescriptor::GetMember(const CStringID& propertyId) const
+const CMemberBase* CTagObjectDescriptor::GetMember(const behaviac::CStringID& propertyId) const
 {
     CTagObjectDescriptor::MembersMap_t::const_iterator it = this->ms_members.membersMap.find(propertyId);
 
@@ -139,7 +139,7 @@ void CTagObjectDescriptor::ReplicateProperties(CTagObject* parent)
 }
 #endif
 
-void CTagObjectDescriptor::Load(CTagObject* parent, const ISerializableNode* node) const
+void CTagObjectDescriptor::Load(CTagObject* parent, const behaviac::ISerializableNode* node) const
 {
     MembersVector_t::const_iterator it = ms_members.membersVector.begin();
     MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
@@ -156,7 +156,7 @@ void CTagObjectDescriptor::Load(CTagObject* parent, const ISerializableNode* nod
     }
 }
 
-void CTagObjectDescriptor::Save(const CTagObject* parent, ISerializableNode* node) const
+void CTagObjectDescriptor::Save(const CTagObject* parent, behaviac::ISerializableNode* node) const
 {
     if (this->m_parent)
     {
@@ -173,7 +173,7 @@ void CTagObjectDescriptor::Save(const CTagObject* parent, ISerializableNode* nod
     }
 }
 
-void CTagObjectDescriptor::LoadState(CTagObject* parent, const ISerializableNode* node) const
+void CTagObjectDescriptor::LoadState(CTagObject* parent, const behaviac::ISerializableNode* node) const
 {
     MembersVector_t::const_iterator it = ms_members.membersVector.begin();
     MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
@@ -190,7 +190,7 @@ void CTagObjectDescriptor::LoadState(CTagObject* parent, const ISerializableNode
     }
 }
 
-void CTagObjectDescriptor::SaveState(const CTagObject* parent, ISerializableNode* node) const
+void CTagObjectDescriptor::SaveState(const CTagObject* parent, behaviac::ISerializableNode* node) const
 {
     if (this->m_parent)
     {
@@ -207,7 +207,7 @@ void CTagObjectDescriptor::SaveState(const CTagObject* parent, ISerializableNode
     }
 }
 
-void CTagObjectDescriptor::GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) const
+void CTagObjectDescriptor::GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const
 {
     if (types == NULL)
     {
@@ -226,7 +226,7 @@ void CTagObjectDescriptor::GetMembersDescription(TypesMap_t* types, const CTagOb
     }
 }
 
-void CTagObjectDescriptor::GetMethodsDescription(TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) const
+void CTagObjectDescriptor::GetMethodsDescription(TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const
 {
     for (MethodsContainer::const_iterator it = ms_methods.begin(); it != ms_methods.end(); ++it)
     {
@@ -258,30 +258,30 @@ void CTagObject::CleanupObjectDescriptor()
     ms_descriptor.Cleanup();
 }
 
-void CTagObject::LoadFromXML(const XmlConstNodeRef& xmlNode)
+void CTagObject::LoadFromXML(const behaviac::XmlConstNodeRef& xmlNode)
 {
-    CTextNode textNode(xmlNode);
+    behaviac::CTextNode textNode(xmlNode);
     Load(&textNode);
 }
 
-void CTagObject::SaveToXML(const XmlNodeRef& xmlNode)
+void CTagObject::SaveToXML(const behaviac::XmlNodeRef& xmlNode)
 {
-    CTextNode textNode(xmlNode);
+    behaviac::CTextNode textNode(xmlNode);
     Save(&textNode);
 }
 
-void CTagObject::Load(const ISerializableNode* node)
+void CTagObject::Load(const behaviac::ISerializableNode* node)
 {
     GetDescriptor().Load(this, node);
 }
 
-void CTagObject::Save(ISerializableNode* node) const
+void CTagObject::Save(behaviac::ISerializableNode* node) const
 {
     GetDescriptor().Save(this, node);
 }
 
 #ifdef USE_METHOD_PARAMS_SYSTEM
-void CTagObject::vCallOld(const CStringID& name, const CTagMethodParams& params)
+void CTagObject::vCallOld(const behaviac::CStringID& name, const CTagMethodParams& params)
 {
     const CTagObjectDescriptor& descriptor = GetDescriptor();
 
@@ -297,7 +297,7 @@ void CTagObject::vCallOld(const CStringID& name, const CTagMethodParams& params)
     }
 }
 
-void CTagObject::GetMethodParams(const CStringID& name, CTagMethodParams& out_param)
+void CTagObject::GetMethodParams(const behaviac::CStringID& name, CTagMethodParams& out_param)
 {
     const CTagObjectDescriptor& descriptor = GetDescriptor();
 
@@ -314,7 +314,7 @@ void CTagObject::GetMethodParams(const CStringID& name, CTagMethodParams& out_pa
 }
 #endif
 
-//CMethodBase* CTagObject::GetMethod(const CStringID& functionName)
+//CMethodBase* CTagObject::GetMethod(const behaviac::CStringID& functionName)
 //{
 //    const CTagObjectDescriptor& descriptor = GetDescriptor();
 //    for(size_t i=0;i<descriptor.ms_methods.size();i++)
@@ -480,7 +480,7 @@ namespace behaviac
             return xmlNode;
         }
 
-        bool MakeStringFromXmlNodeStruct(XmlConstNodeRef xmlNode, behaviac::string& result)
+        bool MakeStringFromXmlNodeStruct(behaviac::XmlConstNodeRef xmlNode, behaviac::string& result)
         {
             //xmlNode->getXML(result);
             result = "{";
@@ -495,7 +495,7 @@ namespace behaviac
 
             for (int c = 0; c < xmlNode->getChildCount(); ++c)
             {
-                XmlConstNodeRef childNode = xmlNode->getChild(c);
+                behaviac::XmlConstNodeRef childNode = xmlNode->getChild(c);
 
                 behaviac::string childString;
 
@@ -511,7 +511,7 @@ namespace behaviac
             return true;
         }
 
-        bool ParseForStruct(const char* str, behaviac::string& strT, behaviac::map<CStringID, behaviac::Property*>& props)
+        bool ParseForStruct(const char* str, behaviac::string& strT, behaviac::map<behaviac::CStringID, behaviac::Property*>& props)
         {
             const char* pB = str;
 
@@ -580,7 +580,7 @@ namespace behaviac
                         parName += *str++;
                     }
 
-                    CStringID propertyId(propName.c_str());
+                    behaviac::CStringID propertyId(propName.c_str());
                     props[propertyId] = behaviac::Property::Create(typeStr.c_str(), parName.c_str(), bStatic, 0);
 
                     //skip ';'

@@ -83,7 +83,6 @@ namespace behaviac
                 pool.pop_back();
                 //set the parent
                 newly->parent = this;
-
             }
             else
             {
@@ -183,27 +182,14 @@ namespace behaviac
 
                         if (bForce || pVar->IsChanged())
                         {
-                            if (logged.find(pVar->Name()) != logged.end())
+                            if (logged.find(pVar->Name()) == logged.end())
                             {
-                                //logged.insert(pVar->Name(), true);
+								pVar->Log(pAgent);
                                 logged.insert(map<behaviac::string, bool>::value_type(pVar->Name(), true));
                             }
                         }
                     }
-
-                    //foreach(IVariable pVar in t.Vars.Values)
-                    //{
-                    //	if (bForce || pVar.IsChanged())
-                    //	{
-                    //		if (!logged.ContainsKey(pVar.Name))
-                    //		{
-                    //			pVar.Log(pAgent);
-                    //			logged.Add(pVar.Name, true);
-                    //		}
-                    //	}
-                    //}
                 }//end of for
-
             }
             else
             {

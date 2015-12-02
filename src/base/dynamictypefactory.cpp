@@ -23,17 +23,17 @@ CDynamicTypeFactory::~CDynamicTypeFactory()
 {
 }
 
-bool CDynamicTypeFactory::Register(const CStringID& typeID, CFactory<CDynamicType>::InstantiateFunctionPointer instantiate)
+bool CDynamicTypeFactory::Register(const behaviac::CStringID& typeID, CFactory<CDynamicType>::InstantiateFunctionPointer instantiate)
 {
     return m_factory.Register(typeID, instantiate);
 }
 
-bool CDynamicTypeFactory::UnRegister(const CStringID& typeID)
+bool CDynamicTypeFactory::UnRegister(const behaviac::CStringID& typeID)
 {
     return m_factory.UnRegister(typeID);
 }
 
-CDynamicType* CDynamicTypeFactory::Create(const CStringID& typeID)
+CDynamicType* CDynamicTypeFactory::Create(const behaviac::CStringID& typeID)
 {
     return m_factory.CreateObject(typeID);
 }

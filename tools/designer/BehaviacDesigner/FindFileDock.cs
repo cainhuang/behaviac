@@ -31,21 +31,26 @@ namespace Behaviac.Design
         private static FindFileDock _instance = null;
 
         internal static void Inspect(string findWhat, int findFileCount, List<ObjectPair> findObjects) {
-            if (_instance == null) {
-                _instance = new FindFileDock();
-                _instance.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
-
-            } else {
-                _instance.Show();
+            if (_instance != null)
+            {
+                _instance.Close();
+                _instance = null;
             }
+
+            _instance = new FindFileDock();
+            _instance.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
 
             _instance.SetResults(findWhat, findFileCount, findObjects);
         }
 
         public FindFileDock() {
-            if (_instance == null) {
-                _instance = this;
+            if (_instance != null)
+            {
+                _instance.Close();
+                _instance = null;
             }
+
+            _instance = this;
 
             InitializeComponent();
 

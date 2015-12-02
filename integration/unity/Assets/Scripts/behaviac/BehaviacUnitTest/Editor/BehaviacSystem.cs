@@ -113,7 +113,7 @@ public class BehaviacSystem
             {
                 behaviac.Workspace.Instance.Cleanup();
 
-                behaviac.LogManager.Close();
+                behaviac.LogManager.Instance.Close();
             }
 
             ms_bInit = true;
@@ -142,5 +142,4 @@ public class BehaviacSystem
     {
         //do nothing here as it will be uninit just before reinit
     }
-
 }

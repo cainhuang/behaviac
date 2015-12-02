@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -69,6 +69,12 @@ namespace PluginBehaviac.Nodes
         {
             get { return _time; }
             set { this._time = value; }
+        }
+
+        public override void PostCreate(List<Node.ErrorCheck> result, int version, System.Xml.XmlNode xmlNode)
+        {
+            if (_time != null && _time.IsConst && _time.Value is int)
+                _time.Value = 1.0f * (int)_time.Value;
         }
 
         protected override void CloneProperties(Node newnode)

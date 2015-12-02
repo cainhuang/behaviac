@@ -197,11 +197,8 @@ namespace behaviac
     BEHAVIAC_STATIC_ASSERT(sizeof(Packet) < kMaxPacketSize);
 
 #if USING_BEHAVIAC_SEQUENTIAL
-#if defined(BEHAVIAC_COMPILER_MSVC)
-#define _BEHAVIAC_OFFSETOF_(s,m)   (size_t)&((((s *)0)->m))
-    //BEHAVIAC_STATIC_ASSERT(sizeof(Packet) == sizeof(Text) + 2 + 4);
-    BEHAVIAC_STATIC_ASSERT(_BEHAVIAC_OFFSETOF_(Packet, seq) == (sizeof(Packet) - sizeof(behaviac::Atomic32)));	// seq must be the last member
-#endif
+	BEHAVIAC_STATIC_ASSERT((BEHAVIAC_OFFSETOF_POD(Packet, seq) == (sizeof(Packet) - sizeof(behaviac::Atomic32))));	// seq must be the last member
+
     inline int PacketCompare(const void* lhs, const void* rhs)
     {
         const Packet& pa = *(const Packet*)lhs;

@@ -112,8 +112,7 @@ namespace behaviac
                 const UTF8* sourceend = sourcestart + strsize;
                 UTF16* targetstart = reinterpret_cast<UTF16*>(buffer);
                 UTF16* targetend = targetstart + widesize;
-                ConvertUTF8toUTF16(&sourcestart, sourceend, &targetstart, targetend, strictConversion);
-
+				behaviac::ConvertUTF8toUTF16(&sourcestart, sourceend, &targetstart, targetend, strictConversion);
             }
             else if (sizeof(wchar_t) == 4)
             {
@@ -122,8 +121,7 @@ namespace behaviac
                 const UTF8* sourceend = sourcestart + strsize;
                 UTF32* targetstart = reinterpret_cast<UTF32*>(buffer);
                 UTF32* targetend = targetstart + widesize;
-                ConvertUTF8toUTF32(&sourcestart, sourceend, &targetstart, targetend, strictConversion);
-
+				behaviac::ConvertUTF8toUTF32(&sourcestart, sourceend, &targetstart, targetend, strictConversion);
             }
             else
             {
@@ -163,8 +161,7 @@ namespace behaviac
                 const UTF8* sourceend = sourcestart + strsize;
                 UTF16* targetstart = reinterpret_cast<UTF16*>(buffer);
                 UTF16* targetend = targetstart + widesize;
-                ConvertUTF8toUTF16(&sourcestart, sourceend, &targetstart, targetend, strictConversion);
-
+				behaviac::ConvertUTF8toUTF16(&sourcestart, sourceend, &targetstart, targetend, strictConversion);
             }
             else if (sizeof(wchar_t) == 4)
             {
@@ -173,8 +170,7 @@ namespace behaviac
                 const UTF8* sourceend = sourcestart + strsize;
                 UTF32* targetstart = reinterpret_cast<UTF32*>(buffer);
                 UTF32* targetend = targetstart + widesize;
-                ConvertUTF8toUTF32(&sourcestart, sourceend, &targetstart, targetend, strictConversion);
-
+                behaviac::ConvertUTF8toUTF32(&sourcestart, sourceend, &targetstart, targetend, strictConversion);
             }
             else
             {

@@ -174,7 +174,9 @@ public interface BehaviorNode :
             return behavior;
         }
 
-        public override bool AcceptsAttachment(Type type) {
+        public override bool AcceptsAttachment(DefaultObject obj)
+        {
+            Type type = (obj != null) ? obj.GetType() : null;
             return type != null && ((this.IsFSM && Plugin.IsClassDerived(type, typeof(Behaviac.Design.Attachments.AttachAction))) ||  //if fsm, only accept effectors
                                     (!Plugin.IsClassDerived(type, typeof(Behaviac.Design.Attachments.AttachAction)) &&
                                      !Plugin.IsClassDerived(type, typeof(Behaviac.Design.Attachments.Event)) &&

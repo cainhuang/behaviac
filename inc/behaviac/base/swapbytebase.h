@@ -41,13 +41,13 @@ inline void SwapByteTempl(behaviac::string& s)
 }
 
 template<typename SWAPPER>
-inline void SwapByteTempl(CStringID& value)
+inline void SwapByteTempl(behaviac::CStringID& value)
 {
 #if STRINGID_USESTRINGCONTENT
     const char* s = value.c_str();
     value.SetContent(s);
 #else
-    CStringID::IDType id = value.GetUniqueID();
+    behaviac::CStringID::IDType id = value.GetUniqueID();
     SwapByte(id);
 
     value.SetUniqueID(id);
@@ -55,16 +55,16 @@ inline void SwapByteTempl(CStringID& value)
 }
 
 template<typename SWAPPER>
-inline void SwapByteTempl(CPathID& value)
+inline void SwapByteTempl(behaviac::CPathID& value)
 {
 #if STRINGID_USESTRINGCONTENT
     const char* s = value.c_str();
     value.SetContent(s);
 #else
-    CPathID::IDType id = value.GetUniqueID();
+    behaviac::CPathID::IDType id = value.GetUniqueID();
     SwapByte(id);
 
-    value = CPathID(id);
+    value = behaviac::CPathID(id);
 #endif//#if STRINGID_USESTRINGCONTENT
 }
 

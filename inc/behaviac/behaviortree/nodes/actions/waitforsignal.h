@@ -65,11 +65,6 @@ namespace behaviac
 
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
-        virtual bool isContinueTicking() const
-        {
-            //return !this->m_bTriggered;
-            return true;
-        }
     private:
         bool	m_bTriggered;
     };

@@ -6,8 +6,8 @@
     <Connector Identifier="GenericChildren">
       <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="0" PrefabName="" PrefabNodeId="-1">
         <Comment Background="NoColor" Text="" />
-        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="1" Operator="Equal" Opl="Self.AgentNodeTest::enter_action_1(0)" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Enter" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.Effector" Id="2" Operator="Invalid" Opl="Self.AgentNodeTest::exit_action_2(0,&quot;&quot;)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Success" PrefabAttachmentId="-1" />
+        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="1" Operator="Equal" Opl="Self.AgentNodeTest::enter_action_1(0)" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Enter" PrefabAttachmentId="-1" />
+        <Attachment Class="PluginBehaviac.Events.Effector" Enable="true" Id="2" Operator="Invalid" Opl="Self.AgentNodeTest::exit_action_2(0,&quot;&quot;)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Success" PrefabAttachmentId="-1" />
         <Connector Identifier="GenericChildren">
           <Node Class="PluginBehaviac.Nodes.Query" Descriptors="1:{Attribute=int Self.AgentNodeTest::testVar_1;Reference=const int 0;Weight=100;}" Domain="test" Enable="true" HasOwnPrefabData="false" Id="5" PrefabName="" PrefabNodeId="-1">
             <Comment Background="NoColor" Text="" />

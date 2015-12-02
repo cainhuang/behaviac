@@ -30,7 +30,7 @@
         <node class="Sequence" id="5">
           <node class="Wait" id="6">
             <property IgnoreTimeScale="false" />
-            <property Time="const int 1000" />
+            <property Time="const float 1000" />
           </node>
           <node class="Assignment" id="1">
             <property Opl="int Self.GameLevelCommon::parT_AwardType" />
@@ -42,7 +42,7 @@
           </node>
           <node class="Wait" id="2">
             <property IgnoreTimeScale="false" />
-            <property Time="const int 10000" />
+            <property Time="const float 10000" />
           </node>
         </node>
         <node class="Sequence" id="3">
@@ -61,7 +61,7 @@
           </node>
           <node class="Wait" id="10">
             <property IgnoreTimeScale="false" />
-            <property Time="const int 3000" />
+            <property Time="const float 3000" />
           </node>
         </node>
         <node class="WaitforSignal" id="13">
@@ -77,7 +77,7 @@
             <node class="Sequence" id="25">
               <node class="Wait" id="26">
                 <property IgnoreTimeScale="false" />
-                <property Time="const int 1000" />
+                <property Time="const float 1000" />
               </node>
               <node class="Assignment" id="24">
                 <property Opl="int Self.GameLevelCommon::parT_PlayerLifeCount" />
@@ -125,7 +125,7 @@
           </node>
           <node class="Wait" id="37">
             <property IgnoreTimeScale="false" />
-            <property Time="const int 2000" />
+            <property Time="const float 2000" />
           </node>
           <node class="Action" id="7">
             <property Method="Self.GameLevelCommon::showCredit()" />
@@ -133,7 +133,7 @@
           </node>
           <node class="Wait" id="4">
             <property IgnoreTimeScale="false" />
-            <property Time="const int 6000" />
+            <property Time="const float 6000" />
           </node>
           <node class="Action" id="33">
             <property Method="Self.GameLevelCommon::stopGame(false)" />

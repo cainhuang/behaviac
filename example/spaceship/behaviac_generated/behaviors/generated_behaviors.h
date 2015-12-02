@@ -124,7 +124,7 @@ namespace framework
 	template<> BEHAVIAC_FORCEINLINE long& GameObject::_Get_Property_<PROPERTY_TYPE_framework_GameObject_age>()
 	{
 		unsigned char* pc = (unsigned char*)this;
-		pc += (int)offsetof(framework::GameObject, framework::GameObject::age);
+		pc += (int)BEHAVIAC_OFFSETOF(framework::GameObject, framework::GameObject::age);
 		return *(reinterpret_cast<long*>(pc));
 	}
 
@@ -132,7 +132,7 @@ namespace framework
 	template<> BEHAVIAC_FORCEINLINE unsigned int& GameObject::_Get_Property_<PROPERTY_TYPE_framework_GameObject_HP>()
 	{
 		unsigned char* pc = (unsigned char*)this;
-		pc += (int)offsetof(framework::GameObject, framework::GameObject::HP);
+		pc += (int)BEHAVIAC_OFFSETOF(framework::GameObject, framework::GameObject::HP);
 		return *(reinterpret_cast<unsigned int*>(pc));
 	}
 
@@ -226,7 +226,7 @@ namespace framework
 	template<> BEHAVIAC_FORCEINLINE unsigned int& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_HealthHP>()
 	{
 		unsigned char* pc = (unsigned char*)this;
-		pc += (int)offsetof(framework::WorldState, framework::WorldState::HealthHP);
+		pc += (int)BEHAVIAC_OFFSETOF(framework::WorldState, framework::WorldState::HealthHP);
 		return *(reinterpret_cast<unsigned int*>(pc));
 	}
 
@@ -234,7 +234,7 @@ namespace framework
 	template<> BEHAVIAC_FORCEINLINE bool& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_SyncSignal>()
 	{
 		unsigned char* pc = (unsigned char*)this;
-		pc += (int)offsetof(framework::WorldState, framework::WorldState::SyncSignal);
+		pc += (int)BEHAVIAC_OFFSETOF(framework::WorldState, framework::WorldState::SyncSignal);
 		return *(reinterpret_cast<bool*>(pc));
 	}
 
@@ -242,7 +242,7 @@ namespace framework
 	template<> BEHAVIAC_FORCEINLINE unsigned int& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_time>()
 	{
 		unsigned char* pc = (unsigned char*)this;
-		pc += (int)offsetof(framework::WorldState, framework::WorldState::time);
+		pc += (int)BEHAVIAC_OFFSETOF(framework::WorldState, framework::WorldState::time);
 		return *(reinterpret_cast<unsigned int*>(pc));
 	}
 
@@ -295,7 +295,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("base/boring");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -376,7 +376,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("base/homing");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -446,7 +446,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("base/slowboring");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -548,7 +548,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("base/sync_homing");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -968,7 +968,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("projectile/projectile_test");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1270,22 +1270,6 @@ namespace behaviac
 	protected:
 	};
 
-	class DecoratorLoop_bt_ships_0_basic_node2 : public DecoratorLoop
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_ships_0_basic_node2, DecoratorLoop);
-		DecoratorLoop_bt_ships_0_basic_node2()
-		{
-			m_bDecorateWhenChildEnds = true;
-		}
-	protected:
-		virtual int GetCount(Agent* pAgent) const
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			return -1;
-		}
-	};
-
 	class Condition_bt_ships_0_basic_node4 : public Condition
 	{
 	public:
@@ -1305,6 +1289,22 @@ namespace behaviac
 		}
 	};
 
+	class Wait_bt_ships_0_basic_node6 : public Wait
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_0_basic_node6, Wait);
+		Wait_bt_ships_0_basic_node6()
+		{
+			m_ignoreTimeScale = false;
+		}
+	protected:
+		virtual float GetTime(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (float&)pAgent->GetVariable<float >(2032254993u);
+		}
+	};
+
 	class Action_bt_ships_0_basic_node5 : public Action
 	{
 	public:
@@ -1319,22 +1319,6 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			bool result = ((framework::Ship*)pAgent)->_Execute_Method_<framework::METHOD_TYPE_framework_Ship_Fire, bool >();
 			return ((framework::Ship*)pAgent)->framework::Ship::checkresult(result);
-		}
-	};
-
-	class Wait_bt_ships_0_basic_node6 : public Wait
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_0_basic_node6, Wait);
-		Wait_bt_ships_0_basic_node6()
-		{
-			m_ignoreTimeScale = false;
-		}
-	protected:
-		virtual float GetTime(Agent* pAgent) const
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			return (float&)pAgent->GetVariable<float >(2032254993u);
 		}
 	};
 
@@ -1363,7 +1347,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/0_basic");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1381,54 +1365,44 @@ namespace behaviac
 #endif
 				pBT->AddChild(node1);
 				{
-					DecoratorLoop_bt_ships_0_basic_node2* node2 = BEHAVIAC_NEW DecoratorLoop_bt_ships_0_basic_node2;
-					node2->SetClassNameString("DecoratorLoop");
-					node2->SetId(2);
+					Sequence* node3 = BEHAVIAC_NEW Sequence;
+					node3->SetClassNameString("Sequence");
+					node3->SetId(3);
 #if !defined(BEHAVIAC_RELEASE)
-					node2->SetAgentType("framework::Ship");
+					node3->SetAgentType("framework::Ship");
 #endif
-					node1->AddChild(node2);
+					node1->AddChild(node3);
 					{
-						Sequence* node3 = BEHAVIAC_NEW Sequence;
-						node3->SetClassNameString("Sequence");
-						node3->SetId(3);
+						Condition_bt_ships_0_basic_node4* node4 = BEHAVIAC_NEW Condition_bt_ships_0_basic_node4;
+						node4->SetClassNameString("Condition");
+						node4->SetId(4);
 #if !defined(BEHAVIAC_RELEASE)
-						node3->SetAgentType("framework::Ship");
+						node4->SetAgentType("framework::Ship");
 #endif
-						node2->AddChild(node3);
-						{
-							Condition_bt_ships_0_basic_node4* node4 = BEHAVIAC_NEW Condition_bt_ships_0_basic_node4;
-							node4->SetClassNameString("Condition");
-							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
-							node4->SetAgentType("framework::Ship");
-#endif
-							node3->AddChild(node4);
-							node3->SetHasEvents(node3->HasEvents() | node4->HasEvents());
-						}
-						{
-							Action_bt_ships_0_basic_node5* node5 = BEHAVIAC_NEW Action_bt_ships_0_basic_node5;
-							node5->SetClassNameString("Action");
-							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
-							node5->SetAgentType("framework::Ship");
-#endif
-							node3->AddChild(node5);
-							node3->SetHasEvents(node3->HasEvents() | node5->HasEvents());
-						}
-						{
-							Wait_bt_ships_0_basic_node6* node6 = BEHAVIAC_NEW Wait_bt_ships_0_basic_node6;
-							node6->SetClassNameString("Wait");
-							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
-							node6->SetAgentType("framework::Ship");
-#endif
-							node3->AddChild(node6);
-							node3->SetHasEvents(node3->HasEvents() | node6->HasEvents());
-						}
-						node2->SetHasEvents(node2->HasEvents() | node3->HasEvents());
+						node3->AddChild(node4);
+						node3->SetHasEvents(node3->HasEvents() | node4->HasEvents());
 					}
-					node1->SetHasEvents(node1->HasEvents() | node2->HasEvents());
+					{
+						Wait_bt_ships_0_basic_node6* node6 = BEHAVIAC_NEW Wait_bt_ships_0_basic_node6;
+						node6->SetClassNameString("Wait");
+						node6->SetId(6);
+#if !defined(BEHAVIAC_RELEASE)
+						node6->SetAgentType("framework::Ship");
+#endif
+						node3->AddChild(node6);
+						node3->SetHasEvents(node3->HasEvents() | node6->HasEvents());
+					}
+					{
+						Action_bt_ships_0_basic_node5* node5 = BEHAVIAC_NEW Action_bt_ships_0_basic_node5;
+						node5->SetClassNameString("Action");
+						node5->SetId(5);
+#if !defined(BEHAVIAC_RELEASE)
+						node5->SetAgentType("framework::Ship");
+#endif
+						node3->AddChild(node5);
+						node3->SetHasEvents(node3->HasEvents() | node5->HasEvents());
+					}
+					node1->SetHasEvents(node1->HasEvents() | node3->HasEvents());
 				}
 				{
 					Action_bt_ships_0_basic_node7* node7 = BEHAVIAC_NEW Action_bt_ships_0_basic_node7;
@@ -1572,7 +1546,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/1_1_suicide");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1780,7 +1754,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/1_2_suicide");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -1962,7 +1936,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/1_3_suicide");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2376,7 +2350,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/2_basic_probability");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -2823,7 +2797,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/3_basic_move");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3080,7 +3054,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/4_destroy_projectiles");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3386,7 +3360,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/5_group");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3716,7 +3690,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/6_director");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)
@@ -3968,7 +3942,7 @@ namespace behaviac
 		static bool Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint32_t)-1);
+			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/7_signal");
 			pBT->SetIsFSM(false);
 #if !defined(BEHAVIAC_RELEASE)

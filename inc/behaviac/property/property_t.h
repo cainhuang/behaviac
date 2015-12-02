@@ -168,7 +168,6 @@ namespace behaviac
                 if (this->m_bIsStatic)
                 {
                     this->SetValue(pAgent, v);
-
                 }
                 else
                 {
@@ -268,7 +267,6 @@ namespace behaviac
                 {
                     staticClassName = this->m_memberBase->GetClassNameString();
                 }
-
             }
             else if (this->m_bIsStatic)
             {
@@ -290,7 +288,6 @@ namespace behaviac
             if (pSelf == 0 || m_bIsConst)
             {
                 return this->GetDefaultValue();
-
             }
             else
             {
@@ -306,7 +303,6 @@ namespace behaviac
                     VariableType* pVariable = (VariableType*)this->m_memberBase->Get(pSelf, typeId);
 
                     return *pVariable;
-
                 }
                 else
                 {
@@ -324,7 +320,6 @@ namespace behaviac
             if (!parent || m_bIsConst)
             {
                 return this->GetDefaultValue();
-
             }
             else
             {
@@ -340,7 +335,6 @@ namespace behaviac
                 {
                     Agent* pInstance = this->GetParentAgent(pSelf);
                     pSelf = pInstance;
-
                 }
                 else if (this->m_bIsStatic)
                 {
@@ -735,7 +729,6 @@ namespace behaviac
             if (behaviac::StringUtils::FromString(value, v))
             {
                 p->SetDefaultValue(v);
-
             }
             else
             {
@@ -918,7 +911,7 @@ BEHAVIAC_FORCEINLINE const System::Object& ParamVariablePrimitive<System::Object
 namespace behaviac
 {
     template <typename T>
-    const CMemberBase* GetMemberFromName(const CStringID& propertyId)
+    const CMemberBase* GetMemberFromName(const behaviac::CStringID& propertyId)
     {
         const CTagObjectDescriptor& obejctDesc = T::GetObjectDescriptor();
 
@@ -941,7 +934,7 @@ const T& ParamVariableStruct<T>::GetValue(const CTagObject* parent, const CTagOb
         for (PropsMap_t::const_iterator it = this->m_props.begin();
              it != this->m_props.end(); ++it)
         {
-            const CStringID& propId = it->first;
+            const behaviac::CStringID& propId = it->first;
             const behaviac::Property* pProperty = it->second;
 
             const CMemberBase* pM = behaviac::GetMemberFromName<T>(propId);
@@ -962,7 +955,7 @@ void ParamVariableStruct<T>::SetVariableRegistry(const CTagObject* parHolder, co
             for (PropsMap_t::iterator it = this->m_props.begin();
                  it != this->m_props.end(); ++it)
             {
-                const CStringID& propId = it->first;
+                const behaviac::CStringID& propId = it->first;
                 behaviac::Property* pProperty = it->second;
 
                 const CMemberBase* pM = behaviac::GetMemberFromName<T>(propId);

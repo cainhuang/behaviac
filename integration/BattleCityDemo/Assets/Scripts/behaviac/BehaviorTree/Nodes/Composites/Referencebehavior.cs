@@ -74,7 +74,6 @@ namespace behaviac
                     bool bOk = Workspace.Instance.Load(this.m_referencedBehaviorPath);
 
                     Debug.Check(bOk);
-
                 }
                 else if (p.name == "Task")
                 {
@@ -83,7 +82,6 @@ namespace behaviac
                     Debug.Check(m is CTaskMethod);
 
                     this.m_taskMethod = m as CTaskMethod;
-
                 }
                 else
                 {

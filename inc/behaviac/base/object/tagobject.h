@@ -38,7 +38,7 @@ public:
 
     typedef behaviac::map<const char*, const class CTagTypeDescriptor*> TypesMap_t;
 
-    virtual void GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) const = 0;
+    virtual void GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const = 0;
 };
 
 class CTagObject;
@@ -53,7 +53,7 @@ public:
     BEHAVIAC_DECLARE_DYNAMIC_TYPE(CTagObjectDescriptor, CTagTypeDescriptor);
 
     typedef behaviac::vector<class CMemberBase*> MembersVector_t;
-    typedef behaviac::map<CStringID, class CMemberBase*> MembersMap_t;
+    typedef behaviac::map<behaviac::CStringID, class CMemberBase*> MembersMap_t;
 
     struct MembersContainer
     {
@@ -66,19 +66,19 @@ public:
     CTagObjectDescriptor() : m_parent(0), ms_flags(0), ms_isInitialized(false), m_isRefType(false)
     {}
 
-    void Load(CTagObject* parent, const ISerializableNode* node) const;
-    void Save(const CTagObject* parent, ISerializableNode* node) const;
+    void Load(CTagObject* parent, const behaviac::ISerializableNode* node) const;
+    void Save(const CTagObject* parent, behaviac::ISerializableNode* node) const;
 
-    void LoadState(CTagObject* parent, const ISerializableNode* node) const;
-    void SaveState(const CTagObject* parent, ISerializableNode* node) const;
+    void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node) const;
+    void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node) const;
 
-    const class CMemberBase* GetMember(const CStringID& propertyId) const;
+    const class CMemberBase* GetMember(const behaviac::CStringID& propertyId) const;
 #if BEHAVIAC_ENABLE_NETWORKD
     void ReplicateProperties(CTagObject* parent);
 #endif
 
-    virtual void GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) const;
-    void GetMethodsDescription(TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) const;
+    virtual void GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const;
+    void GetMethodsDescription(TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const;
 
     static void PushBackMember(MembersContainer& inMembers, class CMemberBase* toAddMember);
 
@@ -137,46 +137,46 @@ public:
     BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(CTagObject, CDynamicType);
 
     template<class ValueType>
-    ValueType       GetMember(const CStringID& nameId);
+    ValueType       GetMember(const behaviac::CStringID& nameId);
     template<class ValueType>
-    void            SetMember(const CStringID& nameId, const ValueType& value);
+    void            SetMember(const behaviac::CStringID& nameId, const ValueType& value);
 
 #ifdef USE_METHOD_PARAMS_SYSTEM
-    void            vCallOld(const CStringID& functionName, const CTagMethodParams& params);
-    void            GetMethodParams(const CStringID& functionName, CTagMethodParams& out_param);
+    void            vCallOld(const behaviac::CStringID& functionName, const CTagMethodParams& params);
+    void            GetMethodParams(const behaviac::CStringID& functionName, CTagMethodParams& out_param);
 #endif
 
-    CMethodBase*    GetMethod(const CStringID& functionName);
+    CMethodBase*    GetMethod(const behaviac::CStringID& functionName);
 
     template<class ParamType>
-    void            CallMethod(const CStringID& functionName);
+    void            CallMethod(const behaviac::CStringID& functionName);
     template<class ParamType>
-    void            CallMethod(const CStringID& functionName, const ParamType& param);
+    void            CallMethod(const behaviac::CStringID& functionName, const ParamType& param);
     template<class ParamType1, class ParamType2>
-    void            CallMethod(const CStringID& functionName, const ParamType1& param1, const ParamType2& param2);
+    void            CallMethod(const behaviac::CStringID& functionName, const ParamType1& param1, const ParamType2& param2);
     template<class ParamType1, class ParamType2, class ParamType3>
-    void            CallMethod(const CStringID& functionName, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3);
+    void            CallMethod(const behaviac::CStringID& functionName, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3);
 
-    void LoadFromXML(const XmlConstNodeRef& xmlNode);
-    void SaveToXML(const XmlNodeRef& xmlNode);
+    void LoadFromXML(const behaviac::XmlConstNodeRef& xmlNode);
+    void SaveToXML(const behaviac::XmlNodeRef& xmlNode);
 
-    void Load(const ISerializableNode* node);
-    void Save(ISerializableNode* node) const;
+    void Load(const behaviac::ISerializableNode* node);
+    void Save(behaviac::ISerializableNode* node) const;
 
-    void LoadState(const ISerializableNode* node)
+    void LoadState(const behaviac::ISerializableNode* node)
     {
         GetDescriptor().LoadState(this, node);
     }
-    void SaveState(ISerializableNode* node) const
+    void SaveState(behaviac::ISerializableNode* node) const
     {
         GetDescriptor().SaveState(this, node);
     }
 
-    void GetMembersDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode) const
+    void GetMembersDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode) const
     {
         GetDescriptor().GetMembersDescription(types, this, xmlNode);
     }
-    void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode) const
+    void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode) const
     {
         GetDescriptor().GetMethodsDescription(types, this, xmlNode);
     }
@@ -227,14 +227,14 @@ bool CTagObject::ValidateParameters(const char* src, const char* dst)
 }
 
 //template<class NoParam>
-//void CTagObject::CallMethod(const CStringID& functionName)
+//void CTagObject::CallMethod(const behaviac::CStringID& functionName)
 //{
 //    CMethodBase* method = GetMethod(functionName);
 //    method->vCall(this);
 //}
 //
 //template<class ParamType>
-//void CTagObject::CallMethod(const CStringID& functionName,const ParamType& param)
+//void CTagObject::CallMethod(const behaviac::CStringID& functionName,const ParamType& param)
 //{
 //    CMethodBase* method = GetMethod(functionName);
 //    if( ValidateParameters(::GetClassTypeName<ParamType>((ParamType*)0),method->GetParamTypeName(0)) )
@@ -244,7 +244,7 @@ bool CTagObject::ValidateParameters(const char* src, const char* dst)
 //}
 //
 //template<class ParamType1,class ParamType2>
-//void CTagObject::CallMethod(const CStringID& functionName,const ParamType1& param1,const ParamType2& param2)
+//void CTagObject::CallMethod(const behaviac::CStringID& functionName,const ParamType1& param1,const ParamType2& param2)
 //{
 //    CMethodBase* method = GetMethod(functionName);
 //    if( ValidateParameters(::GetClassTypeName<ParamType1>((ParamType1*)0),method->GetParamTypeName(0)) &&
@@ -255,7 +255,7 @@ bool CTagObject::ValidateParameters(const char* src, const char* dst)
 //}
 //
 //template<class ParamType1,class ParamType2,class ParamType3>
-//void CTagObject::CallMethod(const CStringID& functionName,const ParamType1& param1,const ParamType2& param2,const ParamType3& param3)
+//void CTagObject::CallMethod(const behaviac::CStringID& functionName,const ParamType1& param1,const ParamType2& param2,const ParamType3& param3)
 //{
 //    CMethodBase* method = GetMethod(functionName);
 //    if( ValidateParameters(::GetClassTypeName<ParamType1>((ParamType1*)0),method->GetParamTypeName(0)) &&
@@ -270,14 +270,14 @@ namespace behaviac
 {
     namespace StringUtils
     {
-        BEHAVIAC_API XmlNodeRef MakeXmlNodeStruct(const char* str, const behaviac::string& typeNameT);
+        BEHAVIAC_API behaviac::XmlNodeRef MakeXmlNodeStruct(const char* str, const behaviac::string& typeNameT);
 
         template<typename T>
         inline bool FromString_Struct(const char* str, T& val)
         {
             behaviac::string typeNameT = FormatString("%s", GetClassTypeName((T*)0));
 
-            XmlNodeRef xmlNode = MakeXmlNodeStruct(str, typeNameT);
+            behaviac::XmlNodeRef xmlNode = MakeXmlNodeStruct(str, typeNameT);
 
             if ((IXmlNode*)xmlNode)
             {
@@ -291,7 +291,7 @@ namespace behaviac
             return false;
         }
 
-        BEHAVIAC_API bool MakeStringFromXmlNodeStruct(XmlConstNodeRef xmlNode, behaviac::string& result);
+        BEHAVIAC_API bool MakeStringFromXmlNodeStruct(behaviac::XmlConstNodeRef xmlNode, behaviac::string& result);
 
         template<typename T>
         inline behaviac::string ToString_Struct(T& val)
@@ -299,7 +299,7 @@ namespace behaviac
             //behaviac::string typeNameT = FormatString("%s", GetClassTypeName((T*)0));
             const char* typeNameT = GetClassTypeName((T*)0);
 
-            XmlNodeRef xmlNode = CreateXmlNode(typeNameT);
+            behaviac::XmlNodeRef xmlNode = CreateXmlNode(typeNameT);
 
             CTextNode textNode(xmlNode);
 
@@ -525,34 +525,34 @@ struct RegisterPropertiesGetter<T, true>
 	const static bool ms_bIsRefType = bRefType;									\
     static CTagObjectDescriptor& GetObjectDescriptor();							\
     static CTagObjectDescriptor& GetObjectDescriptorDirectly();					\
-    void Load(const ISerializableNode* node)                                    \
+    void Load(const behaviac::ISerializableNode* node)                                    \
     {                                                                           \
         RegisterProperties();                                                   \
         className::GetObjectDescriptorDirectly().Load((CTagObject*)this, node); \
     }                                                                           \
-    void Save(ISerializableNode* node) const                                    \
+    void Save(behaviac::ISerializableNode* node) const                                    \
     {                                                                           \
         RegisterProperties();                                                   \
         className::GetObjectDescriptorDirectly().Save((CTagObject*)this, node); \
     }                                                                           \
     \
-    void LoadState(const ISerializableNode* node)                               \
+    void LoadState(const behaviac::ISerializableNode* node)                               \
     {                                                                           \
         RegisterProperties();                                                   \
         className::GetObjectDescriptorDirectly().LoadState((CTagObject*)this, node);    \
     }                                                                           \
-    void SaveState(ISerializableNode* node) const                               \
+    void SaveState(behaviac::ISerializableNode* node) const                               \
     {                                                                           \
         RegisterProperties();                                                   \
         className::GetObjectDescriptorDirectly().SaveState((CTagObject*)this, node);    \
     }                                                                           \
     \
-    void GetMembersDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode) const	\
+    void GetMembersDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode) const	\
     {                                                                           \
         RegisterProperties();                                                   \
         className::GetObjectDescriptorDirectly().GetMembersDescription(types, (CTagObject*)this, xmlNode);	\
     }                                                                           \
-    void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode) const	\
+    void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode) const	\
     {																			\
         RegisterProperties();													\
         className::GetObjectDescriptorDirectly().GetMethodsDescription(types, (CTagObject*)this, xmlNode);  \
@@ -712,7 +712,7 @@ public:
     behaviac::wstring		m_displayName;
     behaviac::wstring		m_desc;
 
-    virtual void GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode) const
+    virtual void GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(parent);
@@ -723,7 +723,7 @@ public:
         for (EnumValueNameMap_t::const_iterator it = valueMaps.begin(); it != valueMaps.end(); ++it)
         {
             const EnumValueItem_t& valueItem = it->second;
-            XmlNodeRef enumNodeElement = xmlNode->newChild("enum");
+            behaviac::XmlNodeRef enumNodeElement = xmlNode->newChild("enum");
             enumNodeElement->setAttr("NativeValue", valueItem.nativeName.c_str());
             enumNodeElement->setAttr("Value", valueItem.name.c_str());
             enumNodeElement->setAttr("DisplayName", valueItem.m_displayName);

@@ -257,7 +257,6 @@ namespace UnityTest
             WriteCData(result.Message);
             WriteClosingElement("message");
             WriteClosingElement("reason");
-
         }
 
         private void WriteFailureElement(ITestResult result) {

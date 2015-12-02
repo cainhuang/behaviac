@@ -93,7 +93,6 @@ namespace behaviac
                     newly = pool.Pop();
                     //set the parent
                     newly.parent = this;
-
                 }
                 else
                 {
@@ -193,7 +192,6 @@ namespace behaviac
                             }
                         }
                     }//end of for
-
                 }
                 else
                 {
@@ -225,7 +223,6 @@ namespace behaviac
                 {
                     //top
                     stackIndex = this.state_stack.Count - 1;
-
                 }
                 else
                 {
@@ -237,7 +234,6 @@ namespace behaviac
 
                 //if there are something in the state stack, it is used for planning, so, don't really set member
                 t.SetObject(false, pAgent, bLocal, null, variableName, value, varId);
-
             }
             else
             {

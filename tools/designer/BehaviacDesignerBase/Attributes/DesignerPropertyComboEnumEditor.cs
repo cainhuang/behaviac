@@ -412,8 +412,8 @@ namespace Behaviac.Design.Attributes
                 }
 
                 editor.ValueWasAssigned();
-                OnValueChanged(_property);
                 this.ValueWasAssigned();
+                OnValueChanged(_property);
             }
         }
 

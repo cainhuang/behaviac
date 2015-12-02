@@ -94,6 +94,5 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(2, testAgent.count_both);
         }
 
-
     }
 }

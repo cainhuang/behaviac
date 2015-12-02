@@ -295,7 +295,6 @@ namespace behaviac
                 h.Listen(maxConnections);
 
                 return true;
-
             }
             catch
             {
@@ -352,7 +351,6 @@ namespace behaviac
                 {
                     Close(ref h);
                 }
-
             }
             else
             {
@@ -370,7 +368,6 @@ namespace behaviac
             if (bytesMax == 0 || h == null)
             {
                 return bytesRead;
-
             }
             else if (!h.Connected)
             {
@@ -394,7 +391,6 @@ namespace behaviac
                 if (res == -1)
                 {
                     Close(ref h);
-
                 }
                 else
                 {
@@ -703,7 +699,6 @@ namespace behaviac
                 if (count < size)
                 {
                     queue.Enqueue(item);
-
                 }
                 else
                 {
@@ -1005,7 +1000,6 @@ namespace behaviac
             if (isAsc)
             {
                 ecode = new System.Text.ASCIIEncoding();
-
             }
             else
             {

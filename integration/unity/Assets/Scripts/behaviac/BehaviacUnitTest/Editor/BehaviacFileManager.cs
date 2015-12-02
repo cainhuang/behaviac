@@ -19,7 +19,6 @@ using System.IO;
 public class BehaviacFileManager: behaviac.FileManager
 {
     public BehaviacFileManager() {
-
     }
 
     public override void FileClose(string filePath, string ext, byte[] fileHandle) {

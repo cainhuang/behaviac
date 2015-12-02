@@ -19,155 +19,158 @@
 #include "behaviac/base/file/textfile.h"
 #include "behaviac/base/xml/xmlparser.h"
 
-BEHAVIAC_IMPLEMNT_SINGLETON(CExtensionConfig);
-
-CExtensionConfig::CExtensionConfig()
+namespace behaviac
 {
-    LoadFromXML("engine/ResourceConfig.xml");
-}
+	BEHAVIAC_IMPLEMNT_SINGLETON(CExtensionConfig);
 
-CExtensionConfig::~CExtensionConfig()
-{
-}
+	CExtensionConfig::CExtensionConfig()
+	{
+		LoadFromXML("engine/ResourceConfig.xml");
+	}
 
-void CExtensionConfig::LoadFromXML(const char* filepath)
-{
-    if (CFileManager::GetInstance()->FileExists(filepath))
-    {
-        XmlNodeRef xml = XmlParser().parse(filepath);
-        LoadFromXML(xml);
-    }
-}
+	CExtensionConfig::~CExtensionConfig()
+	{
+	}
 
-void CExtensionConfig::LoadFromXML(XmlNodeRef& xml)
-{
-    if (xml)
-    {
-        XmlNodeIt resNode(xml);
+	void CExtensionConfig::LoadFromXML(const char* filepath)
+	{
+		if (behaviac::CFileManager::GetInstance()->FileExists(filepath))
+		{
+			XmlNodeRef xml = XmlParser().parse(filepath);
+			LoadFromXML(xml);
+		}
+	}
 
-        for (XmlNodeRef res = resNode.first("Resource"); res; res = resNode.next("Resource"))
-        {
-            m_resInfos.push_back(SConfigInfo());
-            m_resInfos.back().LoadFromXML(res);
-        }
-    }
-}
+	void CExtensionConfig::LoadFromXML(behaviac::XmlNodeRef& xml)
+	{
+		if (xml)
+		{
+			XmlNodeIt resNode(xml);
 
-const CExtensionConfig::SConfigInfo* CExtensionConfig::GetInfoFromSource(const char* source)
-{
-    const char* str = behaviac::StringUtils::FindFullExtension(source);
+			for (XmlNodeRef res = resNode.first("Resource"); res; res = resNode.next("Resource"))
+			{
+				m_resInfos.push_back(SConfigInfo());
+				m_resInfos.back().LoadFromXML(res);
+			}
+		}
+	}
 
-    if (str && str[0])
-    {
-        const char* ext = str - 1;
-        uint32_t resSize = m_resInfos.size();
+	const CExtensionConfig::SConfigInfo* CExtensionConfig::GetInfoFromSource(const char* source)
+	{
+		const char* str = behaviac::StringUtils::FindFullExtension(source);
 
-        for (uint32_t i = 0; i < resSize; ++i)
-        {
-            SConfigInfo& cfg = m_resInfos[i];
-            uint32_t extSize = cfg.m_sourceExt.size();
+		if (str && str[0])
+		{
+			const char* ext = str - 1;
+			uint32_t resSize = m_resInfos.size();
 
-            for (uint32_t j = 0; j < extSize; ++j)
-            {
-                if (strcmp(cfg.m_sourceExt[j].c_str(), ext) == 0)
-                {
-                    return &cfg;
-                }
-            }
-        }
+			for (uint32_t i = 0; i < resSize; ++i)
+			{
+				SConfigInfo& cfg = m_resInfos[i];
+				uint32_t extSize = cfg.m_sourceExt.size();
 
-        if (m_resInfos.size() == 0)
-        {
-            BEHAVIAC_LOGERROR("Be sure that XML file \"engine/ResourceConfig.xml\" exist.\n");
-        }
-    }
+				for (uint32_t j = 0; j < extSize; ++j)
+				{
+					if (strcmp(cfg.m_sourceExt[j].c_str(), ext) == 0)
+					{
+						return &cfg;
+					}
+				}
+			}
 
-    return NULL;
-}
+			if (m_resInfos.size() == 0)
+			{
+				BEHAVIAC_LOGERROR("Be sure that XML file \"engine/ResourceConfig.xml\" exist.\n");
+			}
+		}
 
-const CExtensionConfig::SConfigInfo* CExtensionConfig::GetInfoFromTarget(const char* target)
-{
-    const char* str = behaviac::StringUtils::FindFullExtension(target);
+		return NULL;
+	}
 
-    if (str && str[0])
-    {
-        const char* ext = str - 1;
+	const CExtensionConfig::SConfigInfo* CExtensionConfig::GetInfoFromTarget(const char* target)
+	{
+		const char* str = behaviac::StringUtils::FindFullExtension(target);
 
-        for (unsigned int i = 0; i < m_resInfos.size(); ++i)
-        {
-            if (m_resInfos[i].m_targetExt == ext)
-            {
-                return &m_resInfos[i];
-            }
-        }
+		if (str && str[0])
+		{
+			const char* ext = str - 1;
 
-        if (m_resInfos.size() == 0)
-        {
-            BEHAVIAC_LOGERROR("Be sure that XML file \"engine/ResourceConfig.xml\" exist.\n");
-        }
-    }
+			for (unsigned int i = 0; i < m_resInfos.size(); ++i)
+			{
+				if (m_resInfos[i].m_targetExt == ext)
+				{
+					return &m_resInfos[i];
+				}
+			}
 
-    return NULL;
-}
+			if (m_resInfos.size() == 0)
+			{
+				BEHAVIAC_LOGERROR("Be sure that XML file \"engine/ResourceConfig.xml\" exist.\n");
+			}
+		}
 
-const CExtensionConfig::SConfigInfo* CExtensionConfig::GetInfoFromDependency(const char* file)
-{
-    const char* str = behaviac::StringUtils::FindFullExtension(file);
+		return NULL;
+	}
 
-    if (str && str[0])
-    {
-        const char* ext = str - 1;
+	const CExtensionConfig::SConfigInfo* CExtensionConfig::GetInfoFromDependency(const char* file)
+	{
+		const char* str = behaviac::StringUtils::FindFullExtension(file);
 
-        for (unsigned int i = 0; i < m_resInfos.size(); ++i)
-        {
-            for (unsigned int j = 0; j < m_resInfos[i].m_compileDependencies.size(); ++j)
-            {
-                if (m_resInfos[i].m_compileDependencies[j] == ext)
-                {
-                    return &m_resInfos[i];
-                }
-            }
-        }
+		if (str && str[0])
+		{
+			const char* ext = str - 1;
 
-        if (m_resInfos.size() == 0)
-        {
-            BEHAVIAC_LOGERROR("Be sure that XML file \"engine/ResourceConfig.xml\" exist.\n");
-        }
-    }
+			for (unsigned int i = 0; i < m_resInfos.size(); ++i)
+			{
+				for (unsigned int j = 0; j < m_resInfos[i].m_compileDependencies.size(); ++j)
+				{
+					if (m_resInfos[i].m_compileDependencies[j] == ext)
+					{
+						return &m_resInfos[i];
+					}
+				}
+			}
 
-    return NULL;
-}
+			if (m_resInfos.size() == 0)
+			{
+				BEHAVIAC_LOGERROR("Be sure that XML file \"engine/ResourceConfig.xml\" exist.\n");
+			}
+		}
 
-const CExtensionConfig::SConfigInfo* CExtensionConfig::GetInfoFromClassID(CStringID classID)
-{
-    for (unsigned int i = 0; i < m_resInfos.size(); ++i)
-    {
-        if (m_resInfos[i].m_classID == classID)
-        {
-            return &m_resInfos[i];
-        }
-    }
+		return NULL;
+	}
 
-    if (m_resInfos.size() == 0)
-    {
-        BEHAVIAC_LOGERROR("Be sure that XML file \"engine/ResourceConfig.xml\" exist.\n");
-    }
+	const CExtensionConfig::SConfigInfo* CExtensionConfig::GetInfoFromClassID(CStringID classID)
+	{
+		for (unsigned int i = 0; i < m_resInfos.size(); ++i)
+		{
+			if (m_resInfos[i].m_classID == classID)
+			{
+				return &m_resInfos[i];
+			}
+		}
 
-    return NULL;
-}
+		if (m_resInfos.size() == 0)
+		{
+			BEHAVIAC_LOGERROR("Be sure that XML file \"engine/ResourceConfig.xml\" exist.\n");
+		}
 
-void CExtensionConfig::SConfigInfo::LoadFromXML(XmlNodeRef& xml)
-{
-    if (xml)
-    {
-        xml->getAttr("Class", this->m_className);
-        m_classID.SetContent(m_className.c_str());
-        xml->getAttr("TargetExt", m_targetExt);
-        behaviac::string sourceExt;
-        xml->getAttr("SourceExt", sourceExt);
-        behaviac::StringUtils::SplitIntoArray(sourceExt, ";", m_sourceExt);
-        behaviac::string deps;
-        xml->getAttr("CompileDependency", deps);
-        behaviac::StringUtils::SplitIntoArray(deps, ";", m_compileDependencies);
-    }
-}
+		return NULL;
+	}
+
+	void CExtensionConfig::SConfigInfo::LoadFromXML(behaviac::XmlNodeRef& xml)
+	{
+		if (xml)
+		{
+			xml->getAttr("Class", this->m_className);
+			m_classID.SetContent(m_className.c_str());
+			xml->getAttr("TargetExt", m_targetExt);
+			behaviac::string sourceExt;
+			xml->getAttr("SourceExt", sourceExt);
+			behaviac::StringUtils::SplitIntoArray(sourceExt, ";", m_sourceExt);
+			behaviac::string deps;
+			xml->getAttr("CompileDependency", deps);
+			behaviac::StringUtils::SplitIntoArray(deps, ";", m_compileDependencies);
+		}
+	}
+}//namespace behaviac

@@ -148,10 +148,6 @@ namespace behaviac
         super::load(node);
     }
 
-    bool AssignmentTask::isContinueTicking() const
-    {
-        return false;
-    }
 
     bool AssignmentTask::onenter(Agent* pAgent)
     {

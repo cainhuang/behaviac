@@ -26,7 +26,7 @@ ifeq ($(config),debug64)
   DEFINES   += -D_DEBUG -DDEBUG -D_LIB
   INCLUDES  += -I../../inc
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -Wall -Wextra -Werror -ffast-math -m64 -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -Wall -Wextra -Werror -ffast-math -m64 -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions 
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -m64 -L/usr/lib64
@@ -48,7 +48,7 @@ ifeq ($(config),release64)
   DEFINES   += -DNDEBUG -D_LIB
   INCLUDES  += -I../../inc
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -Werror -ffast-math -m64 -Wno-invalid-offsetof -Wno-array-bounds -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -Wall -Wextra -Werror -ffast-math -m64 -Woverloaded-virtual -Wnon-virtual-dtor -Wfloat-equal -finput-charset=UTF-8
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS) -fno-exceptions 
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -s -m64 -L/usr/lib64
@@ -106,7 +106,7 @@ OBJECTS := \
 	$(OBJDIR)/filesystem_gcc.o \
 	$(OBJDIR)/filesystem_vcc.o \
 	$(OBJDIR)/textfile.o \
-	$(OBJDIR)/logging.o \
+	$(OBJDIR)/logmanager.o \
 	$(OBJDIR)/methodbase.o \
 	$(OBJDIR)/tagobject.o \
 	$(OBJDIR)/tagobjecttemplatemanager.o \
@@ -417,7 +417,7 @@ $(OBJDIR)/textfile.o: ../../src/base/file/textfile.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/logging.o: ../../src/base/logging/logging.cpp
+$(OBJDIR)/logmanager.o: ../../src/base/logging/logmanager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

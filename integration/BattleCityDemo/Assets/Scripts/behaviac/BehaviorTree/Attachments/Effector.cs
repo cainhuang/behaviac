@@ -42,17 +42,14 @@ namespace behaviac
                         if (p.value == "Success")
                         {
                             this.m_phase = EPhase.E_SUCCESS;
-
                         }
                         else if (p.value == "Failure")
                         {
                             this.m_phase = EPhase.E_FAILURE;
-
                         }
                         else if (p.value == "Both")
                         {
                             this.m_phase = EPhase.E_BOTH;
-
                         }
                         else
                         {
@@ -62,7 +59,6 @@ namespace behaviac
                         break;
                     }
                 }
-
             }
             catch (Exception ex)
             {

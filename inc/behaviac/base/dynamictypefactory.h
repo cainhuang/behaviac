@@ -32,8 +32,8 @@ private:
     BEHAVIAC_DELCARE_SINGLETON(CDynamicTypeFactory);
 
 public:
-    bool Register(const CStringID& typeID, CFactory<CDynamicType>::InstantiateFunctionPointer instantiate);
-    bool UnRegister(const CStringID& typeID);
+    bool Register(const behaviac::CStringID& typeID, CFactory<CDynamicType>::InstantiateFunctionPointer instantiate);
+    bool UnRegister(const behaviac::CStringID& typeID);
 
     // templated version assuming the parameters are accessible
     // by the static methods GetClassTypeId and CreateObject
@@ -56,7 +56,7 @@ public:
         m_factory.Visit(visitor);
     }
 
-    CDynamicType* Create(const CStringID& typeID);
+    CDynamicType* Create(const behaviac::CStringID& typeID);
 };
 
 #endif // #ifndef BEHAVIAC_ENGINESERVICES_DYNAMICTYPEFACTORY_H

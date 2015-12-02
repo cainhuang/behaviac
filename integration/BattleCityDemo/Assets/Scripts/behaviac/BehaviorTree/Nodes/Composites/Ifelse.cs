@@ -122,7 +122,6 @@ namespace behaviac
                         //BehaviorTask pIf = this.m_children[1];
 
                         this.m_activeChildIndex = 1;
-
                     }
                     else if (conditionResult == EBTStatus.BT_FAILURE)
                     {

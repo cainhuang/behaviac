@@ -1979,7 +1979,7 @@ public partial class NodeViewData : BaseNode
         if (targetNvd == null ||
             sourceItem == null || sourceItem.Attachment == null ||
             !isCopied && targetItem == sourceItem ||
-            !targetNvd.Node.AcceptsAttachment(sourceItem.Attachment.GetType()))
+            !targetNvd.Node.AcceptsAttachment(sourceItem.Attachment))
         { return false; }
 
         if (!isCopied) {

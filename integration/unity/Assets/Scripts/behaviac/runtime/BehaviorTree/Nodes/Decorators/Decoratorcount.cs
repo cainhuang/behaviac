@@ -102,7 +102,6 @@ namespace behaviac
                     }
 
                     this.m_n = count;
-
                 }
                 else
                 {

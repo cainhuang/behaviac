@@ -33,7 +33,6 @@ namespace behaviac
                 if (this.priority < other.priority)
                 {
                     return -1;
-
                 }
                 else if (this.priority > other.priority)
                 {
@@ -105,14 +104,12 @@ namespace behaviac
                 {
                     ms_contexts.Clear();
                     //ms_contexts = null;
-
                 }
                 else
                 {
                     if (ms_contexts.ContainsKey(contextId))
                     {
                         ms_contexts.Remove(contextId);
-
                     }
                     else
                     {
@@ -139,7 +136,6 @@ namespace behaviac
 
                     variables.Log(null, false);
                 }
-
             }
             else
             {
@@ -181,7 +177,6 @@ namespace behaviac
                 pa.priority = priority;
                 pa.agents[agentId] = pAgent;
                 this.Agents.Add(pa);
-
             }
             else
             {
@@ -216,7 +211,6 @@ namespace behaviac
                 Context pContext = Context.GetContext(contextId);
 
                 pContext.execAgents_();
-
             }
             else
             {
@@ -284,7 +278,6 @@ namespace behaviac
                 Context pContext = Context.GetContext(contextId);
 
                 pContext.LogCurrentState();
-
             }
             else
             {
@@ -391,7 +384,6 @@ namespace behaviac
                 className = variableName.Substring(0, pSep - 1);
 
                 return true;
-
             }
             else
             {
@@ -451,7 +443,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else
             {
@@ -485,7 +476,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else
             {

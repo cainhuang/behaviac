@@ -79,22 +79,14 @@ public:
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
         // DO NOTHING
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
-    {
-        BEHAVIAC_UNUSED_VAR(parent);
-        BEHAVIAC_UNUSED_VAR(node);
-
-        // DO NOTHING
-    }
-
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -102,7 +94,7 @@ public:
         // DO NOTHING
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -110,12 +102,20 @@ public:
         // DO NOTHING
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
+    {
+        BEHAVIAC_UNUSED_VAR(parent);
+        BEHAVIAC_UNUSED_VAR(node);
+
+        // DO NOTHING
+    }
+
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(parent);
 
-        XmlNodeRef memberNode = xmlNode;
+        behaviac::XmlNodeRef memberNode = xmlNode;
 
         if (types == NULL)
         {
@@ -132,14 +132,13 @@ public:
             {
                 memberNode->setAttr("Static", "true");
             }
-
         }
         else
         {
             for (behaviac::vector<SEnumValue>::const_iterator iter = m_values.begin(); iter != m_values.end(); ++iter)
             {
                 const SEnumValue& enumValue = *iter;
-                XmlNodeRef enumNodeElement = memberNode->newChild("enum");
+                behaviac::XmlNodeRef enumNodeElement = memberNode->newChild("enum");
                 enumNodeElement->setAttr("Value", enumValue.m_valueName);
 
                 if (enumValue.m_hasCustomValue)
@@ -150,7 +149,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);

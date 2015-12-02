@@ -47,14 +47,14 @@ protected:
 public:
     struct SHierarchyInfo : public SHierarchyInfoBase
     {
-        CStringID   m_hierarchy[1];
-        inline const CStringID& GetClassTypeId() const
+        behaviac::CStringID   m_hierarchy[1];
+        inline const behaviac::CStringID& GetClassTypeId() const
         {
             return m_hierarchy[m_hierarchyLevel - 1];
         }
     };
 
-protected:
+public:
     template<int NumLevels>
     struct SHierarchyInfoDecl : public SHierarchyInfoBase
     {
@@ -63,7 +63,7 @@ protected:
         // This is to bypass initialization
         struct FakeCStringID
         {
-            char m_buf[sizeof(CStringID)];
+            char m_buf[sizeof(behaviac::CStringID)];
         };
         FakeCStringID	m_hierarchy[NumLevels];
 
@@ -72,29 +72,36 @@ protected:
         {
             SHierarchyInfo*       target = reinterpret_cast<SHierarchyInfo*>(this);
             const SHierarchyInfo* parent = static_cast<const SHierarchyInfo*>(parent_);
+
+#if BEHAVIAC_COMPILER_MSVC
             {
-                BEHAVIAC_STATIC_ASSERT(offsetof(SHierarchyInfoDecl, m_hierarchy) == offsetof(SHierarchyInfo, m_hierarchy));
+				BEHAVIAC_STATIC_ASSERT(BEHAVIAC_OFFSETOF(SHierarchyInfoDecl, m_hierarchy) == BEHAVIAC_OFFSETOF(SHierarchyInfo, m_hierarchy));
             }
+#endif            
+            // BEHAVIAC_ASSERT(BEHAVIAC_OFFSETOF_POD(SHierarchyInfoDecl, m_hierarchy) == BEHAVIAC_OFFSETOF_POD(SHierarchyInfo, m_hierarchy));
             {
                 BEHAVIAC_STATIC_ASSERT(sizeof(m_hierarchy[0]) == sizeof(parent->m_hierarchy[0]));
             }
 
             target->m_typeName = typeName;
             uint32_t parentLevel = 0;
+			behaviac::CStringID* pTargetHierarchy = (behaviac::CStringID*)target->m_hierarchy;
 
             if (parent != NULL)
             {
                 parentLevel = parent->m_hierarchyLevel;
                 BEHAVIAC_ASSERT(parentLevel < 19);
 
+				const behaviac::CStringID* pParentHierarchy = (const behaviac::CStringID*)parent->m_hierarchy;
+
                 for (uint32_t i = 0; i < parentLevel; i++)
                 {
-                    target->m_hierarchy[i] = parent->m_hierarchy[i];
+					pTargetHierarchy[i] = pParentHierarchy[i];
                 }
             }
 
             target->m_hierarchyLevel = parentLevel + 1;
-            target->m_hierarchy[parentLevel] = CStringID(typeName);
+			pTargetHierarchy[parentLevel] = behaviac::CStringID(typeName);
         }
         void InitClassHierarchyInfo(char const* typeName, const SHierarchyInfoBase* parent_);
     };
@@ -110,7 +117,7 @@ public:
         return NULL;
     }
 
-    const BEHAVIAC_FORCEINLINE CStringID& GetObjectTypeId() const
+    const BEHAVIAC_FORCEINLINE behaviac::CStringID& GetObjectTypeId() const
     {
         return GetHierarchyInfo()->GetClassTypeId();
     }
@@ -127,7 +134,7 @@ public:
      * There is also a GetClassTypeId that is static and must be called from a class point of view.
      * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements those functions for the derived class.
      */
-    //const CStringID& GetObjectTypeId() const;
+    //const behaviac::CStringID& GetObjectTypeId() const;
 
     /*!
     * Return the name of the leaf class.
@@ -147,13 +154,14 @@ public:
      *
      * @return True if typeId is a static member of a class part of the object's hierarchy.
      */
-    bool IsAKindOf(const CStringID& typeId) const
+    bool IsAKindOf(const behaviac::CStringID& typeId) const
     {
         const SHierarchyInfo* info = GetHierarchyInfo();
 
         for (uint32_t i = 0; i < info->m_hierarchyLevel; ++i)
         {
-            if (info->m_hierarchy[i] == typeId)
+			const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)info->m_hierarchy;
+			if (pTargetHierarchy[i] == typeId)
             {
                 return true;
             }
@@ -217,10 +225,11 @@ protected:
     //	virtual void Use_DECLARE_DYNAMIC_TYPE_macro() = 0;
 
 public:
-    bool IsMyParent(uint32_t level, const CStringID& classId) const
+    bool IsMyParent(uint32_t level, const behaviac::CStringID& classId) const
     {
         const SHierarchyInfo* info = GetHierarchyInfo();
-        return (level <= info->m_hierarchyLevel) && info->m_hierarchy[level - 1] == classId;
+		const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)info->m_hierarchy;
+		return (level <= info->m_hierarchyLevel) && pTargetHierarchy[level - 1] == classId;
     }
 
     template <class T> inline static bool CallParent(T handler)
@@ -545,19 +554,21 @@ public:
                                                                  __type::GetClassTypeName(), __parent::GetHierarchyInfo()); \
         return (const CDynamicType::SHierarchyInfo*)decl; \
     } \
-    static /*BEHAVIAC_FORCEINLINE*/ const CStringID& GetClassTypeId() \
+    static /*BEHAVIAC_FORCEINLINE*/ const behaviac::CStringID& GetClassTypeId() \
     { \
         CDynamicType::SHierarchyInfoDecl< sm_HierarchyLevel >* decl = GetClassHierarchyInfoDecl(); \
         if (!decl->m_typeName) ((const __type*)NULL)->__type::GetHierarchyInfo(); \
-        return ((const CDynamicType::SHierarchyInfo*)decl)->m_hierarchy[__type::sm_HierarchyLevel-1]; \
+		const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)((const CDynamicType::SHierarchyInfo*)decl)->m_hierarchy;\
+		return pTargetHierarchy[__type::sm_HierarchyLevel - 1]; \
     } \
-    static bool IsClassAKindOf(const CStringID& typeId) \
+    static bool IsClassAKindOf(const behaviac::CStringID& typeId) \
     { \
         const CDynamicType::SHierarchyInfoDecl< sm_HierarchyLevel >* decl = GetClassHierarchyInfoDecl(); \
         if (!decl->m_typeName) ((const __type*)NULL)->__type::GetHierarchyInfo(); \
         for(uint32_t i = 0; i < sm_HierarchyLevel; ++i) \
         { \
-            if(((const CDynamicType::SHierarchyInfo*)decl)->m_hierarchy[i] == typeId) \
+			const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)((const CDynamicType::SHierarchyInfo*)decl)->m_hierarchy;\
+            if(pTargetHierarchy[i] == typeId) \
                 return true; \
         } \
         return false; \

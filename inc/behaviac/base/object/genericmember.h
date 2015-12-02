@@ -51,7 +51,7 @@ public:
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_Description_Load)
         {
@@ -59,7 +59,7 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_Description_Save)
         {
@@ -67,7 +67,7 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_State_Load)
         {
@@ -75,7 +75,7 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_State_Save)
         {
@@ -83,7 +83,7 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         if (PropertyFlags & EPersistenceType_UiInfo)
         {
@@ -92,7 +92,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         MemberHandler::GetMethodsDescription(types, xmlNode, ((ObjectType*)parent)->*m_memberPtr, this->m_classFullName, m_propertyID.GetString());
     }
@@ -208,7 +208,6 @@ public:
                     {
                         bReceive = true;
                     }
-
                 }
                 else
                 {
@@ -347,7 +346,6 @@ public:
     {
         return CMemberBase::TDifferencePercentage<MemberType>(l, r);
     }
-
 };
 
 template<class ObjectType, class MemberType, class MemberHandler, uint32_t PropertyFlags>
@@ -385,7 +383,6 @@ public:
     {
         return CMemberBase::TDifferencePercentage<typename behaviac::Meta::RemoveConst<MemberType>::Result>(l, r);
     }
-
 };
 
 
@@ -424,7 +421,6 @@ public:
 
         return p;
     }
-
 };
 
 
@@ -457,7 +453,7 @@ public:
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
@@ -467,7 +463,7 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
@@ -477,7 +473,7 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -488,7 +484,7 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -521,7 +517,7 @@ public:
         return flag;
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
@@ -532,7 +528,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
@@ -629,7 +625,6 @@ public:
                     {
                         bReceive = true;
                     }
-
                 }
                 else
                 {
@@ -760,7 +755,6 @@ public:
     {
         return CMemberBase::TDifferencePercentage<MemberType>(l, r);
     }
-
 };
 
 template<class MemberType, class MemberHandler, uint32_t PropertyFlags>
@@ -797,7 +791,6 @@ public:
     {
         return CMemberBase::TDifferencePercentage<typename behaviac::Meta::RemoveConst<MemberType>::Result>(l, r);
     }
-
 };
 
 
@@ -903,7 +896,6 @@ namespace CMemberFactory
         typedef CGenericMember<ObjectType, MemberType, MemberHandler<MemberType>, PropertyFlags> MemberTypeType;
         return BEHAVIAC_NEW MemberTypeType(getter, setter, className, propertyName, uiWrapper);
     }
-
 };
 
 #include "behaviac/base/object/uitype.h"

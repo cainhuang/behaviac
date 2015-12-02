@@ -37,7 +37,6 @@ namespace behaviac
                 if (p.name == "Opl")
                 {
                     this.m_opl = Condition.LoadLeft(p.value);
-
                 }
                 else if (p.name == "Opr")
                 {
@@ -47,14 +46,12 @@ namespace behaviac
                     {
                         string typeName = null;
                         this.m_opr = Condition.LoadRight(p.value, ref typeName);
-
                     }
                     else
                     {
                         //method
                         this.m_opr_m = Action.LoadMethod(p.value);
                     }
-
                 }
                 else
                 {
@@ -75,7 +72,6 @@ namespace behaviac
                 opl.SetValue(pParentOpl, returnValue);
 
                 bValid = true;
-
             }
             else if (opr != null && opl != null)
             {
@@ -85,7 +81,6 @@ namespace behaviac
                 opl.SetFrom(pParentR, opr, pParentL);
 
                 bValid = true;
-
             }
             else
             {

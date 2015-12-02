@@ -48,35 +48,29 @@ public class Compute : BehaviorNode
             if (p.name == "Opl")
             {
                 this.m_opl = Condition.LoadLeft(p.value);
-
             }
             else if (p.name == "Operator")
             {
                 if (p.value == "Add")
                 {
                     this.m_operator = EComputeOperator.E_ADD;
-
                 }
                 else if (p.value == "Sub")
                 {
                     this.m_operator = EComputeOperator.E_SUB;
-
                 }
                 else if (p.value == "Mul")
                 {
                     this.m_operator = EComputeOperator.E_MUL;
-
                 }
                 else if (p.value == "Div")
                 {
                     this.m_operator = EComputeOperator.E_DIV;
-
                 }
                 else
                 {
                     Debug.Check(false);
                 }
-
             }
             else if (p.name == "Opr1")
             {
@@ -86,14 +80,12 @@ public class Compute : BehaviorNode
                 {
                     string typeName = null;
                     this.m_opr1 = Condition.LoadRight(p.value, ref typeName);
-
                 }
                 else
                 {
                     //method
                     this.m_opr1_m = Action.LoadMethod(p.value);
                 }
-
             }
             else if (p.name == "Opr2")
             {
@@ -103,14 +95,12 @@ public class Compute : BehaviorNode
                 {
                     string typeName = null;
                     this.m_opr2 = Condition.LoadRight(p.value, ref typeName);
-
                 }
                 else
                 {
                     //method
                     this.m_opr2_m = Action.LoadMethod(p.value);
                 }
-
             }
             else
             {
@@ -130,7 +120,6 @@ public class Compute : BehaviorNode
             {
                 bValid = true;
                 value1 = opr1_m.Invoke(pAgent);
-
             }
             else if (opr1 != null)
             {
@@ -149,7 +138,6 @@ public class Compute : BehaviorNode
                 object returnValue = Details.ComputeValue(value1, value2, opr);
 
                 opl.SetValue(pParentOpl, returnValue);
-
             }
             else if (opr2 != null)
             {

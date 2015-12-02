@@ -48,7 +48,7 @@ TEST(btunittest, coroutine)
 
     descent gen;
 
-    for (int n; gen(n);)   // "get next" generator invocation
+    for (int n = 0; gen(n);)   // "get next" generator invocation
     {
     }
 }

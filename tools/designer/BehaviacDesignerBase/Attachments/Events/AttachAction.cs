@@ -39,7 +39,7 @@ namespace Behaviac.Design.Attachments
         }
 
         private RightValueDef _opl;
-        [DesignerRightValueEnum("OperandLeft", "OperandLeftDesc", "Operation", DesignerProperty.DisplayMode.Parameter, 2, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.NoReadonly, DesignerPropertyEnum.AllowStyles.AttributesMethod, MethodType.Method, "", "", ValueTypes.All)]
+        [DesignerRightValueEnum("OperandLeft", "OperandLeftDesc", "Operation", DesignerProperty.DisplayMode.Parameter, 2, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.NoReadonly, DesignerPropertyEnum.AllowStyles.AttributesMethod, MethodType.Method, "", "Opr2", ValueTypes.All)]
         public RightValueDef Opl {
             get { return _opl; }
             set { this._opl = value; }

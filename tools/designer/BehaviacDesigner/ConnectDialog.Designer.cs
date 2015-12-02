@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -114,7 +114,6 @@ namespace Behaviac.Design
             this.MinimizeBox = false;
             this.Name = "ConnectDialog";
             this.ShowInTaskbar = false;
-            this.Shown += new System.EventHandler(this.ConnectDialog_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

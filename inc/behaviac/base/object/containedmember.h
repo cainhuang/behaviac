@@ -35,7 +35,7 @@ public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CContainedMember);
 
 public:
-    CContainedMember(void (ObjectType::*Load)(const XmlConstNodeRef&, uint32_t), void (ObjectType::*Save)(const XmlNodeRef&, uint32_t) const, const char* className, const char* propertyName, UiGenericType* uiWrapper)
+    CContainedMember(void (ObjectType::*Load)(const XmlConstNodeRef&, uint32_t), void (ObjectType::*Save)(const behaviac::XmlNodeRef&, uint32_t) const, const char* className, const char* propertyName, UiGenericType* uiWrapper)
         : CMemberBase(propertyName, className), m_load(Load), m_save(Save), m_uiWrapper(uiWrapper)
     {}
 
@@ -62,7 +62,6 @@ public:
                 {
                     (((ObjectType*)parent)->*m_load)(childNode, EPersistenceType_Description_Load);
                 }
-
             }
             else
             {
@@ -101,7 +100,6 @@ public:
                 {
                     (((ObjectType*)parent)->*m_load)(childNode, EPersistenceType_State_Load);
                 }
-
             }
             else
             {
@@ -128,7 +126,7 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         if ((PropertyFlags & EPersistenceType_UiInfo))
         {
@@ -169,7 +167,6 @@ public:
 
                     (((ObjectType*)parent)->*m_save)(memberNode, EPersistenceType_UiInfo);
                 }
-
             }
             else
             {
@@ -178,7 +175,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -186,7 +183,7 @@ public:
     }
 
     void (ObjectType::*m_load)(const XmlConstNodeRef&, uint32_t);
-    void (ObjectType::*m_save)(const XmlNodeRef&, uint32_t) const;
+    void (ObjectType::*m_save)(const behaviac::XmlNodeRef&, uint32_t) const;
 
     UiGenericType* m_uiWrapper;
 };
@@ -195,7 +192,7 @@ template<uint32_t PropertyFlags, bool ChildNodeCreate>
 struct CContainedMemberFactory
 {
     template<class ObjectType>
-    static CMemberBase* Create(const char* propertyName, void (ObjectType::*Load)(const XmlConstNodeRef&, uint32_t), void (ObjectType::*Save)(const XmlNodeRef&, uint32_t) const, UiGenericType* uiWrapper)
+    static CMemberBase* Create(const char* propertyName, void (ObjectType::*Load)(const XmlConstNodeRef&, uint32_t), void (ObjectType::*Save)(const behaviac::XmlNodeRef&, uint32_t) const, UiGenericType* uiWrapper)
     {
         typedef CContainedMember<ObjectType, PropertyFlags, ChildNodeCreate> MemberType;
         return BEHAVIAC_NEW MemberType(Load, Save, propertyName, uiWrapper);

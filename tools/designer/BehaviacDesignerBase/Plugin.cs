@@ -1305,24 +1305,6 @@ namespace Behaviac.Design
             return null;
         }
 
-        public static IList<Type> GetAllMemberValueTypes(bool hasVoid) {
-            List<Type> allTypes = new List<Type>();
-
-            if (hasVoid) {
-                allTypes.Add(typeof(void));
-            }
-
-            foreach(Type key in Plugin.TypeHandlers.Keys) {
-                allTypes.Add(key);
-            }
-
-            foreach(AgentType at in Plugin.AgentTypes) {
-                allTypes.Add(at.AgentTypeType);
-            }
-
-            return allTypes.AsReadOnly();
-        }
-
         public static IList<string> GetAllMemberValueTypeNames(bool hasVoid) {
             List<string> allTypeNames = new List<string>();
 

@@ -43,6 +43,5 @@ namespace behaviac
             return NULL;
         }
     };
-
 }
 #endif//BEHAVIAC_FSM_WAITTRANSITION_H

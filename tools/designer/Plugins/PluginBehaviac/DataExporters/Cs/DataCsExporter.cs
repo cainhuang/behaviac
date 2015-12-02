@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -89,13 +89,20 @@ namespace PluginBehaviac.DataExporters
             return typeName;
         }
 
-        public static string GetGeneratedDefaultValue(Type type, string typename)
+        public static string GetGeneratedDefaultValue(Type type, string typename, string defaultValue = null)
         {
-            string value = DesignerPropertyUtility.RetrieveExportValue(Plugin.DefaultValue(type));
+            if (type == typeof(void))
+                return null;
+
+            string value = (defaultValue == null) ? DesignerPropertyUtility.RetrieveExportValue(Plugin.DefaultValue(type)) : defaultValue;
 
             if (type == typeof(char))
             {
                 value = "(char)0";
+            }
+            else if (Plugin.IsStringType(type))
+            {
+                value = "\"" + value + "\"";
             }
             else if (Plugin.IsEnumType(type))
             {
@@ -103,11 +110,14 @@ namespace PluginBehaviac.DataExporters
             }
             else if (Plugin.IsArrayType(type))
             {
-                value = "new " + typename + "()";
+                value = "null";
             }
             else if (Plugin.IsCustomClassType(type))
             {
-                value = "new " + typename + "()";
+                if (Plugin.IsRefType(type))
+                    value = "null";
+                else
+                    value = "new " + typename + "()";
             }
 
             return value;
@@ -115,35 +125,7 @@ namespace PluginBehaviac.DataExporters
 
         public static string GetGeneratedPropertyDefaultValue(PropertyDef prop, string typename)
         {
-            string value = "";
-
-            if (prop != null)
-            {
-                value = prop.DefaultValue;
-
-                if (Plugin.IsStringType(prop.Type))
-                {
-                    value = "\"" + value + "\"";
-                }
-                else if (Plugin.IsBooleanType(prop.Type))
-                {
-                    value = value.ToLowerInvariant();
-                }
-                else if (Plugin.IsEnumType(prop.Type))
-                {
-                    value = string.Format("{0}.{1}", typename, value);
-                }
-                else if (Plugin.IsArrayType(prop.Type))
-                {
-                    value = "";
-                }
-                else if (Plugin.IsCustomClassType(prop.Type))
-                {
-                    value = "";
-                }
-            }
-
-            return value;
+            return (prop != null) ? GetGeneratedDefaultValue(prop.Type, typename, prop.DefaultValue) : null;
         }
 
         public static string GetPropertyBasicName(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement)

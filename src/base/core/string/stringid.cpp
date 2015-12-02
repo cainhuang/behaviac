@@ -32,218 +32,221 @@
 //
 ////////////////////////////////////////
 
-const CStringID::IDType CStringID::InvalidID = 0xFFFFFFFF;
-
-namespace
+namespace behaviac
 {
-    typedef behaviac::map<CStringID::IDType, const char*> StringIdDictionary;
-}
+	const CStringID::IDType CStringID::InvalidID = 0xFFFFFFFF;
 
-////////////////////////////////////////////////////////////////////////////////
-CStringID::CStringID()
-    :
-    m_value(static_cast<IDType>(InvalidID))
+	namespace
+	{
+		typedef behaviac::map<CStringID::IDType, const char*> StringIdDictionary;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+	CStringID::CStringID()
+		:
+		m_value(static_cast<IDType>(InvalidID))
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-    , m_content(NULL)
+		, m_content(NULL)
 #endif
-{
+	{
 #ifdef BEHAVIAC_STRINGID_DEBUG_CASE
-    m_noCase = false;
+		m_noCase = false;
 #endif
-}
+	}
 
-CStringID::~CStringID()
-{
+	CStringID::~CStringID()
+	{
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-    //BEHAVIAC_FREE((void*)m_content);
+		//BEHAVIAC_FREE((void*)m_content);
 #endif//#if BEHAVIAC_STRINGID_USESTRINGCONTENT
-}
+	}
 
-////////////////////////////////////////////////////////////////////////////////
-bool CStringID::IsValid() const
-{
-    return m_value != static_cast<IDType>(InvalidID);
-}
+	////////////////////////////////////////////////////////////////////////////////
+	bool CStringID::IsValid() const
+	{
+		return m_value != static_cast<IDType>(InvalidID);
+	}
 
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-static StringIdDictionary* ms_dictionary;
-static StringIdDictionary& GetContentDictionary()
-{
-    if (!ms_dictionary)
-    {
-        ms_dictionary = BEHAVIAC_NEW StringIdDictionary;
-    }
+	static StringIdDictionary* ms_dictionary;
+	static StringIdDictionary& GetContentDictionary()
+	{
+		if (!ms_dictionary)
+		{
+			ms_dictionary = BEHAVIAC_NEW StringIdDictionary;
+		}
 
-    BEHAVIAC_ASSERT(ms_dictionary);
+		BEHAVIAC_ASSERT(ms_dictionary);
 
-    return *ms_dictionary;
-}
+		return *ms_dictionary;
+	}
 #endif//#if BEHAVIAC_STRINGID_USESTRINGCONTENT
 
-////////////////////////////////////////////////////////////////////////////////
-void CStringID::SetContent(const char* content, bool noCase, bool resolve)
-{
-    BEHAVIAC_UNUSED_VAR(resolve);
+	////////////////////////////////////////////////////////////////////////////////
+	void CStringID::SetContent(const char* content, bool noCase, bool resolve)
+	{
+		BEHAVIAC_UNUSED_VAR(resolve);
 
 #ifdef BEHAVIAC_STRINGID_DEBUG_CASE
-    m_noCase = noCase;
+		m_noCase = noCase;
 #endif
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-    static behaviac::Mutex ms_critialsection;
+		static behaviac::Mutex ms_critialsection;
 #ifdef BEHAVIAC_STRINGID_RESOLVE_CONTENT
 
-    if (resolve)
-    {
-        ms_critialsection.Lock();
-        StringIdDictionary::iterator it = GetContentDictionary().find(m_value);
+		if (resolve)
+		{
+			ms_critialsection.Lock();
+			StringIdDictionary::iterator it = GetContentDictionary().find(m_value);
 
-        if (it != GetContentDictionary().end())
-        {
-            m_content = (*it).second;
-        }
+			if (it != GetContentDictionary().end())
+			{
+				m_content = (*it).second;
+			}
 
-        ms_critialsection.Unlock();
-        return;
-    }
+			ms_critialsection.Unlock();
+			return;
+		}
 
 #endif
 #endif
 
-    if (content == NULL || content[0] == '\0')
-    {
-        m_value = InvalidID;
+		if (content == NULL || content[0] == '\0')
+		{
+			m_value = InvalidID;
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-        m_content = NULL;
+			m_content = NULL;
 #endif
 
-    }
-    else
-    {
-        if (noCase)
-        {
-            BEHAVIAC_ASSERT(false);
-            m_value = CRC32::CalcCRCNoCase(content);
+		}
+		else
+		{
+			if (noCase)
+			{
+				BEHAVIAC_ASSERT(false);
+				m_value = CRC32::CalcCRCNoCase(content);
 
-        }
-        else
-        {
-            m_value = CRC32::CalcCRC(content);
-        }
+			}
+			else
+			{
+				m_value = CRC32::CalcCRC(content);
+			}
 
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-        ms_critialsection.Lock();
-        StringIdDictionary::iterator it = GetContentDictionary().find(m_value);
+			ms_critialsection.Lock();
+			StringIdDictionary::iterator it = GetContentDictionary().find(m_value);
 
-        if (it != GetContentDictionary().end())
-        {
-            if (noCase)
-            {
-                if (string_icmp(content, (*it).second))
-                {
-                    BEHAVIAC_LOG3(BEHAVIAC_LOG_INFO, "There is a conflict between two StringID for the CRC 0x%08X.\n%s\n%s\n\nThe result of that is unpredictable but will probably crash.", m_value, content, (*it).second);
-                }
+			if (it != GetContentDictionary().end())
+			{
+				if (noCase)
+				{
+					if (string_icmp(content, (*it).second))
+					{
+						BEHAVIAC_LOG3(BEHAVIAC_LOG_INFO, "There is a conflict between two StringID for the CRC 0x%08X.\n%s\n%s\n\nThe result of that is unpredictable but will probably crash.", m_value, content, (*it).second);
+					}
 
-            }
-            else
-            {
-                if (strcmp(content, (*it).second))
-                {
-                    BEHAVIAC_LOG3(BEHAVIAC_LOG_INFO, "There is a conflict between two StringID for the CRC 0x%08X.\n%s\n%s\n\nThe result of that is unpredictable but will probably crash.", m_value, content, (*it).second);
-                }
-            }
+				}
+				else
+				{
+					if (strcmp(content, (*it).second))
+					{
+						BEHAVIAC_LOG3(BEHAVIAC_LOG_INFO, "There is a conflict between two StringID for the CRC 0x%08X.\n%s\n%s\n\nThe result of that is unpredictable but will probably crash.", m_value, content, (*it).second);
+					}
+				}
 
-            m_content = (*it).second;
+				m_content = (*it).second;
 
-        }
-        else
-        {
-            uint32_t len = strlen(content);
-            char* str = (char*)BEHAVIAC_MALLOC(sizeof(char) * (len + 1));
-            strcpy(str, content);
+			}
+			else
+			{
+				uint32_t len = strlen(content);
+				char* str = (char*)BEHAVIAC_MALLOC(sizeof(char) * (len + 1));
+				strcpy(str, content);
 
-            if (noCase)
-            {
-                for (uint32_t i = 0; i < len; ++i)
-                {
-                    str[i] = (char)tolower(str[i]);
-                }
-            }
+				if (noCase)
+				{
+					for (uint32_t i = 0; i < len; ++i)
+					{
+						str[i] = (char)tolower(str[i]);
+					}
+				}
 
-            GetContentDictionary()[m_value] = str;
-            m_content = str;
-        }
+				GetContentDictionary()[m_value] = str;
+				m_content = str;
+			}
 
-        ms_critialsection.Unlock();
+			ms_critialsection.Unlock();
 #endif
-    }
-}
+		}
+	}
 
-////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
-const char* CStringID::c_str() const
-{
-    if (m_content == NULL)
-    {
-        return "";
+	const char* CStringID::c_str() const
+	{
+		if (m_content == NULL)
+		{
+			return "";
 
-    }
-    else
-    {
-        return m_content;
-    }
-}
+		}
+		else
+		{
+			return m_content;
+		}
+	}
 
-////////////////////////////////////////////////////////////////////////////////
-const char* CStringID::LogStr() const
-{
-    return c_str();
-}
+	////////////////////////////////////////////////////////////////////////////////
+	const char* CStringID::LogStr() const
+	{
+		return c_str();
+	}
 
 #else
 
-////////////////////////////////////////////////////////////////////////////////
-const char* CStringID::LogStr() const
-{
-    static char s_buf[32];
-    string_sprintf(s_buf, "%d", m_value);
-    return s_buf;
-}
+	////////////////////////////////////////////////////////////////////////////////
+	const char* CStringID::LogStr() const
+	{
+		static char s_buf[32];
+		string_sprintf(s_buf, "%d", m_value);
+		return s_buf;
+	}
 
 #endif
 
-void CStringID::Cleanup()
-{
+	void CStringID::Cleanup()
+	{
 #if BEHAVIAC_STRINGID_USESTRINGCONTENT
 
-    if (ms_dictionary)
-    {
-        StringIdDictionary* dictionary = ms_dictionary;
+		if (ms_dictionary)
+		{
+			StringIdDictionary* dictionary = ms_dictionary;
 
-        for (StringIdDictionary::iterator it = dictionary->begin(); it != dictionary->end(); ++it)
-        {
-            const char* p = it->second;
+			for (StringIdDictionary::iterator it = dictionary->begin(); it != dictionary->end(); ++it)
+			{
+				const char* p = it->second;
 
-            BEHAVIAC_FREE(p);
-        }
+				BEHAVIAC_FREE(p);
+			}
 
-        dictionary->clear();
-        BEHAVIAC_DELETE(ms_dictionary);
-        ms_dictionary = 0;
-    }
+			dictionary->clear();
+			BEHAVIAC_DELETE(ms_dictionary);
+			ms_dictionary = 0;
+		}
 
 #endif//#if BEHAVIAC_STRINGID_USESTRINGCONTENT
 
-    CPathID::ClearDictionary();
-}
+		CPathID::ClearDictionary();
+	}
 
-void CStringID::SetContentWithExpectedCRC(const char* content, bool noCase, bool resolve, IDType crc)
-{
-    SetContent(content, noCase, resolve);
-    IDType computedCrc = GetUniqueID();
+	void CStringID::SetContentWithExpectedCRC(const char* content, bool noCase, bool resolve, IDType crc)
+	{
+		SetContent(content, noCase, resolve);
+		IDType computedCrc = GetUniqueID();
 
-    if (crc != computedCrc)
-    {
-        BEHAVIAC_ASSERT(false, "C%sStringID(0x%08X, \"%s\") has wrong CRC (should be 0x%08X!)  RETAIL BUILDS WILL USE THE WRONG VALUE, THIS MUST BE FIXED P0!",
-                        noCase ? "NoCase" : "", crc, content, GetUniqueID());
-    }
-}
+		if (crc != computedCrc)
+		{
+			BEHAVIAC_ASSERT(false, "C%sStringID(0x%08X, \"%s\") has wrong CRC (should be 0x%08X!)  RETAIL BUILDS WILL USE THE WRONG VALUE, THIS MUST BE FIXED P0!",
+				noCase ? "NoCase" : "", crc, content, GetUniqueID());
+		}
+	}
+}//namespace behaviac

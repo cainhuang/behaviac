@@ -104,7 +104,6 @@ namespace UnityTest
                         fullName = tempGO.name + "." + fullName;
                         tempGO = tempGO.transform.parent;
                     }
-
                 }
 
                 return fullName;
@@ -144,6 +143,5 @@ namespace UnityTest
             return base.Equals(obj);
         }
         #endregion
-
     }
 }

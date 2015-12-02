@@ -88,7 +88,6 @@ namespace Mono.Xml
             {
                 root = newel;
                 current = newel;
-
             }
             else
             {

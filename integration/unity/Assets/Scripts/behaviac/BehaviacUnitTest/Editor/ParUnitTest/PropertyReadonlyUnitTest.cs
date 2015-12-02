@@ -79,7 +79,6 @@ namespace BehaviorNodeUnitTest
             // c_ResultStatic = MemberReadonly + PropertyGetterOnly, 2 + 1 = 3
             int c_ResultStatic = testAgent.GetVariable<int>("c_ResultStatic");
             Assert.AreEqual(3, c_ResultStatic);
-
         }
 
     }

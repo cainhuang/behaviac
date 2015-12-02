@@ -36,12 +36,10 @@ namespace behaviac
                     if (p.name == "Domain")
                     {
                         m_domain = p.value;
-
                     }
                     else if (p.name == "Descriptors")
                     {
                         SetDescriptors(p.value);
-
                     }
                     else
                     {

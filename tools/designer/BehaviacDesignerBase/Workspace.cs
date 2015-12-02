@@ -611,7 +611,7 @@ namespace Behaviac.Design
         private static XmlNode _agentsXMLNode = null;
         private static XmlNode _typesXMLNode = null;
 
-        public static XmlNode CumtomizedTypesXMLNode {
+        public static XmlNode CustomizedTypesXMLNode {
             get { return _typesXMLNode; }
         }
 
@@ -936,7 +936,6 @@ namespace Behaviac.Design
                 XmlElement meta = bbfile.CreateElement("meta");
                 bbfile.AppendChild(meta);
 
-
                 SaveCustomTypes(bbfile, meta);
 
                 SaveCustomMembers(bbfile, meta);
@@ -1101,11 +1100,14 @@ namespace Behaviac.Design
             }
         }
 
-        public static void ExportCustomMembers(Workspace ws) {
+        public static void ExportCustomMembers(Workspace ws, bool exportXML, bool exportBson) {
             SaveCustomMeta(ws);
 
-            ExportXmlCustomMembers(ws);
-            ExportBsonCustomMembers(ws);
+            if (exportXML)
+                ExportXmlCustomMembers(ws);
+
+            if (exportBson)
+                ExportBsonCustomMembers(ws);
         }
 
         private static bool ExportXmlCustomMembers(Workspace ws) {

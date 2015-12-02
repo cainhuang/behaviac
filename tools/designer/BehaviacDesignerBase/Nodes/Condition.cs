@@ -77,30 +77,35 @@ namespace Behaviac.Design.Nodes
     /// <summary>
     /// This node represents a condition which can be attached to the behaviour tree.
     /// </summary>
-public class Condition : Node
+    public class Condition : Node
     {
         public Condition(string label, string description)
-            : base(label, description) {
-    }
+            : base(label, description)
+        {
+        }
 
-    public override bool IsCondition {
-        get { return true; }
-    }
+        public override bool IsCondition
+        {
+            get { return true; }
+        }
 
-    private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(200, 100, 39));
-    protected override Brush DefaultBackgroundBrush {
-        get { return __defaultBackgroundBrush; }
-    }
+        private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(200, 100, 39));
+        protected override Brush DefaultBackgroundBrush
+        {
+            get { return __defaultBackgroundBrush; }
+        }
 
-    public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior) {
-        NodeViewData nvd = base.CreateNodeViewData(parent, rootBehavior);
-        nvd.ChangeShape(NodeShape.AngleRectangle);
+        public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior)
+        {
+            NodeViewData nvd = base.CreateNodeViewData(parent, rootBehavior);
+            nvd.ChangeShape(NodeShape.AngleRectangle);
 
-        return nvd;
-    }
+            return nvd;
+        }
 
-    public override bool AcceptsAttachment(Type type) {
-        return false;
-    }
+        public override bool AcceptsAttachment(DefaultObject obj)
+        {
+            return false;
+        }
     }
 }

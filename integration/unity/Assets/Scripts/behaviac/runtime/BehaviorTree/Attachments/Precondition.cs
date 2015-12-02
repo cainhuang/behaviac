@@ -43,35 +43,29 @@ namespace behaviac
                         if (p.value == "Or")
                         {
                             this.m_bAnd = false;
-
                         }
                         else if (p.value == "And")
                         {
                             this.m_bAnd = true;
-
                         }
                         else
                         {
                             Debug.Check(false);
                         }
-
                     }
                     else if (p.name == "Phase")
                     {
                         if (p.value == "Enter")
                         {
                             this.m_phase = EPhase.E_ENTER;
-
                         }
                         else if (p.value == "Update")
                         {
                             this.m_phase = EPhase.E_UPDATE;
-
                         }
                         else if (p.value == "Both")
                         {
                             this.m_phase = EPhase.E_BOTH;
-
                         }
                         else
                         {
@@ -81,7 +75,6 @@ namespace behaviac
                         break;
                     }
                 }
-
             }
             catch (Exception ex)
             {

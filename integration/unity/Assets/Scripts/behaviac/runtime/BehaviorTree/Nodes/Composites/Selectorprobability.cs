@@ -38,7 +38,6 @@ namespace behaviac
                     {
                         this.m_method = Action.LoadMethod(p.value);
                     }//if (p.value[0] != '\0')
-
                 }
                 else
                 {
@@ -55,7 +54,6 @@ namespace behaviac
             if (pDW != null)
             {
                 base.AddChild(pBehavior);
-
             }
             else
             {
@@ -189,7 +187,6 @@ namespace behaviac
                         if (status == EBTStatus.BT_RUNNING)
                         {
                             this.m_activeChildIndex = i;
-
                         }
                         else
                         {

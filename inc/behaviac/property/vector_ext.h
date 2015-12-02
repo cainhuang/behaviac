@@ -34,7 +34,7 @@ namespace System
         }
 
         DECLARE_BEHAVIAC_OBJECT_GENERICSBASE(System::Object);
-    };
+	} BEHAVIAC_ALIAS;
 }
 
 struct BEHAVIAC_API IList

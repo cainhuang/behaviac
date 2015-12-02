@@ -125,7 +125,6 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(1.0, c_Location21.x, 0.001f);
             Assert.AreEqual(1.0, c_Location21.y, 0.001f);
             Assert.AreEqual(1.0, c_Location21.z, 0.001f);
-
         }
 
         [Test]
@@ -165,6 +164,5 @@ namespace BehaviorNodeUnitTest
             l_IntArray = testAgent.GetVariable<List<int>>("l_IntArray");
             Assert.AreEqual(null, l_IntArray);
         }
-
     }
 }

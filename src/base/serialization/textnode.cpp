@@ -17,184 +17,187 @@
 
 #include "behaviac/base/file/file.h"
 
-SerializableNodeRef CTextNode::clone() const
+namespace behaviac
 {
-    return GetNodeRef(BEHAVIAC_NEW CTextNode(m_constXmlNode->clone()));
-}
+	SerializableNodeRef CTextNode::clone() const
+	{
+		return GetNodeRef(BEHAVIAC_NEW CTextNode(m_constXmlNode->clone()));
+	}
 
-int32_t CTextNode::getChildCount() const
-{
-    return m_children.size();
-}
+	int32_t CTextNode::getChildCount() const
+	{
+		return m_children.size();
+	}
 
-ISerializableNode* CTextNode::getChild(int32_t childIndex)
-{
-    BEHAVIAC_ASSERT(childIndex < getChildCount());
-    ChildrenContainer::iterator iter = m_children.begin();
-    std::advance(iter, childIndex);
-    return &*iter;
-}
+	ISerializableNode* CTextNode::getChild(int32_t childIndex)
+	{
+		BEHAVIAC_ASSERT(childIndex < getChildCount());
+		ChildrenContainer::iterator iter = m_children.begin();
+		std::advance(iter, childIndex);
+		return &*iter;
+	}
 
-const ISerializableNode* CTextNode::getChild(int32_t childIndex) const
-{
-    BEHAVIAC_ASSERT(childIndex < getChildCount());
-    ChildrenContainer::const_iterator iter = m_children.begin();
-    std::advance(iter, childIndex);
-    return &*iter;
-}
+	const ISerializableNode* CTextNode::getChild(int32_t childIndex) const
+	{
+		BEHAVIAC_ASSERT(childIndex < getChildCount());
+		ChildrenContainer::const_iterator iter = m_children.begin();
+		std::advance(iter, childIndex);
+		return &*iter;
+	}
 
-ISerializableNode* CTextNode::findChild(const CSerializationID& childID)
-{
-    ChildrenContainer::iterator iter, end = m_children.end();
+	ISerializableNode* CTextNode::findChild(const CSerializationID& childID)
+	{
+		ChildrenContainer::iterator iter, end = m_children.end();
 
-    for (iter = m_children.begin(); iter != end; ++iter)
-    {
-        ISerializableNode* currentChild = &*iter;
+		for (iter = m_children.begin(); iter != end; ++iter)
+		{
+			ISerializableNode* currentChild = &*iter;
 
-        if (currentChild->isTag(childID))
-        {
-            return currentChild;
-        }
-    }
+			if (currentChild->isTag(childID))
+			{
+				return currentChild;
+			}
+		}
 
-    return NULL;
-}
+		return NULL;
+	}
 
-const ISerializableNode* CTextNode::findChild(const CSerializationID& childID) const
-{
-    ChildrenContainer::const_iterator iter, end = m_children.end();
+	const ISerializableNode* CTextNode::findChild(const CSerializationID& childID) const
+	{
+		ChildrenContainer::const_iterator iter, end = m_children.end();
 
-    for (iter = m_children.begin(); iter != end; ++iter)
-    {
-        const ISerializableNode* currentChild = &*iter;
+		for (iter = m_children.begin(); iter != end; ++iter)
+		{
+			const ISerializableNode* currentChild = &*iter;
 
-        if (currentChild->isTag(childID))
-        {
-            return currentChild;
-        }
-    }
+			if (currentChild->isTag(childID))
+			{
+				return currentChild;
+			}
+		}
 
-    return NULL;
-}
+		return NULL;
+	}
 
-CTextNode* CTextNode::newChild(const CSerializationID& childID)
-{
-    XmlNodeRef newXmlChild = m_xmlNode->newChild(childID.GetString());
-    m_children.push_back(CTextNode(newXmlChild));
-    return &m_children.back();
-}
+	CTextNode* CTextNode::newChild(const CSerializationID& childID)
+	{
+		XmlNodeRef newXmlChild = m_xmlNode->newChild(childID.GetString());
+		m_children.push_back(CTextNode(newXmlChild));
+		return &m_children.back();
+	}
 
-void CTextNode::removeChild(ISerializableNode* child)
-{
-    ChildrenContainer::iterator iter, end = m_children.end();
+	void CTextNode::removeChild(ISerializableNode* child)
+	{
+		ChildrenContainer::iterator iter, end = m_children.end();
 
-    for (iter = m_children.begin(); iter != end; ++iter)
-    {
-        if (&*iter == child)
-        {
-            m_xmlNode->removeChild(iter->m_xmlNode);
-            m_children.erase(iter);
-            return;
-        }
-    }
-}
+		for (iter = m_children.begin(); iter != end; ++iter)
+		{
+			if (&*iter == child)
+			{
+				m_xmlNode->removeChild(iter->m_xmlNode);
+				m_children.erase(iter);
+				return;
+			}
+		}
+	}
 
-int32_t CTextNode::getAttributesCount() const
-{
-    return m_constXmlNode->getAttrCount();
-}
+	int32_t CTextNode::getAttributesCount() const
+	{
+		return m_constXmlNode->getAttrCount();
+	}
 
-void CTextNode::RebuildChildrenList()
-{
-    // If possible init the children with XmlNodeRef's
-    m_children.clear();
+	void CTextNode::RebuildChildrenList()
+	{
+		// If possible init the children with XmlNodeRef's
+		m_children.clear();
 
-    if (m_xmlNode)
-    {
-        XmlNodeIt childrenIter(m_xmlNode);
+		if (m_xmlNode)
+		{
+			XmlNodeIt childrenIter(m_xmlNode);
 
-        for (XmlNodeRef child = childrenIter.first(); child; child = childrenIter.next())
-        {
-            m_children.push_back(CTextNode());
-            m_children.back() = child;
-        }
+			for (XmlNodeRef child = childrenIter.first(); child; child = childrenIter.next())
+			{
+				m_children.push_back(CTextNode());
+				m_children.back() = child;
+			}
 
-    }
-    else
-    {
-        XmlConstNodeIt childrenIter(m_constXmlNode);
+		}
+		else
+		{
+			XmlConstNodeIt childrenIter(m_constXmlNode);
 
-        for (XmlConstNodeRef child = childrenIter.first(); child; child = childrenIter.next())
-        {
-            m_children.push_back(CTextNode());
-            m_children.back() = child;
-        }
-    }
-}
+			for (XmlConstNodeRef child = childrenIter.first(); child; child = childrenIter.next())
+			{
+				m_children.push_back(CTextNode());
+				m_children.back() = child;
+			}
+		}
+	}
 
-void CTextNode::addChild(const CSerializationID& keyID, const ISerializableNode* child)
-{
-    const CTextNode* textChild = static_cast<const CTextNode*>(child);
-    XmlNodeRef cloneNode = textChild->m_constXmlNode->clone();
-    cloneNode->setTag(keyID.GetString());
-    m_xmlNode->addChild(cloneNode);
-    RebuildChildrenList();
-}
+	void CTextNode::addChild(const CSerializationID& keyID, const ISerializableNode* child)
+	{
+		const CTextNode* textChild = static_cast<const CTextNode*>(child);
+		XmlNodeRef cloneNode = textChild->m_constXmlNode->clone();
+		cloneNode->setTag(keyID.GetString());
+		m_xmlNode->addChild(cloneNode);
+		RebuildChildrenList();
+	}
 
-void CTextNode::addChild(XmlNodeRef xmlChild)
-{
-    m_xmlNode->addChild(xmlChild);
-    // This is a lot more effective than the previous addChild because we don't
-    // need to rebuild the entire hierarchy
-    m_children.push_back(CTextNode());
-    m_children.back() = xmlChild;
-}
+	void CTextNode::addChild(XmlNodeRef xmlChild)
+	{
+		m_xmlNode->addChild(xmlChild);
+		// This is a lot more effective than the previous addChild because we don't
+		// need to rebuild the entire hierarchy
+		m_children.push_back(CTextNode());
+		m_children.back() = xmlChild;
+	}
 
-bool CTextNode::LoadFromFile(const char* fileName)
-{
-    XmlParser parser;
-    m_xmlNode = parser.parse(fileName);
-    m_constXmlNode = m_xmlNode;
-    RebuildChildrenList();
-    return (m_xmlNode != NULL);
-}
+	bool CTextNode::LoadFromFile(const char* fileName)
+	{
+		XmlParser parser;
+		m_xmlNode = parser.parse(fileName);
+		m_constXmlNode = m_xmlNode;
+		RebuildChildrenList();
+		return (m_xmlNode != NULL);
+	}
 
-bool CTextNode::SaveToFile(const char* fileName) const
-{
-    return m_constXmlNode->saveToFile(fileName);
-}
+	bool CTextNode::SaveToFile(const char* fileName) const
+	{
+		return m_constXmlNode->saveToFile(fileName);
+	}
 
-bool CTextNode::LoadFromFile(IFile* file)
-{
-    XmlParser parser;
-    m_xmlNode = parser.parse(file);
-    m_constXmlNode = m_xmlNode;
-    RebuildChildrenList();
-    return (m_xmlNode != NULL);
-}
+	bool CTextNode::LoadFromFile(IFile* file)
+	{
+		XmlParser parser;
+		m_xmlNode = parser.parse(file);
+		m_constXmlNode = m_xmlNode;
+		RebuildChildrenList();
+		return (m_xmlNode != NULL);
+	}
 
-bool CTextNode::SaveToFile(IFile* file) const
-{
-    behaviac::string temp;
-    m_constXmlNode->getXML(temp);
+	bool CTextNode::SaveToFile(IFile* file) const
+	{
+		behaviac::string temp;
+		m_constXmlNode->getXML(temp);
 
-    file->Write(temp.c_str(), temp.size());
+		file->Write(temp.c_str(), temp.size());
 
-    return true;
-}
+		return true;
+	}
 
-// This is a very unprecise approximation...
-int32_t CTextNode::GetMemUsage() const
-{
-    int32_t memUsage = sizeof(CTextNode);
-    memUsage += sizeof(CXmlNode);
-    memUsage += m_constXmlNode->getAttrCount() * sizeof(XmlAttributes::value_type);
-    ChildrenContainer::const_iterator iter, end = m_children.end();
+	// This is a very unprecise approximation...
+	int32_t CTextNode::GetMemUsage() const
+	{
+		int32_t memUsage = sizeof(CTextNode);
+		memUsage += sizeof(CXmlNode);
+		memUsage += m_constXmlNode->getAttrCount() * sizeof(XmlAttributes::value_type);
+		ChildrenContainer::const_iterator iter, end = m_children.end();
 
-    for (iter = m_children.begin(); iter != end; ++iter)
-    {
-        memUsage += iter->GetMemUsage();
-    }
+		for (iter = m_children.begin(); iter != end; ++iter)
+		{
+			memUsage += iter->GetMemUsage();
+		}
 
-    return memUsage;
-}
+		return memUsage;
+	}
+}//namespace behaviac

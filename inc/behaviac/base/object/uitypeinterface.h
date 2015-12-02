@@ -24,7 +24,7 @@ public:
     {
         BEHAVIAC_UNUSED_VAR(memberName);
     }
-    virtual void SaveDescription(XmlNodeRef& xmlNode) = 0;
+    virtual void SaveDescription(behaviac::XmlNodeRef& xmlNode) = 0;
     virtual ~UiGenericType()
     {
     }

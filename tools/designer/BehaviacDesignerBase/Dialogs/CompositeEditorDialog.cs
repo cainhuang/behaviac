@@ -25,6 +25,9 @@ namespace Behaviac.Design.Attributes
     public partial class CompositeEditorDialog : Form
     {
         public CompositeEditorDialog() {
+            _initialized = false;
+            _isModified = false;
+
             InitializeComponent();
 
             propertyGrid.PropertiesVisible(false, false);
@@ -38,11 +41,19 @@ namespace Behaviac.Design.Attributes
             DesignerPropertyEditor.PropertyChanged -= RefreshProperty;
         }
 
-        DesignerArrayPropertyInfo _arrayProperty = null;
-        DesignerStructPropertyInfo _structProperty = null;
-        object _object = null;
-        Nodes.Node _node = null;
-        Label _selectedLabel = null;
+        private DesignerArrayPropertyInfo _arrayProperty = null;
+        private DesignerStructPropertyInfo _structProperty = null;
+        private object _object = null;
+        private Nodes.Node _node = null;
+        private Label _selectedLabel = null;
+
+        private bool _initialized = false;
+        private bool _isModified = false;
+
+        public bool IsModified
+        {
+            get { return _isModified; }
+        }
 
         public void SetArrayProperty(DesignerArrayPropertyInfo arrayProperty, object obj) {
             Debug.Check(arrayProperty != null);
@@ -51,6 +62,8 @@ namespace Behaviac.Design.Attributes
             setObject(obj);
 
             buildPropertyGrid();
+
+            _initialized = true;
         }
 
         public void SetStructProperty(DesignerStructPropertyInfo structProperty, object obj) {
@@ -60,6 +73,8 @@ namespace Behaviac.Design.Attributes
             setObject(obj);
 
             buildPropertyGrid();
+
+            _initialized = true;
         }
 
         private void setObject(object obj) {
@@ -238,6 +253,9 @@ namespace Behaviac.Design.Attributes
         }
 
         private void editor_ValueWasChanged(object sender, DesignerPropertyInfo property) {
+            if (!_initialized)
+                return;
+
             if (_node != null) {
                 _node.OnPropertyValueChanged(true);
 
@@ -251,6 +269,8 @@ namespace Behaviac.Design.Attributes
                 uiPolicy != null && uiPolicy.ShouldUpdatePropertyGrids(property)) {
                 buildPropertyGrid();
             }
+
+            _isModified = true;
         }
 
         private void selectLabel(Label label) {
@@ -302,6 +322,9 @@ namespace Behaviac.Design.Attributes
         }
 
         private void addButton_Click(object sender, EventArgs e) {
+            if (!_initialized)
+                return;
+
             Debug.Check(_arrayProperty != null);
 
             object item = Plugin.CreateInstance(_arrayProperty.ItemType);
@@ -319,9 +342,14 @@ namespace Behaviac.Design.Attributes
                 if (_node != null)
                 { _node.OnPropertyValueChanged(true); }
             }
+
+            _isModified = true;
         }
 
         private void insertButton_Click(object sender, EventArgs e) {
+            if (!_initialized)
+                return;
+
             Debug.Check(_arrayProperty != null);
 
             int index = selectedIndex();
@@ -339,9 +367,14 @@ namespace Behaviac.Design.Attributes
                 if (_node != null)
                 { _node.OnPropertyValueChanged(true); }
             }
+
+            _isModified = true;
         }
 
         private void removeButton_Click(object sender, EventArgs e) {
+            if (!_initialized)
+                return;
+
             Debug.Check(_arrayProperty != null);
 
             int index = selectedIndex();
@@ -357,6 +390,8 @@ namespace Behaviac.Design.Attributes
                 if (_node != null)
                 { _node.OnPropertyValueChanged(true); }
             }
+
+            _isModified = true;
         }
 
         private void swapItems(int currentIndex, int otherIndex) {
@@ -371,21 +406,31 @@ namespace Behaviac.Design.Attributes
         }
 
         private void upButton_Click(object sender, EventArgs e) {
+            if (!_initialized)
+                return;
+
             Debug.Check(_arrayProperty != null);
 
             int index = selectedIndex();
 
             if (index > 0)
             { swapItems(index, index - 1); }
+
+            _isModified = true;
         }
 
         private void downButton_Click(object sender, EventArgs e) {
+            if (!_initialized)
+                return;
+
             Debug.Check(_arrayProperty != null);
 
             int index = selectedIndex();
 
             if (index > -1 && index < _arrayProperty.ItemList.Count - 1)
             { swapItems(index, index + 1); }
+
+            _isModified = true;
         }
 
         private void closeButton_Click(object sender, EventArgs e) {

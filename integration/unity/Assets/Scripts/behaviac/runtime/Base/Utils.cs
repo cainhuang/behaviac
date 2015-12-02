@@ -189,7 +189,6 @@ namespace behaviac
                     {
                         paramTypes.Add(parameters[i].ParameterType);
                     }
-
                 }
                 else
                 {
@@ -248,7 +247,6 @@ namespace behaviac
                                 _params_value[i] = paramValue;
                                 _params[i].paramStructMembers = props;
                             }
-
                         }
                         else
                         {
@@ -264,7 +262,6 @@ namespace behaviac
                                 object paramValue = StringUtils.FromString(paramType, paramStr, false);
 
                                 _params_value[i] = paramValue;
-
                             }
                             else
                             {
@@ -273,7 +270,6 @@ namespace behaviac
                         }
 
                         _params[i].isRefOut = paramType.IsByRef;
-
                     }
                     else
                     {
@@ -301,7 +297,6 @@ namespace behaviac
                 if (paramsToken.Count == paramsCount)
                 {
                     this.m_params = LoadParams(paramsToken, this.ParamTypes, ref this.m_params_value);
-
                 }
                 else
                 {
@@ -497,7 +492,6 @@ namespace behaviac
             if (a != null)
             {
                 m_range = a.Range;
-
             }
             else
             {
@@ -627,7 +621,6 @@ namespace behaviac
             if (this.ISSTATIC())
             {
                 return this.field_.GetValue(null);
-
             }
             else
             {
@@ -688,7 +681,6 @@ namespace behaviac
             {
                 var getMethod = getGetMethod(this.property_);
                 return getMethod.Invoke(null, null);
-
             }
             else
             {
@@ -925,37 +917,30 @@ namespace behaviac
         if (comparionOperator == "Assignment")
         {
             return E_VariableComparisonType.VariableComparisonType_Assignment;
-
         }
         else if (comparionOperator == "Equal")
         {
             return E_VariableComparisonType.VariableComparisonType_Equal;
-
         }
         else if (comparionOperator == "NotEqual")
         {
             return E_VariableComparisonType.VariableComparisonType_NotEqual;
-
         }
         else if (comparionOperator == "Greater")
         {
             return E_VariableComparisonType.VariableComparisonType_Greater;
-
         }
         else if (comparionOperator == "GreaterEqual")
         {
             return E_VariableComparisonType.VariableComparisonType_GreaterEqual;
-
         }
         else if (comparionOperator == "Less")
         {
             return E_VariableComparisonType.VariableComparisonType_Less;
-
         }
         else if (comparionOperator == "LessEqual")
         {
             return E_VariableComparisonType.VariableComparisonType_LessEqual;
-
         }
         else
         {
@@ -1009,7 +994,6 @@ namespace behaviac
         {
             agentL = this.m_lhs.GetParentAgent(agentL);
             lhs = this.m_lhs.GetValue(agentL);
-
         }
         else
         {
@@ -1025,7 +1009,6 @@ namespace behaviac
         {
             agentR = this.m_rhs.GetParentAgent(agentR);
             rhs = this.m_rhs.GetValue(agentR);
-
         }
         else
         {
@@ -1284,7 +1267,6 @@ namespace behaviac
                 {
                     TypeConverter converter = TypeDescriptor.GetConverter(type);
                     return converter.ConvertFromString(valueStr);
-
                 }
                 catch
                 {
@@ -1296,7 +1278,6 @@ namespace behaviac
                         {
                             return b;
                         }
-
                     }
                     else if (type == typeof(int))
                     {
@@ -1306,7 +1287,6 @@ namespace behaviac
                         {
                             return i;
                         }
-
                     }
                     else if (type == typeof(uint))
                     {
@@ -1316,7 +1296,6 @@ namespace behaviac
                         {
                             return ui;
                         }
-
                     }
                     else if (type == typeof(short))
                     {
@@ -1326,7 +1305,6 @@ namespace behaviac
                         {
                             return s;
                         }
-
                     }
                     else if (type == typeof(ushort))
                     {
@@ -1336,7 +1314,6 @@ namespace behaviac
                         {
                             return us;
                         }
-
                     }
                     else if (type == typeof(char))
                     {
@@ -1346,7 +1323,6 @@ namespace behaviac
                         {
                             return c;
                         }
-
                     }
                     else if (type == typeof(sbyte))
                     {
@@ -1356,7 +1332,6 @@ namespace behaviac
                         {
                             return sb;
                         }
-
                     }
                     else if (type == typeof(byte))
                     {
@@ -1366,7 +1341,6 @@ namespace behaviac
                         {
                             return b;
                         }
-
                     }
                     else if (type == typeof(long))
                     {
@@ -1376,7 +1350,6 @@ namespace behaviac
                         {
                             return l;
                         }
-
                     }
                     else if (type == typeof(ulong))
                     {
@@ -1386,7 +1359,6 @@ namespace behaviac
                         {
                             return ul;
                         }
-
                     }
                     else if (type == typeof(float))
                     {
@@ -1396,7 +1368,6 @@ namespace behaviac
                         {
                             return f;
                         }
-
                     }
                     else if (type == typeof(double))
                     {
@@ -1406,19 +1377,16 @@ namespace behaviac
                         {
                             return d;
                         }
-
                     }
                     else if (type == typeof(string))
                     {
                         return valueStr;
-
                     }
                     else if (type.IsEnum)
                     {
                         object ret = Enum.Parse(type, valueStr, true);
 
                         return ret;
-
                     }
                     else
                     {
@@ -1531,7 +1499,6 @@ namespace behaviac
                     {
                         Type vectorType = typeof(List<>).MakeGenericType(elementType);
                         return vectorType;
-
                     }
                     else
                     {
@@ -1703,7 +1670,6 @@ namespace behaviac
                 }
 
                 return true;
-
             }
             else
             {
@@ -1803,7 +1769,6 @@ namespace behaviac
 
                     ((IList)o).Add(item);
                 }
-
             }
             else
             {
@@ -1841,7 +1806,6 @@ namespace behaviac
                                 f.SetValue(o, fv2);
                             }
                         }
-
                     }
                     else
                     {
@@ -2525,7 +2489,6 @@ namespace behaviac
             {
                 ICompareValue d = ms_comparers[lhs_t];
                 return d.Greater(lhs, rhs);
-
             }
             else
             {
@@ -2545,7 +2508,6 @@ namespace behaviac
             {
                 ICompareValue d = ms_comparers[lhs_t];
                 return d.GreaterEqual(lhs, rhs);
-
             }
             else
             {
@@ -2565,7 +2527,6 @@ namespace behaviac
             {
                 ICompareValue d = ms_comparers[lhs_t];
                 return d.Less(lhs, rhs);
-
             }
             else
             {
@@ -2585,7 +2546,6 @@ namespace behaviac
             {
                 ICompareValue d = ms_comparers[lhs_t];
                 return d.LessEqual(lhs, rhs);
-
             }
             else
             {
@@ -2694,7 +2654,6 @@ namespace behaviac
                     if (src[pos] == '{')
                     {
                         depth++;
-
                     }
                     else if (src[pos] == '}')
                     {
@@ -2761,7 +2720,6 @@ namespace behaviac
                     {
                         length = posEnd - posEqual - 1;
                         memberValueStr = src.Substring(posEqual + 1, length);
-
                     }
                     else
                     {
@@ -2839,7 +2797,6 @@ namespace behaviac
                 {
                     sep = SkipPairedBrackets(src, b);
                     Debug.Check(b != -1);
-
                 }
                 else
                 {
@@ -2897,24 +2854,20 @@ namespace behaviac
                 {
                     Type elemType = type.GetGenericArguments()[0];
                     v = StringUtils.FromStringVector(elemType, valStr);
-
                 }
                 else
                 {
                     v = StringUtils.FromStringVector(type, valStr);
                 }
-
             }
             else if (type == typeof(behaviac.Property))
             {
                 v = Condition.LoadProperty(valStr);
-
             }
             else if (Utils.IsCustomClassType(type))
             {
                 Debug.Check(!Utils.IsRefNullType(type));
                 v = StringUtils.FromStringStruct(type, valStr);
-
             }
             else
             {
@@ -2952,7 +2905,6 @@ namespace behaviac
                         string eStrLast = StringUtils.ToString(eLast);
                         valueStr += string.Format("{0}", eStrLast);
                     }
-
                 }
                 else if (Utils.IsCustomClassType(type))
                 {
@@ -2961,7 +2913,6 @@ namespace behaviac
                     if (bIsNullValueType)
                     {
                         valueStr = string.Format("{0:x08}", value.GetHashCode());
-
                     }
                     else
                     {
@@ -2978,13 +2929,11 @@ namespace behaviac
 
                         valueStr += "}";
                     }
-
                 }
                 else
                 {
                     valueStr = value.ToString();
                 }
-
             }
             else
             {
@@ -3036,13 +2985,11 @@ namespace behaviac
                 if (c == ' ' && !bBeginIndex)
                 {
                     bFound = true;
-
                 }
                 else if (c == '[')
                 {
                     bBeginIndex = true;
                     bFound = true;
-
                 }
                 else if (c == ']')
                 {
@@ -3104,7 +3051,6 @@ namespace behaviac
                     }
 
                     pB = i + 1;
-
                 }
                 else if (c == ' ')
                 {

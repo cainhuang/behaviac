@@ -81,5 +81,4 @@ public class HTNAgentHouse : HTNAgentHouseBase
     [behaviac.MethodMetaInfo()]
     public void GetLoan() {
     }
-
 }

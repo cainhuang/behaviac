@@ -670,7 +670,6 @@ namespace behaviac
     //	T& m;
     //};
 
-    //#define BEHAVIAC_ALIGNOF(T)		offsetof(behaviac::__fake_struct_align_<T>, m)
 #define BEHAVIAC_ALIGNOF(T)		__alignof(T)
 #endif//#elif _MSC_VER >= 1400
 

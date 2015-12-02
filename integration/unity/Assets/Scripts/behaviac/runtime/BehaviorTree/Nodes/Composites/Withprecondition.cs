@@ -140,7 +140,6 @@ namespace behaviac
                 EBTStatus s = precond.exec(pAgent, childStatus);
 
                 return s;
-
             }
             else
             {

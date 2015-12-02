@@ -51,6 +51,5 @@ namespace behaviac
 		float	m_start;
 		float	m_time;
     };
-
 }
 #endif//BEHAVIAC_FSM_WAITSTATE_H

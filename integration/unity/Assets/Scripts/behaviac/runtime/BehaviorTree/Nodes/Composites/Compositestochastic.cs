@@ -38,7 +38,6 @@ namespace behaviac
                     {
                         this.m_method = Action.LoadMethod(p.value);
                     }//if (p.value[0] != '\0')
-
                 }
                 else
                 {
@@ -84,7 +83,6 @@ namespace behaviac
                 if (method != null)
                 {
                     value = (float)method.Invoke(pAgent);
-
                 }
                 else
                 {

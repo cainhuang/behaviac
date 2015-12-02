@@ -28,7 +28,7 @@
         <node class="Sequence" id="5">
           <node class="Wait" id="14">
             <property IgnoreTimeScale="false" />
-            <property Time="const int 3000" />
+            <property Time="const float 3000" />
           </node>
           <node class="Assignment" id="15">
             <property Opl="int Self.GameLevelCommon::parT_SpawnCountPerWave" />
@@ -58,14 +58,14 @@
                 </node>
                 <node class="Wait" id="9">
                   <property IgnoreTimeScale="false" />
-                  <property Time="const int 1000" />
+                  <property Time="const float 1000" />
                 </node>
               </node>
             </node>
           </node>
           <node class="Wait" id="7">
             <property IgnoreTimeScale="false" />
-            <property Time="const int 2000" />
+            <property Time="const float 2000" />
           </node>
           <node class="Compute" id="2">
             <property Operator="Sub" />
@@ -93,7 +93,7 @@
             </node>
             <node class="Wait" id="30">
               <property IgnoreTimeScale="false" />
-              <property Time="const int 3000" />
+              <property Time="const float 3000" />
             </node>
             <node class="Action" id="27">
               <property Method="Self.GameLevelCommon::stopGame(true)" />
@@ -109,7 +109,7 @@
       <node class="Sequence" id="13">
         <node class="Wait" id="18">
           <property IgnoreTimeScale="false" />
-          <property Time="const int 1000" />
+          <property Time="const float 1000" />
         </node>
         <node class="Assignment" id="19">
           <property Opl="int Self.GameLevelCommon::parT_AwardType" />
@@ -129,7 +129,7 @@
         </node>
         <node class="Wait" id="21">
           <property IgnoreTimeScale="false" />
-          <property Time="const int 2000" />
+          <property Time="const float 2000" />
         </node>
       </node>
       <node class="WaitforSignal" id="31">
@@ -145,7 +145,7 @@
           <node class="Sequence" id="34">
             <node class="Wait" id="35">
               <property IgnoreTimeScale="false" />
-              <property Time="const int 1000" />
+              <property Time="const float 1000" />
             </node>
             <node class="Action" id="37">
               <property Method="Self.GameLevelCommon::spawnGameActor(RED_FORCE,8,&quot;Tank_Nav&quot;,1500,500,1,3,180,180,0,{a=1;b=0;g=0;r=1;},-1)" />

@@ -33,7 +33,7 @@ private:
     struct IMinMax
     {
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(IMinMax);
-        virtual void SaveToXml(XmlNodeRef& xmlNode) const = 0;
+        virtual void SaveToXml(behaviac::XmlNodeRef& xmlNode) const = 0;
         virtual ~IMinMax()
         {
         }
@@ -56,11 +56,11 @@ private:
         {
         }
 
-        virtual void SaveToXml(XmlNodeRef& xmlNode) const
+        virtual void SaveToXml(behaviac::XmlNodeRef& xmlNode) const
         {
-            CTextNode textNode(xmlNode);
-            GenericTypeHandler<T>::Save(&textNode, minimum, CSerializationID(0x99365B30, "Min"));
-            GenericTypeHandler<T>::Save(&textNode, maximum, CSerializationID(0xA53B6469, "Max"));
+            behaviac::CTextNode textNode(xmlNode);
+            GenericTypeHandler<T>::Save(&textNode, minimum, behaviac::CSerializationID(0x99365B30, "Min"));
+            GenericTypeHandler<T>::Save(&textNode, maximum, behaviac::CSerializationID(0xA53B6469, "Max"));
         }
     private:
         T minimum;
@@ -95,24 +95,24 @@ public:
         BEHAVIAC_DELETE(m_minMax);
     }
 
-    virtual void SaveDescription(XmlNodeRef& xmlNode)
+    virtual void SaveDescription(behaviac::XmlNodeRef& xmlNode)
     {
         if (m_UiFlags & Ui_Hidden)
         {
-            CTextNode textNode(xmlNode);
-            GenericTypeHandler<bool>::Save(&textNode, true, 0, CSerializationID(0x8FF1EC8B, "Hidden"));
+            behaviac::CTextNode textNode(xmlNode);
+            GenericTypeHandler<bool>::Save(&textNode, true, 0, behaviac::CSerializationID(0x8FF1EC8B, "Hidden"));
         }
 
         if (m_UiFlags & Ui_Disable)
         {
-            CTextNode textNode(xmlNode);
-            GenericTypeHandler<bool>::Save(&textNode, true, 0, CSerializationID(0x80F874CD, "Disable"));
+            behaviac::CTextNode textNode(xmlNode);
+            GenericTypeHandler<bool>::Save(&textNode, true, 0, behaviac::CSerializationID(0x80F874CD, "Disable"));
         }
 
         if (m_description)
         {
-            CTextNode textNode(xmlNode);
-            GenericTypeHandler<const char*>::Save(&textNode, m_description, 0, CSerializationID(0xEB78CFF1, "Description"));
+            behaviac::CTextNode textNode(xmlNode);
+            GenericTypeHandler<const char*>::Save(&textNode, m_description, 0, behaviac::CSerializationID(0xEB78CFF1, "Description"));
         }
 
         if (m_minMax)

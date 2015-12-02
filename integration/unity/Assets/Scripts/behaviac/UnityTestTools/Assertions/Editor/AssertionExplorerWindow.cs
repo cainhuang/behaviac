@@ -179,7 +179,6 @@ namespace UnityTest
             GameObjects,
             ExecutionMethod,
             Tests
-
         }
 
         public static void Reload() {

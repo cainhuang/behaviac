@@ -343,9 +343,9 @@ TEST(btunittest, filemanager)
 
     CFileManager* pFileManager = BEHAVIAC_NEW CFileManager_Test();
 
-    IFile* fp = CFileManager::GetInstance()->FileOpen("../tools/designer/out/config.xml");
+    IFile* fp = behaviac::CFileManager::GetInstance()->FileOpen("../tools/designer/out/config.xml");
     CHECK_NOT_EQUAL(0, fp);
-    CFileManager::GetInstance()->FileClose(fp);
+    behaviac::CFileManager::GetInstance()->FileClose(fp);
 
     BEHAVIAC_DELETE(pFileManager);
 }

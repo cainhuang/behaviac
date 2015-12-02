@@ -422,7 +422,6 @@ namespace behaviac
                         return;
                     }
                 }
-
             }
             else
             {

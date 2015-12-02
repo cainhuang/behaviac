@@ -26,12 +26,12 @@ public:
 public:
     void ParseTemplates();
 
-    virtual const ISerializableNode* GetTemplate(const CNoCaseStringID& templateId);
-    const ISerializableNode* GetTemplate(const char* templateName)
+    virtual const behaviac::ISerializableNode* GetTemplate(const behaviac::CNoCaseStringID& templateId);
+    const behaviac::ISerializableNode* GetTemplate(const char* templateName)
     {
-        return GetTemplate(CNoCaseStringID(templateName));
+        return GetTemplate(behaviac::CNoCaseStringID(templateName));
     }
-    const ISerializableNode* GetTemplate(const behaviac::string& templateName)
+    const behaviac::ISerializableNode* GetTemplate(const behaviac::string& templateName)
     {
         return GetTemplate(templateName.c_str());
     }
@@ -47,9 +47,9 @@ protected:
     CTagObjectTemplateManager();
     virtual ~CTagObjectTemplateManager();
 
-    SerializableNodeRef m_root;
-    behaviac::map<CNoCaseStringID, const ISerializableNode*> m_templates;
-    behaviac::map<CNoCaseStringID, CTagObject*> m_templateChangeListeners;
+    behaviac::SerializableNodeRef m_root;
+    behaviac::map<behaviac::CNoCaseStringID, const behaviac::ISerializableNode*> m_templates;
+    behaviac::map<behaviac::CNoCaseStringID, CTagObject*> m_templateChangeListeners;
 
     BEHAVIAC_DELCARE_SINGLETON(CTagObjectTemplateManager);
 };

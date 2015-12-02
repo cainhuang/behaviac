@@ -90,7 +90,6 @@ namespace behaviac
                 if (p.name == "TargetFSMNodeId")
                 {
                     this.m_targetId = Convert.ToInt32(p.value);
-
                 }
                 else
                 {

@@ -156,6 +156,5 @@ namespace BehaviorOtherUnitTest
             behaviac.Agent.UnRegisterInstanceName<behaviac.Agent>("Name_Agent_0");
             behaviac.Agent.UnRegisterInstanceName<AgentNodeTest>();
         }
-
     }
 }

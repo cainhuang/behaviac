@@ -68,7 +68,7 @@
               <node class="Sequence" id="8">
                 <node class="Wait" id="19">
                   <property IgnoreTimeScale="false" />
-                  <property Time="const int 1000" />
+                  <property Time="const float 1000" />
                 </node>
                 <node class="Assignment" id="20">
                   <property Opl="bool Self.Player::parT_NavFailed" />
@@ -127,7 +127,7 @@
                 </node>
                 <node class="Wait" id="17">
                   <property IgnoreTimeScale="false" />
-                  <property Time="const int 2000" />
+                  <property Time="const float 2000" />
                 </node>
               </node>
               <node class="Sequence" id="49">

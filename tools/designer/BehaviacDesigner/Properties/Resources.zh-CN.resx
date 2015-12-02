@@ -690,4 +690,10 @@
   <data name="EnableDesc" xml:space="preserve">
     <value>激活或者禁用自己</value>
   </data>
+  <data name="ExportBehaviors" xml:space="preserve">
+    <value>选择需要导出的行为树:</value>
+  </data>
+  <data name="FaultBehaviors" xml:space="preserve">
+    <value>有错误的行为树:</value>
+  </data>
 </root>

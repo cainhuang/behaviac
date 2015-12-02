@@ -16,7 +16,6 @@ public class PreconEffectorAgent : behaviac.Agent
     public void init() {
         base.Init();
         resetProperties();
-
     }
 
     public void finl() {

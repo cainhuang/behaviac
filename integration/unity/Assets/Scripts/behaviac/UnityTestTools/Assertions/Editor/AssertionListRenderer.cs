@@ -84,7 +84,6 @@ namespace UnityTest
 
                         PrintAssertionLineDetails(assertionComponent);
                         EditorGUILayout.EndHorizontal();
-
                     }
 
                     GUILayout.Box("", new [] {GUILayout.ExpandWidth(true), GUILayout.Height(1)});
@@ -248,7 +247,6 @@ namespace UnityTest
                                  content,
                                  styleThisPath);
         }
-
 
     }
 }

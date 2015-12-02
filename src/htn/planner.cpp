@@ -291,7 +291,7 @@ namespace behaviac
 
         if (Config::IsLoggingOrSocketing())
         {
-            behaviac::string agentClassName(a->GetClassTypeName());
+			behaviac::string agentClassName(a->GetObjectTypeName());
             behaviac::string agentInstanceName(a->GetName());
 
             behaviac::string ni = BehaviorTask::GetTickInfo(a, root, "plan");
@@ -314,7 +314,7 @@ namespace behaviac
 
         if (Config::IsLoggingOrSocketing())
         {
-            behaviac::string agentClassName(a->GetClassTypeName());
+            behaviac::string agentClassName(a->GetObjectTypeName());
             behaviac::string agentInstanceName(a->GetName());
 
             behaviac::string ni = BehaviorTask::GetTickInfo(a, root, NULL);
@@ -474,7 +474,7 @@ namespace behaviac
         if (Config::IsLoggingOrSocketing())
         {
             behaviac::string ni = BehaviorTask::GetTickInfo(a, pForEach, NULL);
-            LogManager::GetInstance()->Log("[plan_foreach_end]%s %d %d %d\n", ni.c_str(), index, count, result.c_str());
+            LogManager::GetInstance()->Log("[plan_foreach_end]%s %d %d %s\n", ni.c_str(), index, count, result.c_str());
         }
 
 #endif
@@ -539,7 +539,6 @@ namespace behaviac
             {
                 //nothing to do for action
                 BEHAVIAC_ASSERT(true);
-
             }
             else
             {
@@ -552,14 +551,12 @@ namespace behaviac
             if (bOk)
             {
                 node->ApplyEffects(this->agent, BehaviorNode::E_SUCCESS);
-
             }
             else
             {
                 BehaviorTask::DestroyTask(taskAdded);
                 taskAdded = NULL;
             }
-
         }
         else
         {

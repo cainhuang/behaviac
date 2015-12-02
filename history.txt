@@ -1,3 +1,21 @@
+2015-12-2	3.2.8
+	Check the preconditions of the ancestors to handle updating the preconditions.
+	Export codes for the customized agents.
+	Export the customized types and members according to the export format settings.
+	Add the UnitPackage into the setup package.
+	-Wno-invalid-offsetof and -Wno-array-bounds removed, esp. for linux/mac version
+
+2015-11-27	3.2.7
+	remove -Wno-maybe-uninitialized, -Wno-unused-local-typedefs, -Wno-array-bounds, -Wno-strict-aliasing
+	Fix a bug for sending a property to the runtime.
+	MSG_NOSIGNAL added to socket send
+	fix a serious bug when back tracking
+
+2015-11-26	3.2.6
+	LogManager::Output virtual
+	EndState shape
+	Fix a bug for selecting the methods after changing the instance
+	
 2015-11-25	3.2.5
 	Support extra parameters of the Agent::Create() method for the constructor of the Agent subclasses.
 	add DebugUpdate to simplify api

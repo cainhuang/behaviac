@@ -212,7 +212,6 @@ namespace Behaviac.Design
             if (msg_real.StartsWith("[applog]"))
             {
                 FrameStatePool.RespondToCPPBreak(AgentDataPool.TotalFrames, msg_real);
-
             }
             else
             {

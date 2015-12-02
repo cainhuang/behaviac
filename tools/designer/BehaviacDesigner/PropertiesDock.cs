@@ -529,8 +529,9 @@ namespace Behaviac.Design
                 PropertiesDock.UpdatePropertyGrids();
             }
 
-            if (BehaviorTreeViewDock.LastFocused != null) {
-                BehaviorTreeViewDock.LastFocused.Refresh();
+            if (BehaviorTreeViewDock.LastFocused != null && BehaviorTreeViewDock.LastFocused.BehaviorTreeView != null)
+            {
+                BehaviorTreeViewDock.LastFocused.BehaviorTreeView.Redraw();
             }
         }
 

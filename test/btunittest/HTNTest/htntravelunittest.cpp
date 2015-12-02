@@ -15,27 +15,26 @@
 #include "behaviac/base/core/profiler/profiler.h"
 static HTNAgentTravel* initTestEnvHTNTravel(const char* treePath, behaviac::Workspace::EFileFormat format)
 {
-    behaviac::Profiler::CreateInstance();
-    behaviac::Config::SetSocketing(false);
-    behaviac::Config::SetLogging(false);
+	behaviac::Profiler::CreateInstance();
+	behaviac::Config::SetSocketing(false);
+	//behaviac::Config::SetLogging(false);
 
+	registerAllTypes();
+	HTNAgentTravel* testAgent = HTNAgentTravel::DynamicCast(behaviac::Agent::Create<HTNAgentTravel>());
+	behaviac::Agent::SetIdMask(1);
+	testAgent->SetIdFlag(1);
 
-    registerAllTypes();
-    HTNAgentTravel* testAgent = HTNAgentTravel::DynamicCast(behaviac::Agent::Create<HTNAgentTravel>());
-    behaviac::Agent::SetIdMask(1);
-    testAgent->SetIdFlag(1);
-
-    testAgent->btload(treePath);
-    testAgent->btsetcurrent(treePath);
-    return testAgent;
+	testAgent->btload(treePath);
+	testAgent->btsetcurrent(treePath);
+	return testAgent;
 }
 
 static void finlTestEnvHTNTravel(HTNAgentTravel* testAgent)
 {
-    BEHAVIAC_DELETE(testAgent);
-    unregisterAllTypes();
+	BEHAVIAC_DELETE(testAgent);
+	unregisterAllTypes();
 
-    behaviac::Profiler::DestroyInstance();
+	behaviac::Profiler::DestroyInstance();
 }
 
 /**
@@ -43,34 +42,40 @@ unit test for htn travel
 */
 LOAD_TEST(btunittest, test_build_travel)
 {
-    HTNAgentTravel* testAgent = initTestEnvHTNTravel("node_test/htn/travel/root", format);
-    testAgent->resetProperties();
+	behaviac::Config::SetLogging(true);
 
-    testAgent->SetStartFinish(testAgent->sh_td, testAgent->sz_td);
-    testAgent->btexec();
+	HTNAgentTravel* testAgent = initTestEnvHTNTravel("node_test/htn/travel/root", format);
+	testAgent->resetProperties();
 
-    CHECK_EQUAL(3, testAgent->Path().size());
-    CHECK_EQUAL("ride_taxi", testAgent->Path()[0].name);
-    CHECK_EQUAL(testAgent->sh_td, testAgent->Path()[0].x);
-    CHECK_EQUAL(testAgent->airport_sh_hongqiao, testAgent->Path()[0].y);
+	behaviac::Workspace::GetInstance()->DebugUpdate();
+	behaviac::Workspace::GetInstance()->DebugUpdate();
 
-    CHECK_EQUAL("fly", testAgent->Path()[1].name);
-    CHECK_EQUAL(testAgent->airport_sh_hongqiao, testAgent->Path()[1].x);
-    CHECK_EQUAL(testAgent->airport_sz_baoan, testAgent->Path()[1].y);
+	testAgent->SetStartFinish(testAgent->sh_td, testAgent->sz_td);
+	testAgent->btexec();
+	behaviac::Config::SetLogging(false);
 
-    CHECK_EQUAL("ride_taxi", testAgent->Path()[2].name);
-    CHECK_EQUAL(testAgent->airport_sz_baoan, testAgent->Path()[2].x);
-    CHECK_EQUAL(testAgent->sz_td, testAgent->Path()[2].y);
+	CHECK_EQUAL(3, testAgent->Path().size());
+	CHECK_EQUAL("ride_taxi", testAgent->Path()[0].name);
+	CHECK_EQUAL(testAgent->sh_td, testAgent->Path()[0].x);
+	CHECK_EQUAL(testAgent->airport_sh_hongqiao, testAgent->Path()[0].y);
 
-    //
-    testAgent->resetProperties();
-    testAgent->SetStartFinish(testAgent->sh_td, testAgent->sh_home);
-    testAgent->btexec();
+	CHECK_EQUAL("fly", testAgent->Path()[1].name);
+	CHECK_EQUAL(testAgent->airport_sh_hongqiao, testAgent->Path()[1].x);
+	CHECK_EQUAL(testAgent->airport_sz_baoan, testAgent->Path()[1].y);
 
-    CHECK_EQUAL(1, testAgent->Path().size());
-    CHECK_EQUAL("ride_taxi", testAgent->Path()[0].name);
-    CHECK_EQUAL(testAgent->sh_td, testAgent->Path()[0].x);
-    CHECK_EQUAL(testAgent->sh_home, testAgent->Path()[0].y);
+	CHECK_EQUAL("ride_taxi", testAgent->Path()[2].name);
+	CHECK_EQUAL(testAgent->airport_sz_baoan, testAgent->Path()[2].x);
+	CHECK_EQUAL(testAgent->sz_td, testAgent->Path()[2].y);
 
-    finlTestEnvHTNTravel(testAgent);
+	//
+	testAgent->resetProperties();
+	testAgent->SetStartFinish(testAgent->sh_td, testAgent->sh_home);
+	testAgent->btexec();
+
+	CHECK_EQUAL(1, testAgent->Path().size());
+	CHECK_EQUAL("ride_taxi", testAgent->Path()[0].name);
+	CHECK_EQUAL(testAgent->sh_td, testAgent->Path()[0].x);
+	CHECK_EQUAL(testAgent->sh_home, testAgent->Path()[0].y);
+
+	finlTestEnvHTNTravel(testAgent);
 }

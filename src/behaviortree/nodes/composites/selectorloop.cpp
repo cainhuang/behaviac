@@ -22,10 +22,12 @@ namespace behaviac
 
     SelectorLoop::~SelectorLoop()
     {}
+
     bool SelectorLoop::IsManagingChildrenAsSubTrees() const
     {
         return true;
     }
+
     void SelectorLoop::load(int version, const char* agentType, const properties_t& properties)
     {
         super::load(version, agentType, properties);

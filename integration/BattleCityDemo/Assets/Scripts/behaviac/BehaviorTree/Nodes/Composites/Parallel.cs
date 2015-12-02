@@ -121,72 +121,60 @@ public class Parallel : BehaviorNode
                 if (p.value == "FAIL_ON_ONE")
                 {
                     this.m_failPolicy = FAILURE_POLICY.FAIL_ON_ONE;
-
                 }
                 else if (p.value == "FAIL_ON_ALL")
                 {
                     this.m_failPolicy = FAILURE_POLICY.FAIL_ON_ALL;
-
                 }
                 else
                 {
                     Debug.Check(false);
                 }
-
             }
             else if (p.name == "SuccessPolicy")
             {
                 if (p.value == "SUCCEED_ON_ONE")
                 {
                     this.m_succeedPolicy = SUCCESS_POLICY.SUCCEED_ON_ONE;
-
                 }
                 else if (p.value == "SUCCEED_ON_ALL")
                 {
                     this.m_succeedPolicy = SUCCESS_POLICY.SUCCEED_ON_ALL;
-
                 }
                 else
                 {
                     Debug.Check(false);
                 }
-
             }
             else if (p.name == "ExitPolicy")
             {
                 if (p.value == "EXIT_NONE")
                 {
                     this.m_exitPolicy = EXIT_POLICY.EXIT_NONE;
-
                 }
                 else if (p.value == "EXIT_ABORT_RUNNINGSIBLINGS")
                 {
                     this.m_exitPolicy = EXIT_POLICY.EXIT_ABORT_RUNNINGSIBLINGS;
-
                 }
                 else
                 {
                     Debug.Check(false);
                 }
-
             }
             else if (p.name == "ChildFinishPolicy")
             {
                 if (p.value == "CHILDFINISH_ONCE")
                 {
                     this.m_childFinishPolicy = CHILDFINISH_POLICY.CHILDFINISH_ONCE;
-
                 }
                 else if (p.value == "CHILDFINISH_LOOP")
                 {
                     this.m_childFinishPolicy = CHILDFINISH_POLICY.CHILDFINISH_LOOP;
-
                 }
                 else
                 {
                     Debug.Check(false);
                 }
-
             }
             else
             {
@@ -252,13 +240,11 @@ public class Parallel : BehaviorNode
                 {
                     sawFail = true;
                     sawAllSuccess = false;
-
                 }
                 else if (status == EBTStatus.BT_SUCCESS)
                 {
                     sawSuccess = true;
                     sawAllFails = false;
-
                 }
                 else if (status == EBTStatus.BT_RUNNING)
                 {
@@ -266,13 +252,11 @@ public class Parallel : BehaviorNode
                     sawAllFails = false;
                     sawAllSuccess = false;
                 }
-
             }
             else if (treeStatus == EBTStatus.BT_SUCCESS)
             {
                 sawSuccess = true;
                 sawAllFails = false;
-
             }
             else
             {
@@ -289,7 +273,6 @@ public class Parallel : BehaviorNode
             (this.m_failPolicy == FAILURE_POLICY.FAIL_ON_ONE && sawFail))
         {
             result = EBTStatus.BT_FAILURE;
-
         }
         else if ((this.m_succeedPolicy == SUCCESS_POLICY.SUCCEED_ON_ALL && sawAllSuccess) ||
                  (this.m_succeedPolicy == SUCCESS_POLICY.SUCCEED_ON_ONE && sawSuccess))

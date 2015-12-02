@@ -99,7 +99,6 @@ namespace behaviac
                         quoteDepth -= 2;
                         Debug.Check(quoteDepth >= 0);
                     }
-
                 }
                 else if (quoteDepth == 0 && tsrc[index] == ',')
                 {
@@ -149,7 +148,6 @@ namespace behaviac
             {
                 behaviac.Debug.LogWarning(string.Format("No Method {0}::{1} registered\n", agentClassName, methodName));
                 Debug.Check(false, string.Format("No Method {0}::{1} registered\n", agentClassName, methodName));
-
             }
             else
             {
@@ -193,30 +191,25 @@ namespace behaviac
                     {
                         this.m_method = Action.LoadMethod(p.value);
                     }//if (p.value[0] != '\0')
-
                 }
                 else if (p.name == "ResultOption")
                 {
                     if (p.value == "BT_INVALID")
                     {
                         m_resultOption = EBTStatus.BT_INVALID;
-
                     }
                     else if (p.value == "BT_FAILURE")
                     {
                         m_resultOption = EBTStatus.BT_FAILURE;
-
                     }
                     else if (p.value == "BT_RUNNING")
                     {
                         m_resultOption = EBTStatus.BT_RUNNING;
-
                     }
                     else
                     {
                         m_resultOption = EBTStatus.BT_SUCCESS;
                     }
-
                 }
                 else if (p.name == "ResultFunctor")
                 {
@@ -224,7 +217,6 @@ namespace behaviac
                     {
                         this.m_resultFunctor = Action.LoadMethod(p.value);
                     }
-
                 }
                 else
                 {
@@ -254,19 +246,16 @@ namespace behaviac
                 if (this.m_resultOption != EBTStatus.BT_INVALID)
                 {
                     result = this.m_resultOption;
-
                 }
                 else if (this.m_resultFunctor != null)
                 {
                     result = (EBTStatus)this.m_resultFunctor.Invoke(pAgent, returnValue);
-
                 }
                 else
                 {
                     Debug.Check(returnValue is EBTStatus, "method's return type is not EBTStatus");
                     result = (EBTStatus)returnValue;
                 }
-
             }
             else
             {
@@ -296,12 +285,10 @@ namespace behaviac
                 if (this.m_resultOption != EBTStatus.BT_INVALID)
                 {
                     result = this.m_resultOption;
-
                 }
                 else if (this.m_resultFunctor != null)
                 {
                     result = (EBTStatus)this.m_resultFunctor.Invoke(pAgent, returnValue);
-
                 }
                 else
                 {

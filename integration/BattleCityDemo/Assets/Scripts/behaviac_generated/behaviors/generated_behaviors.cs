@@ -164,7 +164,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 3000;
+			return 3000f;
 		}
 	}
 
@@ -284,7 +284,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 1000;
+			return 1000f;
 		}
 	}
 
@@ -296,7 +296,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 
@@ -378,7 +378,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 3000;
+			return 3000f;
 		}
 	}
 
@@ -420,7 +420,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 1000;
+			return 1000f;
 		}
 	}
 
@@ -506,7 +506,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 
@@ -540,7 +540,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 1000;
+			return 1000f;
 		}
 	}
 
@@ -1164,7 +1164,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 
@@ -1480,7 +1480,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 
@@ -1505,7 +1505,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 6000;
+			return 6000f;
 		}
 	}
 
@@ -1545,7 +1545,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 
@@ -1570,7 +1570,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 6000;
+			return 6000f;
 		}
 	}
 
@@ -1597,7 +1597,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 8000;
+			return 8000f;
 		}
 	}
 
@@ -1687,7 +1687,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 
@@ -2360,7 +2360,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 1000;
+			return 1000f;
 		}
 	}
 
@@ -2412,7 +2412,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 10000;
+			return 10000f;
 		}
 	}
 
@@ -2469,7 +2469,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 3000;
+			return 3000f;
 		}
 	}
 
@@ -2503,7 +2503,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 1000;
+			return 1000f;
 		}
 	}
 
@@ -2665,7 +2665,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 
@@ -2690,7 +2690,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 6000;
+			return 6000f;
 		}
 	}
 
@@ -3261,7 +3261,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 1000;
+			return 1000f;
 		}
 	}
 
@@ -3447,7 +3447,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 
@@ -4030,7 +4030,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 1000;
+			return 1000f;
 		}
 	}
 
@@ -5863,7 +5863,7 @@ namespace behaviac
 		}
 		protected override float GetTime(Agent pAgent)
 		{
-			return 2000;
+			return 2000f;
 		}
 	}
 

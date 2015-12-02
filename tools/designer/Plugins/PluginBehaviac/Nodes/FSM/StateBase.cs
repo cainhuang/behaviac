@@ -79,7 +79,7 @@ namespace PluginBehaviac.Nodes
         public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior)
         {
             NodeViewData nvd = base.CreateNodeViewData(parent, rootBehavior);
-            nvd.ChangeShape(NodeShape.Rectangle);
+            nvd.ChangeShape(this.IsEndState ? NodeShape.RoundedRectangle : NodeShape.Rectangle);
 
             return nvd;
         }
@@ -89,9 +89,9 @@ namespace PluginBehaviac.Nodes
             return base.CanBeAdoptedBy(parent) && (parent is Behavior) && (parent.IsFSM || (parent.Children.Count == 0)) && (parent.FSMNodes.Count == 0);
         }
 
-        public override bool AcceptsAttachment(Type type)
+        public override bool AcceptsAttachment(DefaultObject obj)
         {
-            return true;
+            return (obj != null) && (obj is Attachment);
         }
 
         protected override void CloneProperties(Node newnode)

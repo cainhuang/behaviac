@@ -18,7 +18,7 @@
 #include "behaviac/base/core/assert_t.h"
 
 #include "behaviac/base/base.h"
-#include "behaviac/base/logging/logging.h"
+#include "behaviac/base/logging/logmanager.h"
 
 namespace behaviac
 {
@@ -126,14 +126,14 @@ namespace behaviac
 
         in each frame, btexec is used to execute the BT. "timeSinceStartup" is the time since the game starts up, 'deltaTime' and 'deltaFrames' are the intervals since last frame.
         */
-        void SetTimeSinceStartup(float timeSinceStartup);
-        float GetTimeSinceStartup();
+		virtual void SetTimeSinceStartup(float timeSinceStartup);
+		virtual float GetTimeSinceStartup();
 
-        void SetDeltaFrameTime(float deltaTime);
-        float GetDeltaFrameTime();
+        virtual void SetDeltaFrameTime(float deltaTime);
+		virtual float GetDeltaFrameTime();
 
-        void SetDeltaFrames(int deltaFrames);
-        int GetDeltaFrames();
+		virtual void SetDeltaFrames(int deltaFrames);
+		virtual int GetDeltaFrames();
 
         /**
         'ExportPath' is the path in which the files are exported, which is configured in the workspace file.

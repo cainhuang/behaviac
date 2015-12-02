@@ -6,13 +6,13 @@
     <Connector Identifier="GenericChildren">
       <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="0" PrefabName="" PrefabNodeId="-1">
         <Comment Background="NoColor" Text="" />
-        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="1" Operator="Equal" Opl="Self.AgentNodeTest::enter_action_1(0)" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Enter" PrefabAttachmentId="-1" />
-        <Attachment Class="PluginBehaviac.Events.Effector" Id="2" Operator="Invalid" Opl="Self.AgentNodeTest::exit_action_1(0)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Success" PrefabAttachmentId="-1" />
+        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="1" Operator="Equal" Opl="Self.AgentNodeTest::enter_action_1(0)" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Enter" PrefabAttachmentId="-1" />
+        <Attachment Class="PluginBehaviac.Events.Effector" Enable="true" Id="2" Operator="Invalid" Opl="Self.AgentNodeTest::exit_action_1(0)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Success" PrefabAttachmentId="-1" />
         <Connector Identifier="GenericChildren">
           <Node Class="PluginBehaviac.Nodes.Selector" Enable="true" HasOwnPrefabData="false" Id="6" PrefabName="" PrefabNodeId="-1">
             <Comment Background="NoColor" Text="" />
-            <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="3" Operator="Equal" Opl="Self.AgentNodeTest::enter_action_2(0,&quot;enter_test&quot;)" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Enter" PrefabAttachmentId="-1" />
-            <Attachment Class="PluginBehaviac.Events.Effector" Id="4" Operator="Invalid" Opl="Self.AgentNodeTest::exit_action_2(0,&quot;exit_test&quot;)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Success" PrefabAttachmentId="-1" />
+            <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="3" Operator="Equal" Opl="Self.AgentNodeTest::enter_action_2(0,&quot;enter_test&quot;)" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Enter" PrefabAttachmentId="-1" />
+            <Attachment Class="PluginBehaviac.Events.Effector" Enable="true" Id="4" Operator="Invalid" Opl="Self.AgentNodeTest::exit_action_2(0,&quot;exit_test&quot;)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Success" PrefabAttachmentId="-1" />
             <Connector Identifier="GenericChildren">
               <Node Class="PluginBehaviac.Nodes.WaitforSignal" Enable="true" HasOwnPrefabData="false" Id="7" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />

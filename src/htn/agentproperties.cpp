@@ -192,7 +192,11 @@ namespace behaviac
         for (map<behaviac::string, AgentProperties*>::iterator it = agent_type_blackboards.begin(); it != agent_type_blackboards.end(); it++)
         {
             AgentProperties* bb = it->second;
-            bb->ClearLocals();
+
+			if (bb)
+			{
+				bb->ClearLocals();
+			}
         }
     }
 

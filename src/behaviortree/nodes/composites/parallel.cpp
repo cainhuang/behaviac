@@ -70,10 +70,12 @@ namespace behaviac
 
         return pTask;
     }
+
     bool Parallel::IsManagingChildrenAsSubTrees() const
     {
         return true;
     }
+
     EBTStatus Parallel::ParallelUpdate(Agent* pAgent, behaviac::vector<BehaviorTask*> children)
     {
         bool sawSuccess = false;

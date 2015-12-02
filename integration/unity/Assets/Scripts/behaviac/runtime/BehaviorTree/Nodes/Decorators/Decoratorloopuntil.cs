@@ -37,7 +37,6 @@ namespace behaviac
                     if (p.value == "true")
                     {
                         this.m_until = true;
-
                     }
                     else if (p.value == "false")
                     {
@@ -105,7 +104,6 @@ namespace behaviac
                     {
                         return EBTStatus.BT_SUCCESS;
                     }
-
                 }
                 else
                 {

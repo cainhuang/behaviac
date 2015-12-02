@@ -144,13 +144,11 @@ namespace behaviac
                     if (childStatus == EBTStatus.BT_SUCCESS)
                     {
                         return EBTStatus.BT_SUCCESS;
-
                     }
                     else if (childStatus == EBTStatus.BT_FAILURE)
                     {
                         //the next for starts from (idx + 1), so that it starts from next one after this failed one
                         idx = this.m_activeChildIndex;
-
                     }
                     else
                     {
@@ -212,7 +210,6 @@ namespace behaviac
                         if (s == EBTStatus.BT_RUNNING)
                         {
                             this.m_activeChildIndex = i;
-
                         }
                         else
                         {

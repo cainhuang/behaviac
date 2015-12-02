@@ -22,62 +22,65 @@
 #include "behaviac/base/core/container/map_t.h"
 #include "behaviac/base/core/container/set_t.h"
 
-class IFileSystemVisitor
+namespace behaviac
 {
-protected:
-    virtual ~IFileSystemVisitor()
-    {
-    }
+	class IFileSystemVisitor
+	{
+	protected:
+		virtual ~IFileSystemVisitor()
+		{
+		}
 
-public:
-    // full path DOESN'T end with separator
-    virtual bool EnterDirectory(const char* fullDirPath, const char* dirName) = 0;
-    virtual bool VisitFile(const char* fullFilePath, const char* fileName) = 0;
-    // full path DOESN'T end with separator
-    virtual bool VisitDirectory(const char* fullDirPath, const char* dirName) = 0;
-    virtual void ExitDirectory() = 0;
-};
+	public:
+		// full path DOESN'T end with separator
+		virtual bool EnterDirectory(const char* fullDirPath, const char* dirName) = 0;
+		virtual bool VisitFile(const char* fullFilePath, const char* fileName) = 0;
+		// full path DOESN'T end with separator
+		virtual bool VisitDirectory(const char* fullDirPath, const char* dirName) = 0;
+		virtual void ExitDirectory() = 0;
+	};
 
-class CVectorFileSystemVisitor : public IFileSystemVisitor
-{
-public:
-    CVectorFileSystemVisitor(behaviac::vector< behaviac::string >& vec, bool storeFullPath, uint32_t maximumSize, bool keepCase);
-    virtual ~CVectorFileSystemVisitor() {}
-public:
-    virtual bool EnterDirectory(const char* fullDirPath, const char* dirName);
-    virtual bool VisitFile(const char* fullFilePath, const char* fileName);
-    virtual bool VisitDirectory(const char* fullDirPath, const char* dirName);
-    virtual void ExitDirectory();
+	class CVectorFileSystemVisitor : public IFileSystemVisitor
+	{
+	public:
+		CVectorFileSystemVisitor(behaviac::vector< behaviac::string >& vec, bool storeFullPath, uint32_t maximumSize, bool keepCase);
+		virtual ~CVectorFileSystemVisitor() {}
+	public:
+		virtual bool EnterDirectory(const char* fullDirPath, const char* dirName);
+		virtual bool VisitFile(const char* fullFilePath, const char* fileName);
+		virtual bool VisitDirectory(const char* fullDirPath, const char* dirName);
+		virtual void ExitDirectory();
 
-private:
-    CVectorFileSystemVisitor(const CVectorFileSystemVisitor& copy);
-    CVectorFileSystemVisitor& operator=(const CVectorFileSystemVisitor& copy);
+	private:
+		CVectorFileSystemVisitor(const CVectorFileSystemVisitor& copy);
+		CVectorFileSystemVisitor& operator=(const CVectorFileSystemVisitor& copy);
 
-    behaviac::vector< behaviac::string >&   m_vec;
-    bool                    m_storeFullPath;
-    uint32_t                  m_maximumSize;
-    bool                    m_keepCase;
-};
+		behaviac::vector< behaviac::string >&   m_vec;
+		bool                    m_storeFullPath;
+		uint32_t                  m_maximumSize;
+		bool                    m_keepCase;
+	};
 
-class CCounterFileSystemVisitor : public IFileSystemVisitor
-{
-public:
-    CCounterFileSystemVisitor(uint32_t maximumSize);
-    virtual ~CCounterFileSystemVisitor() {}
-public:
-    uint32_t GetCount() const
-    {
-        return m_count;
-    }
+	class CCounterFileSystemVisitor : public IFileSystemVisitor
+	{
+	public:
+		CCounterFileSystemVisitor(uint32_t maximumSize);
+		virtual ~CCounterFileSystemVisitor() {}
+	public:
+		uint32_t GetCount() const
+		{
+			return m_count;
+		}
 
-    virtual bool EnterDirectory(const char* fullDirPath, const char* dirName);
-    virtual bool VisitFile(const char* fullFilePath, const char* fileName);
-    virtual bool VisitDirectory(const char* fullDirPath, const char* dirName);
-    virtual void ExitDirectory();
+		virtual bool EnterDirectory(const char* fullDirPath, const char* dirName);
+		virtual bool VisitFile(const char* fullFilePath, const char* fileName);
+		virtual bool VisitDirectory(const char* fullDirPath, const char* dirName);
+		virtual void ExitDirectory();
 
-private:
-    uint32_t m_maximumSize;
-    uint32_t m_count;
-};
+	private:
+		uint32_t m_maximumSize;
+		uint32_t m_count;
+	};
+}
 
 #endif // BEHAVIAC_CORE_FILESYSTEMVISITOR_H

@@ -32,7 +32,7 @@ public:
     UiFileType() : m_fileFilter(NULL), m_defaultFolder(NULL), m_replaceExtension(NULL), m_removePath(false) {}
     UiFileType(const char* fileFilter, const char* defaultFolder = NULL, const char* replaceExtension = NULL, bool removePath = false, const char* description = NULL) : UiBasicType(Ui_None, description), m_fileFilter(fileFilter), m_defaultFolder(defaultFolder), m_replaceExtension(replaceExtension), m_removePath(removePath) {}
 
-    virtual void SaveDescription(XmlNodeRef& xmlNode)
+    virtual void SaveDescription(behaviac::XmlNodeRef& xmlNode)
     {
         UiBasicType::SaveDescription(xmlNode);
 

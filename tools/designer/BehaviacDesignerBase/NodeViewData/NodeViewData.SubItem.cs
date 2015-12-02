@@ -88,7 +88,7 @@ namespace Behaviac.Design
             /// <summary>
             /// Returns the object which can be selected. Is null when the subitem cannot be selected.
             /// </summary>
-            public virtual object SelectableObject {
+            public virtual DefaultObject SelectableObject {
                 get { return null; }
             }
 

@@ -24,7 +24,8 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_selector_loop_0")]
-        public void test_selector_loop_0() {
+        public void test_selector_loop_0()
+        {
             testAgent.btsetcurrent("node_test/selector_loop_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -34,7 +35,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_loop_1")]
-        public void test_selector_loop_1() {
+        public void test_selector_loop_1()
+        {
             testAgent.btsetcurrent("node_test/selector_loop_ut_1");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -44,7 +46,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_loop_2")]
-        public void test_selector_loop_2() {
+        public void test_selector_loop_2()
+        {
             testAgent.btsetcurrent("node_test/selector_loop_ut_2");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -54,7 +57,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_loop_3")]
-        public void test_selector_loop_3() {
+        public void test_selector_loop_3()
+        {
             testAgent.btsetcurrent("node_test/selector_loop_ut_3");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -64,7 +68,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_loop_4")]
-        public void test_selector_loop_4() {
+        public void test_selector_loop_4()
+        {
             testAgent.btsetcurrent("node_test/selector_loop_ut_4");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -79,7 +84,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_loop_5")]
-        public void test_selector_loop_5() {
+        public void test_selector_loop_5()
+        {
             testAgent.btsetcurrent("node_test/selector_loop_ut_5");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -87,6 +93,82 @@ namespace BehaviorNodeUnitTest
             behaviac.EBTStatus s = testAgent.btexec();
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, s);
             Assert.AreEqual(1, testAgent.testVar_0);
+        }
+
+        [Test]
+        [Category("test_selector_loop_6")]
+        public void test_selector_loop_6()
+        {
+            testAgent.btsetcurrent("node_test/selector_loop_ut_6");
+            testAgent.resetProperties();
+
+            testAgent.m_bCanSee = false;
+            const int kCount = 5;
+            for (int i = 0; i < kCount; ++i)
+            {
+                behaviac.EBTStatus status = testAgent.btexec();
+                Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+                Assert.AreEqual(2, testAgent.testVar_0);
+            }
+
+            testAgent.m_bCanSee = true;
+
+            behaviac.EBTStatus s = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(1, testAgent.testVar_0);
+
+            s = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(1, testAgent.testVar_0);
+
+            testAgent.m_bCanSee = false;
+
+            s = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(2, testAgent.testVar_0);
+
+            s = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(2, testAgent.testVar_0);
+
+            testAgent.m_bCanSee = true;
+
+            s = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, s);
+            Assert.AreEqual(1, testAgent.testVar_0);
+        }
+
+        [Test]
+        [Category("test_selector_loop_7")]
+        public void test_selector_loop_()
+        {
+            testAgent.btsetcurrent("node_test/selector_loop_ut_7");
+            testAgent.resetProperties();
+
+            testAgent.m_bCanSee = false;
+            const int kCount = 5;
+            for (int i = 0; i < kCount; ++i)
+            {
+                behaviac.EBTStatus status = testAgent.btexec();
+                Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+                Assert.AreEqual(2, testAgent.testVar_0);
+
+                Assert.AreEqual(i + 1, testAgent.testVar_1);
+            }
+
+            testAgent.m_bCanSee = true;
+
+            behaviac.EBTStatus s = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(1, testAgent.testVar_0);
+            Assert.AreEqual(6, testAgent.testVar_1);
+
+            testAgent.m_bTargetValid = false;
+
+            s = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, s);
+            Assert.AreEqual(1, testAgent.testVar_0);
+            Assert.AreEqual(3, testAgent.testVar_1);
         }
     }
 
@@ -96,7 +178,8 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_selector_0")]
-        public void test_selector_0() {
+        public void test_selector_0()
+        {
             testAgent.btsetcurrent("node_test/selector_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -107,7 +190,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_1")]
-        public void test_selector_1() {
+        public void test_selector_1()
+        {
             testAgent.btsetcurrent("node_test/selector_ut_1");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -118,7 +202,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_2")]
-        public void test_selector_2() {
+        public void test_selector_2()
+        {
             testAgent.btsetcurrent("node_test/selector_ut_2");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -129,7 +214,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_3")]
-        public void test_selector_3() {
+        public void test_selector_3()
+        {
             testAgent.btsetcurrent("node_test/selector_ut_3");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -140,7 +226,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_4")]
-        public void test_selector_4() {
+        public void test_selector_4()
+        {
             testAgent.btsetcurrent("node_test/selector_ut_4");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -156,7 +243,8 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_sequence_0")]
-        public void test_sequence_0() {
+        public void test_sequence_0()
+        {
             testAgent.btsetcurrent("node_test/sequence_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -167,7 +255,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_sequence_1")]
-        public void test_sequence_1() {
+        public void test_sequence_1()
+        {
             testAgent.btsetcurrent("node_test/sequence_ut_1");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -178,7 +267,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_sequence_2")]
-        public void test_sequence_2() {
+        public void test_sequence_2()
+        {
             testAgent.btsetcurrent("node_test/sequence_ut_2");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -189,7 +279,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_sequence_3")]
-        public void test_sequence_3() {
+        public void test_sequence_3()
+        {
             testAgent.btsetcurrent("node_test/sequence_ut_3");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -206,7 +297,8 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_true")]
-        public void test_true() {
+        public void test_true()
+        {
             testAgent.btsetcurrent("node_test/if_else_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -217,7 +309,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_false")]
-        public void test_false() {
+        public void test_false()
+        {
             testAgent.btsetcurrent("node_test/if_else_ut_1");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -233,13 +326,15 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_sequence_stochastic_0")]
-        public void test_sequence_stochastic_0() {
+        public void test_sequence_stochastic_0()
+        {
             testAgent.resetProperties();
 
-            int[] counts = new int[] {0, 0, 0};
+            int[] counts = new int[] { 0, 0, 0 };
             int loopCount = kLoopCount;
 
-            while (loopCount > 0) {
+            while (loopCount > 0)
+            {
                 testAgent.btsetcurrent("node_test/sequence_stochastic_ut_0");
                 testAgent.btexec();
                 ++(counts[testAgent.testVar_0]);
@@ -247,18 +342,21 @@ namespace BehaviorNodeUnitTest
             }
 
             //< check int value
-            for (int i = 0; i < counts.Length; ++i) {
+            for (int i = 0; i < counts.Length; ++i)
+            {
                 int k = counts[i];
                 int bias = Mathf.Abs(k - kLoopMed);
                 Assert.Less(bias, kLoopBias);
             }
         }
 
-        void test_sequence_stochastic_distribution(string bt) {
+        void test_sequence_stochastic_distribution(string bt)
+        {
             int predicateValueCount = 0;
             int loopCount = kLoopCount;
 
-            while (loopCount > 0) {
+            while (loopCount > 0)
+            {
                 testAgent.btsetcurrent(bt);
                 testAgent.resetProperties();
                 testAgent.btexec();
@@ -275,19 +373,22 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_sequence_stochastic_1")]
-        public void test_sequence_stochastic_1() {
+        public void test_sequence_stochastic_1()
+        {
             test_sequence_stochastic_distribution("node_test/sequence_stochastic_ut_1");
         }
 
         [Test]
         [Category("test_sequence_stochastic_2")]
-        public void test_sequence_stochastic_2() {
+        public void test_sequence_stochastic_2()
+        {
             test_sequence_stochastic_distribution("node_test/sequence_stochastic_ut_2");
         }
 
         [Test]
         [Category("test_sequence_stochastic_3")]
-        public void test_sequence_stochastic_3() {
+        public void test_sequence_stochastic_3()
+        {
             test_sequence_stochastic_distribution("node_test/sequence_stochastic_ut_3");
         }
     }
@@ -298,13 +399,15 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_selector_stochastic_0")]
-        public void test_selector_stochastic_0() {
+        public void test_selector_stochastic_0()
+        {
             testAgent.resetProperties();
 
-            int[] counts = new int[] {0, 0, 0};
+            int[] counts = new int[] { 0, 0, 0 };
             int loopCount = kLoopCount;
 
-            while (loopCount > 0) {
+            while (loopCount > 0)
+            {
                 testAgent.btsetcurrent("node_test/selector_stochastic_ut_0");
                 testAgent.btexec();
                 ++(counts[testAgent.testVar_0]);
@@ -312,7 +415,8 @@ namespace BehaviorNodeUnitTest
             }
 
             //< check int value
-            for (int i = 0; i < counts.Length; ++i) {
+            for (int i = 0; i < counts.Length; ++i)
+            {
                 int k = counts[i];
                 int bias = Mathf.Abs(k - kLoopMed);
                 Assert.Less(bias, kLoopBias);
@@ -321,11 +425,13 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_stochastic_1")]
-        public void test_selector_stochastic_1() {
+        public void test_selector_stochastic_1()
+        {
             int predicateValueCount = 0;
             int loopCount = kLoopCount;
 
-            while (loopCount > 0) {
+            while (loopCount > 0)
+            {
                 testAgent.btsetcurrent("node_test/selector_stochastic_ut_1");
                 testAgent.resetProperties();
                 testAgent.btexec();
@@ -342,11 +448,13 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_stochastic_2")]
-        public void test_selector_stochastic_2() {
+        public void test_selector_stochastic_2()
+        {
             int predicateValueCount = 0;
             int loopCount = kLoopCount;
 
-            while (loopCount > 0) {
+            while (loopCount > 0)
+            {
                 testAgent.btsetcurrent("node_test/selector_stochastic_ut_2");
                 testAgent.resetProperties();
                 testAgent.btexec();
@@ -366,13 +474,15 @@ namespace BehaviorNodeUnitTest
     [Category("SelectorProbabilityTests")]
     internal class SelectorProbabilityTests : UnitTestBase_0
     {
-        int[] test_selector_probability_distribution(string bt) {
+        int[] test_selector_probability_distribution(string bt)
+        {
             testAgent.resetProperties();
 
-            int[] counts = new int[] {0, 0, 0};
+            int[] counts = new int[] { 0, 0, 0 };
             int loopCount = 10000;
 
-            while (loopCount > 0) {
+            while (loopCount > 0)
+            {
                 testAgent.btsetcurrent(bt);
                 testAgent.btexec();
                 ++(counts[testAgent.testVar_0]);
@@ -384,11 +494,13 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_probability_0")]
-        public void test_selector_probability_0() {
+        public void test_selector_probability_0()
+        {
             int[] counts = test_selector_probability_distribution("node_test/selector_probability_ut_0");
-            int[] targetCounts = new int[] {2000, 3000, 5000};
+            int[] targetCounts = new int[] { 2000, 3000, 5000 };
 
-            for (int i = 0; i < counts.Length; ++i) {
+            for (int i = 0; i < counts.Length; ++i)
+            {
                 int k = counts[i];
                 int bias = Mathf.Abs(k - targetCounts[i]);
                 Assert.Less(bias, 1000);
@@ -397,11 +509,13 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_probability_1")]
-        public void test_selector_probability_1() {
+        public void test_selector_probability_1()
+        {
             int[] counts = test_selector_probability_distribution("node_test/selector_probability_ut_1");
-            int[] targetCounts = new int[] {0, 5000, 5000};
+            int[] targetCounts = new int[] { 0, 5000, 5000 };
 
-            for (int i = 0; i < counts.Length; ++i) {
+            for (int i = 0; i < counts.Length; ++i)
+            {
                 int k = counts[i];
                 int bias = Mathf.Abs(k - targetCounts[i]);
                 Assert.Less(bias, 1000);
@@ -410,12 +524,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_probability_2")]
-        public void test_selector_probability_2() {
+        public void test_selector_probability_2()
+        {
             testAgent.resetProperties();
 
             int loopCount = 10000;
 
-            while (loopCount > 0) {
+            while (loopCount > 0)
+            {
                 testAgent.btsetcurrent("node_test/selector_probability_ut_2");
                 testAgent.btexec();
                 Assert.AreEqual(testAgent.testVar_0, -1);
@@ -430,7 +546,8 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_condition_0")]
-        public void test_condition_0() {
+        public void test_condition_0()
+        {
             testAgent.btsetcurrent("node_test/condition_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -440,7 +557,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_condition_1")]
-        public void test_condition_1() {
+        public void test_condition_1()
+        {
             testAgent.btsetcurrent("node_test/condition_ut_1");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -450,7 +568,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_condition_2")]
-        public void test_condition_2() {
+        public void test_condition_2()
+        {
             testAgent.btsetcurrent("node_test/condition_ut_2");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -460,7 +579,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_condition_3")]
-        public void test_condition_3() {
+        public void test_condition_3()
+        {
             testAgent.btsetcurrent("node_test/condition_ut_3");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -475,7 +595,8 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_action_0")]
-        public void test_action_0() {
+        public void test_action_0()
+        {
             testAgent.btsetcurrent("node_test/action_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -488,7 +609,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_action_1")]
-        public void test_action_1() {
+        public void test_action_1()
+        {
             testAgent.btsetcurrent("node_test/action_ut_1");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -505,7 +627,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_action_2")]
-        public void test_action_2() {
+        public void test_action_2()
+        {
             testAgent.btsetcurrent("node_test/action_ut_2");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -516,7 +639,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_action_3")]
-        public void test_action_3() {
+        public void test_action_3()
+        {
             testAgent.btsetcurrent("node_test/action_ut_3");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -527,7 +651,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_action_waitforsignal_0")]
-        public void test_action_waitforsignal_0() {
+        public void test_action_waitforsignal_0()
+        {
             testAgent.btsetcurrent("node_test/action_ut_waitforsignal_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -544,7 +669,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_action_waitforsignal_1")]
-        public void test_action_waitforsignal_1() {
+        public void test_action_waitforsignal_1()
+        {
             testAgent.btsetcurrent("node_test/action_ut_waitforsignal_1");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -561,7 +687,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_action_waitforsignal_2")]
-        public void test_action_waitforsignal_2() {
+        public void test_action_waitforsignal_2()
+        {
             testAgent.btsetcurrent("node_test/action_ut_waitforsignal_2");
             testAgent.resetProperties();
             behaviac.EBTStatus status = testAgent.btexec();
@@ -578,13 +705,15 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_action_waitframes_0")]
-        public void test_action_waitframes_0() {
+        public void test_action_waitframes_0()
+        {
             testAgent.btsetcurrent("node_test/action_waitframes_ut_0");
             testAgent.resetProperties();
 
             int loopCount = 0;
 
-            while (loopCount < 5) {
+            while (loopCount < 5)
+            {
                 testAgent.btexec();
 
                 if (loopCount < 4)
@@ -605,7 +734,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_action_noop_0")]
-        public void test_action_noop_0() {
+        public void test_action_noop_0()
+        {
             testAgent.btsetcurrent("node_test/action_noop_ut_0");
             testAgent.resetProperties();
             behaviac.EBTStatus status = testAgent.btexec();
@@ -621,7 +751,8 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("test_wait_0")]
-        public void test_wait_0() {
+        public void test_wait_0()
+        {
             testAgent.btsetcurrent("node_test/wait_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -631,7 +762,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_wait_1")]
-        public void test_wait_1() {
+        public void test_wait_1()
+        {
             testAgent.btsetcurrent("node_test/wait_ut_1");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -646,7 +778,8 @@ namespace BehaviorNodeUnitTest
     {
         [Test]
         [Category("circular_ut_0")]
-        public void circular_ut_0() {
+        public void circular_ut_0()
+        {
             testAgent.btsetcurrent("node_test/circular_ut_0");
             testAgent.resetProperties();
             testAgent.testVar_0 = 0;
@@ -658,7 +791,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("reference_ut_0")]
-        public void reference_ut_0() {
+        public void reference_ut_0()
+        {
             testAgent.btsetcurrent("node_test/reference_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -666,7 +800,6 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(1, testAgent.testVar_0);
             Assert.AreEqual(1.0, testAgent.testVar_2);
         }
-
     }
 
 }

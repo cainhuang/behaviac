@@ -51,6 +51,10 @@ public class AgentNodeTest : behaviac.Agent
     [behaviac.MemberMetaInfo()]
     public string testVar_str_1 = string.Empty;
 
+    public bool m_bCanSee = false;
+
+    public bool m_bTargetValid;
+
     public int event_test_var_int = -1;
     public bool event_test_var_bool = false;
     public float event_test_var_float = -1.0f;
@@ -73,6 +77,9 @@ public class AgentNodeTest : behaviac.Agent
         action_1_exit_count = 0;
         action_2_enter_count = 0;
         action_2_exit_count = 0;
+
+        m_bCanSee = false;
+        m_bTargetValid = false;
 
         testVar_str_0 = string.Empty;
         this.Variables.Clear();
@@ -185,6 +192,41 @@ public class AgentNodeTest : behaviac.Agent
 
         return behaviac.EBTStatus.BT_RUNNING;
     }
+
+    [behaviac.MethodMetaInfo()]
+    bool CanSeeEnemy()
+	{
+		return m_bCanSee;
+	}
+
+    [behaviac.MethodMetaInfo()]
+    void Stop()
+    {
+    }
+
+    [behaviac.MethodMetaInfo()]
+    bool IsTargetValid()
+    {
+        return m_bTargetValid;
+    }
+
+    [behaviac.MethodMetaInfo()]
+    void SelectTarget()
+    {
+        m_bTargetValid = true;
+    }
+
+    [behaviac.MethodMetaInfo()]
+	behaviac.EBTStatus Move()
+	{
+		return behaviac.EBTStatus.BT_RUNNING;
+	}
+
+    [behaviac.MethodMetaInfo()]
+	behaviac.EBTStatus MoveToTarget()
+	{
+        return behaviac.EBTStatus.BT_RUNNING;
+	}
 
     // enter action and exit action
     public int action_0_enter_count = 0;

@@ -34,7 +34,7 @@ public:
     {
         m_elementName = memberName;
     }
-    virtual void SaveDescription(XmlNodeRef& xmlNode)
+    virtual void SaveDescription(behaviac::XmlNodeRef& xmlNode)
     {
         UiBasicType::SaveDescription(xmlNode);
 

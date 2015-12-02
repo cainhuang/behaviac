@@ -171,7 +171,6 @@ namespace Mono.Xml
                 {
                     names = new ArrayList();
                     values = new ArrayList();
-
                 }
                 else
                 {
@@ -502,7 +501,6 @@ namespace Mono.Xml
                     if (stateCode == 0xFF)
                     {
                         FatalErr("State dispatch error.");
-
                     }
                     else
                     {
@@ -518,7 +516,6 @@ namespace Mono.Xml
                         if (currCh != '/')
                         {
                             tagStack.Push(elementName);
-
                         }
                         else
                         {
@@ -539,7 +536,6 @@ namespace Mono.Xml
                             if (endName == null)
                             {
                                 FatalErr("Tag stack underflow");
-
                             }
                             else
                             {
@@ -600,7 +596,6 @@ namespace Mono.Xml
                             isComment = true;
                             twoCharBuff[0] = -1;
                             twoCharBuff[1] = -1;
-
                         }
                         else
                         {
@@ -645,7 +640,6 @@ namespace Mono.Xml
 
                             sbChars.Append((char)currCh);
                             stateCode = 0x12;
-
                         }
                         else
                         {
@@ -691,14 +685,12 @@ namespace Mono.Xml
                             {
                                 isComment = false;
                                 stateCode = 0;
-
                             }
                             else
                             {
                                 twoCharBuff[0] = twoCharBuff[1];
                                 twoCharBuff[1] = currCh;
                             }
-
                         }
                         else if (isDTD)
                         {
@@ -712,7 +704,6 @@ namespace Mono.Xml
                                 isDTD = false;
                                 stateCode = 0;
                             }
-
                         }
                         else
                         {
@@ -761,7 +752,6 @@ namespace Mono.Xml
                                     try
                                     {
                                         x = Int32.Parse(new string((char)currCh, 1), style);
-
                                     }
                                     catch (FormatException)
                                     {
@@ -784,13 +774,11 @@ namespace Mono.Xml
                             if (currCh == ';' && nDigits > 0)
                             {
                                 sbChars.Append((char)chCode);
-
                             }
                             else
                             {
                                 FatalErr("Bad char ref");
                             }
-
                         }
                         else
                         {
@@ -836,7 +824,6 @@ namespace Mono.Xml
 
                                     //								pred = lPred;
                                     predShift = 12; // left
-
                                 }
                                 else if (rBr != 0xF && currCh == entityRefChars[rBr])
                                 {
@@ -847,7 +834,6 @@ namespace Mono.Xml
 
                                     //								pred = rPred;
                                     predShift = 8; // right
-
                                 }
                                 else if (currCh == ';')
                                 {
@@ -876,7 +862,6 @@ namespace Mono.Xml
                             {
                                 sbChars.Length = sbLen;
                                 sbChars.Append(entities[entIdx]);
-
                             }
                             else
                             {

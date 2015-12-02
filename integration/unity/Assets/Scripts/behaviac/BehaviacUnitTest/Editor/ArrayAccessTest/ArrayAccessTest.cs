@@ -71,6 +71,5 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(5, c_ListInts.Count);
             Assert.AreEqual(20, c_ListInts[0]);
         }
-
     }
 }

@@ -334,6 +334,5 @@ namespace behaviac
 			customeMethod.AddParamType("int");
 			objectDesc.ms_methods.Add(customeMethod);
 		}
-
 	}
 }

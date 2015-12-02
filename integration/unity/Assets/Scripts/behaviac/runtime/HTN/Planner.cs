@@ -414,7 +414,7 @@ namespace behaviac
                 int count = Workspace.Instance.GetActionCount(ni) + 1;
                 string buffer = string.Format("[plan_begin]{0}#{1} {2} {3}\n", agentClassName, agentInstanceName, ni, count);
 
-                LogManager.Log(buffer);
+                LogManager.Instance.Log(buffer);
 
                 a.Variables.Log(a, true);
             }
@@ -437,7 +437,7 @@ namespace behaviac
                 string ni = BehaviorTask.GetTickInfo(a, root, null);
                 string buffer = string.Format("[plan_end]{0}#{1} {2}\n", agentClassName, agentInstanceName, ni);
 
-                LogManager.Log(buffer);
+                LogManager.Instance.Log(buffer);
             }
 
 #endif
@@ -451,7 +451,7 @@ namespace behaviac
             {
                 string ni = BehaviorTask.GetTickInfo(a, n, null);
 
-                LogManager.Log("[plan_node_begin]{0}\n", ni);
+                LogManager.Instance.Log("[plan_node_begin]{0}\n", ni);
                 a.Variables.Log(a, true);
             }
 
@@ -466,7 +466,7 @@ namespace behaviac
             {
                 string ni = BehaviorTask.GetTickInfo(a, n, null);
 
-                LogManager.Log("[plan_node_pre_failed]{0}\n", ni);
+                LogManager.Instance.Log("[plan_node_pre_failed]{0}\n", ni);
             }
 
 #endif
@@ -480,7 +480,7 @@ namespace behaviac
             {
                 string ni = BehaviorTask.GetTickInfo(a, n, null);
 
-                LogManager.Log("[plan_node_end]{0} {1}\n", ni, result);
+                LogManager.Instance.Log("[plan_node_end]{0} {1}\n", ni, result);
             }
 
 #endif
@@ -493,7 +493,7 @@ namespace behaviac
             if (Config.IsLoggingOrSocketing)
             {
                 string ni = BehaviorTask.GetTickInfo(a, referencedNode, null);
-                LogManager.Log("[plan_referencetree_enter]{0} {1}.xml\n", ni, referencedNode.ReferencedTree);
+                LogManager.Instance.Log("[plan_referencetree_enter]{0} {1}.xml\n", ni, referencedNode.ReferencedTree);
             }
 
 #endif
@@ -506,7 +506,7 @@ namespace behaviac
             if (Config.IsLoggingOrSocketing)
             {
                 string ni = BehaviorTask.GetTickInfo(a, referencedNode, null);
-                LogManager.Log("[plan_referencetree_exit]{0} {1}.xml\n", ni, referencedNode.ReferencedTree);
+                LogManager.Instance.Log("[plan_referencetree_exit]{0} {1}.xml\n", ni, referencedNode.ReferencedTree);
             }
 
 #endif
@@ -519,7 +519,7 @@ namespace behaviac
             if (Config.IsLoggingOrSocketing)
             {
                 string ni = BehaviorTask.GetTickInfo(a, m, null);
-                LogManager.Log("[plan_method_begin]{0}\n", ni);
+                LogManager.Instance.Log("[plan_method_begin]{0}\n", ni);
 
                 a.Variables.Log(a, true);
             }
@@ -534,7 +534,7 @@ namespace behaviac
             if (Config.IsLoggingOrSocketing)
             {
                 string ni = BehaviorTask.GetTickInfo(a, m, null);
-                LogManager.Log("[plan_method_end]{0} {1}\n", ni, result);
+                LogManager.Instance.Log("[plan_method_end]{0} {1}\n", ni, result);
             }
 
 #endif
@@ -547,7 +547,7 @@ namespace behaviac
             if (Config.IsLoggingOrSocketing)
             {
                 string ni = BehaviorTask.GetTickInfo(a, pForEach, null);
-                LogManager.Log("[plan_foreach_begin]{0} {1} {2}\n", ni, index, count);
+                LogManager.Instance.Log("[plan_foreach_begin]{0} {1} {2}\n", ni, index, count);
                 a.Variables.Log(a, true);
             }
 
@@ -561,7 +561,7 @@ namespace behaviac
             if (Config.IsLoggingOrSocketing)
             {
                 string ni = BehaviorTask.GetTickInfo(a, pForEach, null);
-                LogManager.Log("[plan_foreach_end]{0} {1} {2} {3}\n", ni, index, count, result);
+                LogManager.Instance.Log("[plan_foreach_end]{0} {1} {2} {3}\n", ni, index, count, result);
             }
 
 #endif
@@ -573,7 +573,7 @@ namespace behaviac
 
         private PlannerTask BuildPlan(Task root)
         {
-            LogManager.PLanningClearCache();
+            LogManager.Instance.PLanningClearCache();
 
             int depth = this.agent.Variables.Depth;
 
@@ -632,7 +632,6 @@ namespace behaviac
                     {
                         //nothing to do for action
                         Debug.Check(true);
-
                     }
                     else
                     {
@@ -645,14 +644,12 @@ namespace behaviac
                     if (bOk)
                     {
                         node.ApplyEffects(this.agent, Effector.EPhase.E_SUCCESS);
-
                     }
                     else
                     {
                         BehaviorTask.DestroyTask(taskAdded);
                         taskAdded = null;
                     }
-
                 }
                 else
                 {
@@ -665,7 +662,6 @@ namespace behaviac
                 Debug.Check(this.agent.Variables.Depth == depth1);
 
                 return taskAdded;
-
             }
             catch (Exception ex)
             {
@@ -686,7 +682,6 @@ namespace behaviac
 
                 Debug.Check(this.agent.Variables.Depth == depth1);
                 return bOk;
-
             }
             catch (Exception ex)
             {

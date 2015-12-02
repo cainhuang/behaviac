@@ -29,7 +29,6 @@ namespace UnityTest
             comparerDropDown.convertForGUIContent = type => type.Name;
             comparerDropDown.ignoreConvertForGUIContent = types => false;
             comparerDropDown.tooltip = "Comparer that will be used to compare values and determine the result of assertion.";
-
         }
 
         public override void OnInspectorGUI() {

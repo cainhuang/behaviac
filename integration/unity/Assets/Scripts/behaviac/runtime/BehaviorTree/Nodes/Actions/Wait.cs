@@ -41,7 +41,6 @@ namespace behaviac
                 if (p.name == "IgnoreTimeScale")
                 {
                     this.m_ignoreTimeScale = (p.value == "true");
-
                 }
                 else if (p.name == "Time")
                 {
@@ -127,7 +126,6 @@ namespace behaviac
                 if (this.GetIgnoreTimeScale())
                 {
                     this.m_start = Workspace.Instance.TimeSinceStartup * 1000.0f;
-
                 }
                 else
                 {
@@ -153,7 +151,6 @@ namespace behaviac
                     {
                         return EBTStatus.BT_SUCCESS;
                     }
-
                 }
                 else
                 {

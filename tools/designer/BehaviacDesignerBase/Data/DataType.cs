@@ -32,6 +32,7 @@ namespace Behaviac.Design
         Nodes.BehaviorNode Behavior { get; }
         int Id { get; }
         bool CanBeAttached { get; }
+        bool IsFSM { get; }
     }
 
     public interface ISerializableData

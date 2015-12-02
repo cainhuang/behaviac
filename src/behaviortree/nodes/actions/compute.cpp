@@ -210,10 +210,6 @@ namespace behaviac
         super::load(node);
     }
 
-    bool ComputeTask::isContinueTicking() const
-    {
-        return false;
-    }
 
     bool ComputeTask::onenter(Agent* pAgent)
     {

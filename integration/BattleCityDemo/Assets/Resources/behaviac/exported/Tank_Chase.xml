@@ -18,7 +18,7 @@
         <property DecorateWhenChildEnds="false" />
         <node class="Wait" id="7">
           <property IgnoreTimeScale="false" />
-          <property Time="const int 1000" />
+          <property Time="const float 1000" />
         </node>
       </node>
       <node class="Sequence" id="8">

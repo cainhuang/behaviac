@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -82,6 +82,45 @@ namespace PluginBehaviac.DataExporters
             typeName = typeName.Trim();
 
             return typeName;
+        }
+
+        public static string GetGeneratedDefaultValue(Type type, string typename, string defaultValue = null)
+        {
+            if (type == typeof(void))
+                return null;
+
+            string value = (defaultValue == null) ? DesignerPropertyUtility.RetrieveExportValue(Plugin.DefaultValue(type)) : defaultValue;
+
+            if (type == typeof(char))
+            {
+                value = "(char)0";
+            }
+            else if (Plugin.IsStringType(type))
+            {
+                value = "\"" + value + "\"";
+            }
+            else if (Plugin.IsEnumType(type))
+            {
+                value = string.Format("{0}::{1}", typename, value);
+            }
+            else if (Plugin.IsArrayType(type))
+            {
+                value = null;
+            }
+            else if (Plugin.IsCustomClassType(type))
+            {
+                if (Plugin.IsRefType(type))
+                    value = "NULL";
+                else
+                    value = null;
+            }
+
+            return value;
+        }
+
+        public static string GetGeneratedPropertyDefaultValue(PropertyDef prop, string typename)
+        {
+            return (prop != null) ? GetGeneratedDefaultValue(prop.Type, typename, prop.DefaultValue) : null;
         }
 
         public static string GetPropertyBasicName(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement)

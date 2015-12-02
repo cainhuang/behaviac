@@ -743,6 +743,15 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Behaviors to Export:.
+        /// </summary>
+        internal static string ExportBehaviors {
+            get {
+                return ResourceManager.GetString("ExportBehaviors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export Error.
         /// </summary>
         internal static string ExportError {
@@ -787,6 +796,15 @@ namespace Behaviac.Design.Properties {
         internal static string failure {
             get {
                 return ResourceManager.GetString("failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Behaviors with Errors:.
+        /// </summary>
+        internal static string FaultBehaviors {
+            get {
+                return ResourceManager.GetString("FaultBehaviors", resourceCulture);
             }
         }
         

@@ -17,7 +17,7 @@
 #include "behaviac/base/object/member.h"
 
 template<class ValueType>
-ValueType CTagObject::GetMember(const CStringID& nameId)
+ValueType CTagObject::GetMember(const behaviac::CStringID& nameId)
 {
     const CTagObjectDescriptor& descriptor = GetDescriptor();
     CTagObjectDescriptor::MembersMap_t::const_iterator it = descriptor.ms_members.membersMap.find(nameId);
@@ -37,7 +37,7 @@ ValueType CTagObject::GetMember(const CStringID& nameId)
 }
 
 template<class ValueType>
-void CTagObject::SetMember(const CStringID& nameId, const ValueType& value)
+void CTagObject::SetMember(const behaviac::CStringID& nameId, const ValueType& value)
 {
     const CTagObjectDescriptor& descriptor = GetDescriptor();
 

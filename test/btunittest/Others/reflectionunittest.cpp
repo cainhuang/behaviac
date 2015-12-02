@@ -195,9 +195,9 @@ public:
     {
         DECLARE_BEHAVIAC_STRUCT(SMorph);
 
-        //CStringID m_name;
+        //behaviac::CStringID m_name;
         behaviac::string	m_name;
-        CPathID				m_grassFaction[4];
+        behaviac::CPathID	m_grassFaction[4];
     };
 
     struct SMorphResIDContainer
@@ -221,7 +221,7 @@ public:
         return BEHAVIAC_NEW CGrassMorphData;
     }
     static const char* ms_typeName;
-    static CStringID ms_typeId;
+    static behaviac::CStringID ms_typeId;
     virtual void OnChange();
 
     CGrassMorphData();
@@ -230,8 +230,8 @@ public:
     void Reset();
 
     //given a pathid, we found which faction it is, and what's the corresponding pathid of the target faction
-    void GetCorrespondingFactionResource(const CPathID& currentPath, int32_t targetFaction, int32_t& currentFaction, CPathID& targetPath);
-    int32_t GetFaction(const CPathID& path);
+    void GetCorrespondingFactionResource(const behaviac::CPathID& currentPath, int32_t targetFaction, int32_t& currentFaction, behaviac::CPathID& targetPath);
+    int32_t GetFaction(const behaviac::CPathID& path);
 
     //-----------------------------------------
     // attributes
@@ -311,7 +311,7 @@ BEGIN_PROPERTIES_DESCRIPTION(SAttachement)
 }
 END_PROPERTIES_DESCRIPTION()
 
-typedef behaviac::map<CStringID, SAttachement> MapAttachements;
+typedef behaviac::map<behaviac::CStringID, SAttachement> MapAttachements;
 
 enum EVisibleAIObjectType
 {
@@ -504,7 +504,7 @@ public:
     CSceneObjectComponent();
     virtual ~CSceneObjectComponent();
 
-    static CTagObject* CreateObject(const CStringID&)
+    static CTagObject* CreateObject(const behaviac::CStringID&)
     {
         return BEHAVIAC_NEW CSceneObjectComponent();
     }

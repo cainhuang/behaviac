@@ -242,7 +242,6 @@ namespace behaviac
                                         if (!bIsMember)
                                         {
                                             valueStr = propertyNode.Attribute("defaultvalue");
-
                                         }
                                         else
                                         {
@@ -252,7 +251,6 @@ namespace behaviac
                                         bb.AddProperty(type, bIsStatic, name, valueStr, agentTypeMember);
                                     }
                                 }
-
                             }
                             else if (propertiesNode.Tag == "methods" && propertiesNode.Children != null)
                             {
@@ -299,7 +297,6 @@ namespace behaviac
                 }//end of for bbNode
 
                 return true;
-
             }
             catch (Exception e)
             {
@@ -348,7 +345,6 @@ namespace behaviac
                         return true;
                     }
                 }
-
             }
             catch (Exception e)
             {
@@ -410,7 +406,6 @@ namespace behaviac
                                 if (!bIsMember)
                                 {
                                     valueStr = d.ReadString();
-
                                 }
                                 else
                                 {
@@ -420,7 +415,6 @@ namespace behaviac
                                 d.CloseDocument(true);
 
                                 bb.AddProperty(typeName, bIsStatic, variableName, valueStr, agentTypeMember);
-
                             }
                             else
                             {
@@ -431,12 +425,10 @@ namespace behaviac
                         }//end of while
 
                         d.CloseDocument(false);
-
                     }
                     else if (type == BsonDeserizer.BsonTypes.BT_MethodsElement)
                     {
                         load_methods(d, agentType, type);
-
                     }
                     else
                     {
@@ -448,7 +440,6 @@ namespace behaviac
 
                 d.CloseDocument(false);
                 return true;
-
             }
             catch (Exception ex)
             {
@@ -530,7 +521,6 @@ namespace behaviac
                         bLoadResult = load_xml(pBuffer);
 
                         Workspace.Instance.PopFileFromBuffer(fullPath, ext, pBuffer);
-
                     }
                     else
                     {
@@ -549,7 +539,6 @@ namespace behaviac
                         bLoadResult = load_bson(pBuffer);
 
                         Workspace.Instance.PopFileFromBuffer(fullPath, ext, pBuffer);
-
                     }
                     else
                     {

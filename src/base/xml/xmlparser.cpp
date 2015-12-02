@@ -22,166 +22,169 @@
 //******************************************************************************
 using namespace rapidxml;
 
-class XmlParserImp
+namespace behaviac
 {
-public:
-    XmlParserImp();
-    ~XmlParserImp();
+	class XmlParserImp
+	{
+	public:
+		XmlParserImp();
+		~XmlParserImp();
 
-    XmlNodeRef parse(char* buffer, int bufLen, const char* rootNodeName, behaviac::string& errorString, bool isFinal);
+		XmlNodeRef parse(char* buffer, int bufLen, const char* rootNodeName, behaviac::string& errorString, bool isFinal);
 
-protected:
-    XmlNodeRef m_root;
+	protected:
+		XmlNodeRef m_root;
 
-    xml_document<>	m_parser;
-    char*			m_buffer;
-};
+		xml_document<>	m_parser;
+		char*			m_buffer;
+	};
 
-//******************************************************************************
-//* XmlParserImp
-//******************************************************************************
-XmlParserImp::XmlParserImp() : m_root(0), m_buffer(0)
-{
-}
+	//******************************************************************************
+	//* XmlParserImp
+	//******************************************************************************
+	XmlParserImp::XmlParserImp() : m_root(0), m_buffer(0)
+	{
+	}
 
-XmlParserImp::~XmlParserImp()
-{
-    BEHAVIAC_FREE(m_buffer);
-}
+	XmlParserImp::~XmlParserImp()
+	{
+		BEHAVIAC_FREE(m_buffer);
+	}
 
-XmlNodeRef cloneXmlNodeFrom(xml_node<>* xmlnode)
-{
-    XmlNodeRef node = CreateXmlNode(xmlnode->name());
+	XmlNodeRef cloneXmlNodeFrom(xml_node<>* xmlnode)
+	{
+		XmlNodeRef node = CreateXmlNode(xmlnode->name());
 
-    for (xml_attribute<>* attr = xmlnode->first_attribute();
-         attr; attr = attr->next_attribute())
-    {
-        node->setAttrText(attr->name(), attr->value());
-    }
+		for (xml_attribute<>* attr = xmlnode->first_attribute();
+			attr; attr = attr->next_attribute())
+		{
+			node->setAttrText(attr->name(), attr->value());
+		}
 
-    for (xml_node<>* subNode = xmlnode->first_node(); subNode; subNode = subNode->next_sibling())
-    {
-        XmlNodeRef sub = cloneXmlNodeFrom(subNode);
-        node->addChild(sub);
-    }
+		for (xml_node<>* subNode = xmlnode->first_node(); subNode; subNode = subNode->next_sibling())
+		{
+			XmlNodeRef sub = cloneXmlNodeFrom(subNode);
+			node->addChild(sub);
+		}
 
-    return node;
-}
+		return node;
+	}
 
-XmlNodeRef XmlParserImp::parse(char* buffer, int bufLen, const char* rootNodeName, behaviac::string& errorString, bool isFinal)
-{
-    BEHAVIAC_UNUSED_VAR(bufLen);
-    BEHAVIAC_UNUSED_VAR(errorString);
-    BEHAVIAC_UNUSED_VAR(isFinal);
+	XmlNodeRef XmlParserImp::parse(char* buffer, int bufLen, const char* rootNodeName, behaviac::string& errorString, bool isFinal)
+	{
+		BEHAVIAC_UNUSED_VAR(bufLen);
+		BEHAVIAC_UNUSED_VAR(errorString);
+		BEHAVIAC_UNUSED_VAR(isFinal);
 
-    m_parser.parse<0>(buffer);
+		m_parser.parse<0>(buffer);
 
-    xml_node<>* xmlnode = m_parser.first_node(rootNodeName);
+		xml_node<>* xmlnode = m_parser.first_node(rootNodeName);
 
-    XmlNodeRef node = cloneXmlNodeFrom(xmlnode);
+		XmlNodeRef node = cloneXmlNodeFrom(xmlnode);
 
-    return node;
-}
+		return node;
+	}
 
-XmlNodeRef XmlParser::parse(const char* fileName, const char* rootNodeName, const char* suffix)
-{
-    m_errorString.clear();
-    XmlParserImp xml;
-    IFile* file = CFileManager::GetInstance()->FileOpen(fileName, CFileSystem::EOpenAccess_Read);
+	XmlNodeRef XmlParser::parse(const char* fileName, const char* rootNodeName, const char* suffix)
+	{
+		m_errorString.clear();
+		XmlParserImp xml;
+		behaviac::IFile* file = behaviac::CFileManager::GetInstance()->FileOpen(fileName, behaviac::CFileSystem::EOpenAccess_Read);
 
-    if (file)
-    {
-        XmlNodeRef xml = this->parse(file, rootNodeName, suffix, false);
-        CFileManager::GetInstance()->FileClose(file);
+		if (file)
+		{
+			XmlNodeRef xml = this->parse(file, rootNodeName, suffix, false);
+			behaviac::CFileManager::GetInstance()->FileClose(file);
 
-        if (!m_errorString.empty())
-        {
-            BEHAVIAC_LOGWARNING("Error while parsing file : %s\n\n%s", fileName, m_errorString.c_str());
-        }
+			if (!m_errorString.empty())
+			{
+				BEHAVIAC_LOGWARNING("Error while parsing file : %s\n\n%s", fileName, m_errorString.c_str());
+			}
 
-        return xml;
+			return xml;
 
-    }
-    else
-    {
-        BEHAVIAC_ASSERT(0, "Cannot open XML file : %s\n", fileName);
-        return XmlNodeRef();
-    }
-}
+		}
+		else
+		{
+			BEHAVIAC_ASSERT(0, "Cannot open XML file : %s\n", fileName);
+			return XmlNodeRef();
+		}
+	}
 
-XmlNodeRef XmlParser::parse(IFile* file, const char* rootNodeName, const char* suffix, bool handleError)
-{
-    BEHAVIAC_UNUSED_VAR(suffix);
-    BEHAVIAC_UNUSED_VAR(handleError);
+	XmlNodeRef XmlParser::parse(behaviac::IFile* file, const char* rootNodeName, const char* suffix, bool handleError)
+	{
+		BEHAVIAC_UNUSED_VAR(suffix);
+		BEHAVIAC_UNUSED_VAR(handleError);
 
-    m_errorString.clear();
-    XmlParserImp xml;
+		m_errorString.clear();
+		XmlParserImp xml;
 
-    if (file)
-    {
-        int iSize = (int)file->GetSize() - (int)file->Seek(0, CFileSystem::ESeekMoveMode_Cur);
+		if (file)
+		{
+			int iSize = (int)file->GetSize() - (int)file->Seek(0, behaviac::CFileSystem::ESeekMoveMode_Cur);
 
-        if (iSize != 0)
-        {
-            static const int32_t ReadBlockSize = 64 * 1024;
-            char* buf = (char*)BEHAVIAC_MALLOC_WITHTAG(ReadBlockSize, "XML");
-            XmlNodeRef ref;
+			if (iSize != 0)
+			{
+				static const int32_t ReadBlockSize = 64 * 1024;
+				char* buf = (char*)BEHAVIAC_MALLOC_WITHTAG(ReadBlockSize, "XML");
+				XmlNodeRef ref;
 
-            for (int32_t i = 0; i <= iSize / (ReadBlockSize); ++i)
-            {
-                int32_t bufSize = file->Read(buf, ReadBlockSize);
-                {
-                    buf[bufSize] = '\0';
-                    ref = xml.parse(buf, bufSize, rootNodeName, m_errorString, i == iSize / (ReadBlockSize));
-                }
-            }
+				for (int32_t i = 0; i <= iSize / (ReadBlockSize); ++i)
+				{
+					int32_t bufSize = file->Read(buf, ReadBlockSize);
+					{
+						buf[bufSize] = '\0';
+						ref = xml.parse(buf, bufSize, rootNodeName, m_errorString, i == iSize / (ReadBlockSize));
+					}
+				}
 
-            BEHAVIAC_FREE(buf);
+				BEHAVIAC_FREE(buf);
 
-            if (handleError && !m_errorString.empty())
-            {
-                BEHAVIAC_LOGWARNING("Error while parsing file\n\n%s", m_errorString.c_str());
-            }
+				if (handleError && !m_errorString.empty())
+				{
+					BEHAVIAC_LOGWARNING("Error while parsing file\n\n%s", m_errorString.c_str());
+				}
 
-            return ref;
+				return ref;
 
-        }
-        else
-        {
-            return XmlNodeRef();
-        }
+			}
+			else
+			{
+				return XmlNodeRef();
+			}
 
-    }
-    else
-    {
-        BEHAVIAC_ASSERT(0, "XmlParse(IFile*) - Invalid file\n");
-        return XmlNodeRef();
-    }
-}
+		}
+		else
+		{
+			BEHAVIAC_ASSERT(0, "XmlParse(behaviac::IFile*) - Invalid file\n");
+			return XmlNodeRef();
+		}
+	}
 
-//! Parse xml from null terminated buffer.
-XmlNodeRef XmlParser::parseBuffer(const char* buffer, const char* rootNodeName)
-{
-    size_t bufLen = strlen(buffer);
-    char* temp = (char*)BEHAVIAC_MALLOC_WITHTAG(bufLen + 1, "XmlParserImp::parse");
-    memcpy(temp, buffer, bufLen);
-    BEHAVIAC_ASSERT(temp[bufLen] == '\0');
-    XmlNodeRef result = this->parseBuffer(temp, bufLen, rootNodeName);
-    BEHAVIAC_FREE(temp);
-    return result;
-}
+	//! Parse xml from null terminated buffer.
+	XmlNodeRef XmlParser::parseBuffer(const char* buffer, const char* rootNodeName)
+	{
+		size_t bufLen = strlen(buffer);
+		char* temp = (char*)BEHAVIAC_MALLOC_WITHTAG(bufLen + 1, "XmlParserImp::parse");
+		memcpy(temp, buffer, bufLen);
+		BEHAVIAC_ASSERT(temp[bufLen] == '\0');
+		XmlNodeRef result = this->parseBuffer(temp, bufLen, rootNodeName);
+		BEHAVIAC_FREE(temp);
+		return result;
+	}
 
-//! Parse xml from memory buffer with specific size
-XmlNodeRef XmlParser::parseBuffer(char* buffer, int size, const char* rootNodeName)
-{
-    m_errorString = "";
-    XmlParserImp xml;
-    XmlNodeRef ref = xml.parse(buffer, size, rootNodeName, m_errorString, true);
+	//! Parse xml from memory buffer with specific size
+	XmlNodeRef XmlParser::parseBuffer(char* buffer, int size, const char* rootNodeName)
+	{
+		m_errorString = "";
+		XmlParserImp xml;
+		XmlNodeRef ref = xml.parse(buffer, size, rootNodeName, m_errorString, true);
 
-    if (!m_errorString.empty())
-    {
-        BEHAVIAC_LOGWARNING("Error while parsing XML file : \n\n%s", m_errorString.c_str());
-    }
+		if (!m_errorString.empty())
+		{
+			BEHAVIAC_LOGWARNING("Error while parsing XML file : \n\n%s", m_errorString.c_str());
+		}
 
-    return ref;
-}
+		return ref;
+	}
+}//namespace behaviac

@@ -62,17 +62,5 @@ public:
 #undef DECLARE_TYPENAME
 };
 
-#define DECLARE_FORMATSTRINGMEMBER( cls, fct, name ) \
-    CFormatStringMember< cls, &cls::fct > name
-
-// non-null fake pointer removes warning on GCC
-#define FORMATSTRINGMEMBER_OFFSETOF(s,m) ( ( (size_t)&reinterpret_cast< const volatile char& >( reinterpret_cast< s* >( 16 )->m ) ) - 16 )
-
-#define IMPLEMENT_FORMATSTRINGMEMBER( cls, fct, name ) \
-    template< > \
-    inline cls& CFormatStringMember< cls, &cls::fct >::GetContainer() \
-    { \
-        return *reinterpret_cast< cls* >( reinterpret_cast< uint8_t* >( this ) - FORMATSTRINGMEMBER_OFFSETOF( cls, name ) ); \
-    }
 
 #endif // BEHAVIAC_CORE_FORMATSTRINGMEMBER_H

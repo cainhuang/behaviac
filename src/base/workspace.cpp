@@ -279,7 +279,7 @@ namespace behaviac
             // try to load the behavior in xml
             ext = ".xml";
 
-            if (CFileManager::GetInstance()->FileExists(fullPath, ext))
+            if (behaviac::CFileManager::GetInstance()->FileExists(fullPath, ext))
             {
                 f = EFF_xml;
             }
@@ -288,7 +288,7 @@ namespace behaviac
                 // try to load the behavior in bson
                 ext = ".bson";
 
-                if (CFileManager::GetInstance()->FileExists(fullPath, ext))
+                if (behaviac::CFileManager::GetInstance()->FileExists(fullPath, ext))
                 {
                     f = EFF_bson;
                 }
@@ -393,7 +393,7 @@ namespace behaviac
 
 #endif//BEHAVIAC_HOTRELOAD
 
-        //LogWorkspaceInfo();
+        LogWorkspaceInfo();
 #endif
 
         return true;
@@ -412,7 +412,7 @@ namespace behaviac
 
             char msg[1024] = { 0 };
             sprintf(msg, "[workspace] %s \"%S\"\n", formatString, wksAbsPath);
-            LogManager::GetInstance()->LogWorkspace(msg);
+            LogManager::GetInstance()->LogWorkspace(false, msg);
         }
     }
 
@@ -438,11 +438,11 @@ namespace behaviac
                 wchar_t* workspaceRootPath = this->m_workspace_file;
                 workspaceRootPath[0] = '\0';
 
-                if (CFileManager::GetInstance()->PathIsRelative(workspaceExportPath))
+                if (behaviac::CFileManager::GetInstance()->PathIsRelative(workspaceExportPath))
                 {
-                    const behaviac::wstring currentWD = CFileManager::GetInstance()->GetCurrentWorkingDirectory();
+                    const behaviac::wstring currentWD = behaviac::CFileManager::GetInstance()->GetCurrentWorkingDirectory();
                     int len = currentWD.size();
-                    BEHAVIAC_ASSERT(len < kMaxPath, "path is too long !");
+                    BEHAVIAC_ASSERT(len + 1 < kMaxPath, "path is too long !");
                     wcscpy(workspaceRootPath, currentWD.c_str());
                     wchar_t last = workspaceRootPath[len - 1];
 
@@ -473,7 +473,6 @@ namespace behaviac
 
                 //ms_workspace_file = m_workspaceExportPathAbs+workspaceFilePathRelative;
                 wcscpy(m_workspace_file, m_workspaceExportPathAbs.c_str());
-
             }
             else
             {
@@ -609,7 +608,7 @@ namespace behaviac
 
     char* Workspace::ReadFileToBuffer(const char* file)
     {
-        IFile* fp = CFileManager::GetInstance()->FileOpen(file, CFileSystem::EOpenAccess_Read);
+        IFile* fp = behaviac::CFileManager::GetInstance()->FileOpen(file, CFileSystem::EOpenAccess_Read);
 
         if (!fp)
         {
@@ -619,9 +618,10 @@ namespace behaviac
         //fp->Seek(0, CFileSystem::ESeekMoveMode_End);
         uint32_t fileSize = (uint32_t)fp->GetSize();
 
-        BEHAVIAC_ASSERT(m_fileBufferTop < kFileBufferDepth - 1);
+		BEHAVIAC_ASSERT(m_fileBufferTop < kFileBufferDepth - 1, "please increase kFileBufferDepth");
         uint32_t offset = m_fileBufferOffset[m_fileBufferTop++];
         uint32_t offsetNew = offset + fileSize + 1;
+        BEHAVIAC_ASSERT(m_fileBufferTop < kFileBufferDepth - 1, "please increase kFileBufferDepth");
         m_fileBufferOffset[m_fileBufferTop] = offsetNew;
 
         if (m_fileBuffer == 0 || offsetNew > m_fileBufferLength)
@@ -645,7 +645,7 @@ namespace behaviac
         fp->Read(pBuffer, sizeof(char) * fileSize);
         pBuffer[fileSize] = 0;
 
-        CFileManager::GetInstance()->FileClose(fp);
+        behaviac::CFileManager::GetInstance()->FileClose(fp);
 
         return pBuffer;
     }
@@ -762,7 +762,7 @@ namespace behaviac
                 // try to load the behavior in xml
                 behaviac::string path = fullPath + ".xml";
 
-                if (CFileManager::GetInstance()->FileExists(path.c_str()))
+                if (behaviac::CFileManager::GetInstance()->FileExists(path.c_str()))
                 {
                     f = EFF_xml;
                     fullPath = path;
@@ -773,7 +773,7 @@ namespace behaviac
                     // try to load the behavior in bson
                     path = fullPath + ".bson.bytes";
 
-                    if (CFileManager::GetInstance()->FileExists(path.c_str()))
+                    if (behaviac::CFileManager::GetInstance()->FileExists(path.c_str()))
                     {
                         f = EFF_bson;
                         fullPath = path;

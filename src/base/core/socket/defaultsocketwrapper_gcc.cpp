@@ -64,11 +64,20 @@ namespace behaviac
             }
 
 #ifdef SO_NONBLOCK
+#ifdef SO_NOSIGPIPE
+            int noSigpipe = 1;
+            setsockopt(s, SOL_SOCKET, SO_NOSIGPIPE, &noSigpipe, sizeof(noSigpipe));
+#endif
             int inonBlocking = (blocking ? 0 : 1);
             return setsockopt(s, SOL_SOCKET, SO_NONBLOCK, &inonBlocking, sizeof(inonBlocking)) == 0 ? Handle(s) : Handle(0));
 #else
             int v = fcntl(s, F_GETFL, 0);
             int cntl = !blocking ? (v | O_NONBLOCK) : (v & ~O_NONBLOCK);
+			
+#if BEHAVIAC_COMPILER_APPLE
+			cntl |= SO_NOSIGPIPE;
+#endif
+
             return fcntl(s, F_SETFL, cntl) != -1 ? Handle(s) : Handle(0);
 #endif
         }
@@ -172,18 +181,23 @@ namespace behaviac
                 return bytes == 0;
             }
 
-            int res = ::send(::AsSocket(h), (const char*)buffer, (int)bytes, 0);
+
+#if BEHAVIAC_COMPILER_APPLE
+			const int flags = 0;
+#else
+			const int flags = MSG_NOSIGNAL;
+#endif
+			int res = ::send(::AsSocket(h), (const char*)buffer, (int)bytes, flags);
 
             if (res < 0)
             {
-                BEHAVIAC_ASSERT(0);
+                //BEHAVIAC_ASSERT(0);
                 // int err = WSAGetLastError();
 
                 // if (err == WSAECONNRESET || err == WSAECONNABORTED)
                 {
                     Close(h);
                 }
-
             }
             else
             {
@@ -218,7 +232,6 @@ namespace behaviac
             if (rv < 0)
             {
                 BEHAVIAC_ASSERT(0);
-
             }
             else if (rv == 0)
             {
@@ -236,7 +249,6 @@ namespace behaviac
                     {
                         Close(h);
                     }
-
                 }
                 else
                 {

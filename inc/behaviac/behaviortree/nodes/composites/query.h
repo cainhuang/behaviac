@@ -102,11 +102,6 @@ namespace behaviac
         virtual void save(ISerializableNode* node) const;
         virtual void load(ISerializableNode* node);
 
-        virtual bool isContinueTicking() const
-        {
-            return true;
-        }
-
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);

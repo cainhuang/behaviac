@@ -151,7 +151,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportButton.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="cancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -184,40 +184,40 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+  <data name="exportBehaviorsLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="exportBehaviorsLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="exportBehaviorsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="exportBehaviorsLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 8</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="exportBehaviorsLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 13</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+  <data name="exportBehaviorsLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
+  <data name="exportBehaviorsLabel.Text" xml:space="preserve">
     <value>Behaviors to Export:</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="&gt;&gt;exportBehaviorsLabel.Name" xml:space="preserve">
+    <value>exportBehaviorsLabel</value>
   </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+  <data name="&gt;&gt;exportBehaviorsLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;exportBehaviorsLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;exportBehaviorsLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="exportSettingLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -253,7 +253,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportSettingLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="treeView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -268,47 +268,47 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAs
-        CQAAAk1TRnQBSQFMAgEBAgEAAUwBAgFMAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEhAQcBAAH/ASEBBwEAAf8BIQEHAQAB/wEhAQcBAAH/
-        ASEBBwEAAf8BIQEHAQAB/wEhAQcBAAH/ASEBBwEAAf8BIQEHAQAB/wEhAQcBAAH/jAABMwGEAY8B/wEq
-        ATgBhQH/AR4BKwE1Af8BDwEbASQB/wEAAQoBEgH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMA
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAq
+        CQAAAk1TRnQBSQFMAgEBAgEAAXgBAgF4AQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEcAQIBAAH/ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/
+        ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/jAABLgGEAY8B/wEl
+        ATMBhQH/ARkBJgEwAf8BCgEWAR8B/wEAAQUBDQH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMA
         Af8DAAH/AwAB/wwAAbcBogGTBf8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/
-        AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/ASEBBwEAAf+MAAE1AYcBkgH/AaIB3wHwAf8BLgHNAeoB/wEH
-        AbgB4gH/AQABrgHbAf8BAAGpAdkB/wEAAaEB0gH/AQABmAHHAf8BAAGOAbwB/wEAAYMBrgH/AQABPQGr
-        Af8BAAE6AakB/wEAATUBnwH/AQABMAGWAf8DAAH/DAABtwGiAZMJ/wH8AfoB+QH/AfcB8QHuAf8B8QHn
-        AeEB/wHsAd0B1QH/AeYB0wHJAf8B4QHKAb0B/wG3AaIBkwH/ASEBBwEAAf+MAAE4AYoBlQH/AaoB6AH2
-        Af8BlQHlAfwB/wGEAd8B+wH/ATMB1gH6Af8BKAHQAfcB/wEbAcYB9AH/AQ4BvgHwAf8BAAG0AewB/wEA
-        AaoB6AH/AQABpAHmAf8BAAGaAd8B/wEAAZAB1wH/AQABNQGfAf8DAAH/DAABtwGiAZMJ/wP+Af8B+gH3
-        AfUB/wH1Ae0B6QH/Ae8B4wHcAf8B6gHZAdEB/wHkAc8BxAH/AbcBogGTAf8BIQEHAQAB/4wAATsBjgGY
-        Af8BsAHqAfYB/wGfAekB+wH/AZIB5AH8Af8BgQHdAfsB/wEzAdYB+gH/ASYBzgH3Af8BGwHGAfQB/wEL
-        AbwB8AH/AQABtAHsAf8BAAGqAegB/wEAAaMB5gH/AQABlgHcAf8BAAE6AakB/wMAAf8MAAG3AaIBkw3/
-        Af0B/AH7Af8B+AHzAfAB/wHyAekB4wH/Ae0B3wHYAf8B5wHVAcsB/wG3AaIBkwH/ASEBBwEAAf+MAAGA
-        AZEBnAH/AbYB7QH4Af8BqgHsAfsB/wGbAegB+wH/AY8B4wH8Af8BgQHdAfsB/wEvAdUB+QH/ASYBzgH3
-        Af8BGQHFAfQB/wELAbwB8AH/AQABsgHsAf8BAAGpAegB/wEAAZ4B4gH/AQABggG0Af8BAAEBAQkB/wwA
-        AboBpQGWEf8B+wH4AfcB/wH2Ae8B6wH/AfAB5QHfAf8B6wHbAdMB/wG3AaIBkwH/ASEBBwEAAf+MAAGD
-        AZUBnwH/Ab4B8AH5Af8BqwHwAfcB/wGlAewB+wH/AZgB5wH7Af8BiQHhAfwB/wE9Ad0B+wH/AS8B1QH5
-        Af8BIwHNAfcB/wEWAcQB8wH/AQkBuwHwAf8BAAGyAewB/wEAAaQB4wH/AQABigG/Af8BBwERARoB/wwA
-        Ab4BqQGaEf8B/gH9AfwB/wH5AfUB8gH/AfQB6wHmAf8B7gHhAdoB/wG3AaIBkwH/ASEBBwEAAf+MAAGG
-        AZkBowH/Ab4B8AH5Af8BtgHtAfgB/wGwAe4B+gH/AaQB6wH6Af8BlQHmAfsB/wGJAeEB/AH/ATsB3AH8
-        Af8BLwHVAfkB/wEjAc0B9wH/ARYBxAHzAf8BBwG5Ae8B/wEAAakB5wH/AQABjwHHAf8BFQEhASkB/wwA
-        AcMBrgGeFf8B/AH6AfkB/wH3AfEB7gH/AfEB5wHhAf8BtwGiAZMB/wEhAQcBAAH/jAABiQGcAaYB/wG+
-        AfAB+QH/AbYB7QH4Af8BtgHtAfgB/wGrAfAB9wH/AaIB7AH6Af8BlQHmAfsB/wGJAeEB/AH/ATsB3AH8
-        Af8BLQHTAfoB/wEhAcwB9wH/ARMBwwHzAf8BBwG5Ae8B/wEAAZkBzwH/ASEBLgE4Af8MAAHIAbIBoxX/
-        A/4B/wH6AfcB9QH/AfUB7QHpAf8BtwGiAZMB/wEhAQcBAAH/jAABiwGgAagB/wG+AfAB+QH/Ab4B8AH5
-        Af8BvgHwAfkB/wG+AfAB+QH/AbQB8gH4Af8BqgHsAfsB/wGgAekB+wH/AZUB5QH8Af8BigHfAfwB/wE9
-        AdgB+wH/ATIB0gH4Af8BJgHKAfQB/wEbAcAB8QH/ASEBLgE4Af8MAAHMAbYBpxn/Af0B/AH7Af8BtwGi
-        AZMB/wG3AaIBkwH/ASIBCAEAAf+MAAGNAaEBqgH/AY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/AY0BoQGq
-        Af8BiwGfAagB/wGJAZwBpgH/AYkBmwGmAf8BhwGaAaQB/wGGAZkBowH/AYQBlgGgAf8BhAGWAaAB/wGD
-        AZUBoAH/AYMBlQGgAf8BMwGEAY8B/wwAAdEBuwGrGf8BtwGiAZMB/wEiAQgBAAH/ASIBCAEAAf8BIgEI
-        AQAB/4wAAY8BpAGsAf8BsgHkAewB/wG2Ae0B+AH/AbYB7QH4Af8BqQHsAfYB/wGSAeEB8wH/AY0BoQGq
-        Af8B1QHcAeAB/ygAAdUBvwGvGf8BuQGkAZUB/wHUAcUBugH/ASIBCAEAAf8DSgGMjAAB2gHeAeEB/wGP
-        AaQBrAH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AY8BpAGsAf8B1QHcAeAB/ywAAdgBwgGyGf8BwAGr
-        AZwB/wEiAQgBAAH/A0oBi9gAAdgBwgGyAf8B2AHCAbIB/wHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHU
-        Ab4BrgH/Ac8BuQGpAf8ByQGzAaQB/wNKAYv/AJUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEB
-        BQABgBcAA/8BAAT/BAAC/wHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEH
-        BQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAf8BwAEHBAABAQH/AcABDwQA
-        Av8BwAEfBAAE/wQACw==
+        AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/ARwBAgEAAf+MAAEwAYcBkgH/AaIB3wHwAf8BKQHNAeoB/wEC
+        AbgB4gH/AQABrgHbAf8BAAGpAdkB/wEAAaEB0gH/AQABmAHHAf8BAAGOAbwB/wEAAYMBrgH/AQABOAGr
+        Af8BAAE1AakB/wEAATABnwH/AQABKwGWAf8DAAH/DAABtwGiAZMJ/wH8AfoB+QH/AfcB8QHuAf8B8QHn
+        AeEB/wHsAd0B1QH/AeYB0wHJAf8B4QHKAb0B/wG3AaIBkwH/ARwBAgEAAf+MAAEzAYoBlQH/AaoB6AH2
+        Af8BlQHlAfwB/wGEAd8B+wH/AS4B1gH6Af8BIwHQAfcB/wEWAcYB9AH/AQkBvgHwAf8BAAG0AewB/wEA
+        AaoB6AH/AQABpAHmAf8BAAGaAd8B/wEAAZAB1wH/AQABMAGfAf8DAAH/DAABtwGiAZMJ/wP+Af8B+gH3
+        AfUB/wH1Ae0B6QH/Ae8B4wHcAf8B6gHZAdEB/wHkAc8BxAH/AbcBogGTAf8BHAECAQAB/4wAATYBjgGY
+        Af8BsAHqAfYB/wGfAekB+wH/AZIB5AH8Af8BgQHdAfsB/wEuAdYB+gH/ASEBzgH3Af8BFgHGAfQB/wEG
+        AbwB8AH/AQABtAHsAf8BAAGqAegB/wEAAaMB5gH/AQABlgHcAf8BAAE1AakB/wMAAf8MAAG3AaIBkw3/
+        Af0B/AH7Af8B+AHzAfAB/wHyAekB4wH/Ae0B3wHYAf8B5wHVAcsB/wG3AaIBkwH/ARwBAgEAAf+MAAGA
+        AZEBnAH/AbYB7QH4Af8BqgHsAfsB/wGbAegB+wH/AY8B4wH8Af8BgQHdAfsB/wEqAdUB+QH/ASEBzgH3
+        Af8BFAHFAfQB/wEGAbwB8AH/AQABsgHsAf8BAAGpAegB/wEAAZ4B4gH/AQABggG0Af8CAAEEAf8MAAG6
+        AaUBlhH/AfsB+AH3Af8B9gHvAesB/wHwAeUB3wH/AesB2wHTAf8BtwGiAZMB/wEcAQIBAAH/jAABgwGV
+        AZ8B/wG+AfAB+QH/AasB8AH3Af8BpQHsAfsB/wGYAecB+wH/AYkB4QH8Af8BOAHdAfsB/wEqAdUB+QH/
+        AR4BzQH3Af8BEQHEAfMB/wEEAbsB8AH/AQABsgHsAf8BAAGkAeMB/wEAAYoBvwH/AQIBDAEVAf8MAAG+
+        AakBmhH/Af4B/QH8Af8B+QH1AfIB/wH0AesB5gH/Ae4B4QHaAf8BtwGiAZMB/wEcAQIBAAH/jAABhgGZ
+        AaMB/wG+AfAB+QH/AbYB7QH4Af8BsAHuAfoB/wGkAesB+gH/AZUB5gH7Af8BiQHhAfwB/wE2AdwB/AH/
+        ASoB1QH5Af8BHgHNAfcB/wERAcQB8wH/AQIBuQHvAf8BAAGpAecB/wEAAY8BxwH/ARABHAEkAf8MAAHD
+        Aa4BnhX/AfwB+gH5Af8B9wHxAe4B/wHxAecB4QH/AbcBogGTAf8BHAECAQAB/4wAAYkBnAGmAf8BvgHw
+        AfkB/wG2Ae0B+AH/AbYB7QH4Af8BqwHwAfcB/wGiAewB+gH/AZUB5gH7Af8BiQHhAfwB/wE2AdwB/AH/
+        ASgB0wH6Af8BHAHMAfcB/wEOAcMB8wH/AQIBuQHvAf8BAAGZAc8B/wEcASkBMwH/DAAByAGyAaMV/wP+
+        Af8B+gH3AfUB/wH1Ae0B6QH/AbcBogGTAf8BHAECAQAB/4wAAYsBoAGoAf8BvgHwAfkB/wG+AfAB+QH/
+        Ab4B8AH5Af8BvgHwAfkB/wG0AfIB+AH/AaoB7AH7Af8BoAHpAfsB/wGVAeUB/AH/AYoB3wH8Af8BOAHY
+        AfsB/wEtAdIB+AH/ASEBygH0Af8BFgHAAfEB/wEcASkBMwH/DAABzAG2AacZ/wH9AfwB+wH/AbcBogGT
+        Af8BtwGiAZMB/wEdAQMBAAH/jAABjQGhAaoB/wGNAaEBqgH/AY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/
+        AYsBnwGoAf8BiQGcAaYB/wGJAZsBpgH/AYcBmgGkAf8BhgGZAaMB/wGEAZYBoAH/AYQBlgGgAf8BgwGV
+        AaAB/wGDAZUBoAH/AS4BhAGPAf8MAAHRAbsBqxn/AbcBogGTAf8BHQEDAQAB/wEdAQMBAAH/AR0BAwEA
+        Af+MAAGPAaQBrAH/AbIB5AHsAf8BtgHtAfgB/wG2Ae0B+AH/AakB7AH2Af8BkgHhAfMB/wGNAaEBqgH/
+        AdUB3AHgAf8oAAHVAb8Brxn/AbkBpAGVAf8B1AHFAboB/wEdAQMBAAH/A0oBjIwAAdoB3gHhAf8BjwGk
+        AawB/wGPAaQBrAH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AdUB3AHgAf8sAAHYAcIBshn/AcABqwGc
+        Af8BHQEDAQAB/wNKAYvYAAHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHYAcIBsgH/AdgBwgGyAf8B1AG+
+        Aa4B/wHPAbkBqQH/AckBswGkAf8DSgGL/wCVAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUA
+        AYAXAAP/AQAE/wQAAv8BwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUA
+        AQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAH/AcABBwQAAQEB/wHAAQ8EAAL/
+        AcABHwQABP8EAAs=
 </value>
   </data>
   <data name="treeView.Location" type="System.Drawing.Point, System.Drawing">
@@ -333,7 +333,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;treeView.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="fileCountLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -366,7 +366,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;fileCountLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="exportSettingGridView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -420,7 +420,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportSettingGridView.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="exportCustomizedMetaCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -453,6 +453,39 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportCustomizedMetaCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 345</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 16</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.Text" xml:space="preserve">
+    <value>Only Show Fault Behaviors?</value>
+  </data>
+  <data name="&gt;&gt;onlyShowErrorsCheckBox.Name" xml:space="preserve">
+    <value>onlyShowErrorsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;onlyShowErrorsCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;onlyShowErrorsCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;onlyShowErrorsCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

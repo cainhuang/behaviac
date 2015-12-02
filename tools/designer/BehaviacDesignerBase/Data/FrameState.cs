@@ -818,10 +818,9 @@ namespace Behaviac.Design.Data
             string fullId = string.Format("{0}->{1}[{2}]", bt, nodeClassName, nodeId2);
 
             if (result == "success") {
-
+                Debug.Check(true);
             } else if (result == "failure") {
                 PlanningProcess._planning._currentState._bIndexFailed = true;
-
             } else {
                 Debug.Check(false);
             }

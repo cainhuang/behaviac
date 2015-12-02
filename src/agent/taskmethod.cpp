@@ -41,6 +41,7 @@ namespace behaviac
         }
     }
 
+
     void CTaskMethod::SetTaskParam(behaviac::Agent* pAgent, behaviac::AgentProperties* agentT, const char* paramName, const behaviac::Property* valueProperty)
     {
         behaviac::Property* pProperty = agentT->GetLocal(paramName);

@@ -79,7 +79,6 @@ namespace behaviac
             if (tokens.Length == 1)
             {
                 this.m_index = Property.Create("int", indexStr);
-
             }
             else
             {
@@ -270,49 +269,41 @@ namespace behaviac
             {
                 leftValue = (float)lV;
                 rightValue = (float)rV;
-
             }
             else if (lV.GetType() == typeof(long))
             {
                 leftValue = (long)lV;
                 rightValue = (long)rV;
-
             }
             else if (lV.GetType() == typeof(int))
             {
                 leftValue = (int)lV;
                 rightValue = (int)rV;
-
             }
             else if (lV.GetType() == typeof(short))
             {
                 leftValue = (short)lV;
                 rightValue = (short)rV;
-
             }
             else if (lV.GetType() == typeof(sbyte))
             {
                 leftValue = (sbyte)lV;
                 rightValue = (sbyte)rV;
-
             }
             else if (lV.GetType() == typeof(ulong))
             {
                 leftValue = (ulong)lV;
                 rightValue = (ulong)rV;
-
             }
             else if (lV.GetType() == typeof(uint))
             {
                 leftValue = (uint)lV;
                 rightValue = (uint)rV;
-
             }
             else if (lV.GetType() == typeof(ushort))
             {
                 leftValue = (ushort)lV;
                 rightValue = (ushort)rV;
-
             }
             else if (lV.GetType() == typeof(byte))
             {
@@ -398,13 +389,11 @@ namespace behaviac
             if (this.m_memberBase != null)
             {
                 type = this.m_memberBase.MemberType;
-
             }
             else if (this.m_bValidDefaultValue)
             {
                 Debug.Check(this.m_defaultValue != null);
                 type = this.m_defaultValue.GetType();
-
             }
             else
             {
@@ -472,7 +461,6 @@ namespace behaviac
                 {
                     staticClassName = this.m_memberBase.GetClassNameString();
                 }
-
             }
             else if (this.IsStatic)
             {
@@ -495,7 +483,6 @@ namespace behaviac
             if (pSelf == null || m_bIsConst)
             {
                 return this.GetDefaultValue();
-
             }
             else
             {
@@ -507,7 +494,6 @@ namespace behaviac
                     Agent pInstance = this.GetParentAgent(pSelf);
                     Debug.Check(pSelf == pInstance);
 #endif
-
                 }
                 else if (this.IsStatic)
                 {
@@ -567,7 +553,7 @@ namespace behaviac
             if (pSelf != null && pSelf.PlanningTop >= 0)
             {
                 string varName = string.Format("{0}[{1}]", this.m_parent.Name, index);
-                LogManager.LogVarValue(pSelf, varName, v);
+                LogManager.Instance.LogVarValue(pSelf, varName, v);
             }
 
 #endif
@@ -578,7 +564,6 @@ namespace behaviac
             if (parent == null || m_bIsConst)
             {
                 return this.GetDefaultValue();
-
             }
             else
             {
@@ -593,7 +578,6 @@ namespace behaviac
                 {
                     Agent pInstance = this.GetParentAgent(pSelf);
                     pSelf = pInstance;
-
                 }
                 else if (this.IsStatic)
                 {
@@ -680,7 +664,6 @@ namespace behaviac
 
                     return vectorAccessor;
                 }
-
             }
             else
             {
@@ -702,7 +685,6 @@ namespace behaviac
             if (!string.IsNullOrEmpty(agentType))
             {
                 pMember = Agent.FindMemberBase(agentType, propertyName);
-
             }
             else
             {
@@ -743,7 +725,6 @@ namespace behaviac
                 Debug.Check(!string.IsNullOrEmpty(variableName));
                 pProperty = pMember.CreateProperty(valueStr, bConst);
                 Debug.Check(pProperty != null);
-
             }
             else
             {
@@ -787,7 +768,6 @@ namespace behaviac
                         v = string.Empty;
                     }
                 }
-
             }
             else
             {
@@ -1301,7 +1281,6 @@ namespace behaviac
         {
             //this.m_value = Utils.Clone(copy.m_value);
             this.m_value = copy.m_value;
-
         }
         public TVariable(CMemberBase pMember, string variableName, uint varId)
             : base(pMember, variableName, varId)
@@ -1321,7 +1300,7 @@ namespace behaviac
         {
             //BEHAVIAC_ASSERT(this.m_changed);
 
-            LogManager.LogVarValue(pAgent, this.m_name, this.m_value);
+            LogManager.Instance.LogVarValue(pAgent, this.m_name, this.m_value);
 
 #if !BEHAVIAC_RELEASE
             this.m_changed = false;
@@ -1332,7 +1311,6 @@ namespace behaviac
             if (this.m_pMember != null)
             {
                 this.m_pMember.Set(pAgent, m_value);
-
             }
             else
             {
@@ -1426,7 +1404,6 @@ namespace behaviac
                 }
 
 #endif
-
             }
             else
             {
@@ -1571,7 +1548,6 @@ namespace behaviac
                             pMember = pAgent.FindMember(variableName);
                         }
                     }
-
                 }
                 else
                 {
@@ -1589,7 +1565,6 @@ namespace behaviac
                 behaviac.Debug.Check(pVar != null);
                 m_variables[varId] = pVar;
                 pVar.SetValueObject(value, pAgent);
-
             }
             else
             {
@@ -1618,7 +1593,6 @@ namespace behaviac
                             pMember = pAgent.FindMember(variableName);
                         }
                     }
-
                 }
                 else
                 {
@@ -1631,7 +1605,6 @@ namespace behaviac
                 m_variables[varId] = pVar;
                 TVariable<VariableType> tpVar = (TVariable<VariableType>)pVar;
                 tpVar.SetValue(value, pAgent);
-
             }
             else
             {
@@ -1656,7 +1629,6 @@ namespace behaviac
 
                 //Debug.Check(false, "a compatible property is not found");
                 return null;
-
             }
             else
             {
@@ -1693,7 +1665,6 @@ namespace behaviac
 
                 //Debug.Check(false, "a compatible property is not found");
                 return default(VariableType);
-
             }
             else
             {

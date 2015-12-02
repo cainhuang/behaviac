@@ -74,7 +74,8 @@ namespace Behaviac.Design
                 get { return _attachment.Description; }
             }
 
-            public override object SelectableObject {
+            public override DefaultObject SelectableObject
+            {
                 // when the subitem gets selected, show the stored attachment in the properties.
                 get { return _attachment; }
             }

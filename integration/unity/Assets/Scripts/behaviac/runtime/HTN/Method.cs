@@ -63,6 +63,5 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
         }
-
     }
 }

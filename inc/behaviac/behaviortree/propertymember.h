@@ -17,7 +17,7 @@
 template<>
 struct GenericTypeHandler<behaviac::Property*>
 {
-    static void Load(const ISerializableNode* node, behaviac::Property* member, const char* className, const CSerializationID& propertyID)
+    static void Load(const behaviac::ISerializableNode* node, behaviac::Property* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -27,7 +27,7 @@ struct GenericTypeHandler<behaviac::Property*>
         BEHAVIAC_ASSERT(0, "not implemented");
     }
 
-    static void Save(ISerializableNode* node, behaviac::Property* member, const char* className, const CSerializationID& propertyID)
+    static void Save(behaviac::ISerializableNode* node, behaviac::Property* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -37,7 +37,7 @@ struct GenericTypeHandler<behaviac::Property*>
         BEHAVIAC_ASSERT(0, "not implemented");
     }
 
-    static void LoadState(const ISerializableNode* node, behaviac::Property* member, const char* className, const CSerializationID& propertyID)
+    static void LoadState(const behaviac::ISerializableNode* node, behaviac::Property* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -47,7 +47,7 @@ struct GenericTypeHandler<behaviac::Property*>
         BEHAVIAC_ASSERT(0, "not implemented");
     }
 
-    static void SaveState(ISerializableNode* node, behaviac::Property* member, const char* className, const CSerializationID& propertyID)
+    static void SaveState(behaviac::ISerializableNode* node, behaviac::Property* member, const char* className, const behaviac::CSerializationID& propertyID)
     {
         BEHAVIAC_UNUSED_VAR(node);
         BEHAVIAC_UNUSED_VAR(member);
@@ -57,7 +57,7 @@ struct GenericTypeHandler<behaviac::Property*>
         BEHAVIAC_ASSERT(0, "not implemented");
     }
 
-    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, behaviac::Property* const& member, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, UiGenericType* uiWrapper)
+    static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, behaviac::Property* const& member, bool bStatic, int readonlyFlag, const char* classFullName, const behaviac::CSerializationID& propertyID, UiGenericType* uiWrapper)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -71,7 +71,7 @@ struct GenericTypeHandler<behaviac::Property*>
         BEHAVIAC_ASSERT(0, "not implemented");
     }
 
-    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, behaviac::Property* const& member, const char* className, const char* propertyName)
+    static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::XmlNodeRef& xmlNode, behaviac::Property* const& member, const char* className, const char* propertyName)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -113,7 +113,7 @@ public:
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         if (PropertyFlags & EPersistenceType_Description_Load)
         {
@@ -124,7 +124,7 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -135,7 +135,7 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -146,7 +146,7 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -157,7 +157,7 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -169,7 +169,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);

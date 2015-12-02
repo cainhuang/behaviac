@@ -272,28 +272,24 @@ namespace behaviac
                 writeTypeName(TypeNames.Float);
                 writer.Write((float)value);
                 return;
-
             }
             else if (value is double)
             {
                 writeTypeName(TypeNames.Double);
                 writer.Write((double)value);
                 return;
-
             }
             else if (value is int)
             {
                 writeTypeName(TypeNames.Int);
                 writer.Write((int)value);
                 return;
-
             }
             else if (value is bool)
             {
                 writeTypeName(TypeNames.Bool);
                 writer.Write((bool)value);
                 return;
-
             }
             else if (value is Vector3)
             {
@@ -303,7 +299,6 @@ namespace behaviac
                 writer.Write(vector.y);
                 writer.Write(vector.z);
                 return;
-
             }
             else if (value is Rect)
             {
@@ -314,13 +309,11 @@ namespace behaviac
                 writer.Write(rect.xMax);
                 writer.Write(rect.yMax);
                 return;
-
             }
             else if (value is Array)
             {
                 writeArray((Array)value);
                 return;
-
             }
             else if (typeof(List<>).IsAssignableFrom(value.GetType()))
             {
@@ -418,7 +411,6 @@ namespace behaviac
 
                 writer.Write(index);
                 writer.Write(type);
-
             }
             else
             {
@@ -472,7 +464,6 @@ namespace behaviac
                 }
 
                 return readObjectStructure(valueType);
-
             }
             catch (Exception err)
             {
@@ -782,7 +773,6 @@ namespace behaviac
                 {
                     return Enum.Parse(valueType, reader.ReadString());
                 }
-
             }
             catch
             {
@@ -864,7 +854,6 @@ namespace behaviac
                     {
                         return typeCache[typeName] = type;
                     }
-
                 }
                 catch (Exception err)
                 {

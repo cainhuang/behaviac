@@ -38,7 +38,6 @@ namespace behaviac
                     {
                         string typeName = null;
                         this.m_frames_var = Condition.LoadRight(p.value, ref typeName);
-
                     }
                     else
                     {
@@ -57,7 +56,6 @@ namespace behaviac
                 int frames = (int)this.m_frames_var.GetValue(pAgent);
 
                 return frames;
-
             }
             else if (this.m_frames_method != null)
             {

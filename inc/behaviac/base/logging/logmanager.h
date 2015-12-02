@@ -77,7 +77,7 @@ namespace behaviac
 
         void Log(const char* format, ...);
 
-        void LogWorkspace(const char* format, ...);
+		void LogWorkspace(bool bSend, const char* format, ...);
 
         template<typename T>
         void LogVarValue(Agent* pAgent, const behaviac::string& name, const T& value);
@@ -90,12 +90,14 @@ namespace behaviac
     protected:
         LogManager();
     public:
-        ~LogManager();
+        virtual ~LogManager();
 
         //static LogManager* GetInstance();
     private:
         FILE* GetFile(const behaviac::Agent* pAgent);
-        void Output(const behaviac::Agent* pAgent, const char* msg);
+
+		//you can override this to customize the output
+        virtual void Output(const behaviac::Agent* pAgent, const char* msg);
 
         typedef behaviac::map<int, FILE*> Logs_t;
         Logs_t				m_logs;

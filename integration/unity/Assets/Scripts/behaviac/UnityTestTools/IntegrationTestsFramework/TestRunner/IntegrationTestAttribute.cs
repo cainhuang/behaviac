@@ -19,5 +19,4 @@ public class IntegrationTestAttribute : Attribute
         var fileName = Path.GetFileNameWithoutExtension(scenePath);
         return fileName == path;
     }
-
 }

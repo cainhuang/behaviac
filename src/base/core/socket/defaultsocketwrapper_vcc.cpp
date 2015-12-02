@@ -56,8 +56,17 @@ namespace behaviac
                 return Handle(0);
             }
 
+			Handle r = Handle(winSocket);
+
             unsigned long inonBlocking = (blocking ? 0 : 1);
-            return (ioctlsocket(winSocket, FIONBIO, &inonBlocking) == 0 ? Handle(winSocket) : Handle(0));
+			if (ioctlsocket(winSocket, FIONBIO, &inonBlocking) == 0)
+			{
+				return r;
+			}
+
+			Close(r);
+			
+			return Handle(0);
         }
 
         void Close(Handle& h)

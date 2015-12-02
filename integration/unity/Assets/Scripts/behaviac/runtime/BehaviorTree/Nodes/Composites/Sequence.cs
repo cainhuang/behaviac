@@ -43,7 +43,7 @@ namespace behaviac
                 }
 
                 //clear the log cache so that the next node can log all properites
-                LogManager.PLanningClearCache();
+                LogManager.Instance.PLanningClearCache();
                 seqTask.AddChild(childTask);
             }
 

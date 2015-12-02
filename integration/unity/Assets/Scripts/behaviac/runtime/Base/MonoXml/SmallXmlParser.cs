@@ -325,7 +325,6 @@ namespace Mono.Xml
                 line++;
                 resetColumn = false;
                 column = 1;
-
             }
             else
             {
@@ -498,13 +497,11 @@ namespace Mono.Xml
                             Expect('[');
                             ReadCDATASection();
                             return;
-
                         }
                         else if (Peek() == '-')
                         {
                             ReadComment();
                             return;
-
                         }
                         else if (ReadName() != "DOCTYPE")
                         {
@@ -593,7 +590,6 @@ namespace Mono.Xml
                         {
                             Read();
                             handler.OnEndElement(name);
-
                         }
                         else
                         {
@@ -604,7 +600,6 @@ namespace Mono.Xml
                         Expect('>');
                         return;
                 }
-
             }
             else
             {
@@ -668,7 +663,6 @@ namespace Mono.Xml
                 // character reference
                 Read();
                 ReadCharacterReference();
-
             }
             else
             {
@@ -736,7 +730,6 @@ namespace Mono.Xml
 
                     Read();
                 }
-
             }
             else
             {
@@ -823,7 +816,6 @@ namespace Mono.Xml
                     }
 
                     break;
-
                 }
                 else
                 {

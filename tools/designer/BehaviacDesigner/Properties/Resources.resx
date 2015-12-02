@@ -705,4 +705,10 @@ Please be sure to open the workspace which is used by the runtime!</value>
   <data name="EnableDesc" xml:space="preserve">
     <value>Enable or disable itself</value>
   </data>
+  <data name="ExportBehaviors" xml:space="preserve">
+    <value>Behaviors to Export:</value>
+  </data>
+  <data name="FaultBehaviors" xml:space="preserve">
+    <value>Behaviors with Errors:</value>
+  </data>
 </root>

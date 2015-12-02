@@ -89,7 +89,6 @@ namespace BehaviorNodeUnitTest
                 Assert.AreEqual(0, InactiveCount);
                 Assert.AreEqual(8, testAgent.TestVar);
             }
-
         }
 
         [Test]
@@ -117,7 +116,6 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(1.8f, testBtAgent.testVar_2);
             Assert.AreEqual(4.5f, testBtAgent.testVar_3);
             Assert.AreEqual(true, "HC" == testBtAgent.testVar_str_0);
-
         }
 
         [Test]
@@ -168,7 +166,6 @@ namespace BehaviorNodeUnitTest
 
                 int EnergyCount = testAgent.GetVariable<int>("EnergyCount");
                 Assert.AreEqual(1, EnergyCount);
-
             }
 
             {
@@ -206,7 +203,6 @@ namespace BehaviorNodeUnitTest
                 Assert.AreEqual(1, ExitCount);
                 Assert.AreEqual(17, testAgent.TestVar);
             }
-
         }
 
         [Test]
@@ -243,9 +239,7 @@ namespace BehaviorNodeUnitTest
 
                 int EnergyCount = testAgent.GetVariable<int>("EnergyCount");
                 Assert.AreEqual(1, EnergyCount);
-
             }
         }
-
     }
 }

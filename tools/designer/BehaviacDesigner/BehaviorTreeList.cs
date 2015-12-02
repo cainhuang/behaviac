@@ -809,7 +809,7 @@ namespace Behaviac.Design
 
         private static ErrorCheckDialog _errorDialog = null;
 
-        public void OpenBehavior(TreeNode treenode)
+        public void OpenBehavior(TreeNode treenode, bool bShow)
         {
             if (treenode == null)
                 return;
@@ -817,10 +817,12 @@ namespace Behaviac.Design
             List<Nodes.Node.ErrorCheck> result = new List<Node.ErrorCheck>();
             BehaviorNode behavior = getBehaviorByTreeNode(treenode, result);
 
-            if (behavior != null && ShowBehavior != null)
+            if (behavior != null)
             {
+                if (bShow && ShowBehavior != null)
+                    ShowBehavior(behavior);
+
                 CheckNode(behavior, GetTreeNode(behavior));
-                ShowBehavior(behavior);
 
                 if (result.Count > 0 && BehaviorTreeViewDock.LastFocused != null)
                 {
@@ -830,12 +832,17 @@ namespace Behaviac.Design
             }
         }
 
+        private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            OpenBehavior(e.Node, false);
+        }
+
         /// <summary>
         /// Handles when a tree node in the node explorer is double-clicked.
         /// </summary>
         private void behaviorTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            OpenBehavior(e.Node);
+            OpenBehavior(e.Node, true);
         }
 
         /// <summary>
@@ -1888,8 +1895,14 @@ namespace Behaviac.Design
                     //    saveResult = SaveBehavior(node, false, false);
 
                     if (FileManagers.SaveResult.Succeeded == saveResult) {
+                        string fullPath = tnode.FullPath;
+                        if (fullPath.StartsWith("Behaviors\\") || fullPath.StartsWith("Behaviors/"))
+                        {
+                            fullPath = fullPath.Substring(10);
+                        }
+
                         // Generate the new filename and the exporter.
-                        Exporters.Exporter exp = exporter.Create(node, folder, exportNoGroups ? tnode.Text : tnode.FullPath);
+                        Exporters.Exporter exp = exporter.Create(node, folder, exportNoGroups ? tnode.Text : fullPath);
 
                         // Export behavior.
                         saveResult = exp.Export();
@@ -1996,8 +2009,9 @@ namespace Behaviac.Design
             return true;
         }
 
-        internal TreeNodeCollection GetBehaviorTreeNodes() {
-            return GetBehaviorGroup(treeView.Nodes, _behaviorGroupName, _behaviorFolder).Nodes;
+        internal TreeNode GetBehaviorGroup()
+        {
+            return GetBehaviorGroup(treeView.Nodes, _behaviorGroupName, _behaviorFolder);
         }
 
         /// <summary>
@@ -2031,6 +2045,8 @@ namespace Behaviac.Design
                     }
 
                     bool aborted = false;
+                    bool exportXML = false;
+                    bool exportBson = false;
 
                     if (this.UpdateExportedSettting(exportedPath)) {
                         Debug.Check(Workspace.Current != null);
@@ -2039,6 +2055,9 @@ namespace Behaviac.Design
                             ExporterInfo info = Plugin.Exporters[i];
 
                             if ((string.IsNullOrEmpty(format) && Workspace.Current.ShouldBeExported(info.ID)) || (info.ID == format)) {
+                                exportXML |= (info.ID == "xml");
+                                exportBson |= (info.ID == "bson");
+
                                 exportBehavior(i, exportedPath, dialog.treeView.Nodes, ref aborted);
 
                                 if (aborted) {
@@ -2048,7 +2067,7 @@ namespace Behaviac.Design
                         }
 
                         if (!aborted && dialog.ExportCustomizedMeta()) {
-                            Workspace.ExportCustomMembers(Workspace.Current);
+                            Workspace.ExportCustomMembers(Workspace.Current, exportXML, exportBson);
                         }
                     }
 
@@ -2133,7 +2152,7 @@ namespace Behaviac.Design
                     FileManagers.SaveResult saveResult = MainWindow.Instance.CheckSavingBehaviors();
                     if (saveResult != FileManagers.SaveResult.Cancelled)
                     {
-                        using (ConnectDialog cd = new ConnectDialog(NetworkManager.ServerPort))
+                        using (ConnectDialog cd = new ConnectDialog(NetworkManager.ServerIP, NetworkManager.ServerPort))
                         {
                             if (cd.ShowDialog(this) == DialogResult.OK)
                             {
@@ -2170,10 +2189,8 @@ namespace Behaviac.Design
 
                         if (ext == ".dump") {
                             AgentDataPool.LoadDump(openFileDialog.FileName, Workspace.Current.Name);
-
                         } else if (ext == ".log") {
                             AgentDataPool.LoadLog(openFileDialog.FileName);
-
                         } else {
                             string errMsg = string.Format("'{0}' is not supported. only .log or .dump are suported.", ext);
                             MessageBox.Show(errMsg, Resources.LoadError, MessageBoxButtons.OK);
@@ -2557,7 +2574,7 @@ namespace Behaviac.Design
 
         private void openBehaviorMenuItem_Click(object sender, EventArgs e)
         {
-            this.OpenBehavior(treeView.SelectedNode);
+            this.OpenBehavior(treeView.SelectedNode, true);
         }
 
         private void newBehaviorMenuItem_Click(object sender, EventArgs e) {

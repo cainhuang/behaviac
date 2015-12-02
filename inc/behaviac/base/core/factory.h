@@ -26,256 +26,256 @@
 
 struct SFactoryBucket
 {
-    SFactoryBucket(const CStringID& typeID, void* typeConstructor) : m_typeID(typeID), m_typeConstructor(typeConstructor) {}
+	SFactoryBucket(const behaviac::CStringID& typeID, void* typeConstructor) : m_typeID(typeID), m_typeConstructor(typeConstructor) {}
 
-    bool operator==(const SFactoryBucket& rhs)const
-    {
-        return m_typeID == rhs.m_typeID;
-    }
+	bool operator==(const SFactoryBucket& rhs)const
+	{
+		return m_typeID == rhs.m_typeID;
+	}
 
-    CStringID		m_typeID;
-    void*           m_typeConstructor;
+	behaviac::CStringID		m_typeID;
+	void*           m_typeConstructor;
 };
 
 struct FactoryContainer
 {
-    std::vector<SFactoryBucket>						m_vector;
-    typedef std::vector<SFactoryBucket>::iterator	iterator;
+	std::vector<SFactoryBucket>						m_vector;
+	typedef std::vector<SFactoryBucket>::iterator	iterator;
 
-    behaviac::Mutex										m_mutex;
+	behaviac::Mutex										m_mutex;
 
-    iterator begin()
-    {
-        return m_vector.begin();
-    }
+	iterator begin()
+	{
+		return m_vector.begin();
+	}
 
-    iterator end()
-    {
-        return m_vector.end();
-    }
+	iterator end()
+	{
+		return m_vector.end();
+	}
 
-    void push_back(SFactoryBucket it)
-    {
-        m_vector.push_back(it);
-    }
+	void push_back(SFactoryBucket it)
+	{
+		m_vector.push_back(it);
+	}
 
-    void erase(iterator it)
-    {
-        m_vector.erase(it);
-    }
+	void erase(iterator it)
+	{
+		m_vector.erase(it);
+	}
 
-    void Lock()
-    {
-        m_mutex.Lock();
-    }
+	void Lock()
+	{
+		m_mutex.Lock();
+	}
 
-    void Unlock()
-    {
-        m_mutex.Unlock();
-    }
+	void Unlock()
+	{
+		m_mutex.Unlock();
+	}
 };
 
 typedef FactoryContainer::iterator CreatorIt;
 
-BEHAVIAC_API bool FactoryNewRegisterSub(FactoryContainer* creators, const CStringID& typeID, void* typeConstructor);
-BEHAVIAC_API bool FactoryNewUnregisterSub(FactoryContainer* creators, const CStringID& typeID);
+BEHAVIAC_API bool FactoryNewRegisterSub(FactoryContainer* creators, const behaviac::CStringID& typeID, void* typeConstructor);
+BEHAVIAC_API bool FactoryNewUnregisterSub(FactoryContainer* creators, const behaviac::CStringID& typeID);
 
 template< typename T >
 class CFactory
 {
-    //Internal struct used in the container
-    class IConstructType
-    {
-    public:
-        virtual ~IConstructType() {}
-        virtual T* Create() = 0;
-    };
+	//Internal struct used in the container
+	class IConstructType
+	{
+	public:
+		virtual ~IConstructType() {}
+		virtual T* Create() = 0;
+	};
 
-    template< typename FINAL_TYPE >
-    class CConstructType : public CFactory< T >::IConstructType
-    {
-    public:
-        virtual T* Create()
-        {
-            return BEHAVIAC_NEW FINAL_TYPE;
-        }
-    };
+	template< typename FINAL_TYPE >
+	class CConstructType : public CFactory< T >::IConstructType
+	{
+	public:
+		virtual T* Create()
+		{
+			return BEHAVIAC_NEW FINAL_TYPE;
+		}
+	};
 
 public:
-    virtual ~CFactory()
-    {
-        CreatorIt it(m_creators.begin());
-        CreatorIt itEnd(m_creators.end());
+	virtual ~CFactory()
+	{
+		CreatorIt it(m_creators.begin());
+		CreatorIt itEnd(m_creators.end());
 
-        while (it != itEnd)
-        {
-            SFactoryBucket& item = *it++;
-            BEHAVIAC_FREE(item.m_typeConstructor);
-        }
+		while (it != itEnd)
+		{
+			SFactoryBucket& item = *it++;
+			BEHAVIAC_FREE(item.m_typeConstructor);
+		}
 
-        m_creators.m_vector.clear();
-    }
+		m_creators.m_vector.clear();
+	}
 
-    //Same but with a given allocator
-    virtual T* CreateObject(const CStringID& typeID);
+	//Same but with a given allocator
+	virtual T* CreateObject(const behaviac::CStringID& typeID);
 
-    typedef T* (*InstantiateFunctionPointer)(const CStringID& typeID);
+	typedef T* (*InstantiateFunctionPointer)(const behaviac::CStringID& typeID);
 
-    bool Register(const CStringID& typeID, InstantiateFunctionPointer instantiate, bool overwrite = false);
+	bool Register(const behaviac::CStringID& typeID, InstantiateFunctionPointer instantiate, bool overwrite = false);
 
-    //Unregister a type in the factory
-    bool UnRegister(const CStringID& typeID);
+	//Unregister a type in the factory
+	bool UnRegister(const behaviac::CStringID& typeID);
 
-    //Register a new type in the factory
-    template< typename FINAL_TYPE >
-    bool Register()
-    {
-        typedef CConstructType<FINAL_TYPE> FinalType;
-        void* p = BEHAVIAC_MALLOC(sizeof(FinalType));
-        IConstructType* typeConstructor = new(p)FinalType;
-        return FactoryNewRegisterSub(&m_creators, FINAL_TYPE::GetClassTypeId(), typeConstructor);
-    }
+	//Register a new type in the factory
+	template< typename FINAL_TYPE >
+	bool Register()
+	{
+		typedef CConstructType<FINAL_TYPE> FinalType;
+		void* p = BEHAVIAC_MALLOC(sizeof(FinalType));
+		IConstructType* typeConstructor = new(p)FinalType;
+		return FactoryNewRegisterSub(&m_creators, FINAL_TYPE::GetClassTypeId(), typeConstructor);
+	}
 
-    //Unregister a type in the factory
-    template< typename FINAL_TYPE >
-    bool UnRegister()
-    {
-        return FactoryNewUnregisterSub(&m_creators, FINAL_TYPE::GetClassTypeId());
-    }
+	//Unregister a type in the factory
+	template< typename FINAL_TYPE >
+	bool UnRegister()
+	{
+		return FactoryNewUnregisterSub(&m_creators, FINAL_TYPE::GetClassTypeId());
+	}
 
-    bool IsRegistered(const CStringID& typeID);
+	bool IsRegistered(const behaviac::CStringID& typeID);
 
-    // visitor function
-    template<typename VISITOR>
-    void Visit(VISITOR& visitor)
-    {
-        m_creators.Lock();
-        CreatorIt it(m_creators.begin());
-        CreatorIt itEnd(m_creators.end());
+	// visitor function
+	template<typename VISITOR>
+	void Visit(VISITOR& visitor)
+	{
+		m_creators.Lock();
+		CreatorIt it(m_creators.begin());
+		CreatorIt itEnd(m_creators.end());
 
-        while (it != itEnd)
-        {
-            visitor.Visit((*it).m_typeID);
-            ++it;
-        }
+		while (it != itEnd)
+		{
+			visitor.Visit((*it).m_typeID);
+			++it;
+		}
 
-        m_creators.Unlock();
-    }
+		m_creators.Unlock();
+	}
 
 private:
-    FactoryContainer m_creators;	//Container of registered type.
+	FactoryContainer m_creators;	//Container of registered type.
 };
 
 template< typename T >
-BEHAVIAC_FORCEINLINE bool CFactory<T>::IsRegistered(const CStringID& typeID)
+BEHAVIAC_FORCEINLINE bool CFactory<T>::IsRegistered(const behaviac::CStringID& typeID)
 {
-    m_creators.Lock();
-    //T* newObject = NULL;
-    SFactoryBucket bucket(typeID, NULL);
-    CreatorIt itEnd(m_creators.end());
-    CreatorIt itFound(std::find(m_creators.begin(), itEnd, bucket));
+	m_creators.Lock();
+	//T* newObject = NULL;
+	SFactoryBucket bucket(typeID, NULL);
+	CreatorIt itEnd(m_creators.end());
+	CreatorIt itFound(std::find(m_creators.begin(), itEnd, bucket));
 
-    //We have a registered object, create it
-    if (itFound != itEnd)
-    {
-        // we are done with the list, no need to keep critical section during alloc.
-        m_creators.Unlock();
-        return true;
+	//We have a registered object, create it
+	if (itFound != itEnd)
+	{
+		// we are done with the list, no need to keep critical section during alloc.
+		m_creators.Unlock();
+		return true;
 
-    }
-    else
-    {
-        m_creators.Unlock();
-        return false;
-    }
+	}
+	else
+	{
+		m_creators.Unlock();
+		return false;
+	}
 }
 
 template< typename T >
-T* CFactory<T>::CreateObject(const CStringID& typeID)
+T* CFactory<T>::CreateObject(const behaviac::CStringID& typeID)
 {
-    m_creators.Lock();
-    //T* newObject = NULL;
-    SFactoryBucket bucket(typeID, NULL);
-    CreatorIt itEnd(m_creators.end());
-    CreatorIt itFound(std::find(m_creators.begin(), itEnd, bucket));
+	m_creators.Lock();
+	//T* newObject = NULL;
+	SFactoryBucket bucket(typeID, NULL);
+	CreatorIt itEnd(m_creators.end());
+	CreatorIt itFound(std::find(m_creators.begin(), itEnd, bucket));
 
-    //We have a registered object, create it
-    if (itFound != itEnd)
-    {
-        IConstructType* contructType = (IConstructType*)(*itFound).m_typeConstructor;
-        // we are done with the list, no need to keep critical section during alloc.
-        m_creators.Unlock();
-        //Call the function that creates the abstract object
-        return contructType->Create();
+	//We have a registered object, create it
+	if (itFound != itEnd)
+	{
+		IConstructType* contructType = (IConstructType*)(*itFound).m_typeConstructor;
+		// we are done with the list, no need to keep critical section during alloc.
+		m_creators.Unlock();
+		//Call the function that creates the abstract object
+		return contructType->Create();
 
-    }
-    else
-    {
+	}
+	else
+	{
 #if STRINGID_USESTRINGCONTENT
-        BEHAVIAC_LOGWARNING("Trying to create an unregister type 0x%08X -- %s", typeID.GetUniqueID(), typeID.c_str());
+		BEHAVIAC_LOGWARNING("Trying to create an unregister type 0x%08X -- %s", typeID.GetUniqueID(), typeID.c_str());
 #else
-        BEHAVIAC_LOGWARNING("Trying to create an unregister type 0x%08X", typeID.GetUniqueID());
+		BEHAVIAC_LOGWARNING("Trying to create an unregister type 0x%08X", typeID.GetUniqueID());
 #endif
-        m_creators.Unlock();
-        return NULL;
-    }
+		m_creators.Unlock();
+		return NULL;
+	}
 }
 
 template< typename T >
-bool CFactory<T>::Register(const CStringID& typeID, InstantiateFunctionPointer instantiate, bool overwrite)
+bool CFactory<T>::Register(const behaviac::CStringID& typeID, InstantiateFunctionPointer instantiate, bool overwrite)
 {
-    m_creators.Lock();
-    //you should give a valid pointer to an instantiation function
-    BEHAVIAC_ASSERT(instantiate);
-    SFactoryBucket bucket(typeID, (void*)instantiate);
-    CreatorIt itEnd(m_creators.end());
-    CreatorIt itFound(std::find(m_creators.begin(), itEnd, bucket));
-    bool wasThere = (itFound != itEnd);
+	m_creators.Lock();
+	//you should give a valid pointer to an instantiation function
+	BEHAVIAC_ASSERT(instantiate);
+	SFactoryBucket bucket(typeID, (void*)instantiate);
+	CreatorIt itEnd(m_creators.end());
+	CreatorIt itFound(std::find(m_creators.begin(), itEnd, bucket));
+	bool wasThere = (itFound != itEnd);
 
-    //Add it only once
-    if (!wasThere)
-    {
-        m_creators.push_back(bucket);
+	//Add it only once
+	if (!wasThere)
+	{
+		m_creators.push_back(bucket);
 
-    }
-    else if (overwrite)
-    {
-        *itFound = bucket;
-        m_creators.Unlock();
-        return true;
+	}
+	else if (overwrite)
+	{
+		*itFound = bucket;
+		m_creators.Unlock();
+		return true;
 
-    }
-    else
-    {
+	}
+	else
+	{
 #if STRINGID_USESTRINGCONTENT
-        BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d -- %s", typeID.GetUniqueID(), typeID.c_str());
+		BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d -- %s", typeID.GetUniqueID(), typeID.c_str());
 #else
-        BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d", typeID.GetUniqueID());
+		BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d", typeID.GetUniqueID());
 #endif // #if STRINGID_USESTRINGCONTENT
-    }
+	}
 
-    m_creators.Unlock();
-    return !wasThere;
+	m_creators.Unlock();
+	return !wasThere;
 }
 
 template< typename T >
-bool CFactory<T>::UnRegister(const CStringID& typeID)
+bool CFactory<T>::UnRegister(const behaviac::CStringID& typeID)
 {
-    m_creators.Lock();
-    SFactoryBucket bucket(typeID, NULL);
-    CreatorIt itEnd(m_creators.end());
-    CreatorIt itFound(std::find(m_creators.begin(), itEnd, bucket));
+	m_creators.Lock();
+	SFactoryBucket bucket(typeID, NULL);
+	CreatorIt itEnd(m_creators.end());
+	CreatorIt itFound(std::find(m_creators.begin(), itEnd, bucket));
 
-    if (itFound != itEnd)
-    {
-        m_creators.erase(itFound);
-        m_creators.Unlock();
-        return true;
-    }
+	if (itFound != itEnd)
+	{
+		m_creators.erase(itFound);
+		m_creators.Unlock();
+		return true;
+	}
 
-    BEHAVIAC_ASSERT("Cannot find the specified factory entry\n");
-    m_creators.Unlock();
-    return false;
+	BEHAVIAC_ASSERT("Cannot find the specified factory entry\n");
+	m_creators.Unlock();
+	return false;
 }
 
 #endif //BEHAVIAC_CORE_FACTORY_H

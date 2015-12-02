@@ -76,12 +76,12 @@ int main(int argc, char** argv)
     //if to wait for the key to end
     bool bWait = CLPP.ParameterExist("-wait");
 
-    CConfig::GetInstance()->LoadConfig("setting.xml");
+    behaviac::CConfig::GetInstance()->LoadConfig("setting.xml");
 
     behaviac::ConsoleOut::SetEnableMask(behaviac::ELOG_CONSOLE | behaviac::ELOG_FILE | behaviac::ELOG_VCOUTPUT);
 
     if (!bWait) {
-        const char* pWait = CConfig::Get("settings", "Wait");
+		const char* pWait = behaviac::CConfig::Get("settings", "Wait");
 
         if (pWait && strcmp(pWait, "1") == 0) {
             bWait = true;

@@ -266,23 +266,22 @@ solution "behaviac"
 			-- flags   { "Symbols" }			
 	end
 
-	warningUninitialized="-Wno-maybe-uninitialized"
-	if string.match(action, "xcode") ~= nil then
-		warningUninitialized="-Wno-uninitialized"
-	end
-
+	noArrayBound=""
+	--if string.match(action, "xcode") ~= nil then	
+	--	noArrayBound="-Wno-array-bounds"	-- array index 'x' is past the end of the array
+	--end
+	
 	if string.match(action, "gmake") ~= nil or string.match(action, "xcode") ~= nil or string.match(action, "jni") ~= nil then	
 		configuration {}
 			buildoptions { 
 				--"-Wno-reorder", -- warning ¡®xxx¡¯ will be initialized after when initialized here
-				"-Wno-invalid-offsetof", -- invalid access to non-static data member ¡®xxx¡¯  of NULL object
-				"-Wno-array-bounds", -- array index 'x' is past the end of the array
-				"-Wno-unused-local-typedefs", --warning: typedef '_static_assert_typedef_' locally defined but not used
-				warningUninitialized, --warning: 'lhs' may be used uninitialized in this function
+				--"-Wno-invalid-offsetof", -- invalid access to non-static data member ¡®xxx¡¯  of NULL object
+				noArrayBound,
+				--"-Wno-unused-local-typedefs", --warning: typedef '_static_assert_typedef_' locally defined but not used
 				"-Woverloaded-virtual", 
 				"-Wnon-virtual-dtor",
 				"-Wfloat-equal", 
-				"-Wno-strict-aliasing", --dereferencing type-punned pointer will break strict-aliasing rules 
+				--"-Wno-strict-aliasing", --dereferencing type-punned pointer will break strict-aliasing rules 
 				--"-finput-charset=UTF-8", -- invalid access to non-static data member ¡®xxx¡¯  of NULL object
 			}
 	end

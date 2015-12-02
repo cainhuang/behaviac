@@ -15,78 +15,81 @@
 #include "behaviac/base/file/file.h"
 #include "behaviac/base/file/filemanager.h"
 
-char* LoadTextFileAsBuffer(const char* fileName)
+namespace behaviac
 {
-    char* returnedBuffer = NULL;
-    IFile* fileHandle = CFileManager::GetInstance()->FileOpen(fileName, CFileSystem::EOpenAccess_Read);
+	char* LoadTextFileAsBuffer(const char* fileName)
+	{
+		char* returnedBuffer = NULL;
+		IFile* fileHandle = behaviac::CFileManager::GetInstance()->FileOpen(fileName, CFileSystem::EOpenAccess_Read);
 
-    if (fileHandle)
-    {
-        uint32_t fileSize = (uint32_t)fileHandle->GetSize();
-        char* fileBuffer = (char*)BEHAVIAC_MALLOC_WITHTAG(fileSize + 1, "TextFileBuffer");
+		if (fileHandle)
+		{
+			uint32_t fileSize = (uint32_t)fileHandle->GetSize();
+			char* fileBuffer = (char*)BEHAVIAC_MALLOC_WITHTAG(fileSize + 1, "TextFileBuffer");
 
-        if (fileHandle->Read(fileBuffer, fileSize) == fileSize)
-        {
-            fileBuffer[fileSize] = '\0';
-            returnedBuffer = fileBuffer;
+			if (fileHandle->Read(fileBuffer, fileSize) == fileSize)
+			{
+				fileBuffer[fileSize] = '\0';
+				returnedBuffer = fileBuffer;
 
-        }
-        else
-        {
-            BEHAVIAC_ASSERT(0, "Fail to read the text file : %s\n", fileName);
-        }
+			}
+			else
+			{
+				BEHAVIAC_ASSERT(0, "Fail to read the text file : %s\n", fileName);
+			}
 
-        CFileManager::GetInstance()->FileClose(fileHandle);
+			behaviac::CFileManager::GetInstance()->FileClose(fileHandle);
 
-    }
-    else
-    {
-        BEHAVIAC_ASSERT(0, "Fail to open the text file : %s\n", fileName);
-    }
+		}
+		else
+		{
+			BEHAVIAC_ASSERT(0, "Fail to open the text file : %s\n", fileName);
+		}
 
-    return returnedBuffer;
-}
+		return returnedBuffer;
+	}
 
-bool LoadTextFileAsStringArray(const char* fileName, behaviac::vector<behaviac::string>& stringArray)
-{
-    char* buffer = LoadTextFileAsBuffer(fileName);
+	bool LoadTextFileAsStringArray(const char* fileName, behaviac::vector<behaviac::string>& stringArray)
+	{
+		char* buffer = LoadTextFileAsBuffer(fileName);
 
-    if (buffer)
-    {
-        ConvertTextBufferAsStringArray(buffer, stringArray);
-        BEHAVIAC_FREE(buffer);
-        return true;
+		if (buffer)
+		{
+			ConvertTextBufferAsStringArray(buffer, stringArray);
+			BEHAVIAC_FREE(buffer);
+			return true;
 
-    }
-    else
-    {
-        return false;
-    }
-}
+		}
+		else
+		{
+			return false;
+		}
+	}
 
-void ConvertTextBufferAsStringArray(const char* buffer, behaviac::vector<behaviac::string>& stringArray)
-{
-    BEHAVIAC_ASSERT(buffer);
-    const char* lineBuffer = buffer;
+	void ConvertTextBufferAsStringArray(const char* buffer, behaviac::vector<behaviac::string>& stringArray)
+	{
+		BEHAVIAC_ASSERT(buffer);
+		const char* lineBuffer = buffer;
 
-    while (*lineBuffer != '\0')
-    {
-        const char* currentPos = lineBuffer;
+		while (*lineBuffer != '\0')
+		{
+			const char* currentPos = lineBuffer;
 
-        while (*currentPos != '\n' && *currentPos != '\r' && *currentPos != '\0')
-        {
-            currentPos++;
-        }
+			while (*currentPos != '\n' && *currentPos != '\r' && *currentPos != '\0')
+			{
+				currentPos++;
+			}
 
-        behaviac::string line;
-        line.assign(lineBuffer, currentPos - lineBuffer);
-        stringArray.push_back(line);
+			behaviac::string line;
+			line.assign(lineBuffer, currentPos - lineBuffer);
+			stringArray.push_back(line);
 
-        while (*currentPos == '\n' || *currentPos == '\r')
-        {
-            currentPos++;
-        }
+			while (*currentPos == '\n' || *currentPos == '\r')
+			{
+				currentPos++;
+			}
 
-        lineBuffer = currentPos;
-    }
-}
+			lineBuffer = currentPos;
+		}
+	}
+}//namespace behaviac

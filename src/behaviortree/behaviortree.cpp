@@ -119,7 +119,8 @@ namespace behaviac
     }
 
     BehaviorNode::BehaviorNode() : m_id(INVALID_NODE_ID),
-        m_enter_precond(0), m_update_precond(0), m_both_precond(0), m_both_effectors(0),
+		m_enter_precond(0), m_update_precond(0), m_both_precond(0), 
+		m_success_effectors(0), m_failure_effectors(0), m_both_effectors(0),
         m_attachments(0), m_pars(0), m_parent(0), m_children(0),
         m_customCondition(0), m_enterAction(0), m_exitAction(0),
         m_bHasEvents(false), m_loadAttachment(false)
@@ -289,10 +290,12 @@ namespace behaviac
             }
         }
     }
+
     bool BehaviorNode::IsManagingChildrenAsSubTrees() const
     {
         return false;
     }
+
     void BehaviorNode::Attach(BehaviorNode* pAttachment, bool bIsPrecondition, bool bIsEffector, bool bIsTransition)
     {
         BEHAVIAC_UNUSED_VAR(bIsTransition);
@@ -327,7 +330,6 @@ namespace behaviac
             {
                 BEHAVIAC_ASSERT(false);
             }
-
         }
         else if (bIsEffector)
         {
@@ -358,7 +360,6 @@ namespace behaviac
             {
                 BEHAVIAC_ASSERT(false);
             }
-
         }
         else
         {
@@ -476,14 +477,14 @@ namespace behaviac
         return this->m_className;
     }
 
-	uint32_t BehaviorNode::GetId() const
+	uint16_t BehaviorNode::GetId() const
     {
         //BEHAVIAC_ASSERT(this->m_id != INVALID_NODE_ID);
 
         return this->m_id;
     }
 
-	void BehaviorNode::SetId(uint32_t id)
+	void BehaviorNode::SetId(uint16_t id)
     {
         this->m_id = id;
     }
@@ -495,10 +496,7 @@ namespace behaviac
         this->m_agentType = agentType;
 #endif
     }
-    int BehaviorNode::PreconditionsCount() const
-    {
-        return this->m_preconditions.size();
-    }
+
     void BehaviorNode::AddPar(const char* agentType, const char* type, const char* name, const char* value)
     {
         Property* pProperty = AgentProperties::GetProperty(agentType, name);
@@ -682,10 +680,12 @@ namespace behaviac
 
     DecoratorNode::~DecoratorNode()
     {}
+
     bool DecoratorNode::IsManagingChildrenAsSubTrees() const
     {
         return !this->m_bDecorateWhenChildEnds;
     }
+
     void DecoratorNode::load(int version, const char* agentType, const properties_t& properties)
     {
         super::load(version, agentType, properties);
@@ -760,7 +760,6 @@ namespace behaviac
                             d.Descriptor->SetDefaultValue(d.Reference);
                         }
                     }
-
                 }
                 else
                 {
@@ -769,6 +768,11 @@ namespace behaviac
             }
         }
     }
+
+	bool BehaviorTree::IsManagingChildrenAsSubTrees() const
+	{
+		return true;
+	}
 
     const behaviac::string& BehaviorTree::GetDomains() const
     {
@@ -869,7 +873,6 @@ namespace behaviac
 
                             this->AddChild(pChildNode);
                         }
-
                     }
                     else
                     {
@@ -919,7 +922,7 @@ namespace behaviac
         {
             pAttachment->SetClassNameString(pAttachClassName);
             const char* idStr = c->first_attribute("id")->value();
-            pAttachment->SetId(atoi(idStr));
+			pAttachment->SetId((uint16_t)atoi(idStr));
 
             bool bIsPrecondition = false;
             bool bIsEffector = false;
@@ -1018,7 +1021,7 @@ namespace behaviac
             {
                 pNode->SetClassNameString(pClassName);
                 const char* idStr = node->first_attribute(kStrId)->value();//node.Attribute("id");
-                pNode->SetId(atoi(idStr));
+				pNode->SetId((uint16_t)atoi(idStr));
 
                 pNode->load_properties_pars_attachments_children(true, version, agentType, node);
             }
@@ -1152,7 +1155,7 @@ namespace behaviac
         {
             pNode->SetClassNameString(pClassName);
             const char* idString = d.ReadString();
-            pNode->SetId(atoi(idString));
+			pNode->SetId((uint16_t)atoi(idString));
 
             pNode->load_properties_pars_attachments_children(version, agentType, d, false);
         }
@@ -1190,7 +1193,7 @@ namespace behaviac
                         pAttachment->SetClassNameString(attachClassName);
 
                         const char*  idString = d.ReadString();
-                        pAttachment->SetId(atoi(idString));
+						pAttachment->SetId((uint16_t)atoi(idString));
 
                         bool bIsPrecondition = d.ReadBool();
                         bool bIsEffector = d.ReadBool();
@@ -1327,7 +1330,7 @@ namespace behaviac
         }
 
         this->SetClassNameString("BehaviorTree");
-		this->SetId((uint32_t)-1);
+		this->SetId((uint16_t)-1);
 
         if (fsm && StringUtils::StrEqual(fsm, "true"))
         {
@@ -1600,7 +1603,7 @@ namespace behaviac
                 }
 
                 this->SetClassNameString("BehaviorTree");
-				this->SetId((uint32_t)-1);
+				this->SetId((uint16_t)-1);
 
                 this->m_bIsFSM = bFsm;
 
