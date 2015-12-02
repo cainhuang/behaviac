@@ -4,7 +4,7 @@ redcarpet:
 
 highlighter: pygments
 
-baseurl: /behaviac/
+baseurl: /behaviac
 permalink: /:title/
 excerpt_separator: ""
 

@@ -20,9 +20,13 @@
 <script src="{{site.baseurl}}/js/jquery.js"></script>
 <script src="{{site.baseurl}}/js/lunr.zh.min.js"></script>
 <script src="{{site.baseurl}}/search.js"></script>
+<script src="{{site.baseurl}}/js/jquery-tapir.js"></script>
 <script>
 $(function() {
-
+  $("#query_btn1").click(function()
+  {
+   
+  });
   $("#query_btn").click(function()
   {
     search();
@@ -50,35 +54,33 @@ function search() {
     {
       $("#query_result").html("");
       return ;
-  }
-  var result = idx.search($("#query_input").val());
-  if(result && result.length > 0) {
-    var result_str="";
-    for(var i=0;i<result.length;i++)
+    }
+  
+    var query_str = $("#query_input").val();//get the query string
+    var re = new RegExp(query_str,"i"); //construct regular expression
+    var result_str="";//save the search result
+    for(var doc in docs)
     {
-      id=result[i].ref;
-      doc=docs.filter(function(q){return q.id===id})[0];
-      title=doc['title'].substr(0,40);
-      content=doc["content"].substr(0,40);
+      if(docs[doc].title.search(re)!=-1 || docs[doc].id.search(re)!= -1 || docs[doc].content.search(re)!= -1)
+      {
+      id=docs[doc].id;
+      title=docs[doc].title.substr(0,40);
+      content=docs[doc].content.substr(0,40);
       result_str+=
       "<p class=\"line\">"+
           "<span class=\"path\"><a href=\""+id+"\" target=\"_blank\">"+title+"</a></span>"+
-          "<span class=\"prompt\">$:</span>"+
+          "<span class=\"prompt\">:</span>"+
           "<span class=\"command\">"+content+"</span>"+
       "</p>";
-      // result_str+="<li>"+id+"</li>\n";
-      // result_str+="<p class=\"line\">"+id+"<span>"++"</span></li>\n";
+      }
     }
-    // alert(result_str);
-    //show the search result
-    $("#query_result").html(result_str);
- 
-  } else {
+     $("#query_result").html(result_str);
+  if(result_str.length <= 0) {
     result_str = 
       "<p class=\"line\">"+
           "<span class=\"path\">Result</span>"+
-          "<span class=\"prompt\">$:</span>"+
-          "<span class=\"command\">Empty</span>"+
+          "<span class=\"prompt\">:</span>"+
+          "<span class=\"command\">Not Found!</span>"+
       "</p>";
     $("#query_result").html(result_str);
   }
