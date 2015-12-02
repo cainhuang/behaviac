@@ -1,21 +1,23 @@
 ---
 layout: page
-title: Getting Help
+title: 帮助
 ---
 
-Need help with behaviac? Try these resources.
+如果您在学习或使用behaviac行为树的时候遇到了困难，您可以通过以下形式获得在线帮助或者相关学习资源。
 
-### [QQ Group](http://shang.qq.com/wpa/qunwpa?idkey=69333ec202c5f472a0278180aea08f65deb799e4c1ce2ee40224afce8599a8d9)
+###No.1 [QQ 群]
+如果你想通过QQ群获得即时的帮助或者信息反馈，你可以加入我们的QQ群<a href="http://jq.qq.com/?_wv=1027&k=bahF0B">433547396</a>。
 
-If you have any questions, please Join the QQ group(UID: <a href="http://jq.qq.com/?_wv=1027&k=bahF0B">433547396</a>). You can get more help than you expect.
+<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=d02dc4e77cb5e5eb98b9e4ac1d74c3dcbbe3b8091d41a51dec2c3e2aea0d8b0e"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="behaviac" title="behaviac"></a>
 
-### [behaviac on GitHub](https://github.com/TencentOpen/behaviac)
 
-Almost all resoures about behaviac.
+###No.2 [behaviac on GitHub](https://github.com/TencentOpen/behaviac)
 
-### [behaviac on Tencent GAD](http://gad.qq.com/tool/detail/2)
+我们所有的项目代码全部托管在GitHub上，你可以从这个地址进行访问。<a href="https://github.com/TencentOpen/behaviac">https://github.com/TencentOpen/behaviac</a>
 
-One of our offical websites, you can get some videos and docs on it.
+###No.3 [behaviac on Tencent GAD](http://gad.qq.com/tool/detail/2)
+
+腾讯游戏开发平台(GAD)是我们的官方的主页之一。本项目访问地址：<a href="http://gad.qq.com/tool/detail/2">http://gad.qq.com/tool/detail/2</a>
 
 
 
