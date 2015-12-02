@@ -64,7 +64,6 @@ categories: [doc]
 
 其代码如下：
 
-{% highlight cpp linenos %}
 ```cpp
 bool CBTPlayer::Condition()
 {
@@ -87,13 +86,11 @@ behaviac::EBTStatus CBTPlayer::Action3()
     }
     return behaviac::BT_RUNNING;
 }
-{% endhighlight %}
 ```
 
 而执行该BT树的C++代码如下：
 
 
-{% highlight cpp linenos %}
 ```cpp
     int frames = 0;
     behaviac::EBTStatus status = behaviac::BT_RUNNING;
@@ -102,7 +99,6 @@ behaviac::EBTStatus CBTPlayer::Action3()
         cout << \" frame " << ++frames << std::endl;
         status = g_player->btexec();
     }
-{% endhighlight %}
 ```
 
 执行结果会是个什么样的输出呢？
