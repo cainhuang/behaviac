@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: 欢迎访问behaviac
-date: 2015-11-20
+date: 2015-11-20 11:33:26 +0800
 author: jonygli
 permalink: /docs/zh/home/
 lang: zh

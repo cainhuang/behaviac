@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: behaviac概述
-date: 2015-11-20
+date: 2015-11-20 11:33:26 +0800
 author: cainhuang
 permalink: /docs/zh/articles/overview/
 categories: [doc]
