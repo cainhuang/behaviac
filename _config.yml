@@ -98,8 +98,7 @@ t:
       name: "Tutorials"
       url: "/docs/en/tutorials/"
     news:
-      name: "News"
-      url: "/en/news/"
+      name: "Version"
     faq:
       name: "FAQ"
       url: "/en/faq/"
@@ -108,6 +107,8 @@ t:
       url: "/en/help/"
     relatedPaper:
       name: "Related Paper"
+    allIssues: "All Questions"
+    lastIssues: "Lastest Issues"
   zh:
     home:
       name: "首页"
@@ -123,7 +124,6 @@ t:
       url: "/docs/zh/tutorials/"
     news:
       name: "版本"
-      url: "/zh/news/"
     faq:
       name: "问答"
       url: "/zh/faq/"
@@ -132,3 +132,7 @@ t:
       url: "/zh/help/"
     relatedPaper:
       name: "相关资料"
+    allIssues: "所有问题"
+    lastIssues: "最新问题"
+
+

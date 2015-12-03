@@ -1,34 +1,19 @@
 <div class="unit one-fifth hide-on-mobiles">
   <aside>
     <ul>
-      <li class="{% if page.title == 'News' %}current{% endif %}">
-        <a href="{{site.baseurl}}/{{page.lang}}/news/">All News</a>
-      </li>
-      <li class="{% if page.title == 'Releases' %}current{% endif %}">
-        <a href="{{site.baseurl}}/{{page.lang}}/news/releases/">behaviac Releases</a>
+      <li class="{% if page.title == 'FAQ' %}current{% endif %}">
+        <a href="{{site.baseurl}}{{site.t[page.lang].faq.url}}">{{site.t[page.lang].allIssues}}</a>
       </li>
     </ul>
-    <h4>Recent Releases</h4>
+    <h4>{{site.t[page.lang].lastIssues}}</h4>
     <ul>
-      {% assign posts = site.categories.release | limit:5 | where:"lang", page.lang %}
+      {% assign posts = site.categories.faq | limit:10 | where:"lang", page.lang %}
       {% for post in posts %}
           <li class="{% if page.title == post.title %}current{% endif %}">
             <a href="{{site.baseurl}}{{ post.url }}"> {{ post.title }}</a>
           </li>
       {% endfor %}
-      <li>
-        <a href="{{site.baseurl}}/docs/history/">History »</a>
-      </li>
-    </ul>
-    <h4>Other News</h4>
-    <ul>
-        {% for post in site.posts %}
-        {% unless post.categories contains 'release' %}
-        <li class="{% if page.title == post.title %}current{% endif %}">
-          <a href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a>
-        </li>
-        {% endunless %}
-        {% endfor %}
+      
     </ul>
   </aside>
 </div>
