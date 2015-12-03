@@ -23,6 +23,7 @@ layout: default
             </span>
           </span>          
           <div class="post-meta">
+            {{page.date | date: "%Y-%m-%d"}}
             <a href="https://github.com/{{ page.author }}" class="post-author">
               <img src="https://github.com/{{ page.author }}.png" class="avatar" alt="{{ page.author }} avatar" width="24" height="24">
               {{ page.author }}
