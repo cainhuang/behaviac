@@ -123,7 +123,7 @@ t:
       name: "教程"
       url: "/docs/zh/tutorials/"
     news:
-      name: "版本"
+      name: "下载"
     faq:
       name: "问答"
       url: "/zh/faq/"
