@@ -1,0 +1,43 @@
+---
+layout: docs_relatives_list
+title: 文章列表
+date: 2015-11-20 11:33:26 +0800
+author: jonygli
+permalink: /docs/zh/article/
+categories: [doc]
+lang: zh
+isIndex: true
+---
+
+
+{% assign posts = site.docs | where:"lang", page.lang %}
+{% for post in posts %}
+{% if post.isIndex ==  null and post.categories == page.categories %}
+<div class="uint docs_list">
+    <a href="{{site.baseurl}}{{ post.url }}" class="four-fifths">
+      {{ post.title }}
+    </a>
+    <span class="docs_list_author">
+        {{ post.date | date: "%Y-%m-%d" }}
+        <a href="https://github.com/{{ post.author }}" >
+          <img src="https://github.com/{{ post.author }}.png" class="avatar" alt="{{ post.author }} avatar" width="24" height="24">
+          {{ post.author }}
+        </a>
+    </span>
+</div>
+{% endif %}
+{% endfor %}
+
+<br>
+<br>
+<br>
+<div class="noteInfo">
+    <b>其他说明</b>
+    <br/>
+    如果在使用或阅读的过程中，有什么好的建议，反馈等，您可以<br/>
+    <a href="{{ site.repository }}/issues/new">添加问题</a><br>
+    <a href="{{ site.repository }}/new/gh-pages/{{ page.relative_path }}/../">添加文档</a>
+    <br>
+
+    并且PR回来，在合适的时机将会包含进来，并且属于您的荣誉也将一并分享。让我们一起完善和丰富behaviac的文档。behaviac的成长壮大离不开您的参与。
+</div>

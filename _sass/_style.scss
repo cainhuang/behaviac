@@ -1073,3 +1073,28 @@ code.output {
   color: #F30404;
   background: rgba(0,0,0,0);
 }
+.docs_list{
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  margin-top: 12px;
+  border-bottom: 1px #ccc dashed;
+}
+.docs_list_title{
+  float: left;
+}
+.docs_list_author{
+  float: right;
+  font-size: 10px;
+}
+
+.noteInfo{
+  font-size: 12px;
+}
+.noteInfo a{
+  font-size: 20px;
+}
+.noteInfo a:hover{
+  font-size: 20px;
+  color: red;
+}
