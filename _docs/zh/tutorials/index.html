@@ -8,15 +8,14 @@ categories: [tutorial]
 lang: zh
 isIndex: true
 ---
-
 {% assign posts = site.docs | where:"lang", page.lang %}
 {% for post in posts %}
 {% if post.isIndex ==  null and post.categories == page.categories %}
 <div class="uint docs_list">
-    <a href="{{site.baseurl}}{{ post.url }}" class="four-fifths">
+    <a href="{{site.baseurl}}{{ post.url }}" class="four-fifths center-on-mobiles">
       {{ post.title }}
     </a>
-    <span class="docs_list_author">
+    <span class="docs_list_author hide-on-mobiles">
         {{ post.date | date: "%Y-%m-%d" }}
         <a href="https://github.com/{{ post.author }}" >
           <img src="https://github.com/{{ post.author }}.png" class="avatar" alt="{{ post.author }} avatar" width="24" height="24">

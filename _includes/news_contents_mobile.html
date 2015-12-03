@@ -1,11 +1,18 @@
 <div class="docs-nav-mobile unit whole show-on-mobiles">
   <select onchange="if (this.value) window.location.href=this.value">
-    <option value="">Navigate the blog…</option>
-    <option value="/news/">Home</option>
+    <option value="">ALL Questions</option>
+    <!--<option value="/news/">Home</option>
     <optgroup label="v1.x">
       {% for post in site.posts %}
       <option value="{{ post.url }}">{{ post.title }}</option>
       {% endfor %}
     </optgroup>
+    -->
+    {% assign posts = site.categories.faq | where:"lang", page.lang %}
+      {% for post in posts %}
+          <li class="{% if page.title == post.title %}current{% endif %}">
+            <option value="{{site.baseurl}}{{ post.url }}"> {{ post.title }}</option>
+          </li>
+      {% endfor %}
   </select>
 </div>
