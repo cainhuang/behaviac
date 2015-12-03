@@ -87,15 +87,19 @@ t:
   en:
     home:
       name: "Home"
+      shortName: "Home"
       url: "/en/"
     docs:
       name: "Docs"
+      shortName: "Docs"
       url: "/docs/en/article/"
     references:
-      name: "References"
+      name: "Ref<span class='hide-on-mobiles'>erence</span>s"
+      shortName: "Refs"
       url: "/docs/en/references/"
     tutorials:
-      name: "Tutorials"
+      name: "Tutor<span class='hide-on-mobiles'>ials</span>"
+      shortName: "Tutor"
       url: "/docs/en/tutorials/"
     news:
       name: "Download"
