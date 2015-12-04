@@ -7,8 +7,7 @@
 <id>{{site.url}}{{site.baseurl}}/rss.xml</id>
 <updated>{{site.time}}</updated>
 <generator>Tencent behaviac Team</generator>
-<link href="http://tencentopen.github.io/behaviac/feed.xml" rel="self" type="application/atom+xml" />
-<link href="http://tencentopen.github.io/behaviac/" rel="alternate" type="text/html" />
+
 {% for post in site.posts %}
 <entry>
 	<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
