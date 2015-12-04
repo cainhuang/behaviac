@@ -1,52 +1,50 @@
 ---
 ---
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-	<generator>{{site.url}}</generator>
-	<link href="http://tencentopen.github.io/behaviac/" rel="alternate" type="text/html" />
+<feed 
+  xmlns="http://www.w3.org/2005/Atom"
+  xmlns:thr="http://purl.org/syndication/thread/1.0"
+  xml:lang="en-US"
+   >
+	<title type="text">{{site.name}}</title>
+	<subtitle type="text" >{{site.description}}</subtitle>
+	
 	<updated>{{site.time | date_to_xmlschema}}</updated>
+
+	<link href="http://tencentopen.github.io/behaviac/" rel="alternate" type="text/html" />
 	<id>{{site.url}}{{site.baseurl}}/</id>
-	<title>{{site.name}}</title>
-	<subtitle>{{site.description}}</subtitle>
+	<link rel="self" type="application/atom+xml" href="{{site.url}}{{site.baseurl}}/rss.xml" />
+
+	<generator uri="{{site.url}}" version="1.0">behavaic Team</generator>
 	{% for post in site.posts %}
 	<entry>
-		<title>{{post.title}}</title>
+		<title type="html">{{post.title}}]]></title>
 		<link href="{{site.url}}{{site.baseurl}}{{post.url}}" rel="alternate" type="text/html" title="{{post.title | xml_escape}}" />
+		<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
 		<published>{{post.date | date_to_xmlschema}}</published>
 		<updated>{{post.date | date_to_xmlschema }}</updated>
-		<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
-		<content type="html" xml:base="{{site.url}}{{site.baseurl}}{{post.url}}">
-			{{post.content | xml_escape}}
-		</content>
+		<content type="html"  xml:base="{{site.url}}{{site.baseurl}}{{post.url}}"><![CDATA[{{post.content}}]]></content>
 		<author>
 			<name>{{post.author}}</name>
 			<uri>https://github.com/{{post.author}}</uri>
 		</author>
-		<summary></summary>
+		
 	</entry>
 	{% endfor %}
 
 	{% for post in site.docs %}
 	<entry>
-		<title type="text">{{post.title}}</title>
+		<title type="html">{{post.title}}]]></title>
 		<link href="{{site.url}}{{site.baseurl}}{{post.url}}" rel="alternate" type="text/html" title="{{post.title | xml_escape}}" />
+		<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
 		<published>{{post.date | date_to_xmlschema}}</published>
 		<updated>{{post.date | date_to_xmlschema }}</updated>
-		<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
+		<content type="html"  xml:base="{{site.url}}{{site.baseurl}}{{post.url}}"><![CDATA[{{post.content}}]]></content>
 		<author>
 			<name>{{post.author}}</name>
 			<uri>https://github.com/{{post.author}}</uri>
 		</author>
-		<content type="html" xml:base="{{site.url}}{{site.baseurl}}{{post.url}}">
-			<![CDATA[
-			{{post.content | xml_escape}}
-			]]>
-		</content>
-		<summary>
-			<![CDATA[
-			{{post.content | truncatewords: 300 | strip_html }}
-			]]>
-		</summary>
+		
 	</entry>
 	{% endfor %}
 
