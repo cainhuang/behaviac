@@ -1,6 +1,6 @@
 ---
 layout: docs_relatives
-title: behaviac概述
+title: 编辑器的安装和使用
 date: 2015-11-20 11:33:26 +0800
 author: cainhuang
 permalink: /docs/zh/articles/overview/
