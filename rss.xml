@@ -21,12 +21,12 @@
 			<uri>https://github.com/{{post.author}}</uri>
 		</author>
 		<content type="html" xml:base="{{site.url}}{{site.baseurl}}{{post.url}}">
-			<![DATA[
+			<![CDATA[
 			{{post.content | xml_escape}}
 			]]>
 		</content>
 		<summary>
-			<![DATA[ 
+			<![CDATA[
 			{{post.content | truncatewords: 300 | strip_html }}
 			]]>
 		</summary>
@@ -45,12 +45,12 @@
 			<uri>https://github.com/{{post.author}}</uri>
 		</author>
 		<content type="html" xml:base="{{site.url}}{{site.baseurl}}{{post.url}}">
-			<![DATA[
+			<![CDATA[
 			{{post.content | xml_escape}}
 			]]>
 		</content>
 		<summary>
-			<![DATA[ 
+			<![CDATA[
 			{{post.content | truncatewords: 300 | strip_html }}
 			]]>
 		</summary>
