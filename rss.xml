@@ -18,7 +18,7 @@
 	<generator uri="{{site.url}}" version="1.0">behavaic Team</generator>
 	{% for post in site.posts %}
 	<entry>
-		<title type="html">{{post.title}}]]></title>
+		<title type="html"><![CDATA[{{post.title}}]]></title>
 		<link href="{{site.url}}{{site.baseurl}}{{post.url}}" rel="alternate" type="text/html" title="{{post.title | xml_escape}}" />
 		<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
 		<published>{{post.date | date_to_xmlschema}}</published>
@@ -34,7 +34,7 @@
 
 	{% for post in site.docs %}
 	<entry>
-		<title type="html">{{post.title}}]]></title>
+		<title type="html"><![CDATA[{{post.title}}]]></title>
 		<link href="{{site.url}}{{site.baseurl}}{{post.url}}" rel="alternate" type="text/html" title="{{post.title | xml_escape}}" />
 		<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
 		<published>{{post.date | date_to_xmlschema}}</published>
