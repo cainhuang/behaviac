@@ -1,0 +1,44 @@
+---
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<generator>Tencent behaviac Team</generator>
+<link href="http://tencentopen.github.io/behaviac/feed.xml" rel="self" type="application/atom+xml" />
+<link href="http://tencentopen.github.io/behaviac/" rel="alternate" type="text/html" />
+<updated>{{site.time}}</updated>
+<id>{{site.url}}{{site.baseurl}}/rss.xml</id>
+<title>{{site.name}}</title>
+<subtitle>{{site.description}}</subtitle>
+{% for post in site.posts %}
+<entry>
+	<title>{{post.title}}</title>
+	<link href="{{site.url}}{{site.baseurl}}{{post.url}}" rel="alternate" type="text/html" title="{{post.title | xml_escape}}" />
+	<published>{{post.date}}</published>
+	<updated>{{post.date}}</updated>
+	<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
+	<content type="html" xml:base="{{site.url}}{{site.baseurl}}{{post.url}}">{{post.content | xml_escape}}
+	</content>
+	<author>
+	<name>{{post.author}}</name>
+	</author>
+	<summary>{{post.content | truncatewords: 300 | xml_escape}}</summary>
+</entry>
+{% endfor %}
+
+{% for post in site.docs %}
+<entry>
+	<title>{{post.title}}</title>
+	<link href="{{site.url}}{{site.baseurl}}{{post.url}}" rel="alternate" type="text/html" title="{{post.title | xml_escape}}" />
+	<published>{{post.date}}</published>
+	<updated>{{post.date}}</updated>
+	<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
+	<content type="html" xml:base="{{site.url}}{{site.baseurl}}{{post.url}}">{{post.title | xml_escape}}
+	</content>
+	<author>
+	<name>{{post.author}}</name>
+	</author>
+	<summary>{{post.content | truncatewords: 300 | xml_escape}}</summary>
+</entry>
+{% endfor %}
+
+</feed>
