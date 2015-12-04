@@ -20,7 +20,7 @@
 	<entry>
 		<title type="html"><![CDATA[{{post.title}}]]></title>
 		<link href="{{site.url}}{{site.baseurl}}{{post.url}}" rel="alternate" type="text/html" title="{{post.title | xml_escape}}" />
-		<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
+		<id>{{site.url}}{{site.baseurl}}{{post.url | xml_escape}}</id>
 		<published>{{post.date | date_to_xmlschema}}</published>
 		<updated>{{post.date | date_to_xmlschema }}</updated>
 		<content type="html"  xml:base="{{site.url}}{{site.baseurl}}{{post.url}}"><![CDATA[{{post.content}}]]></content>
@@ -36,7 +36,7 @@
 	<entry>
 		<title type="html"><![CDATA[{{post.title}}]]></title>
 		<link href="{{site.url}}{{site.baseurl}}{{post.url}}" rel="alternate" type="text/html" title="{{post.title | xml_escape}}" />
-		<id>{{site.url}}{{site.baseurl}}{{post.url}}</id>
+		<id>{{site.url}}{{site.baseurl}}{{post.url | xml_escape}}</id>
 		<published>{{post.date | date_to_xmlschema}}</published>
 		<updated>{{post.date | date_to_xmlschema }}</updated>
 		<content type="html"  xml:base="{{site.url}}{{site.baseurl}}{{post.url}}"><![CDATA[{{post.content}}]]></content>
