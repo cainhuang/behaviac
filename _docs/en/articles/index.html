@@ -10,7 +10,7 @@ isIndex: true
 ---
 
 
-{% assign posts = site.docs | where:"lang", page.lang %}
+{% assign posts = site.docs | where:"lang", page.lang | sort: "date" | reverse %}
 {% for post in posts %}
 {% if post.isIndex ==  null and post.categories == page.categories %}
 <div class="uint docs_list">

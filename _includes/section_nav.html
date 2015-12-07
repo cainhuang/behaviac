@@ -1,9 +1,10 @@
 {% comment %}
 Map grabs the doc sections, giving us an array of arrays. Join, flattens all
 the items to a comma delimited string. Split turns it into an array again.
-{% endcomment %}
 {% assign docs = site.data.docs | map: 'docs' | join: ',' | split: ',' %}
+{% endcomment %}
 
+{% assign docs = site.docs | where:"lang", page.lang | where:"categories", page.categories | where:"isIndex" ,null | sort: "date"   %}
 {% comment %}
 Because this is built for every page, lets find where we are in the ordered
 document list by comparing url strings. Then if there's something previous or
@@ -11,16 +12,15 @@ next, lets build a link to it.
 {% endcomment %}
 
 {% for document in docs %}
-  {% assign document_url = document | prepend:"/docs/" | append:"/" %}
-  {% if document_url == page.url %}
+  {% if  document.url == page.url %}
     <div class="section-nav">
       <div class="left align-right">
           {% if forloop.first %}
             <span class="prev disabled">Back</span>
           {% else %}
             {% assign previous = forloop.index0 | minus: 1 %}
-            {% assign previous_page = docs[previous] | prepend:"/docs/" | append:"/" %}
-            <a href="{{site.baseurl}}{{ previous_page }}" class="prev">Back</a>
+            {% assign previous_page = docs[previous] %}
+            <a href="{{site.baseurl}}{{ previous_page.url }}" class="prev">Back</a>
           {% endif %}
       </div>
       <div class="right align-left">
@@ -28,8 +28,8 @@ next, lets build a link to it.
             <span class="next disabled">Next</span>
           {% else %}
             {% assign next = forloop.index0 | plus: 1 %}
-            {% assign next_page = docs[next] | prepend:"/docs/" | append:"/" %}
-            <a href="{{site.baseurl}}{{ next_page }}" class="next">Next</a>
+            {% assign next_page = docs[next] %}
+            <a href="{{site.baseurl}}{{ next_page.url }}" class="next">Next</a>
           {% endif %}
       </div>
     </div>

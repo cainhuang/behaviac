@@ -17,19 +17,8 @@ layout: default
               {{ page.title }}
             </a>
           </h1>
- <!--          <span class="post-category">
-            <span class="label">
-              {{ page.categories[0] }}
-            </span>
-          </span>          
-          <div class="post-meta">
-            <a href="https://github.com/{{ page.author }}" class="post-author">
-              <img src="https://github.com/{{ page.author }}.png" class="avatar" alt="{{ page.author }} avatar" width="24" height="24">
-              {{ page.author }}
-            </a>
-          </div> -->
           {{ content }}
-          {% include section_nav.html %}
+          
           <br/>
             <!-- 多说评论框 start -->
   <div class="ds-thread" data-thread-key="{{page.url}}" data-title="{{page.title}}" data-url="{{site.baseurl}}{{page.url}}"></div>
@@ -52,7 +41,7 @@ var duoshuoQuery = {short_name:"behaviac"};
         </article>
       </div>
 
-      {% include docs_contents_relatives.html %}
+      {% include docs_contents_relatives_list.html %}
 
       <div class="clear"></div>
 

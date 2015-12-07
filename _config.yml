@@ -108,6 +108,7 @@ t:
       url: "/en/help/"
     relatedPaper:
       name: "Related Paper"
+    recentPaper: "Lastest Article"
     allIssues: "All Questions"
     lastIssues: "Lastest Issues"
     rss: "Feed"
@@ -134,6 +135,7 @@ t:
       url: "/zh/help/"
     relatedPaper:
       name: "相关资料"
+    recentPaper: "最新文章"
     allIssues: "所有问题"
     lastIssues: "最新问题"
     rss: "订阅"

@@ -1,10 +1,10 @@
 <div class="unit one-fifth hide-on-mobiles">
   <aside>
-    <h4>{{site.t[page.lang].relatedPaper.name}}</h4>
+    <h4>{{site.t[page.lang].recentPaper}}</h4>
     <ul>
-    {% assign docs = site.docs | where:"lang", page.lang | sort: "date" %}
+    {% assign docs = site.docs | where:"lang", page.lang | sort: "date" | reverse %}
     {% for p in docs %}
-        {% if p.lang == page.lang and p.categories == page.categories and p.isIndex == null %}
+        {% if  p.isIndex == null and p.categories == page.categories %}
         <li><a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a></li>
         {% endif %}
     {% endfor %}
