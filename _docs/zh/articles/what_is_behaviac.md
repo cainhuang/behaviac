@@ -1,14 +1,12 @@
 ---
-layout: docs
-title: 欢迎访问behaviac
-date: 2015-11-20 11:33:26 +0800
+layout: docs_relatives
+title: behaviac到底是什么 
+date: 2015-12-07 19:36:31 +0800 
 author: jonygli
-permalink: /docs/zh/home/
-categories: [doc_]
+permalink: /docs/zh/articles/what_is_behaviac/
+categories: [doc]
 lang: zh
 ---
-
-有关behaviac的所有文档，教程等使用资料都将在本网站提供。非常欢迎和感谢您来丰富各种相关文档和资料。
 
 ## behaviac到底是什么
 
