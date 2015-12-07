@@ -89,7 +89,7 @@ t:
     docs:
       name: "Docs"
       shortName: "Docs"
-      url: "/docs/en/article/"
+      url: "/docs/en/articles/"
     references:
       name: "Ref<span class='hide-on-mobiles'>erence</span>s"
       shortName: "Refs"
@@ -118,7 +118,7 @@ t:
       url: "/"
     docs:
       name: "文章"
-      url: "/docs/zh/article/"
+      url: "/docs/zh/articles/"
     references:
       name: "手册"
       url: "/docs/zh/references/"
