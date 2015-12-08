@@ -112,6 +112,7 @@ t:
     allIssues: "All Questions"
     lastIssues: "Lastest Issues"
     rss: "Feed"
+    gotoTop: "Goto Top"
   zh:
     home:
       name: "首页"
@@ -139,5 +140,6 @@ t:
     allIssues: "所有问题"
     lastIssues: "最新问题"
     rss: "订阅"
+    gotoTop: "返回顶部"
 
 
