@@ -18,7 +18,6 @@ behaviac是游戏AI的开发框架组件，也是游戏原型的快速设计工�
 
 已被《天天炫斗》、《QQ飞车》、《全民突击》、《全民夺宝》、《九龙战》等游戏及其他更多预研项目使用。
 所有代码，包括编辑器和运行时[全部开源https://github.com/TencentOpen/behaviac](https://github.com/TencentOpen/behaviac)
- - <a href="{{site.baseurl}}/docs/articles/overview/">详情 &rarr;</a>
 
 ##编辑器和运行时
 behaviac作为游戏AI的开发框架组件，有编辑器和运行时两个部分，这两个部分通过元信息（描述AI实例属性和能力方法的信息）交换信息。
@@ -52,11 +51,11 @@ behaviac作为游戏AI的开发框架组件，有编辑器和运行时两个部�
 
 编辑器是一个可以运行在Windows平台上的编辑工具。
 ![designer]({{ site.baseurl }}/img/whatisbehaviac/designer.png)
-在编辑器内，使用鼠标或快捷键，可以添加、编辑、配置、修改行为树（包括FSM，或HTN），也可以实时或离线调试游戏的行为，既可以设断点，也可以查看或变量的值。
+在编辑器内，使用鼠标或快捷键，可以添加、编辑、配置、修改行为树（包括FSM，或HTN），也可以实时或离线调试游戏的行为，既可以设断点，也可以查看或修改变量的值。
 
 ###运行时
 
-而运行时有C++和C#两个版本，Unity使用C#的实现，像是cocos等使用C++的引擎或平台使用C++的实现。其具体逻辑是一致的，即加载编辑器中导出的行为树，解释运行之。
+运行时有C++和C#两个版本，Unity使用C#的实现，像是cocos等使用C++的引擎或平台使用C++的实现。其具体逻辑是一致的，即加载编辑器中导出的行为树，解释运行之。
 
 ```cpp
     g_player = behaviac::Agent::Create<CBTPlayer>();
@@ -85,17 +84,16 @@ behaviac作为游戏AI的开发框架组件，有编辑器和运行时两个部�
 
 其中xml和bson作为数据，可以被加载，而cpp或c#作为源码直接编辑链接进程序，用户可以根据需要选择使用最合适的格式。
 
-----------------------------
 ## behaviac能解决什么问题
 
-1. behaviac作为游戏AI的开发框架组件，主要是用来开发游戏AI。
-1. behaviac的编辑器使用图形化的界面（Visual scripting）和操作，操作直观方便。
-1. 游戏中的NPC，小怪，老怪等等的游戏逻辑都可以通过behaviac来创建和开发。
-1. behaviac并不限于开发游戏AI的游戏逻辑，也可以用来开发组队逻辑（Squad Logic），策略AI（Strategy AI），玩家Avatar，甚至关卡设计等各种游戏场景。
-1. behaviac还可以用作原型设计工具，策划只是使用behaviac编辑器来设计类型安全的，表达严谨的游戏逻辑。
-1. C#版本的运行时原生支持unity，behaviac可以在unity内开发游戏AI
-1. 在iOS平台，作为热更新的一种手段
-1. C++版本支持全平台，不仅可以用在客户端，也可以用在服务器端。一套逻辑，可以根据情况分别在客户端，服务器运行，避免重复开发。
+ - behaviac作为游戏AI的开发框架组件，主要是用来开发游戏AI。
+ - behaviac的编辑器使用图形化的界面（Visual scripting）和操作，操作直观方便。
+ - 游戏中的NPC，小怪，老怪等等的游戏逻辑都可以通过behaviac来创建和开发。
+ - behaviac并不限于开发游戏AI的游戏逻辑，也可以用来开发组队逻辑（Squad Logic），策略AI（Strategy AI），玩家Avatar，甚至关卡设计等各种游戏场景。
+ - behaviac还可以用作原型设计工具，策划只是使用behaviac编辑器来设计类型安全的，表达严谨的游戏逻辑。
+ - C#版本的运行时原生支持unity，behaviac可以在unity内开发游戏AI
+ - 在iOS平台，作为热更新的一种手段
+ - C++版本支持全平台，不仅可以用在客户端，也可以用在服务器端。一套逻辑，可以根据情况分别在客户端，服务器运行，避免重复开发。
 
 ## behaviac有哪些主要特性
  - behaviac是游戏AI的开发框架组件，也是游戏原型的快速设计工具
@@ -111,6 +109,7 @@ behaviac作为游戏AI的开发框架组件，有编辑器和运行时两个部�
  - 支持自定义数据类型，支持已有第3方库中的自定义类型
  - 支持扩展节点类型
 
-
+----------------------------
+<a href="{{site.baseurl}}/docs/zh/articles/overview/">可以继续阅读behaviac概述 &rarr;</a>
 
 
