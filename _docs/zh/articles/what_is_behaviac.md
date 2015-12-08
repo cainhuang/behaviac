@@ -20,39 +20,7 @@ lang: zh
  - 所有代码，包括编辑器和运行时[全部开源https://github.com/TencentOpen/behaviac](https://github.com/TencentOpen/behaviac)
  - <a href="{{site.baseurl}}/docs/articles/overview/">详情 &rarr;</a>
 
-## 其他说明
 
-<!-- 
-<div class="note">
-  <h5>ProTips™ help you get more from Jekyll</h5>
-  <p>These are tips and tricks that will help you be a Jekyll wizard!</p>
-</div>
+## behaviac能解决什么问题
 
-<div class="note info">
-  <h5>Notes are handy pieces of information</h5>
-  <p>These are for the extra tidbits sometimes necessary to understand
-     Jekyll.</p>
-</div>
- -->
-
-<!-- 
-<div class="note warning">
-  <h5>警告</h5>
-  <p>需要小心注意的信息</p>
-</div>
-
-<div class="note unreleased">
-  <h5>还没有发布的功能</h5>
-  <p>未来版本的功能，还没有发布</p>
-</div>
- -->
- ------------------------
-如果在使用或阅读的过程中，有什么好的建议，反馈等，您可以
-
-- [添加问题]({{ site.repository }}/issues/new)
-- 或[添加文档]({{ site.repository }}/new/gh-pages)
-
-并且PR回来，在合适的时机将会包含进来，并且属于您的荣誉也将一并分享。让我们一起完善和丰富behaviac的文档。behaviac的成长壮大离不开您的参与。
-
-
-
+## behaviac有哪些主要特性
