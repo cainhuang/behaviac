@@ -24,6 +24,7 @@ lang: zh
 	- 通过调用Agent的接口btload(…)加载所需的行为树文件。
 	- 通过调用Agent的接口btsetcurrent(…)设置当前准备执行的行为树文件。
 	- 行为树的执行可以调用behaviac::Workspace::GetInstance()->Update()，也可以直接调用Agent的接口btexec()。Workspace的Update()会遍历所有的Agent实例并依次执行btexec()，但在游戏项目中，可能在一帧中需要对某些Agent多次调用btexec()，而另一些Agent只需调用一次，这时候就需要自己调用该Agent的btexec()，而不是调用Workspace的Update()。此外，如果是连调，还需要调用behaviac::Workspace::GetInstance()->DebugUpdate()，但如果已经调用了behaviac::Workspace::GetInstance()->Update()，那么就不需要再调用DebugUpdate。
+	- 注意：对于C#版，behaviac.Workspace.IsExecAgents默认设为false。如果将behaviac.Workspace.IsExecAgents设为true，使用behaviac.Workspace.Instance.Update()集中的更新，Agent自己的Update就不需要调用btexec了。如果将behaviac.Workspace.IsExecAgents设为false，则不使用behaviac.Workspace.Instance.Update()集中的更新，Agent自己的Update就需要调用btexec了。
 	- 在游戏的释放函数里面，添加Agent::Unregister< AgentNodeTest >()用于释放类型的注册信息。
 
 如下代码样例所示：
