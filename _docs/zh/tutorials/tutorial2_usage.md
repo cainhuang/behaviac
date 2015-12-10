@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 编辑器的使用
 date: 2015-12-04 13:16:38 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial2/
+permalink: /docs/zh/tutorials/tutorial2_usage/
 categories: [tutorial]
 lang: zh
 ---

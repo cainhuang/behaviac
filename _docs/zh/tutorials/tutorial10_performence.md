@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 优化及性能
 date: 2015-12-07 10:18:25 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial10/
+permalink: /docs/zh/tutorials/tutorial10_performence/
 categories: [tutorial]
 lang: zh
 ---

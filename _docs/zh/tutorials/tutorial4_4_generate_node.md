@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 扩展生成节点的行为树代码
 date: 2015-12-04 17:40:26 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial4_4/
+permalink: /docs/zh/tutorials/tutorial4_4_generate_node/
 categories: [tutorial]
 lang: zh
 ---

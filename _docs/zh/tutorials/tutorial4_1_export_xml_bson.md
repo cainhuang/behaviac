@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 导出和使用XML/BSON行为树
 date: 2015-12-04 17:36:26 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial4_1/
+permalink: /docs/zh/tutorials/tutorial4_1_export_xml_bson/
 categories: [tutorial]
 lang: zh
 ---

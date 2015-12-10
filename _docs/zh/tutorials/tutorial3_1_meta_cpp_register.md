@@ -3,7 +3,7 @@ layout: docs_relatives
 title: C++元信息的注册和导出
 date: 2015-12-04 14:48:26 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial3_1/
+permalink: /docs/zh/tutorials/tutorial3_1_meta_cpp_register/
 categories: [tutorial]
 lang: zh
 ---

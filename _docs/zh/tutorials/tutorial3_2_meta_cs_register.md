@@ -3,7 +3,7 @@ layout: docs_relatives
 title: C#元信息的注册和导出
 date: 2015-12-04 14:49:26 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial3_2/
+permalink: /docs/zh/tutorials/tutorial3_2_meta_cs_register/
 categories: [tutorial]
 lang: zh
 ---

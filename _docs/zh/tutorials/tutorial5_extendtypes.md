@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 扩展使用已有的类型
 date: 2015-12-04 18:02:16 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial5/
+permalink: /docs/zh/tutorials/tutorial5_extendtypes/
 categories: [tutorial]
 lang: zh
 ---
@@ -15,7 +15,10 @@ lang: zh
 - 有些类型是程序中本来就有的，该类型可能是某个第三方库中提供的，但这些类型是不方便随意修改的。
 - 另外一些可以随便修改的类型。
 
-std::string已经支持，可以直接使用。不过，最好使用behaviac::string，因为behaviac::string使用了定制的allocator，可以对内存的使用进行统一的管理。
+需要注意的是，behaviac组件为了支持C++的反射系统，对字符串和数组类型有如下要求：
+
+- 对于字符串类型，不要使用std::string，需要使用behaviac::string，因为behaviac::string使用了定制的allocator，可以对内存的使用进行统一的管理。
+- 对于数组类型，不要使用std::vector，需要使用behaviac::vector。
 
 此外，需要对char、signed char和unsigned char做出一些必要的说明：
 

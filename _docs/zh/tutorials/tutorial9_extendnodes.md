@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 扩展节点类型
 date: 2015-12-07 10:12:18 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial9/
+permalink: /docs/zh/tutorials/tutorial9_extendnodes/
 categories: [tutorial]
 lang: zh
 ---

@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 导出和使用C++行为树
 date: 2015-12-04 17:37:26 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial4_2/
+permalink: /docs/zh/tutorials/tutorial4_2_export_cpp/
 categories: [tutorial]
 lang: zh
 ---

@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 自定义枚举
 date: 2015-12-04 18:22:16 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial7/
+permalink: /docs/zh/tutorials/tutorial7_customenum/
 categories: [tutorial]
 lang: zh
 ---

@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 元信息的使用和编辑
 date: 2015-12-04 14:50:26 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial3_3/
+permalink: /docs/zh/tutorials/tutorial3_3_meta_edit/
 categories: [tutorial]
 lang: zh
 ---

@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 编辑器的安装
 date: 2015-12-03 11:33:26 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial1/
+permalink: /docs/zh/tutorials/tutorial1_install/
 categories: [tutorial]
 lang: zh
 ---

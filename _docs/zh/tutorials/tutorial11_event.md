@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 事件处理
 date: 2015-12-09 19:00:00 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial11/
+permalink: /docs/zh/tutorials/tutorial11_event/
 categories: [tutorial]
 lang: zh
 ---

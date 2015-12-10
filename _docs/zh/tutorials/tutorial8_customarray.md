@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 类、结构体或枚举的数组
 date: 2015-12-04 18:32:16 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial8/
+permalink: /docs/zh/tutorials/tutorial8_customarray/
 categories: [tutorial]
 lang: zh
 ---

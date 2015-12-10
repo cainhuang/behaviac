@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 导出和使用C#行为树
 date: 2015-12-04 17:38:26 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial4_3/
+permalink: /docs/zh/tutorials/tutorial4_3_export_cs/
 categories: [tutorial]
 lang: zh
 ---
