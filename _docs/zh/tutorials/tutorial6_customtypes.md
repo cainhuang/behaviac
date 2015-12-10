@@ -3,7 +3,7 @@ layout: docs_relatives
 title: 自定义类或结构体
 date: 2015-12-04 18:12:16 +0800
 author: cainhuang
-permalink: /docs/zh/tutorials/tutorial6/
+permalink: /docs/zh/tutorials/tutorial6_customtypes/
 categories: [tutorial]
 lang: zh
 ---

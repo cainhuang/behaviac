@@ -1,10 +1,10 @@
 ---
 layout: news_item
-title: uint64_t 支持吗？
+title: HotReload默认支持吗？需要什么设置？
 author: jonygli
-date: 2015-11-26 19:48:00 +0800
+date: 2015-12-10 19:48:00 +0800
 categories: [FAQ]
-permalink: /zh/faq/uint64_t
+permalink: /zh/faq/hotreload
 lang: zh
 ---
 
@@ -30,5 +30,4 @@ uint64_t不支持。请选择使用unsigned long或unsigned long long
 
 可以自定义类型。请参考[自定义类或结构体]({{ site.baseurl }}/docs/zh/tutorials/tutorial6_customtypes/)
 
- - 上述基本类型以及自定义类型的数组也完美支持。其中数组请使用behaviac::vector, 例如behaviac::vector<bool>，behaviac::vector<behaviac::string>等。不要使用std::vector
- - 字符串请使用behaviac::string，不要使用std::string
+上述基本类型以及自定义类型的数组也完美支持。其中数组请使用behaviac::vector, 例如behaviac::vector<bool>，behaviac::vector<behaviac::string>等。
