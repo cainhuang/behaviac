@@ -1,4 +1,15 @@
-2015-12-2	3.2.8
+2015-12-14	3.2.10
+	fix a possible bug when checking the parent update preconditions
+	fix the bug when if a function  as precondition return EBTStatus
+	The workspace can have no meta
+	documents points to http://tencentopen.github.io/behaviac/
+			
+2015-12-08	3.2.9
+	Add the BEHAVIAC_DECLARE_TYPE_VECTOR_HANDLER for the generated agent types.
+	Add the TQOS for reporting the logs.
+	using http://tencentopen.github.io/behaviac/ for the documents
+	
+2015-12-02	3.2.8
 	Check the preconditions of the ancestors to handle updating the preconditions.
 	Export codes for the customized agents.
 	Export the customized types and members according to the export format settings.

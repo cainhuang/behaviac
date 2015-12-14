@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -48,12 +48,8 @@ namespace Behaviac.Design
             this.workspace2Button = new System.Windows.Forms.Button();
             this.workspace4Button = new System.Windows.Forms.Button();
             this.workspace3Button = new System.Windows.Forms.Button();
-            this.nodeRefDocButton = new System.Windows.Forms.Button();
-            this.insideDocButton = new System.Windows.Forms.Button();
-            this.tutorialDocbutton = new System.Windows.Forms.Button();
             this.overviewDocButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.performenceDocButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // webBrowser
@@ -113,27 +109,6 @@ namespace Behaviac.Design
             this.workspace3Button.UseVisualStyleBackColor = true;
             this.workspace3Button.Click += new System.EventHandler(this.workspace3Button_Click);
             // 
-            // nodeRefDocButton
-            // 
-            resources.ApplyResources(this.nodeRefDocButton, "nodeRefDocButton");
-            this.nodeRefDocButton.Name = "nodeRefDocButton";
-            this.nodeRefDocButton.UseVisualStyleBackColor = true;
-            this.nodeRefDocButton.Click += new System.EventHandler(this.nodeRefDocButton_Click);
-            // 
-            // insideDocButton
-            // 
-            resources.ApplyResources(this.insideDocButton, "insideDocButton");
-            this.insideDocButton.Name = "insideDocButton";
-            this.insideDocButton.UseVisualStyleBackColor = true;
-            this.insideDocButton.Click += new System.EventHandler(this.insideDocButton_Click);
-            // 
-            // tutorialDocbutton
-            // 
-            resources.ApplyResources(this.tutorialDocbutton, "tutorialDocbutton");
-            this.tutorialDocbutton.Name = "tutorialDocbutton";
-            this.tutorialDocbutton.UseVisualStyleBackColor = true;
-            this.tutorialDocbutton.Click += new System.EventHandler(this.tutorialDocbutton_Click);
-            // 
             // overviewDocButton
             // 
             resources.ApplyResources(this.overviewDocButton, "overviewDocButton");
@@ -146,22 +121,11 @@ namespace Behaviac.Design
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // performenceDocButton
-            // 
-            resources.ApplyResources(this.performenceDocButton, "performenceDocButton");
-            this.performenceDocButton.Name = "performenceDocButton";
-            this.performenceDocButton.UseVisualStyleBackColor = true;
-            this.performenceDocButton.Click += new System.EventHandler(this.performenceDocButton_Click);
-            // 
             // ControlsDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            this.Controls.Add(this.performenceDocButton);
-            this.Controls.Add(this.nodeRefDocButton);
-            this.Controls.Add(this.insideDocButton);
-            this.Controls.Add(this.tutorialDocbutton);
             this.Controls.Add(this.overviewDocButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.workspace3Button);
@@ -193,12 +157,8 @@ namespace Behaviac.Design
         private System.Windows.Forms.Button workspace2Button;
         private System.Windows.Forms.Button workspace4Button;
         private System.Windows.Forms.Button workspace3Button;
-        private System.Windows.Forms.Button nodeRefDocButton;
-        private System.Windows.Forms.Button insideDocButton;
-        private System.Windows.Forms.Button tutorialDocbutton;
         private System.Windows.Forms.Button overviewDocButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button performenceDocButton;
 
 
     }

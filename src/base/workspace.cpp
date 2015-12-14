@@ -180,16 +180,17 @@ namespace behaviac
     Workspace::Workspace() : m_bInited(false), m_bExecAgents(true), m_fileFormat(Workspace::EFF_xml), m_frame(0),
         m_pBehaviorNodeLoader(0), m_behaviortreeCreators(0),
         m_fileBuffer(0), m_fileBufferTop(0), m_timeSinceStartup(0),
-        m_deltaTime(0), m_deltaFrames(0)
+        m_deltaTime(0.0167f), m_deltaFrames(1)
     {
 #if BEHAVIAC_ENABLE_HOTRELOAD
         m_AutoHotReload = true;
         m_allBehaviorTreeTasks = 0;
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
-        memset(m_fileBufferOffset, 0, sizeof(m_fileBufferOffset));
-        memset(m_workspace_file, 0, sizeof(m_workspace_file));
+        memset(this->m_fileBufferOffset, 0, sizeof(m_fileBufferOffset));
+        memset(this->m_workspace_file, 0, sizeof(m_workspace_file));
         //memset(m_szWorkspaceExportPath, 0, sizeof(m_szWorkspaceExportPath));
-        strcpy(m_szWorkspaceExportPath, "./behaviac/workspace/exported/");
+        string_cpy(m_szWorkspaceExportPath, "./behaviac/workspace/exported/");
+		this->m_fileBufferLength = 0;
 
         BEHAVIAC_ASSERT(ms_instance == 0);
         ms_instance = this;
@@ -251,7 +252,7 @@ namespace behaviac
 
     void Workspace::SetFilePath(const char* szExportPath)
     {
-        strncpy(this->m_szWorkspaceExportPath, szExportPath, kMaxPath);
+        string_ncpy(this->m_szWorkspaceExportPath, szExportPath, kMaxPath);
     }
 
     Workspace::EFileFormat Workspace::GetFileFormat()
@@ -347,7 +348,7 @@ namespace behaviac
 
         LoadWorkspaceAbsolutePath();
 
-        m_deltaTime = 0.0f;
+		m_deltaTime = 0.0167f;
         m_deltaFrames = 1;
 
 #if BEHAVIAC_ENABLE_HOTRELOAD
@@ -528,6 +529,19 @@ namespace behaviac
 
         if (m_allBehaviorTreeTasks)
         {
+			//BehaviorTreeTasks will be freed by Agent
+			//for (AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->begin(); it != m_allBehaviorTreeTasks->end(); ++it)
+			//{
+			//	BTItem_t& btItems = it->second;
+
+			//	for (behaviac::vector<BehaviorTreeTask*>::iterator it1 = btItems.bts.begin(); it1 != btItems.bts.end(); ++it1)
+			//	{
+			//		BehaviorTreeTask* bt = *it1;
+
+			//		BehaviorTask::DestroyTask(bt);
+			//	}
+			//}
+
             m_allBehaviorTreeTasks->clear();
             BEHAVIAC_DELETE m_allBehaviorTreeTasks;
             m_allBehaviorTreeTasks = NULL;
@@ -766,7 +780,6 @@ namespace behaviac
                 {
                     f = EFF_xml;
                     fullPath = path;
-
                 }
                 else
                 {
@@ -778,7 +791,6 @@ namespace behaviac
                         f = EFF_bson;
                         fullPath = path;
                     }
-
                     // try to load the behavior in cpp
                     else
                     {

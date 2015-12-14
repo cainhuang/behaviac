@@ -58,7 +58,6 @@ namespace behaviac
 				behaviac::Property::UnRegister<behaviac::vector<T> >(szVectorType);
 				behaviac::Condition::UnRegister<behaviac::vector<T> >(szVectorType);
 			}
-
 		};
 
 		template<typename T>
@@ -76,7 +75,6 @@ namespace behaviac
 			{
 				RegisterSelector<PointerType, false>::UnRegister(typeName);
 			}
-
 		};
 
     };

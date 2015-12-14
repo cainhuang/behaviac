@@ -542,7 +542,6 @@ namespace behaviac
 					{
 						return false;
 					}
-
 				}
 				else
 				{

@@ -30,6 +30,8 @@ EmployeeParTestAgent::EmployeeParTestAgent()
     TV_D_0 = 0.0;
     TV_STR_0 = "";
     TV_AGENT_0 = NULL;
+	TV_CSZSTR_0 = 0;
+	TV_SZSTR_0 = 0;
 }
 
 EmployeeParTestAgent::~EmployeeParTestAgent()

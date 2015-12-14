@@ -120,7 +120,6 @@ namespace behaviac
 				m_children.push_back(CTextNode());
 				m_children.back() = child;
 			}
-
 		}
 		else
 		{

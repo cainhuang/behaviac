@@ -62,11 +62,11 @@ namespace behaviac
 			bb->AddProperty("int", true, "STV_INT_0", "0", "ParTestAgent");
 			bb->AddProperty("TNS::ST::PER::WRK::kEmployee", true, "STV_KEMPLOYEE_0", "{boss=null;car={brand=\"\";color=RED;price=0;};code=A;id=0;isMale=false;name=\"\";skinColor=RED;weight=0;}", "ParTestAgent");
 			bb->AddProperty("vector<int>", true, "STV_LIST_INT_0", "0:", "ParTestAgent");
-			bb->AddProperty("vector<TNS::ST::PER::WRK::kEmployee>", true, "STV_LIST_KEMPLOYEE_0", "0:", "ParTestAgent");
+			bb->AddProperty("behaviac::vector<TNS::ST::PER::WRK::kEmployee>", true, "STV_LIST_KEMPLOYEE_0", "0:", "ParTestAgent");
 			bb->AddProperty("int", false, "TV_INT_0", "0", "ParTestAgent");
 			bb->AddProperty("TNS::ST::PER::WRK::kEmployee", false, "TV_KEMPLOYEE_0", "{boss=null;car={brand=\"\";color=RED;price=0;};code=A;id=0;isMale=false;name=\"\";skinColor=RED;weight=0;}", "ParTestAgent");
 			bb->AddProperty("vector<int>", false, "TV_LIST_INT_0", "0:", "ParTestAgent");
-			bb->AddProperty("vector<TNS::ST::PER::WRK::kEmployee>", false, "TV_LIST_KEMPLOYEE_0", "0:", "ParTestAgent");
+			bb->AddProperty("behaviac::vector<TNS::ST::PER::WRK::kEmployee>", false, "TV_LIST_KEMPLOYEE_0", "0:", "ParTestAgent");
 			bb->AddProperty("long", false, "TV_LONG_0", "0", "ParTestAgent");
 			bb->AddProperty("short", false, "TV_SHORT_0", "0", "ParTestAgent");
 			bb->AddProperty("ushort", false, "TV_USHORT_0", "0", "ParTestAgent");
@@ -107,11 +107,13 @@ namespace behaviac
 			bb->AddProperty("string", false, "testVar_str_0", "", "AgentNodeTest");
 			bb->AddProperty("int", false, "waiting_timeout_interval", "0", "AgentNodeTest");
 			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
+			bb->AddProperty("int", false, "testInt", "10", "AgentNodeTest");
 
 			// ChildNodeTest
 			bb = BEHAVIAC_NEW AgentProperties("ChildNodeTest");
 			AgentProperties::SetAgentTypeBlackboards("ChildNodeTest", bb);
 			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
+			bb->AddProperty("int", false, "testInt", "10", "ChildNodeTest");
 			bb->AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
 			bb->AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
 			bb->AddProperty("float", false, "testVar_2", "0", "ChildNodeTest");
@@ -159,11 +161,11 @@ namespace behaviac
 			bb->AddProperty("int", true, "STV_INT_0", "0", "EmployeeParTestAgent");
 			bb->AddProperty("TNS::ST::PER::WRK::kEmployee", true, "STV_KEMPLOYEE_0", "{boss=null;car={brand=\"\";color=RED;price=0;};code=A;id=0;isMale=false;name=\"\";skinColor=RED;weight=0;}", "EmployeeParTestAgent");
 			bb->AddProperty("vector<int>", true, "STV_LIST_INT_0", "0:", "EmployeeParTestAgent");
-			bb->AddProperty("vector<TNS::ST::PER::WRK::kEmployee>", true, "STV_LIST_KEMPLOYEE_0", "0:", "EmployeeParTestAgent");
+			bb->AddProperty("behaviac::vector<TNS::ST::PER::WRK::kEmployee>", true, "STV_LIST_KEMPLOYEE_0", "0:", "EmployeeParTestAgent");
 			bb->AddProperty("int", false, "TV_INT_0", "0", "EmployeeParTestAgent");
 			bb->AddProperty("TNS::ST::PER::WRK::kEmployee", false, "TV_KEMPLOYEE_0", "{boss=null;car={brand=\"\";color=RED;price=0;};code=A;id=0;isMale=false;name=\"\";skinColor=RED;weight=0;}", "EmployeeParTestAgent");
 			bb->AddProperty("vector<int>", false, "TV_LIST_INT_0", "0:", "EmployeeParTestAgent");
-			bb->AddProperty("vector<TNS::ST::PER::WRK::kEmployee>", false, "TV_LIST_KEMPLOYEE_0", "0:", "EmployeeParTestAgent");
+			bb->AddProperty("behaviac::vector<TNS::ST::PER::WRK::kEmployee>", false, "TV_LIST_KEMPLOYEE_0", "0:", "EmployeeParTestAgent");
 			bb->AddProperty("long", false, "TV_LONG_0", "0", "EmployeeParTestAgent");
 			bb->AddProperty("short", false, "TV_SHORT_0", "0", "EmployeeParTestAgent");
 			bb->AddProperty("ushort", false, "TV_USHORT_0", "0", "EmployeeParTestAgent");
@@ -184,6 +186,7 @@ namespace behaviac
 			bb->AddProperty("vector<TNS::NE::NAT::eColor>", false, "TV_LIST_ECOLOR_0", "0:", "EmployeeParTestAgent");
 			bb->AddProperty("vector<subyte>", false, "TV_LIST_SBYTE_0", "0:", "EmployeeParTestAgent");
 			bb->AddProperty("subyte", false, "TV_SBYTE_0", "0", "EmployeeParTestAgent");
+			bb->AddProperty("ParTestAgent", false, "target", "null", "EmployeeParTestAgent");
 
 			// FSMAgentTest
 			bb = BEHAVIAC_NEW AgentProperties("FSMAgentTest");
@@ -212,13 +215,13 @@ namespace behaviac
 			bb = BEHAVIAC_NEW AgentProperties("ParTestRegNameAgent");
 			AgentProperties::SetAgentTypeBlackboards("ParTestRegNameAgent", bb);
 			bb->AddProperty("TNS::ST::PER::WRK::kEmployee", true, "STV_KEMPLOYEE_0", "{boss=null;car={brand=\"\";color=RED;price=0;};code=A;id=0;isMale=false;name=\"\";skinColor=RED;weight=0;}", "ParTestRegNameAgent");
-			bb->AddProperty("vector<TNS::ST::PER::WRK::kEmployee>", true, "STV_LIST_KEMPLOYEE_0", "0:", "ParTestRegNameAgent");
+			bb->AddProperty("behaviac::vector<TNS::ST::PER::WRK::kEmployee>", true, "STV_LIST_KEMPLOYEE_0", "0:", "ParTestRegNameAgent");
 			bb->AddProperty("vector<subyte>", true, "STV_LIST_SBYTE_0", "0:", "ParTestRegNameAgent");
 			bb->AddProperty("behaviac::Agent*", false, "TV_AGENT_0", "null", "ParTestRegNameAgent");
 			bb->AddProperty("ubyte", false, "TV_BYTE_0", "0", "ParTestRegNameAgent");
 			bb->AddProperty("char", false, "TV_CHAR_0", "", "ParTestRegNameAgent");
 			bb->AddProperty("TNS::ST::PER::WRK::kEmployee", false, "TV_KEMPLOYEE_0", "{boss=null;car={brand=\"\";color=RED;price=0;};code=A;id=0;isMale=false;name=\"\";skinColor=RED;weight=0;}", "ParTestRegNameAgent");
-			bb->AddProperty("vector<TNS::ST::PER::WRK::kEmployee>", false, "TV_LIST_KEMPLOYEE_0", "0:", "ParTestRegNameAgent");
+			bb->AddProperty("behaviac::vector<TNS::ST::PER::WRK::kEmployee>", false, "TV_LIST_KEMPLOYEE_0", "0:", "ParTestRegNameAgent");
 			bb->AddProperty("subyte", false, "TV_SBYTE_0", "0", "ParTestRegNameAgent");
 			bb->AddProperty("string", false, "TV_STR_0", "", "ParTestRegNameAgent");
 

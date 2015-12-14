@@ -191,7 +191,7 @@ private:
     struct SEnumValue
     {
         SEnumValue(const char* valueName)
-            : m_valueName(valueName), m_hasCustomValue(false)
+			: m_valueName(valueName), m_hasCustomValue(false), m_customValue(0)
         {}
 
         SEnumValue(const char* valueName, int32_t customValue)

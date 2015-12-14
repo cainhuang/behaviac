@@ -19,28 +19,6 @@
 
 #include "behaviac/base/core/types.h"
 
-
-#if BEHAVIAC_COMPILER_MSVC
-//warning C4275: non dll-interface class 'stdext::exception' used as base for dll-interface class 'std::bad_cast'
-#pragma warning(disable : 4275)
-
-//warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
-#pragma warning(disable : 4530)
-
-//warning C4251: 'behaviac::VariableRegistry::m_proxyHolders' : class 'behaviac::vector<T>' needs to have dll-interface to be used
-//by clients of class 'behaviac::VariableRegistry'
-#pragma warning(disable : 4251)
-
-//unreferenced formal parameter
-#pragma warning(disable : 4100)
-
-#pragma warning(disable : 4127) // conditional expression is constant
-
-//warning C4702: unreachable code
-#pragma warning(disable : 4702)
-
-#endif//BEHAVIAC_COMPILER_MSVC
-
 //please don't use the following macros in the public header files unless you know what you are doing.
 //otherwise, it might be causing uncompatible layout for types
 
@@ -50,7 +28,7 @@
 //developement version
 #else
 #ifndef BEHAVIAC_RELEASE
-#define BEHAVIAC_RELEASE	1
+	#define BEHAVIAC_RELEASE	1
 #endif//BEHAVIAC_RELEASE
 #endif//
 

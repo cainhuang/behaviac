@@ -127,13 +127,11 @@ namespace behaviac
             if (childStatus == BT_SUCCESS)
             {
                 return BT_SUCCESS;
-
             }
             else if (childStatus == BT_FAILURE)
             {
                 //the next for starts from (idx + 1), so that it starts from next one after this failed one
                 idx = this->m_activeChildIndex;
-
             }
             else
             {
@@ -148,10 +146,9 @@ namespace behaviac
         {
             WithPreconditionTask* pSubTree = (WithPreconditionTask*)this->m_children[i];
             BEHAVIAC_ASSERT(WithPreconditionTask::DynamicCast(pSubTree));
+			BehaviorTask* pre = pSubTree->PreconditionNode();
 
-            pSubTree->SetIsUpdatePrecondition(true);
-            EBTStatus status = pSubTree->exec(pAgent);
-            pSubTree->SetIsUpdatePrecondition(false);
+			EBTStatus status = pre->exec(pAgent);
 
             if (status == BT_SUCCESS)
             {
@@ -168,7 +165,8 @@ namespace behaviac
             {
                 WithPreconditionTask* pCurrentSubTree = (WithPreconditionTask*)this->m_children[this->m_activeChildIndex];
                 BEHAVIAC_ASSERT(WithPreconditionTask::DynamicCast(pCurrentSubTree));
-                pCurrentSubTree->abort(pAgent);
+				BehaviorTask* action = pCurrentSubTree->ActionNode();
+				action->abort(pAgent);
             }
 
             for (uint32_t i = index; i < this->m_children.size(); ++i)
@@ -178,9 +176,8 @@ namespace behaviac
 
                 if (i > index)
                 {
-                    pSubTree->SetIsUpdatePrecondition(true);
-                    EBTStatus status = pSubTree->exec(pAgent);
-                    pSubTree->SetIsUpdatePrecondition(false);
+					BehaviorTask* pre = pSubTree->PreconditionNode();
+					EBTStatus status = pre->exec(pAgent);
 
                     //to search for the first one whose precondition is success
                     if (status != BT_SUCCESS)
@@ -189,7 +186,8 @@ namespace behaviac
                     }
                 }
 
-                EBTStatus s = pSubTree->exec(pAgent);
+				BehaviorTask* action = pSubTree->ActionNode();
+				EBTStatus s = action->exec(pAgent);
 
                 if (s == BT_RUNNING)
                 {

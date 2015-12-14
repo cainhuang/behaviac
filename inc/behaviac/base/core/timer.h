@@ -14,7 +14,7 @@
 #ifndef BEHAVIAC_BASE_TIMER_H
 #define BEHAVIAC_BASE_TIMER_H
 
-#include "config.h"
+#include "behaviac/base/core/config.h"
 
 namespace behaviac
 {

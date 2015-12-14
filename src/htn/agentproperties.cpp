@@ -475,7 +475,6 @@ namespace behaviac
                                 bb->AddProperty(type, bIsStatic, name, valueStr, agentTypeMember);
                             }
                         }
-
                     }
                     else if (strcmp(propertiesNodeTag, "methods") == 0 && propertiesNode->first_node() != NULL)
                     {

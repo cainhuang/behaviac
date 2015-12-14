@@ -125,6 +125,7 @@ namespace BehaviorNodeUnitTest
 
             testAgent.resetProperties();
             testAgent.btsetcurrent("node_test/event_ut_0");
+            testAgent.btresetcurrrent();
             status = testAgent.btexec();
             Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
 

@@ -24,7 +24,8 @@ namespace BehaviorNodeUnitTest
         AgentNodeTest testAgent = null;
 
         [TestFixtureSetUp]
-        public void initGlobalTestEnv() {
+        public void initGlobalTestEnv()
+        {
             BehaviacSystem.Instance.Init();
 
             GameObject testAgentObject = new GameObject();
@@ -37,28 +38,33 @@ namespace BehaviorNodeUnitTest
         }
 
         [TestFixtureTearDown]
-        public void finlGlobalTestEnv() {
+        public void finlGlobalTestEnv()
+        {
             testAgent.finl();
             BehaviacSystem.Instance.Uninit();
         }
 
         [SetUp]
-        public void initTestEnv() {
+        public void initTestEnv()
+        {
         }
 
         [TearDown]
-        public void finlTestEnv() {
+        public void finlTestEnv()
+        {
             behaviac.Workspace.Instance.UnLoadAll();
         }
 
         [Test]
         [Category("test_decoration_loop_0")]
-        public void test_decoration_loop_0() {
+        public void test_decoration_loop_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_loop_ut_0");
 
             int loopCount = 1000;
 
-            while (loopCount > 0) {
+            while (loopCount > 0)
+            {
                 testAgent.resetProperties();
                 testAgent.btexec();
                 Assert.AreEqual(0, testAgent.testVar_0);
@@ -68,19 +74,24 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_loop_1")]
-        public void test_decoration_loop_1() {
+        public void test_decoration_loop_1()
+        {
             testAgent.btsetcurrent("node_test/decoration_loop_ut_1");
 
             int loopCount = 0;
 
-            while (loopCount < 500) {
+            while (loopCount < 500)
+            {
                 testAgent.resetProperties();
                 testAgent.btexec();
 
-                if (loopCount < 499) {
+                if (loopCount < 499)
+                {
                     Assert.AreEqual(0, testAgent.testVar_0);
 
-                } else {
+                }
+                else
+                {
                     Assert.AreEqual(1, testAgent.testVar_0);
                 }
 
@@ -90,7 +101,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_repeat_0")]
-        public void test_decoration_repeat_0() {
+        public void test_decoration_repeat_0()
+        {
             testAgent.btsetcurrent("node_test/repeat/repeat_ut_0");
             testAgent.resetProperties();
             testAgent.btexec();
@@ -98,7 +110,8 @@ namespace BehaviorNodeUnitTest
         }
         [Test]
         [Category("test_decoration_not_0")]
-        public void test_decoration_not_0() {
+        public void test_decoration_not_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_not_ut_0");
 
             testAgent.resetProperties();
@@ -108,7 +121,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_not_1")]
-        public void test_decoration_not_1() {
+        public void test_decoration_not_1()
+        {
             testAgent.btsetcurrent("node_test/decoration_not_ut_1");
 
             testAgent.resetProperties();
@@ -118,11 +132,13 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_not_2")]
-        public void test_decoration_not_2() {
+        public void test_decoration_not_2()
+        {
             testAgent.btsetcurrent("node_test/decoration_not_ut_2");
             int loopCount = 0;
 
-            while (loopCount < 500) {
+            while (loopCount < 500)
+            {
                 testAgent.resetProperties();
                 testAgent.btexec();
                 Assert.AreEqual(0, testAgent.testVar_0);
@@ -132,11 +148,13 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_frames_0")]
-        public void test_decoration_frames_0() {
+        public void test_decoration_frames_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_frames_ut_0");
             int loopCount = 0;
 
-            while (loopCount < 100) {
+            while (loopCount < 100)
+            {
                 testAgent.resetProperties();
                 testAgent.btexec();
 
@@ -152,12 +170,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_frames_1")]
-        public void test_decoration_frames_1() {
+        public void test_decoration_frames_1()
+        {
             testAgent.btsetcurrent("node_test/decoration_frames_ut_0");
             int loopCount = 0;
             behaviac.Workspace.Instance.DeltaFrames = 5;
 
-            while (loopCount < 20) {
+            while (loopCount < 20)
+            {
                 testAgent.resetProperties();
                 testAgent.btexec();
 
@@ -173,14 +193,57 @@ namespace BehaviorNodeUnitTest
             behaviac.Workspace.Instance.DeltaFrames = 1;
         }
 
+        void once_(AgentNodeTest myTestAgent)
+        {
+            behaviac.EBTStatus s = myTestAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(0, myTestAgent.testVar_0);
+
+            s = myTestAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(0, myTestAgent.testVar_0);
+
+            myTestAgent.testVar_0 = 1;
+
+            //Move ends, testVar_0 = 2
+            //Frames(5) is still running
+            //testVar_0 = 0 again
+            s = myTestAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(0, myTestAgent.testVar_0);
+
+            s = myTestAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
+            Assert.AreEqual(0, myTestAgent.testVar_0);
+
+            s = myTestAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, s);
+            Assert.AreEqual(3, myTestAgent.testVar_0);
+        }
+
+
+        [Test]
+        [Category("frames_ut_0")]
+        public void frames_ut_0()
+        {
+            testAgent.btsetcurrent("node_test/frames_ut_0");
+
+            once_(testAgent);
+
+            //rerun again
+            once_(testAgent);
+        }
+
         [Test]
         [Category("test_decoration_loopuntil_0")]
-        public void test_decoration_loopuntil_0() {
+        public void test_decoration_loopuntil_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_loopuntil_ut_0");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 100) {
+            while (loopCount < 100)
+            {
                 testAgent.btexec();
 
                 if (loopCount < 99)
@@ -195,12 +258,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_loopuntil_1")]
-        public void test_decoration_loopuntil_1() {
+        public void test_decoration_loopuntil_1()
+        {
             testAgent.btsetcurrent("node_test/decoration_loopuntil_ut_1");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 50) {
+            while (loopCount < 50)
+            {
                 testAgent.btexec();
 
                 if (loopCount < 49)
@@ -215,12 +280,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_loopuntil_2")]
-        public void test_decoration_loopuntil_2() {
+        public void test_decoration_loopuntil_2()
+        {
             testAgent.btsetcurrent("node_test/decoration_loopuntil_ut_2");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 50) {
+            while (loopCount < 50)
+            {
                 testAgent.btexec();
 
                 if (loopCount < 49)
@@ -235,12 +302,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_countlimit_0")]
-        public void test_decoration_countlimit_0() {
+        public void test_decoration_countlimit_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_countlimit_ut_0");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 6) {
+            while (loopCount < 6)
+            {
                 testAgent.btexec();
 
                 if (loopCount < 5)
@@ -255,12 +324,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_countlimit_1")]
-        public void test_decoration_countlimit_1() {
+        public void test_decoration_countlimit_1()
+        {
             testAgent.btsetcurrent("node_test/decoration_countlimit_ut_1");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 11) {
+            while (loopCount < 11)
+            {
                 if (loopCount == 5)
                 { testAgent.testVar_1 = 0; }
 
@@ -279,13 +350,16 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_countlimit_2")]
-        public void test_decoration_countlimit_2() {
+        public void test_decoration_countlimit_2()
+        {
             testAgent.btsetcurrent("node_test/decoration_countlimit_ut_2");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 11) {
-                if (loopCount == 5) {
+            while (loopCount < 11)
+            {
+                if (loopCount == 5)
+                {
                     testAgent.testVar_1 = 0;
                     testAgent.testVar_2 = 0.0f;
                 }
@@ -305,13 +379,16 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_countlimit_3")]
-        public void test_decoration_countlimit_3() {
+        public void test_decoration_countlimit_3()
+        {
             testAgent.btsetcurrent("node_test/decoration_countlimit_ut_3");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 11) {
-                if (loopCount == 5) {
+            while (loopCount < 11)
+            {
+                if (loopCount == 5)
+                {
                     testAgent.testVar_3 = 0.0f;
                 }
 
@@ -331,12 +408,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_failureuntil_0")]
-        public void test_decoration_failureuntil_0() {
+        public void test_decoration_failureuntil_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_failureuntil_ut_0");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 1000) {
+            while (loopCount < 1000)
+            {
                 behaviac.EBTStatus status = testAgent.btexec();
                 Assert.AreEqual(behaviac.EBTStatus.BT_FAILURE, status);
                 ++loopCount;
@@ -345,12 +424,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_failureuntil_1")]
-        public void test_decoration_failureuntil_1() {
+        public void test_decoration_failureuntil_1()
+        {
             testAgent.btsetcurrent("node_test/decoration_failureuntil_ut_1");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 5) {
+            while (loopCount < 5)
+            {
                 behaviac.EBTStatus status = testAgent.btexec();
 
                 if (loopCount < 4)
@@ -365,12 +446,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_successuntil_0")]
-        public void test_decoration_successuntil_0() {
+        public void test_decoration_successuntil_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_successuntil_ut_0");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 1000) {
+            while (loopCount < 1000)
+            {
                 behaviac.EBTStatus status = testAgent.btexec();
                 Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
                 ++loopCount;
@@ -379,12 +462,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_successuntil_1")]
-        public void test_decoration_successuntil_1() {
+        public void test_decoration_successuntil_1()
+        {
             testAgent.btsetcurrent("node_test/decoration_successuntil_ut_1");
             testAgent.resetProperties();
             int loopCount = 0;
 
-            while (loopCount < 5) {
+            while (loopCount < 5)
+            {
                 behaviac.EBTStatus status = testAgent.btexec();
 
                 if (loopCount < 4)
@@ -399,7 +484,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_alwaysfailure_0")]
-        public void test_decoration_alwaysfailure_0() {
+        public void test_decoration_alwaysfailure_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_alwaysfailure_ut_0");
 
             testAgent.resetProperties();
@@ -411,7 +497,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_alwayssuccess_0")]
-        public void test_decoration_alwayssuccess_0() {
+        public void test_decoration_alwayssuccess_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_alwayssuccess_ut_0");
 
             testAgent.resetProperties();
@@ -423,12 +510,14 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_alwaysrunning_0")]
-        public void test_decoration_alwaysrunning_0() {
+        public void test_decoration_alwaysrunning_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_alwaysrunning_ut_0");
 
             int loopCount = 0;
 
-            while (loopCount < 1000) {
+            while (loopCount < 1000)
+            {
                 testAgent.resetProperties();
                 testAgent.btexec();
                 Assert.AreEqual(0, testAgent.testVar_0);
@@ -440,7 +529,8 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_decoration_log_0")]
-        public void test_decoration_log_0() {
+        public void test_decoration_log_0()
+        {
             testAgent.btsetcurrent("node_test/decoration_log_ut_0");
             testAgent.resetProperties();
             behaviac.EBTStatus status = testAgent.btexec();

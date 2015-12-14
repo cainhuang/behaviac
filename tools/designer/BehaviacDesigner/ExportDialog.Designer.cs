@@ -77,7 +77,6 @@ namespace Behaviac.Design
             this.Enable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Format = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Setting = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.exportCustomizedMetaCheckBox = new System.Windows.Forms.CheckBox();
             this.onlyShowErrorsCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.exportSettingGridView)).BeginInit();
             this.SuspendLayout();
@@ -140,10 +139,10 @@ namespace Behaviac.Design
             // 
             // exportSettingGridView
             // 
+            resources.ApplyResources(this.exportSettingGridView, "exportSettingGridView");
             this.exportSettingGridView.AllowUserToAddRows = false;
             this.exportSettingGridView.AllowUserToDeleteRows = false;
             this.exportSettingGridView.AllowUserToResizeRows = false;
-            resources.ApplyResources(this.exportSettingGridView, "exportSettingGridView");
             this.exportSettingGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
@@ -210,16 +209,6 @@ namespace Behaviac.Design
             this.Setting.Name = "Setting";
             this.Setting.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // exportCustomizedMetaCheckBox
-            // 
-            resources.ApplyResources(this.exportCustomizedMetaCheckBox, "exportCustomizedMetaCheckBox");
-            this.exportCustomizedMetaCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.exportCustomizedMetaCheckBox.Checked = true;
-            this.exportCustomizedMetaCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.exportCustomizedMetaCheckBox.ForeColor = System.Drawing.Color.LightGray;
-            this.exportCustomizedMetaCheckBox.Name = "exportCustomizedMetaCheckBox";
-            this.exportCustomizedMetaCheckBox.UseVisualStyleBackColor = false;
-            // 
             // onlyShowErrorsCheckBox
             // 
             resources.ApplyResources(this.onlyShowErrorsCheckBox, "onlyShowErrorsCheckBox");
@@ -237,7 +226,6 @@ namespace Behaviac.Design
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.cancelButton;
             this.Controls.Add(this.onlyShowErrorsCheckBox);
-            this.Controls.Add(this.exportCustomizedMetaCheckBox);
             this.Controls.Add(this.exportSettingGridView);
             this.Controls.Add(this.fileCountLabel);
             this.Controls.Add(this.treeView);
@@ -270,7 +258,6 @@ namespace Behaviac.Design
         private System.Windows.Forms.DataGridViewCheckBoxColumn Enable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Format;
         private System.Windows.Forms.DataGridViewButtonColumn Setting;
-        private System.Windows.Forms.CheckBox exportCustomizedMetaCheckBox;
         private System.Windows.Forms.CheckBox onlyShowErrorsCheckBox;
     }
 }

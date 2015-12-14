@@ -19,7 +19,7 @@
 
 #if _MSC_VER
 #if !defined(_CRT_SECURE_NO_WARNINGS)
-#define _CRT_SECURE_NO_WARNINGS
+	#define _CRT_SECURE_NO_WARNINGS
 #endif
 
 #define BEHAVIAC_COMPILER_MSVC 1
@@ -191,6 +191,28 @@
 #	define BEHAVIAC_API BEHAVIAC_DLL_ENTRY_IMPORT
 #endif//BEHAVIACDLL_EXPORTS
 
+#if BEHAVIAC_COMPILER_MSVC
+	//warning C4275: non dll-interface class 'stdext::exception' used as base for dll-interface class 'std::bad_cast'
+	#pragma warning(disable : 4275)
+
+	//warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+	#pragma warning(disable : 4530)
+
+	//warning C4251: 'behaviac::VariableRegistry::m_proxyHolders' : class 'behaviac::vector<T>' needs to have dll-interface to be used
+	//by clients of class 'behaviac::VariableRegistry'
+	#pragma warning(disable : 4251)
+
+	//unreferenced formal parameter
+	#pragma warning(disable : 4100)
+
+	#pragma warning(disable : 4127) // conditional expression is constant
+
+	//warning C4702: unreachable code
+	#pragma warning(disable : 4702)
+
+	#pragma warning(disable : 4996) //'strcpy': This function or variable may be unsafe.
+#endif//BEHAVIAC_COMPILER_MSVC
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <wchar.h>
@@ -246,13 +268,17 @@ namespace behaviac
 #define BEHAVIAC_OFFSETOF(TYPE, MEMBER) (size_t)((unsigned char*)(&(((TYPE*)_BEHAVIAC_OFFSETOF_BASE_)->MEMBER)) - (unsigned char*)(TYPE*)_BEHAVIAC_OFFSETOF_BASE_)
 
 #if BEHAVIAC_COMPILER_MSVC
+#define string_cpy strcpy
+#define string_ncpy strncpy
 #define string_icmp _stricmp
 #define string_nicmp _strnicmp
 #define string_snprintf _snprintf
-#define string_vnprintf _vsnprintf
-#define string_vnwprintf _vsnwprintf
+#define string_vnprintf _vsnprintf_s
+#define string_vnwprintf _vsnwprintf_s
 #define string_sprintf(s, fmt, ...) BEHAVIAC_ASSERT(BEHAVIAC_ARRAY_LENGTH(s) > 0); _snprintf(s, BEHAVIAC_ARRAY_LENGTH(s), fmt, __VA_ARGS__); s[BEHAVIAC_ARRAY_LENGTH(s) - 1] = '\0'
 #elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID || BEHAVIAC_COMPILER_GCC_LINUX || BEHAVIAC_COMPILER_GCC_CYGWIN
+#define string_cpy strcpy
+#define string_ncpy strncpy
 #define string_icmp strcasecmp
 #define string_nicmp strncasecmp
 #define string_snprintf snprintf
@@ -260,6 +286,8 @@ namespace behaviac
 #define string_vnwprintf vswprintf
 #define string_sprintf(s, fmt, ...) BEHAVIAC_ASSERT(BEHAVIAC_ARRAY_LENGTH(s) > 0); snprintf(s, BEHAVIAC_ARRAY_LENGTH(s), fmt, __VA_ARGS__); s[BEHAVIAC_ARRAY_LENGTH(s) - 1] = '\0'
 #else
+#define string_cpy strcpy
+#define string_ncpy strncpy
 #define string_icmp stricmp
 #define string_nicmp strnicmp
 #define string_snprintf snprintf

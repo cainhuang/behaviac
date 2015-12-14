@@ -53,10 +53,6 @@ namespace Behaviac.Design
         private bool _initialized = false;
         private bool _isDirty = false;
 
-        public bool ExportCustomizedMeta() {
-            return this.exportCustomizedMetaCheckBox.Checked;
-        }
-
         public ExportDialog(BehaviorTreeList behaviorTreeList, BehaviorNode node, bool ignoreErrors, TreeNode selectedTreeRoot, int formatIndex) {
             _initialized = false;
 
@@ -78,12 +74,7 @@ namespace Behaviac.Design
                     int index = this.exportSettingGridView.Rows.Add();
                     DataGridViewRow row = this.exportSettingGridView.Rows[index];
 
-                    bool isExported = Workspace.Current.ShouldBeExported(info.ID);
-                    if (info.ID == Plugin.SourceLanguage && this.ExportCustomizedMeta())
-                    {
-                        isExported = true;
-                    }
-                    row.Cells["Enable"].Value = isExported;
+                    row.Cells["Enable"].Value = Workspace.Current.ShouldBeExported(info.ID);
                     row.Cells["Format"].Value = info.Description;
                     row.Cells["Format"].ReadOnly = true;
                     row.Cells["Setting"].Value = info.HasSettings ? "..." : "";
@@ -520,7 +511,7 @@ namespace Behaviac.Design
             if (columnIndex == 0) // Enable
             {
                 Debug.Check(Workspace.Current != null);
-                Workspace.Current.SetExportInfo(info.ID, (bool)row.Cells["Enable"].EditedFormattedValue, Workspace.Current.ExportedUnifiedFile(info.ID));
+                Workspace.Current.SetExportInfo(info.ID, (bool)row.Cells["Enable"].EditedFormattedValue, Workspace.Current.ExportedUnifiedFile(info.ID), Workspace.Current.GenerateCustomizedTypes(info.ID));
 
                 exportIndex = -1;
 

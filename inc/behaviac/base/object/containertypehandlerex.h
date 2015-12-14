@@ -310,7 +310,6 @@ public:
                 {
                     childNode->setAttr("Property", "true");
                 }
-
             }
 
             ContainedTypeHandler::GetUiInfo(types, childNode, *element, bStatic, readonlyFlag, classFullName, m_valueID, displayName, desc, NULL);

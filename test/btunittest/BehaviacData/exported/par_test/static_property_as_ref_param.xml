@@ -47,7 +47,7 @@
         <property ResultOption="BT_SUCCESS" />
       </node>
       <node class="Action" id="11">
-        <property Method="Self.ParTestAgent::Func_kEmployeeListRef(static vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::STV_LIST_KEMPLOYEE_0)" />
+        <property Method="Self.ParTestAgent::Func_kEmployeeListRef(static behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::STV_LIST_KEMPLOYEE_0)" />
         <property ResultOption="BT_SUCCESS" />
       </node>
     </node>

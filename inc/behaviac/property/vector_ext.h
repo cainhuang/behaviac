@@ -256,7 +256,6 @@ public:
             listPool.pool->push_back(this);
         }
     }
-
 };
 
 

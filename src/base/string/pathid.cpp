@@ -158,7 +158,7 @@ namespace behaviac
 			{
 				//BEHAVIAC_LOGWARNING("Resource ID for %s uses wrong extension (%s instead of %s).\nSupported, but should be fixed.", s.c_str(), cfg->m_sourceExt[0].c_str(), cfg->m_targetExt.c_str());
 				const char* ext = behaviac::StringUtils::FindFullExtension(filename);
-				strcpy(const_cast<char*>(ext), cfg->m_targetExt.c_str() + 1);
+				string_cpy(const_cast<char*>(ext), cfg->m_targetExt.c_str() + 1);
 			}
 		}
 
@@ -208,7 +208,7 @@ namespace behaviac
 		{
 			uint32_t len = strlen(content);
 			char* str = (char*)BEHAVIAC_MALLOC_WITHTAG(len + 1, "PathID");
-			strcpy(str, content);
+			string_cpy(str, content);
 			dictionary[m_value] = str;
 			m_content = str;
 		}

@@ -46,9 +46,9 @@ namespace behaviac
 				fileInfo.fileAttributes = SFileInfo::ATTRIB_FILE;
 			}
 
-			strncpy(fileInfo.fileName, WSTRING2STRING(win32FileInfo.cFileName).c_str(), MAX_FILE_PATH_SIZE);
+			string_ncpy(fileInfo.fileName, WSTRING2STRING(win32FileInfo.cFileName).c_str(), MAX_FILE_PATH_SIZE);
 			fileInfo.fileName[MAX_FILE_PATH_SIZE] = 0;
-			strncpy(fileInfo.alternFileName, WSTRING2STRING(win32FileInfo.cAlternateFileName).c_str(), MAX_FILE_SHORT_PATH_SIZE);
+			string_ncpy(fileInfo.alternFileName, WSTRING2STRING(win32FileInfo.cAlternateFileName).c_str(), MAX_FILE_SHORT_PATH_SIZE);
 			fileInfo.alternFileName[MAX_FILE_SHORT_PATH_SIZE] = 0;
 			fileInfo.creationTime = BEHAVIAC_MAKE64(win32FileInfo.ftCreationTime.dwLowDateTime, win32FileInfo.ftCreationTime.dwHighDateTime);
 			fileInfo.lastAccessTime = BEHAVIAC_MAKE64(win32FileInfo.ftLastAccessTime.dwLowDateTime, win32FileInfo.ftLastAccessTime.dwHighDateTime);
@@ -294,7 +294,7 @@ namespace behaviac
 	void CFileSystem::MakeSureDirectoryExist(const char* filename)
 	{
 		char directory[MAX_PATH];
-		strcpy(directory, filename);
+		string_cpy(directory, filename);
 		char* iter = directory;
 
 		while (*iter != 0)
@@ -355,7 +355,6 @@ namespace behaviac
 							cont = visitor.VisitDirectory(tempString.c_str(), tempString.c_str() + dirLength);
 							dir.resize(dirLength);
 						}
-
 					}
 					else
 					{
@@ -693,7 +692,7 @@ namespace behaviac
 		E_FILESYSMON_ERRORDEQUE
 	};
 
-#define MAX_BUFF_SIZE  100
+	const int MAX_BUFF_SIZE = 100;
 
 	class CFileSysMon
 	{
@@ -785,7 +784,7 @@ namespace behaviac
 			// Allocate notification buffers (will be filled by the system when a notification occurs
 			memset(&m_pDir->ol, 0, sizeof(m_pDir->ol));
 
-			if ((m_pDir->pBuff = BEHAVIAC_NEW_ARRAY FILE_NOTIFY_INFORMATION_TYPE[MAX_BUFF_SIZE]) == NULL)
+			if ((m_pDir->pBuff = (BEHAVIAC_NEW_ARRAY FILE_NOTIFY_INFORMATION_TYPE[MAX_BUFF_SIZE])) == NULL)
 			{
 				CloseHandle(m_pDir->hFile);
 				BEHAVIAC_DELETE m_pDir;

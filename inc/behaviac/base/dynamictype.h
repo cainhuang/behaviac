@@ -272,7 +272,7 @@ struct ClassTypeNameGetter<T, true, false>
 
         static char s_buffer[256];
         const char* p = FormatString("vector<%s>", pType);
-        strncpy(s_buffer, p, 256);
+        string_ncpy(s_buffer, p, 256);
         return s_buffer;
     }
 };
@@ -290,7 +290,7 @@ struct ClassTypeNameGetter<T, false, true>
 
         static char s_buffer[256];
         const char* p = FormatString("map<%s, %s>", pKeyType, pValueType);
-        strncpy(s_buffer, p, 256);
+        string_ncpy(s_buffer, p, 256);
         return s_buffer;
     }
 };
@@ -382,7 +382,6 @@ struct TStruct_GetClassTypeNumberId< const T >
 
         return ret;
     }
-
 };
 
 template<typename T>
@@ -629,8 +628,8 @@ public:
  *  @param __type   The name of this class.
  *  @param __parent The name of the parent class.
  */
-#define BEHAVIAC_DECLARE_DYNAMIC_TYPE(__type, __parent) \
-    BEHAVIAC_INTERNAL_DECLARE_DYNAMIC_TYPE_COMPOSER(__type); \
+#define BEHAVIAC_DECLARE_DYNAMIC_TYPE(__type, __parent)						\
+    BEHAVIAC_INTERNAL_DECLARE_DYNAMIC_TYPE_COMPOSER(__type);				\
     BEHAVIAC_INTERNAL_DECLARE_DYNAMIC_PUBLIC_METHODES(__type, __parent);
 
 /*!
@@ -639,41 +638,39 @@ public:
 *  @param __type   The name of this class.
 *  @param __parent The name of the parent class.
 */
-#define BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(__type, __parent) \
-    BEHAVIAC_DECLARE_DYNAMIC_TYPE(__type, __parent);
-//    protected: void		Use_DECLARE_DYNAMIC_TYPE_macro(){}
+#define BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(__type, __parent)    BEHAVIAC_DECLARE_DYNAMIC_TYPE(__type, __parent);
 
-#define  M_PRIMITIVE_NUMBER_TYPES()								\
-    M_PRIMITE_TYPE(char, char);									\
-    M_PRIMITE_TYPE(unsigned char, ubyte);						\
-    M_PRIMITE_TYPE(signed char, sbyte);							\
-    M_PRIMITE_TYPE(unsigned short, ushort);						\
-    M_PRIMITE_TYPE(signed short, short);						\
-    M_PRIMITE_TYPE(unsigned int, uint);							\
-    M_PRIMITE_TYPE(signed int, int);							\
-    M_PRIMITE_TYPE(unsigned long, ulong);						\
-    M_PRIMITE_TYPE(signed long, long);							\
-    M_PRIMITE_TYPE(unsigned long long, ullong);					\
-    M_PRIMITE_TYPE(signed long long, llong);					\
-    M_PRIMITE_TYPE(float, float);								\
-    M_PRIMITE_TYPE(double, double);
+#define  M_PRIMITIVE_NUMBER_TYPES()												\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(char, char);									\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(unsigned char, ubyte);						\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(signed char, sbyte);							\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(unsigned short, ushort);						\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(signed short, short);							\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(unsigned int, uint);							\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(signed int, int);								\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(unsigned long, ulong);						\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(signed long, long);							\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(unsigned long long, ullong);					\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(signed long long, llong);						\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(float, float);								\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(double, double);
 
-#define  M_PRIMITIVE_TYPES()									\
-    M_PRIMITIVE_NUMBER_TYPES()									\
-    M_PRIMITE_TYPE(bool, bool);									\
-    M_PRIMITE_TYPE(void*, void*);								\
-    M_PRIMITE_TYPE(behaviac::string, string);					\
-    M_PRIMITE_TYPE(behaviac::wstring, behaviac::wstring);		\
-    M_PRIMITE_TYPE(std::string, std::string);					\
-    M_PRIMITE_TYPE(std::wstring, std::wstring);
+#define  BEHAVIAC_M_PRIMITIVE_TYPES()											\
+    M_PRIMITIVE_NUMBER_TYPES()													\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(bool, bool);									\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(void*, void*);								\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(behaviac::string, string);					\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(behaviac::wstring, behaviac::wstring);		\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(std::string, std::string);					\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(std::wstring, std::wstring);
 
 
-#undef M_PRIMITE_TYPE
-#define M_PRIMITE_TYPE(type, typeName)							\
-    BEHAVIAC_OVERRIDE_TYPE_NAME_(type, typeName);				\
+#undef BEHAVIAC_DECLARE_PRIMITE_TYPE
+#define BEHAVIAC_DECLARE_PRIMITE_TYPE(type, typeName)							\
+    BEHAVIAC_OVERRIDE_TYPE_NAME_(type, typeName);								\
     BEHAVIAC_OVERRIDE_TYPE_NAME_(const type, "const "#typeName);
 
-M_PRIMITIVE_TYPES();
+BEHAVIAC_M_PRIMITIVE_TYPES();
 
 //specialization of intrinsics types...
 BEHAVIAC_OVERRIDE_TYPE_NAME(void);
