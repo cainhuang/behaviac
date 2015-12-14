@@ -25,6 +25,7 @@ namespace behaviac
     class BEHAVIAC_API Effector : public AttachAction
     {
     public:
+		BEHAVIAC_DECLARE_MEMORY_OPERATORS(Effector);
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector, AttachAction);
         Effector();
         ~Effector();

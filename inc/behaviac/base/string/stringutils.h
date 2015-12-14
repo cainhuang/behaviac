@@ -691,10 +691,9 @@ namespace behaviac
         // const version
         inline const char* FindFullExtension(const char* szFileName)
         {
-            int slen = (int)strlen(szFileName);
-
-            if (szFileName && slen)
+            if (szFileName)
             {
+				int slen = (int)strlen(szFileName);
                 const char* end = szFileName + slen;
                 const char* ptr = end - 1;
                 const char* dot = NULL;
@@ -777,8 +776,7 @@ namespace behaviac
             //We have an extension
             if (dot)
             {
-                strcpy(dot + 1, szNewExtension);
-
+                string_cpy(dot + 1, szNewExtension);
             }
             else
             {
@@ -1029,7 +1027,6 @@ namespace behaviac
         {
             return string_icmp(str1, str2) == 0;
         }
-
     }
 }
 #endif // #ifndef BEHAVIAC_CORE_STRINGUTILS_H

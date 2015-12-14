@@ -21,13 +21,9 @@
 #ifndef _BTPLAYER_H_
 #define _BTPLAYER_H_
 #include "behaviac/behaviac.h"
-
 #include <time.h>
 
 using namespace behaviac;
-
-
-
 
 
 class CBTPlayer: public Agent

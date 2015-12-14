@@ -50,11 +50,11 @@ namespace behaviac
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(WithPreconditionTask, SequenceTask);
         WithPreconditionTask() : SequenceTask()
         {
-            m_bIsUpdatePrecondition = false;
         }
         virtual void addChild(BehaviorTask* pBehavior);
-        bool GetIsUpdatePrecondition();
-        void SetIsUpdatePrecondition(bool value);
+
+		BehaviorTask* PreconditionNode() const;
+		BehaviorTask* ActionNode() const;
     protected:
         virtual void copyto(BehaviorTask* target) const;
         virtual void save(ISerializableNode* node) const;
@@ -65,7 +65,6 @@ namespace behaviac
         virtual EBTStatus update_current(Agent* pAgent, EBTStatus childStatus);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
     private:
-        bool m_bIsUpdatePrecondition;
         friend class SelectorLoopTask;
     };
     /*! @} */

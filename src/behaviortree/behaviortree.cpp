@@ -683,7 +683,8 @@ namespace behaviac
 
     bool DecoratorNode::IsManagingChildrenAsSubTrees() const
     {
-        return !this->m_bDecorateWhenChildEnds;
+        //return !this->m_bDecorateWhenChildEnds;
+		return true;
     }
 
     void DecoratorNode::load(int version, const char* agentType, const properties_t& properties)
@@ -862,9 +863,9 @@ namespace behaviac
                             //??? BEHAVIAC_ASSERT(c->Children.Count == 1);
 
                             rapidxml::xml_node<>*  customNode = (rapidxml::xml_node<>*)c->first_node(kStrNode);
+							BEHAVIAC_ASSERT(customNode);
                             BehaviorNode* pChildNode = BehaviorNode::load(agentType, customNode, version);
                             this->m_customCondition = pChildNode;
-
                         }
                         else if (StringUtils::StrEqual(c->name(), kStrNode))
                         {
@@ -1291,7 +1292,7 @@ namespace behaviac
         //{
         //	return false;
         //}
-        if (!behaviorNode && !StringUtils::StrEqual(behaviorNode->name(), kStrBehavior))
+        if (!behaviorNode || !StringUtils::StrEqual(behaviorNode->name(), kStrBehavior))
         {
             return false;
         }

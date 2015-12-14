@@ -223,7 +223,6 @@ namespace behaviac
                         val = "";
                         return true;
                     }
-
                 }
                 else
                 {
@@ -303,7 +302,6 @@ namespace behaviac
                         val = str;
                         return true;
                     }
-
                 }
                 else
                 {
@@ -447,7 +445,6 @@ namespace behaviac
                     {
                         return true;
                     }
-
                 }
                 else
                 {
@@ -474,7 +471,6 @@ namespace behaviac
                         {
                             data[i] = pos[i + 1];
                         }
-
                     }
                     else
                     {
@@ -491,8 +487,8 @@ namespace behaviac
                             pos = SkipPairedBrackets(pos + 1);
                         }
 
+                        const char* posNext = strchr(pos + 1, '|');
                         pos = posNext;
-
                     }
                     else
                     {
@@ -524,7 +520,6 @@ namespace behaviac
                     {
                         return true;
                     }
-
                 }
                 else
                 {
@@ -548,7 +543,6 @@ namespace behaviac
 
                         const char* posNext = strchr(pos + 1, '|');
                         pos = posNext;
-
                     }
                     else
                     {

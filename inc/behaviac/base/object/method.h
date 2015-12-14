@@ -1557,7 +1557,7 @@ protected:
     const char*						m_classFullName;
     behaviac::string				m_instanceName;
     const char*						m_propertyName;
-    behaviac::CSerializationID				m_propertyID;
+    behaviac::CSerializationID		m_propertyID;
 
     behaviac::wstring				m_displayName;
     behaviac::wstring				m_desc;
@@ -1565,7 +1565,7 @@ protected:
     CCheckReturn*					m_checkReturnTask;
     behaviac::IAsyncValue*			m_return;
 
-    //ParentType						m_parentType;
+    //ParentType					m_parentType;
 
     bool							m_bStatic;
 
@@ -2053,6 +2053,8 @@ public:
     CGenericMethod1_(R(ObjectType::*methodPtr)(ParamType), const char* className, const char* propertyName) :
         CMethodBase(propertyName, className), m_methodPtr(methodPtr), m_paramRangeValid(false), m_param()
     {
+		this->m_min = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     typedef R(ObjectType::*MethodType_t)(ParamType);
@@ -2060,6 +2062,8 @@ public:
     CGenericMethod1_(R(ObjectType::*methodPtr)(ParamType) const, const char* className, const char* propertyName) :
         CMethodBase(propertyName, className), m_methodPtr(MethodType_t(methodPtr)), m_paramRangeValid(false), m_param()
     {
+		this->m_min = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethod1_(const CGenericMethod1_& copy) : CMethodBase(copy)
@@ -2070,6 +2074,9 @@ public:
 
         this->m_param = copy.m_param;
         this->m_paramRangeValid = copy.m_paramRangeValid;
+
+		this->m_min = copy.m_min;
+		this->m_max = copy.m_max;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -2240,11 +2247,17 @@ public:
 
     CGenericMethod1_R(R(ObjectType::*methodPtr)(ParamType),
                       const char* className, const char* propertyName) : CGenericMethod1_<R, ObjectType, ParamType>(methodPtr, className, propertyName)
-    {}
+    {
+		this->m_min = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max = CMETHODBASE_RANGE_MAX_DEFAULT;
+	}
 
     CGenericMethod1_R(R(ObjectType::*methodPtr)(ParamType) const,
                       const char* className, const char* propertyName) : CGenericMethod1_<R, ObjectType, ParamType>(methodPtr, className, propertyName)
-    {}
+    {
+		this->m_min = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max = CMETHODBASE_RANGE_MAX_DEFAULT;
+	}
 
     virtual ~CGenericMethod1_R()
     {
@@ -2342,11 +2355,13 @@ class CGenericMethod1 : public CGenericMethod1_R<R, ObjectType, ParamType>
 public:
     CGenericMethod1(R(ObjectType::*methodPtr)(ParamType),
                     const char* className, const char* propertyName) : CGenericMethod1_R<R, ObjectType, ParamType>(methodPtr, className, propertyName)
-    {}
+    {
+	}
 
     CGenericMethod1(R(ObjectType::*methodPtr)(ParamType) const,
                     const char* className, const char* propertyName) : CGenericMethod1_R<R, ObjectType, ParamType>(methodPtr, className, propertyName)
-    {}
+    {
+	}
 
     virtual ~CGenericMethod1()
     {
@@ -2368,11 +2383,14 @@ public:
     CGenericMethod1(void (ObjectType::*methodPtr)(ParamType),
                     const char* className, const char* propertyName) :
         CGenericMethod1_<void, ObjectType, ParamType>(methodPtr, className, propertyName)
-    {}
+    {
+	}
+
     CGenericMethod1(void (ObjectType::*methodPtr)(ParamType) const,
                     const char* className, const char* propertyName) :
         CGenericMethod1_<void, ObjectType, ParamType>(methodPtr, className, propertyName)
-    {}
+    {
+	}
 
     virtual ~CGenericMethod1()
     {
@@ -2462,6 +2480,10 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false),
         m_param1(), m_param2()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     typedef R(ObjectType::*MethodType_t)(ParamType1, ParamType2);
@@ -2471,6 +2493,10 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false),
         m_param1(), m_param2()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethod2_(const CGenericMethod2_& copy) : CMethodBase(copy)
@@ -2839,13 +2865,15 @@ public:
                     const char* className, const char* propertyName
                    ) :
         CGenericMethod2_<R, ObjectType, ParamType1, ParamType2>(methodPtr, className, propertyName)
-    {}
+    {
+	}
 
     CGenericMethod2(R(ObjectType::*methodPtr)(ParamType1, ParamType2) const,
                     const char* className, const char* propertyName
                    ) :
         CGenericMethod2_<R, ObjectType, ParamType1, ParamType2>(methodPtr, className, propertyName)
-    {}
+    {
+	}
 
     virtual ~CGenericMethod2()
     {
@@ -2954,13 +2982,15 @@ public:
                     const char* className, const char* propertyName
                    ) :
         CGenericMethod2_<void, ObjectType, ParamType1, ParamType2>(methodPtr, className, propertyName)
-    {}
+    {
+	}
 
     CGenericMethod2(void (ObjectType::*methodPtr)(ParamType1, ParamType2) const,
                     const char* className, const char* propertyName
                    ) :
         CGenericMethod2_<void, ObjectType, ParamType1, ParamType2>(methodPtr, className, propertyName)
-    {}
+    {
+	}
 
     virtual ~CGenericMethod2()
     {
@@ -3065,6 +3095,12 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false),
         m_param1(), m_param2(), m_param3()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     typedef R(ObjectType::*MethodType_t)(ParamType1, ParamType2, ParamType3);
@@ -3073,7 +3109,13 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false),
         m_param1(), m_param2(), m_param3()
     {
-    }
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+	}
 
     CGenericMethod3_(const CGenericMethod3_& copy) : CMethodBase(copy)
     {
@@ -3504,13 +3546,27 @@ public:
                     const char* className, const char* propertyName
                    ) :
         CGenericMethod3_<R, ObjectType, ParamType1, ParamType2, ParamType3>(methodPtr, className, propertyName)
-    {}
+    {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+	}
 
     CGenericMethod3(R(ObjectType::*methodPtr)(ParamType1, ParamType2, ParamType3) const,
                     const char* className, const char* propertyName
                    ) :
         CGenericMethod3_<R, ObjectType, ParamType1, ParamType2, ParamType3>(methodPtr, className, propertyName)
-    {}
+    {
+        this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+        this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+        this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+        this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+        this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+        this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+	}
 
     virtual ~CGenericMethod3()
     {
@@ -3754,6 +3810,14 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false),
         m_param1(), m_param2(), m_param3(), m_param4()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     typedef R(ObjectType::*MethodType_t)(ParamType1, ParamType2, ParamType3, ParamType4);
@@ -3764,6 +3828,14 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false),
         m_param1(), m_param2(), m_param3(), m_param4()
     {
+        this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+        this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+        this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+        this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+        this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+        this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+        this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+        this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethod4_(const CGenericMethod4_& copy) : CMethodBase(copy)
@@ -4542,6 +4614,16 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false),
         m_param1(), m_param2(), m_param3(), m_param4(), m_param5()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     typedef R(ObjectType::*MethodType_t)(ParamType1, ParamType2, ParamType3, ParamType4, ParamType5);
@@ -4552,6 +4634,16 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false),
         m_param1(), m_param2(), m_param3(), m_param4(), m_param5()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethod5_(const CGenericMethod5_& copy) : CMethodBase(copy)
@@ -5431,6 +5523,18 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false),
         m_param1(), m_param2(), m_param3(), m_param4(), m_param5(), m_param6()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     typedef R(ObjectType::*MethodType_t)(ParamType1, ParamType2, ParamType3, ParamType4, ParamType5, ParamType6);
@@ -5441,6 +5545,18 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false),
         m_param1(), m_param2(), m_param3(), m_param4(), m_param5(), m_param6()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethod6_(const CGenericMethod6_& copy) : CMethodBase(copy)
@@ -6419,6 +6535,20 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false), m_paramRangeValid7(false),
         m_param1(), m_param2(), m_param3(), m_param4(), m_param5(), m_param6(), m_param7()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min7 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max7 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     typedef R(ObjectType::*MethodType_t)(ParamType1, ParamType2, ParamType3, ParamType4, ParamType5, ParamType6, ParamType7);
@@ -6429,6 +6559,20 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false), m_paramRangeValid7(false),
         m_param1(), m_param2(), m_param3(), m_param4(), m_param5(), m_param6(), m_param7()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min7 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max7 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethod7_(const CGenericMethod7_& copy) : CMethodBase(copy)
@@ -7508,6 +7652,20 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false), m_paramRangeValid7(false), m_paramRangeValid8(false),
         m_param1(), m_param2(), m_param3(), m_param4(), m_param5(), m_param6(), m_param7(), m_param8()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min7 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max7 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     typedef R(ObjectType::*MethodType_t)(ParamType1, ParamType2, ParamType3, ParamType4, ParamType5, ParamType6, ParamType7, ParamType8);
@@ -7518,6 +7676,20 @@ public:
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false), m_paramRangeValid7(false), m_paramRangeValid8(false),
         m_param1(), m_param2(), m_param3(), m_param4(), m_param5(), m_param6(), m_param7(), m_param8()
     {
+		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
+		this->m_min7 = CMETHODBASE_RANGE_MIN_DEFAULT;
+		this->m_max7 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethod8_(const CGenericMethod8_& copy) : CMethodBase(copy)

@@ -37,16 +37,15 @@ END_PROPERTIES_DESCRIPTION()
 
 CBTPlayer::CBTPlayer()
 {
-    //    SetVariable<int>("CurStep", 0);
-
+    //SetVariable<int>("CurStep", 0);
     m_iBaseSpeed = 1;
     m_Frames = 0;
+    m_iX = 0;
+    m_iY = 0;
 }
 
 CBTPlayer::~CBTPlayer()
 {
-    m_iX = 0;
-    m_iY = 0;
 }
 
 time_t CBTPlayer::GetCurTime()

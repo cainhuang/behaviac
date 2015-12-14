@@ -401,5 +401,5 @@ public:
     }
 };
 
-BEHAVIAC_OVERRIDE_TYPE_NAME(behaviac::vector<ParTestAgentBase*>);
-SPECIALIZE_TYPE_HANDLER(behaviac::vector<ParTestAgentBase*>, BasicTypeHandler< behaviac::vector<ParTestAgentBase*> >);
+BEHAVIAC_DECLARE_TYPE_VECTOR_HANDLER(ParTestAgentBase*);
+

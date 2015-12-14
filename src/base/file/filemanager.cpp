@@ -85,7 +85,6 @@ namespace behaviac
 		if (hFile != FILE_SYSTEM_INVALID_HANDLE)
 		{
 			return BEHAVIAC_NEW CPhysicalFile(hFile, onRemovableDevice);
-
 		}
 		else
 		{

@@ -53,22 +53,22 @@
   <agents>
     <agent classfullname="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
       <Method Name="VectorLength" DisplayName="" Desc="" ReturnType="int" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="IList" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
       </Method>
       <Method Name="VectorAdd" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
         <Param DisplayName="element" Desc="element" Type="System::Object" />
       </Method>
       <Method Name="VectorRemove" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
         <Param DisplayName="element" Desc="element" Type="System::Object" />
       </Method>
       <Method Name="VectorContains" DisplayName="" Desc="" ReturnType="bool" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
         <Param DisplayName="element" Desc="element" Type="System::Object" />
       </Method>
       <Method Name="VectorClear" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
       </Method>
     </agent>
     <agent classfullname="GameActor" base="behaviac::Agent" DisplayName="GameActor" Desc="GameActor -&gt; Agent" IsRefType="true">

@@ -53,7 +53,6 @@ namespace behaviac
                 {
                     BEHAVIAC_ASSERT(false);
                 }
-
             }
             else if (strcmp(p->name, "Opr") == 0)
             {
@@ -70,7 +69,6 @@ namespace behaviac
                     //method
                     this->m_opr_m = Action::LoadMethod(p->value);
                 }
-
             }
             else
             {
@@ -111,7 +109,7 @@ namespace behaviac
                     {
                         BEHAVIAC_ASSERT(PlannerTaskIterator::DynamicCast(seqTask) != 0);
                         PlannerTaskIterator* pForEachTask = (PlannerTaskIterator*)seqTask;
-                        pForEachTask->m_index = index;
+						pForEachTask->SetIndex(index);
 
                         seqTask->AddChild(childTask);
                         bOk = true;

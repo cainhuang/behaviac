@@ -29,6 +29,7 @@ namespace behaviac
             const char* agentType = pAgent->GetObjectTypeName();
 
             AgentProperties* agentT = AgentProperties::Get(agentType);
+			BEHAVIAC_ASSERT(agentT);
 
             for (uint32_t i = 0; i < this->m_paramTypes.size(); ++i)
             {
@@ -44,6 +45,7 @@ namespace behaviac
 
     void CTaskMethod::SetTaskParam(behaviac::Agent* pAgent, behaviac::AgentProperties* agentT, const char* paramName, const behaviac::Property* valueProperty)
     {
+		BEHAVIAC_ASSERT(agentT);
         behaviac::Property* pProperty = agentT->GetLocal(paramName);
         pProperty->SetFrom(pAgent, valueProperty, pAgent);
     }

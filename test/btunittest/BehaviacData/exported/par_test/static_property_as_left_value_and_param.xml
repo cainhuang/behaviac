@@ -47,8 +47,8 @@
         <property Opr="Self.ParTestAgent::Func_IntListIR(static vector&lt;int&gt; Self.ParTestAgent::STV_LIST_INT_0)" />
       </node>
       <node class="Assignment" id="11">
-        <property Opl="static vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::STV_LIST_KEMPLOYEE_0" />
-        <property Opr="Self.ParTestAgent::Func_kEmployeeListIR(static vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::STV_LIST_KEMPLOYEE_0)" />
+        <property Opl="static behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::STV_LIST_KEMPLOYEE_0" />
+        <property Opr="Self.ParTestAgent::Func_kEmployeeListIR(static behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::STV_LIST_KEMPLOYEE_0)" />
       </node>
     </node>
     <node class="Sequence" id="3">

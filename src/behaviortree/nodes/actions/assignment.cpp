@@ -69,7 +69,6 @@ namespace behaviac
                     //method
                     this->m_opr_m = Action::LoadMethod(p.value);
                 }
-
             }
             else
             {

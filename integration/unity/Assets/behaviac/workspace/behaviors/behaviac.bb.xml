@@ -11,11 +11,6 @@
     </struct>
   </types>
   <agents>
-    <agent type="HTNAgentHouseBase" base="behaviac::Agent" disp="HTNAgentHouseBase" desc="HTNAgentHouseBase">
-      <properties>
-        <property name="Money" type="System.Int32" classname="HTNAgentHouseBase" defaultvalue="0" static="false" public="true" readonly="false" disp="Money" desc="MemberProperty" />
-      </properties>
-    </agent>
     <agent type="AgentArrayAccessTest" base="behaviac::Agent" disp="AgentArrayAccessTest" desc="AgentArrayAccessTest">
       <properties>
         <property name="c_Int" type="System.Int32" classname="AgentArrayAccessTest" defaultvalue="0" static="false" public="true" readonly="false" disp="c_Int" desc="AgentArrayAccessTest::c_Int" />
@@ -26,6 +21,7 @@
     <agent type="AgentNodeTest" base="behaviac::Agent" disp="AgentNodeTest" desc="AgentNodeTest">
       <properties>
         <property name="testFloat2" type="XMLPluginBehaviac.TestNS_Float2" classname="AgentNodeTest" defaultvalue="{x=0;y=0;}" static="false" public="true" readonly="false" disp="testFloat2" desc="local_node" />
+        <property name="testInt" type="System.Int32" classname="AgentNodeTest" defaultvalue="10" static="false" public="true" readonly="false" disp="testInt" desc="testInt" />
       </properties>
       <methods>
         <method name="event_test_int" returntype="System.Boolean" classname="AgentNodeTest" static="false" public="true" istask="true" disp="event_test_int" desc="event_test_int">
@@ -64,6 +60,11 @@
         </method>
       </methods>
     </agent>
+    <agent type="EmployeeParTestAgent" base="ParTestAgent" disp="EmployeeParTestAgent" desc="EmployeeParTestAgent">
+      <properties>
+        <property name="target" type="XMLPluginBehaviac.ParTestAgent" classname="EmployeeParTestAgent" defaultvalue="null" static="false" public="true" readonly="false" disp="target" desc="target" />
+      </properties>
+    </agent>
     <agent type="FSMAgentTest" base="behaviac::Agent" disp="FSMAgentTest" desc="FSMAgentTest">
       <properties>
         <property name="InactiveCount" type="System.Int32" classname="FSMAgentTest" defaultvalue="0" static="false" public="true" readonly="false" disp="InactiveCount" desc="InactiveCount" />
@@ -72,6 +73,11 @@
         <property name="ExitCount" type="System.Int64" classname="FSMAgentTest" defaultvalue="0" static="false" public="true" readonly="false" disp="ExitCount" desc="ExitCount" />
         <property name="FoodCount" type="System.Int32" classname="FSMAgentTest" defaultvalue="0" static="false" public="true" readonly="false" disp="FoodCount" desc="FoodCount" />
         <property name="EnergyCount" type="System.Int32" classname="FSMAgentTest" defaultvalue="0" static="false" public="true" readonly="false" disp="EnergyCount" desc="EnergyCount" />
+      </properties>
+    </agent>
+    <agent type="HTNAgentHouseBase" base="behaviac::Agent" disp="HTNAgentHouseBase" desc="HTNAgentHouseBase">
+      <properties>
+        <property name="Money" type="System.Int32" classname="HTNAgentHouseBase" defaultvalue="0" static="false" public="true" readonly="false" disp="Money" desc="MemberProperty" />
       </properties>
     </agent>
     <agent type="HTNAgentHouse" base="HTNAgentHouseBase" disp="HTNAgentHouse" desc="HTNAgentHouse">

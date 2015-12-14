@@ -231,7 +231,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {
@@ -270,7 +269,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {
@@ -314,7 +312,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {
@@ -362,7 +359,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {
@@ -414,7 +410,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {
@@ -470,7 +465,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {
@@ -530,7 +524,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {
@@ -594,7 +587,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {
@@ -662,7 +654,6 @@ namespace behaviac
 
                     return true;
                 }
-
             }
             else if (netRole == behaviac::NET_ROLE_NONAUTHORITY)
             {

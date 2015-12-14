@@ -29,56 +29,18 @@ namespace Behaviac.Design
         {
             InitializeComponent();
 
-            tbServer.Text = IPOnlyNumbersAndDots(ip) ? ip : GetLocalIP();
+            tbServer.Text = Utilities.IPOnlyNumbersAndDots(ip) ? ip : Utilities.GetLocalIP();
             tbPort.Text = portNr.ToString();
         }
 
         public String GetServer()
         {
-            return IPOnlyNumbersAndDots(tbServer.Text) ? tbServer.Text : GetIP(tbServer.Text);
+            return Utilities.IPOnlyNumbersAndDots(tbServer.Text) ? tbServer.Text : Utilities.GetIP(tbServer.Text);
         }
 
         public int GetPort()
         {
             return Convert.ToInt32(tbPort.Text);
-        }
-
-        private static bool IPOnlyNumbersAndDots(String s)
-        {
-            if (string.IsNullOrEmpty(s))
-                return false;
-
-            for (int i = 0; i < s.Length; ++i)
-            {
-                if (!char.IsDigit(s[i]) && s[i] != '.')
-                    return false;
-            }
-
-            return true;
-        }
-
-        private static String GetLocalIP()
-        {
-            String strHostName = Dns.GetHostName();
-            return GetIP(strHostName);
-        }
-
-        private static String GetIP(String strHostName)
-        {
-            // Find host by name
-            IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
-
-            // Grab the first IP addresses
-            String IPStr = "";
-            foreach (IPAddress ipaddress in iphostentry.AddressList)
-            {
-                IPStr = ipaddress.ToString();
-
-                if (IPOnlyNumbersAndDots(IPStr))
-                    return IPStr;
-            }
-
-            return IPStr;
         }
 
         private void tbPort_KeyPress(object sender, KeyPressEventArgs e)

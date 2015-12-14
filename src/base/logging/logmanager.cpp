@@ -418,7 +418,6 @@ namespace behaviac
                     if (bt)
                     {
                         btName = bt->GetName();
-
                     }
                     else
                     {

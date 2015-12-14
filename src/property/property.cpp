@@ -124,6 +124,7 @@ namespace behaviac
     {
         m_memberBase = pMemberBase;
         m_variableId = 0;
+		m_refParNameId = 0;
         m_bValidDefaultValue = false;
         m_bIsConst = bIsConst;
     }
@@ -291,7 +292,7 @@ namespace behaviac
         {
             int posClass = pClassBegin - fullName;
             BEHAVIAC_ASSERT(posClass < kInstanceLength);
-            strncpy(agentIntanceName, fullName, posClass);
+            string_ncpy(agentIntanceName, fullName, posClass);
             agentIntanceName[posClass] = '\0';
 
             const char* pAgentType = pClassBegin + 1;
@@ -299,7 +300,7 @@ namespace behaviac
             const char* pPropertyName = strrchr(pAgentType, ':');
             BEHAVIAC_ASSERT(pPropertyName);
             int agentTypeLength = pPropertyName - 1 - pAgentType;
-            strncpy(agentType, pAgentType, agentTypeLength);
+            string_ncpy(agentType, pAgentType, agentTypeLength);
             agentType[agentTypeLength] = '\0';
 
             const char* propertyName = pPropertyName + 1;
@@ -507,25 +508,29 @@ namespace behaviac
 
     void Property::RegisterBasicTypes()
     {
-#undef M_PRIMITE_TYPE
-#define M_PRIMITE_TYPE(type, typeName)    TypeRegister::Register<type>(#typeName);
+#undef BEHAVIAC_DECLARE_PRIMITE_TYPE
+#define BEHAVIAC_DECLARE_PRIMITE_TYPE(type, typeName)    TypeRegister::Register<type>(#typeName);
 
-        M_PRIMITIVE_TYPES();
+        BEHAVIAC_M_PRIMITIVE_TYPES();
 
         TypeRegister::Register<char*>("szstring");
         TypeRegister::Register<const char*>("cszstring");
 		TypeRegister::Register<behaviac::Agent*>("behaviac::Agent");
+        TypeRegister::Register<behaviac::EBTStatus>("behaviac::EBTStatus");
+
     }
 
     void Property::UnRegisterBasicTypes()
     {
-#undef M_PRIMITE_TYPE
-#define M_PRIMITE_TYPE(type, typeName)	TypeRegister::UnRegister<type>(#typeName);
+#undef BEHAVIAC_DECLARE_PRIMITE_TYPE
+#define BEHAVIAC_DECLARE_PRIMITE_TYPE(type, typeName)	TypeRegister::UnRegister<type>(#typeName);
 
-        M_PRIMITIVE_TYPES();
+        BEHAVIAC_M_PRIMITIVE_TYPES();
 
         TypeRegister::UnRegister<char*>("szstring");
         TypeRegister::UnRegister<const char*>("cszstring");
 		TypeRegister::UnRegister<behaviac::Agent*>("behaviac::Agent");
+        TypeRegister::UnRegister<behaviac::EBTStatus>("behaviac::EBTStatus");
+
     }
 }//namespace behaviac

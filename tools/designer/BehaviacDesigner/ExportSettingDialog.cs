@@ -53,6 +53,7 @@ namespace Behaviac.Design
                 this.exportFolderTextBox.Text = exportFullPath;
 
                 this.unifiedCheckBox.Checked = Workspace.Current.ExportedUnifiedFile(_exporterInfo.ID);
+                this.generateCustomizedTypesCheckBox.Checked = Workspace.Current.GenerateCustomizedTypes(_exporterInfo.ID);
 
                 List<string> exportIncludedFilenames = Workspace.Current.GetExportIncludedFilenames(_exporterInfo.ID);
                 foreach(string filename in exportIncludedFilenames) {
@@ -70,6 +71,7 @@ namespace Behaviac.Design
                 wsFilename = wsFilename.Replace('/', '\\');
 
                 bool exportUnifiedFile = this.unifiedCheckBox.Checked;
+                bool generateCustomizedTypes = this.generateCustomizedTypesCheckBox.Checked;
 
                 string exportFullPath = this.exportFolderTextBox.Text.Replace('/', '\\');
                 string exportFolder = exportFullPath;
@@ -85,7 +87,7 @@ namespace Behaviac.Design
                     exportIncludedFilenames.Add(filename);
                 }
 
-                Workspace.Current.SetExportInfo(_exporterInfo.ID, Workspace.Current.ShouldBeExported(_exporterInfo.ID), exportUnifiedFile, exportFolder, exportIncludedFilenames);
+                Workspace.Current.SetExportInfo(_exporterInfo.ID, Workspace.Current.ShouldBeExported(_exporterInfo.ID), exportUnifiedFile, generateCustomizedTypes, exportFolder, exportIncludedFilenames);
 
                 Workspace.SaveWorkspaceFile(Workspace.Current);
             }

@@ -31,4 +31,4 @@ DECLARE_BEHAVIAC_STRUCT(StructTest);
 
 DECLARE_BEHAVIAC_ENUM(ETest, ETest);
 
-SPECIALIZE_TYPE_HANDLER(behaviac::vector<StructTest>, BasicTypeHandler< behaviac::vector<StructTest> >);
+BEHAVIAC_DECLARE_TYPE_VECTOR_HANDLER(StructTest);

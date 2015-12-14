@@ -192,7 +192,7 @@ namespace behaviac
 
                 SecurityElement rootNode = xmlDoc.ToXml();
 
-                if (rootNode.Tag != "agents" && (rootNode.Children == null || rootNode.Children.Count != 1))
+                if (rootNode.Children == null || rootNode.Tag != "agents" && rootNode.Children.Count != 1)
                 {
                     return false;
                 }

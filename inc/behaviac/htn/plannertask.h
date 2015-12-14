@@ -34,7 +34,6 @@ namespace behaviac
         static void Register();
     public:
         PlannerTask* Parent;
-        bool PauseOnRun;
         bool NotInterruptable;
 
         PlannerTask();
@@ -143,12 +142,12 @@ namespace behaviac
     public:
         PlannerTaskIterator(BehaviorNode* node, Agent* pAgent);
 
-        int m_index;
-
+		void SetIndex(int index);
     protected:
         virtual bool onenter(Agent* pAgent);
 
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
+        int m_index;
     };
 
     class PlannerTaskReference : public PlannerTaskComplex

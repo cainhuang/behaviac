@@ -115,7 +115,6 @@ namespace behaviac
 	{
 		this->behaviac::Agent::VectorRemove(p0, p1);
 	}
-
 }
 
 struct PROPERTY_TYPE_CBTPlayer_m_iBaseSpeed { };

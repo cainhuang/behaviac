@@ -260,7 +260,7 @@ namespace behaviac
 	{
 		const int kMAX_PATH = 260;
 		char directory[kMAX_PATH];
-		strcpy(directory, filename);
+		string_cpy(directory, filename);
 		char* iter = directory;
 
 		while (*iter != 0)

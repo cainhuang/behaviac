@@ -152,7 +152,6 @@ namespace behaviac
 			{
 				return XmlNodeRef();
 			}
-
 		}
 		else
 		{

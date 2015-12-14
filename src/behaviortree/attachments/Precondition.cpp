@@ -49,7 +49,6 @@ namespace behaviac
                 {
                     BEHAVIAC_ASSERT(false);
                 }
-
             }
             else if (p_name == "Phase")
             {

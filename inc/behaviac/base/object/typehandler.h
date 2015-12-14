@@ -274,7 +274,6 @@ struct GenericTypeHandler
                     memberNode->setAttr("Property", "true");
                 }
             }
-
         }
         else
         {
@@ -1181,35 +1180,44 @@ struct BasicTypeHandlerEnum
     }
 };
 
-#define SPECIALIZE_TYPE_HANDLER(typeToSpecialize, specializedHandler) \
+#define BEHAVIAC_SPECIALIZE_TYPE_HANDLER(typeToSpecialize, specializedHandler) \
     template<>  struct GenericTypeHandler< typeToSpecialize > : public specializedHandler{}; \
     template<>  struct NoChildTypeHandler< typeToSpecialize > : public specializedHandler{};
 
 // Specialize types supported by the ixml interface
-SPECIALIZE_TYPE_HANDLER(const char*, BasicTypeHandler<const char*>)
-SPECIALIZE_TYPE_HANDLER(char*, BasicTypeHandler<char*>)
+BEHAVIAC_SPECIALIZE_TYPE_HANDLER(const char*, BasicTypeHandler<const char*>)
+BEHAVIAC_SPECIALIZE_TYPE_HANDLER(char*, BasicTypeHandler<char*>)
 
-#undef M_PRIMITE_TYPE
-#define M_PRIMITE_TYPE(type, typeNameStr)														\
-    SPECIALIZE_TYPE_HANDLER(type, BasicTypeHandler<type>);										\
-    SPECIALIZE_TYPE_HANDLER(const type, BasicTypeHandler<const type>);							\
-    SPECIALIZE_TYPE_HANDLER(const type&, BasicTypeHandler<const type>);							\
-    SPECIALIZE_TYPE_HANDLER(behaviac::vector<type>, BasicTypeHandler<behaviac::vector<type> >)	\
-    SPECIALIZE_TYPE_HANDLER(std::vector<type>, BasicTypeHandler<std::vector<type> >)
+#undef BEHAVIAC_DECLARE_PRIMITE_TYPE
+#define BEHAVIAC_DECLARE_PRIMITE_TYPE(type, typeNameStr)												\
+    BEHAVIAC_SPECIALIZE_TYPE_HANDLER(type, BasicTypeHandler<type>);										\
+    BEHAVIAC_SPECIALIZE_TYPE_HANDLER(const type, BasicTypeHandler<const type>);							\
+    BEHAVIAC_SPECIALIZE_TYPE_HANDLER(const type&, BasicTypeHandler<const type>);						\
+    BEHAVIAC_SPECIALIZE_TYPE_HANDLER(behaviac::vector<type>, BasicTypeHandler<behaviac::vector<type> >)	\
+    BEHAVIAC_SPECIALIZE_TYPE_HANDLER(std::vector<type>, BasicTypeHandler<std::vector<type> >)
 
-M_PRIMITIVE_TYPES();
+BEHAVIAC_M_PRIMITIVE_TYPES();
 
-#undef M_SPECIALIZE_TYPE_HANDLER
-#define M_SPECIALIZE_TYPE_HANDLER(type)		\
-    M_PRIMITE_TYPE(type, #type)				\
+#undef BEHAVIAC_DECLARE_SPECIALIZE_TYPE_HANDLER
+#define BEHAVIAC_DECLARE_SPECIALIZE_TYPE_HANDLER(type)		\
+    BEHAVIAC_DECLARE_PRIMITE_TYPE(type, #type)				\
     BEHAVIAC_OVERRIDE_TYPE_NAME(type);
 
-#define M_SPECIALIZE_TYPE_HANDLER_COMPOUND()			\
-    M_SPECIALIZE_TYPE_HANDLER(behaviac::CStringID);				\
-    M_SPECIALIZE_TYPE_HANDLER(behaviac::CNoCaseStringID);			\
-    M_SPECIALIZE_TYPE_HANDLER(behaviac::CPathID);
+#define BEHAVIAC_M_SPECIALIZE_TYPE_HANDLER_COMPOUND()								\
+    BEHAVIAC_DECLARE_SPECIALIZE_TYPE_HANDLER(behaviac::CStringID);					\
+    BEHAVIAC_DECLARE_SPECIALIZE_TYPE_HANDLER(behaviac::CNoCaseStringID);			\
+    BEHAVIAC_DECLARE_SPECIALIZE_TYPE_HANDLER(behaviac::CPathID);
 
-M_SPECIALIZE_TYPE_HANDLER_COMPOUND()
+BEHAVIAC_M_SPECIALIZE_TYPE_HANDLER_COMPOUND()
+
+// out side of namespace
+#define _BEHAVIAC_SPECIALIZE_TYPE_VECTOR_HANDLER_(fullTypeNameWithNamespace)							\
+		BEHAVIAC_SPECIALIZE_TYPE_HANDLER(behaviac::vector<fullTypeNameWithNamespace>, BasicTypeHandler<behaviac::vector<fullTypeNameWithNamespace> >);
+
+// out side of namespace
+#define BEHAVIAC_DECLARE_TYPE_VECTOR_HANDLER(fullTypeNameWithNamespace)					\
+	BEHAVIAC_OVERRIDE_TYPE_NAME(behaviac::vector<fullTypeNameWithNamespace>);			\
+	_BEHAVIAC_SPECIALIZE_TYPE_VECTOR_HANDLER_(fullTypeNameWithNamespace);
 
 /////////////////////////////////////////////////////////////////
 ///////////     'NOT IMPLEMENTED' STATE HANDLER      ////////////

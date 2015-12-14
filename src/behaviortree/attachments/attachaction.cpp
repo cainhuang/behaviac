@@ -24,6 +24,7 @@ namespace behaviac
     AttachAction::ActionConfig::ActionConfig() : m_mode(TM_Condition), m_opl(0), m_opl_m(0), m_opr1(0), m_opr1_m(0), m_opr2(0), m_opr2_m(0)
     {
         m_operator = E_INVALID;
+		m_comparator = 0;
     }
     bool AttachAction::ActionConfig::load(const properties_t& properties)
     {
@@ -225,7 +226,7 @@ namespace behaviac
     }
 
     //implement the methods of AttachAction
-    AttachAction::AttachAction()
+	AttachAction::AttachAction() : m_ActionConfig(0)
     {
     }
 

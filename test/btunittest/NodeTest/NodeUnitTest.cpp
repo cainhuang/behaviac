@@ -173,6 +173,32 @@ LOAD_TEST(btunittest, selector_loop_ut_7)
     finlTestEnvNode(myTestAgent);
 }
 
+LOAD_TEST(btunittest, selector_loop_ut_8)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_8", format);
+	myTestAgent->resetProperties();
+
+	myTestAgent->testVar_0 = 10;
+	myTestAgent->m_bCanSee = false;
+
+	behaviac::EBTStatus s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, s);
+	CHECK_EQUAL(2, myTestAgent->testVar_0);
+	CHECK_EQUAL(1, myTestAgent->testVar_1);
+
+	myTestAgent->testVar_0 = 10;
+	s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, s);
+	CHECK_EQUAL(2, myTestAgent->testVar_0);
+	CHECK_EQUAL(2, myTestAgent->testVar_1);
+
+	s = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, s);
+	CHECK_EQUAL(2, myTestAgent->testVar_0);
+	CHECK_EQUAL(101, myTestAgent->testVar_1);
+
+    finlTestEnvNode(myTestAgent);
+}
 //< selector node test
 LOAD_TEST(btunittest, selector_ut_0)
 {
@@ -784,4 +810,18 @@ LOAD_TEST(btunittest, reference_ut_0)
     //CHECK_EQUAL(1, myTestAgent->testVar_0);
     //CHECK_EQUAL(1.0, myTestAgent->testVar_2);
     //finlTestEnvNode(myTestAgent);
+}
+
+LOAD_TEST(btunittest, par_test_custom_property_reset)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("par_test/custom_property_reset", format);
+	myTestAgent->resetProperties();
+	behaviac::EBTStatus status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+	CHECK_EQUAL(10, myTestAgent->testVar_1);
+
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+	CHECK_EQUAL(20, myTestAgent->testVar_1);
+	finlTestEnvNode(myTestAgent);
 }

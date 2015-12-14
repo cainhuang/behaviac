@@ -90,21 +90,9 @@ namespace behaviac
             BehaviorTask pParent = this.GetParent();
 
             Debug.Check(pParent is SelectorLoop.SelectorLoopTask);
-
-            base.onexit(pAgent, s);
         }
 
-        private bool m_bIsUpdatePrecondition = false;
-
-        public bool IsUpdatePrecondition
-        {
-            set
-            {
-                this.m_bIsUpdatePrecondition = value;
-            }
-        }
-
-        private BehaviorTask PreconditionNode
+        public BehaviorTask PreconditionNode
         {
             get
             {
@@ -114,7 +102,7 @@ namespace behaviac
             }
         }
 
-        private BehaviorTask ActionNode
+        public BehaviorTask ActionNode
         {
             get
             {
@@ -134,22 +122,9 @@ namespace behaviac
             BehaviorTask pParent = this.GetParent();
             Debug.Check(pParent is SelectorLoop.SelectorLoopTask);
 
-            if (this.m_bIsUpdatePrecondition)
-            {
-                BehaviorTask precond = this.PreconditionNode;
-                EBTStatus s = precond.exec(pAgent, childStatus);
+            Debug.Check(false);
 
-                return s;
-            }
-            else
-            {
-                BehaviorTask action = this.ActionNode;
-                EBTStatus s = action.exec(pAgent, childStatus);
-
-                return s;
-            }
-
-            //return EBTStatus.BT_RUNNING;
+            return EBTStatus.BT_RUNNING;
         }
     }
 }
