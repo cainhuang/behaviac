@@ -45,8 +45,8 @@ namespace behaviac
 
     void Compute::RegisterBasicTypes()
     {
-#undef BEHAVIAC_DECLARE_PRIMITE_TYPE
-#define BEHAVIAC_DECLARE_PRIMITE_TYPE(type, typeName)				\
+#undef M_PRIMITE_TYPE
+#define M_PRIMITE_TYPE(type, typeName)				\
     Register<type>(#typeName);
 
         M_PRIMITIVE_NUMBER_TYPES();
@@ -54,8 +54,8 @@ namespace behaviac
 
     void Compute::UnRegisterBasicTypes()
     {
-#undef BEHAVIAC_DECLARE_PRIMITE_TYPE
-#define BEHAVIAC_DECLARE_PRIMITE_TYPE(type, typeName)				\
+#undef M_PRIMITE_TYPE
+#define M_PRIMITE_TYPE(type, typeName)				\
     UnRegister<type>(#typeName);
 
         M_PRIMITIVE_NUMBER_TYPES();

@@ -12,6 +12,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "BTPlayer.h"
+#include <time.h>
 #include <iostream>
 
 using namespace std;
@@ -27,15 +28,24 @@ BEGIN_PROPERTIES_DESCRIPTION(CBTPlayer)
 }
 END_PROPERTIES_DESCRIPTION()
 
+
 CBTPlayer::CBTPlayer()
 {
-    //SetVariable<int>("CurStep", 0);
+    //    SetVariable<int>("CurStep", 0);
+
     m_iBaseSpeed = 1;
     m_Frames = 0;
 }
 
 CBTPlayer::~CBTPlayer()
 {
+    m_iX = 0;
+    m_iY = 0;
+}
+
+time_t CBTPlayer::GetCurTime()
+{
+    return time(NULL);
 }
 
 bool CBTPlayer::Condition()

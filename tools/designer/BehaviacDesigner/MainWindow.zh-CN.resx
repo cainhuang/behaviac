@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -769,7 +769,54 @@
     <value>152, 22</value>
   </data>
   <data name="overviewMenuItem.Text" xml:space="preserve">
-    <value>查看文档</value>
+    <value>概述</value>
+  </data>
+  <data name="tutorialMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="tutorialMenuItem.Text" xml:space="preserve">
+    <value>使用教程</value>
+  </data>
+  <data name="nodeRefMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="nodeRefMenuItem.Text" xml:space="preserve">
+    <value>节点参考</value>
+  </data>
+  <data name="insideBehaviacToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="insideBehaviacToolStripMenuItem.Text" xml:space="preserve">
+    <value>深入解析</value>
+  </data>
+  <data name="performanceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="performanceToolStripMenuItem.Text" xml:space="preserve">
+    <value>性能分析</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 6</value>
+  </data>
+  <data name="reportAProblemMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK/wAA
+        Cv8BNGKaggAAAaZJREFUOE+lkNsrg2Ecx/0NLlxKkdOFckFcOISbjZWyLDeKuaDkQorMoXHhwssNL7UY
+        OaS1DHPK+Vyb00zWpiWHnKKVyWG18fU8q/dteTcWv/r2/b6/5/f79D5PCIB/iQ/6TRu+S7d6As2CCSPT
+        Rqp230VOfKALgapPu45kcZlfCB8m1izE/Bc7soDFnRMOwpCWEKBdMhMDlo7eoTe8Qr3sADN+C8XgOapV
+        du8yJzrPiQ9jc/vE/Jfb84GuoXnYOhSwSmJoSwgY1huIBf6D555mWMVRKErPpmNCgFq3RUxYLqcTr501
+        sOZFg62qRLKolLaFAJVmFXi8x+fBBkaXn8DoHqHsNeONbcSZNAFT5YXkGnNIEsnJuB9Az+giPENtcLN1
+        8HQ34OPmAi6VElelWdDLMnBsu/O+Q0AAPVzLCceLLB7u1hK4aqV4kKdhJjMCxfXz2LMEAXi5tGNTEgeH
+        NBZXuZGYTQnF/kA/zKcP2DZd/w6gxUw4sFGQiOnUMOw1VUCmNCK/5RAru5fBAaiz6kn01dUSn/J+++pH
+        AD0MRtwOFR/+JoR8AWjq+4jxsa0QAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="reportAProblemMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="reportAProblemMenuItem.Text" xml:space="preserve">
+    <value>获取支持</value>
   </data>
   <data name="getLatestVersionMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

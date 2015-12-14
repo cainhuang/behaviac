@@ -115,6 +115,7 @@ namespace behaviac
                     sawAllFails = false;
                     sawAllSuccess = false;
                 }
+
             }
             else if (treeStatus == BT_SUCCESS)
             {
@@ -187,6 +188,7 @@ namespace behaviac
                 {
                     BEHAVIAC_ASSERT(0);
                 }
+
             }
             else if (!strcmp(p.name, "SuccessPolicy"))
             {
@@ -204,6 +206,7 @@ namespace behaviac
                 {
                     BEHAVIAC_ASSERT(0);
                 }
+
             }
             else if (!strcmp(p.name, "ExitPolicy"))
             {
@@ -221,6 +224,7 @@ namespace behaviac
                 {
                     BEHAVIAC_ASSERT(0);
                 }
+
             }
             else if (!strcmp(p.name, "ChildFinishPolicy"))
             {
@@ -238,6 +242,7 @@ namespace behaviac
                 {
                     BEHAVIAC_ASSERT(0);
                 }
+
             }
             else
             {
@@ -345,6 +350,7 @@ namespace behaviac
                     sawAllFails = false;
                     sawAllSuccess = false;
                 }
+
             }
             else if (treeStatus == BT_SUCCESS)
             {

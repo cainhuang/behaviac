@@ -109,22 +109,21 @@ namespace behaviac
             return this->m_parent;
         }
 
-		void SetHasManagingParent(bool bHasManagingParent)
-		{
-			this->m_bHasManagingParent = bHasManagingParent;
-		}
-
         virtual void traverse(NodeHandler_t handler, Agent* pAgent, void* user_data) = 0;
+
+        /**
+        when a node is ended(success/failure), this dertermines if the exit status(success/failure) should be kept.
+        if it needs to restart, then, the exit status is just returned but not kept
+        */
+        //virtual bool NeedRestart() const
+        //{
+        //	return false;
+        //}
 
         virtual void SetCurrentTask(BehaviorTask* node)
         {
             BEHAVIAC_UNUSED_VAR(node);
         }
-
-		virtual const BehaviorTask* GetCurrentTask() const
-		{
-			return 0;
-		}
 
         /**
         return false if the event handling needs to be stopped
@@ -149,7 +148,6 @@ namespace behaviac
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
         virtual EBTStatus update_current(Agent* pAgent, EBTStatus childStatus);
 
-		virtual void onreset(Agent* pAgent);
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus status);
 
@@ -237,11 +235,10 @@ namespace behaviac
 
         virtual void SetCurrentTask(BehaviorTask* task);
 
-		virtual const BehaviorTask* GetCurrentTask() const
+        const BehaviorTask* GetCurrentTask() const
         {
             return this->m_currentTask;
         }
-
         int							GetCurrentNodeId();
         void						SetCurrentNodeId(int id);
 
@@ -254,7 +251,7 @@ namespace behaviac
         virtual void save(ISerializableNode* node) const;
         virtual void load(ISerializableNode* node);
 
-		EBTStatus execCurrentTask(Agent* pAgent, EBTStatus childStatus);
+        EBTStatus execCurrentTask(Agent* pAgent);
 
         virtual bool onevent(Agent* pAgent, const char* eventName);
 
@@ -343,7 +340,6 @@ namespace behaviac
         virtual void load(ISerializableNode* node);
 
         virtual bool onenter(Agent* pAgent);
-        virtual EBTStatus update_current(Agent* pAgent, EBTStatus childStatus);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
         /**

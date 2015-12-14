@@ -25,7 +25,7 @@
 #include "behaviac/base/core/memory/memory.h"
 #include "behaviac/base/core/memory/mempoollinked.h"
 
-#include <cstring>	// string_ncpy
+#include <cstring>	// strncpy
 
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
@@ -467,7 +467,7 @@ namespace behaviac
                 pP->Init(CommandId::CMDID_TEXT, s_seq.Next());
 
                 Text* pT = (Text*)pP->data;
-                string_ncpy(pT->buffer, text, kMaxTextLength);
+                strncpy(pT->buffer, text, kMaxTextLength);
                 pT->buffer[kMaxTextLength] = '\0';
             }
         }
@@ -879,7 +879,7 @@ namespace behaviac
             char* pT = (char*)packet.data;
 			BEHAVIAC_ASSERT(kMaxTextLength < kMaxPacketDataSize);
 
-            string_ncpy(pT, text, kMaxTextLength);
+            strncpy(pT, text, kMaxTextLength);
             pT[kMaxTextLength] = '\0';
             this->AddPacket(packet, true);
             gs_packetsStats.texts++;

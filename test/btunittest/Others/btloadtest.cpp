@@ -313,12 +313,12 @@ TEST(btunittest, agentInvoke)
     behaviac::Profiler::DestroyInstance();
 }
 //<
-class CFileManager_Test : public behaviac::CFileManager
+class CFileManager_Test : public CFileManager
 {
 public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CFileManager_Test);
 
-	CFileManager_Test() : behaviac::CFileManager()
+    CFileManager_Test() : CFileManager()
     {
     }
 
@@ -326,24 +326,24 @@ public:
     {
     }
 
-	virtual behaviac::IFile* FileOpen(const char* fileName, behaviac::CFileSystem::EOpenAccess iOpenAccess = behaviac::CFileSystem::EOpenAccess_Read)
+    virtual IFile* FileOpen(const char* fileName, CFileSystem::EOpenAccess iOpenAccess = CFileSystem::EOpenAccess_Read)
     {
-		return behaviac::CFileManager::FileOpen(fileName, iOpenAccess);
+        return CFileManager::FileOpen(fileName, iOpenAccess);
     }
 
-	virtual void FileClose(behaviac::IFile* file)
+    virtual void FileClose(IFile* file)
     {
-		return behaviac::CFileManager::FileClose(file);
+        return CFileManager::FileClose(file);
     }
 };
 
 TEST(btunittest, filemanager)
 {
-	behaviac::CFileManager::Cleanup();
+    CFileManager::Cleanup();
 
-	behaviac::CFileManager* pFileManager = BEHAVIAC_NEW CFileManager_Test();
+    CFileManager* pFileManager = BEHAVIAC_NEW CFileManager_Test();
 
-	behaviac::IFile* fp = behaviac::CFileManager::GetInstance()->FileOpen("../tools/designer/out/config.xml");
+    IFile* fp = behaviac::CFileManager::GetInstance()->FileOpen("../tools/designer/out/config.xml");
     CHECK_NOT_EQUAL(0, fp);
     behaviac::CFileManager::GetInstance()->FileClose(fp);
 

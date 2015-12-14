@@ -1003,11 +1003,15 @@ namespace behaviac
             IVariable.Register<String>("String");
             IVariable.Register<object>("object");
             IVariable.Register<UnityEngine.GameObject>("UnityEngine.GameObject");
+            IVariable.Register<UnityEngine.GameObject>("GameObject");
             IVariable.Register<UnityEngine.Vector2>("UnityEngine.Vector2");
             IVariable.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
             IVariable.Register<UnityEngine.Vector4>("UnityEngine.Vector4");
+            IVariable.Register<UnityEngine.Vector2>("Vector2");
+            IVariable.Register<UnityEngine.Vector3>("Vector3");
+            IVariable.Register<UnityEngine.Vector4>("Vector4");
             IVariable.Register<behaviac.Agent>("behaviac.Agent");
-            IVariable.Register<behaviac.EBTStatus>("behaviac.EBTStatus");
+            IVariable.Register<Agent>("Agent");
         }
 
         public static void UnRegisterBasicTypes()
@@ -1047,11 +1051,15 @@ namespace behaviac
             IVariable.UnRegister<String>("String");
             IVariable.UnRegister<object>("object");
             IVariable.UnRegister<UnityEngine.GameObject>("UnityEngine.GameObject");
+            IVariable.UnRegister<UnityEngine.GameObject>("GameObject");
             IVariable.UnRegister<UnityEngine.Vector2>("UnityEngine.Vector2");
             IVariable.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
             IVariable.UnRegister<UnityEngine.Vector4>("UnityEngine.Vector4");
+            IVariable.UnRegister<UnityEngine.Vector2>("Vector2");
+            IVariable.UnRegister<UnityEngine.Vector3>("Vector3");
+            IVariable.UnRegister<UnityEngine.Vector4>("Vector4");
             IVariable.UnRegister<behaviac.Agent>("behaviac.Agent");
-            IVariable.UnRegister<behaviac.EBTStatus>("behaviac.EBTStatus");
+            IVariable.UnRegister<Agent>("Agent");
         }
 
         /// <summary>

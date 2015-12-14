@@ -17,7 +17,7 @@ char* GenerateString1(const char* aT1, const char* aT2)
 {
     int size = strlen(aT1) + strlen(aT2);
     char* str = (char*)BEHAVIAC_MALLOC_WITHTAG(size + 1, "CDynamicType");
-    string_cpy(str, aT1);
+    strcpy(str, aT1);
     strcat(str, aT2);
     return str;
 }
@@ -25,7 +25,7 @@ char* GenerateString2(const char* aT1, const char* aT2, const char* aT3)
 {
     int size = strlen(aT1) + strlen(aT2) + strlen(aT3);
     char* str = (char*)BEHAVIAC_MALLOC_WITHTAG(size + 1, "CDynamicType");
-    string_cpy(str, aT1);
+    strcpy(str, aT1);
     strcat(str, aT2);
     strcat(str, aT3);
     return str;
@@ -34,7 +34,7 @@ char* GenerateString3(const char* aT1, const char* aT2, const char* aT3, const c
 {
     int size = strlen(aT1) + strlen(aT2) + strlen(aT3) + strlen(aT4);
     char* str = (char*)BEHAVIAC_MALLOC_WITHTAG(size + 1, "CDynamicType");
-    string_cpy(str, aT1);
+    strcpy(str, aT1);
     strcat(str, aT2);
     strcat(str, aT3);
     strcat(str, aT4);
@@ -44,7 +44,7 @@ char* GenerateString4(const char* aT1, const char* aT2, const char* aT3, const c
 {
     int size = strlen(aT1) + strlen(aT2) + strlen(aT3) + strlen(aT4) + strlen(aT5);
     char* str = (char*)BEHAVIAC_MALLOC_WITHTAG(size + 1, "CDynamicType");
-    string_cpy(str, aT1);
+    strcpy(str, aT1);
     strcat(str, aT2);
     strcat(str, aT3);
     strcat(str, aT4);
@@ -55,7 +55,7 @@ char* GenerateString5(const char* aT1, const char* aT2, const char* aT3, const c
 {
     int size = strlen(aT1) + strlen(aT2) + strlen(aT3) + strlen(aT4) + strlen(aT5) + strlen(aT6);
     char* str = (char*)BEHAVIAC_MALLOC_WITHTAG(size + 1, "CDynamicType");
-    string_cpy(str, aT1);
+    strcpy(str, aT1);
     strcat(str, aT2);
     strcat(str, aT3);
     strcat(str, aT4);

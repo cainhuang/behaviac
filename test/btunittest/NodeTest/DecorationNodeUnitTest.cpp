@@ -112,6 +112,7 @@ LOAD_TEST(btunittest, decoration_frames_ut_0)
         if (loopCount < 99)
         {
             CHECK_EQUAL(0, myTestAgent->testVar_0);
+
         }
         else
         {
@@ -123,50 +124,6 @@ LOAD_TEST(btunittest, decoration_frames_ut_0)
 
     finlTestEnvNode(myTestAgent);
 }
-
-
-void once_(AgentNodeTest* myTestAgent)
-{
-	behaviac::EBTStatus s = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_RUNNING, s);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-
-	s = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_RUNNING, s);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-
-	myTestAgent->testVar_0 = 1;
-
-	//Move ends, testVar_0 = 2
-	//Frames(5) is still running
-	//testVar_0 = 0 again
-	s = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_RUNNING, s);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-
-	s = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_RUNNING, s);
-	CHECK_EQUAL(0, myTestAgent->testVar_0);
-
-	s = myTestAgent->btexec();
-	CHECK_EQUAL(behaviac::BT_SUCCESS, s);
-	CHECK_EQUAL(3, myTestAgent->testVar_0);
-}
-
-LOAD_TEST(btunittest, frames_ut_0)
-{
-	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/frames_ut_0", format);
-	myTestAgent->resetProperties();
-
-	once_(myTestAgent);
-
-	//rerun again
-	once_(myTestAgent);
-
-	finlTestEnvNode(myTestAgent);
-}
-
-
 
 //LOAD_TEST(btunittest, decoration_frames_ut_0)
 //{

@@ -1230,7 +1230,6 @@ namespace behaviac
             {"Byte"             , "ubyte"},
             {"System.Byte"      , "ubyte"},
             {"Char"      		, "char"},
-            {"System.Char"      , "char"},
             {"Int64"            , "long"},
             {"System.Int64"     , "long"},
             {"UInt64"           , "ulong"},
@@ -1241,8 +1240,7 @@ namespace behaviac
             {"System.Double"    , "double"},
             {"String"           , "string"},
             {"System.String"    , "string"},
-            {"Void"             , "void"},
-            {"System.Void"      , "void"}
+            {"Void"             , "void"}
         };
 
         private static object GetDefaultValue(Type t)
@@ -1567,9 +1565,8 @@ namespace behaviac
                 }
             }
 
-            //string[] types = typeName.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
-            //return types[types.Length - 1];
-            return typeName;
+            string[] types = typeName.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            return types[types.Length - 1];
         }
 
         public static string GetNativeTypeName(Type type)
@@ -1582,7 +1579,7 @@ namespace behaviac
                 return string.Format("vector<{0}>", Utils.GetNativeTypeName(itemType));
             }
 
-            return Utils.GetNativeTypeName(type.FullName);
+            return Utils.GetNativeTypeName(type.Name);
         }
 
         public static bool IsStringType(Type type)

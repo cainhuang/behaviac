@@ -34,13 +34,11 @@ namespace behaviac
 			bb.AddProperty("string", false, "testVar_str_1", "", "AgentNodeTest");
 			bb.AddProperty("int", false, "waiting_timeout_interval", "0", "AgentNodeTest");
 			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
-			bb.AddProperty("int", false, "testInt", "10", "AgentNodeTest");
 
 			// ChildNodeTest
 			bb = new AgentProperties("ChildNodeTest");
 			agent_type_blackboards["ChildNodeTest"] = bb;
 			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
-			bb.AddProperty("int", false, "testInt", "10", "ChildNodeTest");
 			bb.AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
 			bb.AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
 			bb.AddProperty("float", false, "testVar_2", "0", "ChildNodeTest");
@@ -166,7 +164,6 @@ namespace behaviac
 			bb.AddProperty("vector<TNS::NE::NAT::eColor>", false, "TV_LIST_ECOLOR_0", "0:", "EmployeeParTestAgent");
 			bb.AddProperty("vector<sbyte>", false, "TV_LIST_SBYTE_0", "0:", "EmployeeParTestAgent");
 			bb.AddProperty("sbyte", false, "TV_SBYTE_0", "0", "EmployeeParTestAgent");
-			bb.AddProperty("ParTestAgent", false, "target", "null", "EmployeeParTestAgent");
 
 			// FSMAgentTest
 			bb = new AgentProperties("FSMAgentTest");
@@ -337,6 +334,5 @@ namespace behaviac
 			customeMethod.AddParamType("int");
 			objectDesc.ms_methods.Add(customeMethod);
 		}
-
 	}
 }

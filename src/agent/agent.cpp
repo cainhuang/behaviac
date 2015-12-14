@@ -815,6 +815,7 @@ namespace behaviac
 
                 this->m_currentBT = pTask;
             }
+
         }
         else
         {
@@ -882,6 +883,7 @@ namespace behaviac
                             //EBTStatus s0 = this->m_currentBT->resume(this, s);
                             //BEHAVIAC_UNUSED_VAR(s0);
                         }
+
                     }
                     else
                     {
@@ -889,6 +891,7 @@ namespace behaviac
                         s = this->m_currentBT->exec(this);
                         break;
                     }
+
                 }
                 else
                 {
@@ -1172,15 +1175,17 @@ namespace behaviac
 
                 return;
             }
+        }
 
-			int contextId = pAgent->GetContextId();
-			const CTagObjectDescriptor& meta = pAgent->GetDescriptor();
-			CNamedEvent* pEvent = findNamedEventTemplate(meta.ms_methods, eventName, contextId);
+        {
+            int contextId = pAgent->GetContextId();
+            const CTagObjectDescriptor& meta = pAgent->GetDescriptor();
+            CNamedEvent* pEvent = findNamedEventTemplate(meta.ms_methods, eventName, contextId);
 
-			if (pEvent)
-			{
-				pEvent->SetFired(pAgent, false);
-			}
+            if (pEvent)
+            {
+                pEvent->SetFired(pAgent, false);
+            }
         }
     }
 
@@ -1411,7 +1416,7 @@ namespace behaviac
             int pos = pBeginProperty - 2 - pBeginAgentClass;
             BEHAVIAC_ASSERT(pos < kNameLength);
 
-            string_ncpy(agentClassName, pBeginAgentClass, pos);
+            strncpy(agentClassName, pBeginAgentClass, pos);
             agentClassName[pos] = '\0';
 
             return pBeginProperty;

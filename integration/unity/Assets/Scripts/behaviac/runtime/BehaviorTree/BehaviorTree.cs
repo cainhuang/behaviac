@@ -1509,8 +1509,7 @@ namespace behaviac
         public override bool IsManagingChildrenAsSubTrees()
         {
             //if it needs to evaluate something even the child is running, this needs to return true.
-            //return !this.m_bDecorateWhenChildEnds;
-            return true;
+            return !this.m_bDecorateWhenChildEnds;
         }
 
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)

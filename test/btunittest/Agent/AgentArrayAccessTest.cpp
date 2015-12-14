@@ -15,7 +15,6 @@
 
 AgentArrayAccessTest::AgentArrayAccessTest()
 {
-	Int = 0;
 }
 
 AgentArrayAccessTest::~AgentArrayAccessTest()

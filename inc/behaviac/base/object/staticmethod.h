@@ -292,8 +292,6 @@ public:
         CMethodBase(propertyName, className), m_methodPtr(methodPtr), m_paramRangeValid(false), m_param()
     {
         m_bStatic = true;
-		this->m_min = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethodStatic1_(const CGenericMethodStatic1_& copy) : CMethodBase(copy)
@@ -304,9 +302,6 @@ public:
 
         this->m_param = copy.m_param;
         this->m_paramRangeValid = copy.m_paramRangeValid;
-
-		this->m_min = copy.m_min;
-		this->m_max = copy.m_max;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -672,10 +667,6 @@ public:
         m_param1(), m_param2()
     {
         m_bStatic = true;
-		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethodStatic2_(const CGenericMethodStatic2_& copy) : CMethodBase(copy)
@@ -689,10 +680,6 @@ public:
         this->m_param2 = copy.m_param2;
         this->m_paramRangeValid1 = copy.m_paramRangeValid1;
         this->m_paramRangeValid2 = copy.m_paramRangeValid2;
-		this->m_min1 = copy.m_min1;
-		this->m_max1 = copy.m_max1;
-		this->m_min2 = copy.m_min2;
-		this->m_max2 = copy.m_max2;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -866,6 +853,7 @@ public:
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -886,6 +874,7 @@ public:
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
+
         }
         else
         {
@@ -1234,12 +1223,6 @@ class CGenericMethodStatic3_ : public CMethodBase
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false)
     {
         m_bStatic = true;
-		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethodStatic3_(const CGenericMethodStatic3_& copy) : CMethodBase(copy)
@@ -1256,12 +1239,6 @@ class CGenericMethodStatic3_ : public CMethodBase
         this->m_paramRangeValid1 = copy.m_paramRangeValid1;
         this->m_paramRangeValid2 = copy.m_paramRangeValid2;
         this->m_paramRangeValid3 = copy.m_paramRangeValid3;
-		this->m_min1 = copy.m_min1;
-		this->m_max1 = copy.m_max1;
-		this->m_min2 = copy.m_min2;
-		this->m_max2 = copy.m_max2;
-		this->m_min3 = copy.m_min3;
-		this->m_max3 = copy.m_max3;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -1471,6 +1448,7 @@ class CGenericMethodStatic3_ : public CMethodBase
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -1491,6 +1469,7 @@ class CGenericMethodStatic3_ : public CMethodBase
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -1511,6 +1490,7 @@ class CGenericMethodStatic3_ : public CMethodBase
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
+
         }
         else
         {
@@ -1899,14 +1879,6 @@ class CGenericMethodStatic4_ : public CMethodBase
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false)
     {
         m_bStatic = true;
-		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethodStatic4_(const CGenericMethodStatic4_& copy) : CMethodBase(copy)
@@ -1926,14 +1898,6 @@ class CGenericMethodStatic4_ : public CMethodBase
         this->m_paramRangeValid2 = copy.m_paramRangeValid2;
         this->m_paramRangeValid3 = copy.m_paramRangeValid3;
         this->m_paramRangeValid4 = copy.m_paramRangeValid4;
-		this->m_min1 = copy.m_min1;
-		this->m_max1 = copy.m_max1;
-		this->m_min2 = copy.m_min2;
-		this->m_max2 = copy.m_max2;
-		this->m_min3 = copy.m_min3;
-		this->m_max3 = copy.m_max3;
-		this->m_min4 = copy.m_min4;
-		this->m_max4 = copy.m_max4;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -2178,6 +2142,7 @@ class CGenericMethodStatic4_ : public CMethodBase
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -2198,6 +2163,7 @@ class CGenericMethodStatic4_ : public CMethodBase
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -2218,6 +2184,7 @@ class CGenericMethodStatic4_ : public CMethodBase
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -2238,6 +2205,7 @@ class CGenericMethodStatic4_ : public CMethodBase
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
+
         }
         else
         {
@@ -2668,16 +2636,6 @@ class CGenericMethodStatic5_ : public CMethodBase
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false)
     {
         m_bStatic = true;
-		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethodStatic5_(const CGenericMethodStatic5_& copy) : CMethodBase(copy)
@@ -2700,16 +2658,6 @@ class CGenericMethodStatic5_ : public CMethodBase
         this->m_paramRangeValid3 = copy.m_paramRangeValid3;
         this->m_paramRangeValid4 = copy.m_paramRangeValid4;
         this->m_paramRangeValid5 = copy.m_paramRangeValid5;
-		this->m_min1 = copy.m_min1;
-		this->m_max1 = copy.m_max1;
-		this->m_min2 = copy.m_min2;
-		this->m_max2 = copy.m_max2;
-		this->m_min3 = copy.m_min3;
-		this->m_max3 = copy.m_max3;
-		this->m_min4 = copy.m_min4;
-		this->m_max4 = copy.m_max4;
-		this->m_min5 = copy.m_min5;
-		this->m_max5 = copy.m_max5;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -2989,6 +2937,7 @@ class CGenericMethodStatic5_ : public CMethodBase
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -3009,6 +2958,7 @@ class CGenericMethodStatic5_ : public CMethodBase
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -3029,6 +2979,7 @@ class CGenericMethodStatic5_ : public CMethodBase
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -3049,6 +3000,7 @@ class CGenericMethodStatic5_ : public CMethodBase
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName5.empty())
         {
@@ -3069,6 +3021,7 @@ class CGenericMethodStatic5_ : public CMethodBase
                 this->m_min5 = rangeMin;
                 this->m_max5 = rangeMax;
             }
+
         }
         else
         {
@@ -3576,18 +3529,6 @@ class CGenericMethodStatic6_ : public CMethodBase
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false)
     {
         m_bStatic = true;
-		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethodStatic6_(const CGenericMethodStatic6_& copy) : CMethodBase(copy)
@@ -3613,18 +3554,6 @@ class CGenericMethodStatic6_ : public CMethodBase
         this->m_paramRangeValid4 = copy.m_paramRangeValid4;
         this->m_paramRangeValid5 = copy.m_paramRangeValid5;
         this->m_paramRangeValid6 = copy.m_paramRangeValid6;
-		this->m_min1 = copy.m_min1;
-		this->m_max1 = copy.m_max1;
-		this->m_min2 = copy.m_min2;
-		this->m_max2 = copy.m_max2;
-		this->m_min3 = copy.m_min3;
-		this->m_max3 = copy.m_max3;
-		this->m_min4 = copy.m_min4;
-		this->m_max4 = copy.m_max4;
-		this->m_min5 = copy.m_min5;
-		this->m_max5 = copy.m_max5;
-		this->m_min6 = copy.m_min6;
-		this->m_max6 = copy.m_max6;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -3934,6 +3863,7 @@ class CGenericMethodStatic6_ : public CMethodBase
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -3948,6 +3878,7 @@ class CGenericMethodStatic6_ : public CMethodBase
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -3962,6 +3893,7 @@ class CGenericMethodStatic6_ : public CMethodBase
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -3976,6 +3908,7 @@ class CGenericMethodStatic6_ : public CMethodBase
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName5.empty())
         {
@@ -3990,6 +3923,7 @@ class CGenericMethodStatic6_ : public CMethodBase
                 this->m_min5 = rangeMin;
                 this->m_max5 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName6.empty())
         {
@@ -4004,6 +3938,7 @@ class CGenericMethodStatic6_ : public CMethodBase
                 this->m_min6 = rangeMin;
                 this->m_max6 = rangeMax;
             }
+
         }
         else
         {
@@ -4560,20 +4495,6 @@ class CGenericMethodStatic7_ : public CMethodBase
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false), m_paramRangeValid7(false)
     {
         m_bStatic = true;
-		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min7 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max7 = CMETHODBASE_RANGE_MAX_DEFAULT;
     }
 
     CGenericMethodStatic7_(const CGenericMethodStatic7_& copy) : CMethodBase(copy)
@@ -4602,20 +4523,6 @@ class CGenericMethodStatic7_ : public CMethodBase
         this->m_paramRangeValid5 = copy.m_paramRangeValid5;
         this->m_paramRangeValid6 = copy.m_paramRangeValid6;
         this->m_paramRangeValid7 = copy.m_paramRangeValid7;
-		this->m_min1 = copy.m_min1;
-		this->m_max1 = copy.m_max1;
-		this->m_min2 = copy.m_min2;
-		this->m_max2 = copy.m_max2;
-		this->m_min3 = copy.m_min3;
-		this->m_max3 = copy.m_max3;
-		this->m_min4 = copy.m_min4;
-		this->m_max4 = copy.m_max4;
-		this->m_min5 = copy.m_min5;
-		this->m_max5 = copy.m_max5;
-		this->m_min6 = copy.m_min6;
-		this->m_max6 = copy.m_max6;
-		this->m_min7 = copy.m_min7;
-		this->m_max7 = copy.m_max7;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -4960,6 +4867,7 @@ class CGenericMethodStatic7_ : public CMethodBase
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -4974,6 +4882,7 @@ class CGenericMethodStatic7_ : public CMethodBase
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -4988,6 +4897,7 @@ class CGenericMethodStatic7_ : public CMethodBase
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -5002,6 +4912,7 @@ class CGenericMethodStatic7_ : public CMethodBase
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName5.empty())
         {
@@ -5016,6 +4927,7 @@ class CGenericMethodStatic7_ : public CMethodBase
                 this->m_min5 = rangeMin;
                 this->m_max5 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName6.empty())
         {
@@ -5030,6 +4942,7 @@ class CGenericMethodStatic7_ : public CMethodBase
                 this->m_min6 = rangeMin;
                 this->m_max6 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName7.empty())
         {
@@ -5044,6 +4957,7 @@ class CGenericMethodStatic7_ : public CMethodBase
                 this->m_min7 = rangeMin;
                 this->m_max7 = rangeMax;
             }
+
         }
         else
         {
@@ -5647,22 +5561,6 @@ class CGenericMethodStatic8_ : public CMethodBase
         m_paramRangeValid1(false), m_paramRangeValid2(false), m_paramRangeValid3(false), m_paramRangeValid4(false), m_paramRangeValid5(false), m_paramRangeValid6(false), m_paramRangeValid7(false), m_paramRangeValid8(false)
     {
         m_bStatic = true;
-		this->m_min1 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max1 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min2 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max2 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min3 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max3 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min4 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max4 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min5 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max5 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min6 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max6 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min7 = CMETHODBASE_RANGE_MIN_DEFAULT;
-		this->m_max7 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_max8 = CMETHODBASE_RANGE_MAX_DEFAULT;
-		this->m_min8 = CMETHODBASE_RANGE_MIN_DEFAULT;
     }
 
     CGenericMethodStatic8_(const CGenericMethodStatic8_& copy) : CMethodBase(copy)
@@ -5694,22 +5592,6 @@ class CGenericMethodStatic8_ : public CMethodBase
         this->m_paramRangeValid6 = copy.m_paramRangeValid6;
         this->m_paramRangeValid7 = copy.m_paramRangeValid7;
         this->m_paramRangeValid8 = copy.m_paramRangeValid8;
-		this->m_min1 = copy.m_min1;
-		this->m_max1 = copy.m_max1;
-		this->m_min2 = copy.m_min2;
-		this->m_max2 = copy.m_max2;
-		this->m_min3 = copy.m_min3;
-		this->m_max3 = copy.m_max3;
-		this->m_min4 = copy.m_min4;
-		this->m_max4 = copy.m_max4;
-		this->m_min5 = copy.m_min5;
-		this->m_max5 = copy.m_max5;
-		this->m_min6 = copy.m_min6;
-		this->m_max6 = copy.m_max6;
-		this->m_min7 = copy.m_min7;
-		this->m_max7 = copy.m_max7;
-		this->m_max8 = copy.m_max8;
-		this->m_min8 = copy.m_min8;
     }
 
     virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode)
@@ -6089,6 +5971,7 @@ class CGenericMethodStatic8_ : public CMethodBase
                 this->m_min1 = rangeMin;
                 this->m_max1 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName2.empty())
         {
@@ -6103,6 +5986,7 @@ class CGenericMethodStatic8_ : public CMethodBase
                 this->m_min2 = rangeMin;
                 this->m_max2 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName3.empty())
         {
@@ -6117,6 +6001,7 @@ class CGenericMethodStatic8_ : public CMethodBase
                 this->m_min3 = rangeMin;
                 this->m_max3 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName4.empty())
         {
@@ -6131,6 +6016,7 @@ class CGenericMethodStatic8_ : public CMethodBase
                 this->m_min4 = rangeMin;
                 this->m_max4 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName5.empty())
         {
@@ -6145,6 +6031,7 @@ class CGenericMethodStatic8_ : public CMethodBase
                 this->m_min5 = rangeMin;
                 this->m_max5 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName6.empty())
         {
@@ -6159,6 +6046,7 @@ class CGenericMethodStatic8_ : public CMethodBase
                 this->m_min6 = rangeMin;
                 this->m_max6 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName7.empty())
         {
@@ -6173,6 +6061,7 @@ class CGenericMethodStatic8_ : public CMethodBase
                 this->m_min7 = rangeMin;
                 this->m_max7 = rangeMax;
             }
+
         }
         else if (m_paramDisplayName8.empty())
         {
@@ -6187,6 +6076,7 @@ class CGenericMethodStatic8_ : public CMethodBase
                 this->m_min8 = rangeMin;
                 this->m_max8 = rangeMax;
             }
+
         }
         else
         {

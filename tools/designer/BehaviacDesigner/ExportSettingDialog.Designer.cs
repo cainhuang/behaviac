@@ -57,7 +57,6 @@ namespace Behaviac.Design
             this.browseButton = new System.Windows.Forms.Button();
             this.exportFolderLabel = new System.Windows.Forms.Label();
             this.unifiedCheckBox = new System.Windows.Forms.CheckBox();
-            this.generateCustomizedTypesCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.includedFilesGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,16 +201,6 @@ namespace Behaviac.Design
             this.unifiedCheckBox.Name = "unifiedCheckBox";
             this.unifiedCheckBox.UseVisualStyleBackColor = false;
             // 
-            // generateCustomizedTypesCheckBox
-            // 
-            resources.ApplyResources(this.generateCustomizedTypesCheckBox, "generateCustomizedTypesCheckBox");
-            this.generateCustomizedTypesCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.generateCustomizedTypesCheckBox.Checked = true;
-            this.generateCustomizedTypesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.generateCustomizedTypesCheckBox.ForeColor = System.Drawing.Color.LightGray;
-            this.generateCustomizedTypesCheckBox.Name = "generateCustomizedTypesCheckBox";
-            this.generateCustomizedTypesCheckBox.UseVisualStyleBackColor = false;
-            // 
             // ExportSettingDialog
             // 
             this.AcceptButton = this.okButton;
@@ -219,7 +208,6 @@ namespace Behaviac.Design
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.cancelButton;
-            this.Controls.Add(this.generateCustomizedTypesCheckBox);
             this.Controls.Add(this.unifiedCheckBox);
             this.Controls.Add(this.exportFolderLabel);
             this.Controls.Add(this.browseButton);
@@ -254,6 +242,5 @@ namespace Behaviac.Design
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Label exportFolderLabel;
         private System.Windows.Forms.CheckBox unifiedCheckBox;
-        private System.Windows.Forms.CheckBox generateCustomizedTypesCheckBox;
     }
 }

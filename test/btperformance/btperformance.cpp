@@ -323,7 +323,7 @@ struct AgentItem_t {
     CPerformanceAgent*	pA;
     bool				bGo;
 
-	AgentItem_t() : pA(0), bGo(true) {
+    AgentItem_t() : bGo(true) {
     }
 };
 
@@ -342,6 +342,7 @@ void MyMethod(int countAgents, AgentItem_t* agents)
                     agents[i].bGo = false;
                     c++;
                 }
+
             } else {
                 c++;
             }

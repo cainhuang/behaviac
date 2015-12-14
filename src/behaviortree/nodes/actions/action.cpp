@@ -55,7 +55,7 @@ namespace behaviac
 
         int posClass = pClassBegin - fullName;
         BEHAVIAC_ASSERT(posClass < kNameLength);
-        string_ncpy(agentIntanceName, fullName, posClass);
+        strncpy(agentIntanceName, fullName, posClass);
         agentIntanceName[posClass] = '\0';
 
         const char* pBeginAgentClass = pClassBegin + 1;
@@ -73,13 +73,13 @@ namespace behaviac
         int pos1 = pBeginP - pBeginMethod;
         BEHAVIAC_ASSERT(pos1 < kNameLength);
 
-        string_ncpy(methodName, pBeginMethod, pos1);
+        strncpy(methodName, pBeginMethod, pos1);
         methodName[pos1] = '\0';
 
         int pos = pBeginMethod - 2 - pBeginAgentClass;
         BEHAVIAC_ASSERT(pos < kNameLength);
 
-        string_ncpy(agentClassName, pBeginAgentClass, pos);
+        strncpy(agentClassName, pBeginAgentClass, pos);
         agentClassName[pos] = '\0';
 
         return pBeginP;
@@ -110,6 +110,7 @@ namespace behaviac
                     quoteDepth -= 2;
                     BEHAVIAC_ASSERT(quoteDepth >= 0);
                 }
+
             }
             else if (quoteDepth == 0 && tsrc[index] == ',')
             {
@@ -236,6 +237,7 @@ namespace behaviac
                 {
                     m_resultOption = BT_SUCCESS;
                 }
+
             }
             else if (strcmp(p.name, "ResultFunctor") == 0)
             {
@@ -243,6 +245,7 @@ namespace behaviac
                 {
                     this->m_resultFunctor = LoadMethod(p.value);
                 }
+
             }
             else
             {

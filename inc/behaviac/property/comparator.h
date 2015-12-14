@@ -42,10 +42,10 @@ namespace behaviac
     class BEHAVIAC_API VariableComparator
     {
     public:
-		VariableComparator() : m_lhs(0), m_lhs_m(0), m_rhs(0), m_rhs_m(0), m_comparisonType(VariableComparisonType_Assignment)
+        VariableComparator() : m_lhs(0), m_lhs_m(0), m_rhs(0), m_rhs_m(0)
         {}
 
-		VariableComparator(const VariableComparator& copy) : m_lhs(copy.m_lhs), m_lhs_m(copy.m_lhs_m), m_rhs(copy.m_rhs), m_rhs_m(copy.m_rhs_m), m_comparisonType(copy.m_comparisonType)
+        VariableComparator(const VariableComparator& copy) : m_lhs(copy.m_lhs), m_lhs_m(copy.m_lhs_m), m_rhs(copy.m_rhs), m_rhs_m(copy.m_rhs_m)
         {}
 
         virtual ~VariableComparator()

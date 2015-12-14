@@ -162,8 +162,6 @@ namespace Behaviac.Design
                 ControlsDialog ctrldlg = new ControlsDialog(true);
                 ctrldlg.Show();
             }
-
-            Utilities.ReportOpenEditor();
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) {
@@ -571,8 +569,6 @@ namespace Behaviac.Design
                     {
                         MetaStoreDock.Inspect(null);
                     }
-
-                    Utilities.ReportOpenWorkspace(Workspace.Current.Name);
                 }
 
             } catch (Exception ex) {
@@ -1718,11 +1714,16 @@ namespace Behaviac.Design
             return Path.GetFullPath(filename);
         }
 
-        private void openURL(string url)
+        private void openDoc(string docName)
         {
             try
             {
-                System.Diagnostics.Process.Start(url);
+                docName = getAbsolutePath(docName);
+
+                if (File.Exists(docName))
+                {
+                    System.Diagnostics.Process.Start(docName);
+                }
             }
             catch
             {
@@ -1731,9 +1732,27 @@ namespace Behaviac.Design
 
         public void OpenOverviewDoc()
         {
-            openURL("http://tencentopen.github.io/behaviac");
+            openDoc("../../../docs/Behaviac Overview.pdf");
+        }
 
-            Utilities.ReportOpenDoc();
+        public void OpenTutorialDoc()
+        {
+            openDoc("../../../docs/Behaviac Tutorial.pdf");
+        }
+
+        public void OpenNodeRefDoc()
+        {
+            openDoc("../../../docs/Node Reference.pdf");
+        }
+
+        public void OpenInsideBehaviacDoc()
+        {
+            openDoc("../../../docs/Inside behaviac.pdf");
+        }
+
+        public void OpenPerformanceDoc()
+        {
+            openDoc("../../../docs/Behaviac Performance.pdf");
         }
 
         private void overviewMenuItem_Click(object sender, EventArgs e)
@@ -1741,11 +1760,41 @@ namespace Behaviac.Design
             OpenOverviewDoc();
         }
 
-        private void controlsMenuItem_Click(object sender, EventArgs e)
+        private void tutorialMenuItem_Click(object sender, EventArgs e)
         {
+            OpenTutorialDoc();
+        }
+
+        private void nodeRefMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenNodeRefDoc();
+        }
+
+        private void insideBehaviacToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenInsideBehaviacDoc();
+        }
+
+        private void performanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenPerformanceDoc();
+        }
+
+        private void controlsMenuItem_Click(object sender, EventArgs e) {
             ControlsDialog dlg = new ControlsDialog(false);
             dlg.Owner = MainWindow.Instance;
             dlg.Show();
+        }
+
+        private void reportAProblemMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("http://gad.qq.com/tool/detail/2");
+            }
+            catch
+            {
+            }
         }
 
         private void getLatestVersionMenuItem_Click(object sender, EventArgs e)

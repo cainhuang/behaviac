@@ -748,8 +748,6 @@ namespace Behaviac.Design
                                 UndoManager.Save(behavior);
                             }
 
-                            Utilities.ReportLoadBehavior(((Node)behavior).Label);
-
                         } catch (Exception ex) {
                             MessageBox.Show(ex.Message, Resources.LoadError, MessageBoxButtons.OK);
                         }
@@ -1892,6 +1890,10 @@ namespace Behaviac.Design
 
                     FileManagers.SaveResult saveResult = FileManagers.SaveResult.Succeeded;
 
+                    //// Before exporting, we try to save this behavior if being modified.
+                    //if (node.IsModified)
+                    //    saveResult = SaveBehavior(node, false, false);
+
                     if (FileManagers.SaveResult.Succeeded == saveResult) {
                         string fullPath = tnode.FullPath;
                         if (fullPath.StartsWith("Behaviors\\") || fullPath.StartsWith("Behaviors/"))
@@ -2018,16 +2020,6 @@ namespace Behaviac.Design
         /// <param name="node">The behavior you want to export. Use null to export all behaviors.</param>
         /// <returns>Returns true if the user did not abort and all behaviors could be exported.</returns>
         internal bool ExportBehavior(BehaviorNode node, string format = "", bool ignoreErrors = false, TreeNode selectedTreeRoot = null) {
-            // save modified behaviors
-            if (node != null)
-            {
-                this.SaveBehavior(node, false, false);
-            }
-            else
-            {
-                this.SaveAll();
-            }
-
             // get the exporter index
             int formatIndex = Plugin.GetExporterIndex(format);
 
@@ -2074,11 +2066,8 @@ namespace Behaviac.Design
                             }
                         }
 
-                        if (!aborted)
-                        {
+                        if (!aborted && dialog.ExportCustomizedMeta()) {
                             Workspace.ExportCustomMembers(Workspace.Current, exportXML, exportBson);
-
-                            Utilities.ReportExportBehavior();
                         }
                     }
 
@@ -2110,7 +2099,7 @@ namespace Behaviac.Design
                 Exporters.Exporter exp = exporter.Create(null, exportedPath, "", exportIncludedFilenames);
 
                 // Export behavior.
-                exp.Export(exportBehaviors, Workspace.Current.ExportedUnifiedFile(exporter.ID), Workspace.Current.GenerateCustomizedTypes(exporter.ID));
+                exp.Export(exportBehaviors, Workspace.Current.ExportedUnifiedFile(exporter.ID));
             }
         }
 
@@ -2173,8 +2162,6 @@ namespace Behaviac.Design
                                 if (NetworkManager.Instance.Connect(cd.GetServer(), cd.GetPort()))
                                 {
                                     Plugin.EditMode = EditModes.Connect;
-
-                                    Utilities.ReportConnectGame();
                                 }
                             }
                         }

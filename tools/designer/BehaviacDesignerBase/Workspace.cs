@@ -162,13 +162,6 @@ namespace Behaviac.Design
                 set { _exportUnifiedFile = value; }
             }
 
-            private bool _generateCustomizedTypes = true;
-            public bool GenerateCustomizedTypes
-            {
-                get { return _generateCustomizedTypes; }
-                set { _generateCustomizedTypes = value; }
-            }
-
             /// <summary>
             /// ExportFolder should be saved as relative path, but used as absoluted path.
             /// </summary>
@@ -192,8 +185,7 @@ namespace Behaviac.Design
             get { return _exportDatas; }
         }
 
-        public void SetExportInfo(string format, bool isExported, bool exportUnifiedFile, bool generateCustomizedTypes, string folder = null, List<string> includedFilenames = null)
-        {
+        public void SetExportInfo(string format, bool isExported, bool exportUnifiedFile, string folder = null, List<string> includedFilenames = null) {
             if (!_exportDatas.ContainsKey(format)) {
                 _exportDatas[format] = new ExportData();
             }
@@ -201,7 +193,6 @@ namespace Behaviac.Design
             ExportData data = _exportDatas[format];
             data.IsExported = isExported;
             data.ExportUnifiedFile = exportUnifiedFile;
-            data.GenerateCustomizedTypes = generateCustomizedTypes;
 
             if (folder != null)
                 data.ExportFolder = folder;
@@ -229,20 +220,6 @@ namespace Behaviac.Design
             {
                 ExportData data = _exportDatas[format];
                 return data.ExportUnifiedFile;
-            }
-
-            return true;
-        }
-
-        public bool GenerateCustomizedTypes(string format)
-        {
-            if (format == "xml" || format == "bson")
-                return false;
-
-            if (_exportDatas.ContainsKey(format))
-            {
-                ExportData data = _exportDatas[format];
-                return data.GenerateCustomizedTypes;
             }
 
             return true;
@@ -495,10 +472,6 @@ namespace Behaviac.Design
                                                         data.ExportUnifiedFile = Boolean.Parse(exportInfoNode.InnerText.Trim());
                                                         break;
 
-                                                    case "generatecustomizedtypes":
-                                                        data.GenerateCustomizedTypes = Boolean.Parse(exportInfoNode.InnerText.Trim());
-                                                        break;
-
                                                     case "folder":
                                                         data.ExportFolder = exportInfoNode.InnerText.Trim();
                                                         break;
@@ -581,14 +554,6 @@ namespace Behaviac.Design
                                 XmlElement exportUnifiedFile = xml.CreateElement("exportunifiedfile");
                                 exportUnifiedFile.InnerText = data.ExportUnifiedFile.ToString();
                                 exporter.AppendChild(exportUnifiedFile);
-                            }
-
-                            // Create generateCustomizedTypes node.
-                            if (format != "xml" && format != "bson")
-                            {
-                                XmlElement generateCustomizedTypes = xml.CreateElement("generatecustomizedtypes");
-                                generateCustomizedTypes.InnerText = data.GenerateCustomizedTypes.ToString();
-                                exporter.AppendChild(generateCustomizedTypes);
                             }
 
                             // Create folder node.

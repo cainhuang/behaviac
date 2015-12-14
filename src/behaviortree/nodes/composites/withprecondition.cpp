@@ -49,21 +49,14 @@ namespace behaviac
     {
         super::addChild(pBehavior);
     }
-
-	BehaviorTask* WithPreconditionTask::PreconditionNode() const
-	{
-		BEHAVIAC_ASSERT(this->m_children.size() == 2);
-
-		return this->m_children[0];
-	}
-
-	BehaviorTask* WithPreconditionTask::ActionNode() const
-	{
-		BEHAVIAC_ASSERT(this->m_children.size() == 2);
-
-		return this->m_children[1];
-	}
-
+    bool WithPreconditionTask::GetIsUpdatePrecondition()
+    {
+        return m_bIsUpdatePrecondition;
+    }
+    void   WithPreconditionTask::SetIsUpdatePrecondition(bool value)
+    {
+        this->m_bIsUpdatePrecondition = value;
+    }
     void WithPreconditionTask::copyto(BehaviorTask* target) const
     {
         super::copyto(target);
@@ -119,8 +112,20 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(pParent);
         BEHAVIAC_ASSERT(SelectorLoopTask::DynamicCast(pParent));
         BEHAVIAC_ASSERT(this->m_children.size() == 2);
-		BEHAVIAC_ASSERT(false);
 
-		return BT_RUNNING;
+        if (this->m_bIsUpdatePrecondition)
+        {
+            BehaviorTask* precond = this->m_children[0];
+            EBTStatus s = precond->exec(pAgent, childStatus);
+
+            return s;
+        }
+        else
+        {
+            BehaviorTask* action = this->m_children[1];
+            EBTStatus s = action->exec(pAgent, childStatus);
+
+            return s;
+        }
     }
 }

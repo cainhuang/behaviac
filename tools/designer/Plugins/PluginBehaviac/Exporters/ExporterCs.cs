@@ -33,7 +33,7 @@ namespace PluginBehaviac.Exporters
             _outputFolder = Path.Combine(Path.GetFullPath(_outputFolder), "behaviac_generated");
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile, bool generateCustomizedTypes)
+        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile)
         {
             string behaviorFilename = "behaviors/generated_behaviors.cs";
             string agentFolder = string.Empty;
@@ -46,14 +46,11 @@ namespace PluginBehaviac.Exporters
 
                 ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
 
+                ExportAgents(agentFolder);
+
+                ExportCustomizedTypes(agentFolder);
+
                 ExportCustomizedMembers(agentFolder);
-
-                if (generateCustomizedTypes)
-                {
-                    ExportAgents(agentFolder);
-
-                    ExportCustomizedTypes(agentFolder);
-                }
             }
 
             return result;

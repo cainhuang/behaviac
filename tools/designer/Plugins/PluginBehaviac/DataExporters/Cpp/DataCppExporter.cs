@@ -266,10 +266,6 @@ namespace PluginBehaviac.DataExporters
                             retStr = string.Format("(char*)({0})", retStr);
                         }
                     }
-                    else if (Plugin.IsCharType(type)) // char
-                    {
-                        retStr = string.Format("'{0}'", retStr);
-                    }
                     else if (Plugin.IsBooleanType(type)) // bool
                     {
                         retStr = retStr.ToLowerInvariant();

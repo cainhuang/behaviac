@@ -49,7 +49,7 @@ namespace PluginBehaviac.Exporters
             _filename = "behaviors/generated_behaviors.h";
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile, bool generateCustomizedTypes)
+        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile)
         {
             string behaviorFilename = "behaviors/generated_behaviors.h";
             string agentFolder = string.Empty;
@@ -62,16 +62,13 @@ namespace PluginBehaviac.Exporters
 
                 ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
 
+                ExportAgentsDefinition(agentFolder);
+                ExportAgentsImplemention(agentFolder);
+
+                ExportCustomizedTypesDefinition(agentFolder);
+                ExportCustomizedTypesImplemention(agentFolder);
+
                 ExportCustomizedMembers(agentFolder);
-
-                if (generateCustomizedTypes)
-                {
-                    ExportAgentsDefinition(agentFolder);
-                    ExportAgentsImplemention(agentFolder);
-
-                    ExportCustomizedTypesDefinition(agentFolder);
-                    ExportCustomizedTypesImplemention(agentFolder);
-                }
             }
 
             return result;
@@ -722,12 +719,6 @@ namespace PluginBehaviac.Exporters
                         file.WriteLine("// implement the methods of the agent class if necessary!");
                         file.WriteLine("// ---------------------------------------------------------------------\r\n");
 
-                        string headerFileMacro = string.Format("BEHAVIAC_{0}_H", agent.AgentTypeName.Replace("::", "_").ToUpperInvariant());
-
-                        file.WriteLine("#ifndef {0}", headerFileMacro);
-                        file.WriteLine("#define {0}", headerFileMacro);
-                        file.WriteLine();
-
                         string indent = "";
                         if (!string.IsNullOrEmpty(agent.Namespace))
                         {
@@ -797,12 +788,6 @@ namespace PluginBehaviac.Exporters
                             //end of namespace
                             file.WriteLine("}");
                         }
-
-                        file.WriteLine();
-                        file.WriteLine("BEHAVIAC_DECLARE_TYPE_VECTOR_HANDLER({0}*);", agent.AgentTypeName);
-                        file.WriteLine();
-
-                        file.WriteLine("#endif");
 
                         file.Close();
                     }
@@ -1082,7 +1067,7 @@ namespace PluginBehaviac.Exporters
                         for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; s++)
                         {
                             CustomizedStruct customizedStruct = CustomizedTypeManager.Instance.Structs[s];
-                            file.WriteLine("BEHAVIAC_DECLARE_TYPE_VECTOR_HANDLER({0});", customizedStruct.Name);
+                            file.WriteLine("SPECIALIZE_TYPE_HANDLER(behaviac::vector<{0}>, BasicTypeHandler< behaviac::vector<{0}> >);", customizedStruct.Name);
                         }
                     }
                 }

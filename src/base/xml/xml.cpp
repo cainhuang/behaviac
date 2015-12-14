@@ -74,10 +74,11 @@ namespace behaviac
 			else
 			{
 				char* copy = (char*)BEHAVIAC_MALLOC_WITHTAG(strlen(string) + 1, "XmlString");
-				string_cpy(copy, string);
+				strcpy(copy, string);
 				m_table.insert(TableType::value_type(copy, 1));
 				m_str = copy;
 			}
+
 		}
 		else
 		{

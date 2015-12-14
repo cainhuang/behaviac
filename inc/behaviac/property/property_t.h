@@ -440,6 +440,7 @@ namespace behaviac
 
             return pList;
         }
+
     };
 
     template<typename VariableType>
@@ -460,6 +461,7 @@ namespace behaviac
 
             return p;
         }
+
     };
 
     template<>
@@ -492,6 +494,7 @@ namespace behaviac
         {
             this->SetValue(parHolder, (char * const)value);
         }
+
     };
 
     template<>
@@ -523,6 +526,7 @@ namespace behaviac
         {
             this->SetValue(parHolder, value);
         }
+
     };
 
     template<>
@@ -569,6 +573,7 @@ namespace behaviac
 
             this->SetValue(pAgentTo, retV);
         }
+
     };
 
     template<>
@@ -603,6 +608,7 @@ namespace behaviac
 
             this->SetValue(parHolder, v);
         }
+
     };
 
     template<typename VariableType, bool bVector>

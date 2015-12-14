@@ -1884,18 +1884,16 @@ namespace behaviac
 
             if (Utils.IsEnumType(type) || Utils.IsCustomClassType(type))
             {
-                //if (type.DeclaringType != null)
-                //{
-                //    string declaringType = type.DeclaringType.Name.Replace(".", "::");
-                //    baseTypeName = string.Format("{0}::{1}", declaringType, baseTypeName);
-                //}
+                if (type.DeclaringType != null)
+                {
+                    string declaringType = type.DeclaringType.Name.Replace(".", "::");
+                    baseTypeName = string.Format("{0}::{1}", declaringType, baseTypeName);
+                }
 
-                //if (!string.IsNullOrEmpty(type.Namespace))
-                //{
-                //    baseTypeName = string.Format("{0}::{1}", type.Namespace.Replace(".", "::"), baseTypeName);
-                //}
-                baseTypeName = baseTypeName.Replace(".", "::");
-                baseTypeName = baseTypeName.Replace("+", "::");
+                if (!string.IsNullOrEmpty(type.Namespace))
+                {
+                    baseTypeName = string.Format("{0}::{1}", type.Namespace.Replace(".", "::"), baseTypeName);
+                }
 
                 if (isValue && Utils.IsRefNullType(type))
                 {
@@ -2435,12 +2433,6 @@ namespace behaviac
             Type parentClassType = m.DeclaringType;
 
             string parentClassTypeFullName = GetFullTypeName(parentClassType);
-
-            //if (returnType == typeof (void))
-            //{
-            //    Debug.Check(true);
-            //}
-
             string returnTypeStr = GetFullTypeName(returnType, true);
 
             xmlWriter.WriteStartElement("Method");
@@ -2963,12 +2955,12 @@ namespace behaviac
 
                 IVariable.RegisterType(type.Value, typeName);
 
-                //int index = typeName.LastIndexOf(".");
-                //if (index >= 0)
-                //{
-                //    typeName = typeName.Substring(index + 1);
-                //    IVariable.RegisterType(type.Value, typeName);
-                //}
+                int index = typeName.LastIndexOf(".");
+                if (index >= 0)
+                {
+                    typeName = typeName.Substring(index + 1);
+                    IVariable.RegisterType(type.Value, typeName);
+                }
             }
         }
 

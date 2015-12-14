@@ -127,6 +127,7 @@ namespace behaviac
 
                 variables.Log(0, false);
             }
+
         }
         else
         {
@@ -222,6 +223,7 @@ namespace behaviac
 
                 return true;
             }
+
         }
         else
         {
@@ -243,6 +245,7 @@ namespace behaviac
 
                 return true;
             }
+
         }
         else
         {

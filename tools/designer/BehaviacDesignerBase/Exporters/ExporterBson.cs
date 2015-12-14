@@ -49,11 +49,6 @@ namespace Behaviac.Design.Exporters
         /// <param name="file">The file we want to export to.</param>
         /// <param name="behavior">The behaviour we want to export.</param>
         protected void ExportBehavior(BsonSerializer file, BehaviorNode behavior) {
-            if (behavior.FileManager == null)
-            {
-                return;
-            }
-
             file.WriteComment("EXPORTED BY TOOL, DON'T MODIFY IT!");
             file.WriteComment("Source File: " + behavior.MakeRelative(behavior.FileManager.Filename));
 

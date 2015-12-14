@@ -95,11 +95,13 @@ namespace behaviac
 					{
 						*target++ = UNI_REPLACEMENT_CHAR;
 					}
+
 				}
 				else
 				{
 					*target++ = (UTF16)ch; /* normal case */
 				}
+
 			}
 			else if (ch > UNI_MAX_LEGAL_UTF32)
 			{
@@ -112,6 +114,7 @@ namespace behaviac
 				{
 					*target++ = UNI_REPLACEMENT_CHAR;
 				}
+
 			}
 			else
 			{
@@ -172,6 +175,7 @@ namespace behaviac
 						result = sourceIllegal;
 						break;
 					}
+
 				}
 				else     /* We don't have the 16 bits following the high surrogate. */
 				{
@@ -179,6 +183,7 @@ namespace behaviac
 					result = sourceExhausted;
 					break;
 				}
+
 			}
 			else if (flags == strictConversion)
 			{
@@ -305,6 +310,7 @@ namespace behaviac
 						result = sourceIllegal;
 						break;
 					}
+
 				}
 				else     /* We don't have the 16 bits following the high surrogate. */
 				{
@@ -312,6 +318,7 @@ namespace behaviac
 					result = sourceExhausted;
 					break;
 				}
+
 			}
 			else if (flags == strictConversion)
 			{
@@ -586,11 +593,13 @@ namespace behaviac
 					{
 						*target++ = UNI_REPLACEMENT_CHAR;
 					}
+
 				}
 				else
 				{
 					*target++ = (UTF16)ch; /* normal case */
 				}
+
 			}
 			else if (ch > UNI_MAX_UTF16)
 			{
@@ -605,6 +614,7 @@ namespace behaviac
 				{
 					*target++ = UNI_REPLACEMENT_CHAR;
 				}
+
 			}
 			else
 			{
@@ -808,11 +818,13 @@ namespace behaviac
 					{
 						*target++ = UNI_REPLACEMENT_CHAR;
 					}
+
 				}
 				else
 				{
 					*target++ = ch;
 				}
+
 			}
 			else     /* i.e., ch > UNI_MAX_LEGAL_UTF32 */
 			{

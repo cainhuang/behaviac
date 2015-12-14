@@ -72,7 +72,6 @@ namespace behaviac
         protected:
             ActionConfig();
         public:
-			BEHAVIAC_DECLARE_MEMORY_OPERATORS(ActionConfig);
             virtual ~ActionConfig() {}
             virtual bool load(const properties_t& properties);
 

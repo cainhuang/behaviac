@@ -164,9 +164,9 @@ namespace behaviac
                     Debug.Check(this.m_children[i] is WithPreconditionTask);
                     WithPreconditionTask pSubTree = (WithPreconditionTask)this.m_children[i];
 
-                    BehaviorTask pre = pSubTree.PreconditionNode;
-
-                    EBTStatus status = pre.exec(pAgent);
+                    pSubTree.IsUpdatePrecondition = true;
+                    EBTStatus status = pSubTree.exec(pAgent);
+                    pSubTree.IsUpdatePrecondition = false;
 
                     if (status == EBTStatus.BT_SUCCESS)
                     {
@@ -182,8 +182,7 @@ namespace behaviac
                         this.m_activeChildIndex != index)
                     {
                         WithPreconditionTask pCurrentSubTree = (WithPreconditionTask)this.m_children[this.m_activeChildIndex];
-                        BehaviorTask action = pCurrentSubTree.ActionNode;
-                        action.abort(pAgent);
+                        pCurrentSubTree.abort(pAgent);
 
                         //don't set it here
                         //this.m_activeChildIndex = index;
@@ -195,8 +194,9 @@ namespace behaviac
 
                         if (i > index)
                         {
-                            BehaviorTask pre = pSubTree.PreconditionNode;
-                            EBTStatus status = pre.exec(pAgent);
+                            pSubTree.IsUpdatePrecondition = true;
+                            EBTStatus status = pSubTree.exec(pAgent);
+                            pSubTree.IsUpdatePrecondition = false;
 
                             //to search for the first one whose precondition is success
                             if (status != EBTStatus.BT_SUCCESS)
@@ -205,8 +205,7 @@ namespace behaviac
                             }
                         }
 
-                        BehaviorTask action = pSubTree.ActionNode;
-                        EBTStatus s = action.exec(pAgent);
+                        EBTStatus s = pSubTree.exec(pAgent);
 
                         if (s == EBTStatus.BT_RUNNING)
                         {

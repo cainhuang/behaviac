@@ -176,6 +176,7 @@ namespace behaviac
             BEHAVIAC_ASSERT(false);
             return 0;
         }
+
     };
 
     template<> class AsyncValue<const char*> : public IAsyncValue
@@ -369,6 +370,7 @@ namespace behaviac
         {
             return mValue;
         }
+
     };
 
     template<> class AsyncValue<behaviac::string> : public IAsyncValue
@@ -466,6 +468,7 @@ namespace behaviac
         {
             return mValue;
         }
+
     };
 
     // Common value types

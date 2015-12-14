@@ -27,7 +27,7 @@
 #include "behaviac/htn/task.h"
 namespace behaviac
 {
-	PlannerTask::PlannerTask() : Parent(NULL), NotInterruptable(false)
+    PlannerTask::PlannerTask() : Parent(NULL)
     { }
 
     PlannerTask::~PlannerTask()
@@ -303,7 +303,7 @@ namespace behaviac
     }
 
     PlannerTaskLoop::PlannerTaskLoop(BehaviorNode* node, Agent* pAgent)
-		: PlannerTaskComplex(node, pAgent), m_n(0)
+        : PlannerTaskComplex(node, pAgent)
     {
     }
 
@@ -374,14 +374,9 @@ namespace behaviac
     }
 
     PlannerTaskIterator::PlannerTaskIterator(BehaviorNode* node, Agent* pAgent)
-		: PlannerTaskComplex(node, pAgent), m_index(0)
+        : PlannerTaskComplex(node, pAgent)
     {
     }
-
-	void PlannerTaskIterator::SetIndex(int index)
-	{
-		this->m_index = index;
-	}
 
     bool PlannerTaskIterator::onenter(Agent* pAgent)
     {

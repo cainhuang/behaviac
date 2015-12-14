@@ -627,7 +627,7 @@ the 2nd param is true or false indicating if the class is a ref type. a ref type
 ex: BEHAVIAC_EXTEND_EXISTING_TYPE(myNode, cocos2d::Node)
 */
 #define BEHAVIAC_EXTEND_EXISTING_TYPE(myType, existingType)				\
-	BEHAVIAC_DECLARE_SPECIALIZE_TYPE_HANDLER(existingType);							\
+	M_SPECIALIZE_TYPE_HANDLER(existingType);							\
 	template <>															\
 	inline CTagObjectDescriptor& GetObjectDescriptor<existingType>()	\
 	{																	\
@@ -797,8 +797,8 @@ DECLARE_BEHAVIAC_ENUM(namespace::ENUMCLASS_FullNameWithNamespace, EnumClass) sho
 */
 #define DECLARE_BEHAVIAC_ENUM(ENUMCLASS_FullNameWithNamespace, EnumClassName)										\
     BEHAVIAC_OVERRIDE_TYPE_NAME(ENUMCLASS_FullNameWithNamespace);															\
-    BEHAVIAC_SPECIALIZE_TYPE_HANDLER(ENUMCLASS_FullNameWithNamespace, BasicTypeHandlerEnum<ENUMCLASS_FullNameWithNamespace>);		\
-    BEHAVIAC_SPECIALIZE_TYPE_HANDLER(behaviac::vector<ENUMCLASS_FullNameWithNamespace>, BasicTypeHandlerEnum<behaviac::vector<ENUMCLASS_FullNameWithNamespace> >);\
+    SPECIALIZE_TYPE_HANDLER(ENUMCLASS_FullNameWithNamespace, BasicTypeHandlerEnum<ENUMCLASS_FullNameWithNamespace>);		\
+    SPECIALIZE_TYPE_HANDLER(behaviac::vector<ENUMCLASS_FullNameWithNamespace>, BasicTypeHandlerEnum<behaviac::vector<ENUMCLASS_FullNameWithNamespace> >);\
     BEHAVIAC_API EnumClassDescriptionBSS_t& EnumClassName##GetEnumClassValueNames();\
     BEHAVIAC_API void RegisterEnumClass(ENUMCLASS_FullNameWithNamespace*);		\
     template<>																	\

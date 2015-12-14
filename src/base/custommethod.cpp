@@ -59,6 +59,7 @@ namespace behaviac
                     BEHAVIAC_ASSERT(tokens[0] == "static");
                     pProperty = behaviac::Property::Create(tokens[1].c_str(), tokens[2].c_str(), true, 0);
                 }
+
             }
             else
             {

@@ -22,10 +22,12 @@
 #include <windows.h>
 #endif
 
+#include <time.h>
 #include <iostream>
 
 using namespace std;
 using namespace behaviac;
+
 
 CBTPlayer* g_player = NULL;
 
@@ -65,8 +67,11 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
     //behaviac::Agent::SetIdMask(kIdMask_Wolrd | kIdMask_Opponent);
     behaviac::Workspace::GetInstance()->SetDeltaFrames(1);
 
+    //printf("game starting...\n");
+
     return true;
 }
+
 
 bool InitPlayer(const char* pszTreeName)
 {
@@ -79,19 +84,6 @@ bool InitPlayer(const char* pszTreeName)
     g_player->btsetcurrent(pszTreeName);
 
     return bRet;
-}
-
-void UpdateLoop()
-{
-	int i  = 0;
-	int frames = 0;
-	behaviac::EBTStatus status = behaviac::BT_RUNNING;
-
-	while (status == behaviac::BT_RUNNING)
-	{
-		cout << "frame " << ++frames << std::endl;
-		status = g_player->btexec();
-	}
 }
 
 void CleanupPlayer()
@@ -120,7 +112,18 @@ int main(int argc, char** argv)
     InitBehavic(ff);
     InitPlayer(szTreeName);
 
-    UpdateLoop();
+    clock_t start = clock();
+
+    int i  = 0;
+
+	int frames = 0;
+	behaviac::EBTStatus status = behaviac::BT_RUNNING;
+
+	while (status == behaviac::BT_RUNNING)
+	{
+		cout << "frame " << ++frames << std::endl;
+		status = g_player->btexec();
+	}
 
     CleanupPlayer();
     CleanupBehaviac();
@@ -132,3 +135,7 @@ int main(int argc, char** argv)
 
     return 0;
 }
+
+
+
+

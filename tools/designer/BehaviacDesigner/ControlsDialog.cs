@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -69,7 +69,6 @@ namespace Behaviac.Design
         {
             try
             {
-                wksFile = Path.Combine(Application.StartupPath, wksFile);
                 wksFile = Path.GetFullPath(wksFile);
                 MainWindow.Instance.BehaviorTreeList.OpenWorkspace(wksFile);
             }
@@ -101,6 +100,26 @@ namespace Behaviac.Design
         private void overviewDocButton_Click(object sender, EventArgs e)
         {
             MainWindow.Instance.OpenOverviewDoc();
+        }
+
+        private void tutorialDocbutton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenTutorialDoc();
+        }
+
+        private void nodeRefDocButton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenNodeRefDoc();
+        }
+
+        private void insideDocButton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenInsideBehaviacDoc();
+        }
+
+        private void performenceDocButton_Click(object sender, EventArgs e)
+        {
+            MainWindow.Instance.OpenPerformanceDoc();
         }
     }
 }

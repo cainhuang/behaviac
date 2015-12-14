@@ -140,7 +140,7 @@ namespace BehaviorNodeUnitTest
 
         [Test]
         [Category("test_selector_loop_7")]
-        public void test_selector_loop_7()
+        public void test_selector_loop_()
         {
             testAgent.btsetcurrent("node_test/selector_loop_ut_7");
             testAgent.resetProperties();
@@ -170,34 +170,6 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(1, testAgent.testVar_0);
             Assert.AreEqual(3, testAgent.testVar_1);
         }
-
-        [Test]
-        [Category("test_selector_loop_8")]
-        public void test_selector_loop_8()
-        {
-            testAgent.btsetcurrent("node_test/selector_loop_ut_8");
-            testAgent.resetProperties();
-
-            testAgent.testVar_0 = 10;
-            testAgent.m_bCanSee = false;
-
-            behaviac.EBTStatus s = testAgent.btexec();
-            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
-            Assert.AreEqual(2, testAgent.testVar_0);
-            Assert.AreEqual(1, testAgent.testVar_1);
-
-            testAgent.testVar_0 = 10;
-            s = testAgent.btexec();
-            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
-            Assert.AreEqual(2, testAgent.testVar_0);
-            Assert.AreEqual(2, testAgent.testVar_1);
-
-            s = testAgent.btexec();
-            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, s);
-            Assert.AreEqual(2, testAgent.testVar_0);
-            Assert.AreEqual(101, testAgent.testVar_1);
-        }
-
     }
 
     [TestFixture]
@@ -771,23 +743,6 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
             Assert.AreEqual(2, testAgent.testVar_0);
         }
-
-        [Test]
-        [Category("custom_property_reset")]
-        public void custom_property_reset()
-        {
-            testAgent.btsetcurrent("par_test/custom_property_reset");
-            testAgent.resetProperties();
-            behaviac.EBTStatus status = testAgent.btexec();
-
-            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
-            Assert.AreEqual(10, testAgent.testVar_1);
-
-            status = testAgent.btexec();
-            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
-            Assert.AreEqual(20, testAgent.testVar_1);
-        }
-
     }
 
     [TestFixture]

@@ -26,11 +26,10 @@ namespace behaviac
 {
     Effector::Effector()
     {
-        m_ActionConfig = BEHAVIAC_NEW EffectorConfig();
+        m_ActionConfig = new EffectorConfig();
     }
     Effector::~Effector()
     {
-		BEHAVIAC_DELETE(m_ActionConfig);
     }
 
     bool Effector::EffectorConfig::load(const properties_t& properties)

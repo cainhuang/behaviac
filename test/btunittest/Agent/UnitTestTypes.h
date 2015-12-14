@@ -88,4 +88,4 @@ namespace TNS
 
 DECLARE_BEHAVIAC_ENUM(TNS::NE::NAT::eColor, eColor);
 
-BEHAVIAC_DECLARE_TYPE_VECTOR_HANDLER(TNS::ST::PER::WRK::kEmployee);
+SPECIALIZE_TYPE_HANDLER(behaviac::vector<TNS::ST::PER::WRK::kEmployee>, BasicTypeHandler< behaviac::vector<TNS::ST::PER::WRK::kEmployee> >);

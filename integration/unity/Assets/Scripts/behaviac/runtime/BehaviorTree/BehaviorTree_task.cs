@@ -111,11 +111,6 @@ namespace behaviac
             return -1;
         }
 
-        public virtual BehaviorTask GetCurrentTask()
-        {
-            return null;
-        }
-
         public EBTStatus exec(Agent pAgent)
         {
             EBTStatus childStatus = EBTStatus.BT_RUNNING;
@@ -158,7 +153,12 @@ namespace behaviac
                 }
 
 #endif
-                bool bValid = this.CheckParentUpdatePreconditions(pAgent);
+                bool bValid = true;
+
+                if (this.m_node.PreconditionsCount > 0)
+                {
+                    bValid = this.m_node.CheckPreconditions(pAgent, true);
+                }
 
                 if (bValid)
                 {
@@ -167,11 +167,6 @@ namespace behaviac
                 else
                 {
                     this.m_status = EBTStatus.BT_FAILURE;
-
-                    if (this.GetCurrentTask() != null)
-                    {
-                        this.update_current(pAgent, EBTStatus.BT_FAILURE);
-                    }
                 }
 
                 if (this.m_status != EBTStatus.BT_RUNNING)
@@ -202,60 +197,60 @@ namespace behaviac
         }
 
         private bool CheckParentUpdatePreconditions(Agent pAgent)
-        {
-            bool bValid = true;
+	{
+		bool bValid = true;
 
-            if (this.m_bHasManagingParent)
-            {
-                bool bHasManagingParent = false;
-                const int kMaxParentsCount = 512;
-                int parentsCount = 0;
-                BehaviorTask[] parents = new BehaviorTask[kMaxParentsCount];
+		if (this.m_bHasManagingParent)
+		{
+			bool bHasManagingParent = false;
+			const int kMaxParentsCount = 512;
+			int parentsCount = 0;
+            BehaviorTask[] parents = new BehaviorTask[kMaxParentsCount];
 
-                BranchTask parentBranch = this.GetParent();
+			BranchTask parentBranch = this.GetParent();
 
-                parents[parentsCount++] = this;
+			parents[parentsCount++] = this;
 
-                //back track the parents until the managing branch
-                while (parentBranch != null)
-                {
-                    Debug.Check(parentsCount < kMaxParentsCount, "weird tree!");
+			//back track the parents until the managing branch
+			while (parentBranch != null)
+			{
+				Debug.Check(parentsCount < kMaxParentsCount, "weird tree!");
 
-                    parents[parentsCount++] = parentBranch;
+				parents[parentsCount++] = parentBranch;
 
-                    if (parentBranch.GetCurrentTask() == this)
-                    {
-                        //Debug.Check(parentBranch->GetNode()->IsManagingChildrenAsSubTrees());
+				if (parentBranch.GetCurrentTask() == this)
+				{
+					//Debug.Check(parentBranch->GetNode()->IsManagingChildrenAsSubTrees());
 
-                        bHasManagingParent = true;
-                        break;
-                    }
+					bHasManagingParent = true;
+					break;
+				}
 
-                    parentBranch = parentBranch.GetParent();
-                }
+				parentBranch = parentBranch.GetParent();
+			}
 
-                if (bHasManagingParent)
-                {
-                    for (int i = parentsCount - 1; i >= 0; --i)
-                    {
-                        BehaviorTask pb = parents[i];
+			if (bHasManagingParent)
+			{
+				for (int i = parentsCount - 1; i >= 0; --i)
+				{
+					BehaviorTask pb = parents[i];
 
-                        bValid = pb.CheckPreconditions(pAgent, true);
+					bValid = pb.CheckPreconditions(pAgent, true);
 
-                        if (!bValid)
-                        {
-                            break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                bValid = this.CheckPreconditions(pAgent, true);
-            }
+					if (!bValid)
+					{
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			bValid = this.CheckPreconditions(pAgent, true);
+		}
 
-            return bValid;
-        }
+		return bValid;
+	}
 
         private BranchTask GetTopManageBranchTask()
         {
@@ -298,7 +293,6 @@ namespace behaviac
                 node.onexit_action(pAgent, EBTStatus.BT_FAILURE);
 
                 node.m_status = EBTStatus.BT_FAILURE;
-                node.SetCurrentTask(null);
             }
 
             return true;
@@ -309,7 +303,6 @@ namespace behaviac
             node.m_status = EBTStatus.BT_INVALID;
 
             node.onreset(pAgent);
-            node.SetCurrentTask(null);
 
             return true;
         }
@@ -618,8 +611,6 @@ namespace behaviac
             if (bResult)
             {
                 this.m_bHasManagingParent = false;
-                this.SetCurrentTask(null);
-
                 bResult = this.onenter(pAgent);
 
                 if (!bResult)
@@ -678,14 +669,6 @@ namespace behaviac
 
 #endif
         }
-
-        public void SetHasManagingParent(bool bHasManagingParent)
-        {
-            this.m_bHasManagingParent = bHasManagingParent;
-        }
-
-        public virtual void SetCurrentTask(BehaviorTask task)
-        { }
 
         public EBTStatus m_status;
         protected BehaviorNode m_node;
@@ -810,12 +793,12 @@ namespace behaviac
 
         protected override void onexit(Agent pAgent, EBTStatus status)
         {
-            //this.m_currentTask = null;
+            this.m_currentTask = null;
         }
 
         public override void onreset(Agent pAgent)
         {
-            //this.m_currentTask = null;
+            this.m_currentTask = null;
         }
 
         private bool oneventCurrentNode(Agent pAgent, string eventName)
@@ -876,12 +859,12 @@ namespace behaviac
             return true;
         }
 
-        private EBTStatus execCurrentTask(Agent pAgent, EBTStatus childStatus)
+        private EBTStatus execCurrentTask(Agent pAgent)
         {
             Debug.Check(this.m_currentTask != null && this.m_currentTask.GetStatus() == EBTStatus.BT_RUNNING);
 
             //this.m_currentTask could be cleared in ::tick, to remember it
-            EBTStatus status = this.m_currentTask.exec(pAgent, childStatus);
+            EBTStatus status = this.m_currentTask.exec(pAgent);
 
             //give the handling back to parents
             if (status != EBTStatus.BT_RUNNING)
@@ -929,7 +912,7 @@ namespace behaviac
 
             if (this.m_currentTask != null)
             {
-                status = this.execCurrentTask(pAgent, childStatus);
+                status = this.execCurrentTask(pAgent);
                 Debug.Check(status == EBTStatus.BT_RUNNING ||
                             (status != EBTStatus.BT_RUNNING && this.m_currentTask == null));
             }
@@ -970,12 +953,12 @@ namespace behaviac
         //bookmark the current running node, it is different from m_activeChildIndex
         private BehaviorTask m_currentTask;
 
-        public override BehaviorTask GetCurrentTask()
+        public BehaviorTask GetCurrentTask()
         {
             return this.m_currentTask;
         }
 
-        public override void SetCurrentTask(BehaviorTask task)
+        public void SetCurrentTask(BehaviorTask task)
         {
             if (task != null)
             {
@@ -985,7 +968,7 @@ namespace behaviac
                 {
                     Debug.Check(this.m_currentTask != this);
                     this.m_currentTask = task;
-                    task.SetHasManagingParent(true);
+                    this.m_bHasManagingParent = true;
                 }
             }
             else
@@ -1263,11 +1246,6 @@ namespace behaviac
         public override void load(ISerializableNode node)
         {
             base.load(node);
-        }
-
-        protected override EBTStatus update_current(Agent pAgent, EBTStatus childStatus)
-        {
-            return base.update_current(pAgent, childStatus);
         }
 
         protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)

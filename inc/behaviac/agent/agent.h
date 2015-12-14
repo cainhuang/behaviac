@@ -863,6 +863,7 @@ public:
 //	}
 //}
 
-BEHAVIAC_DECLARE_TYPE_VECTOR_HANDLER(behaviac::Agent*);
+BEHAVIAC_OVERRIDE_TYPE_NAME(behaviac::vector<behaviac::Agent*>);
+SPECIALIZE_TYPE_HANDLER(behaviac::vector<behaviac::Agent*>, BasicTypeHandler< behaviac::vector<behaviac::Agent*> >);
 
 #endif//#ifndef BEHAVIAC_AGENT_H

@@ -117,92 +117,241 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="exportButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="exportButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="exportButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>395, 595</value>
+  <data name="exportButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 528</value>
   </data>
-  <data name="&gt;&gt;exportSettingLabel.Name" xml:space="preserve">
-    <value>exportSettingLabel</value>
+  <data name="exportButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 21</value>
   </data>
-  <data name="&gt;&gt;treeView.Name" xml:space="preserve">
-    <value>treeView</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="exportButton.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="exportButton.Text" xml:space="preserve">
+    <value>Export Selected</value>
+  </data>
+  <data name="&gt;&gt;exportButton.Name" xml:space="preserve">
+    <value>exportButton</value>
+  </data>
+  <data name="&gt;&gt;exportButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;exportButton.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="cancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="cancelButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>292, 528</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 21</value>
   </data>
-  <data name="&gt;&gt;exportSettingLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="exportSettingLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;Format.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exportSettingGridView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="exportSettingLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;exportBehaviorsLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="exportBehaviorsLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="exportSettingGridView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="Enable.MinimumWidth" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ExportDialog</value>
-  </data>
-  <data name="onlyShowErrorsCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;exportBehaviorsLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;onlyShowErrorsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="exportButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;fileCountLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="Format.HeaderText" xml:space="preserve">
-    <value>Export Format</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="fileCountLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="cancelButton.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
+    <value>cancelButton</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="exportBehaviorsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="exportBehaviorsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="exportBehaviorsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="exportBehaviorsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 8</value>
+  </data>
+  <data name="exportBehaviorsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 13</value>
+  </data>
+  <data name="exportBehaviorsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="exportBehaviorsLabel.Text" xml:space="preserve">
+    <value>Behaviors to Export:</value>
+  </data>
+  <data name="&gt;&gt;exportBehaviorsLabel.Name" xml:space="preserve">
+    <value>exportBehaviorsLabel</value>
+  </data>
+  <data name="&gt;&gt;exportBehaviorsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportBehaviorsLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;exportBehaviorsLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="exportSettingLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="exportSettingLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="exportSettingLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="exportSettingLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="exportSettingLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 368</value>
+  </data>
+  <data name="exportSettingLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 13</value>
+  </data>
+  <data name="exportSettingLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="exportSettingLabel.Text" xml:space="preserve">
+    <value>Export Settings:</value>
+  </data>
+  <data name="&gt;&gt;exportSettingLabel.Name" xml:space="preserve">
+    <value>exportSettingLabel</value>
+  </data>
+  <data name="&gt;&gt;exportSettingLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportSettingLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;exportSettingLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="treeView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="treeView.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <metadata name="imageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>8, 21</value>
+  </metadata>
+  <data name="imageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAq
+        CQAAAk1TRnQBSQFMAgEBAgEAAXgBAgF4AQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEcAQIBAAH/ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/
+        ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/ARwBAgEAAf8BHAECAQAB/wEcAQIBAAH/jAABLgGEAY8B/wEl
+        ATMBhQH/ARkBJgEwAf8BCgEWAR8B/wEAAQUBDQH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMA
+        Af8DAAH/AwAB/wwAAbcBogGTBf8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/
+        AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/ARwBAgEAAf+MAAEwAYcBkgH/AaIB3wHwAf8BKQHNAeoB/wEC
+        AbgB4gH/AQABrgHbAf8BAAGpAdkB/wEAAaEB0gH/AQABmAHHAf8BAAGOAbwB/wEAAYMBrgH/AQABOAGr
+        Af8BAAE1AakB/wEAATABnwH/AQABKwGWAf8DAAH/DAABtwGiAZMJ/wH8AfoB+QH/AfcB8QHuAf8B8QHn
+        AeEB/wHsAd0B1QH/AeYB0wHJAf8B4QHKAb0B/wG3AaIBkwH/ARwBAgEAAf+MAAEzAYoBlQH/AaoB6AH2
+        Af8BlQHlAfwB/wGEAd8B+wH/AS4B1gH6Af8BIwHQAfcB/wEWAcYB9AH/AQkBvgHwAf8BAAG0AewB/wEA
+        AaoB6AH/AQABpAHmAf8BAAGaAd8B/wEAAZAB1wH/AQABMAGfAf8DAAH/DAABtwGiAZMJ/wP+Af8B+gH3
+        AfUB/wH1Ae0B6QH/Ae8B4wHcAf8B6gHZAdEB/wHkAc8BxAH/AbcBogGTAf8BHAECAQAB/4wAATYBjgGY
+        Af8BsAHqAfYB/wGfAekB+wH/AZIB5AH8Af8BgQHdAfsB/wEuAdYB+gH/ASEBzgH3Af8BFgHGAfQB/wEG
+        AbwB8AH/AQABtAHsAf8BAAGqAegB/wEAAaMB5gH/AQABlgHcAf8BAAE1AakB/wMAAf8MAAG3AaIBkw3/
+        Af0B/AH7Af8B+AHzAfAB/wHyAekB4wH/Ae0B3wHYAf8B5wHVAcsB/wG3AaIBkwH/ARwBAgEAAf+MAAGA
+        AZEBnAH/AbYB7QH4Af8BqgHsAfsB/wGbAegB+wH/AY8B4wH8Af8BgQHdAfsB/wEqAdUB+QH/ASEBzgH3
+        Af8BFAHFAfQB/wEGAbwB8AH/AQABsgHsAf8BAAGpAegB/wEAAZ4B4gH/AQABggG0Af8CAAEEAf8MAAG6
+        AaUBlhH/AfsB+AH3Af8B9gHvAesB/wHwAeUB3wH/AesB2wHTAf8BtwGiAZMB/wEcAQIBAAH/jAABgwGV
+        AZ8B/wG+AfAB+QH/AasB8AH3Af8BpQHsAfsB/wGYAecB+wH/AYkB4QH8Af8BOAHdAfsB/wEqAdUB+QH/
+        AR4BzQH3Af8BEQHEAfMB/wEEAbsB8AH/AQABsgHsAf8BAAGkAeMB/wEAAYoBvwH/AQIBDAEVAf8MAAG+
+        AakBmhH/Af4B/QH8Af8B+QH1AfIB/wH0AesB5gH/Ae4B4QHaAf8BtwGiAZMB/wEcAQIBAAH/jAABhgGZ
+        AaMB/wG+AfAB+QH/AbYB7QH4Af8BsAHuAfoB/wGkAesB+gH/AZUB5gH7Af8BiQHhAfwB/wE2AdwB/AH/
+        ASoB1QH5Af8BHgHNAfcB/wERAcQB8wH/AQIBuQHvAf8BAAGpAecB/wEAAY8BxwH/ARABHAEkAf8MAAHD
+        Aa4BnhX/AfwB+gH5Af8B9wHxAe4B/wHxAecB4QH/AbcBogGTAf8BHAECAQAB/4wAAYkBnAGmAf8BvgHw
+        AfkB/wG2Ae0B+AH/AbYB7QH4Af8BqwHwAfcB/wGiAewB+gH/AZUB5gH7Af8BiQHhAfwB/wE2AdwB/AH/
+        ASgB0wH6Af8BHAHMAfcB/wEOAcMB8wH/AQIBuQHvAf8BAAGZAc8B/wEcASkBMwH/DAAByAGyAaMV/wP+
+        Af8B+gH3AfUB/wH1Ae0B6QH/AbcBogGTAf8BHAECAQAB/4wAAYsBoAGoAf8BvgHwAfkB/wG+AfAB+QH/
+        Ab4B8AH5Af8BvgHwAfkB/wG0AfIB+AH/AaoB7AH7Af8BoAHpAfsB/wGVAeUB/AH/AYoB3wH8Af8BOAHY
+        AfsB/wEtAdIB+AH/ASEBygH0Af8BFgHAAfEB/wEcASkBMwH/DAABzAG2AacZ/wH9AfwB+wH/AbcBogGT
+        Af8BtwGiAZMB/wEdAQMBAAH/jAABjQGhAaoB/wGNAaEBqgH/AY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/
+        AYsBnwGoAf8BiQGcAaYB/wGJAZsBpgH/AYcBmgGkAf8BhgGZAaMB/wGEAZYBoAH/AYQBlgGgAf8BgwGV
+        AaAB/wGDAZUBoAH/AS4BhAGPAf8MAAHRAbsBqxn/AbcBogGTAf8BHQEDAQAB/wEdAQMBAAH/AR0BAwEA
+        Af+MAAGPAaQBrAH/AbIB5AHsAf8BtgHtAfgB/wG2Ae0B+AH/AakB7AH2Af8BkgHhAfMB/wGNAaEBqgH/
+        AdUB3AHgAf8oAAHVAb8Brxn/AbkBpAGVAf8B1AHFAboB/wEdAQMBAAH/A0oBjIwAAdoB3gHhAf8BjwGk
+        AawB/wGPAaQBrAH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AdUB3AHgAf8sAAHYAcIBshn/AcABqwGc
+        Af8BHQEDAQAB/wNKAYvYAAHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHYAcIBsgH/AdgBwgGyAf8B1AG+
+        Aa4B/wHPAbkBqQH/AckBswGkAf8DSgGL/wCVAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUA
+        AYAXAAP/AQAE/wQAAv8BwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUA
+        AQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAH/AcABBwQAAQEB/wHAAQ8EAAL/
+        AcABHwQABP8EAAs=
+</value>
+  </data>
+  <data name="treeView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 23</value>
+  </data>
+  <data name="treeView.SelectedImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="treeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>352, 313</value>
+  </data>
+  <data name="treeView.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;treeView.Name" xml:space="preserve">
+    <value>treeView</value>
+  </data>
+  <data name="&gt;&gt;treeView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;treeView.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="exportSettingGridView.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;treeView.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="&gt;&gt;fileCountLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="fileCountLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="fileCountLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="fileCountLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="fileCountLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 513</value>
+  </data>
+  <data name="fileCountLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 12</value>
+  </data>
+  <data name="fileCountLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="fileCountLabel.Text" xml:space="preserve">
     <value>1 file</value>
@@ -210,23 +359,143 @@
   <data name="&gt;&gt;fileCountLabel.Name" xml:space="preserve">
     <value>fileCountLabel</value>
   </data>
-  <data name="&gt;&gt;exportSettingGridView.Parent" xml:space="preserve">
+  <data name="&gt;&gt;fileCountLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fileCountLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
+  <data name="&gt;&gt;fileCountLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="treeView.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="exportSettingGridView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <metadata name="Enable.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Enable.HeaderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enable.MinimumWidth" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="Enable.Width" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <metadata name="Format.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Format.HeaderText" xml:space="preserve">
+    <value>Export Format</value>
+  </data>
+  <metadata name="Setting.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Setting.HeaderText" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="Setting.MinimumWidth" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="Setting.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="exportSettingGridView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 384</value>
+  </data>
+  <data name="exportSettingGridView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>352, 118</value>
+  </data>
+  <data name="exportSettingGridView.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;exportSettingGridView.Name" xml:space="preserve">
     <value>exportSettingGridView</value>
   </data>
-  <data name="exportBehaviorsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="&gt;&gt;exportSettingGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportSettingGridView.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;exportSettingGridView.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="exportCustomizedMetaCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="exportCustomizedMetaCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="exportCustomizedMetaCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;exportBehaviorsLabel.Name" xml:space="preserve">
-    <value>exportBehaviorsLabel</value>
+  <data name="exportCustomizedMetaCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 345</value>
+  </data>
+  <data name="exportCustomizedMetaCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 16</value>
+  </data>
+  <data name="exportCustomizedMetaCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="exportCustomizedMetaCheckBox.Text" xml:space="preserve">
+    <value>Export Customized Meta?</value>
+  </data>
+  <data name="&gt;&gt;exportCustomizedMetaCheckBox.Name" xml:space="preserve">
+    <value>exportCustomizedMetaCheckBox</value>
+  </data>
+  <data name="&gt;&gt;exportCustomizedMetaCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportCustomizedMetaCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;exportCustomizedMetaCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 345</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 16</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="onlyShowErrorsCheckBox.Text" xml:space="preserve">
+    <value>Only Show Fault Behaviors?</value>
+  </data>
+  <data name="&gt;&gt;onlyShowErrorsCheckBox.Name" xml:space="preserve">
+    <value>onlyShowErrorsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;onlyShowErrorsCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;onlyShowErrorsCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;onlyShowErrorsCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>379, 557</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5093,278 +5362,43 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
-  <data name="fileCountLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>395, 595</value>
   </data>
-  <data name="exportButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>208, 528</value>
-  </data>
-  <data name="&gt;&gt;treeView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="exportBehaviorsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 13</value>
-  </data>
-  <data name="&gt;&gt;exportButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="exportBehaviorsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 8</value>
-  </data>
-  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="exportSettingLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
-  </data>
-  <data name="cancelButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="&gt;&gt;Setting.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="exportButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 21</value>
-  </data>
-  <data name="&gt;&gt;Format.Name" xml:space="preserve">
-    <value>Format</value>
-  </data>
-  <data name="exportButton.Text" xml:space="preserve">
-    <value>Export Selected</value>
-  </data>
-  <data name="onlyShowErrorsCheckBox.Text" xml:space="preserve">
-    <value>Only Show Fault Behaviors?</value>
-  </data>
-  <data name="fileCountLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 513</value>
-  </data>
-  <data name="&gt;&gt;exportBehaviorsLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="onlyShowErrorsCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;Enable.Name" xml:space="preserve">
-    <value>Enable</value>
-  </data>
-  <data name="fileCountLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="exportSettingLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="exportBehaviorsLabel.Text" xml:space="preserve">
-    <value>Behaviors to Export:</value>
-  </data>
-  <data name="&gt;&gt;Setting.Name" xml:space="preserve">
-    <value>Setting</value>
-  </data>
-  <data name="onlyShowErrorsCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="&gt;&gt;exportButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="exportBehaviorsLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="exportSettingLabel.Text" xml:space="preserve">
-    <value>Export Settings:</value>
-  </data>
-  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>292, 528</value>
-  </data>
-  <data name="treeView.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;exportButton.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="cancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="Enable.Width" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="exportSettingLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;fileCountLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;imageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="exportSettingGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>352, 118</value>
-  </data>
-  <data name="treeView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 23</value>
-  </data>
-  <data name="exportButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="treeView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;onlyShowErrorsCheckBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;exportSettingGridView.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="onlyShowErrorsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 16</value>
-  </data>
-  <data name="&gt;&gt;onlyShowErrorsCheckBox.Name" xml:space="preserve">
-    <value>onlyShowErrorsCheckBox</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
-    <value>cancelButton</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Export Behaviors</value>
   </data>
-  <data name="exportSettingGridView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 384</value>
+  <data name="&gt;&gt;imageList.Name" xml:space="preserve">
+    <value>imageList</value>
   </data>
-  <data name="&gt;&gt;exportSettingLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;imageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="fileCountLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 12</value>
-  </data>
-  <data name="Setting.HeaderText" xml:space="preserve">
-    <value>Setting</value>
-  </data>
-  <data name="exportButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fileCountLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="Enable.HeaderText" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;Enable.Name" xml:space="preserve">
+    <value>Enable</value>
   </data>
   <data name="&gt;&gt;Enable.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;imageList.Name" xml:space="preserve">
-    <value>imageList</value>
+  <data name="&gt;&gt;Format.Name" xml:space="preserve">
+    <value>Format</value>
   </data>
-  <data name="exportButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="&gt;&gt;Format.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;treeView.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;Setting.Name" xml:space="preserve">
+    <value>Setting</value>
   </data>
-  <data name="Setting.MinimumWidth" type="System.Int32, mscorlib">
-    <value>50</value>
+  <data name="&gt;&gt;Setting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;onlyShowErrorsCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="exportSettingLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 368</value>
-  </data>
-  <data name="treeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>352, 313</value>
-  </data>
-  <data name="treeView.SelectedImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="Setting.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="imageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAG
-        CQAAAk1TRnQBSQFMAgEBAgEAAYgBAgGQAQIBEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEaAgAB/wEaAgAB/wEaAgAB/wEaAgAB/wEaAgAB/wEa
-        AgAB/wEaAgAB/wEaAgAB/wEaAgAB/wEaAgAB/4wAASwBhAGPAf8BIwExAYUB/wEXASQBLgH/AQgBFAEd
-        Af8BAAEDAQsB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMAAf8MAAG3AaIBkwX/
-        AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BtwGi
-        AZMB/wEaAgAB/4wAAS4BhwGSAf8BogHfAfAB/wEnAc0B6gH/AQABuAHiAf8BAAGuAdsB/wEAAakB2QH/
-        AQABoQHSAf8BAAGYAccB/wEAAY4BvAH/AQABgwGuAf8BAAE2AasB/wEAATMBqQH/AQABLgGfAf8BAAEp
-        AZYB/wMAAf8MAAG3AaIBkwn/AfwB+gH5Af8B9wHxAe4B/wHxAecB4QH/AewB3QHVAf8B5gHTAckB/wHh
-        AcoBvQH/AbcBogGTAf8BGgIAAf+MAAExAYoBlQH/AaoB6AH2Af8BlQHlAfwB/wGEAd8B+wH/ASwB1gH6
-        Af8BIQHQAfcB/wEUAcYB9AH/AQcBvgHwAf8BAAG0AewB/wEAAaoB6AH/AQABpAHmAf8BAAGaAd8B/wEA
-        AZAB1wH/AQABLgGfAf8DAAH/DAABtwGiAZMJ/wP+Af8B+gH3AfUB/wH1Ae0B6QH/Ae8B4wHcAf8B6gHZ
-        AdEB/wHkAc8BxAH/AbcBogGTAf8BGgIAAf+MAAE0AY4BmAH/AbAB6gH2Af8BnwHpAfsB/wGSAeQB/AH/
-        AYEB3QH7Af8BLAHWAfoB/wEfAc4B9wH/ARQBxgH0Af8BBAG8AfAB/wEAAbQB7AH/AQABqgHoAf8BAAGj
-        AeYB/wEAAZYB3AH/AQABMwGpAf8DAAH/DAABtwGiAZMN/wH9AfwB+wH/AfgB8wHwAf8B8gHpAeMB/wHt
-        Ad8B2AH/AecB1QHLAf8BtwGiAZMB/wEaAgAB/4wAAYABkQGcAf8BtgHtAfgB/wGqAewB+wH/AZsB6AH7
-        Af8BjwHjAfwB/wGBAd0B+wH/ASgB1QH5Af8BHwHOAfcB/wESAcUB9AH/AQQBvAHwAf8BAAGyAewB/wEA
-        AakB6AH/AQABngHiAf8BAAGCAbQB/wIAAQIB/wwAAboBpQGWEf8B+wH4AfcB/wH2Ae8B6wH/AfAB5QHf
-        Af8B6wHbAdMB/wG3AaIBkwH/ARoCAAH/jAABgwGVAZ8B/wG+AfAB+QH/AasB8AH3Af8BpQHsAfsB/wGY
-        AecB+wH/AYkB4QH8Af8BNgHdAfsB/wEoAdUB+QH/ARwBzQH3Af8BDwHEAfMB/wECAbsB8AH/AQABsgHs
-        Af8BAAGkAeMB/wEAAYoBvwH/AQABCgETAf8MAAG+AakBmhH/Af4B/QH8Af8B+QH1AfIB/wH0AesB5gH/
-        Ae4B4QHaAf8BtwGiAZMB/wEaAgAB/4wAAYYBmQGjAf8BvgHwAfkB/wG2Ae0B+AH/AbAB7gH6Af8BpAHr
-        AfoB/wGVAeYB+wH/AYkB4QH8Af8BNAHcAfwB/wEoAdUB+QH/ARwBzQH3Af8BDwHEAfMB/wEAAbkB7wH/
-        AQABqQHnAf8BAAGPAccB/wEOARoBIgH/DAABwwGuAZ4V/wH8AfoB+QH/AfcB8QHuAf8B8QHnAeEB/wG3
-        AaIBkwH/ARoCAAH/jAABiQGcAaYB/wG+AfAB+QH/AbYB7QH4Af8BtgHtAfgB/wGrAfAB9wH/AaIB7AH6
-        Af8BlQHmAfsB/wGJAeEB/AH/ATQB3AH8Af8BJgHTAfoB/wEaAcwB9wH/AQwBwwHzAf8BAAG5Ae8B/wEA
-        AZkBzwH/ARoBJwExAf8MAAHIAbIBoxX/A/4B/wH6AfcB9QH/AfUB7QHpAf8BtwGiAZMB/wEaAgAB/4wA
-        AYsBoAGoAf8BvgHwAfkB/wG+AfAB+QH/Ab4B8AH5Af8BvgHwAfkB/wG0AfIB+AH/AaoB7AH7Af8BoAHp
-        AfsB/wGVAeUB/AH/AYoB3wH8Af8BNgHYAfsB/wErAdIB+AH/AR8BygH0Af8BFAHAAfEB/wEaAScBMQH/
-        DAABzAG2AacZ/wH9AfwB+wH/AbcBogGTAf8BtwGiAZMB/wEbAQEBAAH/jAABjQGhAaoB/wGNAaEBqgH/
-        AY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/AYsBnwGoAf8BiQGcAaYB/wGJAZsBpgH/AYcBmgGkAf8BhgGZ
-        AaMB/wGEAZYBoAH/AYQBlgGgAf8BgwGVAaAB/wGDAZUBoAH/ASwBhAGPAf8MAAHRAbsBqxn/AbcBogGT
-        Af8BGwEBAQAB/wEbAQEBAAH/ARsBAQEAAf+MAAGPAaQBrAH/AbIB5AHsAf8BtgHtAfgB/wG2Ae0B+AH/
-        AakB7AH2Af8BkgHhAfMB/wGNAaEBqgH/AdUB3AHgAf8oAAHVAb8Brxn/AbkBpAGVAf8B1AHFAboB/wEb
-        AQEBAAH/A0oBjIwAAdoB3gHhAf8BjwGkAawB/wGPAaQBrAH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/
-        AdUB3AHgAf8sAAHYAcIBshn/AcABqwGcAf8BGwEBAQAB/wNKAYvYAAHYAcIBsgH/AdgBwgGyAf8B2AHC
-        AbIB/wHYAcIBsgH/AdgBwgGyAf8B1AG+Aa4B/wHPAbkBqQH/AckBswGkAf8DSgGL/wCVAAFCAU0BPgcA
-        AT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQAAv8BwAEHBQABAQHAAQcFAAEBAcABBwUA
-        AQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHA
-        AQcFAAH/AcABBwQAAQEB/wHAAQ8EAAL/AcABHwQABP8aAAs=
-</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>379, 557</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ExportDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;exportButton.Name" xml:space="preserve">
-    <value>exportButton</value>
-  </data>
-  <data name="onlyShowErrorsCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="exportSettingLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 13</value>
-  </data>
-  <data name="onlyShowErrorsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 346</value>
-  </data>
-  <data name="exportBehaviorsLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
-  </data>
-  <data name="&gt;&gt;exportSettingLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <metadata name="Enable.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Format.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Setting.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="imageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>8, 21</value>
-  </metadata>
 </root>

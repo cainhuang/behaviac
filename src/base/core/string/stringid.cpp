@@ -144,6 +144,7 @@ namespace behaviac
 					{
 						BEHAVIAC_LOG3(BEHAVIAC_LOG_INFO, "There is a conflict between two StringID for the CRC 0x%08X.\n%s\n%s\n\nThe result of that is unpredictable but will probably crash.", m_value, content, (*it).second);
 					}
+
 				}
 				else
 				{
@@ -160,7 +161,7 @@ namespace behaviac
 			{
 				uint32_t len = strlen(content);
 				char* str = (char*)BEHAVIAC_MALLOC(sizeof(char) * (len + 1));
-				string_cpy(str, content);
+				strcpy(str, content);
 
 				if (noCase)
 				{

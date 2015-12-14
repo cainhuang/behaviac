@@ -488,7 +488,7 @@ namespace behaviac
             }
         }
 
-		BEHAVIAC_ASSERT(current && pThread);
+        BEHAVIAC_ASSERT(current);
 
         if (this->m_bHierarchy)
         {
@@ -506,6 +506,7 @@ namespace behaviac
 
                 pThread->block = current;
             }
+
         }
         else
         {

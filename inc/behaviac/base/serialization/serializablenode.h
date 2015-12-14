@@ -252,6 +252,7 @@ namespace behaviac
 			{
 				behaviac::string str = behaviac::StringUtils::ToString(value);
 				this->setAttrRaw(keyID, str.c_str(), typeId, sizeof(T));
+
 			}
 			else
 			{
@@ -294,6 +295,7 @@ namespace behaviac
 						return false;
 					}
 				}
+
 			}
 			else
 			{

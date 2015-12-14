@@ -852,10 +852,6 @@ namespace Behaviac.Design.Nodes
                 {
                     p.SetValueFromString(result, a, "const bool true");
                 }
-                else if (!bEnter && p.Property.Name == "Phase")
-                {
-                    p.SetValueFromString(result, a, "Both");
-                }
             }
         }
 

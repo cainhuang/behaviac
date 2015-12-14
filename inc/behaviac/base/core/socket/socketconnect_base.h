@@ -197,14 +197,12 @@ namespace behaviac
     BEHAVIAC_STATIC_ASSERT(sizeof(Packet) < kMaxPacketSize);
 
 #if USING_BEHAVIAC_SEQUENTIAL
-	//BEHAVIAC_STATIC_ASSERT((BEHAVIAC_OFFSETOF_POD(Packet, seq) == (sizeof(Packet) - sizeof(behaviac::Atomic32))));	// seq must be the last member
+	BEHAVIAC_STATIC_ASSERT((BEHAVIAC_OFFSETOF_POD(Packet, seq) == (sizeof(Packet) - sizeof(behaviac::Atomic32))));	// seq must be the last member
 
     inline int PacketCompare(const void* lhs, const void* rhs)
     {
         const Packet& pa = *(const Packet*)lhs;
         const Packet& pb = *(const Packet*)rhs;
-
-		BEHAVIAC_ASSERT((BEHAVIAC_OFFSETOF_POD(Packet, seq) == (sizeof(Packet) - sizeof(behaviac::Atomic32))));	// seq must be the last member
 
         if (pa.seq < pb.seq)
         {

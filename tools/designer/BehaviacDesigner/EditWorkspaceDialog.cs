@@ -144,7 +144,7 @@ namespace Behaviac.Design
                 XMLButton.Enabled = false;
 
             } else if (string.IsNullOrEmpty(xmlfolder)) {
-                //doneButton.Enabled = false;
+                doneButton.Enabled = false;
             }
         }
 
@@ -157,9 +157,8 @@ namespace Behaviac.Design
             string xmlfolder = XMLTextBox.Text.Trim();
 
             if (string.IsNullOrEmpty(wksName) ||
-                string.IsNullOrEmpty(wksLocation) || !Directory.Exists(wksLocation) )
-                //string.IsNullOrEmpty(xmlfolder) || !Directory.Exists(xmlfolder))
-            {
+                string.IsNullOrEmpty(wksLocation) || !Directory.Exists(wksLocation) ||
+                string.IsNullOrEmpty(xmlfolder) || !Directory.Exists(xmlfolder)) {
                 MessageBox.Show(Resources.WorkspaceSettingWarning, Resources.Warning, MessageBoxButtons.OK);
                 return;
             }
@@ -287,7 +286,7 @@ namespace Behaviac.Design
             folderBrowserDialog.ShowNewFolderButton = false;
 
             if (!string.IsNullOrEmpty(XMLTextBox.Text)) {
-                folderBrowserDialog.SelectedPath = Path.GetFullPath(XMLTextBox.Text);
+                folderBrowserDialog.SelectedPath = XMLTextBox.Text;
             }
 
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK) {

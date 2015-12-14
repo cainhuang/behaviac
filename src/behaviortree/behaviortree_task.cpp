@@ -158,10 +158,6 @@ namespace behaviac
         return this->m_node;
     }
 
-	void BehaviorTask::onreset(Agent* pAgent)
-	{
-	}
-
     bool BehaviorTask::onenter(Agent* pAgent)
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
@@ -411,7 +407,6 @@ namespace behaviac
         if (bResult)
         {
 			this->m_bHasManagingParent = false;
-			this->SetCurrentTask(0);
 
             bResult = this->onenter(pAgent);
 
@@ -467,22 +462,24 @@ namespace behaviac
             this->m_node->ApplyEffects(pAgent, (BehaviorNode::EPhase)phase);
 
             this->m_node->UnInstantiatePars(pAgent);
+        }
 
 #if !BEHAVIAC_RELEASE
-			if (Config::IsLoggingOrSocketing())
-			{
-				//BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
-				if (status == BT_SUCCESS)
-				{
-					CHECK_BREAKPOINT(pAgent, this->m_node, "exit", EAR_success);
-				}
-				else
-				{
-					CHECK_BREAKPOINT(pAgent, this->m_node, "exit", EAR_failure);
-				}
-			}
-#endif
+
+        if (Config::IsLoggingOrSocketing())
+        {
+            //BEHAVIAC_PROFILE_DEBUGBLOCK("Debug", true);
+            if (status == BT_SUCCESS)
+            {
+                CHECK_BREAKPOINT(pAgent, this->m_node, "exit", EAR_success);
+            }
+            else
+            {
+                CHECK_BREAKPOINT(pAgent, this->m_node, "exit", EAR_failure);
+            }
         }
+
+#endif
     }
 
     /*
@@ -621,11 +618,6 @@ namespace behaviac
             else
             {
                 this->m_status = BT_FAILURE;
-
-				if (const BehaviorTask* pCurrentTask = this->GetCurrentTask())
-				{
-					this->update_current(pAgent, BT_FAILURE);
-				}
             }
 
             if (this->m_status != BT_RUNNING)
@@ -736,7 +728,7 @@ namespace behaviac
 
         node->SetCurrentTask(0);
 
-        node->onreset(pAgent);
+        //node->onreset(pAgent);
 
         return true;
     }
@@ -816,7 +808,7 @@ namespace behaviac
             {
                 BEHAVIAC_ASSERT(this->m_currentTask != this);
                 this->m_currentTask = task;
-				task->SetHasManagingParent(true);
+				task->m_bHasManagingParent = true;
             }
         }
         else
@@ -1017,12 +1009,12 @@ namespace behaviac
         }
     }
 
-    EBTStatus BranchTask::execCurrentTask(Agent* pAgent, EBTStatus childStatus)
+    EBTStatus BranchTask::execCurrentTask(Agent* pAgent)
     {
         BEHAVIAC_ASSERT(this->m_currentTask != 0 && this->m_currentTask->GetStatus() == BT_RUNNING);
 
         //this->m_currentTask could be cleared in ::tick, to remember it
-		EBTStatus status = this->m_currentTask->exec(pAgent, childStatus);
+        EBTStatus status = this->m_currentTask->exec(pAgent);
 
         //give the handling back to parents
         if (status != BT_RUNNING)
@@ -1095,7 +1087,7 @@ namespace behaviac
 
 		if (this->m_currentTask != 0)
 		{
-			status = this->execCurrentTask(pAgent, childStatus);
+			status = this->execCurrentTask(pAgent);
 			BEHAVIAC_ASSERT(status == BT_RUNNING ||
 				(status != BT_RUNNING && this->m_currentTask == 0));
 		}
@@ -1452,11 +1444,6 @@ namespace behaviac
 
         return true;
     }
-
-	EBTStatus DecoratorTask::update_current(Agent* pAgent, EBTStatus childStatus)
-	{
-		return super::update_current(pAgent, childStatus);
-	}
 
     EBTStatus DecoratorTask::update(Agent* pAgent, EBTStatus childStatus)
     {

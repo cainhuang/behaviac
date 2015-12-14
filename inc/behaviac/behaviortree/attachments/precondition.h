@@ -38,7 +38,6 @@ namespace behaviac
         class PreconditionConfig : public ActionConfig
         {
         public:
-			BEHAVIAC_DECLARE_MEMORY_OPERATORS(PreconditionConfig);
             EPhase m_phase;
             bool m_bAnd;
 
