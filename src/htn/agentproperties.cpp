@@ -98,7 +98,7 @@ namespace behaviac
         this->m_locals.clear();
     }
 
-    map<behaviac::string, AgentProperties*> AgentProperties::agent_type_blackboards;
+    behaviac::map<behaviac::string, AgentProperties*> AgentProperties::agent_type_blackboards;
 
     AgentProperties::AgentProperties(const char* agentType)
     {
@@ -154,7 +154,8 @@ namespace behaviac
         }
         else
         {
-            BEHAVIAC_LOGWARNING("behaviac.bb is not loaded? Is SetVariable/GetVariable invoked too early?\n");
+			//cpp, there is no corresponding AgentProperties
+            //BEHAVIAC_LOGWARNING("behaviac.bb is not loaded? Is SetVariable/GetVariable invoked too early?\n");
         }
 
         return 0;
@@ -171,7 +172,8 @@ namespace behaviac
         }
         else
         {
-            BEHAVIAC_LOGWARNING("behaviac.bb is not loaded? Is SetVariable/GetVariable invoked too early?\n");
+			//cpp, there is no corresponding AgentProperties
+            //BEHAVIAC_LOGWARNING("behaviac.bb is not loaded? Is SetVariable/GetVariable invoked too early?\n");
         }
 
         return 0;
@@ -179,9 +181,11 @@ namespace behaviac
 
     AgentProperties* AgentProperties::Get(const char* agentType)
     {
-        if (agent_type_blackboards[agentType] != NULL)
+		behaviac::map<behaviac::string, AgentProperties*>::iterator it = agent_type_blackboards.find(agentType);
+
+		if (it != agent_type_blackboards.end())
         {
-            return agent_type_blackboards[agentType];
+			return it->second;
         }
 
         return NULL;
@@ -585,7 +589,6 @@ namespace behaviac
                     bLoadResult = load_xml(pBuffer);
 
                     Workspace::GetInstance()->PopFileFromBuffer(fullPath.c_str(), ext.c_str(), pBuffer);
-
                 }
                 else
                 {
@@ -604,7 +607,6 @@ namespace behaviac
                     bLoadResult = load_bson(pBuffer);
 
                     Workspace::GetInstance()->PopFileFromBuffer(fullPath.c_str(), ext.c_str(), pBuffer);
-
                 }
                 else
                 {

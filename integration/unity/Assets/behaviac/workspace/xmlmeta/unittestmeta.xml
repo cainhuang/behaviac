@@ -2,6 +2,10 @@
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <metas version="3.0" language="cs">
   <types>
+    <enumtype Type="EnumTest" DisplayName="EnumTest" Desc="EnumTest">
+      <enum NativeValue="EnumTest_One" Value="EnumTest_One" DisplayName="EnumTest_One" Desc="EnumTest_One" />
+      <enum NativeValue="EnumTest_OneAfterOne" Value="EnumTest_OneAfterOne" DisplayName="EnumTest_OneAfterOne" Desc="EnumTest_OneAfterOne" />
+    </enumtype>
     <enumtype Type="behaviac::EBTStatus" DisplayName="EBTStatus" Desc="EBTStatus">
       <enum NativeValue="behaviac::BT_INVALID" Value="BT_INVALID" DisplayName="BT_INVALID" Desc="BT_INVALID" />
       <enum NativeValue="behaviac::BT_SUCCESS" Value="BT_SUCCESS" DisplayName="BT_SUCCESS" Desc="BT_SUCCESS" />
@@ -95,6 +99,7 @@
       <Member Name="waiting_timeout_interval" DisplayName="" Desc="" Type="int" Class="AgentNodeTest" Public="true" />
       <Member Name="testVar_str_0" DisplayName="" Desc="" Type="string" Class="AgentNodeTest" Public="true" />
       <Member Name="testVar_str_1" DisplayName="" Desc="" Type="string" Class="AgentNodeTest" Public="true" />
+      <Member Name="testColor" DisplayName="" Desc="" Type="EnumTest" Class="AgentNodeTest" Public="true" />
       <Method Name="setEventVarInt" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="var" Desc="var" Type="int" />
       </Method>

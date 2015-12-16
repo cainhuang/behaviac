@@ -215,6 +215,8 @@ namespace Behaviac.Design.Importers
                     }
                 }
 
+                Plugin.AllMetaTypes.Clear();
+
                 if (typesNodes.Count > 0) {
                     wrtr.WriteLine("namespace XMLPluginBehaviac");
                     wrtr.WriteLine("{");
@@ -444,7 +446,9 @@ namespace Behaviac.Design.Importers
                 string className = HandleHierarchyName(typeNode.Value);
 
                 if (nodeDict.ContainsKey(className))
-                { return; }
+                    return;
+
+                Plugin.AllMetaTypes.Add(typeNode.Value);
 
                 nodeDict.Add(className, rootNode);
 
@@ -473,14 +477,16 @@ namespace Behaviac.Design.Importers
                 XmlNode firstValueNode = firstChildNode.Attributes["Value"];
 
                 if (firstValueNode == null)
-                { return; }
+                    return;
 
                 string firstValueName = firstValueNode.Value;
 
                 string enumName = HandleHierarchyName(typeNode.Value);
 
                 if (nodeDict.ContainsKey(enumName))
-                { return; }
+                    return;
+
+                Plugin.AllMetaTypes.Add(typeNode.Value);
 
                 nodeDict.Add(enumName, rootNode);
 

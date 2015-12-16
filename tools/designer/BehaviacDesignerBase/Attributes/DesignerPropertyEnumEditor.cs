@@ -162,12 +162,6 @@ namespace Behaviac.Design.Attributes
             Behaviac.Design.Nodes.BaseNode baseNode = (evt != null) ? evt.Node : obj as Behaviac.Design.Nodes.BaseNode;
             Behaviac.Design.Nodes.Behavior behavior = (baseNode != null) ? baseNode.Behavior as Behaviac.Design.Nodes.Behavior : null;
 
-            _agentType = (behavior != null) ? behavior.AgentType : null;
-            if (_valueOwner != VariableDef.kSelf)
-            {
-                _agentType = Plugin.GetInstanceAgentType(_valueOwner);
-            }
-
             string selectionName = string.Empty;
             VariableDef variable = param.Value as VariableDef;
 
@@ -183,6 +177,12 @@ namespace Behaviac.Design.Attributes
                     _valueOwner = variableRV.ValueClassReal;
                     selectionName = variableRV.DisplayName;
                 }
+            }
+
+            _agentType = (behavior != null) ? behavior.AgentType : null;
+            if (_valueOwner != VariableDef.kSelf)
+            {
+                _agentType = Plugin.GetInstanceAgentType(_valueOwner);
             }
 
             setComboBox(selectionName);

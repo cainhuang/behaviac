@@ -833,6 +833,50 @@ namespace PluginBehaviac.Exporters
 
                     file.WriteLine("\t\t}\n");
 
+                    // RegisterTypes_
+                    file.WriteLine("\t\tstatic partial void RegisterTypes_()");
+                    file.WriteLine("\t\t{");
+
+                    foreach (string type in Plugin.AllMetaTypes)
+                    {
+                        file.WriteLine("\t\t\tbehaviac.IVariable.Register<{0}>(\"{0}\");", type.Replace("::", "."));
+                    }
+
+                    //for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
+                    //{
+                    //    CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
+                    //    file.WriteLine("\t\t\tbehaviac.IVariable.Register<{0}>(\"{0}\");", customizedEnum.Name);
+                    //}
+                    //for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; ++s)
+                    //{
+                    //    CustomizedStruct customizedStuct = CustomizedTypeManager.Instance.Structs[s];
+                    //    file.WriteLine("\t\t\tbehaviac.IVariable.Register<{0}>(\"{0}\");", customizedStuct.Name);
+                    //}
+
+                    file.WriteLine("\t\t}\n");
+
+                    // UnRegisterTypes_
+                    file.WriteLine("\t\tstatic partial void UnRegisterTypes_()");
+                    file.WriteLine("\t\t{");
+
+                    foreach (string type in Plugin.AllMetaTypes)
+                    {
+                        file.WriteLine("\t\t\tbehaviac.IVariable.UnRegister<{0}>(\"{0}\");", type.Replace("::", "."));
+                    }
+
+                    //for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
+                    //{
+                    //    CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
+                    //    file.WriteLine("\t\t\tbehaviac.IVariable.UnRegister<{0}>(\"{0}\");", customizedEnum.Name);
+                    //}
+                    //for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; ++s)
+                    //{
+                    //    CustomizedStruct customizedStuct = CustomizedTypeManager.Instance.Structs[s];
+                    //    file.WriteLine("\t\t\tbehaviac.IVariable.UnRegister<{0}>(\"{0}\");", customizedStuct.Name);
+                    //}
+
+                    file.WriteLine("\t\t}");
+
                     file.WriteLine("\t}");
 
                     file.WriteLine("}");

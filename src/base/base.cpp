@@ -115,7 +115,7 @@ namespace behaviac
             Condition::Cleanup();
             Compute::Cleanup();
             CStringID::Cleanup();
-            LogManager::DestroyInstance();
+			LogManager::Cleanup();
 
             CFileManager::Cleanup();
 

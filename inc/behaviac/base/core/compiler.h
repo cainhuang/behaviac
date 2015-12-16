@@ -262,10 +262,11 @@ namespace behaviac
 
 #define BEHAVIAC_STATIC_ASSERT(x)    typedef behaviac::Private::static_assert_test<sizeof(behaviac::Private::STATIC_ASSERT_FAILURE< (bool)( (x) ) >)> BEHAVIAC_UNIQUE_NAME(_behaviac_static_assert_typedef_) BEHAVIAC_UNUSED
 
-#define BEHAVIAC_OFFSETOF_POD(TYPE, MEMBER) offsetof(TYPE, MEMBER)
-
 #define _BEHAVIAC_OFFSETOF_BASE_ 0x01000000
 #define BEHAVIAC_OFFSETOF(TYPE, MEMBER) (size_t)((unsigned char*)(&(((TYPE*)_BEHAVIAC_OFFSETOF_BASE_)->MEMBER)) - (unsigned char*)(TYPE*)_BEHAVIAC_OFFSETOF_BASE_)
+
+//#define BEHAVIAC_OFFSETOF_POD(TYPE, MEMBER) offsetof(TYPE, MEMBER)
+#define BEHAVIAC_OFFSETOF_POD(TYPE, MEMBER) BEHAVIAC_OFFSETOF(TYPE, MEMBER)
 
 #if BEHAVIAC_COMPILER_MSVC
 #define string_cpy strcpy

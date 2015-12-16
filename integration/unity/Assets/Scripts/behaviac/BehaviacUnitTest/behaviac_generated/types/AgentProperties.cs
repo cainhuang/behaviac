@@ -26,6 +26,7 @@ namespace behaviac
 			// AgentNodeTest
 			bb = new AgentProperties("AgentNodeTest");
 			agent_type_blackboards["AgentNodeTest"] = bb;
+			bb.AddProperty("EnumTest", false, "testColor", "EnumTest_One", "AgentNodeTest");
 			bb.AddProperty("int", false, "testVar_0", "0", "AgentNodeTest");
 			bb.AddProperty("int", false, "testVar_1", "0", "AgentNodeTest");
 			bb.AddProperty("float", false, "testVar_2", "0", "AgentNodeTest");
@@ -41,6 +42,7 @@ namespace behaviac
 			agent_type_blackboards["ChildNodeTest"] = bb;
 			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
 			bb.AddProperty("int", false, "testInt", "10", "ChildNodeTest");
+			bb.AddProperty("EnumTest", false, "testColor", "EnumTest_One", "ChildNodeTest");
 			bb.AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
 			bb.AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
 			bb.AddProperty("float", false, "testVar_2", "0", "ChildNodeTest");
@@ -338,5 +340,38 @@ namespace behaviac
 			objectDesc.ms_methods.Add(customeMethod);
 		}
 
+		static partial void RegisterTypes_()
+		{
+			behaviac.IVariable.Register<EnumTest>("EnumTest");
+			behaviac.IVariable.Register<behaviac.EBTStatus>("behaviac.EBTStatus");
+			behaviac.IVariable.Register<ETest>("ETest");
+			behaviac.IVariable.Register<FSMAgentTest.EMessage>("FSMAgentTest.EMessage");
+			behaviac.IVariable.Register<TNS.NE.NAT.eColor>("TNS.NE.NAT.eColor");
+			behaviac.IVariable.Register<System.Object>("System.Object");
+			behaviac.IVariable.Register<UnityEngine.GameObject>("UnityEngine.GameObject");
+			behaviac.IVariable.Register<TestNS.Node>("TestNS.Node");
+			behaviac.IVariable.Register<TestNS.Float2>("TestNS.Float2");
+			behaviac.IVariable.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
+			behaviac.IVariable.Register<TNS.ST.PER.WRK.kEmployee>("TNS.ST.PER.WRK.kEmployee");
+			behaviac.IVariable.Register<TNS.ST.kCar>("TNS.ST.kCar");
+			behaviac.IVariable.Register<StructTest>("StructTest");
+		}
+
+		static partial void UnRegisterTypes_()
+		{
+			behaviac.IVariable.UnRegister<EnumTest>("EnumTest");
+			behaviac.IVariable.UnRegister<behaviac.EBTStatus>("behaviac.EBTStatus");
+			behaviac.IVariable.UnRegister<ETest>("ETest");
+			behaviac.IVariable.UnRegister<FSMAgentTest.EMessage>("FSMAgentTest.EMessage");
+			behaviac.IVariable.UnRegister<TNS.NE.NAT.eColor>("TNS.NE.NAT.eColor");
+			behaviac.IVariable.UnRegister<System.Object>("System.Object");
+			behaviac.IVariable.UnRegister<UnityEngine.GameObject>("UnityEngine.GameObject");
+			behaviac.IVariable.UnRegister<TestNS.Node>("TestNS.Node");
+			behaviac.IVariable.UnRegister<TestNS.Float2>("TestNS.Float2");
+			behaviac.IVariable.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
+			behaviac.IVariable.UnRegister<TNS.ST.PER.WRK.kEmployee>("TNS.ST.PER.WRK.kEmployee");
+			behaviac.IVariable.UnRegister<TNS.ST.kCar>("TNS.ST.kCar");
+			behaviac.IVariable.UnRegister<StructTest>("StructTest");
+		}
 	}
 }

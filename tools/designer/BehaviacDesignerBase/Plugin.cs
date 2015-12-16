@@ -724,6 +724,7 @@ namespace Behaviac.Design
 
             return null;
         }
+
         /// <summary>
         /// Allows a plugin to register the types from an additional assembly.
         /// </summary>
@@ -1066,6 +1067,12 @@ namespace Behaviac.Design
             }
 
             return string.Empty;
+        }
+
+        private static List<string> _allMetaTypes = new List<string>();
+        public static List<string> AllMetaTypes
+        {
+            get { return _allMetaTypes; }
         }
 
         public static string GetClassName(string str) {

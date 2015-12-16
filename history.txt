@@ -1,3 +1,11 @@
+2015-12-16	3.2.11
+	Generate the RegisterTypes/UnRegisterTypes for C# codes.
+	fix EnumTest_OneAfterOne
+	fix compiling warnings/errors on linux
+	Fix a bug for selecting properties for the parameter of the method.
+	Add the unit test for the property of an instance as a parameter.
+	fix logmanager instance problem
+	
 2015-12-14	3.2.10
 	fix a possible bug when checking the parent update preconditions
 	fix the bug when if a function  as precondition return EBTStatus

@@ -474,6 +474,7 @@ namespace behaviac
             //////////////////////////////////////////////////////////
             this.RegisterStuff();
 
+            AgentProperties.RegisterTypes();
             AgentProperties.Load();
 
 #if !BEHAVIAC_RELEASE
@@ -530,6 +531,7 @@ namespace behaviac
 
             Debug.Check(this.m_bRegistered);
 
+            AgentProperties.UnRegisterTypes();
             this.UnRegisterStuff();
 
             Context.Cleanup(-1);

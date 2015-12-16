@@ -770,7 +770,7 @@ inline bool EnumValueFromString(const char* valueStr, T& v)
 
         const char* pItemStr = valueItem.name.c_str();
 
-        if (string_nicmp(valueStr, pItemStr, strlen(pItemStr)) == 0)
+		if (behaviac::StringUtils::StrEqual(valueStr, pItemStr))
         {
             v = (T)it->first;
             return true;

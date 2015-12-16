@@ -24,8 +24,6 @@
 #include <time.h>
 #include <stdlib.h>
 
-BEHAVIAC_IMPLEMNT_SINGLETON(behaviac::LogManager);
-
 namespace behaviac
 {
     LogManager* LogManager::ms_instance = 0;
@@ -46,6 +44,24 @@ namespace behaviac
 
         ms_instance = 0;
     }
+
+	LogManager* LogManager::GetInstance()
+	{
+		if (ms_instance == NULL)
+		{
+			//if new  an Workspace class ,then the staict variable will be set value
+			LogManager* _workspace = BEHAVIAC_NEW LogManager();
+			BEHAVIAC_UNUSED_VAR(_workspace);
+			BEHAVIAC_ASSERT(ms_instance != NULL);
+		}
+
+		return ms_instance;
+	}
+
+	void LogManager::Cleanup()
+	{
+		BEHAVIAC_DELETE ms_instance;
+	}
 
     void LogManager::SetLogFilePath(const char* logFilePath)
     {

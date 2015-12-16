@@ -50,5 +50,28 @@ namespace behaviac
 
 		}
 
+		static partial void RegisterTypes_()
+		{
+			behaviac.IVariable.Register<eGameForce>("eGameForce");
+			behaviac.IVariable.Register<behaviac.EBTStatus>("behaviac.EBTStatus");
+			behaviac.IVariable.Register<eMapDirection>("eMapDirection");
+			behaviac.IVariable.Register<eBrickType>("eBrickType");
+			behaviac.IVariable.Register<System.Object>("System.Object");
+			behaviac.IVariable.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
+			behaviac.IVariable.Register<UnityEngine.Color>("UnityEngine.Color");
+			behaviac.IVariable.Register<UnityEngine.Transform>("UnityEngine.Transform");
+		}
+
+		static partial void UnRegisterTypes_()
+		{
+			behaviac.IVariable.UnRegister<eGameForce>("eGameForce");
+			behaviac.IVariable.UnRegister<behaviac.EBTStatus>("behaviac.EBTStatus");
+			behaviac.IVariable.UnRegister<eMapDirection>("eMapDirection");
+			behaviac.IVariable.UnRegister<eBrickType>("eBrickType");
+			behaviac.IVariable.UnRegister<System.Object>("System.Object");
+			behaviac.IVariable.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
+			behaviac.IVariable.UnRegister<UnityEngine.Color>("UnityEngine.Color");
+			behaviac.IVariable.UnRegister<UnityEngine.Transform>("UnityEngine.Transform");
+		}
 	}
 }

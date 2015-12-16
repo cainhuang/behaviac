@@ -13,6 +13,14 @@
 
 #include "AgentNodeTest.h"
 
+
+BEGIN_ENUM_DESCRIPTION(EnumTest, EnumTest)
+{
+	DEFINE_ENUM_VALUE(EnumTest_One, "EnumTest_One");
+	DEFINE_ENUM_VALUE(EnumTest_OneAfterOne, "EnumTest_OneAfterOne");
+}
+END_ENUM_DESCRIPTION()
+
 AgentNodeTest::AgentNodeTest()
 {
 }
@@ -41,6 +49,7 @@ void AgentNodeTest::resetProperties()
     action_2_exit_count = 0;
 
     testVar_str_0 = "";
+	testColor = EnumTest_One;
 
 	m_bCanSee = false;
 	m_bTargetValid = false;
@@ -65,6 +74,7 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
     REGISTER_PROPERTY(testVar_3);
     REGISTER_PROPERTY(waiting_timeout_interval);
     REGISTER_PROPERTY(testVar_str_0);
+	REGISTER_PROPERTY(testColor);
 
     REGISTER_METHOD(setEventVarInt);
     REGISTER_METHOD(setEventVarBool);

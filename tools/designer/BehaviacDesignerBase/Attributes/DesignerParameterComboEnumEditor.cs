@@ -255,68 +255,68 @@ namespace Behaviac.Design.Attributes
             return typeof(DesignerPropertyEnumEditor);
         }
 
-        private void setEditor(DesignerPropertyEditor editor, string valueType) {
+        private void setEditor(DesignerPropertyEditor editor, string valueType)
+        {
             if (editor == null)
-            { return; }
+                return;
 
-            if (valueType == VariableDef.kConst) {
-                if (_param.Value != null && (_param.Value is VariableDef || _param.Value is PropertyDef || _param.Value is ParInfo)) {
-                    if (!(_param.IsFromStruct)) {
+            if (valueType == VariableDef.kConst)
+            {
+                if (_param.Value != null && (_param.Value is VariableDef || _param.Value is PropertyDef || _param.Value is ParInfo))
+                {
+                    if (!(_param.IsFromStruct))
+                    {
                         _param.Value = Plugin.DefaultValue(_param.Type);
-
-                    } else {
-                        if (_param.Value is VariableDef) {
+                    }
+                    else
+                    {
+                        if (_param.Value is VariableDef)
+                        {
                             VariableDef v = _param.Value as VariableDef;
-
                             _param.Value = Plugin.DefaultValue(v.GetValueType());
-
-                        } else if (_param.Value is ParInfo) {
+                        }
+                        else if (_param.Value is ParInfo)
+                        {
                             ParInfo v = _param.Value as ParInfo;
-
                             _param.Value = Plugin.DefaultValue(v.Variable.GetValueType());
                         }
                     }
                 }
 
-            } else {
-                if (!_param.IsFromStruct) {
-                    if (valueType == VariableDef.kSelf) {
-                        DesignerPropertyEnumEditor propertyEnumEditor = editor as DesignerPropertyEnumEditor;
-                        propertyEnumEditor.FilterType = _param.Type;
+            }
+            else
+            {
+                DesignerPropertyEnumEditor propertyEnumEditor = editor as DesignerPropertyEnumEditor;
 
-                    } else {
-                        DesignerPropertyEnumEditor propertyEnumEditor = editor as DesignerPropertyEnumEditor;
-                        propertyEnumEditor.FilterType = _param.Type;
+                if (_param.Value is VariableDef)
+                {
+                    VariableDef v = _param.Value as VariableDef;
+
+                    if (v.ValueClass != valueType)
+                    {
+                        Type t1 = v.GetValueType() != null ? v.GetValueType() : _param.Type;
+                        object dv = Plugin.DefaultValue(t1);
+                        _param.Value = new VariableDef(dv, valueType);
                     }
 
-                } else {
-                    DesignerPropertyEnumEditor propertyEnumEditor = editor as DesignerPropertyEnumEditor;
+                    propertyEnumEditor.FilterType = (v.GetValueType() != null ? v.GetValueType() : _param.Type);
+                }
+                else if (_param.Value is ParInfo)
+                {
+                    ParInfo v = _param.Value as ParInfo;
 
-                    if (_param.Value is VariableDef) {
-                        VariableDef v = _param.Value as VariableDef;
-
-                        if (v.ValueClass != valueType) {
-                            Type t1 = v.GetValueType() != null ? v.GetValueType() : _param.Type;
-                            object dv = Plugin.DefaultValue(t1);
-                            _param.Value = new VariableDef(dv, valueType);
-                        }
-
-                        propertyEnumEditor.FilterType = (v.GetValueType() != null ? v.GetValueType() : _param.Type);
-
-                    } else if (_param.Value is ParInfo) {
-                        ParInfo v = _param.Value as ParInfo;
-
-                        if (v.Variable.ValueClass != valueType) {
-                            object dv = Plugin.DefaultValue(v.Variable.GetValueType());
-                            _param.Value = new VariableDef(dv, valueType);
-                        }
-
-                        propertyEnumEditor.FilterType = v.Variable.GetValueType();
-
-                    } else {
-                        _param.Value = new VariableDef(_param.Value, valueType);
-                        propertyEnumEditor.FilterType = _param.Type;
+                    if (v.Variable.ValueClass != valueType)
+                    {
+                        object dv = Plugin.DefaultValue(v.Variable.GetValueType());
+                        _param.Value = new VariableDef(dv, valueType);
                     }
+
+                    propertyEnumEditor.FilterType = v.Variable.GetValueType();
+                }
+                else
+                {
+                    _param.Value = new VariableDef(_param.Value, valueType);
+                    propertyEnumEditor.FilterType = _param.Type;
                 }
             }
 

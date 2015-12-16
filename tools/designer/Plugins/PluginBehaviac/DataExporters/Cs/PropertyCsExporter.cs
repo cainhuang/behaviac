@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -70,11 +70,11 @@ namespace PluginBehaviac.DataExporters
                 string agentName = GetGenerateAgentName(property, var, caller);
                 string prop = setValue;
 
-                if (property.Owner != Behaviac.Design.VariableDef.kSelf)
-                {
-                    stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, property.Owner.Replace("::", "."));
-                    stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
-                }
+                //if (property.Owner != Behaviac.Design.VariableDef.kSelf)
+                //{
+                //    stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, property.Owner.Replace("::", "."));
+                //    stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
+                //}
 
                 string propBasicName = property.BasicName.Replace("[]", "");
 

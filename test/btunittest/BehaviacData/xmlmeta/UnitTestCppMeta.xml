@@ -6,6 +6,10 @@
 			<enum NativeValue="behaviac::BT_FAILURE" Value="failure" DisplayName="" Desc="" />
 			<enum NativeValue="behaviac::BT_RUNNING" Value="running" DisplayName="" Desc="" />
 		</enumtype>
+		<enumtype Type="EnumTest" DisplayName="" Desc="">
+			<enum NativeValue="EnumTest_One" Value="EnumTest_One" DisplayName="" Desc="" />
+			<enum NativeValue="EnumTest_OneAfterOne" Value="EnumTest_OneAfterOne" DisplayName="" Desc="" />
+		</enumtype>
 		<enumtype Type="FSMAgentTest::EMessage" DisplayName="" Desc="">
 			<enum NativeValue="FSMAgentTest::Invalid" Value="Invalid" DisplayName="" Desc="" />
 			<enum NativeValue="FSMAgentTest::Begin" Value="Begin" DisplayName="" Desc="" />
@@ -244,6 +248,7 @@
 			<Member Name="testVar_3" DisplayName="" Desc="" Type="float" Class="AgentNodeTest" />
 			<Member Name="waiting_timeout_interval" DisplayName="" Desc="" Type="int" Class="AgentNodeTest" />
 			<Member Name="testVar_str_0" DisplayName="" Desc="" Type="string" Class="AgentNodeTest" />
+			<Member Name="testColor" DisplayName="" Desc="" Type="EnumTest" Class="AgentNodeTest" />
 			<Method Name="setEventVarInt" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
 				<Param DisplayName="" Desc="" Type="int" />
 			</Method>

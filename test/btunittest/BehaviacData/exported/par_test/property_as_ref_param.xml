@@ -56,6 +56,10 @@
         <property Method="Self.EmployeeParTestAgent::Func_StringRef(string Self.EmployeeParTestAgent::TV_STR_0)" />
         <property ResultOption="BT_SUCCESS" />
       </node>
+      <node class="Action" id="32">
+        <property Method="Self.EmployeeParTestAgent::Func_StringRef(string ParTestRegNameAgent.ParTestRegNameAgent::TV_STR_0)" />
+        <property ResultOption="BT_SUCCESS" />
+      </node>
       <node class="Action" id="6">
         <property Method="Self.EmployeeParTestAgent::Func_StringListRef(vector&lt;string&gt; Self.EmployeeParTestAgent::TV_LIST_STR_0)" />
         <property ResultOption="BT_SUCCESS" />

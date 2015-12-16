@@ -100,6 +100,7 @@ namespace behaviac
 			// AgentNodeTest
 			bb = BEHAVIAC_NEW AgentProperties("AgentNodeTest");
 			AgentProperties::SetAgentTypeBlackboards("AgentNodeTest", bb);
+			bb->AddProperty("EnumTest", false, "testColor", "EnumTest_One", "AgentNodeTest");
 			bb->AddProperty("int", false, "testVar_0", "0", "AgentNodeTest");
 			bb->AddProperty("int", false, "testVar_1", "0", "AgentNodeTest");
 			bb->AddProperty("float", false, "testVar_2", "0", "AgentNodeTest");
@@ -114,6 +115,7 @@ namespace behaviac
 			AgentProperties::SetAgentTypeBlackboards("ChildNodeTest", bb);
 			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
 			bb->AddProperty("int", false, "testInt", "10", "ChildNodeTest");
+			bb->AddProperty("EnumTest", false, "testColor", "EnumTest_One", "ChildNodeTest");
 			bb->AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
 			bb->AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
 			bb->AddProperty("float", false, "testVar_2", "0", "ChildNodeTest");

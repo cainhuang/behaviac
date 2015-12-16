@@ -85,6 +85,8 @@ namespace Behaviac.Design
         public RecentMenu RecentWorkspacesMenu;
 
         public MainWindow(bool bLoadWks) {
+            Utilities.LoadOperations();
+
             _instance = this;
 
             Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Tencent\\Tag\\Behaviac");
@@ -171,7 +173,11 @@ namespace Behaviac.Design
 
             e.Cancel = (FileManagers.SaveResult.Cancelled == CheckSavingBehaviors());
             if (!e.Cancel)
+            {
                 saveLayout(Plugin.EditMode, __layoutFile, true);
+
+                Utilities.SaveOperations();
+            }
         }
 
         internal void UpdateUIState(EditModes editMode) {

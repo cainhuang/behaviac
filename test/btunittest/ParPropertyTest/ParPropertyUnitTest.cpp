@@ -32,6 +32,7 @@ void registerAllTypes()
     behaviac::TypeRegister::Register<UnityEngine::GameObject>("UnityEngine::GameObject");
     behaviac::TypeRegister::Register<TestNS::Node>("TestNS::Node");
     behaviac::TypeRegister::Register<TestNS::Float2>("TestNS::Float2");
+	behaviac::TypeRegister::Register<EnumTest>("EnumTest");
 
     behaviac::Agent::Register<EmployeeParTestAgent>();
 
@@ -80,6 +81,7 @@ void unregisterAllTypes()
 
     behaviac::TypeRegister::UnRegister<UnityEngine::Vector3>("UnityEngine::Vector3");
     behaviac::TypeRegister::UnRegister<FSMAgentTest::EMessage>("FSMAgentTest::EMessage");
+	behaviac::TypeRegister::UnRegister<EnumTest>("EnumTest");
 
     behaviac::Workspace::GetInstance()->Cleanup();
 }
@@ -572,6 +574,12 @@ LOAD_TEST(btunittest, property_as_left_value)
 LOAD_TEST(btunittest, property_as_ref_param)
 {
     EmployeeParTestAgent* myTestAgent = initTestEnvPar("par_test/property_as_ref_param", format);
+
+	ParTestRegNameAgent::clearAllStaticMemberVariables();
+	behaviac::Agent::Create<ParTestRegNameAgent>("ParTestRegNameAgent");
+    ParTestRegNameAgent* regNameAgent = behaviac::Agent::GetInstance<ParTestRegNameAgent>("ParTestRegNameAgent");
+    regNameAgent->resetProperties();
+
     myTestAgent->resetProperties();
     myTestAgent->btexec();
 
@@ -644,6 +652,7 @@ LOAD_TEST(btunittest, property_as_ref_param)
     CHECK_FLOAT_EQUAL(3.0f, myTestAgent->TV_F_0);
     CHECK_FLOAT_EQUAL(4.0, myTestAgent->TV_D_0);
     CHECK_STR_EQUAL("This is a behaviac::string ref in test!", myTestAgent->TV_STR_0.c_str());
+    CHECK_STR_EQUAL("This is a behaviac::string ref in test!", regNameAgent->TV_STR_0.c_str());
     CHECK_EQUAL(myTestAgent, myTestAgent->TV_AGENT_0);
 
     const behaviac::vector<float>& single_list_0 = myTestAgent->TV_LIST_F_0;
@@ -657,6 +666,9 @@ LOAD_TEST(btunittest, property_as_ref_param)
     const behaviac::vector<behaviac::Agent*>& agent_list_0 = myTestAgent->TV_LIST_AGENT_0;
     CHECK_EQUAL(1, agent_list_0.size());
     CHECK_EQUAL(myTestAgent, agent_list_0[0]);
+
+    behaviac::Agent::Destroy(regNameAgent);
+
     finlTestEnvPar(myTestAgent);
 }
 
@@ -905,10 +917,12 @@ LOAD_TEST(btunittest, static_property_as_left_value_and_param)
 LOAD_TEST(btunittest, register_name_as_left_value_and_param)
 {
     EmployeeParTestAgent* myTestAgent = initTestEnvPar("par_test/register_name_as_left_value_and_param", format);
+
     ParTestRegNameAgent::clearAllStaticMemberVariables();
     behaviac::Agent::Create<ParTestRegNameAgent>("ParTestRegNameAgent");
     ParTestRegNameAgent* regNameAgent = behaviac::Agent::GetInstance<ParTestRegNameAgent>("ParTestRegNameAgent");
     regNameAgent->resetProperties();
+
     myTestAgent->resetProperties();
     myTestAgent->btexec();
 
@@ -972,10 +986,11 @@ LOAD_TEST(btunittest, register_name_as_left_value_and_param)
 
     behaviac::Agent::Destroy(regNameAgent);
 
-
     behaviac::Agent::UnRegisterInstanceName<ParTestRegNameAgent>("ParTestRegNameAgent");
+
     finlTestEnvPar(myTestAgent);
 }
+
 //< const_param
 LOAD_TEST(btunittest, const_param)
 {

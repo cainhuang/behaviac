@@ -670,6 +670,8 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(str);
         BEHAVIAC_UNUSED_VAR(pBuffer);
         //BEHAVIAC_ASSERT(0, "the code in c-sharp not implement.");
+		this->PopFileFromBuffer(pBuffer);
+
         return false;
     }
 

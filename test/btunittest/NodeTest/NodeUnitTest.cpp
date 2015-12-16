@@ -825,3 +825,23 @@ LOAD_TEST(btunittest, par_test_custom_property_reset)
 	CHECK_EQUAL(20, myTestAgent->testVar_1);
 	finlTestEnvNode(myTestAgent);
 }
+
+LOAD_TEST(btunittest, node_test_selector_ut_5)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_ut_5", format);
+
+	myTestAgent->resetProperties();
+
+	myTestAgent->testColor = EnumTest_One;
+
+	behaviac::EBTStatus status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+	CHECK_EQUAL(0, myTestAgent->testVar_0);
+
+	myTestAgent->testColor = EnumTest_OneAfterOne;
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+	CHECK_EQUAL(1, myTestAgent->testVar_0);
+
+	finlTestEnvNode(myTestAgent);
+}

@@ -548,6 +548,7 @@ namespace ParUnitTest
             Assert.AreEqual(3.0f, parTestAgent.TV_F_0);
             Assert.AreEqual(4.0, parTestAgent.TV_D_0);
             Assert.AreEqual("This is a string ref in test!", parTestAgent.TV_STR_0);
+            Assert.AreEqual("This is a string ref in test!", regNameAgent.TV_STR_0);
             Assert.AreEqual(parTestAgent, parTestAgent.TV_AGENT_0);
 
             List<Single> single_list_0 = parTestAgent.TV_LIST_F_0;

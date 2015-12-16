@@ -27,6 +27,13 @@ namespace TestNS
     };
 }
 
+public enum EnumTest
+{
+    EnumTest_One = 0,
+    EnumTest_OneAfterOne = 1,
+};
+
+
 [behaviac.TypeMetaInfo()]
 public class AgentNodeTest : behaviac.Agent
 {
@@ -50,6 +57,9 @@ public class AgentNodeTest : behaviac.Agent
 
     [behaviac.MemberMetaInfo()]
     public string testVar_str_1 = string.Empty;
+
+    [behaviac.MemberMetaInfo()]
+    public EnumTest testColor = EnumTest.EnumTest_One;
 
     public bool m_bCanSee = false;
 
@@ -80,6 +90,8 @@ public class AgentNodeTest : behaviac.Agent
 
         m_bCanSee = false;
         m_bTargetValid = false;
+
+        testColor = EnumTest.EnumTest_One;
 
         testVar_str_0 = string.Empty;
         this.Variables.Clear();

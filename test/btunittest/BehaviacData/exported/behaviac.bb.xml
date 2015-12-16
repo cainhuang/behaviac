@@ -70,6 +70,7 @@
   </agent>
   <agent type="AgentNodeTest" base="behaviac::Agent">
     <properties>
+      <property name="testColor" type="EnumTest" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_0" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_2" type="float" member="true" static="false" agent="AgentNodeTest" />
@@ -106,6 +107,7 @@
     <properties>
       <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
       <property name="testInt" type="int" member="false" static="false" defaultvalue="10" />
+      <property name="testColor" type="EnumTest" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_0" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_2" type="float" member="true" static="false" agent="AgentNodeTest" />

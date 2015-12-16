@@ -343,7 +343,7 @@ TEST(btunittest, filemanager)
 
 	behaviac::CFileManager* pFileManager = BEHAVIAC_NEW CFileManager_Test();
 
-	behaviac::IFile* fp = behaviac::CFileManager::GetInstance()->FileOpen("../tools/designer/out/config.xml");
+	behaviac::IFile* fp = behaviac::CFileManager::GetInstance()->FileOpen("../inc/behaviac/behaviac.h");
     CHECK_NOT_EQUAL(0, fp);
     behaviac::CFileManager::GetInstance()->FileClose(fp);
 

@@ -3325,7 +3325,8 @@ namespace Behaviac.Design
             }
 
             // Get the Prefabs folder.
-            string prefabGroupName = Plugin.GetResourceString("PrefabGroupName");
+            //string prefabGroupName = Plugin.GetResourceString("PrefabGroupName");
+            string prefabGroupName = "Prefabs";
             string folder = Directory.GetParent(Workspace.Current.Folder).FullName;
             folder = Path.Combine(folder, prefabGroupName);
 

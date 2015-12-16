@@ -160,6 +160,7 @@ namespace behaviac
 
 	void BehaviorTask::onreset(Agent* pAgent)
 	{
+        BEHAVIAC_UNUSED_VAR(pAgent);
 	}
 
     bool BehaviorTask::onenter(Agent* pAgent)
@@ -622,7 +623,7 @@ namespace behaviac
             {
                 this->m_status = BT_FAILURE;
 
-				if (const BehaviorTask* pCurrentTask = this->GetCurrentTask())
+				if (this->GetCurrentTask())
 				{
 					this->update_current(pAgent, BT_FAILURE);
 				}

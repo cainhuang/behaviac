@@ -45,6 +45,13 @@ namespace UnityEngine
     };
 }
 
+enum EnumTest
+{
+	EnumTest_One = 0,
+	EnumTest_OneAfterOne = 1,
+};
+
+DECLARE_BEHAVIAC_OBJECT_ENUM(EnumTest, EnumTest);
 
 class AgentNodeTest : public behaviac::Agent
 {
@@ -77,6 +84,8 @@ public:
 
 	bool m_bCanSee;
 	bool m_bTargetValid;
+
+	EnumTest	testColor;
 public:
     virtual void resetProperties();
 

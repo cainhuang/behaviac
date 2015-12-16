@@ -788,6 +788,24 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(20, testAgent.testVar_1);
         }
 
+        [Test]
+        [Category("node_test_selector_ut_5")]
+        public void node_test_selector_ut_5()
+        {
+            testAgent.btsetcurrent("node_test/selector_ut_5");
+            testAgent.resetProperties();
+
+            testAgent.testColor = EnumTest.EnumTest_One;
+            behaviac.EBTStatus status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+            Assert.AreEqual(0, testAgent.testVar_0);
+
+            testAgent.testColor = EnumTest.EnumTest_OneAfterOne;
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+            Assert.AreEqual(1, testAgent.testVar_0);
+        }
+
     }
 
     [TestFixture]

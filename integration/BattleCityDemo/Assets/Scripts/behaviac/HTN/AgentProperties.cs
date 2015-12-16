@@ -180,6 +180,20 @@ namespace behaviac
 
         static partial void load_cs();
 
+        static partial void RegisterTypes_();
+
+        static partial void UnRegisterTypes_();
+
+        public static void RegisterTypes()
+        {
+            RegisterTypes_();
+        }
+
+        public static void UnRegisterTypes()
+        {
+            UnRegisterTypes_();
+        }
+
         private static bool load_xml(byte[] pBuffer)
         {
             try

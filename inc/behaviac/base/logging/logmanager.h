@@ -53,8 +53,6 @@ namespace behaviac
     class BEHAVIAC_API LogManager
     {
     public:
-        BEHAVIAC_DELCARE_SINGLETON(LogManager);
-
         /**
         by default, the log file is _behaviac_$_.log in the current path.
 
@@ -92,7 +90,8 @@ namespace behaviac
     public:
         virtual ~LogManager();
 
-        //static LogManager* GetInstance();
+        static LogManager* GetInstance();
+		static void Cleanup();
     private:
         FILE* GetFile(const behaviac::Agent* pAgent);
 

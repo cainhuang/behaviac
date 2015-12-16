@@ -737,12 +737,12 @@ namespace PluginBehaviac.Exporters
                             file.WriteLine("{");
                         }
 
-                        file.WriteLine("{0}class {1} : public class {2}", indent, agent.BasicClassName, agent.Base.AgentTypeName);
+                        file.WriteLine("{0}class {1} : public {2}", indent, agent.BasicClassName, agent.Base.AgentTypeName);
                         file.WriteLine("{0}{{", indent);
 
                         file.WriteLine("{0}public:", indent);
-                        file.WriteLine("{0}\t{1}()", indent, agent.BasicClassName);
-                        file.WriteLine("{0}\tvirtual ~{1}()", indent, agent.BasicClassName);
+                        file.WriteLine("{0}\t{1}();", indent, agent.BasicClassName);
+                        file.WriteLine("{0}\tvirtual ~{1}();", indent, agent.BasicClassName);
                         file.WriteLine();
                         file.WriteLine("{0}\tDECLARE_BEHAVIAC_AGENT({1}, {2})", indent, agent.BasicClassName, agent.Base.AgentTypeName);
                         file.WriteLine();
