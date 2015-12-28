@@ -60,6 +60,8 @@ namespace behaviac
         virtual void save(ISerializableNode* node) const;
         virtual void load(ISerializableNode* node);
 
+		virtual void onreset(Agent* pAgent);
+		virtual bool onenter(Agent* pAgent);
         virtual EBTStatus decorate(EBTStatus status);
 
         //virtual bool NeedRestart() const;

@@ -81,30 +81,15 @@ namespace Behaviac.Design.Attributes
         private List<MethodDef> getMethods() {
             List<MethodDef> methods = new List<MethodDef>();
 
-            Behaviac.Design.Attachments.Attach evt = _object as Behaviac.Design.Attachments.Attach;
-            Behaviac.Design.Nodes.BaseNode baseNode = (evt != null) ? evt.Node : _object as Behaviac.Design.Nodes.BaseNode;
-
-            if (baseNode == null) {
-                baseNode = this._root;
-            }
-
-            Behaviac.Design.Nodes.Behavior behavior = null;
-
-            if (baseNode != null) {
-                behavior = baseNode.Behavior as Behaviac.Design.Nodes.Behavior;
-            }
-
-            AgentType agentType = null;
-
-            if (behavior != null && behavior.AgentType != null) {
-                agentType = behavior.AgentType;
-            }
+            Nodes.Behavior behavior = GetBehavior();
+            AgentType agentType = (behavior != null) ? behavior.AgentType : null;
 
             object action = _property.Property.GetValue(_object, null);
             RightValueDef varRV = action as RightValueDef;
 
-            if (varRV != null && Plugin.IsInstanceName(varRV.ValueClassReal)) {
-                agentType = Plugin.GetInstanceAgentType(varRV.ValueClassReal);
+            if (varRV != null && Plugin.IsInstanceName(varRV.ValueClassReal, behavior))
+            {
+                agentType = Plugin.GetInstanceAgentType(varRV.ValueClassReal, behavior, agentType);
             }
 
             if (agentType != null) {

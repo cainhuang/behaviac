@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -13,10 +13,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Binary;
 using Behaviac.Design.Data;
 using Behaviac.Design.Properties;
 
@@ -35,6 +37,13 @@ namespace Behaviac.Design.Network
             }
         }
 
+        private static bool _useLocalIP = true;
+        public static bool UseLocalIP
+        {
+            get { return _useLocalIP; }
+            set { _useLocalIP = value; }
+        }
+
         private static string _serverIP = "";
         public static string ServerIP {
             get { return _serverIP; }
@@ -45,6 +54,40 @@ namespace Behaviac.Design.Network
         public static int ServerPort {
             get { return _serverPort; }
             set { _serverPort = value; }
+        }
+
+        public static void Load(Stream stream, BinaryFormatter formatter)
+        {
+            try
+            {
+                object obj = formatter.Deserialize(stream);
+                if (obj is bool)
+                    UseLocalIP = (bool)obj;
+
+                obj = formatter.Deserialize(stream);
+                if (obj is string)
+                    ServerIP = obj as string;
+
+                obj = formatter.Deserialize(stream);
+                if (obj is int)
+                    ServerPort = (int)obj;
+            }
+            catch
+            {
+            }
+        }
+
+        public static void Save(Stream stream, BinaryFormatter formatter)
+        {
+            try
+            {
+                formatter.Serialize(stream, UseLocalIP);
+                formatter.Serialize(stream, ServerIP);
+                formatter.Serialize(stream, ServerPort);
+            }
+            catch
+            {
+            }
         }
 
         //text + \0 + cmd

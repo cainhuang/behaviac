@@ -408,7 +408,7 @@ void btagenttick(behaviac::Workspace::EFileFormat format, int countAgents)
     for (int i = 0; i < countAgents; ++i) {
         agents[i].bGo = true;
         agents[i].pA->Clear();
-        agents[i].pA->btresetcurrrent();
+        agents[i].pA->btresetcurrent();
     }
 
     behaviac::Profiler::GetInstance()->BeginFrame();

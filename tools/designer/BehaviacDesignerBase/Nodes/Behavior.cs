@@ -262,7 +262,7 @@ public interface BehaviorNode :
         public class DescriptorRef
         {
             private VariableDef _descriptor;
-            [DesignerPropertyEnum("Descriptor", "DescriptorDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.Self | DesignerPropertyEnum.AllowStyles.Global, "", "Reference")]
+            [DesignerPropertyEnum("Descriptor", "DescriptorDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.Self | DesignerPropertyEnum.AllowStyles.Instance, "", "Reference")]
             public VariableDef Descriptor {
                 get { return _descriptor; }
                 set { _descriptor = value; }

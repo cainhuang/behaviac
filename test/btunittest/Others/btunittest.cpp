@@ -22,6 +22,7 @@
 
 #include "behaviac/behaviortree/generator.h"
 
+#if BEHAVIAC_COMPILER_MSVC
 TEST(btunittest, coroutine)
 {
     $generator(descent)
@@ -52,6 +53,8 @@ TEST(btunittest, coroutine)
     {
     }
 }
+#endif
+
 
 TEST(btunittest, mbstowcs)
 {

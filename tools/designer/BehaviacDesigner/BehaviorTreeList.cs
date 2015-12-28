@@ -748,7 +748,7 @@ namespace Behaviac.Design
                                 UndoManager.Save(behavior);
                             }
 
-                            Utilities.ReportLoadBehavior(((Node)behavior).Label);
+                            Utilities.ReportLoadBehavior();
 
                         } catch (Exception ex) {
                             MessageBox.Show(ex.Message, Resources.LoadError, MessageBoxButtons.OK);
@@ -2163,10 +2163,11 @@ namespace Behaviac.Design
                     FileManagers.SaveResult saveResult = MainWindow.Instance.CheckSavingBehaviors();
                     if (saveResult != FileManagers.SaveResult.Cancelled)
                     {
-                        using (ConnectDialog cd = new ConnectDialog(NetworkManager.ServerIP, NetworkManager.ServerPort))
+                        using (ConnectDialog cd = new ConnectDialog(NetworkManager.UseLocalIP, NetworkManager.ServerIP, NetworkManager.ServerPort))
                         {
                             if (cd.ShowDialog(this) == DialogResult.OK)
                             {
+                                NetworkManager.UseLocalIP = cd.UseLocalIP();
                                 NetworkManager.ServerIP = cd.GetServer();
                                 NetworkManager.ServerPort = cd.GetPort();
 

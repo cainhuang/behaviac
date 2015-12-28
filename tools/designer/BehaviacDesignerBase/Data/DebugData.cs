@@ -282,8 +282,7 @@ namespace Behaviac.Design.Data
 
                 ExpandedNodePool.Serialize(stream, formatter);
 
-                formatter.Serialize(stream, NetworkManager.ServerIP);
-                formatter.Serialize(stream, NetworkManager.ServerPort);
+                NetworkManager.Save(stream, formatter);
 
                 stream.Close();
 
@@ -310,8 +309,7 @@ namespace Behaviac.Design.Data
 
                     ExpandedNodePool.Deserialize(stream, formatter);
 
-                    NetworkManager.ServerIP = formatter.Deserialize(stream) as string;
-                    NetworkManager.ServerPort = (int)formatter.Deserialize(stream);
+                    NetworkManager.Load(stream, formatter);
 
                     stream.Close();
 

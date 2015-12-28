@@ -117,227 +117,356 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>646, 612</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="webBrowser.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Reference Documents:</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="webBrowser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 83</value>
+  </data>
+  <data name="webBrowser.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>20, 18</value>
+  </data>
+  <data name="webBrowser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>629, 451</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="workspaceLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="webBrowser.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="&gt;&gt;webBrowser.Name" xml:space="preserve">
+    <value>webBrowser</value>
+  </data>
+  <data name="&gt;&gt;webBrowser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;webBrowser.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;webBrowser.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
   <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="&gt;&gt;workspaceLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="buttonClose.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
   </data>
-  <data name="workspace4Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 24</value>
-  </data>
-  <data name="workspaceLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxNext.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
+    <value>553, 545</value>
   </data>
   <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
-  <data name="&gt;&gt;overviewDocButton.Name" xml:space="preserve">
-    <value>overviewDocButton</value>
+  <data name="buttonClose.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="webBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>629, 503</value>
-  </data>
-  <data name="&gt;&gt;workspace1Button.Name" xml:space="preserve">
-    <value>workspace1Button</value>
-  </data>
-  <data name="overviewDocButton.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="workspace1Button.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ControlsDialog</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="workspace3Button.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="webBrowser.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;workspace3Button.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;overviewDocButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="workspace3Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>287, 26</value>
-  </data>
-  <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>553, 624</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNext.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;overviewDocButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>Close</value>
   </data>
   <data name="&gt;&gt;buttonClose.Name" xml:space="preserve">
     <value>buttonClose</value>
   </data>
-  <data name="&gt;&gt;workspace4Button.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonClose.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonClose.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="checkBoxNext.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="checkBoxNext.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxNext.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="checkBoxNext.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 549</value>
+  </data>
+  <data name="checkBoxNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 16</value>
+  </data>
+  <data name="checkBoxNext.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="checkBoxNext.Text" xml:space="preserve">
+    <value>Don't show me next time</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNext.Name" xml:space="preserve">
+    <value>checkBoxNext</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNext.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxNext.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="workspaceLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="workspaceLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 9</value>
+  </data>
+  <data name="workspaceLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 12</value>
+  </data>
+  <data name="workspaceLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="workspaceLabel.Text" xml:space="preserve">
+    <value>Example Workspaces:</value>
+  </data>
+  <data name="&gt;&gt;workspaceLabel.Name" xml:space="preserve">
+    <value>workspaceLabel</value>
+  </data>
+  <data name="&gt;&gt;workspaceLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;workspaceLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;workspaceLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="workspace1Button.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="workspace1Button.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 3</value>
+  </data>
+  <data name="workspace1Button.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 24</value>
+  </data>
+  <data name="workspace1Button.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="workspace1Button.Text" xml:space="preserve">
+    <value>Unit Test(C#)</value>
+  </data>
+  <data name="workspace1Button.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;workspace1Button.Name" xml:space="preserve">
+    <value>workspace1Button</value>
+  </data>
+  <data name="&gt;&gt;workspace1Button.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;workspace1Button.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
+  <data name="&gt;&gt;workspace1Button.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="workspace1Button.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="workspace2Button.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxNext.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="&gt;&gt;workspace3Button.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;workspaceLabel.Name" xml:space="preserve">
-    <value>workspaceLabel</value>
-  </data>
-  <data name="overviewDocButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 12</value>
-  </data>
-  <data name="workspace1Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 24</value>
-  </data>
-  <data name="&gt;&gt;workspace2Button.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;webBrowser.Name" xml:space="preserve">
-    <value>webBrowser</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNext.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;workspace2Button.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="webBrowser.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>20, 18</value>
-  </data>
-  <data name="&gt;&gt;webBrowser.Type" xml:space="preserve">
-    <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="workspace2Button.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;checkBoxNext.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="workspace2Button.Location" type="System.Drawing.Point, System.Drawing">
+    <value>230, 3</value>
   </data>
   <data name="workspace2Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 24</value>
+    <value>140, 24</value>
   </data>
-  <data name="&gt;&gt;workspace4Button.Name" xml:space="preserve">
-    <value>workspace4Button</value>
+  <data name="workspace2Button.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
-  <data name="&gt;&gt;workspace3Button.Type" xml:space="preserve">
+  <data name="workspace2Button.Text" xml:space="preserve">
+    <value>Battle City Demo(C#)</value>
+  </data>
+  <data name="workspace2Button.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;workspace2Button.Name" xml:space="preserve">
+    <value>workspace2Button</value>
+  </data>
+  <data name="&gt;&gt;workspace2Button.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonClose.Text" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="&gt;&gt;webBrowser.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;workspace4Button.Parent" xml:space="preserve">
+  <data name="&gt;&gt;workspace2Button.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;overviewDocButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="workspace2Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 26</value>
+  <data name="&gt;&gt;workspace2Button.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="workspace4Button.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
-  <data name="checkBoxNext.Text" xml:space="preserve">
-    <value>Don't show me next time</value>
-  </data>
-  <data name="checkBoxNext.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="workspace4Button.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;workspaceLabel.ZOrder" xml:space="preserve">
+  <data name="workspace4Button.Location" type="System.Drawing.Point, System.Drawing">
+    <value>486, 3</value>
+  </data>
+  <data name="workspace4Button.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 24</value>
+  </data>
+  <data name="workspace4Button.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
-    <value>8</value>
+  <data name="workspace4Button.Text" xml:space="preserve">
+    <value>Spaceship Demo(C++)</value>
+  </data>
+  <data name="workspace4Button.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;workspace4Button.Name" xml:space="preserve">
+    <value>workspace4Button</value>
+  </data>
+  <data name="&gt;&gt;workspace4Button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;workspace4Button.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;workspace4Button.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="workspace3Button.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="workspace3Button.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="workspace3Button.Location" type="System.Drawing.Point, System.Drawing">
+    <value>376, 3</value>
+  </data>
+  <data name="workspace3Button.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 24</value>
+  </data>
+  <data name="workspace3Button.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="workspace3Button.Text" xml:space="preserve">
+    <value>Unit Test(C++)</value>
   </data>
   <data name="workspace3Button.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="checkBoxNext.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
+  <data name="&gt;&gt;workspace3Button.Name" xml:space="preserve">
+    <value>workspace3Button</value>
   </data>
-  <data name="workspace1Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 26</value>
+  <data name="&gt;&gt;workspace3Button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonClose.Parent" xml:space="preserve">
+  <data name="&gt;&gt;workspace3Button.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="buttonClose.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="&gt;&gt;workspaceLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="overviewDocButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 24</value>
-  </data>
-  <data name="&gt;&gt;workspace4Button.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;workspace3Button.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="workspace1Button.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="checkBoxNext.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 628</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="referenceLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="referenceLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="referenceLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 36</value>
+  </data>
+  <data name="referenceLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 12</value>
+  </data>
+  <data name="referenceLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="referenceLabel.Text" xml:space="preserve">
+    <value>Reference Documents:</value>
+  </data>
+  <data name="&gt;&gt;referenceLabel.Name" xml:space="preserve">
+    <value>referenceLabel</value>
+  </data>
+  <data name="&gt;&gt;referenceLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;referenceLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;referenceLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="referLinkTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 36</value>
+  </data>
+  <data name="referLinkTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 0, 3, 0</value>
+  </data>
+  <data name="referLinkTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="referLinkTextBox.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="referLinkTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 12</value>
+  </data>
+  <data name="referLinkTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="referLinkTextBox.Text" xml:space="preserve">
+    <value>http://tencentopen.github.io/behaviac/</value>
+  </data>
+  <data name="&gt;&gt;referLinkTextBox.Name" xml:space="preserve">
+    <value>referLinkTextBox</value>
+  </data>
+  <data name="&gt;&gt;referLinkTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;referLinkTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;referLinkTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="noteLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="noteLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="noteLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 58</value>
+  </data>
+  <data name="noteLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 12</value>
+  </data>
+  <data name="noteLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="noteLabel.Text" xml:space="preserve">
+    <value>Note: To improve user experience, the operating information will be sent to the server.</value>
+  </data>
+  <data name="&gt;&gt;noteLabel.Name" xml:space="preserve">
+    <value>noteLabel</value>
+  </data>
+  <data name="&gt;&gt;noteLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;noteLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;noteLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>630, 574</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5204,118 +5333,19 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>646, 612</value>
   </data>
-  <data name="&gt;&gt;workspace1Button.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="workspace3Button.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="workspace4Button.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="workspace4Button.Text" xml:space="preserve">
-    <value>Spaceship Demo (C++)</value>
-  </data>
-  <data name="webBrowser.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="workspaceLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 12</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 61</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Start Page</value>
   </data>
-  <data name="workspace2Button.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ControlsDialog</value>
   </data>
-  <data name="buttonClose.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;workspace1Button.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="workspace2Button.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="overviewDocButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 78</value>
-  </data>
-  <data name="workspace4Button.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="workspace3Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
-  </data>
-  <data name="workspace2Button.Text" xml:space="preserve">
-    <value>Battle City Demo (C#)</value>
-  </data>
-  <data name="workspaceLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 9</value>
-  </data>
-  <data name="overviewDocButton.Text" xml:space="preserve">
-    <value>Documents</value>
-  </data>
-  <data name="&gt;&gt;workspace2Button.Name" xml:space="preserve">
-    <value>workspace2Button</value>
-  </data>
-  <data name="overviewDocButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="overviewDocButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="webBrowser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 110</value>
-  </data>
-  <data name="&gt;&gt;workspace3Button.Name" xml:space="preserve">
-    <value>workspace3Button</value>
-  </data>
-  <data name="&gt;&gt;checkBoxNext.Name" xml:space="preserve">
-    <value>checkBoxNext</value>
-  </data>
-  <data name="workspace3Button.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;webBrowser.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>630, 653</value>
-  </data>
-  <data name="workspace1Button.Text" xml:space="preserve">
-    <value>Unit Test (C#)</value>
-  </data>
-  <data name="workspace3Button.Text" xml:space="preserve">
-    <value>Unit Test (C++)</value>
-  </data>
-  <data name="&gt;&gt;workspace2Button.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="workspace4Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>413, 26</value>
-  </data>
-  <data name="workspace2Button.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="workspaceLabel.Text" xml:space="preserve">
-    <value>Example Workspaces:</value>
-  </data>
-  <data name="checkBoxNext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 16</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

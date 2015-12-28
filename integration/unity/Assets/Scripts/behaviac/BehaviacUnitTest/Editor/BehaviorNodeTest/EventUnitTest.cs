@@ -135,6 +135,27 @@ namespace BehaviorNodeUnitTest
         }
 
         [Test]
+        [Category("test_event_2")]
+        public void test_event_2()
+        {
+            testChild.resetProperties();
+
+            const string treePath = "node_test/event_ut_2";
+            testChild.btload(treePath);
+            testChild.btsetcurrent(treePath);
+
+            behaviac.EBTStatus status = testChild.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            testChild.FireEvent("event_test_int_bool", 15, true);
+            Assert.AreEqual(true, testChild.event_test_var_bool);
+            Assert.AreEqual(15, testChild.event_test_var_int);
+
+            status = testChild.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+        }
+
+        [Test]
         [Category("test_local_vars")]
         public void test_local_vars() {
             testAgent.btsetcurrent("node_test/event_ut_1");

@@ -72,7 +72,7 @@ namespace Behaviac.Design
 
             // Global
             else {
-                Inspect(Plugin.GetInstanceAgentType(agentFullName), agentName, agentFullName, nodeState);
+                Inspect(Plugin.GetInstanceAgentType(agentFullName, null, null), agentName, agentFullName, nodeState);
             }
         }
 
@@ -191,7 +191,7 @@ namespace Behaviac.Design
             }
 
             // Global
-            else if (Plugin.IsInstanceAgentType(agentType)) {
+            else if (Plugin.IsGlobalInstanceAgentType(agentType)) {
                 Text = TabText = string.Format(Resources.PropertiesOf, agentType.ToString());
             }
 

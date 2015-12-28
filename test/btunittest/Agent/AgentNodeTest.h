@@ -53,6 +53,7 @@ enum EnumTest
 
 DECLARE_BEHAVIAC_OBJECT_ENUM(EnumTest, EnumTest);
 
+class ChildNodeTest;
 class AgentNodeTest : public behaviac::Agent
 {
 public:
@@ -97,6 +98,17 @@ public:
     void finl()
     {
     }
+
+    void initChildAgentTest(const char* strChildAgentName);
+
+    void removeChildAgentTest(const char* strChildAgentName);
+   
+    template<class ChildAgentType>
+    ChildAgentType* getChildAgent(int var_0, const char* strChildAgentName)
+    {
+        ChildAgentType* childAgent = behaviac::Agent::Create<ChildAgentType>(var_0,strChildAgentName,0,0);
+        return childAgent;
+    };
 
     void setEventVarInt(int var)
     {
@@ -261,6 +273,7 @@ public:
 	{
 		return behaviac::BT_RUNNING;
 	}
+    void initChildAgent();
 };
 
 

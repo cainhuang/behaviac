@@ -7,8 +7,18 @@
     <par name="par_int_type_1" type="int" value="0" />
     <par name="par_int_type_2" type="int" value="300" />
     <par name="par_go" type="UnityEngine::GameObject" value="null" />
+    <par name="par_child" type="ChildNodeTest" value="null" />
   </pars>
   <node class="Sequence" id="0">
+    <node class="Condition" id="8">
+      <property Operator="Greater" />
+      <property Opl="float par_child.AgentNodeTest::testVar_2" />
+      <property Opr="float Self.AgentNodeTest::testVar_3" />
+    </node>
+    <node class="Action" id="9">
+      <property Method="par_child.AgentNodeTest::SelectTarget()" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
     <node class="Compute" id="1">
       <property Operator="Add" />
       <property Opl="int Self.AgentNodeTest::par_int_type_0" />

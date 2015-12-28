@@ -383,7 +383,7 @@ namespace behaviac
                 {
                     const char* pEventName = pE->GetEventName();
 
-                    if (!StringUtils::IsNullOrEmpty(pEventName) && pEventName == eventName)
+                    if (!StringUtils::IsNullOrEmpty(pEventName) && StringUtils::StrEqual(pEventName, eventName))
                     {
                         pE->switchTo(pAgent);
 

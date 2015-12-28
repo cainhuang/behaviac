@@ -39,7 +39,7 @@ namespace PluginBehaviac.Nodes
         }
 
         private string _domain = "";
-        [DesignerString("BehaviorDomain", "BehaviorDomainDesc", "Query", DesignerProperty.DisplayMode.List, 0, DesignerProperty.DesignerFlags.NoFlags)]
+        [DesignerString("BehaviorDomain", "BehaviorDomainDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoFlags)]
         public string Domain
         {
             get { return _domain; }
@@ -49,7 +49,7 @@ namespace PluginBehaviac.Nodes
         public class Descriptor_t
         {
             private VariableDef _attribute;
-            [DesignerPropertyEnum("Attribute", "AttributeDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.Self | DesignerPropertyEnum.AllowStyles.Global, "", "Reference")]
+            [DesignerPropertyEnum("Attribute", "AttributeDesc", "Query", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.Self | DesignerPropertyEnum.AllowStyles.Instance, "", "Reference")]
             public VariableDef Attribute
             {
                 get { return _attribute; }

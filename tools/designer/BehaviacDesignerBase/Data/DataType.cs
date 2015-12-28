@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -722,8 +722,8 @@ namespace Behaviac.Design
 
                     if (name.Length > 0)
                     {
-                        if (name.Length > 1 && Plugin.IsInstanceName(name[0]))
-                        { return _displayName; }
+                        //if (name.Length > 1 && Plugin.IsInstanceName(name[0], null))
+                        //    return _displayName;
 
                         return name[name.Length - 1];
                     }
@@ -1084,13 +1084,11 @@ namespace Behaviac.Design
                     if (this.Owner != VariableDef.kSelf)
                     {
                         str = Plugin.GetInstanceDisplayName(this.Owner) + "." + this.DisplayName;
-
                     }
                     else
                     {
                         str = this.DisplayName;
                     }
-
                 }
                 else
                 {
@@ -1491,8 +1489,8 @@ namespace Behaviac.Design
 
                     if (name.Length > 0)
                     {
-                        if (name.Length > 1 && Plugin.IsInstanceName(name[0]))
-                        { return _displayName; }
+                        //if (name.Length > 1 && Plugin.IsInstanceName(name[0], null))
+                        //    return _displayName;
 
                         return name[name.Length - 1];
                     }
@@ -1679,9 +1677,10 @@ namespace Behaviac.Design
 
         public void SetProperty(PropertyDef property, string valueType)
         {
-            //Debug.Check(this._property == null);
             _property = property;
             ValueClass = valueType;
+            if (_property != null)
+                _property.Owner = valueType;
         }
 
         private string _nativeType = "";

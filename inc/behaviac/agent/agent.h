@@ -97,7 +97,7 @@ namespace behaviac
         /**
         destory the specified bt created by this agent
 
-        relativePath is relative to the workspace epported path. relativePath should not include extension.
+        @param relativePath, is relative to the workspace epported path. relativePath should not include extension.
         */
         void btunload(const char* relativePath);
 
@@ -136,7 +136,7 @@ namespace behaviac
         /**
         reset the current bt, do nothing if there is no current bt
         */
-        void btresetcurrrent();
+        void btresetcurrent();
         BehaviorTreeTask* btgetcurrent();
         const BehaviorTreeTask* btgetcurrent() const;
 

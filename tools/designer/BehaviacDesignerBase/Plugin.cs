@@ -958,30 +958,117 @@ namespace Behaviac.Design
             _instanceNamesDict[instance] = instanceName;
         }
 
-        public static AgentType GetInstanceAgentType(string instance, AgentType selfType = null) {
-            if (instance == VariableDef.kSelf)
-            { return selfType; }
+        public static AgentType GetInstanceAgentType(string instance, Behavior behavior, AgentType selfType)
+        {
+            if (!string.IsNullOrEmpty(instance))
+            {
+                // self
+                if (instance == VariableDef.kSelf)
+                    return selfType;
 
-            if (_instanceNamesDict.ContainsKey(instance))
-            { return _instanceNamesDict[instance].agentType_; }
+                // global instances
+                if (_instanceNamesDict.ContainsKey(instance))
+                    return _instanceNamesDict[instance].agentType_;
+
+                // local instances
+                List<InstanceName_t> instances = GetLocalInstanceNames(behavior);
+                foreach (InstanceName_t instanceName in instances)
+                {
+                    if (instanceName.name_ == instance)
+                        return instanceName.agentType_;
+                }
+            }
 
             return GetAgentType(instance);
         }
 
-        public static string GetInstanceDisplayName(string instance) {
-            if (instance == VariableDef.kSelf)
-            { return VariableDef.kSelf; }
+        public static bool IsInstanceName(string instance, Behavior behavior)
+        {
+            if (!string.IsNullOrEmpty(instance))
+            {
+                // global instances
+                if (_instanceNamesDict.ContainsKey(instance))
+                    return true;
 
-            if (_instanceNamesDict.ContainsKey(instance))
-            { return _instanceNamesDict[instance].displayName_; }
-
-            AgentType at = GetAgentType(instance);
-
-            if (at != null) {
-                return at.DisplayName;
+                // local instances
+                List<InstanceName_t> instances = GetLocalInstanceNames(behavior);
+                foreach (InstanceName_t instanceName in instances)
+                {
+                    if (instanceName.name_ == instance)
+                        return true;
+                }
             }
 
-            return string.Empty;
+            return false;
+        }
+
+        public static int InstanceNameIndex(string instance, Behavior behavior)
+        {
+            instance = GetInstanceNameFromClassName(instance);
+
+            // global instances
+            int index = InstanceNames.FindIndex(delegate(InstanceName_t instanceName_t)
+            {
+                return instanceName_t.name_ == instance;
+            });
+
+            if (index >= 0)
+                return index;
+
+            // local instances
+            index = InstanceNames.Count;
+
+            List<InstanceName_t> instances = GetLocalInstanceNames(behavior);
+            foreach (InstanceName_t instanceName in instances)
+            {
+                if (instanceName.name_ == instance)
+                    return index;
+
+                index++;
+            }
+
+            return -1;
+        }
+
+        public static List<InstanceName_t> GetLocalInstanceNames(Behavior behavior)
+        {
+            List<InstanceName_t> instanceNames = new List<InstanceName_t>();
+
+            if (behavior != null && behavior.AgentType != null)
+            {
+                foreach (PropertyDef prop in behavior.AgentType.GetProperties())
+                {
+                    if (Plugin.IsDerived(prop.Type, typeof(Agent)))
+                    {
+                        InstanceName_t instanceName = new InstanceName_t();
+
+                        instanceName.name_ = prop.BasicName;
+                        instanceName.className_ = prop.AgentType.AgentTypeName;
+                        instanceName.agentType_ = behavior.AgentType;
+                        instanceName.displayName_ = prop.DisplayName;
+                        instanceName.desc_ = prop.BasicDescription;
+
+                        instanceNames.Add(instanceName);
+                    }
+                }
+            }
+
+            return instanceNames;
+        }
+
+        public static string GetInstanceDisplayName(string instance)
+        {
+            if (instance == VariableDef.kSelf)
+                return VariableDef.kSelf;
+
+            if (_instanceNamesDict.ContainsKey(instance))
+                return _instanceNamesDict[instance].displayName_;
+
+            AgentType at = GetAgentType(instance);
+            if (at != null)
+                return at.DisplayName;
+
+            return instance;
         }
 
         public static string GetInstanceNameFromClassName(string clsName) {
@@ -1038,21 +1125,8 @@ namespace Behaviac.Design
             }
         }
 
-        public static bool IsInstanceAgentType(AgentType type) {
+        public static bool IsGlobalInstanceAgentType(AgentType type) {
             return _instanceNamesDict.ContainsKey(type.AgentTypeName);
-        }
-
-        public static bool IsInstanceName(string instanceName) {
-            return !string.IsNullOrEmpty(instanceName) && _instanceNamesDict.ContainsKey(instanceName);
-        }
-
-        public static int InstanceNameIndex(string instanceName) {
-            instanceName = GetInstanceNameFromClassName(instanceName);
-
-            return InstanceNames.FindIndex(
-            delegate(InstanceName_t instanceName_t) {
-                return instanceName_t.name_ == instanceName;
-            });
         }
 
         public static string GetInstanceName(string str) {
@@ -1189,17 +1263,23 @@ namespace Behaviac.Design
         }
 
         public static AgentType GetAgentType(string typeName) {
-            if (Plugin.NamesInNamespace.ContainsKey(typeName)) {
-                typeName = Plugin.NamesInNamespace[typeName];
-            }
+            if (!string.IsNullOrEmpty(typeName))
+            {
+                if (Plugin.NamesInNamespace.ContainsKey(typeName))
+                {
+                    typeName = Plugin.NamesInNamespace[typeName];
+                }
 
-            foreach(AgentType at in _agentTypes) {
-                if (at.AgentTypeName == typeName
+                foreach (AgentType at in _agentTypes)
+                {
+                    if (at.AgentTypeName == typeName
 #if BEHAVIAC_NAMESPACE_FIX
-                    || at.AgentTypeName.EndsWith(typeName)
+                        || at.AgentTypeName.EndsWith(typeName)
 #endif
-                   ) {
-                    return at;
+                        )
+                    {
+                        return at;
+                    }
                 }
             }
 
@@ -1224,6 +1304,27 @@ namespace Behaviac.Design
             }
 
             return IsAgentDerived(parentTypeName, parentType);
+        }
+
+        public static bool IsDerived(Type childType, Type baseType)
+        {
+            if (childType == null || baseType == null)
+                return false;
+
+            Type kObjectType = typeof(Object);
+
+            if (baseType == kObjectType || childType == baseType)
+                return true;
+
+            while (childType != kObjectType)
+            {
+                if (childType == baseType)
+                    return true;
+
+                childType = childType.BaseType;
+            }
+
+            return false;
         }
 
         public static void UnRegisterAgentTypes() {

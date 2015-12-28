@@ -111,8 +111,6 @@ namespace behaviac
     {
         super::onenter(pAgent);
 
-        //don't reset the m_n if it is restarted
-        if (this->m_n == 0)
         {
             int count = this->GetCount(pAgent);
 
@@ -123,10 +121,6 @@ namespace behaviac
 
             this->m_n = count;
 
-        }
-        else
-        {
-            BEHAVIAC_ASSERT(true);
         }
 
         return true;

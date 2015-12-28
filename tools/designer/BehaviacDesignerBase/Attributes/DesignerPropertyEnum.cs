@@ -48,11 +48,11 @@ namespace Behaviac.Design.Attributes
             Const = 1,
             Par = 2,
             Self = 4,
-            Global = 8,
+            Instance = 8,
             SelfMethod = 16,
-            GlobalMethod = 32,
-            Attributes = Par | Self | Global,
-            Method = SelfMethod | GlobalMethod,
+            InstanceMethod = 32,
+            Attributes = Par | Self | Instance,
+            Method = SelfMethod | InstanceMethod,
             ConstAttributes = Const | Attributes,
             AttributesMethod = Attributes | Method,
             ConstAttributesMethod = Const | Attributes | Method
@@ -234,31 +234,32 @@ namespace Behaviac.Design.Attributes
             { propertyName = "Self." + agentType.AgentTypeName + "::" + propertyName; }
 
             VariableDef v = null;
+            Nodes.Behavior behavior = node.Behavior as Nodes.Behavior;
             int pointIndex = propertyName.IndexOf('.');
 
-            if (pointIndex > -1) {
+            if (pointIndex > -1)
+            {
                 string ownerName = propertyName.Substring(0, pointIndex);
                 propertyName = propertyName.Substring(pointIndex + 1, propertyName.Length - pointIndex - 1);
 
-                agentType = Plugin.GetInstanceAgentType(ownerName, agentType);
+                agentType = Plugin.GetInstanceAgentType(ownerName, behavior, agentType);
                 string valueType = ownerName;
 
                 v = setProperty(result, node, agentType, propertyName, arrayIndexStr, valueType);
-
-            } else {
+            }
+            else
+            {
                 string className = Plugin.GetClassName(propertyName);
 
                 // Assume it was global type.
-                if (className != null) {
-                    v = setProperty(result, node, Plugin.GetInstanceAgentType(className), propertyName, arrayIndexStr, className);
+                if (className != null)
+                {
+                    v = setProperty(result, node, Plugin.GetInstanceAgentType(className, behavior, agentType), propertyName, arrayIndexStr, className);
 
-                    if (v == null) {
-                        Nodes.Behavior behavior = node.Behavior as Nodes.Behavior;
-
-                        if (behavior != null) {
-                            // Assume it was Agent type.
-                            v = setProperty(result, node, behavior.AgentType, propertyName, arrayIndexStr, VariableDef.kSelf);
-                        }
+                    if (v == null && behavior != null)
+                    {
+                        // Assume it was Agent type.
+                        v = setProperty(result, node, behavior.AgentType, propertyName, arrayIndexStr, VariableDef.kSelf);
                     }
                 }
             }
@@ -338,17 +339,24 @@ namespace Behaviac.Design.Attributes
 
         protected static VariableDef setProperty(List<Nodes.Node.ErrorCheck> result, DefaultObject node, AgentType agentType, string propertyName, string arrayIndexStr, string valueType)
         {
-            if (agentType != null) {
+            if (agentType != null)
+            {
                 IList<PropertyDef> properties = agentType.GetProperties();
-                foreach(PropertyDef p in properties) {
+                foreach (PropertyDef p in properties)
+                {
                     if (p.Name == propertyName
 #if BEHAVIAC_NAMESPACE_FIX
                         || p.Name.EndsWith(propertyName)
 #endif
-                       ) {
-                        VariableDef v = new VariableDef(p.Clone(), valueType);
+                        )
+                    {
+                        PropertyDef prop = p.Clone();
+                        prop.Owner = valueType;
 
-                        if (v != null && !string.IsNullOrEmpty(arrayIndexStr)) {
+                        VariableDef v = new VariableDef(prop, valueType);
+
+                        if (v != null && !string.IsNullOrEmpty(arrayIndexStr))
+                        {
                             v.ArrayIndexElement = new MethodDef.Param("ArrayIndex", typeof(int), "int", "ArrayIndex", "ArrayIndex");
                             v.ArrayIndexElement.IsArrayIndex = true;
                             DesignerMethodEnum.parseParam(result, node, null, v.ArrayIndexElement, arrayIndexStr);

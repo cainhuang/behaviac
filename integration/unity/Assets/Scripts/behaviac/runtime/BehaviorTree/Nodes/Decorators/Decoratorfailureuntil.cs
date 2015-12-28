@@ -70,6 +70,34 @@ namespace behaviac
                 base.load(node);
             }
 
+            public override void onreset(Agent pAgent)
+            {
+                this.m_n = 0;
+            }
+
+            protected override bool onenter(Agent pAgent)
+            {
+                //base.onenter(pAgent);
+
+                if (this.m_n == 0)
+                {
+                    int count = this.GetCount(pAgent);
+
+                    if (count == 0)
+                    {
+                        return false;
+                    }
+
+                    this.m_n = count;
+                }
+                else
+                {
+                    Debug.Check(true);
+                }
+
+                return true;
+            }
+
             protected override EBTStatus decorate(EBTStatus status)
             {
                 if (this.m_n > 0)

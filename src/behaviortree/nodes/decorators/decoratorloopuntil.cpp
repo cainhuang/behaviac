@@ -67,11 +67,6 @@ namespace behaviac
         super::load(node);
     }
 
-    //bool DecoratorLoopUntilTask::NeedRestart() const
-    //{
-    //	return true;
-    //}
-
     EBTStatus DecoratorLoopUntilTask::decorate(EBTStatus status)
     {
         if (this->m_n > 0)

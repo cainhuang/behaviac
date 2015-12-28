@@ -64,6 +64,39 @@ namespace behaviac
         super::load(node);
     }
 
+	void DecoratorFailureUntilTask::onreset(Agent* pAgent)
+	{
+		BEHAVIAC_UNUSED_VAR(pAgent);
+
+		this->m_n = 0;
+	}
+
+	bool DecoratorFailureUntilTask::onenter(Agent* pAgent)
+	{
+		//super::onenter(pAgent);
+
+		//don't reset the m_n if it is restarted
+		if (this->m_n == 0)
+		{
+			int count = this->GetCount(pAgent);
+
+			if (count == 0)
+			{
+				return false;
+			}
+
+			this->m_n = count;
+
+		}
+		else
+		{
+			BEHAVIAC_ASSERT(true);
+		}
+
+		return true;
+	}
+
+
     EBTStatus DecoratorFailureUntilTask::decorate(EBTStatus status)
     {
         BEHAVIAC_UNUSED_VAR(status);

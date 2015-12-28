@@ -94,3 +94,33 @@ LOAD_TEST(btunittest, event_ut_0)
 
 	finlTestEnvNode(myTestAgent);
 }
+
+LOAD_TEST(btunittest, event_ut_2)
+{
+	registerAllTypes();
+
+	ChildNodeTest* childTestAgent = ChildNodeTest::DynamicCast(behaviac::Agent::Create<ChildNodeTest>(100, "ChildNodeTest", 0, 0));
+	CHECK_EQUAL(100, childTestAgent->testVar_0);
+
+	childTestAgent->resetProperties();
+
+	const char* treePath = "node_test/event_ut_2";
+	childTestAgent->btload(treePath);
+    childTestAgent->btsetcurrent(treePath);
+
+	childTestAgent->btexec();
+
+	behaviac::EBTStatus status = childTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	childTestAgent->FireEvent("event_test_int_bool", 15, true);
+	CHECK_EQUAL(true, childTestAgent->event_test_var_bool);
+	CHECK_EQUAL(15, childTestAgent->event_test_var_int);
+
+	status = childTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+
+	BEHAVIAC_DELETE(childTestAgent);
+
+	unregisterAllTypes();
+}

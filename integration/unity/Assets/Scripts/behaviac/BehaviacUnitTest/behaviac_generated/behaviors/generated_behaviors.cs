@@ -4278,6 +4278,113 @@ namespace behaviac
 		}
 	}
 
+	// Source file: node_test/action_child_agent_0
+
+	class Action_bt_node_test_action_child_agent_0_node3 : behaviac.Action
+	{
+		public Action_bt_node_test_action_child_agent_0_node3()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).initChildAgent();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	class Assignment_bt_node_test_action_child_agent_0_node2 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_child_agent_0_node2()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr = 666;
+			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("par_child_agent", pAgent.GetContextId());
+			Debug.Check(pAgent_opl != null);
+			((AgentNodeTest)pAgent_opl).testVar_0 = opr;
+			return result;
+		}
+	}
+
+	class Action_bt_node_test_action_child_agent_0_node1 : behaviac.Action
+	{
+		public Action_bt_node_test_action_child_agent_0_node1()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_p0 = 999f;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			behaviac.Agent pAgent_method = behaviac.Agent.GetInstance("par_child_agent", pAgent.GetContextId());
+			Debug.Check(pAgent_method != null);
+			((AgentNodeTest)pAgent_method).setTestVar_2(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+		float method_p0;
+	}
+
+	public static class bt_node_test_action_child_agent_0
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/action_child_agent_0");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// pars
+			bt.AddPar("AgentNodeTest", "AgentNodeTest", "par_child_agent", "null");
+			bt.AddPar("AgentNodeTest", "ChildNodeTest", "par_child_agent_1", "null");
+			// children
+			{
+				Sequence node0 = new Sequence();
+				node0.SetClassNameString("Sequence");
+				node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+				node0.SetAgentType("AgentNodeTest");
+#endif
+				bt.AddChild(node0);
+				{
+					Action_bt_node_test_action_child_agent_0_node3 node3 = new Action_bt_node_test_action_child_agent_0_node3();
+					node3.SetClassNameString("Action");
+					node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+					node3.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node3);
+					node0.SetHasEvents(node0.HasEvents() | node3.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_child_agent_0_node2 node2 = new Assignment_bt_node_test_action_child_agent_0_node2();
+					node2.SetClassNameString("Assignment");
+					node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+					node2.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node2);
+					node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_child_agent_0_node1 node1 = new Action_bt_node_test_action_child_agent_0_node1();
+					node1.SetClassNameString("Action");
+					node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+					node1.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node1);
+					node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
+			}
+			return true;
+		}
+	}
+
 	// Source file: node_test/action_noop_ut_0
 
 	class Assignment_bt_node_test_action_noop_ut_0_node4 : behaviac.Assignment
@@ -4361,6 +4468,41 @@ namespace behaviac
 	}
 
 	// Source file: node_test/action_ut_0
+
+	class Condition_bt_node_test_action_ut_0_node8 : behaviac.Condition
+	{
+		public Condition_bt_node_test_action_ut_0_node8()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("par_child", pAgent.GetContextId());
+			Debug.Check(pAgent_opl != null);
+			float opl = ((AgentNodeTest)pAgent_opl).testVar_2;
+			float opr = ((AgentNodeTest)pAgent).testVar_3;
+			Debug.Check(behaviac.Utils.MakeVariableId("testVar_3") == 2587852242u);
+			pAgent.SetVariable<float>("testVar_3", ((AgentNodeTest)pAgent).testVar_3, 2587852242u);
+			bool op = opl > opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	class Action_bt_node_test_action_ut_0_node9 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_0_node9()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_params = null;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			behaviac.Agent pAgent_method = behaviac.Agent.GetInstance("par_child", pAgent.GetContextId());
+			Debug.Check(pAgent_method != null);
+			AgentExtra_Generated.ExecuteMethod(pAgent_method, "SelectTarget", method_params);
+			return EBTStatus.BT_SUCCESS;
+		}
+		object[] method_params;
+	}
 
 	class Compute_bt_node_test_action_ut_0_node1 : behaviac.Compute
 	{
@@ -4484,6 +4626,7 @@ namespace behaviac
 			bt.AddPar("AgentNodeTest", "int", "par_int_type_1", "0");
 			bt.AddPar("AgentNodeTest", "int", "par_int_type_2", "300");
 			bt.AddPar("AgentNodeTest", "UnityEngine.GameObject", "par_go", "null");
+			bt.AddPar("AgentNodeTest", "ChildNodeTest", "par_child", "null");
 			// children
 			{
 				Sequence node0 = new Sequence();
@@ -4493,6 +4636,26 @@ namespace behaviac
 				node0.SetAgentType("AgentNodeTest");
 #endif
 				bt.AddChild(node0);
+				{
+					Condition_bt_node_test_action_ut_0_node8 node8 = new Condition_bt_node_test_action_ut_0_node8();
+					node8.SetClassNameString("Condition");
+					node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+					node8.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node8);
+					node0.SetHasEvents(node0.HasEvents() | node8.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_0_node9 node9 = new Action_bt_node_test_action_ut_0_node9();
+					node9.SetClassNameString("Action");
+					node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+					node9.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node9);
+					node0.SetHasEvents(node0.HasEvents() | node9.HasEvents());
+				}
 				{
 					Compute_bt_node_test_action_ut_0_node1 node1 = new Compute_bt_node_test_action_ut_0_node1();
 					node1.SetClassNameString("Compute");
@@ -10965,6 +11128,119 @@ namespace behaviac
 					node7.SetId(7);
 #if !BEHAVIAC_RELEASE
 					node7.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node7);
+					node0.SetHasEvents(node0.HasEvents() | node7.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
+			}
+			return true;
+		}
+	}
+
+	// Source file: node_test/event_ut_2
+
+	class Event_bt_node_test_event_ut_2_attach1 : behaviac.Event
+	{
+		public Event_bt_node_test_event_ut_2_attach1()
+		{
+			this.Initialize("Self.AgentNodeTest::event_test_int_bool(0,false)", "node_test/event_subtree_2", TriggerMode.TM_Transfer, false);
+		}
+		public void Initialize(string eventName, string referencedBehavior, TriggerMode mode, bool once)
+		{
+			this.m_event = Action.LoadMethod(eventName);
+			this.m_referencedBehaviorPath = referencedBehavior;
+			this.m_triggerMode = mode;
+			this.m_bTriggeredOnce = once;
+		}
+	}
+
+	class Condition_bt_node_test_event_ut_2_node6 : behaviac.Condition
+	{
+		public Condition_bt_node_test_event_ut_2_node6()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((AgentNodeTest)pAgent).testVar_0;
+			int opr = 0;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	class Action_bt_node_test_event_ut_2_node7 : behaviac.Action
+	{
+		public Action_bt_node_test_event_ut_2_node7()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_p0 = 0;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).setTestVar_1(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+		int method_p0;
+	}
+
+	public static class bt_node_test_event_ut_2
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/event_ut_2");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("ChildNodeTest");
+#endif
+			// children
+			{
+				Sequence node0 = new Sequence();
+				node0.SetClassNameString("Sequence");
+				node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+				node0.SetAgentType("ChildNodeTest");
+#endif
+				// attachments
+				{
+					Event_bt_node_test_event_ut_2_attach1 attach1 = new Event_bt_node_test_event_ut_2_attach1();
+					attach1.SetClassNameString("Event");
+					attach1.SetId(1);
+#if !BEHAVIAC_RELEASE
+					attach1.SetAgentType("ChildNodeTest");
+#endif
+					node0.Attach(attach1, false, false, false);
+					node0.SetHasEvents(node0.HasEvents() | (attach1 is Event));
+				}
+				bt.AddChild(node0);
+				{
+					WaitforSignal node5 = new WaitforSignal();
+					node5.SetClassNameString("WaitforSignal");
+					node5.SetId(5);
+#if !BEHAVIAC_RELEASE
+					node5.SetAgentType("ChildNodeTest");
+#endif
+					node0.AddChild(node5);
+					{
+						Condition_bt_node_test_event_ut_2_node6 node6 = new Condition_bt_node_test_event_ut_2_node6();
+						node6.SetClassNameString("Condition");
+						node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+						node6.SetAgentType("ChildNodeTest");
+#endif
+						node5.SetCustomCondition(node6);
+						node5.SetHasEvents(node5.HasEvents() | node6.HasEvents());
+					}
+					node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
+				}
+				{
+					Action_bt_node_test_event_ut_2_node7 node7 = new Action_bt_node_test_event_ut_2_node7();
+					node7.SetClassNameString("Action");
+					node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+					node7.SetAgentType("ChildNodeTest");
 #endif
 					node0.AddChild(node7);
 					node0.SetHasEvents(node0.HasEvents() | node7.HasEvents());

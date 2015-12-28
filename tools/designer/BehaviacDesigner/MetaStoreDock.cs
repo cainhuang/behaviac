@@ -198,6 +198,8 @@ namespace Behaviac.Design
                 Debug.Check(Workspace.Current != null);
                 MainWindow.Instance.SetWorkspace(Workspace.Current.FileName, false, true);
             }
+
+            PropertiesDock.InspectObject(null, null);
         }
 
         private void applyButton_Click(object sender, EventArgs e)

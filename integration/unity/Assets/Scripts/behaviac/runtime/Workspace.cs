@@ -1152,7 +1152,12 @@ namespace behaviac
 
         protected void LogFrames()
         {
-            LogManager.Instance.Log("[frame]{0}\n", m_frame++);
+#if !BEHAVIAC_RELEASE
+            if (Config.IsLoggingOrSocketing)
+            {
+                LogManager.Instance.Log("[frame]{0}\n", m_frame++);
+            }
+#endif
         }
 
         protected void WaitforContinue()

@@ -434,7 +434,6 @@ LOAD_TEST(btunittest, decoration_failureuntil_ut_1)
         if (loopCount < 4)
         {
             CHECK_EQUAL(behaviac::BT_FAILURE, status);
-
         }
         else
         {

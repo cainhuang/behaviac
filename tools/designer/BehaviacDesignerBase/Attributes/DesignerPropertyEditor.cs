@@ -57,6 +57,38 @@ namespace Behaviac.Design.Attributes
             _root = root;
         }
 
+        protected Nodes.Behavior GetBehavior()
+        {
+            Attachments.Attach attach = _object as Attachments.Attach;
+            Nodes.BaseNode baseNode = (attach != null) ? attach.Node : _object as Nodes.BaseNode;
+            Nodes.Behavior behavior = (baseNode != null) ? baseNode.Behavior as Nodes.Behavior : null;
+
+            if (behavior == null && _root != null)
+            {
+                behavior = _root.Behavior as Nodes.Behavior;
+            }
+
+            return behavior;
+        }
+
+        protected List<Plugin.InstanceName_t> InstanceNames
+        {
+            get
+            {
+                Nodes.Behavior behavior = GetBehavior();
+
+                List<Plugin.InstanceName_t> instanceNames = new List<Plugin.InstanceName_t>();
+                instanceNames.AddRange(Plugin.InstanceNames);
+
+                if (behavior != null)
+                {
+                    instanceNames.AddRange(Plugin.GetLocalInstanceNames(behavior));
+                }
+
+                return instanceNames;
+            }
+        }
+
         protected Type _filterType = null;
         public Type FilterType {
             get { return _filterType; }

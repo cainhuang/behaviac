@@ -311,7 +311,8 @@ namespace Behaviac.Design.Attachments
 
                 // assign, compute or compare
                 if (this.Operator >= OperatorTypes.Assign) {
-                    if (this._opr2 == null) {
+                    if (this._opr2 == null || this._opr2.IsMethod && this._opr2.Method == null || !this._opr2.IsMethod && this._opr2.Var == null)
+                    {
                         result.Add(new Node.ErrorCheck(this.Node, ErrorCheckLevel.Error, "Effector Right operand2 is not specified!"));
                     }
                 }

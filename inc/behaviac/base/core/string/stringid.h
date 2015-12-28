@@ -123,19 +123,28 @@ namespace behaviac
 		const char* LogStr() const;
 	};
 
+#if !BEHAVIAC_COMPILER_MSVC
+//#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#endif//
 	//! Compare two behaviac::string ID CRCs
-
 	inline bool operator==(const CStringID& r, const CStringID& l)
 	{
-		return r.GetUniqueID() == l.GetUniqueID();
-	}
+		const CStringID* pR = (const CStringID*)&r;
+		const CStringID* pL = (const CStringID*)&l;
 
-	inline bool operator==(const CStringID& r, CStringID::IDType l)
+		return pR->GetUniqueID() == pL->GetUniqueID();
+	}
+#if !BEHAVIAC_COMPILER_MSVC
+//#pragma GCC diagnostic pop
+#endif
+
+	inline bool operator==(const CStringID& r, const CStringID::IDType l)
 	{
 		return r.GetUniqueID() == l;
 	}
 
-	inline bool operator==(CStringID::IDType r, const CStringID& l)
+	inline bool operator==(const CStringID::IDType r, const CStringID& l)
 	{
 		return r == l.GetUniqueID();
 	}
@@ -145,12 +154,12 @@ namespace behaviac
 		return r.GetUniqueID() != l.GetUniqueID();
 	}
 
-	inline bool operator!=(const CStringID& r, CStringID::IDType l)
+	inline bool operator!=(const CStringID& r, const CStringID::IDType l)
 	{
 		return r.GetUniqueID() != l;
 	}
 
-	inline bool operator!=(CStringID::IDType r, const CStringID& l)
+	inline bool operator!=(const CStringID::IDType r, const CStringID& l)
 	{
 		return r != l.GetUniqueID();
 	}

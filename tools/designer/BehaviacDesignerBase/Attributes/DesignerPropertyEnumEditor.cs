@@ -73,22 +73,8 @@ namespace Behaviac.Design.Attributes
             if (enumtype == null)
             { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, property.Property.Name)); }
 
-            Behaviac.Design.Attachments.Attach evt = obj as Behaviac.Design.Attachments.Attach;
-            Behaviac.Design.Nodes.BaseNode baseNode = (evt != null) ? evt.Node : obj as Behaviac.Design.Nodes.BaseNode;
-            Behaviac.Design.Nodes.Behavior behavior = (baseNode != null) ? baseNode.Behavior as Behaviac.Design.Nodes.Behavior : null;
-
-            if (behavior == null && this._root != null) {
-                behavior = this._root.Behavior as Behaviac.Design.Nodes.Behavior;
-            }
-
-            _agentType = null;
-
-            if (behavior != null) {
-                _agentType = behavior.AgentType;
-
-                if (_agentType == null)
-                { return; }
-            }
+            Nodes.Behavior behavior = GetBehavior();
+            _agentType = (behavior != null) ? behavior.AgentType : null;
 
             object propertyMember = property.Property.GetValue(obj, null);
             VariableDef variable = propertyMember as VariableDef;
@@ -96,12 +82,12 @@ namespace Behaviac.Design.Attributes
 
             if (variable != null && variable.ValueClass != VariableDef.kSelf) {
                 _valueOwner = variable.ValueClass;
-                _agentType = Plugin.GetInstanceAgentType(_valueOwner);
+                _agentType = Plugin.GetInstanceAgentType(_valueOwner, behavior, _agentType);
             }
 
             if (variableRV != null && variableRV.ValueClassReal != VariableDef.kSelf) {
                 _valueOwner = variableRV.ValueClassReal;
-                _agentType = Plugin.GetInstanceAgentType(_valueOwner);
+                _agentType = Plugin.GetInstanceAgentType(_valueOwner, behavior, _agentType);
             }
 
             string selectionName = string.Empty;
@@ -158,10 +144,6 @@ namespace Behaviac.Design.Attributes
 
             _resetProperties = false;
 
-            Behaviac.Design.Attachments.Attach evt = obj as Behaviac.Design.Attachments.Attach;
-            Behaviac.Design.Nodes.BaseNode baseNode = (evt != null) ? evt.Node : obj as Behaviac.Design.Nodes.BaseNode;
-            Behaviac.Design.Nodes.Behavior behavior = (baseNode != null) ? baseNode.Behavior as Behaviac.Design.Nodes.Behavior : null;
-
             string selectionName = string.Empty;
             VariableDef variable = param.Value as VariableDef;
 
@@ -179,10 +161,11 @@ namespace Behaviac.Design.Attributes
                 }
             }
 
+            Nodes.Behavior behavior = GetBehavior();
             _agentType = (behavior != null) ? behavior.AgentType : null;
             if (_valueOwner != VariableDef.kSelf)
             {
-                _agentType = Plugin.GetInstanceAgentType(_valueOwner);
+                _agentType = Plugin.GetInstanceAgentType(_valueOwner, behavior, _agentType);
             }
 
             setComboBox(selectionName);

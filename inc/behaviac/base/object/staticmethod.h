@@ -72,9 +72,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -338,9 +338,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -725,9 +725,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -1296,9 +1296,9 @@ class CGenericMethodStatic3_ : public CMethodBase
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -1970,9 +1970,9 @@ class CGenericMethodStatic4_ : public CMethodBase
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -2748,9 +2748,9 @@ class CGenericMethodStatic5_ : public CMethodBase
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -3665,9 +3665,9 @@ class CGenericMethodStatic6_ : public CMethodBase
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -4658,9 +4658,9 @@ class CGenericMethodStatic7_ : public CMethodBase
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -5754,9 +5754,9 @@ class CGenericMethodStatic8_ : public CMethodBase
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)

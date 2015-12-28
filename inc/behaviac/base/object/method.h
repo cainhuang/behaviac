@@ -1065,7 +1065,6 @@ public:
     CMethodBase(const char* propertyName, const char* classFullName) : m_classFullName(classFullName), m_propertyName(propertyName),
         m_propertyID(propertyName), m_checkReturnTask(0), m_return(0), m_bStatic(false), m_flag(0), m_netRole(behaviac::NET_ROLE_DEFAULT)
     {
-        BEHAVIAC_ASSERT(m_classFullName);
     }
     CMethodBase(const CMethodBase& copy) : m_classFullName(copy.m_classFullName), m_instanceName(copy.m_instanceName),
         m_propertyName(copy.m_propertyName), m_propertyID(copy.m_propertyID), m_displayName(copy.m_displayName), m_desc(copy.m_desc),
@@ -1074,7 +1073,6 @@ public:
         if (copy.m_checkReturnTask)
         {
             this->m_checkReturnTask = copy.m_checkReturnTask->clone();
-
         }
         else
         {
@@ -1084,7 +1082,6 @@ public:
         if (copy.m_return)
         {
             this->m_return = copy.m_return->clone();
-
         }
         else
         {
@@ -1487,7 +1484,7 @@ public:
 
     const char* GetName() const
     {
-        return this->m_propertyName;
+        return this->m_propertyName.c_str();
     }
 
     const behaviac::wstring& GetDisplayName() const
@@ -1502,7 +1499,7 @@ public:
 
     const char* GetClassNameString() const
     {
-        return m_classFullName;
+        return m_classFullName.c_str();
     }
 
     void GetReturnTypeName(behaviac::string& typeName)
@@ -1554,9 +1551,9 @@ protected:
     }
 
 protected:
-    const char*						m_classFullName;
+    behaviac::string				m_classFullName;
     behaviac::string				m_instanceName;
-    const char*						m_propertyName;
+    behaviac::string				m_propertyName;
     behaviac::CSerializationID		m_propertyID;
 
     behaviac::wstring				m_displayName;
@@ -1742,7 +1739,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -1751,9 +1748,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -1842,12 +1839,12 @@ public:
 
                 if (CGenericMethod_<R, ObjectType>::m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 bHandled = pNw->SendRemoteEvent(this->m_netRole, nameTemp.c_str());
@@ -1949,12 +1946,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 bHandled = pNw->SendRemoteEvent(this->m_netRole, nameTemp.c_str());
@@ -2098,7 +2095,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -2107,9 +2104,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -2292,12 +2289,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 const ParamBaseType& v = this->m_param.GetValue(parent, parHolder);
@@ -2418,12 +2415,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 const ParamBaseType& v = this->m_param.GetValue(parent, parHolder);
@@ -2533,7 +2530,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -2542,9 +2539,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -2788,12 +2785,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -2908,12 +2905,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -3018,12 +3015,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -3156,7 +3153,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -3165,9 +3162,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -3450,12 +3447,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -3601,12 +3598,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -3719,12 +3716,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -3884,7 +3881,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -3893,9 +3890,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -4237,12 +4234,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -4387,12 +4384,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -4513,12 +4510,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -4695,7 +4692,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -4704,9 +4701,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -5108,12 +5105,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -5273,12 +5270,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -5410,12 +5407,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -5613,7 +5610,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -5622,9 +5619,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -6084,12 +6081,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -6264,12 +6261,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -6411,12 +6408,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -6634,7 +6631,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -6643,9 +6640,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -7164,12 +7161,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -7359,12 +7356,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -7517,12 +7514,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -7756,7 +7753,7 @@ public:
         if (types == NULL)
         {
             memberNode = xmlNode->newChild("Method");
-            memberNode->setAttr("Name", this->m_propertyName);
+            memberNode->setAttr("Name", this->m_propertyName.c_str());
             memberNode->setAttr("DisplayName", this->GetDisplayName());
             memberNode->setAttr("Desc", this->GetDesc());
 
@@ -7765,9 +7762,9 @@ public:
                 memberNode->setAttr("Flag", "namedevent");
             }
 
-            if (this->m_classFullName)
+            if (this->m_classFullName.c_str())
             {
-                memberNode->setAttr("Class", this->m_classFullName);
+                memberNode->setAttr("Class", this->m_classFullName.c_str());
             }
 
             if (m_bStatic)
@@ -8345,12 +8342,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -8555,12 +8552,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);
@@ -8722,12 +8719,12 @@ public:
 
                 if (this->m_className)
                 {
-                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName);
+                    nameTemp = FormatString("%s::%s", this->m_className, this->m_propertyName.c_str());
 
                 }
                 else
                 {
-                    nameTemp = this->m_propertyName;
+                    nameTemp = this->m_propertyName.c_str();
                 }
 
                 typename ParamVariable<StoredType1>::GetReturnType v1 = this->m_param1.GetValue(parent, parHolder);

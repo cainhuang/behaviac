@@ -19,6 +19,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Management;
+using System.Threading;
 
 using Behaviac.Design.Properties;
 
@@ -67,10 +69,16 @@ namespace Behaviac.Design
             return true;
         }
 
+        private static string _localIP = "";
         public static String GetLocalIP()
         {
-            String strHostName = Dns.GetHostName();
-            return GetIP(strHostName);
+            if (string.IsNullOrEmpty(_localIP))
+            {
+                String strHostName = Dns.GetHostName();
+                _localIP = GetIP(strHostName);
+            }
+
+            return _localIP;
         }
 
         public static String GetIP(String strHostName)
@@ -91,6 +99,44 @@ namespace Behaviac.Design
             return IPStr;
         }
 
+        private static string _cpuID = "";
+        private static string GetCpuID()
+        {
+            if (string.IsNullOrEmpty(_cpuID))
+            {
+                using (ManagementClass cimObject = new ManagementClass("Win32_Processor"))
+                {
+                    ManagementObjectCollection moc = cimObject.GetInstances();
+                    foreach (ManagementObject mo in moc)
+                    {
+                        _cpuID = mo.Properties["ProcessorId"].Value.ToString();
+                        mo.Dispose();
+                    }
+                }
+            }
+
+            return _cpuID;
+        }
+
+        private static string _hdID = "";
+        private static string GetHarddiskID()
+        {
+            if (string.IsNullOrEmpty(_hdID))
+            {
+                using (ManagementClass cimObject = new ManagementClass("Win32_DiskDrive"))
+                {
+                    ManagementObjectCollection moc = cimObject.GetInstances();
+                    foreach (ManagementObject mo in moc)
+                    {
+                        _hdID = mo.Properties["Model"].Value.ToString();
+                        mo.Dispose();
+                    }
+                }
+            }
+
+            return _hdID;
+        }
+
         private static bool ReportToTQOS(int intNum, string intList, int strNum, string strList)
         {
             try
@@ -107,6 +153,7 @@ namespace Behaviac.Design
 
                 using (var client = new WebClient())
                 {
+                    //client.OpenRead(qosData);
                     Uri uri = new Uri(qosData);
                     client.OpenReadAsync(uri);
                 }
@@ -136,23 +183,27 @@ namespace Behaviac.Design
         {
             public OperationTypes Type;
             public int Count;
-            public string Value;
 
-            public OperationData(OperationTypes type, string value = "")
+            public OperationData(OperationTypes type)
             {
                 Type = type;
                 Count = 1;
-                Value = value;
             }
         }
 
+        private static Object _lockObject = new Object();
+        private static Thread _backgroundThread = new Thread(SendAllOperations);
+
         private static List<OperationData> _allOperations = new List<OperationData>();
-        private static OperationData FindOperation(OperationTypes type, string value = "")
+        private static OperationData FindOperation(OperationTypes type)
         {
-            for (int i = 0; i < _allOperations.Count; ++i)
+            lock (_lockObject)
             {
-                if (_allOperations[i].Type == type && _allOperations[i].Value == value)
-                    return _allOperations[i];
+                for (int i = 0; i < _allOperations.Count; ++i)
+                {
+                    if (_allOperations[i].Type == type)
+                        return _allOperations[i];
+                }
             }
 
             return null;
@@ -160,7 +211,7 @@ namespace Behaviac.Design
 
         private static string getHeaderString()
         {
-            return string.Format("\"{0}\",\"{1}\"", GetLocalIP(), System.Reflection.Assembly.GetEntryAssembly().GetName().Version);
+            return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\"", GetLocalIP(), GetCpuID(), GetHarddiskID(), System.Reflection.Assembly.GetEntryAssembly().GetName().Version);
         }
 
         private static string getTqosFile()
@@ -178,7 +229,10 @@ namespace Behaviac.Design
                 Stream stream = File.Open(filename, FileMode.Open);
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                _allOperations = formatter.Deserialize(stream) as List<OperationData>;
+                lock (_lockObject)
+                {
+                    _allOperations = formatter.Deserialize(stream) as List<OperationData>;
+                }
             }
             catch
             {
@@ -201,7 +255,10 @@ namespace Behaviac.Design
                 Stream stream = File.Open(filename, FileMode.Create);
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                formatter.Serialize(stream, _allOperations);
+                lock (_lockObject)
+                {
+                    formatter.Serialize(stream, _allOperations);
+                }
             }
             catch
             {
@@ -211,34 +268,47 @@ namespace Behaviac.Design
             return true;
         }
 
-        public static bool SendOperations()
+        private static void SendAllOperations()
+        {
+            while (true)
+            {
+                lock (_lockObject)
+                {
+                    if (_allOperations.Count > 0)
+                    {
+                        SendOperations();
+                    }
+                }
+
+                Thread.Sleep(10000);
+            }
+        }
+
+        private static bool SendOperations()
         {
             bool sendSuccess = true;
 
-            foreach (OperationData operation in _allOperations)
+            lock (_lockObject)
             {
-                int intNum = 8;
-                string intList = string.Format("0,0,0,0,0,0,{0},{1}", (int)operation.Type, operation.Count);
-
-                int strNum = 2;
-                string strList = getHeaderString();
-
-                if (operation.Type == OperationTypes.kOpenWorkspace || operation.Type == OperationTypes.kLoadBehavior)
+                foreach (OperationData operation in _allOperations)
                 {
-                    strNum = 3;
-                    strList = string.Format("{0},\"{1}\"", strList, operation.Value);
+                    int intNum = 8;
+                    string intList = string.Format("0,0,0,0,0,0,{0},{1}", (int)operation.Type, operation.Count);
+
+                    int strNum = 4;
+                    string strList = getHeaderString();
+
+                    if (!ReportToTQOS(intNum, intList, strNum, strList))
+                    {
+                        sendSuccess = false;
+                        break;
+                    }
                 }
 
-                if (!ReportToTQOS(intNum, intList, strNum, strList))
+                if (sendSuccess)
                 {
-                    sendSuccess = false;
-                    break;
+                    _allOperations.Clear();
                 }
-            }
-
-            if (sendSuccess)
-            {
-                _allOperations.Clear();
             }
 
             return sendSuccess;
@@ -246,11 +316,18 @@ namespace Behaviac.Design
 
         public static void ReportOpenEditor()
         {
+            _backgroundThread.IsBackground = true;
+            _backgroundThread.Start();
+
             OperationData operation = FindOperation(OperationTypes.kOpenEditor);
             if (operation == null)
             {
                 operation = new OperationData(OperationTypes.kOpenEditor);
-                _allOperations.Add(operation);
+
+                lock (_lockObject)
+                {
+                    _allOperations.Add(operation);
+                }
             }
             else
             {
@@ -258,13 +335,17 @@ namespace Behaviac.Design
             }
         }
 
-        public static void ReportOpenWorkspace(string workspaceName)
+        public static void ReportOpenWorkspace()
         {
-            OperationData operation = FindOperation(OperationTypes.kOpenWorkspace, workspaceName);
+            OperationData operation = FindOperation(OperationTypes.kOpenWorkspace);
             if (operation == null)
             {
-                operation = new OperationData(OperationTypes.kOpenWorkspace, workspaceName);
-                _allOperations.Add(operation);
+                operation = new OperationData(OperationTypes.kOpenWorkspace);
+
+                lock (_lockObject)
+                {
+                    _allOperations.Add(operation);
+                }
             }
             else
             {
@@ -272,13 +353,17 @@ namespace Behaviac.Design
             }
         }
 
-        public static void ReportLoadBehavior(string behaviorName)
+        public static void ReportLoadBehavior()
         {
-            OperationData operation = FindOperation(OperationTypes.kLoadBehavior, behaviorName);
+            OperationData operation = FindOperation(OperationTypes.kLoadBehavior);
             if (operation == null)
             {
-                operation = new OperationData(OperationTypes.kLoadBehavior, behaviorName);
-                _allOperations.Add(operation);
+                operation = new OperationData(OperationTypes.kLoadBehavior);
+
+                lock (_lockObject)
+                {
+                    _allOperations.Add(operation);
+                }
             }
             else
             {
@@ -292,7 +377,11 @@ namespace Behaviac.Design
             if (operation == null)
             {
                 operation = new OperationData(OperationTypes.kExportBehavior);
-                _allOperations.Add(operation);
+
+                lock (_lockObject)
+                {
+                    _allOperations.Add(operation);
+                }
             }
             else
             {
@@ -306,7 +395,11 @@ namespace Behaviac.Design
             if (operation == null)
             {
                 operation = new OperationData(OperationTypes.kConnectGame);
-                _allOperations.Add(operation);
+
+                lock (_lockObject)
+                {
+                    _allOperations.Add(operation);
+                }
             }
             else
             {
@@ -320,7 +413,11 @@ namespace Behaviac.Design
             if (operation == null)
             {
                 operation = new OperationData(OperationTypes.kOpenDoc);
-                _allOperations.Add(operation);
+
+                lock (_lockObject)
+                {
+                    _allOperations.Add(operation);
+                }
             }
             else
             {

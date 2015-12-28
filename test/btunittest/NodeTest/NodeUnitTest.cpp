@@ -552,17 +552,33 @@ LOAD_TEST(btunittest, condition_ut_3)
 //< Action Nodes Tests
 LOAD_TEST(btunittest, action_ut_0)
 {
+	behaviac::Agent::RegisterInstanceName<ChildNodeTest>("par_child");
+	
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_0", format);
     myTestAgent->resetProperties();
 
-    StaticAgent* pStaticAgent = behaviac::Agent::Create<StaticAgent>("StaticAgent");
+	ChildNodeTest* testChildAgent = behaviac::Agent::Create<ChildNodeTest>(1, "par_child", 0, 0);
+	StaticAgent* pStaticAgent = behaviac::Agent::Create<StaticAgent>("StaticAgent");
+
+	myTestAgent->testVar_3 = 1;
+    testChildAgent->testVar_2 = 2;
+
+    myTestAgent->SetVariable<ChildNodeTest*>("par_child", testChildAgent);
 
     behaviac::EBTStatus status = myTestAgent->btexec();
+
     CHECK_EQUAL(1500, myTestAgent->testVar_0);
     CHECK_EQUAL(1800, myTestAgent->testVar_1);
     CHECK_EQUAL("null", myTestAgent->testVar_str_0);
+	CHECK_EQUAL(2, StaticAgent::sInt);
+    CHECK_EQUAL(true, testChildAgent->m_bTargetValid);
 
+    behaviac::Agent::UnbindInstance("par_child");
+
+    behaviac::Agent::Destroy(testChildAgent);
     behaviac::Agent::Destroy(pStaticAgent);
+
+	behaviac::Agent::UnRegisterInstanceName<ChildNodeTest>("par_child");
 
     finlTestEnvNode(myTestAgent);
 }
@@ -630,6 +646,30 @@ LOAD_TEST(btunittest, action_ut_3_save_load)
     //CHECK_EQUAL(2.4f, myTestAgent->testVar_2);
     //CHECK_EQUAL(4.0f, myTestAgent->testVar_3);
 #endif
+
+    finlTestEnvNode(myTestAgent);
+}
+
+LOAD_TEST(btunittest, action_child_agent)
+{
+	const char* childAgentName = "par_child_agent";
+	behaviac::Agent::RegisterInstanceName<ChildNodeTest>(childAgentName);
+
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_child_agent_0", format);
+
+    myTestAgent->resetProperties();
+
+    myTestAgent->initChildAgentTest(childAgentName);
+
+    behaviac::EBTStatus status = myTestAgent->btexec();
+
+    const ChildNodeTest* ct = myTestAgent->GetVariable<ChildNodeTest*>(childAgentName);
+    int testVar_0_t = ct->testVar_0;
+    CHECK_EQUAL(666, testVar_0_t);
+    CHECK_EQUAL(888, ct->testVar_1);
+    CHECK_FLOAT_EQUAL(999.0f, ct->testVar_2);
+
+    myTestAgent->removeChildAgentTest(childAgentName);
 
     finlTestEnvNode(myTestAgent);
 }

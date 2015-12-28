@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -25,12 +25,19 @@ namespace Behaviac.Design
 {
     public partial class ConnectDialog : Form
     {
-        public ConnectDialog(string ip, int portNr)
+        public ConnectDialog(bool useLocalIp, string ip, int portNr)
         {
             InitializeComponent();
 
-            tbServer.Text = Utilities.IPOnlyNumbersAndDots(ip) ? ip : Utilities.GetLocalIP();
+            localIPCheckBox.Checked = useLocalIp;
+            tbServer.Text = !useLocalIp && Utilities.IPOnlyNumbersAndDots(ip) ? ip : Utilities.GetLocalIP();
+            tbServer.Enabled = !useLocalIp;
             tbPort.Text = portNr.ToString();
+        }
+
+        public bool UseLocalIP()
+        {
+            return localIPCheckBox.Checked;
         }
 
         public String GetServer()
@@ -48,6 +55,19 @@ namespace Behaviac.Design
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void localIPCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.UseLocalIP())
+            {
+                tbServer.Text = Utilities.GetLocalIP();
+                tbServer.Enabled = false;
+            }
+            else
+            {
+                tbServer.Enabled = true;
             }
         }
     }

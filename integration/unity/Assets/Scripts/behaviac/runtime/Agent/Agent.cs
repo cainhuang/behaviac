@@ -1031,6 +1031,7 @@ namespace behaviac
 
             return default(VariableType);
         }
+
         public object GetVariableObject(string variableName)
         {
             Property property = AgentProperties.GetProperty(this.GetClassTypeName(), variableName);
@@ -1044,6 +1045,7 @@ namespace behaviac
 
             return null;
         }
+
         public VariableType GetVariable<VariableType>(uint variableId)
         {
             Property property = AgentProperties.GetProperty(this.GetClassTypeName(), variableId);
@@ -1055,8 +1057,10 @@ namespace behaviac
                 return v;
             }
 
-            return default(VariableType);
+            //return default(VariableType);
+            return (VariableType)this.Variables.GetObject(this, false, null, variableId);
         }
+
         public object GetVariableObject(uint variableId)
         {
             Property property = AgentProperties.GetProperty(this.GetClassTypeName(), variableId);

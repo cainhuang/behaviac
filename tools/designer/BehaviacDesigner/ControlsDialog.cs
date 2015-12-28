@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -98,9 +98,15 @@ namespace Behaviac.Design
             loadWorkspace("../../../example/spaceship/data/ships.workspace.xml");
         }
 
-        private void overviewDocButton_Click(object sender, EventArgs e)
+        private void referLinkTextBox_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            MainWindow.Instance.OpenOverviewDoc();
+            try
+            {
+                System.Diagnostics.Process.Start(this.referLinkTextBox.Text);
+            }
+            catch
+            {
+            }
         }
     }
 }

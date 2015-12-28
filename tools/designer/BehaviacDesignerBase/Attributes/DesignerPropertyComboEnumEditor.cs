@@ -79,10 +79,14 @@ namespace Behaviac.Design.Attributes
                 defaultSelect = _types.Count - 1;
             }
 
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Global)) {
+            List<Plugin.InstanceName_t> instanceNames = this.InstanceNames;
+
+            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Instance))
+            {
                 _methodOnly = false;
 
-                foreach(Plugin.InstanceName_t instanceName in Plugin.InstanceNames) {
+                foreach (Plugin.InstanceName_t instanceName in instanceNames)
+                {
                     _names.Add(instanceName.name_);
                     _types.Add(instanceName.displayName_);
                 }
@@ -93,8 +97,10 @@ namespace Behaviac.Design.Attributes
                 _types.Add(VariableDef.kSelfMethod);
             }
 
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.GlobalMethod)) {
-                foreach(Plugin.InstanceName_t instanceName in Plugin.InstanceNames) {
+            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Instance))
+            {
+                foreach (Plugin.InstanceName_t instanceName in instanceNames)
+                {
                     _names.Add(instanceName.name_ + VariableDef.kMethod);
                     _types.Add(instanceName.displayName_ + VariableDef.kMethod);
                 }
@@ -149,6 +155,8 @@ namespace Behaviac.Design.Attributes
             setPropertyEditor(CreateEditor(selectedText, _property, _object,
                                            _allowConst && selectedText == VariableDef.kConst,
                                            variableRV != null ? variableRV.IsMethod : false));
+
+            this.ValueWasAssigned();
         }
 
         private void typeComboBox_DropDown(object sender, EventArgs e) {
@@ -194,6 +202,8 @@ namespace Behaviac.Design.Attributes
         }
 
         private int getComboIndex(string valueType) {
+            Nodes.Behavior behavior = GetBehavior();
+
             if (_methodOnly) {
                 if (valueType == VariableDef.kSelfMethod) {
                     //self::method
@@ -205,10 +215,12 @@ namespace Behaviac.Design.Attributes
                     if (pos != -1) {
                         //self::method world::method player::method
                         string classType = valueType.Substring(0, pos);
-                        return Plugin.InstanceNameIndex(classType) + 1;
+                        return Plugin.InstanceNameIndex(classType, behavior) + 1;
                     }
                 }
             }
+
+            List<Plugin.InstanceName_t> instanceNames = this.InstanceNames;
 
             int indexBegin = _allowConst ? 1 : 0;
             int indexOffset = 1;
@@ -222,7 +234,7 @@ namespace Behaviac.Design.Attributes
 
             } else if (valueType == VariableDef.kSelfMethod) {
                 //[const] [par] self world player self::method
-                return indexBegin + indexOffset + Plugin.InstanceNames.Count;
+                return indexBegin + indexOffset + instanceNames.Count;
 
             } else {
                 int pos = valueType.IndexOf(VariableDef.kMethod);
@@ -230,12 +242,12 @@ namespace Behaviac.Design.Attributes
                 if (pos != -1) {
                     //[const] [par] self world player self::method world::method player::method
                     string instanceName = valueType.Substring(0, pos);
-                    int index = Plugin.InstanceNameIndex(instanceName);
-                    return index + indexBegin + indexOffset + Plugin.InstanceNames.Count + 1;
+                    int index = Plugin.InstanceNameIndex(instanceName, behavior);
+                    return index + indexBegin + indexOffset + instanceNames.Count + 1;
 
                 } else {
                     //[const] [par] self world player
-                    int index = Plugin.InstanceNameIndex(valueType);
+                    int index = Plugin.InstanceNameIndex(valueType, behavior);
                     return index + indexBegin + indexOffset;
                 }
             }
@@ -412,7 +424,6 @@ namespace Behaviac.Design.Attributes
                 }
 
                 editor.ValueWasAssigned();
-                this.ValueWasAssigned();
                 OnValueChanged(_property);
             }
         }
@@ -484,7 +495,13 @@ namespace Behaviac.Design.Attributes
                         Debug.Check(varRV.Method != null);
 
                         if (typeComboBox.SelectedIndex - methodIndex - offset >= 0) {
-                            varRV.Method.Owner = Plugin.InstanceNames[typeComboBox.SelectedIndex - methodIndex - offset].name_;
+                            string owner = _currentNames[typeComboBox.SelectedIndex - methodIndex - offset];
+                            int pos = owner.IndexOf(VariableDef.kMethod);
+                            if (pos >= 0)
+                            {
+                                owner = owner.Substring(0, pos);
+                            }
+                            varRV.Method.Owner = owner;
 
                         } else {
                             varRV.Method.Owner = VariableDef.kSelf;

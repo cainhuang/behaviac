@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -48,8 +48,9 @@ namespace Behaviac.Design
             this.workspace2Button = new System.Windows.Forms.Button();
             this.workspace4Button = new System.Windows.Forms.Button();
             this.workspace3Button = new System.Windows.Forms.Button();
-            this.overviewDocButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.referenceLabel = new System.Windows.Forms.Label();
+            this.referLinkTextBox = new System.Windows.Forms.RichTextBox();
+            this.noteLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // webBrowser
@@ -109,25 +110,33 @@ namespace Behaviac.Design
             this.workspace3Button.UseVisualStyleBackColor = true;
             this.workspace3Button.Click += new System.EventHandler(this.workspace3Button_Click);
             // 
-            // overviewDocButton
+            // referenceLabel
             // 
-            resources.ApplyResources(this.overviewDocButton, "overviewDocButton");
-            this.overviewDocButton.Name = "overviewDocButton";
-            this.overviewDocButton.UseVisualStyleBackColor = true;
-            this.overviewDocButton.Click += new System.EventHandler(this.overviewDocButton_Click);
+            resources.ApplyResources(this.referenceLabel, "referenceLabel");
+            this.referenceLabel.Name = "referenceLabel";
             // 
-            // label1
+            // referLinkTextBox
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            this.referLinkTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.referLinkTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.referLinkTextBox, "referLinkTextBox");
+            this.referLinkTextBox.Name = "referLinkTextBox";
+            this.referLinkTextBox.ReadOnly = true;
+            this.referLinkTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.referLinkTextBox_LinkClicked);
+            // 
+            // noteLabel
+            // 
+            resources.ApplyResources(this.noteLabel, "noteLabel");
+            this.noteLabel.Name = "noteLabel";
             // 
             // ControlsDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            this.Controls.Add(this.overviewDocButton);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.noteLabel);
+            this.Controls.Add(this.referLinkTextBox);
+            this.Controls.Add(this.referenceLabel);
             this.Controls.Add(this.workspace3Button);
             this.Controls.Add(this.workspace4Button);
             this.Controls.Add(this.workspace2Button);
@@ -157,8 +166,9 @@ namespace Behaviac.Design
         private System.Windows.Forms.Button workspace2Button;
         private System.Windows.Forms.Button workspace4Button;
         private System.Windows.Forms.Button workspace3Button;
-        private System.Windows.Forms.Button overviewDocButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label referenceLabel;
+        private System.Windows.Forms.RichTextBox referLinkTextBox;
+        private System.Windows.Forms.Label noteLabel;
 
 
     }

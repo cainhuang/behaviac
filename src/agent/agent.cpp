@@ -838,7 +838,7 @@ namespace behaviac
         this->_btsetcurrent(relativePath, triggerMode, true);
     }
 
-    void Agent::btresetcurrrent()
+    void Agent::btresetcurrent()
     {
         if (this->m_currentBT != 0)
         {
@@ -1029,7 +1029,7 @@ namespace behaviac
             }
         }
 
-        Workspace::GetInstance()->UnLoad(relativePath);
+		Workspace::GetInstance()->UnLoad(relativePath);
     }
 
     void Agent::bthotreloaded(const BehaviorTree* bt)

@@ -112,6 +112,7 @@
       <Method Name="setEventVarAgent" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="agent" Desc="agent" Type="AgentNodeTest*" />
       </Method>
+      <Method Name="initChildAgent" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true" />
       <Method Name="getConstOne" DisplayName="" Desc="" ReturnType="int" Class="AgentNodeTest" Public="true" />
       <Method Name="setTestVar_0" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="var" Desc="var" Type="int" />

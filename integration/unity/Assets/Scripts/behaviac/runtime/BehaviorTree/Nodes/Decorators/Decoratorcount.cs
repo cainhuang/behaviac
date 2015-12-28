@@ -92,21 +92,14 @@ namespace behaviac
             {
                 base.onenter(pAgent);
 
-                if (this.m_n == 0)
-                {
-                    int count = this.GetCount(pAgent);
+                int count = this.GetCount(pAgent);
 
-                    if (count == 0)
-                    {
-                        return false;
-                    }
-
-                    this.m_n = count;
-                }
-                else
+                if (count == 0)
                 {
-                    Debug.Check(true);
+                    return false;
                 }
+
+                this.m_n = count;
 
                 return true;
             }

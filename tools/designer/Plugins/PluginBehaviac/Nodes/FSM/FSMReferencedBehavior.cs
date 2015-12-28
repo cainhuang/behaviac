@@ -27,6 +27,11 @@ namespace PluginBehaviac.Nodes
             get { return true; }
         }
 
+        public override bool AcceptsAttachment(DefaultObject obj)
+        {
+            return (obj != null) && (obj is Attachment);
+        }
+
         [DesignerFloat("LocationX", "LocationX", "State", DesignerProperty.DisplayMode.NoDisplay, 1, DesignerProperty.DesignerFlags.NoDisplay | DesignerProperty.DesignerFlags.NoExport)]
         public float ScreenLocationX
         {

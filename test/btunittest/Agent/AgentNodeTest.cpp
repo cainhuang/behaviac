@@ -29,6 +29,18 @@ AgentNodeTest::~AgentNodeTest()
 {
 }
 
+void AgentNodeTest::initChildAgentTest(const char* strChildAgentName)
+{
+	ChildNodeTest* testChildAgent = this->getChildAgent<ChildNodeTest>(1, strChildAgentName);
+	this->SetVariable(strChildAgentName, testChildAgent);
+}
+
+void AgentNodeTest::removeChildAgentTest(const char* strChildAgentName)
+{
+	behaviac::Agent::UnbindInstance(strChildAgentName);
+	behaviac::Agent::UnRegisterInstanceName<ChildNodeTest>(strChildAgentName);
+}
+
 void AgentNodeTest::resetProperties()
 {
     testVar_0 = -1;
@@ -107,10 +119,19 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
 	REGISTER_METHOD(CanSeeEnemy);
 	REGISTER_METHOD(Move);
 	REGISTER_METHOD(MoveToTarget);
+    REGISTER_METHOD(initChildAgent);
 }
 END_PROPERTIES_DESCRIPTION()
 
+void AgentNodeTest::initChildAgent()
+{
 
+    ChildNodeTest*  test = this->GetVariable<ChildNodeTest*>("par_child_agent");
+
+    test->resetProperties();
+    test->testVar_1 = 888;
+
+}
 ChildNodeTest::ChildNodeTest(int var_0)
 {
 	testVar_0 = var_0;

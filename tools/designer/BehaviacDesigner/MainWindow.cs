@@ -334,86 +334,100 @@ namespace Behaviac.Design
         }
 
         private void loadLayout(EditModes editMode, string layoutFile, bool bLoadWks) {
-            preLoadLayout(editMode);
+            try
+            {
+                preLoadLayout(editMode);
 
-            __layoutFile = layoutFile;
+                __layoutFile = layoutFile;
 
-            // Remove all controls and create a new dockPanel.
-            this.Controls.Clear();
+                // Remove all controls and create a new dockPanel.
+                this.Controls.Clear();
 
-            InitializeComponent();
+                InitializeComponent();
 
-            this.RecentWorkspacesMenu = new RecentMenu(this.recentWorkspacesMenuItem, new RecentMenu.ClickedHandler(OnMenuRecentWorkspaces), "SOFTWARE\\Tencent\\Tag\\Behaviac\\MRU");
+                this.RecentWorkspacesMenu = new RecentMenu(this.recentWorkspacesMenuItem, new RecentMenu.ClickedHandler(OnMenuRecentWorkspaces), "SOFTWARE\\Tencent\\Tag\\Behaviac\\MRU");
 
-            this.FormClosed -= this.MainWindow_FormClosed;
-            this.FormClosed += this.MainWindow_FormClosed;
-            this.KeyDown -= this.MainWindow_KeyDown;
-            this.KeyDown += this.MainWindow_KeyDown;
+                this.FormClosed -= this.MainWindow_FormClosed;
+                this.FormClosed += this.MainWindow_FormClosed;
+                this.KeyDown -= this.MainWindow_KeyDown;
+                this.KeyDown += this.MainWindow_KeyDown;
 
-            // Display the file version
-            this.Text = "BehaviacDesigner " + this.ProductVersion;
+                // Display the file version
+                this.Text = "BehaviacDesigner " + this.ProductVersion;
 
-            // Set the stored settings for the window
-            this.WindowState = Settings.Default.MainWindowState;
+                // Set the stored settings for the window
+                this.WindowState = Settings.Default.MainWindowState;
 
-            if (this.WindowState == FormWindowState.Normal) {
-                bool bValid = false;
-                foreach(Screen screen in Screen.AllScreens) {
-                    if (screen.Bounds.Contains(Settings.Default.MainWindowLocation)) {
-                        bValid = true;
-                        break;
+                if (this.WindowState == FormWindowState.Normal)
+                {
+                    bool bValid = false;
+                    foreach (Screen screen in Screen.AllScreens)
+                    {
+                        if (screen.Bounds.Contains(Settings.Default.MainWindowLocation))
+                        {
+                            bValid = true;
+                            break;
+                        }
+                    }
+
+                    if (bValid)
+                    {
+                        this.Size = Settings.Default.MainWindowSize;
+                        this.Location = Settings.Default.MainWindowLocation;
+                        this.PerformLayout();
                     }
                 }
 
-                if (bValid) {
-                    this.Size = Settings.Default.MainWindowSize;
-                    this.Location = Settings.Default.MainWindowLocation;
-                    this.PerformLayout();
+                // If we have no stored layout, generate a default one
+                if (behaviorTreeListDock != null)
+                {
+                    nodeTreeList.Dispose();
+                    nodeTreeList = null;
+
+                    behaviorTreeList.Dispose();
+                    behaviorTreeList = null;
+
+                    behaviorTreeListDock.Close();
+                    behaviorTreeListDock = null;
                 }
-            }
 
-            // If we have no stored layout, generate a default one
-            if (behaviorTreeListDock != null) {
-                nodeTreeList.Dispose();
-                nodeTreeList = null;
+                bool layoutFileExisting = System.IO.File.Exists(layoutFile);
 
-                behaviorTreeList.Dispose();
-                behaviorTreeList = null;
+                if (layoutFileExisting)
+                {
+                    // Add child controls for the dockPanel from the layout file.
+                    dockPanel.LoadFromXml(layoutFile, new WeifenLuo.WinFormsUI.Docking.DeserializeDockContent(GetContentFromPersistString));
 
-                behaviorTreeListDock.Close();
-                behaviorTreeListDock = null;
-            }
-
-            bool layoutFileExisting = System.IO.File.Exists(layoutFile);
-
-            if (layoutFileExisting) {
-                // Add child controls for the dockPanel from the layout file.
-                dockPanel.LoadFromXml(layoutFile, new WeifenLuo.WinFormsUI.Docking.DeserializeDockContent(GetContentFromPersistString));
-
-                if (this.behaviorTreeList == null) {
-                    //the corrupt layout file was deleted
-                    layoutFileExisting = false;
+                    if (this.behaviorTreeList == null)
+                    {
+                        //the corrupt layout file was deleted
+                        layoutFileExisting = false;
+                    }
                 }
+
+                if (!layoutFileExisting)
+                {
+                    BehaviorTreeListDock btlDock = new BehaviorTreeListDock();
+                    RegisterBehaviorTreeList(btlDock);
+                    btlDock.Show(dockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockLeft);
+
+                    PropertiesDock dock = new PropertiesDock();
+                    dock.Show(dockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockRight);
+                }
+
+                if (!layoutFileExisting)
+                {
+                    this.dockPanel.Size = new Size(this.Size.Width - 20, this.Size.Height - 68);
+                }
+
+                postLoadLayout(editMode, bLoadWks);
+
+                // Make sure the window is focused
+                Focus();
             }
-
-            if (!layoutFileExisting) {
-                BehaviorTreeListDock btlDock = new BehaviorTreeListDock();
-                RegisterBehaviorTreeList(btlDock);
-                btlDock.Show(dockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockLeft);
-
-                PropertiesDock dock = new PropertiesDock();
-                dock.Show(dockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockRight);
-            }
-
-            if (!layoutFileExisting)
+            catch
             {
-                this.dockPanel.Size = new Size(this.Size.Width - 20, this.Size.Height - 68);
             }
-
-            postLoadLayout(editMode, bLoadWks);
-
-            // Make sure the window is focused
-            Focus();
         }
 
         public FileManagers.SaveResult CheckSavingBehaviors()
@@ -578,7 +592,9 @@ namespace Behaviac.Design
                         MetaStoreDock.Inspect(null);
                     }
 
-                    Utilities.ReportOpenWorkspace(Workspace.Current.Name);
+                    PropertiesDock.InspectObject(null, null);
+
+                    Utilities.ReportOpenWorkspace();
                 }
 
             } catch (Exception ex) {

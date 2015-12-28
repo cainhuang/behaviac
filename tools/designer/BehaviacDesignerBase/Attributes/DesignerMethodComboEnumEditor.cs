@@ -34,12 +34,7 @@ namespace Behaviac.Design.Attributes
         public DesignerMethodComboEnumEditor() {
             InitializeComponent();
 
-            _names.Add(VariableDef.kSelf);
-            _types.Add(VariableDef.kSelf + "::Method");
-            foreach(Plugin.InstanceName_t instanceName in Plugin.InstanceNames) {
-                _names.Add(instanceName.name_);
-                _types.Add(instanceName.displayName_ + "::Method");
-            }
+            SetTypes();
         }
 
         public override void ReadOnly() {
@@ -53,6 +48,21 @@ namespace Behaviac.Design.Attributes
             this.valueComboBox.SelectedIndex = -1;
         }
 
+        private void SetTypes()
+        {
+            _names.Clear();
+            _types.Clear();
+
+            _names.Add(VariableDef.kSelf);
+            _types.Add(VariableDef.kSelf + "::Method");
+
+            foreach (Plugin.InstanceName_t instanceName in this.InstanceNames)
+            {
+                _names.Add(instanceName.name_);
+                _types.Add(instanceName.displayName_ + "::Method");
+            }
+        }
+
         public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
@@ -63,15 +73,10 @@ namespace Behaviac.Design.Attributes
             if (enumAtt != null && property.Property.PropertyType == null)
             { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, property.Property.Name)); }
 
-            Behaviac.Design.Attachments.Attach evt = obj as Behaviac.Design.Attachments.Attach;
-            Behaviac.Design.Nodes.BaseNode baseNode = (evt != null) ? evt.Node : obj as Behaviac.Design.Nodes.BaseNode;
-            Behaviac.Design.Nodes.Behavior behavior = (baseNode != null) ? baseNode.Behavior as Behaviac.Design.Nodes.Behavior : null;
-
-            if (behavior == null && this._root != null) {
-                behavior = this._root.Behavior as Behaviac.Design.Nodes.Behavior;
-            }
-
+            Nodes.Behavior behavior = GetBehavior();
             _agentType = (behavior != null) ? behavior.AgentType : null;
+
+            SetTypes();
 
             object action = property.Property.GetValue(obj, null);
             MethodDef method = action as MethodDef;
@@ -140,7 +145,8 @@ namespace Behaviac.Design.Attributes
             List<MethodDef> methods = new List<MethodDef>();
 
             if (typeComboBox.SelectedIndex > -1) {
-                AgentType agentType = Plugin.GetInstanceAgentType(_currentNames[typeComboBox.SelectedIndex], _agentType);
+                Nodes.Behavior behavior = GetBehavior();
+                AgentType agentType = Plugin.GetInstanceAgentType(_currentNames[typeComboBox.SelectedIndex], behavior, _agentType);
 
                 if (agentType != null) {
                     // get the linked method to filter

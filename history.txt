@@ -1,3 +1,17 @@
+2015-12-25	3.2.15
+	Fix a bug for setting the parameters of the method.
+
+2015-12-24	3.2.14
+	Fix some bugs for the editor.
+
+2015-12-23	3.2.13
+	Fix a bug for selecting the method from the instances.
+	Add a bClearResource parameter for the Agent::btunload() method.
+
+2015-12-22	3.2.12
+	Support the local agent var to select its members.
+	Fix a bug for the events of the base classes.
+
 2015-12-16	3.2.11
 	Generate the RegisterTypes/UnRegisterTypes for C# codes.
 	fix EnumTest_OneAfterOne

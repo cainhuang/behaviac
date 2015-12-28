@@ -63,7 +63,7 @@ namespace Behaviac.Design.Attributes
                     return new RightValueDef(var);
 
                 } else {
-                    Behaviac.Design.Nodes.Behavior behavior = node.Behavior as Behaviac.Design.Nodes.Behavior;
+                    Nodes.Behavior behavior = node.Behavior as Nodes.Behavior;
                     AgentType agentType = (behavior != null) ? behavior.AgentType : null;
 
                     string valueClass = VariableDef.kSelfMethod;
@@ -71,7 +71,7 @@ namespace Behaviac.Design.Attributes
 
                     if (method == null) {
                         string className = Plugin.GetClassName(str);
-                        method = DesignerMethodEnum.parseMethodString(result, node, Plugin.GetInstanceAgentType(className), this.MethodType, str);
+                        method = DesignerMethodEnum.parseMethodString(result, node, Plugin.GetInstanceAgentType(className, behavior, null), this.MethodType, str);
                         valueClass = className + VariableDef.kMethod;
                     }
 

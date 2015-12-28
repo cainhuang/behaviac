@@ -625,14 +625,27 @@ namespace BehaviorNodeUnitTest
         [Category("test_action_0")]
         public void test_action_0()
         {
+            behaviac.Agent.RegisterInstanceName<ChildNodeTest>("par_child");
+            behaviac.Agent.BindInstance(testChildAgent, "par_child");
+
             testAgent.btsetcurrent("node_test/action_ut_0");
             testAgent.resetProperties();
+
+            testAgent.testVar_3 = 1;
+            testChildAgent.testVar_2 = 2;
+
+            testAgent.SetVariable<ChildNodeTest>("par_child", testChildAgent);
+
             testAgent.btexec();
 
             Assert.AreEqual(1500, testAgent.testVar_0);
             Assert.AreEqual(1800, testAgent.testVar_1);
             Assert.AreEqual("null", testAgent.testVar_str_0);
             Assert.AreEqual(2, StaticAgent.sInt);
+            Assert.AreEqual(true, testChildAgent.m_bTargetValid);
+
+            behaviac.Agent.UnbindInstance("par_child");
+            behaviac.Agent.UnRegisterInstanceName<ChildNodeTest>("par_child");
         }
 
         [Test]
@@ -770,6 +783,24 @@ namespace BehaviorNodeUnitTest
 
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
             Assert.AreEqual(2, testAgent.testVar_0);
+        }
+        [Test]
+        [Category("test_action_child_agent_0")]
+        public void test_action_child_agent_0()
+        {
+            testAgent.btsetcurrent("node_test/action_child_agent_0");
+            testAgent.resetProperties();
+            
+            
+            testAgent.initChildAgentTest();
+
+            testAgent.btexec();
+            ChildNodeTest ct = testAgent.GetVariable<ChildNodeTest>("par_child_agent");
+            int testVar_0_t =ct.testVar_0;
+            Assert.AreEqual(666, testVar_0_t);
+            Assert.AreEqual(888, ct.testVar_1);
+            Assert.AreEqual(999.0, ct.testVar_2);
+            testAgent.removeChildAgentTest();
         }
 
         [Test]

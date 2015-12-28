@@ -27,24 +27,35 @@ namespace BehaviorNodeUnitTest
 
         public AgentNodeTest testAgent = null;
 
+        public ChildNodeTest testChildAgent = null;
+
+        public GameObject testAgentObject = null;
+
         [TestFixtureSetUp]
         public void initGlobalTestEnv() {
             BehaviacSystem.Instance.Init();
 
-            GameObject testAgentObject = new GameObject();
+            testAgentObject = new GameObject();
             testAgentObject.name = "@UnitTestAgent";
             testAgentObject.transform.localPosition = Vector3.zero;
             testAgentObject.transform.localRotation = Quaternion.identity;
             testAgentObject.transform.localScale = Vector3.one;
+
             testAgent = testAgentObject.AddComponent<AgentNodeTest>();
             testAgent.init();
 
+
+            testChildAgent = testAgentObject.AddComponent<ChildNodeTest>();
+            testChildAgent.init();
+
+
             //Debug.Log("InitTestFixture");
         }
-
+       
         [TestFixtureTearDown]
         public void finlGlobalTestEnv() {
             testAgent.finl();
+            testChildAgent.finl();
 
             BehaviacSystem.Instance.Uninit();
             //Debug.Log("FinlTestFixture");

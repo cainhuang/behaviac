@@ -85,7 +85,7 @@ namespace Behaviac.Design.Attributes
 
                 if (method == null) {
                     string className = Plugin.GetClassName(str);
-                    method = parseMethodString(result, node, Plugin.GetInstanceAgentType(className), this.MethodType, str);
+                    method = parseMethodString(result, node, Plugin.GetInstanceAgentType(className, behavior, null), this.MethodType, str);
                 }
 
                 return method;
@@ -108,14 +108,15 @@ namespace Behaviac.Design.Attributes
 
                     if (pointIndex > -1 && pointIndex < pos) {
                         ownerName = str.Substring(0, pointIndex);
+                        Nodes.Behavior behavior = node.Behavior as Nodes.Behavior;
 
-                        if (ownerName != VariableDef.kSelf && !Plugin.IsInstanceName(ownerName))
+                        if (ownerName != VariableDef.kSelf && !Plugin.IsInstanceName(ownerName, behavior))
                         {
                             throw new Exception("The instance does not exist.");
                         }
 
                         str = str.Substring(pointIndex + 1, str.Length - pointIndex - 1);
-                        agentType = Plugin.GetInstanceAgentType(ownerName, agentType);
+                        agentType = Plugin.GetInstanceAgentType(ownerName, behavior, agentType);
                         //if (agentType == node.Behavior.AgentType)
                         //    ownerName = VariableDef.kSelf;
                         pos = str.IndexOf('(');
@@ -277,7 +278,8 @@ namespace Behaviac.Design.Attributes
                 arrayIndexStr = tokens[1];
             }
 
-            agentType = Plugin.GetInstanceAgentType(instacneName, agentType);
+            Nodes.Behavior behavior = node.Behavior as Nodes.Behavior;
+            agentType = Plugin.GetInstanceAgentType(instacneName, behavior, agentType);
 
             if (agentType != null) {
                 IList<PropertyDef> properties = agentType.GetProperties();
@@ -305,7 +307,7 @@ namespace Behaviac.Design.Attributes
 
         public static VariableDef setParameter(List<Nodes.Node.ErrorCheck> result, DefaultObject node, string propertyName)
         {
-            Behaviac.Design.Nodes.Behavior behavior = node.Behavior as Behaviac.Design.Nodes.Behavior;
+            Nodes.Behavior behavior = node.Behavior as Nodes.Behavior;
 
             // Convert the Par to the Property
             if (!propertyName.Contains(".") && !propertyName.Contains(":"))
@@ -337,7 +339,7 @@ namespace Behaviac.Design.Attributes
             // Try to find the global property with the name.
             string instacneName = Plugin.GetClassName(propertyName);
 
-            if (!string.IsNullOrEmpty(instacneName) && Plugin.GetInstanceAgentType(instacneName) != null) {
+            if (!string.IsNullOrEmpty(instacneName) && Plugin.GetInstanceAgentType(instacneName, behavior, null) != null) {
                 var = createVariable(result, node, behavior.AgentType, instacneName, propertyName);
 
                 if (var != null) {

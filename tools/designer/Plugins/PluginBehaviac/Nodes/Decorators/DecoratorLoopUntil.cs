@@ -35,7 +35,7 @@ namespace PluginBehaviac.Nodes
         }
 
         protected bool _until = true;
-        [DesignerBoolean("DecoratorUntil", "DecoratorUntilDesc", "CategoryBasic", DesignerProperty.DisplayMode.List, 0, DesignerProperty.DesignerFlags.NoFlags)]
+        [DesignerBoolean("DecoratorUntil", "DecoratorUntilDesc", "CategoryBasic", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoFlags)]
         public bool Until
         {
             get { return _until; }
