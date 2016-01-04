@@ -1,4 +1,4 @@
-##[访问http://tencentopen.github.io/behaviac/获取文档，教程，FAQ等一切相关资料](http://tencentopen.github.io/behaviac/)
+##[访问http://www.behaviac.com/获取文档，教程，FAQ等一切相关资料](http://www.behaviac.com/)
 
  - behaviac是游戏AI的开发框架组件，也是游戏原型的快速设计工具
  - 支持行为树BT，状态机FSM，HTN等多种范式
@@ -7,7 +7,7 @@
  - http://tencentopen.github.io/behaviac/
 
 ---------------------------------------------
-##[Visist http://tencentopen.github.io/behaviac/ for documents, tutorials, FAQs and all other information](http://tencentopen.github.io/behaviac/)
+##[Visist http://www.behaviac.com/ for documents, tutorials, FAQs and all other information](http://www.behaviac.com/)
 
  - behaviac is a framework of the game AI development, and it also can be used as a rapid game prototype design tool
  - behaviac supports the behavior tree, finite state machine and hierarchical task network
