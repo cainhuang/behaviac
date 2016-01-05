@@ -26,8 +26,6 @@ namespace behaviac
     {
     }
 
-    //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
-
     void DecoratorFrames::load(int version, const char* agentType, const properties_t& properties)
     {
         super::load(version, agentType, properties);
@@ -128,7 +126,7 @@ namespace behaviac
     {
         super::onenter(pAgent);
 
-        this->m_start = 0;
+        this->m_start = Workspace::GetInstance()->GetFrameSinceStartup();
         this->m_frames = this->GetFrames(pAgent);
 
         return (this->m_frames > 0);
@@ -138,12 +136,10 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(status);
 
-        this->m_start += (int)(Workspace::GetInstance()->GetDeltaFrames());
-
-        if (this->m_start >= this->m_frames)
-        {
-            return BT_SUCCESS;
-        }
+		if (Workspace::GetInstance()->GetFrameSinceStartup() - this->m_start + 1 >= this->m_frames)
+		{
+			return BT_SUCCESS;
+		}
 
         return BT_RUNNING;
     }

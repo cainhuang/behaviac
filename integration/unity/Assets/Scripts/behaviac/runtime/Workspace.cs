@@ -226,6 +226,21 @@ namespace behaviac
             }
         }
 
+        private static bool m_bIsHotReload = true;
+
+        public static bool IsHotReload
+        {
+            get
+            {
+                return m_bIsHotReload;
+            }
+            set
+            {
+                Debug.Check(!Workspace.Instance.IsInited, "please call Config.IsHotReload at the very begining!");
+                m_bIsHotReload = value;
+            }
+        }
+
         private static bool m_bIsSuppressingNonPublicWarning;
 
         /// <summary>
@@ -340,28 +355,26 @@ namespace behaviac
             }
         }
 
-        private int m_deltaFrames;
+        private int m_frameSinceStartup = -1;
 
-        public virtual int DeltaFrames
+        //
+        // Summary:
+        //     The frames since the game started.
+        public virtual int FrameSinceStartup
         {
             get
             {
-                return m_deltaFrames;
+                return (m_frameSinceStartup < 0) ? Time.frameCount : m_frameSinceStartup;
             }
             set
             {
-                m_deltaFrames = value;
+                m_frameSinceStartup = value;
             }
         }
 
-        public virtual float DeltaTime
-        {
-            get
-            {
-                return Time.deltaTime;
-            }
-        }
-
+        //
+        // Summary:
+        //     The real time in seconds since the game started (Read Only).
         public virtual float TimeSinceStartup
         {
             get
@@ -469,7 +482,7 @@ namespace behaviac
 
             LoadWorkspaceAbsolutePath();
 
-            this.m_deltaFrames = 1;
+            m_frameSinceStartup = -1;
 
             //////////////////////////////////////////////////////////
             this.RegisterStuff();
@@ -479,9 +492,8 @@ namespace behaviac
 
 #if !BEHAVIAC_RELEASE
 #if BEHAVIAC_HOTRELOAD
-
             // set the file watcher
-            if (Config.IsDesktop)
+            if (Config.IsDesktop && behaviac.Config.IsHotReload)
             {
                 if (this.FileFormat != EFileFormat.EFF_cs)
                 {
@@ -537,15 +549,17 @@ namespace behaviac
             Context.Cleanup(-1);
 
 #if BEHAVIAC_HOTRELOAD
-            m_modifiedFiles.Clear();
-
-            if (m_DirectoryMonitor != null)
+            if (behaviac.Config.IsHotReload)
             {
-                m_DirectoryMonitor.Changed -= new DirectoryMonitor.FileSystemEvent(OnFileChanged);
-                m_DirectoryMonitor.Stop();
-                m_DirectoryMonitor = null;
-            }
+                m_modifiedFiles.Clear();
 
+                if (m_DirectoryMonitor != null)
+                {
+                    m_DirectoryMonitor.Changed -= new DirectoryMonitor.FileSystemEvent(OnFileChanged);
+                    m_DirectoryMonitor.Stop();
+                    m_DirectoryMonitor = null;
+                }
+            }
 #endif
 
             AgentProperties.Cleanup();
@@ -709,9 +723,7 @@ namespace behaviac
         }
 
         #region HotReload
-
 #if BEHAVIAC_HOTRELOAD
-
         #region DirectoryMonitor
 
         public class DirectoryMonitor
@@ -829,7 +841,6 @@ namespace behaviac
         #endregion DirectoryMonitor
 
         private DirectoryMonitor m_DirectoryMonitor = null;
-        private bool m_AutoHotReload = true;
         private List<string> m_ModifiedFiles = new List<string>();
 
         private void OnFileChanged(string fullpath)
@@ -906,25 +917,10 @@ namespace behaviac
             return false;
         }
 
-        public void SetAutoHotReload(bool enable)
-        {
-            m_AutoHotReload = enable;
-        }
-
-        public bool GetAutoHotReload()
-        {
-#if !BEHAVIAC_RELEASE
-            return Config.IsDesktop && m_AutoHotReload;
-#else
-            return false;
-#endif
-        }
-
         protected void HotReload()
         {
 #if !BEHAVIAC_RELEASE
-
-            if (Config.IsDesktop)
+            if (Config.IsDesktop && behaviac.Config.IsHotReload)
             {
                 if (GetModifiedFiles())
                 {
@@ -982,8 +978,8 @@ namespace behaviac
 
         #region Development
 
-        private uint m_frame;
 #if !BEHAVIAC_RELEASE
+        private uint m_frame;
         private string m_applogFilter;
 #endif
 
@@ -1278,7 +1274,7 @@ namespace behaviac
             this.LogFrames();
             this.HandleRequests();
 
-            if (this.GetAutoHotReload())
+            if (behaviac.Config.IsHotReload)
             {
                 this.HotReload();
             }

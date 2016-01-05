@@ -17,7 +17,6 @@
       <node class="DecoratorNot" id="5">
         <property DecorateWhenChildEnds="false" />
         <node class="Wait" id="7">
-          <property IgnoreTimeScale="false" />
           <property Time="const float 1000" />
         </node>
       </node>

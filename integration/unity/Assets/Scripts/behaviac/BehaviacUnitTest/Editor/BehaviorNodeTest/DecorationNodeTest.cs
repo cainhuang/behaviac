@@ -150,6 +150,8 @@ namespace BehaviorNodeUnitTest
         [Category("test_decoration_frames_0")]
         public void test_decoration_frames_0()
         {
+            behaviac.Workspace.Instance.FrameSinceStartup = 0;
+
             testAgent.btsetcurrent("node_test/decoration_frames_ut_0");
             int loopCount = 0;
 
@@ -159,12 +161,16 @@ namespace BehaviorNodeUnitTest
                 testAgent.btexec();
 
                 if (loopCount < 99)
-                { Assert.AreEqual(0, testAgent.testVar_0); }
-
+                {
+                    Assert.AreEqual(0, testAgent.testVar_0);
+                }
                 else
-                { Assert.AreEqual(1, testAgent.testVar_0); }
+                {
+                    Assert.AreEqual(1, testAgent.testVar_0);
+                }
 
                 ++loopCount;
+                behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
             }
         }
 
@@ -172,36 +178,46 @@ namespace BehaviorNodeUnitTest
         [Category("test_decoration_frames_1")]
         public void test_decoration_frames_1()
         {
+            behaviac.Workspace.Instance.FrameSinceStartup = 0;
+
             testAgent.btsetcurrent("node_test/decoration_frames_ut_0");
             int loopCount = 0;
-            behaviac.Workspace.Instance.DeltaFrames = 5;
 
-            while (loopCount < 20)
+            while (loopCount < 21)
             {
+
                 testAgent.resetProperties();
                 testAgent.btexec();
 
-                if (loopCount < 19)
-                { Assert.AreEqual(0, testAgent.testVar_0); }
-
+                if (loopCount < 20)
+                {
+                    Assert.AreEqual(0, testAgent.testVar_0);
+                }
                 else
-                { Assert.AreEqual(1, testAgent.testVar_0); }
+                {
+                    Assert.AreEqual(1, testAgent.testVar_0);
+                }
 
                 ++loopCount;
+                behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 5;
             }
-
-            behaviac.Workspace.Instance.DeltaFrames = 1;
         }
 
         void once_(AgentNodeTest myTestAgent)
         {
+            behaviac.Workspace.Instance.FrameSinceStartup = 0;
+
             behaviac.EBTStatus s = myTestAgent.btexec();
             Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
             Assert.AreEqual(0, myTestAgent.testVar_0);
 
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+
             s = myTestAgent.btexec();
             Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
             Assert.AreEqual(0, myTestAgent.testVar_0);
+
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
 
             myTestAgent.testVar_0 = 1;
 
@@ -212,15 +228,18 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
             Assert.AreEqual(0, myTestAgent.testVar_0);
 
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+
             s = myTestAgent.btexec();
             Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, s);
             Assert.AreEqual(0, myTestAgent.testVar_0);
+
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
 
             s = myTestAgent.btexec();
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, s);
             Assert.AreEqual(3, myTestAgent.testVar_0);
         }
-
 
         [Test]
         [Category("frames_ut_0")]

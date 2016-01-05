@@ -95,6 +95,24 @@ LOAD_TEST(btunittest, event_ut_0)
 	finlTestEnvNode(myTestAgent);
 }
 
+LOAD_TEST(btunittest, event_ut_1)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/event_ut_1", format);
+
+	myTestAgent->resetProperties();
+
+	behaviac::EBTStatus status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	myTestAgent->FireEvent("event_test_int", 13);
+	CHECK_EQUAL(13, myTestAgent->event_test_var_int);
+			
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+	
+	finlTestEnvNode(myTestAgent);
+}
+
 LOAD_TEST(btunittest, event_ut_2)
 {
 	registerAllTypes();

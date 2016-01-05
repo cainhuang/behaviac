@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -841,5 +841,8 @@ Are your sure continue the undo/redo operation?</value>
   </data>
   <data name="Transition" xml:space="preserve">
     <value>Transition</value>
+  </data>
+  <data name="CustomizedAgentError" xml:space="preserve">
+    <value>The customized agent can not be exported! You should firstly implement the agent on the runtime part and then export it as meta info into the editor.</value>
   </data>
 </root>

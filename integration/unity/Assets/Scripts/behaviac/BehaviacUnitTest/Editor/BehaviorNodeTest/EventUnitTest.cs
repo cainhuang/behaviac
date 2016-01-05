@@ -135,6 +135,23 @@ namespace BehaviorNodeUnitTest
         }
 
         [Test]
+        [Category("test_event_1")]
+        public void test_event_1()
+        {
+            testAgent.btsetcurrent("node_test/event_ut_1");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            testAgent.FireEvent("event_test_int", 13);
+            Assert.AreEqual(13, testAgent.event_test_var_int);
+
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+        }
+
+        [Test]
         [Category("test_event_2")]
         public void test_event_2()
         {

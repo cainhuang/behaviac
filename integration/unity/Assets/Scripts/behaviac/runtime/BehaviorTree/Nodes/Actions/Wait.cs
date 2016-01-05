@@ -18,12 +18,10 @@ namespace behaviac
 {
     public class Wait : BehaviorNode
     {
-        protected bool m_ignoreTimeScale;
         protected Property m_time_var;
 
         public Wait()
         {
-            this.m_ignoreTimeScale = false;
             this.m_time_var = null;
         }
 
@@ -38,11 +36,7 @@ namespace behaviac
 
             foreach(property_t p in properties)
             {
-                if (p.name == "IgnoreTimeScale")
-                {
-                    this.m_ignoreTimeScale = (p.value == "true");
-                }
-                else if (p.name == "Time")
+                if (p.name == "Time")
                 {
                     string typeName = null;
                     this.m_time_var = Condition.LoadRight(p.value, ref typeName);
@@ -107,13 +101,6 @@ namespace behaviac
                 base.load(node);
             }
 
-            private bool GetIgnoreTimeScale()
-            {
-                Wait pWaitNode = this.GetNode() as Wait;
-
-                return pWaitNode != null ? pWaitNode.m_ignoreTimeScale : false;
-            }
-
             private float GetTime(Agent pAgent)
             {
                 Wait pWaitNode = this.GetNode() as Wait;
@@ -123,15 +110,7 @@ namespace behaviac
 
             protected override bool onenter(Agent pAgent)
             {
-                if (this.GetIgnoreTimeScale())
-                {
-                    this.m_start = Workspace.Instance.TimeSinceStartup * 1000.0f;
-                }
-                else
-                {
-                    this.m_start = 0;
-                }
-
+                this.m_start = Workspace.Instance.TimeSinceStartup * 1000.0f;
                 this.m_time = this.GetTime(pAgent);
 
                 return (this.m_time >= 0);
@@ -145,21 +124,9 @@ namespace behaviac
             {
                 Debug.Check(childStatus == EBTStatus.BT_RUNNING);
 
-                if (this.GetIgnoreTimeScale())
+                if (Workspace.Instance.TimeSinceStartup * 1000.0f - this.m_start >= this.m_time)
                 {
-                    if (Workspace.Instance.TimeSinceStartup * 1000.0f - this.m_start >= this.m_time)
-                    {
-                        return EBTStatus.BT_SUCCESS;
-                    }
-                }
-                else
-                {
-                    this.m_start += Workspace.Instance.DeltaTime * 1000.0f;
-
-                    if (this.m_start >= this.m_time)
-                    {
-                        return EBTStatus.BT_SUCCESS;
-                    }
+                    return EBTStatus.BT_SUCCESS;
                 }
 
                 return EBTStatus.BT_RUNNING;

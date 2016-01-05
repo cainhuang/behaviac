@@ -840,4 +840,7 @@
   <data name="Transition" xml:space="preserve">
     <value>转换</value>
   </data>
+  <data name="CustomizedAgentError" xml:space="preserve">
+    <value>不能导出自定义的Agent类型，请先在运行时端实现该Agent类并导出为元信息到编辑器中。</value>
+  </data>
 </root>

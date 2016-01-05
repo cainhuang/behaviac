@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2009, Daniel Kollmann
 // All rights reserved.
 //
@@ -55,14 +55,6 @@ namespace PluginBehaviac.Nodes
             get { return "Wait"; }
         }
 
-        private bool _ignoreTimeScale = false;
-        [DesignerBoolean("IgnoreTimeScale", "IgnoreTimeScaleDesc", "CategoryBasic", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoFlags)]
-        public bool IgnoreTimeScale
-        {
-            get { return _ignoreTimeScale; }
-            set { this._ignoreTimeScale = value; }
-        }
-
         protected VariableDef _time = new VariableDef(1000.0f);
         [DesignerPropertyEnum("Duration", "DurationDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributes, "", "", ValueTypes.Float)]
         public VariableDef Time
@@ -84,8 +76,6 @@ namespace PluginBehaviac.Nodes
             Wait dec = (Wait)newnode;
             if (_time != null)
                 dec._time = (VariableDef)_time.Clone();
-
-            dec._ignoreTimeScale = this._ignoreTimeScale;
         }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(157, 75, 39));

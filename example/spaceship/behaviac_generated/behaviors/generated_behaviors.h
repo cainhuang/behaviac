@@ -481,7 +481,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_opl = Agent::GetInstance("framework::WorldState", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			bool opl = ((framework::WorldState*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_SyncSignal, bool >();
 			bool opr = true;
@@ -635,7 +635,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_opl = Agent::GetInstance("framework::GameObject", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::GameObject");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			unsigned int opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			unsigned int opr = 50;
@@ -710,7 +710,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_opl = Agent::GetInstance("framework::GameObject", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::GameObject");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			unsigned int opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			unsigned int opr = 0;
@@ -790,7 +790,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_opl = Agent::GetInstance("framework::GameObject", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::GameObject");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			unsigned int opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			unsigned int opr = 0;
@@ -811,7 +811,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_opl = Agent::GetInstance("framework::WorldState", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			unsigned int opl = ((framework::WorldState*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_time, unsigned int >();
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_test_d") == 2595852450u);
@@ -884,7 +884,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_ = Agent::GetInstance("framework::WorldState", pAgent->GetContextId());
+			Agent* pAgent_ = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_);
 			bool opl = ((framework::WorldState*)pAgent_)->_Execute_Method_<framework::METHOD_TYPE_framework_WorldState_NextWave, bool >();
 			bool opr = true;
@@ -905,7 +905,7 @@ namespace behaviac
 		virtual int GetCount(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
-			Agent* pAgent_ = Agent::GetInstance("framework::WorldState", pAgent->GetContextId());
+			Agent* pAgent_ = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_);
 			return ((framework::WorldState*)pAgent_)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_time, unsigned int >();
 		}
@@ -934,7 +934,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_opl = Agent::GetInstance("framework::GameObject", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::GameObject");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			unsigned int opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			unsigned int opr = 0;
@@ -1295,7 +1295,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_0_basic_node6, Wait);
 		Wait_bt_ships_0_basic_node6()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -1466,7 +1465,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			unsigned int opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
-			Agent* pAgent_opr = Agent::GetInstance("framework::WorldState", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			unsigned int opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
 			bool op = Details::Greater(opl, opr);
@@ -1497,7 +1496,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_1_1_suicide_node7, Wait);
 		Wait_bt_ships_1_1_suicide_node7()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -1534,8 +1532,12 @@ namespace behaviac
 		ReferencedBehavior_bt_ships_1_1_suicide_node8()
 		{
 			m_referencedBehaviorPath = "base/homing";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 		}
 	protected:
 	};
@@ -1678,7 +1680,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			unsigned int opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
-			Agent* pAgent_opr = Agent::GetInstance("framework::WorldState", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			unsigned int opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
 			bool op = Details::LessEqual(opl, opr);
@@ -1693,8 +1695,12 @@ namespace behaviac
 		ReferencedBehavior_bt_ships_1_2_suicide_node4()
 		{
 			m_referencedBehaviorPath = "base/homing";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 		}
 	protected:
 	};
@@ -1738,7 +1744,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_1_2_suicide_node7, Wait);
 		Wait_bt_ships_1_2_suicide_node7()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -1860,7 +1865,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			unsigned int opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
-			Agent* pAgent_opr = Agent::GetInstance("framework::WorldState", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			unsigned int opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
 			bool op = Details::LessEqual(opl, opr);
@@ -1875,8 +1880,12 @@ namespace behaviac
 		ReferencedBehavior_bt_ships_1_3_suicide_node4()
 		{
 			m_referencedBehaviorPath = "base/homing";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 		}
 	protected:
 	};
@@ -1920,7 +1929,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_1_3_suicide_node9, Wait);
 		Wait_bt_ships_1_3_suicide_node9()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -2151,7 +2159,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_2_basic_probability_node0, Wait);
 		Wait_bt_ships_2_basic_probability_node0()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -2225,7 +2232,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_2_basic_probability_node8, Wait);
 		Wait_bt_ships_2_basic_probability_node8()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -2299,7 +2305,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_2_basic_probability_node21, Wait);
 		Wait_bt_ships_2_basic_probability_node21()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -2635,7 +2640,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_3_basic_move_node0, Wait);
 		Wait_bt_ships_3_basic_move_node0()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -3038,7 +3042,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_4_destroy_projectiles_node0, Wait);
 		Wait_bt_ships_4_destroy_projectiles_node0()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -3344,7 +3347,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_5_group_node0, Wait);
 		Wait_bt_ships_5_group_node0()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -3882,7 +3884,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_ships_7_signal_node0, Wait);
 		Wait_bt_ships_7_signal_node0()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -3929,7 +3930,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
 			bool opr = true;
-			Agent* pAgent_opl = Agent::GetInstance("framework::WorldState", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((framework::WorldState*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_SyncSignal, bool >() = opr;
 			return result;

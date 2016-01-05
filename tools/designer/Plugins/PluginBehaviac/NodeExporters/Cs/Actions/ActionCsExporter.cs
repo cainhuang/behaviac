@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -129,10 +129,11 @@ namespace PluginBehaviac.NodeExporters
                             if (action.ResultFunctor.Owner != VariableDef.kSelf &&
                                 (!action.ResultFunctor.IsPublic || !action.ResultFunctor.IsStatic))
                             {
+                                string instanceName = action.ResultFunctor.Owner.Replace("::", ".");
                                 agentName = "pAgent_functor";
 
-                                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, action.ResultFunctor.Owner.Replace("::", "."));
-                                stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
+                                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Utils.GetParentAgent(pAgent, \"{2}\");", indent, agentName, instanceName);
+                                stream.WriteLine("{0}Debug.Check({1} != null || Utils.IsStaticClass(\"{2}\"));", indent, agentName, instanceName);
                             }
 
                             if (action.ResultFunctor.IsPublic)

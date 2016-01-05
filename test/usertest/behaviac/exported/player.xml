@@ -24,7 +24,6 @@
             </node>
             <node class="Sequence" id="5">
               <node class="Wait" id="8">
-                <property IgnoreTimeScale="false" />
                 <property Time="const float 10" />
               </node>
             </node>

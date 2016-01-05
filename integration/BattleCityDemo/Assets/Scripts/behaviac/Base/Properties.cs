@@ -167,15 +167,7 @@ namespace behaviac
 
         public Agent GetParentAgent(Agent pAgent)
         {
-            Agent pParent = pAgent;
-
-            if (!string.IsNullOrEmpty(this.m_instanceName) && this.m_instanceName != "Self")
-            {
-                pParent = Agent.GetInstance(this.m_instanceName, pParent.GetContextId());
-                Debug.Check(pParent != null || Utils.IsStaticClass(this.m_instanceName));
-            }
-
-            return pParent;
+            return Utils.GetParentAgent(pAgent, this.m_instanceName);
         }
 
         public Type PropertyType
@@ -435,13 +427,15 @@ namespace behaviac
 
             return this.m_defaultValue;
         }
+
         protected virtual void SetValue(object value)
         {
             Debug.Check(false, "should call parent's SetValue method");
         }
+
         public void SetValue(Agent pSelf, object v)
         {
-            Debug.Check(!Object.ReferenceEquals(pSelf, null));
+            Debug.Check(pSelf != null);
             Debug.Check(!m_bIsConst);
 
             if (this.m_parent != null)
@@ -467,10 +461,7 @@ namespace behaviac
                 staticClassName = pSelf.GetClassTypeName();
             }
 
-            Agent pInstance = this.GetParentAgent(pSelf);
-            Agent parent = pInstance;
-
-            parent.SetVariableRegistry(this.m_bIsLocal, this.m_memberBase, this.m_variableName, v, staticClassName, this.m_variableId);
+            pSelf.SetVariableRegistry(this.m_bIsLocal, this.m_memberBase, this.m_variableName, v, staticClassName, this.m_variableId);
         }
 
         public object GetValue(Agent pSelf)
@@ -491,8 +482,8 @@ namespace behaviac
                 if (this.m_memberBase != null)
                 {
 #if !BEHAVIAC_RELEASE
-                    Agent pInstance = this.GetParentAgent(pSelf);
-                    Debug.Check(pSelf == pInstance);
+                    //Agent pInstance = this.GetParentAgent(pSelf);
+                    //Debug.Check(pSelf == pInstance);
 #endif
                 }
                 else if (this.IsStatic)

@@ -485,7 +485,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_player_node8, Wait);
 		Wait_bt_player_node8()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const

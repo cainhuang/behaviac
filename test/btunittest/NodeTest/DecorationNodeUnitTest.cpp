@@ -101,6 +101,8 @@ LOAD_TEST(btunittest, decoration_not_ut_2)
 //< Decoration Frames Tests
 LOAD_TEST(btunittest, decoration_frames_ut_0)
 {
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(0);
+
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/decoration_frames_ut_0", format);
     int loopCount = 0;
 
@@ -119,21 +121,27 @@ LOAD_TEST(btunittest, decoration_frames_ut_0)
         }
 
         ++loopCount;
+		behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
     }
 
     finlTestEnvNode(myTestAgent);
 }
 
-
 void once_(AgentNodeTest* myTestAgent)
 {
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(0);
+
 	behaviac::EBTStatus s = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_RUNNING, s);
 	CHECK_EQUAL(0, myTestAgent->testVar_0);
 
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
+
 	s = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_RUNNING, s);
 	CHECK_EQUAL(0, myTestAgent->testVar_0);
+
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
 
 	myTestAgent->testVar_0 = 1;
 
@@ -144,9 +152,13 @@ void once_(AgentNodeTest* myTestAgent)
 	CHECK_EQUAL(behaviac::BT_RUNNING, s);
 	CHECK_EQUAL(0, myTestAgent->testVar_0);
 
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
+
 	s = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_RUNNING, s);
 	CHECK_EQUAL(0, myTestAgent->testVar_0);
+
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
 
 	s = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_SUCCESS, s);
@@ -165,8 +177,6 @@ LOAD_TEST(btunittest, frames_ut_0)
 
 	finlTestEnvNode(myTestAgent);
 }
-
-
 
 //LOAD_TEST(btunittest, decoration_frames_ut_0)
 //{

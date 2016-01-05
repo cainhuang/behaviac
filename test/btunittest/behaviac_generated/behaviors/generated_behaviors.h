@@ -1908,8 +1908,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1()
 		{
 			m_referencedBehaviorPath = "node_test/fsm/fsm_ut_0";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 		}
 	protected:
 	};
@@ -2049,8 +2053,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6()
 		{
 			m_referencedBehaviorPath = "node_test/fsm/action_ut_1_2";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 		}
 	protected:
 	};
@@ -2476,8 +2484,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18()
 		{
 			m_referencedBehaviorPath = "node_test/fsm/fsm_ut_0";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 		}
 	protected:
 	};
@@ -3933,8 +3945,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_htn_house_build_house_node20()
 		{
 			m_referencedBehaviorPath = "node_test/htn/house/construct";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentHouse::construct()");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
@@ -4177,8 +4193,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_htn_house_build_house_node26()
 		{
 			m_referencedBehaviorPath = "node_test/htn/house/construct";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentHouse::construct()");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
@@ -4967,8 +4987,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_htn_house_root_node11()
 		{
 			m_referencedBehaviorPath = "node_test/htn/house/build_house";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentHouse::build_house()");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
@@ -5198,8 +5222,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_htn_travel_root_node4()
 		{
 			m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::start,int Self.HTNAgentTravel::finish)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
@@ -5372,8 +5400,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_htn_travel_travel_node6()
 		{
 			m_referencedBehaviorPath = "node_test/htn/travel/travel_by_air";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentTravel::travel_by_air(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::_$local_task_param_$_1)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
@@ -5566,8 +5598,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8()
 		{
 			m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::ax)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
@@ -5602,8 +5638,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4()
 		{
 			m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::ay,int Self.HTNAgentTravel::_$local_task_param_$_1)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
@@ -6424,7 +6464,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
 			int opr = 666;
-			Agent* pAgent_opl = Agent::GetInstance("par_child_agent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "par_child_agent_1");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((AgentNodeTest*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = opr;
 			return result;
@@ -6444,7 +6484,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_method = Agent::GetInstance("par_child_agent", pAgent->GetContextId());
+			Agent* pAgent_method = Agent::GetInstance(pAgent, "par_child_agent_1");
 			BEHAVIAC_ASSERT(pAgent_method);
 			((AgentNodeTest*)pAgent_method)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_2, void, float >(method_p0);
 			return BT_SUCCESS;
@@ -6614,7 +6654,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_opl = Agent::GetInstance("par_child", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "par_child");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			float opl = ((AgentNodeTest*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
 			float opr = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3, float >();
@@ -6635,7 +6675,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_method = Agent::GetInstance("par_child", pAgent->GetContextId());
+			Agent* pAgent_method = Agent::GetInstance(pAgent, "par_child");
 			BEHAVIAC_ASSERT(pAgent_method);
 			((AgentNodeTest*)pAgent_method)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_SelectTarget, void >();
 			return BT_SUCCESS;
@@ -6775,7 +6815,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_method = Agent::GetInstance("StaticAgent", pAgent->GetContextId());
+			Agent* pAgent_method = Agent::GetInstance(pAgent, "StaticAgent");
 			BEHAVIAC_ASSERT(pAgent_method);
 			((StaticAgent*)pAgent_method)->_Execute_Method_<METHOD_TYPE_StaticAgent_sAction, void >();
 			return BT_SUCCESS;
@@ -8277,8 +8317,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_circular_ut_0_node6()
 		{
 			m_referencedBehaviorPath = "node_test/circular_ut_0";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 		}
 	protected:
 	};
@@ -13972,40 +14016,21 @@ namespace behaviac
 
 	// Source file: node_test/event_ut_1
 
-	class Event_bt_node_test_event_ut_1_attach1 : public Event
+	class ReferencedBehavior_bt_node_test_event_ut_1_node2 : public ReferencedBehavior
 	{
 	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Event_bt_node_test_event_ut_1_attach1, Event);
-		Event_bt_node_test_event_ut_1_attach1()
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_event_ut_1_node2, ReferencedBehavior);
+		ReferencedBehavior_bt_node_test_event_ut_1_node2()
 		{
-		}
-	public:
-		void Initialize(const char* eventName, const char* referencedBehavior, TriggerMode mode, bool once)
-		{
-			this->m_event = Action::LoadMethod(eventName);
-			this->m_referencedBehaviorPath = referencedBehavior;
-			this->m_triggerMode = mode;
-			this->m_bTriggeredOnce = once;
-		}
-	};
-
-	class Condition_bt_node_test_event_ut_1_node6 : public Condition
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_event_ut_1_node6, Condition);
-		Condition_bt_node_test_event_ut_1_node6()
-		{
+			m_referencedBehaviorPath = "node_test/event_ut_0";
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 		}
 	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
-			int opr = 0;
-			bool op = Details::Equal(opl, opr);
-			return op ? BT_SUCCESS : BT_FAILURE;
-		}
 	};
 
 	class Action_bt_node_test_event_ut_1_node7 : public Action
@@ -14047,38 +14072,16 @@ namespace behaviac
 #if !defined(BEHAVIAC_RELEASE)
 				node0->SetAgentType("AgentNodeTest");
 #endif
-				// attachments
-				{
-					Event_bt_node_test_event_ut_1_attach1* attach1 = BEHAVIAC_NEW Event_bt_node_test_event_ut_1_attach1;
-					attach1->SetClassNameString("Event");
-					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
-					attach1->SetAgentType("AgentNodeTest");
-#endif
-					attach1->Initialize("Self.AgentNodeTest::event_test_int_bool(0,false)", "node_test/event_subtree_2", TM_Transfer, false);
-					node0->Attach(attach1, false, false, false);
-					node0->SetHasEvents(node0->HasEvents() | (Event::DynamicCast(attach1) != 0));
-				}
 				pBT->AddChild(node0);
 				{
-					WaitforSignal* node5 = BEHAVIAC_NEW WaitforSignal;
-					node5->SetClassNameString("WaitforSignal");
-					node5->SetId(5);
+					ReferencedBehavior_bt_node_test_event_ut_1_node2* node2 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_event_ut_1_node2;
+					node2->SetClassNameString("ReferencedBehavior");
+					node2->SetId(2);
 #if !defined(BEHAVIAC_RELEASE)
-					node5->SetAgentType("AgentNodeTest");
+					node2->SetAgentType("AgentNodeTest");
 #endif
-					node0->AddChild(node5);
-					{
-						Condition_bt_node_test_event_ut_1_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_event_ut_1_node6;
-						node6->SetClassNameString("Condition");
-						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
-						node6->SetAgentType("AgentNodeTest");
-#endif
-						node5->SetCustomCondition(node6);
-						node5->SetHasEvents(node5->HasEvents() | node6->HasEvents());
-					}
-					node0->SetHasEvents(node0->HasEvents() | node5->HasEvents());
+					node0->AddChild(node2);
+					node0->SetHasEvents(node0->HasEvents() | node2->HasEvents());
 				}
 				{
 					Action_bt_node_test_event_ut_1_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_event_ut_1_node7;
@@ -19689,8 +19692,12 @@ namespace behaviac
 		ReferencedBehavior_bt_node_test_reference_ut_0_node1()
 		{
 			m_referencedBehaviorPath = "node_test/reference_sub_0";
-			bool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-			BEHAVIAC_ASSERT(result);
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.AgentNodeTest::task_test(1,1)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
@@ -24761,7 +24768,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_node_test_wait_ut_0_node2, Wait);
 		Wait_bt_node_test_wait_ut_0_node2()
 		{
-			m_ignoreTimeScale = false;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -24845,7 +24851,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_node_test_wait_ut_1_node2, Wait);
 		Wait_bt_node_test_wait_ut_1_node2()
 		{
-			m_ignoreTimeScale = true;
 		}
 	protected:
 		virtual float GetTime(Agent* pAgent) const
@@ -29858,7 +29863,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			Agent* pAgent_method_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_method_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_method_p0);
 			string method_p0 = ((ParTestRegNameAgent*)pAgent_method_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, string >();
 			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, string& >(method_p0);
@@ -30845,13 +30850,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			TNS::ST::PER::WRK::kEmployee opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_KEMPLOYEE_0, TNS::ST::PER::WRK::kEmployee >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			TNS::ST::PER::WRK::kEmployee opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeIR, TNS::ST::PER::WRK::kEmployee, TNS::ST::PER::WRK::kEmployee >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_KEMPLOYEE_0, TNS::ST::PER::WRK::kEmployee >() = opr;
 			return result;
@@ -30871,13 +30876,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			behaviac::vector<TNS::ST::PER::WRK::kEmployee> opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_KEMPLOYEE_0, behaviac::vector<TNS::ST::PER::WRK::kEmployee> >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			behaviac::vector<TNS::ST::PER::WRK::kEmployee> opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeListIR, behaviac::vector<TNS::ST::PER::WRK::kEmployee>, behaviac::vector<TNS::ST::PER::WRK::kEmployee> >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_KEMPLOYEE_0, behaviac::vector<TNS::ST::PER::WRK::kEmployee> >() = opr;
 			return result;
@@ -30897,13 +30902,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			behaviac::vector<signed char> opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_SBYTE_0, behaviac::vector<signed char> >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			behaviac::vector<signed char> opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_SByteListIR, behaviac::vector<signed char>, behaviac::vector<signed char> >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_SBYTE_0, behaviac::vector<signed char> >() = opr;
 			return result;
@@ -30923,13 +30928,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			behaviac::Agent* opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_AGENT_0, behaviac::Agent* >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			behaviac::Agent* opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_AgentIR, behaviac::Agent*, behaviac::Agent* >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_AGENT_0, behaviac::Agent* >() = opr;
 			return result;
@@ -30949,13 +30954,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			unsigned char opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_BYTE_0, unsigned char >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			unsigned char opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_ByteIR, unsigned char, unsigned char >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_BYTE_0, unsigned char >() = opr;
 			return result;
@@ -30975,13 +30980,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			char opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_CHAR_0, char >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			char opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_CharIR, char, char >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_CHAR_0, char >() = opr;
 			return result;
@@ -31001,13 +31006,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			TNS::ST::PER::WRK::kEmployee opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_KEMPLOYEE_0, TNS::ST::PER::WRK::kEmployee >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			TNS::ST::PER::WRK::kEmployee opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeIR, TNS::ST::PER::WRK::kEmployee, TNS::ST::PER::WRK::kEmployee >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_KEMPLOYEE_0, TNS::ST::PER::WRK::kEmployee >() = opr;
 			return result;
@@ -31027,13 +31032,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			behaviac::vector<TNS::ST::PER::WRK::kEmployee> opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_LIST_KEMPLOYEE_0, behaviac::vector<TNS::ST::PER::WRK::kEmployee> >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			behaviac::vector<TNS::ST::PER::WRK::kEmployee> opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeListIR, behaviac::vector<TNS::ST::PER::WRK::kEmployee>, behaviac::vector<TNS::ST::PER::WRK::kEmployee> >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_LIST_KEMPLOYEE_0, behaviac::vector<TNS::ST::PER::WRK::kEmployee> >() = opr;
 			return result;
@@ -31053,13 +31058,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			signed char opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_SBYTE_0, signed char >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			signed char opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_SByteIR, signed char, signed char >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_SBYTE_0, signed char >() = opr;
 			return result;
@@ -31079,13 +31084,13 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			Agent* pAgent_opr_p0 = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
 			string opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, string >();
-			Agent* pAgent_opr = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
 			string opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_StringIR, string, string >(opr_p0);
-			Agent* pAgent_opl = Agent::GetInstance("ParTestRegNameAgent", pAgent->GetContextId());
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
 			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, string >() = opr;
 			return result;

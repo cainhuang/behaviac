@@ -50,7 +50,6 @@
           <property DecorateWhenChildEnds="false" />
           <property Weight="const int 10" />
           <node class="Wait" id="0">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 500" />
           </node>
         </node>

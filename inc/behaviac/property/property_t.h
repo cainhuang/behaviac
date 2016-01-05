@@ -273,8 +273,7 @@ namespace behaviac
                 staticClassName = pSelf->GetObjectTypeName();
             }
 
-            Agent* parent = this->GetParentAgent(pSelf);
-            parent->SetVariableRegistry(this->m_bIsLocal, this->m_memberBase, this->m_variableName.c_str(), v, staticClassName, this->m_variableId);
+            pSelf->SetVariableRegistry(this->m_bIsLocal, this->m_memberBase, this->m_variableName.c_str(), v, staticClassName, this->m_variableId);
         }
 
         const VariableType& GetValue(const Agent* pSelf) const
@@ -295,8 +294,8 @@ namespace behaviac
                 {
 #if !defined(BEHAVIAC_RELEASE)
                     {
-                        Agent* pInstance = this->GetParentAgent(pSelf);
-                        BEHAVIAC_ASSERT(pInstance == pSelf);
+                        //Agent* pInstance = this->GetParentAgent(pSelf);
+                        //BEHAVIAC_ASSERT(pInstance == pSelf);
                     }
 #endif//BEHAVIAC_RELEASE
                     int typeId = GetClassTypeNumberId<VariableType>();

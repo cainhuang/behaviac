@@ -5,10 +5,12 @@
     <cs>
       <isexported>False</isexported>
       <exportunifiedfile>True</exportunifiedfile>
+      <generatecustomizedtypes>True</generatecustomizedtypes>
     </cs>
     <cpp>
       <isexported>True</isexported>
       <exportunifiedfile>True</exportunifiedfile>
+      <generatecustomizedtypes>True</generatecustomizedtypes>
       <folder>../..</folder>
     </cpp>
     <xml>

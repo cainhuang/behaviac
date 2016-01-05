@@ -45,11 +45,13 @@ namespace behaviac
             {
                 this->m_referencedBehaviorPath = p.value;
 
-                bool bOk = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());
-                BEHAVIAC_UNUSED_VAR(bOk);
+				BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+                BEHAVIAC_ASSERT(behaviorTree);
 
-                BEHAVIAC_ASSERT(bOk);
-
+				if (behaviorTree)
+				{
+					this->m_bHasEvents |= behaviorTree->HasEvents();
+				}
             }
             else if (strcmp(p.name, "Task") == 0)
             {
@@ -58,7 +60,6 @@ namespace behaviac
                 //BEHAVIAC_ASSERT(m is CTaskMethod);
 
                 this->m_taskMethod = (CTaskMethod*)m;
-
             }
             else
             {
@@ -206,6 +207,20 @@ namespace behaviac
         super::Init(node);
     }
 
+	bool ReferencedBehaviorTask::onevent(Agent* pAgent, const char* eventName)
+	{
+		if (this->m_status == BT_RUNNING && this->m_node->HasEvents())
+        {
+			BEHAVIAC_ASSERT(this->m_subTree);
+            if (!this->m_subTree->onevent(pAgent, eventName))
+            {
+                return false;
+            }
+		}
+
+		return true;
+	}
+
     bool ReferencedBehaviorTask::onenter(Agent* pAgent)
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
@@ -249,6 +264,15 @@ namespace behaviac
 		BEHAVIAC_ASSERT(ReferencedBehavior::DynamicCast(this->GetNode()));
 		const ReferencedBehavior* pNode = (const ReferencedBehavior*)this->m_node;
 		BEHAVIAC_ASSERT(pNode);
+
+#if !defined(BEHAVIAC_RELEASE)
+		pAgent->m_debug_count++;
+		if (pAgent->m_debug_count > 20)
+		{
+			BEHAVIAC_LOGWARNING("%s might be in a recurrsive inter calling of trees\n", pAgent->GetName().c_str());
+			BEHAVIAC_ASSERT(false);
+		}
+#endif//#if !defined(BEHAVIAC_RELEASE)
 
 		EBTStatus result = this->m_subTree->exec(pAgent);
 

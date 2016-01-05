@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -82,12 +82,12 @@ namespace PluginBehaviac.Exporters
             DirectoryInfo dirInfo = new DirectoryInfo(folder);
             if (dirInfo.Exists)
             {
-                foreach (FileInfo file in dirInfo.GetFiles())
+                foreach (FileInfo file in dirInfo.GetFiles("*.*", SearchOption.AllDirectories))
                 {
                     try
                     {
                         File.SetAttributes(file.FullName, FileAttributes.Normal);
-                        if (file.Extension == ".h" || file.Extension == ".cpp")
+                        if (file.Extension == ".inl" || file.Extension == ".h" || file.Extension == ".cpp")
                             file.Delete();
                     }
                     catch
@@ -122,11 +122,11 @@ namespace PluginBehaviac.Exporters
                     {
                         string behaviorFilename = behavior.RelativePath;
                         behaviorFilename = behaviorFilename.Replace("\\", "/");
-                        behaviorFilename = Path.ChangeExtension(behaviorFilename, "cpp");
+                        behaviorFilename = Path.ChangeExtension(behaviorFilename, "inl");
 
                         file.WriteLine("#include \"{0}\"", behaviorFilename);
 
-                        behaviorFilename = Path.Combine("generated_behaviors", behaviorFilename);
+                        behaviorFilename = Path.Combine("behaviors", behaviorFilename);
                         string agentFolder = string.Empty;
 
                         Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(ref behaviorFilename, ref agentFolder);
@@ -1315,6 +1315,7 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("\t\t\t// ---------------------------------------------------------------------\n");
 
             file.WriteLine("\t\t\tAgentProperties* bb = NULL;");
+            file.WriteLine("\t\t\tBEHAVIAC_UNUSED_VAR(bb);");
 
             foreach (AgentType agent in Plugin.AgentTypes)
             {
@@ -1356,6 +1357,8 @@ namespace PluginBehaviac.Exporters
 
             file.WriteLine("\t\t\tCTagObjectDescriptor* objectDesc = NULL;");
             file.WriteLine("\t\t\tCCustomMethod* customeMethod = NULL;");
+            file.WriteLine("\t\t\tBEHAVIAC_UNUSED_VAR(objectDesc);");
+            file.WriteLine("\t\t\tBEHAVIAC_UNUSED_VAR(customeMethod);");
 
             foreach (AgentType agent in Plugin.AgentTypes)
             {

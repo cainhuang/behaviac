@@ -22,8 +22,6 @@
 #include <windows.h>
 #endif
 
-#include <iostream>
-
 using namespace std;
 using namespace behaviac;
 
@@ -52,8 +50,14 @@ static void SetExePath()
 
 bool InitBehavic(behaviac::Workspace::EFileFormat ff)
 {
-    behaviac::Config::SetSocketBlocking(false);
-    behaviac::Config::SetSocketPort(8081);
+	printf("InitBehavic\n");
+
+    //behaviac::Config::SetSocketing(false);
+#if !BEHAVIAC_COMPILER_MSVC
+    behaviac::Config::SetHotReload(false);
+#endif
+    //behaviac::Config::SetSocketBlocking(false);
+    //behaviac::Config::SetSocketPort(60636);
 
     behaviac::Agent::Register<CBTPlayer>();
 
@@ -63,18 +67,18 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
     behaviac::Workspace::GetInstance()->ExportMetas("../test/demo_running/behaviac/demo_running.xml");
 
     //behaviac::Agent::SetIdMask(kIdMask_Wolrd | kIdMask_Opponent);
-    behaviac::Workspace::GetInstance()->SetDeltaFrames(1);
 
     return true;
 }
 
 bool InitPlayer(const char* pszTreeName)
 {
+	printf("InitPlayer\n");
     g_player = behaviac::Agent::Create<CBTPlayer>();
 
     bool bRet = false;
     bRet = g_player->btload(pszTreeName);
-    assert(bRet);
+    BEHAVIAC_ASSERT(bRet);
 
     g_player->btsetcurrent(pszTreeName);
 
@@ -87,20 +91,25 @@ void UpdateLoop()
 	int frames = 0;
 	behaviac::EBTStatus status = behaviac::BT_RUNNING;
 
+	printf("UpdateLoop\n");
+
 	while (status == behaviac::BT_RUNNING)
 	{
-		cout << "frame " << ++frames << std::endl;
+		printf("frame %d\n", ++frames);
+
 		status = g_player->btexec();
 	}
 }
 
 void CleanupPlayer()
 {
+	printf("CleanupPlayer\n");
     behaviac::Agent::Destroy(g_player);
 }
 
 void CleanupBehaviac()
 {
+	printf("CleanupBehaviac\n");
     behaviac::Agent::UnRegister<CBTPlayer>();
 
 	behaviac::Workspace::GetInstance()->Cleanup();
@@ -113,7 +122,7 @@ int main(int argc, char** argv)
 
 	const char* szTreeName = "demo_running";
 
-	cout << "bt:" << szTreeName << "\n\n";
+	printf("bt: %s\n\n", szTreeName);
 
     behaviac::Workspace::EFileFormat ff = behaviac::Workspace::EFF_xml;
 
@@ -126,7 +135,7 @@ int main(int argc, char** argv)
     CleanupBehaviac();
 
 #if defined(BEHAVIAC_COMPILER_MSVC)
-    cout << "\npress any key to exit\n";
+    printf("\npress any key to exit\n");
     getchar();
 #endif
 

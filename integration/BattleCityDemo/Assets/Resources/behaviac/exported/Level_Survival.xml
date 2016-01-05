@@ -29,7 +29,6 @@
         <property SuccessPolicy="SUCCEED_ON_ALL" />
         <node class="Sequence" id="5">
           <node class="Wait" id="6">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 1000" />
           </node>
           <node class="Assignment" id="1">
@@ -41,7 +40,6 @@
             <property ResultOption="BT_INVALID" />
           </node>
           <node class="Wait" id="2">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 10000" />
           </node>
         </node>
@@ -60,7 +58,6 @@
             <property ResultOption="BT_SUCCESS" />
           </node>
           <node class="Wait" id="10">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 3000" />
           </node>
         </node>
@@ -76,7 +73,6 @@
             <property DecorateWhenChildEnds="false" />
             <node class="Sequence" id="25">
               <node class="Wait" id="26">
-                <property IgnoreTimeScale="false" />
                 <property Time="const float 1000" />
               </node>
               <node class="Assignment" id="24">
@@ -124,7 +120,6 @@
             </node>
           </node>
           <node class="Wait" id="37">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 2000" />
           </node>
           <node class="Action" id="7">
@@ -132,7 +127,6 @@
             <property ResultOption="BT_INVALID" />
           </node>
           <node class="Wait" id="4">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 6000" />
           </node>
           <node class="Action" id="33">

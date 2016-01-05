@@ -17,7 +17,6 @@
         <property Opr="const bool true" />
       </node>
       <node class="Wait" id="6">
-        <property IgnoreTimeScale="false" />
         <property Time="float Self.framework::Ship::par_c" />
       </node>
       <node class="Action" id="5">

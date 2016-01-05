@@ -29,6 +29,7 @@ namespace behaviac
 			// ---------------------------------------------------------------------
 
 			AgentProperties* bb = NULL;
+			BEHAVIAC_UNUSED_VAR(bb);
 
 			// HTNAgentHouseBase
 			bb = BEHAVIAC_NEW AgentProperties("HTNAgentHouseBase");
@@ -258,6 +259,8 @@ namespace behaviac
 
 			CTagObjectDescriptor* objectDesc = NULL;
 			CCustomMethod* customeMethod = NULL;
+			BEHAVIAC_UNUSED_VAR(objectDesc);
+			BEHAVIAC_UNUSED_VAR(customeMethod);
 
 			// AgentNodeTest
 			objectDesc = (CTagObjectDescriptor*)Agent::GetDescriptorByName("AgentNodeTest");

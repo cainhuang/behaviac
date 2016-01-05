@@ -504,7 +504,7 @@ public interface BehaviorNode :
                 { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoAgent)); }
 
                 else if (this._agentType.IsCustomized)
-                { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "The customized agent can not be exported!")); }
+                { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.CustomizedAgentError)); }
 
                 base.CheckForErrors(rootBehavior, result);
 

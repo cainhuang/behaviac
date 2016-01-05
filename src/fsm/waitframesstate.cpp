@@ -73,7 +73,6 @@ namespace behaviac
 		return 0;
 	}
 
-
 	bool WaitFramesState::IsValid(Agent* pAgent, BehaviorTask* pTask) const
 	{
 		if (WaitFramesState::DynamicCast(pTask->GetNode()) == 0)
@@ -154,7 +153,7 @@ namespace behaviac
 
         this->m_nextStateId = -1;
 
-		this->m_start = 0;
+		this->m_start = Workspace::GetInstance()->GetFrameSinceStartup();
 		this->m_frames = this->GetFrames(pAgent);
 
 		if (this->m_frames <= 0)
@@ -175,15 +174,13 @@ namespace behaviac
 	{
 		BEHAVIAC_UNUSED_VAR(pAgent);
 		BEHAVIAC_UNUSED_VAR(childStatus);
-		BEHAVIAC_ASSERT(WaitFramesState::DynamicCast(this->GetNode()) != 0, "node is not an WaitFramesState");
-		WaitFramesState* pStateNode = (WaitFramesState*)(this->GetNode());
 
-		this->m_start += (int)(Workspace::GetInstance()->GetDeltaFrames());
-
-		if (this->m_start >= this->m_frames)
+		if (Workspace::GetInstance()->GetFrameSinceStartup() - this->m_start + 1 >= this->m_frames)
 		{
-			EBTStatus result = pStateNode->Update(pAgent, this->m_nextStateId);
-			BEHAVIAC_UNUSED_VAR(result);
+			BEHAVIAC_ASSERT(WaitFramesState::DynamicCast(this->GetNode()) != 0, "node is not an WaitFramesState");
+			WaitFramesState* pStateNode = (WaitFramesState*)(this->GetNode());
+
+			pStateNode->Update(pAgent, this->m_nextStateId);
 
 			return BT_SUCCESS;
 		}
@@ -191,5 +188,3 @@ namespace behaviac
 		return BT_RUNNING;
 	}
 }
-
-

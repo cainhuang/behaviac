@@ -373,7 +373,7 @@
     <value>NoControl</value>
   </data>
   <data name="referenceLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 36</value>
+    <value>7, 38</value>
   </data>
   <data name="referenceLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 12</value>
@@ -397,7 +397,7 @@
     <value>2</value>
   </data>
   <data name="referLinkTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>139, 36</value>
+    <value>139, 38</value>
   </data>
   <data name="referLinkTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 0, 3, 0</value>
@@ -409,13 +409,13 @@
     <value>None</value>
   </data>
   <data name="referLinkTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 12</value>
+    <value>152, 12</value>
   </data>
   <data name="referLinkTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
   </data>
   <data name="referLinkTextBox.Text" xml:space="preserve">
-    <value>http://tencentopen.github.io/behaviac/</value>
+    <value>http://www.behaviac.com/</value>
   </data>
   <data name="&gt;&gt;referLinkTextBox.Name" xml:space="preserve">
     <value>referLinkTextBox</value>
@@ -436,7 +436,7 @@
     <value>NoControl</value>
   </data>
   <data name="noteLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 58</value>
+    <value>7, 65</value>
   </data>
   <data name="noteLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 12</value>

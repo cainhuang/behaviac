@@ -171,7 +171,7 @@ namespace behaviac
                 if (btMsg)
                 {
                     const char* agentClassName = pAgent->GetObjectTypeName();
-                    string agentName(agentClassName);
+                    behaviac::string agentName(agentClassName);
                     agentName += "#";
                     agentName += pAgent->GetName();
 
@@ -180,12 +180,10 @@ namespace behaviac
                     if (actionResult == EAR_success)
                     {
                         actionResultStr = "success";
-
                     }
                     else if (actionResult == EAR_failure)
                     {
                         actionResultStr = "failure";
-
                     }
                     else
                     {
@@ -195,7 +193,6 @@ namespace behaviac
                         if (actionResult == behaviac::EAR_none && mode == behaviac::ELM_tick)
                         {
                             actionResultStr = "running";
-
                         }
                         else
                         {
@@ -212,7 +209,6 @@ namespace behaviac
 
                         this->Output(pAgent, buffer.c_str());
                         Socket::SendText(buffer.c_str());
-
                     }
                     else if (mode == behaviac::ELM_breaked)
                     {
@@ -223,7 +219,6 @@ namespace behaviac
 
                         this->Output(pAgent, buffer.c_str());
                         Socket::SendText(buffer.c_str());
-
                     }
                     else if (mode == behaviac::ELM_tick)
                     {
@@ -237,7 +232,6 @@ namespace behaviac
 
                         this->Output(pAgent, buffer.c_str());
                         Socket::SendText(buffer.c_str());
-
                     }
                     else if (mode == behaviac::ELM_jump)
                     {
@@ -245,7 +239,6 @@ namespace behaviac
 
                         this->Output(pAgent, buffer.c_str());
                         Socket::SendText(buffer.c_str());
-
                     }
                     else if (mode == behaviac::ELM_return)
                     {
@@ -253,7 +246,6 @@ namespace behaviac
 
                         this->Output(pAgent, buffer.c_str());
                         Socket::SendText(buffer.c_str());
-
                     }
                     else
                     {
@@ -308,7 +300,6 @@ namespace behaviac
                     }
 
                     buffer = FormatString("[property]%s#%s %s %s->%s\n", agentClassName, agentInstanceName.c_str(), tn.c_str(), varName, value);
-
                 }
                 else
                 {
@@ -386,23 +377,19 @@ namespace behaviac
             if (mode == behaviac::ELM_tick)
             {
                 target = FormatString("[applog]%s:%s\n", filterStr, buffer);
-
             }
             else if (mode == behaviac::ELM_continue)
             {
                 target = FormatString("[continue][applog]%s:%s\n", filterStr, buffer);
-
             }
             else if (mode == behaviac::ELM_breaked)
             {
                 //[applog]door opened
                 target = FormatString("[breaked][applog]%s:%s\n", filterStr, buffer);
-
             }
             else if (mode == behaviac::ELM_log)
             {
                 target = FormatString("[log]%s:%s\n", filterStr, buffer);
-
             }
             else
             {

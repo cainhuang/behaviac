@@ -249,7 +249,7 @@ namespace behaviac
         bool load_property_pars(properties_t& properties, rapidxml::xml_node<>* c, int version, const char* agentType);
         bool load_attachment(int version, const char* agentType, bool bHasEvents, rapidxml::xml_node<>*  c);
         void load_properties_pars_attachments_children(bool bNode, int version, const char* agentType, rapidxml::xml_node<>* node);
-        void load_attachment_transition_effectors(int version, const char* agentType, bool bHasEvents, rapidxml::xml_node<>* c);
+        void load_attachment_transition_effectors(int version, const char* agentType, rapidxml::xml_node<>* c);
 
         void load_par(int version, const char* agentType, BsonDeserizer& d);
         void load_pars(int version, const char* agentType, BsonDeserizer& d);
@@ -295,6 +295,7 @@ namespace behaviac
         char					m_both_effectors;
         behaviac::vector<BehaviorNode*>		m_effectors;
         behaviac::vector<BehaviorNode*>		m_events;
+
     protected:
         typedef behaviac::vector<BehaviorNode*> Attachments;
         Attachments*		m_attachments;

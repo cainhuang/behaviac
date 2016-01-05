@@ -14,7 +14,6 @@
         <property Opr="GameLevel.GameLevelCommon::randomNumberInt(1000,8000)" />
       </node>
       <node class="Wait" id="3">
-        <property IgnoreTimeScale="false" />
         <property Time="int Self.Player::parT_FireInterval" />
       </node>
       <node class="Action" id="2">

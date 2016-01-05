@@ -26,7 +26,6 @@
               <property ResultOption="BT_INVALID" />
             </node>
             <node class="Wait" id="0">
-              <property IgnoreTimeScale="false" />
               <property Time="const float 500" />
             </node>
           </node>
@@ -46,7 +45,6 @@
               <property ResultOption="BT_INVALID" />
             </node>
             <node class="Wait" id="8">
-              <property IgnoreTimeScale="false" />
               <property Time="const float 200" />
             </node>
           </node>
@@ -66,7 +64,6 @@
               <property ResultOption="BT_INVALID" />
             </node>
             <node class="Wait" id="21">
-              <property IgnoreTimeScale="false" />
               <property Time="const float 200" />
             </node>
           </node>

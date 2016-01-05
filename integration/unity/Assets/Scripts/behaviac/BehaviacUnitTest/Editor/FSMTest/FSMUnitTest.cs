@@ -12,6 +12,8 @@ namespace BehaviorNodeUnitTest
         [Test]
         [Category("fsm_ut_1")]
         public void fsm_ut_1() {
+            behaviac.Workspace.Instance.FrameSinceStartup = 0;
+
             testAgent.btsetcurrent("node_test/fsm/fsm_ut_1");
             testAgent.resetProperties();
 
@@ -26,6 +28,8 @@ namespace BehaviorNodeUnitTest
                 Assert.AreEqual(0, testAgent.TestVar);
             }
 
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+
             {
                 //switch to Active
                 testAgent.Message = FSMAgentTest.EMessage.Begin;
@@ -37,6 +41,8 @@ namespace BehaviorNodeUnitTest
                 Assert.AreEqual(0, ActiveCount);
                 Assert.AreEqual(2, testAgent.TestVar);
             }
+
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
 
             {
                 //switch to Pause
@@ -50,6 +56,8 @@ namespace BehaviorNodeUnitTest
                 Assert.AreEqual(4, testAgent.TestVar);
             }
 
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+
             {
                 //switch to Inactive
                 testAgent.Message = FSMAgentTest.EMessage.End;
@@ -62,14 +70,22 @@ namespace BehaviorNodeUnitTest
                 Assert.AreEqual(6, testAgent.TestVar);
             }
 
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+
             {
                 //switch to Exit
                 testAgent.Message = FSMAgentTest.EMessage.Exit;
 
                 status = testAgent.btexec();
                 Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+                behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+
                 status = testAgent.btexec();
                 Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+                behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+
                 status = testAgent.btexec();
                 Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
 
@@ -80,8 +96,10 @@ namespace BehaviorNodeUnitTest
                 Assert.AreEqual(7, testAgent.TestVar);
             }
 
+            behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+
             {
-                	//reenter again
+                //reenter again
                 testAgent.Message = FSMAgentTest.EMessage.Invalid;
                 status = testAgent.btexec();
                 Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);

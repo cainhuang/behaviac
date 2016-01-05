@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -68,7 +68,7 @@ namespace PluginBehaviac.DataExporters
                         {
                             if (DesignerStruct.IsPureConstDatum(obj, method, method.Params[i].Name))
                             {
-                                if (obj is Behaviac.Design.Agent)
+                                if (Plugin.IsRefType(type))
                                 {
                                     stream.WriteLine("{0}\t\t\t{1} = null;", indent, param);
                                 }
@@ -194,10 +194,11 @@ namespace PluginBehaviac.DataExporters
             if (method.Owner != Behaviac.Design.VariableDef.kSelf &&
                 (!method.IsPublic || !method.IsStatic))
             {
+                string instanceName = method.Owner.Replace("::", ".");
                 agentName = "pAgent_" + caller;
 
-                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, method.Owner.Replace("::", "."));
-                stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
+                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Utils.GetParentAgent(pAgent, \"{2}\");", indent, agentName, instanceName);
+                stream.WriteLine("{0}Debug.Check({1} != null || Utils.IsStaticClass(\"{2}\"));", indent, agentName, instanceName);
             }
 
             string retStr = string.Empty;

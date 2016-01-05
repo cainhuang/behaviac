@@ -29,6 +29,7 @@ namespace behaviac
 			// ---------------------------------------------------------------------
 
 			AgentProperties* bb = NULL;
+			BEHAVIAC_UNUSED_VAR(bb);
 
 			// framework::GameObject
 			bb = BEHAVIAC_NEW AgentProperties("framework::GameObject");
@@ -61,6 +62,8 @@ namespace behaviac
 
 			CTagObjectDescriptor* objectDesc = NULL;
 			CCustomMethod* customeMethod = NULL;
+			BEHAVIAC_UNUSED_VAR(objectDesc);
+			BEHAVIAC_UNUSED_VAR(customeMethod);
 
 			return true;
 		}

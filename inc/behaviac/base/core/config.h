@@ -25,12 +25,23 @@
 #define BEHAVIAC_ENABLE_NETWORKD		0
 
 #if (defined(_DEBUG) || defined(DEBUG))
-//developement version
+	#define _BEHAVIAC_VERSION_STR_ "behavaic_debug"
 #else
-#ifndef BEHAVIAC_RELEASE
-	#define BEHAVIAC_RELEASE	1
-#endif//BEHAVIAC_RELEASE
+	#define _BEHAVIAC_VERSION_STR_ "behavaic_ndebug"
+
+	//use _DEBUG or DEBUG, don't directly define BEHAVIAC_RELEASE in the make or project file
+	#ifndef BEHAVIAC_RELEASE
+		#define BEHAVIAC_RELEASE	1
+	#endif//BEHAVIAC_RELEASE
 #endif//
+                     
+#define _BEHAVIAC_M_STRING_CONCAT_(a, b) a # b
+
+#ifdef BEHAVIAC_RELEASE
+	#define BEHAVIAC_VERSION_STR _BEHAVIAC_M_STRING_CONCAT_(_BEHAVIAC_VERSION_STR_, "_RELEASE")
+#else
+	#define BEHAVIAC_VERSION_STR _BEHAVIAC_M_STRING_CONCAT_(_BEHAVIAC_VERSION_STR_, "_NRELEASE")
+#endif
 
 #if !defined(BEHAVIAC_RELEASE)
 #define BEHAVIAC_ENABLE_HOTRELOAD	1

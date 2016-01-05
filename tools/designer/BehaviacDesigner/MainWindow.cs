@@ -1753,7 +1753,7 @@ namespace Behaviac.Design
 
         public void OpenOverviewDoc()
         {
-            openURL("http://tencentopen.github.io/behaviac");
+            openURL("http://www.behaviac.com/");
 
             Utilities.ReportOpenDoc();
         }

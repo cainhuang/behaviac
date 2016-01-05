@@ -201,6 +201,8 @@ namespace behaviac
             return this.m_status;
         }
 
+        private const int kMaxParentsCount = 512;
+        private static BehaviorTask[] ms_parents = new BehaviorTask[kMaxParentsCount];
         private bool CheckParentUpdatePreconditions(Agent pAgent)
         {
             bool bValid = true;
@@ -208,20 +210,18 @@ namespace behaviac
             if (this.m_bHasManagingParent)
             {
                 bool bHasManagingParent = false;
-                const int kMaxParentsCount = 512;
                 int parentsCount = 0;
-                BehaviorTask[] parents = new BehaviorTask[kMaxParentsCount];
 
                 BranchTask parentBranch = this.GetParent();
 
-                parents[parentsCount++] = this;
+                ms_parents[parentsCount++] = this;
 
                 //back track the parents until the managing branch
                 while (parentBranch != null)
                 {
                     Debug.Check(parentsCount < kMaxParentsCount, "weird tree!");
 
-                    parents[parentsCount++] = parentBranch;
+                    ms_parents[parentsCount++] = parentBranch;
 
                     if (parentBranch.GetCurrentTask() == this)
                     {
@@ -238,7 +238,7 @@ namespace behaviac
                 {
                     for (int i = parentsCount - 1; i >= 0; --i)
                     {
-                        BehaviorTask pb = parents[i];
+                        BehaviorTask pb = ms_parents[i];
 
                         bValid = pb.CheckPreconditions(pAgent, true);
 
@@ -1379,7 +1379,6 @@ namespace behaviac
         public override void Init(BehaviorNode node)
         {
             Debug.Check(node != null);
-            BehaviorTree tree = (BehaviorTree)node;
 
             base.Init(node);
         }

@@ -155,13 +155,9 @@ namespace behaviac
         }
         else
         {
-            if (Agent::IsInstanceNameRegistered(agentIntanceName))
+            //if (Agent::IsInstanceNameRegistered(agentIntanceName))
             {
                 method->SetInstanceNameString(agentIntanceName, PT_INSTANCE);
-            }
-            else
-            {
-                //BEHAVIAC_ASSERT(agentIntanceName == "Self");
             }
 
             BEHAVIAC_ASSERT(method, "No Method %s::%s registered", agentClassName, methodName);

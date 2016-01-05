@@ -87,6 +87,7 @@ public:
 	bool m_bTargetValid;
 
 	EnumTest	testColor;
+
 public:
     virtual void resetProperties();
 
@@ -101,8 +102,6 @@ public:
 
     void initChildAgentTest(const char* strChildAgentName);
 
-    void removeChildAgentTest(const char* strChildAgentName);
-   
     template<class ChildAgentType>
     ChildAgentType* getChildAgent(int var_0, const char* strChildAgentName)
     {

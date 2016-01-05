@@ -1124,6 +1124,7 @@ namespace behaviac
 
 #if !BEHAVIAC_RELEASE
         private int m_debug_verify;
+        public int m_debug_count;
         private const int kAGENT_DEBUG_VERY = 0x01010101;
 #endif//#if !BEHAVIAC_RELEASE
 
@@ -1391,6 +1392,7 @@ namespace behaviac
                 Profiler.BeginSample("btexec");
 
 #if !BEHAVIAC_RELEASE
+                this.m_debug_count = 0;
                 Debug.Check(this.m_debug_verify == kAGENT_DEBUG_VERY, "You did not call Agent.Init!");
 #endif//#if !BEHAVIAC_RELEASE
                 this.InstantiateProperties();

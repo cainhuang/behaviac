@@ -76,7 +76,6 @@
     </node>
     <node class="Sequence" id="6">
       <node class="Wait" id="47">
-        <property IgnoreTimeScale="false" />
         <property Time="const float 2000" />
       </node>
       <node class="DecoratorLoop" id="50">
@@ -167,7 +166,6 @@
                 <property ResultOption="BT_INVALID" />
               </node>
               <node class="Wait" id="1">
-                <property IgnoreTimeScale="false" />
                 <property Time="const float 2000" />
               </node>
               <node class="Action" id="30">
@@ -175,7 +173,6 @@
                 <property ResultOption="BT_INVALID" />
               </node>
               <node class="Wait" id="32">
-                <property IgnoreTimeScale="false" />
                 <property Time="const float 6000" />
               </node>
               <node class="Action" id="23">
@@ -189,7 +186,6 @@
                 <property ResultOption="BT_INVALID" />
               </node>
               <node class="Wait" id="28">
-                <property IgnoreTimeScale="false" />
                 <property Time="const float 2000" />
               </node>
               <node class="Action" id="33">
@@ -197,7 +193,6 @@
                 <property ResultOption="BT_INVALID" />
               </node>
               <node class="Wait" id="56">
-                <property IgnoreTimeScale="false" />
                 <property Time="const float 6000" />
               </node>
               <node class="Action" id="27">
@@ -208,7 +203,6 @@
           </node>
           <node class="Sequence" id="34">
             <node class="Wait" id="31">
-              <property IgnoreTimeScale="false" />
               <property Time="const float 8000" />
             </node>
             <node class="Assignment" id="42">
@@ -228,7 +222,6 @@
               <property ResultOption="BT_INVALID" />
             </node>
             <node class="Wait" id="46">
-              <property IgnoreTimeScale="false" />
               <property Time="const float 2000" />
             </node>
           </node>

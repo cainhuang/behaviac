@@ -72,13 +72,8 @@ namespace behaviac
         }
         else if (this->m_frames_method)
         {
-            //ParentType pt = this->m_frames_method->GetParentType();
-            Agent* pParent = pAgent;
-            /*if (pt == PT_INSTANCE)
-            {*/
-            pParent = Agent::GetInstance(this->m_frames_method->GetInstanceNameString(), pParent->GetContextId());
+            Agent* pParent = Agent::GetInstance(pAgent, this->m_frames_method->GetInstanceNameString());
             BEHAVIAC_ASSERT(pParent);
-            /*}*/
 
             this->m_frames_method->run(pParent, pAgent);
 
@@ -158,7 +153,7 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
 
-        this->m_start = 0;
+        this->m_start = Workspace::GetInstance()->GetFrameSinceStartup();
         this->m_frames = this->GetFrames(pAgent);
 
         if (this->m_frames <= 0)
@@ -180,12 +175,10 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(childStatus);
 
-        this->m_start += (int)(Workspace::GetInstance()->GetDeltaFrames());
-
-        if (this->m_start >= this->m_frames)
-        {
-            return BT_SUCCESS;
-        }
+		if (Workspace::GetInstance()->GetFrameSinceStartup() - this->m_start + 1 >= this->m_frames)
+		{
+			return BT_SUCCESS;
+		}
 
         return BT_RUNNING;
     }

@@ -372,8 +372,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1()
 		{
 			this.m_referencedBehaviorPath = "node_test/fsm/fsm_ut_0";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 		}
 	}
 
@@ -491,8 +495,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6()
 		{
 			this.m_referencedBehaviorPath = "node_test/fsm/action_ut_1_2";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 		}
 	}
 
@@ -849,8 +857,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18()
 		{
 			this.m_referencedBehaviorPath = "node_test/fsm/fsm_ut_0";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 		}
 	}
 
@@ -2098,8 +2110,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_htn_house_build_house_node20()
 		{
 			this.m_referencedBehaviorPath = "node_test/htn/house/construct";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentHouse::construct()") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
 		}
@@ -2299,8 +2315,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_htn_house_build_house_node26()
 		{
 			this.m_referencedBehaviorPath = "node_test/htn/house/construct";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentHouse::construct()") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
 		}
@@ -3006,8 +3026,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_htn_house_root_node11()
 		{
 			this.m_referencedBehaviorPath = "node_test/htn/house/build_house";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentHouse::build_house()") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
 		}
@@ -3218,8 +3242,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_htn_travel_root_node4()
 		{
 			this.m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::start,int Self.HTNAgentTravel::finish)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
 		}
@@ -3373,8 +3401,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_node6()
 		{
 			this.m_referencedBehaviorPath = "node_test/htn/travel/travel_by_air";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentTravel::travel_by_air(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::_$local_task_param_$_1)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
 		}
@@ -3549,8 +3581,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8()
 		{
 			this.m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::ax)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
 		}
@@ -3578,8 +3614,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4()
 		{
 			this.m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::ay,int Self.HTNAgentTravel::_$local_task_param_$_1)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
 		}
@@ -4302,8 +4342,8 @@ namespace behaviac
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			int opr = 666;
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("par_child_agent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "par_child_agent_1");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("par_child_agent_1"));
 			((AgentNodeTest)pAgent_opl).testVar_0 = opr;
 			return result;
 		}
@@ -4318,8 +4358,8 @@ namespace behaviac
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			behaviac.Agent pAgent_method = behaviac.Agent.GetInstance("par_child_agent", pAgent.GetContextId());
-			Debug.Check(pAgent_method != null);
+			behaviac.Agent pAgent_method = behaviac.Utils.GetParentAgent(pAgent, "par_child_agent_1");
+			Debug.Check(pAgent_method != null || Utils.IsStaticClass("par_child_agent_1"));
 			((AgentNodeTest)pAgent_method).setTestVar_2(method_p0);
 			return EBTStatus.BT_SUCCESS;
 		}
@@ -4476,8 +4516,8 @@ namespace behaviac
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("par_child", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "par_child");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("par_child"));
 			float opl = ((AgentNodeTest)pAgent_opl).testVar_2;
 			float opr = ((AgentNodeTest)pAgent).testVar_3;
 			Debug.Check(behaviac.Utils.MakeVariableId("testVar_3") == 2587852242u);
@@ -4496,8 +4536,8 @@ namespace behaviac
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			behaviac.Agent pAgent_method = behaviac.Agent.GetInstance("par_child", pAgent.GetContextId());
-			Debug.Check(pAgent_method != null);
+			behaviac.Agent pAgent_method = behaviac.Utils.GetParentAgent(pAgent, "par_child");
+			Debug.Check(pAgent_method != null || Utils.IsStaticClass("par_child"));
 			AgentExtra_Generated.ExecuteMethod(pAgent_method, "SelectTarget", method_params);
 			return EBTStatus.BT_SUCCESS;
 		}
@@ -4588,6 +4628,7 @@ namespace behaviac
 		public Action_bt_node_test_action_ut_0_node7()
 		{
 			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_p0 = null;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
@@ -5926,8 +5967,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_circular_ut_0_node6()
 		{
 			this.m_referencedBehaviorPath = "node_test/circular_ut_0";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 		}
 	}
 
@@ -11027,32 +11072,17 @@ namespace behaviac
 
 	// Source file: node_test/event_ut_1
 
-	class Event_bt_node_test_event_ut_1_attach1 : behaviac.Event
+	class ReferencedBehavior_bt_node_test_event_ut_1_node2 : behaviac.ReferencedBehavior
 	{
-		public Event_bt_node_test_event_ut_1_attach1()
+		public ReferencedBehavior_bt_node_test_event_ut_1_node2()
 		{
-			this.Initialize("Self.AgentNodeTest::event_test_int_bool(0,false)", "node_test/event_subtree_2", TriggerMode.TM_Transfer, false);
-		}
-		public void Initialize(string eventName, string referencedBehavior, TriggerMode mode, bool once)
-		{
-			this.m_event = Action.LoadMethod(eventName);
-			this.m_referencedBehaviorPath = referencedBehavior;
-			this.m_triggerMode = mode;
-			this.m_bTriggeredOnce = once;
-		}
-	}
-
-	class Condition_bt_node_test_event_ut_1_node6 : behaviac.Condition
-	{
-		public Condition_bt_node_test_event_ut_1_node6()
-		{
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			int opl = ((AgentNodeTest)pAgent).testVar_0;
-			int opr = 0;
-			bool op = opl == opr;
-			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+			this.m_referencedBehaviorPath = "node_test/event_ut_0";
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 		}
 	}
 
@@ -11090,37 +11120,16 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
 				node0.SetAgentType("AgentNodeTest");
 #endif
-				// attachments
-				{
-					Event_bt_node_test_event_ut_1_attach1 attach1 = new Event_bt_node_test_event_ut_1_attach1();
-					attach1.SetClassNameString("Event");
-					attach1.SetId(1);
-#if !BEHAVIAC_RELEASE
-					attach1.SetAgentType("AgentNodeTest");
-#endif
-					node0.Attach(attach1, false, false, false);
-					node0.SetHasEvents(node0.HasEvents() | (attach1 is Event));
-				}
 				bt.AddChild(node0);
 				{
-					WaitforSignal node5 = new WaitforSignal();
-					node5.SetClassNameString("WaitforSignal");
-					node5.SetId(5);
+					ReferencedBehavior_bt_node_test_event_ut_1_node2 node2 = new ReferencedBehavior_bt_node_test_event_ut_1_node2();
+					node2.SetClassNameString("ReferencedBehavior");
+					node2.SetId(2);
 #if !BEHAVIAC_RELEASE
-					node5.SetAgentType("AgentNodeTest");
+					node2.SetAgentType("AgentNodeTest");
 #endif
-					node0.AddChild(node5);
-					{
-						Condition_bt_node_test_event_ut_1_node6 node6 = new Condition_bt_node_test_event_ut_1_node6();
-						node6.SetClassNameString("Condition");
-						node6.SetId(6);
-#if !BEHAVIAC_RELEASE
-						node6.SetAgentType("AgentNodeTest");
-#endif
-						node5.SetCustomCondition(node6);
-						node5.SetHasEvents(node5.HasEvents() | node6.HasEvents());
-					}
-					node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
+					node0.AddChild(node2);
+					node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
 				}
 				{
 					Action_bt_node_test_event_ut_1_node7 node7 = new Action_bt_node_test_event_ut_1_node7();
@@ -16084,8 +16093,12 @@ namespace behaviac
 		public ReferencedBehavior_bt_node_test_reference_ut_0_node1()
 		{
 			this.m_referencedBehaviorPath = "node_test/reference_sub_0";
-			bool result = Workspace.Instance.Load(this.m_referencedBehaviorPath);
-			Debug.Check(result);
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.AgentNodeTest::task_test(1,1)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
 		}
@@ -20592,7 +20605,6 @@ namespace behaviac
 	{
 		public Wait_bt_node_test_wait_ut_0_node2()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -20667,7 +20679,6 @@ namespace behaviac
 	{
 		public Wait_bt_node_test_wait_ut_1_node2()
 		{
-			m_ignoreTimeScale = true;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -24952,8 +24963,8 @@ namespace behaviac
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			behaviac.Agent pAgent_method_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_method_p0 != null);
+			behaviac.Agent pAgent_method_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_method_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			((EmployeeParTestAgent)pAgent).Func_StringRef(ref ((ParTestRegNameAgent)pAgent_method_p0).TV_STR_0);
 			Debug.Check(behaviac.Utils.MakeVariableId("TV_STR_0") == 3765213955u);
 			pAgent_method_p0.SetVariable<string>("TV_STR_0", ((ParTestRegNameAgent)pAgent_method_p0).TV_STR_0, 3765213955u);
@@ -25802,13 +25813,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			TNS.ST.PER.WRK.kEmployee opr = (TNS.ST.PER.WRK.kEmployee)((ParTestRegNameAgent)pAgent_opr).Func_kEmployeeIR(ParTestRegNameAgent.STV_KEMPLOYEE_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			ParTestRegNameAgent.STV_KEMPLOYEE_0 = opr;
 			return result;
 		}
@@ -25822,13 +25833,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			List<TNS.ST.PER.WRK.kEmployee> opr = (List<TNS.ST.PER.WRK.kEmployee>)((ParTestRegNameAgent)pAgent_opr).Func_kEmployeeListIR(ParTestRegNameAgent.STV_LIST_KEMPLOYEE_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			ParTestRegNameAgent.STV_LIST_KEMPLOYEE_0 = opr;
 			return result;
 		}
@@ -25842,13 +25853,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			List<sbyte> opr = (List<sbyte>)((ParTestRegNameAgent)pAgent_opr).Func_SByteListIR(ParTestRegNameAgent.STV_LIST_SBYTE_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			ParTestRegNameAgent.STV_LIST_SBYTE_0 = opr;
 			return result;
 		}
@@ -25862,13 +25873,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			behaviac.Agent opr = (behaviac.Agent)((ParTestRegNameAgent)pAgent_opr).Func_AgentIR(((ParTestRegNameAgent)pAgent_opr_p0).TV_AGENT_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			((ParTestRegNameAgent)pAgent_opl).TV_AGENT_0 = opr;
 			return result;
 		}
@@ -25882,13 +25893,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			byte opr = (byte)((ParTestRegNameAgent)pAgent_opr).Func_ByteIR(((ParTestRegNameAgent)pAgent_opr_p0).TV_BYTE_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			((ParTestRegNameAgent)pAgent_opl).TV_BYTE_0 = opr;
 			return result;
 		}
@@ -25902,13 +25913,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			char opr = (char)((ParTestRegNameAgent)pAgent_opr).Func_CharIR(((ParTestRegNameAgent)pAgent_opr_p0).TV_CHAR_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			((ParTestRegNameAgent)pAgent_opl).TV_CHAR_0 = opr;
 			return result;
 		}
@@ -25922,13 +25933,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			TNS.ST.PER.WRK.kEmployee opr = (TNS.ST.PER.WRK.kEmployee)((ParTestRegNameAgent)pAgent_opr).Func_kEmployeeIR(((ParTestRegNameAgent)pAgent_opr_p0).TV_KEMPLOYEE_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			((ParTestRegNameAgent)pAgent_opl).TV_KEMPLOYEE_0 = opr;
 			return result;
 		}
@@ -25942,13 +25953,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			List<TNS.ST.PER.WRK.kEmployee> opr = (List<TNS.ST.PER.WRK.kEmployee>)((ParTestRegNameAgent)pAgent_opr).Func_kEmployeeListIR(((ParTestRegNameAgent)pAgent_opr_p0).TV_LIST_KEMPLOYEE_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			((ParTestRegNameAgent)pAgent_opl).TV_LIST_KEMPLOYEE_0 = opr;
 			return result;
 		}
@@ -25962,13 +25973,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			sbyte opr = (sbyte)((ParTestRegNameAgent)pAgent_opr).Func_SByteIR(((ParTestRegNameAgent)pAgent_opr_p0).TV_SBYTE_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			((ParTestRegNameAgent)pAgent_opl).TV_SBYTE_0 = opr;
 			return result;
 		}
@@ -25982,13 +25993,13 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr_p0 = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr_p0 != null);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr_p0 = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr_p0 != null || Utils.IsStaticClass("ParTestRegNameAgent"));
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			string opr = (string)((ParTestRegNameAgent)pAgent_opr).Func_StringIR(((ParTestRegNameAgent)pAgent_opr_p0).TV_STR_0);
-			behaviac.Agent pAgent_opl = behaviac.Agent.GetInstance("ParTestRegNameAgent", pAgent.GetContextId());
-			Debug.Check(pAgent_opl != null);
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "ParTestRegNameAgent");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("ParTestRegNameAgent"));
 			((ParTestRegNameAgent)pAgent_opl).TV_STR_0 = opr;
 			return result;
 		}

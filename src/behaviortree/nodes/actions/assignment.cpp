@@ -80,30 +80,27 @@ namespace behaviac
     {
         bool bValid = false;
 
-        if (opr_m != NULL)
-        {
-            Agent* pParentL = (Agent*)opl->GetParentAgent(pAgent);
-            Agent* pParentR = (Agent*)opr_m->GetParentAgent(pAgent);
+		if (opl != NULL)
+		{
+			if (opr_m != NULL)
+			{
+				Agent* pParentL = (Agent*)opl->GetParentAgent(pAgent);
+				Agent* pParentR = (Agent*)opr_m->GetParentAgent(pAgent);
 
-            opl->SetFrom(pParentR, opr_m, pParentL);
+				opl->SetFrom(pParentR, opr_m, pParentL);
 
-            bValid = true;
+				bValid = true;
+			}
+			else if (opr != NULL)
+			{
+				Agent* pParentL = opl->GetParentAgent(pAgent);
+				Agent* pParentR = opr->GetParentAgent(pAgent);
 
-        }
-        else if (opr != NULL && opl != NULL)
-        {
-            Agent* pParentL = opl->GetParentAgent(pAgent);
-            Agent* pParentR = opr->GetParentAgent(pAgent);
+				opl->SetFrom(pParentR, opr, pParentL);
 
-            opl->SetFrom(pParentR, opr, pParentL);
-
-            bValid = true;
-
-        }
-        else
-        {
-            //BEHAVIAC_ASSERT(false);
-        }
+				bValid = true;
+			}
+		}
 
         return bValid;
     }

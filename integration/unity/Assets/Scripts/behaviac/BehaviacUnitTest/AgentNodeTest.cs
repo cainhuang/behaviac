@@ -71,6 +71,7 @@ public class AgentNodeTest : behaviac.Agent
     public AgentNodeTest event_test_var_agent = null;
 
     public GameObject testAgentGameObject = null;
+
     public void resetProperties() {
         testVar_0 = -1;
         testVar_1 = -1;
@@ -96,27 +97,21 @@ public class AgentNodeTest : behaviac.Agent
 
         testVar_str_0 = string.Empty;
         this.Variables.Clear();
-        
     }
+
     public void initChildAgentTest()
     {
-        var testChildAgent = getChildAgent<ChildNodeTest>("par_child_agent");
-        this.SetVariable<ChildNodeTest>("par_child_agent", testChildAgent);
+        var testChildAgent = getChildAgent<ChildNodeTest>("par_child_agent_1");
+        this.SetVariable<ChildNodeTest>("par_child_agent_1", testChildAgent);
     }
+
     public T getChildAgent<T>(string strChildAgentName)
 where T : behaviac.Agent
     {
-
         var childAgent = gameObject.AddComponent<T>();
-        behaviac.Agent.RegisterInstanceName<T>(strChildAgentName);
-        behaviac.Agent.BindInstance(childAgent, strChildAgentName);
         return childAgent;
     }
-    public void removeChildAgentTest()
-    {
-        behaviac.Agent.UnbindInstance("par_child_agent");
-        behaviac.Agent.UnRegisterInstanceName<ChildNodeTest>("par_child_agent");
-    }
+
     public void init() {
         base.Init();
         resetProperties();
@@ -146,19 +141,14 @@ where T : behaviac.Agent
         event_test_var_agent = agent;
     }
 
-    
-
     [behaviac.MethodMetaInfo()]
     public void initChildAgent()
     {
-
-        var test = this.GetVariable<ChildNodeTest>("par_child_agent");
+        var test = this.GetVariable<ChildNodeTest>("par_child_agent_1");
 
         test.resetProperties();
         test.testVar_1 = 888;
-
     }
-
 
     [behaviac.MethodMetaInfo()]
     public int getConstOne() {

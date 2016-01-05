@@ -105,12 +105,6 @@ namespace behaviac
         /// </summary>
         bool AutoReplan;
 
-        /// <summary>
-        /// Gets or sets the amount of time between replanning attempts
-        /// </summary>
-        float AutoReplanInterval;
-        float timeTillReplan;
-
         Task* m_rootTaskNode;
         PlannerTask* m_rootTask;
 
@@ -118,10 +112,9 @@ namespace behaviac
         void Init(Agent* pAgent, Task* rootTask);
 
         void Uninit();
-        Planner() : agent(0), timeTillReplan(0.0f), m_rootTaskNode(0), m_rootTask(0)
+        Planner() : agent(0), m_rootTaskNode(0), m_rootTask(0)
         {
             AutoReplan = true;
-            AutoReplanInterval = 0.2f;
 
             PlanningStarted = 0;
             PlanningEnded = 0;

@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -112,7 +112,7 @@ namespace PluginBehaviac.NodeExporters
                             {
                                 agentName = "pAgent_functor";
 
-                                stream.WriteLine("{0}Agent* {1} = Agent::GetInstance(\"{2}\", pAgent->GetContextId());", indent, agentName, action.ResultFunctor.Owner);
+                                stream.WriteLine("{0}Agent* {1} = Agent::GetInstance(pAgent, \"{2}\");", indent, agentName, action.ResultFunctor.Owner);
                                 stream.WriteLine("{0}BEHAVIAC_ASSERT({1});", indent, agentName);
                             }
 

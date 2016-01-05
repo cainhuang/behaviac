@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -37,8 +37,12 @@ namespace PluginBehaviac.NodeExporters
                 return;
 
             stream.WriteLine("{0}\t\t\tm_referencedBehaviorPath = \"{1}\";", indent, referencedBehavior.ReferenceFilename);
-            stream.WriteLine("{0}\t\t\tbool result = Workspace::GetInstance()->Load(this->m_referencedBehaviorPath.c_str());", indent);
-            stream.WriteLine("{0}\t\t\tBEHAVIAC_ASSERT(result);", indent);
+            stream.WriteLine("{0}\t\t\tBehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());", indent);
+            stream.WriteLine("{0}\t\t\tBEHAVIAC_ASSERT(behaviorTree);", indent);
+            stream.WriteLine("{0}\t\t\tif (behaviorTree)", indent);
+			stream.WriteLine("{0}\t\t\t{{", indent);
+			stream.WriteLine("{0}\t\t\t\tthis->m_bHasEvents |= behaviorTree->HasEvents();", indent);
+            stream.WriteLine("{0}\t\t\t}}", indent);
 
             if (referencedBehavior.Task != null)
             {

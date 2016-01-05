@@ -27,7 +27,6 @@
         </node>
         <node class="Sequence" id="5">
           <node class="Wait" id="14">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 3000" />
           </node>
           <node class="Assignment" id="15">
@@ -57,14 +56,12 @@
                   <property Opr2="const int 1" />
                 </node>
                 <node class="Wait" id="9">
-                  <property IgnoreTimeScale="false" />
                   <property Time="const float 1000" />
                 </node>
               </node>
             </node>
           </node>
           <node class="Wait" id="7">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 2000" />
           </node>
           <node class="Compute" id="2">
@@ -92,7 +89,6 @@
               <property Opr="const int 0" />
             </node>
             <node class="Wait" id="30">
-              <property IgnoreTimeScale="false" />
               <property Time="const float 3000" />
             </node>
             <node class="Action" id="27">
@@ -108,7 +104,6 @@
       </node>
       <node class="Sequence" id="13">
         <node class="Wait" id="18">
-          <property IgnoreTimeScale="false" />
           <property Time="const float 1000" />
         </node>
         <node class="Assignment" id="19">
@@ -128,7 +123,6 @@
           <property ResultOption="BT_INVALID" />
         </node>
         <node class="Wait" id="21">
-          <property IgnoreTimeScale="false" />
           <property Time="const float 2000" />
         </node>
       </node>
@@ -144,7 +138,6 @@
           <property DecorateWhenChildEnds="false" />
           <node class="Sequence" id="34">
             <node class="Wait" id="35">
-              <property IgnoreTimeScale="false" />
               <property Time="const float 1000" />
             </node>
             <node class="Action" id="37">

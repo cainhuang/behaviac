@@ -19,13 +19,12 @@
 namespace behaviac
 {
     DecoratorTime::DecoratorTime() : m_time_var(0)
-    {}
+    {
+	}
 
     DecoratorTime::~DecoratorTime()
     {
     }
-
-    //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
 
     void DecoratorTime::load(int version, const char* agentType, const properties_t& properties)
     {
@@ -44,15 +43,15 @@ namespace behaviac
         }
     }
 
-    int DecoratorTime::GetTime(Agent* pAgent) const
+    float DecoratorTime::GetTime(Agent* pAgent) const
     {
         if (this->m_time_var)
         {
             BEHAVIAC_ASSERT(this->m_time_var);
-            TProperty<int>* pP = (TProperty<int>*)this->m_time_var;
-            uint64_t time = pP->GetValue(pAgent);
+            TProperty<float>* pP = (TProperty<float>*)this->m_time_var;
+            float time = pP->GetValue(pAgent);
 
-            return (time == ((uint64_t) - 1) ? -1 : (int)time);
+            return time;
         }
 
         return 0;
@@ -73,7 +72,7 @@ namespace behaviac
     {
     }
 
-    int DecoratorTimeTask::GetTime(Agent* pAgent) const
+    float DecoratorTimeTask::GetTime(Agent* pAgent) const
     {
         BEHAVIAC_ASSERT(DecoratorTime::DynamicCast(this->GetNode()));
         const DecoratorTime* pNode = (const DecoratorTime*)(this->GetNode());
@@ -127,7 +126,7 @@ namespace behaviac
     {
         super::onenter(pAgent);
 
-        this->m_start = 0;
+        this->m_start = Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f;
         this->m_time = this->GetTime(pAgent);
 
         if (this->m_time <= 0)
@@ -142,12 +141,10 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(status);
 
-        this->m_start += (int)(Workspace::GetInstance()->GetDeltaFrameTime() * 1000.0f);
-
-        if (this->m_start >= this->m_time)
-        {
-            return BT_SUCCESS;
-        }
+		if (Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f - this->m_start >= this->m_time)
+		{
+			return BT_SUCCESS;
+		}
 
         return BT_RUNNING;
     }

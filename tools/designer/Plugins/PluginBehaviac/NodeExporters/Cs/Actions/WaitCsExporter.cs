@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -29,17 +29,6 @@ namespace PluginBehaviac.NodeExporters
         {
             Wait wait = node as Wait;
             return (wait != null);
-        }
-
-        protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
-        {
-            base.GenerateConstructor(node, stream, indent, className);
-
-            Wait wait = node as Wait;
-            if (wait == null)
-                return;
-
-            stream.WriteLine("{0}\t\t\tm_ignoreTimeScale = {1};", indent, wait.IgnoreTimeScale ? "true" : "false");
         }
 
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)

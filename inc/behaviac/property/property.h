@@ -104,8 +104,6 @@ namespace behaviac
         virtual const char* GetString(const behaviac::Agent* parent, const behaviac::Agent* parHolder) const = 0;
         virtual void SetString(behaviac::Agent* parHolder, const char* value) = 0;
 
-        //ParentType GetParentType() const;
-
         Agent* GetParentAgent(const Agent* pAgent) const;
 		virtual float DifferencePercentage(const Property* reference, const Property* other) const = 0;
 

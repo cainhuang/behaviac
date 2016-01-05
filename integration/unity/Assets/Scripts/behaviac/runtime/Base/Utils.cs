@@ -206,15 +206,7 @@ namespace behaviac
 
         public Agent GetParentAgent(Agent pAgent)
         {
-            Agent pParent = pAgent;
-
-            if (!string.IsNullOrEmpty(this.m_instanceName) && this.m_instanceName != "Self")
-            {
-                pParent = Agent.GetInstance(this.m_instanceName, pParent.GetContextId());
-                Debug.Check(pParent != null || Utils.IsStaticClass(this.m_instanceName));
-            }
-
-            return pParent;
+            return Utils.GetParentAgent(pAgent, this.m_instanceName);
         }
 
         public static Param_t[] LoadParams(List<string> paramsToken, List<Type> parameters, ref object[] _params_value)
@@ -365,7 +357,8 @@ namespace behaviac
 
                         if (property != null)
                         {
-                            property.SetValue(pSelf, this.m_params_value[i]);
+                            Agent pAgent = property.GetParentAgent(pSelf);
+                            property.SetValue(pAgent, this.m_params_value[i]);
                         }
 
                         if (this.m_params[i].paramStructMembers != null)
@@ -378,7 +371,8 @@ namespace behaviac
                                 CMemberBase member = objectDesc.GetMember(pair.Key);
                                 object v = member.Get(this.m_params_value[i]);
 
-                                pair.Value.SetValue(pSelf, v);
+                                Agent pAgent = pair.Value.GetParentAgent(pSelf);
+                                pair.Value.SetValue(pAgent, v);
                             }
                         }
                     }//end of if isRefOut
@@ -1125,6 +1119,24 @@ namespace behaviac
         public static bool IsStaticClass(string className)
         {
             return Utils.StaticClasses.ContainsKey(className);
+        }
+
+        public static Agent GetParentAgent(Agent pAgent, string instanceName)
+        {
+            Agent pParent = pAgent;
+
+            if (!string.IsNullOrEmpty(instanceName) && instanceName != "Self")
+            {
+                pParent = Agent.GetInstance(instanceName, (pParent != null) ? pParent.GetContextId() : 0);
+
+                if (pAgent != null && pParent == null && !Utils.IsStaticClass(instanceName))
+                {
+                    pParent = pAgent.GetVariable<Agent>(instanceName);
+                    Debug.Check(pParent != null);
+                }
+            }
+
+            return pParent;
         }
 
         public static bool IsDefault<T>(T obj)

@@ -31,6 +31,7 @@ namespace behaviac
         static bool ms_bIsSocketing;
         static bool ms_bProfiling;
         static bool ms_bSocketIsBlocking;
+        static bool ms_bHotReload;
         static unsigned short ms_socketPort;
 
     public:
@@ -68,6 +69,10 @@ namespace behaviac
 
         static void SetSocketPort(unsigned short port);
         static unsigned short GetSocketPort();
+
+		static void SetHotReload(bool bHotReload);
+		static bool IsHotReload();
+
     };
 
     struct property_t
@@ -118,7 +123,11 @@ namespace behaviac
             EFF_default = EFF_xml | EFF_bson | EFF_cpp	//first try to use xml, if xml file doesn't exist, it tries the bson, then tries cpp
         };
 
-        static Workspace* GetInstance();
+		/**
+		version_str is used to make sure the lib compiling defines are the same with app's
+		just use this default param and don't provode any param unless you know what you are doing
+		*/
+		static Workspace* GetInstance(const char* version_str = BEHAVIAC_VERSION_STR);
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         /**
@@ -129,11 +138,8 @@ namespace behaviac
 		virtual void SetTimeSinceStartup(float timeSinceStartup);
 		virtual float GetTimeSinceStartup();
 
-        virtual void SetDeltaFrameTime(float deltaTime);
-		virtual float GetDeltaFrameTime();
-
-		virtual void SetDeltaFrames(int deltaFrames);
-		virtual int GetDeltaFrames();
+        virtual void SetFrameSinceStartup(int frameSinceStartup);
+		virtual int GetFrameSinceStartup();
 
         /**
         'ExportPath' is the path in which the files are exported, which is configured in the workspace file.
@@ -213,8 +219,6 @@ namespace behaviac
         /**
         hot reload the modified behaviors.
         */
-        void SetAutoHotReload(bool enable);
-        bool GetAutoHotReload();
         void RecordBTAgentMapping(const char* relativePath, Agent* agent);
 
         /**
@@ -344,12 +348,7 @@ namespace behaviac
         uint32_t m_fileBufferOffset[kFileBufferDepth];
 
         float m_timeSinceStartup;
-        float m_deltaTime;
-        int m_deltaFrames;
-#if BEHAVIAC_ENABLE_HOTRELOAD
-        bool m_AutoHotReload;
-#endif//BEHAVIAC_ENABLE_HOTRELOAD
-
+		int m_frameSinceStartup;
     };
 }//namespace behaviac
 

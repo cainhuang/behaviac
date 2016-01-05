@@ -219,13 +219,6 @@ namespace behaviac
 
         this->m_variableId = MakeVariableId(nameOnly);
         this->m_variableName = nameOnly;
-        //if (this->m_variableName == "testVar_2")
-        //{
-        //	static int de = 0;
-        //	de++;
-        //}
-        //this->m_variableId = MakeVariableId(variableName);
-        //this->m_variableName = variableName;
     }
 
     const char* Property::GetClassNameString() const
@@ -243,41 +236,11 @@ namespace behaviac
         return m_memberBase ? m_memberBase->GetInstanceNameString() : 0;
     }
 
-    //void Property::SetInstanceNameString(const char* agentIntanceName)
-    //{
-    //	bool bValidName = agentIntanceName && agentIntanceName[0] != '\0';
-
-    //	if (bValidName)
-    //	{
-    //		if (Agent::IsInstanceNameRegistered(agentIntanceName))
-    //		{
-    //			this->m_pt = PT_INSTANCE;
-    //			this->m_instanceName = agentIntanceName;
-    //		}
-    //		else
-    //		{
-    //			//BEHAVIAC_ASSERT(strcmp(agentIntanceName, "Self") == 0);
-    //		}
-    //	}
-    //	else
-    //	{
-    //	}
-    //}
-
-    //ParentType Property::GetParentType() const
-    //{
-    //	return m_pt;
-    //}
-    //like function name
     Agent* Property::GetParentAgent(const Agent* pAgent) const
     {
-        Agent* pParent = (Agent*)pAgent;
-
-        if (this->m_instanceName[0] != '\0' && this->m_instanceName != "Self")
-        {
-            pParent = Agent::GetInstance(this->m_instanceName.c_str(), pAgent->GetContextId());
-            BEHAVIAC_ASSERT(pParent);
-        }
+		BEHAVIAC_ASSERT(pAgent);
+		Agent* pParent = Agent::GetInstance(pAgent, this->m_instanceName.c_str());
+		BEHAVIAC_ASSERT(pParent);
 
         return pParent;
     }

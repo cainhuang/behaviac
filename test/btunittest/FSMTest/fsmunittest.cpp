@@ -10,9 +10,7 @@
 // distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-add 2015 08 21
-*/
+
 #include "../btloadtestsuite.h"
 #include "behaviac/base/core/profiler/profiler.h"
 FSMAgentTest* initTestEnvFSM(const char* treePath, behaviac::Workspace::EFileFormat format)
@@ -31,6 +29,7 @@ FSMAgentTest* initTestEnvFSM(const char* treePath, behaviac::Workspace::EFileFor
     testAgent->btsetcurrent(treePath);
     return testAgent;
 }
+
 void finlTestEnvFSM(FSMAgentTest* testAgent)
 {
     BEHAVIAC_DELETE(testAgent);
@@ -39,13 +38,13 @@ void finlTestEnvFSM(FSMAgentTest* testAgent)
     behaviac::Profiler::DestroyInstance();
 }
 
-
 /**
 unit test for effector
-
 */
 LOAD_TEST(btunittest, fsm_ut_1)
 {
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(0);
+
     FSMAgentTest* testAgent = initTestEnvFSM("node_test/fsm/fsm_ut_1", format);
     testAgent->resetProperties();
 
@@ -58,6 +57,8 @@ LOAD_TEST(btunittest, fsm_ut_1)
     CHECK_EQUAL(0, InactiveCount);
     CHECK_EQUAL(0, testAgent->TestVar);
 
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
+
     //switch to Active
     testAgent->Message = FSMAgentTest::Begin;
     status = testAgent->btexec();
@@ -67,6 +68,8 @@ LOAD_TEST(btunittest, fsm_ut_1)
     uint32_t ActiveCount = testAgent->GetVariable<uint32_t>("ActiveCount");
     CHECK_EQUAL(0, ActiveCount);
     CHECK_EQUAL(2, testAgent->TestVar);
+
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
 
     //switch to Pause
     testAgent->Message = FSMAgentTest::Pause;
@@ -78,6 +81,8 @@ LOAD_TEST(btunittest, fsm_ut_1)
     CHECK_EQUAL(0, PauseCount);
     CHECK_EQUAL(4, testAgent->TestVar);
 
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
+
     //switch to Inactive
     testAgent->Message = FSMAgentTest::End;
     status = testAgent->btexec();
@@ -88,12 +93,19 @@ LOAD_TEST(btunittest, fsm_ut_1)
     CHECK_EQUAL(0, ExitCount);
     CHECK_EQUAL(6, testAgent->TestVar);
 
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
+
     //switch to Exit
     testAgent->Message = FSMAgentTest::Exit;
     status = testAgent->btexec();
 
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
+
 	CHECK_EQUAL(behaviac::BT_RUNNING, status);
     status = testAgent->btexec();
+
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
+
 	CHECK_EQUAL(behaviac::BT_RUNNING, status);
     status = testAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
@@ -103,6 +115,8 @@ LOAD_TEST(btunittest, fsm_ut_1)
     ExitCount = testAgent->GetVariable<long>("ExitCount");
     CHECK_EQUAL(1, ExitCount);
     CHECK_EQUAL(7, testAgent->TestVar);
+
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
 
 	//reenter again
 	testAgent->Message = FSMAgentTest::Invalid;

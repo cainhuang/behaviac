@@ -64,27 +64,26 @@ namespace behaviac
         {
             bool bValid = false;
 
-            if (opr_m != null)
+            if (opl != null)
             {
-                object returnValue = opr_m.Invoke(pAgent);
+                if (opr_m != null)
+                {
+                    object returnValue = opr_m.Invoke(pAgent);
 
-                Agent pParentOpl = opl.GetParentAgent(pAgent);
-                opl.SetValue(pParentOpl, returnValue);
+                    Agent pParentOpl = opl.GetParentAgent(pAgent);
+                    opl.SetValue(pParentOpl, returnValue);
 
-                bValid = true;
-            }
-            else if (opr != null && opl != null)
-            {
-                Agent pParentL = opl.GetParentAgent(pAgent);
-                Agent pParentR = opr.GetParentAgent(pAgent);
+                    bValid = true;
+                }
+                else if (opr != null)
+                {
+                    Agent pParentL = opl.GetParentAgent(pAgent);
+                    Agent pParentR = opr.GetParentAgent(pAgent);
 
-                opl.SetFrom(pParentR, opr, pParentL);
+                    opl.SetFrom(pParentR, opr, pParentL);
 
-                bValid = true;
-            }
-            else
-            {
-                //Debug.Check(false);
+                    bValid = true;
+                }
             }
 
             return bValid;

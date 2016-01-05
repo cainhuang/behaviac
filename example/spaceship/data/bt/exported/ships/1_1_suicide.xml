@@ -27,7 +27,6 @@
             <property ResultOption="BT_INVALID" />
           </node>
           <node class="Wait" id="7">
-            <property IgnoreTimeScale="false" />
             <property Time="const float 1000" />
           </node>
         </node>

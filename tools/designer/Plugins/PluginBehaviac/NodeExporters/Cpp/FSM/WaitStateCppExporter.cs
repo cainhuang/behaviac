@@ -31,17 +31,6 @@ namespace PluginBehaviac.NodeExporters
             return (waitState != null);
         }
 
-        protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
-        {
-            base.GenerateConstructor(node, stream, indent, className);
-
-            WaitState waitState = node as WaitState;
-            if (waitState == null)
-                return;
-
-            stream.WriteLine("{0}\t\t\tm_ignoreTimeScale = {1};", indent, waitState.IgnoreTimeScale ? "true" : "false");
-        }
-
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
         {
             base.GenerateMethod(node, stream, indent);

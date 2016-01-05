@@ -519,7 +519,9 @@ namespace behaviac
             return null;
         }
 
-        private  uint _msg_index = 0;
+#if !BEHAVIAC_RELEASE
+        private uint _msg_index = 0;
+#endif
 
         private  void Output(Agent pAgent, string msg)
         {

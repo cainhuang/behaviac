@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -70,12 +70,6 @@ namespace PluginBehaviac.DataExporters
                 string agentName = GetGenerateAgentName(property, var, caller);
                 string prop = setValue;
 
-                //if (property.Owner != Behaviac.Design.VariableDef.kSelf)
-                //{
-                //    stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, property.Owner.Replace("::", "."));
-                //    stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
-                //}
-
                 string propBasicName = property.BasicName.Replace("[]", "");
 
                 if (setValue != null)
@@ -143,8 +137,10 @@ namespace PluginBehaviac.DataExporters
 
             if (property.Owner != Behaviac.Design.VariableDef.kSelf)
             {
-                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Agent.GetInstance(\"{2}\", pAgent.GetContextId());", indent, agentName, property.Owner.Replace("::", "."));
-                stream.WriteLine("{0}Debug.Check({1} != null);", indent, agentName);
+                string instanceName = property.Owner.Replace("::", ".");
+
+                stream.WriteLine("{0}behaviac.Agent {1} = behaviac.Utils.GetParentAgent(pAgent, \"{2}\");", indent, agentName, instanceName);
+                stream.WriteLine("{0}Debug.Check({1} != null || Utils.IsStaticClass(\"{2}\"));", indent, agentName, instanceName);
             }
 
             string prop = getProperty(property, arrayIndexElement, agentName, stream, indent);

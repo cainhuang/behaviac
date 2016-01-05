@@ -43,7 +43,6 @@ namespace behaviac
         virtual BehaviorTask* createTask() const;
 
     protected:
-        bool		m_ignoreTimeScale;
         Property*	m_time_var;
 
         friend class WaitTask;
@@ -67,7 +66,6 @@ namespace behaviac
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
-        bool GetIgnoreTimeScale() const;
         float	GetTime(Agent* pAgent) const;
 
         float	m_start;

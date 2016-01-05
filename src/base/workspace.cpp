@@ -142,6 +142,20 @@ namespace behaviac
         return ms_socketPort;
     }
 
+	bool Config::ms_bHotReload = true;
+
+    bool Config::IsHotReload()
+    {
+		return ms_bHotReload;
+    }
+
+    void Config::SetHotReload(bool bHotReload)
+    {
+        BEHAVIAC_ASSERT(!IsStarted(), "please call Config::SetSocketBlocking at the very beginning before behaviac::Start!");
+
+		ms_bHotReload = bHotReload;
+    }
+
     GenerationManager* GenerationManager::ms_generationManager = NULL;
 
     void GenerationManager::RegisterBehaviors()
@@ -179,11 +193,10 @@ namespace behaviac
 
     Workspace::Workspace() : m_bInited(false), m_bExecAgents(true), m_fileFormat(Workspace::EFF_xml), m_frame(0),
         m_pBehaviorNodeLoader(0), m_behaviortreeCreators(0),
-        m_fileBuffer(0), m_fileBufferTop(0), m_timeSinceStartup(0),
-        m_deltaTime(0.0167f), m_deltaFrames(1)
+        m_fileBuffer(0), m_fileBufferTop(0),
+		m_timeSinceStartup(0), m_frameSinceStartup(0)
     {
 #if BEHAVIAC_ENABLE_HOTRELOAD
-        m_AutoHotReload = true;
         m_allBehaviorTreeTasks = 0;
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
         memset(this->m_fileBufferOffset, 0, sizeof(m_fileBufferOffset));
@@ -201,10 +214,17 @@ namespace behaviac
         ms_instance = 0;
     }
 
-    Workspace* Workspace::GetInstance()
+	Workspace* Workspace::GetInstance(const char* version_str)
     {
         if (ms_instance == NULL)
         {
+			if (version_str && !StringUtils::StrEqual(version_str, BEHAVIAC_VERSION_STR))
+			{
+				BEHAVIAC_LOGERROR("lib is built with '%s', while the app is built with '%s'!\n", BEHAVIAC_VERSION_STR, version_str);
+				BEHAVIAC_ASSERT(false);
+				return 0;
+			}
+
             //if new  an Workspace class ,then the staict variable will be set value
             Workspace* _workspace = BEHAVIAC_NEW Workspace();
             BEHAVIAC_UNUSED_VAR(_workspace);
@@ -348,12 +368,12 @@ namespace behaviac
 
         LoadWorkspaceAbsolutePath();
 
-		m_deltaTime = 0.0167f;
-        m_deltaFrames = 1;
-
 #if BEHAVIAC_ENABLE_HOTRELOAD
-        behaviac::wstring dir = behaviac::StringUtils::Char2Wide(szWorkspaceExportPath);
-        CFileSystem::StartMonitoringDirectory(dir.c_str());
+		if (behaviac::Config::IsHotReload())
+		{
+			behaviac::wstring dir = behaviac::StringUtils::Char2Wide(szWorkspaceExportPath);
+			CFileSystem::StartMonitoringDirectory(dir.c_str());
+		}
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
 
         //////////////////////////////////////////////////////////
@@ -494,27 +514,16 @@ namespace behaviac
         return m_timeSinceStartup;
     }
 
-    void Workspace::SetDeltaFrameTime(float deltaTime)
-    {
-        //BEHAVIAC_ASSERT(deltaTime > 0.0f);
-        m_deltaTime = deltaTime;
-    }
+	void Workspace::SetFrameSinceStartup(int frameSinceStartup)
+	{
+        //BEHAVIAC_ASSERT(m_frameSinceStartup >= 0);
+		m_frameSinceStartup = frameSinceStartup;
+	}
 
-    float Workspace::GetDeltaFrameTime()
-    {
-        return m_deltaTime;
-    }
-
-    void Workspace::SetDeltaFrames(int deltaFrames)
-    {
-        //BEHAVIAC_ASSERT(deltaFrames >= 0);
-        m_deltaFrames = deltaFrames;
-    }
-
-    int Workspace::GetDeltaFrames()
-    {
-        return m_deltaFrames;
-    }
+	int Workspace::GetFrameSinceStartup()
+	{
+        return m_frameSinceStartup;
+	}
 
     bool Workspace::ExportMetas(const char* xmlMetaFilePath)
     {
@@ -526,28 +535,30 @@ namespace behaviac
     void Workspace::Cleanup()
     {
 #if BEHAVIAC_ENABLE_HOTRELOAD
+		if (behaviac::Config::IsHotReload())
+		{
+			if (m_allBehaviorTreeTasks)
+			{
+				//BehaviorTreeTasks will be freed by Agent
+				//for (AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->begin(); it != m_allBehaviorTreeTasks->end(); ++it)
+				//{
+				//	BTItem_t& btItems = it->second;
 
-        if (m_allBehaviorTreeTasks)
-        {
-			//BehaviorTreeTasks will be freed by Agent
-			//for (AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->begin(); it != m_allBehaviorTreeTasks->end(); ++it)
-			//{
-			//	BTItem_t& btItems = it->second;
+				//	for (behaviac::vector<BehaviorTreeTask*>::iterator it1 = btItems.bts.begin(); it1 != btItems.bts.end(); ++it1)
+				//	{
+				//		BehaviorTreeTask* bt = *it1;
 
-			//	for (behaviac::vector<BehaviorTreeTask*>::iterator it1 = btItems.bts.begin(); it1 != btItems.bts.end(); ++it1)
-			//	{
-			//		BehaviorTreeTask* bt = *it1;
+				//		BehaviorTask::DestroyTask(bt);
+				//	}
+				//}
 
-			//		BehaviorTask::DestroyTask(bt);
-			//	}
-			//}
+				m_allBehaviorTreeTasks->clear();
+				BEHAVIAC_DELETE m_allBehaviorTreeTasks;
+				m_allBehaviorTreeTasks = NULL;
+			}
 
-            m_allBehaviorTreeTasks->clear();
-            BEHAVIAC_DELETE m_allBehaviorTreeTasks;
-            m_allBehaviorTreeTasks = NULL;
-        }
-
-        CFileSystem::StopMonitoringDirectory();
+			CFileSystem::StopMonitoringDirectory();
+		}
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
         AgentProperties::UnRegisterCustomizedTypes();
 
@@ -691,10 +702,7 @@ namespace behaviac
 		this->LogFrames();
 		this->HandleRequests();
 
-		if (this->GetAutoHotReload())
-		{
-			this->HotReload();
-		}
+		this->HotReload();
 	}
 
     void Workspace::Update()
@@ -972,37 +980,38 @@ namespace behaviac
             BehaviorTreeTask* behaviorTreeTask = (BehaviorTreeTask*)task;
 
 #if BEHAVIAC_ENABLE_HOTRELOAD
+			if (behaviac::Config::IsHotReload())
+			{
+				if (!m_allBehaviorTreeTasks)
+				{
+					m_allBehaviorTreeTasks = BEHAVIAC_NEW AllBehaviorTreeTasks_t;
+				}
 
-            if (!m_allBehaviorTreeTasks)
-            {
-                m_allBehaviorTreeTasks = BEHAVIAC_NEW AllBehaviorTreeTasks_t;
-            }
+				AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
 
-            AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
+				if (it == m_allBehaviorTreeTasks->end())
+				{
+					(*m_allBehaviorTreeTasks)[relativePath] = BTItem_t();
+				}
 
-            if (it == m_allBehaviorTreeTasks->end())
-            {
-                (*m_allBehaviorTreeTasks)[relativePath] = BTItem_t();
-            }
+				BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
 
-            BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
+				bool isAdded = false;
 
-            bool isAdded = false;
+				for (uint32_t i = 0; i < btItems.bts.size(); ++i)
+				{
+					if (btItems.bts[i] == behaviorTreeTask)
+					{
+						isAdded = true;
+						break;
+					}
+				}
 
-            for (uint32_t i = 0; i < btItems.bts.size(); ++i)
-            {
-                if (btItems.bts[i] == behaviorTreeTask)
-                {
-                    isAdded = true;
-                    break;
-                }
-            }
-
-            if (!isAdded)
-            {
-                btItems.bts.push_back(behaviorTreeTask);
-            }
-
+				if (!isAdded)
+				{
+					btItems.bts.push_back(behaviorTreeTask);
+				}
+			}
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
 
             return behaviorTreeTask;
@@ -1018,43 +1027,44 @@ namespace behaviac
         if (behaviorTreeTask)
         {
 #if BEHAVIAC_ENABLE_HOTRELOAD
+			if (behaviac::Config::IsHotReload())
+			{
+				if (m_allBehaviorTreeTasks)
+				{
+					const char* relativePath = behaviorTreeTask->GetName().c_str();
+					AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
 
-            if (m_allBehaviorTreeTasks)
-            {
-                const char* relativePath = behaviorTreeTask->GetName().c_str();
-                AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
+					if (it != m_allBehaviorTreeTasks->end())
+					{
+						BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
 
-                if (it != m_allBehaviorTreeTasks->end())
-                {
-                    BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
+						for (behaviac::vector<BehaviorTreeTask*>::iterator it1 = btItems.bts.begin(); it1 != btItems.bts.end(); ++it1)
+						{
+							BehaviorTreeTask* bt = *it1;
 
-                    for (behaviac::vector<BehaviorTreeTask*>::iterator it1 = btItems.bts.begin(); it1 != btItems.bts.end(); ++it1)
-                    {
-                        BehaviorTreeTask* bt = *it1;
+							if (bt == behaviorTreeTask)
+							{
+								btItems.bts.erase(it1);
+								break;
+							}
+						}
 
-                        if (bt == behaviorTreeTask)
-                        {
-                            btItems.bts.erase(it1);
-                            break;
-                        }
-                    }
+						if (agent)
+						{
+							for (behaviac::vector<Agent*>::iterator it1 = btItems.agents.begin(); it1 != btItems.agents.end(); ++it1)
+							{
+								Agent* a = (*it1);
 
-                    if (agent)
-                    {
-                        for (behaviac::vector<Agent*>::iterator it1 = btItems.agents.begin(); it1 != btItems.agents.end(); ++it1)
-                        {
-                            Agent* a = (*it1);
-
-                            if (agent == a)
-                            {
-                                btItems.agents.erase(it1);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
+								if (agent == a)
+								{
+									btItems.agents.erase(it1);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
 
             BehaviorTask::DestroyTask(behaviorTreeTask);
@@ -1066,38 +1076,39 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(relativePath);
         BEHAVIAC_UNUSED_VAR(agent);
 #if BEHAVIAC_ENABLE_HOTRELOAD
+		if (behaviac::Config::IsHotReload())
+		{
+			if (!m_allBehaviorTreeTasks)
+			{
+				m_allBehaviorTreeTasks = BEHAVIAC_NEW AllBehaviorTreeTasks_t;
+			}
 
-        if (!m_allBehaviorTreeTasks)
-        {
-            m_allBehaviorTreeTasks = BEHAVIAC_NEW AllBehaviorTreeTasks_t;
-        }
+			AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
 
-        AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
+			if (it == m_allBehaviorTreeTasks->end())
+			{
+				(*m_allBehaviorTreeTasks)[relativePath] = BTItem_t();
+			}
 
-        if (it == m_allBehaviorTreeTasks->end())
-        {
-            (*m_allBehaviorTreeTasks)[relativePath] = BTItem_t();
-        }
+			BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
+			bool bFound = false;
 
-        BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
-        bool bFound = false;
+			for (behaviac::vector<Agent*>::iterator it1 = btItems.agents.begin(); it1 != btItems.agents.end(); ++it1)
+			{
+				Agent* a = (*it1);
 
-        for (behaviac::vector<Agent*>::iterator it1 = btItems.agents.begin(); it1 != btItems.agents.end(); ++it1)
-        {
-            Agent* a = (*it1);
+				if (agent == a)
+				{
+					bFound = true;
+					break;
+				}
+			}
 
-            if (agent == a)
-            {
-                bFound = true;
-                break;
-            }
-        }
-
-        if (!bFound)
-        {
-            btItems.agents.push_back(agent);
-        }
-
+			if (!bFound)
+			{
+				btItems.agents.push_back(agent);
+			}
+		}
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
     }
 
@@ -1132,93 +1143,77 @@ namespace behaviac
 		AgentProperties::UnloadLocals();
     }
 
-    void Workspace::SetAutoHotReload(bool enable)
-    {
-        BEHAVIAC_UNUSED_VAR(enable);
-#if BEHAVIAC_ENABLE_HOTRELOAD
-        m_AutoHotReload = enable;
-#endif//BEHAVIAC_ENABLE_HOTRELOAD
-    }
-
-    bool Workspace::GetAutoHotReload()
-    {
-#if BEHAVIAC_ENABLE_HOTRELOAD
-        return m_AutoHotReload;
-#else
-        return false;
-#endif//BEHAVIAC_ENABLE_HOTRELOAD
-    }
-
     void Workspace::HotReload()
     {
 #if BEHAVIAC_ENABLE_HOTRELOAD
+		if (behaviac::Config::IsHotReload())
+		{
+			if (!m_allBehaviorTreeTasks)
+			{
+				return;
+			}
 
-        if (!m_allBehaviorTreeTasks)
-        {
-            return;
-        }
+			behaviac::vector<behaviac::string> modifiedFiles;
+			CFileSystem::GetModifiedFiles(modifiedFiles);
+			uint32_t fileCount = modifiedFiles.size();
 
-        behaviac::vector<behaviac::string> modifiedFiles;
-        CFileSystem::GetModifiedFiles(modifiedFiles);
-        uint32_t fileCount = modifiedFiles.size();
+			if (fileCount > 0)
+			{
+				Workspace::EFileFormat f = Workspace::GetFileFormat();
 
-        if (fileCount > 0)
-        {
-            Workspace::EFileFormat f = Workspace::GetFileFormat();
+				for (uint32_t i = 0; i < fileCount; ++i)
+				{
+					behaviac::string relativePath = modifiedFiles[i];
 
-            for (uint32_t i = 0; i < fileCount; ++i)
-            {
-				behaviac::string relativePath = modifiedFiles[i];
+					const char* format = behaviac::StringUtils::FindFullExtension(relativePath.c_str());
 
-                const char* format = behaviac::StringUtils::FindFullExtension(relativePath.c_str());
+					if (format != 0 && (((f & EFF_xml) == EFF_xml && 0 == strcmp(format, "xml")) ||
+						((f & EFF_bson) == EFF_bson && 0 == strcmp(format, "bson.bytes"))))
+					{
+						behaviac::StringUtils::StripFullFileExtension(relativePath);
+						behaviac::StringUtils::UnifySeparator(relativePath);
 
-                if (format != 0 && (((f & EFF_xml) == EFF_xml && 0 == strcmp(format, "xml")) ||
-                                    ((f & EFF_bson) == EFF_bson && 0 == strcmp(format, "bson.bytes"))))
-                {
-                    behaviac::StringUtils::StripFullFileExtension(relativePath);
-                    behaviac::StringUtils::UnifySeparator(relativePath);
+						AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
 
-                    AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
+						if (it != m_allBehaviorTreeTasks->end())
+						{
+							if (Workspace::Load(relativePath.c_str(), true))
+							{
+								//BEHAVIAC_LOGWARNING("HotReload 1:%s\n", relativePath.c_str());
 
-                    if (it != m_allBehaviorTreeTasks->end())
-                    {
-                        if (Workspace::Load(relativePath.c_str(), true))
-                        {
-                            //BEHAVIAC_LOGWARNING("HotReload 1:%s\n", relativePath.c_str());
+								BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
+								BehaviorTree* behaviorTree = m_behaviortrees[relativePath];
 
-                            BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
-                            BehaviorTree* behaviorTree = m_behaviortrees[relativePath];
+								uint32_t taskCount = btItems.bts.size();
 
-                            uint32_t taskCount = btItems.bts.size();
+								if (taskCount > 0)
+								{
+									for (uint32_t i = 0; i < taskCount; ++i)
+									{
+										BehaviorTreeTask* behaviorTreeTask = btItems.bts[i];
+										BEHAVIAC_ASSERT(behaviorTreeTask);
 
-                            if (taskCount > 0)
-                            {
-                                for (uint32_t i = 0; i < taskCount; ++i)
-                                {
-                                    BehaviorTreeTask* behaviorTreeTask = btItems.bts[i];
-                                    BEHAVIAC_ASSERT(behaviorTreeTask);
+										//BEHAVIAC_LOGWARNING("HotReload 2:%s\n", behaviorTreeTask->GetName().c_str());
 
-                                    //BEHAVIAC_LOGWARNING("HotReload 2:%s\n", behaviorTreeTask->GetName().c_str());
+										behaviorTreeTask->reset(0);
+										behaviorTreeTask->Clear();
+										behaviorTreeTask->Init(behaviorTree);
+									}
+								}
 
-                                    behaviorTreeTask->reset(0);
-                                    behaviorTreeTask->Clear();
-                                    behaviorTreeTask->Init(behaviorTree);
-                                }
-                            }
+								for (behaviac::vector<Agent*>::iterator it1 = btItems.agents.begin(); it1 != btItems.agents.end(); ++it1)
+								{
+									Agent* agent = (*it1);
 
-                            for (behaviac::vector<Agent*>::iterator it1 = btItems.agents.begin(); it1 != btItems.agents.end(); ++it1)
-                            {
-                                Agent* agent = (*it1);
-
-                                //BEHAVIAC_LOGWARNING("HotReload 3:%s\n", agent->GetName().c_str());
-                                agent->bthotreloaded(behaviorTree);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+									//BEHAVIAC_LOGWARNING("HotReload 3:%s\n", agent->GetName().c_str());
+									agent->bthotreloaded(behaviorTree);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
     }
 

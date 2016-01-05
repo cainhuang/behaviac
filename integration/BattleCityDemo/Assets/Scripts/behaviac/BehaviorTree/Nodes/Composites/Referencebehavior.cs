@@ -71,9 +71,13 @@ namespace behaviac
                 {
                     this.m_referencedBehaviorPath = p.value;
 
-                    bool bOk = Workspace.Instance.Load(this.m_referencedBehaviorPath);
+                    BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+                    Debug.Check(behaviorTree != null);
 
-                    Debug.Check(bOk);
+                    if (behaviorTree != null)
+				    {
+					    this.m_bHasEvents |= behaviorTree.HasEvents();
+				    }
                 }
                 else if (p.name == "Task")
                 {
@@ -225,6 +229,21 @@ namespace behaviac
             }
 
             BehaviorTreeTask m_subTree = null;
+
+            public override bool onevent(Agent pAgent, string eventName)
+            {
+                if (this.m_status == EBTStatus.BT_RUNNING && this.m_node.HasEvents())
+                {
+                    Debug.Check(this.m_subTree != null);
+                    if (!this.m_subTree.onevent(pAgent, eventName))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
             protected override bool onenter(Agent pAgent)
             {
                 ReferencedBehavior pNode = this.GetNode() as ReferencedBehavior;
@@ -252,6 +271,14 @@ namespace behaviac
                 ReferencedBehavior pNode = this.GetNode() as ReferencedBehavior;
                 Debug.Check(pNode != null);
 
+#if !BEHAVIAC_RELEASE
+                pAgent.m_debug_count++;
+                if (pAgent.m_debug_count > 20)
+                {
+                    Debug.LogWarning(string.Format("{0} might be in a recurrsive inter calling of trees\n", pAgent.GetName()));
+                    Debug.Check(false);
+                }
+#endif
                 EBTStatus result = this.m_subTree.exec(pAgent);
 
                 bool bTransitioned = State.UpdateTransitions(pAgent, pNode, pNode.m_transitions, ref this.m_nextStateId, result);

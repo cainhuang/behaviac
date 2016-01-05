@@ -17,6 +17,7 @@
 
 #include "behaviac/base/core/string/formatstring.h"
 #include "behaviac/base/file/filemanager.h"
+#include "behaviac/base/core/thread/mutex.h"
 
 #if !BEHAVIAC_COMPILER_MSVC
 #include <sys/types.h>
@@ -673,14 +674,16 @@ namespace behaviac
 	}
 
 	static bool s_bThreadFinish = true;
-	static pthread_mutex_t s_mutex = PTHREAD_MUTEX_INITIALIZER;
+	static pthread_t s_tid;
+	static behaviac::Mutex			s_mutex;
 	static behaviac::vector<behaviac::string> s_ModifiedFiles;
 	static void* ThreadFunc(void* arg)
 	{
+		bool isLock = false;
 		const char* path = (char*)arg;
 		InotifyDir inotify;
 		InotifyDir::Event ev;
-		bool isLock = false;
+
 		inotify.init();
 		inotify.Watch(path);
 
@@ -691,7 +694,7 @@ namespace behaviac
 				if (isLock)
 				{
 					isLock = false;
-					pthread_mutex_unlock(&s_mutex);
+					s_mutex.Unlock();
 				}
 
 				usleep(100);
@@ -701,7 +704,7 @@ namespace behaviac
 			if (!isLock)
 			{
 				isLock = true;
-				pthread_mutex_lock(&s_mutex);
+				s_mutex.Lock();
 			}
 
 			if (ev.type == InotifyDir::MODIFY || ev.type == InotifyDir::ADD)
@@ -711,6 +714,12 @@ namespace behaviac
 			}
 		}
 
+		if (isLock)
+		{
+			isLock = false;
+			s_mutex.Unlock();
+		}
+
 		return NULL;
 	}
 #endif
@@ -718,26 +727,24 @@ namespace behaviac
 	bool CFileSystem::StartMonitoringDirectory(const wchar_t* dir)
 	{
 		BEHAVIAC_UNUSED_VAR(dir);
-#if BEHAVIAC_COMPILER_GCC_LINUX
 
+#if BEHAVIAC_COMPILER_GCC_LINUX
 		if (!s_bThreadFinish)
 		{
 			return true;
 		}
 
 		s_bThreadFinish = false;
-		pthread_t tid;
 
 		behaviac::wstring dirW = dir;
 		behaviac::string buffer = behaviac::StringUtils::Wide2Char(dirW);
 
-
-		if (pthread_create(&tid, NULL, ThreadFunc, const_cast<char*>(buffer.c_str())) < 0)
+		if (pthread_create(&s_tid, NULL, ThreadFunc, const_cast<char*>(buffer.c_str())) < 0)
 		{
 			return false;
 		}
 
-		pthread_detach(tid);
+		//pthread_detach(tid);
 #endif
 
 		return true;
@@ -746,10 +753,11 @@ namespace behaviac
 	void CFileSystem::StopMonitoringDirectory()
 	{
 #if BEHAVIAC_COMPILER_GCC_LINUX
-		pthread_mutex_lock(&s_mutex);
 		s_bThreadFinish = true;
+
+		pthread_join(s_tid, 0);
+
 		s_ModifiedFiles.clear();
-		pthread_mutex_unlock(&s_mutex);
 #endif
 	}
 
@@ -764,22 +772,22 @@ namespace behaviac
 			return;
 		}
 
-		pthread_mutex_lock(&s_mutex);
+		behaviac::ScopedLock lock(s_mutex);
 		std::sort(s_ModifiedFiles.begin(), s_ModifiedFiles.end());
 		s_ModifiedFiles.erase(std::unique(s_ModifiedFiles.begin(), s_ModifiedFiles.end()), s_ModifiedFiles.end());
 
-		//s_ModifiedFiles.swap(modifiedFiles);
-		for (behaviac::vector<behaviac::string>::iterator it = s_ModifiedFiles.begin(); it != s_ModifiedFiles.end(); ++it)
-		{
-			behaviac::string& s = *it;
+		s_ModifiedFiles.swap(modifiedFiles);
+		//for (behaviac::vector<behaviac::string>::iterator it = s_ModifiedFiles.begin(); it != s_ModifiedFiles.end(); ++it)
+		//{
+		//	behaviac::string& s = *it;
 
-			modifiedFiles.push_back(s);
-		}    
+		//	modifiedFiles.push_back(s);
+		//}    
 
-		s_ModifiedFiles.clear();
-		pthread_mutex_unlock(&s_mutex);
+		//s_ModifiedFiles.clear();
 #endif
 	}
+
 }//namespace behaviac
 
 #endif//#if !BEHAVIAC_COMPILER_MSVC

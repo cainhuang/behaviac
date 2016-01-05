@@ -70,6 +70,8 @@ namespace behaviac
         virtual void save(ISerializableNode* node) const;
         virtual void load(ISerializableNode* node);
 
+		virtual bool onevent(Agent* pAgent, const char* eventName);
+
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
 

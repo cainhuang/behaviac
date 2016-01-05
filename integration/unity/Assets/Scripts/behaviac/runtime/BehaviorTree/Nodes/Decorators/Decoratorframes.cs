@@ -103,7 +103,7 @@ namespace behaviac
             {
                 base.onenter(pAgent);
 
-                this.m_start = 0;
+                this.m_start = Workspace.Instance.FrameSinceStartup;
                 this.m_frames = this.GetFrames(pAgent);
 
                 return (this.m_frames >= 0);
@@ -111,9 +111,7 @@ namespace behaviac
 
             protected override EBTStatus decorate(EBTStatus status)
             {
-                this.m_start += Workspace.Instance.DeltaFrames;
-
-                if (this.m_start >= this.m_frames)
+                if (Workspace.Instance.FrameSinceStartup - this.m_start + 1 >= this.m_frames)
                 {
                     return EBTStatus.BT_SUCCESS;
                 }

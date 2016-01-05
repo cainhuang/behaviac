@@ -42,7 +42,6 @@ namespace behaviac
             if (this->m_rootTask->GetStatus() == BT_RUNNING)
             {
                 this->m_rootTask->abort(this->agent);
-                raisePlanAborted(this->m_rootTask);
                 BehaviorTask::DestroyTask(this->m_rootTask);
             }
 
@@ -70,25 +69,6 @@ namespace behaviac
 
         EBTStatus taskStatus = rootTask->exec(this->agent);
 
-        switch (taskStatus)
-        {
-            case BT_RUNNING:
-                raiseTaskExecuted();
-                break;
-
-            case BT_SUCCESS:
-                raisePlanCompleted(rootTask);
-                break;
-
-            case BT_FAILURE:
-                raisePlanFailed(rootTask);
-                break;
-
-            default:
-                BEHAVIAC_ASSERT(false);
-                //throw new InvalidOperationException("Unhandled EBTStatus value: " + taskStatus);
-        }
-
         return taskStatus;
     }
 
@@ -107,122 +87,22 @@ namespace behaviac
         // any n ew plans.
         if (!canInterruptCurrentPlan())
         {
-            raisePlanDiscarded();
             return NULL;
         }
-
-        raisePlanningStarted();
 
         PlannerTask* newPlan = this->BuildPlan(this->m_rootTaskNode);
 
         if (newPlan == NULL)
         {
-            raisePlanningFailed();
             return NULL;
         }
 
         if (!newPlan->IsHigherPriority(this->m_rootTask))
         {
-            raisePlanDiscarded();
             return NULL;
         }
 
-        raisePlanGenerated(newPlan);
-
-        raisePlanningEnded();
         return newPlan;
-    }
-
-    void Planner::raiseTaskSucceeded(PlannerTask* task)
-    {
-        if (task != NULL && this->TaskSucceeded != NULL)
-        {
-            this->TaskSucceeded(this, task);
-        }
-    }
-
-    void Planner::raiseTaskExecuted()
-    {
-        if (this->TaskExecuted != NULL)
-        {
-            this->TaskExecuted(this, this->m_rootTask);
-        }
-    }
-
-    void Planner::raisePlanningStarted()
-    {
-        if (this->PlanningStarted != NULL)
-        {
-            this->PlanningStarted(this);
-        }
-    }
-
-    void Planner::raisePlanningEnded()
-    {
-        if (this->PlanningEnded != NULL)
-        {
-            this->PlanningEnded(this);
-        }
-    }
-
-    void Planner::raisePlanCompleted(PlannerTask* task)
-    {
-        if (this->PlanCompleted != NULL)
-        {
-            this->PlanCompleted(this, task);
-        }
-    }
-
-    void Planner::raisePlanFailed(PlannerTask* task)
-    {
-        if (this->TaskFailed != NULL)
-        {
-            this->TaskFailed(this, task);
-        }
-
-        if (this->PlanFailed != NULL)
-        {
-            this->PlanFailed(this, task);
-        }
-    }
-
-    void Planner::raisePlanGenerated(PlannerTask* task)
-    {
-        if (this->PlanGenerated != NULL)
-        {
-            this->PlanGenerated(this, task);
-        }
-    }
-    void Planner::raisePlanDiscarded()
-    {
-        if (this->PlanDiscarded != NULL)
-        {
-            this->PlanDiscarded(this);
-        }
-    }
-
-    void Planner::raisePlanExecuted(PlannerTask* task)
-    {
-        if (this->PlanExecuted != NULL)
-        {
-            this->PlanExecuted(this, task);
-        }
-    }
-
-    void Planner::raisePlanAborted(PlannerTask* task)
-    {
-        if (this->PlanAborted != NULL)
-        {
-            this->PlanAborted(this, task);
-        }
-    }
-
-    void Planner::raisePlanningFailed()
-    {
-        if (this->PlanningFailed != NULL)
-        {
-            this->PlanningFailed(this);
-        }
     }
 
     bool Planner::canInterruptCurrentPlan()
@@ -254,15 +134,10 @@ namespace behaviac
             return;
         }
 
-        this->timeTillReplan -= Workspace::GetInstance()->GetDeltaFrameTime();
-
         bool noPlan = this->m_rootTask == NULL || this->m_rootTask->GetStatus() != BT_RUNNING;
 
-        //if (noPlan || timeTillReplan <= 0)
         if (noPlan)
         {
-            timeTillReplan += AutoReplanInterval;
-
             PlannerTask* newPlan = this->GeneratePlan();
 
             if (newPlan != NULL)
@@ -272,7 +147,6 @@ namespace behaviac
                     if (this->m_rootTask->GetStatus() == BT_RUNNING)
                     {
                         this->m_rootTask->abort(this->agent);
-                        raisePlanAborted(this->m_rootTask);
                     }
 
                     BehaviorTask::DestroyTask(this->m_rootTask);

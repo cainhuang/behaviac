@@ -934,6 +934,7 @@ namespace behaviac
         {
 #if !defined(BEHAVIAC_RELEASE)
             BEHAVIAC_ASSERT(this->m_debug_verify == kAGENT_DEBUG_VERY, "Agent can only be created by Agent::Create or Agent::Create!");
+			this->m_debug_count = 0;
 #endif//#if !defined(BEHAVIAC_RELEASE)
             this->InstantiateProperties();
 
@@ -1284,6 +1285,27 @@ namespace behaviac
         return 0;
     }
 
+	Agent* Agent::GetInstance(const Agent* pSelf, const char* agentInstanceName)
+	{
+		Agent* pParent = (Agent*)pSelf;
+
+		if (agentInstanceName[0] != '\0' && strcmp(agentInstanceName, "Self") != 0)
+		{
+			// global
+			pParent = Agent::GetInstance(agentInstanceName, pSelf ? pSelf->GetContextId() : 0);
+
+			// member
+			if (!pParent && pSelf)
+			{
+				pParent = pSelf->GetVariable<Agent*>(agentInstanceName);
+			}
+
+			BEHAVIAC_ASSERT(pParent);
+		}
+
+		return pParent;
+	}
+
     Agent* Agent::GetInstance(const char* agentInstanceName, int contextId)
     {
         Context& c = Context::GetContext(contextId);
@@ -1626,7 +1648,7 @@ namespace behaviac
 
     Agent* Agent::GetAgent(const char* agentName)
     {
-        Agent* pAgent = Agent::GetInstance(agentName);
+        Agent* pAgent = Agent::GetInstance(agentName, 0);
 
         if (pAgent)
         {

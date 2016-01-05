@@ -124,14 +124,8 @@
   <data name="webBrowser.Size" type="System.Drawing.Size, System.Drawing">
     <value>629, 450</value>
   </data>
-  <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>553, 545</value>
-  </data>
   <data name="buttonClose.Text" xml:space="preserve">
     <value>关闭</value>
-  </data>
-  <data name="checkBoxNext.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 549</value>
   </data>
   <data name="checkBoxNext.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 16</value>
@@ -194,7 +188,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="referenceLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 35</value>
+    <value>7, 39</value>
   </data>
   <data name="referenceLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 12</value>
@@ -203,19 +197,16 @@
     <value>参考文档:</value>
   </data>
   <data name="referLinkTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 35</value>
+    <value>70, 39</value>
   </data>
   <data name="noteLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 59</value>
+    <value>7, 67</value>
   </data>
   <data name="noteLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>341, 12</value>
   </data>
   <data name="noteLabel.Text" xml:space="preserve">
     <value>注意: 为了提高用户体验，相关操作将会发送到服务器进行统计</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>630, 574</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

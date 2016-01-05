@@ -58,8 +58,11 @@ static void SetExePath()
 
 bool InitBehavic(behaviac::Workspace::EFileFormat ff)
 {
-    behaviac::Config::SetSocketBlocking(false);
-    behaviac::Config::SetSocketPort(8081);
+#if !BEHAVIAC_COMPILER_MSVC
+	behaviac::Config::SetHotReload(false);
+#endif
+    //behaviac::Config::SetSocketBlocking(false);
+    //behaviac::Config::SetSocketPort(8081);
 
     behaviac::Agent::Register<CBTPlayer>();
 
@@ -71,13 +74,9 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
     behaviac::Workspace::GetInstance()->ExportMetas("../test/usertest/behaviac/usertest.xml");
 
     //behaviac::Agent::SetIdMask(kIdMask_Wolrd | kIdMask_Opponent);
-    behaviac::Workspace::GetInstance()->SetDeltaFrames(1);
-
-    //printf("game starting...\n");
 
     return true;
 }
-
 
 bool InitPlayer(const char* pszTreeName)
 {
@@ -94,7 +93,6 @@ bool InitPlayer(const char* pszTreeName)
     assert(bRet);
 
     g_player1->btsetcurrent(pszTreeName);
-
 
     return bRet;
 }
@@ -167,7 +165,7 @@ int main(int argc, char** argv)
 	while (i++ < iCount)
 	{
 		behaviac::Workspace::GetInstance()->Update();
-	};
+	}
 
     clock_t finish = clock();
 

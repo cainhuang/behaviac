@@ -552,8 +552,6 @@ LOAD_TEST(btunittest, condition_ut_3)
 //< Action Nodes Tests
 LOAD_TEST(btunittest, action_ut_0)
 {
-	behaviac::Agent::RegisterInstanceName<ChildNodeTest>("par_child");
-	
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_0", format);
     myTestAgent->resetProperties();
 
@@ -565,7 +563,7 @@ LOAD_TEST(btunittest, action_ut_0)
 
     myTestAgent->SetVariable<ChildNodeTest*>("par_child", testChildAgent);
 
-    behaviac::EBTStatus status = myTestAgent->btexec();
+    myTestAgent->btexec();
 
     CHECK_EQUAL(1500, myTestAgent->testVar_0);
     CHECK_EQUAL(1800, myTestAgent->testVar_1);
@@ -573,12 +571,8 @@ LOAD_TEST(btunittest, action_ut_0)
 	CHECK_EQUAL(2, StaticAgent::sInt);
     CHECK_EQUAL(true, testChildAgent->m_bTargetValid);
 
-    behaviac::Agent::UnbindInstance("par_child");
-
     behaviac::Agent::Destroy(testChildAgent);
     behaviac::Agent::Destroy(pStaticAgent);
-
-	behaviac::Agent::UnRegisterInstanceName<ChildNodeTest>("par_child");
 
     finlTestEnvNode(myTestAgent);
 }
@@ -652,8 +646,7 @@ LOAD_TEST(btunittest, action_ut_3_save_load)
 
 LOAD_TEST(btunittest, action_child_agent)
 {
-	const char* childAgentName = "par_child_agent";
-	behaviac::Agent::RegisterInstanceName<ChildNodeTest>(childAgentName);
+	const char* childAgentName = "par_child_agent_1";
 
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_child_agent_0", format);
 
@@ -661,15 +654,12 @@ LOAD_TEST(btunittest, action_child_agent)
 
     myTestAgent->initChildAgentTest(childAgentName);
 
-    behaviac::EBTStatus status = myTestAgent->btexec();
+    myTestAgent->btexec();
 
     const ChildNodeTest* ct = myTestAgent->GetVariable<ChildNodeTest*>(childAgentName);
-    int testVar_0_t = ct->testVar_0;
-    CHECK_EQUAL(666, testVar_0_t);
+    CHECK_EQUAL(666, ct->testVar_0);
     CHECK_EQUAL(888, ct->testVar_1);
-    CHECK_FLOAT_EQUAL(999.0f, ct->testVar_2);
-
-    myTestAgent->removeChildAgentTest(childAgentName);
+    CHECK_FLOAT_EQUAL(999, ct->testVar_2);
 
     finlTestEnvNode(myTestAgent);
 }
@@ -798,6 +788,8 @@ LOAD_TEST(btunittest, action_waitframes_ut_0)
 
     int loopCount = 0;
 
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(0);
+
     while (loopCount < 5)
     {
         myTestAgent->btexec();
@@ -805,7 +797,6 @@ LOAD_TEST(btunittest, action_waitframes_ut_0)
         if (loopCount < 4)
         {
             CHECK_EQUAL(1, myTestAgent->testVar_0);
-
         }
         else
         {
@@ -813,13 +804,12 @@ LOAD_TEST(btunittest, action_waitframes_ut_0)
         }
 
         ++loopCount;
+		behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
     }
 
-    behaviac::Workspace::GetInstance()->SetDeltaFrames(5);
     myTestAgent->resetProperties();
     myTestAgent->btexec();
-    CHECK_EQUAL(2, myTestAgent->testVar_0);
-    behaviac::Workspace::GetInstance()->SetDeltaFrames(1);
+    CHECK_EQUAL(1, myTestAgent->testVar_0);
 
     BEHAVIAC_DELETE(myTestAgent);
     behaviac::Agent::UnRegister<AgentNodeTest>();

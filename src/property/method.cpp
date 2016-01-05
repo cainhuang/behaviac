@@ -16,16 +16,9 @@
 
 behaviac::Agent* CMethodBase::GetParentAgent(const behaviac::Agent* pAgent)
 {
-    behaviac::Agent* pParent = (behaviac::Agent*)pAgent;
-
-    if (!this->m_instanceName.empty() && this->m_instanceName != "Self")
-    {
-        //pParent = behaviac::Agent::GetInstance(this->m_instanceName.c_str(), pParent->GetContextId());
-        pParent = behaviac::Agent::GetInstance(this->GetInstanceNameString(), pParent->GetContextId());
-        //pParent=pAgent->GetInstance(this->GetInstanceNameString(), pParent->GetContextId());
-        //pParent = behaviac::Agent::GetInstance(this->GetInstanceNameString(), pParent->GetContextId());
-        BEHAVIAC_ASSERT(pParent);
-    }
+	BEHAVIAC_ASSERT(pAgent);
+	behaviac::Agent* pParent = behaviac::Agent::GetInstance(pAgent, this->GetInstanceNameString());
+	BEHAVIAC_ASSERT(pParent);
 
     return pParent;
 }

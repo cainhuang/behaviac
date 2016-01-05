@@ -17,15 +17,17 @@ namespace behaviac
 
 		WaitState();
 		virtual ~WaitState();
+
     protected:
 		virtual void load(int version, const char* agentType, const properties_t& properties);
         virtual BehaviorTask* createTask() const;
+
     public:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
 
 		virtual float GetTime(Agent* pAgent) const;
+
     protected:
-		bool		m_ignoreTimeScale;
 		Property*	m_time_var;
 
 		friend class WaitStateTask;
@@ -40,12 +42,12 @@ namespace behaviac
         virtual void copyto(BehaviorTask* target) const;
         virtual void save(ISerializableNode* node) const;
         virtual void load(ISerializableNode* node);
+
     protected:
         virtual bool onenter(Agent* pAgent);
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
-		bool GetIgnoreTimeScale() const;
 		float	GetTime(Agent* pAgent) const;
 
 		float	m_start;

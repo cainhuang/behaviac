@@ -18,15 +18,13 @@
 
 namespace behaviac
 {
-    Wait::Wait() : m_ignoreTimeScale(false), m_time_var(0)
+    Wait::Wait() : m_time_var(0)
     {
     }
 
     Wait::~Wait()
     {
     }
-
-    //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
 
     void Wait::load(int version, const char* agentType, const properties_t& properties)
     {
@@ -36,12 +34,7 @@ namespace behaviac
         {
             const property_t& p = (*it);
 
-            if (!strcmp(p.name, "IgnoreTimeScale"))
-            {
-                this->m_ignoreTimeScale = p.value[0] != '\0' && string_icmp(p.value, "true") == 0;
-
-            }
-            else if (!strcmp(p.name, "Time"))
+            if (!strcmp(p.name, "Time"))
             {
                 behaviac::string typeName;
                 behaviac::string propertyName;
@@ -119,13 +112,6 @@ namespace behaviac
     {
     }
 
-    bool WaitTask::GetIgnoreTimeScale() const
-    {
-        const Wait* pWaitNode = Wait::DynamicCast(this->GetNode());
-
-        return pWaitNode ? pWaitNode->m_ignoreTimeScale : false;
-    }
-
     float WaitTask::GetTime(Agent* pAgent) const
     {
         const Wait* pWaitNode = Wait::DynamicCast(this->GetNode());
@@ -137,16 +123,7 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
 
-        if (this->GetIgnoreTimeScale())
-        {
-            this->m_start = Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f;
-
-        }
-        else
-        {
-            this->m_start = 0;
-        }
-
+		this->m_start = Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f;
         this->m_time = this->GetTime(pAgent);
 
         if (this->m_time <= 0)
@@ -168,22 +145,10 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(childStatus);
 
-        if (this->GetIgnoreTimeScale())
-        {
-            if (Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f - this->m_start >= this->m_time)
-            {
-                return BT_SUCCESS;
-            }
-        }
-        else
-        {
-            this->m_start += Workspace::GetInstance()->GetDeltaFrameTime() * 1000.0f;
-
-            if (this->m_start >= this->m_time)
-            {
-                return BT_SUCCESS;
-            }
-        }
+		if (Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f - this->m_start >= this->m_time)
+		{
+			return BT_SUCCESS;
+		}
 
         return BT_RUNNING;
     }

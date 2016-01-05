@@ -398,6 +398,7 @@ namespace behaviac
 
         return true;
     }
+
     bool BehaviorNode::HasEvents() const
     {
         return this->m_bHasEvents;
@@ -844,8 +845,7 @@ namespace behaviac
 
         if (children != NULL)
         {
-            //behaviac::vector<property_t> * properties = new behaviac::vector<property_t>();
-            properties_t properties;// = new behaviac::vector<property_t>();
+            properties_t properties;
 
             for (rapidxml::xml_node<>* c = children; c; c = c->next_sibling())
             {
@@ -855,13 +855,10 @@ namespace behaviac
                     {
                         if (StringUtils::StrEqual(c->name(), kStrAttachment))
                         {
-                            bHasEvents = this->load_attachment(version, agentType, bHasEvents, c);
-
+                            bHasEvents |= this->load_attachment(version, agentType, bHasEvents, c);
                         }
                         else if (StringUtils::StrEqual(c->name(), kStrCustom))
                         {
-                            //??? BEHAVIAC_ASSERT(c->Children.Count == 1);
-
                             rapidxml::xml_node<>*  customNode = (rapidxml::xml_node<>*)c->first_node(kStrNode);
 							BEHAVIAC_ASSERT(customNode);
                             BehaviorNode* pChildNode = BehaviorNode::load(agentType, customNode, version);
@@ -888,28 +885,28 @@ namespace behaviac
             if (properties.size() > 0)
             {
                 this->load(version, agentType, properties);
-                //this->load(version, agentType, properties);
             }
         }
 
         this->m_bHasEvents |= bHasEvents;
     }
-    void BehaviorNode::load_attachment_transition_effectors(int version, const char* agentType, bool bHasEvents, rapidxml::xml_node<>* c)
+
+    void BehaviorNode::load_attachment_transition_effectors(int version, const char* agentType, rapidxml::xml_node<>* c)
     {
-        BEHAVIAC_UNUSED_VAR(bHasEvents);
         this->m_loadAttachment = true;
 
         this->load_properties_pars_attachments_children(false, version, agentType, c);
 
         this->m_loadAttachment = false;
     }
+
     bool BehaviorNode::load_attachment(int version, const char* agentType, bool bHasEvents, rapidxml::xml_node<>*  c)
     {
         rapidxml::xml_attribute<>* pAttachClassAttr = c->first_attribute("class");
 
         if (pAttachClassAttr == NULL)
         {
-            this->load_attachment_transition_effectors(version, agentType, bHasEvents, c);
+            this->load_attachment_transition_effectors(version, agentType, c);
             return true;
         }
 
@@ -954,6 +951,7 @@ namespace behaviac
 
         return bHasEvents;
     }
+
     /**
     Parse the property of node
 
@@ -962,7 +960,6 @@ namespace behaviac
     @return
     return true if successfully loaded
     */
-
     bool BehaviorNode::load_property_pars(properties_t& properties, rapidxml::xml_node<>* c, int version, const char* agentType)
     {
         if (StringUtils::StrEqual(c->name(), kStrProperty))

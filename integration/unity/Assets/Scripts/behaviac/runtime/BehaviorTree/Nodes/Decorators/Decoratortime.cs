@@ -40,7 +40,7 @@ namespace behaviac
             }
         }
 
-        protected virtual int GetTime(Agent pAgent)
+        protected virtual float GetTime(Agent pAgent)
         {
             if (this.m_time_var != null)
             {
@@ -103,7 +103,7 @@ namespace behaviac
             {
                 base.onenter(pAgent);
 
-                this.m_start = 0;
+                this.m_start = Workspace.Instance.TimeSinceStartup * 1000.0f;
                 this.m_time = this.GetTime(pAgent);
 
                 return (this.m_time >= 0);
@@ -111,9 +111,7 @@ namespace behaviac
 
             protected override EBTStatus decorate(EBTStatus status)
             {
-                this.m_start += (int)(Workspace.Instance.DeltaTime * 1000.0f);
-
-                if (this.m_start >= this.m_time)
+                if (Workspace.Instance.TimeSinceStartup * 1000.0f - this.m_start >= this.m_time)
                 {
                     return EBTStatus.BT_SUCCESS;
                 }
@@ -121,7 +119,7 @@ namespace behaviac
                 return EBTStatus.BT_RUNNING;
             }
 
-            private int GetTime(Agent pAgent)
+            private float GetTime(Agent pAgent)
             {
                 Debug.Check(this.GetNode() is DecoratorTime);
                 DecoratorTime pNode = (DecoratorTime)(this.GetNode());
@@ -129,8 +127,8 @@ namespace behaviac
                 return pNode != null ? pNode.GetTime(pAgent) : 0;
             }
 
-            private int m_start;
-            private int m_time;
+            private float m_start;
+            private float m_time;
         }
     }
 }

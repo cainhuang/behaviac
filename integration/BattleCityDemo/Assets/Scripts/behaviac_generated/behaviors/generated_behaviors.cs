@@ -160,7 +160,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_0_node14()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -280,7 +279,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_0_node9()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -292,7 +290,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_0_node7()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -374,7 +371,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_0_node30()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -416,7 +412,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_0_node18()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -502,7 +497,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_0_node21()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -536,7 +530,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_0_node35()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -1160,7 +1153,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_1_node47()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -1476,7 +1468,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_1_node1()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -1501,7 +1492,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_1_node32()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -1541,7 +1531,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_1_node28()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -1566,7 +1555,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_1_node56()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -1593,7 +1581,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_1_node31()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -1683,7 +1670,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_DeathMatch_1_node46()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -2356,7 +2342,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_Survival_node6()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -2408,7 +2393,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_Survival_node2()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -2465,7 +2449,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_Survival_node10()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -2499,7 +2482,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_Survival_node26()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -2661,7 +2643,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_Survival_node37()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -2686,7 +2667,6 @@ namespace behaviac
 	{
 		public Wait_bt_Level_Survival_node4()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -3161,8 +3141,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			int opr = (int)((GameLevelCommon)pAgent_opr).getNearestAwardID();
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_AwardID") == 2554131854u);
 			pAgent.SetVariable<int>("parT_AwardID", opr, 2554131854u);
@@ -3195,8 +3175,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_AwardID") == 2554131854u);
 			int opr_p0 = pAgent.GetVariable<int>(2554131854u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			UnityEngine.Vector3 opr = (UnityEngine.Vector3)((GameLevelCommon)pAgent_opr).getAwardPosition(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_NavTargetPosition") == 2368420228u);
 			pAgent.SetVariable<UnityEngine.Vector3>("parT_NavTargetPosition", opr, 2368420228u);
@@ -3214,8 +3194,8 @@ namespace behaviac
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_NavTargetPosition") == 2368420228u);
 			UnityEngine.Vector3 method_p0 = pAgent.GetVariable<UnityEngine.Vector3>(2368420228u);
-			behaviac.Agent pAgent_method_p1 = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_method_p1 != null);
+			behaviac.Agent pAgent_method_p1 = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_method_p1 != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.EBTStatus result = (behaviac.EBTStatus)((GameActor)pAgent).findPath(method_p0, GameLevelCommon.actorWalkLevel);
 			return result;
 		}
@@ -3257,7 +3237,6 @@ namespace behaviac
 	{
 		public Wait_bt_Tank_Agressive_node19()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -3288,8 +3267,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.Agent opr = (behaviac.Agent)((GameLevelCommon)pAgent_opr).getNearestEnemy(((GameActor)pAgent).force);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			pAgent.SetVariable<behaviac.Agent>("parT_nearestEnemy", opr, 575719424u);
@@ -3307,8 +3286,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			behaviac.Agent opr_p0 = pAgent.GetVariable<behaviac.Agent>(575719424u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			UnityEngine.Vector3 opr = (UnityEngine.Vector3)((GameLevelCommon)pAgent_opr).getEnemyPosition(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			pAgent.SetVariable<UnityEngine.Vector3>("parT_enemyPosition", opr, 1980067727u);
@@ -3326,8 +3305,8 @@ namespace behaviac
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			UnityEngine.Vector3 method_p0 = pAgent.GetVariable<UnityEngine.Vector3>(1980067727u);
-			behaviac.Agent pAgent_method_p1 = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_method_p1 != null);
+			behaviac.Agent pAgent_method_p1 = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_method_p1 != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.EBTStatus result = (behaviac.EBTStatus)((GameActor)pAgent).findPath(method_p0, GameLevelCommon.actorWalkLevel);
 			return result;
 		}
@@ -3443,7 +3422,6 @@ namespace behaviac
 	{
 		public Wait_bt_Tank_Agressive_node17()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -4026,7 +4004,6 @@ namespace behaviac
 	{
 		public Wait_bt_Tank_Chase_node7()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -4042,8 +4019,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.Agent opr = (behaviac.Agent)((GameLevelCommon)pAgent_opr).getNearestEnemy(((GameActor)pAgent).force);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			pAgent.SetVariable<behaviac.Agent>("parT_nearestEnemy", opr, 575719424u);
@@ -4061,8 +4038,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			behaviac.Agent opr_p0 = pAgent.GetVariable<behaviac.Agent>(575719424u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			UnityEngine.Vector3 opr = (UnityEngine.Vector3)((GameLevelCommon)pAgent_opr).getEnemyPosition(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			pAgent.SetVariable<UnityEngine.Vector3>("parT_enemyPosition", opr, 1980067727u);
@@ -4080,8 +4057,8 @@ namespace behaviac
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			UnityEngine.Vector3 method_p0 = pAgent.GetVariable<UnityEngine.Vector3>(1980067727u);
-			behaviac.Agent pAgent_method_p1 = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_method_p1 != null);
+			behaviac.Agent pAgent_method_p1 = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_method_p1 != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.EBTStatus result = (behaviac.EBTStatus)((GameActor)pAgent).findPath(method_p0, GameLevelCommon.actorWalkLevel);
 			return result;
 		}
@@ -4227,8 +4204,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.Agent opr = (behaviac.Agent)((GameLevelCommon)pAgent_opr).getNearestEnemy(((GameActor)pAgent).force);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			pAgent.SetVariable<behaviac.Agent>("parT_nearestEnemy", opr, 575719424u);
@@ -4261,8 +4238,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			behaviac.Agent opr_p0 = pAgent.GetVariable<behaviac.Agent>(575719424u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			UnityEngine.Vector3 opr = (UnityEngine.Vector3)((GameLevelCommon)pAgent_opr).getEnemyPosition(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			pAgent.SetVariable<UnityEngine.Vector3>("parT_enemyPosition", opr, 1980067727u);
@@ -4280,8 +4257,8 @@ namespace behaviac
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			UnityEngine.Vector3 method_p0 = pAgent.GetVariable<UnityEngine.Vector3>(1980067727u);
-			behaviac.Agent pAgent_method_p1 = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_method_p1 != null);
+			behaviac.Agent pAgent_method_p1 = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_method_p1 != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.EBTStatus result = (behaviac.EBTStatus)((GameActor)pAgent).findPath(method_p0, GameLevelCommon.soilSteelWalkLevel);
 			return result;
 		}
@@ -4593,8 +4570,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parIn_Self") == 2069719536u);
 			GameActor opr_p0 = pAgent.GetVariable<GameActor>(2069719536u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			float opr = (float)((GameLevelCommon)pAgent_opr).getAvailabeMoveDirection(opr_p0, opr_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
 			pAgent.SetVariable<float>("parT_RotateAngle", opr, 760191237u);
@@ -4969,8 +4946,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			int opr = (int)((GameLevelCommon)pAgent_opr).randomNumberInt(opr_p0, opr_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_FireInterval") == 1636165819u);
 			pAgent.SetVariable<int>("parT_FireInterval", opr, 1636165819u);
@@ -4984,7 +4961,6 @@ namespace behaviac
 	{
 		public Wait_bt_Tank_Fire_Only_node3()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -5368,8 +5344,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parIn_Self") == 2069719536u);
 			GameActor opr2_p0 = pAgent.GetVariable<GameActor>(2069719536u);
-			behaviac.Agent pAgent_opr2 = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr2 != null);
+			behaviac.Agent pAgent_opr2 = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr2 != null || Utils.IsStaticClass("GameLevel"));
 			float opr2 = (float)((GameLevelCommon)pAgent_opr2).getAvailabeMoveDirection(opr2_p0, opr2_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("rotateAngle") == 1077650265u);
 			pAgent.SetVariable("rotateAngle", opr2, 1077650265u);
@@ -5859,7 +5835,6 @@ namespace behaviac
 	{
 		public Wait_bt_Tank_SafeWander_RandomFire_node4()
 		{
-			m_ignoreTimeScale = false;
 		}
 		protected override float GetTime(Agent pAgent)
 		{
@@ -6254,8 +6229,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.Agent opr = (behaviac.Agent)((GameLevelCommon)pAgent_opr).getNearestEnemy(((GameActor)pAgent).force);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			pAgent.SetVariable<behaviac.Agent>("parT_nearestEnemy", opr, 575719424u);
@@ -6288,8 +6263,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			behaviac.Agent opr_p0 = pAgent.GetVariable<behaviac.Agent>(575719424u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			UnityEngine.Vector3 opr = (UnityEngine.Vector3)((GameLevelCommon)pAgent_opr).getEnemyPosition(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			pAgent.SetVariable<UnityEngine.Vector3>("parT_enemyPosition", opr, 1980067727u);
@@ -6319,8 +6294,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			int opr = GameLevelCommon.soilSteelWalkLevel;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_PathFindLevel") == 3496548986u);
 			pAgent.SetVariable<int>("parT_PathFindLevel", opr, 3496548986u);
@@ -6336,8 +6311,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			int opr = GameLevelCommon.soilWalkLevel;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_PathFindLevel") == 3496548986u);
 			pAgent.SetVariable<int>("parT_PathFindLevel", opr, 3496548986u);
@@ -6383,8 +6358,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			int opr = (int)((GameLevelCommon)pAgent_opr).getNearestAwardID();
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_AwardID") == 2554131854u);
 			pAgent.SetVariable<int>("parT_AwardID", opr, 2554131854u);
@@ -6417,8 +6392,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_AwardID") == 2554131854u);
 			int opr_p0 = pAgent.GetVariable<int>(2554131854u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			UnityEngine.Vector3 opr = (UnityEngine.Vector3)((GameLevelCommon)pAgent_opr).getAwardPosition(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_NavTargetPosition") == 2368420228u);
 			pAgent.SetVariable<UnityEngine.Vector3>("parT_NavTargetPosition", opr, 2368420228u);
@@ -6448,8 +6423,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			int opr = GameLevelCommon.soilSteelWalkLevel;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_PathFindLevel") == 3496548986u);
 			pAgent.SetVariable<int>("parT_PathFindLevel", opr, 3496548986u);
@@ -6465,8 +6440,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			int opr = GameLevelCommon.soilWalkLevel;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_PathFindLevel") == 3496548986u);
 			pAgent.SetVariable<int>("parT_PathFindLevel", opr, 3496548986u);
@@ -6941,8 +6916,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.Agent opr = (behaviac.Agent)((GameLevelCommon)pAgent_opr).getNearestEnemy(((GameActor)pAgent).force);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			pAgent.SetVariable<behaviac.Agent>("parT_nearestEnemy", opr, 575719424u);
@@ -6975,8 +6950,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			behaviac.Agent opr_p0 = pAgent.GetVariable<behaviac.Agent>(575719424u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			UnityEngine.Vector3 opr = (UnityEngine.Vector3)((GameLevelCommon)pAgent_opr).getEnemyPosition(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			pAgent.SetVariable<UnityEngine.Vector3>("parT_enemyPosition", opr, 1980067727u);
@@ -7013,8 +6988,8 @@ namespace behaviac
 			GameActor opr_p0 = pAgent.GetVariable<GameActor>(2069719536u);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_TendencyDirection") == 2737250380u);
 			eMapDirection opr_p1 = pAgent.GetVariable<eMapDirection>(2737250380u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			float opr = (float)((GameLevelCommon)pAgent_opr).getAvailabeMoveDirection(opr_p0, opr_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
 			pAgent.SetVariable<float>("parT_RotateAngle", opr, 760191237u);
@@ -7345,8 +7320,8 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			behaviac.Agent opr = (behaviac.Agent)((GameLevelCommon)pAgent_opr).getNearestEnemy(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			pAgent.SetVariable<behaviac.Agent>("parT_nearestEnemy", opr, 575719424u);
@@ -7380,8 +7355,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_nearestEnemy") == 575719424u);
 			behaviac.Agent opr_p0 = pAgent.GetVariable<behaviac.Agent>(575719424u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			UnityEngine.Vector3 opr = (UnityEngine.Vector3)((GameLevelCommon)pAgent_opr).getEnemyPosition(opr_p0);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_enemyPosition") == 1980067727u);
 			pAgent.SetVariable<UnityEngine.Vector3>("parT_enemyPosition", opr, 1980067727u);
@@ -7418,8 +7393,8 @@ namespace behaviac
 			GameActor opr_p0 = pAgent.GetVariable<GameActor>(2069719536u);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_TendencyDirection") == 2737250380u);
 			eMapDirection opr_p1 = pAgent.GetVariable<eMapDirection>(2737250380u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			float opr = (float)((GameLevelCommon)pAgent_opr).getAvailabeMoveDirection(opr_p0, opr_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
 			pAgent.SetVariable<float>("parT_RotateAngle", opr, 760191237u);
@@ -7873,8 +7848,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parIn_Self") == 2069719536u);
 			GameActor opr_p0 = pAgent.GetVariable<GameActor>(2069719536u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			float opr = (float)((GameLevelCommon)pAgent_opr).getAvailabeMoveDirection(opr_p0, opr_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
 			pAgent.SetVariable<float>("parT_RotateAngle", opr, 760191237u);
@@ -8258,8 +8233,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parIn_Self") == 2069719536u);
 			GameActor opr_p0 = pAgent.GetVariable<GameActor>(2069719536u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			float opr = (float)((GameLevelCommon)pAgent_opr).getAvailabeMoveDirection(opr_p0, opr_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
 			pAgent.SetVariable<float>("parT_RotateAngle", opr, 760191237u);
@@ -8592,8 +8567,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("parIn_Self") == 2069719536u);
 			GameActor opr_p0 = pAgent.GetVariable<GameActor>(2069719536u);
-			behaviac.Agent pAgent_opr = behaviac.Agent.GetInstance("GameLevel", pAgent.GetContextId());
-			Debug.Check(pAgent_opr != null);
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
 			float opr = (float)((GameLevelCommon)pAgent_opr).getAvailabeMoveDirection(opr_p0, opr_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
 			pAgent.SetVariable<float>("parT_RotateAngle", opr, 760191237u);

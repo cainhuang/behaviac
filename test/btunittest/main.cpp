@@ -57,12 +57,11 @@ int my_main(bool bVerbose)
 
     std::cout << "UNIT TEST:" << std::endl;
 
+#if !BEHAVIAC_COMPILER_MSVC
+	behaviac::Config::SetHotReload(false);
+#endif
+
     behaviac::Workspace::GetInstance()->SetFilePath("../test/btunittest/BehaviacData/exported");
-    //{
-    //	registerAllTypes();
-    //	behaviac::Workspace::GetInstance()->ExportMetas("../test/btunittest/BehaviacData/xmlmeta/UnitTestCppMeta.xml");
-    //	unregisterAllTypes();
-    //}
 
     bool allPassed = testSuite.runAllTests();
 

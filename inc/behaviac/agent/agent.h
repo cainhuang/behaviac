@@ -458,7 +458,9 @@ namespace behaviac
         template<typename TAGENT>
         static bool UnbindInstance();
 
-        static Agent* GetInstance(const char* agentInstanceName, int contextId = 0);
+		static Agent* GetInstance(const Agent* pSelf, const char* agentInstanceName);
+
+        static Agent* GetInstance(const char* agentInstanceName, int contextId);
 
         template<typename TAGENT>
         static TAGENT* GetInstance(const char* agentInstanceName = 0, int contextId = 0);
@@ -684,7 +686,14 @@ namespace behaviac
         bool						m_referencetree;
         behaviac::string			m_name;
 
+//this condition compiling might cause the lib and app different
+#if !defined(BEHAVIAC_RELEASE)
         int							m_debug_verify;
+public:
+        int							m_debug_count;
+private:
+#endif//
+
         bool						_balckboard_bound;
         //debug
     public:
