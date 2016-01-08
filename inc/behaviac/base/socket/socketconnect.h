@@ -25,6 +25,8 @@ namespace behaviac
 {
     namespace Socket
     {
+		BEHAVIAC_API bool IsConnected();
+
         BEHAVIAC_API void SendText(const char* text);
         BEHAVIAC_API void SendWorkspace(const char* text);
 

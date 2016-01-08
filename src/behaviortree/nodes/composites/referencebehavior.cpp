@@ -265,14 +265,14 @@ namespace behaviac
 		const ReferencedBehavior* pNode = (const ReferencedBehavior*)this->m_node;
 		BEHAVIAC_ASSERT(pNode);
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 		pAgent->m_debug_count++;
 		if (pAgent->m_debug_count > 20)
 		{
 			BEHAVIAC_LOGWARNING("%s might be in a recurrsive inter calling of trees\n", pAgent->GetName().c_str());
 			BEHAVIAC_ASSERT(false);
 		}
-#endif//#if !defined(BEHAVIAC_RELEASE)
+#endif//#if !BEHAVIAC_RELEASE
 
 		EBTStatus result = this->m_subTree->exec(pAgent);
 

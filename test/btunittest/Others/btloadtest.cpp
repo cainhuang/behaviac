@@ -175,13 +175,13 @@ TEST(btunittest, agentInstance)
 
     behaviac::Agent* testAgent_0 = behaviac::Agent::GetInstance<behaviac::Agent>("Name_Agent_0");
     AgentNodeTest* testAgent_1 = behaviac::Agent::GetInstance<AgentNodeTest>();
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
     AgentNodeTest* testAgent_3 = AgentNodeTest::DynamicCast(behaviac::Agent::GetAgent("AgentNodeTest"));
 #endif//BEHAVIAC_RELEASE
 
     CHECK_EQUAL(testAgent_0, testAgentA);
     CHECK_EQUAL(testAgent_1, testAgentB);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
     CHECK_EQUAL(testAgent_1, testAgent_3);
 #endif//BEHAVIAC_RELEASE
     BEHAVIAC_ASSERT(testAgent_0);
@@ -190,7 +190,7 @@ TEST(btunittest, agentInstance)
     behaviac::Agent::UnbindInstance("Name_Agent_0");
     behaviac::Agent::UnbindInstance("AgentNodeTest");
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
     testAgent_3 = AgentNodeTest::DynamicCast(behaviac::Agent::GetAgent("AgentNodeTest#AgentNodeTest"));
     CHECK_EQUAL(testAgentB, testAgent_3);
 #endif//BEHAVIAC_RELEASE

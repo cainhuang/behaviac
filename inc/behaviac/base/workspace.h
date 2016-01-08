@@ -64,14 +64,14 @@ namespace behaviac
             return IsLogging() || IsSocketing();
         }
 
+		static bool IsSocketBlocking();
         static void SetSocketBlocking(bool bBlocking);
-        static bool IsSocketBlocking();
 
         static void SetSocketPort(unsigned short port);
         static unsigned short GetSocketPort();
 
-		static void SetHotReload(bool bHotReload);
 		static bool IsHotReload();
+		static void SetHotReload(bool bHotReload);
 
     };
 

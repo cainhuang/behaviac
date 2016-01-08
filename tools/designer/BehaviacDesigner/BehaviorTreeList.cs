@@ -1968,6 +1968,7 @@ namespace Behaviac.Design
                         xmlWrtier.WriteStartDocument();
 
                         xmlWrtier.WriteComment("EXPORTED BY TOOL, DON'T MODIFY IT!");
+                        xmlWrtier.WriteComment("DON'T REMOVE IT AS IT IS USED FOR DEBUGGING!");
 
                         xmlWrtier.WriteStartElement("workspace");
 

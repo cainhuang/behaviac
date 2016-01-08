@@ -291,11 +291,15 @@ namespace behaviac
             {
                 BEHAVIAC_LOG(BEHAVIAC_LOG_WARNING, "behaviac: SetupConnection is blocked, please Choose 'Connect' in the Designer to continue\n");
 
+				printf("\n[behaviac]wait for the designer to connnect at port %d...\n", (int)m_port);
+
                 while (!this->IsConnected() || !this->IsConnectedFinished())
                 {
                     // Wait for connection
                     behaviac::Thread::Sleep(100);
                 }
+
+				printf("[behaviac]connected.\n");
 
                 behaviac::Thread::Sleep(1);
 

@@ -88,7 +88,6 @@ namespace behaviac
 	XmlNodeRef XmlParser::parse(const char* fileName, const char* rootNodeName, const char* suffix)
 	{
 		m_errorString.clear();
-		XmlParserImp xml;
 		behaviac::IFile* file = behaviac::CFileManager::GetInstance()->FileOpen(fileName, behaviac::CFileSystem::EOpenAccess_Read);
 
 		if (file)

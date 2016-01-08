@@ -87,31 +87,31 @@ using namespace behaviac;
 namespace behaviac
 {
 	struct METHOD_TYPE_behaviac_Agent_VectorAdd { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
 	{
 		this->behaviac::Agent::VectorAdd(p0, p1);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorClear { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorClear>(IList& p0)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorClear>(IList& p0)
 	{
 		this->behaviac::Agent::VectorClear(p0);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorContains { };
-	template<> BEHAVIAC_FORCEINLINE bool Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorContains>(IList& p0, System::Object& p1)
+	template<>  bool Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorContains>(IList& p0, System::Object& p1)
 	{
 		return this->behaviac::Agent::VectorContains(p0, p1);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorLength { };
-	template<> BEHAVIAC_FORCEINLINE int Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorLength>(IList& p0)
+	template<>  int Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorLength>(IList& p0)
 	{
 		return this->behaviac::Agent::VectorLength(p0);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorRemove { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorRemove>(IList& p0, System::Object& p1)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorRemove>(IList& p0, System::Object& p1)
 	{
 		this->behaviac::Agent::VectorRemove(p0, p1);
 	}
@@ -119,62 +119,62 @@ namespace behaviac
 }
 
 struct METHOD_TYPE_HTNAgentHouseBase_ObtainPermit { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouseBase::_Execute_Method_<METHOD_TYPE_HTNAgentHouseBase_ObtainPermit>()
+template<>  void HTNAgentHouseBase::_Execute_Method_<METHOD_TYPE_HTNAgentHouseBase_ObtainPermit>()
 {
 	this->HTNAgentHouseBase::ObtainPermit();
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_STV_BOOL_0 { };
-template<> BEHAVIAC_FORCEINLINE bool& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_BOOL_0>()
+template<>  bool& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_BOOL_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgentBase::STV_BOOL_0);
 	return *(reinterpret_cast<bool*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_STV_CHAR_0 { };
-template<> BEHAVIAC_FORCEINLINE char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_CHAR_0>()
+template<>  char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_CHAR_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgentBase::STV_CHAR_0);
 	return *(reinterpret_cast<char*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_STV_ECOLOR_0 { };
-template<> BEHAVIAC_FORCEINLINE TNS::NE::NAT::eColor& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_ECOLOR_0>()
+template<>  TNS::NE::NAT::eColor& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_ECOLOR_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgentBase::STV_ECOLOR_0);
 	return *(reinterpret_cast<TNS::NE::NAT::eColor*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_STV_LIST_BOOL_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<bool>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_LIST_BOOL_0>()
+template<>  behaviac::vector<bool>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_LIST_BOOL_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgentBase::STV_LIST_BOOL_0);
 	return *(reinterpret_cast<behaviac::vector<bool>*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_STV_LIST_CHAR_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_LIST_CHAR_0>()
+template<>  behaviac::vector<char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_LIST_CHAR_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgentBase::STV_LIST_CHAR_0);
 	return *(reinterpret_cast<behaviac::vector<char>*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_STV_LIST_ECOLOR_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::NE::NAT::eColor>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_LIST_ECOLOR_0>()
+template<>  behaviac::vector<TNS::NE::NAT::eColor>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_LIST_ECOLOR_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgentBase::STV_LIST_ECOLOR_0);
 	return *(reinterpret_cast<behaviac::vector<TNS::NE::NAT::eColor>*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_STV_LIST_SBYTE_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<signed char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_LIST_SBYTE_0>()
+template<>  behaviac::vector<signed char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_STV_LIST_SBYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgentBase::STV_LIST_SBYTE_0);
 	return *(reinterpret_cast<behaviac::vector<signed char>*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_BOOL_0 { };
-template<> BEHAVIAC_FORCEINLINE bool& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_BOOL_0>()
+template<>  bool& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_BOOL_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_BOOL_0);
@@ -182,7 +182,7 @@ template<> BEHAVIAC_FORCEINLINE bool& ParTestAgentBase::_Get_Property_<PROPERTY_
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_BYTE_0 { };
-template<> BEHAVIAC_FORCEINLINE unsigned char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_BYTE_0>()
+template<>  unsigned char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_BYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_BYTE_0);
@@ -190,7 +190,7 @@ template<> BEHAVIAC_FORCEINLINE unsigned char& ParTestAgentBase::_Get_Property_<
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_CHAR_0 { };
-template<> BEHAVIAC_FORCEINLINE char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_CHAR_0>()
+template<>  char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_CHAR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_CHAR_0);
@@ -198,7 +198,7 @@ template<> BEHAVIAC_FORCEINLINE char& ParTestAgentBase::_Get_Property_<PROPERTY_
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_ECOLOR_0 { };
-template<> BEHAVIAC_FORCEINLINE TNS::NE::NAT::eColor& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_ECOLOR_0>()
+template<>  TNS::NE::NAT::eColor& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_ECOLOR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_ECOLOR_0);
@@ -206,7 +206,7 @@ template<> BEHAVIAC_FORCEINLINE TNS::NE::NAT::eColor& ParTestAgentBase::_Get_Pro
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BOOL_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<bool>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BOOL_0>()
+template<>  behaviac::vector<bool>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BOOL_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_BOOL_0);
@@ -214,7 +214,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<bool>& ParTestAgentBase::_Get_P
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BYTE_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<unsigned char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BYTE_0>()
+template<>  behaviac::vector<unsigned char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_BYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_BYTE_0);
@@ -222,7 +222,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<unsigned char>& ParTestAgentBas
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_CHAR_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_CHAR_0>()
+template<>  behaviac::vector<char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_CHAR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_CHAR_0);
@@ -230,7 +230,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<char>& ParTestAgentBase::_Get_P
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_ECOLOR_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::NE::NAT::eColor>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_ECOLOR_0>()
+template<>  behaviac::vector<TNS::NE::NAT::eColor>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_ECOLOR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_ECOLOR_0);
@@ -238,7 +238,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::NE::NAT::eColor>& ParTestA
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_LIST_SBYTE_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<signed char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_SBYTE_0>()
+template<>  behaviac::vector<signed char>& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_LIST_SBYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_LIST_SBYTE_0);
@@ -246,7 +246,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<signed char>& ParTestAgentBase:
 }
 
 struct PROPERTY_TYPE_ParTestAgentBase_TV_SBYTE_0 { };
-template<> BEHAVIAC_FORCEINLINE signed char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_SBYTE_0>()
+template<>  signed char& ParTestAgentBase::_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_SBYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgentBase, ParTestAgentBase::TV_SBYTE_0);
@@ -254,185 +254,185 @@ template<> BEHAVIAC_FORCEINLINE signed char& ParTestAgentBase::_Get_Property_<PR
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_BooleanIR { };
-template<> BEHAVIAC_FORCEINLINE bool ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_BooleanIR>(bool p0)
+template<>  bool ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_BooleanIR>(bool p0)
 {
 	return this->ParTestAgentBase::Func_BooleanIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_BooleanListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<bool> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_BooleanListIR>(behaviac::vector<bool> p0)
+template<>  behaviac::vector<bool> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_BooleanListIR>(behaviac::vector<bool> p0)
 {
 	return this->ParTestAgentBase::Func_BooleanListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_ByteIR { };
-template<> BEHAVIAC_FORCEINLINE unsigned char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteIR>(unsigned char p0)
+template<>  unsigned char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteIR>(unsigned char p0)
 {
 	return this->ParTestAgentBase::Func_ByteIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_ByteListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<unsigned char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteListIR>(behaviac::vector<unsigned char> p0)
+template<>  behaviac::vector<unsigned char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteListIR>(behaviac::vector<unsigned char> p0)
 {
 	return this->ParTestAgentBase::Func_ByteListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_CharIR { };
-template<> BEHAVIAC_FORCEINLINE char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharIR>(char p0)
+template<>  char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharIR>(char p0)
 {
 	return this->ParTestAgentBase::Func_CharIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_CharListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharListIR>(behaviac::vector<char> p0)
+template<>  behaviac::vector<char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharListIR>(behaviac::vector<char> p0)
 {
 	return this->ParTestAgentBase::Func_CharListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_eColorIR { };
-template<> BEHAVIAC_FORCEINLINE TNS::NE::NAT::eColor ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_eColorIR>(TNS::NE::NAT::eColor p0)
+template<>  TNS::NE::NAT::eColor ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_eColorIR>(TNS::NE::NAT::eColor p0)
 {
 	return this->ParTestAgentBase::Func_eColorIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_eColorListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::NE::NAT::eColor> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_eColorListIR>(behaviac::vector<TNS::NE::NAT::eColor> p0)
+template<>  behaviac::vector<TNS::NE::NAT::eColor> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_eColorListIR>(behaviac::vector<TNS::NE::NAT::eColor> p0)
 {
 	return this->ParTestAgentBase::Func_eColorListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_SByteIR { };
-template<> BEHAVIAC_FORCEINLINE signed char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteIR>(signed char p0)
+template<>  signed char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteIR>(signed char p0)
 {
 	return this->ParTestAgentBase::Func_SByteIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_SByteListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<signed char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteListIR>(behaviac::vector<signed char> p0)
+template<>  behaviac::vector<signed char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteListIR>(behaviac::vector<signed char> p0)
 {
 	return this->ParTestAgentBase::Func_SByteListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_ByteSMF { };
-template<> BEHAVIAC_FORCEINLINE unsigned char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteSMF>(unsigned char p0)
+template<>  unsigned char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteSMF>(unsigned char p0)
 {
 	return this->ParTestAgentBase::Func_ByteSMF(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_CharSMF { };
-template<> BEHAVIAC_FORCEINLINE char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharSMF>(char p0)
+template<>  char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharSMF>(char p0)
 {
 	return this->ParTestAgentBase::Func_CharSMF(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_CharListSMF { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharListSMF>(behaviac::vector<char> p0)
+template<>  behaviac::vector<char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharListSMF>(behaviac::vector<char> p0)
 {
 	return this->ParTestAgentBase::Func_CharListSMF(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_SByteSMF { };
-template<> BEHAVIAC_FORCEINLINE signed char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteSMF>(signed char p0)
+template<>  signed char ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteSMF>(signed char p0)
 {
 	return this->ParTestAgentBase::Func_SByteSMF(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_SByteListSMF { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<signed char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteListSMF>(behaviac::vector<signed char> p0)
+template<>  behaviac::vector<signed char> ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteListSMF>(behaviac::vector<signed char> p0)
 {
 	return this->ParTestAgentBase::Func_SByteListSMF(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_BooleanRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_BooleanRef>(bool& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_BooleanRef>(bool& p0)
 {
 	this->ParTestAgentBase::Func_BooleanRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_BooleanListRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_BooleanListRef>(behaviac::vector<bool>& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_BooleanListRef>(behaviac::vector<bool>& p0)
 {
 	this->ParTestAgentBase::Func_BooleanListRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_ByteRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteRef>(unsigned char& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteRef>(unsigned char& p0)
 {
 	this->ParTestAgentBase::Func_ByteRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_ByteListRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteListRef>(behaviac::vector<unsigned char>& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_ByteListRef>(behaviac::vector<unsigned char>& p0)
 {
 	this->ParTestAgentBase::Func_ByteListRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_CharRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharRef>(char& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharRef>(char& p0)
 {
 	this->ParTestAgentBase::Func_CharRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_CharListRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharListRef>(behaviac::vector<char>& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_CharListRef>(behaviac::vector<char>& p0)
 {
 	this->ParTestAgentBase::Func_CharListRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_eColorRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_eColorRef>(TNS::NE::NAT::eColor& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_eColorRef>(TNS::NE::NAT::eColor& p0)
 {
 	this->ParTestAgentBase::Func_eColorRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_eColorListRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_eColorListRef>(behaviac::vector<TNS::NE::NAT::eColor>& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_eColorListRef>(behaviac::vector<TNS::NE::NAT::eColor>& p0)
 {
 	this->ParTestAgentBase::Func_eColorListRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_SByteRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteRef>(signed char& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteRef>(signed char& p0)
 {
 	this->ParTestAgentBase::Func_SByteRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgentBase_Func_SByteListRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteListRef>(behaviac::vector<signed char>& p0)
+template<>  void ParTestAgentBase::_Execute_Method_<METHOD_TYPE_ParTestAgentBase_Func_SByteListRef>(behaviac::vector<signed char>& p0)
 {
 	this->ParTestAgentBase::Func_SByteListRef(p0);
 }
 
 struct PROPERTY_TYPE_ParTestAgent_STV_INT_0 { };
-template<> BEHAVIAC_FORCEINLINE int& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_STV_INT_0>()
+template<>  int& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_STV_INT_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgent::STV_INT_0);
 	return *(reinterpret_cast<int*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgent_STV_KEMPLOYEE_0 { };
-template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_STV_KEMPLOYEE_0>()
+template<>  TNS::ST::PER::WRK::kEmployee& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_STV_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgent::STV_KEMPLOYEE_0);
 	return *(reinterpret_cast<TNS::ST::PER::WRK::kEmployee*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgent_STV_LIST_INT_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<int>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_STV_LIST_INT_0>()
+template<>  behaviac::vector<int>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_STV_LIST_INT_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgent::STV_LIST_INT_0);
 	return *(reinterpret_cast<behaviac::vector<int>*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgent_STV_LIST_KEMPLOYEE_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_STV_LIST_KEMPLOYEE_0>()
+template<>  behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_STV_LIST_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestAgent::STV_LIST_KEMPLOYEE_0);
 	return *(reinterpret_cast<behaviac::vector<TNS::ST::PER::WRK::kEmployee>*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestAgent_TV_INT_0 { };
-template<> BEHAVIAC_FORCEINLINE int& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_INT_0>()
+template<>  int& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_INT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_INT_0);
@@ -440,7 +440,7 @@ template<> BEHAVIAC_FORCEINLINE int& ParTestAgent::_Get_Property_<PROPERTY_TYPE_
 }
 
 struct PROPERTY_TYPE_ParTestAgent_TV_KEMPLOYEE_0 { };
-template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_KEMPLOYEE_0>()
+template<>  TNS::ST::PER::WRK::kEmployee& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_KEMPLOYEE_0);
@@ -448,7 +448,7 @@ template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee& ParTestAgent::_Get
 }
 
 struct PROPERTY_TYPE_ParTestAgent_TV_LIST_INT_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<int>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LIST_INT_0>()
+template<>  behaviac::vector<int>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LIST_INT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_LIST_INT_0);
@@ -456,7 +456,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<int>& ParTestAgent::_Get_Proper
 }
 
 struct PROPERTY_TYPE_ParTestAgent_TV_LIST_KEMPLOYEE_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LIST_KEMPLOYEE_0>()
+template<>  behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LIST_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_LIST_KEMPLOYEE_0);
@@ -464,7 +464,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee>& 
 }
 
 struct PROPERTY_TYPE_ParTestAgent_TV_LONG_0 { };
-template<> BEHAVIAC_FORCEINLINE long& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LONG_0>()
+template<>  long& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_LONG_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_LONG_0);
@@ -472,7 +472,7 @@ template<> BEHAVIAC_FORCEINLINE long& ParTestAgent::_Get_Property_<PROPERTY_TYPE
 }
 
 struct PROPERTY_TYPE_ParTestAgent_TV_SHORT_0 { };
-template<> BEHAVIAC_FORCEINLINE short& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_SHORT_0>()
+template<>  short& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_SHORT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_SHORT_0);
@@ -480,7 +480,7 @@ template<> BEHAVIAC_FORCEINLINE short& ParTestAgent::_Get_Property_<PROPERTY_TYP
 }
 
 struct PROPERTY_TYPE_ParTestAgent_TV_USHORT_0 { };
-template<> BEHAVIAC_FORCEINLINE unsigned short& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_USHORT_0>()
+template<>  unsigned short& ParTestAgent::_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_USHORT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestAgent, ParTestAgent::TV_USHORT_0);
@@ -488,103 +488,103 @@ template<> BEHAVIAC_FORCEINLINE unsigned short& ParTestAgent::_Get_Property_<PRO
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_IntIR { };
-template<> BEHAVIAC_FORCEINLINE int ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_IntIR>(int p0)
+template<>  int ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_IntIR>(int p0)
 {
 	return this->ParTestAgent::Func_IntIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_IntListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<int> ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_IntListIR>(behaviac::vector<int> p0)
+template<>  behaviac::vector<int> ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_IntListIR>(behaviac::vector<int> p0)
 {
 	return this->ParTestAgent::Func_IntListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_kEmployeeIR { };
-template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeIR>(TNS::ST::PER::WRK::kEmployee p0)
+template<>  TNS::ST::PER::WRK::kEmployee ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeIR>(TNS::ST::PER::WRK::kEmployee p0)
 {
 	return this->ParTestAgent::Func_kEmployeeIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_kEmployeeListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee> ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeListIR>(behaviac::vector<TNS::ST::PER::WRK::kEmployee> p0)
+template<>  behaviac::vector<TNS::ST::PER::WRK::kEmployee> ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeListIR>(behaviac::vector<TNS::ST::PER::WRK::kEmployee> p0)
 {
 	return this->ParTestAgent::Func_kEmployeeListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_LongIR { };
-template<> BEHAVIAC_FORCEINLINE long ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_LongIR>(long p0)
+template<>  long ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_LongIR>(long p0)
 {
 	return this->ParTestAgent::Func_LongIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_ShortIR { };
-template<> BEHAVIAC_FORCEINLINE short ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_ShortIR>(short p0)
+template<>  short ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_ShortIR>(short p0)
 {
 	return this->ParTestAgent::Func_ShortIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_UShortIR { };
-template<> BEHAVIAC_FORCEINLINE unsigned short ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_UShortIR>(unsigned short p0)
+template<>  unsigned short ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_UShortIR>(unsigned short p0)
 {
 	return this->ParTestAgent::Func_UShortIR(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_kEmployeeSMF { };
-template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeSMF>(TNS::ST::PER::WRK::kEmployee p0)
+template<>  TNS::ST::PER::WRK::kEmployee ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeSMF>(TNS::ST::PER::WRK::kEmployee p0)
 {
 	return this->ParTestAgent::Func_kEmployeeSMF(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_kEmployeeListSMF { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee> ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeListSMF>(behaviac::vector<TNS::ST::PER::WRK::kEmployee> p0)
+template<>  behaviac::vector<TNS::ST::PER::WRK::kEmployee> ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeListSMF>(behaviac::vector<TNS::ST::PER::WRK::kEmployee> p0)
 {
 	return this->ParTestAgent::Func_kEmployeeListSMF(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_IntRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_IntRef>(int& p0)
+template<>  void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_IntRef>(int& p0)
 {
 	this->ParTestAgent::Func_IntRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_IntListRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_IntListRef>(behaviac::vector<int>& p0)
+template<>  void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_IntListRef>(behaviac::vector<int>& p0)
 {
 	this->ParTestAgent::Func_IntListRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_kEmployeeRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeRef>(TNS::ST::PER::WRK::kEmployee& p0)
+template<>  void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeRef>(TNS::ST::PER::WRK::kEmployee& p0)
 {
 	this->ParTestAgent::Func_kEmployeeRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_kEmployeeListRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeListRef>(behaviac::vector<TNS::ST::PER::WRK::kEmployee>& p0)
+template<>  void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_kEmployeeListRef>(behaviac::vector<TNS::ST::PER::WRK::kEmployee>& p0)
 {
 	this->ParTestAgent::Func_kEmployeeListRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_LongRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_LongRef>(long& p0)
+template<>  void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_LongRef>(long& p0)
 {
 	this->ParTestAgent::Func_LongRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_ShortRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_ShortRef>(short& p0)
+template<>  void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_ShortRef>(short& p0)
 {
 	this->ParTestAgent::Func_ShortRef(p0);
 }
 
 struct METHOD_TYPE_ParTestAgent_Func_UShortRef { };
-template<> BEHAVIAC_FORCEINLINE void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_UShortRef>(unsigned short& p0)
+template<>  void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_UShortRef>(unsigned short& p0)
 {
 	this->ParTestAgent::Func_UShortRef(p0);
 }
 
 struct PROPERTY_TYPE_AgentArrayAccessTest_Int { };
-template<> BEHAVIAC_FORCEINLINE int& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_Int>()
+template<>  int& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_Int>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentArrayAccessTest, AgentArrayAccessTest::Int);
@@ -592,7 +592,7 @@ template<> BEHAVIAC_FORCEINLINE int& AgentArrayAccessTest::_Get_Property_<PROPER
 }
 
 struct PROPERTY_TYPE_AgentArrayAccessTest_ListInts { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<int>& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_ListInts>()
+template<>  behaviac::vector<int>& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_ListInts>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentArrayAccessTest, AgentArrayAccessTest::ListInts);
@@ -600,7 +600,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<int>& AgentArrayAccessTest::_Ge
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_testColor { };
-template<> BEHAVIAC_FORCEINLINE EnumTest& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor>()
+template<>  EnumTest& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testColor);
@@ -608,7 +608,7 @@ template<> BEHAVIAC_FORCEINLINE EnumTest& AgentNodeTest::_Get_Property_<PROPERTY
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_testVar_0 { };
-template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0>()
+template<>  int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_0);
@@ -616,7 +616,7 @@ template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_testVar_1 { };
-template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1>()
+template<>  int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_1);
@@ -624,7 +624,7 @@ template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_testVar_2 { };
-template<> BEHAVIAC_FORCEINLINE float& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2>()
+template<>  float& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_2);
@@ -632,7 +632,7 @@ template<> BEHAVIAC_FORCEINLINE float& AgentNodeTest::_Get_Property_<PROPERTY_TY
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_testVar_3 { };
-template<> BEHAVIAC_FORCEINLINE float& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3>()
+template<>  float& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_3);
@@ -640,7 +640,7 @@ template<> BEHAVIAC_FORCEINLINE float& AgentNodeTest::_Get_Property_<PROPERTY_TY
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_testVar_str_0 { };
-template<> BEHAVIAC_FORCEINLINE string& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_str_0>()
+template<>  string& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_str_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_str_0);
@@ -648,7 +648,7 @@ template<> BEHAVIAC_FORCEINLINE string& AgentNodeTest::_Get_Property_<PROPERTY_T
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_waiting_timeout_interval { };
-template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_waiting_timeout_interval>()
+template<>  int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_waiting_timeout_interval>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::waiting_timeout_interval);
@@ -656,187 +656,187 @@ template<> BEHAVIAC_FORCEINLINE int& AgentNodeTest::_Get_Property_<PROPERTY_TYPE
 }
 
 struct METHOD_TYPE_AgentNodeTest_CanSeeEnemy { };
-template<> BEHAVIAC_FORCEINLINE bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_CanSeeEnemy>()
+template<>  bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_CanSeeEnemy>()
 {
 	return this->AgentNodeTest::CanSeeEnemy();
 }
 
 struct METHOD_TYPE_AgentNodeTest_createExtendedNode { };
-template<> BEHAVIAC_FORCEINLINE TestNS::Node* AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_createExtendedNode>()
+template<>  TestNS::Node* AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_createExtendedNode>()
 {
 	return this->AgentNodeTest::createExtendedNode();
 }
 
 struct METHOD_TYPE_AgentNodeTest_createGameObject { };
-template<> BEHAVIAC_FORCEINLINE UnityEngine::GameObject* AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_createGameObject>()
+template<>  UnityEngine::GameObject* AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_createGameObject>()
 {
 	return this->AgentNodeTest::createGameObject();
 }
 
 struct METHOD_TYPE_AgentNodeTest_enter_action_0 { };
-template<> BEHAVIAC_FORCEINLINE bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_0>()
+template<>  bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_0>()
 {
 	return this->AgentNodeTest::enter_action_0();
 }
 
 struct METHOD_TYPE_AgentNodeTest_enter_action_1 { };
-template<> BEHAVIAC_FORCEINLINE bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_1>(float p0)
+template<>  bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_1>(float p0)
 {
 	return this->AgentNodeTest::enter_action_1(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_enter_action_2 { };
-template<> BEHAVIAC_FORCEINLINE bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2>(int p0, string p1)
+template<>  bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2>(int p0, string p1)
 {
 	return this->AgentNodeTest::enter_action_2(p0, p1);
 }
 
 struct METHOD_TYPE_AgentNodeTest_exit_action_0 { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_0>()
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_0>()
 {
 	this->AgentNodeTest::exit_action_0();
 }
 
 struct METHOD_TYPE_AgentNodeTest_exit_action_1 { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_1>(float p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_1>(float p0)
 {
 	this->AgentNodeTest::exit_action_1(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_exit_action_2 { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2>(int p0, string p1)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2>(int p0, string p1)
 {
 	this->AgentNodeTest::exit_action_2(p0, p1);
 }
 
 struct METHOD_TYPE_AgentNodeTest_getConstOne { };
-template<> BEHAVIAC_FORCEINLINE int AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstOne>()
+template<>  int AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstOne>()
 {
 	return this->AgentNodeTest::getConstOne();
 }
 
 struct METHOD_TYPE_AgentNodeTest_initChildAgent { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_initChildAgent>()
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_initChildAgent>()
 {
 	this->AgentNodeTest::initChildAgent();
 }
 
 struct METHOD_TYPE_AgentNodeTest_IsTargetValid { };
-template<> BEHAVIAC_FORCEINLINE bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_IsTargetValid>()
+template<>  bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_IsTargetValid>()
 {
 	return this->AgentNodeTest::IsTargetValid();
 }
 
 struct METHOD_TYPE_AgentNodeTest_Move { };
-template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_Move>()
+template<>  behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_Move>()
 {
 	return this->AgentNodeTest::Move();
 }
 
 struct METHOD_TYPE_AgentNodeTest_MoveToTarget { };
-template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_MoveToTarget>()
+template<>  behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_MoveToTarget>()
 {
 	return this->AgentNodeTest::MoveToTarget();
 }
 
 struct METHOD_TYPE_AgentNodeTest_SelectTarget { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_SelectTarget>()
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_SelectTarget>()
 {
 	this->AgentNodeTest::SelectTarget();
 }
 
 struct METHOD_TYPE_AgentNodeTest_setEventVarAgent { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setEventVarAgent>(AgentNodeTest* p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setEventVarAgent>(AgentNodeTest* p0)
 {
 	this->AgentNodeTest::setEventVarAgent(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setEventVarBool { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setEventVarBool>(bool p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setEventVarBool>(bool p0)
 {
 	this->AgentNodeTest::setEventVarBool(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setEventVarFloat { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setEventVarFloat>(float p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setEventVarFloat>(float p0)
 {
 	this->AgentNodeTest::setEventVarFloat(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setEventVarInt { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setEventVarInt>(int p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setEventVarInt>(int p0)
 {
 	this->AgentNodeTest::setEventVarInt(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setTestVar_0 { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_0>(int p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_0>(int p0)
 {
 	this->AgentNodeTest::setTestVar_0(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setTestVar_0_2 { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_0_2>(int p0, float p1)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_0_2>(int p0, float p1)
 {
 	this->AgentNodeTest::setTestVar_0_2(p0, p1);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setTestVar_1 { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_1>(int p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_1>(int p0)
 {
 	this->AgentNodeTest::setTestVar_1(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setTestVar_2 { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_2>(float p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_2>(float p0)
 {
 	this->AgentNodeTest::setTestVar_2(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setTestVar_3 { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_3>(float p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_3>(float p0)
 {
 	this->AgentNodeTest::setTestVar_3(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_setTestVar_R { };
-template<> BEHAVIAC_FORCEINLINE float AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_R>()
+template<>  float AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_R>()
 {
 	return this->AgentNodeTest::setTestVar_R();
 }
 
 struct METHOD_TYPE_AgentNodeTest_Stop { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_Stop>()
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_Stop>()
 {
 	this->AgentNodeTest::Stop();
 }
 
 struct METHOD_TYPE_AgentNodeTest_switchRef { };
-template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_switchRef>(string& p0)
+template<>  behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_switchRef>(string& p0)
 {
 	return this->AgentNodeTest::switchRef(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_testExtendedRefType { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testExtendedRefType>(TestNS::Node* p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testExtendedRefType>(TestNS::Node* p0)
 {
 	this->AgentNodeTest::testExtendedRefType(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_testExtendedStruct { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testExtendedStruct>(TestNS::Float2& p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testExtendedStruct>(TestNS::Float2& p0)
 {
 	this->AgentNodeTest::testExtendedStruct(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_testGameObject { };
-template<> BEHAVIAC_FORCEINLINE void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testGameObject>(UnityEngine::GameObject* p0)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testGameObject>(UnityEngine::GameObject* p0)
 {
 	this->AgentNodeTest::testGameObject(p0);
 }
 
 struct PROPERTY_TYPE_CustomPropertyAgent_BoolMemberReadonly { };
-template<> BEHAVIAC_FORCEINLINE bool& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_BoolMemberReadonly>()
+template<>  bool& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_BoolMemberReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::BoolMemberReadonly);
@@ -844,7 +844,7 @@ template<> BEHAVIAC_FORCEINLINE bool& CustomPropertyAgent::_Get_Property_<PROPER
 }
 
 struct PROPERTY_TYPE_CustomPropertyAgent_FloatPropertyReadonly { };
-template<> BEHAVIAC_FORCEINLINE float& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_FloatPropertyReadonly>()
+template<>  float& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_FloatPropertyReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::FloatPropertyReadonly);
@@ -852,14 +852,14 @@ template<> BEHAVIAC_FORCEINLINE float& CustomPropertyAgent::_Get_Property_<PROPE
 }
 
 struct PROPERTY_TYPE_CustomPropertyAgent_IntMemberConst { };
-template<> BEHAVIAC_FORCEINLINE int& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_IntMemberConst>()
+template<>  int& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_IntMemberConst>()
 {
 	unsigned char* pc = (unsigned char*)(&CustomPropertyAgent::IntMemberConst);
 	return *(reinterpret_cast<int*>(pc));
 }
 
 struct PROPERTY_TYPE_CustomPropertyAgent_IntProperty { };
-template<> BEHAVIAC_FORCEINLINE int& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_IntProperty>()
+template<>  int& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_IntProperty>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::IntProperty);
@@ -867,7 +867,7 @@ template<> BEHAVIAC_FORCEINLINE int& CustomPropertyAgent::_Get_Property_<PROPERT
 }
 
 struct PROPERTY_TYPE_CustomPropertyAgent_Location { };
-template<> BEHAVIAC_FORCEINLINE UnityEngine::Vector3& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_Location>()
+template<>  UnityEngine::Vector3& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_Location>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::Location);
@@ -875,7 +875,7 @@ template<> BEHAVIAC_FORCEINLINE UnityEngine::Vector3& CustomPropertyAgent::_Get_
 }
 
 struct PROPERTY_TYPE_CustomPropertyAgent_StringMemberReadonly { };
-template<> BEHAVIAC_FORCEINLINE string& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_StringMemberReadonly>()
+template<>  string& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_StringMemberReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::StringMemberReadonly);
@@ -883,55 +883,55 @@ template<> BEHAVIAC_FORCEINLINE string& CustomPropertyAgent::_Get_Property_<PROP
 }
 
 struct METHOD_TYPE_CustomPropertyAgent_FnWithOutParam { };
-template<> BEHAVIAC_FORCEINLINE void CustomPropertyAgent::_Execute_Method_<METHOD_TYPE_CustomPropertyAgent_FnWithOutParam>(int& p0)
+template<>  void CustomPropertyAgent::_Execute_Method_<METHOD_TYPE_CustomPropertyAgent_FnWithOutParam>(int& p0)
 {
 	this->CustomPropertyAgent::FnWithOutParam(p0);
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_STV_AGENT_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::Agent*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_AGENT_0>()
+template<>  behaviac::Agent*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_AGENT_0>()
 {
 	unsigned char* pc = (unsigned char*)(&EmployeeParTestAgent::STV_AGENT_0);
 	return *(reinterpret_cast<behaviac::Agent**>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_STV_F_0 { };
-template<> BEHAVIAC_FORCEINLINE float& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_F_0>()
+template<>  float& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_F_0>()
 {
 	unsigned char* pc = (unsigned char*)(&EmployeeParTestAgent::STV_F_0);
 	return *(reinterpret_cast<float*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_AGENT_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<behaviac::Agent*>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_AGENT_0>()
+template<>  behaviac::vector<behaviac::Agent*>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_AGENT_0>()
 {
 	unsigned char* pc = (unsigned char*)(&EmployeeParTestAgent::STV_LIST_AGENT_0);
 	return *(reinterpret_cast<behaviac::vector<behaviac::Agent*>*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_F_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<float>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_F_0>()
+template<>  behaviac::vector<float>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_F_0>()
 {
 	unsigned char* pc = (unsigned char*)(&EmployeeParTestAgent::STV_LIST_F_0);
 	return *(reinterpret_cast<behaviac::vector<float>*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0>()
+template<>  behaviac::vector<string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)(&EmployeeParTestAgent::STV_LIST_STR_0);
 	return *(reinterpret_cast<behaviac::vector<string>*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0 { };
-template<> BEHAVIAC_FORCEINLINE string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0>()
+template<>  string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)(&EmployeeParTestAgent::STV_STR_0);
 	return *(reinterpret_cast<string*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_AGENT_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::Agent*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_AGENT_0>()
+template<>  behaviac::Agent*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_AGENT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_AGENT_0);
@@ -939,7 +939,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::Agent*& EmployeeParTestAgent::_Get_Pro
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_CSZSTR_0 { };
-template<> BEHAVIAC_FORCEINLINE char*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_CSZSTR_0>()
+template<>  char*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_CSZSTR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_CSZSTR_0);
@@ -947,7 +947,7 @@ template<> BEHAVIAC_FORCEINLINE char*& EmployeeParTestAgent::_Get_Property_<PROP
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_D_0 { };
-template<> BEHAVIAC_FORCEINLINE double& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_D_0>()
+template<>  double& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_D_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_D_0);
@@ -955,7 +955,7 @@ template<> BEHAVIAC_FORCEINLINE double& EmployeeParTestAgent::_Get_Property_<PRO
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_F_0 { };
-template<> BEHAVIAC_FORCEINLINE float& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_F_0>()
+template<>  float& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_F_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_F_0);
@@ -963,7 +963,7 @@ template<> BEHAVIAC_FORCEINLINE float& EmployeeParTestAgent::_Get_Property_<PROP
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_AGENT_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<behaviac::Agent*>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_AGENT_0>()
+template<>  behaviac::vector<behaviac::Agent*>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_AGENT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_AGENT_0);
@@ -971,7 +971,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<behaviac::Agent*>& EmployeeParT
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_F_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<float>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_F_0>()
+template<>  behaviac::vector<float>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_F_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_F_0);
@@ -979,7 +979,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<float>& EmployeeParTestAgent::_
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0>()
+template<>  behaviac::vector<string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_STR_0);
@@ -987,7 +987,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<string>& EmployeeParTestAgent::
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LL_0 { };
-template<> BEHAVIAC_FORCEINLINE long long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LL_0>()
+template<>  long long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LL_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LL_0);
@@ -995,7 +995,7 @@ template<> BEHAVIAC_FORCEINLINE long long& EmployeeParTestAgent::_Get_Property_<
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0 { };
-template<> BEHAVIAC_FORCEINLINE string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0>()
+template<>  string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_STR_0);
@@ -1003,7 +1003,7 @@ template<> BEHAVIAC_FORCEINLINE string& EmployeeParTestAgent::_Get_Property_<PRO
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_SZSTR_0 { };
-template<> BEHAVIAC_FORCEINLINE char*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_SZSTR_0>()
+template<>  char*& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_SZSTR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_SZSTR_0);
@@ -1011,7 +1011,7 @@ template<> BEHAVIAC_FORCEINLINE char*& EmployeeParTestAgent::_Get_Property_<PROP
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_UINT_0 { };
-template<> BEHAVIAC_FORCEINLINE unsigned int& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_UINT_0>()
+template<>  unsigned int& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_UINT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_UINT_0);
@@ -1019,7 +1019,7 @@ template<> BEHAVIAC_FORCEINLINE unsigned int& EmployeeParTestAgent::_Get_Propert
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_ULL_0 { };
-template<> BEHAVIAC_FORCEINLINE unsigned long long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_ULL_0>()
+template<>  unsigned long long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_ULL_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_ULL_0);
@@ -1027,7 +1027,7 @@ template<> BEHAVIAC_FORCEINLINE unsigned long long& EmployeeParTestAgent::_Get_P
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_ULONG_0 { };
-template<> BEHAVIAC_FORCEINLINE unsigned long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_ULONG_0>()
+template<>  unsigned long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_ULONG_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_ULONG_0);
@@ -1035,205 +1035,205 @@ template<> BEHAVIAC_FORCEINLINE unsigned long& EmployeeParTestAgent::_Get_Proper
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_AgentIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::Agent* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentIR>(behaviac::Agent* p0)
+template<>  behaviac::Agent* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentIR>(behaviac::Agent* p0)
 {
 	return this->EmployeeParTestAgent::Func_AgentIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_AgentListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<behaviac::Agent*> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentListIR>(behaviac::vector<behaviac::Agent*> p0)
+template<>  behaviac::vector<behaviac::Agent*> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentListIR>(behaviac::vector<behaviac::Agent*> p0)
 {
 	return this->EmployeeParTestAgent::Func_AgentListIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_CSzStringIR { };
-template<> BEHAVIAC_FORCEINLINE const char* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_CSzStringIR>(char* p0)
+template<>  const char* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_CSzStringIR>(char* p0)
 {
 	return this->EmployeeParTestAgent::Func_CSzStringIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_DoubleIR { };
-template<> BEHAVIAC_FORCEINLINE double EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_DoubleIR>(double p0)
+template<>  double EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_DoubleIR>(double p0)
 {
 	return this->EmployeeParTestAgent::Func_DoubleIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_LongLongIR { };
-template<> BEHAVIAC_FORCEINLINE long long EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_LongLongIR>(long long p0)
+template<>  long long EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_LongLongIR>(long long p0)
 {
 	return this->EmployeeParTestAgent::Func_LongLongIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_ParTestAgentBaseIR { };
-template<> BEHAVIAC_FORCEINLINE ParTestAgentBase* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ParTestAgentBaseIR>(ParTestAgentBase* p0)
+template<>  ParTestAgentBase* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ParTestAgentBaseIR>(ParTestAgentBase* p0)
 {
 	return this->EmployeeParTestAgent::Func_ParTestAgentBaseIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_ParTestAgentBaseListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<ParTestAgentBase*> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ParTestAgentBaseListIR>(behaviac::vector<ParTestAgentBase*> p0)
+template<>  behaviac::vector<ParTestAgentBase*> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ParTestAgentBaseListIR>(behaviac::vector<ParTestAgentBase*> p0)
 {
 	return this->EmployeeParTestAgent::Func_ParTestAgentBaseListIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_SingleIR { };
-template<> BEHAVIAC_FORCEINLINE float EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleIR>(float p0)
+template<>  float EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleIR>(float p0)
 {
 	return this->EmployeeParTestAgent::Func_SingleIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_SingleListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<float> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleListIR>(behaviac::vector<float> p0)
+template<>  behaviac::vector<float> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleListIR>(behaviac::vector<float> p0)
 {
 	return this->EmployeeParTestAgent::Func_SingleListIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringIR { };
-template<> BEHAVIAC_FORCEINLINE string EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR>(string& p0)
+template<>  string EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR>(string& p0)
 {
 	return this->EmployeeParTestAgent::Func_StringIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<string> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR>(behaviac::vector<string> p0)
+template<>  behaviac::vector<string> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR>(behaviac::vector<string> p0)
 {
 	return this->EmployeeParTestAgent::Func_StringListIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_SzStringIR { };
-template<> BEHAVIAC_FORCEINLINE char* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SzStringIR>(char* p0)
+template<>  char* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SzStringIR>(char* p0)
 {
 	return this->EmployeeParTestAgent::Func_SzStringIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_UIntIR { };
-template<> BEHAVIAC_FORCEINLINE unsigned int EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_UIntIR>(unsigned int p0)
+template<>  unsigned int EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_UIntIR>(unsigned int p0)
 {
 	return this->EmployeeParTestAgent::Func_UIntIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_ULongIR { };
-template<> BEHAVIAC_FORCEINLINE unsigned long EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongIR>(unsigned long p0)
+template<>  unsigned long EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongIR>(unsigned long p0)
 {
 	return this->EmployeeParTestAgent::Func_ULongIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_ULongLongIR { };
-template<> BEHAVIAC_FORCEINLINE unsigned long long EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongLongIR>(unsigned long long p0)
+template<>  unsigned long long EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongLongIR>(unsigned long long p0)
 {
 	return this->EmployeeParTestAgent::Func_ULongLongIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_AgentListSMF { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<behaviac::Agent*> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentListSMF>(behaviac::vector<behaviac::Agent*> p0)
+template<>  behaviac::vector<behaviac::Agent*> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentListSMF>(behaviac::vector<behaviac::Agent*> p0)
 {
 	return this->EmployeeParTestAgent::Func_AgentListSMF(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_AgentSMF { };
-template<> BEHAVIAC_FORCEINLINE behaviac::Agent* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentSMF>(behaviac::Agent* p0)
+template<>  behaviac::Agent* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentSMF>(behaviac::Agent* p0)
 {
 	return this->EmployeeParTestAgent::Func_AgentSMF(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringListSMF { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<string> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListSMF>(behaviac::vector<string> p0)
+template<>  behaviac::vector<string> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListSMF>(behaviac::vector<string> p0)
 {
 	return this->EmployeeParTestAgent::Func_StringListSMF(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringSMF { };
-template<> BEHAVIAC_FORCEINLINE string EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringSMF>(string& p0)
+template<>  string EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringSMF>(string& p0)
 {
 	return this->EmployeeParTestAgent::Func_StringSMF(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_ULongSMF { };
-template<> BEHAVIAC_FORCEINLINE unsigned long EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongSMF>(unsigned long p0)
+template<>  unsigned long EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongSMF>(unsigned long p0)
 {
 	return this->EmployeeParTestAgent::Func_ULongSMF(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_AgentListRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentListRef>(behaviac::vector<behaviac::Agent*>& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentListRef>(behaviac::vector<behaviac::Agent*>& p0)
 {
 	this->EmployeeParTestAgent::Func_AgentListRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_AgentRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentRef>(behaviac::Agent*& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_AgentRef>(behaviac::Agent*& p0)
 {
 	this->EmployeeParTestAgent::Func_AgentRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_CSzStringRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_CSzStringRef>(char* p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_CSzStringRef>(char* p0)
 {
 	this->EmployeeParTestAgent::Func_CSzStringRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_DoubleRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_DoubleRef>(double& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_DoubleRef>(double& p0)
 {
 	this->EmployeeParTestAgent::Func_DoubleRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_LongLongRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_LongLongRef>(long long& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_LongLongRef>(long long& p0)
 {
 	this->EmployeeParTestAgent::Func_LongLongRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_SingleListRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleListRef>(behaviac::vector<float>& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleListRef>(behaviac::vector<float>& p0)
 {
 	this->EmployeeParTestAgent::Func_SingleListRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_SingleRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleRef>(float& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleRef>(float& p0)
 {
 	this->EmployeeParTestAgent::Func_SingleRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef>(behaviac::vector<string>& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef>(behaviac::vector<string>& p0)
 {
 	this->EmployeeParTestAgent::Func_StringListRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef>(string& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef>(string& p0)
 {
 	this->EmployeeParTestAgent::Func_StringRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_SzStringRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SzStringRef>(char*& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SzStringRef>(char*& p0)
 {
 	this->EmployeeParTestAgent::Func_SzStringRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_UIntRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_UIntRef>(unsigned int& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_UIntRef>(unsigned int& p0)
 {
 	this->EmployeeParTestAgent::Func_UIntRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_ULongLongRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongLongRef>(unsigned long long& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongLongRef>(unsigned long long& p0)
 {
 	this->EmployeeParTestAgent::Func_ULongLongRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_ULongRef { };
-template<> BEHAVIAC_FORCEINLINE void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongRef>(unsigned long& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_ULongRef>(unsigned long& p0)
 {
 	this->EmployeeParTestAgent::Func_ULongRef(p0);
 }
 
 struct PROPERTY_TYPE_FSMAgentTest_Message { };
-template<> BEHAVIAC_FORCEINLINE FSMAgentTest::EMessage& FSMAgentTest::_Get_Property_<PROPERTY_TYPE_FSMAgentTest_Message>()
+template<>  FSMAgentTest::EMessage& FSMAgentTest::_Get_Property_<PROPERTY_TYPE_FSMAgentTest_Message>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(FSMAgentTest, FSMAgentTest::Message);
@@ -1241,166 +1241,166 @@ template<> BEHAVIAC_FORCEINLINE FSMAgentTest::EMessage& FSMAgentTest::_Get_Prope
 }
 
 struct METHOD_TYPE_FSMAgentTest_active_update { };
-template<> BEHAVIAC_FORCEINLINE void FSMAgentTest::_Execute_Method_<METHOD_TYPE_FSMAgentTest_active_update>()
+template<>  void FSMAgentTest::_Execute_Method_<METHOD_TYPE_FSMAgentTest_active_update>()
 {
 	this->FSMAgentTest::active_update();
 }
 
 struct METHOD_TYPE_FSMAgentTest_exit_update { };
-template<> BEHAVIAC_FORCEINLINE void FSMAgentTest::_Execute_Method_<METHOD_TYPE_FSMAgentTest_exit_update>()
+template<>  void FSMAgentTest::_Execute_Method_<METHOD_TYPE_FSMAgentTest_exit_update>()
 {
 	this->FSMAgentTest::exit_update();
 }
 
 struct METHOD_TYPE_FSMAgentTest_inactive_update { };
-template<> BEHAVIAC_FORCEINLINE void FSMAgentTest::_Execute_Method_<METHOD_TYPE_FSMAgentTest_inactive_update>()
+template<>  void FSMAgentTest::_Execute_Method_<METHOD_TYPE_FSMAgentTest_inactive_update>()
 {
 	this->FSMAgentTest::inactive_update();
 }
 
 struct METHOD_TYPE_FSMAgentTest_pause_update { };
-template<> BEHAVIAC_FORCEINLINE void FSMAgentTest::_Execute_Method_<METHOD_TYPE_FSMAgentTest_pause_update>()
+template<>  void FSMAgentTest::_Execute_Method_<METHOD_TYPE_FSMAgentTest_pause_update>()
 {
 	this->FSMAgentTest::pause_update();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_BuildFoundation { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildFoundation>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildFoundation>()
 {
 	this->HTNAgentHouse::BuildFoundation();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_BuildFrame { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildFrame>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildFrame>()
 {
 	this->HTNAgentHouse::BuildFrame();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_BuildInterior { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildInterior>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildInterior>()
 {
 	this->HTNAgentHouse::BuildInterior();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_BuildRoof { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildRoof>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildRoof>()
 {
 	this->HTNAgentHouse::BuildRoof();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_BuildWalls { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildWalls>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuildWalls>()
 {
 	this->HTNAgentHouse::BuildWalls();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_BuyLand { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuyLand>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_BuyLand>()
 {
 	this->HTNAgentHouse::BuyLand();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_CutLogs { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_CutLogs>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_CutLogs>()
 {
 	this->HTNAgentHouse::CutLogs();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_GetFriend { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_GetFriend>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_GetFriend>()
 {
 	this->HTNAgentHouse::GetFriend();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_GetLoan { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_GetLoan>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_GetLoan>()
 {
 	this->HTNAgentHouse::GetLoan();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_HireBuilder { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_HireBuilder>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_HireBuilder>()
 {
 	this->HTNAgentHouse::HireBuilder();
 }
 
 struct METHOD_TYPE_HTNAgentHouse_PayBuilder { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_PayBuilder>()
+template<>  void HTNAgentHouse::_Execute_Method_<METHOD_TYPE_HTNAgentHouse_PayBuilder>()
 {
 	this->HTNAgentHouse::PayBuilder();
 }
 
 struct METHOD_TYPE_HTNAgentTravel_exist_airport { };
-template<> BEHAVIAC_FORCEINLINE bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_airport>(int p0, int& p1)
+template<>  bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_airport>(int p0, int& p1)
 {
 	return this->HTNAgentTravel::exist_airport(p0, p1);
 }
 
 struct METHOD_TYPE_HTNAgentTravel_exist_airports { };
-template<> BEHAVIAC_FORCEINLINE bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_airports>(int p0, behaviac::vector<int>& p1)
+template<>  bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_airports>(int p0, behaviac::vector<int>& p1)
 {
 	return this->HTNAgentTravel::exist_airports(p0, p1);
 }
 
 struct METHOD_TYPE_HTNAgentTravel_exist_finish { };
-template<> BEHAVIAC_FORCEINLINE bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_finish>(int& p0)
+template<>  bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_finish>(int& p0)
 {
 	return this->HTNAgentTravel::exist_finish(p0);
 }
 
 struct METHOD_TYPE_HTNAgentTravel_exist_start { };
-template<> BEHAVIAC_FORCEINLINE bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_start>(int& p0)
+template<>  bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_start>(int& p0)
 {
 	return this->HTNAgentTravel::exist_start(p0);
 }
 
 struct METHOD_TYPE_HTNAgentTravel_fly { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_fly>(int p0, int p1)
+template<>  void HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_fly>(int p0, int p1)
 {
 	this->HTNAgentTravel::fly(p0, p1);
 }
 
 struct METHOD_TYPE_HTNAgentTravel_long_distance { };
-template<> BEHAVIAC_FORCEINLINE bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_long_distance>(int p0, int p1)
+template<>  bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_long_distance>(int p0, int p1)
 {
 	return this->HTNAgentTravel::long_distance(p0, p1);
 }
 
 struct METHOD_TYPE_HTNAgentTravel_ride_taxi { };
-template<> BEHAVIAC_FORCEINLINE void HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_ride_taxi>(int p0, int p1)
+template<>  void HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_ride_taxi>(int p0, int p1)
 {
 	this->HTNAgentTravel::ride_taxi(p0, p1);
 }
 
 struct METHOD_TYPE_HTNAgentTravel_short_distance { };
-template<> BEHAVIAC_FORCEINLINE bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_short_distance>(int p0, int p1)
+template<>  bool HTNAgentTravel::_Execute_Method_<METHOD_TYPE_HTNAgentTravel_short_distance>(int p0, int p1)
 {
 	return this->HTNAgentTravel::short_distance(p0, p1);
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_STV_KEMPLOYEE_0 { };
-template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_KEMPLOYEE_0>()
+template<>  TNS::ST::PER::WRK::kEmployee& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestRegNameAgent::STV_KEMPLOYEE_0);
 	return *(reinterpret_cast<TNS::ST::PER::WRK::kEmployee*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_KEMPLOYEE_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_KEMPLOYEE_0>()
+template<>  behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestRegNameAgent::STV_LIST_KEMPLOYEE_0);
 	return *(reinterpret_cast<behaviac::vector<TNS::ST::PER::WRK::kEmployee>*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_SBYTE_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<signed char>& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_SBYTE_0>()
+template<>  behaviac::vector<signed char>& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_STV_LIST_SBYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)(&ParTestRegNameAgent::STV_LIST_SBYTE_0);
 	return *(reinterpret_cast<behaviac::vector<signed char>*>(pc));
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_TV_AGENT_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::Agent*& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_AGENT_0>()
+template<>  behaviac::Agent*& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_AGENT_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_AGENT_0);
@@ -1408,7 +1408,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::Agent*& ParTestRegNameAgent::_Get_Prop
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_TV_BYTE_0 { };
-template<> BEHAVIAC_FORCEINLINE unsigned char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_BYTE_0>()
+template<>  unsigned char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_BYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_BYTE_0);
@@ -1416,7 +1416,7 @@ template<> BEHAVIAC_FORCEINLINE unsigned char& ParTestRegNameAgent::_Get_Propert
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_TV_CHAR_0 { };
-template<> BEHAVIAC_FORCEINLINE char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_CHAR_0>()
+template<>  char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_CHAR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_CHAR_0);
@@ -1424,7 +1424,7 @@ template<> BEHAVIAC_FORCEINLINE char& ParTestRegNameAgent::_Get_Property_<PROPER
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_TV_KEMPLOYEE_0 { };
-template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_KEMPLOYEE_0>()
+template<>  TNS::ST::PER::WRK::kEmployee& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_KEMPLOYEE_0);
@@ -1432,7 +1432,7 @@ template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee& ParTestRegNameAgen
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_TV_LIST_KEMPLOYEE_0 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_LIST_KEMPLOYEE_0>()
+template<>  behaviac::vector<TNS::ST::PER::WRK::kEmployee>& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_LIST_KEMPLOYEE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_LIST_KEMPLOYEE_0);
@@ -1440,7 +1440,7 @@ template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee>& 
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_TV_SBYTE_0 { };
-template<> BEHAVIAC_FORCEINLINE signed char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_SBYTE_0>()
+template<>  signed char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_SBYTE_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_SBYTE_0);
@@ -1448,7 +1448,7 @@ template<> BEHAVIAC_FORCEINLINE signed char& ParTestRegNameAgent::_Get_Property_
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0 { };
-template<> BEHAVIAC_FORCEINLINE string& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0>()
+template<>  string& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_STR_0);
@@ -1456,55 +1456,55 @@ template<> BEHAVIAC_FORCEINLINE string& ParTestRegNameAgent::_Get_Property_<PROP
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_AgentIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::Agent* ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_AgentIR>(behaviac::Agent* p0)
+template<>  behaviac::Agent* ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_AgentIR>(behaviac::Agent* p0)
 {
 	return this->ParTestRegNameAgent::Func_AgentIR(p0);
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_ByteIR { };
-template<> BEHAVIAC_FORCEINLINE unsigned char ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_ByteIR>(unsigned char p0)
+template<>  unsigned char ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_ByteIR>(unsigned char p0)
 {
 	return this->ParTestRegNameAgent::Func_ByteIR(p0);
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_CharIR { };
-template<> BEHAVIAC_FORCEINLINE char ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_CharIR>(char p0)
+template<>  char ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_CharIR>(char p0)
 {
 	return this->ParTestRegNameAgent::Func_CharIR(p0);
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeIR { };
-template<> BEHAVIAC_FORCEINLINE TNS::ST::PER::WRK::kEmployee ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeIR>(TNS::ST::PER::WRK::kEmployee p0)
+template<>  TNS::ST::PER::WRK::kEmployee ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeIR>(TNS::ST::PER::WRK::kEmployee p0)
 {
 	return this->ParTestRegNameAgent::Func_kEmployeeIR(p0);
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<TNS::ST::PER::WRK::kEmployee> ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeListIR>(behaviac::vector<TNS::ST::PER::WRK::kEmployee> p0)
+template<>  behaviac::vector<TNS::ST::PER::WRK::kEmployee> ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_kEmployeeListIR>(behaviac::vector<TNS::ST::PER::WRK::kEmployee> p0)
 {
 	return this->ParTestRegNameAgent::Func_kEmployeeListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_SByteIR { };
-template<> BEHAVIAC_FORCEINLINE signed char ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_SByteIR>(signed char p0)
+template<>  signed char ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_SByteIR>(signed char p0)
 {
 	return this->ParTestRegNameAgent::Func_SByteIR(p0);
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_SByteListIR { };
-template<> BEHAVIAC_FORCEINLINE behaviac::vector<signed char> ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_SByteListIR>(behaviac::vector<signed char> p0)
+template<>  behaviac::vector<signed char> ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_SByteListIR>(behaviac::vector<signed char> p0)
 {
 	return this->ParTestRegNameAgent::Func_SByteListIR(p0);
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_StringIR { };
-template<> BEHAVIAC_FORCEINLINE string ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_StringIR>(string p0)
+template<>  string ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_StringIR>(string p0)
 {
 	return this->ParTestRegNameAgent::Func_StringIR(p0);
 }
 
 struct PROPERTY_TYPE_PreconEffectorAgent_count_both { };
-template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both>()
+template<>  int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(PreconEffectorAgent, PreconEffectorAgent::count_both);
@@ -1512,7 +1512,7 @@ template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERT
 }
 
 struct PROPERTY_TYPE_PreconEffectorAgent_count_failure { };
-template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure>()
+template<>  int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(PreconEffectorAgent, PreconEffectorAgent::count_failure);
@@ -1520,7 +1520,7 @@ template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERT
 }
 
 struct PROPERTY_TYPE_PreconEffectorAgent_count_success { };
-template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success>()
+template<>  int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(PreconEffectorAgent, PreconEffectorAgent::count_success);
@@ -1528,7 +1528,7 @@ template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERT
 }
 
 struct PROPERTY_TYPE_PreconEffectorAgent_ret { };
-template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret>()
+template<>  int& PreconEffectorAgent::_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(PreconEffectorAgent, PreconEffectorAgent::ret);
@@ -1536,19 +1536,19 @@ template<> BEHAVIAC_FORCEINLINE int& PreconEffectorAgent::_Get_Property_<PROPERT
 }
 
 struct METHOD_TYPE_PreconEffectorAgent_action { };
-template<> BEHAVIAC_FORCEINLINE void PreconEffectorAgent::_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action>()
+template<>  void PreconEffectorAgent::_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action>()
 {
 	this->PreconEffectorAgent::action();
 }
 
 struct METHOD_TYPE_PreconEffectorAgent_fn_return { };
-template<> BEHAVIAC_FORCEINLINE int PreconEffectorAgent::_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_fn_return>()
+template<>  int PreconEffectorAgent::_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_fn_return>()
 {
 	return this->PreconEffectorAgent::fn_return();
 }
 
 struct PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonly { };
-template<> BEHAVIAC_FORCEINLINE int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonly>()
+template<>  int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(PropertyReadonlyAgent, PropertyReadonlyAgent::MemberReadonly);
@@ -1556,7 +1556,7 @@ template<> BEHAVIAC_FORCEINLINE int& PropertyReadonlyAgent::_Get_Property_<PROPE
 }
 
 struct PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonlyAs { };
-template<> BEHAVIAC_FORCEINLINE int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonlyAs>()
+template<>  int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_MemberReadonlyAs>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(PropertyReadonlyAgent, PropertyReadonlyAgent::MemberReadonlyAs);
@@ -1564,44 +1564,44 @@ template<> BEHAVIAC_FORCEINLINE int& PropertyReadonlyAgent::_Get_Property_<PROPE
 }
 
 struct PROPERTY_TYPE_PropertyReadonlyAgent_PropertyGetterOnly { };
-template<> BEHAVIAC_FORCEINLINE int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_PropertyGetterOnly>()
+template<>  int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_PropertyGetterOnly>()
 {
 	return *(int*)&this->GetVariable<int>("PropertyGetterOnly");
 }
 
 struct PROPERTY_TYPE_PropertyReadonlyAgent_PropertyGetterSetter { };
-template<> BEHAVIAC_FORCEINLINE int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_PropertyGetterSetter>()
+template<>  int& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_PropertyGetterSetter>()
 {
 	return *(int*)&this->GetVariable<int>("PropertyGetterSetter");
 }
 
 struct PROPERTY_TYPE_PropertyReadonlyAgent_StaticPropertyGetterSetter { };
-template<> BEHAVIAC_FORCEINLINE float& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_StaticPropertyGetterSetter>()
+template<>  float& PropertyReadonlyAgent::_Get_Property_<PROPERTY_TYPE_PropertyReadonlyAgent_StaticPropertyGetterSetter>()
 {
 	return *(float*)&this->GetVariable<float>("StaticPropertyGetterSetter");
 }
 
 struct METHOD_TYPE_PropertyReadonlyAgent_FnWithOutParam { };
-template<> BEHAVIAC_FORCEINLINE void PropertyReadonlyAgent::_Execute_Method_<METHOD_TYPE_PropertyReadonlyAgent_FnWithOutParam>(int& p0)
+template<>  void PropertyReadonlyAgent::_Execute_Method_<METHOD_TYPE_PropertyReadonlyAgent_FnWithOutParam>(int& p0)
 {
 	this->PropertyReadonlyAgent::FnWithOutParam(p0);
 }
 
 struct METHOD_TYPE_PropertyReadonlyAgent_PassInProperty { };
-template<> BEHAVIAC_FORCEINLINE void PropertyReadonlyAgent::_Execute_Method_<METHOD_TYPE_PropertyReadonlyAgent_PassInProperty>(int p0)
+template<>  void PropertyReadonlyAgent::_Execute_Method_<METHOD_TYPE_PropertyReadonlyAgent_PassInProperty>(int p0)
 {
 	this->PropertyReadonlyAgent::PassInProperty(p0);
 }
 
 struct PROPERTY_TYPE_StaticAgent_sInt { };
-template<> BEHAVIAC_FORCEINLINE int& StaticAgent::_Get_Property_<PROPERTY_TYPE_StaticAgent_sInt>()
+template<>  int& StaticAgent::_Get_Property_<PROPERTY_TYPE_StaticAgent_sInt>()
 {
 	unsigned char* pc = (unsigned char*)(&StaticAgent::sInt);
 	return *(reinterpret_cast<int*>(pc));
 }
 
 struct METHOD_TYPE_StaticAgent_sAction { };
-template<> BEHAVIAC_FORCEINLINE void StaticAgent::_Execute_Method_<METHOD_TYPE_StaticAgent_sAction>()
+template<>  void StaticAgent::_Execute_Method_<METHOD_TYPE_StaticAgent_sAction>()
 {
 	this->StaticAgent::sAction();
 }
@@ -1776,7 +1776,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/action_ut_1_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -1789,7 +1789,7 @@ namespace behaviac
 				DecoratorLoop_bt_node_test_fsm_action_ut_1_2_node8* node8 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_fsm_action_ut_1_2_node8;
 				node8->SetClassNameString("DecoratorLoop");
 				node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node8->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node8);
@@ -1797,7 +1797,7 @@ namespace behaviac
 					Sequence* node0 = BEHAVIAC_NEW Sequence;
 					node0->SetClassNameString("Sequence");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node8->AddChild(node0);
@@ -1805,7 +1805,7 @@ namespace behaviac
 						Compute_bt_node_test_fsm_action_ut_1_2_node3* node3 = BEHAVIAC_NEW Compute_bt_node_test_fsm_action_ut_1_2_node3;
 						node3->SetClassNameString("Compute");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -1815,7 +1815,7 @@ namespace behaviac
 						Action_bt_node_test_fsm_action_ut_1_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_fsm_action_ut_1_2_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node2);
@@ -1825,7 +1825,7 @@ namespace behaviac
 						Assignment_bt_node_test_fsm_action_ut_1_2_node1* node1 = BEHAVIAC_NEW Assignment_bt_node_test_fsm_action_ut_1_2_node1;
 						node1->SetClassNameString("Assignment");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node1);
@@ -1835,7 +1835,7 @@ namespace behaviac
 						Compute_bt_node_test_fsm_action_ut_1_2_node4* node4 = BEHAVIAC_NEW Compute_bt_node_test_fsm_action_ut_1_2_node4;
 						node4->SetClassNameString("Compute");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node4);
@@ -1845,7 +1845,7 @@ namespace behaviac
 						Action_bt_node_test_fsm_action_ut_1_2_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_fsm_action_ut_1_2_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node5);
@@ -1855,7 +1855,7 @@ namespace behaviac
 						Assignment_bt_node_test_fsm_action_ut_1_2_node7* node7 = BEHAVIAC_NEW Assignment_bt_node_test_fsm_action_ut_1_2_node7;
 						node7->SetClassNameString("Assignment");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node7);
@@ -1865,7 +1865,7 @@ namespace behaviac
 						Action_bt_node_test_fsm_action_ut_1_2_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_fsm_action_ut_1_2_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node6);
@@ -1927,7 +1927,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/bt_ref_fsm");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("FSMAgentTest");
 #endif
 			// children
@@ -1935,7 +1935,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("FSMAgentTest");
 #endif
 				pBT->AddChild(node0);
@@ -1943,7 +1943,7 @@ namespace behaviac
 					Assignment_bt_node_test_fsm_bt_ref_fsm_node2* node2 = BEHAVIAC_NEW Assignment_bt_node_test_fsm_bt_ref_fsm_node2;
 					node2->SetClassNameString("Assignment");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("FSMAgentTest");
 #endif
 					node0->AddChild(node2);
@@ -1953,7 +1953,7 @@ namespace behaviac
 					ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1* node1 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1;
 					node1->SetClassNameString("ReferencedBehavior");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("FSMAgentTest");
 #endif
 					node0->AddChild(node1);
@@ -2115,7 +2115,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ref_bt_ut");
 			pBT->SetIsFSM(true);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// attachments
@@ -2125,14 +2125,14 @@ namespace behaviac
 				fsm->SetClassNameString("FSM");
 				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				fsm->SetAgentType("AgentNodeTest");
 #endif
 				{
 					State_bt_node_test_fsm_fsm_ref_bt_ut_node1* node1 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ref_bt_ut_node1;
 					node1->SetClassNameString("State");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -2140,7 +2140,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ref_bt_ut_attach4* attach4 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ref_bt_ut_attach4;
 						attach4->SetClassNameString("Transition");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("AgentNodeTest");
 #endif
 						node1->Attach(attach4, false, false, true);
@@ -2153,7 +2153,7 @@ namespace behaviac
 					State_bt_node_test_fsm_fsm_ref_bt_ut_node3* node3 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ref_bt_ut_node3;
 					node3->SetClassNameString("State");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -2161,7 +2161,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach2* attach2 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach2;
 						attach2->SetClassNameString("Precondition");
 						attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach2->SetAgentType("AgentNodeTest");
 #endif
 						node3->Attach(attach2, true, false, false);
@@ -2174,7 +2174,7 @@ namespace behaviac
 					ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6* node6 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6;
 					node6->SetClassNameString("ReferencedBehavior");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -2182,7 +2182,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach5* attach5 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach5;
 						attach5->SetClassNameString("Precondition");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("AgentNodeTest");
 #endif
 						node6->Attach(attach5, true, false, false);
@@ -2192,7 +2192,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ref_bt_ut_attach9* attach9 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ref_bt_ut_attach9;
 						attach9->SetClassNameString("Transition");
 						attach9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach9->SetAgentType("AgentNodeTest");
 #endif
 						node6->Attach(attach9, false, false, true);
@@ -2567,7 +2567,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ref_fsm_ut");
 			pBT->SetIsFSM(true);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("FSMAgentTest");
 #endif
 			// attachments
@@ -2577,14 +2577,14 @@ namespace behaviac
 				fsm->SetClassNameString("FSM");
 				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				fsm->SetAgentType("FSMAgentTest");
 #endif
 				{
 					State_bt_node_test_fsm_fsm_ref_fsm_ut_node3* node3 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ref_fsm_ut_node3;
 					node3->SetClassNameString("State");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -2592,7 +2592,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach10* attach10 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach10;
 						attach10->SetClassNameString("Precondition");
 						attach10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach10->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach10, true, false, false);
@@ -2602,7 +2602,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach5* attach5 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach5;
 						attach5->SetClassNameString("Transition");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach5, false, false, true);
@@ -2612,7 +2612,7 @@ namespace behaviac
 						Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach14* attach14 = BEHAVIAC_NEW Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach14;
 						attach14->SetClassNameString("Effector");
 						attach14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach14->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach14, false, true, false);
@@ -2622,7 +2622,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach6* attach6 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach6;
 						attach6->SetClassNameString("Transition");
 						attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach6->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach6, false, false, true);
@@ -2635,7 +2635,7 @@ namespace behaviac
 					State_bt_node_test_fsm_fsm_ref_fsm_ut_node2* node2 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ref_fsm_ut_node2;
 					node2->SetClassNameString("State");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -2643,7 +2643,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach12* attach12 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach12;
 						attach12->SetClassNameString("Precondition");
 						attach12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach12->SetAgentType("FSMAgentTest");
 #endif
 						node2->Attach(attach12, true, false, false);
@@ -2653,7 +2653,7 @@ namespace behaviac
 						Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach15* attach15 = BEHAVIAC_NEW Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach15;
 						attach15->SetClassNameString("Effector");
 						attach15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach15->SetAgentType("FSMAgentTest");
 #endif
 						node2->Attach(attach15, false, true, false);
@@ -2666,7 +2666,7 @@ namespace behaviac
 					State_bt_node_test_fsm_fsm_ref_fsm_ut_node4* node4 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ref_fsm_ut_node4;
 					node4->SetClassNameString("State");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -2674,7 +2674,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach13* attach13 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach13;
 						attach13->SetClassNameString("Precondition");
 						attach13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach13->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach13, true, false, false);
@@ -2684,7 +2684,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach8* attach8 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach8;
 						attach8->SetClassNameString("Transition");
 						attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach8->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach8, false, false, true);
@@ -2694,7 +2694,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach9* attach9 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach9;
 						attach9->SetClassNameString("Transition");
 						attach9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach9->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach9, false, false, true);
@@ -2704,7 +2704,7 @@ namespace behaviac
 						Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach16* attach16 = BEHAVIAC_NEW Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach16;
 						attach16->SetClassNameString("Effector");
 						attach16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach16->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach16, false, true, false);
@@ -2717,7 +2717,7 @@ namespace behaviac
 					ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18* node18 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18;
 					node18->SetClassNameString("ReferencedBehavior");
 					node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node18->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -2725,7 +2725,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach11* attach11 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach11;
 						attach11->SetClassNameString("Precondition");
 						attach11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach11->SetAgentType("FSMAgentTest");
 #endif
 						node18->Attach(attach11, true, false, false);
@@ -2735,7 +2735,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach7* attach7 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach7;
 						attach7->SetClassNameString("Transition");
 						attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach7->SetAgentType("FSMAgentTest");
 #endif
 						node18->Attach(attach7, false, false, true);
@@ -2745,7 +2745,7 @@ namespace behaviac
 						Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach17* attach17 = BEHAVIAC_NEW Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach17;
 						attach17->SetClassNameString("Effector");
 						attach17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach17->SetAgentType("FSMAgentTest");
 #endif
 						node18->Attach(attach17, false, true, false);
@@ -3029,7 +3029,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ut_0");
 			pBT->SetIsFSM(true);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("FSMAgentTest");
 #endif
 			// attachments
@@ -3039,14 +3039,14 @@ namespace behaviac
 				fsm->SetClassNameString("FSM");
 				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				fsm->SetAgentType("FSMAgentTest");
 #endif
 				{
 					State_bt_node_test_fsm_fsm_ut_0_node3* node3 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ut_0_node3;
 					node3->SetClassNameString("State");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -3054,7 +3054,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_0_attach10* attach10 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_0_attach10;
 						attach10->SetClassNameString("Precondition");
 						attach10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach10->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach10, true, false, false);
@@ -3064,7 +3064,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_0_attach2* attach2 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_0_attach2;
 						attach2->SetClassNameString("Precondition");
 						attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach2->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach2, true, false, false);
@@ -3074,7 +3074,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_0_attach5* attach5 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_0_attach5;
 						attach5->SetClassNameString("Transition");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach5, false, false, true);
@@ -3087,7 +3087,7 @@ namespace behaviac
 					State_bt_node_test_fsm_fsm_ut_0_node1* node1 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ut_0_node1;
 					node1->SetClassNameString("State");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -3095,7 +3095,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_0_attach6* attach6 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_0_attach6;
 						attach6->SetClassNameString("Precondition");
 						attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach6->SetAgentType("FSMAgentTest");
 #endif
 						node1->Attach(attach6, true, false, false);
@@ -3105,7 +3105,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_0_attach11* attach11 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_0_attach11;
 						attach11->SetClassNameString("Precondition");
 						attach11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach11->SetAgentType("FSMAgentTest");
 #endif
 						node1->Attach(attach11, true, false, false);
@@ -3115,7 +3115,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_0_attach7* attach7 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_0_attach7;
 						attach7->SetClassNameString("Transition");
 						attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach7->SetAgentType("FSMAgentTest");
 #endif
 						node1->Attach(attach7, false, false, true);
@@ -3125,7 +3125,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_0_attach12* attach12 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_0_attach12;
 						attach12->SetClassNameString("Transition");
 						attach12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach12->SetAgentType("FSMAgentTest");
 #endif
 						node1->Attach(attach12, false, false, true);
@@ -3138,7 +3138,7 @@ namespace behaviac
 					State_bt_node_test_fsm_fsm_ut_0_node4* node4 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ut_0_node4;
 					node4->SetClassNameString("State");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -3146,7 +3146,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_0_attach9* attach9 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_0_attach9;
 						attach9->SetClassNameString("Precondition");
 						attach9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach9->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach9, true, false, false);
@@ -3156,7 +3156,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_0_attach8* attach8 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_0_attach8;
 						attach8->SetClassNameString("Transition");
 						attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach8->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach8, false, false, true);
@@ -3558,7 +3558,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/fsm/fsm_ut_1");
 			pBT->SetIsFSM(true);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("FSMAgentTest");
 #endif
 			// attachments
@@ -3568,14 +3568,14 @@ namespace behaviac
 				fsm->SetClassNameString("FSM");
 				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				fsm->SetAgentType("FSMAgentTest");
 #endif
 				{
 					State_bt_node_test_fsm_fsm_ut_1_node3* node3 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ut_1_node3;
 					node3->SetClassNameString("State");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -3583,7 +3583,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_1_attach10* attach10 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_1_attach10;
 						attach10->SetClassNameString("Precondition");
 						attach10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach10->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach10, true, false, false);
@@ -3593,7 +3593,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_1_attach5* attach5 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_1_attach5;
 						attach5->SetClassNameString("Transition");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach5, false, false, true);
@@ -3603,7 +3603,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_1_attach6* attach6 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_1_attach6;
 						attach6->SetClassNameString("Transition");
 						attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach6->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach6, false, false, true);
@@ -3613,7 +3613,7 @@ namespace behaviac
 						Effector_bt_node_test_fsm_fsm_ut_1_attach14* attach14 = BEHAVIAC_NEW Effector_bt_node_test_fsm_fsm_ut_1_attach14;
 						attach14->SetClassNameString("Effector");
 						attach14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach14->SetAgentType("FSMAgentTest");
 #endif
 						node3->Attach(attach14, false, true, false);
@@ -3626,7 +3626,7 @@ namespace behaviac
 					State_bt_node_test_fsm_fsm_ut_1_node1* node1 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ut_1_node1;
 					node1->SetClassNameString("State");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -3634,7 +3634,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_1_attach11* attach11 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_1_attach11;
 						attach11->SetClassNameString("Precondition");
 						attach11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach11->SetAgentType("FSMAgentTest");
 #endif
 						node1->Attach(attach11, true, false, false);
@@ -3644,7 +3644,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_1_attach7* attach7 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_1_attach7;
 						attach7->SetClassNameString("Transition");
 						attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach7->SetAgentType("FSMAgentTest");
 #endif
 						node1->Attach(attach7, false, false, true);
@@ -3654,7 +3654,7 @@ namespace behaviac
 						Effector_bt_node_test_fsm_fsm_ut_1_attach17* attach17 = BEHAVIAC_NEW Effector_bt_node_test_fsm_fsm_ut_1_attach17;
 						attach17->SetClassNameString("Effector");
 						attach17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach17->SetAgentType("FSMAgentTest");
 #endif
 						node1->Attach(attach17, false, true, false);
@@ -3667,7 +3667,7 @@ namespace behaviac
 					State_bt_node_test_fsm_fsm_ut_1_node2* node2 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ut_1_node2;
 					node2->SetClassNameString("State");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -3675,7 +3675,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_1_attach12* attach12 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_1_attach12;
 						attach12->SetClassNameString("Precondition");
 						attach12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach12->SetAgentType("FSMAgentTest");
 #endif
 						node2->Attach(attach12, true, false, false);
@@ -3685,7 +3685,7 @@ namespace behaviac
 						Effector_bt_node_test_fsm_fsm_ut_1_attach15* attach15 = BEHAVIAC_NEW Effector_bt_node_test_fsm_fsm_ut_1_attach15;
 						attach15->SetClassNameString("Effector");
 						attach15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach15->SetAgentType("FSMAgentTest");
 #endif
 						node2->Attach(attach15, false, true, false);
@@ -3698,7 +3698,7 @@ namespace behaviac
 					State_bt_node_test_fsm_fsm_ut_1_node4* node4 = BEHAVIAC_NEW State_bt_node_test_fsm_fsm_ut_1_node4;
 					node4->SetClassNameString("State");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -3706,7 +3706,7 @@ namespace behaviac
 						Precondition_bt_node_test_fsm_fsm_ut_1_attach13* attach13 = BEHAVIAC_NEW Precondition_bt_node_test_fsm_fsm_ut_1_attach13;
 						attach13->SetClassNameString("Precondition");
 						attach13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach13->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach13, true, false, false);
@@ -3716,7 +3716,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_1_attach8* attach8 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_1_attach8;
 						attach8->SetClassNameString("Transition");
 						attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach8->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach8, false, false, true);
@@ -3726,7 +3726,7 @@ namespace behaviac
 						Transition_bt_node_test_fsm_fsm_ut_1_attach9* attach9 = BEHAVIAC_NEW Transition_bt_node_test_fsm_fsm_ut_1_attach9;
 						attach9->SetClassNameString("Transition");
 						attach9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach9->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach9, false, false, true);
@@ -3736,7 +3736,7 @@ namespace behaviac
 						Effector_bt_node_test_fsm_fsm_ut_1_attach16* attach16 = BEHAVIAC_NEW Effector_bt_node_test_fsm_fsm_ut_1_attach16;
 						attach16->SetClassNameString("Effector");
 						attach16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach16->SetAgentType("FSMAgentTest");
 #endif
 						node4->Attach(attach16, false, true, false);
@@ -3749,7 +3749,7 @@ namespace behaviac
 					WaitFramesState_bt_node_test_fsm_fsm_ut_1_node18* node18 = BEHAVIAC_NEW WaitFramesState_bt_node_test_fsm_fsm_ut_1_node18;
 					node18->SetClassNameString("WaitFramesState");
 					node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node18->SetAgentType("FSMAgentTest");
 #endif
 					// attachments
@@ -3757,7 +3757,7 @@ namespace behaviac
 						WaitTransition_bt_node_test_fsm_fsm_ut_1_attach20* attach20 = BEHAVIAC_NEW WaitTransition_bt_node_test_fsm_fsm_ut_1_attach20;
 						attach20->SetClassNameString("WaitTransition");
 						attach20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach20->SetAgentType("FSMAgentTest");
 #endif
 						node18->Attach(attach20, false, false, true);
@@ -4214,7 +4214,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/house/build_house");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("HTNAgentHouse");
 #endif
 			// children
@@ -4222,7 +4222,7 @@ namespace behaviac
 				Task_bt_node_test_htn_house_build_house_node7* node7 = BEHAVIAC_NEW Task_bt_node_test_htn_house_build_house_node7;
 				node7->SetClassNameString("Task");
 				node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node7->SetAgentType("HTNAgentHouse");
 #endif
 				// attachments
@@ -4230,7 +4230,7 @@ namespace behaviac
 					Precondition_bt_node_test_htn_house_build_house_attach0* attach0 = BEHAVIAC_NEW Precondition_bt_node_test_htn_house_build_house_attach0;
 					attach0->SetClassNameString("Precondition");
 					attach0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach0->SetAgentType("HTNAgentHouse");
 #endif
 					node7->Attach(attach0, true, false, false);
@@ -4240,7 +4240,7 @@ namespace behaviac
 					Effector_bt_node_test_htn_house_build_house_attach1* attach1 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_build_house_attach1;
 					attach1->SetClassNameString("Effector");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("HTNAgentHouse");
 #endif
 					node7->Attach(attach1, false, true, false);
@@ -4251,7 +4251,7 @@ namespace behaviac
 					Method* node2 = BEHAVIAC_NEW Method;
 					node2->SetClassNameString("Method");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("HTNAgentHouse");
 #endif
 					node7->AddChild(node2);
@@ -4259,7 +4259,7 @@ namespace behaviac
 						Sequence* node17 = BEHAVIAC_NEW Sequence;
 						node17->SetClassNameString("Sequence");
 						node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node17->SetAgentType("HTNAgentHouse");
 #endif
 						node2->AddChild(node17);
@@ -4267,7 +4267,7 @@ namespace behaviac
 							Parallel_bt_node_test_htn_house_build_house_node4* node4 = BEHAVIAC_NEW Parallel_bt_node_test_htn_house_build_house_node4;
 							node4->SetClassNameString("Parallel");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("HTNAgentHouse");
 #endif
 							node17->AddChild(node4);
@@ -4275,7 +4275,7 @@ namespace behaviac
 								Action_bt_node_test_htn_house_build_house_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_htn_house_build_house_node5;
 								node5->SetClassNameString("Action");
 								node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node5->SetAgentType("HTNAgentHouse");
 #endif
 								// attachments
@@ -4283,7 +4283,7 @@ namespace behaviac
 									Precondition_bt_node_test_htn_house_build_house_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_htn_house_build_house_attach3;
 									attach3->SetClassNameString("Precondition");
 									attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach3->SetAgentType("HTNAgentHouse");
 #endif
 									node5->Attach(attach3, true, false, false);
@@ -4293,7 +4293,7 @@ namespace behaviac
 									Effector_bt_node_test_htn_house_build_house_attach6* attach6 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_build_house_attach6;
 									attach6->SetClassNameString("Effector");
 									attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach6->SetAgentType("HTNAgentHouse");
 #endif
 									node5->Attach(attach6, false, true, false);
@@ -4306,7 +4306,7 @@ namespace behaviac
 								Action_bt_node_test_htn_house_build_house_node18* node18 = BEHAVIAC_NEW Action_bt_node_test_htn_house_build_house_node18;
 								node18->SetClassNameString("Action");
 								node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node18->SetAgentType("HTNAgentHouse");
 #endif
 								// attachments
@@ -4314,7 +4314,7 @@ namespace behaviac
 									Effector_bt_node_test_htn_house_build_house_attach8* attach8 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_build_house_attach8;
 									attach8->SetClassNameString("Effector");
 									attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach8->SetAgentType("HTNAgentHouse");
 #endif
 									node18->Attach(attach8, false, true, false);
@@ -4329,7 +4329,7 @@ namespace behaviac
 							ReferencedBehavior_bt_node_test_htn_house_build_house_node20* node20 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_htn_house_build_house_node20;
 							node20->SetClassNameString("ReferencedBehavior");
 							node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node20->SetAgentType("HTNAgentHouse");
 #endif
 							node17->AddChild(node20);
@@ -4339,7 +4339,7 @@ namespace behaviac
 							Action_bt_node_test_htn_house_build_house_node19* node19 = BEHAVIAC_NEW Action_bt_node_test_htn_house_build_house_node19;
 							node19->SetClassNameString("Action");
 							node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node19->SetAgentType("HTNAgentHouse");
 #endif
 							// attachments
@@ -4347,7 +4347,7 @@ namespace behaviac
 								Precondition_bt_node_test_htn_house_build_house_attach27* attach27 = BEHAVIAC_NEW Precondition_bt_node_test_htn_house_build_house_attach27;
 								attach27->SetClassNameString("Precondition");
 								attach27->SetId(27);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach27->SetAgentType("HTNAgentHouse");
 #endif
 								node19->Attach(attach27, true, false, false);
@@ -4357,7 +4357,7 @@ namespace behaviac
 								Precondition_bt_node_test_htn_house_build_house_attach9* attach9 = BEHAVIAC_NEW Precondition_bt_node_test_htn_house_build_house_attach9;
 								attach9->SetClassNameString("Precondition");
 								attach9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach9->SetAgentType("HTNAgentHouse");
 #endif
 								node19->Attach(attach9, true, false, false);
@@ -4367,7 +4367,7 @@ namespace behaviac
 								Effector_bt_node_test_htn_house_build_house_attach10* attach10 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_build_house_attach10;
 								attach10->SetClassNameString("Effector");
 								attach10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach10->SetAgentType("HTNAgentHouse");
 #endif
 								node19->Attach(attach10, false, true, false);
@@ -4377,7 +4377,7 @@ namespace behaviac
 								Effector_bt_node_test_htn_house_build_house_attach11* attach11 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_build_house_attach11;
 								attach11->SetClassNameString("Effector");
 								attach11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach11->SetAgentType("HTNAgentHouse");
 #endif
 								node19->Attach(attach11, false, true, false);
@@ -4387,7 +4387,7 @@ namespace behaviac
 								Effector_bt_node_test_htn_house_build_house_attach12* attach12 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_build_house_attach12;
 								attach12->SetClassNameString("Effector");
 								attach12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach12->SetAgentType("HTNAgentHouse");
 #endif
 								node19->Attach(attach12, false, true, false);
@@ -4404,7 +4404,7 @@ namespace behaviac
 					Method* node21 = BEHAVIAC_NEW Method;
 					node21->SetClassNameString("Method");
 					node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node21->SetAgentType("HTNAgentHouse");
 #endif
 					node7->AddChild(node21);
@@ -4412,7 +4412,7 @@ namespace behaviac
 						Sequence* node22 = BEHAVIAC_NEW Sequence;
 						node22->SetClassNameString("Sequence");
 						node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node22->SetAgentType("HTNAgentHouse");
 #endif
 						node21->AddChild(node22);
@@ -4420,7 +4420,7 @@ namespace behaviac
 							Parallel_bt_node_test_htn_house_build_house_node23* node23 = BEHAVIAC_NEW Parallel_bt_node_test_htn_house_build_house_node23;
 							node23->SetClassNameString("Parallel");
 							node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node23->SetAgentType("HTNAgentHouse");
 #endif
 							node22->AddChild(node23);
@@ -4428,7 +4428,7 @@ namespace behaviac
 								Sequence* node14 = BEHAVIAC_NEW Sequence;
 								node14->SetClassNameString("Sequence");
 								node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node14->SetAgentType("HTNAgentHouse");
 #endif
 								node23->AddChild(node14);
@@ -4436,7 +4436,7 @@ namespace behaviac
 									Action_bt_node_test_htn_house_build_house_node28* node28 = BEHAVIAC_NEW Action_bt_node_test_htn_house_build_house_node28;
 									node28->SetClassNameString("Action");
 									node28->SetId(28);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node28->SetAgentType("HTNAgentHouse");
 #endif
 									// attachments
@@ -4444,7 +4444,7 @@ namespace behaviac
 										Precondition_bt_node_test_htn_house_build_house_attach15* attach15 = BEHAVIAC_NEW Precondition_bt_node_test_htn_house_build_house_attach15;
 										attach15->SetClassNameString("Precondition");
 										attach15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										attach15->SetAgentType("HTNAgentHouse");
 #endif
 										node28->Attach(attach15, true, false, false);
@@ -4454,7 +4454,7 @@ namespace behaviac
 										Effector_bt_node_test_htn_house_build_house_attach16* attach16 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_build_house_attach16;
 										attach16->SetClassNameString("Effector");
 										attach16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										attach16->SetAgentType("HTNAgentHouse");
 #endif
 										node28->Attach(attach16, false, true, false);
@@ -4467,7 +4467,7 @@ namespace behaviac
 									Action_bt_node_test_htn_house_build_house_node24* node24 = BEHAVIAC_NEW Action_bt_node_test_htn_house_build_house_node24;
 									node24->SetClassNameString("Action");
 									node24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node24->SetAgentType("HTNAgentHouse");
 #endif
 									node14->AddChild(node24);
@@ -4479,7 +4479,7 @@ namespace behaviac
 								Action_bt_node_test_htn_house_build_house_node25* node25 = BEHAVIAC_NEW Action_bt_node_test_htn_house_build_house_node25;
 								node25->SetClassNameString("Action");
 								node25->SetId(25);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node25->SetAgentType("HTNAgentHouse");
 #endif
 								node23->AddChild(node25);
@@ -4491,7 +4491,7 @@ namespace behaviac
 							ReferencedBehavior_bt_node_test_htn_house_build_house_node26* node26 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_htn_house_build_house_node26;
 							node26->SetClassNameString("ReferencedBehavior");
 							node26->SetId(26);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node26->SetAgentType("HTNAgentHouse");
 #endif
 							node22->AddChild(node26);
@@ -4672,7 +4672,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/house/construct");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("HTNAgentHouse");
 #endif
 			// children
@@ -4680,7 +4680,7 @@ namespace behaviac
 				Task_bt_node_test_htn_house_construct_node0* node0 = BEHAVIAC_NEW Task_bt_node_test_htn_house_construct_node0;
 				node0->SetClassNameString("Task");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("HTNAgentHouse");
 #endif
 				// attachments
@@ -4688,7 +4688,7 @@ namespace behaviac
 					Precondition_bt_node_test_htn_house_construct_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_htn_house_construct_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("HTNAgentHouse");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -4698,7 +4698,7 @@ namespace behaviac
 					Effector_bt_node_test_htn_house_construct_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_construct_attach2;
 					attach2->SetClassNameString("Effector");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("HTNAgentHouse");
 #endif
 					node0->Attach(attach2, false, true, false);
@@ -4709,7 +4709,7 @@ namespace behaviac
 					Method* node9 = BEHAVIAC_NEW Method;
 					node9->SetClassNameString("Method");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("HTNAgentHouse");
 #endif
 					node0->AddChild(node9);
@@ -4717,7 +4717,7 @@ namespace behaviac
 						Sequence* node10 = BEHAVIAC_NEW Sequence;
 						node10->SetClassNameString("Sequence");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("HTNAgentHouse");
 #endif
 						node9->AddChild(node10);
@@ -4725,7 +4725,7 @@ namespace behaviac
 							Action_bt_node_test_htn_house_construct_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_htn_house_construct_node3;
 							node3->SetClassNameString("Action");
 							node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node3->SetAgentType("HTNAgentHouse");
 #endif
 							node10->AddChild(node3);
@@ -4735,7 +4735,7 @@ namespace behaviac
 							Action_bt_node_test_htn_house_construct_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_htn_house_construct_node4;
 							node4->SetClassNameString("Action");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("HTNAgentHouse");
 #endif
 							node10->AddChild(node4);
@@ -4745,7 +4745,7 @@ namespace behaviac
 							Parallel_bt_node_test_htn_house_construct_node5* node5 = BEHAVIAC_NEW Parallel_bt_node_test_htn_house_construct_node5;
 							node5->SetClassNameString("Parallel");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("HTNAgentHouse");
 #endif
 							node10->AddChild(node5);
@@ -4753,7 +4753,7 @@ namespace behaviac
 								Action_bt_node_test_htn_house_construct_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_htn_house_construct_node6;
 								node6->SetClassNameString("Action");
 								node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node6->SetAgentType("HTNAgentHouse");
 #endif
 								node5->AddChild(node6);
@@ -4763,7 +4763,7 @@ namespace behaviac
 								Action_bt_node_test_htn_house_construct_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_htn_house_construct_node7;
 								node7->SetClassNameString("Action");
 								node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node7->SetAgentType("HTNAgentHouse");
 #endif
 								node5->AddChild(node7);
@@ -4775,7 +4775,7 @@ namespace behaviac
 							Action_bt_node_test_htn_house_construct_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_htn_house_construct_node8;
 							node8->SetClassNameString("Action");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("HTNAgentHouse");
 #endif
 							node10->AddChild(node8);
@@ -5008,7 +5008,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/house/root");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("HTNAgentHouse");
 #endif
 			// children
@@ -5016,7 +5016,7 @@ namespace behaviac
 				Task_bt_node_test_htn_house_root_node1* node1 = BEHAVIAC_NEW Task_bt_node_test_htn_house_root_node1;
 				node1->SetClassNameString("Task");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("HTNAgentHouse");
 #endif
 				pBT->AddChild(node1);
@@ -5024,7 +5024,7 @@ namespace behaviac
 					Method* node0 = BEHAVIAC_NEW Method;
 					node0->SetClassNameString("Method");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("HTNAgentHouse");
 #endif
 					node1->AddChild(node0);
@@ -5032,7 +5032,7 @@ namespace behaviac
 						Sequence* node2 = BEHAVIAC_NEW Sequence;
 						node2->SetClassNameString("Sequence");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("HTNAgentHouse");
 #endif
 						node0->AddChild(node2);
@@ -5040,7 +5040,7 @@ namespace behaviac
 							Parallel_bt_node_test_htn_house_root_node12* node12 = BEHAVIAC_NEW Parallel_bt_node_test_htn_house_root_node12;
 							node12->SetClassNameString("Parallel");
 							node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node12->SetAgentType("HTNAgentHouse");
 #endif
 							node2->AddChild(node12);
@@ -5048,7 +5048,7 @@ namespace behaviac
 								Action_bt_node_test_htn_house_root_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_htn_house_root_node4;
 								node4->SetClassNameString("Action");
 								node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node4->SetAgentType("HTNAgentHouse");
 #endif
 								// attachments
@@ -5056,7 +5056,7 @@ namespace behaviac
 									Precondition_bt_node_test_htn_house_root_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_htn_house_root_attach3;
 									attach3->SetClassNameString("Precondition");
 									attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach3->SetAgentType("HTNAgentHouse");
 #endif
 									node4->Attach(attach3, true, false, false);
@@ -5066,7 +5066,7 @@ namespace behaviac
 									Effector_bt_node_test_htn_house_root_attach5* attach5 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_root_attach5;
 									attach5->SetClassNameString("Effector");
 									attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach5->SetAgentType("HTNAgentHouse");
 #endif
 									node4->Attach(attach5, false, true, false);
@@ -5076,7 +5076,7 @@ namespace behaviac
 									Effector_bt_node_test_htn_house_root_attach6* attach6 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_root_attach6;
 									attach6->SetClassNameString("Effector");
 									attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach6->SetAgentType("HTNAgentHouse");
 #endif
 									node4->Attach(attach6, false, true, false);
@@ -5089,7 +5089,7 @@ namespace behaviac
 								Action_bt_node_test_htn_house_root_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_htn_house_root_node8;
 								node8->SetClassNameString("Action");
 								node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node8->SetAgentType("HTNAgentHouse");
 #endif
 								// attachments
@@ -5097,7 +5097,7 @@ namespace behaviac
 									Precondition_bt_node_test_htn_house_root_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_node_test_htn_house_root_attach7;
 									attach7->SetClassNameString("Precondition");
 									attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach7->SetAgentType("HTNAgentHouse");
 #endif
 									node8->Attach(attach7, true, false, false);
@@ -5107,7 +5107,7 @@ namespace behaviac
 									Effector_bt_node_test_htn_house_root_attach9* attach9 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_root_attach9;
 									attach9->SetClassNameString("Effector");
 									attach9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach9->SetAgentType("HTNAgentHouse");
 #endif
 									node8->Attach(attach9, false, true, false);
@@ -5117,7 +5117,7 @@ namespace behaviac
 									Effector_bt_node_test_htn_house_root_attach10* attach10 = BEHAVIAC_NEW Effector_bt_node_test_htn_house_root_attach10;
 									attach10->SetClassNameString("Effector");
 									attach10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach10->SetAgentType("HTNAgentHouse");
 #endif
 									node8->Attach(attach10, false, true, false);
@@ -5132,7 +5132,7 @@ namespace behaviac
 							ReferencedBehavior_bt_node_test_htn_house_root_node11* node11 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_htn_house_root_node11;
 							node11->SetClassNameString("ReferencedBehavior");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("HTNAgentHouse");
 #endif
 							node2->AddChild(node11);
@@ -5243,7 +5243,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/travel/root");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("HTNAgentTravel");
 #endif
 			// pars
@@ -5254,7 +5254,7 @@ namespace behaviac
 				Task_bt_node_test_htn_travel_root_node1* node1 = BEHAVIAC_NEW Task_bt_node_test_htn_travel_root_node1;
 				node1->SetClassNameString("Task");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("HTNAgentTravel");
 #endif
 				pBT->AddChild(node1);
@@ -5262,7 +5262,7 @@ namespace behaviac
 					Method* node2 = BEHAVIAC_NEW Method;
 					node2->SetClassNameString("Method");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("HTNAgentTravel");
 #endif
 					// attachments
@@ -5270,7 +5270,7 @@ namespace behaviac
 						Precondition_bt_node_test_htn_travel_root_attach0* attach0 = BEHAVIAC_NEW Precondition_bt_node_test_htn_travel_root_attach0;
 						attach0->SetClassNameString("Precondition");
 						attach0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach0->SetAgentType("HTNAgentTravel");
 #endif
 						node2->Attach(attach0, true, false, false);
@@ -5280,7 +5280,7 @@ namespace behaviac
 						Precondition_bt_node_test_htn_travel_root_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_htn_travel_root_attach3;
 						attach3->SetClassNameString("Precondition");
 						attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach3->SetAgentType("HTNAgentTravel");
 #endif
 						node2->Attach(attach3, true, false, false);
@@ -5291,7 +5291,7 @@ namespace behaviac
 						ReferencedBehavior_bt_node_test_htn_travel_root_node4* node4 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_htn_travel_root_node4;
 						node4->SetClassNameString("ReferencedBehavior");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("HTNAgentTravel");
 #endif
 						node2->AddChild(node4);
@@ -5421,7 +5421,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/travel/travel");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("HTNAgentTravel");
 #endif
 			// pars
@@ -5432,7 +5432,7 @@ namespace behaviac
 				Task_bt_node_test_htn_travel_travel_node0* node0 = BEHAVIAC_NEW Task_bt_node_test_htn_travel_travel_node0;
 				node0->SetClassNameString("Task");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("HTNAgentTravel");
 #endif
 				pBT->AddChild(node0);
@@ -5440,7 +5440,7 @@ namespace behaviac
 					Method* node2 = BEHAVIAC_NEW Method;
 					node2->SetClassNameString("Method");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("HTNAgentTravel");
 #endif
 					// attachments
@@ -5448,7 +5448,7 @@ namespace behaviac
 						Precondition_bt_node_test_htn_travel_travel_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_htn_travel_travel_attach1;
 						attach1->SetClassNameString("Precondition");
 						attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach1->SetAgentType("HTNAgentTravel");
 #endif
 						node2->Attach(attach1, true, false, false);
@@ -5459,7 +5459,7 @@ namespace behaviac
 						Action_bt_node_test_htn_travel_travel_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_htn_travel_travel_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("HTNAgentTravel");
 #endif
 						node2->AddChild(node3);
@@ -5471,7 +5471,7 @@ namespace behaviac
 					Method* node5 = BEHAVIAC_NEW Method;
 					node5->SetClassNameString("Method");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("HTNAgentTravel");
 #endif
 					// attachments
@@ -5479,7 +5479,7 @@ namespace behaviac
 						Precondition_bt_node_test_htn_travel_travel_attach4* attach4 = BEHAVIAC_NEW Precondition_bt_node_test_htn_travel_travel_attach4;
 						attach4->SetClassNameString("Precondition");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("HTNAgentTravel");
 #endif
 						node5->Attach(attach4, true, false, false);
@@ -5490,7 +5490,7 @@ namespace behaviac
 						ReferencedBehavior_bt_node_test_htn_travel_travel_node6* node6 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_htn_travel_travel_node6;
 						node6->SetClassNameString("ReferencedBehavior");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("HTNAgentTravel");
 #endif
 						node5->AddChild(node6);
@@ -5659,7 +5659,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/htn/travel/travel_by_air");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("HTNAgentTravel");
 #endif
 			// pars
@@ -5673,7 +5673,7 @@ namespace behaviac
 				Task_bt_node_test_htn_travel_travel_by_air_node0* node0 = BEHAVIAC_NEW Task_bt_node_test_htn_travel_travel_by_air_node0;
 				node0->SetClassNameString("Task");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("HTNAgentTravel");
 #endif
 				pBT->AddChild(node0);
@@ -5681,7 +5681,7 @@ namespace behaviac
 					Method* node1 = BEHAVIAC_NEW Method;
 					node1->SetClassNameString("Method");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("HTNAgentTravel");
 #endif
 					// attachments
@@ -5689,7 +5689,7 @@ namespace behaviac
 						Precondition_bt_node_test_htn_travel_travel_by_air_attach2* attach2 = BEHAVIAC_NEW Precondition_bt_node_test_htn_travel_travel_by_air_attach2;
 						attach2->SetClassNameString("Precondition");
 						attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach2->SetAgentType("HTNAgentTravel");
 #endif
 						node1->Attach(attach2, true, false, false);
@@ -5699,7 +5699,7 @@ namespace behaviac
 						Precondition_bt_node_test_htn_travel_travel_by_air_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_htn_travel_travel_by_air_attach3;
 						attach3->SetClassNameString("Precondition");
 						attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach3->SetAgentType("HTNAgentTravel");
 #endif
 						node1->Attach(attach3, true, false, false);
@@ -5710,7 +5710,7 @@ namespace behaviac
 						DecoratorIterator_bt_node_test_htn_travel_travel_by_air_node5* node5 = BEHAVIAC_NEW DecoratorIterator_bt_node_test_htn_travel_travel_by_air_node5;
 						node5->SetClassNameString("DecoratorIterator");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("HTNAgentTravel");
 #endif
 						node1->AddChild(node5);
@@ -5718,7 +5718,7 @@ namespace behaviac
 							Sequence* node6 = BEHAVIAC_NEW Sequence;
 							node6->SetClassNameString("Sequence");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("HTNAgentTravel");
 #endif
 							node5->AddChild(node6);
@@ -5726,7 +5726,7 @@ namespace behaviac
 								ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8* node8 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8;
 								node8->SetClassNameString("ReferencedBehavior");
 								node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node8->SetAgentType("HTNAgentTravel");
 #endif
 								node6->AddChild(node8);
@@ -5736,7 +5736,7 @@ namespace behaviac
 								Action_bt_node_test_htn_travel_travel_by_air_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_htn_travel_travel_by_air_node7;
 								node7->SetClassNameString("Action");
 								node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node7->SetAgentType("HTNAgentTravel");
 #endif
 								node6->AddChild(node7);
@@ -5746,7 +5746,7 @@ namespace behaviac
 								ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4* node4 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4;
 								node4->SetClassNameString("ReferencedBehavior");
 								node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node4->SetAgentType("HTNAgentTravel");
 #endif
 								node6->AddChild(node4);
@@ -5949,7 +5949,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("PreconEffectorAgent");
 #endif
 			// children
@@ -5957,7 +5957,7 @@ namespace behaviac
 				Selector* node3 = BEHAVIAC_NEW Selector;
 				node3->SetClassNameString("Selector");
 				node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node3->SetAgentType("PreconEffectorAgent");
 #endif
 				// attachments
@@ -5965,7 +5965,7 @@ namespace behaviac
 					Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach0* attach0 = BEHAVIAC_NEW Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach0;
 					attach0->SetClassNameString("Precondition");
 					attach0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach0->SetAgentType("PreconEffectorAgent");
 #endif
 					node3->Attach(attach0, true, false, false);
@@ -5976,7 +5976,7 @@ namespace behaviac
 					Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_node8;
 					node8->SetClassNameString("Action");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("PreconEffectorAgent");
 #endif
 					// attachments
@@ -5984,7 +5984,7 @@ namespace behaviac
 						Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach1;
 						attach1->SetClassNameString("Precondition");
 						attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach1->SetAgentType("PreconEffectorAgent");
 #endif
 						node8->Attach(attach1, true, false, false);
@@ -5994,7 +5994,7 @@ namespace behaviac
 						Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach2;
 						attach2->SetClassNameString("Effector");
 						attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach2->SetAgentType("PreconEffectorAgent");
 #endif
 						node8->Attach(attach2, false, true, false);
@@ -6004,7 +6004,7 @@ namespace behaviac
 						Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach4* attach4 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach4;
 						attach4->SetClassNameString("Effector");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("PreconEffectorAgent");
 #endif
 						node8->Attach(attach4, false, true, false);
@@ -6017,7 +6017,7 @@ namespace behaviac
 					Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_node9;
 					node9->SetClassNameString("Action");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("PreconEffectorAgent");
 #endif
 					// attachments
@@ -6025,7 +6025,7 @@ namespace behaviac
 						Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach10* attach10 = BEHAVIAC_NEW Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach10;
 						attach10->SetClassNameString("Precondition");
 						attach10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach10->SetAgentType("PreconEffectorAgent");
 #endif
 						node9->Attach(attach10, true, false, false);
@@ -6035,7 +6035,7 @@ namespace behaviac
 						Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach5* attach5 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach5;
 						attach5->SetClassNameString("Effector");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("PreconEffectorAgent");
 #endif
 						node9->Attach(attach5, false, true, false);
@@ -6045,7 +6045,7 @@ namespace behaviac
 						Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach6* attach6 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach6;
 						attach6->SetClassNameString("Effector");
 						attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach6->SetAgentType("PreconEffectorAgent");
 #endif
 						node9->Attach(attach6, false, true, false);
@@ -6228,7 +6228,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("PreconEffectorAgent");
 #endif
 			// children
@@ -6236,7 +6236,7 @@ namespace behaviac
 				Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_node4;
 				node4->SetClassNameString("Action");
 				node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node4->SetAgentType("PreconEffectorAgent");
 #endif
 				// attachments
@@ -6244,7 +6244,7 @@ namespace behaviac
 					Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach0* attach0 = BEHAVIAC_NEW Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach0;
 					attach0->SetClassNameString("Precondition");
 					attach0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach0->SetAgentType("PreconEffectorAgent");
 #endif
 					node4->Attach(attach0, true, false, false);
@@ -6254,7 +6254,7 @@ namespace behaviac
 					Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("PreconEffectorAgent");
 #endif
 					node4->Attach(attach1, true, false, false);
@@ -6264,7 +6264,7 @@ namespace behaviac
 					Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach2* attach2 = BEHAVIAC_NEW Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach2;
 					attach2->SetClassNameString("Precondition");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("PreconEffectorAgent");
 #endif
 					node4->Attach(attach2, true, false, false);
@@ -6274,7 +6274,7 @@ namespace behaviac
 					Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach3;
 					attach3->SetClassNameString("Precondition");
 					attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach3->SetAgentType("PreconEffectorAgent");
 #endif
 					node4->Attach(attach3, true, false, false);
@@ -6284,7 +6284,7 @@ namespace behaviac
 					Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach5* attach5 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach5;
 					attach5->SetClassNameString("Effector");
 					attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach5->SetAgentType("PreconEffectorAgent");
 #endif
 					node4->Attach(attach5, false, true, false);
@@ -6294,7 +6294,7 @@ namespace behaviac
 					Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach6* attach6 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach6;
 					attach6->SetClassNameString("Effector");
 					attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach6->SetAgentType("PreconEffectorAgent");
 #endif
 					node4->Attach(attach6, false, true, false);
@@ -6304,7 +6304,7 @@ namespace behaviac
 					Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach7* attach7 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach7;
 					attach7->SetClassNameString("Effector");
 					attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach7->SetAgentType("PreconEffectorAgent");
 #endif
 					node4->Attach(attach7, false, true, false);
@@ -6383,7 +6383,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/repeat/repeat_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -6391,7 +6391,7 @@ namespace behaviac
 				Sequence* node2 = BEHAVIAC_NEW Sequence;
 				node2->SetClassNameString("Sequence");
 				node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node2->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node2);
@@ -6399,7 +6399,7 @@ namespace behaviac
 					Assignment_bt_node_test_repeat_repeat_ut_0_node3* node3 = BEHAVIAC_NEW Assignment_bt_node_test_repeat_repeat_ut_0_node3;
 					node3->SetClassNameString("Assignment");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node2->AddChild(node3);
@@ -6409,7 +6409,7 @@ namespace behaviac
 					DecoratorRepeat_bt_node_test_repeat_repeat_ut_0_node0* node0 = BEHAVIAC_NEW DecoratorRepeat_bt_node_test_repeat_repeat_ut_0_node0;
 					node0->SetClassNameString("DecoratorRepeat");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node2->AddChild(node0);
@@ -6417,7 +6417,7 @@ namespace behaviac
 						Compute_bt_node_test_repeat_repeat_ut_0_node1* node1 = BEHAVIAC_NEW Compute_bt_node_test_repeat_repeat_ut_0_node1;
 						node1->SetClassNameString("Compute");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node1);
@@ -6501,7 +6501,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_child_agent_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -6512,7 +6512,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -6520,7 +6520,7 @@ namespace behaviac
 					Action_bt_node_test_action_child_agent_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_action_child_agent_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -6530,7 +6530,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_child_agent_0_node2* node2 = BEHAVIAC_NEW Assignment_bt_node_test_action_child_agent_0_node2;
 					node2->SetClassNameString("Assignment");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -6540,7 +6540,7 @@ namespace behaviac
 					Action_bt_node_test_action_child_agent_0_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_action_child_agent_0_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -6582,7 +6582,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_noop_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -6590,7 +6590,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -6598,7 +6598,7 @@ namespace behaviac
 					Noop* node2 = BEHAVIAC_NEW Noop;
 					node2->SetClassNameString("Noop");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -6608,7 +6608,7 @@ namespace behaviac
 					Noop* node1 = BEHAVIAC_NEW Noop;
 					node1->SetClassNameString("Noop");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -6618,7 +6618,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_noop_ut_0_node4* node4 = BEHAVIAC_NEW Assignment_bt_node_test_action_noop_ut_0_node4;
 					node4->SetClassNameString("Assignment");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -6628,7 +6628,7 @@ namespace behaviac
 					Noop* node3 = BEHAVIAC_NEW Noop;
 					node3->SetClassNameString("Noop");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -6831,7 +6831,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -6845,7 +6845,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -6853,7 +6853,7 @@ namespace behaviac
 					Condition_bt_node_test_action_ut_0_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_0_node8;
 					node8->SetClassNameString("Condition");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node8);
@@ -6863,7 +6863,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_0_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_action_ut_0_node9;
 					node9->SetClassNameString("Action");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -6873,7 +6873,7 @@ namespace behaviac
 					Compute_bt_node_test_action_ut_0_node1* node1 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_0_node1;
 					node1->SetClassNameString("Compute");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -6883,7 +6883,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_action_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -6893,7 +6893,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_0_node3* node3 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_0_node3;
 					node3->SetClassNameString("Assignment");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -6903,7 +6903,7 @@ namespace behaviac
 					Compute_bt_node_test_action_ut_0_node4* node4 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_0_node4;
 					node4->SetClassNameString("Compute");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -6913,7 +6913,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_action_ut_0_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -6923,7 +6923,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_0_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_action_ut_0_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -6933,7 +6933,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_0_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_action_ut_0_node6;
 					node6->SetClassNameString("Action");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -7157,7 +7157,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -7171,7 +7171,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -7179,7 +7179,7 @@ namespace behaviac
 					Compute_bt_node_test_action_ut_1_node3* node3 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_1_node3;
 					node3->SetClassNameString("Compute");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -7189,7 +7189,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_action_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -7199,7 +7199,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_1_node1* node1 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_1_node1;
 					node1->SetClassNameString("Assignment");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -7209,7 +7209,7 @@ namespace behaviac
 					Compute_bt_node_test_action_ut_1_node4* node4 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_1_node4;
 					node4->SetClassNameString("Compute");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -7219,7 +7219,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_1_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_action_ut_1_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -7229,7 +7229,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_1_node7* node7 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_1_node7;
 					node7->SetClassNameString("Assignment");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -7239,7 +7239,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_1_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_action_ut_1_node6;
 					node6->SetClassNameString("Action");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -7249,7 +7249,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_1_node8* node8 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_1_node8;
 					node8->SetClassNameString("Assignment");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node8);
@@ -7259,7 +7259,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_1_node10* node10 = BEHAVIAC_NEW Action_bt_node_test_action_ut_1_node10;
 					node10->SetClassNameString("Action");
 					node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node10->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node10);
@@ -7269,7 +7269,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_1_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_action_ut_1_node9;
 					node9->SetClassNameString("Action");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -7394,7 +7394,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -7406,7 +7406,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -7414,7 +7414,7 @@ namespace behaviac
 					Compute_bt_node_test_action_ut_2_node1* node1 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_2_node1;
 					node1->SetClassNameString("Compute");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -7424,7 +7424,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_action_ut_2_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -7434,7 +7434,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_2_node3* node3 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_2_node3;
 					node3->SetClassNameString("Assignment");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -7444,7 +7444,7 @@ namespace behaviac
 					Compute_bt_node_test_action_ut_2_node4* node4 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_2_node4;
 					node4->SetClassNameString("Compute");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -7454,7 +7454,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_2_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_action_ut_2_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -7579,7 +7579,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -7591,7 +7591,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -7599,7 +7599,7 @@ namespace behaviac
 					Compute_bt_node_test_action_ut_3_node3* node3 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_3_node3;
 					node3->SetClassNameString("Compute");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -7609,7 +7609,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_action_ut_3_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -7619,7 +7619,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_3_node1* node1 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_3_node1;
 					node1->SetClassNameString("Assignment");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -7629,7 +7629,7 @@ namespace behaviac
 					Compute_bt_node_test_action_ut_3_node4* node4 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_3_node4;
 					node4->SetClassNameString("Compute");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -7639,7 +7639,7 @@ namespace behaviac
 					Action_bt_node_test_action_ut_3_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_action_ut_3_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -7719,7 +7719,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -7727,7 +7727,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -7735,7 +7735,7 @@ namespace behaviac
 					WaitforSignal* node1 = BEHAVIAC_NEW WaitforSignal;
 					node1->SetClassNameString("WaitforSignal");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -7743,7 +7743,7 @@ namespace behaviac
 						Condition_bt_node_test_action_ut_waitforsignal_0_node2* node2 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_waitforsignal_0_node2;
 						node2->SetClassNameString("Condition");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->SetCustomCondition(node2);
@@ -7753,7 +7753,7 @@ namespace behaviac
 						Assignment_bt_node_test_action_ut_waitforsignal_0_node3* node3 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_waitforsignal_0_node3;
 						node3->SetClassNameString("Assignment");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -7765,7 +7765,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_waitforsignal_0_node4* node4 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_waitforsignal_0_node4;
 					node4->SetClassNameString("Assignment");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -7883,7 +7883,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -7891,7 +7891,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -7899,7 +7899,7 @@ namespace behaviac
 					WaitforSignal* node1 = BEHAVIAC_NEW WaitforSignal;
 					node1->SetClassNameString("WaitforSignal");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -7907,7 +7907,7 @@ namespace behaviac
 						Or* node2 = BEHAVIAC_NEW Or;
 						node2->SetClassNameString("Or");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->SetCustomCondition(node2);
@@ -7915,7 +7915,7 @@ namespace behaviac
 							And* node5 = BEHAVIAC_NEW And;
 							node5->SetClassNameString("And");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node2->AddChild(node5);
@@ -7923,7 +7923,7 @@ namespace behaviac
 								Condition_bt_node_test_action_ut_waitforsignal_1_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_waitforsignal_1_node6;
 								node6->SetClassNameString("Condition");
 								node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node6->SetAgentType("AgentNodeTest");
 #endif
 								node5->AddChild(node6);
@@ -7933,7 +7933,7 @@ namespace behaviac
 								Condition_bt_node_test_action_ut_waitforsignal_1_node7* node7 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_waitforsignal_1_node7;
 								node7->SetClassNameString("Condition");
 								node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node7->SetAgentType("AgentNodeTest");
 #endif
 								node5->AddChild(node7);
@@ -7945,7 +7945,7 @@ namespace behaviac
 							Condition_bt_node_test_action_ut_waitforsignal_1_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_waitforsignal_1_node8;
 							node8->SetClassNameString("Condition");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("AgentNodeTest");
 #endif
 							node2->AddChild(node8);
@@ -7957,7 +7957,7 @@ namespace behaviac
 						Assignment_bt_node_test_action_ut_waitforsignal_1_node3* node3 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_waitforsignal_1_node3;
 						node3->SetClassNameString("Assignment");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -7969,7 +7969,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_waitforsignal_1_node4* node4 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_waitforsignal_1_node4;
 					node4->SetClassNameString("Assignment");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -8068,7 +8068,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_ut_waitforsignal_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -8076,7 +8076,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -8084,7 +8084,7 @@ namespace behaviac
 					WaitforSignal* node1 = BEHAVIAC_NEW WaitforSignal;
 					node1->SetClassNameString("WaitforSignal");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -8092,7 +8092,7 @@ namespace behaviac
 						Or* node2 = BEHAVIAC_NEW Or;
 						node2->SetClassNameString("Or");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->SetCustomCondition(node2);
@@ -8100,7 +8100,7 @@ namespace behaviac
 							And* node3 = BEHAVIAC_NEW And;
 							node3->SetClassNameString("And");
 							node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node3->SetAgentType("AgentNodeTest");
 #endif
 							node2->AddChild(node3);
@@ -8108,7 +8108,7 @@ namespace behaviac
 								Condition_bt_node_test_action_ut_waitforsignal_2_node5* node5 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_waitforsignal_2_node5;
 								node5->SetClassNameString("Condition");
 								node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node5->SetAgentType("AgentNodeTest");
 #endif
 								node3->AddChild(node5);
@@ -8118,7 +8118,7 @@ namespace behaviac
 								Condition_bt_node_test_action_ut_waitforsignal_2_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_waitforsignal_2_node6;
 								node6->SetClassNameString("Condition");
 								node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node6->SetAgentType("AgentNodeTest");
 #endif
 								node3->AddChild(node6);
@@ -8130,7 +8130,7 @@ namespace behaviac
 							Condition_bt_node_test_action_ut_waitforsignal_2_node7* node7 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_waitforsignal_2_node7;
 							node7->SetClassNameString("Condition");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node2->AddChild(node7);
@@ -8144,7 +8144,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_ut_waitforsignal_2_node4* node4 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_waitforsignal_2_node4;
 					node4->SetClassNameString("Assignment");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -8220,7 +8220,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/action_waitframes_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -8230,7 +8230,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -8238,7 +8238,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_waitframes_ut_0_node3* node3 = BEHAVIAC_NEW Assignment_bt_node_test_action_waitframes_ut_0_node3;
 					node3->SetClassNameString("Assignment");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -8248,7 +8248,7 @@ namespace behaviac
 					WaitFrames_bt_node_test_action_waitframes_ut_0_node1* node1 = BEHAVIAC_NEW WaitFrames_bt_node_test_action_waitframes_ut_0_node1;
 					node1->SetClassNameString("WaitFrames");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -8258,7 +8258,7 @@ namespace behaviac
 					Assignment_bt_node_test_action_waitframes_ut_0_node4* node4 = BEHAVIAC_NEW Assignment_bt_node_test_action_waitframes_ut_0_node4;
 					node4->SetClassNameString("Assignment");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -8356,7 +8356,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/circular_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -8364,7 +8364,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -8372,7 +8372,7 @@ namespace behaviac
 					Sequence* node2 = BEHAVIAC_NEW Sequence;
 					node2->SetClassNameString("Sequence");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -8380,7 +8380,7 @@ namespace behaviac
 						Condition_bt_node_test_circular_ut_0_node5* node5 = BEHAVIAC_NEW Condition_bt_node_test_circular_ut_0_node5;
 						node5->SetClassNameString("Condition");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node5);
@@ -8390,7 +8390,7 @@ namespace behaviac
 						Sequence* node4 = BEHAVIAC_NEW Sequence;
 						node4->SetClassNameString("Sequence");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node4);
@@ -8398,7 +8398,7 @@ namespace behaviac
 							Assignment_bt_node_test_circular_ut_0_node3* node3 = BEHAVIAC_NEW Assignment_bt_node_test_circular_ut_0_node3;
 							node3->SetClassNameString("Assignment");
 							node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node3->SetAgentType("AgentNodeTest");
 #endif
 							node4->AddChild(node3);
@@ -8408,7 +8408,7 @@ namespace behaviac
 							ReferencedBehavior_bt_node_test_circular_ut_0_node6* node6 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_circular_ut_0_node6;
 							node6->SetClassNameString("ReferencedBehavior");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							node4->AddChild(node6);
@@ -8422,7 +8422,7 @@ namespace behaviac
 					Compute_bt_node_test_circular_ut_0_node1* node1 = BEHAVIAC_NEW Compute_bt_node_test_circular_ut_0_node1;
 					node1->SetClassNameString("Compute");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -8521,7 +8521,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/condition_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -8529,7 +8529,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -8537,7 +8537,7 @@ namespace behaviac
 					Condition_bt_node_test_condition_ut_0_node1* node1 = BEHAVIAC_NEW Condition_bt_node_test_condition_ut_0_node1;
 					node1->SetClassNameString("Condition");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -8547,7 +8547,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -8557,7 +8557,7 @@ namespace behaviac
 					Condition_bt_node_test_condition_ut_0_node3* node3 = BEHAVIAC_NEW Condition_bt_node_test_condition_ut_0_node3;
 					node3->SetClassNameString("Condition");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -8567,7 +8567,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_0_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -8649,7 +8649,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/condition_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -8659,7 +8659,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -8667,7 +8667,7 @@ namespace behaviac
 					Or* node9 = BEHAVIAC_NEW Or;
 					node9->SetClassNameString("Or");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -8675,7 +8675,7 @@ namespace behaviac
 						Condition_bt_node_test_condition_ut_1_node10* node10 = BEHAVIAC_NEW Condition_bt_node_test_condition_ut_1_node10;
 						node10->SetClassNameString("Condition");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node10);
@@ -8685,7 +8685,7 @@ namespace behaviac
 						True* node11 = BEHAVIAC_NEW True;
 						node11->SetClassNameString("True");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node11);
@@ -8697,7 +8697,7 @@ namespace behaviac
 					Or* node1 = BEHAVIAC_NEW Or;
 					node1->SetClassNameString("Or");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -8705,7 +8705,7 @@ namespace behaviac
 						True* node3 = BEHAVIAC_NEW True;
 						node3->SetClassNameString("True");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -8715,7 +8715,7 @@ namespace behaviac
 						False* node5 = BEHAVIAC_NEW False;
 						node5->SetClassNameString("False");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -8727,7 +8727,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -8737,7 +8737,7 @@ namespace behaviac
 					Or* node4 = BEHAVIAC_NEW Or;
 					node4->SetClassNameString("Or");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -8745,7 +8745,7 @@ namespace behaviac
 						False* node6 = BEHAVIAC_NEW False;
 						node6->SetClassNameString("False");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node6);
@@ -8755,7 +8755,7 @@ namespace behaviac
 						False* node7 = BEHAVIAC_NEW False;
 						node7->SetClassNameString("False");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node7);
@@ -8767,7 +8767,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_1_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_1_node8;
 					node8->SetClassNameString("Action");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node8);
@@ -8847,7 +8847,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/condition_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -8855,7 +8855,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -8863,7 +8863,7 @@ namespace behaviac
 					And* node9 = BEHAVIAC_NEW And;
 					node9->SetClassNameString("And");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -8871,7 +8871,7 @@ namespace behaviac
 						True* node10 = BEHAVIAC_NEW True;
 						node10->SetClassNameString("True");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node10);
@@ -8881,7 +8881,7 @@ namespace behaviac
 						True* node11 = BEHAVIAC_NEW True;
 						node11->SetClassNameString("True");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node11);
@@ -8893,7 +8893,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_2_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -8903,7 +8903,7 @@ namespace behaviac
 					And* node1 = BEHAVIAC_NEW And;
 					node1->SetClassNameString("And");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -8911,7 +8911,7 @@ namespace behaviac
 						True* node3 = BEHAVIAC_NEW True;
 						node3->SetClassNameString("True");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -8921,7 +8921,7 @@ namespace behaviac
 						False* node5 = BEHAVIAC_NEW False;
 						node5->SetClassNameString("False");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -8933,7 +8933,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_2_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_2_node8;
 					node8->SetClassNameString("Action");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node8);
@@ -8943,7 +8943,7 @@ namespace behaviac
 					And* node4 = BEHAVIAC_NEW And;
 					node4->SetClassNameString("And");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -8951,7 +8951,7 @@ namespace behaviac
 						False* node6 = BEHAVIAC_NEW False;
 						node6->SetClassNameString("False");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node6);
@@ -8961,7 +8961,7 @@ namespace behaviac
 						False* node7 = BEHAVIAC_NEW False;
 						node7->SetClassNameString("False");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node7);
@@ -8973,7 +8973,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_2_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_2_node12;
 					node12->SetClassNameString("Action");
 					node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node12->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node12);
@@ -9053,7 +9053,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/condition_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -9061,7 +9061,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -9069,7 +9069,7 @@ namespace behaviac
 					And* node9 = BEHAVIAC_NEW And;
 					node9->SetClassNameString("And");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -9077,7 +9077,7 @@ namespace behaviac
 						Or* node13 = BEHAVIAC_NEW Or;
 						node13->SetClassNameString("Or");
 						node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node13->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node13);
@@ -9085,7 +9085,7 @@ namespace behaviac
 							True* node10 = BEHAVIAC_NEW True;
 							node10->SetClassNameString("True");
 							node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node10->SetAgentType("AgentNodeTest");
 #endif
 							node13->AddChild(node10);
@@ -9095,7 +9095,7 @@ namespace behaviac
 							False* node14 = BEHAVIAC_NEW False;
 							node14->SetClassNameString("False");
 							node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node14->SetAgentType("AgentNodeTest");
 #endif
 							node13->AddChild(node14);
@@ -9107,7 +9107,7 @@ namespace behaviac
 						True* node11 = BEHAVIAC_NEW True;
 						node11->SetClassNameString("True");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node11);
@@ -9119,7 +9119,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_3_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -9129,7 +9129,7 @@ namespace behaviac
 					Or* node1 = BEHAVIAC_NEW Or;
 					node1->SetClassNameString("Or");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -9137,7 +9137,7 @@ namespace behaviac
 						And* node15 = BEHAVIAC_NEW And;
 						node15->SetClassNameString("And");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node15);
@@ -9145,7 +9145,7 @@ namespace behaviac
 							True* node3 = BEHAVIAC_NEW True;
 							node3->SetClassNameString("True");
 							node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node3->SetAgentType("AgentNodeTest");
 #endif
 							node15->AddChild(node3);
@@ -9155,7 +9155,7 @@ namespace behaviac
 							True* node16 = BEHAVIAC_NEW True;
 							node16->SetClassNameString("True");
 							node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node16->SetAgentType("AgentNodeTest");
 #endif
 							node15->AddChild(node16);
@@ -9167,7 +9167,7 @@ namespace behaviac
 						False* node5 = BEHAVIAC_NEW False;
 						node5->SetClassNameString("False");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -9179,7 +9179,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_3_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_3_node8;
 					node8->SetClassNameString("Action");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node8);
@@ -9189,7 +9189,7 @@ namespace behaviac
 					And* node4 = BEHAVIAC_NEW And;
 					node4->SetClassNameString("And");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -9197,7 +9197,7 @@ namespace behaviac
 						Or* node18 = BEHAVIAC_NEW Or;
 						node18->SetClassNameString("Or");
 						node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node18->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node18);
@@ -9205,7 +9205,7 @@ namespace behaviac
 							Or* node19 = BEHAVIAC_NEW Or;
 							node19->SetClassNameString("Or");
 							node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node19->SetAgentType("AgentNodeTest");
 #endif
 							node18->AddChild(node19);
@@ -9213,7 +9213,7 @@ namespace behaviac
 								False* node6 = BEHAVIAC_NEW False;
 								node6->SetClassNameString("False");
 								node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node6->SetAgentType("AgentNodeTest");
 #endif
 								node19->AddChild(node6);
@@ -9223,7 +9223,7 @@ namespace behaviac
 								True* node21 = BEHAVIAC_NEW True;
 								node21->SetClassNameString("True");
 								node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node21->SetAgentType("AgentNodeTest");
 #endif
 								node19->AddChild(node21);
@@ -9235,7 +9235,7 @@ namespace behaviac
 							False* node22 = BEHAVIAC_NEW False;
 							node22->SetClassNameString("False");
 							node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node22->SetAgentType("AgentNodeTest");
 #endif
 							node18->AddChild(node22);
@@ -9247,7 +9247,7 @@ namespace behaviac
 						And* node17 = BEHAVIAC_NEW And;
 						node17->SetClassNameString("And");
 						node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node17->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node17);
@@ -9255,7 +9255,7 @@ namespace behaviac
 							True* node7 = BEHAVIAC_NEW True;
 							node7->SetClassNameString("True");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node17->AddChild(node7);
@@ -9265,7 +9265,7 @@ namespace behaviac
 							And* node20 = BEHAVIAC_NEW And;
 							node20->SetClassNameString("And");
 							node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node20->SetAgentType("AgentNodeTest");
 #endif
 							node17->AddChild(node20);
@@ -9273,7 +9273,7 @@ namespace behaviac
 								True* node23 = BEHAVIAC_NEW True;
 								node23->SetClassNameString("True");
 								node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node23->SetAgentType("AgentNodeTest");
 #endif
 								node20->AddChild(node23);
@@ -9283,7 +9283,7 @@ namespace behaviac
 								True* node24 = BEHAVIAC_NEW True;
 								node24->SetClassNameString("True");
 								node24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node24->SetAgentType("AgentNodeTest");
 #endif
 								node20->AddChild(node24);
@@ -9299,7 +9299,7 @@ namespace behaviac
 					Action_bt_node_test_condition_ut_3_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_condition_ut_3_node12;
 					node12->SetClassNameString("Action");
 					node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node12->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node12);
@@ -9469,7 +9469,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_alwaysfailure_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -9477,7 +9477,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -9485,7 +9485,7 @@ namespace behaviac
 					Selector* node4 = BEHAVIAC_NEW Selector;
 					node4->SetClassNameString("Selector");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -9493,7 +9493,7 @@ namespace behaviac
 						DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node1;
 						node1->SetClassNameString("DecoratorAlwaysFailure");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node1);
@@ -9501,7 +9501,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwaysfailure_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysfailure_ut_0_node5;
 							node5->SetClassNameString("Action");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node1->AddChild(node5);
@@ -9513,7 +9513,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwaysfailure_ut_0_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysfailure_ut_0_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node6);
@@ -9525,7 +9525,7 @@ namespace behaviac
 					Selector* node2 = BEHAVIAC_NEW Selector;
 					node2->SetClassNameString("Selector");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -9533,7 +9533,7 @@ namespace behaviac
 						DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node3* node3 = BEHAVIAC_NEW DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node3;
 						node3->SetClassNameString("DecoratorAlwaysFailure");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -9541,7 +9541,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwaysfailure_ut_0_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysfailure_ut_0_node7;
 							node7->SetClassNameString("Action");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node7);
@@ -9553,7 +9553,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwaysfailure_ut_0_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysfailure_ut_0_node8;
 						node8->SetClassNameString("Action");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node8);
@@ -9565,7 +9565,7 @@ namespace behaviac
 					Selector* node9 = BEHAVIAC_NEW Selector;
 					node9->SetClassNameString("Selector");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -9573,7 +9573,7 @@ namespace behaviac
 						DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node10* node10 = BEHAVIAC_NEW DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node10;
 						node10->SetClassNameString("DecoratorAlwaysFailure");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node10);
@@ -9581,7 +9581,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwaysfailure_ut_0_node11* node11 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysfailure_ut_0_node11;
 							node11->SetClassNameString("Action");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("AgentNodeTest");
 #endif
 							node10->AddChild(node11);
@@ -9593,7 +9593,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwaysfailure_ut_0_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysfailure_ut_0_node12;
 						node12->SetClassNameString("Action");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node12);
@@ -9779,7 +9779,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_alwaysrunning_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -9787,7 +9787,7 @@ namespace behaviac
 				Parallel_bt_node_test_decoration_alwaysrunning_ut_0_node0* node0 = BEHAVIAC_NEW Parallel_bt_node_test_decoration_alwaysrunning_ut_0_node0;
 				node0->SetClassNameString("Parallel");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -9795,7 +9795,7 @@ namespace behaviac
 					Selector* node4 = BEHAVIAC_NEW Selector;
 					node4->SetClassNameString("Selector");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -9803,7 +9803,7 @@ namespace behaviac
 						DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node1;
 						node1->SetClassNameString("DecoratorAlwaysRunning");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node1);
@@ -9811,7 +9811,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwaysrunning_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysrunning_ut_0_node5;
 							node5->SetClassNameString("Action");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node1->AddChild(node5);
@@ -9823,7 +9823,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwaysrunning_ut_0_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysrunning_ut_0_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node6);
@@ -9835,7 +9835,7 @@ namespace behaviac
 					Selector* node2 = BEHAVIAC_NEW Selector;
 					node2->SetClassNameString("Selector");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -9843,7 +9843,7 @@ namespace behaviac
 						DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node3* node3 = BEHAVIAC_NEW DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node3;
 						node3->SetClassNameString("DecoratorAlwaysRunning");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -9851,7 +9851,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwaysrunning_ut_0_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysrunning_ut_0_node7;
 							node7->SetClassNameString("Action");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node7);
@@ -9863,7 +9863,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwaysrunning_ut_0_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysrunning_ut_0_node8;
 						node8->SetClassNameString("Action");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node8);
@@ -9875,7 +9875,7 @@ namespace behaviac
 					Selector* node9 = BEHAVIAC_NEW Selector;
 					node9->SetClassNameString("Selector");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -9883,7 +9883,7 @@ namespace behaviac
 						DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node10* node10 = BEHAVIAC_NEW DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node10;
 						node10->SetClassNameString("DecoratorAlwaysRunning");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node10);
@@ -9891,7 +9891,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwaysrunning_ut_0_node11* node11 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysrunning_ut_0_node11;
 							node11->SetClassNameString("Action");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("AgentNodeTest");
 #endif
 							node10->AddChild(node11);
@@ -9903,7 +9903,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwaysrunning_ut_0_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwaysrunning_ut_0_node12;
 						node12->SetClassNameString("Action");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node12);
@@ -10075,7 +10075,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_alwayssuccess_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -10083,7 +10083,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -10091,7 +10091,7 @@ namespace behaviac
 					Selector* node4 = BEHAVIAC_NEW Selector;
 					node4->SetClassNameString("Selector");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -10099,7 +10099,7 @@ namespace behaviac
 						DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node1;
 						node1->SetClassNameString("DecoratorAlwaysSuccess");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node1);
@@ -10107,7 +10107,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwayssuccess_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwayssuccess_ut_0_node5;
 							node5->SetClassNameString("Action");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node1->AddChild(node5);
@@ -10119,7 +10119,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwayssuccess_ut_0_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwayssuccess_ut_0_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node6);
@@ -10131,7 +10131,7 @@ namespace behaviac
 					Selector* node2 = BEHAVIAC_NEW Selector;
 					node2->SetClassNameString("Selector");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -10139,7 +10139,7 @@ namespace behaviac
 						DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node3* node3 = BEHAVIAC_NEW DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node3;
 						node3->SetClassNameString("DecoratorAlwaysSuccess");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -10147,7 +10147,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwayssuccess_ut_0_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwayssuccess_ut_0_node7;
 							node7->SetClassNameString("Action");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node7);
@@ -10159,7 +10159,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwayssuccess_ut_0_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwayssuccess_ut_0_node8;
 						node8->SetClassNameString("Action");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node8);
@@ -10171,7 +10171,7 @@ namespace behaviac
 					Selector* node9 = BEHAVIAC_NEW Selector;
 					node9->SetClassNameString("Selector");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -10179,7 +10179,7 @@ namespace behaviac
 						DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node10* node10 = BEHAVIAC_NEW DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node10;
 						node10->SetClassNameString("DecoratorAlwaysSuccess");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node10);
@@ -10187,7 +10187,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_alwayssuccess_ut_0_node11* node11 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwayssuccess_ut_0_node11;
 							node11->SetClassNameString("Action");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("AgentNodeTest");
 #endif
 							node10->AddChild(node11);
@@ -10199,7 +10199,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_alwayssuccess_ut_0_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_decoration_alwayssuccess_ut_0_node12;
 						node12->SetClassNameString("Action");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node12);
@@ -10278,7 +10278,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -10286,7 +10286,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -10294,7 +10294,7 @@ namespace behaviac
 					DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_0_node1;
 					node1->SetClassNameString("DecoratorCountLimit");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -10302,7 +10302,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_countlimit_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_countlimit_ut_0_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -10314,7 +10314,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_countlimit_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_countlimit_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -10410,7 +10410,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -10418,7 +10418,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -10426,7 +10426,7 @@ namespace behaviac
 					DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_1_node1* node1 = BEHAVIAC_NEW DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_1_node1;
 					node1->SetClassNameString("DecoratorCountLimit");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -10434,7 +10434,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_countlimit_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_countlimit_ut_1_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -10444,7 +10444,7 @@ namespace behaviac
 						Condition_bt_node_test_decoration_countlimit_ut_1_node4* node4 = BEHAVIAC_NEW Condition_bt_node_test_decoration_countlimit_ut_1_node4;
 						node4->SetClassNameString("Condition");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->SetCustomCondition(node4);
@@ -10456,7 +10456,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_countlimit_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_countlimit_ut_1_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -10571,7 +10571,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -10579,7 +10579,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -10587,7 +10587,7 @@ namespace behaviac
 					DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_2_node1* node1 = BEHAVIAC_NEW DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_2_node1;
 					node1->SetClassNameString("DecoratorCountLimit");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -10595,7 +10595,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_countlimit_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_countlimit_ut_2_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -10605,7 +10605,7 @@ namespace behaviac
 						And* node4 = BEHAVIAC_NEW And;
 						node4->SetClassNameString("And");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->SetCustomCondition(node4);
@@ -10613,7 +10613,7 @@ namespace behaviac
 							Condition_bt_node_test_decoration_countlimit_ut_2_node5* node5 = BEHAVIAC_NEW Condition_bt_node_test_decoration_countlimit_ut_2_node5;
 							node5->SetClassNameString("Condition");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node4->AddChild(node5);
@@ -10623,7 +10623,7 @@ namespace behaviac
 							Condition_bt_node_test_decoration_countlimit_ut_2_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_decoration_countlimit_ut_2_node6;
 							node6->SetClassNameString("Condition");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							node4->AddChild(node6);
@@ -10637,7 +10637,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_countlimit_ut_2_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_countlimit_ut_2_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -10771,7 +10771,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_countlimit_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -10779,7 +10779,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -10787,7 +10787,7 @@ namespace behaviac
 					DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_3_node1* node1 = BEHAVIAC_NEW DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_3_node1;
 					node1->SetClassNameString("DecoratorCountLimit");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -10795,7 +10795,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_countlimit_ut_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_countlimit_ut_3_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -10805,7 +10805,7 @@ namespace behaviac
 						Or* node4 = BEHAVIAC_NEW Or;
 						node4->SetClassNameString("Or");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->SetCustomCondition(node4);
@@ -10813,7 +10813,7 @@ namespace behaviac
 							And* node5 = BEHAVIAC_NEW And;
 							node5->SetClassNameString("And");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node4->AddChild(node5);
@@ -10821,7 +10821,7 @@ namespace behaviac
 								Condition_bt_node_test_decoration_countlimit_ut_3_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_decoration_countlimit_ut_3_node6;
 								node6->SetClassNameString("Condition");
 								node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node6->SetAgentType("AgentNodeTest");
 #endif
 								node5->AddChild(node6);
@@ -10831,7 +10831,7 @@ namespace behaviac
 								Condition_bt_node_test_decoration_countlimit_ut_3_node7* node7 = BEHAVIAC_NEW Condition_bt_node_test_decoration_countlimit_ut_3_node7;
 								node7->SetClassNameString("Condition");
 								node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node7->SetAgentType("AgentNodeTest");
 #endif
 								node5->AddChild(node7);
@@ -10843,7 +10843,7 @@ namespace behaviac
 							Condition_bt_node_test_decoration_countlimit_ut_3_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_decoration_countlimit_ut_3_node8;
 							node8->SetClassNameString("Condition");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("AgentNodeTest");
 #endif
 							node4->AddChild(node8);
@@ -10857,7 +10857,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_countlimit_ut_3_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_countlimit_ut_3_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -10896,7 +10896,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_failureuntil_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -10904,7 +10904,7 @@ namespace behaviac
 				DecoratorFailureUntil_bt_node_test_decoration_failureuntil_ut_0_node0* node0 = BEHAVIAC_NEW DecoratorFailureUntil_bt_node_test_decoration_failureuntil_ut_0_node0;
 				node0->SetClassNameString("DecoratorFailureUntil");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -10912,7 +10912,7 @@ namespace behaviac
 					True* node1 = BEHAVIAC_NEW True;
 					node1->SetClassNameString("True");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -10951,7 +10951,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_failureuntil_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -10959,7 +10959,7 @@ namespace behaviac
 				DecoratorFailureUntil_bt_node_test_decoration_failureuntil_ut_1_node0* node0 = BEHAVIAC_NEW DecoratorFailureUntil_bt_node_test_decoration_failureuntil_ut_1_node0;
 				node0->SetClassNameString("DecoratorFailureUntil");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -10967,7 +10967,7 @@ namespace behaviac
 					True* node1 = BEHAVIAC_NEW True;
 					node1->SetClassNameString("True");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -11044,7 +11044,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_frames_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -11052,7 +11052,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -11060,7 +11060,7 @@ namespace behaviac
 					DecoratorFrames_bt_node_test_decoration_frames_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorFrames_bt_node_test_decoration_frames_ut_0_node1;
 					node1->SetClassNameString("DecoratorFrames");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -11068,7 +11068,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_frames_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_frames_ut_0_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -11080,7 +11080,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_frames_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_frames_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -11253,7 +11253,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_log_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -11261,7 +11261,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -11269,7 +11269,7 @@ namespace behaviac
 					Selector* node5 = BEHAVIAC_NEW Selector;
 					node5->SetClassNameString("Selector");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -11277,7 +11277,7 @@ namespace behaviac
 						DecoratorLog_bt_node_test_decoration_log_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorLog_bt_node_test_decoration_log_ut_0_node1;
 						node1->SetClassNameString("DecoratorLog");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node5->AddChild(node1);
@@ -11285,7 +11285,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_log_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_log_ut_0_node2;
 							node2->SetClassNameString("Action");
 							node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node2->SetAgentType("AgentNodeTest");
 #endif
 							node1->AddChild(node2);
@@ -11297,7 +11297,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_log_ut_0_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_decoration_log_ut_0_node8;
 						node8->SetClassNameString("Action");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("AgentNodeTest");
 #endif
 						node5->AddChild(node8);
@@ -11309,7 +11309,7 @@ namespace behaviac
 					Selector* node6 = BEHAVIAC_NEW Selector;
 					node6->SetClassNameString("Selector");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -11317,7 +11317,7 @@ namespace behaviac
 						DecoratorLog_bt_node_test_decoration_log_ut_0_node3* node3 = BEHAVIAC_NEW DecoratorLog_bt_node_test_decoration_log_ut_0_node3;
 						node3->SetClassNameString("DecoratorLog");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node3);
@@ -11325,7 +11325,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_log_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_decoration_log_ut_0_node4;
 							node4->SetClassNameString("Action");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node4);
@@ -11337,7 +11337,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_log_ut_0_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_decoration_log_ut_0_node9;
 						node9->SetClassNameString("Action");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node9);
@@ -11349,7 +11349,7 @@ namespace behaviac
 					Selector* node7 = BEHAVIAC_NEW Selector;
 					node7->SetClassNameString("Selector");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -11357,7 +11357,7 @@ namespace behaviac
 						DecoratorLog_bt_node_test_decoration_log_ut_0_node10* node10 = BEHAVIAC_NEW DecoratorLog_bt_node_test_decoration_log_ut_0_node10;
 						node10->SetClassNameString("DecoratorLog");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("AgentNodeTest");
 #endif
 						node7->AddChild(node10);
@@ -11365,7 +11365,7 @@ namespace behaviac
 							Action_bt_node_test_decoration_log_ut_0_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_decoration_log_ut_0_node12;
 							node12->SetClassNameString("Action");
 							node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node12->SetAgentType("AgentNodeTest");
 #endif
 							node10->AddChild(node12);
@@ -11377,7 +11377,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_log_ut_0_node11* node11 = BEHAVIAC_NEW Action_bt_node_test_decoration_log_ut_0_node11;
 						node11->SetClassNameString("Action");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("AgentNodeTest");
 #endif
 						node7->AddChild(node11);
@@ -11473,7 +11473,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -11481,7 +11481,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -11489,7 +11489,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_loopuntil_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_decoration_loopuntil_ut_0_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -11499,7 +11499,7 @@ namespace behaviac
 					DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_0_node1;
 					node1->SetClassNameString("DecoratorLoopUntil");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -11507,7 +11507,7 @@ namespace behaviac
 						DecoratorLoop_bt_node_test_decoration_loopuntil_ut_0_node2* node2 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_decoration_loopuntil_ut_0_node2;
 						node2->SetClassNameString("DecoratorLoop");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -11515,7 +11515,7 @@ namespace behaviac
 							True* node5 = BEHAVIAC_NEW True;
 							node5->SetClassNameString("True");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node2->AddChild(node5);
@@ -11529,7 +11529,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_loopuntil_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_loopuntil_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -11623,7 +11623,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -11631,7 +11631,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -11639,7 +11639,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_loopuntil_ut_1_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_decoration_loopuntil_ut_1_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -11649,7 +11649,7 @@ namespace behaviac
 					DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_1_node1* node1 = BEHAVIAC_NEW DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_1_node1;
 					node1->SetClassNameString("DecoratorLoopUntil");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -11657,7 +11657,7 @@ namespace behaviac
 						DecoratorLoop_bt_node_test_decoration_loopuntil_ut_1_node2* node2 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_decoration_loopuntil_ut_1_node2;
 						node2->SetClassNameString("DecoratorLoop");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -11665,7 +11665,7 @@ namespace behaviac
 							True* node5 = BEHAVIAC_NEW True;
 							node5->SetClassNameString("True");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node2->AddChild(node5);
@@ -11679,7 +11679,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_loopuntil_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_loopuntil_ut_1_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -11768,7 +11768,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loopuntil_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -11776,7 +11776,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -11784,7 +11784,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_loopuntil_ut_2_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_decoration_loopuntil_ut_2_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -11794,7 +11794,7 @@ namespace behaviac
 					DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_2_node1* node1 = BEHAVIAC_NEW DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_2_node1;
 					node1->SetClassNameString("DecoratorLoopUntil");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -11802,7 +11802,7 @@ namespace behaviac
 						DecoratorAlwaysFailure_bt_node_test_decoration_loopuntil_ut_2_node6* node6 = BEHAVIAC_NEW DecoratorAlwaysFailure_bt_node_test_decoration_loopuntil_ut_2_node6;
 						node6->SetClassNameString("DecoratorAlwaysFailure");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node6);
@@ -11810,7 +11810,7 @@ namespace behaviac
 							True* node5 = BEHAVIAC_NEW True;
 							node5->SetClassNameString("True");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node6->AddChild(node5);
@@ -11824,7 +11824,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_loopuntil_ut_2_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_loopuntil_ut_2_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -11901,7 +11901,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loop_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -11909,7 +11909,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -11917,7 +11917,7 @@ namespace behaviac
 					DecoratorLoop_bt_node_test_decoration_loop_ut_0_node0* node0 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_decoration_loop_ut_0_node0;
 					node0->SetClassNameString("DecoratorLoop");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node0);
@@ -11925,7 +11925,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_loop_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_loop_ut_0_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -11937,7 +11937,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_loop_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_loop_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node2);
@@ -12014,7 +12014,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_loop_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -12022,7 +12022,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -12030,7 +12030,7 @@ namespace behaviac
 					DecoratorLoop_bt_node_test_decoration_loop_ut_1_node0* node0 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_decoration_loop_ut_1_node0;
 					node0->SetClassNameString("DecoratorLoop");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node0);
@@ -12038,7 +12038,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_loop_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_loop_ut_1_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -12050,7 +12050,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_loop_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_loop_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node2);
@@ -12122,7 +12122,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -12130,7 +12130,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -12138,7 +12138,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_decoration_not_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_decoration_not_ut_0_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -12146,7 +12146,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_not_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_not_ut_0_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -12158,7 +12158,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_not_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_not_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -12230,7 +12230,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -12238,7 +12238,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -12246,7 +12246,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_decoration_not_ut_1_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_decoration_not_ut_1_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -12254,7 +12254,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_not_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_not_ut_1_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -12266,7 +12266,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_not_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_not_ut_1_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -12338,7 +12338,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_not_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -12346,7 +12346,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -12354,7 +12354,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_decoration_not_ut_2_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_decoration_not_ut_2_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -12362,7 +12362,7 @@ namespace behaviac
 						Action_bt_node_test_decoration_not_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_decoration_not_ut_2_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -12374,7 +12374,7 @@ namespace behaviac
 					Action_bt_node_test_decoration_not_ut_2_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_decoration_not_ut_2_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -12413,7 +12413,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_successuntil_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -12421,7 +12421,7 @@ namespace behaviac
 				DecoratorSuccessUntil_bt_node_test_decoration_successuntil_ut_0_node0* node0 = BEHAVIAC_NEW DecoratorSuccessUntil_bt_node_test_decoration_successuntil_ut_0_node0;
 				node0->SetClassNameString("DecoratorSuccessUntil");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -12429,7 +12429,7 @@ namespace behaviac
 					False* node1 = BEHAVIAC_NEW False;
 					node1->SetClassNameString("False");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -12468,7 +12468,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/decoration_successuntil_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -12476,7 +12476,7 @@ namespace behaviac
 				DecoratorSuccessUntil_bt_node_test_decoration_successuntil_ut_1_node0* node0 = BEHAVIAC_NEW DecoratorSuccessUntil_bt_node_test_decoration_successuntil_ut_1_node0;
 				node0->SetClassNameString("DecoratorSuccessUntil");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -12484,7 +12484,7 @@ namespace behaviac
 					False* node1 = BEHAVIAC_NEW False;
 					node1->SetClassNameString("False");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -12616,7 +12616,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -12624,7 +12624,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -12632,7 +12632,7 @@ namespace behaviac
 					Precondition_bt_node_test_enter_exit_action_ut_0_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_enter_exit_action_ut_0_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -12642,7 +12642,7 @@ namespace behaviac
 					Effector_bt_node_test_enter_exit_action_ut_0_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_enter_exit_action_ut_0_attach2;
 					attach2->SetClassNameString("Effector");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach2, false, true, false);
@@ -12653,7 +12653,7 @@ namespace behaviac
 					Selector* node6 = BEHAVIAC_NEW Selector;
 					node6->SetClassNameString("Selector");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -12661,7 +12661,7 @@ namespace behaviac
 						Precondition_bt_node_test_enter_exit_action_ut_0_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_enter_exit_action_ut_0_attach3;
 						attach3->SetClassNameString("Precondition");
 						attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach3->SetAgentType("AgentNodeTest");
 #endif
 						node6->Attach(attach3, true, false, false);
@@ -12671,7 +12671,7 @@ namespace behaviac
 						Effector_bt_node_test_enter_exit_action_ut_0_attach4* attach4 = BEHAVIAC_NEW Effector_bt_node_test_enter_exit_action_ut_0_attach4;
 						attach4->SetClassNameString("Effector");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("AgentNodeTest");
 #endif
 						node6->Attach(attach4, false, true, false);
@@ -12682,7 +12682,7 @@ namespace behaviac
 						WaitforSignal* node7 = BEHAVIAC_NEW WaitforSignal;
 						node7->SetClassNameString("WaitforSignal");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node7);
@@ -12690,7 +12690,7 @@ namespace behaviac
 							Condition_bt_node_test_enter_exit_action_ut_0_node5* node5 = BEHAVIAC_NEW Condition_bt_node_test_enter_exit_action_ut_0_node5;
 							node5->SetClassNameString("Condition");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node7->SetCustomCondition(node5);
@@ -12702,7 +12702,7 @@ namespace behaviac
 						True* node8 = BEHAVIAC_NEW True;
 						node8->SetClassNameString("True");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node8);
@@ -12714,7 +12714,7 @@ namespace behaviac
 					True* node9 = BEHAVIAC_NEW True;
 					node9->SetClassNameString("True");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node9);
@@ -12860,7 +12860,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -12868,7 +12868,7 @@ namespace behaviac
 				Parallel_bt_node_test_enter_exit_action_ut_1_node0* node0 = BEHAVIAC_NEW Parallel_bt_node_test_enter_exit_action_ut_1_node0;
 				node0->SetClassNameString("Parallel");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -12876,7 +12876,7 @@ namespace behaviac
 					Precondition_bt_node_test_enter_exit_action_ut_1_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_enter_exit_action_ut_1_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -12886,7 +12886,7 @@ namespace behaviac
 					Effector_bt_node_test_enter_exit_action_ut_1_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_enter_exit_action_ut_1_attach2;
 					attach2->SetClassNameString("Effector");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach2, false, true, false);
@@ -12897,7 +12897,7 @@ namespace behaviac
 					WaitforSignal* node3 = BEHAVIAC_NEW WaitforSignal;
 					node3->SetClassNameString("WaitforSignal");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -12905,7 +12905,7 @@ namespace behaviac
 						Precondition_bt_node_test_enter_exit_action_ut_1_attach4* attach4 = BEHAVIAC_NEW Precondition_bt_node_test_enter_exit_action_ut_1_attach4;
 						attach4->SetClassNameString("Precondition");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("AgentNodeTest");
 #endif
 						node3->Attach(attach4, true, false, false);
@@ -12915,7 +12915,7 @@ namespace behaviac
 						Effector_bt_node_test_enter_exit_action_ut_1_attach5* attach5 = BEHAVIAC_NEW Effector_bt_node_test_enter_exit_action_ut_1_attach5;
 						attach5->SetClassNameString("Effector");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("AgentNodeTest");
 #endif
 						node3->Attach(attach5, false, true, false);
@@ -12926,7 +12926,7 @@ namespace behaviac
 						Condition_bt_node_test_enter_exit_action_ut_1_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_enter_exit_action_ut_1_node6;
 						node6->SetClassNameString("Condition");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node3->SetCustomCondition(node6);
@@ -12938,7 +12938,7 @@ namespace behaviac
 					True* node7 = BEHAVIAC_NEW True;
 					node7->SetClassNameString("True");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -13142,7 +13142,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/enter_exit_action_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -13150,7 +13150,7 @@ namespace behaviac
 				Parallel_bt_node_test_enter_exit_action_ut_2_node0* node0 = BEHAVIAC_NEW Parallel_bt_node_test_enter_exit_action_ut_2_node0;
 				node0->SetClassNameString("Parallel");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -13158,7 +13158,7 @@ namespace behaviac
 					Precondition_bt_node_test_enter_exit_action_ut_2_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_enter_exit_action_ut_2_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -13168,7 +13168,7 @@ namespace behaviac
 					Effector_bt_node_test_enter_exit_action_ut_2_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_enter_exit_action_ut_2_attach2;
 					attach2->SetClassNameString("Effector");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach2, false, true, false);
@@ -13179,7 +13179,7 @@ namespace behaviac
 					WaitforSignal* node3 = BEHAVIAC_NEW WaitforSignal;
 					node3->SetClassNameString("WaitforSignal");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -13187,7 +13187,7 @@ namespace behaviac
 						Precondition_bt_node_test_enter_exit_action_ut_2_attach4* attach4 = BEHAVIAC_NEW Precondition_bt_node_test_enter_exit_action_ut_2_attach4;
 						attach4->SetClassNameString("Precondition");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("AgentNodeTest");
 #endif
 						node3->Attach(attach4, true, false, false);
@@ -13197,7 +13197,7 @@ namespace behaviac
 						Effector_bt_node_test_enter_exit_action_ut_2_attach5* attach5 = BEHAVIAC_NEW Effector_bt_node_test_enter_exit_action_ut_2_attach5;
 						attach5->SetClassNameString("Effector");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("AgentNodeTest");
 #endif
 						node3->Attach(attach5, false, true, false);
@@ -13208,7 +13208,7 @@ namespace behaviac
 						Condition_bt_node_test_enter_exit_action_ut_2_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_enter_exit_action_ut_2_node8;
 						node8->SetClassNameString("Condition");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("AgentNodeTest");
 #endif
 						node3->SetCustomCondition(node8);
@@ -13220,7 +13220,7 @@ namespace behaviac
 					Action_bt_node_test_enter_exit_action_ut_2_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_enter_exit_action_ut_2_node9;
 					node9->SetClassNameString("Action");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -13228,7 +13228,7 @@ namespace behaviac
 						Precondition_bt_node_test_enter_exit_action_ut_2_attach6* attach6 = BEHAVIAC_NEW Precondition_bt_node_test_enter_exit_action_ut_2_attach6;
 						attach6->SetClassNameString("Precondition");
 						attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach6->SetAgentType("AgentNodeTest");
 #endif
 						node9->Attach(attach6, true, false, false);
@@ -13238,7 +13238,7 @@ namespace behaviac
 						Effector_bt_node_test_enter_exit_action_ut_2_attach7* attach7 = BEHAVIAC_NEW Effector_bt_node_test_enter_exit_action_ut_2_attach7;
 						attach7->SetClassNameString("Effector");
 						attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach7->SetAgentType("AgentNodeTest");
 #endif
 						node9->Attach(attach7, false, true, false);
@@ -13296,7 +13296,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -13304,7 +13304,7 @@ namespace behaviac
 				Task_bt_node_test_event_subtree_0_node6* node6 = BEHAVIAC_NEW Task_bt_node_test_event_subtree_0_node6;
 				node6->SetClassNameString("Task");
 				node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node6->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node6);
@@ -13312,7 +13312,7 @@ namespace behaviac
 					Sequence* node0 = BEHAVIAC_NEW Sequence;
 					node0->SetClassNameString("Sequence");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node6->AddChild(node0);
@@ -13320,7 +13320,7 @@ namespace behaviac
 						True* node1 = BEHAVIAC_NEW True;
 						node1->SetClassNameString("True");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node1);
@@ -13330,7 +13330,7 @@ namespace behaviac
 						Action_bt_node_test_event_subtree_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_event_subtree_0_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node2);
@@ -13387,7 +13387,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -13397,7 +13397,7 @@ namespace behaviac
 				Task_bt_node_test_event_subtree_1_node6* node6 = BEHAVIAC_NEW Task_bt_node_test_event_subtree_1_node6;
 				node6->SetClassNameString("Task");
 				node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node6->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node6);
@@ -13405,7 +13405,7 @@ namespace behaviac
 					Sequence* node0 = BEHAVIAC_NEW Sequence;
 					node0->SetClassNameString("Sequence");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node6->AddChild(node0);
@@ -13413,7 +13413,7 @@ namespace behaviac
 						True* node1 = BEHAVIAC_NEW True;
 						node1->SetClassNameString("True");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node1);
@@ -13423,7 +13423,7 @@ namespace behaviac
 						Action_bt_node_test_event_subtree_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_event_subtree_1_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node2);
@@ -13499,7 +13499,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -13510,7 +13510,7 @@ namespace behaviac
 				Task_bt_node_test_event_subtree_2_node6* node6 = BEHAVIAC_NEW Task_bt_node_test_event_subtree_2_node6;
 				node6->SetClassNameString("Task");
 				node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node6->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node6);
@@ -13518,7 +13518,7 @@ namespace behaviac
 					Sequence* node0 = BEHAVIAC_NEW Sequence;
 					node0->SetClassNameString("Sequence");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node6->AddChild(node0);
@@ -13526,7 +13526,7 @@ namespace behaviac
 						Action_bt_node_test_event_subtree_2_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_event_subtree_2_node1;
 						node1->SetClassNameString("Action");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node1);
@@ -13536,7 +13536,7 @@ namespace behaviac
 						Action_bt_node_test_event_subtree_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_event_subtree_2_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node2);
@@ -13631,7 +13631,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -13643,7 +13643,7 @@ namespace behaviac
 				Task_bt_node_test_event_subtree_3_node7* node7 = BEHAVIAC_NEW Task_bt_node_test_event_subtree_3_node7;
 				node7->SetClassNameString("Task");
 				node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node7->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node7);
@@ -13651,7 +13651,7 @@ namespace behaviac
 					Sequence* node0 = BEHAVIAC_NEW Sequence;
 					node0->SetClassNameString("Sequence");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node7->AddChild(node0);
@@ -13659,7 +13659,7 @@ namespace behaviac
 						Action_bt_node_test_event_subtree_3_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_event_subtree_3_node1;
 						node1->SetClassNameString("Action");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node1);
@@ -13669,7 +13669,7 @@ namespace behaviac
 						Action_bt_node_test_event_subtree_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_event_subtree_3_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node2);
@@ -13679,7 +13679,7 @@ namespace behaviac
 						Action_bt_node_test_event_subtree_3_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_event_subtree_3_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node4);
@@ -13736,7 +13736,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_subtree_4");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -13746,7 +13746,7 @@ namespace behaviac
 				Task_bt_node_test_event_subtree_4_node0* node0 = BEHAVIAC_NEW Task_bt_node_test_event_subtree_4_node0;
 				node0->SetClassNameString("Task");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -13754,7 +13754,7 @@ namespace behaviac
 					Sequence* node1 = BEHAVIAC_NEW Sequence;
 					node1->SetClassNameString("Sequence");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -13762,7 +13762,7 @@ namespace behaviac
 						Action_bt_node_test_event_subtree_4_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_event_subtree_4_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node2);
@@ -13910,7 +13910,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -13918,7 +13918,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -13926,7 +13926,7 @@ namespace behaviac
 					Event_bt_node_test_event_ut_0_attach1* attach1 = BEHAVIAC_NEW Event_bt_node_test_event_ut_0_attach1;
 					attach1->SetClassNameString("Event");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					attach1->Initialize("Self.AgentNodeTest::event_test_void()", "node_test/event_subtree_0", TM_Return, false);
@@ -13937,7 +13937,7 @@ namespace behaviac
 					Event_bt_node_test_event_ut_0_attach2* attach2 = BEHAVIAC_NEW Event_bt_node_test_event_ut_0_attach2;
 					attach2->SetClassNameString("Event");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("AgentNodeTest");
 #endif
 					attach2->Initialize("Self.AgentNodeTest::event_test_int(0)", "node_test/event_subtree_1", TM_Return, false);
@@ -13948,7 +13948,7 @@ namespace behaviac
 					Event_bt_node_test_event_ut_0_attach3* attach3 = BEHAVIAC_NEW Event_bt_node_test_event_ut_0_attach3;
 					attach3->SetClassNameString("Event");
 					attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach3->SetAgentType("AgentNodeTest");
 #endif
 					attach3->Initialize("Self.AgentNodeTest::event_test_int_bool(0,false)", "node_test/event_subtree_2", TM_Return, false);
@@ -13959,7 +13959,7 @@ namespace behaviac
 					Event_bt_node_test_event_ut_0_attach4* attach4 = BEHAVIAC_NEW Event_bt_node_test_event_ut_0_attach4;
 					attach4->SetClassNameString("Event");
 					attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach4->SetAgentType("AgentNodeTest");
 #endif
 					attach4->Initialize("Self.AgentNodeTest::event_test_int_bool_float(0,false,0)", "node_test/event_subtree_3", TM_Return, false);
@@ -13970,7 +13970,7 @@ namespace behaviac
 					Event_bt_node_test_event_ut_0_attach8* attach8 = BEHAVIAC_NEW Event_bt_node_test_event_ut_0_attach8;
 					attach8->SetClassNameString("Event");
 					attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach8->SetAgentType("AgentNodeTest");
 #endif
 					attach8->Initialize("Self.AgentNodeTest::event_test_agent(null)", "node_test/event_subtree_4", TM_Transfer, false);
@@ -13982,7 +13982,7 @@ namespace behaviac
 					WaitforSignal* node5 = BEHAVIAC_NEW WaitforSignal;
 					node5->SetClassNameString("WaitforSignal");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -13990,7 +13990,7 @@ namespace behaviac
 						Condition_bt_node_test_event_ut_0_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_event_ut_0_node6;
 						node6->SetClassNameString("Condition");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node5->SetCustomCondition(node6);
@@ -14002,7 +14002,7 @@ namespace behaviac
 					Action_bt_node_test_event_ut_0_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_event_ut_0_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -14061,7 +14061,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -14069,7 +14069,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -14077,7 +14077,7 @@ namespace behaviac
 					ReferencedBehavior_bt_node_test_event_ut_1_node2* node2 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_event_ut_1_node2;
 					node2->SetClassNameString("ReferencedBehavior");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -14087,7 +14087,7 @@ namespace behaviac
 					Action_bt_node_test_event_ut_1_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_event_ut_1_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -14165,7 +14165,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/event_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("ChildNodeTest");
 #endif
 			// children
@@ -14173,7 +14173,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("ChildNodeTest");
 #endif
 				// attachments
@@ -14181,7 +14181,7 @@ namespace behaviac
 					Event_bt_node_test_event_ut_2_attach1* attach1 = BEHAVIAC_NEW Event_bt_node_test_event_ut_2_attach1;
 					attach1->SetClassNameString("Event");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("ChildNodeTest");
 #endif
 					attach1->Initialize("Self.AgentNodeTest::event_test_int_bool(0,false)", "node_test/event_subtree_2", TM_Transfer, false);
@@ -14193,7 +14193,7 @@ namespace behaviac
 					WaitforSignal* node5 = BEHAVIAC_NEW WaitforSignal;
 					node5->SetClassNameString("WaitforSignal");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("ChildNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -14201,7 +14201,7 @@ namespace behaviac
 						Condition_bt_node_test_event_ut_2_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_event_ut_2_node6;
 						node6->SetClassNameString("Condition");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("ChildNodeTest");
 #endif
 						node5->SetCustomCondition(node6);
@@ -14213,7 +14213,7 @@ namespace behaviac
 					Action_bt_node_test_event_ut_2_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_event_ut_2_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("ChildNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -14362,7 +14362,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/frames_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -14370,7 +14370,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -14378,7 +14378,7 @@ namespace behaviac
 					DecoratorFrames_bt_node_test_frames_ut_0_node23* node23 = BEHAVIAC_NEW DecoratorFrames_bt_node_test_frames_ut_0_node23;
 					node23->SetClassNameString("DecoratorFrames");
 					node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node23->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node23);
@@ -14386,7 +14386,7 @@ namespace behaviac
 						Sequence* node15 = BEHAVIAC_NEW Sequence;
 						node15->SetClassNameString("Sequence");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("AgentNodeTest");
 #endif
 						node23->AddChild(node15);
@@ -14394,7 +14394,7 @@ namespace behaviac
 							Action_bt_node_test_frames_ut_0_node16* node16 = BEHAVIAC_NEW Action_bt_node_test_frames_ut_0_node16;
 							node16->SetClassNameString("Action");
 							node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node16->SetAgentType("AgentNodeTest");
 #endif
 							node15->AddChild(node16);
@@ -14404,7 +14404,7 @@ namespace behaviac
 							Assignment_bt_node_test_frames_ut_0_node21* node21 = BEHAVIAC_NEW Assignment_bt_node_test_frames_ut_0_node21;
 							node21->SetClassNameString("Assignment");
 							node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node21->SetAgentType("AgentNodeTest");
 #endif
 							node15->AddChild(node21);
@@ -14414,7 +14414,7 @@ namespace behaviac
 							Action_bt_node_test_frames_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_frames_ut_0_node5;
 							node5->SetClassNameString("Action");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							// attachments
@@ -14422,7 +14422,7 @@ namespace behaviac
 								Precondition_bt_node_test_frames_ut_0_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_node_test_frames_ut_0_attach7;
 								attach7->SetClassNameString("Precondition");
 								attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach7->SetAgentType("AgentNodeTest");
 #endif
 								node5->Attach(attach7, true, false, false);
@@ -14435,7 +14435,7 @@ namespace behaviac
 							Assignment_bt_node_test_frames_ut_0_node0* node0 = BEHAVIAC_NEW Assignment_bt_node_test_frames_ut_0_node0;
 							node0->SetClassNameString("Assignment");
 							node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node0->SetAgentType("AgentNodeTest");
 #endif
 							node15->AddChild(node0);
@@ -14449,7 +14449,7 @@ namespace behaviac
 					Assignment_bt_node_test_frames_ut_0_node2* node2 = BEHAVIAC_NEW Assignment_bt_node_test_frames_ut_0_node2;
 					node2->SetClassNameString("Assignment");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node2);
@@ -14510,7 +14510,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/if_else_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -14518,7 +14518,7 @@ namespace behaviac
 				IfElse* node0 = BEHAVIAC_NEW IfElse;
 				node0->SetClassNameString("IfElse");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -14526,7 +14526,7 @@ namespace behaviac
 					True* node1 = BEHAVIAC_NEW True;
 					node1->SetClassNameString("True");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -14536,7 +14536,7 @@ namespace behaviac
 					Action_bt_node_test_if_else_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_if_else_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -14546,7 +14546,7 @@ namespace behaviac
 					Action_bt_node_test_if_else_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_if_else_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -14607,7 +14607,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/if_else_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -14615,7 +14615,7 @@ namespace behaviac
 				IfElse* node0 = BEHAVIAC_NEW IfElse;
 				node0->SetClassNameString("IfElse");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -14623,7 +14623,7 @@ namespace behaviac
 					False* node1 = BEHAVIAC_NEW False;
 					node1->SetClassNameString("False");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -14633,7 +14633,7 @@ namespace behaviac
 					Action_bt_node_test_if_else_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_if_else_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -14643,7 +14643,7 @@ namespace behaviac
 					Action_bt_node_test_if_else_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_if_else_ut_1_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -14756,7 +14756,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -14764,7 +14764,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -14772,7 +14772,7 @@ namespace behaviac
 					Parallel_bt_node_test_parallel_ut_0_node0* node0 = BEHAVIAC_NEW Parallel_bt_node_test_parallel_ut_0_node0;
 					node0->SetClassNameString("Parallel");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node0);
@@ -14780,7 +14780,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_0_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -14790,7 +14790,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_0_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node4);
@@ -14800,7 +14800,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_0_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node5);
@@ -14812,7 +14812,7 @@ namespace behaviac
 					Action_bt_node_test_parallel_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node2);
@@ -14925,7 +14925,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -14933,7 +14933,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -14941,7 +14941,7 @@ namespace behaviac
 					Parallel_bt_node_test_parallel_ut_1_node0* node0 = BEHAVIAC_NEW Parallel_bt_node_test_parallel_ut_1_node0;
 					node0->SetClassNameString("Parallel");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node0);
@@ -14949,7 +14949,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_1_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -14959,7 +14959,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_1_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_1_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node4);
@@ -14969,7 +14969,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_1_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_1_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node5);
@@ -14981,7 +14981,7 @@ namespace behaviac
 					Action_bt_node_test_parallel_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node2);
@@ -15094,7 +15094,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -15102,7 +15102,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -15110,7 +15110,7 @@ namespace behaviac
 					Parallel_bt_node_test_parallel_ut_2_node0* node0 = BEHAVIAC_NEW Parallel_bt_node_test_parallel_ut_2_node0;
 					node0->SetClassNameString("Parallel");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node0);
@@ -15118,7 +15118,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_2_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_2_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -15128,7 +15128,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_2_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_2_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node4);
@@ -15138,7 +15138,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_2_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_2_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node5);
@@ -15150,7 +15150,7 @@ namespace behaviac
 					Action_bt_node_test_parallel_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_2_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node2);
@@ -15263,7 +15263,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -15271,7 +15271,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -15279,7 +15279,7 @@ namespace behaviac
 					Parallel_bt_node_test_parallel_ut_3_node0* node0 = BEHAVIAC_NEW Parallel_bt_node_test_parallel_ut_3_node0;
 					node0->SetClassNameString("Parallel");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node0);
@@ -15287,7 +15287,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_3_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_3_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -15297,7 +15297,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_3_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_3_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node4);
@@ -15307,7 +15307,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_3_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_3_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node5);
@@ -15319,7 +15319,7 @@ namespace behaviac
 					Action_bt_node_test_parallel_ut_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_3_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node2);
@@ -15432,7 +15432,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/parallel_ut_4");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -15440,7 +15440,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -15448,7 +15448,7 @@ namespace behaviac
 					Parallel_bt_node_test_parallel_ut_4_node0* node0 = BEHAVIAC_NEW Parallel_bt_node_test_parallel_ut_4_node0;
 					node0->SetClassNameString("Parallel");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node0);
@@ -15456,7 +15456,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_4_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_4_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -15466,7 +15466,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_4_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_4_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node4);
@@ -15476,7 +15476,7 @@ namespace behaviac
 						Action_bt_node_test_parallel_ut_4_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_4_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node5);
@@ -15488,7 +15488,7 @@ namespace behaviac
 					Action_bt_node_test_parallel_ut_4_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_parallel_ut_4_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node1->AddChild(node2);
@@ -15593,7 +15593,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -15601,7 +15601,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -15609,7 +15609,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_action_ut_0_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_predicate_action_ut_0_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -15617,7 +15617,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_0_attach2* attach2 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_0_attach2;
 						attach2->SetClassNameString("Precondition");
 						attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach2->SetAgentType("AgentNodeTest");
 #endif
 						node1->Attach(attach2, true, false, false);
@@ -15630,7 +15630,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_action_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_action_ut_0_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -15638,7 +15638,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_0_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_0_attach3;
 						attach3->SetClassNameString("Precondition");
 						attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach3->SetAgentType("AgentNodeTest");
 #endif
 						node4->Attach(attach3, true, false, false);
@@ -15790,7 +15790,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -15798,7 +15798,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -15806,7 +15806,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_action_ut_1_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_predicate_action_ut_1_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -15814,7 +15814,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_1_attach2* attach2 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_1_attach2;
 						attach2->SetClassNameString("Precondition");
 						attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach2->SetAgentType("AgentNodeTest");
 #endif
 						node1->Attach(attach2, true, false, false);
@@ -15824,7 +15824,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_1_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_1_attach3;
 						attach3->SetClassNameString("Precondition");
 						attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach3->SetAgentType("AgentNodeTest");
 #endif
 						node1->Attach(attach3, true, false, false);
@@ -15837,7 +15837,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_action_ut_1_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_predicate_action_ut_1_node6;
 					node6->SetClassNameString("Action");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -15845,7 +15845,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_1_attach4* attach4 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_1_attach4;
 						attach4->SetClassNameString("Precondition");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("AgentNodeTest");
 #endif
 						node6->Attach(attach4, true, false, false);
@@ -15855,7 +15855,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_1_attach5* attach5 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_1_attach5;
 						attach5->SetClassNameString("Precondition");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("AgentNodeTest");
 #endif
 						node6->Attach(attach5, true, false, false);
@@ -16051,7 +16051,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -16059,7 +16059,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -16067,7 +16067,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_action_ut_2_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_predicate_action_ut_2_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -16075,7 +16075,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_2_attach2* attach2 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_2_attach2;
 						attach2->SetClassNameString("Precondition");
 						attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach2->SetAgentType("AgentNodeTest");
 #endif
 						node1->Attach(attach2, true, false, false);
@@ -16085,7 +16085,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_2_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_2_attach3;
 						attach3->SetClassNameString("Precondition");
 						attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach3->SetAgentType("AgentNodeTest");
 #endif
 						node1->Attach(attach3, true, false, false);
@@ -16095,7 +16095,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_2_attach4* attach4 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_2_attach4;
 						attach4->SetClassNameString("Precondition");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("AgentNodeTest");
 #endif
 						node1->Attach(attach4, true, false, false);
@@ -16108,7 +16108,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_action_ut_2_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_predicate_action_ut_2_node8;
 					node8->SetClassNameString("Action");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("AgentNodeTest");
 #endif
 					// attachments
@@ -16116,7 +16116,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_2_attach5* attach5 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_2_attach5;
 						attach5->SetClassNameString("Precondition");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("AgentNodeTest");
 #endif
 						node8->Attach(attach5, true, false, false);
@@ -16126,7 +16126,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_2_attach6* attach6 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_2_attach6;
 						attach6->SetClassNameString("Precondition");
 						attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach6->SetAgentType("AgentNodeTest");
 #endif
 						node8->Attach(attach6, true, false, false);
@@ -16136,7 +16136,7 @@ namespace behaviac
 						Precondition_bt_node_test_predicate_action_ut_2_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_2_attach7;
 						attach7->SetClassNameString("Precondition");
 						attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach7->SetAgentType("AgentNodeTest");
 #endif
 						node8->Attach(attach7, true, false, false);
@@ -16203,7 +16203,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_action_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -16211,7 +16211,7 @@ namespace behaviac
 				Action_bt_node_test_predicate_action_ut_3_node0* node0 = BEHAVIAC_NEW Action_bt_node_test_predicate_action_ut_3_node0;
 				node0->SetClassNameString("Action");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -16219,7 +16219,7 @@ namespace behaviac
 					Precondition_bt_node_test_predicate_action_ut_3_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_predicate_action_ut_3_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -16330,7 +16330,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -16338,7 +16338,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -16346,7 +16346,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_selector_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_selector_ut_0_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -16354,7 +16354,7 @@ namespace behaviac
 						Condition_bt_node_test_predicate_selector_ut_0_node3* node3 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_0_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -16366,7 +16366,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -16376,7 +16376,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_0_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -16386,7 +16386,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_0_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -16496,7 +16496,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -16504,7 +16504,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -16512,7 +16512,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_selector_ut_1_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_selector_ut_1_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -16520,7 +16520,7 @@ namespace behaviac
 						Condition_bt_node_test_predicate_selector_ut_1_node3* node3 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_1_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -16532,7 +16532,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_1_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_1_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -16542,7 +16542,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -16552,7 +16552,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_1_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_1_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -16662,7 +16662,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -16670,7 +16670,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -16678,7 +16678,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_selector_ut_2_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_selector_ut_2_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -16686,7 +16686,7 @@ namespace behaviac
 						Condition_bt_node_test_predicate_selector_ut_2_node3* node3 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_2_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -16698,7 +16698,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_2_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_2_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -16708,7 +16708,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_2_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -16718,7 +16718,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_2_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_2_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -16847,7 +16847,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -16855,7 +16855,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -16863,7 +16863,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_selector_ut_3_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_selector_ut_3_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -16871,7 +16871,7 @@ namespace behaviac
 						Sequence* node3 = BEHAVIAC_NEW Sequence;
 						node3->SetClassNameString("Sequence");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -16879,7 +16879,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_selector_ut_3_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_3_node6;
 							node6->SetClassNameString("Condition");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node6);
@@ -16889,7 +16889,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_selector_ut_3_node7* node7 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_3_node7;
 							node7->SetClassNameString("Condition");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node7);
@@ -16903,7 +16903,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_3_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_3_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -16913,7 +16913,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_3_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_3_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -16923,7 +16923,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_3_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -17052,7 +17052,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_4");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -17060,7 +17060,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -17068,7 +17068,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_selector_ut_4_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_selector_ut_4_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -17076,7 +17076,7 @@ namespace behaviac
 						Selector* node3 = BEHAVIAC_NEW Selector;
 						node3->SetClassNameString("Selector");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -17084,7 +17084,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_selector_ut_4_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_4_node6;
 							node6->SetClassNameString("Condition");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node6);
@@ -17094,7 +17094,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_selector_ut_4_node7* node7 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_4_node7;
 							node7->SetClassNameString("Condition");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node7);
@@ -17108,7 +17108,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_4_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_4_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -17118,7 +17118,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_4_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_4_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -17128,7 +17128,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_4_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_4_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -17295,7 +17295,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_selector_ut_5");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -17303,7 +17303,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -17311,7 +17311,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_selector_ut_5_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_selector_ut_5_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -17319,7 +17319,7 @@ namespace behaviac
 						Selector* node3 = BEHAVIAC_NEW Selector;
 						node3->SetClassNameString("Selector");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -17327,7 +17327,7 @@ namespace behaviac
 							Sequence* node6 = BEHAVIAC_NEW Sequence;
 							node6->SetClassNameString("Sequence");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node6);
@@ -17335,7 +17335,7 @@ namespace behaviac
 								Condition_bt_node_test_predicate_selector_ut_5_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_5_node8;
 								node8->SetClassNameString("Condition");
 								node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node8->SetAgentType("AgentNodeTest");
 #endif
 								node6->AddChild(node8);
@@ -17345,7 +17345,7 @@ namespace behaviac
 								Condition_bt_node_test_predicate_selector_ut_5_node9* node9 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_5_node9;
 								node9->SetClassNameString("Condition");
 								node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node9->SetAgentType("AgentNodeTest");
 #endif
 								node6->AddChild(node9);
@@ -17357,7 +17357,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_selector_ut_5_node10* node10 = BEHAVIAC_NEW Condition_bt_node_test_predicate_selector_ut_5_node10;
 							node10->SetClassNameString("Condition");
 							node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node10->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node10);
@@ -17371,7 +17371,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_5_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_5_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -17381,7 +17381,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_5_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_5_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -17391,7 +17391,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_5_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_5_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -17401,7 +17401,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_selector_ut_5_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_predicate_selector_ut_5_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -17511,7 +17511,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -17519,7 +17519,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -17527,7 +17527,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_sequence_ut_0_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_sequence_ut_0_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -17535,7 +17535,7 @@ namespace behaviac
 						Condition_bt_node_test_predicate_sequence_ut_0_node3* node3 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_0_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -17547,7 +17547,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -17557,7 +17557,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_0_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -17567,7 +17567,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_0_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -17677,7 +17677,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -17685,7 +17685,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -17693,7 +17693,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_sequence_ut_1_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_sequence_ut_1_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -17701,7 +17701,7 @@ namespace behaviac
 						Condition_bt_node_test_predicate_sequence_ut_1_node3* node3 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_1_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -17713,7 +17713,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_1_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_1_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -17723,7 +17723,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -17733,7 +17733,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_1_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_1_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -17843,7 +17843,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -17851,7 +17851,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -17859,7 +17859,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_sequence_ut_2_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_sequence_ut_2_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -17867,7 +17867,7 @@ namespace behaviac
 						Condition_bt_node_test_predicate_sequence_ut_2_node3* node3 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_2_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -17879,7 +17879,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_2_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_2_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -17889,7 +17889,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_2_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -17899,7 +17899,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_2_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_2_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -18028,7 +18028,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -18036,7 +18036,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -18044,7 +18044,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_sequence_ut_3_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_sequence_ut_3_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -18052,7 +18052,7 @@ namespace behaviac
 						Sequence* node3 = BEHAVIAC_NEW Sequence;
 						node3->SetClassNameString("Sequence");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -18060,7 +18060,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_sequence_ut_3_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_3_node6;
 							node6->SetClassNameString("Condition");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node6);
@@ -18070,7 +18070,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_sequence_ut_3_node7* node7 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_3_node7;
 							node7->SetClassNameString("Condition");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node7);
@@ -18084,7 +18084,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_3_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_3_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -18094,7 +18094,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_3_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_3_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -18104,7 +18104,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_3_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -18233,7 +18233,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_4");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -18241,7 +18241,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -18249,7 +18249,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_sequence_ut_4_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_sequence_ut_4_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -18257,7 +18257,7 @@ namespace behaviac
 						Selector* node3 = BEHAVIAC_NEW Selector;
 						node3->SetClassNameString("Selector");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -18265,7 +18265,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_sequence_ut_4_node6* node6 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_4_node6;
 							node6->SetClassNameString("Condition");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node6);
@@ -18275,7 +18275,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_sequence_ut_4_node7* node7 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_4_node7;
 							node7->SetClassNameString("Condition");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node7);
@@ -18289,7 +18289,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_4_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_4_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -18299,7 +18299,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_4_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_4_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -18309,7 +18309,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_4_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_4_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -18476,7 +18476,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/predicate_sequence_ut_5");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -18484,7 +18484,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -18492,7 +18492,7 @@ namespace behaviac
 					DecoratorNot_bt_node_test_predicate_sequence_ut_5_node1* node1 = BEHAVIAC_NEW DecoratorNot_bt_node_test_predicate_sequence_ut_5_node1;
 					node1->SetClassNameString("DecoratorNot");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->SetCustomCondition(node1);
@@ -18500,7 +18500,7 @@ namespace behaviac
 						Sequence* node3 = BEHAVIAC_NEW Sequence;
 						node3->SetClassNameString("Sequence");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node3);
@@ -18508,7 +18508,7 @@ namespace behaviac
 							Selector* node6 = BEHAVIAC_NEW Selector;
 							node6->SetClassNameString("Selector");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node6);
@@ -18516,7 +18516,7 @@ namespace behaviac
 								Condition_bt_node_test_predicate_sequence_ut_5_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_5_node8;
 								node8->SetClassNameString("Condition");
 								node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node8->SetAgentType("AgentNodeTest");
 #endif
 								node6->AddChild(node8);
@@ -18526,7 +18526,7 @@ namespace behaviac
 								Condition_bt_node_test_predicate_sequence_ut_5_node9* node9 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_5_node9;
 								node9->SetClassNameString("Condition");
 								node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node9->SetAgentType("AgentNodeTest");
 #endif
 								node6->AddChild(node9);
@@ -18538,7 +18538,7 @@ namespace behaviac
 							Condition_bt_node_test_predicate_sequence_ut_5_node10* node10 = BEHAVIAC_NEW Condition_bt_node_test_predicate_sequence_ut_5_node10;
 							node10->SetClassNameString("Condition");
 							node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node10->SetAgentType("AgentNodeTest");
 #endif
 							node3->AddChild(node10);
@@ -18552,7 +18552,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_5_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_5_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -18562,7 +18562,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_5_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_5_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -18572,7 +18572,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_5_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_5_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -18582,7 +18582,7 @@ namespace behaviac
 					Action_bt_node_test_predicate_sequence_ut_5_node7* node7 = BEHAVIAC_NEW Action_bt_node_test_predicate_sequence_ut_5_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -18624,7 +18624,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_subtree_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			pBT->SetDomains("test subtree0");
@@ -18634,7 +18634,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -18642,7 +18642,7 @@ namespace behaviac
 					Action_bt_node_test_query_subtree_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_query_subtree_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -18652,7 +18652,7 @@ namespace behaviac
 					True* node2 = BEHAVIAC_NEW True;
 					node2->SetClassNameString("True");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -18694,7 +18694,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_subtree_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			pBT->SetDomains("test subtree1");
@@ -18704,7 +18704,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -18712,7 +18712,7 @@ namespace behaviac
 					Action_bt_node_test_query_subtree_1_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_query_subtree_1_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -18722,7 +18722,7 @@ namespace behaviac
 					True* node2 = BEHAVIAC_NEW True;
 					node2->SetClassNameString("True");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -18764,7 +18764,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_subtree_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			pBT->SetDomains("test subtree2");
@@ -18774,7 +18774,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -18782,7 +18782,7 @@ namespace behaviac
 					Action_bt_node_test_query_subtree_2_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_query_subtree_2_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -18792,7 +18792,7 @@ namespace behaviac
 					True* node2 = BEHAVIAC_NEW True;
 					node2->SetClassNameString("True");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -18908,7 +18908,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -18916,7 +18916,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -18924,7 +18924,7 @@ namespace behaviac
 					Precondition_bt_node_test_query_ut_0_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_query_ut_0_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -18934,7 +18934,7 @@ namespace behaviac
 					Effector_bt_node_test_query_ut_0_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_query_ut_0_attach2;
 					attach2->SetClassNameString("Effector");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach2, false, true, false);
@@ -18945,7 +18945,7 @@ namespace behaviac
 					Query_bt_node_test_query_ut_0_node5* node5 = BEHAVIAC_NEW Query_bt_node_test_query_ut_0_node5;
 					node5->SetClassNameString("Query");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -18955,7 +18955,7 @@ namespace behaviac
 					Selector* node6 = BEHAVIAC_NEW Selector;
 					node6->SetClassNameString("Selector");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -18963,7 +18963,7 @@ namespace behaviac
 						Query_bt_node_test_query_ut_0_node3* node3 = BEHAVIAC_NEW Query_bt_node_test_query_ut_0_node3;
 						node3->SetClassNameString("Query");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node3);
@@ -18973,7 +18973,7 @@ namespace behaviac
 						Query_bt_node_test_query_ut_0_node4* node4 = BEHAVIAC_NEW Query_bt_node_test_query_ut_0_node4;
 						node4->SetClassNameString("Query");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node4);
@@ -19091,7 +19091,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -19099,7 +19099,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -19107,7 +19107,7 @@ namespace behaviac
 					Precondition_bt_node_test_query_ut_1_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_query_ut_1_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -19117,7 +19117,7 @@ namespace behaviac
 					Effector_bt_node_test_query_ut_1_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_query_ut_1_attach2;
 					attach2->SetClassNameString("Effector");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach2, false, true, false);
@@ -19128,7 +19128,7 @@ namespace behaviac
 					Query_bt_node_test_query_ut_1_node5* node5 = BEHAVIAC_NEW Query_bt_node_test_query_ut_1_node5;
 					node5->SetClassNameString("Query");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -19138,7 +19138,7 @@ namespace behaviac
 					Sequence* node6 = BEHAVIAC_NEW Sequence;
 					node6->SetClassNameString("Sequence");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -19146,7 +19146,7 @@ namespace behaviac
 						Query_bt_node_test_query_ut_1_node3* node3 = BEHAVIAC_NEW Query_bt_node_test_query_ut_1_node3;
 						node3->SetClassNameString("Query");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node3);
@@ -19156,7 +19156,7 @@ namespace behaviac
 						Query_bt_node_test_query_ut_1_node4* node4 = BEHAVIAC_NEW Query_bt_node_test_query_ut_1_node4;
 						node4->SetClassNameString("Query");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node4);
@@ -19274,7 +19274,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -19282,7 +19282,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -19290,7 +19290,7 @@ namespace behaviac
 					Precondition_bt_node_test_query_ut_2_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_query_ut_2_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -19300,7 +19300,7 @@ namespace behaviac
 					Effector_bt_node_test_query_ut_2_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_query_ut_2_attach2;
 					attach2->SetClassNameString("Effector");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach2, false, true, false);
@@ -19311,7 +19311,7 @@ namespace behaviac
 					Query_bt_node_test_query_ut_2_node5* node5 = BEHAVIAC_NEW Query_bt_node_test_query_ut_2_node5;
 					node5->SetClassNameString("Query");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -19321,7 +19321,7 @@ namespace behaviac
 					Sequence* node6 = BEHAVIAC_NEW Sequence;
 					node6->SetClassNameString("Sequence");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -19329,7 +19329,7 @@ namespace behaviac
 						Query_bt_node_test_query_ut_2_node3* node3 = BEHAVIAC_NEW Query_bt_node_test_query_ut_2_node3;
 						node3->SetClassNameString("Query");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node3);
@@ -19339,7 +19339,7 @@ namespace behaviac
 						Query_bt_node_test_query_ut_2_node4* node4 = BEHAVIAC_NEW Query_bt_node_test_query_ut_2_node4;
 						node4->SetClassNameString("Query");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node4);
@@ -19457,7 +19457,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/query_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -19465,7 +19465,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				// attachments
@@ -19473,7 +19473,7 @@ namespace behaviac
 					Precondition_bt_node_test_query_ut_3_attach1* attach1 = BEHAVIAC_NEW Precondition_bt_node_test_query_ut_3_attach1;
 					attach1->SetClassNameString("Precondition");
 					attach1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach1->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach1, true, false, false);
@@ -19483,7 +19483,7 @@ namespace behaviac
 					Effector_bt_node_test_query_ut_3_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_query_ut_3_attach2;
 					attach2->SetClassNameString("Effector");
 					attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					attach2->SetAgentType("AgentNodeTest");
 #endif
 					node0->Attach(attach2, false, true, false);
@@ -19494,7 +19494,7 @@ namespace behaviac
 					Query_bt_node_test_query_ut_3_node5* node5 = BEHAVIAC_NEW Query_bt_node_test_query_ut_3_node5;
 					node5->SetClassNameString("Query");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -19504,7 +19504,7 @@ namespace behaviac
 					Sequence* node6 = BEHAVIAC_NEW Sequence;
 					node6->SetClassNameString("Sequence");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -19512,7 +19512,7 @@ namespace behaviac
 						Query_bt_node_test_query_ut_3_node3* node3 = BEHAVIAC_NEW Query_bt_node_test_query_ut_3_node3;
 						node3->SetClassNameString("Query");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node3);
@@ -19522,7 +19522,7 @@ namespace behaviac
 						Query_bt_node_test_query_ut_3_node4* node4 = BEHAVIAC_NEW Query_bt_node_test_query_ut_3_node4;
 						node4->SetClassNameString("Query");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node4);
@@ -19600,7 +19600,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/reference_sub_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -19611,7 +19611,7 @@ namespace behaviac
 				Task_bt_node_test_reference_sub_0_node7* node7 = BEHAVIAC_NEW Task_bt_node_test_reference_sub_0_node7;
 				node7->SetClassNameString("Task");
 				node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node7->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node7);
@@ -19619,7 +19619,7 @@ namespace behaviac
 					Sequence* node0 = BEHAVIAC_NEW Sequence;
 					node0->SetClassNameString("Sequence");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node7->AddChild(node0);
@@ -19627,7 +19627,7 @@ namespace behaviac
 						Assignment_bt_node_test_reference_sub_0_node1* node1 = BEHAVIAC_NEW Assignment_bt_node_test_reference_sub_0_node1;
 						node1->SetClassNameString("Assignment");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node1);
@@ -19637,7 +19637,7 @@ namespace behaviac
 						Assignment_bt_node_test_reference_sub_0_node2* node2 = BEHAVIAC_NEW Assignment_bt_node_test_reference_sub_0_node2;
 						node2->SetClassNameString("Assignment");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node2);
@@ -19662,7 +19662,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/reference_sub_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -19673,7 +19673,7 @@ namespace behaviac
 				False* node0 = BEHAVIAC_NEW False;
 				node0->SetClassNameString("False");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -19713,7 +19713,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/reference_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -19721,7 +19721,7 @@ namespace behaviac
 				ReferencedBehavior_bt_node_test_reference_ut_0_node1* node1 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_reference_ut_0_node1;
 				node1->SetClassNameString("ReferencedBehavior");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node1);
@@ -19780,7 +19780,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -19788,7 +19788,7 @@ namespace behaviac
 				SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 				node0->SetClassNameString("SelectorLoop");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -19796,7 +19796,7 @@ namespace behaviac
 					WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 					node1->SetClassNameString("WithPrecondition");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -19804,7 +19804,7 @@ namespace behaviac
 						True* node4 = BEHAVIAC_NEW True;
 						node4->SetClassNameString("True");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node4);
@@ -19814,7 +19814,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_0_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_0_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -19826,7 +19826,7 @@ namespace behaviac
 					WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 					node2->SetClassNameString("WithPrecondition");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -19834,7 +19834,7 @@ namespace behaviac
 						True* node3 = BEHAVIAC_NEW True;
 						node3->SetClassNameString("True");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -19844,7 +19844,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_0_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_0_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node6);
@@ -19907,7 +19907,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -19915,7 +19915,7 @@ namespace behaviac
 				SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 				node0->SetClassNameString("SelectorLoop");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -19923,7 +19923,7 @@ namespace behaviac
 					WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 					node1->SetClassNameString("WithPrecondition");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -19931,7 +19931,7 @@ namespace behaviac
 						True* node4 = BEHAVIAC_NEW True;
 						node4->SetClassNameString("True");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node4);
@@ -19941,7 +19941,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_1_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_1_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -19953,7 +19953,7 @@ namespace behaviac
 					WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 					node2->SetClassNameString("WithPrecondition");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -19961,7 +19961,7 @@ namespace behaviac
 						True* node3 = BEHAVIAC_NEW True;
 						node3->SetClassNameString("True");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -19971,7 +19971,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_1_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_1_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node6);
@@ -20034,7 +20034,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -20042,7 +20042,7 @@ namespace behaviac
 				SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 				node0->SetClassNameString("SelectorLoop");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -20050,7 +20050,7 @@ namespace behaviac
 					WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 					node1->SetClassNameString("WithPrecondition");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -20058,7 +20058,7 @@ namespace behaviac
 						True* node4 = BEHAVIAC_NEW True;
 						node4->SetClassNameString("True");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node4);
@@ -20068,7 +20068,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_2_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_2_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -20080,7 +20080,7 @@ namespace behaviac
 					WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 					node2->SetClassNameString("WithPrecondition");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -20088,7 +20088,7 @@ namespace behaviac
 						False* node3 = BEHAVIAC_NEW False;
 						node3->SetClassNameString("False");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -20098,7 +20098,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_2_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_2_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node6);
@@ -20161,7 +20161,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -20169,7 +20169,7 @@ namespace behaviac
 				SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 				node0->SetClassNameString("SelectorLoop");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -20177,7 +20177,7 @@ namespace behaviac
 					WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 					node1->SetClassNameString("WithPrecondition");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -20185,7 +20185,7 @@ namespace behaviac
 						False* node4 = BEHAVIAC_NEW False;
 						node4->SetClassNameString("False");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node4);
@@ -20195,7 +20195,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_3_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_3_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -20207,7 +20207,7 @@ namespace behaviac
 					WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 					node2->SetClassNameString("WithPrecondition");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -20215,7 +20215,7 @@ namespace behaviac
 						False* node3 = BEHAVIAC_NEW False;
 						node3->SetClassNameString("False");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -20225,7 +20225,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_3_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_3_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node6);
@@ -20288,7 +20288,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_4");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -20296,7 +20296,7 @@ namespace behaviac
 				SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 				node0->SetClassNameString("SelectorLoop");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -20304,7 +20304,7 @@ namespace behaviac
 					WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 					node1->SetClassNameString("WithPrecondition");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -20312,7 +20312,7 @@ namespace behaviac
 						True* node4 = BEHAVIAC_NEW True;
 						node4->SetClassNameString("True");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node4);
@@ -20322,7 +20322,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_4_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_4_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -20334,7 +20334,7 @@ namespace behaviac
 					WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 					node2->SetClassNameString("WithPrecondition");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -20342,7 +20342,7 @@ namespace behaviac
 						True* node3 = BEHAVIAC_NEW True;
 						node3->SetClassNameString("True");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -20352,7 +20352,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_4_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_4_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node6);
@@ -20434,7 +20434,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_5");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -20442,7 +20442,7 @@ namespace behaviac
 				SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 				node0->SetClassNameString("SelectorLoop");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -20450,7 +20450,7 @@ namespace behaviac
 					WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 					node1->SetClassNameString("WithPrecondition");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -20458,7 +20458,7 @@ namespace behaviac
 						False* node4 = BEHAVIAC_NEW False;
 						node4->SetClassNameString("False");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node4);
@@ -20468,7 +20468,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_5_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_5_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("AgentNodeTest");
 #endif
 						node1->AddChild(node5);
@@ -20480,7 +20480,7 @@ namespace behaviac
 					WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 					node2->SetClassNameString("WithPrecondition");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -20488,7 +20488,7 @@ namespace behaviac
 						True* node3 = BEHAVIAC_NEW True;
 						node3->SetClassNameString("True");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node3);
@@ -20498,7 +20498,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_5_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_5_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node2->AddChild(node6);
@@ -20510,7 +20510,7 @@ namespace behaviac
 					WithPrecondition* node7 = BEHAVIAC_NEW WithPrecondition;
 					node7->SetClassNameString("WithPrecondition");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node7);
@@ -20518,7 +20518,7 @@ namespace behaviac
 						True* node8 = BEHAVIAC_NEW True;
 						node8->SetClassNameString("True");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("AgentNodeTest");
 #endif
 						node7->AddChild(node8);
@@ -20528,7 +20528,7 @@ namespace behaviac
 						Action_bt_node_test_selector_loop_ut_5_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_5_node9;
 						node9->SetClassNameString("Action");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("AgentNodeTest");
 #endif
 						node7->AddChild(node9);
@@ -20660,7 +20660,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_6");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -20668,7 +20668,7 @@ namespace behaviac
 				DecoratorLoop_bt_node_test_selector_loop_ut_6_node9* node9 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_selector_loop_ut_6_node9;
 				node9->SetClassNameString("DecoratorLoop");
 				node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node9->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node9);
@@ -20676,7 +20676,7 @@ namespace behaviac
 					SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 					node0->SetClassNameString("SelectorLoop");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node9->AddChild(node0);
@@ -20684,7 +20684,7 @@ namespace behaviac
 						WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 						node1->SetClassNameString("WithPrecondition");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node1);
@@ -20692,7 +20692,7 @@ namespace behaviac
 							Condition_bt_node_test_selector_loop_ut_6_node4* node4 = BEHAVIAC_NEW Condition_bt_node_test_selector_loop_ut_6_node4;
 							node4->SetClassNameString("Condition");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("AgentNodeTest");
 #endif
 							node1->AddChild(node4);
@@ -20702,7 +20702,7 @@ namespace behaviac
 							Action_bt_node_test_selector_loop_ut_6_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_6_node5;
 							node5->SetClassNameString("Action");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							// attachments
@@ -20710,7 +20710,7 @@ namespace behaviac
 								Precondition_bt_node_test_selector_loop_ut_6_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_6_attach7;
 								attach7->SetClassNameString("Precondition");
 								attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach7->SetAgentType("AgentNodeTest");
 #endif
 								node5->Attach(attach7, true, false, false);
@@ -20725,7 +20725,7 @@ namespace behaviac
 						WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 						node2->SetClassNameString("WithPrecondition");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node2);
@@ -20733,7 +20733,7 @@ namespace behaviac
 							True* node3 = BEHAVIAC_NEW True;
 							node3->SetClassNameString("True");
 							node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node3->SetAgentType("AgentNodeTest");
 #endif
 							node2->AddChild(node3);
@@ -20743,7 +20743,7 @@ namespace behaviac
 							Action_bt_node_test_selector_loop_ut_6_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_6_node6;
 							node6->SetClassNameString("Action");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("AgentNodeTest");
 #endif
 							// attachments
@@ -20751,7 +20751,7 @@ namespace behaviac
 								Precondition_bt_node_test_selector_loop_ut_6_attach8* attach8 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_6_attach8;
 								attach8->SetClassNameString("Precondition");
 								attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach8->SetAgentType("AgentNodeTest");
 #endif
 								node6->Attach(attach8, true, false, false);
@@ -21077,7 +21077,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_7");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -21085,7 +21085,7 @@ namespace behaviac
 				Sequence* node15 = BEHAVIAC_NEW Sequence;
 				node15->SetClassNameString("Sequence");
 				node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node15->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node15);
@@ -21093,7 +21093,7 @@ namespace behaviac
 					Action_bt_node_test_selector_loop_ut_7_node16* node16 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node16;
 					node16->SetClassNameString("Action");
 					node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node16->SetAgentType("AgentNodeTest");
 #endif
 					node15->AddChild(node16);
@@ -21103,7 +21103,7 @@ namespace behaviac
 					Assignment_bt_node_test_selector_loop_ut_7_node21* node21 = BEHAVIAC_NEW Assignment_bt_node_test_selector_loop_ut_7_node21;
 					node21->SetClassNameString("Assignment");
 					node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node21->SetAgentType("AgentNodeTest");
 #endif
 					node15->AddChild(node21);
@@ -21113,7 +21113,7 @@ namespace behaviac
 					Selector* node10 = BEHAVIAC_NEW Selector;
 					node10->SetClassNameString("Selector");
 					node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node10->SetAgentType("AgentNodeTest");
 #endif
 					node15->AddChild(node10);
@@ -21121,7 +21121,7 @@ namespace behaviac
 						DecoratorLoop_bt_node_test_selector_loop_ut_7_node9* node9 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_selector_loop_ut_7_node9;
 						node9->SetClassNameString("DecoratorLoop");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("AgentNodeTest");
 #endif
 						// attachments
@@ -21129,7 +21129,7 @@ namespace behaviac
 							Precondition_bt_node_test_selector_loop_ut_7_attach14* attach14 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach14;
 							attach14->SetClassNameString("Precondition");
 							attach14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							attach14->SetAgentType("AgentNodeTest");
 #endif
 							node9->Attach(attach14, true, false, false);
@@ -21139,7 +21139,7 @@ namespace behaviac
 							Precondition_bt_node_test_selector_loop_ut_7_attach17* attach17 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach17;
 							attach17->SetClassNameString("Precondition");
 							attach17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							attach17->SetAgentType("AgentNodeTest");
 #endif
 							node9->Attach(attach17, true, false, false);
@@ -21149,7 +21149,7 @@ namespace behaviac
 							Effector_bt_node_test_selector_loop_ut_7_attach18* attach18 = BEHAVIAC_NEW Effector_bt_node_test_selector_loop_ut_7_attach18;
 							attach18->SetClassNameString("Effector");
 							attach18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							attach18->SetAgentType("AgentNodeTest");
 #endif
 							node9->Attach(attach18, false, true, false);
@@ -21160,7 +21160,7 @@ namespace behaviac
 							SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 							node0->SetClassNameString("SelectorLoop");
 							node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node0->SetAgentType("AgentNodeTest");
 #endif
 							node9->AddChild(node0);
@@ -21168,7 +21168,7 @@ namespace behaviac
 								WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 								node1->SetClassNameString("WithPrecondition");
 								node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node1->SetAgentType("AgentNodeTest");
 #endif
 								node0->AddChild(node1);
@@ -21176,7 +21176,7 @@ namespace behaviac
 									Condition_bt_node_test_selector_loop_ut_7_node4* node4 = BEHAVIAC_NEW Condition_bt_node_test_selector_loop_ut_7_node4;
 									node4->SetClassNameString("Condition");
 									node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node4->SetAgentType("AgentNodeTest");
 #endif
 									node1->AddChild(node4);
@@ -21186,7 +21186,7 @@ namespace behaviac
 									Action_bt_node_test_selector_loop_ut_7_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node5;
 									node5->SetClassNameString("Action");
 									node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node5->SetAgentType("AgentNodeTest");
 #endif
 									// attachments
@@ -21194,7 +21194,7 @@ namespace behaviac
 										Precondition_bt_node_test_selector_loop_ut_7_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach7;
 										attach7->SetClassNameString("Precondition");
 										attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										attach7->SetAgentType("AgentNodeTest");
 #endif
 										node5->Attach(attach7, true, false, false);
@@ -21209,7 +21209,7 @@ namespace behaviac
 								WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 								node2->SetClassNameString("WithPrecondition");
 								node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node2->SetAgentType("AgentNodeTest");
 #endif
 								node0->AddChild(node2);
@@ -21217,7 +21217,7 @@ namespace behaviac
 									True* node3 = BEHAVIAC_NEW True;
 									node3->SetClassNameString("True");
 									node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node3->SetAgentType("AgentNodeTest");
 #endif
 									node2->AddChild(node3);
@@ -21227,7 +21227,7 @@ namespace behaviac
 									Action_bt_node_test_selector_loop_ut_7_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node6;
 									node6->SetClassNameString("Action");
 									node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node6->SetAgentType("AgentNodeTest");
 #endif
 									// attachments
@@ -21235,7 +21235,7 @@ namespace behaviac
 										Precondition_bt_node_test_selector_loop_ut_7_attach8* attach8 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach8;
 										attach8->SetClassNameString("Precondition");
 										attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										attach8->SetAgentType("AgentNodeTest");
 #endif
 										node6->Attach(attach8, true, false, false);
@@ -21254,7 +21254,7 @@ namespace behaviac
 						Sequence* node11 = BEHAVIAC_NEW Sequence;
 						node11->SetClassNameString("Sequence");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("AgentNodeTest");
 #endif
 						// attachments
@@ -21262,7 +21262,7 @@ namespace behaviac
 							Precondition_bt_node_test_selector_loop_ut_7_attach19* attach19 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach19;
 							attach19->SetClassNameString("Precondition");
 							attach19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							attach19->SetAgentType("AgentNodeTest");
 #endif
 							node11->Attach(attach19, true, false, false);
@@ -21273,7 +21273,7 @@ namespace behaviac
 							Action_bt_node_test_selector_loop_ut_7_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node12;
 							node12->SetClassNameString("Action");
 							node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node12->SetAgentType("AgentNodeTest");
 #endif
 							// attachments
@@ -21281,7 +21281,7 @@ namespace behaviac
 								Precondition_bt_node_test_selector_loop_ut_7_attach20* attach20 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach20;
 								attach20->SetClassNameString("Precondition");
 								attach20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach20->SetAgentType("AgentNodeTest");
 #endif
 								node12->Attach(attach20, true, false, false);
@@ -21294,7 +21294,7 @@ namespace behaviac
 							Action_bt_node_test_selector_loop_ut_7_node13* node13 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_7_node13;
 							node13->SetClassNameString("Action");
 							node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node13->SetAgentType("AgentNodeTest");
 #endif
 							// attachments
@@ -21302,7 +21302,7 @@ namespace behaviac
 								Precondition_bt_node_test_selector_loop_ut_7_attach22* attach22 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_7_attach22;
 								attach22->SetClassNameString("Precondition");
 								attach22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach22->SetAgentType("AgentNodeTest");
 #endif
 								node13->Attach(attach22, true, false, false);
@@ -21689,7 +21689,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_loop_ut_8");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -21697,7 +21697,7 @@ namespace behaviac
 				Sequence* node15 = BEHAVIAC_NEW Sequence;
 				node15->SetClassNameString("Sequence");
 				node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node15->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node15);
@@ -21705,7 +21705,7 @@ namespace behaviac
 					Action_bt_node_test_selector_loop_ut_8_node16* node16 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_8_node16;
 					node16->SetClassNameString("Action");
 					node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node16->SetAgentType("AgentNodeTest");
 #endif
 					node15->AddChild(node16);
@@ -21715,7 +21715,7 @@ namespace behaviac
 					Assignment_bt_node_test_selector_loop_ut_8_node21* node21 = BEHAVIAC_NEW Assignment_bt_node_test_selector_loop_ut_8_node21;
 					node21->SetClassNameString("Assignment");
 					node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node21->SetAgentType("AgentNodeTest");
 #endif
 					node15->AddChild(node21);
@@ -21725,7 +21725,7 @@ namespace behaviac
 					Selector* node23 = BEHAVIAC_NEW Selector;
 					node23->SetClassNameString("Selector");
 					node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node23->SetAgentType("AgentNodeTest");
 #endif
 					node15->AddChild(node23);
@@ -21733,7 +21733,7 @@ namespace behaviac
 						Selector* node10 = BEHAVIAC_NEW Selector;
 						node10->SetClassNameString("Selector");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("AgentNodeTest");
 #endif
 						// attachments
@@ -21741,7 +21741,7 @@ namespace behaviac
 							Precondition_bt_node_test_selector_loop_ut_8_attach24* attach24 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_8_attach24;
 							attach24->SetClassNameString("Precondition");
 							attach24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							attach24->SetAgentType("AgentNodeTest");
 #endif
 							node10->Attach(attach24, true, false, false);
@@ -21752,7 +21752,7 @@ namespace behaviac
 							DecoratorLoop_bt_node_test_selector_loop_ut_8_node9* node9 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_selector_loop_ut_8_node9;
 							node9->SetClassNameString("DecoratorLoop");
 							node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node9->SetAgentType("AgentNodeTest");
 #endif
 							// attachments
@@ -21760,7 +21760,7 @@ namespace behaviac
 								Precondition_bt_node_test_selector_loop_ut_8_attach14* attach14 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_8_attach14;
 								attach14->SetClassNameString("Precondition");
 								attach14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach14->SetAgentType("AgentNodeTest");
 #endif
 								node9->Attach(attach14, true, false, false);
@@ -21770,7 +21770,7 @@ namespace behaviac
 								Precondition_bt_node_test_selector_loop_ut_8_attach17* attach17 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_8_attach17;
 								attach17->SetClassNameString("Precondition");
 								attach17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach17->SetAgentType("AgentNodeTest");
 #endif
 								node9->Attach(attach17, true, false, false);
@@ -21780,7 +21780,7 @@ namespace behaviac
 								Effector_bt_node_test_selector_loop_ut_8_attach18* attach18 = BEHAVIAC_NEW Effector_bt_node_test_selector_loop_ut_8_attach18;
 								attach18->SetClassNameString("Effector");
 								attach18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach18->SetAgentType("AgentNodeTest");
 #endif
 								node9->Attach(attach18, false, true, false);
@@ -21791,7 +21791,7 @@ namespace behaviac
 								SelectorLoop* node0 = BEHAVIAC_NEW SelectorLoop;
 								node0->SetClassNameString("SelectorLoop");
 								node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node0->SetAgentType("AgentNodeTest");
 #endif
 								node9->AddChild(node0);
@@ -21799,7 +21799,7 @@ namespace behaviac
 									WithPrecondition* node1 = BEHAVIAC_NEW WithPrecondition;
 									node1->SetClassNameString("WithPrecondition");
 									node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node1->SetAgentType("AgentNodeTest");
 #endif
 									node0->AddChild(node1);
@@ -21807,7 +21807,7 @@ namespace behaviac
 										Condition_bt_node_test_selector_loop_ut_8_node4* node4 = BEHAVIAC_NEW Condition_bt_node_test_selector_loop_ut_8_node4;
 										node4->SetClassNameString("Condition");
 										node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										node4->SetAgentType("AgentNodeTest");
 #endif
 										node1->AddChild(node4);
@@ -21817,7 +21817,7 @@ namespace behaviac
 										Action_bt_node_test_selector_loop_ut_8_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_8_node5;
 										node5->SetClassNameString("Action");
 										node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										node5->SetAgentType("AgentNodeTest");
 #endif
 										// attachments
@@ -21825,7 +21825,7 @@ namespace behaviac
 											Precondition_bt_node_test_selector_loop_ut_8_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_8_attach7;
 											attach7->SetClassNameString("Precondition");
 											attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 											attach7->SetAgentType("AgentNodeTest");
 #endif
 											node5->Attach(attach7, true, false, false);
@@ -21840,7 +21840,7 @@ namespace behaviac
 									WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 									node2->SetClassNameString("WithPrecondition");
 									node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node2->SetAgentType("AgentNodeTest");
 #endif
 									node0->AddChild(node2);
@@ -21848,7 +21848,7 @@ namespace behaviac
 										True* node3 = BEHAVIAC_NEW True;
 										node3->SetClassNameString("True");
 										node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										node3->SetAgentType("AgentNodeTest");
 #endif
 										node2->AddChild(node3);
@@ -21858,7 +21858,7 @@ namespace behaviac
 										Action_bt_node_test_selector_loop_ut_8_node6* node6 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_8_node6;
 										node6->SetClassNameString("Action");
 										node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										node6->SetAgentType("AgentNodeTest");
 #endif
 										// attachments
@@ -21866,7 +21866,7 @@ namespace behaviac
 											Precondition_bt_node_test_selector_loop_ut_8_attach8* attach8 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_8_attach8;
 											attach8->SetClassNameString("Precondition");
 											attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 											attach8->SetAgentType("AgentNodeTest");
 #endif
 											node6->Attach(attach8, true, false, false);
@@ -21885,7 +21885,7 @@ namespace behaviac
 							Sequence* node11 = BEHAVIAC_NEW Sequence;
 							node11->SetClassNameString("Sequence");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("AgentNodeTest");
 #endif
 							// attachments
@@ -21893,7 +21893,7 @@ namespace behaviac
 								Precondition_bt_node_test_selector_loop_ut_8_attach19* attach19 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_8_attach19;
 								attach19->SetClassNameString("Precondition");
 								attach19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach19->SetAgentType("AgentNodeTest");
 #endif
 								node11->Attach(attach19, true, false, false);
@@ -21904,7 +21904,7 @@ namespace behaviac
 								Action_bt_node_test_selector_loop_ut_8_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_8_node12;
 								node12->SetClassNameString("Action");
 								node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node12->SetAgentType("AgentNodeTest");
 #endif
 								// attachments
@@ -21912,7 +21912,7 @@ namespace behaviac
 									Precondition_bt_node_test_selector_loop_ut_8_attach20* attach20 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_8_attach20;
 									attach20->SetClassNameString("Precondition");
 									attach20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach20->SetAgentType("AgentNodeTest");
 #endif
 									node12->Attach(attach20, true, false, false);
@@ -21925,7 +21925,7 @@ namespace behaviac
 								Action_bt_node_test_selector_loop_ut_8_node13* node13 = BEHAVIAC_NEW Action_bt_node_test_selector_loop_ut_8_node13;
 								node13->SetClassNameString("Action");
 								node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node13->SetAgentType("AgentNodeTest");
 #endif
 								// attachments
@@ -21933,7 +21933,7 @@ namespace behaviac
 									Precondition_bt_node_test_selector_loop_ut_8_attach22* attach22 = BEHAVIAC_NEW Precondition_bt_node_test_selector_loop_ut_8_attach22;
 									attach22->SetClassNameString("Precondition");
 									attach22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									attach22->SetAgentType("AgentNodeTest");
 #endif
 									node13->Attach(attach22, true, false, false);
@@ -21950,7 +21950,7 @@ namespace behaviac
 						Assignment_bt_node_test_selector_loop_ut_8_node25* node25 = BEHAVIAC_NEW Assignment_bt_node_test_selector_loop_ut_8_node25;
 						node25->SetClassNameString("Assignment");
 						node25->SetId(25);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node25->SetAgentType("AgentNodeTest");
 #endif
 						node23->AddChild(node25);
@@ -21962,7 +21962,7 @@ namespace behaviac
 					Compute_bt_node_test_selector_loop_ut_8_node26* node26 = BEHAVIAC_NEW Compute_bt_node_test_selector_loop_ut_8_node26;
 					node26->SetClassNameString("Compute");
 					node26->SetId(26);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node26->SetAgentType("AgentNodeTest");
 #endif
 					node15->AddChild(node26);
@@ -22104,7 +22104,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -22112,7 +22112,7 @@ namespace behaviac
 				SelectorProbability_bt_node_test_selector_probability_ut_0_node0* node0 = BEHAVIAC_NEW SelectorProbability_bt_node_test_selector_probability_ut_0_node0;
 				node0->SetClassNameString("SelectorProbability");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -22120,7 +22120,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_0_node3* node3 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_0_node3;
 					node3->SetClassNameString("DecoratorWeight");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -22128,7 +22128,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_0_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_0_node1;
 						node1->SetClassNameString("Action");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node3->AddChild(node1);
@@ -22140,7 +22140,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_0_node5* node5 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_0_node5;
 					node5->SetClassNameString("DecoratorWeight");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -22148,7 +22148,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_0_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node5->AddChild(node2);
@@ -22160,7 +22160,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_0_node6* node6 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_0_node6;
 					node6->SetClassNameString("DecoratorWeight");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -22168,7 +22168,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_0_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node4);
@@ -22312,7 +22312,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -22320,7 +22320,7 @@ namespace behaviac
 				SelectorProbability_bt_node_test_selector_probability_ut_1_node0* node0 = BEHAVIAC_NEW SelectorProbability_bt_node_test_selector_probability_ut_1_node0;
 				node0->SetClassNameString("SelectorProbability");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -22328,7 +22328,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_1_node4* node4 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_1_node4;
 					node4->SetClassNameString("DecoratorWeight");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -22336,7 +22336,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_1_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_1_node1;
 						node1->SetClassNameString("Action");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node1);
@@ -22348,7 +22348,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_1_node5* node5 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_1_node5;
 					node5->SetClassNameString("DecoratorWeight");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -22356,7 +22356,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_1_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node5->AddChild(node2);
@@ -22368,7 +22368,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_1_node6* node6 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_1_node6;
 					node6->SetClassNameString("DecoratorWeight");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -22376,7 +22376,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_1_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node3);
@@ -22520,7 +22520,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_probability_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -22528,7 +22528,7 @@ namespace behaviac
 				SelectorProbability_bt_node_test_selector_probability_ut_2_node0* node0 = BEHAVIAC_NEW SelectorProbability_bt_node_test_selector_probability_ut_2_node0;
 				node0->SetClassNameString("SelectorProbability");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -22536,7 +22536,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_2_node4* node4 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_2_node4;
 					node4->SetClassNameString("DecoratorWeight");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node4);
@@ -22544,7 +22544,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_2_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_2_node1;
 						node1->SetClassNameString("Action");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("AgentNodeTest");
 #endif
 						node4->AddChild(node1);
@@ -22556,7 +22556,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_2_node5* node5 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_2_node5;
 					node5->SetClassNameString("DecoratorWeight");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node5);
@@ -22564,7 +22564,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_2_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("AgentNodeTest");
 #endif
 						node5->AddChild(node2);
@@ -22576,7 +22576,7 @@ namespace behaviac
 					DecoratorWeight_bt_node_test_selector_probability_ut_2_node6* node6 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_2_node6;
 					node6->SetClassNameString("DecoratorWeight");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node6);
@@ -22584,7 +22584,7 @@ namespace behaviac
 						Action_bt_node_test_selector_probability_ut_2_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_probability_ut_2_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node6->AddChild(node3);
@@ -22680,7 +22680,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -22688,7 +22688,7 @@ namespace behaviac
 				SelectorStochastic_bt_node_test_selector_stochastic_ut_0_node0* node0 = BEHAVIAC_NEW SelectorStochastic_bt_node_test_selector_stochastic_ut_0_node0;
 				node0->SetClassNameString("SelectorStochastic");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -22696,7 +22696,7 @@ namespace behaviac
 					Action_bt_node_test_selector_stochastic_ut_0_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_stochastic_ut_0_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -22706,7 +22706,7 @@ namespace behaviac
 					Action_bt_node_test_selector_stochastic_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_stochastic_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -22716,7 +22716,7 @@ namespace behaviac
 					Action_bt_node_test_selector_stochastic_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_stochastic_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -22772,7 +22772,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -22780,7 +22780,7 @@ namespace behaviac
 				SelectorStochastic_bt_node_test_selector_stochastic_ut_1_node0* node0 = BEHAVIAC_NEW SelectorStochastic_bt_node_test_selector_stochastic_ut_1_node0;
 				node0->SetClassNameString("SelectorStochastic");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -22788,7 +22788,7 @@ namespace behaviac
 					Action_bt_node_test_selector_stochastic_ut_1_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_stochastic_ut_1_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -22798,7 +22798,7 @@ namespace behaviac
 					True* node2 = BEHAVIAC_NEW True;
 					node2->SetClassNameString("True");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -22808,7 +22808,7 @@ namespace behaviac
 					True* node3 = BEHAVIAC_NEW True;
 					node3->SetClassNameString("True");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -22864,7 +22864,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_stochastic_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -22872,7 +22872,7 @@ namespace behaviac
 				SelectorStochastic_bt_node_test_selector_stochastic_ut_2_node4* node4 = BEHAVIAC_NEW SelectorStochastic_bt_node_test_selector_stochastic_ut_2_node4;
 				node4->SetClassNameString("SelectorStochastic");
 				node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node4->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node4);
@@ -22880,7 +22880,7 @@ namespace behaviac
 					Action_bt_node_test_selector_stochastic_ut_2_node5* node5 = BEHAVIAC_NEW Action_bt_node_test_selector_stochastic_ut_2_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentNodeTest");
 #endif
 					node4->AddChild(node5);
@@ -22890,7 +22890,7 @@ namespace behaviac
 					False* node0 = BEHAVIAC_NEW False;
 					node0->SetClassNameString("False");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node4->AddChild(node0);
@@ -22900,7 +22900,7 @@ namespace behaviac
 					True* node2 = BEHAVIAC_NEW True;
 					node2->SetClassNameString("True");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node4->AddChild(node2);
@@ -22980,7 +22980,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -22988,7 +22988,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -22996,7 +22996,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_0_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_0_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -23006,7 +23006,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -23016,7 +23016,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -23096,7 +23096,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -23104,7 +23104,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -23112,7 +23112,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_1_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_1_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -23122,7 +23122,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -23132,7 +23132,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_1_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -23212,7 +23212,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -23220,7 +23220,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -23228,7 +23228,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_2_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_2_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -23238,7 +23238,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_2_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -23248,7 +23248,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_2_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_2_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -23328,7 +23328,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -23336,7 +23336,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -23344,7 +23344,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_3_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_3_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -23354,7 +23354,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_3_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -23364,7 +23364,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_3_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_3_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -23444,7 +23444,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_4");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -23452,7 +23452,7 @@ namespace behaviac
 				Selector* node0 = BEHAVIAC_NEW Selector;
 				node0->SetClassNameString("Selector");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -23460,7 +23460,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_4_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_4_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -23470,7 +23470,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_4_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_4_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -23480,7 +23480,7 @@ namespace behaviac
 					Action_bt_node_test_selector_ut_4_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_4_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -23693,7 +23693,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/selector_ut_5");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -23701,7 +23701,7 @@ namespace behaviac
 				Selector* node2 = BEHAVIAC_NEW Selector;
 				node2->SetClassNameString("Selector");
 				node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node2->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node2);
@@ -23709,7 +23709,7 @@ namespace behaviac
 					Selector* node0 = BEHAVIAC_NEW Selector;
 					node0->SetClassNameString("Selector");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node2->AddChild(node0);
@@ -23717,7 +23717,7 @@ namespace behaviac
 						Sequence* node4 = BEHAVIAC_NEW Sequence;
 						node4->SetClassNameString("Sequence");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node4);
@@ -23725,7 +23725,7 @@ namespace behaviac
 							Condition_bt_node_test_selector_ut_5_node5* node5 = BEHAVIAC_NEW Condition_bt_node_test_selector_ut_5_node5;
 							node5->SetClassNameString("Condition");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("AgentNodeTest");
 #endif
 							node4->AddChild(node5);
@@ -23735,7 +23735,7 @@ namespace behaviac
 							Action_bt_node_test_selector_ut_5_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_5_node1;
 							node1->SetClassNameString("Action");
 							node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node1->SetAgentType("AgentNodeTest");
 #endif
 							node4->AddChild(node1);
@@ -23747,7 +23747,7 @@ namespace behaviac
 						Sequence* node6 = BEHAVIAC_NEW Sequence;
 						node6->SetClassNameString("Sequence");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node6);
@@ -23755,7 +23755,7 @@ namespace behaviac
 							Condition_bt_node_test_selector_ut_5_node7* node7 = BEHAVIAC_NEW Condition_bt_node_test_selector_ut_5_node7;
 							node7->SetClassNameString("Condition");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("AgentNodeTest");
 #endif
 							node6->AddChild(node7);
@@ -23765,7 +23765,7 @@ namespace behaviac
 							Action_bt_node_test_selector_ut_5_node8* node8 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_5_node8;
 							node8->SetClassNameString("Action");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("AgentNodeTest");
 #endif
 							node6->AddChild(node8);
@@ -23777,7 +23777,7 @@ namespace behaviac
 						Action_bt_node_test_selector_ut_5_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_5_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("AgentNodeTest");
 #endif
 						node0->AddChild(node3);
@@ -23789,7 +23789,7 @@ namespace behaviac
 					Selector* node9 = BEHAVIAC_NEW Selector;
 					node9->SetClassNameString("Selector");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("AgentNodeTest");
 #endif
 					node2->AddChild(node9);
@@ -23797,7 +23797,7 @@ namespace behaviac
 						Sequence* node10 = BEHAVIAC_NEW Sequence;
 						node10->SetClassNameString("Sequence");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node10);
@@ -23805,7 +23805,7 @@ namespace behaviac
 							Condition_bt_node_test_selector_ut_5_node11* node11 = BEHAVIAC_NEW Condition_bt_node_test_selector_ut_5_node11;
 							node11->SetClassNameString("Condition");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("AgentNodeTest");
 #endif
 							node10->AddChild(node11);
@@ -23815,7 +23815,7 @@ namespace behaviac
 							Action_bt_node_test_selector_ut_5_node12* node12 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_5_node12;
 							node12->SetClassNameString("Action");
 							node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node12->SetAgentType("AgentNodeTest");
 #endif
 							node10->AddChild(node12);
@@ -23827,7 +23827,7 @@ namespace behaviac
 						Sequence* node13 = BEHAVIAC_NEW Sequence;
 						node13->SetClassNameString("Sequence");
 						node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node13->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node13);
@@ -23835,7 +23835,7 @@ namespace behaviac
 							Condition_bt_node_test_selector_ut_5_node14* node14 = BEHAVIAC_NEW Condition_bt_node_test_selector_ut_5_node14;
 							node14->SetClassNameString("Condition");
 							node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node14->SetAgentType("AgentNodeTest");
 #endif
 							node13->AddChild(node14);
@@ -23845,7 +23845,7 @@ namespace behaviac
 							Action_bt_node_test_selector_ut_5_node15* node15 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_5_node15;
 							node15->SetClassNameString("Action");
 							node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node15->SetAgentType("AgentNodeTest");
 #endif
 							node13->AddChild(node15);
@@ -23857,7 +23857,7 @@ namespace behaviac
 						Action_bt_node_test_selector_ut_5_node16* node16 = BEHAVIAC_NEW Action_bt_node_test_selector_ut_5_node16;
 						node16->SetClassNameString("Action");
 						node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node16->SetAgentType("AgentNodeTest");
 #endif
 						node9->AddChild(node16);
@@ -23953,7 +23953,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -23961,7 +23961,7 @@ namespace behaviac
 				SequenceStochastic_bt_node_test_sequence_stochastic_ut_0_node0* node0 = BEHAVIAC_NEW SequenceStochastic_bt_node_test_sequence_stochastic_ut_0_node0;
 				node0->SetClassNameString("SequenceStochastic");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -23969,7 +23969,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_stochastic_ut_0_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_sequence_stochastic_ut_0_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -23979,7 +23979,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_stochastic_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_sequence_stochastic_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -23989,7 +23989,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_stochastic_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_sequence_stochastic_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -24045,7 +24045,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24053,7 +24053,7 @@ namespace behaviac
 				SequenceStochastic_bt_node_test_sequence_stochastic_ut_1_node0* node0 = BEHAVIAC_NEW SequenceStochastic_bt_node_test_sequence_stochastic_ut_1_node0;
 				node0->SetClassNameString("SequenceStochastic");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24061,7 +24061,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_stochastic_ut_1_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_sequence_stochastic_ut_1_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24071,7 +24071,7 @@ namespace behaviac
 					False* node2 = BEHAVIAC_NEW False;
 					node2->SetClassNameString("False");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24081,7 +24081,7 @@ namespace behaviac
 					False* node3 = BEHAVIAC_NEW False;
 					node3->SetClassNameString("False");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -24137,7 +24137,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24145,7 +24145,7 @@ namespace behaviac
 				SequenceStochastic_bt_node_test_sequence_stochastic_ut_2_node0* node0 = BEHAVIAC_NEW SequenceStochastic_bt_node_test_sequence_stochastic_ut_2_node0;
 				node0->SetClassNameString("SequenceStochastic");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24153,7 +24153,7 @@ namespace behaviac
 					False* node2 = BEHAVIAC_NEW False;
 					node2->SetClassNameString("False");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24163,7 +24163,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_stochastic_ut_2_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_sequence_stochastic_ut_2_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24173,7 +24173,7 @@ namespace behaviac
 					False* node3 = BEHAVIAC_NEW False;
 					node3->SetClassNameString("False");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -24229,7 +24229,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_stochastic_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24237,7 +24237,7 @@ namespace behaviac
 				SequenceStochastic_bt_node_test_sequence_stochastic_ut_3_node0* node0 = BEHAVIAC_NEW SequenceStochastic_bt_node_test_sequence_stochastic_ut_3_node0;
 				node0->SetClassNameString("SequenceStochastic");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24245,7 +24245,7 @@ namespace behaviac
 					False* node2 = BEHAVIAC_NEW False;
 					node2->SetClassNameString("False");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24255,7 +24255,7 @@ namespace behaviac
 					False* node3 = BEHAVIAC_NEW False;
 					node3->SetClassNameString("False");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -24265,7 +24265,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_stochastic_ut_3_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_sequence_stochastic_ut_3_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24345,7 +24345,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24353,7 +24353,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24361,7 +24361,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_0_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_0_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24371,7 +24371,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_0_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_0_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24381,7 +24381,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_0_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_0_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -24461,7 +24461,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24469,7 +24469,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24477,7 +24477,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_1_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_1_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24487,7 +24487,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_1_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_1_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24497,7 +24497,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_1_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -24577,7 +24577,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_ut_2");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24585,7 +24585,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24593,7 +24593,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_2_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_2_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24603,7 +24603,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_2_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_2_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24613,7 +24613,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_2_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_2_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -24693,7 +24693,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/sequence_ut_3");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24701,7 +24701,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24709,7 +24709,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_3_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_3_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24719,7 +24719,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_3_node2* node2 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_3_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24729,7 +24729,7 @@ namespace behaviac
 					Action_bt_node_test_sequence_ut_3_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_sequence_ut_3_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node3);
@@ -24786,7 +24786,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/wait_ut_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24794,7 +24794,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24802,7 +24802,7 @@ namespace behaviac
 					Action_bt_node_test_wait_ut_0_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_wait_ut_0_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24812,7 +24812,7 @@ namespace behaviac
 					Wait_bt_node_test_wait_ut_0_node2* node2 = BEHAVIAC_NEW Wait_bt_node_test_wait_ut_0_node2;
 					node2->SetClassNameString("Wait");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24869,7 +24869,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("node_test/wait_ut_1");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// children
@@ -24877,7 +24877,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
@@ -24885,7 +24885,7 @@ namespace behaviac
 					Action_bt_node_test_wait_ut_1_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_wait_ut_1_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node1);
@@ -24895,7 +24895,7 @@ namespace behaviac
 					Wait_bt_node_test_wait_ut_1_node2* node2 = BEHAVIAC_NEW Wait_bt_node_test_wait_ut_1_node2;
 					node2->SetClassNameString("Wait");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentNodeTest");
 #endif
 					node0->AddChild(node2);
@@ -24985,7 +24985,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/const_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// children
@@ -24993,7 +24993,7 @@ namespace behaviac
 				Sequence* node22 = BEHAVIAC_NEW Sequence;
 				node22->SetClassNameString("Sequence");
 				node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node22->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node22);
@@ -25001,7 +25001,7 @@ namespace behaviac
 					Assignment_bt_par_test_const_param_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_const_param_node0;
 					node0->SetClassNameString("Assignment");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("EmployeeParTestAgent");
 #endif
 					node22->AddChild(node0);
@@ -25011,7 +25011,7 @@ namespace behaviac
 					Assignment_bt_par_test_const_param_node1* node1 = BEHAVIAC_NEW Assignment_bt_par_test_const_param_node1;
 					node1->SetClassNameString("Assignment");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("EmployeeParTestAgent");
 #endif
 					node22->AddChild(node1);
@@ -25021,7 +25021,7 @@ namespace behaviac
 					Assignment_bt_par_test_const_param_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_const_param_node2;
 					node2->SetClassNameString("Assignment");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("EmployeeParTestAgent");
 #endif
 					node22->AddChild(node2);
@@ -25251,7 +25251,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/custom_property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("CustomPropertyAgent");
 #endif
 			// pars
@@ -25262,7 +25262,7 @@ namespace behaviac
 				Sequence* node5 = BEHAVIAC_NEW Sequence;
 				node5->SetClassNameString("Sequence");
 				node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node5->SetAgentType("CustomPropertyAgent");
 #endif
 				pBT->AddChild(node5);
@@ -25270,7 +25270,7 @@ namespace behaviac
 					Sequence* node13 = BEHAVIAC_NEW Sequence;
 					node13->SetClassNameString("Sequence");
 					node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node13->SetAgentType("CustomPropertyAgent");
 #endif
 					node5->AddChild(node13);
@@ -25278,7 +25278,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node0;
 						node0->SetClassNameString("Assignment");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node0);
@@ -25288,7 +25288,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node1* node1 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node1;
 						node1->SetClassNameString("Assignment");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node1);
@@ -25298,7 +25298,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node2;
 						node2->SetClassNameString("Assignment");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node2);
@@ -25308,7 +25308,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node3* node3 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node3;
 						node3->SetClassNameString("Assignment");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node3);
@@ -25318,7 +25318,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node4* node4 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node4;
 						node4->SetClassNameString("Assignment");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node4);
@@ -25328,7 +25328,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node11* node11 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node11;
 						node11->SetClassNameString("Assignment");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node11);
@@ -25338,7 +25338,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node8* node8 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node8;
 						node8->SetClassNameString("Assignment");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node8);
@@ -25348,7 +25348,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node9* node9 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node9;
 						node9->SetClassNameString("Assignment");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node9);
@@ -25358,7 +25358,7 @@ namespace behaviac
 						Assignment_bt_par_test_custom_property_as_left_value_and_param_node10* node10 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_as_left_value_and_param_node10;
 						node10->SetClassNameString("Assignment");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node10);
@@ -25370,7 +25370,7 @@ namespace behaviac
 					DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6* node6 = BEHAVIAC_NEW DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6;
 					node6->SetClassNameString("DecoratorLoop");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("CustomPropertyAgent");
 #endif
 					node5->AddChild(node6);
@@ -25378,7 +25378,7 @@ namespace behaviac
 						Noop* node7 = BEHAVIAC_NEW Noop;
 						node7->SetClassNameString("Noop");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("CustomPropertyAgent");
 #endif
 						node6->AddChild(node7);
@@ -25442,7 +25442,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/custom_property_reset");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentNodeTest");
 #endif
 			// pars
@@ -25453,7 +25453,7 @@ namespace behaviac
 				Sequence* node5 = BEHAVIAC_NEW Sequence;
 				node5->SetClassNameString("Sequence");
 				node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node5->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node5);
@@ -25461,7 +25461,7 @@ namespace behaviac
 					Action_bt_par_test_custom_property_reset_node1* node1 = BEHAVIAC_NEW Action_bt_par_test_custom_property_reset_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentNodeTest");
 #endif
 					node5->AddChild(node1);
@@ -25471,7 +25471,7 @@ namespace behaviac
 					Assignment_bt_par_test_custom_property_reset_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_custom_property_reset_node0;
 					node0->SetClassNameString("Assignment");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentNodeTest");
 #endif
 					node5->AddChild(node0);
@@ -25596,7 +25596,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/local_out_scope");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("CustomPropertyAgent");
 #endif
 			// pars
@@ -25606,7 +25606,7 @@ namespace behaviac
 				Sequence* node5 = BEHAVIAC_NEW Sequence;
 				node5->SetClassNameString("Sequence");
 				node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node5->SetAgentType("CustomPropertyAgent");
 #endif
 				pBT->AddChild(node5);
@@ -25614,7 +25614,7 @@ namespace behaviac
 					Sequence* node13 = BEHAVIAC_NEW Sequence;
 					node13->SetClassNameString("Sequence");
 					node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node13->SetAgentType("CustomPropertyAgent");
 #endif
 					node5->AddChild(node13);
@@ -25622,7 +25622,7 @@ namespace behaviac
 						Assignment_bt_par_test_local_out_scope_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_local_out_scope_node0;
 						node0->SetClassNameString("Assignment");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node0);
@@ -25632,7 +25632,7 @@ namespace behaviac
 						Assignment_bt_par_test_local_out_scope_node1* node1 = BEHAVIAC_NEW Assignment_bt_par_test_local_out_scope_node1;
 						node1->SetClassNameString("Assignment");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node1);
@@ -25642,7 +25642,7 @@ namespace behaviac
 						Assignment_bt_par_test_local_out_scope_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_local_out_scope_node2;
 						node2->SetClassNameString("Assignment");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node2);
@@ -25652,7 +25652,7 @@ namespace behaviac
 						Assignment_bt_par_test_local_out_scope_node3* node3 = BEHAVIAC_NEW Assignment_bt_par_test_local_out_scope_node3;
 						node3->SetClassNameString("Assignment");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("CustomPropertyAgent");
 #endif
 						node13->AddChild(node3);
@@ -25664,7 +25664,7 @@ namespace behaviac
 					DecoratorLoop_bt_par_test_local_out_scope_node6* node6 = BEHAVIAC_NEW DecoratorLoop_bt_par_test_local_out_scope_node6;
 					node6->SetClassNameString("DecoratorLoop");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("CustomPropertyAgent");
 #endif
 					node5->AddChild(node6);
@@ -25672,7 +25672,7 @@ namespace behaviac
 						Noop* node7 = BEHAVIAC_NEW Noop;
 						node7->SetClassNameString("Noop");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("CustomPropertyAgent");
 #endif
 						node6->AddChild(node7);
@@ -26395,7 +26395,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/par_as_left_value_and_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// pars
@@ -26436,7 +26436,7 @@ namespace behaviac
 				Sequence* node32 = BEHAVIAC_NEW Sequence;
 				node32->SetClassNameString("Sequence");
 				node32->SetId(32);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node32->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node32);
@@ -26444,7 +26444,7 @@ namespace behaviac
 					Sequence* node13 = BEHAVIAC_NEW Sequence;
 					node13->SetClassNameString("Sequence");
 					node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node13->SetAgentType("EmployeeParTestAgent");
 #endif
 					node32->AddChild(node13);
@@ -26452,7 +26452,7 @@ namespace behaviac
 						Sequence* node1 = BEHAVIAC_NEW Sequence;
 						node1->SetClassNameString("Sequence");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("EmployeeParTestAgent");
 #endif
 						node13->AddChild(node1);
@@ -26460,7 +26460,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node0;
 							node0->SetClassNameString("Assignment");
 							node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node0->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node0);
@@ -26470,7 +26470,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node30* node30 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node30;
 							node30->SetClassNameString("Assignment");
 							node30->SetId(30);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node30->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node30);
@@ -26480,7 +26480,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node15* node15 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node15;
 							node15->SetClassNameString("Assignment");
 							node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node15->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node15);
@@ -26490,7 +26490,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node31* node31 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node31;
 							node31->SetClassNameString("Assignment");
 							node31->SetId(31);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node31->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node31);
@@ -26500,7 +26500,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node2;
 							node2->SetClassNameString("Assignment");
 							node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node2->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node2);
@@ -26510,7 +26510,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node3* node3 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node3;
 							node3->SetClassNameString("Assignment");
 							node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node3->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node3);
@@ -26520,7 +26520,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node4* node4 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node4;
 							node4->SetClassNameString("Assignment");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node4);
@@ -26530,7 +26530,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node5* node5 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node5;
 							node5->SetClassNameString("Assignment");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node5);
@@ -26540,7 +26540,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node6* node6 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node6;
 							node6->SetClassNameString("Assignment");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node6);
@@ -26550,7 +26550,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node7* node7 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node7;
 							node7->SetClassNameString("Assignment");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node7);
@@ -26560,7 +26560,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node8* node8 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node8;
 							node8->SetClassNameString("Assignment");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node8);
@@ -26570,7 +26570,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node35* node35 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node35;
 							node35->SetClassNameString("Assignment");
 							node35->SetId(35);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node35->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node35);
@@ -26580,7 +26580,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node36* node36 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node36;
 							node36->SetClassNameString("Assignment");
 							node36->SetId(36);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node36->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node36);
@@ -26590,7 +26590,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node37* node37 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node37;
 							node37->SetClassNameString("Assignment");
 							node37->SetId(37);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node37->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node37);
@@ -26602,7 +26602,7 @@ namespace behaviac
 						Sequence* node14 = BEHAVIAC_NEW Sequence;
 						node14->SetClassNameString("Sequence");
 						node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node14->SetAgentType("EmployeeParTestAgent");
 #endif
 						node13->AddChild(node14);
@@ -26610,7 +26610,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node9* node9 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node9;
 							node9->SetClassNameString("Assignment");
 							node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node9->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node9);
@@ -26620,7 +26620,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node10* node10 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node10;
 							node10->SetClassNameString("Assignment");
 							node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node10->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node10);
@@ -26630,7 +26630,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node11* node11 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node11;
 							node11->SetClassNameString("Assignment");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node11);
@@ -26640,7 +26640,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node12* node12 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node12;
 							node12->SetClassNameString("Assignment");
 							node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node12->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node12);
@@ -26650,7 +26650,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node17* node17 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node17;
 							node17->SetClassNameString("Assignment");
 							node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node17->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node17);
@@ -26660,7 +26660,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node19* node19 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node19;
 							node19->SetClassNameString("Assignment");
 							node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node19->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node19);
@@ -26670,7 +26670,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node18* node18 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node18;
 							node18->SetClassNameString("Assignment");
 							node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node18->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node18);
@@ -26682,7 +26682,7 @@ namespace behaviac
 						Sequence* node22 = BEHAVIAC_NEW Sequence;
 						node22->SetClassNameString("Sequence");
 						node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node22->SetAgentType("EmployeeParTestAgent");
 #endif
 						node13->AddChild(node22);
@@ -26690,7 +26690,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node16* node16 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node16;
 							node16->SetClassNameString("Assignment");
 							node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node16->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node16);
@@ -26700,7 +26700,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node20* node20 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node20;
 							node20->SetClassNameString("Assignment");
 							node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node20->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node20);
@@ -26710,7 +26710,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node24* node24 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node24;
 							node24->SetClassNameString("Assignment");
 							node24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node24->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node24);
@@ -26720,7 +26720,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node25* node25 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node25;
 							node25->SetClassNameString("Assignment");
 							node25->SetId(25);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node25->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node25);
@@ -26730,7 +26730,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node26* node26 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node26;
 							node26->SetClassNameString("Assignment");
 							node26->SetId(26);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node26->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node26);
@@ -26740,7 +26740,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node27* node27 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node27;
 							node27->SetClassNameString("Assignment");
 							node27->SetId(27);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node27->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node27);
@@ -26750,7 +26750,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node21* node21 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node21;
 							node21->SetClassNameString("Assignment");
 							node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node21->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node21);
@@ -26760,7 +26760,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node23* node23 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node23;
 							node23->SetClassNameString("Assignment");
 							node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node23->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node23);
@@ -26770,7 +26770,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node28* node28 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node28;
 							node28->SetClassNameString("Assignment");
 							node28->SetId(28);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node28->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node28);
@@ -26780,7 +26780,7 @@ namespace behaviac
 							Assignment_bt_par_test_par_as_left_value_and_param_node29* node29 = BEHAVIAC_NEW Assignment_bt_par_test_par_as_left_value_and_param_node29;
 							node29->SetClassNameString("Assignment");
 							node29->SetId(29);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node29->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node29);
@@ -26794,7 +26794,7 @@ namespace behaviac
 					DecoratorLoop_bt_par_test_par_as_left_value_and_param_node33* node33 = BEHAVIAC_NEW DecoratorLoop_bt_par_test_par_as_left_value_and_param_node33;
 					node33->SetClassNameString("DecoratorLoop");
 					node33->SetId(33);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node33->SetAgentType("EmployeeParTestAgent");
 #endif
 					node32->AddChild(node33);
@@ -26802,7 +26802,7 @@ namespace behaviac
 						Noop* node34 = BEHAVIAC_NEW Noop;
 						node34->SetClassNameString("Noop");
 						node34->SetId(34);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node34->SetAgentType("EmployeeParTestAgent");
 #endif
 						node33->AddChild(node34);
@@ -27471,7 +27471,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/par_as_ref_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// pars
@@ -27510,7 +27510,7 @@ namespace behaviac
 				Sequence* node13 = BEHAVIAC_NEW Sequence;
 				node13->SetClassNameString("Sequence");
 				node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node13->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node13);
@@ -27518,7 +27518,7 @@ namespace behaviac
 					Sequence* node30 = BEHAVIAC_NEW Sequence;
 					node30->SetClassNameString("Sequence");
 					node30->SetId(30);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node30->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node30);
@@ -27526,7 +27526,7 @@ namespace behaviac
 						Sequence* node1 = BEHAVIAC_NEW Sequence;
 						node1->SetClassNameString("Sequence");
 						node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node1->SetAgentType("EmployeeParTestAgent");
 #endif
 						node30->AddChild(node1);
@@ -27534,7 +27534,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node0* node0 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node0;
 							node0->SetClassNameString("Action");
 							node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node0->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node0);
@@ -27544,7 +27544,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node17* node17 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node17;
 							node17->SetClassNameString("Action");
 							node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node17->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node17);
@@ -27554,7 +27554,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node2* node2 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node2;
 							node2->SetClassNameString("Action");
 							node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node2->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node2);
@@ -27564,7 +27564,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node3* node3 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node3;
 							node3->SetClassNameString("Action");
 							node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node3->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node3);
@@ -27574,7 +27574,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node4* node4 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node4;
 							node4->SetClassNameString("Action");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node4);
@@ -27584,7 +27584,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node5* node5 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node5;
 							node5->SetClassNameString("Action");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node5);
@@ -27594,7 +27594,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node6* node6 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node6;
 							node6->SetClassNameString("Action");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node6);
@@ -27604,7 +27604,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node7* node7 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node7;
 							node7->SetClassNameString("Action");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node7);
@@ -27614,7 +27614,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node8* node8 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node8;
 							node8->SetClassNameString("Action");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node8);
@@ -27624,7 +27624,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node35* node35 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node35;
 							node35->SetClassNameString("Action");
 							node35->SetId(35);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node35->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node35);
@@ -27634,7 +27634,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node36* node36 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node36;
 							node36->SetClassNameString("Action");
 							node36->SetId(36);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node36->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node36);
@@ -27644,7 +27644,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node31* node31 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node31;
 							node31->SetClassNameString("Action");
 							node31->SetId(31);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node31->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node31);
@@ -27654,7 +27654,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node32* node32 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node32;
 							node32->SetClassNameString("Action");
 							node32->SetId(32);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node32->SetAgentType("EmployeeParTestAgent");
 #endif
 							node1->AddChild(node32);
@@ -27666,7 +27666,7 @@ namespace behaviac
 						Sequence* node14 = BEHAVIAC_NEW Sequence;
 						node14->SetClassNameString("Sequence");
 						node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node14->SetAgentType("EmployeeParTestAgent");
 #endif
 						node30->AddChild(node14);
@@ -27674,7 +27674,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node9* node9 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node9;
 							node9->SetClassNameString("Action");
 							node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node9->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node9);
@@ -27684,7 +27684,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node10* node10 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node10;
 							node10->SetClassNameString("Action");
 							node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node10->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node10);
@@ -27694,7 +27694,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node11* node11 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node11;
 							node11->SetClassNameString("Action");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node11);
@@ -27704,7 +27704,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node12* node12 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node12;
 							node12->SetClassNameString("Action");
 							node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node12->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node12);
@@ -27714,7 +27714,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node18* node18 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node18;
 							node18->SetClassNameString("Action");
 							node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node18->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node18);
@@ -27724,7 +27724,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node19* node19 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node19;
 							node19->SetClassNameString("Action");
 							node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node19->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node19);
@@ -27734,7 +27734,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node20* node20 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node20;
 							node20->SetClassNameString("Action");
 							node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node20->SetAgentType("EmployeeParTestAgent");
 #endif
 							node14->AddChild(node20);
@@ -27746,7 +27746,7 @@ namespace behaviac
 						Sequence* node22 = BEHAVIAC_NEW Sequence;
 						node22->SetClassNameString("Sequence");
 						node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node22->SetAgentType("EmployeeParTestAgent");
 #endif
 						node30->AddChild(node22);
@@ -27754,7 +27754,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node16* node16 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node16;
 							node16->SetClassNameString("Action");
 							node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node16->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node16);
@@ -27764,7 +27764,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node21* node21 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node21;
 							node21->SetClassNameString("Action");
 							node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node21->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node21);
@@ -27774,7 +27774,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node15* node15 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node15;
 							node15->SetClassNameString("Action");
 							node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node15->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node15);
@@ -27784,7 +27784,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node29* node29 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node29;
 							node29->SetClassNameString("Action");
 							node29->SetId(29);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node29->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node29);
@@ -27794,7 +27794,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node26* node26 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node26;
 							node26->SetClassNameString("Action");
 							node26->SetId(26);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node26->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node26);
@@ -27804,7 +27804,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node27* node27 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node27;
 							node27->SetClassNameString("Action");
 							node27->SetId(27);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node27->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node27);
@@ -27814,7 +27814,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node24* node24 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node24;
 							node24->SetClassNameString("Action");
 							node24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node24->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node24);
@@ -27824,7 +27824,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node25* node25 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node25;
 							node25->SetClassNameString("Action");
 							node25->SetId(25);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node25->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node25);
@@ -27834,7 +27834,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node23* node23 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node23;
 							node23->SetClassNameString("Action");
 							node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node23->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node23);
@@ -27844,7 +27844,7 @@ namespace behaviac
 							Action_bt_par_test_par_as_ref_param_node28* node28 = BEHAVIAC_NEW Action_bt_par_test_par_as_ref_param_node28;
 							node28->SetClassNameString("Action");
 							node28->SetId(28);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node28->SetAgentType("EmployeeParTestAgent");
 #endif
 							node22->AddChild(node28);
@@ -27858,7 +27858,7 @@ namespace behaviac
 					DecoratorLoop_bt_par_test_par_as_ref_param_node33* node33 = BEHAVIAC_NEW DecoratorLoop_bt_par_test_par_as_ref_param_node33;
 					node33->SetClassNameString("DecoratorLoop");
 					node33->SetId(33);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node33->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node33);
@@ -27866,7 +27866,7 @@ namespace behaviac
 						Noop* node34 = BEHAVIAC_NEW Noop;
 						node34->SetClassNameString("Noop");
 						node34->SetId(34);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node34->SetAgentType("EmployeeParTestAgent");
 #endif
 						node33->AddChild(node34);
@@ -28475,7 +28475,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/property_as_left_value");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// pars
@@ -28510,7 +28510,7 @@ namespace behaviac
 				Sequence* node13 = BEHAVIAC_NEW Sequence;
 				node13->SetClassNameString("Sequence");
 				node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node13->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node13);
@@ -28518,7 +28518,7 @@ namespace behaviac
 					Sequence* node1 = BEHAVIAC_NEW Sequence;
 					node1->SetClassNameString("Sequence");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node1);
@@ -28526,7 +28526,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node0;
 						node0->SetClassNameString("Assignment");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node0);
@@ -28536,7 +28536,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node15* node15 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node15;
 						node15->SetClassNameString("Assignment");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node15);
@@ -28546,7 +28546,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node2;
 						node2->SetClassNameString("Assignment");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node2);
@@ -28556,7 +28556,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node3* node3 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node3;
 						node3->SetClassNameString("Assignment");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node3);
@@ -28566,7 +28566,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node4* node4 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node4;
 						node4->SetClassNameString("Assignment");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node4);
@@ -28576,7 +28576,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node5* node5 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node5;
 						node5->SetClassNameString("Assignment");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node5);
@@ -28586,7 +28586,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node6* node6 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node6;
 						node6->SetClassNameString("Assignment");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node6);
@@ -28596,7 +28596,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node7* node7 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node7;
 						node7->SetClassNameString("Assignment");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node7);
@@ -28606,7 +28606,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node8* node8 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node8;
 						node8->SetClassNameString("Assignment");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node8);
@@ -28616,7 +28616,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node30* node30 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node30;
 						node30->SetClassNameString("Assignment");
 						node30->SetId(30);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node30->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node30);
@@ -28626,7 +28626,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node31* node31 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node31;
 						node31->SetClassNameString("Assignment");
 						node31->SetId(31);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node31->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node31);
@@ -28638,7 +28638,7 @@ namespace behaviac
 					Sequence* node14 = BEHAVIAC_NEW Sequence;
 					node14->SetClassNameString("Sequence");
 					node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node14->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node14);
@@ -28646,7 +28646,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node9* node9 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node9;
 						node9->SetClassNameString("Assignment");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node9);
@@ -28656,7 +28656,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node10* node10 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node10;
 						node10->SetClassNameString("Assignment");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node10);
@@ -28666,7 +28666,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node11* node11 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node11;
 						node11->SetClassNameString("Assignment");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node11);
@@ -28676,7 +28676,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node12* node12 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node12;
 						node12->SetClassNameString("Assignment");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node12);
@@ -28686,7 +28686,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node17* node17 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node17;
 						node17->SetClassNameString("Assignment");
 						node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node17->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node17);
@@ -28696,7 +28696,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node19* node19 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node19;
 						node19->SetClassNameString("Assignment");
 						node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node19->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node19);
@@ -28706,7 +28706,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node18* node18 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node18;
 						node18->SetClassNameString("Assignment");
 						node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node18->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node18);
@@ -28718,7 +28718,7 @@ namespace behaviac
 					Sequence* node22 = BEHAVIAC_NEW Sequence;
 					node22->SetClassNameString("Sequence");
 					node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node22->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node22);
@@ -28726,7 +28726,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node16* node16 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node16;
 						node16->SetClassNameString("Assignment");
 						node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node16->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node16);
@@ -28736,7 +28736,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node20* node20 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node20;
 						node20->SetClassNameString("Assignment");
 						node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node20->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node20);
@@ -28746,7 +28746,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node24* node24 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node24;
 						node24->SetClassNameString("Assignment");
 						node24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node24->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node24);
@@ -28756,7 +28756,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node25* node25 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node25;
 						node25->SetClassNameString("Assignment");
 						node25->SetId(25);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node25->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node25);
@@ -28766,7 +28766,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node26* node26 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node26;
 						node26->SetClassNameString("Assignment");
 						node26->SetId(26);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node26->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node26);
@@ -28776,7 +28776,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node27* node27 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node27;
 						node27->SetClassNameString("Assignment");
 						node27->SetId(27);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node27->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node27);
@@ -28786,7 +28786,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node21* node21 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node21;
 						node21->SetClassNameString("Assignment");
 						node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node21->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node21);
@@ -28796,7 +28796,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node23* node23 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node23;
 						node23->SetClassNameString("Assignment");
 						node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node23->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node23);
@@ -28806,7 +28806,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node28* node28 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node28;
 						node28->SetClassNameString("Assignment");
 						node28->SetId(28);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node28->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node28);
@@ -28816,7 +28816,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_node29* node29 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_node29;
 						node29->SetClassNameString("Assignment");
 						node29->SetId(29);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node29->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node29);
@@ -29401,7 +29401,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// children
@@ -29409,7 +29409,7 @@ namespace behaviac
 				Sequence* node13 = BEHAVIAC_NEW Sequence;
 				node13->SetClassNameString("Sequence");
 				node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node13->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node13);
@@ -29417,7 +29417,7 @@ namespace behaviac
 					Sequence* node1 = BEHAVIAC_NEW Sequence;
 					node1->SetClassNameString("Sequence");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node1);
@@ -29425,7 +29425,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node0;
 						node0->SetClassNameString("Assignment");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node0);
@@ -29435,7 +29435,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node15* node15 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node15;
 						node15->SetClassNameString("Assignment");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node15);
@@ -29445,7 +29445,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node2;
 						node2->SetClassNameString("Assignment");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node2);
@@ -29455,7 +29455,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node3* node3 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node3;
 						node3->SetClassNameString("Assignment");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node3);
@@ -29465,7 +29465,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node4* node4 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node4;
 						node4->SetClassNameString("Assignment");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node4);
@@ -29475,7 +29475,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node5* node5 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node5;
 						node5->SetClassNameString("Assignment");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node5);
@@ -29485,7 +29485,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node6* node6 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node6;
 						node6->SetClassNameString("Assignment");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node6);
@@ -29495,7 +29495,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node7* node7 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node7;
 						node7->SetClassNameString("Assignment");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node7);
@@ -29505,7 +29505,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node8* node8 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node8;
 						node8->SetClassNameString("Assignment");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node8);
@@ -29515,7 +29515,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node30* node30 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node30;
 						node30->SetClassNameString("Assignment");
 						node30->SetId(30);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node30->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node30);
@@ -29525,7 +29525,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node31* node31 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node31;
 						node31->SetClassNameString("Assignment");
 						node31->SetId(31);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node31->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node31);
@@ -29537,7 +29537,7 @@ namespace behaviac
 					Sequence* node14 = BEHAVIAC_NEW Sequence;
 					node14->SetClassNameString("Sequence");
 					node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node14->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node14);
@@ -29545,7 +29545,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node9* node9 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node9;
 						node9->SetClassNameString("Assignment");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node9);
@@ -29555,7 +29555,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node10* node10 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node10;
 						node10->SetClassNameString("Assignment");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node10);
@@ -29565,7 +29565,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node11* node11 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node11;
 						node11->SetClassNameString("Assignment");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node11);
@@ -29575,7 +29575,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node12* node12 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node12;
 						node12->SetClassNameString("Assignment");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node12);
@@ -29585,7 +29585,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node17* node17 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node17;
 						node17->SetClassNameString("Assignment");
 						node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node17->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node17);
@@ -29595,7 +29595,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node19* node19 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node19;
 						node19->SetClassNameString("Assignment");
 						node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node19->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node19);
@@ -29605,7 +29605,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node18* node18 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node18;
 						node18->SetClassNameString("Assignment");
 						node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node18->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node18);
@@ -29617,7 +29617,7 @@ namespace behaviac
 					Sequence* node22 = BEHAVIAC_NEW Sequence;
 					node22->SetClassNameString("Sequence");
 					node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node22->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node22);
@@ -29625,7 +29625,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node16* node16 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node16;
 						node16->SetClassNameString("Assignment");
 						node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node16->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node16);
@@ -29635,7 +29635,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node20* node20 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node20;
 						node20->SetClassNameString("Assignment");
 						node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node20->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node20);
@@ -29645,7 +29645,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node24* node24 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node24;
 						node24->SetClassNameString("Assignment");
 						node24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node24->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node24);
@@ -29655,7 +29655,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node25* node25 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node25;
 						node25->SetClassNameString("Assignment");
 						node25->SetId(25);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node25->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node25);
@@ -29665,7 +29665,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node26* node26 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node26;
 						node26->SetClassNameString("Assignment");
 						node26->SetId(26);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node26->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node26);
@@ -29675,7 +29675,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node27* node27 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node27;
 						node27->SetClassNameString("Assignment");
 						node27->SetId(27);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node27->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node27);
@@ -29685,7 +29685,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node21* node21 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node21;
 						node21->SetClassNameString("Assignment");
 						node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node21->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node21);
@@ -29695,7 +29695,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node23* node23 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node23;
 						node23->SetClassNameString("Assignment");
 						node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node23->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node23);
@@ -29705,7 +29705,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node28* node28 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node28;
 						node28->SetClassNameString("Assignment");
 						node28->SetId(28);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node28->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node28);
@@ -29715,7 +29715,7 @@ namespace behaviac
 						Assignment_bt_par_test_property_as_left_value_and_param_node29* node29 = BEHAVIAC_NEW Assignment_bt_par_test_property_as_left_value_and_param_node29;
 						node29->SetClassNameString("Assignment");
 						node29->SetId(29);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node29->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node29);
@@ -30322,7 +30322,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/property_as_ref_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// pars
@@ -30357,7 +30357,7 @@ namespace behaviac
 				Sequence* node13 = BEHAVIAC_NEW Sequence;
 				node13->SetClassNameString("Sequence");
 				node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node13->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node13);
@@ -30365,7 +30365,7 @@ namespace behaviac
 					Sequence* node1 = BEHAVIAC_NEW Sequence;
 					node1->SetClassNameString("Sequence");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node1);
@@ -30373,7 +30373,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node0* node0 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node0;
 						node0->SetClassNameString("Action");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node0);
@@ -30383,7 +30383,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node17* node17 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node17;
 						node17->SetClassNameString("Action");
 						node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node17->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node17);
@@ -30393,7 +30393,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node2* node2 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node2;
 						node2->SetClassNameString("Action");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node2);
@@ -30403,7 +30403,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node3* node3 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node3);
@@ -30413,7 +30413,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node4* node4 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node4);
@@ -30423,7 +30423,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node5* node5 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node5);
@@ -30433,7 +30433,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node32* node32 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node32;
 						node32->SetClassNameString("Action");
 						node32->SetId(32);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node32->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node32);
@@ -30443,7 +30443,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node6* node6 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node6);
@@ -30453,7 +30453,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node7* node7 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node7;
 						node7->SetClassNameString("Action");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node7);
@@ -30463,7 +30463,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node8* node8 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node8;
 						node8->SetClassNameString("Action");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node8);
@@ -30473,7 +30473,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node30* node30 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node30;
 						node30->SetClassNameString("Action");
 						node30->SetId(30);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node30->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node30);
@@ -30483,7 +30483,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node31* node31 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node31;
 						node31->SetClassNameString("Action");
 						node31->SetId(31);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node31->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node31);
@@ -30495,7 +30495,7 @@ namespace behaviac
 					Sequence* node14 = BEHAVIAC_NEW Sequence;
 					node14->SetClassNameString("Sequence");
 					node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node14->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node14);
@@ -30503,7 +30503,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node9* node9 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node9;
 						node9->SetClassNameString("Action");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node9);
@@ -30513,7 +30513,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node10* node10 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node10;
 						node10->SetClassNameString("Action");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node10);
@@ -30523,7 +30523,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node11* node11 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node11;
 						node11->SetClassNameString("Action");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node11);
@@ -30533,7 +30533,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node12* node12 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node12;
 						node12->SetClassNameString("Action");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node12);
@@ -30543,7 +30543,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node18* node18 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node18;
 						node18->SetClassNameString("Action");
 						node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node18->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node18);
@@ -30553,7 +30553,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node19* node19 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node19;
 						node19->SetClassNameString("Action");
 						node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node19->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node19);
@@ -30563,7 +30563,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node20* node20 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node20;
 						node20->SetClassNameString("Action");
 						node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node20->SetAgentType("EmployeeParTestAgent");
 #endif
 						node14->AddChild(node20);
@@ -30575,7 +30575,7 @@ namespace behaviac
 					Sequence* node22 = BEHAVIAC_NEW Sequence;
 					node22->SetClassNameString("Sequence");
 					node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node22->SetAgentType("EmployeeParTestAgent");
 #endif
 					node13->AddChild(node22);
@@ -30583,7 +30583,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node16* node16 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node16;
 						node16->SetClassNameString("Action");
 						node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node16->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node16);
@@ -30593,7 +30593,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node21* node21 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node21;
 						node21->SetClassNameString("Action");
 						node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node21->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node21);
@@ -30603,7 +30603,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node15* node15 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node15;
 						node15->SetClassNameString("Action");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node15);
@@ -30613,7 +30613,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node29* node29 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node29;
 						node29->SetClassNameString("Action");
 						node29->SetId(29);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node29->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node29);
@@ -30623,7 +30623,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node26* node26 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node26;
 						node26->SetClassNameString("Action");
 						node26->SetId(26);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node26->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node26);
@@ -30633,7 +30633,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node27* node27 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node27;
 						node27->SetClassNameString("Action");
 						node27->SetId(27);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node27->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node27);
@@ -30643,7 +30643,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node24* node24 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node24;
 						node24->SetClassNameString("Action");
 						node24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node24->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node24);
@@ -30653,7 +30653,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node25* node25 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node25;
 						node25->SetClassNameString("Action");
 						node25->SetId(25);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node25->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node25);
@@ -30663,7 +30663,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node23* node23 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node23;
 						node23->SetClassNameString("Action");
 						node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node23->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node23);
@@ -30673,7 +30673,7 @@ namespace behaviac
 						Action_bt_par_test_property_as_ref_param_node28* node28 = BEHAVIAC_NEW Action_bt_par_test_property_as_ref_param_node28;
 						node28->SetClassNameString("Action");
 						node28->SetId(28);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node28->SetAgentType("EmployeeParTestAgent");
 #endif
 						node22->AddChild(node28);
@@ -30777,7 +30777,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/readonly_default");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("PropertyReadonlyAgent");
 #endif
 			// children
@@ -30785,7 +30785,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("PropertyReadonlyAgent");
 #endif
 				pBT->AddChild(node0);
@@ -30793,7 +30793,7 @@ namespace behaviac
 					Assignment_bt_par_test_readonly_default_node3* node3 = BEHAVIAC_NEW Assignment_bt_par_test_readonly_default_node3;
 					node3->SetClassNameString("Assignment");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("PropertyReadonlyAgent");
 #endif
 					node0->AddChild(node3);
@@ -30803,7 +30803,7 @@ namespace behaviac
 					Action_bt_par_test_readonly_default_node1* node1 = BEHAVIAC_NEW Action_bt_par_test_readonly_default_node1;
 					node1->SetClassNameString("Action");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("PropertyReadonlyAgent");
 #endif
 					node0->AddChild(node1);
@@ -30813,7 +30813,7 @@ namespace behaviac
 					Action_bt_par_test_readonly_default_node2* node2 = BEHAVIAC_NEW Action_bt_par_test_readonly_default_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("PropertyReadonlyAgent");
 #endif
 					node0->AddChild(node2);
@@ -30823,7 +30823,7 @@ namespace behaviac
 					Compute_bt_par_test_readonly_default_node4* node4 = BEHAVIAC_NEW Compute_bt_par_test_readonly_default_node4;
 					node4->SetClassNameString("Compute");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("PropertyReadonlyAgent");
 #endif
 					node0->AddChild(node4);
@@ -31106,7 +31106,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/register_name_as_left_value_and_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// children
@@ -31114,7 +31114,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node0);
@@ -31122,7 +31122,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node1* node1 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node1;
 					node1->SetClassNameString("Assignment");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node1);
@@ -31132,7 +31132,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node4* node4 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node4;
 					node4->SetClassNameString("Assignment");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node4);
@@ -31142,7 +31142,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node5* node5 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node5;
 					node5->SetClassNameString("Assignment");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node5);
@@ -31152,7 +31152,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node6* node6 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node6;
 					node6->SetClassNameString("Assignment");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node6);
@@ -31162,7 +31162,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node7* node7 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node7;
 					node7->SetClassNameString("Assignment");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node7);
@@ -31172,7 +31172,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node8* node8 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node8;
 					node8->SetClassNameString("Assignment");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node8);
@@ -31182,7 +31182,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node9* node9 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node9;
 					node9->SetClassNameString("Assignment");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node9);
@@ -31192,7 +31192,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node10* node10 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node10;
 					node10->SetClassNameString("Assignment");
 					node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node10->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node10);
@@ -31202,7 +31202,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node11* node11 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node11;
 					node11->SetClassNameString("Assignment");
 					node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node11->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node11);
@@ -31212,7 +31212,7 @@ namespace behaviac
 					Assignment_bt_par_test_register_name_as_left_value_and_param_node12* node12 = BEHAVIAC_NEW Assignment_bt_par_test_register_name_as_left_value_and_param_node12;
 					node12->SetClassNameString("Assignment");
 					node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node12->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node12);
@@ -31476,7 +31476,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/static_member_function_test_0");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// children
@@ -31484,7 +31484,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node0);
@@ -31492,7 +31492,7 @@ namespace behaviac
 					Sequence* node1 = BEHAVIAC_NEW Sequence;
 					node1->SetClassNameString("Sequence");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node1);
@@ -31500,7 +31500,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node4* node4 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node4;
 						node4->SetClassNameString("Assignment");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node4);
@@ -31510,7 +31510,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node5* node5 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node5;
 						node5->SetClassNameString("Assignment");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node5);
@@ -31520,7 +31520,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node6* node6 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node6;
 						node6->SetClassNameString("Assignment");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node6);
@@ -31530,7 +31530,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node7* node7 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node7;
 						node7->SetClassNameString("Assignment");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node7);
@@ -31540,7 +31540,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node8* node8 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node8;
 						node8->SetClassNameString("Assignment");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node8);
@@ -31552,7 +31552,7 @@ namespace behaviac
 					Sequence* node2 = BEHAVIAC_NEW Sequence;
 					node2->SetClassNameString("Sequence");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node2);
@@ -31560,7 +31560,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node9* node9 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node9;
 						node9->SetClassNameString("Assignment");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node9);
@@ -31570,7 +31570,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node10* node10 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node10;
 						node10->SetClassNameString("Assignment");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node10);
@@ -31582,7 +31582,7 @@ namespace behaviac
 					Sequence* node3 = BEHAVIAC_NEW Sequence;
 					node3->SetClassNameString("Sequence");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node3);
@@ -31590,7 +31590,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node11* node11 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node11;
 						node11->SetClassNameString("Assignment");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node11);
@@ -31600,7 +31600,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node12* node12 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node12;
 						node12->SetClassNameString("Assignment");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node12);
@@ -31610,7 +31610,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node13* node13 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node13;
 						node13->SetClassNameString("Assignment");
 						node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node13->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node13);
@@ -31620,7 +31620,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node14* node14 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node14;
 						node14->SetClassNameString("Assignment");
 						node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node14->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node14);
@@ -31630,7 +31630,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_member_function_test_0_node15* node15 = BEHAVIAC_NEW Assignment_bt_par_test_static_member_function_test_0_node15;
 						node15->SetClassNameString("Assignment");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node15);
@@ -31995,7 +31995,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/static_property_as_left_value_and_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// children
@@ -32003,7 +32003,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node0);
@@ -32011,7 +32011,7 @@ namespace behaviac
 					Sequence* node1 = BEHAVIAC_NEW Sequence;
 					node1->SetClassNameString("Sequence");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node1);
@@ -32019,7 +32019,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node4* node4 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node4;
 						node4->SetClassNameString("Assignment");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node4);
@@ -32029,7 +32029,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node5* node5 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node5;
 						node5->SetClassNameString("Assignment");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node5);
@@ -32039,7 +32039,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node6* node6 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node6;
 						node6->SetClassNameString("Assignment");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node6);
@@ -32049,7 +32049,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node7* node7 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node7;
 						node7->SetClassNameString("Assignment");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node7);
@@ -32059,7 +32059,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node8* node8 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node8;
 						node8->SetClassNameString("Assignment");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node8);
@@ -32069,7 +32069,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node9* node9 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node9;
 						node9->SetClassNameString("Assignment");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node9);
@@ -32079,7 +32079,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node10* node10 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node10;
 						node10->SetClassNameString("Assignment");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node10);
@@ -32091,7 +32091,7 @@ namespace behaviac
 					Sequence* node2 = BEHAVIAC_NEW Sequence;
 					node2->SetClassNameString("Sequence");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node2);
@@ -32099,7 +32099,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node15* node15 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node15;
 						node15->SetClassNameString("Assignment");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node15);
@@ -32109,7 +32109,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node12* node12 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node12;
 						node12->SetClassNameString("Assignment");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node12);
@@ -32119,7 +32119,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node13* node13 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node13;
 						node13->SetClassNameString("Assignment");
 						node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node13->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node13);
@@ -32129,7 +32129,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node11* node11 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node11;
 						node11->SetClassNameString("Assignment");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node11);
@@ -32141,7 +32141,7 @@ namespace behaviac
 					Sequence* node3 = BEHAVIAC_NEW Sequence;
 					node3->SetClassNameString("Sequence");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node3);
@@ -32149,7 +32149,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node14* node14 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node14;
 						node14->SetClassNameString("Assignment");
 						node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node14->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node14);
@@ -32159,7 +32159,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node19* node19 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node19;
 						node19->SetClassNameString("Assignment");
 						node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node19->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node19);
@@ -32169,7 +32169,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node17* node17 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node17;
 						node17->SetClassNameString("Assignment");
 						node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node17->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node17);
@@ -32179,7 +32179,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node18* node18 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node18;
 						node18->SetClassNameString("Assignment");
 						node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node18->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node18);
@@ -32189,7 +32189,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node16* node16 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node16;
 						node16->SetClassNameString("Assignment");
 						node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node16->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node16);
@@ -32199,7 +32199,7 @@ namespace behaviac
 						Assignment_bt_par_test_static_property_as_left_value_and_param_node20* node20 = BEHAVIAC_NEW Assignment_bt_par_test_static_property_as_left_value_and_param_node20;
 						node20->SetClassNameString("Assignment");
 						node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node20->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node20);
@@ -32564,7 +32564,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/static_property_as_ref_param");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("EmployeeParTestAgent");
 #endif
 			// children
@@ -32572,7 +32572,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("EmployeeParTestAgent");
 #endif
 				pBT->AddChild(node0);
@@ -32580,7 +32580,7 @@ namespace behaviac
 					Sequence* node1 = BEHAVIAC_NEW Sequence;
 					node1->SetClassNameString("Sequence");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node1);
@@ -32588,7 +32588,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node4* node4 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node4);
@@ -32598,7 +32598,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node5* node5 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node5);
@@ -32608,7 +32608,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node6* node6 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node6);
@@ -32618,7 +32618,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node7* node7 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node7;
 						node7->SetClassNameString("Action");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node7);
@@ -32628,7 +32628,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node8* node8 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node8;
 						node8->SetClassNameString("Action");
 						node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node8->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node8);
@@ -32638,7 +32638,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node9* node9 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node9;
 						node9->SetClassNameString("Action");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node9);
@@ -32648,7 +32648,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node10* node10 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node10;
 						node10->SetClassNameString("Action");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("EmployeeParTestAgent");
 #endif
 						node1->AddChild(node10);
@@ -32660,7 +32660,7 @@ namespace behaviac
 					Sequence* node2 = BEHAVIAC_NEW Sequence;
 					node2->SetClassNameString("Sequence");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node2);
@@ -32668,7 +32668,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node15* node15 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node15;
 						node15->SetClassNameString("Action");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node15);
@@ -32678,7 +32678,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node12* node12 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node12;
 						node12->SetClassNameString("Action");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node12);
@@ -32688,7 +32688,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node13* node13 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node13;
 						node13->SetClassNameString("Action");
 						node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node13->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node13);
@@ -32698,7 +32698,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node11* node11 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node11;
 						node11->SetClassNameString("Action");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("EmployeeParTestAgent");
 #endif
 						node2->AddChild(node11);
@@ -32710,7 +32710,7 @@ namespace behaviac
 					Sequence* node3 = BEHAVIAC_NEW Sequence;
 					node3->SetClassNameString("Sequence");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("EmployeeParTestAgent");
 #endif
 					node0->AddChild(node3);
@@ -32718,7 +32718,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node14* node14 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node14;
 						node14->SetClassNameString("Action");
 						node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node14->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node14);
@@ -32728,7 +32728,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node16* node16 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node16;
 						node16->SetClassNameString("Action");
 						node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node16->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node16);
@@ -32738,7 +32738,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node17* node17 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node17;
 						node17->SetClassNameString("Action");
 						node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node17->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node17);
@@ -32748,7 +32748,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node18* node18 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node18;
 						node18->SetClassNameString("Action");
 						node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node18->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node18);
@@ -32758,7 +32758,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node19* node19 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node19;
 						node19->SetClassNameString("Action");
 						node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node19->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node19);
@@ -32768,7 +32768,7 @@ namespace behaviac
 						Action_bt_par_test_static_property_as_ref_param_node20* node20 = BEHAVIAC_NEW Action_bt_par_test_static_property_as_ref_param_node20;
 						node20->SetClassNameString("Action");
 						node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node20->SetAgentType("EmployeeParTestAgent");
 #endif
 						node3->AddChild(node20);
@@ -32968,7 +32968,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("par_test/vector_test");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("AgentArrayAccessTest");
 #endif
 			// pars
@@ -32980,7 +32980,7 @@ namespace behaviac
 				Sequence* node22 = BEHAVIAC_NEW Sequence;
 				node22->SetClassNameString("Sequence");
 				node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node22->SetAgentType("AgentArrayAccessTest");
 #endif
 				pBT->AddChild(node22);
@@ -32988,7 +32988,7 @@ namespace behaviac
 					Assignment_bt_par_test_vector_test_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node0;
 					node0->SetClassNameString("Assignment");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("AgentArrayAccessTest");
 #endif
 					node22->AddChild(node0);
@@ -32998,7 +32998,7 @@ namespace behaviac
 					Assignment_bt_par_test_vector_test_node1* node1 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node1;
 					node1->SetClassNameString("Assignment");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("AgentArrayAccessTest");
 #endif
 					node22->AddChild(node1);
@@ -33008,7 +33008,7 @@ namespace behaviac
 					Assignment_bt_par_test_vector_test_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node2;
 					node2->SetClassNameString("Assignment");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("AgentArrayAccessTest");
 #endif
 					node22->AddChild(node2);
@@ -33018,7 +33018,7 @@ namespace behaviac
 					Assignment_bt_par_test_vector_test_node4* node4 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node4;
 					node4->SetClassNameString("Assignment");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("AgentArrayAccessTest");
 #endif
 					node22->AddChild(node4);
@@ -33028,7 +33028,7 @@ namespace behaviac
 					Compute_bt_par_test_vector_test_node3* node3 = BEHAVIAC_NEW Compute_bt_par_test_vector_test_node3;
 					node3->SetClassNameString("Compute");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("AgentArrayAccessTest");
 #endif
 					node22->AddChild(node3);
@@ -33038,7 +33038,7 @@ namespace behaviac
 					Assignment_bt_par_test_vector_test_node5* node5 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node5;
 					node5->SetClassNameString("Assignment");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("AgentArrayAccessTest");
 #endif
 					node22->AddChild(node5);
@@ -33048,7 +33048,7 @@ namespace behaviac
 					Action_bt_par_test_vector_test_node6* node6 = BEHAVIAC_NEW Action_bt_par_test_vector_test_node6;
 					node6->SetClassNameString("Action");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("AgentArrayAccessTest");
 #endif
 					node22->AddChild(node6);
@@ -33058,7 +33058,7 @@ namespace behaviac
 					Action_bt_par_test_vector_test_node7* node7 = BEHAVIAC_NEW Action_bt_par_test_vector_test_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("AgentArrayAccessTest");
 #endif
 					node22->AddChild(node7);

@@ -35,7 +35,6 @@ namespace Behaviac.Design
             _checkedBehaviorFiles.Clear();
         }
 
-        private static bool ms_workspace_handled = false;
         private static string ms_fileFormat = "xml";
 
         private static UpdateModes processMessage(string _msg) {
@@ -132,7 +131,7 @@ namespace Behaviac.Design
         }
 
         private static void processWorkspace(string msg) {
-            if (!ms_workspace_handled && Plugin.WorkspaceDelegateHandler != null) {
+            if (Plugin.WorkspaceDelegateHandler != null) {
                 string str_ = msg.Substring(11);
                 string format = "";
 
@@ -170,35 +169,38 @@ namespace Behaviac.Design
                         wksName = tokens[0].Trim(new char[] { ' ', '\"' });
                     }
 
-                    if (!string.IsNullOrEmpty(wksName)) {
+                    if (!string.IsNullOrEmpty(wksName))
                         wksName = Path.GetFullPath(wksName);
 
-                        if (!File.Exists(wksName))
+                    try
+                    {
+                        if (string.IsNullOrEmpty(wksName) || !File.Exists(wksName))
                         {
-                            try
+                            string wks = string.IsNullOrEmpty(wksName) ? "" : Path.GetFileName(wksName);
+                            string currentWks = (Workspace.Current != null) ? Path.GetFileName(Workspace.Current.FileName) : "";
+
+                            if (!string.IsNullOrEmpty(wks) && wks != currentWks)
                             {
+                                // Close the connection
+                                MainWindow.Instance.BehaviorTreeList.HandleConnect();
+
                                 string errorInfo = string.Format(Resources.WorkspaceDebugErrorInfo, wksName);
 
-                                ErrorInfoDock.Inspect();
-                                ErrorInfoDock.WriteLine(errorInfo);
+                                MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
 
-                                //MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
-                            }
-                            catch
-                            {
+                                //ErrorInfoDock.Inspect();
+                                //ErrorInfoDock.WriteLine(errorInfo);
                             }
 
-                            if (Workspace.Current != null)
-                            {
-                                wksName = Workspace.Current.FileName;
-                                if (!string.IsNullOrEmpty(wksName))
-                                    wksName = Path.GetFullPath(wksName);
-                            }
+                            MainWindow.Instance.NodeTreeList.SetNodeList();
                         }
-
-                        ms_workspace_handled = true;
-                        Plugin.WorkspaceDelegateHandler(wksName, false);
-                        ms_workspace_handled = false;
+                        else
+                        {
+                            Plugin.WorkspaceDelegateHandler(wksName, false);
+                        }
+                    }
+                    catch
+                    {
                     }
 
                     AgentDataPool.TotalFrames = 0;

@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -75,6 +75,7 @@ public class BehaviacSystem
             //behaviac.Config.IsSocketing = false;
 
             behaviac.Workspace.Instance.FilePath = this.WorkspaceExportPath;
+            //behaviac.Workspace.Instance.FileFormat = behaviac.Workspace.EFileFormat.EFF_cs;
             behaviac.Workspace.Instance.FileFormat = behaviac.Workspace.EFileFormat.EFF_xml;
 
             //register names

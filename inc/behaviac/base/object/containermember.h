@@ -171,8 +171,6 @@ public:
                     memberNode->setAttr("Static", "true");
                 }
 
-                int readonlyFlag = this->READONLYFLAG();
-
                 if (readonlyFlag & 0x1)
                 {
                     memberNode->setAttr("Readonly", "true");

@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -96,7 +96,7 @@ namespace PluginBehaviac.NodeExporters
             // set its basic properties
             stream.WriteLine("{0}\t{1}->SetClassNameString(\"{2}\");", indent, nodeName, node.ExportClass);
             stream.WriteLine("{0}\t{1}->SetId({2});", indent, nodeName, node.Id);
-            stream.WriteLine("#if !defined(BEHAVIAC_RELEASE)");
+            stream.WriteLine("#if !BEHAVIAC_RELEASE");
             stream.WriteLine("{0}\t{1}->SetAgentType(\"{2}\");", indent, nodeName, agentType);
             stream.WriteLine("#endif");
         }

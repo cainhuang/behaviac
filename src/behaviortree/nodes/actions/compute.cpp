@@ -119,7 +119,6 @@ namespace behaviac
 
                 if (pParenthesis == 0)
                 {
-                    behaviac::string propertyName;
                     this->m_opr1 = Condition::LoadRight(p.value, typeName);
                 }
                 else
@@ -134,7 +133,6 @@ namespace behaviac
 
                 if (pParenthesis == 0)
                 {
-                    behaviac::string propertyName;
                     this->m_opr2 = Condition::LoadRight(p.value, typeName);
                 }
                 else

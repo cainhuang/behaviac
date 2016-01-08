@@ -754,10 +754,10 @@
     <value>节点成功时执行</value>
   </data>
   <data name="EffectorPhase" xml:space="preserve">
-    <value>什么时候作用</value>
+    <value>执行时机</value>
   </data>
   <data name="EffectorPhaseDesc" xml:space="preserve">
-    <value>决定什么时候起作用，成功还是失败还是都起作用？</value>
+    <value>什么时候起作用</value>
   </data>
   <data name="InterruptIf" xml:space="preserve">
     <value>中断条件</value>

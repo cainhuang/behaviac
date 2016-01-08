@@ -32,14 +32,14 @@ namespace behaviac
     public:
         IVariable(const CMemberBase* pMember, const char* variableName, uint32_t id) :
             m_id(id), m_name(variableName), m_property(0), m_pMember(pMember), m_instantiated(1)
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
             , m_changed(true)
 #endif
         {}
 
         IVariable(const CMemberBase* pMember, const Property* property_) :
             m_property(property_), m_pMember(pMember), m_instantiated(1)
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
             , m_changed(true)
 #endif
         {
@@ -51,7 +51,7 @@ namespace behaviac
 
         IVariable(const IVariable& copy) :
             m_id(copy.m_id), m_name(copy.m_name), m_property(copy.m_property), m_pMember(copy.m_pMember), m_instantiated(copy.m_instantiated)
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
             , m_changed(copy.m_changed)
 #endif
         {
@@ -60,7 +60,7 @@ namespace behaviac
         virtual ~IVariable()
         {}
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         bool IsChanged() const
         {
             return m_changed;
@@ -118,7 +118,7 @@ namespace behaviac
         const Property*		m_property;
         const CMemberBase*	m_pMember;
         unsigned char		m_instantiated;
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         bool				m_changed;
 #endif
         friend class Variables;
@@ -166,7 +166,7 @@ namespace behaviac
 
                 this->m_pMember->Set(pAgent, &value, typeId);
                 //devlelopment version needs to update m_value even for property, as it needs to be used in the logging
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 #else
                 bProperty = true;
 #endif
@@ -175,7 +175,7 @@ namespace behaviac
             if (!bProperty && !(Details::Equal(this->m_value, value)))
             {
                 this->m_value = value;
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
                 this->m_changed = true;
 #endif
 
@@ -192,7 +192,7 @@ namespace behaviac
             return GetClassTypeNumberId<VariableType>();
         }
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         virtual bool CheckIfChanged(const Agent* pAgent)
         {
             if (this->m_pMember)
@@ -216,7 +216,7 @@ namespace behaviac
 
         virtual void Reset()
         {
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
             this->m_changed = false;
 #endif
         }

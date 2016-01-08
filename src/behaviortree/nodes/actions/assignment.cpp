@@ -60,9 +60,7 @@ namespace behaviac
                 if (pParenthesis == 0)
                 {
                     behaviac::string typeName;
-                    behaviac::string	propertyName;
                     this->m_opr = Condition::LoadRight(p.value, typeName);
-
                 }
                 else
                 {

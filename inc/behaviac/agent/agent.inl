@@ -741,7 +741,7 @@ namespace behaviac
         }
 
         LogManager::GetInstance()->Log(pAgent, typeName.c_str(), full_name.c_str(), valueStr.c_str());
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         this->m_changed = false;
 #endif
     }
@@ -880,7 +880,7 @@ namespace behaviac
                 if (!(Details::Equal(this->m_value, value)))
                 {
                     this->m_value = value;
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
                     this->m_changed = true;
 #endif
 

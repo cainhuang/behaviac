@@ -47,7 +47,7 @@ LOCAL_MODULE := btremotetest
 LOCAL_C_INCLUDES := ../../inc/ ../../../../include ../../test/btunittest
 LOCAL_CPPFLAGS  := -MMD -MP
 LOCAL_CFLAGS    := -g -Wall -Wextra -Werror -ffast-math -finput-charset=UTF-8 -D_DEBUG -DDEBUG -D_CRTDBG_MAP_ALLOC -D_LIB -DBEHAVIAC_COMPILER_ANDROID_VER=9
-LOCAL_SRC_FILES :=  ../../test/btremotetest/BehaviacWorkspace.cpp ../../test/btremotetest/btremotetest.cpp
+LOCAL_SRC_FILES :=  ../../test/btremotetest/BTPlayer.cpp ../../test/btremotetest/remote_test.cpp
 LOCAL_LDLIBS := -landroid
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 #LOCAL_SHARED_LIBRARIES := behaviac-prebuilt

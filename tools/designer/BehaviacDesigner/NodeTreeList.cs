@@ -77,7 +77,7 @@ namespace Behaviac.Design
             }
         }
 
-        internal void SetNodeList(bool bWorkspaceChanged) {
+        internal void SetNodeList() {
             bool isDesignMode = (Plugin.EditMode == EditModes.Design);
             this.debugLabel.Visible = !isDesignMode;
             this.cancelButton.Visible = !isDesignMode;
@@ -86,9 +86,7 @@ namespace Behaviac.Design
             FrameStatePool.AddPlanningHanlder -= AgentInstancePool_AddPlanningHandler;
 
             if (!isDesignMode) {
-                //if (bWorkspaceChanged) {
-                    this.treeView.Nodes.Clear();
-                //}
+                this.treeView.Nodes.Clear();
 
                 setAgentTreeNode(this.treeView.Nodes);
 

@@ -843,7 +843,7 @@ namespace Behaviac.Design
                 bOk = this.SetWorkspace(workspacePath, bNew);
             }
 
-            this.nodeTreeList.SetNodeList(bWorkspaceChanged);
+            this.nodeTreeList.SetNodeList();
 
             return bOk;
         }

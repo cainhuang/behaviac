@@ -433,7 +433,7 @@ namespace behaviac
         */
         static void Destroy(Agent* pAgent);
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         static Agent* GetAgent(const char* agentName);
 #endif//BEHAVIAC_RELEASE
 
@@ -576,7 +576,7 @@ namespace behaviac
             }
         };
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         typedef behaviac::map<behaviac::string, Agent*> Agents_t;
         static Agents_t* ms_agents;
         static Agents_t* Agents(bool bCleanup);
@@ -687,7 +687,7 @@ namespace behaviac
         behaviac::string			m_name;
 
 //this condition compiling might cause the lib and app different
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         int							m_debug_verify;
 public:
         int							m_debug_count;

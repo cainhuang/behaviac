@@ -292,7 +292,7 @@ namespace behaviac
             {
                 if (this->m_memberBase)
                 {
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
                     {
                         //Agent* pInstance = this->GetParentAgent(pSelf);
                         //BEHAVIAC_ASSERT(pInstance == pSelf);
@@ -404,13 +404,19 @@ namespace behaviac
         virtual void* GetVectorElementFrom(Agent* pAgentFrom, int index)
         {
             const VariableType& retV_vec = this->GetValue(pAgentFrom);
-#if BEHAVIAC_COMPILER_APPLE
+			const ElementType& retV = retV_vec[index];
+
+#if BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_MSVC2015
+			//this is not thread safe
+			ASSERT_MAIN_THREAD();
 			//xcode, it reports compiling error, so to use a static here, not perfect
-			static ElementType retV = retV_vec[index];
+			static ElementType retV2 = retV;
+			retV2 = retV;
+
+			return (void*)&retV2;
 #else
-            const ElementType& retV = retV_vec[index];
-#endif//BEHAVIAC_COMPILER_APPLE
             return (void*)&retV;
+#endif//BEHAVIAC_COMPILER_APPLE
         }
 
         virtual void SetVectorElementTo(Agent* pAgentTo, int index, void* pValue)

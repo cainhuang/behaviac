@@ -41,6 +41,6 @@ namespace behaviac
     BEHAVIAC_API BreakpointPromptHandler_fn GetBreakpointPromptHandler();
 }//namespace behaviac
 
-#define ASSERT_MAIN_THREAD()  BEHAVIAC_ASSERT(behaviac::IsMainThread(), "called not in the main thread")
+#define ASSERT_MAIN_THREAD()  BEHAVIAC_ASSERT(behaviac::IsMainThread(), "called in a thread different from the creating thread")
 
 #endif // BEHAVIAC_BASE_H

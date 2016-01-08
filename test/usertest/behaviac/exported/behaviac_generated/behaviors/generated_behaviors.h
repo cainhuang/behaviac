@@ -87,31 +87,31 @@ using namespace behaviac;
 namespace behaviac
 {
 	struct METHOD_TYPE_behaviac_Agent_VectorAdd { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
 	{
 		this->behaviac::Agent::VectorAdd(p0, p1);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorClear { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorClear>(IList& p0)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorClear>(IList& p0)
 	{
 		this->behaviac::Agent::VectorClear(p0);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorContains { };
-	template<> BEHAVIAC_FORCEINLINE bool Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorContains>(IList& p0, System::Object& p1)
+	template<>  bool Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorContains>(IList& p0, System::Object& p1)
 	{
 		return this->behaviac::Agent::VectorContains(p0, p1);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorLength { };
-	template<> BEHAVIAC_FORCEINLINE int Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorLength>(IList& p0)
+	template<>  int Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorLength>(IList& p0)
 	{
 		return this->behaviac::Agent::VectorLength(p0);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorRemove { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorRemove>(IList& p0, System::Object& p1)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorRemove>(IList& p0, System::Object& p1)
 	{
 		this->behaviac::Agent::VectorRemove(p0, p1);
 	}
@@ -119,7 +119,7 @@ namespace behaviac
 }
 
 struct PROPERTY_TYPE_CBTPlayer_m_iBaseSpeed { };
-template<> BEHAVIAC_FORCEINLINE unsigned int& CBTPlayer::_Get_Property_<PROPERTY_TYPE_CBTPlayer_m_iBaseSpeed>()
+template<>  unsigned int& CBTPlayer::_Get_Property_<PROPERTY_TYPE_CBTPlayer_m_iBaseSpeed>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(CBTPlayer, CBTPlayer::m_iBaseSpeed);
@@ -127,31 +127,31 @@ template<> BEHAVIAC_FORCEINLINE unsigned int& CBTPlayer::_Get_Property_<PROPERTY
 }
 
 struct METHOD_TYPE_CBTPlayer_Action1 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_Action1>()
+template<>  behaviac::EBTStatus CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_Action1>()
 {
 	return this->CBTPlayer::Action1();
 }
 
 struct METHOD_TYPE_CBTPlayer_Action3 { };
-template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_Action3>()
+template<>  behaviac::EBTStatus CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_Action3>()
 {
 	return this->CBTPlayer::Action3();
 }
 
 struct METHOD_TYPE_CBTPlayer_Condition { };
-template<> BEHAVIAC_FORCEINLINE bool CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_Condition>()
+template<>  bool CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_Condition>()
 {
 	return this->CBTPlayer::Condition();
 }
 
 struct METHOD_TYPE_CBTPlayer_MoveAhead { };
-template<> BEHAVIAC_FORCEINLINE void CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_MoveAhead>(int p0)
+template<>  void CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_MoveAhead>(int p0)
 {
 	this->CBTPlayer::MoveAhead(p0);
 }
 
 struct METHOD_TYPE_CBTPlayer_MoveBack { };
-template<> BEHAVIAC_FORCEINLINE void CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_MoveBack>(int p0)
+template<>  void CBTPlayer::_Execute_Method_<METHOD_TYPE_CBTPlayer_MoveBack>(int p0)
 {
 	this->CBTPlayer::MoveBack(p0);
 }
@@ -238,7 +238,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("demo_running");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("CBTPlayer");
 #endif
 			// children
@@ -246,7 +246,7 @@ namespace behaviac
 				DecoratorLoop_bt_demo_running_node0* node0 = BEHAVIAC_NEW DecoratorLoop_bt_demo_running_node0;
 				node0->SetClassNameString("DecoratorLoop");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("CBTPlayer");
 #endif
 				pBT->AddChild(node0);
@@ -254,7 +254,7 @@ namespace behaviac
 					Sequence* node1 = BEHAVIAC_NEW Sequence;
 					node1->SetClassNameString("Sequence");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("CBTPlayer");
 #endif
 					node0->AddChild(node1);
@@ -262,7 +262,7 @@ namespace behaviac
 						Condition_bt_demo_running_node2* node2 = BEHAVIAC_NEW Condition_bt_demo_running_node2;
 						node2->SetClassNameString("Condition");
 						node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node2->SetAgentType("CBTPlayer");
 #endif
 						node1->AddChild(node2);
@@ -272,7 +272,7 @@ namespace behaviac
 						Action_bt_demo_running_node3* node3 = BEHAVIAC_NEW Action_bt_demo_running_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("CBTPlayer");
 #endif
 						node1->AddChild(node3);
@@ -282,7 +282,7 @@ namespace behaviac
 						Action_bt_demo_running_node4* node4 = BEHAVIAC_NEW Action_bt_demo_running_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("CBTPlayer");
 #endif
 						node1->AddChild(node4);
@@ -358,7 +358,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("monster");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("CBTPlayer");
 #endif
 			// pars
@@ -368,7 +368,7 @@ namespace behaviac
 				DecoratorLoopUntil_bt_monster_node20* node20 = BEHAVIAC_NEW DecoratorLoopUntil_bt_monster_node20;
 				node20->SetClassNameString("DecoratorLoopUntil");
 				node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node20->SetAgentType("CBTPlayer");
 #endif
 				pBT->AddChild(node20);
@@ -376,7 +376,7 @@ namespace behaviac
 					Sequence* node0 = BEHAVIAC_NEW Sequence;
 					node0->SetClassNameString("Sequence");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("CBTPlayer");
 #endif
 					node20->AddChild(node0);
@@ -384,7 +384,7 @@ namespace behaviac
 						Condition_bt_monster_node7* node7 = BEHAVIAC_NEW Condition_bt_monster_node7;
 						node7->SetClassNameString("Condition");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("CBTPlayer");
 #endif
 						node0->SetCustomCondition(node7);
@@ -394,7 +394,7 @@ namespace behaviac
 						SelectorProbability_bt_monster_node12* node12 = BEHAVIAC_NEW SelectorProbability_bt_monster_node12;
 						node12->SetClassNameString("SelectorProbability");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("CBTPlayer");
 #endif
 						node0->AddChild(node12);
@@ -608,7 +608,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("player");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("CBTPlayer");
 #endif
 			// pars
@@ -618,7 +618,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("CBTPlayer");
 #endif
 				pBT->AddChild(node0);
@@ -626,7 +626,7 @@ namespace behaviac
 					SelectorProbability_bt_player_node12* node12 = BEHAVIAC_NEW SelectorProbability_bt_player_node12;
 					node12->SetClassNameString("SelectorProbability");
 					node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node12->SetAgentType("CBTPlayer");
 #endif
 					node0->AddChild(node12);
@@ -634,7 +634,7 @@ namespace behaviac
 						DecoratorWeight_bt_player_node13* node13 = BEHAVIAC_NEW DecoratorWeight_bt_player_node13;
 						node13->SetClassNameString("DecoratorWeight");
 						node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node13->SetAgentType("CBTPlayer");
 #endif
 						node12->AddChild(node13);
@@ -642,7 +642,7 @@ namespace behaviac
 							Sequence* node1 = BEHAVIAC_NEW Sequence;
 							node1->SetClassNameString("Sequence");
 							node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node1->SetAgentType("CBTPlayer");
 #endif
 							// attachments
@@ -650,7 +650,7 @@ namespace behaviac
 								Precondition_bt_player_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_player_attach3;
 								attach3->SetClassNameString("Precondition");
 								attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								attach3->SetAgentType("CBTPlayer");
 #endif
 								node1->Attach(attach3, true, false, false);
@@ -661,7 +661,7 @@ namespace behaviac
 								Selector* node4 = BEHAVIAC_NEW Selector;
 								node4->SetClassNameString("Selector");
 								node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node4->SetAgentType("CBTPlayer");
 #endif
 								node1->AddChild(node4);
@@ -669,7 +669,7 @@ namespace behaviac
 									Action_bt_player_node6* node6 = BEHAVIAC_NEW Action_bt_player_node6;
 									node6->SetClassNameString("Action");
 									node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node6->SetAgentType("CBTPlayer");
 #endif
 									node4->AddChild(node6);
@@ -679,7 +679,7 @@ namespace behaviac
 									Sequence* node5 = BEHAVIAC_NEW Sequence;
 									node5->SetClassNameString("Sequence");
 									node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node5->SetAgentType("CBTPlayer");
 #endif
 									node4->AddChild(node5);
@@ -687,7 +687,7 @@ namespace behaviac
 										Wait_bt_player_node8* node8 = BEHAVIAC_NEW Wait_bt_player_node8;
 										node8->SetClassNameString("Wait");
 										node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										node8->SetAgentType("CBTPlayer");
 #endif
 										node5->AddChild(node8);
@@ -705,7 +705,7 @@ namespace behaviac
 						DecoratorWeight_bt_player_node14* node14 = BEHAVIAC_NEW DecoratorWeight_bt_player_node14;
 						node14->SetClassNameString("DecoratorWeight");
 						node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node14->SetAgentType("CBTPlayer");
 #endif
 						node12->AddChild(node14);
@@ -713,7 +713,7 @@ namespace behaviac
 							Sequence* node19 = BEHAVIAC_NEW Sequence;
 							node19->SetClassNameString("Sequence");
 							node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node19->SetAgentType("CBTPlayer");
 #endif
 							node14->AddChild(node19);
@@ -721,7 +721,7 @@ namespace behaviac
 								Action_bt_player_node10* node10 = BEHAVIAC_NEW Action_bt_player_node10;
 								node10->SetClassNameString("Action");
 								node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node10->SetAgentType("CBTPlayer");
 #endif
 								node19->AddChild(node10);
@@ -735,7 +735,7 @@ namespace behaviac
 						DecoratorWeight_bt_player_node15* node15 = BEHAVIAC_NEW DecoratorWeight_bt_player_node15;
 						node15->SetClassNameString("DecoratorWeight");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("CBTPlayer");
 #endif
 						node12->AddChild(node15);
@@ -743,7 +743,7 @@ namespace behaviac
 							Sequence* node7 = BEHAVIAC_NEW Sequence;
 							node7->SetClassNameString("Sequence");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("CBTPlayer");
 #endif
 							node15->AddChild(node7);
@@ -751,7 +751,7 @@ namespace behaviac
 								Action_bt_player_node11* node11 = BEHAVIAC_NEW Action_bt_player_node11;
 								node11->SetClassNameString("Action");
 								node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node11->SetAgentType("CBTPlayer");
 #endif
 								node7->AddChild(node11);
@@ -765,7 +765,7 @@ namespace behaviac
 						DecoratorWeight_bt_player_node16* node16 = BEHAVIAC_NEW DecoratorWeight_bt_player_node16;
 						node16->SetClassNameString("DecoratorWeight");
 						node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node16->SetAgentType("CBTPlayer");
 #endif
 						node12->AddChild(node16);
@@ -773,7 +773,7 @@ namespace behaviac
 							Sequence* node17 = BEHAVIAC_NEW Sequence;
 							node17->SetClassNameString("Sequence");
 							node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node17->SetAgentType("CBTPlayer");
 #endif
 							node16->AddChild(node17);
@@ -781,7 +781,7 @@ namespace behaviac
 								Action_bt_player_node18* node18 = BEHAVIAC_NEW Action_bt_player_node18;
 								node18->SetClassNameString("Action");
 								node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node18->SetAgentType("CBTPlayer");
 #endif
 								node17->AddChild(node18);

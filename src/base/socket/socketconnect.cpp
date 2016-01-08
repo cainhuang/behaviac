@@ -226,6 +226,16 @@ namespace behaviac
             return false;
         }
 
+		bool IsConnected()
+		{
+			if (Config::IsSocketing())
+			{
+				return s_tracer.IsConnected();
+			}
+
+			return false;
+		}
+
         void ShutdownConnection()
         {
             if (Config::IsSocketing())

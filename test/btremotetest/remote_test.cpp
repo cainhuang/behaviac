@@ -15,8 +15,8 @@
 
 #include "BTPlayer.h"
 
-#include "./behaviac/exported/behaviac_generated/behaviors/generated_behaviors.h"
-#include "./behaviac/exported/behaviac_generated/types/agentproperties.h"
+#include "../demo_running/behaviac/exported/behaviac_generated/behaviors/generated_behaviors.h"
+#include "../demo_running/behaviac/exported/behaviac_generated/types/agentproperties.h"
 
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
@@ -57,7 +57,8 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
     behaviac::Config::SetHotReload(false);
 #endif
     //behaviac::Config::SetSocketBlocking(false);
-    //behaviac::Config::SetSocketPort(60636);
+    behaviac::Config::SetSocketPort(10004);
+    behaviac::Config::SetSocketBlocking(true);
 
     behaviac::Agent::Register<CBTPlayer>();
 
@@ -74,6 +75,9 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
 bool InitPlayer(const char* pszTreeName)
 {
 	printf("InitPlayer\n");
+
+	//printf("wait for the designer to connnect...\n");
+
     g_player = behaviac::Agent::Create<CBTPlayer>();
 
     bool bRet = false;
@@ -87,17 +91,9 @@ bool InitPlayer(const char* pszTreeName)
 
 void UpdateLoop()
 {
-	int i  = 0;
-	int frames = 0;
-	behaviac::EBTStatus status = behaviac::BT_RUNNING;
-
-	printf("UpdateLoop\n");
-
-	while (status == behaviac::BT_RUNNING)
+	while (behaviac::Socket::IsConnected())
 	{
-		printf("frame %d\n", ++frames);
-
-		status = g_player->btexec();
+		behaviac::Workspace::GetInstance()->Update();
 	}
 }
 
@@ -132,7 +128,7 @@ int main(int argc, char** argv)
     InitBehavic(ff);
     InitPlayer(szTreeName);
 
-    UpdateLoop();
+	UpdateLoop();
 
     CleanupPlayer();
     CleanupBehaviac();

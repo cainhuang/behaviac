@@ -17,7 +17,7 @@
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 #define		BEHAVIAC_STRINGID_DEBUG 1
 #endif
 

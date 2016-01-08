@@ -55,13 +55,8 @@ namespace behaviac
 		}
 		else if (this->m_frames_method)
 		{
-			//ParentType pt = this->m_frames_method->GetParentType();
-			Agent* pParent = pAgent;
-			/*if (pt == PT_INSTANCE)
-			{*/
-			pParent = Agent::GetInstance(this->m_frames_method->GetInstanceNameString(), pParent->GetContextId());
+			Agent* pParent = Agent::GetInstance(pAgent, this->m_frames_method->GetInstanceNameString());
 			BEHAVIAC_ASSERT(pParent);
-			/*}*/
 
 			this->m_frames_method->run(pParent, pAgent);
 

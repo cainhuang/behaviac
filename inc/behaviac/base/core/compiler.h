@@ -25,7 +25,10 @@
 #define BEHAVIAC_COMPILER_MSVC 1
 #define BEHAVIAC_BIGENDIAN			1
 
-#if _MSC_VER >= 1800
+#if _MSC_VER >= 1900
+#define BEHAVIAC_COMPILER_MSVC2015 1
+#define BEHAVIAC_COMPILER_NAME "vs2015"
+#elif _MSC_VER >= 1800
 #define BEHAVIAC_COMPILER_MSVC2013 1
 #define BEHAVIAC_COMPILER_NAME "vs2013"
 #elif _MSC_VER >= 1600
@@ -211,6 +214,9 @@
 	#pragma warning(disable : 4702)
 
 	#pragma warning(disable : 4996) //'strcpy': This function or variable may be unsafe.
+	//#if BEHAVIAC_COMPILER_MSVC2015
+	//	#pragma warning(disable : 4714) //__forceinline
+	//#endif
 #endif//BEHAVIAC_COMPILER_MSVC
 
 #include <stdio.h>

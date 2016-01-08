@@ -309,7 +309,7 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(status);
     }
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
     behaviac::string BehaviorTask::GetTickInfo(const behaviac::Agent* pAgent, const behaviac::BehaviorTask* b, const char* action)
     {
         return BehaviorTask::GetTickInfo(pAgent, b->GetNode(), action);
@@ -402,7 +402,7 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(action);
         BEHAVIAC_UNUSED_VAR(actionResult);
 	}
-#endif//#if !defined(BEHAVIAC_RELEASE)
+#endif//#if !BEHAVIAC_RELEASE
 
     bool BehaviorTask::onenter_action(Agent* pAgent)
     {
@@ -1254,11 +1254,11 @@ namespace behaviac
         for (size_t i = 0; i < this->m_children.size(); ++i)
         {
             const BehaviorTask* pChild = this->m_children[i];
-            const BehaviorTask* t = pChild->GetTaskById(id);
+            const BehaviorTask* t1 = pChild->GetTaskById(id);
 
-            if (t)
+            if (t1)
             {
-                return t;
+                return t1;
             }
         }
 

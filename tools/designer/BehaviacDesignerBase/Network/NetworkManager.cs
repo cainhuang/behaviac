@@ -202,7 +202,8 @@ namespace Behaviac.Design.Network
                 }
 
             } catch (SocketException se) {
-                MessageBox.Show(se.Message, Resources.ConnectError);
+                //MessageBox.Show(se.Message, Resources.ConnectError);
+                Console.WriteLine(Resources.ConnectError + " : " + se.Message);
             }
 
             return false;
@@ -232,7 +233,8 @@ namespace Behaviac.Design.Network
             } catch (ObjectDisposedException) {
                 // Socket closed
             } catch (SocketException exc) {
-                MessageBox.Show(exc.Message, Resources.ConnectError);
+                //MessageBox.Show(exc.Message, Resources.ConnectError);
+                Console.WriteLine(Resources.ConnectError + " : " + exc.Message);
                 //Invoke(m_delegateOnDisconnect);
 
             } catch (Exception) {
@@ -308,8 +310,8 @@ namespace Behaviac.Design.Network
                 }
 
             } catch (Exception e) {
-                Console.WriteLine(e.Message);
-                MessageBox.Show(e.Message, Resources.ConnectError);
+                Console.WriteLine(Resources.ConnectError + " : " + e.Message);
+                //MessageBox.Show(e.Message, Resources.ConnectError);
             }
         }
 

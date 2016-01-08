@@ -29,7 +29,7 @@
         MemberType* property_ = BEHAVIAC_NEW MemberType(groupName, objectType::GetClassTypeName()); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
         { \
-            CTagObject::MembersContainer& ms_members = property_->GetMembers();
+            ms_members = property_->GetMembers();
 
 #define END_GROUP_MEMBER() \
     } \

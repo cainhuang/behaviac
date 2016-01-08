@@ -64,8 +64,8 @@ ifeq ($(config),release64)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/BehaviacWorkspace.o \
-	$(OBJDIR)/btremotetest.o \
+	$(OBJDIR)/BTPlayer.o \
+	$(OBJDIR)/remote_test.o \
 
 RESOURCES := \
 
@@ -126,11 +126,11 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -MMD -MP $(DEFINES) $(INCLUDES) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
-$(OBJDIR)/BehaviacWorkspace.o: ../../test/btremotetest/BehaviacWorkspace.cpp
+$(OBJDIR)/BTPlayer.o: ../../test/btremotetest/BTPlayer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/btremotetest.o: ../../test/btremotetest/btremotetest.cpp
+$(OBJDIR)/remote_test.o: ../../test/btremotetest/remote_test.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

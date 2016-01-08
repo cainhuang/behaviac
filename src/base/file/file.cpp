@@ -330,15 +330,14 @@ namespace behaviac
 			{
 				// Read directly
 				dataRead += m_file->Read(pBuffer, dataNeeded);
-
 			}
 			else
 			{
 				// Fill the buffer and take what we need
 				FillBuffer();
 				// file read may have failed so check what is available
-				uint32_t dataAvailable = m_bufferPointerEnd - m_bufferPointer;
-				dataNeeded = behaviac::Min(dataAvailable, dataNeeded);
+				uint32_t dataAvailable1 = m_bufferPointerEnd - m_bufferPointer;
+				dataNeeded = behaviac::Min(dataAvailable1, dataNeeded);
 				memcpy(pBuffer, (void*)m_bufferPointer, dataNeeded);
 				m_bufferPointer += dataNeeded;
 				dataRead += dataNeeded;

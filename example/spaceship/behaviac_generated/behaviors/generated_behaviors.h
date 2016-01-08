@@ -87,31 +87,31 @@ using namespace behaviac;
 namespace behaviac
 {
 	struct METHOD_TYPE_behaviac_Agent_VectorAdd { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
 	{
 		this->behaviac::Agent::VectorAdd(p0, p1);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorClear { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorClear>(IList& p0)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorClear>(IList& p0)
 	{
 		this->behaviac::Agent::VectorClear(p0);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorContains { };
-	template<> BEHAVIAC_FORCEINLINE bool Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorContains>(IList& p0, System::Object& p1)
+	template<>  bool Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorContains>(IList& p0, System::Object& p1)
 	{
 		return this->behaviac::Agent::VectorContains(p0, p1);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorLength { };
-	template<> BEHAVIAC_FORCEINLINE int Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorLength>(IList& p0)
+	template<>  int Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorLength>(IList& p0)
 	{
 		return this->behaviac::Agent::VectorLength(p0);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorRemove { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorRemove>(IList& p0, System::Object& p1)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorRemove>(IList& p0, System::Object& p1)
 	{
 		this->behaviac::Agent::VectorRemove(p0, p1);
 	}
@@ -121,7 +121,7 @@ namespace behaviac
 namespace framework
 {
 	struct PROPERTY_TYPE_framework_GameObject_age { };
-	template<> BEHAVIAC_FORCEINLINE long& GameObject::_Get_Property_<PROPERTY_TYPE_framework_GameObject_age>()
+	template<>  long& GameObject::_Get_Property_<PROPERTY_TYPE_framework_GameObject_age>()
 	{
 		unsigned char* pc = (unsigned char*)this;
 		pc += (int)BEHAVIAC_OFFSETOF(framework::GameObject, framework::GameObject::age);
@@ -129,7 +129,7 @@ namespace framework
 	}
 
 	struct PROPERTY_TYPE_framework_GameObject_HP { };
-	template<> BEHAVIAC_FORCEINLINE unsigned int& GameObject::_Get_Property_<PROPERTY_TYPE_framework_GameObject_HP>()
+	template<>  unsigned int& GameObject::_Get_Property_<PROPERTY_TYPE_framework_GameObject_HP>()
 	{
 		unsigned char* pc = (unsigned char*)this;
 		pc += (int)BEHAVIAC_OFFSETOF(framework::GameObject, framework::GameObject::HP);
@@ -137,37 +137,37 @@ namespace framework
 	}
 
 	struct METHOD_TYPE_framework_GameObject_alignedWithPlayer { };
-	template<> BEHAVIAC_FORCEINLINE bool GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_alignedWithPlayer>()
+	template<>  bool GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_alignedWithPlayer>()
 	{
 		return this->framework::GameObject::alignedWithPlayer();
 	}
 
 	struct METHOD_TYPE_framework_GameObject_distanceToPlayer { };
-	template<> BEHAVIAC_FORCEINLINE float GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_distanceToPlayer>()
+	template<>  float GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_distanceToPlayer>()
 	{
 		return this->framework::GameObject::distanceToPlayer();
 	}
 
 	struct METHOD_TYPE_framework_GameObject_GoStraight { };
-	template<> BEHAVIAC_FORCEINLINE void GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_GoStraight>(int p0)
+	template<>  void GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_GoStraight>(int p0)
 	{
 		this->framework::GameObject::GoStraight(p0);
 	}
 
 	struct METHOD_TYPE_framework_GameObject_playerIsAligned { };
-	template<> BEHAVIAC_FORCEINLINE bool GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_playerIsAligned>()
+	template<>  bool GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_playerIsAligned>()
 	{
 		return this->framework::GameObject::playerIsAligned();
 	}
 
 	struct METHOD_TYPE_framework_GameObject_projectileNearby { };
-	template<> BEHAVIAC_FORCEINLINE bool GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_projectileNearby>(float p0)
+	template<>  bool GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_projectileNearby>(float p0)
 	{
 		return this->framework::GameObject::projectileNearby(p0);
 	}
 
 	struct METHOD_TYPE_framework_GameObject_TurnTowardsTarget { };
-	template<> BEHAVIAC_FORCEINLINE int GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_TurnTowardsTarget>(float p0)
+	template<>  int GameObject::_Execute_Method_<METHOD_TYPE_framework_GameObject_TurnTowardsTarget>(float p0)
 	{
 		return this->framework::GameObject::TurnTowardsTarget(p0);
 	}
@@ -177,43 +177,43 @@ namespace framework
 namespace framework
 {
 	struct METHOD_TYPE_framework_Ship_checkresult { };
-	template<> BEHAVIAC_FORCEINLINE behaviac::EBTStatus Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_checkresult>(bool p0)
+	template<>  behaviac::EBTStatus Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_checkresult>(bool p0)
 	{
 		return this->framework::Ship::checkresult(p0);
 	}
 
 	struct METHOD_TYPE_framework_Ship_DestroyAllNearbyProjectiles { };
-	template<> BEHAVIAC_FORCEINLINE void Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_DestroyAllNearbyProjectiles>(float p0)
+	template<>  void Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_DestroyAllNearbyProjectiles>(float p0)
 	{
 		this->framework::Ship::DestroyAllNearbyProjectiles(p0);
 	}
 
 	struct METHOD_TYPE_framework_Ship_Fire { };
-	template<> BEHAVIAC_FORCEINLINE bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_Fire>()
+	template<>  bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_Fire>()
 	{
 		return this->framework::Ship::Fire();
 	}
 
 	struct METHOD_TYPE_framework_Ship_getXPosition { };
-	template<> BEHAVIAC_FORCEINLINE float Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_getXPosition>()
+	template<>  float Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_getXPosition>()
 	{
 		return this->framework::Ship::getXPosition();
 	}
 
 	struct METHOD_TYPE_framework_Ship_getYPosition { };
-	template<> BEHAVIAC_FORCEINLINE float Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_getYPosition>()
+	template<>  float Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_getYPosition>()
 	{
 		return this->framework::Ship::getYPosition();
 	}
 
 	struct METHOD_TYPE_framework_Ship_GotoPoint { };
-	template<> BEHAVIAC_FORCEINLINE bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GotoPoint>(float p0, float p1, float p2)
+	template<>  bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GotoPoint>(float p0, float p1, float p2)
 	{
 		return this->framework::Ship::GotoPoint(p0, p1, p2);
 	}
 
 	struct METHOD_TYPE_framework_Ship_GotoPointRelative { };
-	template<> BEHAVIAC_FORCEINLINE bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GotoPointRelative>(float p0, float p1, float p2)
+	template<>  bool Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GotoPointRelative>(float p0, float p1, float p2)
 	{
 		return this->framework::Ship::GotoPointRelative(p0, p1, p2);
 	}
@@ -223,7 +223,7 @@ namespace framework
 namespace framework
 {
 	struct PROPERTY_TYPE_framework_WorldState_HealthHP { };
-	template<> BEHAVIAC_FORCEINLINE unsigned int& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_HealthHP>()
+	template<>  unsigned int& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_HealthHP>()
 	{
 		unsigned char* pc = (unsigned char*)this;
 		pc += (int)BEHAVIAC_OFFSETOF(framework::WorldState, framework::WorldState::HealthHP);
@@ -231,7 +231,7 @@ namespace framework
 	}
 
 	struct PROPERTY_TYPE_framework_WorldState_SyncSignal { };
-	template<> BEHAVIAC_FORCEINLINE bool& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_SyncSignal>()
+	template<>  bool& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_SyncSignal>()
 	{
 		unsigned char* pc = (unsigned char*)this;
 		pc += (int)BEHAVIAC_OFFSETOF(framework::WorldState, framework::WorldState::SyncSignal);
@@ -239,7 +239,7 @@ namespace framework
 	}
 
 	struct PROPERTY_TYPE_framework_WorldState_time { };
-	template<> BEHAVIAC_FORCEINLINE unsigned int& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_time>()
+	template<>  unsigned int& WorldState::_Get_Property_<PROPERTY_TYPE_framework_WorldState_time>()
 	{
 		unsigned char* pc = (unsigned char*)this;
 		pc += (int)BEHAVIAC_OFFSETOF(framework::WorldState, framework::WorldState::time);
@@ -247,19 +247,19 @@ namespace framework
 	}
 
 	struct METHOD_TYPE_framework_WorldState_NextWave { };
-	template<> BEHAVIAC_FORCEINLINE bool WorldState::_Execute_Method_<METHOD_TYPE_framework_WorldState_NextWave>()
+	template<>  bool WorldState::_Execute_Method_<METHOD_TYPE_framework_WorldState_NextWave>()
 	{
 		return this->framework::WorldState::NextWave();
 	}
 
 	struct METHOD_TYPE_framework_WorldState_PlayerHP { };
-	template<> BEHAVIAC_FORCEINLINE int WorldState::_Execute_Method_<METHOD_TYPE_framework_WorldState_PlayerHP>()
+	template<>  int WorldState::_Execute_Method_<METHOD_TYPE_framework_WorldState_PlayerHP>()
 	{
 		return this->framework::WorldState::PlayerHP();
 	}
 
 	struct METHOD_TYPE_framework_WorldState_SpawnShip { };
-	template<> BEHAVIAC_FORCEINLINE void WorldState::_Execute_Method_<METHOD_TYPE_framework_WorldState_SpawnShip>(int p0)
+	template<>  void WorldState::_Execute_Method_<METHOD_TYPE_framework_WorldState_SpawnShip>(int p0)
 	{
 		this->framework::WorldState::SpawnShip(p0);
 	}
@@ -298,7 +298,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("base/boring");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::GameObject");
 #endif
 			// children
@@ -306,7 +306,7 @@ namespace behaviac
 				Action_bt_base_boring_node1* node1 = BEHAVIAC_NEW Action_bt_base_boring_node1;
 				node1->SetClassNameString("Action");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::GameObject");
 #endif
 				pBT->AddChild(node1);
@@ -379,7 +379,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("base/homing");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::GameObject");
 #endif
 			// pars
@@ -389,7 +389,7 @@ namespace behaviac
 				Parallel_bt_base_homing_node1* node1 = BEHAVIAC_NEW Parallel_bt_base_homing_node1;
 				node1->SetClassNameString("Parallel");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::GameObject");
 #endif
 				pBT->AddChild(node1);
@@ -397,7 +397,7 @@ namespace behaviac
 					Action_bt_base_homing_node2* node2 = BEHAVIAC_NEW Action_bt_base_homing_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::GameObject");
 #endif
 					node1->AddChild(node2);
@@ -407,7 +407,7 @@ namespace behaviac
 					Action_bt_base_homing_node3* node3 = BEHAVIAC_NEW Action_bt_base_homing_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("framework::GameObject");
 #endif
 					node1->AddChild(node3);
@@ -449,7 +449,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("base/slowboring");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::GameObject");
 #endif
 			// children
@@ -457,7 +457,7 @@ namespace behaviac
 				Action_bt_base_slowboring_node1* node1 = BEHAVIAC_NEW Action_bt_base_slowboring_node1;
 				node1->SetClassNameString("Action");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::GameObject");
 #endif
 				pBT->AddChild(node1);
@@ -551,7 +551,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("base/sync_homing");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::GameObject");
 #endif
 			// pars
@@ -561,7 +561,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::GameObject");
 #endif
 				pBT->AddChild(node1);
@@ -569,7 +569,7 @@ namespace behaviac
 					WaitforSignal* node2 = BEHAVIAC_NEW WaitforSignal;
 					node2->SetClassNameString("WaitforSignal");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::GameObject");
 #endif
 					node1->AddChild(node2);
@@ -577,7 +577,7 @@ namespace behaviac
 						Condition_bt_base_sync_homing_node0* node0 = BEHAVIAC_NEW Condition_bt_base_sync_homing_node0;
 						node0->SetClassNameString("Condition");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("framework::GameObject");
 #endif
 						node2->SetCustomCondition(node0);
@@ -589,7 +589,7 @@ namespace behaviac
 					Parallel_bt_base_sync_homing_node4* node4 = BEHAVIAC_NEW Parallel_bt_base_sync_homing_node4;
 					node4->SetClassNameString("Parallel");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("framework::GameObject");
 #endif
 					node1->AddChild(node4);
@@ -597,7 +597,7 @@ namespace behaviac
 						Action_bt_base_sync_homing_node5* node5 = BEHAVIAC_NEW Action_bt_base_sync_homing_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("framework::GameObject");
 #endif
 						node4->AddChild(node5);
@@ -607,7 +607,7 @@ namespace behaviac
 						Action_bt_base_sync_homing_node6* node6 = BEHAVIAC_NEW Action_bt_base_sync_homing_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("framework::GameObject");
 #endif
 						node4->AddChild(node6);
@@ -971,7 +971,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("projectile/projectile_test");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Projectile");
 #endif
 			// pars
@@ -984,7 +984,7 @@ namespace behaviac
 				Selector* node1 = BEHAVIAC_NEW Selector;
 				node1->SetClassNameString("Selector");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Projectile");
 #endif
 				pBT->AddChild(node1);
@@ -992,7 +992,7 @@ namespace behaviac
 					WaitforSignal* node2 = BEHAVIAC_NEW WaitforSignal;
 					node2->SetClassNameString("WaitforSignal");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node2);
@@ -1000,7 +1000,7 @@ namespace behaviac
 						Condition_bt_projectile_projectile_test_node0* node0 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node0;
 						node0->SetClassNameString("Condition");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("framework::Projectile");
 #endif
 						node2->SetCustomCondition(node0);
@@ -1010,7 +1010,7 @@ namespace behaviac
 						Action_bt_projectile_projectile_test_node4* node4 = BEHAVIAC_NEW Action_bt_projectile_projectile_test_node4;
 						node4->SetClassNameString("Action");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("framework::Projectile");
 #endif
 						node2->AddChild(node4);
@@ -1022,7 +1022,7 @@ namespace behaviac
 					Action_bt_projectile_projectile_test_node5* node5 = BEHAVIAC_NEW Action_bt_projectile_projectile_test_node5;
 					node5->SetClassNameString("Action");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node5);
@@ -1032,7 +1032,7 @@ namespace behaviac
 					Query_bt_projectile_projectile_test_node6* node6 = BEHAVIAC_NEW Query_bt_projectile_projectile_test_node6;
 					node6->SetClassNameString("Query");
 					node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node6->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node6);
@@ -1040,7 +1040,7 @@ namespace behaviac
 						And* node3 = BEHAVIAC_NEW And;
 						node3->SetClassNameString("And");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Projectile");
 #endif
 						node6->SetCustomCondition(node3);
@@ -1048,7 +1048,7 @@ namespace behaviac
 							Condition_bt_projectile_projectile_test_node7* node7 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node7;
 							node7->SetClassNameString("Condition");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("framework::Projectile");
 #endif
 							node3->AddChild(node7);
@@ -1058,7 +1058,7 @@ namespace behaviac
 							Condition_bt_projectile_projectile_test_node8* node8 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node8;
 							node8->SetClassNameString("Condition");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("framework::Projectile");
 #endif
 							node3->AddChild(node8);
@@ -1072,7 +1072,7 @@ namespace behaviac
 					Assignment_bt_projectile_projectile_test_node9* node9 = BEHAVIAC_NEW Assignment_bt_projectile_projectile_test_node9;
 					node9->SetClassNameString("Assignment");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node9);
@@ -1082,7 +1082,7 @@ namespace behaviac
 					Sequence* node10 = BEHAVIAC_NEW Sequence;
 					node10->SetClassNameString("Sequence");
 					node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node10->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node10);
@@ -1090,7 +1090,7 @@ namespace behaviac
 						Condition_bt_projectile_projectile_test_node11* node11 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node11;
 						node11->SetClassNameString("Condition");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("framework::Projectile");
 #endif
 						node10->AddChild(node11);
@@ -1100,7 +1100,7 @@ namespace behaviac
 						Condition_bt_projectile_projectile_test_node12* node12 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node12;
 						node12->SetClassNameString("Condition");
 						node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node12->SetAgentType("framework::Projectile");
 #endif
 						node10->AddChild(node12);
@@ -1110,7 +1110,7 @@ namespace behaviac
 						Condition_bt_projectile_projectile_test_node13* node13 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node13;
 						node13->SetClassNameString("Condition");
 						node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node13->SetAgentType("framework::Projectile");
 #endif
 						node10->AddChild(node13);
@@ -1122,7 +1122,7 @@ namespace behaviac
 					DecoratorLoop_bt_projectile_projectile_test_node14* node14 = BEHAVIAC_NEW DecoratorLoop_bt_projectile_projectile_test_node14;
 					node14->SetClassNameString("DecoratorLoop");
 					node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node14->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node14);
@@ -1130,7 +1130,7 @@ namespace behaviac
 						Condition_bt_projectile_projectile_test_node15* node15 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node15;
 						node15->SetClassNameString("Condition");
 						node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node15->SetAgentType("framework::Projectile");
 #endif
 						node14->AddChild(node15);
@@ -1142,7 +1142,7 @@ namespace behaviac
 					DecoratorCountLimit_bt_projectile_projectile_test_node16* node16 = BEHAVIAC_NEW DecoratorCountLimit_bt_projectile_projectile_test_node16;
 					node16->SetClassNameString("DecoratorCountLimit");
 					node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node16->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node16);
@@ -1150,7 +1150,7 @@ namespace behaviac
 						Condition_bt_projectile_projectile_test_node17* node17 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node17;
 						node17->SetClassNameString("Condition");
 						node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node17->SetAgentType("framework::Projectile");
 #endif
 						node16->AddChild(node17);
@@ -1162,7 +1162,7 @@ namespace behaviac
 					DecoratorLoop_bt_projectile_projectile_test_node18* node18 = BEHAVIAC_NEW DecoratorLoop_bt_projectile_projectile_test_node18;
 					node18->SetClassNameString("DecoratorLoop");
 					node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node18->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node18);
@@ -1170,7 +1170,7 @@ namespace behaviac
 						Noop* node19 = BEHAVIAC_NEW Noop;
 						node19->SetClassNameString("Noop");
 						node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node19->SetAgentType("framework::Projectile");
 #endif
 						node18->AddChild(node19);
@@ -1182,7 +1182,7 @@ namespace behaviac
 					Sequence* node20 = BEHAVIAC_NEW Sequence;
 					node20->SetClassNameString("Sequence");
 					node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node20->SetAgentType("framework::Projectile");
 #endif
 					node1->AddChild(node20);
@@ -1190,7 +1190,7 @@ namespace behaviac
 						DecoratorNot_bt_projectile_projectile_test_node21* node21 = BEHAVIAC_NEW DecoratorNot_bt_projectile_projectile_test_node21;
 						node21->SetClassNameString("DecoratorNot");
 						node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node21->SetAgentType("framework::Projectile");
 #endif
 						node20->SetCustomCondition(node21);
@@ -1198,7 +1198,7 @@ namespace behaviac
 							And* node22 = BEHAVIAC_NEW And;
 							node22->SetClassNameString("And");
 							node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node22->SetAgentType("framework::Projectile");
 #endif
 							node21->AddChild(node22);
@@ -1206,7 +1206,7 @@ namespace behaviac
 								Condition_bt_projectile_projectile_test_node25* node25 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node25;
 								node25->SetClassNameString("Condition");
 								node25->SetId(25);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node25->SetAgentType("framework::Projectile");
 #endif
 								node22->AddChild(node25);
@@ -1216,7 +1216,7 @@ namespace behaviac
 								Condition_bt_projectile_projectile_test_node26* node26 = BEHAVIAC_NEW Condition_bt_projectile_projectile_test_node26;
 								node26->SetClassNameString("Condition");
 								node26->SetId(26);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node26->SetAgentType("framework::Projectile");
 #endif
 								node22->AddChild(node26);
@@ -1230,7 +1230,7 @@ namespace behaviac
 						Noop* node23 = BEHAVIAC_NEW Noop;
 						node23->SetClassNameString("Noop");
 						node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node23->SetAgentType("framework::Projectile");
 #endif
 						node20->AddChild(node23);
@@ -1240,7 +1240,7 @@ namespace behaviac
 						Noop* node24 = BEHAVIAC_NEW Noop;
 						node24->SetClassNameString("Noop");
 						node24->SetId(24);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node24->SetAgentType("framework::Projectile");
 #endif
 						node20->AddChild(node24);
@@ -1349,7 +1349,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/0_basic");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// pars
@@ -1359,7 +1359,7 @@ namespace behaviac
 				Parallel_bt_ships_0_basic_node1* node1 = BEHAVIAC_NEW Parallel_bt_ships_0_basic_node1;
 				node1->SetClassNameString("Parallel");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -1367,7 +1367,7 @@ namespace behaviac
 					Sequence* node3 = BEHAVIAC_NEW Sequence;
 					node3->SetClassNameString("Sequence");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node3);
@@ -1375,7 +1375,7 @@ namespace behaviac
 						Condition_bt_ships_0_basic_node4* node4 = BEHAVIAC_NEW Condition_bt_ships_0_basic_node4;
 						node4->SetClassNameString("Condition");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("framework::Ship");
 #endif
 						node3->AddChild(node4);
@@ -1385,7 +1385,7 @@ namespace behaviac
 						Wait_bt_ships_0_basic_node6* node6 = BEHAVIAC_NEW Wait_bt_ships_0_basic_node6;
 						node6->SetClassNameString("Wait");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("framework::Ship");
 #endif
 						node3->AddChild(node6);
@@ -1395,7 +1395,7 @@ namespace behaviac
 						Action_bt_ships_0_basic_node5* node5 = BEHAVIAC_NEW Action_bt_ships_0_basic_node5;
 						node5->SetClassNameString("Action");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("framework::Ship");
 #endif
 						node3->AddChild(node5);
@@ -1407,7 +1407,7 @@ namespace behaviac
 					Action_bt_ships_0_basic_node7* node7 = BEHAVIAC_NEW Action_bt_ships_0_basic_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node7);
@@ -1551,7 +1551,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/1_1_suicide");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// pars
@@ -1561,7 +1561,7 @@ namespace behaviac
 				Selector* node1 = BEHAVIAC_NEW Selector;
 				node1->SetClassNameString("Selector");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -1569,7 +1569,7 @@ namespace behaviac
 					DecoratorLoopUntil_bt_ships_1_1_suicide_node2* node2 = BEHAVIAC_NEW DecoratorLoopUntil_bt_ships_1_1_suicide_node2;
 					node2->SetClassNameString("DecoratorLoopUntil");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node2);
@@ -1577,7 +1577,7 @@ namespace behaviac
 						Parallel_bt_ships_1_1_suicide_node3* node3 = BEHAVIAC_NEW Parallel_bt_ships_1_1_suicide_node3;
 						node3->SetClassNameString("Parallel");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node3);
@@ -1585,7 +1585,7 @@ namespace behaviac
 							Condition_bt_ships_1_1_suicide_node4* node4 = BEHAVIAC_NEW Condition_bt_ships_1_1_suicide_node4;
 							node4->SetClassNameString("Condition");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node4);
@@ -1595,7 +1595,7 @@ namespace behaviac
 							Sequence* node5 = BEHAVIAC_NEW Sequence;
 							node5->SetClassNameString("Sequence");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node5);
@@ -1603,7 +1603,7 @@ namespace behaviac
 								Action_bt_ships_1_1_suicide_node6* node6 = BEHAVIAC_NEW Action_bt_ships_1_1_suicide_node6;
 								node6->SetClassNameString("Action");
 								node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node6->SetAgentType("framework::Ship");
 #endif
 								node5->AddChild(node6);
@@ -1613,7 +1613,7 @@ namespace behaviac
 								Wait_bt_ships_1_1_suicide_node7* node7 = BEHAVIAC_NEW Wait_bt_ships_1_1_suicide_node7;
 								node7->SetClassNameString("Wait");
 								node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node7->SetAgentType("framework::Ship");
 #endif
 								node5->AddChild(node7);
@@ -1625,7 +1625,7 @@ namespace behaviac
 							Assignment_bt_ships_1_1_suicide_node0* node0 = BEHAVIAC_NEW Assignment_bt_ships_1_1_suicide_node0;
 							node0->SetClassNameString("Assignment");
 							node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node0->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node0);
@@ -1639,7 +1639,7 @@ namespace behaviac
 					ReferencedBehavior_bt_ships_1_1_suicide_node8* node8 = BEHAVIAC_NEW ReferencedBehavior_bt_ships_1_1_suicide_node8;
 					node8->SetClassNameString("ReferencedBehavior");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node8);
@@ -1762,7 +1762,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/1_2_suicide");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// children
@@ -1770,7 +1770,7 @@ namespace behaviac
 				Parallel_bt_ships_1_2_suicide_node1* node1 = BEHAVIAC_NEW Parallel_bt_ships_1_2_suicide_node1;
 				node1->SetClassNameString("Parallel");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -1778,7 +1778,7 @@ namespace behaviac
 					WaitforSignal* node2 = BEHAVIAC_NEW WaitforSignal;
 					node2->SetClassNameString("WaitforSignal");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node2);
@@ -1786,7 +1786,7 @@ namespace behaviac
 						Condition_bt_ships_1_2_suicide_node3* node3 = BEHAVIAC_NEW Condition_bt_ships_1_2_suicide_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Ship");
 #endif
 						node2->SetCustomCondition(node3);
@@ -1796,7 +1796,7 @@ namespace behaviac
 						ReferencedBehavior_bt_ships_1_2_suicide_node4* node4 = BEHAVIAC_NEW ReferencedBehavior_bt_ships_1_2_suicide_node4;
 						node4->SetClassNameString("ReferencedBehavior");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node4);
@@ -1808,7 +1808,7 @@ namespace behaviac
 					DecoratorLoop_bt_ships_1_2_suicide_node0* node0 = BEHAVIAC_NEW DecoratorLoop_bt_ships_1_2_suicide_node0;
 					node0->SetClassNameString("DecoratorLoop");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node0);
@@ -1816,7 +1816,7 @@ namespace behaviac
 						Sequence* node5 = BEHAVIAC_NEW Sequence;
 						node5->SetClassNameString("Sequence");
 						node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node5->SetAgentType("framework::Ship");
 #endif
 						node0->AddChild(node5);
@@ -1824,7 +1824,7 @@ namespace behaviac
 							Action_bt_ships_1_2_suicide_node6* node6 = BEHAVIAC_NEW Action_bt_ships_1_2_suicide_node6;
 							node6->SetClassNameString("Action");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("framework::Ship");
 #endif
 							node5->AddChild(node6);
@@ -1834,7 +1834,7 @@ namespace behaviac
 							Wait_bt_ships_1_2_suicide_node7* node7 = BEHAVIAC_NEW Wait_bt_ships_1_2_suicide_node7;
 							node7->SetClassNameString("Wait");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("framework::Ship");
 #endif
 							node5->AddChild(node7);
@@ -1947,7 +1947,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/1_3_suicide");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// children
@@ -1955,7 +1955,7 @@ namespace behaviac
 				SelectorLoop* node1 = BEHAVIAC_NEW SelectorLoop;
 				node1->SetClassNameString("SelectorLoop");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -1963,7 +1963,7 @@ namespace behaviac
 					WithPrecondition* node2 = BEHAVIAC_NEW WithPrecondition;
 					node2->SetClassNameString("WithPrecondition");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node2);
@@ -1971,7 +1971,7 @@ namespace behaviac
 						Condition_bt_ships_1_3_suicide_node3* node3 = BEHAVIAC_NEW Condition_bt_ships_1_3_suicide_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node3);
@@ -1981,7 +1981,7 @@ namespace behaviac
 						ReferencedBehavior_bt_ships_1_3_suicide_node4* node4 = BEHAVIAC_NEW ReferencedBehavior_bt_ships_1_3_suicide_node4;
 						node4->SetClassNameString("ReferencedBehavior");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node4);
@@ -1993,7 +1993,7 @@ namespace behaviac
 					WithPrecondition* node5 = BEHAVIAC_NEW WithPrecondition;
 					node5->SetClassNameString("WithPrecondition");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node5);
@@ -2001,7 +2001,7 @@ namespace behaviac
 						True* node6 = BEHAVIAC_NEW True;
 						node6->SetClassNameString("True");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("framework::Ship");
 #endif
 						node5->AddChild(node6);
@@ -2011,7 +2011,7 @@ namespace behaviac
 						DecoratorLoop_bt_ships_1_3_suicide_node0* node0 = BEHAVIAC_NEW DecoratorLoop_bt_ships_1_3_suicide_node0;
 						node0->SetClassNameString("DecoratorLoop");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("framework::Ship");
 #endif
 						node5->AddChild(node0);
@@ -2019,7 +2019,7 @@ namespace behaviac
 							Sequence* node7 = BEHAVIAC_NEW Sequence;
 							node7->SetClassNameString("Sequence");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("framework::Ship");
 #endif
 							node0->AddChild(node7);
@@ -2027,7 +2027,7 @@ namespace behaviac
 								Action_bt_ships_1_3_suicide_node8* node8 = BEHAVIAC_NEW Action_bt_ships_1_3_suicide_node8;
 								node8->SetClassNameString("Action");
 								node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node8->SetAgentType("framework::Ship");
 #endif
 								node7->AddChild(node8);
@@ -2037,7 +2037,7 @@ namespace behaviac
 								Wait_bt_ships_1_3_suicide_node9* node9 = BEHAVIAC_NEW Wait_bt_ships_1_3_suicide_node9;
 								node9->SetClassNameString("Wait");
 								node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node9->SetAgentType("framework::Ship");
 #endif
 								node7->AddChild(node9);
@@ -2358,7 +2358,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/2_basic_probability");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// children
@@ -2366,7 +2366,7 @@ namespace behaviac
 				Parallel_bt_ships_2_basic_probability_node1* node1 = BEHAVIAC_NEW Parallel_bt_ships_2_basic_probability_node1;
 				node1->SetClassNameString("Parallel");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -2374,7 +2374,7 @@ namespace behaviac
 					DecoratorLoop_bt_ships_2_basic_probability_node2* node2 = BEHAVIAC_NEW DecoratorLoop_bt_ships_2_basic_probability_node2;
 					node2->SetClassNameString("DecoratorLoop");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node2);
@@ -2382,7 +2382,7 @@ namespace behaviac
 						SelectorProbability_bt_ships_2_basic_probability_node3* node3 = BEHAVIAC_NEW SelectorProbability_bt_ships_2_basic_probability_node3;
 						node3->SetClassNameString("SelectorProbability");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node3);
@@ -2390,7 +2390,7 @@ namespace behaviac
 							DecoratorWeight_bt_ships_2_basic_probability_node4* node4 = BEHAVIAC_NEW DecoratorWeight_bt_ships_2_basic_probability_node4;
 							node4->SetClassNameString("DecoratorWeight");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node4);
@@ -2398,7 +2398,7 @@ namespace behaviac
 								Sequence* node5 = BEHAVIAC_NEW Sequence;
 								node5->SetClassNameString("Sequence");
 								node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node5->SetAgentType("framework::Ship");
 #endif
 								node4->AddChild(node5);
@@ -2406,7 +2406,7 @@ namespace behaviac
 									Condition_bt_ships_2_basic_probability_node6* node6 = BEHAVIAC_NEW Condition_bt_ships_2_basic_probability_node6;
 									node6->SetClassNameString("Condition");
 									node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node6->SetAgentType("framework::Ship");
 #endif
 									node5->AddChild(node6);
@@ -2416,7 +2416,7 @@ namespace behaviac
 									Action_bt_ships_2_basic_probability_node7* node7 = BEHAVIAC_NEW Action_bt_ships_2_basic_probability_node7;
 									node7->SetClassNameString("Action");
 									node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node7->SetAgentType("framework::Ship");
 #endif
 									node5->AddChild(node7);
@@ -2426,7 +2426,7 @@ namespace behaviac
 									Wait_bt_ships_2_basic_probability_node0* node0 = BEHAVIAC_NEW Wait_bt_ships_2_basic_probability_node0;
 									node0->SetClassNameString("Wait");
 									node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node0->SetAgentType("framework::Ship");
 #endif
 									node5->AddChild(node0);
@@ -2440,7 +2440,7 @@ namespace behaviac
 							DecoratorWeight_bt_ships_2_basic_probability_node9* node9 = BEHAVIAC_NEW DecoratorWeight_bt_ships_2_basic_probability_node9;
 							node9->SetClassNameString("DecoratorWeight");
 							node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node9->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node9);
@@ -2448,7 +2448,7 @@ namespace behaviac
 								Sequence* node10 = BEHAVIAC_NEW Sequence;
 								node10->SetClassNameString("Sequence");
 								node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node10->SetAgentType("framework::Ship");
 #endif
 								node9->AddChild(node10);
@@ -2456,7 +2456,7 @@ namespace behaviac
 									Condition_bt_ships_2_basic_probability_node11* node11 = BEHAVIAC_NEW Condition_bt_ships_2_basic_probability_node11;
 									node11->SetClassNameString("Condition");
 									node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node11->SetAgentType("framework::Ship");
 #endif
 									node10->AddChild(node11);
@@ -2466,7 +2466,7 @@ namespace behaviac
 									Action_bt_ships_2_basic_probability_node12* node12 = BEHAVIAC_NEW Action_bt_ships_2_basic_probability_node12;
 									node12->SetClassNameString("Action");
 									node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node12->SetAgentType("framework::Ship");
 #endif
 									node10->AddChild(node12);
@@ -2476,7 +2476,7 @@ namespace behaviac
 									Wait_bt_ships_2_basic_probability_node8* node8 = BEHAVIAC_NEW Wait_bt_ships_2_basic_probability_node8;
 									node8->SetClassNameString("Wait");
 									node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node8->SetAgentType("framework::Ship");
 #endif
 									node10->AddChild(node8);
@@ -2490,7 +2490,7 @@ namespace behaviac
 							DecoratorWeight_bt_ships_2_basic_probability_node14* node14 = BEHAVIAC_NEW DecoratorWeight_bt_ships_2_basic_probability_node14;
 							node14->SetClassNameString("DecoratorWeight");
 							node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node14->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node14);
@@ -2498,7 +2498,7 @@ namespace behaviac
 								Sequence* node15 = BEHAVIAC_NEW Sequence;
 								node15->SetClassNameString("Sequence");
 								node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node15->SetAgentType("framework::Ship");
 #endif
 								node14->AddChild(node15);
@@ -2506,7 +2506,7 @@ namespace behaviac
 									Condition_bt_ships_2_basic_probability_node16* node16 = BEHAVIAC_NEW Condition_bt_ships_2_basic_probability_node16;
 									node16->SetClassNameString("Condition");
 									node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node16->SetAgentType("framework::Ship");
 #endif
 									node15->AddChild(node16);
@@ -2516,7 +2516,7 @@ namespace behaviac
 									Action_bt_ships_2_basic_probability_node17* node17 = BEHAVIAC_NEW Action_bt_ships_2_basic_probability_node17;
 									node17->SetClassNameString("Action");
 									node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node17->SetAgentType("framework::Ship");
 #endif
 									node15->AddChild(node17);
@@ -2526,7 +2526,7 @@ namespace behaviac
 									Wait_bt_ships_2_basic_probability_node21* node21 = BEHAVIAC_NEW Wait_bt_ships_2_basic_probability_node21;
 									node21->SetClassNameString("Wait");
 									node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node21->SetAgentType("framework::Ship");
 #endif
 									node15->AddChild(node21);
@@ -2544,7 +2544,7 @@ namespace behaviac
 					DecoratorLoop_bt_ships_2_basic_probability_node19* node19 = BEHAVIAC_NEW DecoratorLoop_bt_ships_2_basic_probability_node19;
 					node19->SetClassNameString("DecoratorLoop");
 					node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node19->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node19);
@@ -2552,7 +2552,7 @@ namespace behaviac
 						Action_bt_ships_2_basic_probability_node20* node20 = BEHAVIAC_NEW Action_bt_ships_2_basic_probability_node20;
 						node20->SetClassNameString("Action");
 						node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node20->SetAgentType("framework::Ship");
 #endif
 						node19->AddChild(node20);
@@ -2804,7 +2804,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/3_basic_move");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// children
@@ -2812,7 +2812,7 @@ namespace behaviac
 				Parallel_bt_ships_3_basic_move_node1* node1 = BEHAVIAC_NEW Parallel_bt_ships_3_basic_move_node1;
 				node1->SetClassNameString("Parallel");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -2820,7 +2820,7 @@ namespace behaviac
 					DecoratorLoop_bt_ships_3_basic_move_node2* node2 = BEHAVIAC_NEW DecoratorLoop_bt_ships_3_basic_move_node2;
 					node2->SetClassNameString("DecoratorLoop");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node2);
@@ -2828,7 +2828,7 @@ namespace behaviac
 						Sequence* node3 = BEHAVIAC_NEW Sequence;
 						node3->SetClassNameString("Sequence");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node3);
@@ -2836,7 +2836,7 @@ namespace behaviac
 							Condition_bt_ships_3_basic_move_node4* node4 = BEHAVIAC_NEW Condition_bt_ships_3_basic_move_node4;
 							node4->SetClassNameString("Condition");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node4);
@@ -2846,7 +2846,7 @@ namespace behaviac
 							Action_bt_ships_3_basic_move_node5* node5 = BEHAVIAC_NEW Action_bt_ships_3_basic_move_node5;
 							node5->SetClassNameString("Action");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node5);
@@ -2856,7 +2856,7 @@ namespace behaviac
 							Wait_bt_ships_3_basic_move_node0* node0 = BEHAVIAC_NEW Wait_bt_ships_3_basic_move_node0;
 							node0->SetClassNameString("Wait");
 							node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node0->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node0);
@@ -2870,7 +2870,7 @@ namespace behaviac
 					Action_bt_ships_3_basic_move_node7* node7 = BEHAVIAC_NEW Action_bt_ships_3_basic_move_node7;
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node7->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node7);
@@ -2880,7 +2880,7 @@ namespace behaviac
 					DecoratorLoop_bt_ships_3_basic_move_node8* node8 = BEHAVIAC_NEW DecoratorLoop_bt_ships_3_basic_move_node8;
 					node8->SetClassNameString("DecoratorLoop");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node8);
@@ -2888,7 +2888,7 @@ namespace behaviac
 						Sequence* node9 = BEHAVIAC_NEW Sequence;
 						node9->SetClassNameString("Sequence");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("framework::Ship");
 #endif
 						node8->AddChild(node9);
@@ -2896,7 +2896,7 @@ namespace behaviac
 							Condition_bt_ships_3_basic_move_node10* node10 = BEHAVIAC_NEW Condition_bt_ships_3_basic_move_node10;
 							node10->SetClassNameString("Condition");
 							node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node10->SetAgentType("framework::Ship");
 #endif
 							node9->AddChild(node10);
@@ -2906,7 +2906,7 @@ namespace behaviac
 							SelectorProbability_bt_ships_3_basic_move_node11* node11 = BEHAVIAC_NEW SelectorProbability_bt_ships_3_basic_move_node11;
 							node11->SetClassNameString("SelectorProbability");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("framework::Ship");
 #endif
 							node9->AddChild(node11);
@@ -2914,7 +2914,7 @@ namespace behaviac
 								DecoratorWeight_bt_ships_3_basic_move_node12* node12 = BEHAVIAC_NEW DecoratorWeight_bt_ships_3_basic_move_node12;
 								node12->SetClassNameString("DecoratorWeight");
 								node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node12->SetAgentType("framework::Ship");
 #endif
 								node11->AddChild(node12);
@@ -2922,7 +2922,7 @@ namespace behaviac
 									Action_bt_ships_3_basic_move_node13* node13 = BEHAVIAC_NEW Action_bt_ships_3_basic_move_node13;
 									node13->SetClassNameString("Action");
 									node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node13->SetAgentType("framework::Ship");
 #endif
 									node12->AddChild(node13);
@@ -2934,7 +2934,7 @@ namespace behaviac
 								DecoratorWeight_bt_ships_3_basic_move_node14* node14 = BEHAVIAC_NEW DecoratorWeight_bt_ships_3_basic_move_node14;
 								node14->SetClassNameString("DecoratorWeight");
 								node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node14->SetAgentType("framework::Ship");
 #endif
 								node11->AddChild(node14);
@@ -2942,7 +2942,7 @@ namespace behaviac
 									Action_bt_ships_3_basic_move_node15* node15 = BEHAVIAC_NEW Action_bt_ships_3_basic_move_node15;
 									node15->SetClassNameString("Action");
 									node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node15->SetAgentType("framework::Ship");
 #endif
 									node14->AddChild(node15);
@@ -3060,7 +3060,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/4_destroy_projectiles");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// children
@@ -3068,7 +3068,7 @@ namespace behaviac
 				DecoratorLoop_bt_ships_4_destroy_projectiles_node1* node1 = BEHAVIAC_NEW DecoratorLoop_bt_ships_4_destroy_projectiles_node1;
 				node1->SetClassNameString("DecoratorLoop");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -3076,7 +3076,7 @@ namespace behaviac
 					Sequence* node2 = BEHAVIAC_NEW Sequence;
 					node2->SetClassNameString("Sequence");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node2);
@@ -3084,7 +3084,7 @@ namespace behaviac
 						Condition_bt_ships_4_destroy_projectiles_node3* node3 = BEHAVIAC_NEW Condition_bt_ships_4_destroy_projectiles_node3;
 						node3->SetClassNameString("Condition");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node3);
@@ -3094,7 +3094,7 @@ namespace behaviac
 						DecoratorCountLimit_bt_ships_4_destroy_projectiles_node4* node4 = BEHAVIAC_NEW DecoratorCountLimit_bt_ships_4_destroy_projectiles_node4;
 						node4->SetClassNameString("DecoratorCountLimit");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node4);
@@ -3102,7 +3102,7 @@ namespace behaviac
 							Sequence* node5 = BEHAVIAC_NEW Sequence;
 							node5->SetClassNameString("Sequence");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("framework::Ship");
 #endif
 							node4->AddChild(node5);
@@ -3110,7 +3110,7 @@ namespace behaviac
 								Action_bt_ships_4_destroy_projectiles_node6* node6 = BEHAVIAC_NEW Action_bt_ships_4_destroy_projectiles_node6;
 								node6->SetClassNameString("Action");
 								node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node6->SetAgentType("framework::Ship");
 #endif
 								node5->AddChild(node6);
@@ -3120,7 +3120,7 @@ namespace behaviac
 								Wait_bt_ships_4_destroy_projectiles_node0* node0 = BEHAVIAC_NEW Wait_bt_ships_4_destroy_projectiles_node0;
 								node0->SetClassNameString("Wait");
 								node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node0->SetAgentType("framework::Ship");
 #endif
 								node5->AddChild(node0);
@@ -3365,7 +3365,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/5_group");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// children
@@ -3373,7 +3373,7 @@ namespace behaviac
 				Parallel_bt_ships_5_group_node1* node1 = BEHAVIAC_NEW Parallel_bt_ships_5_group_node1;
 				node1->SetClassNameString("Parallel");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -3381,7 +3381,7 @@ namespace behaviac
 					DecoratorLoop_bt_ships_5_group_node2* node2 = BEHAVIAC_NEW DecoratorLoop_bt_ships_5_group_node2;
 					node2->SetClassNameString("DecoratorLoop");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node2);
@@ -3389,7 +3389,7 @@ namespace behaviac
 						Sequence* node3 = BEHAVIAC_NEW Sequence;
 						node3->SetClassNameString("Sequence");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node3);
@@ -3397,7 +3397,7 @@ namespace behaviac
 							Action_bt_ships_5_group_node4* node4 = BEHAVIAC_NEW Action_bt_ships_5_group_node4;
 							node4->SetClassNameString("Action");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node4);
@@ -3407,7 +3407,7 @@ namespace behaviac
 							Action_bt_ships_5_group_node5* node5 = BEHAVIAC_NEW Action_bt_ships_5_group_node5;
 							node5->SetClassNameString("Action");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node5);
@@ -3417,7 +3417,7 @@ namespace behaviac
 							Action_bt_ships_5_group_node6* node6 = BEHAVIAC_NEW Action_bt_ships_5_group_node6;
 							node6->SetClassNameString("Action");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node6);
@@ -3427,7 +3427,7 @@ namespace behaviac
 							Action_bt_ships_5_group_node7* node7 = BEHAVIAC_NEW Action_bt_ships_5_group_node7;
 							node7->SetClassNameString("Action");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node7);
@@ -3441,7 +3441,7 @@ namespace behaviac
 					DecoratorLoop_bt_ships_5_group_node8* node8 = BEHAVIAC_NEW DecoratorLoop_bt_ships_5_group_node8;
 					node8->SetClassNameString("DecoratorLoop");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node8);
@@ -3449,7 +3449,7 @@ namespace behaviac
 						SelectorProbability_bt_ships_5_group_node9* node9 = BEHAVIAC_NEW SelectorProbability_bt_ships_5_group_node9;
 						node9->SetClassNameString("SelectorProbability");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("framework::Ship");
 #endif
 						node8->AddChild(node9);
@@ -3457,7 +3457,7 @@ namespace behaviac
 							DecoratorWeight_bt_ships_5_group_node10* node10 = BEHAVIAC_NEW DecoratorWeight_bt_ships_5_group_node10;
 							node10->SetClassNameString("DecoratorWeight");
 							node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node10->SetAgentType("framework::Ship");
 #endif
 							node9->AddChild(node10);
@@ -3465,7 +3465,7 @@ namespace behaviac
 								Action_bt_ships_5_group_node11* node11 = BEHAVIAC_NEW Action_bt_ships_5_group_node11;
 								node11->SetClassNameString("Action");
 								node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node11->SetAgentType("framework::Ship");
 #endif
 								node10->AddChild(node11);
@@ -3477,7 +3477,7 @@ namespace behaviac
 							DecoratorWeight_bt_ships_5_group_node12* node12 = BEHAVIAC_NEW DecoratorWeight_bt_ships_5_group_node12;
 							node12->SetClassNameString("DecoratorWeight");
 							node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node12->SetAgentType("framework::Ship");
 #endif
 							node9->AddChild(node12);
@@ -3485,7 +3485,7 @@ namespace behaviac
 								Wait_bt_ships_5_group_node0* node0 = BEHAVIAC_NEW Wait_bt_ships_5_group_node0;
 								node0->SetClassNameString("Wait");
 								node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node0->SetAgentType("framework::Ship");
 #endif
 								node12->AddChild(node0);
@@ -3695,7 +3695,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/6_director");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::WorldState");
 #endif
 			// children
@@ -3703,7 +3703,7 @@ namespace behaviac
 				DecoratorLoop_bt_ships_6_director_node1* node1 = BEHAVIAC_NEW DecoratorLoop_bt_ships_6_director_node1;
 				node1->SetClassNameString("DecoratorLoop");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::WorldState");
 #endif
 				pBT->AddChild(node1);
@@ -3711,7 +3711,7 @@ namespace behaviac
 					Sequence* node2 = BEHAVIAC_NEW Sequence;
 					node2->SetClassNameString("Sequence");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::WorldState");
 #endif
 					node1->AddChild(node2);
@@ -3719,7 +3719,7 @@ namespace behaviac
 						Action_bt_ships_6_director_node3* node3 = BEHAVIAC_NEW Action_bt_ships_6_director_node3;
 						node3->SetClassNameString("Action");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::WorldState");
 #endif
 						node2->AddChild(node3);
@@ -3729,7 +3729,7 @@ namespace behaviac
 						DecoratorLoopUntil_bt_ships_6_director_node4* node4 = BEHAVIAC_NEW DecoratorLoopUntil_bt_ships_6_director_node4;
 						node4->SetClassNameString("DecoratorLoopUntil");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("framework::WorldState");
 #endif
 						node2->AddChild(node4);
@@ -3737,7 +3737,7 @@ namespace behaviac
 							Condition_bt_ships_6_director_node5* node5 = BEHAVIAC_NEW Condition_bt_ships_6_director_node5;
 							node5->SetClassNameString("Condition");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("framework::WorldState");
 #endif
 							node4->AddChild(node5);
@@ -3749,7 +3749,7 @@ namespace behaviac
 						Action_bt_ships_6_director_node6* node6 = BEHAVIAC_NEW Action_bt_ships_6_director_node6;
 						node6->SetClassNameString("Action");
 						node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node6->SetAgentType("framework::WorldState");
 #endif
 						node2->AddChild(node6);
@@ -3759,7 +3759,7 @@ namespace behaviac
 						DecoratorLoopUntil_bt_ships_6_director_node7* node7 = BEHAVIAC_NEW DecoratorLoopUntil_bt_ships_6_director_node7;
 						node7->SetClassNameString("DecoratorLoopUntil");
 						node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node7->SetAgentType("framework::WorldState");
 #endif
 						node2->AddChild(node7);
@@ -3767,7 +3767,7 @@ namespace behaviac
 							Condition_bt_ships_6_director_node8* node8 = BEHAVIAC_NEW Condition_bt_ships_6_director_node8;
 							node8->SetClassNameString("Condition");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("framework::WorldState");
 #endif
 							node7->AddChild(node8);
@@ -3779,7 +3779,7 @@ namespace behaviac
 						Action_bt_ships_6_director_node9* node9 = BEHAVIAC_NEW Action_bt_ships_6_director_node9;
 						node9->SetClassNameString("Action");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("framework::WorldState");
 #endif
 						node2->AddChild(node9);
@@ -3789,7 +3789,7 @@ namespace behaviac
 						DecoratorLoopUntil_bt_ships_6_director_node10* node10 = BEHAVIAC_NEW DecoratorLoopUntil_bt_ships_6_director_node10;
 						node10->SetClassNameString("DecoratorLoopUntil");
 						node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node10->SetAgentType("framework::WorldState");
 #endif
 						node2->AddChild(node10);
@@ -3797,7 +3797,7 @@ namespace behaviac
 							Condition_bt_ships_6_director_node11* node11 = BEHAVIAC_NEW Condition_bt_ships_6_director_node11;
 							node11->SetClassNameString("Condition");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("framework::WorldState");
 #endif
 							node10->AddChild(node11);
@@ -3946,7 +3946,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("ships/7_signal");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("framework::Ship");
 #endif
 			// children
@@ -3954,7 +3954,7 @@ namespace behaviac
 				DecoratorLoop_bt_ships_7_signal_node1* node1 = BEHAVIAC_NEW DecoratorLoop_bt_ships_7_signal_node1;
 				node1->SetClassNameString("DecoratorLoop");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("framework::Ship");
 #endif
 				pBT->AddChild(node1);
@@ -3962,7 +3962,7 @@ namespace behaviac
 					Sequence* node2 = BEHAVIAC_NEW Sequence;
 					node2->SetClassNameString("Sequence");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("framework::Ship");
 #endif
 					node1->AddChild(node2);
@@ -3970,7 +3970,7 @@ namespace behaviac
 						Parallel_bt_ships_7_signal_node3* node3 = BEHAVIAC_NEW Parallel_bt_ships_7_signal_node3;
 						node3->SetClassNameString("Parallel");
 						node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node3->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node3);
@@ -3978,7 +3978,7 @@ namespace behaviac
 							DecoratorLoop_bt_ships_7_signal_node4* node4 = BEHAVIAC_NEW DecoratorLoop_bt_ships_7_signal_node4;
 							node4->SetClassNameString("DecoratorLoop");
 							node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node4->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node4);
@@ -3986,7 +3986,7 @@ namespace behaviac
 								Sequence* node5 = BEHAVIAC_NEW Sequence;
 								node5->SetClassNameString("Sequence");
 								node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node5->SetAgentType("framework::Ship");
 #endif
 								node4->AddChild(node5);
@@ -3994,7 +3994,7 @@ namespace behaviac
 									Action_bt_ships_7_signal_node6* node6 = BEHAVIAC_NEW Action_bt_ships_7_signal_node6;
 									node6->SetClassNameString("Action");
 									node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node6->SetAgentType("framework::Ship");
 #endif
 									node5->AddChild(node6);
@@ -4004,7 +4004,7 @@ namespace behaviac
 									Wait_bt_ships_7_signal_node0* node0 = BEHAVIAC_NEW Wait_bt_ships_7_signal_node0;
 									node0->SetClassNameString("Wait");
 									node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node0->SetAgentType("framework::Ship");
 #endif
 									node5->AddChild(node0);
@@ -4018,7 +4018,7 @@ namespace behaviac
 							Action_bt_ships_7_signal_node8* node8 = BEHAVIAC_NEW Action_bt_ships_7_signal_node8;
 							node8->SetClassNameString("Action");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("framework::Ship");
 #endif
 							node3->AddChild(node8);
@@ -4030,7 +4030,7 @@ namespace behaviac
 						Assignment_bt_ships_7_signal_node9* node9 = BEHAVIAC_NEW Assignment_bt_ships_7_signal_node9;
 						node9->SetClassNameString("Assignment");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node9);
@@ -4040,7 +4040,7 @@ namespace behaviac
 						Noop* node11 = BEHAVIAC_NEW Noop;
 						node11->SetClassNameString("Noop");
 						node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node11->SetAgentType("framework::Ship");
 #endif
 						node2->AddChild(node11);

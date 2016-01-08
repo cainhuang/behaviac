@@ -87,31 +87,31 @@ using namespace behaviac;
 namespace behaviac
 {
 	struct METHOD_TYPE_behaviac_Agent_VectorAdd { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
 	{
 		this->behaviac::Agent::VectorAdd(p0, p1);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorClear { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorClear>(IList& p0)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorClear>(IList& p0)
 	{
 		this->behaviac::Agent::VectorClear(p0);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorContains { };
-	template<> BEHAVIAC_FORCEINLINE bool Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorContains>(IList& p0, System::Object& p1)
+	template<>  bool Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorContains>(IList& p0, System::Object& p1)
 	{
 		return this->behaviac::Agent::VectorContains(p0, p1);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorLength { };
-	template<> BEHAVIAC_FORCEINLINE int Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorLength>(IList& p0)
+	template<>  int Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorLength>(IList& p0)
 	{
 		return this->behaviac::Agent::VectorLength(p0);
 	}
 
 	struct METHOD_TYPE_behaviac_Agent_VectorRemove { };
-	template<> BEHAVIAC_FORCEINLINE void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorRemove>(IList& p0, System::Object& p1)
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorRemove>(IList& p0, System::Object& p1)
 	{
 		this->behaviac::Agent::VectorRemove(p0, p1);
 	}
@@ -119,37 +119,37 @@ namespace behaviac
 }
 
 struct METHOD_TYPE_Enemy_getEnemyType { };
-template<> BEHAVIAC_FORCEINLINE int Enemy::_Execute_Method_<METHOD_TYPE_Enemy_getEnemyType>()
+template<>  int Enemy::_Execute_Method_<METHOD_TYPE_Enemy_getEnemyType>()
 {
 	return this->Enemy::getEnemyType();
 }
 
 struct METHOD_TYPE_Enemy_getRandomSpeedByInitSpeed { };
-template<> BEHAVIAC_FORCEINLINE float Enemy::_Execute_Method_<METHOD_TYPE_Enemy_getRandomSpeedByInitSpeed>(float p0)
+template<>  float Enemy::_Execute_Method_<METHOD_TYPE_Enemy_getRandomSpeedByInitSpeed>(float p0)
 {
 	return this->Enemy::getRandomSpeedByInitSpeed(p0);
 }
 
 struct METHOD_TYPE_Enemy_getSpeed { };
-template<> BEHAVIAC_FORCEINLINE float Enemy::_Execute_Method_<METHOD_TYPE_Enemy_getSpeed>()
+template<>  float Enemy::_Execute_Method_<METHOD_TYPE_Enemy_getSpeed>()
 {
 	return this->Enemy::getSpeed();
 }
 
 struct METHOD_TYPE_Enemy_isAlive { };
-template<> BEHAVIAC_FORCEINLINE bool Enemy::_Execute_Method_<METHOD_TYPE_Enemy_isAlive>()
+template<>  bool Enemy::_Execute_Method_<METHOD_TYPE_Enemy_isAlive>()
 {
 	return this->Enemy::isAlive();
 }
 
 struct METHOD_TYPE_Enemy_setSpeed { };
-template<> BEHAVIAC_FORCEINLINE void Enemy::_Execute_Method_<METHOD_TYPE_Enemy_setSpeed>(float p0)
+template<>  void Enemy::_Execute_Method_<METHOD_TYPE_Enemy_setSpeed>(float p0)
 {
 	this->Enemy::setSpeed(p0);
 }
 
 struct PROPERTY_TYPE_Hero_m_isAI { };
-template<> BEHAVIAC_FORCEINLINE bool& Hero::_Get_Property_<PROPERTY_TYPE_Hero_m_isAI>()
+template<>  bool& Hero::_Get_Property_<PROPERTY_TYPE_Hero_m_isAI>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(Hero, Hero::m_isAI);
@@ -157,49 +157,49 @@ template<> BEHAVIAC_FORCEINLINE bool& Hero::_Get_Property_<PROPERTY_TYPE_Hero_m_
 }
 
 struct METHOD_TYPE_Hero_AdjustHeroPosition { };
-template<> BEHAVIAC_FORCEINLINE void Hero::_Execute_Method_<METHOD_TYPE_Hero_AdjustHeroPosition>()
+template<>  void Hero::_Execute_Method_<METHOD_TYPE_Hero_AdjustHeroPosition>()
 {
 	this->Hero::AdjustHeroPosition();
 }
 
 struct METHOD_TYPE_Hero_EscapeEnemyCrash { };
-template<> BEHAVIAC_FORCEINLINE void Hero::_Execute_Method_<METHOD_TYPE_Hero_EscapeEnemyCrash>()
+template<>  void Hero::_Execute_Method_<METHOD_TYPE_Hero_EscapeEnemyCrash>()
 {
 	this->Hero::EscapeEnemyCrash();
 }
 
 struct METHOD_TYPE_Hero_findAnEnemyAndAttack { };
-template<> BEHAVIAC_FORCEINLINE void Hero::_Execute_Method_<METHOD_TYPE_Hero_findAnEnemyAndAttack>()
+template<>  void Hero::_Execute_Method_<METHOD_TYPE_Hero_findAnEnemyAndAttack>()
 {
 	this->Hero::findAnEnemyAndAttack();
 }
 
 struct METHOD_TYPE_Hero_findAnNearestEnemy { };
-template<> BEHAVIAC_FORCEINLINE void Hero::_Execute_Method_<METHOD_TYPE_Hero_findAnNearestEnemy>()
+template<>  void Hero::_Execute_Method_<METHOD_TYPE_Hero_findAnNearestEnemy>()
 {
 	this->Hero::findAnNearestEnemy();
 }
 
 struct METHOD_TYPE_Hero_hasEnemyInFrontCanAttack { };
-template<> BEHAVIAC_FORCEINLINE bool Hero::_Execute_Method_<METHOD_TYPE_Hero_hasEnemyInFrontCanAttack>()
+template<>  bool Hero::_Execute_Method_<METHOD_TYPE_Hero_hasEnemyInFrontCanAttack>()
 {
 	return this->Hero::hasEnemyInFrontCanAttack();
 }
 
 struct METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy { };
-template<> BEHAVIAC_FORCEINLINE bool Hero::_Execute_Method_<METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy>()
+template<>  bool Hero::_Execute_Method_<METHOD_TYPE_Hero_isWillBeCrashOnNearestEnemy>()
 {
 	return this->Hero::isWillBeCrashOnNearestEnemy();
 }
 
 struct METHOD_TYPE_Hero_wait20Frame { };
-template<> BEHAVIAC_FORCEINLINE bool Hero::_Execute_Method_<METHOD_TYPE_Hero_wait20Frame>()
+template<>  bool Hero::_Execute_Method_<METHOD_TYPE_Hero_wait20Frame>()
 {
 	return this->Hero::wait20Frame();
 }
 
 struct PROPERTY_TYPE_NPC_Level1Up_Score { };
-template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level1Up_Score>()
+template<>  int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level1Up_Score>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::Level1Up_Score);
@@ -207,7 +207,7 @@ template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level
 }
 
 struct PROPERTY_TYPE_NPC_Level2Up_Score { };
-template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level2Up_Score>()
+template<>  int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level2Up_Score>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::Level2Up_Score);
@@ -215,7 +215,7 @@ template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level
 }
 
 struct PROPERTY_TYPE_NPC_Level3Up_Score { };
-template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level3Up_Score>()
+template<>  int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level3Up_Score>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::Level3Up_Score);
@@ -223,7 +223,7 @@ template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level
 }
 
 struct PROPERTY_TYPE_NPC_Level4Up_Score { };
-template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level4Up_Score>()
+template<>  int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level4Up_Score>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::Level4Up_Score);
@@ -231,7 +231,7 @@ template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_Level
 }
 
 struct PROPERTY_TYPE_NPC_m_canBossRefresh { };
-template<> BEHAVIAC_FORCEINLINE bool& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_canBossRefresh>()
+template<>  bool& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_canBossRefresh>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::m_canBossRefresh);
@@ -239,7 +239,7 @@ template<> BEHAVIAC_FORCEINLINE bool& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_ca
 }
 
 struct PROPERTY_TYPE_NPC_m_level { };
-template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_level>()
+template<>  int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_level>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(NPC, NPC::m_level);
@@ -247,19 +247,19 @@ template<> BEHAVIAC_FORCEINLINE int& NPC::_Get_Property_<PROPERTY_TYPE_NPC_m_lev
 }
 
 struct METHOD_TYPE_NPC_getLevel { };
-template<> BEHAVIAC_FORCEINLINE int NPC::_Execute_Method_<METHOD_TYPE_NPC_getLevel>(int p0)
+template<>  int NPC::_Execute_Method_<METHOD_TYPE_NPC_getLevel>(int p0)
 {
 	return this->NPC::getLevel(p0);
 }
 
 struct METHOD_TYPE_NPC_setLeveUpScore { };
-template<> BEHAVIAC_FORCEINLINE void NPC::_Execute_Method_<METHOD_TYPE_NPC_setLeveUpScore>(int p0, int p1)
+template<>  void NPC::_Execute_Method_<METHOD_TYPE_NPC_setLeveUpScore>(int p0, int p1)
 {
 	this->NPC::setLeveUpScore(p0, p1);
 }
 
 struct METHOD_TYPE_NPC_spawnEnemy { };
-template<> BEHAVIAC_FORCEINLINE void NPC::_Execute_Method_<METHOD_TYPE_NPC_spawnEnemy>()
+template<>  void NPC::_Execute_Method_<METHOD_TYPE_NPC_spawnEnemy>()
 {
 	this->NPC::spawnEnemy();
 }
@@ -433,7 +433,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("enemy");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("Enemy");
 #endif
 			// children
@@ -441,7 +441,7 @@ namespace behaviac
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
 				node0->SetClassNameString("Sequence");
 				node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node0->SetAgentType("Enemy");
 #endif
 				pBT->AddChild(node0);
@@ -449,7 +449,7 @@ namespace behaviac
 					Assignment_bt_enemy_node1* node1 = BEHAVIAC_NEW Assignment_bt_enemy_node1;
 					node1->SetClassNameString("Assignment");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("Enemy");
 #endif
 					node0->AddChild(node1);
@@ -459,7 +459,7 @@ namespace behaviac
 					Assignment_bt_enemy_node8* node8 = BEHAVIAC_NEW Assignment_bt_enemy_node8;
 					node8->SetClassNameString("Assignment");
 					node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node8->SetAgentType("Enemy");
 #endif
 					node0->AddChild(node8);
@@ -469,7 +469,7 @@ namespace behaviac
 					Action_bt_enemy_node2* node2 = BEHAVIAC_NEW Action_bt_enemy_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("Enemy");
 #endif
 					node0->AddChild(node2);
@@ -479,7 +479,7 @@ namespace behaviac
 					DecoratorLoop_bt_enemy_node3* node3 = BEHAVIAC_NEW DecoratorLoop_bt_enemy_node3;
 					node3->SetClassNameString("DecoratorLoop");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("Enemy");
 #endif
 					node0->AddChild(node3);
@@ -487,7 +487,7 @@ namespace behaviac
 						Sequence* node4 = BEHAVIAC_NEW Sequence;
 						node4->SetClassNameString("Sequence");
 						node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node4->SetAgentType("Enemy");
 #endif
 						// attachments
@@ -495,7 +495,7 @@ namespace behaviac
 							Precondition_bt_enemy_attach9* attach9 = BEHAVIAC_NEW Precondition_bt_enemy_attach9;
 							attach9->SetClassNameString("Precondition");
 							attach9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							attach9->SetAgentType("Enemy");
 #endif
 							node4->Attach(attach9, true, false, false);
@@ -506,7 +506,7 @@ namespace behaviac
 							Assignment_bt_enemy_node5* node5 = BEHAVIAC_NEW Assignment_bt_enemy_node5;
 							node5->SetClassNameString("Assignment");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("Enemy");
 #endif
 							node4->AddChild(node5);
@@ -516,7 +516,7 @@ namespace behaviac
 							Action_bt_enemy_node7* node7 = BEHAVIAC_NEW Action_bt_enemy_node7;
 							node7->SetClassNameString("Action");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("Enemy");
 #endif
 							node4->AddChild(node7);
@@ -526,7 +526,7 @@ namespace behaviac
 							WaitFrames_bt_enemy_node6* node6 = BEHAVIAC_NEW WaitFrames_bt_enemy_node6;
 							node6->SetClassNameString("WaitFrames");
 							node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node6->SetAgentType("Enemy");
 #endif
 							node4->AddChild(node6);
@@ -802,7 +802,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("enemy_fsm");
 			pBT->SetIsFSM(true);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("Enemy");
 #endif
 			// pars
@@ -814,14 +814,14 @@ namespace behaviac
 				fsm->SetClassNameString("FSM");
 				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				fsm->SetAgentType("Enemy");
 #endif
 				{
 					State_bt_enemy_fsm_node1* node1 = BEHAVIAC_NEW State_bt_enemy_fsm_node1;
 					node1->SetClassNameString("State");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("Enemy");
 #endif
 					// attachments
@@ -829,7 +829,7 @@ namespace behaviac
 						Precondition_bt_enemy_fsm_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach3;
 						attach3->SetClassNameString("Precondition");
 						attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach3->SetAgentType("Enemy");
 #endif
 						node1->Attach(attach3, true, false, false);
@@ -839,7 +839,7 @@ namespace behaviac
 						Precondition_bt_enemy_fsm_attach4* attach4 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach4;
 						attach4->SetClassNameString("Precondition");
 						attach4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach4->SetAgentType("Enemy");
 #endif
 						node1->Attach(attach4, true, false, false);
@@ -849,7 +849,7 @@ namespace behaviac
 						Precondition_bt_enemy_fsm_attach5* attach5 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach5;
 						attach5->SetClassNameString("Precondition");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("Enemy");
 #endif
 						node1->Attach(attach5, true, false, false);
@@ -859,7 +859,7 @@ namespace behaviac
 						Transition_bt_enemy_fsm_attach6* attach6 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach6;
 						attach6->SetClassNameString("Transition");
 						attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach6->SetAgentType("Enemy");
 #endif
 						node1->Attach(attach6, false, false, true);
@@ -872,7 +872,7 @@ namespace behaviac
 					State_bt_enemy_fsm_node2* node2 = BEHAVIAC_NEW State_bt_enemy_fsm_node2;
 					node2->SetClassNameString("State");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("Enemy");
 #endif
 					// attachments
@@ -880,7 +880,7 @@ namespace behaviac
 						Precondition_bt_enemy_fsm_attach7* attach7 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach7;
 						attach7->SetClassNameString("Precondition");
 						attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach7->SetAgentType("Enemy");
 #endif
 						node2->Attach(attach7, true, false, false);
@@ -890,7 +890,7 @@ namespace behaviac
 						Precondition_bt_enemy_fsm_attach8* attach8 = BEHAVIAC_NEW Precondition_bt_enemy_fsm_attach8;
 						attach8->SetClassNameString("Precondition");
 						attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach8->SetAgentType("Enemy");
 #endif
 						node2->Attach(attach8, true, false, false);
@@ -900,7 +900,7 @@ namespace behaviac
 						Transition_bt_enemy_fsm_attach15* attach15 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach15;
 						attach15->SetClassNameString("Transition");
 						attach15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach15->SetAgentType("Enemy");
 #endif
 						node2->Attach(attach15, false, false, true);
@@ -910,7 +910,7 @@ namespace behaviac
 						Transition_bt_enemy_fsm_attach11* attach11 = BEHAVIAC_NEW Transition_bt_enemy_fsm_attach11;
 						attach11->SetClassNameString("Transition");
 						attach11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach11->SetAgentType("Enemy");
 #endif
 						node2->Attach(attach11, false, false, true);
@@ -923,7 +923,7 @@ namespace behaviac
 					WaitFramesState_bt_enemy_fsm_node16* node16 = BEHAVIAC_NEW WaitFramesState_bt_enemy_fsm_node16;
 					node16->SetClassNameString("WaitFramesState");
 					node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node16->SetAgentType("Enemy");
 #endif
 					// attachments
@@ -931,7 +931,7 @@ namespace behaviac
 						WaitTransition_bt_enemy_fsm_attach17* attach17 = BEHAVIAC_NEW WaitTransition_bt_enemy_fsm_attach17;
 						attach17->SetClassNameString("WaitTransition");
 						attach17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach17->SetAgentType("Enemy");
 #endif
 						node16->Attach(attach17, false, false, true);
@@ -944,7 +944,7 @@ namespace behaviac
 					State_bt_enemy_fsm_node19* node19 = BEHAVIAC_NEW State_bt_enemy_fsm_node19;
 					node19->SetClassNameString("State");
 					node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node19->SetAgentType("Enemy");
 #endif
 					fsm->AddChild(node19);
@@ -1282,7 +1282,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("hero");
 			pBT->SetIsFSM(true);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("Hero");
 #endif
 			// attachments
@@ -1292,14 +1292,14 @@ namespace behaviac
 				fsm->SetClassNameString("FSM");
 				fsm->SetId((uint16_t)-1);
 				fsm->SetInitialId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				fsm->SetAgentType("Hero");
 #endif
 				{
 					State_bt_hero_node1* node1 = BEHAVIAC_NEW State_bt_hero_node1;
 					node1->SetClassNameString("State");
 					node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node1->SetAgentType("Hero");
 #endif
 					// attachments
@@ -1307,7 +1307,7 @@ namespace behaviac
 						Transition_bt_hero_attach2* attach2 = BEHAVIAC_NEW Transition_bt_hero_attach2;
 						attach2->SetClassNameString("Transition");
 						attach2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach2->SetAgentType("Hero");
 #endif
 						node1->Attach(attach2, false, false, true);
@@ -1317,7 +1317,7 @@ namespace behaviac
 						Transition_bt_hero_attach13* attach13 = BEHAVIAC_NEW Transition_bt_hero_attach13;
 						attach13->SetClassNameString("Transition");
 						attach13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach13->SetAgentType("Hero");
 #endif
 						node1->Attach(attach13, false, false, true);
@@ -1330,7 +1330,7 @@ namespace behaviac
 					State_bt_hero_node3* node3 = BEHAVIAC_NEW State_bt_hero_node3;
 					node3->SetClassNameString("State");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("Hero");
 #endif
 					// attachments
@@ -1338,7 +1338,7 @@ namespace behaviac
 						Transition_bt_hero_attach8* attach8 = BEHAVIAC_NEW Transition_bt_hero_attach8;
 						attach8->SetClassNameString("Transition");
 						attach8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach8->SetAgentType("Hero");
 #endif
 						node3->Attach(attach8, false, false, true);
@@ -1348,7 +1348,7 @@ namespace behaviac
 						Transition_bt_hero_attach5* attach5 = BEHAVIAC_NEW Transition_bt_hero_attach5;
 						attach5->SetClassNameString("Transition");
 						attach5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach5->SetAgentType("Hero");
 #endif
 						node3->Attach(attach5, false, false, true);
@@ -1361,7 +1361,7 @@ namespace behaviac
 					State_bt_hero_node4* node4 = BEHAVIAC_NEW State_bt_hero_node4;
 					node4->SetClassNameString("State");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("Hero");
 #endif
 					// attachments
@@ -1369,7 +1369,7 @@ namespace behaviac
 						Transition_bt_hero_attach6* attach6 = BEHAVIAC_NEW Transition_bt_hero_attach6;
 						attach6->SetClassNameString("Transition");
 						attach6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach6->SetAgentType("Hero");
 #endif
 						node4->Attach(attach6, false, false, true);
@@ -1379,7 +1379,7 @@ namespace behaviac
 						Transition_bt_hero_attach7* attach7 = BEHAVIAC_NEW Transition_bt_hero_attach7;
 						attach7->SetClassNameString("Transition");
 						attach7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach7->SetAgentType("Hero");
 #endif
 						node4->Attach(attach7, false, false, true);
@@ -1392,7 +1392,7 @@ namespace behaviac
 					State_bt_hero_node9* node9 = BEHAVIAC_NEW State_bt_hero_node9;
 					node9->SetClassNameString("State");
 					node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node9->SetAgentType("Hero");
 #endif
 					// attachments
@@ -1400,7 +1400,7 @@ namespace behaviac
 						Transition_bt_hero_attach11* attach11 = BEHAVIAC_NEW Transition_bt_hero_attach11;
 						attach11->SetClassNameString("Transition");
 						attach11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach11->SetAgentType("Hero");
 #endif
 						node9->Attach(attach11, false, false, true);
@@ -1413,7 +1413,7 @@ namespace behaviac
 					State_bt_hero_node10* node10 = BEHAVIAC_NEW State_bt_hero_node10;
 					node10->SetClassNameString("State");
 					node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node10->SetAgentType("Hero");
 #endif
 					// attachments
@@ -1421,7 +1421,7 @@ namespace behaviac
 						Transition_bt_hero_attach12* attach12 = BEHAVIAC_NEW Transition_bt_hero_attach12;
 						attach12->SetClassNameString("Transition");
 						attach12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach12->SetAgentType("Hero");
 #endif
 						node10->Attach(attach12, false, false, true);
@@ -1434,7 +1434,7 @@ namespace behaviac
 					State_bt_hero_node14* node14 = BEHAVIAC_NEW State_bt_hero_node14;
 					node14->SetClassNameString("State");
 					node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node14->SetAgentType("Hero");
 #endif
 					// attachments
@@ -1442,7 +1442,7 @@ namespace behaviac
 						Transition_bt_hero_attach15* attach15 = BEHAVIAC_NEW Transition_bt_hero_attach15;
 						attach15->SetClassNameString("Transition");
 						attach15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						attach15->SetAgentType("Hero");
 #endif
 						node14->Attach(attach15, false, false, true);
@@ -1648,7 +1648,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("npc");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("NPC");
 #endif
 			// children
@@ -1656,7 +1656,7 @@ namespace behaviac
 				Sequence* node1 = BEHAVIAC_NEW Sequence;
 				node1->SetClassNameString("Sequence");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("NPC");
 #endif
 				pBT->AddChild(node1);
@@ -1664,7 +1664,7 @@ namespace behaviac
 					Action_bt_npc_node0* node0 = BEHAVIAC_NEW Action_bt_npc_node0;
 					node0->SetClassNameString("Action");
 					node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node0->SetAgentType("NPC");
 #endif
 					node1->AddChild(node0);
@@ -1674,7 +1674,7 @@ namespace behaviac
 					Action_bt_npc_node2* node2 = BEHAVIAC_NEW Action_bt_npc_node2;
 					node2->SetClassNameString("Action");
 					node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node2->SetAgentType("NPC");
 #endif
 					node1->AddChild(node2);
@@ -1684,7 +1684,7 @@ namespace behaviac
 					Action_bt_npc_node3* node3 = BEHAVIAC_NEW Action_bt_npc_node3;
 					node3->SetClassNameString("Action");
 					node3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node3->SetAgentType("NPC");
 #endif
 					node1->AddChild(node3);
@@ -1694,7 +1694,7 @@ namespace behaviac
 					Action_bt_npc_node4* node4 = BEHAVIAC_NEW Action_bt_npc_node4;
 					node4->SetClassNameString("Action");
 					node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node4->SetAgentType("NPC");
 #endif
 					node1->AddChild(node4);
@@ -1704,7 +1704,7 @@ namespace behaviac
 					DecoratorLoop_bt_npc_node5* node5 = BEHAVIAC_NEW DecoratorLoop_bt_npc_node5;
 					node5->SetClassNameString("DecoratorLoop");
 					node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node5->SetAgentType("NPC");
 #endif
 					node1->AddChild(node5);
@@ -1712,7 +1712,7 @@ namespace behaviac
 						Parallel_bt_npc_node9* node9 = BEHAVIAC_NEW Parallel_bt_npc_node9;
 						node9->SetClassNameString("Parallel");
 						node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node9->SetAgentType("NPC");
 #endif
 						node5->AddChild(node9);
@@ -1720,7 +1720,7 @@ namespace behaviac
 							Sequence* node7 = BEHAVIAC_NEW Sequence;
 							node7->SetClassNameString("Sequence");
 							node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node7->SetAgentType("NPC");
 #endif
 							node9->AddChild(node7);
@@ -1728,7 +1728,7 @@ namespace behaviac
 								Action_bt_npc_node6* node6 = BEHAVIAC_NEW Action_bt_npc_node6;
 								node6->SetClassNameString("Action");
 								node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node6->SetAgentType("NPC");
 #endif
 								node7->AddChild(node6);
@@ -1738,7 +1738,7 @@ namespace behaviac
 								WaitFrames_bt_npc_node8* node8 = BEHAVIAC_NEW WaitFrames_bt_npc_node8;
 								node8->SetClassNameString("WaitFrames");
 								node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node8->SetAgentType("NPC");
 #endif
 								node7->AddChild(node8);
@@ -1750,7 +1750,7 @@ namespace behaviac
 							Sequence* node10 = BEHAVIAC_NEW Sequence;
 							node10->SetClassNameString("Sequence");
 							node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node10->SetAgentType("NPC");
 #endif
 							node9->AddChild(node10);
@@ -1758,7 +1758,7 @@ namespace behaviac
 								Assignment_bt_npc_node11* node11 = BEHAVIAC_NEW Assignment_bt_npc_node11;
 								node11->SetClassNameString("Assignment");
 								node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node11->SetAgentType("NPC");
 #endif
 								node10->AddChild(node11);
@@ -1768,7 +1768,7 @@ namespace behaviac
 								WaitFrames_bt_npc_node12* node12 = BEHAVIAC_NEW WaitFrames_bt_npc_node12;
 								node12->SetClassNameString("WaitFrames");
 								node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node12->SetAgentType("NPC");
 #endif
 								node10->AddChild(node12);

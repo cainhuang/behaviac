@@ -45,7 +45,7 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(bForce);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 
         if (Config::IsLoggingOrSocketing())
         {

@@ -493,7 +493,7 @@ namespace behaviac
     void BehaviorNode::SetAgentType(const behaviac::string& agentType)
     {
         BEHAVIAC_UNUSED_VAR(agentType);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         this->m_agentType = agentType;
 #endif
     }
@@ -566,14 +566,14 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(pTask);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         BEHAVIAC_ASSERT(!this->m_agentType.empty());
         CStringID btAgentClass(this->m_agentType.c_str());
 
         return pAgent->IsAKindOf(btAgentClass);
 #else
         return true;
-#endif//#if !defined(BEHAVIAC_RELEASE)
+#endif//#if !BEHAVIAC_RELEASE
     }
 
     void BehaviorNode::load(int version, const char* agentType, const properties_t& properties)
@@ -611,7 +611,7 @@ namespace behaviac
 
     void BehaviorNode::load_properties(int version, const char* agentType, rapidxml::xml_node<>* node)
     {
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         this->m_agentType = agentType;
 #endif//#ifdef _DEBUG
 

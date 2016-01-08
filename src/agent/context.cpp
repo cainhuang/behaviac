@@ -412,20 +412,21 @@ namespace behaviac
 
     void Context::LogCurrentStates(int contextId)
     {
-        BEHAVIAC_ASSERT(ms_contexts != NULL);
-
-        if (contextId >= 0)
-        {
-            Context& pContext = Context::GetContext(contextId);
-            pContext.LogCurrentState();
-        }
-        else
-        {
-            for (Contexts_t::iterator pContext = ms_contexts->begin(); pContext != ms_contexts->end(); ++pContext)
-            {
-                pContext->second->LogCurrentState();
-            }
-        }
+		if (ms_contexts != NULL)
+		{
+			if (contextId >= 0)
+			{
+				Context& pContext = Context::GetContext(contextId);
+				pContext.LogCurrentState();
+			}
+			else
+			{
+				for (Contexts_t::iterator pContext = ms_contexts->begin(); pContext != ms_contexts->end(); ++pContext)
+				{
+					pContext->second->LogCurrentState();
+				}
+			}
+		}
     }
 
     void Context::InsertEventGlobal(const char* className, CNamedEvent* pEvent)

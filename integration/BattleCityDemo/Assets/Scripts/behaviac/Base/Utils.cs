@@ -1635,7 +1635,8 @@ namespace behaviac
 
         public static bool IsRefNullType(Type type)
         {
-            return IsAgentType(type) || IsGameObjectType(type);
+            //return IsAgentType(type) || IsGameObjectType(type);
+            return type != null && type.IsClass;
         }
 
         public static bool IfEquals(object l, object r)
@@ -2881,7 +2882,6 @@ namespace behaviac
             }
             else if (Utils.IsCustomClassType(type))
             {
-                Debug.Check(!Utils.IsRefNullType(type));
                 v = StringUtils.FromStringStruct(type, valStr);
             }
             else

@@ -79,13 +79,8 @@ namespace behaviac
 
         if (method)
         {
-            //ParentType pt = method->GetParentType();
-            Agent* pParent = pAgent;
-            /*	if (pt == PT_INSTANCE)
-            	{*/
-            pParent = Agent::GetInstance(method->GetInstanceNameString(), pParent->GetContextId());
+            Agent* pParent = Agent::GetInstance(pAgent, method->GetInstanceNameString());
             BEHAVIAC_ASSERT(pParent);
-            //}
 
             method->run(pParent, pAgent);
 			value = method->GetReturnValue<double>(pParent);

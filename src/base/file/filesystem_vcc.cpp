@@ -985,9 +985,9 @@ namespace behaviac
 
 						bool bFound = false;
 
-						for (uint32_t i = 0; i < modifiedFiles.size(); ++i)
+						for (uint32_t j = 0; j < modifiedFiles.size(); ++j)
 						{
-							ModifiedFile_t& file = modifiedFiles[i];
+							ModifiedFile_t& file = modifiedFiles[j];
 
 							if (file.filePath == filePath)
 							{

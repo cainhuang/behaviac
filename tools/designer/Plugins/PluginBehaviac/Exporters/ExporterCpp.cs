@@ -357,7 +357,7 @@ namespace PluginBehaviac.Exporters
                         string nativeType = DataCppExporter.GetBasicGeneratedNativeType(property.NativeType);
 
                         file.WriteLine("{0}struct PROPERTY_TYPE_{1} {{ }};", indent, propName);
-                        file.WriteLine("{0}template<> BEHAVIAC_FORCEINLINE {1}& {2}::_Get_Property_<PROPERTY_TYPE_{3}>()", indent, nativeType, agenType.BasicClassName, propName);
+                        file.WriteLine("{0}template<>  {1}& {2}::_Get_Property_<PROPERTY_TYPE_{3}>()", indent, nativeType, agenType.BasicClassName, propName);
                         file.WriteLine("{0}{{", indent);
                         if (property.IsProperty)
                         {
@@ -406,7 +406,7 @@ namespace PluginBehaviac.Exporters
                             nativeReturnType = "const " + nativeReturnType;
 
                         file.WriteLine("{0}struct METHOD_TYPE_{1} {{ }};", indent, methodName);
-                        file.WriteLine("{0}template<> BEHAVIAC_FORCEINLINE {1} {2}::_Execute_Method_<METHOD_TYPE_{3}>({4})", indent, nativeReturnType, agenType.BasicClassName, methodName, paramStrDef);
+                        file.WriteLine("{0}template<>  {1} {2}::_Execute_Method_<METHOD_TYPE_{3}>({4})", indent, nativeReturnType, agenType.BasicClassName, methodName, paramStrDef);
                         file.WriteLine("{0}{{", indent);
 
                         string ret = (method.NativeReturnType == "void") ? string.Empty : "return ";
@@ -452,7 +452,7 @@ namespace PluginBehaviac.Exporters
             file.WriteLine("\t\t\tpBT->SetId((uint16_t)-1);");
             file.WriteLine("\t\t\tpBT->SetName(\"{0}\");", filename);
             file.WriteLine("\t\t\tpBT->SetIsFSM({0});", ((Node)behavior).IsFSM ? "true" : "false");
-            file.WriteLine("#if !defined(BEHAVIAC_RELEASE)");
+            file.WriteLine("#if !BEHAVIAC_RELEASE");
             file.WriteLine("\t\t\tpBT->SetAgentType(\"{0}\");", agentType);
             file.WriteLine("#endif");
             if (!string.IsNullOrEmpty(((Behavior)behavior).Domains))
@@ -479,7 +479,7 @@ namespace PluginBehaviac.Exporters
                 file.WriteLine("\t\t\t\tfsm->SetClassNameString(\"FSM\");");
                 file.WriteLine("\t\t\t\tfsm->SetId((uint16_t)-1);");
                 file.WriteLine("\t\t\t\tfsm->SetInitialId({0});", behavior.InitialStateId);
-                file.WriteLine("#if !defined(BEHAVIAC_RELEASE)");
+                file.WriteLine("#if !BEHAVIAC_RELEASE");
                 file.WriteLine("\t\t\t\tfsm->SetAgentType(\"{0}\");", agentType);
                 file.WriteLine("#endif");
 

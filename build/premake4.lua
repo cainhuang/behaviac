@@ -250,6 +250,7 @@ solution "behaviac"
         buildoptions { 
             "/MP", -- multiple processor compilation
             --"/Gm-" -- Disable Minimum Rebuild
+			"/EHs"
         }
 		
 		configuration { "Release*" }

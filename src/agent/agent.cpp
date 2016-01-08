@@ -29,7 +29,8 @@
 #include "./propertynode.h"
 
 #if BEHAVIAC_COMPILER_MSVC
-#pragma message ("compiler "BEHAVIAC_COMPILER_NAME)
+#define _BEHAVIAC_M_STRING_COMPILER_NAME_ BEHAVIAC_JOIN_TOKENS("compiler ", BEHAVIAC_COMPILER_NAME)
+#pragma message (_BEHAVIAC_M_STRING_COMPILER_NAME_)
 #endif
 
 BEGIN_PROPERTIES_DESCRIPTION(IList)
@@ -118,9 +119,9 @@ namespace behaviac
 		BEHAVIAC_ASSERT(bOk);
 		BEHAVIAC_UNUSED_VAR(bOk);
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         this->m_debug_verify = 0;
-#endif//#if !defined(BEHAVIAC_RELEASE)
+#endif//#if !BEHAVIAC_RELEASE
     }
 
     void Agent::SetName(const char* instanceName)
@@ -171,7 +172,7 @@ namespace behaviac
         this->UnSubsribeToNetwork();
 #endif//#if BEHAVIAC_ENABLE_NETWORKD
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         Agent::Agents_t* agents = Agents(true);
 
         if (agents)
@@ -213,9 +214,9 @@ namespace behaviac
 
     void Agent::Init_(int contextId, Agent* pAgent, short priority, const char* agentInstanceName)
     {
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         pAgent->m_debug_verify = kAGENT_DEBUG_VERY;
-#endif//#if !defined(BEHAVIAC_RELEASE)
+#endif//#if !BEHAVIAC_RELEASE
 
         BEHAVIAC_ASSERT(contextId >= 0, "invalid context id");
 
@@ -229,7 +230,7 @@ namespace behaviac
         Context& c = Context::GetContext(contextId);
         c.AddAgent(pAgent);
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         Agent::Agents_t* agents = Agents(false);
         BEHAVIAC_ASSERT(agents);
 
@@ -396,7 +397,7 @@ namespace behaviac
     bool Agent::ExportMetas(const char* xmlMetaFilePath)
     {
         BEHAVIAC_UNUSED_VAR(xmlMetaFilePath);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 
         if (Config::IsDesktopPlatform())
         {
@@ -558,7 +559,7 @@ namespace behaviac
         //agent meta + struct meta
         CleanupTagObjectDescriptorMaps();
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 
         if (ms_agents)
         {
@@ -655,7 +656,7 @@ namespace behaviac
     void Agent::LogVariables(bool bForce)
     {
         BEHAVIAC_UNUSED_VAR(bForce);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 
         if (Config::IsLoggingOrSocketing())
         {
@@ -676,7 +677,7 @@ namespace behaviac
     {
         this->ResetChangedVariables();
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 
         if (Config::IsLoggingOrSocketing())
         {
@@ -692,7 +693,7 @@ namespace behaviac
 
     void Agent::UpdateVariableRegistry()
     {
-        //#if !defined(BEHAVIAC_RELEASE)
+        //#if !BEHAVIAC_RELEASE
         //		if (Config::IsLoggingOrSocketing())
         //		{
         //			BEHAVIAC_PROFILE("Agent::UpdateVariableRegistry");
@@ -932,10 +933,10 @@ namespace behaviac
 
         if (this->m_bActive)
         {
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
             BEHAVIAC_ASSERT(this->m_debug_verify == kAGENT_DEBUG_VERY, "Agent can only be created by Agent::Create or Agent::Create!");
 			this->m_debug_count = 0;
-#endif//#if !defined(BEHAVIAC_RELEASE)
+#endif//#if !BEHAVIAC_RELEASE
             this->InstantiateProperties();
 
             this->UpdateVariableRegistry();
@@ -1066,9 +1067,9 @@ namespace behaviac
 
             for (uint32_t i = 0; i < bts.size(); ++it)
             {
-                const BehaviorTree* it = bts[i];
+                const BehaviorTree* it1 = bts[i];
 
-                if (it == bt)
+                if (it1 == bt)
                 {
                     bFound = true;
                     break;
@@ -1271,7 +1272,7 @@ namespace behaviac
 			AgentEvents_t::iterator it = this->m_eventInfos.find(eventID);
 			if (it == this->m_eventInfos.end())
 			{
-				CNamedEvent* pEvent = (CNamedEvent*)pNamedMethod->clone();
+				pEvent = (CNamedEvent*)pNamedMethod->clone();
 				this->m_eventInfos[eventID] = pEvent;
 			}
 			else
@@ -1385,10 +1386,10 @@ namespace behaviac
 
             const CTagObjectDescriptor::MethodsContainer& methods = pObejctDesc->ms_methods;
 
-            for (CTagObjectDescriptor::MethodsContainer::const_iterator it = methods.begin();
-                 it != methods.end(); ++it)
+            for (CTagObjectDescriptor::MethodsContainer::const_iterator it1 = methods.begin();
+                 it1 != methods.end(); ++it1)
             {
-                const CMethodBase* pM = *it;
+                const CMethodBase* pM = *it1;
 
                 if (pM->GetID().GetID() == methodClassId)
                 {
@@ -1507,10 +1508,10 @@ namespace behaviac
             MetaInfo_t& m = it->second;
             const CTagObjectDescriptor* pObejctDesc = m.descriptor;
 
-            for (MethodsContainer::const_iterator it = pObejctDesc->ms_methods.begin();
-                 it != pObejctDesc->ms_methods.end(); ++it)
+            for (MethodsContainer::const_iterator it1 = pObejctDesc->ms_methods.begin();
+                 it1 != pObejctDesc->ms_methods.end(); ++it1)
             {
-                const CMethodBase* pMethod = *it;
+                const CMethodBase* pMethod = *it1;
 
                 if (pMethod->GetID().GetID() == propertyId)
                 {
@@ -1624,7 +1625,7 @@ namespace behaviac
         return false;
     }
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
     Agent::Agents_t* Agent::ms_agents = 0;
     Agent::Agents_t* Agent::Agents(bool bCleanup)
     {

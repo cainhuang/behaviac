@@ -83,17 +83,24 @@ namespace Behaviac.Design
 
         public static String GetIP(String strHostName)
         {
-            // Find host by name
-            IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
-
-            // Grab the first IP addresses
             String IPStr = "";
-            foreach (IPAddress ipaddress in iphostentry.AddressList)
-            {
-                IPStr = ipaddress.ToString();
 
-                if (IPOnlyNumbersAndDots(IPStr))
-                    return IPStr;
+            try
+            {
+                // Find host by name
+                IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
+
+                // Grab the first IP addresses
+                foreach (IPAddress ipaddress in iphostentry.AddressList)
+                {
+                    IPStr = ipaddress.ToString();
+
+                    if (IPOnlyNumbersAndDots(IPStr))
+                        return IPStr;
+                }
+            }
+            catch
+            {
             }
 
             return IPStr;
@@ -104,14 +111,20 @@ namespace Behaviac.Design
         {
             if (string.IsNullOrEmpty(_cpuID))
             {
-                using (ManagementClass cimObject = new ManagementClass("Win32_Processor"))
+                try
                 {
-                    ManagementObjectCollection moc = cimObject.GetInstances();
-                    foreach (ManagementObject mo in moc)
+                    using (ManagementClass cimObject = new ManagementClass("Win32_Processor"))
                     {
-                        _cpuID = mo.Properties["ProcessorId"].Value.ToString();
-                        mo.Dispose();
+                        ManagementObjectCollection moc = cimObject.GetInstances();
+                        foreach (ManagementObject mo in moc)
+                        {
+                            _cpuID = mo.Properties["ProcessorId"].Value.ToString();
+                            mo.Dispose();
+                        }
                     }
+                }
+                catch
+                {
                 }
             }
 
@@ -123,14 +136,20 @@ namespace Behaviac.Design
         {
             if (string.IsNullOrEmpty(_hdID))
             {
-                using (ManagementClass cimObject = new ManagementClass("Win32_DiskDrive"))
+                try
                 {
-                    ManagementObjectCollection moc = cimObject.GetInstances();
-                    foreach (ManagementObject mo in moc)
+                    using (ManagementClass cimObject = new ManagementClass("Win32_DiskDrive"))
                     {
-                        _hdID = mo.Properties["Model"].Value.ToString();
-                        mo.Dispose();
+                        ManagementObjectCollection moc = cimObject.GetInstances();
+                        foreach (ManagementObject mo in moc)
+                        {
+                            _hdID = mo.Properties["Model"].Value.ToString();
+                            mo.Dispose();
+                        }
                     }
+                }
+                catch
+                {
                 }
             }
 

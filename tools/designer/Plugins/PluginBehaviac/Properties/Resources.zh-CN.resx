@@ -712,7 +712,7 @@
     <value>重新查询</value>
   </data>
   <data name="PreconditionPhase" xml:space="preserve">
-    <value>时机</value>
+    <value>执行时机</value>
   </data>
   <data name="PreconditionPhaseDesc" xml:space="preserve">
     <value>什么时候起作用</value>

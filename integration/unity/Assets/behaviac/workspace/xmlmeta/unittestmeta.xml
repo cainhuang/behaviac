@@ -34,9 +34,7 @@
     </enumtype>
     <struct Type="System::Object" DisplayName="Object" Desc="Object" IsRefType="true" />
     <struct Type="UnityEngine::GameObject" DisplayName="GameObject" Desc="GameObject" IsRefType="true" />
-    <struct Type="TestNS::Node" DisplayName="Node" Desc="Node" IsRefType="true">
-      <Member Name="name" DisplayName="name" Desc="name" Type="string" Class="TestNS::Node" Public="true" />
-    </struct>
+    <struct Type="TestNS::Node" DisplayName="Node" Desc="Node" IsRefType="true" />
     <struct Type="TestNS::Float2" DisplayName="Float2" Desc="Float2" IsRefType="false">
       <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="TestNS::Float2" Public="true" />
       <Member Name="y" DisplayName="y" Desc="y" Type="float" Class="TestNS::Float2" Public="true" />
@@ -73,15 +71,15 @@
       </Method>
       <Method Name="VectorAdd" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
-        <Param DisplayName="element" Desc="element" Type="System::Object" />
+        <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorRemove" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
-        <Param DisplayName="element" Desc="element" Type="System::Object" />
+        <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorContains" DisplayName="" Desc="" ReturnType="bool" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
-        <Param DisplayName="element" Desc="element" Type="System::Object" />
+        <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorClear" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
@@ -135,12 +133,12 @@
       <Method Name="testGameObject" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="go" Desc="go" Type="UnityEngine::GameObject*" />
       </Method>
-      <Method Name="createExtendedNode" DisplayName="" Desc="" ReturnType="TestNS::Node" Class="AgentNodeTest" />
+      <Method Name="createExtendedNode" DisplayName="" Desc="" ReturnType="TestNS::Node*" Class="AgentNodeTest" />
       <Method Name="testExtendedRefType" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest">
-        <Param DisplayName="go" Desc="go" Type="TestNS::Node" />
+        <Param DisplayName="go" Desc="go" Type="TestNS::Node*" />
       </Method>
       <Method Name="testExtendedStruct" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest">
-        <Param DisplayName="f" Desc="f" Type="TestNS::Float2&amp;" IsRef="true" />
+        <Param DisplayName="f" Desc="f" Type="TestNS::Float2" IsRef="true" />
       </Method>
       <Method Name="switchRef" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest" Public="true">
         <Param DisplayName="refTree" Desc="refTree" Type="string" />
@@ -177,7 +175,7 @@
       <Member Name="IntProperty" DisplayName="" Desc="" Type="int" Class="CustomPropertyAgent" Public="true" />
       <Member Name="FloatPropertyReadonly" DisplayName="" Desc="" Type="float" Class="CustomPropertyAgent" Readonly="true" Public="true" />
       <Method Name="FnWithOutParam" DisplayName="" Desc="" ReturnType="void" Class="CustomPropertyAgent" Public="true">
-        <Param DisplayName="param" Desc="param" Type="int&amp;" IsOut="true" />
+        <Param DisplayName="param" Desc="param" Type="int" IsOut="true" />
       </Method>
     </agent>
     <agent classfullname="EmployeeParTestAgent" base="ParTestAgent" DisplayName="EmployeeParTestAgent" Desc="EmployeeParTestAgent" IsRefType="true">
@@ -200,43 +198,43 @@
       <Member Name="TV_LIST_AGENT_0" DisplayName="2 # TV_LIST_AGENT_0" Desc="A" Type="vector&lt;behaviac::Agent*&gt;" Class="EmployeeParTestAgent" Public="true" />
       <Member Name="STV_LIST_AGENT_0" DisplayName="2 # STV_LIST_AGENT_0" Desc="A" Type="vector&lt;behaviac::Agent*&gt;" Class="EmployeeParTestAgent" Static="true" Public="true" />
       <Method Name="Func_UIntRef" DisplayName="2 # UPR_UInt" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="uint&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="uint" IsRef="true" />
       </Method>
       <Method Name="Func_ULongRef" DisplayName="2 # UPR_ULong" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="ulong&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="ulong" IsRef="true" />
       </Method>
       <Method Name="Func_SingleRef" DisplayName="2 # UPR_Single" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="float&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="float" IsRef="true" />
       </Method>
       <Method Name="Func_DoubleRef" DisplayName="2 # UPR_Double" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="double&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="double" IsRef="true" />
       </Method>
       <Method Name="Func_LongLongRef" DisplayName="2 # UPR_LongLongRef" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="long&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="long" IsRef="true" />
       </Method>
       <Method Name="Func_ULongLongRef" DisplayName="2 # UPR_ULongLongRef" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="ulong&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="ulong" IsRef="true" />
       </Method>
       <Method Name="Func_StringRef" DisplayName="2 # UPR_String" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="string&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="string" IsRef="true" />
       </Method>
       <Method Name="Func_SzStringRef" DisplayName="2 # UPR_SzStringRef" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="string&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="string" IsRef="true" />
       </Method>
       <Method Name="Func_CSzStringRef" DisplayName="2 # UPR_CSzString" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="string&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="string" IsRef="true" />
       </Method>
       <Method Name="Func_AgentRef" DisplayName="2 # UPR_Agent" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="behaviac::Agent*&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="behaviac::Agent*" IsRef="true" />
       </Method>
       <Method Name="Func_SingleListRef" DisplayName="2 # UPR_SingleList" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;float&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;float&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_StringListRef" DisplayName="2 # UPR_StringList" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;string&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;string&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_AgentListRef" DisplayName="2 # UPR_AgentList" Desc="A" ReturnType="void" Class="EmployeeParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;behaviac::Agent*&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;behaviac::Agent*&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_UIntIR" DisplayName="2 # PIR_UInt" Desc="A" ReturnType="uint" Class="EmployeeParTestAgent" Public="true">
         <Param DisplayName="par" Desc="par" Type="uint" />
@@ -319,17 +317,17 @@
     <agent classfullname="HTNAgentTravel" base="behaviac::Agent" DisplayName="HTNAgentTravel" Desc="HTNAgentTravel" IsRefType="true">
       <Method Name="exist_airport" DisplayName="" Desc="" ReturnType="bool" Class="HTNAgentTravel" Public="true">
         <Param DisplayName="x" Desc="x" Type="int" />
-        <Param DisplayName="ax" Desc="ax" Type="int&amp;" IsRef="true" />
+        <Param DisplayName="ax" Desc="ax" Type="int" IsRef="true" />
       </Method>
       <Method Name="exist_airports" DisplayName="" Desc="" ReturnType="bool" Class="HTNAgentTravel" Public="true">
         <Param DisplayName="x" Desc="x" Type="int" />
-        <Param DisplayName="axs" Desc="axs" Type="vector&lt;int&gt;&amp;" IsRef="true" />
+        <Param DisplayName="axs" Desc="axs" Type="vector&lt;int&gt;" IsRef="true" />
       </Method>
       <Method Name="exist_finish" DisplayName="" Desc="" ReturnType="bool" Class="HTNAgentTravel" Public="true">
-        <Param DisplayName="f" Desc="f" Type="int&amp;" IsRef="true" />
+        <Param DisplayName="f" Desc="f" Type="int" IsRef="true" />
       </Method>
       <Method Name="exist_start" DisplayName="" Desc="" ReturnType="bool" Class="HTNAgentTravel" Public="true">
-        <Param DisplayName="s" Desc="s" Type="int&amp;" IsRef="true" />
+        <Param DisplayName="s" Desc="s" Type="int" IsRef="true" />
       </Method>
       <Method Name="fly" DisplayName="" Desc="" ReturnType="void" Class="HTNAgentTravel" Public="true">
         <Param DisplayName="x" Desc="x" Type="int" />
@@ -367,34 +365,34 @@
       <Member Name="TV_LIST_SBYTE_0" DisplayName="0 # TV_LIST_SBYTE_0" Desc="A" Type="vector&lt;sbyte&gt;" Class="ParTestAgentBase" Public="true" />
       <Member Name="STV_LIST_SBYTE_0" DisplayName="0 # STV_LIST_SBYTE_0" Desc="A" Type="vector&lt;sbyte&gt;" Class="ParTestAgentBase" Static="true" Public="true" />
       <Method Name="Func_eColorRef" DisplayName="0 # UPR_eColor" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="TNS::NE::NAT::eColor&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="TNS::NE::NAT::eColor" IsRef="true" />
       </Method>
       <Method Name="Func_BooleanRef" DisplayName="0 # UPR_Boolean" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="bool&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="bool" IsRef="true" />
       </Method>
       <Method Name="Func_CharRef" DisplayName="0 # UPR_Char" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="char&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="char" IsRef="true" />
       </Method>
       <Method Name="Func_ByteRef" DisplayName="0 # UPR_Byte" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="ubyte&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="ubyte" IsRef="true" />
       </Method>
       <Method Name="Func_SByteRef" DisplayName="0 # UPR_SByte" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="sbyte&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="sbyte" IsRef="true" />
       </Method>
       <Method Name="Func_eColorListRef" DisplayName="0 # UPR_eColorList" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;TNS::NE::NAT::eColor&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;TNS::NE::NAT::eColor&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_BooleanListRef" DisplayName="0 # UPR_BooleanList" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;bool&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;bool&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_CharListRef" DisplayName="0 # UPR_CharList" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;char&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;char&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_ByteListRef" DisplayName="0 # UPR_ByteList" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;ubyte&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;ubyte&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_SByteListRef" DisplayName="0 # UPR_SByteList" Desc="A" ReturnType="void" Class="ParTestAgentBase" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;sbyte&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;sbyte&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_eColorIR" DisplayName="0 # PIR_eColor" Desc="A" ReturnType="TNS::NE::NAT::eColor" Class="ParTestAgentBase" Public="true">
         <Param DisplayName="par" Desc="par" Type="TNS::NE::NAT::eColor" />
@@ -455,25 +453,25 @@
       <Member Name="TV_LIST_KEMPLOYEE_0" DisplayName="1 # TV_LIST_KEMPLOYEE_0" Desc="A" Type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" Class="ParTestAgent" Public="true" />
       <Member Name="STV_LIST_KEMPLOYEE_0" DisplayName="1 # STV_LIST_KEMPLOYEE_0" Desc="A" Type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" Class="ParTestAgent" Static="true" Public="true" />
       <Method Name="Func_ShortRef" DisplayName="1 # UPR_Short" Desc="A" ReturnType="void" Class="ParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="short&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="short" IsRef="true" />
       </Method>
       <Method Name="Func_IntRef" DisplayName="1 # UPR_Int" Desc="A" ReturnType="void" Class="ParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="int&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="int" IsRef="true" />
       </Method>
       <Method Name="Func_LongRef" DisplayName="1 # UPR_Long" Desc="A" ReturnType="void" Class="ParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="long&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="long" IsRef="true" />
       </Method>
       <Method Name="Func_UShortRef" DisplayName="1 # UPR_UShort" Desc="A" ReturnType="void" Class="ParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="ushort&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="ushort" IsRef="true" />
       </Method>
       <Method Name="Func_kEmployeeRef" DisplayName="1 # UPR_kEmployee" Desc="A" ReturnType="void" Class="ParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="TNS::ST::PER::WRK::kEmployee&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="TNS::ST::PER::WRK::kEmployee" IsRef="true" />
       </Method>
       <Method Name="Func_IntListRef" DisplayName="1 # UPR_IntList" Desc="A" ReturnType="void" Class="ParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;int&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;int&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_kEmployeeListRef" DisplayName="1 # UPR_kEmployeeList" Desc="A" ReturnType="void" Class="ParTestAgent" Public="true">
-        <Param DisplayName="par" Desc="par" Type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;&amp;" IsRef="true" />
+        <Param DisplayName="par" Desc="par" Type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" IsRef="true" />
       </Method>
       <Method Name="Func_ShortIR" DisplayName="1 # PIR_Short" Desc="A" ReturnType="short" Class="ParTestAgent" Public="true">
         <Param DisplayName="par" Desc="par" Type="short" />
@@ -553,7 +551,7 @@
       <Member Name="PropertyGetterSetter" DisplayName="" Desc="" Type="int" Class="PropertyReadonlyAgent" Public="true" />
       <Member Name="PropertyGetterOnly" DisplayName="" Desc="" Type="int" Class="PropertyReadonlyAgent" Readonly="true" Public="true" />
       <Method Name="FnWithOutParam" DisplayName="" Desc="" ReturnType="void" Class="PropertyReadonlyAgent" Public="true">
-        <Param DisplayName="param" Desc="param" Type="int&amp;" IsOut="true" />
+        <Param DisplayName="param" Desc="param" Type="int" IsOut="true" />
       </Method>
       <Method Name="PassInProperty" DisplayName="" Desc="" ReturnType="void" Class="PropertyReadonlyAgent" Public="true">
         <Param DisplayName="param" Desc="param" Type="int" />

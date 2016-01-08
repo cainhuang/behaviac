@@ -487,8 +487,8 @@ namespace behaviac
                             pos = SkipPairedBrackets(pos + 1);
                         }
 
-                        const char* posNext = strchr(pos + 1, '|');
-                        pos = posNext;
+                        const char* posNext1 = strchr(pos + 1, '|');
+                        pos = posNext1;
                     }
                     else
                     {

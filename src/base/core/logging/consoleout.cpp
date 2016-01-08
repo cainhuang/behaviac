@@ -376,7 +376,7 @@ namespace behaviac
         int index = s_index++;
         const int kMaxStringLength = 2048;
         char temp[kMaxStringLength];
-#if !BEHAVIAC_COMPILER_GCC_LINUX
+#if BEHAVIAC_COMPILER_MSVC
         string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %04d][%s][%s]%s", index, (int)threadId, szTime, LogFilterStr, pStr);
 #else
 		string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %p][%s][%s]%s", index, threadId, szTime, LogFilterStr, pStr);

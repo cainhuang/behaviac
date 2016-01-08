@@ -1,3 +1,10 @@
+2016-01-08	3.2.19
+	Fix a bug for debug connection.
+	Fix a bug for the GetCpuId() method.
+
+2016-01-07	3.2.18
+	Improve the BEHAVIAC_RELEASE for C++.
+
 2016-01-04	3.2.17
 	Add the FrameSinceStartup for the workspace.
 	Fix a bug for the agent instance as a member.

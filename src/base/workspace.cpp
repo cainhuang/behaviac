@@ -36,28 +36,28 @@ namespace behaviac
 
     bool IsStarted();
 
-#if BEHAVIAC_COMPILER_MSVC || BEHAVIAC_COMPILER_GCC_CYGWIN || BEHAVIAC_COMPILER_GCC_LINUX
+#if BEHAVIAC_COMPILER_MSVC || BEHAVIAC_COMPILER_GCC_CYGWIN || BEHAVIAC_COMPILER_GCC_LINUX || (BEHAVIAC_COMPILER_APPLE && !BEHAVIAC_COMPILER_APPLE_IPHONE)
     const  bool Config::ms_bIsDesktopPlatform = true;
 #else
     const bool Config::ms_bIsDesktopPlatform = false;
 #endif
 
     bool Config::ms_bIsLogging =
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         false;
 #else
         false;
 #endif//BEHAVIAC_RELEASE
 
     bool Config::ms_bIsSocketing =
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         true;
 #else
         false;
 #endif//BEHAVIAC_RELEASE
 
     bool Config::ms_bProfiling =
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         false;
 #else
         false;
@@ -963,11 +963,11 @@ namespace behaviac
 
             if (bOk)
             {
-                BehaviorTrees_t::iterator it = m_behaviortrees.find(relativePath);
+                BehaviorTrees_t::iterator it1 = m_behaviortrees.find(relativePath);
 
-                if (it != m_behaviortrees.end())
+                if (it1 != m_behaviortrees.end())
                 {
-                    bt = it->second;
+                    bt = it1->second;
                 }
             }
         }
@@ -987,9 +987,9 @@ namespace behaviac
 					m_allBehaviorTreeTasks = BEHAVIAC_NEW AllBehaviorTreeTasks_t;
 				}
 
-				AllBehaviorTreeTasks_t::iterator it = m_allBehaviorTreeTasks->find(relativePath);
+				AllBehaviorTreeTasks_t::iterator it1 = m_allBehaviorTreeTasks->find(relativePath);
 
-				if (it == m_allBehaviorTreeTasks->end())
+				if (it1 == m_allBehaviorTreeTasks->end())
 				{
 					(*m_allBehaviorTreeTasks)[relativePath] = BTItem_t();
 				}
@@ -1188,9 +1188,9 @@ namespace behaviac
 
 								if (taskCount > 0)
 								{
-									for (uint32_t i = 0; i < taskCount; ++i)
+									for (uint32_t j = 0; j < taskCount; ++j)
 									{
-										BehaviorTreeTask* behaviorTreeTask = btItems.bts[i];
+										BehaviorTreeTask* behaviorTreeTask = btItems.bts[j];
 										BEHAVIAC_ASSERT(behaviorTreeTask);
 
 										//BEHAVIAC_LOGWARNING("HotReload 2:%s\n", behaviorTreeTask->GetName().c_str());
@@ -1339,7 +1339,7 @@ namespace behaviac
     void Workspace::ParseProperty(const behaviac::vector<behaviac::string>& tokens)
     {
         BEHAVIAC_UNUSED_VAR(tokens);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
         const behaviac::string& agentName = tokens[1];
         Agent* pAgent = Agent::GetAgent(agentName.c_str());
 
@@ -1383,7 +1383,7 @@ namespace behaviac
 
     void Workspace::WaitforContinue()
     {
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 
         while (!HandleRequests())
         {
@@ -1397,7 +1397,7 @@ namespace behaviac
     {
         bool bContinue = false;
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 
         if (Config::IsSocketing())
         {
@@ -1476,9 +1476,9 @@ namespace behaviac
         return bContinue;
     }
 
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
     //behaviac::string GetTickInfo(const behaviac::Agent* pAgent, const behaviac::BehaviorTask* b, const char* action);
-#endif//#if !defined(BEHAVIAC_RELEASE)
+#endif//#if !BEHAVIAC_RELEASE
 
     bool Workspace::CheckBreakpoint(const behaviac::Agent* pAgent, const behaviac::BehaviorNode* b, const char* action, EActionResult actionResult)
     {
@@ -1486,7 +1486,7 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(b);
         BEHAVIAC_UNUSED_VAR(action);
         BEHAVIAC_UNUSED_VAR(actionResult);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 
         if (Config::IsSocketing())
         {
@@ -1516,7 +1516,7 @@ namespace behaviac
             }
         }
 
-#endif//#if !defined(BEHAVIAC_RELEASE)
+#endif//#if !BEHAVIAC_RELEASE
         return false;
     }
 
