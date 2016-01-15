@@ -483,7 +483,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opl);
-			bool opl = ((framework::WorldState*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_SyncSignal, bool >();
+			bool& opl = ((framework::WorldState*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_SyncSignal, bool >();
 			bool opr = true;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -637,7 +637,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::GameObject");
 			BEHAVIAC_ASSERT(pAgent_opl);
-			unsigned int opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
+			unsigned int& opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			unsigned int opr = 50;
 			bool op = Details::Greater(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -712,7 +712,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::GameObject");
 			BEHAVIAC_ASSERT(pAgent_opl);
-			unsigned int opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
+			unsigned int& opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			unsigned int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -792,7 +792,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::GameObject");
 			BEHAVIAC_ASSERT(pAgent_opl);
-			unsigned int opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
+			unsigned int& opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			unsigned int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -813,7 +813,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opl);
-			unsigned int opl = ((framework::WorldState*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_time, unsigned int >();
+			unsigned int& opl = ((framework::WorldState*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_time, unsigned int >();
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_test_d") == 2595852450u);
 			unsigned int& opr = (unsigned int&)pAgent->GetVariable<unsigned int >(2595852450u);
 			bool op = Details::Equal(opl, opr);
@@ -936,7 +936,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			Agent* pAgent_opl = Agent::GetInstance(pAgent, "framework::GameObject");
 			BEHAVIAC_ASSERT(pAgent_opl);
-			unsigned int opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
+			unsigned int& opl = ((framework::GameObject*)pAgent_opl)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			unsigned int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -1464,10 +1464,10 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			unsigned int opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
+			unsigned int& opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			Agent* pAgent_opr = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opr);
-			unsigned int opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
+			unsigned int& opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
 			bool op = Details::Greater(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
 		}
@@ -1679,10 +1679,10 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			unsigned int opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
+			unsigned int& opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			Agent* pAgent_opr = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opr);
-			unsigned int opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
+			unsigned int& opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
 			bool op = Details::LessEqual(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
 		}
@@ -1864,10 +1864,10 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			unsigned int opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
+			unsigned int& opl = ((framework::GameObject*)pAgent)->_Get_Property_<framework::PROPERTY_TYPE_framework_GameObject_HP, unsigned int >();
 			Agent* pAgent_opr = Agent::GetInstance(pAgent, "framework::WorldState");
 			BEHAVIAC_ASSERT(pAgent_opr);
-			unsigned int opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
+			unsigned int& opr = ((framework::WorldState*)pAgent_opr)->_Get_Property_<framework::PROPERTY_TYPE_framework_WorldState_HealthHP, unsigned int >();
 			bool op = Details::LessEqual(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
 		}

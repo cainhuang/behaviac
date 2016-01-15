@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Behaviac.Design;
 using Behaviac.Design.Attributes;
 
 namespace PluginBehaviac.DataExporters
@@ -107,6 +108,20 @@ namespace PluginBehaviac.DataExporters
                         else
                         {
                             ParameterCppExporter.GenerateCode(method.Params[i], stream, indent, basicNativeType, param, caller);
+                        }
+                    }
+
+                    VariableDef v = method.Params[i].Value as VariableDef;
+                    if (v != null && v.ArrayIndexElement != null)
+                    {
+                        PropertyDef prop = method.Params[i].Property;
+                        if (prop != null && prop.IsArrayElement)
+                        {
+                            string property = PropertyCppExporter.GetProperty(prop, v.ArrayIndexElement, stream, indent, param, caller);
+                            string propName = prop.BasicName.Replace("[]", "");
+
+                            ParameterCppExporter.GenerateCode(v.ArrayIndexElement, stream, indent, "int", param + "_index", param + caller);
+                            param = string.Format("({0})[{1}_index]", property, param);
                         }
                     }
                 }

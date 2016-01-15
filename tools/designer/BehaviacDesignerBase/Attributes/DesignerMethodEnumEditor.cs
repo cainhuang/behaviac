@@ -147,7 +147,8 @@ namespace Behaviac.Design.Attributes
 
                 _methods = getMethods();
 
-                if (_methods.Count > 0) {
+                if (_methods.Count > 0 && CheckMethods(_methods))
+                {
                     if (string.IsNullOrEmpty(comboBox.Text)) {
                         foreach(MethodDef md in _methods) {
                             if (!comboBox.Items.Contains(md.DisplayName))

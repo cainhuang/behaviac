@@ -45,8 +45,7 @@ namespace behaviac
             if (this.m_time_var != null)
             {
                 Debug.Check(this.m_time_var != null);
-                int time = (int)this.m_time_var.GetValue(pAgent);
-
+                float time = (float)System.Convert.ToDouble(this.m_time_var.GetValue(pAgent));
                 return time;
             }
 

@@ -188,38 +188,44 @@ namespace Behaviac.Design.Attributes
 
         public static bool parseParam(List<Nodes.Node.ErrorCheck> result, DefaultObject node, MethodDef method, MethodDef.Param par, string param)
         {
-            string[] tokens = null;
+            string propName = null;
 
-            if (param[0] == '\"') {
+            if (param[0] == '\"')
+            {
                 param = param.Substring(1, param.Length - 2);
-
-            } else if (param[0] == '{') {
-                //struct
-
+            }
+            else if (param[0] == '{') //struct
+            {
                 //to set it as action.Method is used in the following parsing
                 Nodes.Action action = node as Nodes.Action;
 
-                if (action != null) {
+                if (action != null)
+                {
                     action.Method = method;
                 }
-
-            } else {
-                tokens = param.Split(' ');
             }
-
+            else
+            {
+                string noStaticParam = param.Replace("static ", "");
+                int index = noStaticParam.IndexOf(" ");
+                if (index >= 0)
+                    propName = noStaticParam.Substring(index + 1);
+            }
 
             bool bOk = false;
 
-            if (tokens != null && tokens.Length > 1) {
-                //par
-                VariableDef var = setParameter(result, node, tokens[tokens.Length - 1]);
+            if (propName != null)
+            {
+                VariableDef var = setParameter(result, node, propName);
 
-                if (var != null) {
+                if (var != null)
+                {
                     par.Value = var;
                     bOk = true;
                 }
-
-            } else {
+            }
+            else
+            {
                 bOk = Plugin.InvokeTypeParser(result, par.Type, param, (object value) => par.Value = value, node, par.Name);
             }
 
@@ -237,11 +243,6 @@ namespace Behaviac.Design.Attributes
             for (; index < tsrcLen; ++index) {
                 if (tsrc[index] == '"') {
                     quoteDepth++;
-
-                    //if (quoteDepth == 1)
-                    //{
-                    //    startIndex = index;
-                    //}
 
                     if ((quoteDepth & 0x1) == 0) {
                         //closing quote
@@ -273,7 +274,8 @@ namespace Behaviac.Design.Attributes
             Debug.Check(tokens.Count > 0);
             string arrayIndexStr = null;
 
-            if (tokens.Count > 1) {
+            if (tokens.Count > 1)
+            {
                 propertyName = tokens[0] + "[]";
                 arrayIndexStr = tokens[1];
             }

@@ -845,4 +845,10 @@ Are your sure continue the undo/redo operation?</value>
   <data name="CustomizedAgentError" xml:space="preserve">
     <value>The customized agent can not be exported! You should firstly implement the agent on the runtime part and then export it as meta info into the editor.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MethodWithSameDisplayName" xml:space="preserve">
+    <value>The methods "{0}" and "{1}" have the same display name "{2}". Please modify their display name, and then export them as the meta info.</value>
+  </data>
 </root>

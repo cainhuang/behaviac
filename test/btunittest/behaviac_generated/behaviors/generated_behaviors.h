@@ -5179,9 +5179,9 @@ namespace behaviac
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("start") == 537854745u);
 			int& opl_p0 = (int&)pAgent->GetVariable<int >(537854745u);
 			bool opl = ((HTNAgentTravel*)pAgent)->_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_start, bool, int& >(opl_p0);
-			bool opr2 = true;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("start") == 537854745u);
 			pAgent->SetVariable("start", opl_p0, 537854745u);
+			bool opr2 = true;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
 				result = BT_FAILURE;
@@ -5205,9 +5205,9 @@ namespace behaviac
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("finish") == 3620922618u);
 			int& opl_p0 = (int&)pAgent->GetVariable<int >(3620922618u);
 			bool opl = ((HTNAgentTravel*)pAgent)->_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_finish, bool, int& >(opl_p0);
-			bool opr2 = true;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("finish") == 3620922618u);
 			pAgent->SetVariable("finish", opl_p0, 3620922618u);
+			bool opr2 = true;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
 				result = BT_FAILURE;
@@ -5537,9 +5537,9 @@ namespace behaviac
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("as") == 2746731747u);
 			behaviac::vector<int>& opl_p1 = (behaviac::vector<int>&)pAgent->GetVariable<behaviac::vector<int> >(2746731747u);
 			bool opl = ((HTNAgentTravel*)pAgent)->_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_airports, bool, int, behaviac::vector<int>& >(opl_p0, opl_p1);
-			bool opr2 = true;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("as") == 2746731747u);
 			pAgent->SetVariable("as", opl_p1, 2746731747u);
+			bool opr2 = true;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
 				result = BT_FAILURE;
@@ -5565,9 +5565,9 @@ namespace behaviac
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("ay") == 1498948713u);
 			int& opl_p1 = (int&)pAgent->GetVariable<int >(1498948713u);
 			bool opl = ((HTNAgentTravel*)pAgent)->_Execute_Method_<METHOD_TYPE_HTNAgentTravel_exist_airport, bool, int, int& >(opl_p0, opl_p1);
-			bool opr2 = true;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("ay") == 1498948713u);
 			pAgent->SetVariable("ay", opl_p1, 1498948713u);
+			bool opr2 = true;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
 				result = BT_FAILURE;
@@ -5779,7 +5779,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both, int >();
+			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -5818,7 +5818,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
+			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -5894,7 +5894,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
+			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -6092,7 +6092,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
+			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -6114,7 +6114,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
+			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -6136,7 +6136,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both, int >();
+			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -6642,6 +6642,88 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_0
 
+	class Assignment_bt_node_test_action_ut_0_node12 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_action_ut_0_node12, Assignment);
+		Assignment_bt_node_test_action_ut_0_node12()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "par_child");
+			BEHAVIAC_ASSERT(pAgent_opr);
+			int opr = ((AgentNodeTest*)pAgent_opr)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = opr;
+			return result;
+		}
+	};
+
+	class Condition_bt_node_test_action_ut_0_node13 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_action_ut_0_node13, Condition);
+		Condition_bt_node_test_action_ut_0_node13()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "par_child");
+			BEHAVIAC_ASSERT(pAgent_opr);
+			int& opr = ((AgentNodeTest*)pAgent_opr)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
+	class Assignment_bt_node_test_action_ut_0_node10 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_action_ut_0_node10, Assignment);
+		Assignment_bt_node_test_action_ut_0_node10()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			Agent* pAgent_opr = Agent::GetInstance(pAgent, "par_child");
+			BEHAVIAC_ASSERT(pAgent_opr);
+			int opr = ((AgentNodeTest*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstOne, int >();
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = opr;
+			return result;
+		}
+	};
+
+	class Condition_bt_node_test_action_ut_0_node11 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_action_ut_0_node11, Condition);
+		Condition_bt_node_test_action_ut_0_node11()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int opr = 1;
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
 	class Condition_bt_node_test_action_ut_0_node8 : public Condition
 	{
 	public:
@@ -6656,8 +6738,8 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			Agent* pAgent_opl = Agent::GetInstance(pAgent, "par_child");
 			BEHAVIAC_ASSERT(pAgent_opl);
-			float opl = ((AgentNodeTest*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
-			float opr = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3, float >();
+			float& opl = ((AgentNodeTest*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float& opr = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3, float >();
 			bool op = Details::Greater(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
 		}
@@ -6849,6 +6931,46 @@ namespace behaviac
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
+				{
+					Assignment_bt_node_test_action_ut_0_node12* node12 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_0_node12;
+					node12->SetClassNameString("Assignment");
+					node12->SetId(12);
+#if !BEHAVIAC_RELEASE
+					node12->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node12);
+					node0->SetHasEvents(node0->HasEvents() | node12->HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_0_node13* node13 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_0_node13;
+					node13->SetClassNameString("Condition");
+					node13->SetId(13);
+#if !BEHAVIAC_RELEASE
+					node13->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node13);
+					node0->SetHasEvents(node0->HasEvents() | node13->HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_0_node10* node10 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_0_node10;
+					node10->SetClassNameString("Assignment");
+					node10->SetId(10);
+#if !BEHAVIAC_RELEASE
+					node10->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node10);
+					node0->SetHasEvents(node0->HasEvents() | node10->HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_0_node11* node11 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_0_node11;
+					node11->SetClassNameString("Condition");
+					node11->SetId(11);
+#if !BEHAVIAC_RELEASE
+					node11->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node11);
+					node0->SetHasEvents(node0->HasEvents() | node11->HasEvents());
+				}
 				{
 					Condition_bt_node_test_action_ut_0_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_0_node8;
 					node8->SetClassNameString("Condition");
@@ -7283,6 +7405,111 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_2
 
+	class Assignment_bt_node_test_action_ut_2_node7 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_action_ut_2_node7, Assignment);
+		Assignment_bt_node_test_action_ut_2_node7()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr = 1;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_int_type_0") == 4028995106u);
+			pAgent->SetVariable("par_int_type_0", opr, 4028995106u);
+			return result;
+		}
+	};
+
+	class Assignment_bt_node_test_action_ut_2_node6 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_action_ut_2_node6, Assignment);
+		Assignment_bt_node_test_action_ut_2_node6()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr = 5;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("test_int_array") == 4065205216u);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_int_type_0") == 4028995106u);
+			int& opl_index = (int&)pAgent->GetVariable<int >(4028995106u);
+			((behaviac::vector<int>&)pAgent->GetVariable<behaviac::vector<int> >(4065205216u))[opl_index] = opr;
+			return result;
+		}
+	};
+
+	class Condition_bt_node_test_action_ut_2_node8 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_action_ut_2_node8, Condition);
+		Condition_bt_node_test_action_ut_2_node8()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("test_int_array") == 4065205216u);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_int_type_0") == 4028995106u);
+			int& opl_index = (int&)pAgent->GetVariable<int >(4028995106u);
+			int& opl = ((behaviac::vector<int>&)pAgent->GetVariable<behaviac::vector<int> >(4065205216u))[opl_index];
+			int opr = 5;
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
+	class Action_bt_node_test_action_ut_2_node9 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_action_ut_2_node9, Action);
+		Action_bt_node_test_action_ut_2_node9()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("test_int_array") == 4065205216u);
+			vector<int >& method_p0 = (vector<int >&)pAgent->GetVariable<vector<int > >(4065205216u);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("test_int_array") == 4065205216u);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_int_type_0") == 4028995106u);
+			int& method_p0_index = (int&)pAgent->GetVariable<int >(4028995106u);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_0, void, int >(((behaviac::vector<int>&)pAgent->GetVariable<behaviac::vector<int> >(4065205216u))[method_p0_index]);
+			return BT_SUCCESS;
+		}
+	};
+
+	class Condition_bt_node_test_action_ut_2_node10 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_action_ut_2_node10, Condition);
+		Condition_bt_node_test_action_ut_2_node10()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int opr = 5;
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
 	class Compute_bt_node_test_action_ut_2_node1 : public Compute
 	{
 	public:
@@ -7410,6 +7637,56 @@ namespace behaviac
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
+				{
+					Assignment_bt_node_test_action_ut_2_node7* node7 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_2_node7;
+					node7->SetClassNameString("Assignment");
+					node7->SetId(7);
+#if !BEHAVIAC_RELEASE
+					node7->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node7);
+					node0->SetHasEvents(node0->HasEvents() | node7->HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_2_node6* node6 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_2_node6;
+					node6->SetClassNameString("Assignment");
+					node6->SetId(6);
+#if !BEHAVIAC_RELEASE
+					node6->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node6);
+					node0->SetHasEvents(node0->HasEvents() | node6->HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_2_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_2_node8;
+					node8->SetClassNameString("Condition");
+					node8->SetId(8);
+#if !BEHAVIAC_RELEASE
+					node8->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node8);
+					node0->SetHasEvents(node0->HasEvents() | node8->HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_2_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_action_ut_2_node9;
+					node9->SetClassNameString("Action");
+					node9->SetId(9);
+#if !BEHAVIAC_RELEASE
+					node9->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node9);
+					node0->SetHasEvents(node0->HasEvents() | node9->HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_2_node10* node10 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_2_node10;
+					node10->SetClassNameString("Condition");
+					node10->SetId(10);
+#if !BEHAVIAC_RELEASE
+					node10->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node10);
+					node0->SetHasEvents(node0->HasEvents() | node10->HasEvents());
+				}
 				{
 					Compute_bt_node_test_action_ut_2_node1* node1 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_2_node1;
 					node1->SetClassNameString("Compute");
@@ -7665,7 +7942,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -7791,7 +8068,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -7810,7 +8087,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -7829,7 +8106,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
 			float opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -7995,7 +8272,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -8014,7 +8291,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -8033,7 +8310,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
 			float opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -8284,7 +8561,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -8448,7 +8725,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -8486,7 +8763,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstOne, int >();
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -10375,7 +10652,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -10517,7 +10794,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
 			float opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -10536,7 +10813,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -10698,7 +10975,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -10717,7 +10994,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -10736,7 +11013,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3, float >();
+			float& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3, float >();
 			float opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -12600,7 +12877,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -12844,7 +13121,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -13068,7 +13345,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -13875,7 +14152,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -14130,7 +14407,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -15534,7 +15811,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15575,7 +15852,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15687,7 +15964,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15709,7 +15986,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15750,7 +16027,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15772,7 +16049,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15904,7 +16181,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15926,7 +16203,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15948,7 +16225,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			float opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
 			float opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15989,7 +16266,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr2 = 0;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -16011,7 +16288,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -16033,7 +16310,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			float opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
 			float opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -16185,7 +16462,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr2 = -1;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -16257,7 +16534,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -16423,7 +16700,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -16589,7 +16866,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -16755,7 +17032,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -16774,7 +17051,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -16960,7 +17237,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -16979,7 +17256,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -17165,7 +17442,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -17184,7 +17461,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -17203,7 +17480,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
 			float opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -17438,7 +17715,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -17604,7 +17881,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -17770,7 +18047,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -17936,7 +18213,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -17955,7 +18232,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -18141,7 +18418,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -18160,7 +18437,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -18346,7 +18623,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
 			int opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -18365,7 +18642,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -18384,7 +18661,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
 			float opr = -1;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -21372,7 +21649,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			int opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
 			int opr2 = 10;
 			bool op = Details::GreaterEqual(opl, opr2);
 			if (!op)
@@ -23506,7 +23783,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			EnumTest opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor, EnumTest >();
+			EnumTest& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor, EnumTest >();
 			EnumTest opr = EnumTest_One;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -23544,7 +23821,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			EnumTest opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor, EnumTest >();
+			EnumTest& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor, EnumTest >();
 			EnumTest opr = EnumTest_OneAfterOne;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -23601,7 +23878,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			EnumTest opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor, EnumTest >();
+			EnumTest& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor, EnumTest >();
 			EnumTest opr = EnumTest_One;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -23639,7 +23916,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			EnumTest opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor, EnumTest >();
+			EnumTest& opl = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor, EnumTest >();
 			EnumTest opr = EnumTest_OneAfterOne;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -32819,8 +33096,8 @@ namespace behaviac
 			EBTStatus result = BT_SUCCESS;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_ListInts") == 2521109666u);
 			vector<int >& opr = (vector<int >&)pAgent->GetVariable<vector<int > >(2521109666u);
-			int opr_index = 0;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_Int") == 3849503314u);
+			int opr_index = 0;
 			pAgent->SetVariable("c_Int", (opr)[opr_index], 3849503314u);
 			return result;
 		}
@@ -32841,8 +33118,8 @@ namespace behaviac
 			EBTStatus result = BT_SUCCESS;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("l_ListInts") == 96329828u);
 			vector<int >& opr = (vector<int >&)pAgent->GetVariable<vector<int > >(96329828u);
-			int opr_index = 0;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("l_Int") == 337932423u);
+			int opr_index = 0;
 			pAgent->SetVariable("l_Int", (opr)[opr_index], 337932423u);
 			return result;
 		}

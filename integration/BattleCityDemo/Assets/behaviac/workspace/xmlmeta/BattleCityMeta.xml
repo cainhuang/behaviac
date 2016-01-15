@@ -57,15 +57,15 @@
       </Method>
       <Method Name="VectorAdd" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
-        <Param DisplayName="element" Desc="element" Type="System::Object" />
+        <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorRemove" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
-        <Param DisplayName="element" Desc="element" Type="System::Object" />
+        <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorContains" DisplayName="" Desc="" ReturnType="bool" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
-        <Param DisplayName="element" Desc="element" Type="System::Object" />
+        <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorClear" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
@@ -182,9 +182,9 @@
         <Param DisplayName="y" Desc="y" Type="int" />
         <Param DisplayName="lifeTime" Desc="lifeTime" Type="float" />
       </Method>
-      <Method Name="spawnEffect" DisplayName="" Desc="" ReturnType="UnityEngine::Transform" Class="GameLevelCommon" Public="true">
+      <Method Name="spawnEffect" DisplayName="" Desc="" ReturnType="UnityEngine::Transform*" Class="GameLevelCommon" Public="true">
         <Param DisplayName="fileName" Desc="fileName" Type="string" />
-        <Param DisplayName="parent" Desc="parent" Type="UnityEngine::Transform" />
+        <Param DisplayName="parent" Desc="parent" Type="UnityEngine::Transform*" />
         <Param DisplayName="tr" Desc="tr" Type="UnityEngine::Vector3" />
         <Param DisplayName="sc" Desc="sc" Type="float" />
       </Method>
@@ -234,14 +234,14 @@
         <Param DisplayName="position" Desc="position" Type="UnityEngine::Vector3" />
       </Method>
       <Method Name="getTarget" DisplayName="" Desc="" ReturnType="void" Class="Player" Public="true">
-        <Param DisplayName="target" Desc="target" Type="UnityEngine::Vector3&amp;" IsRef="true" />
+        <Param DisplayName="target" Desc="target" Type="UnityEngine::Vector3" IsRef="true" />
       </Method>
       <Method Name="moveto" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Player">
         <Param DisplayName="targetPos" Desc="targetPos" Type="UnityEngine::Vector3" />
       </Method>
       <Method Name="getInfo" DisplayName="" Desc="" ReturnType="void" Class="Player" Public="true">
-        <Param DisplayName="w" Desc="w" Type="float&amp;" IsRef="true" />
-        <Param DisplayName="index" Desc="index" Type="int&amp;" IsRef="true" />
+        <Param DisplayName="w" Desc="w" Type="float" IsRef="true" />
+        <Param DisplayName="index" Desc="index" Type="int" IsRef="true" />
       </Method>
       <Method Name="printf" DisplayName="" Desc="" ReturnType="void" Class="Player" Public="true">
         <Param DisplayName="w" Desc="w" Type="float" />

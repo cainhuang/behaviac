@@ -843,4 +843,10 @@
   <data name="CustomizedAgentError" xml:space="preserve">
     <value>不能导出自定义的Agent类型，请先在运行时端实现该Agent类并导出为元信息到编辑器中。</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="MethodWithSameDisplayName" xml:space="preserve">
+    <value>方法"{0}"和"{1}"具有相同的显示名 "{2}"，请修改它们的显示名，并重新导出为元信息后再使用。</value>
+  </data>
 </root>

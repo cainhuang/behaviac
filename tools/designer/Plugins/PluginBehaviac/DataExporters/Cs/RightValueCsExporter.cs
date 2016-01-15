@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -66,7 +66,7 @@ namespace PluginBehaviac.DataExporters
             if (rightValue.IsMethod)
             {
                 string className = rightValue.Method.ClassName.Replace("::", ".");
-                MethodCsExporter.PostGenerateCode(rightValue.Method, stream, indent, rightValue.Method.NativeReturnType, var, string.Format("(({0}*)pAgent_{1})", className, var));
+                MethodCsExporter.PostGenerateCode(rightValue.Method, stream, indent, rightValue.Method.NativeReturnType, var, string.Format("(({0})pAgent_{1})", className, var));
             }
             else
             {

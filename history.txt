@@ -1,3 +1,10 @@
+2016-01-15	3.2.21
+	Fix a bug for the behavior task.
+	Fix a bug for the DecoratorTime node.
+
+2016-01-12	3.2.20
+	Fix a bug for the array item as the parameter of the method.
+
 2016-01-08	3.2.19
 	Fix a bug for debug connection.
 	Fix a bug for the GetCpuId() method.

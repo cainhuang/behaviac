@@ -142,7 +142,8 @@ namespace Behaviac.Design.Attachments
             if (refB.Children.Count > 0 && refB.Children[0] is Task)
             {
                 Task rootTask = refB.Children[0] as Task;
-                this._task = (MethodDef)rootTask.Prototype.Clone();
+                if (rootTask.Prototype != null)
+                    this._task = (MethodDef)rootTask.Prototype.Clone();
             }
         }
 

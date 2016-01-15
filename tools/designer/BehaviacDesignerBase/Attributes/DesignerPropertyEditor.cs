@@ -38,6 +38,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using Behaviac.Design.Properties;
 
 namespace Behaviac.Design.Attributes
 {
@@ -87,6 +88,24 @@ namespace Behaviac.Design.Attributes
 
                 return instanceNames;
             }
+        }
+
+        protected bool CheckMethods(List<MethodDef> methods)
+        {
+            for (int i = 0; i < methods.Count - 1; ++i)
+            {
+                for (int k = i + 1; k < methods.Count; ++k)
+                {
+                    if (!string.IsNullOrEmpty(methods[i].DisplayName) && methods[i].DisplayName == methods[k].DisplayName)
+                    {
+                        string errorInfo = string.Format(Resources.MethodWithSameDisplayName, methods[i].BasicName, methods[k].BasicName, methods[i].DisplayName);
+                        MessageBox.Show(errorInfo, Resources.Error);
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         protected Type _filterType = null;

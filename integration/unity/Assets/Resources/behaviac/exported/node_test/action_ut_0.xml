@@ -10,6 +10,24 @@
     <par name="par_child" type="ChildNodeTest" value="null" />
   </pars>
   <node class="Sequence" id="0">
+    <node class="Assignment" id="12">
+      <property Opl="int Self.AgentNodeTest::testVar_0" />
+      <property Opr="int par_child.AgentNodeTest::testVar_1" />
+    </node>
+    <node class="Condition" id="13">
+      <property Operator="Equal" />
+      <property Opl="int Self.AgentNodeTest::testVar_0" />
+      <property Opr="int par_child.AgentNodeTest::testVar_1" />
+    </node>
+    <node class="Assignment" id="10">
+      <property Opl="int Self.AgentNodeTest::testVar_0" />
+      <property Opr="par_child.AgentNodeTest::getConstOne()" />
+    </node>
+    <node class="Condition" id="11">
+      <property Operator="Equal" />
+      <property Opl="int Self.AgentNodeTest::testVar_0" />
+      <property Opr="const int 1" />
+    </node>
     <node class="Condition" id="8">
       <property Operator="Greater" />
       <property Opl="float par_child.AgentNodeTest::testVar_2" />

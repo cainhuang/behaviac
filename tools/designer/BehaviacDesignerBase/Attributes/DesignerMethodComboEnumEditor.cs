@@ -189,8 +189,8 @@ namespace Behaviac.Design.Attributes
         }
 
         private void setValueComboBox() {
-            if (_methods.Count == 0)
-            { return; }
+            if (_methods.Count == 0 || !CheckMethods(_methods))
+                return;
 
             if (string.IsNullOrEmpty(valueComboBox.Text)) {
                 foreach(MethodDef md in _methods) {

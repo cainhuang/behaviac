@@ -110,36 +110,48 @@ public:
         }
     }
 
-    virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode, const char* paramName)
-    {
-        BEHAVIAC_UNUSED_VAR(parent);
+	virtual void LoadFromXML(CTagObject* parent, const behaviac::ISerializableNode& xmlNode, const char* paramName)
+	{
+		BEHAVIAC_UNUSED_VAR(parent);
 
-        behaviac::CSerializationID id(paramName);
-        const char* str = xmlNode.getAttrRaw(id);
+		behaviac::CSerializationID id(paramName);
+		const char* str = xmlNode.getAttrRaw(id);
 
-        if (str)
-        {
-            //str[0] = '"', then it is a string
-            if (str[0] != '"' && strchr(str, ' '))
-            {
-                behaviac::vector<behaviac::string> tokens;
-                behaviac::StringUtils::SplitIntoArray(str, " ", tokens);
+		if (str)
+		{
+			//str[0] = '"', then it is a string                                                                                                                                                                                            
+			if (str[0] != '"' && strchr(str, ' '))
+			{
+				behaviac::vector<behaviac::string> tokens;
+				char* arrayindex = (char*)strchr(str, '[');
+				if (arrayindex == NULL)
+				{
+					behaviac::StringUtils::SplitIntoArray(str, " ", tokens);
 
-                if (tokens.size() == 2)
-                {
-                    //int AgentTest::Property1
-                    this->prop = behaviac::Property::Create(tokens[0].c_str(), tokens[1].c_str(), false, 0);
-
-                }
-                else
-                {
-                    //static int AgentTest::Property6
-                    BEHAVIAC_ASSERT(tokens[0] == "static");
-                    this->prop = behaviac::Property::Create(tokens[1].c_str(), tokens[2].c_str(), true, 0);
-                }
-            }
-        }
-    }
+					if (tokens.size() == 2)
+					{
+						//int AgentTest::Property1                                                                                                                                                                                         
+						this->prop = behaviac::Property::Create(tokens[0].c_str(), tokens[1].c_str(), false, 0);
+					}
+					else
+					{
+						//static int AgentTest::Property6                                                                                                                                                                                  
+						BEHAVIAC_ASSERT(tokens[0] == "static");
+						this->prop = behaviac::Property::Create(tokens[1].c_str(), tokens[2].c_str(), true, 0);
+					}
+				}
+				else
+				{
+					// int AgentTest:Property[int xxx]                                                                                                                                                                                     
+					*arrayindex = '\0';
+					behaviac::StringUtils::SplitIntoArray(str, " ", tokens);
+					arrayindex += 1;
+					*(arrayindex + strlen(arrayindex) - 1) = '\0';
+					this->prop = behaviac::Property::Create(tokens[0].c_str(), tokens[1].c_str(), false, arrayindex);
+				}
+			}
+		}
+	}
 
     void SaveToXML(const CTagObject* parent, behaviac::ISerializableNode& xmlNode, const char* paramName)
     {

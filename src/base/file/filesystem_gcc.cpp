@@ -753,11 +753,14 @@ namespace behaviac
 	void CFileSystem::StopMonitoringDirectory()
 	{
 #if BEHAVIAC_COMPILER_GCC_LINUX
-		s_bThreadFinish = true;
+		if (!s_bThreadFinish)
+		{
+			s_bThreadFinish = true;
 
-		pthread_join(s_tid, 0);
+			pthread_join(s_tid, 0);
 
-		s_ModifiedFiles.clear();
+			s_ModifiedFiles.clear();
+		}
 #endif
 	}
 

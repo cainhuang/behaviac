@@ -119,7 +119,6 @@ namespace PluginBehaviac.NodeExporters
                         {
                             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
-                            stream.WriteLine("{0}\t\t\tBEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
                             stream.WriteLine("{0}\t\t\tpAgent->SetVariable(\"{1}\", opr2, {2}u);", indent, propBasicName, id);
                         }
                         else
@@ -136,20 +135,8 @@ namespace PluginBehaviac.NodeExporters
             }
             else if (attach.IsCompare())
             {
-                string typeName = DataCppExporter.GetGeneratedNativeType(attach.Opl.ValueType);
-
-                RightValueCppExporter.GenerateCode(attach.Opl, stream, indent + "\t\t\t", typeName, "opl", "");
-                RightValueCppExporter.GenerateCode(attach.Opr2, stream, indent + "\t\t\t", typeName, "opr2", "");
-
-                if (attach.Opl != null && attach.Opl.IsMethod)
-                {
-                    RightValueCppExporter.PostGenerateCode(attach.Opl, stream, indent + "\t\t\t", typeName, "opl", "");
-                }
-
-                if (attach.Opr2 != null && attach.Opr2.IsMethod)
-                {
-                    RightValueCppExporter.PostGenerateCode(attach.Opr2, stream, indent + "\t\t\t", typeName, "opr2", "");
-                }
+                ConditionCppExporter.GenerateOperand(stream, indent + "\t\t\t", attach.Opl, "opl", "");
+                ConditionCppExporter.GenerateOperand(stream, indent + "\t\t\t", attach.Opr2, "opr2", "");
 
                 switch (attach.Operator)
                 {
@@ -237,7 +224,6 @@ namespace PluginBehaviac.NodeExporters
                         {
                             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
-                            stream.WriteLine("{0}\t\t\tBEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
                             stream.WriteLine("{0}\t\t\tpAgent->SetVariable(\"{1}\", {2}, {3}u);", indent, propBasicName, oprStr, id);
                         }
                         else

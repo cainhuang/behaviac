@@ -3204,9 +3204,9 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("start") == 537854745u);
 			int opl_p0 = pAgent.GetVariable<int>(537854745u);
 			bool opl = (bool)((HTNAgentTravel)pAgent).exist_start(ref opl_p0);
-			bool opr2 = true;
 			Debug.Check(behaviac.Utils.MakeVariableId("start") == 537854745u);
 			pAgent.SetVariable<int>("HTNAgentTravel::start", (int)opl_p0, 537854745u);
+			bool opr2 = true;
 			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
@@ -3227,9 +3227,9 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("finish") == 3620922618u);
 			int opl_p0 = pAgent.GetVariable<int>(3620922618u);
 			bool opl = (bool)((HTNAgentTravel)pAgent).exist_finish(ref opl_p0);
-			bool opr2 = true;
 			Debug.Check(behaviac.Utils.MakeVariableId("finish") == 3620922618u);
 			pAgent.SetVariable<int>("HTNAgentTravel::finish", (int)opl_p0, 3620922618u);
+			bool opr2 = true;
 			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
@@ -3528,9 +3528,9 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("as") == 2746731747u);
 			List<int> opl_p1 = pAgent.GetVariable<List<int>>(2746731747u);
 			bool opl = (bool)((HTNAgentTravel)pAgent).exist_airports(opl_p0, ref opl_p1);
-			bool opr2 = true;
 			Debug.Check(behaviac.Utils.MakeVariableId("as") == 2746731747u);
 			pAgent.SetVariable<List<int>>("HTNAgentTravel::as", (List<int>)opl_p1, 2746731747u);
+			bool opr2 = true;
 			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
@@ -3553,9 +3553,9 @@ namespace behaviac
 			Debug.Check(behaviac.Utils.MakeVariableId("ay") == 1498948713u);
 			int opl_p1 = pAgent.GetVariable<int>(1498948713u);
 			bool opl = (bool)((HTNAgentTravel)pAgent).exist_airport(opl_p0, ref opl_p1);
-			bool opr2 = true;
 			Debug.Check(behaviac.Utils.MakeVariableId("ay") == 1498948713u);
 			pAgent.SetVariable<int>("HTNAgentTravel::ay", (int)opl_p1, 1498948713u);
+			bool opr2 = true;
 			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
@@ -4509,6 +4509,68 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_0
 
+	class Assignment_bt_node_test_action_ut_0_node12 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_0_node12()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "par_child");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("par_child"));
+			int opr = ((AgentNodeTest)pAgent_opr).testVar_1;
+			((AgentNodeTest)pAgent).testVar_0 = opr;
+			return result;
+		}
+	}
+
+	class Condition_bt_node_test_action_ut_0_node13 : behaviac.Condition
+	{
+		public Condition_bt_node_test_action_ut_0_node13()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((AgentNodeTest)pAgent).testVar_0;
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "par_child");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("par_child"));
+			int opr = ((AgentNodeTest)pAgent_opr).testVar_1;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	class Assignment_bt_node_test_action_ut_0_node10 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_0_node10()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "par_child");
+			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("par_child"));
+			int opr = (int)((AgentNodeTest)pAgent_opr).getConstOne();
+			((AgentNodeTest)pAgent).testVar_0 = opr;
+			return result;
+		}
+	}
+
+	class Condition_bt_node_test_action_ut_0_node11 : behaviac.Condition
+	{
+		public Condition_bt_node_test_action_ut_0_node11()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((AgentNodeTest)pAgent).testVar_0;
+			int opr = 1;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
 	class Condition_bt_node_test_action_ut_0_node8 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_0_node8()
@@ -4520,8 +4582,6 @@ namespace behaviac
 			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("par_child"));
 			float opl = ((AgentNodeTest)pAgent_opl).testVar_2;
 			float opr = ((AgentNodeTest)pAgent).testVar_3;
-			Debug.Check(behaviac.Utils.MakeVariableId("testVar_3") == 2587852242u);
-			pAgent.SetVariable<float>("testVar_3", ((AgentNodeTest)pAgent).testVar_3, 2587852242u);
 			bool op = opl > opr;
 			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
 		}
@@ -4677,6 +4737,46 @@ namespace behaviac
 				node0.SetAgentType("AgentNodeTest");
 #endif
 				bt.AddChild(node0);
+				{
+					Assignment_bt_node_test_action_ut_0_node12 node12 = new Assignment_bt_node_test_action_ut_0_node12();
+					node12.SetClassNameString("Assignment");
+					node12.SetId(12);
+#if !BEHAVIAC_RELEASE
+					node12.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node12);
+					node0.SetHasEvents(node0.HasEvents() | node12.HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_0_node13 node13 = new Condition_bt_node_test_action_ut_0_node13();
+					node13.SetClassNameString("Condition");
+					node13.SetId(13);
+#if !BEHAVIAC_RELEASE
+					node13.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node13);
+					node0.SetHasEvents(node0.HasEvents() | node13.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_0_node10 node10 = new Assignment_bt_node_test_action_ut_0_node10();
+					node10.SetClassNameString("Assignment");
+					node10.SetId(10);
+#if !BEHAVIAC_RELEASE
+					node10.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node10);
+					node0.SetHasEvents(node0.HasEvents() | node10.HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_0_node11 node11 = new Condition_bt_node_test_action_ut_0_node11();
+					node11.SetClassNameString("Condition");
+					node11.SetId(11);
+#if !BEHAVIAC_RELEASE
+					node11.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node11);
+					node0.SetHasEvents(node0.HasEvents() | node11.HasEvents());
+				}
 				{
 					Condition_bt_node_test_action_ut_0_node8 node8 = new Condition_bt_node_test_action_ut_0_node8();
 					node8.SetClassNameString("Condition");
@@ -5071,6 +5171,87 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_2
 
+	class Assignment_bt_node_test_action_ut_2_node7 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_2_node7()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr = 1;
+			Debug.Check(behaviac.Utils.MakeVariableId("par_int_type_0") == 4028995106u);
+			pAgent.SetVariable<int>("par_int_type_0", opr, 4028995106u);
+			return result;
+		}
+	}
+
+	class Assignment_bt_node_test_action_ut_2_node6 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_2_node6()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr = 5;
+			Debug.Check(behaviac.Utils.MakeVariableId("test_int_array") == 4065205216u);
+			Debug.Check(behaviac.Utils.MakeVariableId("par_int_type_0") == 4028995106u);
+			int opl_index = pAgent.GetVariable<int>(4028995106u);
+			(pAgent.GetVariable<List<int>>(4065205216u))[opl_index] = opr;
+			return result;
+		}
+	}
+
+	class Condition_bt_node_test_action_ut_2_node8 : behaviac.Condition
+	{
+		public Condition_bt_node_test_action_ut_2_node8()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			Debug.Check(behaviac.Utils.MakeVariableId("test_int_array") == 4065205216u);
+			Debug.Check(behaviac.Utils.MakeVariableId("par_int_type_0") == 4028995106u);
+			int opl_index = pAgent.GetVariable<int>(4028995106u);
+			int opl = (pAgent.GetVariable<List<int>>(4065205216u))[opl_index];
+			int opr = 5;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	class Action_bt_node_test_action_ut_2_node9 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_2_node9()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			Debug.Check(behaviac.Utils.MakeVariableId("test_int_array") == 4065205216u);
+			List<int> method_p0 = pAgent.GetVariable<List<int>>(4065205216u);
+			Debug.Check(behaviac.Utils.MakeVariableId("test_int_array") == 4065205216u);
+			Debug.Check(behaviac.Utils.MakeVariableId("par_int_type_0") == 4028995106u);
+			int method_p0_index = pAgent.GetVariable<int>(4028995106u);
+			((AgentNodeTest)pAgent).setTestVar_0((pAgent.GetVariable<List<int>>(4065205216u))[method_p0_index]);
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	class Condition_bt_node_test_action_ut_2_node10 : behaviac.Condition
+	{
+		public Condition_bt_node_test_action_ut_2_node10()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((AgentNodeTest)pAgent).testVar_0;
+			int opr = 5;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
 	class Compute_bt_node_test_action_ut_2_node1 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_2_node1()
@@ -5174,6 +5355,56 @@ namespace behaviac
 				node0.SetAgentType("AgentNodeTest");
 #endif
 				bt.AddChild(node0);
+				{
+					Assignment_bt_node_test_action_ut_2_node7 node7 = new Assignment_bt_node_test_action_ut_2_node7();
+					node7.SetClassNameString("Assignment");
+					node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+					node7.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node7);
+					node0.SetHasEvents(node0.HasEvents() | node7.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_2_node6 node6 = new Assignment_bt_node_test_action_ut_2_node6();
+					node6.SetClassNameString("Assignment");
+					node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+					node6.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node6);
+					node0.SetHasEvents(node0.HasEvents() | node6.HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_2_node8 node8 = new Condition_bt_node_test_action_ut_2_node8();
+					node8.SetClassNameString("Condition");
+					node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+					node8.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node8);
+					node0.SetHasEvents(node0.HasEvents() | node8.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_2_node9 node9 = new Action_bt_node_test_action_ut_2_node9();
+					node9.SetClassNameString("Action");
+					node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+					node9.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node9);
+					node0.SetHasEvents(node0.HasEvents() | node9.HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_2_node10 node10 = new Condition_bt_node_test_action_ut_2_node10();
+					node10.SetClassNameString("Condition");
+					node10.SetId(10);
+#if !BEHAVIAC_RELEASE
+					node10.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node10);
+					node0.SetHasEvents(node0.HasEvents() | node10.HasEvents());
+				}
 				{
 					Compute_bt_node_test_action_ut_2_node1 node1 = new Compute_bt_node_test_action_ut_2_node1();
 					node1.SetClassNameString("Compute");
@@ -27455,8 +27686,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("c_ListInts") == 2521109666u);
 			List<int> opr = pAgent.GetVariable<List<int>>(2521109666u);
-			int opr_index = 0;
 			Debug.Check(behaviac.Utils.MakeVariableId("c_Int") == 3849503314u);
+			int opr_index = 0;
 			pAgent.SetVariable<int>("c_Int", (opr)[opr_index], 3849503314u);
 			return result;
 		}
@@ -27472,8 +27703,8 @@ namespace behaviac
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			Debug.Check(behaviac.Utils.MakeVariableId("l_ListInts") == 96329828u);
 			List<int> opr = pAgent.GetVariable<List<int>>(96329828u);
-			int opr_index = 0;
 			Debug.Check(behaviac.Utils.MakeVariableId("l_Int") == 337932423u);
+			int opr_index = 0;
 			pAgent.SetVariable<int>("l_Int", (opr)[opr_index], 337932423u);
 			return result;
 		}

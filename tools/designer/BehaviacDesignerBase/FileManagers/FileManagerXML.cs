@@ -373,7 +373,8 @@ namespace Behaviac.Design.FileManagers
                         node.ResetByPrefab(node.PrefabName, prefabNode);
 
                         Behavior b = node.Behavior as Behavior;
-                        b.AgentType.AddPars(b.LocalVars);
+                        if (b.AgentType != null)
+                            b.AgentType.AddPars(b.LocalVars);
                     }
                 }
 

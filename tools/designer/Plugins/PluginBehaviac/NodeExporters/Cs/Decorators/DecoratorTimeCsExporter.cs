@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -40,7 +40,7 @@ namespace PluginBehaviac.NodeExporters
 
             if (decoratorTime.Time != null)
             {
-                stream.WriteLine("{0}\t\tprotected override int GetTime(Agent pAgent)", indent);
+                stream.WriteLine("{0}\t\tprotected override float GetTime(Agent pAgent)", indent);
                 stream.WriteLine("{0}\t\t{{", indent);
 
                 string retStr = VariableCsExporter.GenerateCode(decoratorTime.Time, false, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);

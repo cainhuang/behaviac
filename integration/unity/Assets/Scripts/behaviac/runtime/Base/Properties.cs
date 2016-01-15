@@ -691,20 +691,6 @@ namespace behaviac
         {
         }
 
-        private static bool IsAgentPtr(string typeName, string valueStr)
-        {
-            bool bAgentPtr = false;
-
-            //it might be par or the right value of condition/assignment
-            if (!string.IsNullOrEmpty(valueStr) && valueStr == "null")
-            {
-                Debug.Check(!typeName.EndsWith("*") && Agent.IsAgentClassName(typeName));
-                bAgentPtr = true;
-            }
-
-            return bAgentPtr;
-        }
-
         private static Property create(CMemberBase pMember, bool bConst, string typeName, string variableName, string instanceName, string valueStr)
         {
             Debug.Check(string.IsNullOrEmpty(variableName) || !variableName.EndsWith("]"));
@@ -720,6 +706,7 @@ namespace behaviac
             else
             {
                 pProperty = new Property(null, bConst);
+                typeName = typeName.Replace("*", "");
                 object v = PasrseTypeValue(typeName, valueStr);
 
                 pProperty.SetDefaultValue(v);
@@ -739,43 +726,28 @@ namespace behaviac
 
         private static object PasrseTypeValue(string typeName, string valueStr)
         {
-            var bAgentPtr = IsAgentPtr(typeName, valueStr);
+            bool bArrayType = false;
+            Type type = Utils.GetTypeFromName(typeName, ref bArrayType);
+            Debug.Check(type != null);
 
-            object v = null;
-
-            if (!bAgentPtr)
+            if (bArrayType || !Utils.IsRefNullType(type))
             {
-                bool bArrayType = false;
-                Type type = Utils.GetTypeFromName(typeName, ref bArrayType);
-
                 if (!string.IsNullOrEmpty(valueStr))
                 {
-                    v = StringUtils.FromString(type, valueStr, bArrayType);
+                    return StringUtils.FromString(type, valueStr, bArrayType);
                 }
-                else
+                else if (type == typeof(string))
                 {
-                    if (type == typeof(string))
-                    {
-                        v = string.Empty;
-                    }
+                    return string.Empty;
                 }
             }
-            else
-            {
-                v = null;
-            }
 
-            return v;
+            return null;
         }
-
-
-
-
 
         protected string m_variableName;
         protected string m_instanceName;
         protected uint m_variableId;
-
 
         protected Property m_parent;
         protected Property m_index;
@@ -785,8 +757,7 @@ namespace behaviac
         protected object m_defaultValue;
         private bool m_bValidDefaultValue;
         protected readonly bool m_bIsConst;
-
-    };
+    }
 
     public abstract class IVariable
     {

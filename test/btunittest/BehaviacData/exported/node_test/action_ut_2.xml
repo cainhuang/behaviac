@@ -8,6 +8,28 @@
     <par name="par_int_type_2" type="int" value="300" />
   </pars>
   <node class="Sequence" id="0">
+    <node class="Assignment" id="7">
+      <property Opl="int Self.AgentNodeTest::par_int_type_0" />
+      <property Opr="const int 1" />
+    </node>
+    <node class="Assignment" id="6">
+      <property Opl="int Self.AgentNodeTest::test_int_array[int Self.AgentNodeTest::par_int_type_0]" />
+      <property Opr="const int 5" />
+    </node>
+    <node class="Condition" id="8">
+      <property Operator="Equal" />
+      <property Opl="int Self.AgentNodeTest::test_int_array[int Self.AgentNodeTest::par_int_type_0]" />
+      <property Opr="const int 5" />
+    </node>
+    <node class="Action" id="9">
+      <property Method="Self.AgentNodeTest::setTestVar_0(int Self.AgentNodeTest::test_int_array[int Self.AgentNodeTest::par_int_type_0])" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Condition" id="10">
+      <property Operator="Equal" />
+      <property Opl="int Self.AgentNodeTest::testVar_0" />
+      <property Opr="const int 5" />
+    </node>
     <node class="Compute" id="1">
       <property Operator="Mul" />
       <property Opl="int Self.AgentNodeTest::par_int_type_0" />

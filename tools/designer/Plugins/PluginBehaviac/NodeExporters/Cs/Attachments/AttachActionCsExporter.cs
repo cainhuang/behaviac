@@ -119,7 +119,6 @@ namespace PluginBehaviac.NodeExporters
                         {
                             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
-                            stream.WriteLine("{0}\t\t\tDebug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
                             stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", opr2, {2}u);", indent, propBasicName, id);
                         }
                         else if (prop.IsPublic)
@@ -141,21 +140,8 @@ namespace PluginBehaviac.NodeExporters
             }
             else if (attach.IsCompare())
             {
-                string typeName = Plugin.GetNativeTypeName(attach.Opl.ValueType);
-                typeName = typeName.Replace("::", ".");
-
-                RightValueCsExporter.GenerateCode(attach.Opl, stream, indent + "\t\t\t", typeName, "opl", "");
-                RightValueCsExporter.GenerateCode(attach.Opr2, stream, indent + "\t\t\t", typeName, "opr2", "");
-
-                if (attach.Opl != null && attach.Opl.IsMethod)
-                {
-                    RightValueCsExporter.PostGenerateCode(attach.Opl, stream, indent + "\t\t\t", typeName, "opl", "");
-                }
-
-                if (attach.Opr2 != null && attach.Opr2.IsMethod)
-                {
-                    RightValueCsExporter.PostGenerateCode(attach.Opr2, stream, indent + "\t\t\t", typeName, "opr2", "");
-                }
+                ConditionCsExporter.GenerateOperand(stream, indent + "\t\t\t", attach.Opl, "opl", "");
+                ConditionCsExporter.GenerateOperand(stream, indent + "\t\t\t", attach.Opr2, "opr2", "");
 
                 switch (attach.Operator)
                 {
@@ -243,7 +229,6 @@ namespace PluginBehaviac.NodeExporters
                         {
                             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
-                            stream.WriteLine("{0}\t\t\tDebug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
                             stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", {2}, {3}u);", indent, propBasicName, oprStr, id);
                         }
                         else if (prop.IsPublic)

@@ -829,7 +829,7 @@ namespace behaviac
             bool bGoOn = this.m_currentTask.onevent(pAgent, eventName);
 
             //give the handling back to parents
-            if (bGoOn)
+            if (bGoOn && this.m_currentTask != null)
             {
                 BranchTask parentBranch = this.m_currentTask.GetParent();
 

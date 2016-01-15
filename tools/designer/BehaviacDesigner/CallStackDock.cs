@@ -86,7 +86,8 @@ namespace Behaviac.Design
 
         protected override void OnClosed(EventArgs e) {
             _dock = null;
-            FrameStatePool.UpdateStack += UpdateStackCb;
+
+            FrameStatePool.UpdateStack -= UpdateStackCb;
             base.OnClosed(e);
         }
 

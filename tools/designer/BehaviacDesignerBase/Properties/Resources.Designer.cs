@@ -673,6 +673,15 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.
         /// </summary>
         internal static string Event {
@@ -1276,6 +1285,15 @@ namespace Behaviac.Design.Properties {
         internal static string Method {
             get {
                 return ResourceManager.GetString("Method", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The methods &quot;{0}&quot; and &quot;{1}&quot; have the same display name &quot;{2}&quot;. Please modify their display name, and then export them as the meta info..
+        /// </summary>
+        internal static string MethodWithSameDisplayName {
+            get {
+                return ResourceManager.GetString("MethodWithSameDisplayName", resourceCulture);
             }
         }
         

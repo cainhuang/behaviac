@@ -79,6 +79,7 @@
       <property name="waiting_timeout_interval" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
       <property name="testInt" type="int" member="false" static="false" defaultvalue="10" />
+      <property name="test_int_array" type="vector&lt;int&gt;" member="false" static="false" defaultvalue="3:1|2|3" />
     </properties>
     <methods>
       <method name="event_test_int" agent="AgentNodeTest">
@@ -107,6 +108,7 @@
     <properties>
       <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
       <property name="testInt" type="int" member="false" static="false" defaultvalue="10" />
+      <property name="test_int_array" type="vector&lt;int&gt;" member="false" static="false" defaultvalue="3:1|2|3" />
       <property name="testColor" type="EnumTest" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_0" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />

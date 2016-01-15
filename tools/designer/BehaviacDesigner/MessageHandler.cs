@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -176,8 +176,8 @@ namespace Behaviac.Design
                     {
                         if (string.IsNullOrEmpty(wksName) || !File.Exists(wksName))
                         {
-                            string wks = string.IsNullOrEmpty(wksName) ? "" : Path.GetFileName(wksName);
-                            string currentWks = (Workspace.Current != null) ? Path.GetFileName(Workspace.Current.FileName) : "";
+                            string wks = string.IsNullOrEmpty(wksName) ? "" : Path.GetFileNameWithoutExtension(wksName);
+                            string currentWks = (Workspace.Current != null) ? Path.GetFileNameWithoutExtension(Workspace.Current.FileName) : "";
 
                             if (!string.IsNullOrEmpty(wks) && wks != currentWks)
                             {

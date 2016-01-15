@@ -303,9 +303,9 @@ namespace behaviac
 			EBTStatus result = BT_SUCCESS;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("m_init_speed") == 552343623u);
 			vector<float >& opr = (vector<float >&)pAgent->GetVariable<vector<float > >(552343623u);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("initSpeed") == 1002713030u);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("enemyType") == 257823859u);
 			int& opr_index = (int&)pAgent->GetVariable<int >(257823859u);
-			BEHAVIAC_ASSERT(behaviac::MakeVariableId("initSpeed") == 1002713030u);
 			pAgent->SetVariable("initSpeed", (opr)[opr_index], 1002713030u);
 			return result;
 		}

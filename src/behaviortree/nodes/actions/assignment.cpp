@@ -83,9 +83,8 @@ namespace behaviac
 			if (opr_m != NULL)
 			{
 				Agent* pParentL = (Agent*)opl->GetParentAgent(pAgent);
-				Agent* pParentR = (Agent*)opr_m->GetParentAgent(pAgent);
 
-				opl->SetFrom(pParentR, opr_m, pParentL);
+				opl->SetFrom((Agent*)pAgent, opr_m, pParentL);
 
 				bValid = true;
 			}

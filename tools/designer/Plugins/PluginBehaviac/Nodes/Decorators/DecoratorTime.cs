@@ -34,7 +34,7 @@ namespace PluginBehaviac.Nodes
             get { return "DecoratorTime"; }
         }
 
-        protected VariableDef _time = new VariableDef((int)0);
+        protected VariableDef _time = new VariableDef(1000.0f);
         [DesignerPropertyEnum("DecoratorTime", "DecoratorTimeDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributes, "", "", ValueTypes.Int)]
         public VariableDef Time
         {
@@ -42,7 +42,7 @@ namespace PluginBehaviac.Nodes
             {
                 if ((_time == null) || (_time.IsConst && _time.Value == null))
                 {
-                    _time = new VariableDef((int)0);
+                    _time = new VariableDef(1000.0f);
                 }
 
                 return _time;
@@ -64,13 +64,9 @@ namespace PluginBehaviac.Nodes
         {
             Type valueType = this._time.GetValueType();
 
-            string typeName = Plugin.GetNativeTypeName(valueType.FullName);
-
-            if (Plugin.IsIntergerNumberType(typeName))
-            { }
-            else
+            if (valueType != typeof(float))
             {
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Time should be an integer number type!"));
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Time must be a float type!"));
             }
 
             base.CheckForErrors(rootBehavior, result);

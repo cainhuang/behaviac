@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -40,7 +40,7 @@ namespace PluginBehaviac.NodeExporters
 
             if (decoratorTime.Time != null)
             {
-                stream.WriteLine("{0}\t\tvirtual int GetTime(Agent* pAgent) const", indent);
+                stream.WriteLine("{0}\t\tvirtual float GetTime(Agent* pAgent) const", indent);
                 stream.WriteLine("{0}\t\t{{", indent);
                 stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
 

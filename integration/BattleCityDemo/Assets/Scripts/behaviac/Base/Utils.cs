@@ -1635,8 +1635,7 @@ namespace behaviac
 
         public static bool IsRefNullType(Type type)
         {
-            //return IsAgentType(type) || IsGameObjectType(type);
-            return type != null && type.IsClass;
+            return type != null && type.IsClass && type != typeof(string);
         }
 
         public static bool IfEquals(object l, object r)

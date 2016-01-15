@@ -997,8 +997,6 @@ namespace behaviac
 			int opl = pAgent.GetVariable<int>(2453283515u);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_ActorCount") == 515203555u);
 			int opr = pAgent.GetVariable<int>(515203555u);
-			Debug.Check(behaviac.Utils.MakeVariableId("parT_ActorCount") == 515203555u);
-			pAgent.SetVariable<int>("GameLevelCommon::parT_ActorCount", (int)opr, 515203555u);
 			bool op = opl < opr;
 			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
 		}
@@ -1202,8 +1200,6 @@ namespace behaviac
 			int opl = pAgent.GetVariable<int>(2453283515u);
 			Debug.Check(behaviac.Utils.MakeVariableId("parT_ActorCount") == 515203555u);
 			int opr = pAgent.GetVariable<int>(515203555u);
-			Debug.Check(behaviac.Utils.MakeVariableId("parT_ActorCount") == 515203555u);
-			pAgent.SetVariable<int>("GameLevelCommon::parT_ActorCount", (int)opr, 515203555u);
 			bool op = opl == opr;
 			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
 		}

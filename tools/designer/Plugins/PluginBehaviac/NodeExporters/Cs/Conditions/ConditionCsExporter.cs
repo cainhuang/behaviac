@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -67,6 +67,49 @@ namespace PluginBehaviac.NodeExporters
             }
         }
 
+        public static void GenerateOperand(StreamWriter stream, string indent, RightValueDef operand, string operandName, string nodeName)
+        {
+            if (operand != null)
+            {
+                string typeName = DataCsExporter.GetGeneratedNativeType(operand.ValueType);
+                typeName = typeName.Replace("::", ".");
+
+                if (operand.IsMethod) // method
+                {
+                    RightValueCsExporter.GenerateCode(operand, stream, indent, typeName, operandName, string.Empty);
+                    RightValueCsExporter.PostGenerateCode(operand, stream, indent, typeName, operandName, string.Empty);
+                }
+                else
+                {
+                    VariableDef var = operand.Var;
+                    if (var != null)
+                    {
+                        if (var.IsProperty) // property
+                        {
+                            PropertyDef prop = var.Property;
+                            if (prop != null)
+                            {
+                                string property = PropertyCsExporter.GetProperty(prop, var.ArrayIndexElement, stream, indent, operandName, nodeName);
+                                string propName = prop.BasicName.Replace("[]", "");
+
+                                if (prop.IsArrayElement && var.ArrayIndexElement != null)
+                                {
+                                    ParameterCsExporter.GenerateCode(var.ArrayIndexElement, stream, indent, "int", operandName + "_index", nodeName + "_opl");
+                                    property = string.Format("({0})[{1}_index]", property, operandName);
+                                }
+
+                                stream.WriteLine("{0}{1} {2} = {3};", indent, typeName, operandName, property);
+                            }
+                        }
+                        else if (var.IsConst) // const
+                        {
+                            RightValueCsExporter.GenerateCode(operand, stream, indent, typeName, operandName, string.Empty);
+                        }
+                    }
+                }
+            }
+        }
+
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
         {
             base.GenerateMethod(node, stream, indent);
@@ -81,20 +124,10 @@ namespace PluginBehaviac.NodeExporters
             string typeName = DataCsExporter.GetGeneratedNativeType(condition.Opl.ValueType);
 
             // opl
-            if (condition.Opl != null)
-            {
-                RightValueCsExporter.GenerateCode(condition.Opl, stream, indent + "\t\t\t", typeName, "opl", string.Empty);
-                if (condition.Opl.IsMethod)
-                    RightValueCsExporter.PostGenerateCode(condition.Opl, stream, indent + "\t\t\t", typeName, "opl", string.Empty);
-            }
+            ConditionCsExporter.GenerateOperand(stream, indent + "\t\t\t", condition.Opl, "opl", "condition");
 
             // opr
-            if (condition.Opr != null)
-            {
-                RightValueCsExporter.GenerateCode(condition.Opr, stream, indent + "\t\t\t", typeName, "opr", string.Empty);
-                if (condition.Opr != null)
-                    RightValueCsExporter.PostGenerateCode(condition.Opr, stream, indent + "\t\t\t", typeName, "opr", string.Empty);
-            }
+            ConditionCsExporter.GenerateOperand(stream, indent + "\t\t\t", condition.Opr, "opr", "condition");
 
             // Operator
             switch (condition.Operator)

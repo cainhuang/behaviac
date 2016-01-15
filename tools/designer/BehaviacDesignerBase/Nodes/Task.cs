@@ -175,6 +175,11 @@ namespace Behaviac.Design.Nodes
         }
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
+            if (_task == null)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "No method"));
+            }
+
             if (this.Children.Count == 0) {
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.TaskNoMethod));
 

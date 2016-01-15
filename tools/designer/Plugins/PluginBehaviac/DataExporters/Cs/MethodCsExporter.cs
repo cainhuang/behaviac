@@ -156,6 +156,20 @@ namespace PluginBehaviac.DataExporters
                             ParameterCsExporter.GenerateCode(method.Params[i], stream, indent, "", param, caller);
                         }
                     }
+
+                    VariableDef v = method.Params[i].Value as VariableDef;
+                    if (v != null && v.ArrayIndexElement != null)
+                    {
+                        PropertyDef prop = method.Params[i].Property;
+                        if (prop != null && prop.IsArrayElement)
+                        {
+                            string property = PropertyCsExporter.GetProperty(prop, v.ArrayIndexElement, stream, indent, param, caller);
+                            string propName = prop.BasicName.Replace("[]", "");
+
+                            ParameterCsExporter.GenerateCode(v.ArrayIndexElement, stream, indent, "int", param + "_index", param + caller);
+                            param = string.Format("({0})[{1}_index]", property, param);
+                        }
+                    }
                 }
                 else // const value
                 {

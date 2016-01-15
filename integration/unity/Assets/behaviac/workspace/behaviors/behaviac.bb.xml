@@ -27,6 +27,7 @@
       <properties>
         <property name="testFloat2" type="XMLPluginBehaviac.TestNS_Float2" classname="AgentNodeTest" defaultvalue="{x=0;y=0;}" static="false" public="true" readonly="false" disp="testFloat2" desc="local_node" />
         <property name="testInt" type="System.Int32" classname="AgentNodeTest" defaultvalue="10" static="false" public="true" readonly="false" disp="testInt" desc="testInt" />
+        <property name="test_int_array" type="System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" classname="AgentNodeTest" defaultvalue="3:1|2|3" static="false" public="true" readonly="false" disp="test_int_array" desc="test_int_array" />
       </properties>
       <methods>
         <method name="event_test_int" returntype="System.Boolean" classname="AgentNodeTest" static="false" public="true" istask="true" disp="event_test_int" desc="event_test_int">

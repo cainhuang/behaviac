@@ -36,12 +36,14 @@ namespace behaviac
 			bb.AddProperty("int", false, "waiting_timeout_interval", "0", "AgentNodeTest");
 			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
 			bb.AddProperty("int", false, "testInt", "10", "AgentNodeTest");
+			bb.AddProperty("vector<int>", false, "test_int_array", "3:1|2|3", "AgentNodeTest");
 
 			// ChildNodeTest
 			bb = new AgentProperties("ChildNodeTest");
 			agent_type_blackboards["ChildNodeTest"] = bb;
 			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
 			bb.AddProperty("int", false, "testInt", "10", "ChildNodeTest");
+			bb.AddProperty("vector<int>", false, "test_int_array", "3:1|2|3", "ChildNodeTest");
 			bb.AddProperty("EnumTest", false, "testColor", "EnumTest_One", "ChildNodeTest");
 			bb.AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
 			bb.AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");

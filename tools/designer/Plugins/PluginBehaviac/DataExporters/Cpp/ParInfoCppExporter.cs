@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -117,6 +117,11 @@ namespace PluginBehaviac.DataExporters
             if (property != null)
             {
                 string typename = DataCppExporter.GetGeneratedNativeType(property.NativeType);
+                if (!typename.EndsWith("*") && Plugin.IsRefType(property.Type))
+                {
+                    typename += "*";
+                }
+
                 if (property.IsArrayElement && !typename.StartsWith("behaviac::vector<"))
                 {
                     typename = string.Format("behaviac::vector<{0} >", typename);
@@ -125,7 +130,8 @@ namespace PluginBehaviac.DataExporters
                 string propBasicName = property.BasicName.Replace("[]", "");
                 uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
-                retStr = string.Format("({0})pAgent->GetVariable<{0} >({1}u)", typename, id);
+                stream.WriteLine("{0}BEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
+                retStr = string.Format("({0}&)pAgent->GetVariable<{0} >({1}u)", typename, id);
             }
 
             return retStr;
