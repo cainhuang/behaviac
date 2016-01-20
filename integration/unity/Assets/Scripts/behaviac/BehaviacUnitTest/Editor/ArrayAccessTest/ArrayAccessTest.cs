@@ -11,7 +11,7 @@ namespace BehaviorNodeUnitTest
     [Category("ArrayAccessTest")]
     internal class ArrayAccessTest
     {
-        public AgentArrayAccessTest testAgent = null;
+        public TestNS.AgentArrayAccessTest testAgent = null;
 
         [TestFixtureSetUp]
         public void initGlobalTestEnv() {
@@ -22,7 +22,7 @@ namespace BehaviorNodeUnitTest
             testAgentObject.transform.localPosition = Vector3.zero;
             testAgentObject.transform.localRotation = Quaternion.identity;
             testAgentObject.transform.localScale = Vector3.one;
-            testAgent = testAgentObject.AddComponent<AgentArrayAccessTest>();
+            testAgent = testAgentObject.AddComponent<TestNS.AgentArrayAccessTest>();
             testAgent.init();
 
             //Debug.Log("InitTestFixture");

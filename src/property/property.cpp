@@ -182,8 +182,6 @@ namespace behaviac
         return 0;
     }
 
-
-
     void Property::SetVectorElementAsDefault(Property* pProperty)
     {
         BEHAVIAC_UNUSED_VAR(pProperty);

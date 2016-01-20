@@ -4,7 +4,6 @@
     <Comment Background="NoColor" Text="" />
     <Parameters>
       <Parameter Name="par_child_agent" Type="XMLPluginBehaviac.AgentNodeTest" DefaultValue="null" DisplayName="par_child_agent" Desc="par_child_agent" Display="true" />
-      <Parameter Name="par_child_agent_1" Type="XMLPluginBehaviac.ChildNodeTest" DefaultValue="null" DisplayName="par_child_agent_1" Desc="par_child_agent_1" Display="true" />
     </Parameters>
     <DescriptorRefs value="0:" />
     <Connector Identifier="GenericChildren">

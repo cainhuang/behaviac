@@ -14,14 +14,14 @@
 #include "../btloadtestsuite.h"
 #include "behaviac/base/core/profiler/profiler.h"
 
-AgentArrayAccessTest* initTestEnvArray(const char* treePath, behaviac::Workspace::EFileFormat format)
+TestNS::AgentArrayAccessTest* initTestEnvArray(const char* treePath, behaviac::Workspace::EFileFormat format)
 {
     behaviac::Profiler::CreateInstance();
     behaviac::Config::SetSocketing(false);
     behaviac::Config::SetLogging(false);
 
     registerAllTypes();
-    AgentArrayAccessTest* testAgent = AgentArrayAccessTest::DynamicCast(behaviac::Agent::Create<AgentArrayAccessTest>());
+    TestNS::AgentArrayAccessTest* testAgent = TestNS::AgentArrayAccessTest::DynamicCast(behaviac::Agent::Create<TestNS::AgentArrayAccessTest>());
     behaviac::Agent::SetIdMask(1);
     testAgent->SetIdFlag(1);
     testAgent->btload(treePath);
@@ -29,7 +29,7 @@ AgentArrayAccessTest* initTestEnvArray(const char* treePath, behaviac::Workspace
     return testAgent;
 }
 
-void finlTestEnvArray(AgentArrayAccessTest* testAgent)
+void finlTestEnvArray(TestNS::AgentArrayAccessTest* testAgent)
 {
     BEHAVIAC_DELETE(testAgent);
     unregisterAllTypes();
@@ -39,7 +39,7 @@ void finlTestEnvArray(AgentArrayAccessTest* testAgent)
 
 LOAD_TEST(btunittest, vector_test)
 {
-    AgentArrayAccessTest* testAgent = initTestEnvArray("par_test/vector_test", format);
+    TestNS::AgentArrayAccessTest* testAgent = initTestEnvArray("par_test/vector_test", format);
     testAgent->resetProperties();
     testAgent->btexec();
 

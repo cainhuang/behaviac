@@ -128,7 +128,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }
@@ -483,7 +484,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }
@@ -1033,7 +1035,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }
@@ -1679,7 +1682,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }
@@ -2428,7 +2432,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }
@@ -3313,7 +3318,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }
@@ -4275,7 +4281,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }
@@ -5341,7 +5348,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }
@@ -6511,7 +6519,8 @@ public:
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
     {
-        behaviac::Property* pProperty = behaviac::Property::Creator<R>(defaultValue, 0, bConst);
+		typedef VALUE_TYPE(R) TTYPE;
+        behaviac::Property* pProperty = behaviac::Property::Creator<TTYPE>(defaultValue, 0, bConst);
 
         return pProperty;
     }

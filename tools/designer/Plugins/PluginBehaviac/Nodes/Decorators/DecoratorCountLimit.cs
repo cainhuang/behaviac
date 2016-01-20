@@ -27,8 +27,12 @@ namespace PluginBehaviac.Nodes
         protected ConnectorSingle _reinit;
 		public DecoratorCountLimit() : base(Resources.DecoratorCountLimit, Resources.DecoratorCountLimitDesc)
 		{
-            _reinit = new ConnectorSingle(_children, Resources.Reinit, Connector.kInterupt);
 		}
+
+        protected override void CreateInterruptChild()
+        {
+            _reinit = new ConnectorSingle(_children, Resources.Reinit, Connector.kInterupt);
+        }
 
         public override string ExportClass
         {

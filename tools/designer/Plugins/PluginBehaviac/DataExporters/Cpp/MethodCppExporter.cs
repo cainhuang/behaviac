@@ -159,6 +159,9 @@ namespace PluginBehaviac.DataExporters
             }
 
             string nativeReturnType = DataCppExporter.GetGeneratedNativeType(method.NativeReturnType);
+            if (method.NativeReturnType.StartsWith("const "))
+                nativeReturnType = "const " + nativeReturnType;
+
             string retStr = "";
 
             if (method.IsPublic)

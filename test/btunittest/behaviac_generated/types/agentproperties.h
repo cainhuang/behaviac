@@ -89,15 +89,6 @@ namespace behaviac
 			bb->AddProperty("vector<subyte>", false, "TV_LIST_SBYTE_0", "0:", "ParTestAgent");
 			bb->AddProperty("subyte", false, "TV_SBYTE_0", "0", "ParTestAgent");
 
-			// AgentArrayAccessTest
-			bb = BEHAVIAC_NEW AgentProperties("AgentArrayAccessTest");
-			AgentProperties::SetAgentTypeBlackboards("AgentArrayAccessTest", bb);
-			bb->AddProperty("int", false, "Int", "0", "AgentArrayAccessTest");
-			bb->AddProperty("vector<int>", false, "ListInts", "0:", "AgentArrayAccessTest");
-			bb->AddProperty("int", false, "c_Int", "0", "AgentArrayAccessTest");
-			bb->AddProperty("vector<int>", false, "c_ListInts", "5:10|20|30|40|50", "AgentArrayAccessTest");
-			bb->AddProperty("int", false, "c_Count", "0", "AgentArrayAccessTest");
-
 			// AgentNodeTest
 			bb = BEHAVIAC_NEW AgentProperties("AgentNodeTest");
 			AgentProperties::SetAgentTypeBlackboards("AgentNodeTest", bb);
@@ -111,6 +102,9 @@ namespace behaviac
 			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
 			bb->AddProperty("int", false, "testInt", "10", "AgentNodeTest");
 			bb->AddProperty("vector<int>", false, "test_int_array", "3:1|2|3", "AgentNodeTest");
+			bb->AddProperty("ChildNodeTest", false, "par_child_agent_1", "null", "AgentNodeTest");
+			bb->AddProperty("TestNS::Float2", false, "c_ReturnFloat2", "{x=0;y=0;}", "AgentNodeTest");
+			bb->AddProperty("TestNS::Float2", false, "c_ReturnFloat2Const", "{x=0;y=0;}", "AgentNodeTest");
 
 			// ChildNodeTest
 			bb = BEHAVIAC_NEW AgentProperties("ChildNodeTest");
@@ -118,6 +112,9 @@ namespace behaviac
 			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
 			bb->AddProperty("int", false, "testInt", "10", "ChildNodeTest");
 			bb->AddProperty("vector<int>", false, "test_int_array", "3:1|2|3", "ChildNodeTest");
+			bb->AddProperty("ChildNodeTest", false, "par_child_agent_1", "null", "ChildNodeTest");
+			bb->AddProperty("TestNS::Float2", false, "c_ReturnFloat2", "{x=0;y=0;}", "ChildNodeTest");
+			bb->AddProperty("TestNS::Float2", false, "c_ReturnFloat2Const", "{x=0;y=0;}", "ChildNodeTest");
 			bb->AddProperty("EnumTest", false, "testColor", "EnumTest_One", "ChildNodeTest");
 			bb->AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
 			bb->AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
@@ -254,6 +251,15 @@ namespace behaviac
 			bb = BEHAVIAC_NEW AgentProperties("StaticAgent");
 			AgentProperties::SetAgentTypeBlackboards("StaticAgent", bb);
 			bb->AddProperty("int", true, "sInt", "0", "StaticAgent");
+
+			// TestNS::AgentArrayAccessTest
+			bb = BEHAVIAC_NEW AgentProperties("TestNS::AgentArrayAccessTest");
+			AgentProperties::SetAgentTypeBlackboards("TestNS::AgentArrayAccessTest", bb);
+			bb->AddProperty("int", false, "Int", "0", "TestNS::AgentArrayAccessTest");
+			bb->AddProperty("vector<int>", false, "ListInts", "0:", "TestNS::AgentArrayAccessTest");
+			bb->AddProperty("int", false, "c_Int", "0", "TestNS::AgentArrayAccessTest");
+			bb->AddProperty("vector<int>", false, "c_ListInts", "5:10|20|30|40|50", "TestNS::AgentArrayAccessTest");
+			bb->AddProperty("int", false, "c_Count", "0", "TestNS::AgentArrayAccessTest");
 
 			// ---------------------------------------------------------------------
 			// tasks

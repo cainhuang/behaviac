@@ -88,6 +88,7 @@ public:
 
 	EnumTest	testColor;
 
+	TestNS::Float2	TestFloat2;
 public:
     virtual void resetProperties();
 
@@ -197,6 +198,16 @@ public:
 	{
 		f.x = 1.0f;
 		f.y = 1.0f;
+	}
+
+	TestNS::Float2& getExtendedStruct()
+	{
+		return this->TestFloat2;
+	}
+
+	const TestNS::Float2& getConstExtendedStruct()
+	{
+		return this->TestFloat2;
 	}
 
     behaviac::EBTStatus switchRef(const behaviac::string& refTree)

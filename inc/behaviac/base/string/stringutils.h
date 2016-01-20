@@ -1027,6 +1027,57 @@ namespace behaviac
         {
             return string_icmp(str1, str2) == 0;
         }
+
+		inline std::string& StringFormat(std::string& buff, const char* fmt_str, ...)
+		{
+			size_t n = 256;
+
+			if (buff.size() < n)
+			{
+				buff.resize(n);
+			}
+			else
+			{
+				n = buff.size();
+			}
+
+			while (1)
+			{
+				va_list ap;
+				va_start(ap, fmt_str);
+				const int final_n = string_vnprintf(&buff[0], n, fmt_str, ap);
+				va_end(ap);
+
+				if (final_n < 0) // encoding error
+				{
+					//n += size_t(-final_n);
+					buff = "encoding error";
+					break;
+				}
+
+				if (static_cast<size_t>(final_n) >= n)
+				{
+					n += static_cast<size_t>(final_n)-n + 1;
+					if (n > 4096) // 
+					{
+						buff = "string too long, larger then 4096...";
+						break;
+					}
+
+					buff.resize(n);
+				}
+				else
+				{
+					buff[final_n] = '\0';
+					buff.resize(final_n);
+					break;
+				}
+			}
+
+			return buff;
+		}
+
+
     }
 }
 #endif // #ifndef BEHAVIAC_CORE_STRINGUTILS_H

@@ -16,18 +16,14 @@
         <property name="Money" type="System.Int32" classname="HTNAgentHouseBase" defaultvalue="0" static="false" public="true" readonly="false" disp="Money" desc="MemberProperty" />
       </properties>
     </agent>
-    <agent type="AgentArrayAccessTest" base="behaviac::Agent" disp="AgentArrayAccessTest" desc="AgentArrayAccessTest">
-      <properties>
-        <property name="c_Int" type="System.Int32" classname="AgentArrayAccessTest" defaultvalue="0" static="false" public="true" readonly="false" disp="c_Int" desc="AgentArrayAccessTest::c_Int" />
-        <property name="c_ListInts" type="System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" classname="AgentArrayAccessTest" defaultvalue="5:10|20|30|40|50" static="false" public="true" readonly="false" disp="c_ListInts" desc="AgentArrayAccessTest::c_ListInts" />
-        <property name="c_Count" type="System.Int32" classname="AgentArrayAccessTest" defaultvalue="0" static="false" public="true" readonly="false" disp="c_Count" desc="AgentArrayAccessTest::c_Count" />
-      </properties>
-    </agent>
     <agent type="AgentNodeTest" base="behaviac::Agent" disp="AgentNodeTest" desc="AgentNodeTest">
       <properties>
         <property name="testFloat2" type="XMLPluginBehaviac.TestNS_Float2" classname="AgentNodeTest" defaultvalue="{x=0;y=0;}" static="false" public="true" readonly="false" disp="testFloat2" desc="local_node" />
         <property name="testInt" type="System.Int32" classname="AgentNodeTest" defaultvalue="10" static="false" public="true" readonly="false" disp="testInt" desc="testInt" />
         <property name="test_int_array" type="System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" classname="AgentNodeTest" defaultvalue="3:1|2|3" static="false" public="true" readonly="false" disp="test_int_array" desc="test_int_array" />
+        <property name="par_child_agent_1" type="XMLPluginBehaviac.ChildNodeTest" classname="AgentNodeTest" defaultvalue="null" static="false" public="true" readonly="false" disp="par_child_agent_1" desc="par_child_agent_1" />
+        <property name="c_ReturnFloat2" type="XMLPluginBehaviac.TestNS_Float2" classname="AgentNodeTest" defaultvalue="{x=0;y=0;}" static="false" public="true" readonly="false" disp="c_ReturnFloat2" desc="c_ReturnFloat2" />
+        <property name="c_ReturnFloat2Const" type="XMLPluginBehaviac.TestNS_Float2" classname="AgentNodeTest" defaultvalue="{x=0;y=0;}" static="false" public="true" readonly="false" disp="c_ReturnFloat2Const" desc="c_ReturnFloat2Const" />
       </properties>
       <methods>
         <method name="event_test_int" returntype="System.Boolean" classname="AgentNodeTest" static="false" public="true" istask="true" disp="event_test_int" desc="event_test_int">
@@ -115,6 +111,13 @@
         <property name="c_IntReadonly" type="System.Int32" classname="PropertyReadonlyAgent" defaultvalue="10" static="false" public="true" readonly="true" disp="c_IntReadonly" desc="c_IntReadonly" />
         <property name="c_Int" type="System.Int32" classname="PropertyReadonlyAgent" defaultvalue="1" static="false" public="true" readonly="false" disp="c_Int" desc="c_Int" />
         <property name="c_ResultStatic" type="System.Int32" classname="PropertyReadonlyAgent" defaultvalue="0" static="true" public="true" readonly="false" disp="c_ResultStatic" desc="c_ResultStatic" />
+      </properties>
+    </agent>
+    <agent type="TestNS::AgentArrayAccessTest" base="behaviac::Agent" disp="TestNS::AgentArrayAccessTest" desc="TestNS::AgentArrayAccessTest">
+      <properties>
+        <property name="c_Int" type="System.Int32" classname="TestNS::AgentArrayAccessTest" defaultvalue="0" static="false" public="true" readonly="false" disp="c_Int" desc="TestNS::AgentArrayAccessTest::c_Int" />
+        <property name="c_ListInts" type="System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" classname="TestNS::AgentArrayAccessTest" defaultvalue="5:10|20|30|40|50" static="false" public="true" readonly="false" disp="c_ListInts" desc="TestNS::AgentArrayAccessTest::c_ListInts" />
+        <property name="c_Count" type="System.Int32" classname="TestNS::AgentArrayAccessTest" defaultvalue="0" static="false" public="true" readonly="false" disp="c_Count" desc="TestNS::AgentArrayAccessTest::c_Count" />
       </properties>
     </agent>
   </agents>

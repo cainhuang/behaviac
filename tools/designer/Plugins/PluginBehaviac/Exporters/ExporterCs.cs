@@ -916,9 +916,10 @@ namespace PluginBehaviac.Exporters
                         file.WriteLine("\t\t\tAgentProperties bb;");
                     }
 
-                    file.WriteLine("\n\t\t\t// {0}", agent.AgentTypeName);
-                    file.WriteLine("\t\t\tbb = new AgentProperties(\"{0}\");", agent.AgentTypeName);
-                    file.WriteLine("\t\t\tagent_type_blackboards[\"{0}\"] = bb;", agent.AgentTypeName);
+                    string agentTypeName = agent.AgentTypeName.Replace("::", ".");
+                    file.WriteLine("\n\t\t\t// {0}", agentTypeName);
+                    file.WriteLine("\t\t\tbb = new AgentProperties(\"{0}\");", agentTypeName);
+                    file.WriteLine("\t\t\tagent_type_blackboards[\"{0}\"] = bb;", agentTypeName);
 
                     foreach (PropertyDef prop in agent.GetProperties())
                     {
@@ -927,7 +928,7 @@ namespace PluginBehaviac.Exporters
                             file.WriteLine("\t\t\tbb.AddProperty(\"{0}\", {1}, \"{2}\", \"{3}\", \"{4}\");",
                                 DataCsExporter.GetExportNativeType(prop.NativeType),
                                 prop.IsStatic ? "true" : "false",
-                                prop.BasicName, prop.DefaultValue.Replace("\"", "\\\""), agent.AgentTypeName);
+                                prop.BasicName, prop.DefaultValue.Replace("\"", "\\\""), agentTypeName);
                         }
                     }
                 }
@@ -969,17 +970,18 @@ namespace PluginBehaviac.Exporters
                         file.WriteLine("\t\t\tCCustomMethod customeMethod;");
                     }
 
-                    file.WriteLine("\n\t\t\t// {0}", agent.AgentTypeName);
-                    file.WriteLine("\t\t\tobjectDesc = Agent.GetDescriptorByName(\"{0}\");", agent.AgentTypeName);
+                    string agentTypeName = agent.AgentTypeName.Replace("::", ".");
+                    file.WriteLine("\n\t\t\t// {0}", agentTypeName);
+                    file.WriteLine("\t\t\tobjectDesc = Agent.GetDescriptorByName(\"{0}\");", agentTypeName);
 
-                    file.WriteLine("\t\t\tcustomeMethod = new CTaskMethod(\"{0}\", \"root\");", agent.AgentTypeName);
+                    file.WriteLine("\t\t\tcustomeMethod = new CTaskMethod(\"{0}\", \"root\");", agentTypeName);
                     file.WriteLine("\t\t\tobjectDesc.ms_methods.Add(customeMethod);");
 
                     foreach (MethodDef method in methods)
                     {
                         if (method.IsNamedEvent)
                         {
-                            file.WriteLine("\n\t\t\tcustomeMethod = new CTaskMethod(\"{0}\", \"{1}\");", agent.AgentTypeName, method.BasicName);
+                            file.WriteLine("\n\t\t\tcustomeMethod = new CTaskMethod(\"{0}\", \"{1}\");", agentTypeName, method.BasicName);
 
                             foreach (MethodDef.Param param in method.Params)
                             {

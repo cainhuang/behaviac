@@ -191,10 +191,10 @@ namespace behaviac
 
     Workspace* Workspace::ms_instance = 0;
 
-    Workspace::Workspace() : m_bInited(false), m_bExecAgents(true), m_fileFormat(Workspace::EFF_xml), m_frame(0),
+    Workspace::Workspace() : m_bInited(false), m_bExecAgents(true), m_fileFormat(Workspace::EFF_xml),
         m_pBehaviorNodeLoader(0), m_behaviortreeCreators(0),
         m_fileBuffer(0), m_fileBufferTop(0),
-		m_timeSinceStartup(0), m_frameSinceStartup(0)
+		m_frame(0), m_timeSinceStartup(-1), m_frameSinceStartup(-1)
     {
 #if BEHAVIAC_ENABLE_HOTRELOAD
         m_allBehaviorTreeTasks = 0;
@@ -505,23 +505,23 @@ namespace behaviac
 
     void Workspace::SetTimeSinceStartup(float timeSinceStartup)
     {
-        //BEHAVIAC_ASSERT(timeSinceStartup >= 0.0f);
         m_timeSinceStartup = timeSinceStartup;
     }
 
     float Workspace::GetTimeSinceStartup()
     {
-        return m_timeSinceStartup;
+		BEHAVIAC_ASSERT(m_timeSinceStartup >= 0.0f, "SetTimeSinceStartup() should be called on your game update() method before GetTimeSinceStartup() is called.");
+		return m_timeSinceStartup;
     }
 
 	void Workspace::SetFrameSinceStartup(int frameSinceStartup)
 	{
-        //BEHAVIAC_ASSERT(m_frameSinceStartup >= 0);
 		m_frameSinceStartup = frameSinceStartup;
 	}
 
 	int Workspace::GetFrameSinceStartup()
 	{
+		BEHAVIAC_ASSERT(m_frameSinceStartup >= 0, "SetFrameSinceStartup() should be called on your game update() method before GetFrameSinceStartup() is called.");
         return m_frameSinceStartup;
 	}
 
@@ -696,7 +696,6 @@ namespace behaviac
         this->m_bExecAgents = bExecAgents;
     }
 
-
 	void Workspace::DebugUpdate()
 	{
 		this->LogFrames();
@@ -705,7 +704,7 @@ namespace behaviac
 		this->HotReload();
 	}
 
-    void Workspace::Update()
+	void Workspace::Update()
     {
 		this->DebugUpdate();
 
@@ -1217,16 +1216,6 @@ namespace behaviac
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*uint32_t						Workspace::m_frame;
-    behaviac::string				Workspace::m_applogFilter;
-
-    Workspace::BreakpointInfos_t	Workspace::m_breakpoints;
-
-    Workspace::ActionCount_t		Workspace::m_actions_count;
-
-    behaviac::Mutex					Workspace::m_cs;*/
-
     //[breakpoint] add TestBehaviorGroup\btunittest.xml->Sequence[3]:enter all Hit=1
     //[breakpoint] add TestBehaviorGroup\btunittest.xml->Sequence[3]:exit all Hit=1
     //[breakpoint] add TestBehaviorGroup\btunittest.xml->Sequence[3]:exit success Hit=1
@@ -1376,9 +1365,9 @@ namespace behaviac
 #endif
     }
 
-    void Workspace::LogFrames()
+	void Workspace::LogFrames()
     {
-        LogManager::GetInstance()->Log("[frame]%d\n", m_frame++);
+		LogManager::GetInstance()->Log("[frame]%d\n", (m_frameSinceStartup >= 0) ? m_frameSinceStartup : (m_frame++));
     }
 
     void Workspace::WaitforContinue()

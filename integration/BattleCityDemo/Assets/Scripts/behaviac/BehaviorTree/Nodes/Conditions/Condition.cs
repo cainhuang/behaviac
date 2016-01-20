@@ -82,40 +82,49 @@ namespace behaviac
 
         public static Property ParseProperty(string value, ref string typeName)
         {
-            Property opr = null;
-            List<string> tokens = StringUtils.SplitTokens(value);
-
-            if (tokens[0] == "static")
+            try
             {
-                //static int Property1
-                typeName = tokens[1].Replace("::", ".");
+                Property opr = null;
+                List<string> tokens = StringUtils.SplitTokens(value);
 
-                if (tokens.Count == 3)
+                if (tokens[0] == "static")
                 {
-                    opr = Property.Create(typeName, tokens[2], true, null);
+                    //static int Property1
+                    typeName = tokens[1].Replace("::", ".");
+
+                    if (tokens.Count == 3)
+                    {
+                        opr = Property.Create(typeName, tokens[2], true, null);
+                    }
+                    else
+                    {
+                        Debug.Check(tokens.Count == 4);
+                        opr = Property.Create(typeName, tokens[2], true, tokens[3]);
+                    }
                 }
                 else
                 {
-                    Debug.Check(tokens.Count == 4);
-                    opr = Property.Create(typeName, tokens[2], true, tokens[3]);
+                    //int Property1
+                    typeName = tokens[0].Replace("::", ".");
+
+                    if (tokens.Count == 2)
+                    {
+                        opr = Property.Create(typeName, tokens[1], false, null);
+                    }
+                    else
+                    {
+                        opr = Property.Create(typeName, tokens[1], false, tokens[2]);
+                    }
                 }
+
+                return opr;
             }
-            else
+            catch (System.Exception e)
             {
-                //int Property1
-                typeName = tokens[0].Replace("::", ".");
-
-                if (tokens.Count == 2)
-                {
-                    opr = Property.Create(typeName, tokens[1], false, null);
-                }
-                else
-                {
-                    opr = Property.Create(typeName, tokens[1], false, tokens[2]);
-                }
+                Debug.Check(false, e.Message);
             }
 
-            return opr;
+            return null;
         }
 
         public static Property LoadProperty(string value)

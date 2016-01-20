@@ -13,6 +13,7 @@ GameScene* GameScene::m_gamelayer = nullptr;
 
 const float GameScene::refresh_delay[] = { 2.0f, 1.5f, 1.0f, 0.5f, 0.2f }; //战机刷新间隔
 behaviac::vector<behaviac::Agent*>  GameScene::m_bt_agent_delete_queue;
+
 Scene* GameScene::createScene()
 {
     //创建一个没有重力的物理世界
@@ -25,7 +26,6 @@ Scene* GameScene::createScene()
     m_gamelayer = GameScene::create();
     scene->addChild(m_gamelayer);
 
-
     return scene;
 }
 
@@ -33,7 +33,6 @@ bool GameScene::init()
 {
     Layer::init();
     log("Game init!");
-
 
     //m_isAI = false;
 
@@ -88,7 +87,6 @@ bool GameScene::init()
     auto menu = Menu::create(pauseButton, nullptr);
     addChild(menu, 10, PAUSE_MENU);
 
-
     //create  AI  control button
     auto ai_enable1 = Sprite::create("img/check_box_active.png");
     auto ai_enable2 = Sprite::create("img/check_box_active_press.png");
@@ -103,7 +101,6 @@ bool GameScene::init()
     AIButton->setPosition(Vec2(winSize.width / 3 - AIButton->getContentSize().width, winSize.height / 2 - AIButton->getContentSize().height));
     auto menu1 = Menu::create(AIButton, nullptr);
     addChild(menu1, 10, AI_TAG);
-
 
     //加入一个分数栏
     m_score = 0;
@@ -172,7 +169,6 @@ bool GameScene::init()
     m_level = LEVEL1;
     schedule(schedule_selector(GameScene::testLevel), 1.0f);
 
-
     schedule(schedule_selector(GameScene::Update), 0.1f);
 
     //每隔5秒可以刷新一次boss战机
@@ -197,11 +193,11 @@ bool GameScene::init()
             this->getScene()->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
             this->m_Hero->getPlane()->enableShowScreenDebugInfo(true);
         }
-        
     };
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(0);
   
     return true;
 }
@@ -476,11 +472,10 @@ void GameScene::resetBoss(float dt)
 //create Update for behaviac
 void GameScene::Update(float dt)
 {
-    //behaviac::Workspace::GetInstance()->LogFrames();
-    //behaviac::Workspace::GetInstance()->HandleRequests();
-    //m_NPC->btexec();
+	behaviac::Workspace::GetInstance()->SetFrameSinceStartup(behaviac::Workspace::GetInstance()->GetFrameSinceStartup() + 1);
 
-    behaviac::Workspace::GetInstance()->Update();
+	//m_NPC->btexec();
+	behaviac::Workspace::GetInstance()->Update();
     cleanBehaviacAgentDeleteQueue();
 }
 

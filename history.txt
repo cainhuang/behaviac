@@ -1,3 +1,7 @@
+2016-01-20	3.2.22
+	Fix a bug for const reference type for the return type of the method.
+	Fix a bug for CountLimit node.
+
 2016-01-15	3.2.21
 	Fix a bug for the behavior task.
 	Fix a bug for the DecoratorTime node.

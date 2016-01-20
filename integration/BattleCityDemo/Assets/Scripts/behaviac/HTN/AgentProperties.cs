@@ -423,7 +423,7 @@ namespace behaviac
                                 }
                                 else
                                 {
-                                    agentTypeMember = d.ReadString();
+                                    agentTypeMember = d.ReadString().Replace("::", ".");
                                 }
 
                                 d.CloseDocument(true);

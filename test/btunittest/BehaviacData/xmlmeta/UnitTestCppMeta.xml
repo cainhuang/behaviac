@@ -237,10 +237,6 @@
 				<Param DisplayName="" Desc="" Type="vector&lt;sbyte&gt;" />
 			</Method>
 		</agent>
-		<agent classfullname="AgentArrayAccessTest" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
-			<Member Name="ListInts" DisplayName="" Desc="" Type="vector&lt;int&gt;" Class="AgentArrayAccessTest" />
-			<Member Name="Int" DisplayName="" Desc="" Type="int" Class="AgentArrayAccessTest" />
-		</agent>
 		<agent classfullname="AgentNodeTest" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
 			<Member Name="testVar_0" DisplayName="" Desc="" Type="int" Class="AgentNodeTest" />
 			<Member Name="testVar_1" DisplayName="testVar_1" Desc="testVar_1 property" Type="int" Class="AgentNodeTest" />
@@ -306,6 +302,8 @@
 			<Method Name="testExtendedStruct" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
 				<Param DisplayName="" Desc="" Type="TestNS::Float2&amp;" />
 			</Method>
+			<Method Name="getExtendedStruct" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="TestNS::Float2&amp;" />
+			<Method Name="getConstExtendedStruct" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="const TestNS::Float2&amp;" />
 			<Method Name="switchRef" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus">
 				<Param DisplayName="" Desc="" Type="const string&amp;" />
 			</Method>
@@ -561,6 +559,10 @@
 		<agent classfullname="StaticAgent" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
 			<Member Name="sInt" DisplayName="" Desc="" Type="int" Class="StaticAgent" Static="true" />
 			<Method Name="sAction" DisplayName="" Desc="" Class="StaticAgent" Static="true" ReturnType="void" />
+		</agent>
+		<agent classfullname="TestNS::AgentArrayAccessTest" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
+			<Member Name="ListInts" DisplayName="" Desc="" Type="vector&lt;int&gt;" Class="TestNS::AgentArrayAccessTest" />
+			<Member Name="Int" DisplayName="" Desc="" Type="int" Class="TestNS::AgentArrayAccessTest" />
 		</agent>
 	</agents>
 	<instances>

@@ -14,15 +14,6 @@ namespace behaviac
 
 			AgentProperties bb;
 
-			// AgentArrayAccessTest
-			bb = new AgentProperties("AgentArrayAccessTest");
-			agent_type_blackboards["AgentArrayAccessTest"] = bb;
-			bb.AddProperty("int", false, "Int", "0", "AgentArrayAccessTest");
-			bb.AddProperty("vector<int>", false, "ListInts", "0:", "AgentArrayAccessTest");
-			bb.AddProperty("int", false, "c_Int", "0", "AgentArrayAccessTest");
-			bb.AddProperty("vector<int>", false, "c_ListInts", "5:10|20|30|40|50", "AgentArrayAccessTest");
-			bb.AddProperty("int", false, "c_Count", "0", "AgentArrayAccessTest");
-
 			// AgentNodeTest
 			bb = new AgentProperties("AgentNodeTest");
 			agent_type_blackboards["AgentNodeTest"] = bb;
@@ -37,6 +28,9 @@ namespace behaviac
 			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
 			bb.AddProperty("int", false, "testInt", "10", "AgentNodeTest");
 			bb.AddProperty("vector<int>", false, "test_int_array", "3:1|2|3", "AgentNodeTest");
+			bb.AddProperty("ChildNodeTest", false, "par_child_agent_1", "null", "AgentNodeTest");
+			bb.AddProperty("TestNS::Float2", false, "c_ReturnFloat2", "{x=0;y=0;}", "AgentNodeTest");
+			bb.AddProperty("TestNS::Float2", false, "c_ReturnFloat2Const", "{x=0;y=0;}", "AgentNodeTest");
 
 			// ChildNodeTest
 			bb = new AgentProperties("ChildNodeTest");
@@ -44,6 +38,9 @@ namespace behaviac
 			bb.AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "ChildNodeTest");
 			bb.AddProperty("int", false, "testInt", "10", "ChildNodeTest");
 			bb.AddProperty("vector<int>", false, "test_int_array", "3:1|2|3", "ChildNodeTest");
+			bb.AddProperty("ChildNodeTest", false, "par_child_agent_1", "null", "ChildNodeTest");
+			bb.AddProperty("TestNS::Float2", false, "c_ReturnFloat2", "{x=0;y=0;}", "ChildNodeTest");
+			bb.AddProperty("TestNS::Float2", false, "c_ReturnFloat2Const", "{x=0;y=0;}", "ChildNodeTest");
 			bb.AddProperty("EnumTest", false, "testColor", "EnumTest_One", "ChildNodeTest");
 			bb.AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
 			bb.AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
@@ -67,6 +64,34 @@ namespace behaviac
 			bb.AddProperty("string", true, "c_StaticString", "", "CustomPropertyAgent");
 			bb.AddProperty("TNS::NE::NAT::eColor", false, "c_Enum", "RED", "CustomPropertyAgent");
 			bb.AddProperty("UnityEngine::Vector3", false, "c_Location", "{x=0;y=0;z=0;}", "CustomPropertyAgent");
+
+			// FSMAgentTest
+			bb = new AgentProperties("FSMAgentTest");
+			agent_type_blackboards["FSMAgentTest"] = bb;
+			bb.AddProperty("FSMAgentTest::EMessage", false, "Message", "Invalid", "FSMAgentTest");
+			bb.AddProperty("int", false, "InactiveCount", "0", "FSMAgentTest");
+			bb.AddProperty("uint", false, "ActiveCount", "0", "FSMAgentTest");
+			bb.AddProperty("short", false, "PauseCount", "0", "FSMAgentTest");
+			bb.AddProperty("long", false, "ExitCount", "0", "FSMAgentTest");
+			bb.AddProperty("int", false, "FoodCount", "0", "FSMAgentTest");
+			bb.AddProperty("int", false, "EnergyCount", "0", "FSMAgentTest");
+
+			// HTNAgentHouseBase
+			bb = new AgentProperties("HTNAgentHouseBase");
+			agent_type_blackboards["HTNAgentHouseBase"] = bb;
+			bb.AddProperty("int", false, "Money", "0", "HTNAgentHouseBase");
+
+			// HTNAgentHouse
+			bb = new AgentProperties("HTNAgentHouse");
+			agent_type_blackboards["HTNAgentHouse"] = bb;
+			bb.AddProperty("int", false, "Money", "0", "HTNAgentHouse");
+			bb.AddProperty("bool", false, "Land", "false", "HTNAgentHouse");
+			bb.AddProperty("bool", false, "GoodCredit", "true", "HTNAgentHouse");
+			bb.AddProperty("bool", false, "Contract", "false", "HTNAgentHouse");
+			bb.AddProperty("bool", false, "Permit", "false", "HTNAgentHouse");
+			bb.AddProperty("bool", false, "HouseBuilt", "false", "HTNAgentHouse");
+			bb.AddProperty("bool", false, "Mortgage", "false", "HTNAgentHouse");
+			bb.AddProperty("bool", false, "House", "false", "HTNAgentHouse");
 
 			// ParTestAgentBase
 			bb = new AgentProperties("ParTestAgentBase");
@@ -172,34 +197,6 @@ namespace behaviac
 			bb.AddProperty("sbyte", false, "TV_SBYTE_0", "0", "EmployeeParTestAgent");
 			bb.AddProperty("ParTestAgent", false, "target", "null", "EmployeeParTestAgent");
 
-			// FSMAgentTest
-			bb = new AgentProperties("FSMAgentTest");
-			agent_type_blackboards["FSMAgentTest"] = bb;
-			bb.AddProperty("FSMAgentTest::EMessage", false, "Message", "Invalid", "FSMAgentTest");
-			bb.AddProperty("int", false, "InactiveCount", "0", "FSMAgentTest");
-			bb.AddProperty("uint", false, "ActiveCount", "0", "FSMAgentTest");
-			bb.AddProperty("short", false, "PauseCount", "0", "FSMAgentTest");
-			bb.AddProperty("long", false, "ExitCount", "0", "FSMAgentTest");
-			bb.AddProperty("int", false, "FoodCount", "0", "FSMAgentTest");
-			bb.AddProperty("int", false, "EnergyCount", "0", "FSMAgentTest");
-
-			// HTNAgentHouseBase
-			bb = new AgentProperties("HTNAgentHouseBase");
-			agent_type_blackboards["HTNAgentHouseBase"] = bb;
-			bb.AddProperty("int", false, "Money", "0", "HTNAgentHouseBase");
-
-			// HTNAgentHouse
-			bb = new AgentProperties("HTNAgentHouse");
-			agent_type_blackboards["HTNAgentHouse"] = bb;
-			bb.AddProperty("int", false, "Money", "0", "HTNAgentHouse");
-			bb.AddProperty("bool", false, "Land", "false", "HTNAgentHouse");
-			bb.AddProperty("bool", false, "GoodCredit", "true", "HTNAgentHouse");
-			bb.AddProperty("bool", false, "Contract", "false", "HTNAgentHouse");
-			bb.AddProperty("bool", false, "Permit", "false", "HTNAgentHouse");
-			bb.AddProperty("bool", false, "HouseBuilt", "false", "HTNAgentHouse");
-			bb.AddProperty("bool", false, "Mortgage", "false", "HTNAgentHouse");
-			bb.AddProperty("bool", false, "House", "false", "HTNAgentHouse");
-
 			// ParTestRegNameAgent
 			bb = new AgentProperties("ParTestRegNameAgent");
 			agent_type_blackboards["ParTestRegNameAgent"] = bb;
@@ -237,6 +234,15 @@ namespace behaviac
 			bb = new AgentProperties("StaticAgent");
 			agent_type_blackboards["StaticAgent"] = bb;
 			bb.AddProperty("int", true, "sInt", "0", "StaticAgent");
+
+			// TestNS.AgentArrayAccessTest
+			bb = new AgentProperties("TestNS.AgentArrayAccessTest");
+			agent_type_blackboards["TestNS.AgentArrayAccessTest"] = bb;
+			bb.AddProperty("int", false, "Int", "0", "TestNS.AgentArrayAccessTest");
+			bb.AddProperty("vector<int>", false, "ListInts", "0:", "TestNS.AgentArrayAccessTest");
+			bb.AddProperty("int", false, "c_Int", "0", "TestNS.AgentArrayAccessTest");
+			bb.AddProperty("vector<int>", false, "c_ListInts", "5:10|20|30|40|50", "TestNS.AgentArrayAccessTest");
+			bb.AddProperty("int", false, "c_Count", "0", "TestNS.AgentArrayAccessTest");
 
 			// ---------------------------------------------------------------------
 			// tasks

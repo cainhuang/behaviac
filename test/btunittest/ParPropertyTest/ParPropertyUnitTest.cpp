@@ -44,7 +44,7 @@ void registerAllTypes()
     behaviac::Agent::Register<FSMAgentTest>();
     behaviac::Agent::Register<HTNAgentTravel>();
     behaviac::Agent::Register<CustomPropertyAgent>();
-    behaviac::Agent::Register<AgentArrayAccessTest>();
+    behaviac::Agent::Register<TestNS::AgentArrayAccessTest>();
     behaviac::Agent::Register<PropertyReadonlyAgent>();
     behaviac::Agent::Register<PreconEffectorAgent>();
     behaviac::Agent::RegisterInstanceName<StaticAgent>("StaticAgent");
@@ -65,7 +65,7 @@ void unregisterAllTypes()
     behaviac::Agent::UnRegister<FSMAgentTest>();
     behaviac::Agent::UnRegister<HTNAgentTravel>();
     behaviac::Agent::UnRegister<CustomPropertyAgent>();
-    behaviac::Agent::UnRegister<AgentArrayAccessTest>();
+    behaviac::Agent::UnRegister<TestNS::AgentArrayAccessTest>();
     behaviac::Agent::UnRegister<PropertyReadonlyAgent>();
     behaviac::Agent::UnRegister<PreconEffectorAgent>();
 

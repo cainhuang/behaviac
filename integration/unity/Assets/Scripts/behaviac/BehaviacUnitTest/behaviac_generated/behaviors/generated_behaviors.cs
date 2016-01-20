@@ -4379,7 +4379,6 @@ namespace behaviac
 #endif
 			// pars
 			bt.AddPar("AgentNodeTest", "AgentNodeTest", "par_child_agent", "null");
-			bt.AddPar("AgentNodeTest", "ChildNodeTest", "par_child_agent_1", "null");
 			// children
 			{
 				Sequence node0 = new Sequence();
@@ -5037,6 +5036,40 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	class Assignment_bt_node_test_action_ut_1_node11 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_1_node11()
+		{
+			opr_params = null;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			TestNS.Float2 opr = (TestNS.Float2)AgentExtra_Generated.ExecuteMethod(pAgent, "getExtendedStruct", opr_params);
+			Debug.Check(behaviac.Utils.MakeVariableId("c_ReturnFloat2") == 257770974u);
+			pAgent.SetVariable<TestNS.Float2>("c_ReturnFloat2", opr, 257770974u);
+			return result;
+		}
+		object[] opr_params;
+	}
+
+	class Assignment_bt_node_test_action_ut_1_node12 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_1_node12()
+		{
+			opr_params = null;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			TestNS.Float2 opr = (TestNS.Float2)AgentExtra_Generated.ExecuteMethod(pAgent, "getConstExtendedStruct", opr_params);
+			Debug.Check(behaviac.Utils.MakeVariableId("c_ReturnFloat2Const") == 2482280992u);
+			pAgent.SetVariable<TestNS.Float2>("c_ReturnFloat2Const", opr, 2482280992u);
+			return result;
+		}
+		object[] opr_params;
+	}
+
 	public static class bt_node_test_action_ut_1
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -5162,6 +5195,26 @@ namespace behaviac
 #endif
 					node0.AddChild(node9);
 					node0.SetHasEvents(node0.HasEvents() | node9.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_1_node11 node11 = new Assignment_bt_node_test_action_ut_1_node11();
+					node11.SetClassNameString("Assignment");
+					node11.SetId(11);
+#if !BEHAVIAC_RELEASE
+					node11.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node11);
+					node0.SetHasEvents(node0.HasEvents() | node11.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_1_node12 node12 = new Assignment_bt_node_test_action_ut_1_node12();
+					node12.SetClassNameString("Assignment");
+					node12.SetId(12);
+#if !BEHAVIAC_RELEASE
+					node12.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node12);
+					node0.SetHasEvents(node0.HasEvents() | node12.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}
@@ -27669,9 +27722,9 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			List<int> opr = ((AgentArrayAccessTest)pAgent).ListInts;
+			List<int> opr = ((TestNS.AgentArrayAccessTest)pAgent).ListInts;
 			int opr_index = 0;
-			((AgentArrayAccessTest)pAgent).Int = (opr)[opr_index];
+			((TestNS.AgentArrayAccessTest)pAgent).Int = (opr)[opr_index];
 			return result;
 		}
 	}
@@ -27739,7 +27792,7 @@ namespace behaviac
 			int opr2 = pAgent.GetVariable<int>(337932423u);
 			Debug.Check(behaviac.Utils.MakeVariableId("l_index") == 1109890112u);
 			int opl_index = pAgent.GetVariable<int>(1109890112u);
-			(((AgentArrayAccessTest)pAgent).ListInts)[opl_index] = (int)(opr1 + opr2);
+			(((TestNS.AgentArrayAccessTest)pAgent).ListInts)[opl_index] = (int)(opr1 + opr2);
 			return result;
 		}
 	}
@@ -27771,9 +27824,9 @@ namespace behaviac
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("c_ListInts") == 2521109666u);
 			System.Collections.IList method_p0 = pAgent.GetVariable<System.Collections.IList>(2521109666u);
-			behaviac.Agent.VectorAdd(ref method_p0, ((AgentArrayAccessTest)pAgent).Int);
+			behaviac.Agent.VectorAdd(ref method_p0, ((TestNS.AgentArrayAccessTest)pAgent).Int);
 			Debug.Check(behaviac.Utils.MakeVariableId("c_ListInts") == 2521109666u);
-			pAgent.SetVariable<System.Collections.IList>("AgentArrayAccessTest::c_ListInts", (System.Collections.IList)method_p0, 2521109666u);
+			pAgent.SetVariable<System.Collections.IList>("TestNS::AgentArrayAccessTest::c_ListInts", (System.Collections.IList)method_p0, 2521109666u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -27792,7 +27845,7 @@ namespace behaviac
 			System.Object method_p1 = pAgent.GetVariable<System.Object>(3849503314u);
 			behaviac.Agent.VectorRemove(ref method_p0, method_p1);
 			Debug.Check(behaviac.Utils.MakeVariableId("c_ListInts") == 2521109666u);
-			pAgent.SetVariable<System.Collections.IList>("AgentArrayAccessTest::c_ListInts", (System.Collections.IList)method_p0, 2521109666u);
+			pAgent.SetVariable<System.Collections.IList>("TestNS::AgentArrayAccessTest::c_ListInts", (System.Collections.IList)method_p0, 2521109666u);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -27806,19 +27859,19 @@ namespace behaviac
 			bt.SetName("par_test/vector_test");
 			bt.IsFSM = false;
 #if !BEHAVIAC_RELEASE
-			bt.SetAgentType("AgentArrayAccessTest");
+			bt.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 			// pars
-			bt.AddPar("AgentArrayAccessTest", "int", "l_index", "0");
-			bt.AddPar("AgentArrayAccessTest", "vector<int>", "l_ListInts", "5:100|200|300|400|500");
-			bt.AddPar("AgentArrayAccessTest", "int", "l_Int", "0");
+			bt.AddPar("TestNS::AgentArrayAccessTest", "int", "l_index", "0");
+			bt.AddPar("TestNS::AgentArrayAccessTest", "vector<int>", "l_ListInts", "5:100|200|300|400|500");
+			bt.AddPar("TestNS::AgentArrayAccessTest", "int", "l_Int", "0");
 			// children
 			{
 				Sequence node22 = new Sequence();
 				node22.SetClassNameString("Sequence");
 				node22.SetId(22);
 #if !BEHAVIAC_RELEASE
-				node22.SetAgentType("AgentArrayAccessTest");
+				node22.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 				bt.AddChild(node22);
 				{
@@ -27826,7 +27879,7 @@ namespace behaviac
 					node0.SetClassNameString("Assignment");
 					node0.SetId(0);
 #if !BEHAVIAC_RELEASE
-					node0.SetAgentType("AgentArrayAccessTest");
+					node0.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 					node22.AddChild(node0);
 					node22.SetHasEvents(node22.HasEvents() | node0.HasEvents());
@@ -27836,7 +27889,7 @@ namespace behaviac
 					node1.SetClassNameString("Assignment");
 					node1.SetId(1);
 #if !BEHAVIAC_RELEASE
-					node1.SetAgentType("AgentArrayAccessTest");
+					node1.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 					node22.AddChild(node1);
 					node22.SetHasEvents(node22.HasEvents() | node1.HasEvents());
@@ -27846,7 +27899,7 @@ namespace behaviac
 					node2.SetClassNameString("Assignment");
 					node2.SetId(2);
 #if !BEHAVIAC_RELEASE
-					node2.SetAgentType("AgentArrayAccessTest");
+					node2.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 					node22.AddChild(node2);
 					node22.SetHasEvents(node22.HasEvents() | node2.HasEvents());
@@ -27856,7 +27909,7 @@ namespace behaviac
 					node4.SetClassNameString("Assignment");
 					node4.SetId(4);
 #if !BEHAVIAC_RELEASE
-					node4.SetAgentType("AgentArrayAccessTest");
+					node4.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 					node22.AddChild(node4);
 					node22.SetHasEvents(node22.HasEvents() | node4.HasEvents());
@@ -27866,7 +27919,7 @@ namespace behaviac
 					node3.SetClassNameString("Compute");
 					node3.SetId(3);
 #if !BEHAVIAC_RELEASE
-					node3.SetAgentType("AgentArrayAccessTest");
+					node3.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 					node22.AddChild(node3);
 					node22.SetHasEvents(node22.HasEvents() | node3.HasEvents());
@@ -27876,7 +27929,7 @@ namespace behaviac
 					node5.SetClassNameString("Assignment");
 					node5.SetId(5);
 #if !BEHAVIAC_RELEASE
-					node5.SetAgentType("AgentArrayAccessTest");
+					node5.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 					node22.AddChild(node5);
 					node22.SetHasEvents(node22.HasEvents() | node5.HasEvents());
@@ -27886,7 +27939,7 @@ namespace behaviac
 					node6.SetClassNameString("Action");
 					node6.SetId(6);
 #if !BEHAVIAC_RELEASE
-					node6.SetAgentType("AgentArrayAccessTest");
+					node6.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 					node22.AddChild(node6);
 					node22.SetHasEvents(node22.HasEvents() | node6.HasEvents());
@@ -27896,7 +27949,7 @@ namespace behaviac
 					node7.SetClassNameString("Action");
 					node7.SetId(7);
 #if !BEHAVIAC_RELEASE
-					node7.SetAgentType("AgentArrayAccessTest");
+					node7.SetAgentType("TestNS.AgentArrayAccessTest");
 #endif
 					node22.AddChild(node7);
 					node22.SetHasEvents(node22.HasEvents() | node7.HasEvents());

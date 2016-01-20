@@ -28,8 +28,14 @@ namespace Behaviac.Design.Nodes
         protected ConnectorSingle _genericChildren;
 
         public Decorator(string label, string description)
-            : base(label, description) {
+            : base(label, description)
+        {
+            CreateInterruptChild();
             _genericChildren = new ConnectorSingle(_children, string.Empty, Connector.kGeneric);
+        }
+
+        protected virtual void CreateInterruptChild()
+        {
         }
 
         public override string ExportClass {

@@ -59,6 +59,9 @@ void AgentNodeTest::resetProperties()
 
 	m_bCanSee = false;
 	m_bTargetValid = false;
+
+	TestFloat2.x = 2.0f;
+	TestFloat2.y = 2.0f;
 }
 
 namespace UnityEngine
@@ -104,6 +107,8 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
 	REGISTER_METHOD(createExtendedNode);
 	REGISTER_METHOD(testExtendedRefType);
 	REGISTER_METHOD(testExtendedStruct);
+	REGISTER_METHOD(getExtendedStruct);
+	REGISTER_METHOD(getConstExtendedStruct);
     REGISTER_METHOD(switchRef);
 
 	REGISTER_METHOD(Stop);

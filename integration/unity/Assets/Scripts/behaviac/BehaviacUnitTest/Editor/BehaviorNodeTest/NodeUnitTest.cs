@@ -653,11 +653,19 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(1.8f, testAgent.testVar_2);
             Assert.AreEqual(4.5f, testAgent.testVar_3);
             Assert.AreEqual("HC", testAgent.testVar_str_0);
-
             Assert.AreEqual("NODE", testAgent.testVar_str_1);
+
             TestNS.Float2 float2 = testAgent.GetVariable<TestNS.Float2>("testFloat2");
             Assert.AreEqual(1.0f, float2.x);
             Assert.AreEqual(1.0f, float2.y);
+
+            TestNS.Float2 c_ReturnFloat2 = testAgent.GetVariable<TestNS.Float2>("c_ReturnFloat2");
+            Assert.AreEqual(2.0f, c_ReturnFloat2.x);
+            Assert.AreEqual(2.0f, c_ReturnFloat2.y);
+
+            TestNS.Float2 c_ReturnFloat2Const = testAgent.GetVariable<TestNS.Float2>("c_ReturnFloat2Const");
+            Assert.AreEqual(2.0f, c_ReturnFloat2Const.x);
+            Assert.AreEqual(2.0f, c_ReturnFloat2Const.y);
         }
 
         [Test]

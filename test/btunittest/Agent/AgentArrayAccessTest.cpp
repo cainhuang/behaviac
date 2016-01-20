@@ -13,20 +13,23 @@
 
 #include "AgentArrayAccessTest.h"
 
-AgentArrayAccessTest::AgentArrayAccessTest()
+namespace TestNS
 {
-	Int = 0;
-}
+	AgentArrayAccessTest::AgentArrayAccessTest()
+	{
+		Int = 0;
+	}
 
-AgentArrayAccessTest::~AgentArrayAccessTest()
-{
-}
+	AgentArrayAccessTest::~AgentArrayAccessTest()
+	{
+	}
 
-BEGIN_PROPERTIES_DESCRIPTION(AgentArrayAccessTest)
-{
-    //CLASS_DISPLAYNAME(L"AgentArrayAccessTest DisplayName")
-    //CLASS_DESC(L"AgentArrayAccessTest Desc")
-    REGISTER_PROPERTY(ListInts);
-    REGISTER_PROPERTY(Int);
+	BEGIN_PROPERTIES_DESCRIPTION(AgentArrayAccessTest)
+	{
+		//CLASS_DISPLAYNAME(L"AgentArrayAccessTest DisplayName")
+		//CLASS_DESC(L"AgentArrayAccessTest Desc")
+		REGISTER_PROPERTY(ListInts);
+		REGISTER_PROPERTY(Int);
+	}
+	END_PROPERTIES_DESCRIPTION()
 }
-END_PROPERTIES_DESCRIPTION()

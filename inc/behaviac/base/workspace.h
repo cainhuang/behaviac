@@ -158,7 +158,9 @@ namespace behaviac
         bool IsExecAgents() const;
         void SetIsExecAgents(bool bExecAgents);
 
-        virtual void Update();
+		virtual void Update();
+
+		void DebugUpdate();
 
         /**
         this is called for every behavior node, in which uses can do some custom stuff
@@ -208,13 +210,10 @@ namespace behaviac
         */
         bool CheckAppLogFilter(const char* filter);
 
-
         /**
         wait for the continue request from the designer after the breakpoint
         */
         void WaitforContinue();
-
-		void DebugUpdate();
 
         /**
         hot reload the modified behaviors.
@@ -248,6 +247,7 @@ namespace behaviac
     protected:
         Workspace();
         virtual ~Workspace();
+
     private:
         bool LoadWorkspaceSetting(const char* file, behaviac::string& workspaceFile);
         bool LoadWorkspaceFile(const char* file);
@@ -270,6 +270,7 @@ namespace behaviac
         void ParseAppLogFilter(const behaviac::vector<behaviac::string>& tokens);
 
 		void LogFrames();
+
 		/**
 		handle the requests from the designer
 
@@ -322,7 +323,6 @@ namespace behaviac
 
         Workspace::EFileFormat	m_fileFormat;
 
-        uint32_t				m_frame;
         behaviac::string		m_applogFilter;
 
         Workspace::BehaviorTrees_t m_behaviortrees;
@@ -347,6 +347,9 @@ namespace behaviac
         int m_fileBufferTop;
         uint32_t m_fileBufferOffset[kFileBufferDepth];
 
+		int m_frame;
+
+protected:
         float m_timeSinceStartup;
 		int m_frameSinceStartup;
     };

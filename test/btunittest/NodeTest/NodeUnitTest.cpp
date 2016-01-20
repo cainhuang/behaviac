@@ -590,7 +590,16 @@ LOAD_TEST(btunittest, action_ut_1)
 	const TestNS::Float2& float2 = myTestAgent->GetVariable<TestNS::Float2>("testFloat2");
 	CHECK_FLOAT_EQUAL(1.0f, float2.x);
 	CHECK_FLOAT_EQUAL(1.0f, float2.y);
-    finlTestEnvNode(myTestAgent);
+
+	const TestNS::Float2& c_ReturnFloat2 = myTestAgent->GetVariable<TestNS::Float2>("c_ReturnFloat2");
+	CHECK_FLOAT_EQUAL(2.0f, c_ReturnFloat2.x);
+	CHECK_FLOAT_EQUAL(2.0f, c_ReturnFloat2.y);
+
+	const TestNS::Float2& c_ReturnFloat2Const = myTestAgent->GetVariable<TestNS::Float2>("c_ReturnFloat2Const");
+	CHECK_FLOAT_EQUAL(2.0f, c_ReturnFloat2Const.x);
+	CHECK_FLOAT_EQUAL(2.0f, c_ReturnFloat2Const.y);
+
+	finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, action_ut_2)

@@ -54,5 +54,13 @@
       <property Method="Self.AgentNodeTest::testExtendedStruct(TestNS::Float2 Self.AgentNodeTest::testFloat2)" />
       <property ResultOption="BT_SUCCESS" />
     </node>
+    <node class="Assignment" id="11">
+      <property Opl="TestNS::Float2 Self.AgentNodeTest::c_ReturnFloat2" />
+      <property Opr="Self.AgentNodeTest::getExtendedStruct()" />
+    </node>
+    <node class="Assignment" id="12">
+      <property Opl="TestNS::Float2 Self.AgentNodeTest::c_ReturnFloat2Const" />
+      <property Opr="Self.AgentNodeTest::getConstExtendedStruct()" />
+    </node>
   </node>
 </behavior>

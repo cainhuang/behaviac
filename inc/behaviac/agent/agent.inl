@@ -454,7 +454,17 @@ namespace behaviac
             return *pVal;
         }
 
-		return *VariableGettterDispatcher<VariableType, behaviac::Meta::IsRefType<VariableType>::Result>::Get(this->m_variables, this, pProperty, variableId);
+		const VariableType* pVal1 = VariableGettterDispatcher<VariableType, behaviac::Meta::IsRefType<VariableType>::Result>::Get(this->m_variables, this, pProperty, variableId);
+		if (pVal1)
+		{
+			return *pVal1;
+		}
+		else
+		{
+			static VariableType s = VariableType();
+			BEHAVIAC_ASSERT(false);
+			return s;
+		}
     }
 
     template<typename VariableType, bool bRefType>

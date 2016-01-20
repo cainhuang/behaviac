@@ -62,7 +62,7 @@ namespace behaviac
             {
                 IList asList = parent.m_defaultValue as IList;
 
-                if (asList.Count > 0)
+                if (asList != null && asList.Count > 0)
                 {
                     m_defaultValue = asList[0];
                 }
@@ -324,9 +324,13 @@ namespace behaviac
                 {
                     this.SetValue(pAgent, v);
                 }
-                else
+                else if (v != null)
                 {
                     pAgent.Instantiate(v, this);
+                }
+                else 
+                {
+                    Debug.Check(true);
                 }
             }
         }
@@ -503,22 +507,29 @@ namespace behaviac
             Agent parentParent = this.m_parent.GetParentAgent(pSelf);
             object parentObject = this.m_parent.GetValue(parentParent);
 
-            Agent indexParent = this.m_index.GetParentAgent(pSelf);
-            object indexObject = this.m_index.GetValue(indexParent);
-
-            Debug.Check(parentObject is IList);
-            IList asList = parentObject as IList;
-            Debug.Check(indexObject is int);
-            int index = (int)indexObject;
-
-            if (index < asList.Count)
+            if (parentObject != null)
             {
-                object elementObject = asList[index];
+                Agent indexParent = this.m_index.GetParentAgent(pSelf);
+                object indexObject = this.m_index.GetValue(indexParent);
 
-                return elementObject;
+                Debug.Check(parentObject is IList);
+                IList asList = parentObject as IList;
+                Debug.Check(indexObject is int);
+                int index = (int)indexObject;
+
+                if (index < asList.Count)
+                {
+                    object elementObject = asList[index];
+
+                    return elementObject;
+                }
+
+                Debug.Check(false);
             }
-
-            Debug.Check(false);
+            else
+            {
+                Debug.Check(true);
+            }
 
             return null;
         }
@@ -1435,7 +1446,7 @@ namespace behaviac
 
             uint varId = Utils.MakeVariableId(variableName);
 
-            Debug.Check(this.m_variables.ContainsKey(varId));
+            //Debug.Check(this.m_variables.ContainsKey(varId));
 
             if (this.m_variables.ContainsKey(varId))
             {
@@ -1508,17 +1519,16 @@ namespace behaviac
                     pMember = null;
                 }
 
-                string typeName = null;
-
                 if (value != null)
                 {
-                    typeName = Utils.GetNativeTypeName(value.GetType());
-                }
+                    string typeName = Utils.GetNativeTypeName(value.GetType());
+                    Debug.Check(!string.IsNullOrEmpty(typeName));
 
-                IVariable pVar = IVariable.CreateVariable(pMember, typeName, variableName, varId);
-                behaviac.Debug.Check(pVar != null);
-                m_variables[varId] = pVar;
-                pVar.SetValueObject(value, pAgent);
+                    IVariable pVar = IVariable.CreateVariable(pMember, typeName, variableName, varId);
+                    behaviac.Debug.Check(pVar != null);
+                    m_variables[varId] = pVar;
+                    pVar.SetValueObject(value, pAgent);
+                }
             }
             else
             {

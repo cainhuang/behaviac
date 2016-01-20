@@ -5059,6 +5059,17 @@ namespace behaviac
 		}
 	}
 
+	class WaitFrames_bt_Tank_Fire_Random_node4 : behaviac.WaitFrames
+	{
+		public WaitFrames_bt_Tank_Fire_Random_node4()
+		{
+		}
+		protected override int GetFrames(Agent pAgent)
+		{
+			return 100;
+		}
+	}
+
 	class SelectorStochastic_bt_Tank_Fire_Random_node2 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_Tank_Fire_Random_node2()
@@ -5184,6 +5195,16 @@ namespace behaviac
 					node1.SetAgentType("Player");
 #endif
 					node0.AddChild(node1);
+					{
+						WaitFrames_bt_Tank_Fire_Random_node4 node4 = new WaitFrames_bt_Tank_Fire_Random_node4();
+						node4.SetClassNameString("WaitFrames");
+						node4.SetId(4);
+#if !BEHAVIAC_RELEASE
+						node4.SetAgentType("Player");
+#endif
+						node1.AddChild(node4);
+						node1.SetHasEvents(node1.HasEvents() | node4.HasEvents());
+					}
 					{
 						SelectorStochastic_bt_Tank_Fire_Random_node2 node2 = new SelectorStochastic_bt_Tank_Fire_Random_node2();
 						node2.SetClassNameString("SelectorStochastic");

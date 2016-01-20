@@ -9,6 +9,9 @@
     <property Count="const int -1" />
     <property DecorateWhenChildEnds="true" />
     <node class="Sequence" id="1">
+      <node class="WaitFrames" id="4">
+        <property Frames="const int 100" />
+      </node>
       <node class="SelectorStochastic" id="2">
         <node class="Assignment" id="8">
           <property Opl="float Self.Player::parT_AimAngle" />

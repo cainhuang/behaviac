@@ -979,7 +979,6 @@ namespace behaviac
         #region Development
 
 #if !BEHAVIAC_RELEASE
-        private uint m_frame;
         private string m_applogFilter;
 #endif
 
@@ -1151,7 +1150,7 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
             if (Config.IsLoggingOrSocketing)
             {
-                LogManager.Instance.Log("[frame]{0}\n", m_frame++);
+                LogManager.Instance.Log("[frame]{0}\n", this.FrameSinceStartup);
             }
 #endif
         }

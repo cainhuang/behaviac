@@ -1434,7 +1434,9 @@ namespace behaviac
 
         public void SetAgentType(string agentType)
         {
-            this.m_agentType = agentType.Replace("::", ".");
+            Debug.Check(agentType.IndexOf("::") == -1);
+
+            this.m_agentType = agentType;
         }
 
         public string GetAgentType()
@@ -1662,7 +1664,7 @@ namespace behaviac
                         Debug.Check(bOk);
 
                         this.m_name = d.ReadString();
-                        string agentType = d.ReadString();
+                        string agentType = d.ReadString().Replace("::", ".");
                         bool bFsm = d.ReadBool();
                         string versionStr = d.ReadString();
                         int version = Convert.ToInt32(versionStr);

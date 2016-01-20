@@ -749,7 +749,6 @@ namespace behaviac
 
                 BEHAVIAC_ASSERT(false);
                 BEHAVIAC_LOGINFO("%s is not a valid loaded behavior tree of %s", relativePath, agentName.c_str());
-
             }
             else
             {
@@ -764,7 +763,6 @@ namespace behaviac
                         BehaviorTreeStackItem_t item(this->m_currentBT, triggerMode, bByEvent);
                         BEHAVIAC_ASSERT(this->m_btStack.size() < 200, "recursive?");
                         this->m_btStack.push_back(item);
-
                     }
                     else if (triggerMode == TM_Transfer)
                     {

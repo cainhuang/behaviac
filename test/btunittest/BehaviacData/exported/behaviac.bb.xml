@@ -59,15 +59,6 @@
       <property name="TV_SBYTE_0" type="sbyte" member="true" static="false" agent="ParTestAgentBase" />
     </properties>
   </agent>
-  <agent type="AgentArrayAccessTest" base="behaviac::Agent">
-    <properties>
-      <property name="Int" type="int" member="true" static="false" agent="AgentArrayAccessTest" />
-      <property name="ListInts" type="vector&lt;int&gt;" member="true" static="false" agent="AgentArrayAccessTest" />
-      <property name="c_Int" type="int" member="false" static="false" defaultvalue="0" />
-      <property name="c_ListInts" type="vector&lt;int&gt;" member="false" static="false" defaultvalue="5:10|20|30|40|50" />
-      <property name="c_Count" type="int" member="false" static="false" defaultvalue="0" />
-    </properties>
-  </agent>
   <agent type="AgentNodeTest" base="behaviac::Agent">
     <properties>
       <property name="testColor" type="EnumTest" member="true" static="false" agent="AgentNodeTest" />
@@ -80,6 +71,9 @@
       <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
       <property name="testInt" type="int" member="false" static="false" defaultvalue="10" />
       <property name="test_int_array" type="vector&lt;int&gt;" member="false" static="false" defaultvalue="3:1|2|3" />
+      <property name="par_child_agent_1" type="ChildNodeTest" member="false" static="false" defaultvalue="null" />
+      <property name="c_ReturnFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
+      <property name="c_ReturnFloat2Const" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
     </properties>
     <methods>
       <method name="event_test_int" agent="AgentNodeTest">
@@ -109,6 +103,9 @@
       <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
       <property name="testInt" type="int" member="false" static="false" defaultvalue="10" />
       <property name="test_int_array" type="vector&lt;int&gt;" member="false" static="false" defaultvalue="3:1|2|3" />
+      <property name="par_child_agent_1" type="ChildNodeTest" member="false" static="false" defaultvalue="null" />
+      <property name="c_ReturnFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
+      <property name="c_ReturnFloat2Const" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
       <property name="testColor" type="EnumTest" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_0" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />
@@ -286,6 +283,15 @@
   <agent type="StaticAgent" base="behaviac::Agent">
     <properties>
       <property name="sInt" type="int" member="true" static="true" agent="StaticAgent" />
+    </properties>
+  </agent>
+  <agent type="TestNS::AgentArrayAccessTest" base="behaviac::Agent">
+    <properties>
+      <property name="Int" type="int" member="true" static="false" agent="TestNS::AgentArrayAccessTest" />
+      <property name="ListInts" type="vector&lt;int&gt;" member="true" static="false" agent="TestNS::AgentArrayAccessTest" />
+      <property name="c_Int" type="int" member="false" static="false" defaultvalue="0" />
+      <property name="c_ListInts" type="vector&lt;int&gt;" member="false" static="false" defaultvalue="5:10|20|30|40|50" />
+      <property name="c_Count" type="int" member="false" static="false" defaultvalue="0" />
     </properties>
   </agent>
 </agents>

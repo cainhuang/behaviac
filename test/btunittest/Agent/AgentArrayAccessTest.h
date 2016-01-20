@@ -17,37 +17,40 @@
 #include "behaviac/agent/agent.h"
 #include "behaviac/agent/registermacros.h"
 
-class AgentArrayAccessTest : public behaviac::Agent
+namespace TestNS
 {
-public:
-    AgentArrayAccessTest();
-    virtual ~AgentArrayAccessTest();
+	class AgentArrayAccessTest : public behaviac::Agent
+	{
+	public:
+		AgentArrayAccessTest();
+		virtual ~AgentArrayAccessTest();
 
-    DECLARE_BEHAVIAC_AGENT(AgentArrayAccessTest, behaviac::Agent);
+		DECLARE_BEHAVIAC_AGENT(TestNS::AgentArrayAccessTest, behaviac::Agent);
 
-    void resetProperties()
-    {
-        ListInts.push_back(1);
-        ListInts.push_back(2);
-        ListInts.push_back(3);
-        ListInts.push_back(4);
-        ListInts.push_back(5);
-        Int = 0;
-    }
+		void resetProperties()
+		{
+			ListInts.push_back(1);
+			ListInts.push_back(2);
+			ListInts.push_back(3);
+			ListInts.push_back(4);
+			ListInts.push_back(5);
+			Int = 0;
+		}
 
-    void init()
-    {
-        //base.Init();
-        resetProperties();
-    }
+		void init()
+		{
+			//base.Init();
+			resetProperties();
+		}
 
-    void finl()
-    {
-    }
+		void finl()
+		{
+		}
 
-    behaviac::vector<int> ListInts;
+		behaviac::vector<int> ListInts;
 
-    int Int;
-};
+		int Int;
+	};
+}
 
 #endif//BTUNITEST_AGENTARRAYACCESSTEST_H_

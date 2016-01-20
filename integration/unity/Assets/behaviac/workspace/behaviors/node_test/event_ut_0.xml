@@ -6,11 +6,11 @@
     <Connector Identifier="GenericChildren">
       <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="0" PrefabName="" PrefabNodeId="-1">
         <Comment Background="NoColor" Text="" />
-        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="1" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_0" Task="Self.AgentNodeTest::event_test_void()" TriggeredOnce="false" TriggerMode="Return" />
-        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="2" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_1" Task="Self.AgentNodeTest::event_test_int(0)" TriggeredOnce="false" TriggerMode="Return" />
-        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="3" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_2" Task="Self.AgentNodeTest::event_test_int_bool(0,false)" TriggeredOnce="false" TriggerMode="Return" />
-        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="4" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_3" Task="Self.AgentNodeTest::event_test_int_bool_float(0,false,0)" TriggeredOnce="false" TriggerMode="Return" />
-        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="8" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_4" Task="Self.AgentNodeTest::event_test_agent(null)" TriggeredOnce="false" TriggerMode="Transfer" />
+        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="1" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_0" TriggeredOnce="false" TriggerMode="Return" />
+        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="2" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_1" TriggeredOnce="false" TriggerMode="Return" />
+        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="3" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_2" TriggeredOnce="false" TriggerMode="Return" />
+        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="4" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_3" TriggeredOnce="false" TriggerMode="Return" />
+        <Attachment Class="Behaviac.Design.Attachments.Event" Enable="true" Id="8" PrefabAttachmentId="-1" ReferenceFilename="node_test/event_subtree_4" TriggeredOnce="false" TriggerMode="Transfer" />
         <Connector Identifier="GenericChildren">
           <Node Class="PluginBehaviac.Nodes.WaitforSignal" Enable="true" HasOwnPrefabData="false" Id="5" PrefabName="" PrefabNodeId="-1">
             <Comment Background="NoColor" Text="" />

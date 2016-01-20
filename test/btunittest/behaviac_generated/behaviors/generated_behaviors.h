@@ -583,22 +583,6 @@ template<>  void ParTestAgent::_Execute_Method_<METHOD_TYPE_ParTestAgent_Func_US
 	this->ParTestAgent::Func_UShortRef(p0);
 }
 
-struct PROPERTY_TYPE_AgentArrayAccessTest_Int { };
-template<>  int& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_Int>()
-{
-	unsigned char* pc = (unsigned char*)this;
-	pc += (int)BEHAVIAC_OFFSETOF(AgentArrayAccessTest, AgentArrayAccessTest::Int);
-	return *(reinterpret_cast<int*>(pc));
-}
-
-struct PROPERTY_TYPE_AgentArrayAccessTest_ListInts { };
-template<>  behaviac::vector<int>& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_ListInts>()
-{
-	unsigned char* pc = (unsigned char*)this;
-	pc += (int)BEHAVIAC_OFFSETOF(AgentArrayAccessTest, AgentArrayAccessTest::ListInts);
-	return *(reinterpret_cast<behaviac::vector<int>*>(pc));
-}
-
 struct PROPERTY_TYPE_AgentNodeTest_testColor { };
 template<>  EnumTest& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testColor>()
 {
@@ -709,10 +693,22 @@ template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_
 	this->AgentNodeTest::exit_action_2(p0, p1);
 }
 
+struct METHOD_TYPE_AgentNodeTest_getConstExtendedStruct { };
+template<>  const TestNS::Float2& AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstExtendedStruct>()
+{
+	return this->AgentNodeTest::getConstExtendedStruct();
+}
+
 struct METHOD_TYPE_AgentNodeTest_getConstOne { };
 template<>  int AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstOne>()
 {
 	return this->AgentNodeTest::getConstOne();
+}
+
+struct METHOD_TYPE_AgentNodeTest_getExtendedStruct { };
+template<>  TestNS::Float2& AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getExtendedStruct>()
+{
+	return this->AgentNodeTest::getExtendedStruct();
 }
 
 struct METHOD_TYPE_AgentNodeTest_initChildAgent { };
@@ -1604,6 +1600,26 @@ struct METHOD_TYPE_StaticAgent_sAction { };
 template<>  void StaticAgent::_Execute_Method_<METHOD_TYPE_StaticAgent_sAction>()
 {
 	this->StaticAgent::sAction();
+}
+
+namespace TestNS
+{
+	struct PROPERTY_TYPE_TestNS_AgentArrayAccessTest_Int { };
+	template<>  int& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_TestNS_AgentArrayAccessTest_Int>()
+	{
+		unsigned char* pc = (unsigned char*)this;
+		pc += (int)BEHAVIAC_OFFSETOF(TestNS::AgentArrayAccessTest, TestNS::AgentArrayAccessTest::Int);
+		return *(reinterpret_cast<int*>(pc));
+	}
+
+	struct PROPERTY_TYPE_TestNS_AgentArrayAccessTest_ListInts { };
+	template<>  behaviac::vector<int>& AgentArrayAccessTest::_Get_Property_<PROPERTY_TYPE_TestNS_AgentArrayAccessTest_ListInts>()
+	{
+		unsigned char* pc = (unsigned char*)this;
+		pc += (int)BEHAVIAC_OFFSETOF(TestNS::AgentArrayAccessTest, TestNS::AgentArrayAccessTest::ListInts);
+		return *(reinterpret_cast<behaviac::vector<int>*>(pc));
+	}
+
 }
 
 namespace behaviac
@@ -6506,7 +6522,6 @@ namespace behaviac
 #endif
 			// pars
 			pBT->AddPar("AgentNodeTest", "AgentNodeTest", "par_child_agent", "null");
-			pBT->AddPar("AgentNodeTest", "ChildNodeTest", "par_child_agent_1", "null");
 			// children
 			{
 				Sequence* node0 = BEHAVIAC_NEW Sequence;
@@ -7270,6 +7285,46 @@ namespace behaviac
 		}
 	};
 
+	class Assignment_bt_node_test_action_ut_1_node11 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_action_ut_1_node11, Assignment);
+		Assignment_bt_node_test_action_ut_1_node11()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			TestNS::Float2& opr = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_getExtendedStruct, TestNS::Float2& >();
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_ReturnFloat2") == 257770974u);
+			pAgent->SetVariable("c_ReturnFloat2", opr, 257770974u);
+			return result;
+		}
+	};
+
+	class Assignment_bt_node_test_action_ut_1_node12 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_action_ut_1_node12, Assignment);
+		Assignment_bt_node_test_action_ut_1_node12()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			const TestNS::Float2& opr = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstExtendedStruct, const TestNS::Float2& >();
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_ReturnFloat2Const") == 2482280992u);
+			pAgent->SetVariable("c_ReturnFloat2Const", opr, 2482280992u);
+			return result;
+		}
+	};
+
 	class bt_node_test_action_ut_1
 	{
 	public:
@@ -7396,6 +7451,26 @@ namespace behaviac
 #endif
 					node0->AddChild(node9);
 					node0->SetHasEvents(node0->HasEvents() | node9->HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_1_node11* node11 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_1_node11;
+					node11->SetClassNameString("Assignment");
+					node11->SetId(11);
+#if !BEHAVIAC_RELEASE
+					node11->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node11);
+					node0->SetHasEvents(node0->HasEvents() | node11->HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_1_node12* node12 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_1_node12;
+					node12->SetClassNameString("Assignment");
+					node12->SetId(12);
+#if !BEHAVIAC_RELEASE
+					node12->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node12);
+					node0->SetHasEvents(node0->HasEvents() | node12->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}
@@ -33074,9 +33149,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			behaviac::vector<int> opr = ((AgentArrayAccessTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_ListInts, behaviac::vector<int> >();
+			behaviac::vector<int> opr = ((TestNS::AgentArrayAccessTest*)pAgent)->_Get_Property_<TestNS::PROPERTY_TYPE_TestNS_AgentArrayAccessTest_ListInts, behaviac::vector<int> >();
 			int opr_index = 0;
-			((AgentArrayAccessTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_Int, int >() = (opr)[opr_index];
+			((TestNS::AgentArrayAccessTest*)pAgent)->_Get_Property_<TestNS::PROPERTY_TYPE_TestNS_AgentArrayAccessTest_Int, int >() = (opr)[opr_index];
 			return result;
 		}
 	};
@@ -33164,7 +33239,7 @@ namespace behaviac
 			int& opr2 = (int&)pAgent->GetVariable<int >(337932423u);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("l_index") == 1109890112u);
 			int& opl_index = (int&)pAgent->GetVariable<int >(1109890112u);
-			(((AgentArrayAccessTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_ListInts, behaviac::vector<int> >())[opl_index] = (int)(opr1 + opr2);
+			(((TestNS::AgentArrayAccessTest*)pAgent)->_Get_Property_<TestNS::PROPERTY_TYPE_TestNS_AgentArrayAccessTest_ListInts, behaviac::vector<int> >())[opl_index] = (int)(opr1 + opr2);
 			return result;
 		}
 	};
@@ -33205,7 +33280,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_ListInts") == 2521109666u);
 			TList<vector<int> > method_p0 = &((behaviac::vector<int>&)pAgent->GetVariable<behaviac::vector<int> >(2521109666u));
-			int method_p1 = ((AgentArrayAccessTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentArrayAccessTest_Int, int >();
+			int method_p1 = ((TestNS::AgentArrayAccessTest*)pAgent)->_Get_Property_<TestNS::PROPERTY_TYPE_TestNS_AgentArrayAccessTest_Int, int >();
 			((behaviac::Agent*)pAgent)->_Execute_Method_<behaviac::METHOD_TYPE_behaviac_Agent_VectorAdd, void, IList&, System::Object& >(method_p0, *(System::Object*)&method_p1);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_ListInts") == 2521109666u);
 			pAgent->SetVariable("c_ListInts", *method_p0.vector_, 2521109666u);
@@ -33246,19 +33321,19 @@ namespace behaviac
 			pBT->SetName("par_test/vector_test");
 			pBT->SetIsFSM(false);
 #if !BEHAVIAC_RELEASE
-			pBT->SetAgentType("AgentArrayAccessTest");
+			pBT->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 			// pars
-			pBT->AddPar("AgentArrayAccessTest", "int", "l_index", "0");
-			pBT->AddPar("AgentArrayAccessTest", "vector<int>", "l_ListInts", "5:100|200|300|400|500");
-			pBT->AddPar("AgentArrayAccessTest", "int", "l_Int", "0");
+			pBT->AddPar("TestNS::AgentArrayAccessTest", "int", "l_index", "0");
+			pBT->AddPar("TestNS::AgentArrayAccessTest", "vector<int>", "l_ListInts", "5:100|200|300|400|500");
+			pBT->AddPar("TestNS::AgentArrayAccessTest", "int", "l_Int", "0");
 			// children
 			{
 				Sequence* node22 = BEHAVIAC_NEW Sequence;
 				node22->SetClassNameString("Sequence");
 				node22->SetId(22);
 #if !BEHAVIAC_RELEASE
-				node22->SetAgentType("AgentArrayAccessTest");
+				node22->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 				pBT->AddChild(node22);
 				{
@@ -33266,7 +33341,7 @@ namespace behaviac
 					node0->SetClassNameString("Assignment");
 					node0->SetId(0);
 #if !BEHAVIAC_RELEASE
-					node0->SetAgentType("AgentArrayAccessTest");
+					node0->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 					node22->AddChild(node0);
 					node22->SetHasEvents(node22->HasEvents() | node0->HasEvents());
@@ -33276,7 +33351,7 @@ namespace behaviac
 					node1->SetClassNameString("Assignment");
 					node1->SetId(1);
 #if !BEHAVIAC_RELEASE
-					node1->SetAgentType("AgentArrayAccessTest");
+					node1->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 					node22->AddChild(node1);
 					node22->SetHasEvents(node22->HasEvents() | node1->HasEvents());
@@ -33286,7 +33361,7 @@ namespace behaviac
 					node2->SetClassNameString("Assignment");
 					node2->SetId(2);
 #if !BEHAVIAC_RELEASE
-					node2->SetAgentType("AgentArrayAccessTest");
+					node2->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 					node22->AddChild(node2);
 					node22->SetHasEvents(node22->HasEvents() | node2->HasEvents());
@@ -33296,7 +33371,7 @@ namespace behaviac
 					node4->SetClassNameString("Assignment");
 					node4->SetId(4);
 #if !BEHAVIAC_RELEASE
-					node4->SetAgentType("AgentArrayAccessTest");
+					node4->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 					node22->AddChild(node4);
 					node22->SetHasEvents(node22->HasEvents() | node4->HasEvents());
@@ -33306,7 +33381,7 @@ namespace behaviac
 					node3->SetClassNameString("Compute");
 					node3->SetId(3);
 #if !BEHAVIAC_RELEASE
-					node3->SetAgentType("AgentArrayAccessTest");
+					node3->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 					node22->AddChild(node3);
 					node22->SetHasEvents(node22->HasEvents() | node3->HasEvents());
@@ -33316,7 +33391,7 @@ namespace behaviac
 					node5->SetClassNameString("Assignment");
 					node5->SetId(5);
 #if !BEHAVIAC_RELEASE
-					node5->SetAgentType("AgentArrayAccessTest");
+					node5->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 					node22->AddChild(node5);
 					node22->SetHasEvents(node22->HasEvents() | node5->HasEvents());
@@ -33326,7 +33401,7 @@ namespace behaviac
 					node6->SetClassNameString("Action");
 					node6->SetId(6);
 #if !BEHAVIAC_RELEASE
-					node6->SetAgentType("AgentArrayAccessTest");
+					node6->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 					node22->AddChild(node6);
 					node22->SetHasEvents(node22->HasEvents() | node6->HasEvents());
@@ -33336,7 +33411,7 @@ namespace behaviac
 					node7->SetClassNameString("Action");
 					node7->SetId(7);
 #if !BEHAVIAC_RELEASE
-					node7->SetAgentType("AgentArrayAccessTest");
+					node7->SetAgentType("TestNS::AgentArrayAccessTest");
 #endif
 					node22->AddChild(node7);
 					node22->SetHasEvents(node22->HasEvents() | node7->HasEvents());

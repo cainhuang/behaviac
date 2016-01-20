@@ -64,7 +64,7 @@ namespace behaviac
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(AsyncValue<T>);
 
-        inline AsyncValue() : mValue(BEHAVIAC_NEW Value(T(), false))
+		inline AsyncValue() : mValue(BEHAVIAC_NEW Value(TTYPE(), false))
         {
         }
         inline AsyncValue(const TTYPE& value, bool set = false) :

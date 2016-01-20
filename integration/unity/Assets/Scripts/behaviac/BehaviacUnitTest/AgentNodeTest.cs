@@ -65,6 +65,8 @@ public class AgentNodeTest : behaviac.Agent
 
     public bool m_bTargetValid;
 
+    public TestNS.Float2 TestFloat2;
+
     public int event_test_var_int = -1;
     public bool event_test_var_bool = false;
     public float event_test_var_float = -1.0f;
@@ -94,6 +96,8 @@ public class AgentNodeTest : behaviac.Agent
         m_bTargetValid = false;
 
         testColor = EnumTest.EnumTest_One;
+        TestFloat2.x = 2.0f;
+        TestFloat2.y = 2.0f;
 
         testVar_str_0 = string.Empty;
         this.Variables.Clear();
@@ -221,6 +225,18 @@ where T : behaviac.Agent
 		f.x = 1.0f;
 		f.y = 1.0f;
 	}
+
+    [behaviac.MethodMetaInfo()]
+    TestNS.Float2 getExtendedStruct()
+    {
+        return this.TestFloat2;
+    }
+
+    [behaviac.MethodMetaInfo()]
+    TestNS.Float2 getConstExtendedStruct()
+    {
+        return this.TestFloat2;
+    }
 
     [behaviac.MethodMetaInfo()]
     public behaviac.EBTStatus switchRef(string refTree) {
