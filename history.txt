@@ -1,3 +1,16 @@
+2016-02-03	3.3.2
+	Fix a bug for the Frames of the DecoratorFrames and WaitFrames nodes.
+	Fix a bug for generating the C++ codes for the methods.
+
+2016-02-01	3.3.1
+	Fix a bug for the connect debugging.
+
+2016-01-28	3.3.0
+	Improve registering types.
+	Remove the foreach for the Unity.
+	Modify the type of TimeSinceStartup to double.
+	premake is replaced with cmake, please check BUILD.md
+
 2016-01-20	3.2.22
 	Fix a bug for const reference type for the return type of the method.
 	Fix a bug for CountLimit node.

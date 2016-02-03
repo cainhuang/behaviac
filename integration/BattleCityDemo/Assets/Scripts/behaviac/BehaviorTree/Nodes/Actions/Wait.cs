@@ -19,38 +19,65 @@ namespace behaviac
     public class Wait : BehaviorNode
     {
         protected Property m_time_var;
+        protected CMethodBase m_time_m;
 
         public Wait()
         {
             this.m_time_var = null;
+            this.m_time_m = null;
         }
 
         ~Wait()
         {
             this.m_time_var = null;
+            this.m_time_m = null;
         }
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
 
-            foreach(property_t p in properties)
+            for (int i = 0; i < properties.Count; ++i)
             {
+                property_t p = properties[i];
                 if (p.name == "Time")
                 {
-                    string typeName = null;
-                    this.m_time_var = Condition.LoadRight(p.value, ref typeName);
+                    int pParenthesis = p.value.IndexOf('(');
+
+                    if (pParenthesis == -1)
+                    {
+                        string typeName = null;
+                        this.m_time_var = Condition.LoadRight(p.value, ref typeName);
+                    }
+                    else
+                    {
+                        //method
+                        this.m_time_m = Action.LoadMethod(p.value);
+                    }
                 }
             }
         }
 
-        protected virtual float GetTime(Agent pAgent)
+        protected virtual double GetTime(Agent pAgent)
         {
+            object timeObj = null;
+
             if (this.m_time_var != null)
             {
-                Debug.Check(this.m_time_var != null);
-                object timeObj = this.m_time_var.GetValue(pAgent);
-                return Convert.ToSingle(timeObj);
+                timeObj = this.m_time_var.GetValue(pAgent);
+            }
+            else
+            {
+                Debug.Check(this.m_time_m != null);
+                if (this.m_time_m != null)
+                {
+                    timeObj = this.m_time_m.Invoke(pAgent);
+                }
+            }
+
+            if (timeObj != null)
+            {
+                return Convert.ToDouble(timeObj);
             }
 
             return 0;
@@ -65,8 +92,8 @@ namespace behaviac
 
         private class WaitTask : LeafTask
         {
-            private float m_start;
-            private float m_time;
+            private double m_start;
+            private double m_time;
 
             public WaitTask()
             {
@@ -101,7 +128,7 @@ namespace behaviac
                 base.load(node);
             }
 
-            private float GetTime(Agent pAgent)
+            private double GetTime(Agent pAgent)
             {
                 Wait pWaitNode = this.GetNode() as Wait;
 
@@ -110,7 +137,7 @@ namespace behaviac
 
             protected override bool onenter(Agent pAgent)
             {
-                this.m_start = Workspace.Instance.TimeSinceStartup * 1000.0f;
+                this.m_start = Workspace.Instance.TimeSinceStartup * 1000.0;
                 this.m_time = this.GetTime(pAgent);
 
                 return (this.m_time >= 0);
@@ -124,7 +151,7 @@ namespace behaviac
             {
                 Debug.Check(childStatus == EBTStatus.BT_RUNNING);
 
-                if (Workspace.Instance.TimeSinceStartup * 1000.0f - this.m_start >= this.m_time)
+                if (Workspace.Instance.TimeSinceStartup * 1000.0 - this.m_start >= this.m_time)
                 {
                     return EBTStatus.BT_SUCCESS;
                 }

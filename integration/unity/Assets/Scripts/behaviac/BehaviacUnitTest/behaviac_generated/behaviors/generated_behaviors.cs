@@ -118,6 +118,7 @@ namespace behaviac
 
 	// Source file: node_test/fsm/action_ut_1_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_node_test_fsm_action_ut_1_2_node8 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_node_test_fsm_action_ut_1_2_node8()
@@ -130,6 +131,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_fsm_action_ut_1_2_node3 : behaviac.Compute
 	{
 		public Compute_bt_node_test_fsm_action_ut_1_2_node3()
@@ -146,6 +148,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_fsm_action_ut_1_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_fsm_action_ut_1_2_node2()
@@ -161,6 +164,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_fsm_action_ut_1_2_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_fsm_action_ut_1_2_node1()
@@ -176,6 +180,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_fsm_action_ut_1_2_node4 : behaviac.Compute
 	{
 		public Compute_bt_node_test_fsm_action_ut_1_2_node4()
@@ -194,6 +199,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_fsm_action_ut_1_2_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_fsm_action_ut_1_2_node5()
@@ -209,6 +215,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_fsm_action_ut_1_2_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_fsm_action_ut_1_2_node7()
@@ -224,6 +231,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_fsm_action_ut_1_2_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_fsm_action_ut_1_2_node6()
@@ -352,6 +360,7 @@ namespace behaviac
 
 	// Source file: node_test/fsm/bt_ref_fsm
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_fsm_bt_ref_fsm_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_fsm_bt_ref_fsm_node2()
@@ -367,6 +376,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1()
@@ -429,6 +439,7 @@ namespace behaviac
 
 	// Source file: node_test/fsm/fsm_ref_bt_ut
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ref_bt_ut_node1 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ref_bt_ut_node1()
@@ -444,6 +455,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ref_bt_ut_attach4 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ref_bt_ut_attach4()
@@ -462,6 +474,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ref_bt_ut_node3 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ref_bt_ut_node3()
@@ -474,6 +487,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach2 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach2()
@@ -490,6 +504,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6()
@@ -504,6 +519,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach5 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach5()
@@ -521,6 +537,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ref_bt_ut_attach9 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ref_bt_ut_attach9()
@@ -637,6 +654,7 @@ namespace behaviac
 
 	// Source file: node_test/fsm/fsm_ref_fsm_ut
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ref_fsm_ut_node3 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ref_fsm_ut_node3()
@@ -650,6 +668,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach10 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach10()
@@ -667,6 +686,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach5 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach5()
@@ -685,6 +705,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach14 : behaviac.Effector
 	{
 		public Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach14()
@@ -703,6 +724,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach6 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach6()
@@ -721,6 +743,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ref_fsm_ut_node2 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ref_fsm_ut_node2()
@@ -733,6 +756,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach12 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach12()
@@ -750,6 +774,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach15 : behaviac.Effector
 	{
 		public Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach15()
@@ -768,6 +793,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ref_fsm_ut_node4 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ref_fsm_ut_node4()
@@ -781,6 +807,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach13 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach13()
@@ -798,6 +825,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach8 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach8()
@@ -816,6 +844,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach9 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach9()
@@ -834,6 +863,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach16 : behaviac.Effector
 	{
 		public Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach16()
@@ -852,6 +882,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18()
@@ -866,6 +897,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach11 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach11()
@@ -883,6 +915,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach7 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ref_fsm_ut_attach7()
@@ -901,6 +934,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach17 : behaviac.Effector
 	{
 		public Effector_bt_node_test_fsm_fsm_ref_fsm_ut_attach17()
@@ -1109,6 +1143,7 @@ namespace behaviac
 
 	// Source file: node_test/fsm/fsm_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ut_0_node3 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ut_0_node3()
@@ -1122,6 +1157,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_0_attach10 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_0_attach10()
@@ -1139,6 +1175,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_0_attach2 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_0_attach2()
@@ -1158,6 +1195,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_0_attach5 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_0_attach5()
@@ -1177,6 +1215,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ut_0_node1 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ut_0_node1()
@@ -1190,6 +1229,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_0_attach6 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_0_attach6()
@@ -1209,6 +1249,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_0_attach11 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_0_attach11()
@@ -1228,6 +1269,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_0_attach7 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_0_attach7()
@@ -1247,6 +1289,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_0_attach12 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_0_attach12()
@@ -1266,6 +1309,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ut_0_node4 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ut_0_node4()
@@ -1279,6 +1323,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_0_attach9 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_0_attach9()
@@ -1298,6 +1343,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_0_attach8 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_0_attach8()
@@ -1460,6 +1506,7 @@ namespace behaviac
 
 	// Source file: node_test/fsm/fsm_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ut_1_node3 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ut_1_node3()
@@ -1473,6 +1520,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_1_attach10 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_1_attach10()
@@ -1490,6 +1538,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_1_attach5 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_1_attach5()
@@ -1508,6 +1557,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_1_attach6 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_1_attach6()
@@ -1526,6 +1576,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_fsm_fsm_ut_1_attach14 : behaviac.Effector
 	{
 		public Effector_bt_node_test_fsm_fsm_ut_1_attach14()
@@ -1544,6 +1595,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ut_1_node1 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ut_1_node1()
@@ -1557,6 +1609,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_1_attach11 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_1_attach11()
@@ -1574,6 +1627,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_1_attach7 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_1_attach7()
@@ -1592,6 +1646,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_fsm_fsm_ut_1_attach17 : behaviac.Effector
 	{
 		public Effector_bt_node_test_fsm_fsm_ut_1_attach17()
@@ -1610,6 +1665,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ut_1_node2 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ut_1_node2()
@@ -1622,6 +1678,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_1_attach12 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_1_attach12()
@@ -1639,6 +1696,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_fsm_fsm_ut_1_attach15 : behaviac.Effector
 	{
 		public Effector_bt_node_test_fsm_fsm_ut_1_attach15()
@@ -1657,6 +1715,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_node_test_fsm_fsm_ut_1_node4 : behaviac.State
 	{
 		public State_bt_node_test_fsm_fsm_ut_1_node4()
@@ -1670,6 +1729,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_fsm_fsm_ut_1_attach13 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_fsm_fsm_ut_1_attach13()
@@ -1687,6 +1747,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_1_attach8 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_1_attach8()
@@ -1705,6 +1766,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_node_test_fsm_fsm_ut_1_attach9 : behaviac.Transition
 	{
 		public Transition_bt_node_test_fsm_fsm_ut_1_attach9()
@@ -1723,6 +1785,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_fsm_fsm_ut_1_attach16 : behaviac.Effector
 	{
 		public Effector_bt_node_test_fsm_fsm_ut_1_attach16()
@@ -1741,6 +1804,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class WaitFramesState_bt_node_test_fsm_fsm_ut_1_node18 : behaviac.WaitFramesState
 	{
 		public WaitFramesState_bt_node_test_fsm_fsm_ut_1_node18()
@@ -1752,6 +1816,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class WaitTransition_bt_node_test_fsm_fsm_ut_1_attach20 : behaviac.WaitTransition
 	{
 		public WaitTransition_bt_node_test_fsm_fsm_ut_1_attach20()
@@ -1970,6 +2035,7 @@ namespace behaviac
 
 	// Source file: node_test/htn/house/build_house
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_htn_house_build_house_node7 : behaviac.Task
 	{
 		public Task_bt_node_test_htn_house_build_house_node7()
@@ -1980,6 +2046,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_house_build_house_attach0 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_house_build_house_attach0()
@@ -2000,6 +2067,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_build_house_attach1 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_build_house_attach1()
@@ -2016,6 +2084,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_htn_house_build_house_node4 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_htn_house_build_house_node4()
@@ -2027,6 +2096,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_build_house_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_build_house_node5()
@@ -2040,6 +2110,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_house_build_house_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_house_build_house_attach3()
@@ -2060,6 +2131,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_build_house_attach6 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_build_house_attach6()
@@ -2076,6 +2148,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_build_house_node18 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_build_house_node18()
@@ -2089,6 +2162,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_build_house_attach8 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_build_house_attach8()
@@ -2105,6 +2179,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_htn_house_build_house_node20 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_htn_house_build_house_node20()
@@ -2121,6 +2196,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_build_house_node19 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_build_house_node19()
@@ -2134,6 +2210,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_house_build_house_attach27 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_house_build_house_attach27()
@@ -2154,6 +2231,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_house_build_house_attach9 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_house_build_house_attach9()
@@ -2174,6 +2252,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_build_house_attach10 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_build_house_attach10()
@@ -2192,6 +2271,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_build_house_attach11 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_build_house_attach11()
@@ -2208,6 +2288,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_build_house_attach12 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_build_house_attach12()
@@ -2224,6 +2305,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_htn_house_build_house_node23 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_htn_house_build_house_node23()
@@ -2235,6 +2317,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_build_house_node28 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_build_house_node28()
@@ -2248,6 +2331,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_house_build_house_attach15 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_house_build_house_attach15()
@@ -2268,6 +2352,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_build_house_attach16 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_build_house_attach16()
@@ -2284,6 +2369,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_build_house_node24 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_build_house_node24()
@@ -2297,6 +2383,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_build_house_node25 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_build_house_node25()
@@ -2310,6 +2397,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_htn_house_build_house_node26 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_htn_house_build_house_node26()
@@ -2617,6 +2705,7 @@ namespace behaviac
 
 	// Source file: node_test/htn/house/construct
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_htn_house_construct_node0 : behaviac.Task
 	{
 		public Task_bt_node_test_htn_house_construct_node0()
@@ -2627,6 +2716,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_house_construct_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_house_construct_attach1()
@@ -2647,6 +2737,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_construct_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_construct_attach2()
@@ -2663,6 +2754,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_construct_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_construct_node3()
@@ -2676,6 +2768,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_construct_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_construct_node4()
@@ -2689,6 +2782,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_htn_house_construct_node5 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_htn_house_construct_node5()
@@ -2700,6 +2794,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_construct_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_construct_node6()
@@ -2713,6 +2808,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_construct_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_construct_node7()
@@ -2726,6 +2822,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_construct_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_construct_node8()
@@ -2866,6 +2963,7 @@ namespace behaviac
 
 	// Source file: node_test/htn/house/root
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_htn_house_root_node1 : behaviac.Task
 	{
 		public Task_bt_node_test_htn_house_root_node1()
@@ -2876,6 +2974,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_htn_house_root_node12 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_htn_house_root_node12()
@@ -2887,6 +2986,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_root_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_root_node4()
@@ -2900,6 +3000,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_house_root_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_house_root_attach3()
@@ -2920,6 +3021,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_root_attach5 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_root_attach5()
@@ -2938,6 +3040,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_root_attach6 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_root_attach6()
@@ -2954,6 +3057,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_house_root_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_house_root_node8()
@@ -2967,6 +3071,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_house_root_attach7 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_house_root_attach7()
@@ -2987,6 +3092,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_root_attach9 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_root_attach9()
@@ -3005,6 +3111,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_htn_house_root_attach10 : behaviac.Effector
 	{
 		public Effector_bt_node_test_htn_house_root_attach10()
@@ -3021,6 +3128,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_htn_house_root_node11 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_htn_house_root_node11()
@@ -3181,6 +3289,7 @@ namespace behaviac
 
 	// Source file: node_test/htn/travel/root
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_htn_travel_root_node1 : behaviac.Task
 	{
 		public Task_bt_node_test_htn_travel_root_node1()
@@ -3191,6 +3300,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_travel_root_attach0 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_travel_root_attach0()
@@ -3214,6 +3324,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_travel_root_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_travel_root_attach3()
@@ -3237,6 +3348,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_htn_travel_root_node4 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_htn_travel_root_node4()
@@ -3323,6 +3435,7 @@ namespace behaviac
 
 	// Source file: node_test/htn/travel/travel
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_htn_travel_travel_node0 : behaviac.Task
 	{
 		public Task_bt_node_test_htn_travel_travel_node0()
@@ -3333,6 +3446,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_travel_travel_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_travel_travel_attach1()
@@ -3356,6 +3470,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_travel_travel_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_travel_travel_node3()
@@ -3373,6 +3488,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_travel_travel_attach4 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_travel_travel_attach4()
@@ -3396,6 +3512,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_htn_travel_travel_node6 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_node6()
@@ -3503,6 +3620,7 @@ namespace behaviac
 
 	// Source file: node_test/htn/travel/travel_by_air
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_htn_travel_travel_by_air_node0 : behaviac.Task
 	{
 		public Task_bt_node_test_htn_travel_travel_by_air_node0()
@@ -3513,6 +3631,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_travel_travel_by_air_attach2 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_travel_travel_by_air_attach2()
@@ -3538,6 +3657,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_htn_travel_travel_by_air_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_htn_travel_travel_by_air_attach3()
@@ -3563,6 +3683,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorIterator_bt_node_test_htn_travel_travel_by_air_node5 : behaviac.DecoratorIterator
 	{
 		public DecoratorIterator_bt_node_test_htn_travel_travel_by_air_node5()
@@ -3576,6 +3697,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8()
@@ -3592,6 +3714,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_htn_travel_travel_by_air_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_htn_travel_travel_by_air_node7()
@@ -3609,6 +3732,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4()
@@ -3738,6 +3862,7 @@ namespace behaviac
 
 	// Source file: node_test/PreconditionEffectorTest/PreconditionEffectorTest_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach0 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach0()
@@ -3757,6 +3882,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_node8()
@@ -3770,6 +3896,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach1()
@@ -3789,6 +3916,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach2()
@@ -3804,6 +3932,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach4 : behaviac.Effector
 	{
 		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach4()
@@ -3820,6 +3949,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_node9 : behaviac.Action
 	{
 		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_node9()
@@ -3833,6 +3963,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach10 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach10()
@@ -3852,6 +3983,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach5 : behaviac.Effector
 	{
 		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach5()
@@ -3867,6 +3999,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach6 : behaviac.Effector
 	{
 		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0_attach6()
@@ -3997,6 +4130,7 @@ namespace behaviac
 
 	// Source file: node_test/PreconditionEffectorTest/PreconditionEffectorTest_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_node4()
@@ -4010,6 +4144,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach0 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach0()
@@ -4029,6 +4164,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach1()
@@ -4048,6 +4184,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach2 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach2()
@@ -4067,6 +4204,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach3()
@@ -4083,6 +4221,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach5 : behaviac.Effector
 	{
 		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach5()
@@ -4098,6 +4237,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach6 : behaviac.Effector
 	{
 		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach6()
@@ -4113,6 +4253,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach7 : behaviac.Effector
 	{
 		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1_attach7()
@@ -4221,6 +4362,7 @@ namespace behaviac
 
 	// Source file: node_test/repeat/repeat_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_repeat_repeat_ut_0_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_repeat_repeat_ut_0_node3()
@@ -4235,6 +4377,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorRepeat_bt_node_test_repeat_repeat_ut_0_node0 : behaviac.DecoratorRepeat
 	{
 		public DecoratorRepeat_bt_node_test_repeat_repeat_ut_0_node0()
@@ -4247,6 +4390,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_repeat_repeat_ut_0_node1 : behaviac.Compute
 	{
 		public Compute_bt_node_test_repeat_repeat_ut_0_node1()
@@ -4320,6 +4464,7 @@ namespace behaviac
 
 	// Source file: node_test/action_child_agent_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_child_agent_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_action_child_agent_0_node3()
@@ -4333,6 +4478,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_child_agent_0_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_child_agent_0_node2()
@@ -4349,6 +4495,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_child_agent_0_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_action_child_agent_0_node1()
@@ -4426,6 +4573,7 @@ namespace behaviac
 
 	// Source file: node_test/action_noop_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_noop_ut_0_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_noop_ut_0_node4()
@@ -4508,6 +4656,7 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_0_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_0_node12()
@@ -4524,6 +4673,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_0_node13 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_0_node13()
@@ -4540,6 +4690,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_0_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_0_node10()
@@ -4556,6 +4707,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_0_node11 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_0_node11()
@@ -4570,6 +4722,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_0_node8 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_0_node8()
@@ -4586,6 +4739,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_0_node9 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_0_node9()
@@ -4603,6 +4757,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_0_node1 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_0_node1()
@@ -4619,6 +4774,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_0_node2()
@@ -4634,6 +4790,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_0_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_0_node3()
@@ -4649,6 +4806,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_0_node4 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_0_node4()
@@ -4667,6 +4825,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_0_node5()
@@ -4682,6 +4841,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_0_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_0_node7()
@@ -4697,6 +4857,7 @@ namespace behaviac
 		UnityEngine.GameObject method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_0_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_0_node6()
@@ -4874,6 +5035,7 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_1_node3 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_1_node3()
@@ -4890,6 +5052,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_1_node2()
@@ -4905,6 +5068,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_1_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_1_node1()
@@ -4920,6 +5084,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_1_node4 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_1_node4()
@@ -4938,6 +5103,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_1_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_1_node5()
@@ -4953,6 +5119,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_1_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_1_node7()
@@ -4968,6 +5135,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_1_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_1_node6()
@@ -4983,6 +5151,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_1_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_1_node8()
@@ -5000,6 +5169,7 @@ namespace behaviac
 		object[] opr_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_1_node10 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_1_node10()
@@ -5017,6 +5187,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_1_node9 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_1_node9()
@@ -5036,6 +5207,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_1_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_1_node11()
@@ -5053,6 +5225,7 @@ namespace behaviac
 		object[] opr_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_1_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_1_node12()
@@ -5224,6 +5397,7 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_2_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_2_node7()
@@ -5239,6 +5413,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_2_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_2_node6()
@@ -5256,6 +5431,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_2_node8 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_2_node8()
@@ -5273,6 +5449,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_2_node9 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_2_node9()
@@ -5291,6 +5468,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_2_node10 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_2_node10()
@@ -5305,6 +5483,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_2_node1 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_2_node1()
@@ -5321,6 +5500,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_2_node2()
@@ -5336,6 +5516,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_2_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_2_node3()
@@ -5351,6 +5532,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_2_node4 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_2_node4()
@@ -5369,6 +5551,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_2_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_2_node5()
@@ -5516,6 +5699,7 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_3_node3 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_3_node3()
@@ -5532,6 +5716,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_3_node2()
@@ -5547,6 +5732,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_3_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_3_node1()
@@ -5562,6 +5748,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_3_node4 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_3_node4()
@@ -5580,6 +5767,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_3_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_3_node5()
@@ -5677,6 +5865,7 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_waitforsignal_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_waitforsignal_0_node2 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_waitforsignal_0_node2()
@@ -5691,6 +5880,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_waitforsignal_0_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_waitforsignal_0_node3()
@@ -5705,6 +5895,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_waitforsignal_0_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_waitforsignal_0_node4()
@@ -5787,6 +5978,7 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_waitforsignal_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_waitforsignal_1_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_waitforsignal_1_node6()
@@ -5801,6 +5993,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_waitforsignal_1_node7 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_waitforsignal_1_node7()
@@ -5815,6 +6008,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_waitforsignal_1_node8 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_waitforsignal_1_node8()
@@ -5829,6 +6023,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_waitforsignal_1_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_waitforsignal_1_node3()
@@ -5843,6 +6038,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_waitforsignal_1_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_waitforsignal_1_node4()
@@ -5965,6 +6161,7 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_waitforsignal_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_waitforsignal_2_node5 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_waitforsignal_2_node5()
@@ -5979,6 +6176,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_waitforsignal_2_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_waitforsignal_2_node6()
@@ -5993,6 +6191,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_action_ut_waitforsignal_2_node7 : behaviac.Condition
 	{
 		public Condition_bt_node_test_action_ut_waitforsignal_2_node7()
@@ -6007,6 +6206,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_ut_waitforsignal_2_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_ut_waitforsignal_2_node4()
@@ -6119,6 +6319,7 @@ namespace behaviac
 
 	// Source file: node_test/action_waitframes_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_waitframes_ut_0_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_waitframes_ut_0_node3()
@@ -6133,6 +6334,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class WaitFrames_bt_node_test_action_waitframes_ut_0_node1 : behaviac.WaitFrames
 	{
 		public WaitFrames_bt_node_test_action_waitframes_ut_0_node1()
@@ -6144,6 +6346,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_action_waitframes_ut_0_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_action_waitframes_ut_0_node4()
@@ -6218,6 +6421,7 @@ namespace behaviac
 
 	// Source file: node_test/circular_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_circular_ut_0_node5 : behaviac.Condition
 	{
 		public Condition_bt_node_test_circular_ut_0_node5()
@@ -6232,6 +6436,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_circular_ut_0_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_circular_ut_0_node3()
@@ -6246,6 +6451,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_circular_ut_0_node6 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_circular_ut_0_node6()
@@ -6260,6 +6466,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_circular_ut_0_node1 : behaviac.Compute
 	{
 		public Compute_bt_node_test_circular_ut_0_node1()
@@ -6363,6 +6570,7 @@ namespace behaviac
 
 	// Source file: node_test/condition_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_condition_ut_0_node1 : behaviac.Condition
 	{
 		public Condition_bt_node_test_condition_ut_0_node1()
@@ -6377,6 +6585,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_0_node2()
@@ -6392,6 +6601,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_condition_ut_0_node3 : behaviac.Condition
 	{
 		public Condition_bt_node_test_condition_ut_0_node3()
@@ -6406,6 +6616,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_0_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_0_node4()
@@ -6489,6 +6700,7 @@ namespace behaviac
 
 	// Source file: node_test/condition_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_condition_ut_1_node10 : behaviac.Condition
 	{
 		public Condition_bt_node_test_condition_ut_1_node10()
@@ -6504,6 +6716,7 @@ namespace behaviac
 		ParTestAgent opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_1_node2()
@@ -6519,6 +6732,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_1_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_1_node8()
@@ -6674,6 +6888,7 @@ namespace behaviac
 
 	// Source file: node_test/condition_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_2_node2()
@@ -6689,6 +6904,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_2_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_2_node8()
@@ -6704,6 +6920,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_2_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_2_node12()
@@ -6867,6 +7084,7 @@ namespace behaviac
 
 	// Source file: node_test/condition_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_3_node2()
@@ -6882,6 +7100,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_3_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_3_node8()
@@ -6897,6 +7116,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_condition_ut_3_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_condition_ut_3_node12()
@@ -7180,6 +7400,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_alwaysfailure_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node1 : behaviac.DecoratorAlwaysFailure
 	{
 		public DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node1()
@@ -7188,6 +7409,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysfailure_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysfailure_ut_0_node5()
@@ -7203,6 +7425,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysfailure_ut_0_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysfailure_ut_0_node6()
@@ -7218,6 +7441,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node3 : behaviac.DecoratorAlwaysFailure
 	{
 		public DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node3()
@@ -7226,6 +7450,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysfailure_ut_0_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysfailure_ut_0_node7()
@@ -7241,6 +7466,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysfailure_ut_0_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysfailure_ut_0_node8()
@@ -7256,6 +7482,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node10 : behaviac.DecoratorAlwaysFailure
 	{
 		public DecoratorAlwaysFailure_bt_node_test_decoration_alwaysfailure_ut_0_node10()
@@ -7264,6 +7491,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysfailure_ut_0_node11 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysfailure_ut_0_node11()
@@ -7279,6 +7507,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysfailure_ut_0_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysfailure_ut_0_node12()
@@ -7442,6 +7671,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_alwaysrunning_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_decoration_alwaysrunning_ut_0_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_decoration_alwaysrunning_ut_0_node0()
@@ -7453,6 +7683,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node1 : behaviac.DecoratorAlwaysRunning
 	{
 		public DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node1()
@@ -7461,6 +7692,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysrunning_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysrunning_ut_0_node5()
@@ -7476,6 +7708,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysrunning_ut_0_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysrunning_ut_0_node6()
@@ -7491,6 +7724,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node3 : behaviac.DecoratorAlwaysRunning
 	{
 		public DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node3()
@@ -7499,6 +7733,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysrunning_ut_0_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysrunning_ut_0_node7()
@@ -7514,6 +7749,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysrunning_ut_0_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysrunning_ut_0_node8()
@@ -7529,6 +7765,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node10 : behaviac.DecoratorAlwaysRunning
 	{
 		public DecoratorAlwaysRunning_bt_node_test_decoration_alwaysrunning_ut_0_node10()
@@ -7537,6 +7774,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysrunning_ut_0_node11 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysrunning_ut_0_node11()
@@ -7552,6 +7790,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwaysrunning_ut_0_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwaysrunning_ut_0_node12()
@@ -7715,6 +7954,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_alwayssuccess_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node1 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node1()
@@ -7723,6 +7963,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwayssuccess_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwayssuccess_ut_0_node5()
@@ -7738,6 +7979,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwayssuccess_ut_0_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwayssuccess_ut_0_node6()
@@ -7753,6 +7995,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node3 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node3()
@@ -7761,6 +8004,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwayssuccess_ut_0_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwayssuccess_ut_0_node7()
@@ -7776,6 +8020,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwayssuccess_ut_0_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwayssuccess_ut_0_node8()
@@ -7791,6 +8036,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node10 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_node_test_decoration_alwayssuccess_ut_0_node10()
@@ -7799,6 +8045,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwayssuccess_ut_0_node11 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwayssuccess_ut_0_node11()
@@ -7814,6 +8061,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_alwayssuccess_ut_0_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_alwayssuccess_ut_0_node12()
@@ -7977,6 +8225,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_countlimit_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_0_node1 : behaviac.DecoratorCountLimit
 	{
 		public DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_0_node1()
@@ -7989,6 +8238,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_countlimit_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_countlimit_ut_0_node2()
@@ -8004,6 +8254,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_countlimit_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_countlimit_ut_0_node3()
@@ -8077,6 +8328,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_countlimit_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_1_node1 : behaviac.DecoratorCountLimit
 	{
 		public DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_1_node1()
@@ -8089,6 +8341,22 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_decoration_countlimit_ut_1_node4 : behaviac.Condition
+	{
+		public Condition_bt_node_test_decoration_countlimit_ut_1_node4()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((AgentNodeTest)pAgent).testVar_1;
+			int opr = 0;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_countlimit_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_countlimit_ut_1_node2()
@@ -8104,20 +8372,7 @@ namespace behaviac
 		int method_p0;
 	}
 
-	class Condition_bt_node_test_decoration_countlimit_ut_1_node4 : behaviac.Condition
-	{
-		public Condition_bt_node_test_decoration_countlimit_ut_1_node4()
-		{
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			int opl = ((AgentNodeTest)pAgent).testVar_1;
-			int opr = 0;
-			bool op = opl == opr;
-			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
-		}
-	}
-
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_countlimit_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_countlimit_ut_1_node3()
@@ -8162,16 +8417,6 @@ namespace behaviac
 #endif
 					node0.AddChild(node1);
 					{
-						Action_bt_node_test_decoration_countlimit_ut_1_node2 node2 = new Action_bt_node_test_decoration_countlimit_ut_1_node2();
-						node2.SetClassNameString("Action");
-						node2.SetId(2);
-#if !BEHAVIAC_RELEASE
-						node2.SetAgentType("AgentNodeTest");
-#endif
-						node1.AddChild(node2);
-						node1.SetHasEvents(node1.HasEvents() | node2.HasEvents());
-					}
-					{
 						Condition_bt_node_test_decoration_countlimit_ut_1_node4 node4 = new Condition_bt_node_test_decoration_countlimit_ut_1_node4();
 						node4.SetClassNameString("Condition");
 						node4.SetId(4);
@@ -8180,6 +8425,16 @@ namespace behaviac
 #endif
 						node1.SetCustomCondition(node4);
 						node1.SetHasEvents(node1.HasEvents() | node4.HasEvents());
+					}
+					{
+						Action_bt_node_test_decoration_countlimit_ut_1_node2 node2 = new Action_bt_node_test_decoration_countlimit_ut_1_node2();
+						node2.SetClassNameString("Action");
+						node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+						node2.SetAgentType("AgentNodeTest");
+#endif
+						node1.AddChild(node2);
+						node1.SetHasEvents(node1.HasEvents() | node2.HasEvents());
 					}
 					node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
 				}
@@ -8201,6 +8456,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_countlimit_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_2_node1 : behaviac.DecoratorCountLimit
 	{
 		public DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_2_node1()
@@ -8213,6 +8469,37 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_decoration_countlimit_ut_2_node5 : behaviac.Condition
+	{
+		public Condition_bt_node_test_decoration_countlimit_ut_2_node5()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			float opl = ((AgentNodeTest)pAgent).testVar_2;
+			float opr = 0f;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_decoration_countlimit_ut_2_node6 : behaviac.Condition
+	{
+		public Condition_bt_node_test_decoration_countlimit_ut_2_node6()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((AgentNodeTest)pAgent).testVar_1;
+			int opr = 0;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_countlimit_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_countlimit_ut_2_node2()
@@ -8228,34 +8515,7 @@ namespace behaviac
 		int method_p0;
 	}
 
-	class Condition_bt_node_test_decoration_countlimit_ut_2_node5 : behaviac.Condition
-	{
-		public Condition_bt_node_test_decoration_countlimit_ut_2_node5()
-		{
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			float opl = ((AgentNodeTest)pAgent).testVar_2;
-			float opr = 0f;
-			bool op = opl == opr;
-			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
-		}
-	}
-
-	class Condition_bt_node_test_decoration_countlimit_ut_2_node6 : behaviac.Condition
-	{
-		public Condition_bt_node_test_decoration_countlimit_ut_2_node6()
-		{
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			int opl = ((AgentNodeTest)pAgent).testVar_1;
-			int opr = 0;
-			bool op = opl == opr;
-			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
-		}
-	}
-
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_countlimit_ut_2_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_countlimit_ut_2_node3()
@@ -8300,16 +8560,6 @@ namespace behaviac
 #endif
 					node0.AddChild(node1);
 					{
-						Action_bt_node_test_decoration_countlimit_ut_2_node2 node2 = new Action_bt_node_test_decoration_countlimit_ut_2_node2();
-						node2.SetClassNameString("Action");
-						node2.SetId(2);
-#if !BEHAVIAC_RELEASE
-						node2.SetAgentType("AgentNodeTest");
-#endif
-						node1.AddChild(node2);
-						node1.SetHasEvents(node1.HasEvents() | node2.HasEvents());
-					}
-					{
 						And node4 = new And();
 						node4.SetClassNameString("And");
 						node4.SetId(4);
@@ -8339,6 +8589,16 @@ namespace behaviac
 						}
 						node1.SetHasEvents(node1.HasEvents() | node4.HasEvents());
 					}
+					{
+						Action_bt_node_test_decoration_countlimit_ut_2_node2 node2 = new Action_bt_node_test_decoration_countlimit_ut_2_node2();
+						node2.SetClassNameString("Action");
+						node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+						node2.SetAgentType("AgentNodeTest");
+#endif
+						node1.AddChild(node2);
+						node1.SetHasEvents(node1.HasEvents() | node2.HasEvents());
+					}
 					node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
 				}
 				{
@@ -8359,6 +8619,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_countlimit_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_3_node1 : behaviac.DecoratorCountLimit
 	{
 		public DecoratorCountLimit_bt_node_test_decoration_countlimit_ut_3_node1()
@@ -8371,6 +8632,52 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_decoration_countlimit_ut_3_node6 : behaviac.Condition
+	{
+		public Condition_bt_node_test_decoration_countlimit_ut_3_node6()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((AgentNodeTest)pAgent).testVar_1;
+			int opr = 0;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_decoration_countlimit_ut_3_node7 : behaviac.Condition
+	{
+		public Condition_bt_node_test_decoration_countlimit_ut_3_node7()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((AgentNodeTest)pAgent).testVar_0;
+			int opr = 0;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_decoration_countlimit_ut_3_node8 : behaviac.Condition
+	{
+		public Condition_bt_node_test_decoration_countlimit_ut_3_node8()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			float opl = ((AgentNodeTest)pAgent).testVar_3;
+			float opr = 0f;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_countlimit_ut_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_countlimit_ut_3_node2()
@@ -8386,48 +8693,7 @@ namespace behaviac
 		int method_p0;
 	}
 
-	class Condition_bt_node_test_decoration_countlimit_ut_3_node6 : behaviac.Condition
-	{
-		public Condition_bt_node_test_decoration_countlimit_ut_3_node6()
-		{
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			int opl = ((AgentNodeTest)pAgent).testVar_1;
-			int opr = 0;
-			bool op = opl == opr;
-			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
-		}
-	}
-
-	class Condition_bt_node_test_decoration_countlimit_ut_3_node7 : behaviac.Condition
-	{
-		public Condition_bt_node_test_decoration_countlimit_ut_3_node7()
-		{
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			int opl = ((AgentNodeTest)pAgent).testVar_0;
-			int opr = 0;
-			bool op = opl == opr;
-			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
-		}
-	}
-
-	class Condition_bt_node_test_decoration_countlimit_ut_3_node8 : behaviac.Condition
-	{
-		public Condition_bt_node_test_decoration_countlimit_ut_3_node8()
-		{
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			float opl = ((AgentNodeTest)pAgent).testVar_3;
-			float opr = 0f;
-			bool op = opl == opr;
-			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
-		}
-	}
-
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_countlimit_ut_3_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_countlimit_ut_3_node3()
@@ -8471,16 +8737,6 @@ namespace behaviac
 					node1.SetAgentType("AgentNodeTest");
 #endif
 					node0.AddChild(node1);
-					{
-						Action_bt_node_test_decoration_countlimit_ut_3_node2 node2 = new Action_bt_node_test_decoration_countlimit_ut_3_node2();
-						node2.SetClassNameString("Action");
-						node2.SetId(2);
-#if !BEHAVIAC_RELEASE
-						node2.SetAgentType("AgentNodeTest");
-#endif
-						node1.AddChild(node2);
-						node1.SetHasEvents(node1.HasEvents() | node2.HasEvents());
-					}
 					{
 						Or node4 = new Or();
 						node4.SetClassNameString("Or");
@@ -8531,6 +8787,16 @@ namespace behaviac
 						}
 						node1.SetHasEvents(node1.HasEvents() | node4.HasEvents());
 					}
+					{
+						Action_bt_node_test_decoration_countlimit_ut_3_node2 node2 = new Action_bt_node_test_decoration_countlimit_ut_3_node2();
+						node2.SetClassNameString("Action");
+						node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+						node2.SetAgentType("AgentNodeTest");
+#endif
+						node1.AddChild(node2);
+						node1.SetHasEvents(node1.HasEvents() | node2.HasEvents());
+					}
 					node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
 				}
 				{
@@ -8551,6 +8817,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_failureuntil_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorFailureUntil_bt_node_test_decoration_failureuntil_ut_0_node0 : behaviac.DecoratorFailureUntil
 	{
 		public DecoratorFailureUntil_bt_node_test_decoration_failureuntil_ut_0_node0()
@@ -8601,6 +8868,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_failureuntil_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorFailureUntil_bt_node_test_decoration_failureuntil_ut_1_node0 : behaviac.DecoratorFailureUntil
 	{
 		public DecoratorFailureUntil_bt_node_test_decoration_failureuntil_ut_1_node0()
@@ -8651,6 +8919,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_frames_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorFrames_bt_node_test_decoration_frames_ut_0_node1 : behaviac.DecoratorFrames
 	{
 		public DecoratorFrames_bt_node_test_decoration_frames_ut_0_node1()
@@ -8663,6 +8932,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_frames_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_frames_ut_0_node2()
@@ -8678,6 +8948,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_frames_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_frames_ut_0_node3()
@@ -8751,6 +9022,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_log_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLog_bt_node_test_decoration_log_ut_0_node1 : behaviac.DecoratorLog
 	{
 		public DecoratorLog_bt_node_test_decoration_log_ut_0_node1()
@@ -8760,6 +9032,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_log_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_log_ut_0_node2()
@@ -8775,6 +9048,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_log_ut_0_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_log_ut_0_node8()
@@ -8790,6 +9064,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLog_bt_node_test_decoration_log_ut_0_node3 : behaviac.DecoratorLog
 	{
 		public DecoratorLog_bt_node_test_decoration_log_ut_0_node3()
@@ -8799,6 +9074,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_log_ut_0_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_log_ut_0_node4()
@@ -8814,6 +9090,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_log_ut_0_node9 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_log_ut_0_node9()
@@ -8829,6 +9106,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLog_bt_node_test_decoration_log_ut_0_node10 : behaviac.DecoratorLog
 	{
 		public DecoratorLog_bt_node_test_decoration_log_ut_0_node10()
@@ -8838,6 +9116,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_log_ut_0_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_log_ut_0_node12()
@@ -8853,6 +9132,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_log_ut_0_node11 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_log_ut_0_node11()
@@ -9016,6 +9296,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_loopuntil_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loopuntil_ut_0_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loopuntil_ut_0_node4()
@@ -9031,6 +9312,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_0_node1 : behaviac.DecoratorLoopUntil
 	{
 		public DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_0_node1()
@@ -9044,6 +9326,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_node_test_decoration_loopuntil_ut_0_node2 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_node_test_decoration_loopuntil_ut_0_node2()
@@ -9056,6 +9339,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loopuntil_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loopuntil_ut_0_node3()
@@ -9149,6 +9433,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_loopuntil_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loopuntil_ut_1_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loopuntil_ut_1_node4()
@@ -9164,6 +9449,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_1_node1 : behaviac.DecoratorLoopUntil
 	{
 		public DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_1_node1()
@@ -9177,6 +9463,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_node_test_decoration_loopuntil_ut_1_node2 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_node_test_decoration_loopuntil_ut_1_node2()
@@ -9189,6 +9476,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loopuntil_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loopuntil_ut_1_node3()
@@ -9282,6 +9570,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_loopuntil_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loopuntil_ut_2_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loopuntil_ut_2_node4()
@@ -9297,6 +9586,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_2_node1 : behaviac.DecoratorLoopUntil
 	{
 		public DecoratorLoopUntil_bt_node_test_decoration_loopuntil_ut_2_node1()
@@ -9310,6 +9600,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysFailure_bt_node_test_decoration_loopuntil_ut_2_node6 : behaviac.DecoratorAlwaysFailure
 	{
 		public DecoratorAlwaysFailure_bt_node_test_decoration_loopuntil_ut_2_node6()
@@ -9318,6 +9609,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loopuntil_ut_2_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loopuntil_ut_2_node3()
@@ -9411,6 +9703,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_loop_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_node_test_decoration_loop_ut_0_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_node_test_decoration_loop_ut_0_node0()
@@ -9423,6 +9716,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loop_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loop_ut_0_node3()
@@ -9438,6 +9732,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loop_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loop_ut_0_node2()
@@ -9511,6 +9806,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_loop_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_node_test_decoration_loop_ut_1_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_node_test_decoration_loop_ut_1_node0()
@@ -9523,6 +9819,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loop_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loop_ut_1_node3()
@@ -9538,6 +9835,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_loop_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_loop_ut_1_node2()
@@ -9611,6 +9909,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_not_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_decoration_not_ut_0_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_decoration_not_ut_0_node1()
@@ -9619,6 +9918,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_not_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_not_ut_0_node2()
@@ -9634,6 +9934,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_not_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_not_ut_0_node3()
@@ -9707,6 +10008,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_not_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_decoration_not_ut_1_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_decoration_not_ut_1_node1()
@@ -9715,6 +10017,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_not_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_not_ut_1_node2()
@@ -9730,6 +10033,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_not_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_not_ut_1_node3()
@@ -9803,6 +10107,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_not_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_decoration_not_ut_2_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_decoration_not_ut_2_node1()
@@ -9811,6 +10116,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_not_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_not_ut_2_node2()
@@ -9826,6 +10132,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_decoration_not_ut_2_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_decoration_not_ut_2_node3()
@@ -9899,6 +10206,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_successuntil_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorSuccessUntil_bt_node_test_decoration_successuntil_ut_0_node0 : behaviac.DecoratorSuccessUntil
 	{
 		public DecoratorSuccessUntil_bt_node_test_decoration_successuntil_ut_0_node0()
@@ -9949,6 +10257,7 @@ namespace behaviac
 
 	// Source file: node_test/decoration_successuntil_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorSuccessUntil_bt_node_test_decoration_successuntil_ut_1_node0 : behaviac.DecoratorSuccessUntil
 	{
 		public DecoratorSuccessUntil_bt_node_test_decoration_successuntil_ut_1_node0()
@@ -9999,6 +10308,7 @@ namespace behaviac
 
 	// Source file: node_test/enter_exit_action_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_enter_exit_action_ut_0_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_enter_exit_action_ut_0_attach1()
@@ -10020,6 +10330,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_enter_exit_action_ut_0_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_enter_exit_action_ut_0_attach2()
@@ -10036,6 +10347,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_enter_exit_action_ut_0_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_enter_exit_action_ut_0_attach3()
@@ -10059,6 +10371,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_enter_exit_action_ut_0_attach4 : behaviac.Effector
 	{
 		public Effector_bt_node_test_enter_exit_action_ut_0_attach4()
@@ -10077,6 +10390,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_enter_exit_action_ut_0_node5 : behaviac.Condition
 	{
 		public Condition_bt_node_test_enter_exit_action_ut_0_node5()
@@ -10207,6 +10521,7 @@ namespace behaviac
 
 	// Source file: node_test/enter_exit_action_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_enter_exit_action_ut_1_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_enter_exit_action_ut_1_node0()
@@ -10218,6 +10533,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_enter_exit_action_ut_1_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_enter_exit_action_ut_1_attach1()
@@ -10239,6 +10555,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_enter_exit_action_ut_1_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_enter_exit_action_ut_1_attach2()
@@ -10255,6 +10572,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_enter_exit_action_ut_1_attach4 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_enter_exit_action_ut_1_attach4()
@@ -10278,6 +10596,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_enter_exit_action_ut_1_attach5 : behaviac.Effector
 	{
 		public Effector_bt_node_test_enter_exit_action_ut_1_attach5()
@@ -10296,6 +10615,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_enter_exit_action_ut_1_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_enter_exit_action_ut_1_node6()
@@ -10406,6 +10726,7 @@ namespace behaviac
 
 	// Source file: node_test/enter_exit_action_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_enter_exit_action_ut_2_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_enter_exit_action_ut_2_node0()
@@ -10417,6 +10738,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_enter_exit_action_ut_2_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_enter_exit_action_ut_2_attach1()
@@ -10438,6 +10760,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_enter_exit_action_ut_2_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_enter_exit_action_ut_2_attach2()
@@ -10454,6 +10777,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_enter_exit_action_ut_2_attach4 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_enter_exit_action_ut_2_attach4()
@@ -10477,6 +10801,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_enter_exit_action_ut_2_attach5 : behaviac.Effector
 	{
 		public Effector_bt_node_test_enter_exit_action_ut_2_attach5()
@@ -10495,6 +10820,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_enter_exit_action_ut_2_node8 : behaviac.Condition
 	{
 		public Condition_bt_node_test_enter_exit_action_ut_2_node8()
@@ -10509,6 +10835,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_enter_exit_action_ut_2_node9 : behaviac.Action
 	{
 		public Action_bt_node_test_enter_exit_action_ut_2_node9()
@@ -10524,6 +10851,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_enter_exit_action_ut_2_attach6 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_enter_exit_action_ut_2_attach6()
@@ -10543,6 +10871,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_enter_exit_action_ut_2_attach7 : behaviac.Effector
 	{
 		public Effector_bt_node_test_enter_exit_action_ut_2_attach7()
@@ -10672,6 +11001,7 @@ namespace behaviac
 
 	// Source file: node_test/event_subtree_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_event_subtree_0_node6 : behaviac.Task
 	{
 		public Task_bt_node_test_event_subtree_0_node6()
@@ -10682,6 +11012,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_subtree_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_event_subtree_0_node2()
@@ -10755,6 +11086,7 @@ namespace behaviac
 
 	// Source file: node_test/event_subtree_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_event_subtree_1_node6 : behaviac.Task
 	{
 		public Task_bt_node_test_event_subtree_1_node6()
@@ -10765,6 +11097,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_subtree_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_event_subtree_1_node2()
@@ -10840,6 +11173,7 @@ namespace behaviac
 
 	// Source file: node_test/event_subtree_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_event_subtree_2_node6 : behaviac.Task
 	{
 		public Task_bt_node_test_event_subtree_2_node6()
@@ -10850,6 +11184,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_subtree_2_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_event_subtree_2_node1()
@@ -10865,6 +11200,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_subtree_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_event_subtree_2_node2()
@@ -10941,6 +11277,7 @@ namespace behaviac
 
 	// Source file: node_test/event_subtree_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_event_subtree_3_node7 : behaviac.Task
 	{
 		public Task_bt_node_test_event_subtree_3_node7()
@@ -10951,6 +11288,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_subtree_3_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_event_subtree_3_node1()
@@ -10966,6 +11304,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_subtree_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_event_subtree_3_node2()
@@ -10981,6 +11320,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_subtree_3_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_event_subtree_3_node4()
@@ -11068,6 +11408,7 @@ namespace behaviac
 
 	// Source file: node_test/event_subtree_4
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_event_subtree_4_node0 : behaviac.Task
 	{
 		public Task_bt_node_test_event_subtree_4_node0()
@@ -11078,6 +11419,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_subtree_4_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_event_subtree_4_node2()
@@ -11143,6 +11485,7 @@ namespace behaviac
 
 	// Source file: node_test/event_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Event_bt_node_test_event_ut_0_attach1 : behaviac.Event
 	{
 		public Event_bt_node_test_event_ut_0_attach1()
@@ -11158,6 +11501,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Event_bt_node_test_event_ut_0_attach2 : behaviac.Event
 	{
 		public Event_bt_node_test_event_ut_0_attach2()
@@ -11173,6 +11517,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Event_bt_node_test_event_ut_0_attach3 : behaviac.Event
 	{
 		public Event_bt_node_test_event_ut_0_attach3()
@@ -11188,6 +11533,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Event_bt_node_test_event_ut_0_attach4 : behaviac.Event
 	{
 		public Event_bt_node_test_event_ut_0_attach4()
@@ -11203,6 +11549,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Event_bt_node_test_event_ut_0_attach8 : behaviac.Event
 	{
 		public Event_bt_node_test_event_ut_0_attach8()
@@ -11218,6 +11565,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_event_ut_0_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_event_ut_0_node6()
@@ -11232,6 +11580,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_ut_0_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_event_ut_0_node7()
@@ -11356,6 +11705,7 @@ namespace behaviac
 
 	// Source file: node_test/event_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_event_ut_1_node2 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_event_ut_1_node2()
@@ -11370,6 +11720,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_ut_1_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_event_ut_1_node7()
@@ -11433,6 +11784,7 @@ namespace behaviac
 
 	// Source file: node_test/event_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Event_bt_node_test_event_ut_2_attach1 : behaviac.Event
 	{
 		public Event_bt_node_test_event_ut_2_attach1()
@@ -11448,6 +11800,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_event_ut_2_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_event_ut_2_node6()
@@ -11462,6 +11815,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_event_ut_2_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_event_ut_2_node7()
@@ -11546,6 +11900,7 @@ namespace behaviac
 
 	// Source file: node_test/frames_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorFrames_bt_node_test_frames_ut_0_node23 : behaviac.DecoratorFrames
 	{
 		public DecoratorFrames_bt_node_test_frames_ut_0_node23()
@@ -11558,6 +11913,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_frames_ut_0_node16 : behaviac.Action
 	{
 		public Action_bt_node_test_frames_ut_0_node16()
@@ -11573,6 +11929,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_frames_ut_0_node21 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_frames_ut_0_node21()
@@ -11587,6 +11944,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_frames_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_frames_ut_0_node5()
@@ -11602,6 +11960,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_frames_ut_0_attach7 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_frames_ut_0_attach7()
@@ -11618,6 +11977,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_frames_ut_0_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_frames_ut_0_node0()
@@ -11632,6 +11992,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_frames_ut_0_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_frames_ut_0_node2()
@@ -11754,6 +12115,7 @@ namespace behaviac
 
 	// Source file: node_test/if_else_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_if_else_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_if_else_ut_0_node2()
@@ -11769,6 +12131,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_if_else_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_if_else_ut_0_node3()
@@ -11842,6 +12205,7 @@ namespace behaviac
 
 	// Source file: node_test/if_else_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_if_else_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_if_else_ut_1_node2()
@@ -11857,6 +12221,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_if_else_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_if_else_ut_1_node3()
@@ -11930,6 +12295,7 @@ namespace behaviac
 
 	// Source file: node_test/parallel_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_parallel_ut_0_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_parallel_ut_0_node0()
@@ -11941,6 +12307,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_0_node3()
@@ -11956,6 +12323,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_0_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_0_node4()
@@ -11971,6 +12339,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_0_node5()
@@ -11986,6 +12355,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_0_node2()
@@ -12079,6 +12449,7 @@ namespace behaviac
 
 	// Source file: node_test/parallel_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_parallel_ut_1_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_parallel_ut_1_node0()
@@ -12090,6 +12461,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_1_node3()
@@ -12105,6 +12477,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_1_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_1_node4()
@@ -12120,6 +12493,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_1_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_1_node5()
@@ -12135,6 +12509,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_1_node2()
@@ -12228,6 +12603,7 @@ namespace behaviac
 
 	// Source file: node_test/parallel_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_parallel_ut_2_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_parallel_ut_2_node0()
@@ -12239,6 +12615,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_2_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_2_node3()
@@ -12254,6 +12631,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_2_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_2_node4()
@@ -12269,6 +12647,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_2_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_2_node5()
@@ -12284,6 +12663,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_2_node2()
@@ -12377,6 +12757,7 @@ namespace behaviac
 
 	// Source file: node_test/parallel_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_parallel_ut_3_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_parallel_ut_3_node0()
@@ -12388,6 +12769,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_3_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_3_node3()
@@ -12403,6 +12785,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_3_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_3_node4()
@@ -12418,6 +12801,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_3_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_3_node5()
@@ -12433,6 +12817,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_3_node2()
@@ -12526,6 +12911,7 @@ namespace behaviac
 
 	// Source file: node_test/parallel_ut_4
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_node_test_parallel_ut_4_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_node_test_parallel_ut_4_node0()
@@ -12537,6 +12923,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_4_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_4_node3()
@@ -12552,6 +12939,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_4_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_4_node4()
@@ -12567,6 +12955,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_4_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_4_node5()
@@ -12582,6 +12971,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_parallel_ut_4_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_parallel_ut_4_node2()
@@ -12675,6 +13065,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_action_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_action_ut_0_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_action_ut_0_node1()
@@ -12690,6 +13081,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_0_attach2 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_0_attach2()
@@ -12709,6 +13101,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_action_ut_0_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_action_ut_0_node4()
@@ -12724,6 +13117,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_0_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_0_attach3()
@@ -12811,6 +13205,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_action_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_action_ut_1_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_action_ut_1_node1()
@@ -12826,6 +13221,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_1_attach2 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_1_attach2()
@@ -12845,6 +13241,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_1_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_1_attach3()
@@ -12864,6 +13261,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_action_ut_1_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_action_ut_1_node6()
@@ -12879,6 +13277,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_1_attach4 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_1_attach4()
@@ -12898,6 +13297,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_1_attach5 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_1_attach5()
@@ -13003,6 +13403,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_action_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_action_ut_2_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_action_ut_2_node1()
@@ -13018,6 +13419,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_2_attach2 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_2_attach2()
@@ -13037,6 +13439,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_2_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_2_attach3()
@@ -13056,6 +13459,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_2_attach4 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_2_attach4()
@@ -13075,6 +13479,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_action_ut_2_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_action_ut_2_node8()
@@ -13090,6 +13495,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_2_attach5 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_2_attach5()
@@ -13109,6 +13515,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_2_attach6 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_2_attach6()
@@ -13128,6 +13535,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_2_attach7 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_2_attach7()
@@ -13251,6 +13659,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_action_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_action_ut_3_node0 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_action_ut_3_node0()
@@ -13266,6 +13675,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_predicate_action_ut_3_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_predicate_action_ut_3_attach1()
@@ -13323,6 +13733,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_selector_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_selector_ut_0_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_selector_ut_0_node1()
@@ -13331,6 +13742,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_0_node3 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_0_node3()
@@ -13345,6 +13757,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_0_node2()
@@ -13360,6 +13773,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_0_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_0_node4()
@@ -13375,6 +13789,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_0_node5()
@@ -13468,6 +13883,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_selector_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_selector_ut_1_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_selector_ut_1_node1()
@@ -13476,6 +13892,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_1_node3 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_1_node3()
@@ -13490,6 +13907,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_1_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_1_node4()
@@ -13505,6 +13923,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_1_node2()
@@ -13520,6 +13939,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_1_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_1_node5()
@@ -13613,6 +14033,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_selector_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_selector_ut_2_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_selector_ut_2_node1()
@@ -13621,6 +14042,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_2_node3 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_2_node3()
@@ -13635,6 +14057,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_2_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_2_node4()
@@ -13650,6 +14073,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_2_node2()
@@ -13665,6 +14089,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_2_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_2_node5()
@@ -13758,6 +14183,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_selector_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_selector_ut_3_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_selector_ut_3_node1()
@@ -13766,6 +14192,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_3_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_3_node6()
@@ -13780,6 +14207,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_3_node7 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_3_node7()
@@ -13794,6 +14222,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_3_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_3_node5()
@@ -13809,6 +14238,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_3_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_3_node4()
@@ -13824,6 +14254,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_3_node2()
@@ -13937,6 +14368,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_selector_ut_4
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_selector_ut_4_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_selector_ut_4_node1()
@@ -13945,6 +14377,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_4_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_4_node6()
@@ -13959,6 +14392,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_4_node7 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_4_node7()
@@ -13973,6 +14407,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_4_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_4_node5()
@@ -13988,6 +14423,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_4_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_4_node4()
@@ -14003,6 +14439,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_4_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_4_node2()
@@ -14116,6 +14553,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_selector_ut_5
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_selector_ut_5_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_selector_ut_5_node1()
@@ -14124,6 +14562,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_5_node8 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_5_node8()
@@ -14138,6 +14577,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_5_node9 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_5_node9()
@@ -14152,6 +14592,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_selector_ut_5_node10 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_selector_ut_5_node10()
@@ -14166,6 +14607,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_5_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_5_node5()
@@ -14181,6 +14623,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_5_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_5_node4()
@@ -14196,6 +14639,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_5_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_5_node2()
@@ -14211,6 +14655,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_selector_ut_5_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_selector_ut_5_node7()
@@ -14354,6 +14799,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_sequence_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_sequence_ut_0_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_sequence_ut_0_node1()
@@ -14362,6 +14808,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_0_node3 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_0_node3()
@@ -14376,6 +14823,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_0_node2()
@@ -14391,6 +14839,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_0_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_0_node4()
@@ -14406,6 +14855,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_0_node5()
@@ -14499,6 +14949,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_sequence_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_sequence_ut_1_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_sequence_ut_1_node1()
@@ -14507,6 +14958,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_1_node3 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_1_node3()
@@ -14521,6 +14973,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_1_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_1_node4()
@@ -14536,6 +14989,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_1_node2()
@@ -14551,6 +15005,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_1_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_1_node5()
@@ -14644,6 +15099,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_sequence_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_sequence_ut_2_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_sequence_ut_2_node1()
@@ -14652,6 +15108,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_2_node3 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_2_node3()
@@ -14666,6 +15123,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_2_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_2_node4()
@@ -14681,6 +15139,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_2_node2()
@@ -14696,6 +15155,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_2_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_2_node5()
@@ -14789,6 +15249,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_sequence_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_sequence_ut_3_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_sequence_ut_3_node1()
@@ -14797,6 +15258,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_3_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_3_node6()
@@ -14811,6 +15273,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_3_node7 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_3_node7()
@@ -14825,6 +15288,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_3_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_3_node5()
@@ -14840,6 +15304,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_3_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_3_node4()
@@ -14855,6 +15320,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_3_node2()
@@ -14968,6 +15434,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_sequence_ut_4
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_sequence_ut_4_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_sequence_ut_4_node1()
@@ -14976,6 +15443,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_4_node6 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_4_node6()
@@ -14990,6 +15458,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_4_node7 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_4_node7()
@@ -15004,6 +15473,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_4_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_4_node5()
@@ -15019,6 +15489,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_4_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_4_node4()
@@ -15034,6 +15505,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_4_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_4_node2()
@@ -15147,6 +15619,7 @@ namespace behaviac
 
 	// Source file: node_test/predicate_sequence_ut_5
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_node_test_predicate_sequence_ut_5_node1 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_node_test_predicate_sequence_ut_5_node1()
@@ -15155,6 +15628,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_5_node8 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_5_node8()
@@ -15169,6 +15643,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_5_node9 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_5_node9()
@@ -15183,6 +15658,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_predicate_sequence_ut_5_node10 : behaviac.Condition
 	{
 		public Condition_bt_node_test_predicate_sequence_ut_5_node10()
@@ -15197,6 +15673,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_5_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_5_node5()
@@ -15212,6 +15689,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_5_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_5_node4()
@@ -15227,6 +15705,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_5_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_5_node2()
@@ -15242,6 +15721,7 @@ namespace behaviac
 		float method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_predicate_sequence_ut_5_node7 : behaviac.Action
 	{
 		public Action_bt_node_test_predicate_sequence_ut_5_node7()
@@ -15385,6 +15865,7 @@ namespace behaviac
 
 	// Source file: node_test/query_subtree_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_query_subtree_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_query_subtree_0_node3()
@@ -15450,6 +15931,7 @@ namespace behaviac
 
 	// Source file: node_test/query_subtree_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_query_subtree_1_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_query_subtree_1_node1()
@@ -15515,6 +15997,7 @@ namespace behaviac
 
 	// Source file: node_test/query_subtree_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_query_subtree_2_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_query_subtree_2_node1()
@@ -15580,6 +16063,7 @@ namespace behaviac
 
 	// Source file: node_test/query_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_query_ut_0_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_query_ut_0_attach1()
@@ -15601,6 +16085,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_query_ut_0_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_query_ut_0_attach2()
@@ -15619,6 +16104,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_0_node5 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_0_node5()
@@ -15632,6 +16118,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_0_node3 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_0_node3()
@@ -15645,6 +16132,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_0_node4 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_0_node4()
@@ -15745,6 +16233,7 @@ namespace behaviac
 
 	// Source file: node_test/query_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_query_ut_1_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_query_ut_1_attach1()
@@ -15766,6 +16255,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_query_ut_1_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_query_ut_1_attach2()
@@ -15784,6 +16274,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_1_node5 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_1_node5()
@@ -15797,6 +16288,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_1_node3 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_1_node3()
@@ -15810,6 +16302,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_1_node4 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_1_node4()
@@ -15910,6 +16403,7 @@ namespace behaviac
 
 	// Source file: node_test/query_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_query_ut_2_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_query_ut_2_attach1()
@@ -15931,6 +16425,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_query_ut_2_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_query_ut_2_attach2()
@@ -15949,6 +16444,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_2_node5 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_2_node5()
@@ -15962,6 +16458,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_2_node3 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_2_node3()
@@ -15975,6 +16472,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_2_node4 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_2_node4()
@@ -16075,6 +16573,7 @@ namespace behaviac
 
 	// Source file: node_test/query_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_query_ut_3_attach1 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_query_ut_3_attach1()
@@ -16096,6 +16595,7 @@ namespace behaviac
 		float opl_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_query_ut_3_attach2 : behaviac.Effector
 	{
 		public Effector_bt_node_test_query_ut_3_attach2()
@@ -16114,6 +16614,7 @@ namespace behaviac
 		string opl_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_3_node5 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_3_node5()
@@ -16127,6 +16628,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_3_node3 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_3_node3()
@@ -16140,6 +16642,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Query_bt_node_test_query_ut_3_node4 : behaviac.Query
 	{
 		public Query_bt_node_test_query_ut_3_node4()
@@ -16240,6 +16743,7 @@ namespace behaviac
 
 	// Source file: node_test/reference_sub_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Task_bt_node_test_reference_sub_0_node7 : behaviac.Task
 	{
 		public Task_bt_node_test_reference_sub_0_node7()
@@ -16250,6 +16754,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_reference_sub_0_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_reference_sub_0_node1()
@@ -16265,6 +16770,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_reference_sub_0_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_reference_sub_0_node2()
@@ -16372,6 +16878,7 @@ namespace behaviac
 
 	// Source file: node_test/reference_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class ReferencedBehavior_bt_node_test_reference_ut_0_node1 : behaviac.ReferencedBehavior
 	{
 		public ReferencedBehavior_bt_node_test_reference_ut_0_node1()
@@ -16416,6 +16923,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_0_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_0_node5()
@@ -16431,6 +16939,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_0_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_0_node6()
@@ -16534,6 +17043,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_1_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_1_node5()
@@ -16549,6 +17059,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_1_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_1_node6()
@@ -16652,6 +17163,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_2_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_2_node5()
@@ -16667,6 +17179,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_2_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_2_node6()
@@ -16770,6 +17283,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_3_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_3_node5()
@@ -16785,6 +17299,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_3_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_3_node6()
@@ -16888,6 +17403,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_4
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_4_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_4_node5()
@@ -16903,6 +17419,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_4_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_4_node6()
@@ -17006,6 +17523,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_5
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_5_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_5_node5()
@@ -17021,6 +17539,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_5_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_5_node6()
@@ -17036,6 +17555,7 @@ namespace behaviac
 		string method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_5_node9 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_5_node9()
@@ -17169,6 +17689,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_6
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_node_test_selector_loop_ut_6_node9 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_node_test_selector_loop_ut_6_node9()
@@ -17181,6 +17702,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_selector_loop_ut_6_node4 : behaviac.Condition
 	{
 		public Condition_bt_node_test_selector_loop_ut_6_node4()
@@ -17197,6 +17719,7 @@ namespace behaviac
 		object[] opl_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_6_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_6_node5()
@@ -17212,6 +17735,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_6_attach7 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_6_attach7()
@@ -17228,6 +17752,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_6_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_6_node6()
@@ -17243,6 +17768,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_6_attach8 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_6_attach8()
@@ -17377,6 +17903,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_7
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_7_node16 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_7_node16()
@@ -17392,6 +17919,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_selector_loop_ut_7_node21 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_selector_loop_ut_7_node21()
@@ -17406,6 +17934,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_node_test_selector_loop_ut_7_node9 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_node_test_selector_loop_ut_7_node9()
@@ -17418,6 +17947,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_7_attach14 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_7_attach14()
@@ -17439,6 +17969,7 @@ namespace behaviac
 		object[] opl_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_7_attach17 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_7_attach17()
@@ -17456,6 +17987,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_selector_loop_ut_7_attach18 : behaviac.Effector
 	{
 		public Effector_bt_node_test_selector_loop_ut_7_attach18()
@@ -17471,6 +18003,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_selector_loop_ut_7_node4 : behaviac.Condition
 	{
 		public Condition_bt_node_test_selector_loop_ut_7_node4()
@@ -17487,6 +18020,7 @@ namespace behaviac
 		object[] opl_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_7_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_7_node5()
@@ -17502,6 +18036,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_7_attach7 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_7_attach7()
@@ -17518,6 +18053,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_7_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_7_node6()
@@ -17533,6 +18069,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_7_attach8 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_7_attach8()
@@ -17549,6 +18086,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_7_attach19 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_7_attach19()
@@ -17565,6 +18103,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_7_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_7_node12()
@@ -17580,6 +18119,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_7_attach20 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_7_attach20()
@@ -17597,6 +18137,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_7_node13 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_7_node13()
@@ -17612,6 +18153,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_7_attach22 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_7_attach22()
@@ -17875,6 +18417,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_loop_ut_8
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_8_node16 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_8_node16()
@@ -17890,6 +18433,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_selector_loop_ut_8_node21 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_selector_loop_ut_8_node21()
@@ -17904,6 +18448,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_8_attach24 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_8_attach24()
@@ -17923,6 +18468,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_node_test_selector_loop_ut_8_node9 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_node_test_selector_loop_ut_8_node9()
@@ -17935,6 +18481,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_8_attach14 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_8_attach14()
@@ -17956,6 +18503,7 @@ namespace behaviac
 		object[] opl_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_8_attach17 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_8_attach17()
@@ -17973,6 +18521,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Effector_bt_node_test_selector_loop_ut_8_attach18 : behaviac.Effector
 	{
 		public Effector_bt_node_test_selector_loop_ut_8_attach18()
@@ -17988,6 +18537,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_selector_loop_ut_8_node4 : behaviac.Condition
 	{
 		public Condition_bt_node_test_selector_loop_ut_8_node4()
@@ -18004,6 +18554,7 @@ namespace behaviac
 		object[] opl_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_8_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_8_node5()
@@ -18019,6 +18570,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_8_attach7 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_8_attach7()
@@ -18035,6 +18587,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_8_node6 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_8_node6()
@@ -18050,6 +18603,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_8_attach8 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_8_attach8()
@@ -18066,6 +18620,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_8_attach19 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_8_attach19()
@@ -18082,6 +18637,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_8_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_8_node12()
@@ -18097,6 +18653,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_8_attach20 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_8_attach20()
@@ -18114,6 +18671,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_loop_ut_8_node13 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_loop_ut_8_node13()
@@ -18129,6 +18687,7 @@ namespace behaviac
 		object[] method_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_node_test_selector_loop_ut_8_attach22 : behaviac.Precondition
 	{
 		public Precondition_bt_node_test_selector_loop_ut_8_attach22()
@@ -18146,6 +18705,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_node_test_selector_loop_ut_8_node25 : behaviac.Assignment
 	{
 		public Assignment_bt_node_test_selector_loop_ut_8_node25()
@@ -18160,6 +18720,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_selector_loop_ut_8_node26 : behaviac.Compute
 	{
 		public Compute_bt_node_test_selector_loop_ut_8_node26()
@@ -18461,6 +19022,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_probability_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorProbability_bt_node_test_selector_probability_ut_0_node0 : behaviac.SelectorProbability
 	{
 		public SelectorProbability_bt_node_test_selector_probability_ut_0_node0()
@@ -18468,6 +19030,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_0_node3 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_0_node3()
@@ -18480,6 +19043,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_0_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_0_node1()
@@ -18495,6 +19059,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_0_node5 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_0_node5()
@@ -18507,6 +19072,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_0_node2()
@@ -18522,6 +19088,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_0_node6 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_0_node6()
@@ -18534,6 +19101,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_0_node4 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_0_node4()
@@ -18637,6 +19205,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_probability_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorProbability_bt_node_test_selector_probability_ut_1_node0 : behaviac.SelectorProbability
 	{
 		public SelectorProbability_bt_node_test_selector_probability_ut_1_node0()
@@ -18644,6 +19213,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_1_node4 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_1_node4()
@@ -18656,6 +19226,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_1_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_1_node1()
@@ -18671,6 +19242,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_1_node5 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_1_node5()
@@ -18683,6 +19255,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_1_node2()
@@ -18698,6 +19271,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_1_node6 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_1_node6()
@@ -18710,6 +19284,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_1_node3()
@@ -18813,6 +19388,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_probability_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorProbability_bt_node_test_selector_probability_ut_2_node0 : behaviac.SelectorProbability
 	{
 		public SelectorProbability_bt_node_test_selector_probability_ut_2_node0()
@@ -18820,6 +19396,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_2_node4 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_2_node4()
@@ -18832,6 +19409,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_2_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_2_node1()
@@ -18847,6 +19425,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_2_node5 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_2_node5()
@@ -18859,6 +19438,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_2_node2()
@@ -18874,6 +19454,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_node_test_selector_probability_ut_2_node6 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_node_test_selector_probability_ut_2_node6()
@@ -18886,6 +19467,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_probability_ut_2_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_probability_ut_2_node3()
@@ -18989,6 +19571,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_stochastic_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_node_test_selector_stochastic_ut_0_node0 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_node_test_selector_stochastic_ut_0_node0()
@@ -18996,6 +19579,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_stochastic_ut_0_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_stochastic_ut_0_node1()
@@ -19011,6 +19595,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_stochastic_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_stochastic_ut_0_node2()
@@ -19026,6 +19611,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_stochastic_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_stochastic_ut_0_node3()
@@ -19099,6 +19685,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_stochastic_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_node_test_selector_stochastic_ut_1_node0 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_node_test_selector_stochastic_ut_1_node0()
@@ -19106,6 +19693,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_stochastic_ut_1_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_stochastic_ut_1_node1()
@@ -19179,6 +19767,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_stochastic_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_node_test_selector_stochastic_ut_2_node4 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_node_test_selector_stochastic_ut_2_node4()
@@ -19186,6 +19775,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_stochastic_ut_2_node5 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_stochastic_ut_2_node5()
@@ -19259,6 +19849,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_0_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_0_node1()
@@ -19274,6 +19865,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_0_node2()
@@ -19289,6 +19881,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_0_node3()
@@ -19362,6 +19955,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_1_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_1_node1()
@@ -19377,6 +19971,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_1_node2()
@@ -19392,6 +19987,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_1_node3()
@@ -19465,6 +20061,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_2_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_2_node1()
@@ -19480,6 +20077,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_2_node2()
@@ -19495,6 +20093,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_2_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_2_node3()
@@ -19568,6 +20167,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_3_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_3_node1()
@@ -19583,6 +20183,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_3_node2()
@@ -19598,6 +20199,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_3_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_3_node3()
@@ -19671,6 +20273,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_ut_4
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_4_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_4_node1()
@@ -19686,6 +20289,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_4_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_4_node2()
@@ -19701,6 +20305,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_4_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_4_node3()
@@ -19774,6 +20379,7 @@ namespace behaviac
 
 	// Source file: node_test/selector_ut_5
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_selector_ut_5_node5 : behaviac.Condition
 	{
 		public Condition_bt_node_test_selector_ut_5_node5()
@@ -19788,6 +20394,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_5_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_5_node1()
@@ -19803,6 +20410,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_selector_ut_5_node7 : behaviac.Condition
 	{
 		public Condition_bt_node_test_selector_ut_5_node7()
@@ -19817,6 +20425,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_5_node8 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_5_node8()
@@ -19832,6 +20441,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_5_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_5_node3()
@@ -19847,6 +20457,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_selector_ut_5_node11 : behaviac.Condition
 	{
 		public Condition_bt_node_test_selector_ut_5_node11()
@@ -19861,6 +20472,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_5_node12 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_5_node12()
@@ -19876,6 +20488,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_node_test_selector_ut_5_node14 : behaviac.Condition
 	{
 		public Condition_bt_node_test_selector_ut_5_node14()
@@ -19890,6 +20503,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_5_node15 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_5_node15()
@@ -19905,6 +20519,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_selector_ut_5_node16 : behaviac.Action
 	{
 		public Action_bt_node_test_selector_ut_5_node16()
@@ -20108,6 +20723,7 @@ namespace behaviac
 
 	// Source file: node_test/sequence_stochastic_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SequenceStochastic_bt_node_test_sequence_stochastic_ut_0_node0 : behaviac.SequenceStochastic
 	{
 		public SequenceStochastic_bt_node_test_sequence_stochastic_ut_0_node0()
@@ -20115,6 +20731,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_stochastic_ut_0_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_stochastic_ut_0_node1()
@@ -20130,6 +20747,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_stochastic_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_stochastic_ut_0_node2()
@@ -20145,6 +20763,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_stochastic_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_stochastic_ut_0_node3()
@@ -20218,6 +20837,7 @@ namespace behaviac
 
 	// Source file: node_test/sequence_stochastic_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SequenceStochastic_bt_node_test_sequence_stochastic_ut_1_node0 : behaviac.SequenceStochastic
 	{
 		public SequenceStochastic_bt_node_test_sequence_stochastic_ut_1_node0()
@@ -20225,6 +20845,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_stochastic_ut_1_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_stochastic_ut_1_node1()
@@ -20298,6 +20919,7 @@ namespace behaviac
 
 	// Source file: node_test/sequence_stochastic_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SequenceStochastic_bt_node_test_sequence_stochastic_ut_2_node0 : behaviac.SequenceStochastic
 	{
 		public SequenceStochastic_bt_node_test_sequence_stochastic_ut_2_node0()
@@ -20305,6 +20927,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_stochastic_ut_2_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_stochastic_ut_2_node1()
@@ -20378,6 +21001,7 @@ namespace behaviac
 
 	// Source file: node_test/sequence_stochastic_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SequenceStochastic_bt_node_test_sequence_stochastic_ut_3_node0 : behaviac.SequenceStochastic
 	{
 		public SequenceStochastic_bt_node_test_sequence_stochastic_ut_3_node0()
@@ -20385,6 +21009,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_stochastic_ut_3_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_stochastic_ut_3_node1()
@@ -20458,6 +21083,7 @@ namespace behaviac
 
 	// Source file: node_test/sequence_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_0_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_0_node1()
@@ -20473,6 +21099,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_0_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_0_node2()
@@ -20488,6 +21115,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_0_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_0_node3()
@@ -20561,6 +21189,7 @@ namespace behaviac
 
 	// Source file: node_test/sequence_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_1_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_1_node1()
@@ -20576,6 +21205,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_1_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_1_node2()
@@ -20591,6 +21221,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_1_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_1_node3()
@@ -20664,6 +21295,7 @@ namespace behaviac
 
 	// Source file: node_test/sequence_ut_2
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_2_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_2_node1()
@@ -20679,6 +21311,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_2_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_2_node2()
@@ -20694,6 +21327,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_2_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_2_node3()
@@ -20767,6 +21401,7 @@ namespace behaviac
 
 	// Source file: node_test/sequence_ut_3
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_3_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_3_node1()
@@ -20782,6 +21417,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_3_node2 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_3_node2()
@@ -20797,6 +21433,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_sequence_ut_3_node3 : behaviac.Action
 	{
 		public Action_bt_node_test_sequence_ut_3_node3()
@@ -20870,6 +21507,7 @@ namespace behaviac
 
 	// Source file: node_test/wait_ut_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_wait_ut_0_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_wait_ut_0_node1()
@@ -20885,14 +21523,31 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_wait_ut_0_node3 : behaviac.Action
+	{
+		public Action_bt_node_test_wait_ut_0_node3()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).initChildAgentTest();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_node_test_wait_ut_0_node2 : behaviac.Wait
 	{
 		public Wait_bt_node_test_wait_ut_0_node2()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
-			return 1000f;
+			behaviac.Agent pAgent_Time = behaviac.Utils.GetParentAgent(pAgent, "par_child_agent_1");
+			Debug.Check(pAgent_Time != null || Utils.IsStaticClass("par_child_agent_1"));
+			return ((ChildNodeTest)pAgent_Time).GetConstDoubleValue();
 		}
 	}
 
@@ -20927,6 +21582,16 @@ namespace behaviac
 					node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
 				}
 				{
+					Action_bt_node_test_wait_ut_0_node3 node3 = new Action_bt_node_test_wait_ut_0_node3();
+					node3.SetClassNameString("Action");
+					node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+					node3.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node3);
+					node0.SetHasEvents(node0.HasEvents() | node3.HasEvents());
+				}
+				{
 					Wait_bt_node_test_wait_ut_0_node2 node2 = new Wait_bt_node_test_wait_ut_0_node2();
 					node2.SetClassNameString("Wait");
 					node2.SetId(2);
@@ -20944,6 +21609,7 @@ namespace behaviac
 
 	// Source file: node_test/wait_ut_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_wait_ut_1_node1 : behaviac.Action
 	{
 		public Action_bt_node_test_wait_ut_1_node1()
@@ -20959,12 +21625,13 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_node_test_wait_ut_1_node2 : behaviac.Wait
 	{
 		public Wait_bt_node_test_wait_ut_1_node2()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 1000f;
 		}
@@ -21018,6 +21685,7 @@ namespace behaviac
 
 	// Source file: par_test/const_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_const_param_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_const_param_node0()
@@ -21034,6 +21702,7 @@ namespace behaviac
 		bool opr_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_const_param_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_const_param_node1()
@@ -21050,6 +21719,7 @@ namespace behaviac
 		byte opr_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_const_param_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_const_param_node2()
@@ -21129,6 +21799,7 @@ namespace behaviac
 
 	// Source file: par_test/custom_property_as_left_value_and_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node0()
@@ -21144,6 +21815,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node1()
@@ -21165,6 +21837,7 @@ namespace behaviac
 		List<int> opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node2()
@@ -21181,6 +21854,7 @@ namespace behaviac
 		string opr;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node3()
@@ -21196,6 +21870,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node4()
@@ -21211,6 +21886,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node11()
@@ -21228,6 +21904,7 @@ namespace behaviac
 		UnityEngine.Vector3 opr;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node8()
@@ -21243,6 +21920,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node9()
@@ -21261,6 +21939,7 @@ namespace behaviac
 		UnityEngine.Vector3 opr;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node10()
@@ -21276,6 +21955,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6()
@@ -21439,6 +22119,7 @@ namespace behaviac
 
 	// Source file: par_test/custom_property_reset
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_custom_property_reset_node1 : behaviac.Action
 	{
 		public Action_bt_par_test_custom_property_reset_node1()
@@ -21454,6 +22135,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_custom_property_reset_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_custom_property_reset_node0()
@@ -21520,6 +22202,7 @@ namespace behaviac
 
 	// Source file: par_test/local_out_scope
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_local_out_scope_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_local_out_scope_node0()
@@ -21535,6 +22218,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_local_out_scope_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_local_out_scope_node1()
@@ -21556,6 +22240,7 @@ namespace behaviac
 		List<int> opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_local_out_scope_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_local_out_scope_node2()
@@ -21572,6 +22257,7 @@ namespace behaviac
 		string opr;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_local_out_scope_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_local_out_scope_node3()
@@ -21587,6 +22273,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_par_test_local_out_scope_node6 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_par_test_local_out_scope_node6()
@@ -21699,6 +22386,7 @@ namespace behaviac
 
 	// Source file: par_test/par_as_left_value_and_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node0()
@@ -21716,6 +22404,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node30 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node30()
@@ -21733,6 +22422,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node15()
@@ -21750,6 +22440,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node31 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node31()
@@ -21767,6 +22458,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node2()
@@ -21784,6 +22476,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node3()
@@ -21801,6 +22494,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node4()
@@ -21818,6 +22512,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node5()
@@ -21835,6 +22530,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node6()
@@ -21852,6 +22548,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node7()
@@ -21869,6 +22566,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node8()
@@ -21886,6 +22584,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node35 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node35()
@@ -21903,6 +22602,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node36 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node36()
@@ -21920,6 +22620,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node37 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node37()
@@ -21937,6 +22638,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node9()
@@ -21954,6 +22656,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node10()
@@ -21971,6 +22674,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node11()
@@ -21988,6 +22692,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node12()
@@ -22005,6 +22710,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node17 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node17()
@@ -22022,6 +22728,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node19 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node19()
@@ -22039,6 +22746,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node18 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node18()
@@ -22056,6 +22764,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node16 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node16()
@@ -22073,6 +22782,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node20 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node20()
@@ -22090,6 +22800,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node24 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node24()
@@ -22107,6 +22818,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node25 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node25()
@@ -22124,6 +22836,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node26 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node26()
@@ -22141,6 +22854,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node27 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node27()
@@ -22158,6 +22872,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node21 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node21()
@@ -22175,6 +22890,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node23 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node23()
@@ -22192,6 +22908,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node28 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node28()
@@ -22209,6 +22926,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_par_as_left_value_and_param_node29 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_par_as_left_value_and_param_node29()
@@ -22226,6 +22944,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_par_test_par_as_left_value_and_param_node33 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_par_test_par_as_left_value_and_param_node33()
@@ -22669,6 +23388,7 @@ namespace behaviac
 
 	// Source file: par_test/par_as_ref_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node0 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node0()
@@ -22686,6 +23406,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node17 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node17()
@@ -22703,6 +23424,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node2 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node2()
@@ -22720,6 +23442,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node3 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node3()
@@ -22737,6 +23460,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node4 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node4()
@@ -22754,6 +23478,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node5 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node5()
@@ -22771,6 +23496,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node6 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node6()
@@ -22788,6 +23514,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node7 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node7()
@@ -22805,6 +23532,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node8 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node8()
@@ -22822,6 +23550,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node35 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node35()
@@ -22839,6 +23568,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node36 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node36()
@@ -22856,6 +23586,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node31 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node31()
@@ -22873,6 +23604,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node32 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node32()
@@ -22890,6 +23622,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node9 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node9()
@@ -22907,6 +23640,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node10 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node10()
@@ -22924,6 +23658,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node11 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node11()
@@ -22941,6 +23676,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node12 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node12()
@@ -22958,6 +23694,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node18 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node18()
@@ -22975,6 +23712,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node19 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node19()
@@ -22992,6 +23730,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node20 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node20()
@@ -23009,6 +23748,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node16 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node16()
@@ -23026,6 +23766,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node21 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node21()
@@ -23043,6 +23784,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node15 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node15()
@@ -23060,6 +23802,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node29 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node29()
@@ -23077,6 +23820,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node26 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node26()
@@ -23094,6 +23838,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node27 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node27()
@@ -23111,6 +23856,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node24 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node24()
@@ -23128,6 +23874,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node25 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node25()
@@ -23145,6 +23892,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node23 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node23()
@@ -23162,6 +23910,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_par_as_ref_param_node28 : behaviac.Action
 	{
 		public Action_bt_par_test_par_as_ref_param_node28()
@@ -23179,6 +23928,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_par_test_par_as_ref_param_node33 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_par_test_par_as_ref_param_node33()
@@ -23610,6 +24360,7 @@ namespace behaviac
 
 	// Source file: par_test/property_as_left_value
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node0()
@@ -23626,6 +24377,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node15()
@@ -23642,6 +24394,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node2()
@@ -23658,6 +24411,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node3()
@@ -23674,6 +24428,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node4()
@@ -23690,6 +24445,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node5()
@@ -23706,6 +24462,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node6()
@@ -23722,6 +24479,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node7()
@@ -23738,6 +24496,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node8()
@@ -23754,6 +24513,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node30 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node30()
@@ -23768,6 +24528,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node31 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node31()
@@ -23782,6 +24543,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node9()
@@ -23798,6 +24560,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node10()
@@ -23814,6 +24577,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node11()
@@ -23830,6 +24594,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node12()
@@ -23846,6 +24611,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node17 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node17()
@@ -23862,6 +24628,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node19 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node19()
@@ -23878,6 +24645,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node18 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node18()
@@ -23894,6 +24662,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node16 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node16()
@@ -23910,6 +24679,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node20 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node20()
@@ -23926,6 +24696,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node24 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node24()
@@ -23942,6 +24713,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node25 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node25()
@@ -23958,6 +24730,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node26 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node26()
@@ -23974,6 +24747,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node27 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node27()
@@ -23990,6 +24764,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node21 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node21()
@@ -24006,6 +24781,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node23 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node23()
@@ -24022,6 +24798,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node28 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node28()
@@ -24038,6 +24815,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_node29 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_node29()
@@ -24419,6 +25197,7 @@ namespace behaviac
 
 	// Source file: par_test/property_as_left_value_and_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node0()
@@ -24433,6 +25212,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node15()
@@ -24447,6 +25227,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node2()
@@ -24461,6 +25242,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node3()
@@ -24475,6 +25257,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node4()
@@ -24489,6 +25272,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node5()
@@ -24503,6 +25287,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node6()
@@ -24517,6 +25302,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node7()
@@ -24531,6 +25317,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node8()
@@ -24545,6 +25332,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node30 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node30()
@@ -24559,6 +25347,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node31 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node31()
@@ -24573,6 +25362,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node9()
@@ -24587,6 +25377,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node10()
@@ -24601,6 +25392,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node11()
@@ -24615,6 +25407,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node12()
@@ -24629,6 +25422,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node17 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node17()
@@ -24643,6 +25437,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node19 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node19()
@@ -24657,6 +25452,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node18 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node18()
@@ -24671,6 +25467,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node16 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node16()
@@ -24685,6 +25482,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node20 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node20()
@@ -24699,6 +25497,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node24 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node24()
@@ -24713,6 +25512,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node25 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node25()
@@ -24727,6 +25527,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node26 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node26()
@@ -24741,6 +25542,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node27 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node27()
@@ -24755,6 +25557,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node21 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node21()
@@ -24769,6 +25572,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node23 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node23()
@@ -24783,6 +25587,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node28 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node28()
@@ -24797,6 +25602,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_property_as_left_value_and_param_node29 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_property_as_left_value_and_param_node29()
@@ -25149,6 +25955,7 @@ namespace behaviac
 
 	// Source file: par_test/property_as_ref_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node0 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node0()
@@ -25164,6 +25971,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node17 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node17()
@@ -25179,6 +25987,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node2 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node2()
@@ -25194,6 +26003,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node3 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node3()
@@ -25209,6 +26019,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node4 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node4()
@@ -25224,6 +26035,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node5 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node5()
@@ -25239,6 +26051,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node32 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node32()
@@ -25256,6 +26069,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node6 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node6()
@@ -25271,6 +26085,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node7 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node7()
@@ -25286,6 +26101,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node8 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node8()
@@ -25301,6 +26117,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node30 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node30()
@@ -25316,6 +26133,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node31 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node31()
@@ -25331,6 +26149,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node9 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node9()
@@ -25346,6 +26165,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node10 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node10()
@@ -25361,6 +26181,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node11 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node11()
@@ -25376,6 +26197,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node12 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node12()
@@ -25391,6 +26213,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node18 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node18()
@@ -25406,6 +26229,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node19 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node19()
@@ -25421,6 +26245,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node20 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node20()
@@ -25436,6 +26261,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node16 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node16()
@@ -25451,6 +26277,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node21 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node21()
@@ -25466,6 +26293,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node15 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node15()
@@ -25481,6 +26309,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node29 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node29()
@@ -25496,6 +26325,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node26 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node26()
@@ -25511,6 +26341,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node27 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node27()
@@ -25526,6 +26357,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node24 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node24()
@@ -25541,6 +26373,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node25 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node25()
@@ -25556,6 +26389,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node23 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node23()
@@ -25571,6 +26405,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_property_as_ref_param_node28 : behaviac.Action
 	{
 		public Action_bt_par_test_property_as_ref_param_node28()
@@ -25961,6 +26796,7 @@ namespace behaviac
 
 	// Source file: par_test/readonly_default
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_readonly_default_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_readonly_default_node3()
@@ -25975,6 +26811,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_readonly_default_node1 : behaviac.Action
 	{
 		public Action_bt_par_test_readonly_default_node1()
@@ -25988,6 +26825,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_readonly_default_node2 : behaviac.Action
 	{
 		public Action_bt_par_test_readonly_default_node2()
@@ -26005,6 +26843,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_par_test_readonly_default_node4 : behaviac.Compute
 	{
 		public Compute_bt_par_test_readonly_default_node4()
@@ -26089,6 +26928,7 @@ namespace behaviac
 
 	// Source file: par_test/register_name_as_left_value_and_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node1()
@@ -26109,6 +26949,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node4()
@@ -26129,6 +26970,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node5()
@@ -26149,6 +26991,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node6()
@@ -26169,6 +27012,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node7()
@@ -26189,6 +27033,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node8()
@@ -26209,6 +27054,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node9()
@@ -26229,6 +27075,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node10()
@@ -26249,6 +27096,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node11()
@@ -26269,6 +27117,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_register_name_as_left_value_and_param_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_register_name_as_left_value_and_param_node12()
@@ -26417,6 +27266,7 @@ namespace behaviac
 
 	// Source file: par_test/static_member_function_test_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node4()
@@ -26431,6 +27281,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node5()
@@ -26445,6 +27296,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node6()
@@ -26459,6 +27311,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node7()
@@ -26473,6 +27326,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node8()
@@ -26487,6 +27341,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node9()
@@ -26501,6 +27356,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node10()
@@ -26515,6 +27371,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node11()
@@ -26531,6 +27388,7 @@ namespace behaviac
 		ulong opr_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node12()
@@ -26545,6 +27403,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node13 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node13()
@@ -26559,6 +27418,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node14 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node14()
@@ -26573,6 +27433,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_member_function_test_0_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_member_function_test_0_node15()
@@ -26765,6 +27626,7 @@ namespace behaviac
 
 	// Source file: par_test/static_property_as_left_value_and_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node4()
@@ -26779,6 +27641,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node5()
@@ -26793,6 +27656,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node6()
@@ -26807,6 +27671,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node7()
@@ -26821,6 +27686,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node8()
@@ -26835,6 +27701,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node9()
@@ -26849,6 +27716,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node10()
@@ -26863,6 +27731,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node15()
@@ -26877,6 +27746,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node12()
@@ -26891,6 +27761,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node13 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node13()
@@ -26905,6 +27776,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node11()
@@ -26919,6 +27791,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node14 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node14()
@@ -26933,6 +27806,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node19 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node19()
@@ -26947,6 +27821,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node17 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node17()
@@ -26961,6 +27836,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node18 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node18()
@@ -26975,6 +27851,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node16 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node16()
@@ -26989,6 +27866,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_static_property_as_left_value_and_param_node20 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_static_property_as_left_value_and_param_node20()
@@ -27231,6 +28109,7 @@ namespace behaviac
 
 	// Source file: par_test/static_property_as_ref_param
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node4 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node4()
@@ -27246,6 +28125,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node5 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node5()
@@ -27261,6 +28141,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node6 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node6()
@@ -27276,6 +28157,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node7 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node7()
@@ -27291,6 +28173,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node8 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node8()
@@ -27306,6 +28189,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node9 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node9()
@@ -27321,6 +28205,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node10 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node10()
@@ -27336,6 +28221,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node15 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node15()
@@ -27351,6 +28237,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node12 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node12()
@@ -27366,6 +28253,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node13 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node13()
@@ -27381,6 +28269,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node11 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node11()
@@ -27396,6 +28285,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node14 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node14()
@@ -27411,6 +28301,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node16 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node16()
@@ -27426,6 +28317,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node17 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node17()
@@ -27441,6 +28333,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node18 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node18()
@@ -27456,6 +28349,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node19 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node19()
@@ -27471,6 +28365,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_static_property_as_ref_param_node20 : behaviac.Action
 	{
 		public Action_bt_par_test_static_property_as_ref_param_node20()
@@ -27714,6 +28609,7 @@ namespace behaviac
 
 	// Source file: par_test/vector_test
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_vector_test_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_vector_test_node0()
@@ -27729,6 +28625,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_vector_test_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_vector_test_node1()
@@ -27746,6 +28643,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_vector_test_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_vector_test_node2()
@@ -27763,6 +28661,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_vector_test_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_vector_test_node4()
@@ -27778,6 +28677,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_par_test_vector_test_node3 : behaviac.Compute
 	{
 		public Compute_bt_par_test_vector_test_node3()
@@ -27797,6 +28697,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_vector_test_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_vector_test_node5()
@@ -27814,6 +28715,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_vector_test_node6 : behaviac.Action
 	{
 		public Action_bt_par_test_vector_test_node6()
@@ -27831,6 +28733,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_par_test_vector_test_node7 : behaviac.Action
 	{
 		public Action_bt_par_test_vector_test_node7()

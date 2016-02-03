@@ -592,7 +592,7 @@ namespace behaviac
                 }
                 else
                 {
-                    BEHAVIAC_LOGERROR("'%s.%s' doesn't exist!, Please check the file name or override Workspace and its GetFilePath()\n", fullPath.c_str(), ext.c_str());
+                    BEHAVIAC_LOGERROR("'%s%s' doesn't exist!, Please check the file name or override Workspace and its GetFilePath()\n", fullPath.c_str(), ext.c_str());
                     BEHAVIAC_ASSERT(false);
                 }
             }

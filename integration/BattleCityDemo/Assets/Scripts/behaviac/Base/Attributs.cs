@@ -48,6 +48,14 @@ namespace behaviac
         }
     }
 
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum, AllowMultiple = false, Inherited = false)]
+    public class GeneratedTypeMetaInfoAttribute : Attribute
+    {
+        public GeneratedTypeMetaInfoAttribute()
+        {
+        }
+    }
+
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class MemberMetaInfoAttribute : TypeMetaInfoAttribute
     {

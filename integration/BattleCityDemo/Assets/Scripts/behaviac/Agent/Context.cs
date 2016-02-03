@@ -139,9 +139,10 @@ namespace behaviac
             }
             else
             {
-                foreach(Variables variables in m_static_variables.Values)
+                var e = m_static_variables.Values.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    variables.Log(null, false);
+                    e.Current.Log(null, false);
                 }
             }
         }
@@ -214,9 +215,10 @@ namespace behaviac
             }
             else
             {
-                foreach(Context pContext in ms_contexts.Values)
+                var e = ms_contexts.Values.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    pContext.execAgents_();
+                    e.Current.execAgents_();
                 }
             }
         }
@@ -228,11 +230,12 @@ namespace behaviac
             for (int i = 0; i < this.Agents.Count; ++i)
             {
                 HeapItem_t pa = this.Agents[i];
-                foreach(Agent pA in pa.agents.Values)
+                var e = pa.agents.Values.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    if (pA.IsActive())
+                    if (e.Current.IsActive())
                     {
-                        pA.btexec();
+                        e.Current.btexec();
 
                         //in case IsExecAgents was set to false by pA's bt
                         if (!Workspace.Instance.IsExecAgents)
@@ -255,13 +258,15 @@ namespace behaviac
             behaviac.Debug.Log(msg);
 
             //force to log vars
-            foreach(HeapItem_t pa in this.Agents)
+            for (int i = 0; i < this.Agents.Count; ++i)
             {
-                foreach(Agent pA in pa.agents.Values)
+                HeapItem_t pa = this.Agents[i];
+                var e = pa.agents.Values.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    if (pA.IsMasked())
+                    if (e.Current.IsMasked())
                     {
-                        pA.LogVariables(true);
+                        e.Current.LogVariables(true);
                     }
                 }
             }
@@ -276,23 +281,24 @@ namespace behaviac
             if (contextId >= 0)
             {
                 Context pContext = Context.GetContext(contextId);
-
                 pContext.LogCurrentState();
             }
             else
             {
-                foreach(Context pContext in ms_contexts.Values)
+                var e = ms_contexts.Values.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    pContext.LogCurrentState();
+                    e.Current.LogCurrentState();
                 }
             }
         }
 
         private void CleanupStaticVariables()
         {
-            foreach(Variables variables in m_static_variables.Values)
+            var e = m_static_variables.Values.GetEnumerator();
+            while (e.MoveNext())
             {
-                variables.Clear();
+                e.Current.Clear();
             }
 
             m_static_variables.Clear();
@@ -300,9 +306,10 @@ namespace behaviac
 
         public void ResetChangedVariables()
         {
-            foreach(Variables variables in m_static_variables.Values)
+            var e = m_static_variables.Values.GetEnumerator();
+            while (e.MoveNext())
             {
-                variables.Reset();
+                e.Current.Reset();
             }
         }
 
@@ -515,10 +522,11 @@ namespace behaviac
 
         public bool Save(Dictionary<string, Agent.State_t> states)
         {
-            foreach(KeyValuePair<string, Variables> pair in m_static_variables)
+            var e = m_static_variables.GetEnumerator();
+            while (e.MoveNext())
             {
-                string className = pair.Key;
-                Variables variables = pair.Value;
+                string className = e.Current.Key;
+                Variables variables = e.Current.Value;
 
                 //states.insert(std::pair<const string, State_t>(className, State_t()));
                 states[className] = new Agent.State_t();
@@ -531,13 +539,14 @@ namespace behaviac
 
         public bool Load(Dictionary<string, Agent.State_t> states)
         {
-            foreach(KeyValuePair<string, Agent.State_t> it in states)
+            var e = states.GetEnumerator();
+            while (e.MoveNext())
             {
-                if (m_static_variables.ContainsKey(it.Key))
+                if (m_static_variables.ContainsKey(e.Current.Key))
                 {
-                    Variables variables_f = m_static_variables[it.Key];
+                    Variables variables_f = m_static_variables[e.Current.Key];
 
-                    it.Value.Vars.CopyTo(null, variables_f);
+                    e.Current.Value.Vars.CopyTo(null, variables_f);
                 }
             }
 

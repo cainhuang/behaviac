@@ -1496,8 +1496,9 @@ namespace behaviac
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
-            foreach(property_t p in properties)
+            for (int i = 0; i < properties.Count; ++i)
             {
+                property_t p = properties[i];
                 if (p.name == "DecorateWhenChildEnds")
                 {
                     if (p.value == "true")
@@ -1540,8 +1541,9 @@ namespace behaviac
 
             if (properties.Count > 0)
             {
-                foreach(property_t p in properties)
+                for (int i = 0; i < properties.Count; ++i)
                 {
+                    property_t p = properties[i];
                     if (p.name == "Domains")
                     {
                         m_domains = p.value;
@@ -1550,9 +1552,9 @@ namespace behaviac
                     {
                         this.m_descriptorRefs = (List<Descriptor_t>)StringUtils.FromString(typeof(List<Descriptor_t>), p.value, false);
 
-                        for (int i = 0; i < this.m_descriptorRefs.Count; ++i)
+                        for (int k = 0; k < this.m_descriptorRefs.Count; ++k)
                         {
-                            Descriptor_t d = this.m_descriptorRefs[i];
+                            Descriptor_t d = this.m_descriptorRefs[k];
 
                             if (d.Descriptor != null)
                             {

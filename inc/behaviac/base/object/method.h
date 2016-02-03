@@ -1261,6 +1261,16 @@ public:
         return *this;
     }
 
+	double GetReturnDoubleValue(const CTagObject* parent)
+	{
+		BEHAVIAC_UNUSED_VAR(parent);
+		BEHAVIAC_ASSERT(this->m_return);
+
+		double result = this->m_return->GetDouble();
+
+		return result;
+	}
+
     /**
     be careful to use this function only when you know the return type
     */

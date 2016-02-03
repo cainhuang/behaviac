@@ -41,10 +41,10 @@ namespace PluginBehaviac.NodeExporters
 
             if (waitState.Time != null)
             {
-                stream.WriteLine("{0}\t\tprotected override float GetTime(Agent pAgent)", indent);
+                stream.WriteLine("{0}\t\tprotected override double GetTime(Agent pAgent)", indent);
                 stream.WriteLine("{0}\t\t{{", indent);
 
-                string retStr = VariableCsExporter.GenerateCode(waitState.Time, false, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
+                string retStr = RightValueCppExporter.GenerateCode(waitState.Time, stream, indent + "\t\t\t", string.Empty, string.Empty, "Time");
 
                 stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
                 stream.WriteLine("{0}\t\t}}", indent);

@@ -36,7 +36,7 @@ namespace PluginBehaviac.Nodes
             get { return "WaitFrames"; }
         }
 
-        private RightValueDef _frames;
+        private RightValueDef _frames = new RightValueDef(new VariableDef((int)100));
         [DesignerRightValueEnum("Frames", "FramesDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "", "", ValueTypes.Int)]
         public RightValueDef Frames
         {
@@ -69,15 +69,20 @@ namespace PluginBehaviac.Nodes
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
-            Type valueType = this._frames.ValueType;
+            Type valueType = (this._frames != null) ? this._frames.ValueType : null;
 
-            string typeName = Plugin.GetNativeTypeName(valueType.FullName);
-
-            if (Plugin.IsIntergerNumberType(typeName))
-            { }
+            if (valueType == null)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Frames is not set!"));
+            }
             else
             {
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Frames should be an integer number type!"));
+                string typeName = Plugin.GetNativeTypeName(valueType.FullName);
+
+                if (!Plugin.IsIntergerNumberType(typeName))
+                {
+                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Frames should be an integer number type!"));
+                }
             }
 
             base.CheckForErrors(rootBehavior, result);

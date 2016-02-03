@@ -140,8 +140,9 @@ namespace behaviac
             string typeName = null;
             string comparatorName = null;
 
-            foreach(property_t p in properties)
+            for (int i = 0; i < properties.Count; ++i)
             {
+                property_t p = properties[i];
                 if (p.name == "Operator")
                 {
                     comparatorName = p.value;

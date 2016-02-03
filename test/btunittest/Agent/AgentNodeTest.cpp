@@ -29,12 +29,6 @@ AgentNodeTest::~AgentNodeTest()
 {
 }
 
-void AgentNodeTest::initChildAgentTest(const char* strChildAgentName)
-{
-	ChildNodeTest* testChildAgent = this->getChildAgent<ChildNodeTest>(1, strChildAgentName);
-	this->SetVariable(strChildAgentName, testChildAgent);
-}
-
 void AgentNodeTest::resetProperties()
 {
     testVar_0 = -1;
@@ -118,9 +112,16 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
 	REGISTER_METHOD(CanSeeEnemy);
 	REGISTER_METHOD(Move);
 	REGISTER_METHOD(MoveToTarget);
-    REGISTER_METHOD(initChildAgent);
+	REGISTER_METHOD(initChildAgent);
+	REGISTER_METHOD(initChildAgentTest);
 }
 END_PROPERTIES_DESCRIPTION()
+
+void AgentNodeTest::initChildAgentTest()
+{
+	ChildNodeTest* testChildAgent = this->getChildAgent<ChildNodeTest>(1, "par_child_agent_1");
+	this->SetVariable("par_child_agent_1", testChildAgent);
+}
 
 void AgentNodeTest::initChildAgent()
 {
@@ -139,8 +140,19 @@ ChildNodeTest::~ChildNodeTest()
 {
 }
 
-BEGIN_PROPERTIES_DESCRIPTION(ChildNodeTest)
+float ChildNodeTest::GetConstFloatValue()
 {
+	return 1000.0f;
 }
 
+double ChildNodeTest::GetConstDoubleValue()
+{
+	return 1000.0;
+}
+
+BEGIN_PROPERTIES_DESCRIPTION(ChildNodeTest)
+{
+	REGISTER_METHOD(GetConstFloatValue);
+	REGISTER_METHOD(GetConstDoubleValue);
+}
 END_PROPERTIES_DESCRIPTION()

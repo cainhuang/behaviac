@@ -11,9 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_SHARED_H_
-#define BEHAVIAC_SHARED_H_
-
 #include "behaviac/base/base.h"
 #include "behaviac/base/workspace.h"
 
@@ -273,6 +270,16 @@ namespace behaviac
     void Workspace::SetFilePath(const char* szExportPath)
     {
         string_ncpy(this->m_szWorkspaceExportPath, szExportPath, kMaxPath);
+
+		int len = strlen(szExportPath);
+		if (szExportPath[len - 1] == '/' || szExportPath[len - 1] == '\\')
+		{
+		}
+		else
+		{
+			this->m_szWorkspaceExportPath[len] = '/';
+			this->m_szWorkspaceExportPath[len + 1] = '\0';
+		}
     }
 
     Workspace::EFileFormat Workspace::GetFileFormat()
@@ -383,37 +390,6 @@ namespace behaviac
         AgentProperties::Load();
 
 #if !BEHAVIAC_RELEASE
-#if BEHAVIAC_HOTRELOAD
-
-        // set the file watcher
-        if (Config.IsDesktop)
-        {
-            if (this->GetFileFormat() != EFF_cs)
-            {
-                if (m_DirectoryMonitor == null)
-                {
-                    m_DirectoryMonitor = new DirectoryMonitor();
-                    m_DirectoryMonitor.Changed += new DirectoryMonitor.FileSystemEvent(OnFileChanged);
-                }
-
-                string filter = "*.*";
-
-                if (this->GetFileFormat() == EFF_xml)
-                {
-                    filter = "*.xml";
-
-                }
-                else if (this->GetFileFormat() == EFF_bson)
-                {
-                    filter = "*.bson.bytes";
-                }
-
-                m_DirectoryMonitor.Start(this->WorkspaceExportPath, filter);
-            }
-        }
-
-#endif//BEHAVIAC_HOTRELOAD
-
         LogWorkspaceInfo();
 #endif
 
@@ -503,14 +479,14 @@ namespace behaviac
 #endif
     }
 
-    void Workspace::SetTimeSinceStartup(float timeSinceStartup)
+	void Workspace::SetTimeSinceStartup(double timeSinceStartup)
     {
         m_timeSinceStartup = timeSinceStartup;
     }
 
-    float Workspace::GetTimeSinceStartup()
+    double Workspace::GetTimeSinceStartup()
     {
-		BEHAVIAC_ASSERT(m_timeSinceStartup >= 0.0f, "SetTimeSinceStartup() should be called on your game update() method before GetTimeSinceStartup() is called.");
+		BEHAVIAC_ASSERT(m_timeSinceStartup >= 0, "SetTimeSinceStartup() should be called on your game update() method before GetTimeSinceStartup() is called.");
 		return m_timeSinceStartup;
     }
 
@@ -756,7 +732,12 @@ namespace behaviac
 
     bool Workspace::Load(const char* relativePath, bool bForce)
     {
-        this->TryInit();
+        bool bOk = this->TryInit();
+		if (!bOk)
+		{
+			//not init correctly
+			return false;
+		}
 
         //BEHAVIAC_ASSERT(behaviac::StringUtils::FindExtension(relativePath) == 0, "no extention to specify");
         BEHAVIAC_ASSERT(IsValidPath(relativePath));
@@ -1577,4 +1558,3 @@ namespace behaviac
     }
 }//namespace behaviac
 
-#endif // BEHAVIAC_SHARED_H_

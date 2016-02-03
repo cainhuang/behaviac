@@ -838,10 +838,10 @@ namespace behaviac
             behaviac::string strFullPath;
 
             //if path hava / or \ in the end
-            if (path[strlen(path) - 1] == '/' || path[strlen(path) - 1] == '\\')
+			int len = strlen(path);
+			if (path[len - 1] == '/' || path[len - 1] == '\\')
             {
                 strFullPath = path;
-
             }
             else
             {
@@ -854,7 +854,6 @@ namespace behaviac
             {
                 const char* _relative = relative + 1;
                 strFullPath += _relative;
-
             }
             else
             {

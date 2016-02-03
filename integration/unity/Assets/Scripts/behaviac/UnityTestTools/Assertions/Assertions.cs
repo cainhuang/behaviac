@@ -18,15 +18,19 @@ namespace UnityTest
             CheckAssertions(gameObject.GetComponents<AssertionComponent> ());
         }
 
-        public static void CheckAssertions(AssertionComponent[] assertions) {
+        public static void CheckAssertions(AssertionComponent[] assertions)
+        {
             if (!Debug.isDebugBuild)
-            { return; }
+                return;
 
-            foreach(var assertion in assertions) {
+            for (int i = 0; i < assertions.Length; ++i)
+            {
+                var assertion = assertions[i];
                 assertion.checksPerformed++;
                 var result = assertion.Action.Compare();
 
-                if (!result) {
+                if (!result)
+                {
                     assertion.hasFailed = true;
                     assertion.Action.Fail(assertion);
                 }

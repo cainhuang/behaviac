@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -95,22 +95,6 @@ namespace PluginBehaviac.DataExporters
 
                 if (method.Params[i].IsProperty || method.Params[i].IsLocalVar) // property
                 {
-                    if ((method.Params[i].Property != null && method.Params[i].Property.IsCustomized) || method.Params[i].IsLocalVar)
-                    {
-                        ParameterCppExporter.GenerateCode(method.Params[i], stream, indent, basicNativeType, param, caller);
-                    }
-                    else
-                    {
-                        if (method.IsPublic)
-                        {
-                            param = ParameterCppExporter.GenerateCode(method.Params[i], stream, indent, basicNativeType, "", param);
-                        }
-                        else
-                        {
-                            ParameterCppExporter.GenerateCode(method.Params[i], stream, indent, basicNativeType, param, caller);
-                        }
-                    }
-
                     VariableDef v = method.Params[i].Value as VariableDef;
                     if (v != null && v.ArrayIndexElement != null)
                     {
@@ -122,6 +106,24 @@ namespace PluginBehaviac.DataExporters
 
                             ParameterCppExporter.GenerateCode(v.ArrayIndexElement, stream, indent, "int", param + "_index", param + caller);
                             param = string.Format("({0})[{1}_index]", property, param);
+                        }
+                    }
+                    else
+                    {
+                        if ((method.Params[i].Property != null && method.Params[i].Property.IsCustomized) || method.Params[i].IsLocalVar)
+                        {
+                            ParameterCppExporter.GenerateCode(method.Params[i], stream, indent, basicNativeType, param, caller);
+                        }
+                        else
+                        {
+                            if (method.IsPublic)
+                            {
+                                param = ParameterCppExporter.GenerateCode(method.Params[i], stream, indent, basicNativeType, "", param);
+                            }
+                            else
+                            {
+                                ParameterCppExporter.GenerateCode(method.Params[i], stream, indent, basicNativeType, param, caller);
+                            }
                         }
                     }
                 }

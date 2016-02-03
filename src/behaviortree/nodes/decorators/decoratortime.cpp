@@ -12,13 +12,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "behaviac/base/base.h"
+#include "behaviac/behaviortree/nodes/actions/action.h"
 #include "behaviac/behaviortree/nodes/decorators/decoratortime.h"
 #include "behaviac/agent/agent.h"
 #include "behaviac/behaviortree/nodes/conditions/condition.h"
 
 namespace behaviac
 {
-    DecoratorTime::DecoratorTime() : m_time_var(0)
+	DecoratorTime::DecoratorTime() : m_time_var(0), m_time_m(0)
     {
 	}
 
@@ -32,27 +33,45 @@ namespace behaviac
 
         for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
         {
-            const property_t& p = (*it);
+			const property_t& p = (*it);
+			behaviac::string p_name(p.name);
+			behaviac::string p_value(p.value);
 
-            if (!strcmp(p.name, "Time"))
-            {
-                behaviac::string typeName;
-                behaviac::string propertyName;
-                this->m_time_var = Condition::LoadRight(p.value, typeName);
-            }
+			if (p_name == "Time")
+			{
+				if (StringUtils::IsValidString(p.value))
+				{
+					int pParenthesis = p_value.find_first_of('(');
+
+					if (pParenthesis == -1)
+					{
+						behaviac::string typeName;
+						this->m_time_var = Condition::LoadRight(p.value, typeName);
+					}
+					else
+					{
+						this->m_time_m = Action::LoadMethod(p.value);
+					}
+				}
+			}
         }
     }
 
-    float DecoratorTime::GetTime(Agent* pAgent) const
+	double DecoratorTime::GetTime(Agent* pAgent) const
     {
-        if (this->m_time_var)
-        {
-            BEHAVIAC_ASSERT(this->m_time_var);
-            TProperty<float>* pP = (TProperty<float>*)this->m_time_var;
-            float time = pP->GetValue(pAgent);
-
-            return time;
-        }
+		if (this->m_time_var)
+		{
+			return this->m_time_var->GetDoubleValue(pAgent);
+		}
+		else
+		{
+			BEHAVIAC_ASSERT(this->m_time_m);
+			if (this->m_time_m)
+			{
+				this->m_time_m->Invoke(pAgent);
+				return this->m_time_m->GetReturnDoubleValue(pAgent);
+			}
+		}
 
         return 0;
     }
@@ -72,7 +91,7 @@ namespace behaviac
     {
     }
 
-    float DecoratorTimeTask::GetTime(Agent* pAgent) const
+	double DecoratorTimeTask::GetTime(Agent* pAgent) const
     {
         BEHAVIAC_ASSERT(DecoratorTime::DynamicCast(this->GetNode()));
         const DecoratorTime* pNode = (const DecoratorTime*)(this->GetNode());
@@ -126,7 +145,7 @@ namespace behaviac
     {
         super::onenter(pAgent);
 
-        this->m_start = Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f;
+        this->m_start = Workspace::GetInstance()->GetTimeSinceStartup() * 1000;
         this->m_time = this->GetTime(pAgent);
 
         if (this->m_time <= 0)
@@ -141,7 +160,7 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(status);
 
-		if (Workspace::GetInstance()->GetTimeSinceStartup() * 1000.0f - this->m_start >= this->m_time)
+		if (Workspace::GetInstance()->GetTimeSinceStartup() * 1000 - this->m_start >= this->m_time)
 		{
 			return BT_SUCCESS;
 		}

@@ -839,19 +839,32 @@ namespace PluginBehaviac.Exporters
 
                     foreach (string type in Plugin.AllMetaTypes)
                     {
-                        file.WriteLine("\t\t\tbehaviac.IVariable.Register<{0}>(\"{0}\");", type.Replace("::", "."));
+                        AgentType agentType = Plugin.GetAgentType(type);
+                        bool isStatic = (agentType != null) ? agentType.IsStatic : false;
+
+                        if (!isStatic)
+                        {
+                            file.WriteLine("\t\t\tbehaviac.IVariable.Register<{0}>(\"{0}\");", type.Replace("::", "."));
+                        }
+                        else
+                        {
+                            file.WriteLine("\t\t\tbehaviac.Agent.RegisterStaticClass(typeof({0}), \"{1}\", \"{2}\");", type.Replace("::", "."), agentType.DisplayName, agentType.Description);
+                        }
                     }
 
-                    //for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
-                    //{
-                    //    CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
-                    //    file.WriteLine("\t\t\tbehaviac.IVariable.Register<{0}>(\"{0}\");", customizedEnum.Name);
-                    //}
-                    //for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; ++s)
-                    //{
-                    //    CustomizedStruct customizedStuct = CustomizedTypeManager.Instance.Structs[s];
-                    //    file.WriteLine("\t\t\tbehaviac.IVariable.Register<{0}>(\"{0}\");", customizedStuct.Name);
-                    //}
+                    file.WriteLine();
+
+                    foreach (string type in Plugin.AllMetaTypes)
+                    {
+                        AgentType agentType = Plugin.GetAgentType(type);
+                        if (agentType != null)
+                        {
+                            file.WriteLine("\t\t\tbehaviac.Workspace.Instance.AddAgentType(typeof({0}), {1});", type.Replace("::", "."), agentType.IsInherited ? "true" : "false");
+                        }
+                    }
+
+                    file.WriteLine();
+                    file.WriteLine("\t\t\tGeneratedRegisterationTypes = true;");
 
                     file.WriteLine("\t\t}\n");
 
@@ -861,24 +874,15 @@ namespace PluginBehaviac.Exporters
 
                     foreach (string type in Plugin.AllMetaTypes)
                     {
-                        file.WriteLine("\t\t\tbehaviac.IVariable.UnRegister<{0}>(\"{0}\");", type.Replace("::", "."));
+                        AgentType agentType = Plugin.GetAgentType(type);
+                        bool isStatic = (agentType != null) ? agentType.IsStatic : false;
+
+                        if (!isStatic)
+                            file.WriteLine("\t\t\tbehaviac.IVariable.UnRegister<{0}>(\"{0}\");", type.Replace("::", "."));
                     }
 
-                    //for (int e = 0; e < CustomizedTypeManager.Instance.Enums.Count; ++e)
-                    //{
-                    //    CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
-                    //    file.WriteLine("\t\t\tbehaviac.IVariable.UnRegister<{0}>(\"{0}\");", customizedEnum.Name);
-                    //}
-                    //for (int s = 0; s < CustomizedTypeManager.Instance.Structs.Count; ++s)
-                    //{
-                    //    CustomizedStruct customizedStuct = CustomizedTypeManager.Instance.Structs[s];
-                    //    file.WriteLine("\t\t\tbehaviac.IVariable.UnRegister<{0}>(\"{0}\");", customizedStuct.Name);
-                    //}
-
                     file.WriteLine("\t\t}");
-
                     file.WriteLine("\t}");
-
                     file.WriteLine("}");
                 }
             }

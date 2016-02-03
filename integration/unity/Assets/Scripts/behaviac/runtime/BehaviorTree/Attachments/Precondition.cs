@@ -25,65 +25,66 @@ namespace behaviac
             E_BOTH
         }
 
-    public class PreconditionConfig : ActionConfig
+        public class PreconditionConfig : ActionConfig
         {
             public EPhase m_phase = EPhase.E_ENTER;
             public bool m_bAnd = false;
 
             public override bool load(List<property_t> properties)
-        {
-            bool loaded = base.load(properties);
-
-            try
             {
-                foreach(property_t p in properties)
-                {
-                    if (p.name == "BinaryOperator")
-                    {
-                        if (p.value == "Or")
-                        {
-                            this.m_bAnd = false;
-                        }
-                        else if (p.value == "And")
-                        {
-                            this.m_bAnd = true;
-                        }
-                        else
-                        {
-                            Debug.Check(false);
-                        }
-                    }
-                    else if (p.name == "Phase")
-                    {
-                        if (p.value == "Enter")
-                        {
-                            this.m_phase = EPhase.E_ENTER;
-                        }
-                        else if (p.value == "Update")
-                        {
-                            this.m_phase = EPhase.E_UPDATE;
-                        }
-                        else if (p.value == "Both")
-                        {
-                            this.m_phase = EPhase.E_BOTH;
-                        }
-                        else
-                        {
-                            Debug.Check(false);
-                        }
+                bool loaded = base.load(properties);
 
-                        break;
+                try
+                {
+                    for (int i = 0; i < properties.Count; ++i)
+                    {
+                        property_t p = properties[i];
+                        if (p.name == "BinaryOperator")
+                        {
+                            if (p.value == "Or")
+                            {
+                                this.m_bAnd = false;
+                            }
+                            else if (p.value == "And")
+                            {
+                                this.m_bAnd = true;
+                            }
+                            else
+                            {
+                                Debug.Check(false);
+                            }
+                        }
+                        else if (p.name == "Phase")
+                        {
+                            if (p.value == "Enter")
+                            {
+                                this.m_phase = EPhase.E_ENTER;
+                            }
+                            else if (p.value == "Update")
+                            {
+                                this.m_phase = EPhase.E_UPDATE;
+                            }
+                            else if (p.value == "Both")
+                            {
+                                this.m_phase = EPhase.E_BOTH;
+                            }
+                            else
+                            {
+                                Debug.Check(false);
+                            }
+
+                            break;
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.Check(false, ex.Message);
-                loaded = false;
-            }
+                catch (Exception ex)
+                {
+                    Debug.Check(false, ex.Message);
+                    loaded = false;
+                }
 
-            return loaded;
-        }
+                return loaded;
+            }
         }
 
         public Precondition()

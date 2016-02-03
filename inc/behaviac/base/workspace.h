@@ -131,12 +131,14 @@ namespace behaviac
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         /**
-        timeSinceStartup, deltaTime and deltaFrames might be used by btexec
+        "timeSinceStartup" and "frameSinceStartup" might be used by btexec in each frame, btexec is used to execute the BT.
+		
+		"timeSinceStartup" is the time in seconds since the game starts up.
 
-        in each frame, btexec is used to execute the BT. "timeSinceStartup" is the time since the game starts up, 'deltaTime' and 'deltaFrames' are the intervals since last frame.
-        */
-		virtual void SetTimeSinceStartup(float timeSinceStartup);
-		virtual float GetTimeSinceStartup();
+		"frameSinceStartup" is the frames since the game starts up.
+		*/
+		virtual void SetTimeSinceStartup(double timeSinceStartup);
+		virtual double GetTimeSinceStartup();
 
         virtual void SetFrameSinceStartup(int frameSinceStartup);
 		virtual int GetFrameSinceStartup();
@@ -350,7 +352,7 @@ namespace behaviac
 		int m_frame;
 
 protected:
-        float m_timeSinceStartup;
+		double m_timeSinceStartup;
 		int m_frameSinceStartup;
     };
 }//namespace behaviac

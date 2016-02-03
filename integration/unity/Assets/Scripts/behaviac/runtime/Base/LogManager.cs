@@ -450,7 +450,7 @@ namespace behaviac
 #endif
         }
 
-        public  void Close()
+        public void Close()
         {
 #if !BEHAVIAC_RELEASE
 
@@ -458,10 +458,11 @@ namespace behaviac
             {
                 try
                 {
-                    foreach(System.IO.StreamWriter fp in m_logs.Values)
+                    var e = m_logs.Values.GetEnumerator();
+                    while (e.MoveNext())
                     {
-                        fp.Flush();
-                        fp.Close();
+                        e.Current.Flush();
+                        e.Current.Close();
                     }
 
                     m_logs.Clear();

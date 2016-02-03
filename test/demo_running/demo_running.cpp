@@ -87,7 +87,6 @@ bool InitPlayer(const char* pszTreeName)
 
 void UpdateLoop()
 {
-	int i  = 0;
 	int frames = 0;
 	behaviac::EBTStatus status = behaviac::BT_RUNNING;
 
@@ -122,6 +121,8 @@ int main(int argc, char** argv)
 	BEHAVIAC_UNUSED_VAR(argv);
 
     SetExePath();
+
+	printf("BEHAVIAC_COMPILER_NAME=%s\n", BEHAVIAC_COMPILER_NAME);
 
 	const char* szTreeName = "demo_running";
 

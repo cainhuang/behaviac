@@ -762,11 +762,12 @@ namespace behaviac
 namespace behaviac
 {
     /// Construct. begin a profiling block with the specified name and optional call count.
-    AutoProfileBlock::AutoProfileBlock(Profiler* profiler, const char* name, bool bDebugBlock) : profiler_(profiler)
+    AutoProfileBlock::AutoProfileBlock(Profiler* profiler, const char* name, bool bDebugBlock)
     {
-        BEHAVIAC_UNUSED_VAR(profiler);
         BEHAVIAC_UNUSED_VAR(name);
         BEHAVIAC_UNUSED_VAR(bDebugBlock);
+
+        this->setProfiler(profiler);
 #if BEHAVIAC_ENABLE_PROFILING
 
         if (Config::IsProfiling())
@@ -781,10 +782,10 @@ namespace behaviac
     }
 
     /// Construct. begin a profiling block with the specified name and optional call count.
-    AutoProfileBlock::AutoProfileBlock(Profiler* profiler, const behaviac::string& name) : profiler_(profiler)
+    AutoProfileBlock::AutoProfileBlock(Profiler* profiler, const behaviac::string& name)
     {
         BEHAVIAC_UNUSED_VAR(name);
-        BEHAVIAC_UNUSED_VAR(profiler);
+        this->setProfiler(profiler);
 #if BEHAVIAC_ENABLE_PROFILING
 
         if (Config::IsProfiling())

@@ -34,12 +34,12 @@ namespace PluginBehaviac.Nodes
             get { return "DecoratorFrames"; }
         }
 
-        protected VariableDef _time = new VariableDef((int)0);
-        [DesignerPropertyEnum("DecoratorFrames", "DecoratorFramesDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributes, "", "")]
-        public VariableDef Time
+        protected RightValueDef _frames = new RightValueDef(new VariableDef((int)100));
+        [DesignerRightValueEnum("DecoratorFrames", "DecoratorFramesDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "", "", ValueTypes.Int)]
+        public RightValueDef Frames
         {
-            get { return _time; }
-            set { this._time = value; }
+            get { return _frames; }
+            set { this._frames = value; }
         }
 
         protected override void CloneProperties(Node newnode)
@@ -47,22 +47,26 @@ namespace PluginBehaviac.Nodes
             base.CloneProperties(newnode);
 
             DecoratorFrames dec = (DecoratorFrames)newnode;
-            if (_time != null)
-                dec._time = (VariableDef)_time.Clone();
+            if (_frames != null)
+                dec._frames = (RightValueDef)_frames.Clone();
         }
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
-            Type valueType = this._time.GetValueType();
+            Type valueType = (this._frames != null) ? this._frames.ValueType : null;
 
-            string typeName = Plugin.GetNativeTypeName(valueType.FullName);
-
-            if (Plugin.IsIntergerNumberType(typeName))
+            if (valueType == null)
             {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Frames is not set!"));
             }
             else
             {
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Time should be an integer number type!"));
+                string typeName = Plugin.GetNativeTypeName(valueType.FullName);
+
+                if (!Plugin.IsIntergerNumberType(typeName))
+                {
+                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Frames should be an integer number type!"));
+                }
             }
 
             base.CheckForErrors(rootBehavior, result);

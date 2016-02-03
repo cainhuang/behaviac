@@ -117,6 +117,8 @@ int main(int argc, char** argv)
 {
     SetExePath();
 
+	printf("BEHAVIAC_COMPILER_NAME=%s\n", BEHAVIAC_COMPILER_NAME);
+
     cout << "usage: [btPath] [loopCout] [0|1] [xml|cpp|bson]\n\n";
 
 	const char* szTreeName = "player";

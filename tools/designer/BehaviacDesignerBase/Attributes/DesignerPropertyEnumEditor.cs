@@ -203,7 +203,7 @@ namespace Behaviac.Design.Attributes
                     if (_valueOwner != VariableDef.kSelf && p.IsPar)
                         continue;
 
-                    if (Plugin.IsCompatibleType(this.FilterType, p.Type, bArrayOnly) ||
+                    if (Plugin.IsCompatibleType(this.ValueType, this.FilterType, p.Type, bArrayOnly) ||
                         ((bArrayOnly && this.FilterType == typeof(System.Collections.IList)) && Plugin.IsArrayType(p.Type))) {
                         bool isInt = Plugin.IsIntergerType(p.Type);
                         bool isFloat = Plugin.IsFloatType(p.Type);

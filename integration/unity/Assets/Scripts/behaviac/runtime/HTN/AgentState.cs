@@ -180,14 +180,15 @@ namespace behaviac
                     {
                         AgentState t = this.state_stack[i];
 
-                        foreach(IVariable pVar in t.Vars.Values)
+                        var e = t.Vars.Values.GetEnumerator();
+                        while (e.MoveNext())
                         {
-                            if (bForce || pVar.IsChanged())
+                            if (bForce || e.Current.IsChanged())
                             {
-                                if (!logged.ContainsKey(pVar.Name))
+                                if (!logged.ContainsKey(e.Current.Name))
                                 {
-                                    pVar.Log(pAgent);
-                                    logged.Add(pVar.Name, true);
+                                    e.Current.Log(pAgent);
+                                    logged.Add(e.Current.Name, true);
                                 }
                             }
                         }

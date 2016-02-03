@@ -52,26 +52,41 @@ namespace behaviac
 
 		static partial void RegisterTypes_()
 		{
-			behaviac.IVariable.Register<eGameForce>("eGameForce");
 			behaviac.IVariable.Register<behaviac.EBTStatus>("behaviac.EBTStatus");
+			behaviac.IVariable.Register<eGameForce>("eGameForce");
 			behaviac.IVariable.Register<eMapDirection>("eMapDirection");
 			behaviac.IVariable.Register<eBrickType>("eBrickType");
 			behaviac.IVariable.Register<System.Object>("System.Object");
 			behaviac.IVariable.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
 			behaviac.IVariable.Register<UnityEngine.Color>("UnityEngine.Color");
 			behaviac.IVariable.Register<UnityEngine.Transform>("UnityEngine.Transform");
+			behaviac.IVariable.Register<behaviac.Agent>("behaviac.Agent");
+			behaviac.IVariable.Register<GameActor>("GameActor");
+			behaviac.IVariable.Register<GameLevelCommon>("GameLevelCommon");
+			behaviac.IVariable.Register<Player>("Player");
+
+			behaviac.Workspace.Instance.AddAgentType(typeof(behaviac.Agent), false);
+			behaviac.Workspace.Instance.AddAgentType(typeof(GameActor), false);
+			behaviac.Workspace.Instance.AddAgentType(typeof(GameLevelCommon), false);
+			behaviac.Workspace.Instance.AddAgentType(typeof(Player), false);
+
+			GeneratedRegisterationTypes = true;
 		}
 
 		static partial void UnRegisterTypes_()
 		{
-			behaviac.IVariable.UnRegister<eGameForce>("eGameForce");
 			behaviac.IVariable.UnRegister<behaviac.EBTStatus>("behaviac.EBTStatus");
+			behaviac.IVariable.UnRegister<eGameForce>("eGameForce");
 			behaviac.IVariable.UnRegister<eMapDirection>("eMapDirection");
 			behaviac.IVariable.UnRegister<eBrickType>("eBrickType");
 			behaviac.IVariable.UnRegister<System.Object>("System.Object");
 			behaviac.IVariable.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
 			behaviac.IVariable.UnRegister<UnityEngine.Color>("UnityEngine.Color");
 			behaviac.IVariable.UnRegister<UnityEngine.Transform>("UnityEngine.Transform");
+			behaviac.IVariable.UnRegister<behaviac.Agent>("behaviac.Agent");
+			behaviac.IVariable.UnRegister<GameActor>("GameActor");
+			behaviac.IVariable.UnRegister<GameLevelCommon>("GameLevelCommon");
+			behaviac.IVariable.UnRegister<Player>("Player");
 		}
 	}
 }

@@ -7,7 +7,7 @@
       <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="1" PrefabName="" PrefabNodeId="-1">
         <Comment Background="NoColor" Text="" />
         <Connector Identifier="GenericChildren">
-          <Node Class="PluginBehaviac.Nodes.DecoratorFrames" DecorateWhenChildEnds="false" Enable="true" HasOwnPrefabData="false" Id="23" PrefabName="" PrefabNodeId="-1" Time="const int 5">
+          <Node Class="PluginBehaviac.Nodes.DecoratorFrames" DecorateWhenChildEnds="false" Enable="true" Frames="const int 5" HasOwnPrefabData="false" Id="23" PrefabName="" PrefabNodeId="-1">
             <Comment Background="NoColor" Text="" />
             <Connector Identifier="GenericChildren">
               <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="15" PrefabName="" PrefabNodeId="-1">

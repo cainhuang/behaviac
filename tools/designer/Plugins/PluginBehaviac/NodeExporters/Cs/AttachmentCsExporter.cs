@@ -61,12 +61,13 @@ namespace PluginBehaviac.NodeExporters
             return null;
         }
 
-        public void GenerateClass(Attachment attachment, StreamWriter stream, string indent, string nodeName, string btClassName)
+        public override void GenerateClass(Attachment attachment, StreamWriter stream, string indent, string nodeName, string btClassName)
         {
             if (ShouldGenerateClass())
             {
                 string className = GetGeneratedClassName(attachment, btClassName, nodeName);
 
+                stream.WriteLine("{0}\t[behaviac.GeneratedTypeMetaInfo()]", indent);
                 stream.WriteLine("{0}\tclass {1} : behaviac.{2}\r\n{0}\t{{", indent, className, attachment.ExportClass);
 
                 stream.WriteLine("{0}\t\tpublic {1}()", indent, className);
@@ -84,7 +85,7 @@ namespace PluginBehaviac.NodeExporters
             }
         }
 
-        public virtual void GenerateInstance(Attachment attachment, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
+        public override void GenerateInstance(Attachment attachment, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
         {
             string className = GetGeneratedClassName(attachment, btClassName, nodeName);
 

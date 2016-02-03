@@ -16,6 +16,7 @@
 
 #include "behaviac/base/core/sharedptr.h"
 #include "behaviac/base/meta/types.h"
+#include "behaviac/base/functions.h"
 
 namespace behaviac
 {
@@ -32,6 +33,12 @@ namespace behaviac
         virtual bool IsVoid() const = 0;
         virtual void GetTypeName(behaviac::string& typeName) = 0;
         virtual const char* GetString() const = 0;
+		virtual double GetDouble() const
+		{
+			BEHAVIAC_ASSERT(false);
+			return 0.0;
+		}
+		//virtual double GetInteger() const = 0;
     };
 
     /**
@@ -95,6 +102,14 @@ namespace behaviac
         {
             return mValue->value;
         }
+		virtual double GetDouble() const
+		{
+			BEHAVIAC_ASSERT(GetClassTypeNumberId<double>() == GetClassTypeNumberId<TTYPE>() || 
+				GetClassTypeNumberId<float>() == GetClassTypeNumberId<TTYPE>());
+
+			double r = ConvertToDouble(mValue->value);
+			return r;
+		}
         inline AsyncValue& operator=(const AsyncValue& v)
         {
             mValue = v;

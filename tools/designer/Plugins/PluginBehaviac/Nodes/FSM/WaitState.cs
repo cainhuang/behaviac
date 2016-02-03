@@ -49,9 +49,9 @@ namespace PluginBehaviac.Nodes
             set { this._ignoreTimeScale = value; }
         }
 
-        protected VariableDef _time = new VariableDef(1000.0f);
-        [DesignerPropertyEnum("Duration", "DurationDesc", "WaitState", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributes, "", "", ValueTypes.Float)]
-        public VariableDef Time
+        protected RightValueDef _time = new RightValueDef(new VariableDef(1000.0f));
+        [DesignerRightValueEnum("Duration", "DurationDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "", "", ValueTypes.Float)]
+        public RightValueDef Time
         {
             get { return _time; }
             set { this._time = value; }
@@ -64,7 +64,7 @@ namespace PluginBehaviac.Nodes
             WaitState dec = (WaitState)newnode;
             if (_time != null)
             {
-                dec._time = (VariableDef)_time.Clone();
+                dec._time = (RightValueDef)_time.Clone();
             }
 
             dec._ignoreTimeScale = this._ignoreTimeScale;
@@ -72,7 +72,7 @@ namespace PluginBehaviac.Nodes
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
-            Type valueType = (this._time != null) ? this._time.GetValueType() : null;
+            Type valueType = (this._time != null) ? this._time.ValueType : null;
 
             if (valueType == null)
             {
@@ -95,7 +95,7 @@ namespace PluginBehaviac.Nodes
 
             if (this._time != null)
             {
-                bReset |= this._time.ResetMembers(check, agentType, clear, property);
+                bReset |= this._time.ResetMembers(check, agentType, clear, method, property);
             }
 
             bReset |= base.ResetMembers(check, agentType, clear, method, property);

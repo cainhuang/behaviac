@@ -225,7 +225,7 @@ namespace Behaviac.Design
         private void setReturnTypes()
         {
             this.returnTypeComboBox.Items.Clear();
-            foreach (string typeName in Plugin.GetAllMemberValueTypeNames(true))
+            foreach (string typeName in Plugin.GetAllMemberValueTypeNames(true, true))
             {
                 this.returnTypeComboBox.Items.Add(typeName);
             }
@@ -374,7 +374,7 @@ namespace Behaviac.Design
         private void setParamTypes(ComboBox combobox)
         {
             combobox.Items.Clear();
-            foreach (string typeName in Plugin.GetAllMemberValueTypeNames(false))
+            foreach (string typeName in Plugin.GetAllMemberValueTypeNames(false, true))
             {
                 combobox.Items.Add(typeName);
             }

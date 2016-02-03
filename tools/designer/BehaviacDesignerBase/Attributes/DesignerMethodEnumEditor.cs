@@ -85,8 +85,10 @@ namespace Behaviac.Design.Attributes
             AgentType agentType = (behavior != null) ? behavior.AgentType : null;
 
             object action = _property.Property.GetValue(_object, null);
-            RightValueDef varRV = action as RightValueDef;
+            VariableDef var = action as VariableDef;
+            Debug.Check(var == null);
 
+            RightValueDef varRV = action as RightValueDef;
             if (varRV != null && Plugin.IsInstanceName(varRV.ValueClassReal, behavior))
             {
                 agentType = Plugin.GetInstanceAgentType(varRV.ValueClassReal, behavior, agentType);
@@ -103,7 +105,7 @@ namespace Behaviac.Design.Attributes
 
                 IList<MethodDef> actions = agentType.GetMethods(methodType);
                 foreach(MethodDef actionType in actions) {
-                    if (Plugin.IsCompatibleType(this.FilterType, actionType.ReturnType, false)) {
+                    if (Plugin.IsCompatibleType(this.ValueType, this.FilterType, actionType.ReturnType, false)) {
                         methods.Add(actionType);
                     }
                 }

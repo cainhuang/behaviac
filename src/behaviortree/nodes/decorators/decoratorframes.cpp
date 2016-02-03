@@ -14,17 +14,19 @@
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/nodes/decorators/decoratorframes.h"
 #include "behaviac/agent/agent.h"
+#include "behaviac/behaviortree/nodes/actions/action.h"
 #include "behaviac/behaviortree/nodes/conditions/condition.h"
 
 namespace behaviac
 {
-    DecoratorFrames::DecoratorFrames() : m_frames_var(0)
+	DecoratorFrames::DecoratorFrames() : m_frames_var(0), m_frames_method(0)
     {
     }
 
     DecoratorFrames::~DecoratorFrames()
     {
-    }
+		BEHAVIAC_DELETE(this->m_frames_method);
+	}
 
     void DecoratorFrames::load(int version, const char* agentType, const properties_t& properties)
     {
@@ -32,27 +34,49 @@ namespace behaviac
 
         for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
         {
-            const property_t& p = (*it);
+			const property_t& p = (*it);
 
-            if (!strcmp(p.name, "Time"))
-            {
-                behaviac::string typeName;
-                behaviac::string propertyName;
-                this->m_frames_var = Condition::LoadRight(p.value, typeName);
-            }
+			if (!strcmp(p.name, "Frames"))
+			{
+				const char* pParenthesis = strchr(p.value, '(');
+
+				if (pParenthesis == 0)
+				{
+					behaviac::string typeName;
+					behaviac::string propertyName;
+					this->m_frames_var = Condition::LoadRight(p.value, typeName);
+				}
+				else
+				{
+					//method
+					this->m_frames_method = Action::LoadMethod(p.value);
+				}
+			}
         }
     }
 
     int DecoratorFrames::GetFrames(Agent* pAgent) const
     {
-        if (this->m_frames_var)
-        {
-            BEHAVIAC_ASSERT(this->m_frames_var);
-            TProperty<int>* pP = (TProperty<int>*)this->m_frames_var;
-            uint64_t frames = pP->GetValue(pAgent);
+		if (this->m_frames_var)
+		{
+			BEHAVIAC_ASSERT(this->m_frames_var);
+			TProperty<int>* pP = (TProperty<int>*)this->m_frames_var;
+			uint64_t frames = pP->GetValue(pAgent);
 
-            return (frames == ((uint64_t) - 1) ? -1 : (int)frames);
-        }
+			return (frames == ((uint64_t)-1) ? -1 : (int)frames);
+
+		}
+		else if (this->m_frames_method)
+		{
+			Agent* pParent = Agent::GetInstance(pAgent, this->m_frames_method->GetInstanceNameString());
+			BEHAVIAC_ASSERT(pParent);
+
+			this->m_frames_method->run(pParent, pAgent);
+
+			int frames = this->m_frames_method->GetReturnValue<int>(pParent);
+
+			return frames;
+		}
 
         return 0;
     }

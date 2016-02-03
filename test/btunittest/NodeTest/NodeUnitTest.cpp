@@ -40,6 +40,7 @@ LOAD_TEST(btunittest, selector_loop_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -49,6 +50,7 @@ LOAD_TEST(btunittest, selector_loop_ut_1)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_1", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(1, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -58,6 +60,7 @@ LOAD_TEST(btunittest, selector_loop_ut_2)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_2", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -67,6 +70,7 @@ LOAD_TEST(btunittest, selector_loop_ut_3)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_3", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(-1, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -76,6 +80,7 @@ LOAD_TEST(btunittest, selector_loop_ut_4)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_loop_ut_4", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(1, myTestAgent->testVar_0);
     CHECK_EQUAL(0, myTestAgent->testVar_1);
     myTestAgent->resetProperties();
@@ -205,6 +210,7 @@ LOAD_TEST(btunittest, selector_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_ut_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -214,6 +220,7 @@ LOAD_TEST(btunittest, selector_ut_1)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_ut_1", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(1, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -223,6 +230,7 @@ LOAD_TEST(btunittest, selector_ut_2)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_ut_2", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(2, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -232,6 +240,7 @@ LOAD_TEST(btunittest, selector_ut_3)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_ut_3", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(2, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -241,6 +250,7 @@ LOAD_TEST(btunittest, selector_ut_4)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/selector_ut_4", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -251,6 +261,7 @@ LOAD_TEST(btunittest, sequence_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/sequence_ut_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -260,6 +271,7 @@ LOAD_TEST(btunittest, sequence_ut_1)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/sequence_ut_1", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(1, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -269,6 +281,7 @@ LOAD_TEST(btunittest, sequence_ut_2)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/sequence_ut_2", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(2, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -278,6 +291,7 @@ LOAD_TEST(btunittest, sequence_ut_3)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/sequence_ut_3", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -288,6 +302,7 @@ LOAD_TEST(btunittest, if_else_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/if_else_ut_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(1, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -297,6 +312,7 @@ LOAD_TEST(btunittest, if_else_ut_1)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/if_else_ut_1", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(2, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -518,6 +534,7 @@ LOAD_TEST(btunittest, condition_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/condition_ut_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(2, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -527,6 +544,7 @@ LOAD_TEST(btunittest, condition_ut_1)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/condition_ut_1", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -536,6 +554,7 @@ LOAD_TEST(btunittest, condition_ut_2)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/condition_ut_2", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -545,6 +564,7 @@ LOAD_TEST(btunittest, condition_ut_3)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/condition_ut_3", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(2, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -582,6 +602,7 @@ LOAD_TEST(btunittest, action_ut_1)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_1", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_FLOAT_EQUAL(1.8f, myTestAgent->testVar_2);
     CHECK_FLOAT_EQUAL(4.5f, myTestAgent->testVar_3);
 
@@ -607,6 +628,7 @@ LOAD_TEST(btunittest, action_ut_2)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_2", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(500000, myTestAgent->testVar_0);
     CHECK_EQUAL(1666, myTestAgent->testVar_1);
     finlTestEnvNode(myTestAgent);
@@ -617,6 +639,7 @@ LOAD_TEST(btunittest, action_ut_3)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_3", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_FLOAT_EQUAL(2.4f, myTestAgent->testVar_2);
     CHECK_FLOAT_EQUAL(4.0f, myTestAgent->testVar_3);
     finlTestEnvNode(myTestAgent);
@@ -634,6 +657,7 @@ LOAD_TEST(btunittest, action_ut_3_save_load)
 #endif
 
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_FLOAT_EQUAL(2.4f, myTestAgent->testVar_2);
     CHECK_FLOAT_EQUAL(4.0f, myTestAgent->testVar_3);
 
@@ -655,17 +679,15 @@ LOAD_TEST(btunittest, action_ut_3_save_load)
 
 LOAD_TEST(btunittest, action_child_agent)
 {
-	const char* childAgentName = "par_child_agent_1";
-
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_child_agent_0", format);
 
     myTestAgent->resetProperties();
 
-    myTestAgent->initChildAgentTest(childAgentName);
+    myTestAgent->initChildAgentTest();
 
     myTestAgent->btexec();
 
-    const ChildNodeTest* ct = myTestAgent->GetVariable<ChildNodeTest*>(childAgentName);
+	const ChildNodeTest* ct = myTestAgent->GetVariable<ChildNodeTest*>("par_child_agent_1");
     CHECK_EQUAL(666, ct->testVar_0);
     CHECK_EQUAL(888, ct->testVar_1);
     CHECK_FLOAT_EQUAL(999, ct->testVar_2);
@@ -679,6 +701,7 @@ LOAD_TEST(btunittest, action_ut_waitforsignal_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_waitforsignal_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(-1, myTestAgent->testVar_1);
     CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
     myTestAgent->resetProperties();
@@ -694,6 +717,7 @@ LOAD_TEST(btunittest, action_ut_waitforsignal_1)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_waitforsignal_1", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(-1, myTestAgent->testVar_1);
     CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
     myTestAgent->resetProperties();
@@ -709,6 +733,7 @@ LOAD_TEST(btunittest, action_ut_waitforsignal_2)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_waitforsignal_2", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
     CHECK_EQUAL(behaviac::BT_RUNNING, status);
     myTestAgent->resetProperties();
@@ -725,6 +750,7 @@ LOAD_TEST(btunittest, action_ut_waitforsignal_0_saveload)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_waitforsignal_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(-1, myTestAgent->testVar_1);
     CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
 
@@ -756,6 +782,7 @@ LOAD_TEST(btunittest, action_ut_waitforsignal_0_saveload_agent)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_waitforsignal_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(-1, myTestAgent->testVar_1);
     CHECK_FLOAT_EQUAL(-1.0f, myTestAgent->testVar_2);
 

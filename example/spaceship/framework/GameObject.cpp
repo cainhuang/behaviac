@@ -63,7 +63,7 @@ namespace framework
 
 	bool GameObject::registerCollision(GameObject* collidedObject)
 	{
-		printf("%s Collided with %s", displayName, collidedObject->displayName);
+		printf("%s Collided with %s", this->displayName.c_str(), collidedObject->displayName.c_str());
 
 		return true;
 	}

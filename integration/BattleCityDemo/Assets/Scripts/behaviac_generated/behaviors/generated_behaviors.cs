@@ -118,6 +118,7 @@ namespace behaviac
 
 	// Source file: Level_DeathMatch_0
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Level_DeathMatch_0_node1 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Level_DeathMatch_0_node1()
@@ -130,6 +131,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Level_DeathMatch_0_node16 : behaviac.Parallel
 	{
 		public Parallel_bt_Level_DeathMatch_0_node16()
@@ -141,6 +143,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_0_node11 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_0_node11()
@@ -156,17 +159,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_0_node14 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_0_node14()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 3000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_0_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_0_node15()
@@ -182,6 +187,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_Level_DeathMatch_0_node12 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_Level_DeathMatch_0_node12()
@@ -190,6 +196,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoopUntil_bt_Level_DeathMatch_0_node6 : behaviac.DecoratorLoopUntil
 	{
 		public DecoratorLoopUntil_bt_Level_DeathMatch_0_node6()
@@ -203,6 +210,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_0_node3 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_0_node3()
@@ -218,6 +226,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_0_node10 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_0_node10()
@@ -258,6 +267,7 @@ namespace behaviac
 		int method_p11;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_Level_DeathMatch_0_node8 : behaviac.Compute
 	{
 		public Compute_bt_Level_DeathMatch_0_node8()
@@ -275,28 +285,31 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_0_node9 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_0_node9()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 1000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_0_node7 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_0_node7()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_Level_DeathMatch_0_node2 : behaviac.Compute
 	{
 		public Compute_bt_Level_DeathMatch_0_node2()
@@ -314,6 +327,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Level_DeathMatch_0_node4 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Level_DeathMatch_0_node4()
@@ -322,6 +336,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_0_node28 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_0_node28()
@@ -337,6 +352,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_0_node25 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_0_node25()
@@ -352,6 +368,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_0_node26 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_0_node26()
@@ -367,17 +384,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_0_node30 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_0_node30()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 3000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_0_node27 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_0_node27()
@@ -393,6 +412,7 @@ namespace behaviac
 		bool method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_0_node29 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_0_node29()
@@ -408,17 +428,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_0_node18 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_0_node18()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 1000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_0_node19 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_0_node19()
@@ -434,6 +456,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_0_node22 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_0_node22()
@@ -453,6 +476,7 @@ namespace behaviac
 		int opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_0_node23 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_0_node23()
@@ -472,6 +496,7 @@ namespace behaviac
 		int opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_0_node20 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_0_node20()
@@ -493,17 +518,19 @@ namespace behaviac
 		float method_p3;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_0_node21 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_0_node21()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_0_node32 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_0_node32()
@@ -518,6 +545,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Level_DeathMatch_0_node33 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Level_DeathMatch_0_node33()
@@ -526,17 +554,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_0_node35 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_0_node35()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 1000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_0_node37 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_0_node37()
@@ -973,6 +1003,7 @@ namespace behaviac
 
 	// Source file: Level_DeathMatch_1
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoopUntil_bt_Level_DeathMatch_1_node10 : behaviac.DecoratorLoopUntil
 	{
 		public DecoratorLoopUntil_bt_Level_DeathMatch_1_node10()
@@ -986,6 +1017,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_1_node4 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_1_node4()
@@ -1002,6 +1034,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node12()
@@ -1021,6 +1054,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node13 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node13()
@@ -1040,6 +1074,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node15 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node15()
@@ -1057,6 +1092,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node51 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node51()
@@ -1076,6 +1112,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Level_DeathMatch_1_node53 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Level_DeathMatch_1_node53()
@@ -1084,6 +1121,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_1_node52 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_1_node52()
@@ -1099,6 +1137,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node55 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node55()
@@ -1115,6 +1154,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node26 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node26()
@@ -1130,6 +1170,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_Level_DeathMatch_1_node16 : behaviac.Compute
 	{
 		public Compute_bt_Level_DeathMatch_1_node16()
@@ -1147,17 +1188,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_1_node47 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_1_node47()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Level_DeathMatch_1_node50 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Level_DeathMatch_1_node50()
@@ -1170,6 +1213,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Level_DeathMatch_1_node14 : behaviac.Parallel
 	{
 		public Parallel_bt_Level_DeathMatch_1_node14()
@@ -1181,6 +1225,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Level_DeathMatch_1_node18 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Level_DeathMatch_1_node18()
@@ -1189,6 +1234,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_1_node9 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_1_node9()
@@ -1205,6 +1251,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node19 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node19()
@@ -1220,6 +1267,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node20 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node20()
@@ -1239,6 +1287,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Level_DeathMatch_1_node21 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Level_DeathMatch_1_node21()
@@ -1247,6 +1296,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_Level_DeathMatch_1_node36 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_Level_DeathMatch_1_node36()
@@ -1255,6 +1305,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node7 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node7()
@@ -1270,6 +1321,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node39 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node39()
@@ -1287,6 +1339,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_DeathMatch_1_node37 : behaviac.Condition
 	{
 		public Condition_bt_Level_DeathMatch_1_node37()
@@ -1302,6 +1355,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node40 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node40()
@@ -1321,6 +1375,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node48 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node48()
@@ -1340,6 +1395,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node25 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node25()
@@ -1359,6 +1415,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node49 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node49()
@@ -1396,6 +1453,7 @@ namespace behaviac
 		float method_p8;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_Level_DeathMatch_1_node41 : behaviac.Compute
 	{
 		public Compute_bt_Level_DeathMatch_1_node41()
@@ -1413,6 +1471,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node35 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node35()
@@ -1430,6 +1489,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_Level_DeathMatch_1_node0 : behaviac.Compute
 	{
 		public Compute_bt_Level_DeathMatch_1_node0()
@@ -1447,6 +1507,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node5 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node5()
@@ -1460,17 +1521,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_1_node1 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_1_node1()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node30 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node30()
@@ -1484,17 +1547,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_1_node32 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_1_node32()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 6000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node23 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node23()
@@ -1510,6 +1575,7 @@ namespace behaviac
 		bool method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node22 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node22()
@@ -1523,17 +1589,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_1_node28 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_1_node28()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node33 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node33()
@@ -1547,17 +1615,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_1_node56 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_1_node56()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 6000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node27 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node27()
@@ -1573,17 +1643,19 @@ namespace behaviac
 		bool method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_1_node31 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_1_node31()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 8000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node42 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node42()
@@ -1603,6 +1675,7 @@ namespace behaviac
 		int opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node43 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node43()
@@ -1622,6 +1695,7 @@ namespace behaviac
 		int opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_DeathMatch_1_node44 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_DeathMatch_1_node44()
@@ -1641,6 +1715,7 @@ namespace behaviac
 		int opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_DeathMatch_1_node45 : behaviac.Action
 	{
 		public Action_bt_Level_DeathMatch_1_node45()
@@ -1662,12 +1737,13 @@ namespace behaviac
 		float method_p3;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_DeathMatch_1_node46 : behaviac.Wait
 	{
 		public Wait_bt_Level_DeathMatch_1_node46()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
@@ -2279,6 +2355,7 @@ namespace behaviac
 
 	// Source file: Level_Survival
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_Survival_node36 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_Survival_node36()
@@ -2294,6 +2371,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_Survival_node28 : behaviac.Action
 	{
 		public Action_bt_Level_Survival_node28()
@@ -2311,6 +2389,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Level_Survival_node27 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Level_Survival_node27()
@@ -2323,6 +2402,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Level_Survival_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_Level_Survival_node0()
@@ -2334,17 +2414,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_Survival_node6 : behaviac.Wait
 	{
 		public Wait_bt_Level_Survival_node6()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 1000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_Survival_node1 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_Survival_node1()
@@ -2364,6 +2446,7 @@ namespace behaviac
 		int opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_Survival_node17 : behaviac.Action
 	{
 		public Action_bt_Level_Survival_node17()
@@ -2385,17 +2468,19 @@ namespace behaviac
 		float method_p3;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_Survival_node2 : behaviac.Wait
 	{
 		public Wait_bt_Level_Survival_node2()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 10000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_Survival_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_Survival_node9()
@@ -2411,6 +2496,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_Survival_node11 : behaviac.Condition
 	{
 		public Condition_bt_Level_Survival_node11()
@@ -2426,6 +2512,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_Survival_node18 : behaviac.Action
 	{
 		public Action_bt_Level_Survival_node18()
@@ -2441,17 +2528,19 @@ namespace behaviac
 		eGameForce method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_Survival_node10 : behaviac.Wait
 	{
 		public Wait_bt_Level_Survival_node10()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 3000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_Survival_node8 : behaviac.Condition
 	{
 		public Condition_bt_Level_Survival_node8()
@@ -2466,6 +2555,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Level_Survival_node20 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Level_Survival_node20()
@@ -2474,17 +2564,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_Survival_node26 : behaviac.Wait
 	{
 		public Wait_bt_Level_Survival_node26()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 1000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_Survival_node24 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_Survival_node24()
@@ -2502,6 +2594,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_Survival_node21 : behaviac.Condition
 	{
 		public Condition_bt_Level_Survival_node21()
@@ -2517,6 +2610,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_Survival_node22 : behaviac.Action
 	{
 		public Action_bt_Level_Survival_node22()
@@ -2557,6 +2651,7 @@ namespace behaviac
 		UnityEngine.Color method_p10;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_Level_Survival_node38 : behaviac.Compute
 	{
 		public Compute_bt_Level_Survival_node38()
@@ -2574,6 +2669,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_Survival_node39 : behaviac.Action
 	{
 		public Action_bt_Level_Survival_node39()
@@ -2591,6 +2687,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_Survival_node31 : behaviac.Condition
 	{
 		public Condition_bt_Level_Survival_node31()
@@ -2606,6 +2703,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_Survival_node32 : behaviac.Condition
 	{
 		public Condition_bt_Level_Survival_node32()
@@ -2620,6 +2718,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Level_Survival_node34 : behaviac.Condition
 	{
 		public Condition_bt_Level_Survival_node34()
@@ -2635,17 +2734,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_Survival_node37 : behaviac.Wait
 	{
 		public Wait_bt_Level_Survival_node37()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_Survival_node7 : behaviac.Action
 	{
 		public Action_bt_Level_Survival_node7()
@@ -2659,17 +2760,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Level_Survival_node4 : behaviac.Wait
 	{
 		public Wait_bt_Level_Survival_node4()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 6000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Level_Survival_node33 : behaviac.Action
 	{
 		public Action_bt_Level_Survival_node33()
@@ -2685,6 +2788,7 @@ namespace behaviac
 		bool method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Level_Survival_node35 : behaviac.Assignment
 	{
 		public Assignment_bt_Level_Survival_node35()
@@ -3075,6 +3179,7 @@ namespace behaviac
 
 	// Source file: Tank_Agressive
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_Agressive_node2 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_Agressive_node2()
@@ -3087,6 +3192,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_Agressive_node0 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_Agressive_node0()
@@ -3098,6 +3204,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysRunning_bt_Tank_Agressive_node38 : behaviac.DecoratorAlwaysRunning
 	{
 		public DecoratorAlwaysRunning_bt_Tank_Agressive_node38()
@@ -3106,6 +3213,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysFailure_bt_Tank_Agressive_node25 : behaviac.DecoratorAlwaysFailure
 	{
 		public DecoratorAlwaysFailure_bt_Tank_Agressive_node25()
@@ -3114,6 +3222,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node26 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node26()
@@ -3129,6 +3238,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node35 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node35()
@@ -3146,6 +3256,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Agressive_node34 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Agressive_node34()
@@ -3161,6 +3272,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node37 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node37()
@@ -3180,6 +3292,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Agressive_node24 : behaviac.Action
 	{
 		public Action_bt_Tank_Agressive_node24()
@@ -3197,6 +3310,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Agressive_node5 : behaviac.Action
 	{
 		public Action_bt_Tank_Agressive_node5()
@@ -3210,6 +3324,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_Agressive_node15 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_Agressive_node15()
@@ -3221,6 +3336,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_Tank_Agressive_node21 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_Tank_Agressive_node21()
@@ -3229,17 +3345,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Tank_Agressive_node19 : behaviac.Wait
 	{
 		public Wait_bt_Tank_Agressive_node19()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 1000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node20 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node20()
@@ -3255,6 +3373,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node4()
@@ -3272,6 +3391,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node7()
@@ -3291,6 +3411,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Agressive_node33 : behaviac.Action
 	{
 		public Action_bt_Tank_Agressive_node33()
@@ -3308,6 +3429,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Agressive_node13 : behaviac.Action
 	{
 		public Action_bt_Tank_Agressive_node13()
@@ -3321,6 +3443,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Agressive_node6 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Agressive_node6()
@@ -3336,6 +3459,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_Agressive_node1 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_Agressive_node1()
@@ -3347,6 +3471,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_Tank_Agressive_node9 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_Tank_Agressive_node9()
@@ -3354,6 +3479,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node36 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node36()
@@ -3369,6 +3495,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node11()
@@ -3384,6 +3511,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node14 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node14()
@@ -3399,6 +3527,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node16 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node16()
@@ -3414,17 +3543,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Tank_Agressive_node17 : behaviac.Wait
 	{
 		public Wait_bt_Tank_Agressive_node17()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node18 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node18()
@@ -3442,6 +3573,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Agressive_node27 : behaviac.Action
 	{
 		public Action_bt_Tank_Agressive_node27()
@@ -3457,6 +3589,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysRunning_bt_Tank_Agressive_node10 : behaviac.DecoratorAlwaysRunning
 	{
 		public DecoratorAlwaysRunning_bt_Tank_Agressive_node10()
@@ -3465,6 +3598,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Agressive_node29 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Agressive_node29()
@@ -3480,6 +3614,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Agressive_node30 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Agressive_node30()
@@ -3495,6 +3630,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Agressive_node31 : behaviac.Action
 	{
 		public Action_bt_Tank_Agressive_node31()
@@ -3510,6 +3646,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Agressive_node32 : behaviac.Action
 	{
 		public Action_bt_Tank_Agressive_node32()
@@ -3965,6 +4102,7 @@ namespace behaviac
 
 	// Source file: Tank_Chase
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_Chase_node4 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_Chase_node4()
@@ -3977,6 +4115,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_Chase_node9 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_Chase_node9()
@@ -3988,6 +4127,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorNot_bt_Tank_Chase_node5 : behaviac.DecoratorNot
 	{
 		public DecoratorNot_bt_Tank_Chase_node5()
@@ -3996,17 +4136,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Tank_Chase_node7 : behaviac.Wait
 	{
 		public Wait_bt_Tank_Chase_node7()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 1000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Chase_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Chase_node6()
@@ -4024,6 +4166,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Chase_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Chase_node0()
@@ -4043,6 +4186,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Chase_node1 : behaviac.Action
 	{
 		public Action_bt_Tank_Chase_node1()
@@ -4060,6 +4204,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Chase_node2 : behaviac.Action
 	{
 		public Action_bt_Tank_Chase_node2()
@@ -4184,6 +4329,7 @@ namespace behaviac
 
 	// Source file: Tank_Destroy_Enemy
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysRunning_bt_Tank_Destroy_Enemy_node10 : behaviac.DecoratorAlwaysRunning
 	{
 		public DecoratorAlwaysRunning_bt_Tank_Destroy_Enemy_node10()
@@ -4192,6 +4338,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Destroy_Enemy_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Destroy_Enemy_node5()
@@ -4209,6 +4356,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Destroy_Enemy_node9 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Destroy_Enemy_node9()
@@ -4224,6 +4372,7 @@ namespace behaviac
 		behaviac.Agent opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Destroy_Enemy_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Destroy_Enemy_node7()
@@ -4243,6 +4392,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Destroy_Enemy_node8 : behaviac.Action
 	{
 		public Action_bt_Tank_Destroy_Enemy_node8()
@@ -4260,6 +4410,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Destroy_Enemy_node6 : behaviac.Action
 	{
 		public Action_bt_Tank_Destroy_Enemy_node6()
@@ -4273,6 +4424,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Destroy_Enemy_node12 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Destroy_Enemy_node12()
@@ -4288,6 +4440,7 @@ namespace behaviac
 		behaviac.Agent opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Destroy_Enemy_node1 : behaviac.Action
 	{
 		public Action_bt_Tank_Destroy_Enemy_node1()
@@ -4303,6 +4456,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Destroy_Enemy_node3 : behaviac.Action
 	{
 		public Action_bt_Tank_Destroy_Enemy_node3()
@@ -4316,6 +4470,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Destroy_Enemy_node4 : behaviac.Action
 	{
 		public Action_bt_Tank_Destroy_Enemy_node4()
@@ -4480,6 +4635,7 @@ namespace behaviac
 
 	// Source file: Tank_Fire
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_Fire_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_Fire_node0()
@@ -4492,6 +4648,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_Fire_node1 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_Fire_node1()
@@ -4503,6 +4660,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Tank_Fire_node5 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Tank_Fire_node5()
@@ -4511,6 +4669,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorProbability_bt_Tank_Fire_node2 : behaviac.SelectorProbability
 	{
 		public SelectorProbability_bt_Tank_Fire_node2()
@@ -4518,6 +4677,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_Fire_node6 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_Fire_node6()
@@ -4530,6 +4690,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Fire_node7 : behaviac.Action
 	{
 		public Action_bt_Tank_Fire_node7()
@@ -4543,6 +4704,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_Fire_node8 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_Fire_node8()
@@ -4555,6 +4717,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Fire_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Fire_node11()
@@ -4576,6 +4739,7 @@ namespace behaviac
 		eMapDirection opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Fire_node3 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Fire_node3()
@@ -4591,6 +4755,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Fire_node4 : behaviac.Action
 	{
 		public Action_bt_Tank_Fire_node4()
@@ -4606,6 +4771,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Fire_node16 : behaviac.Action
 	{
 		public Action_bt_Tank_Fire_node16()
@@ -4770,6 +4936,7 @@ namespace behaviac
 
 	// Source file: Tank_Fire_Detect
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_Fire_Detect_node5 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_Fire_Detect_node5()
@@ -4782,6 +4949,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Fire_Detect_node0 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Fire_Detect_node0()
@@ -4797,6 +4965,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Fire_Detect_node2 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Fire_Detect_node2()
@@ -4812,6 +4981,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Fire_Detect_node3 : behaviac.Action
 	{
 		public Action_bt_Tank_Fire_Detect_node3()
@@ -4827,6 +4997,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Fire_Detect_node1 : behaviac.Action
 	{
 		public Action_bt_Tank_Fire_Detect_node1()
@@ -4920,6 +5091,7 @@ namespace behaviac
 
 	// Source file: Tank_Fire_Only
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_Fire_Only_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_Fire_Only_node0()
@@ -4932,6 +5104,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Fire_Only_node4 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Fire_Only_node4()
@@ -4953,17 +5126,19 @@ namespace behaviac
 		int opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Tank_Fire_Only_node3 : behaviac.Wait
 	{
 		public Wait_bt_Tank_Fire_Only_node3()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return pAgent.GetVariable<int>(1636165819u);
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Fire_Only_node2 : behaviac.Action
 	{
 		public Action_bt_Tank_Fire_Only_node2()
@@ -5047,6 +5222,7 @@ namespace behaviac
 
 	// Source file: Tank_Fire_Random
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_Fire_Random_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_Fire_Random_node0()
@@ -5059,6 +5235,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class WaitFrames_bt_Tank_Fire_Random_node4 : behaviac.WaitFrames
 	{
 		public WaitFrames_bt_Tank_Fire_Random_node4()
@@ -5070,6 +5247,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_Tank_Fire_Random_node2 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_Tank_Fire_Random_node2()
@@ -5077,6 +5255,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Fire_Random_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Fire_Random_node8()
@@ -5092,6 +5271,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Fire_Random_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Fire_Random_node6()
@@ -5107,6 +5287,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Fire_Random_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Fire_Random_node7()
@@ -5122,6 +5303,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Fire_Random_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Fire_Random_node9()
@@ -5137,6 +5319,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Fire_Random_node3 : behaviac.Action
 	{
 		public Action_bt_Tank_Fire_Random_node3()
@@ -5152,6 +5335,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Fire_Random_node10 : behaviac.Action
 	{
 		public Action_bt_Tank_Fire_Random_node10()
@@ -5285,6 +5469,7 @@ namespace behaviac
 
 	// Source file: Tank_FSM_MoveFire
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_Tank_FSM_MoveFire_node1 : behaviac.State
 	{
 		public State_bt_Tank_FSM_MoveFire_node1()
@@ -5297,6 +5482,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_Tank_FSM_MoveFire_attach4 : behaviac.Precondition
 	{
 		public Precondition_bt_Tank_FSM_MoveFire_attach4()
@@ -5314,6 +5500,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_Tank_FSM_MoveFire_attach5 : behaviac.Transition
 	{
 		public Transition_bt_Tank_FSM_MoveFire_attach5()
@@ -5333,6 +5520,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_Tank_FSM_MoveFire_node2 : behaviac.State
 	{
 		public State_bt_Tank_FSM_MoveFire_node2()
@@ -5348,6 +5536,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_Tank_FSM_MoveFire_attach3 : behaviac.Precondition
 	{
 		public Precondition_bt_Tank_FSM_MoveFire_attach3()
@@ -5371,6 +5560,7 @@ namespace behaviac
 		eMapDirection opr2_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_Tank_FSM_MoveFire_attach6 : behaviac.Transition
 	{
 		public Transition_bt_Tank_FSM_MoveFire_attach6()
@@ -5390,6 +5580,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_Tank_FSM_MoveFire_attach10 : behaviac.Transition
 	{
 		public Transition_bt_Tank_FSM_MoveFire_attach10()
@@ -5408,6 +5599,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_Tank_FSM_MoveFire_node7 : behaviac.State
 	{
 		public State_bt_Tank_FSM_MoveFire_node7()
@@ -5420,6 +5612,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Precondition_bt_Tank_FSM_MoveFire_attach12 : behaviac.Precondition
 	{
 		public Precondition_bt_Tank_FSM_MoveFire_attach12()
@@ -5437,6 +5630,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_Tank_FSM_MoveFire_attach8 : behaviac.Transition
 	{
 		public Transition_bt_Tank_FSM_MoveFire_attach8()
@@ -5456,6 +5650,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class State_bt_Tank_FSM_MoveFire_node9 : behaviac.State
 	{
 		public State_bt_Tank_FSM_MoveFire_node9()
@@ -5469,6 +5664,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Transition_bt_Tank_FSM_MoveFire_attach11 : behaviac.Transition
 	{
 		public Transition_bt_Tank_FSM_MoveFire_attach11()
@@ -5635,6 +5831,7 @@ namespace behaviac
 
 	// Source file: Tank_SafeWander
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysRunning_bt_Tank_SafeWander_node0 : behaviac.DecoratorAlwaysRunning
 	{
 		public DecoratorAlwaysRunning_bt_Tank_SafeWander_node0()
@@ -5643,6 +5840,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_node2()
@@ -5660,6 +5858,7 @@ namespace behaviac
 		eMapDirection opr_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_SafeWander_node3 : behaviac.Action
 	{
 		public Action_bt_Tank_SafeWander_node3()
@@ -5735,6 +5934,7 @@ namespace behaviac
 
 	// Source file: Tank_SafeWander_RandomFire
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_SafeWander_RandomFire_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_SafeWander_RandomFire_node0()
@@ -5747,6 +5947,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_SafeWander_RandomFire_node1 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_SafeWander_RandomFire_node1()
@@ -5758,6 +5959,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_SafeWander_RandomFire_node9 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_SafeWander_RandomFire_node9()
@@ -5770,6 +5972,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_SafeWander_RandomFire_node11 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_SafeWander_RandomFire_node11()
@@ -5781,6 +5984,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_Tank_SafeWander_RandomFire_node21 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_Tank_SafeWander_RandomFire_node21()
@@ -5788,6 +5992,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node10()
@@ -5803,6 +6008,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node5()
@@ -5818,6 +6024,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node2()
@@ -5833,6 +6040,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node3 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node3()
@@ -5848,17 +6056,19 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Wait_bt_Tank_SafeWander_RandomFire_node4 : behaviac.Wait
 	{
 		public Wait_bt_Tank_SafeWander_RandomFire_node4()
 		{
 		}
-		protected override float GetTime(Agent pAgent)
+		protected override double GetTime(Agent pAgent)
 		{
 			return 2000f;
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node6()
@@ -5876,6 +6086,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_SafeWander_RandomFire_node8 : behaviac.Action
 	{
 		public Action_bt_Tank_SafeWander_RandomFire_node8()
@@ -5891,6 +6102,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_Tank_SafeWander_RandomFire_node12 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_Tank_SafeWander_RandomFire_node12()
@@ -5898,6 +6110,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node13 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node13()
@@ -5913,6 +6126,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node14 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node14()
@@ -5928,6 +6142,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node15()
@@ -5943,6 +6158,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_SafeWander_RandomFire_node16 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_SafeWander_RandomFire_node16()
@@ -5958,6 +6174,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_SafeWander_RandomFire_node17 : behaviac.Action
 	{
 		public Action_bt_Tank_SafeWander_RandomFire_node17()
@@ -5973,6 +6190,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_SafeWander_RandomFire_node18 : behaviac.Action
 	{
 		public Action_bt_Tank_SafeWander_RandomFire_node18()
@@ -6230,6 +6448,7 @@ namespace behaviac
 
 	// Source file: Tank_Take_Award_Destroy_Enemy
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysRunning_bt_Tank_Take_Award_Destroy_Enemy_node10 : behaviac.DecoratorAlwaysRunning
 	{
 		public DecoratorAlwaysRunning_bt_Tank_Take_Award_Destroy_Enemy_node10()
@@ -6238,6 +6457,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Take_Award_Destroy_Enemy_node18 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Take_Award_Destroy_Enemy_node18()
@@ -6255,6 +6475,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Take_Award_Destroy_Enemy_node19 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Take_Award_Destroy_Enemy_node19()
@@ -6270,6 +6491,7 @@ namespace behaviac
 		behaviac.Agent opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Take_Award_Destroy_Enemy_node20 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Take_Award_Destroy_Enemy_node20()
@@ -6289,6 +6511,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Take_Award_Destroy_Enemy_node14 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Take_Award_Destroy_Enemy_node14()
@@ -6303,6 +6526,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Take_Award_Destroy_Enemy_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Take_Award_Destroy_Enemy_node15()
@@ -6320,6 +6544,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Take_Award_Destroy_Enemy_node16 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Take_Award_Destroy_Enemy_node16()
@@ -6337,6 +6562,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Take_Award_Destroy_Enemy_node8 : behaviac.Action
 	{
 		public Action_bt_Tank_Take_Award_Destroy_Enemy_node8()
@@ -6354,6 +6580,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Take_Award_Destroy_Enemy_node29 : behaviac.Action
 	{
 		public Action_bt_Tank_Take_Award_Destroy_Enemy_node29()
@@ -6367,6 +6594,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Take_Award_Destroy_Enemy_node28 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Take_Award_Destroy_Enemy_node28()
@@ -6384,6 +6612,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Take_Award_Destroy_Enemy_node34 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Take_Award_Destroy_Enemy_node34()
@@ -6399,6 +6628,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Take_Award_Destroy_Enemy_node37 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Take_Award_Destroy_Enemy_node37()
@@ -6418,6 +6648,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Take_Award_Destroy_Enemy_node24 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Take_Award_Destroy_Enemy_node24()
@@ -6432,6 +6663,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Take_Award_Destroy_Enemy_node25 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Take_Award_Destroy_Enemy_node25()
@@ -6449,6 +6681,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Take_Award_Destroy_Enemy_node26 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Take_Award_Destroy_Enemy_node26()
@@ -6466,6 +6699,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Take_Award_Destroy_Enemy_node21 : behaviac.Action
 	{
 		public Action_bt_Tank_Take_Award_Destroy_Enemy_node21()
@@ -6483,6 +6717,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Take_Award_Destroy_Enemy_node30 : behaviac.Action
 	{
 		public Action_bt_Tank_Take_Award_Destroy_Enemy_node30()
@@ -6496,6 +6731,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Take_Award_Destroy_Enemy_node12 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Take_Award_Destroy_Enemy_node12()
@@ -6511,6 +6747,7 @@ namespace behaviac
 		behaviac.Agent opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Take_Award_Destroy_Enemy_node1 : behaviac.Action
 	{
 		public Action_bt_Tank_Take_Award_Destroy_Enemy_node1()
@@ -6526,6 +6763,7 @@ namespace behaviac
 		int method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Take_Award_Destroy_Enemy_node3 : behaviac.Action
 	{
 		public Action_bt_Tank_Take_Award_Destroy_Enemy_node3()
@@ -6539,6 +6777,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Take_Award_Destroy_Enemy_node4 : behaviac.Action
 	{
 		public Action_bt_Tank_Take_Award_Destroy_Enemy_node4()
@@ -6846,6 +7085,7 @@ namespace behaviac
 
 	// Source file: Tank_TendencyWander
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_TendencyWander_node16 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_TendencyWander_node16()
@@ -6858,6 +7098,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorProbability_bt_Tank_TendencyWander_node17 : behaviac.SelectorProbability
 	{
 		public SelectorProbability_bt_Tank_TendencyWander_node17()
@@ -6865,6 +7106,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_TendencyWander_node2 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_TendencyWander_node2()
@@ -6877,6 +7119,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_TendencyWander_node6 : behaviac.Action
 	{
 		public Action_bt_Tank_TendencyWander_node6()
@@ -6890,6 +7133,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_TendencyWander_node7 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_TendencyWander_node7()
@@ -6902,6 +7146,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_node8()
@@ -6917,6 +7162,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Tank_TendencyWander_node11 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Tank_TendencyWander_node11()
@@ -6925,6 +7171,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_node15()
@@ -6942,6 +7189,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_TendencyWander_node13 : behaviac.Condition
 	{
 		public Condition_bt_Tank_TendencyWander_node13()
@@ -6957,6 +7205,7 @@ namespace behaviac
 		behaviac.Agent opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_node5()
@@ -6976,6 +7225,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_node12()
@@ -6993,6 +7243,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_node10 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_node10()
@@ -7014,6 +7265,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_TendencyWander_node9 : behaviac.Condition
 	{
 		public Condition_bt_Tank_TendencyWander_node9()
@@ -7029,6 +7281,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_TendencyWander_node3 : behaviac.Action
 	{
 		public Action_bt_Tank_TendencyWander_node3()
@@ -7238,6 +7491,7 @@ namespace behaviac
 
 	// Source file: Tank_TendencyWander_RandomFire
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_TendencyWander_RandomFire_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_TendencyWander_RandomFire_node0()
@@ -7250,6 +7504,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_TendencyWander_RandomFire_node1 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_TendencyWander_RandomFire_node1()
@@ -7261,6 +7516,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorProbability_bt_Tank_TendencyWander_RandomFire_node4 : behaviac.SelectorProbability
 	{
 		public SelectorProbability_bt_Tank_TendencyWander_RandomFire_node4()
@@ -7268,6 +7524,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_TendencyWander_RandomFire_node16 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_TendencyWander_RandomFire_node16()
@@ -7280,6 +7537,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_TendencyWander_RandomFire_node2 : behaviac.Action
 	{
 		public Action_bt_Tank_TendencyWander_RandomFire_node2()
@@ -7293,6 +7551,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_TendencyWander_RandomFire_node6 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_TendencyWander_RandomFire_node6()
@@ -7305,6 +7564,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node17 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node17()
@@ -7320,6 +7580,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorAlwaysSuccess_bt_Tank_TendencyWander_RandomFire_node8 : behaviac.DecoratorAlwaysSuccess
 	{
 		public DecoratorAlwaysSuccess_bt_Tank_TendencyWander_RandomFire_node8()
@@ -7328,6 +7589,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node14 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node14()
@@ -7347,6 +7609,7 @@ namespace behaviac
 		eGameForce opr_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_TendencyWander_RandomFire_node15 : behaviac.Condition
 	{
 		public Condition_bt_Tank_TendencyWander_RandomFire_node15()
@@ -7362,6 +7625,7 @@ namespace behaviac
 		behaviac.Agent opr = null;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node13 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node13()
@@ -7381,6 +7645,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node5 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node5()
@@ -7398,6 +7663,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node12 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node12()
@@ -7419,6 +7685,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_TendencyWander_RandomFire_node18 : behaviac.Condition
 	{
 		public Condition_bt_Tank_TendencyWander_RandomFire_node18()
@@ -7434,6 +7701,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_TendencyWander_RandomFire_node9 : behaviac.Action
 	{
 		public Action_bt_Tank_TendencyWander_RandomFire_node9()
@@ -7449,6 +7717,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_Tank_TendencyWander_RandomFire_node3 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_Tank_TendencyWander_RandomFire_node3()
@@ -7456,6 +7725,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node19 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node19()
@@ -7471,6 +7741,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node20 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node20()
@@ -7486,6 +7757,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node21 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node21()
@@ -7501,6 +7773,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_TendencyWander_RandomFire_node22 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_TendencyWander_RandomFire_node22()
@@ -7516,6 +7789,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_TendencyWander_RandomFire_node23 : behaviac.Action
 	{
 		public Action_bt_Tank_TendencyWander_RandomFire_node23()
@@ -7531,6 +7805,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_TendencyWander_RandomFire_node24 : behaviac.Action
 	{
 		public Action_bt_Tank_TendencyWander_RandomFire_node24()
@@ -7829,6 +8104,7 @@ namespace behaviac
 
 	// Source file: Tank_WalkUtilCollision
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_WalkUtilCollision_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_WalkUtilCollision_node0()
@@ -7841,6 +8117,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_WalkUtilCollision_node1 : behaviac.Action
 	{
 		public Action_bt_Tank_WalkUtilCollision_node1()
@@ -7854,6 +8131,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_WalkUtilCollision_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_WalkUtilCollision_node6()
@@ -7875,6 +8153,7 @@ namespace behaviac
 		eMapDirection opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_WalkUtilCollision_node7 : behaviac.Condition
 	{
 		public Condition_bt_Tank_WalkUtilCollision_node7()
@@ -7890,6 +8169,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_WalkUtilCollision_node22 : behaviac.Action
 	{
 		public Action_bt_Tank_WalkUtilCollision_node22()
@@ -8007,6 +8287,7 @@ namespace behaviac
 
 	// Source file: Tank_WalkUtilCollision_2Agents
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_WalkUtilCollision_2Agents_node5 : behaviac.Action
 	{
 		public Action_bt_Tank_WalkUtilCollision_2Agents_node5()
@@ -8024,6 +8305,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_WalkUtilCollision_2Agents_node2 : behaviac.Action
 	{
 		public Action_bt_Tank_WalkUtilCollision_2Agents_node2()
@@ -8045,6 +8327,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_WalkUtilCollision_2Agents_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_WalkUtilCollision_2Agents_node0()
@@ -8057,6 +8340,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_WalkUtilCollision_2Agents_node6 : behaviac.Action
 	{
 		public Action_bt_Tank_WalkUtilCollision_2Agents_node6()
@@ -8074,6 +8358,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_WalkUtilCollision_2Agents_node4 : behaviac.Action
 	{
 		public Action_bt_Tank_WalkUtilCollision_2Agents_node4()
@@ -8183,6 +8468,7 @@ namespace behaviac
 
 	// Source file: Tank_Wander
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_Wander_node6 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_Wander_node6()
@@ -8195,6 +8481,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorProbability_bt_Tank_Wander_node2 : behaviac.SelectorProbability
 	{
 		public SelectorProbability_bt_Tank_Wander_node2()
@@ -8202,6 +8489,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_Wander_node0 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_Wander_node0()
@@ -8214,6 +8502,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Wander_node7 : behaviac.Action
 	{
 		public Action_bt_Tank_Wander_node7()
@@ -8227,6 +8516,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_Wander_node8 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_Wander_node8()
@@ -8239,6 +8529,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Wander_node11 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Wander_node11()
@@ -8260,6 +8551,7 @@ namespace behaviac
 		eMapDirection opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Wander_node3 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Wander_node3()
@@ -8275,6 +8567,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Wander_node4 : behaviac.Action
 	{
 		public Action_bt_Tank_Wander_node4()
@@ -8411,6 +8704,7 @@ namespace behaviac
 
 	// Source file: Tank_Wander_RandomFire
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorLoop_bt_Tank_Wander_RandomFire_node0 : behaviac.DecoratorLoop
 	{
 		public DecoratorLoop_bt_Tank_Wander_RandomFire_node0()
@@ -8423,6 +8717,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Parallel_bt_Tank_Wander_RandomFire_node1 : behaviac.Parallel
 	{
 		public Parallel_bt_Tank_Wander_RandomFire_node1()
@@ -8434,6 +8729,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorStochastic_bt_Tank_Wander_RandomFire_node2 : behaviac.SelectorStochastic
 	{
 		public SelectorStochastic_bt_Tank_Wander_RandomFire_node2()
@@ -8441,6 +8737,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Wander_RandomFire_node8 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Wander_RandomFire_node8()
@@ -8456,6 +8753,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Wander_RandomFire_node6 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Wander_RandomFire_node6()
@@ -8471,6 +8769,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Wander_RandomFire_node7 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Wander_RandomFire_node7()
@@ -8486,6 +8785,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Wander_RandomFire_node9 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Wander_RandomFire_node9()
@@ -8501,6 +8801,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Wander_RandomFire_node3 : behaviac.Action
 	{
 		public Action_bt_Tank_Wander_RandomFire_node3()
@@ -8516,6 +8817,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Wander_RandomFire_node10 : behaviac.Action
 	{
 		public Action_bt_Tank_Wander_RandomFire_node10()
@@ -8529,6 +8831,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class SelectorProbability_bt_Tank_Wander_RandomFire_node5 : behaviac.SelectorProbability
 	{
 		public SelectorProbability_bt_Tank_Wander_RandomFire_node5()
@@ -8536,6 +8839,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_Wander_RandomFire_node11 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_Wander_RandomFire_node11()
@@ -8548,6 +8852,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Wander_RandomFire_node12 : behaviac.Action
 	{
 		public Action_bt_Tank_Wander_RandomFire_node12()
@@ -8561,6 +8866,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class DecoratorWeight_bt_Tank_Wander_RandomFire_node13 : behaviac.DecoratorWeight
 	{
 		public DecoratorWeight_bt_Tank_Wander_RandomFire_node13()
@@ -8573,6 +8879,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_Tank_Wander_RandomFire_node15 : behaviac.Assignment
 	{
 		public Assignment_bt_Tank_Wander_RandomFire_node15()
@@ -8594,6 +8901,7 @@ namespace behaviac
 		eMapDirection opr_p1;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Condition_bt_Tank_Wander_RandomFire_node17 : behaviac.Condition
 	{
 		public Condition_bt_Tank_Wander_RandomFire_node17()
@@ -8609,6 +8917,7 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_Tank_Wander_RandomFire_node18 : behaviac.Action
 	{
 		public Action_bt_Tank_Wander_RandomFire_node18()

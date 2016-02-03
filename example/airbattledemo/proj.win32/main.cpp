@@ -16,7 +16,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
 	bool bBlock = false;
-	if (_tcsstr(lpCmdLine, L"-block"))
+	if (_tcsstr(lpCmdLine, _T("-block")))
 	{
 		bBlock = true;
 	}

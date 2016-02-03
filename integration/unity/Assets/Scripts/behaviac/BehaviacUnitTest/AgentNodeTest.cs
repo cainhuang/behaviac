@@ -103,6 +103,7 @@ public class AgentNodeTest : behaviac.Agent
         this.Variables.Clear();
     }
 
+    [behaviac.MethodMetaInfo()]
     public void initChildAgentTest()
     {
         var testChildAgent = getChildAgent<ChildNodeTest>("par_child_agent_1");
@@ -331,4 +332,15 @@ where T : behaviac.Agent
 [behaviac.TypeMetaInfo()]
 public class ChildNodeTest : AgentNodeTest
 {
+    [behaviac.MethodMetaInfo()]
+    public float GetConstFloatValue()
+    {
+        return 1000.0f;
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public double GetConstDoubleValue()
+    {
+        return 1000.0;
+    }
 }

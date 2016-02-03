@@ -43,8 +43,9 @@ namespace behaviac
         public override bool Evaluate(Agent pAgent)
         {
             bool ret = true;
-            foreach(BehaviorNode c in this.m_children)
+            for (int i = 0; i < this.m_children.Count; ++i)
             {
+                BehaviorNode c = this.m_children[i];
                 ret = c.Evaluate(pAgent);
 
                 if (ret)

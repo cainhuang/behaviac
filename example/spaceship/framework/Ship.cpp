@@ -23,6 +23,7 @@ namespace framework
 	GameLogic* framework::gl;
 
 	BEGIN_PROPERTIES_DESCRIPTION(Ship)
+	{
 		REGISTER_METHOD(checkresult);
 		REGISTER_METHOD(Fire);
 		REGISTER_METHOD(GotoPoint).PARAM_DISPLAY_INFO(L"x").PARAM_DISPLAY_INFO(L"y").PARAM_DISPLAY_INFO(L"speed");
@@ -31,6 +32,9 @@ namespace framework
 
 		REGISTER_METHOD(getXPosition);
 		REGISTER_METHOD(getYPosition);
+		REGISTER_METHOD(GetConstFloatValue);
+		REGISTER_METHOD(GetConstDoubleValue);
+	}
 	END_PROPERTIES_DESCRIPTION()
 
 	Ship::Ship() : GameObject(), projectileBrain(0), m_bStarted(false), m_time(0.0f), m_speed(0.0f)
@@ -167,6 +171,16 @@ namespace framework
 		ws->moveObject(this, finalPosition);
 
 		return false;
+	}
+
+	float Ship::GetConstFloatValue()
+	{
+		return 1000.0f;
+	}
+
+	double Ship::GetConstDoubleValue()
+	{
+		return 1000.0;
 	}
 
 	void Ship::DestroyAllNearbyProjectiles(float radius)

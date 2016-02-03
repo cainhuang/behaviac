@@ -134,6 +134,8 @@ static void SetExePath()
     *p = '\0';
 
     SetCurrentDirectory(szCurPath);
+
+	printf("Working Directory: %s\n", szCurPath);
 #endif
 }
 
@@ -142,6 +144,8 @@ int main(int argc, char** argv)
     // int BEHAVIAC_UNIQUE_NAME(intVar) = 0;
     // float BEHAVIAC_UNIQUE_NAME(floatVar) = 0.0f;
     SetExePath();
+
+	printf("BEHAVIAC_COMPILER_NAME=%s\n", BEHAVIAC_COMPILER_NAME);
 
     CommandLineParameterParser CLPP(argc, argv);
     //if to wait for the key to end

@@ -37,13 +37,14 @@ namespace behaviac
         virtual ~Wait();
         virtual void load(int version, const char* agentType, const properties_t& properties);
 
-        virtual float GetTime(Agent* pAgent) const;
+		virtual double GetTime(Agent* pAgent) const;
 
     private:
         virtual BehaviorTask* createTask() const;
 
     protected:
-        Property*	m_time_var;
+        Property*		m_time_var;
+		CMethodBase*	m_time_m;
 
         friend class WaitTask;
     };
@@ -66,10 +67,10 @@ namespace behaviac
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
-        float	GetTime(Agent* pAgent) const;
+        double	GetTime(Agent* pAgent) const;
 
-        float	m_start;
-        float	m_time;
+		double	m_start;
+		double	m_time;
     };
     /*! @} */
     /*! @} */

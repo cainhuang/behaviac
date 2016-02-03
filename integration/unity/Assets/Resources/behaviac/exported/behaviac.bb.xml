@@ -96,53 +96,6 @@
       <property name="c_Location" type="UnityEngine::Vector3" member="false" static="false" defaultvalue="{x=0;y=0;z=0;}" />
     </properties>
   </agent>
-  <agent type="FSMAgentTest" base="behaviac::Agent">
-    <properties>
-      <property name="Message" type="FSMAgentTest::EMessage" member="true" static="false" agent="FSMAgentTest" />
-      <property name="InactiveCount" type="int" member="false" static="false" defaultvalue="0" />
-      <property name="ActiveCount" type="uint" member="false" static="false" defaultvalue="0" />
-      <property name="PauseCount" type="short" member="false" static="false" defaultvalue="0" />
-      <property name="ExitCount" type="long" member="false" static="false" defaultvalue="0" />
-      <property name="FoodCount" type="int" member="false" static="false" defaultvalue="0" />
-      <property name="EnergyCount" type="int" member="false" static="false" defaultvalue="0" />
-    </properties>
-  </agent>
-  <agent type="HTNAgentHouseBase" base="behaviac::Agent">
-    <properties>
-      <property name="Money" type="int" member="false" static="false" defaultvalue="0" />
-    </properties>
-  </agent>
-  <agent type="HTNAgentHouse" base="HTNAgentHouseBase">
-    <properties>
-      <property name="Money" type="int" member="false" static="false" defaultvalue="0" />
-      <property name="Land" type="bool" member="false" static="false" defaultvalue="false" />
-      <property name="GoodCredit" type="bool" member="false" static="false" defaultvalue="true" />
-      <property name="Contract" type="bool" member="false" static="false" defaultvalue="false" />
-      <property name="Permit" type="bool" member="false" static="false" defaultvalue="false" />
-      <property name="HouseBuilt" type="bool" member="false" static="false" defaultvalue="false" />
-      <property name="Mortgage" type="bool" member="false" static="false" defaultvalue="false" />
-      <property name="House" type="bool" member="false" static="false" defaultvalue="false" />
-    </properties>
-    <methods>
-      <method name="root" agent="HTNAgentHouse" />
-      <method name="build_house" agent="HTNAgentHouse" />
-      <method name="construct" agent="HTNAgentHouse" />
-    </methods>
-  </agent>
-  <agent type="HTNAgentTravel" base="behaviac::Agent">
-    <properties />
-    <methods>
-      <method name="root" agent="HTNAgentTravel" />
-      <method name="travel" agent="HTNAgentTravel">
-        <parameter name="x" type="int" />
-        <parameter name="y" type="int" />
-      </method>
-      <method name="travel_by_air" agent="HTNAgentTravel">
-        <parameter name="x" type="int" />
-        <parameter name="y" type="int" />
-      </method>
-    </methods>
-  </agent>
   <agent type="ParTestAgentBase" base="behaviac::Agent">
     <properties>
       <property name="STV_BOOL_0" type="bool" member="true" static="true" agent="ParTestAgentBase" />
@@ -246,6 +199,53 @@
       <property name="TV_SBYTE_0" type="sbyte" member="true" static="false" agent="ParTestAgentBase" />
       <property name="target" type="ParTestAgent" member="false" static="false" defaultvalue="null" />
     </properties>
+  </agent>
+  <agent type="FSMAgentTest" base="behaviac::Agent">
+    <properties>
+      <property name="Message" type="FSMAgentTest::EMessage" member="true" static="false" agent="FSMAgentTest" />
+      <property name="InactiveCount" type="int" member="false" static="false" defaultvalue="0" />
+      <property name="ActiveCount" type="uint" member="false" static="false" defaultvalue="0" />
+      <property name="PauseCount" type="short" member="false" static="false" defaultvalue="0" />
+      <property name="ExitCount" type="long" member="false" static="false" defaultvalue="0" />
+      <property name="FoodCount" type="int" member="false" static="false" defaultvalue="0" />
+      <property name="EnergyCount" type="int" member="false" static="false" defaultvalue="0" />
+    </properties>
+  </agent>
+  <agent type="HTNAgentHouseBase" base="behaviac::Agent">
+    <properties>
+      <property name="Money" type="int" member="false" static="false" defaultvalue="0" />
+    </properties>
+  </agent>
+  <agent type="HTNAgentHouse" base="HTNAgentHouseBase">
+    <properties>
+      <property name="Money" type="int" member="false" static="false" defaultvalue="0" />
+      <property name="Land" type="bool" member="false" static="false" defaultvalue="false" />
+      <property name="GoodCredit" type="bool" member="false" static="false" defaultvalue="true" />
+      <property name="Contract" type="bool" member="false" static="false" defaultvalue="false" />
+      <property name="Permit" type="bool" member="false" static="false" defaultvalue="false" />
+      <property name="HouseBuilt" type="bool" member="false" static="false" defaultvalue="false" />
+      <property name="Mortgage" type="bool" member="false" static="false" defaultvalue="false" />
+      <property name="House" type="bool" member="false" static="false" defaultvalue="false" />
+    </properties>
+    <methods>
+      <method name="root" agent="HTNAgentHouse" />
+      <method name="build_house" agent="HTNAgentHouse" />
+      <method name="construct" agent="HTNAgentHouse" />
+    </methods>
+  </agent>
+  <agent type="HTNAgentTravel" base="behaviac::Agent">
+    <properties />
+    <methods>
+      <method name="root" agent="HTNAgentTravel" />
+      <method name="travel" agent="HTNAgentTravel">
+        <parameter name="x" type="int" />
+        <parameter name="y" type="int" />
+      </method>
+      <method name="travel_by_air" agent="HTNAgentTravel">
+        <parameter name="x" type="int" />
+        <parameter name="y" type="int" />
+      </method>
+    </methods>
   </agent>
   <agent type="ParTestRegNameAgent" base="behaviac::Agent">
     <properties>

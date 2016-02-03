@@ -45,7 +45,8 @@ namespace behaviac
         virtual BehaviorTask* createTask() const;
 
     protected:
-        Property*	m_frames_var;
+        Property*		m_frames_var;
+		CMethodBase*	m_frames_method;
 
         friend class DecoratorFramesTask;
     };

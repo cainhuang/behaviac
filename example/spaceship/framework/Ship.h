@@ -44,6 +44,9 @@ namespace framework
 		bool GotoPoint(float x, float y, float speed);
 		bool GotoPointRelative(float x, float y, float time);
 
+		float GetConstFloatValue();
+		double GetConstDoubleValue();
+
 		void DestroyAllNearbyProjectiles(float radius);
 
 		behaviac::EBTStatus checkresult(bool bFired);

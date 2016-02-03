@@ -15,17 +15,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using Behaviac.Design.Nodes;
+using Behaviac.Design.Attachments;
 
 namespace PluginBehaviac.NodeExporters
 {
     public class AttachmentExporter
     {
-        public virtual void GenerateClass(Node node, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
+        public virtual void GenerateClass(Attachment attachment, StreamWriter stream, string indent, string nodeName, string btClassName)
         {
         }
 
-        public virtual void GenerateInstance(Node node, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
+        public virtual void GenerateInstance(Attachment attachment, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
         {
         }
     }

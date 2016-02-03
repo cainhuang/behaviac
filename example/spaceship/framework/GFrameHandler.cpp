@@ -30,14 +30,14 @@ void GFrameHandler::reset()
     tpf_limit = 20;
 }
 
-void GFrameHandler::set_fps_limit(int fps)
+void GFrameHandler::set_fps_limit(int fps_)
 {
-    if (fps < 1)
+    if (fps_ < 1)
     {
         return;
     }
 
-    float sleep_interval = 1000.0f / (float)fps;
+    float sleep_interval = 1000.0f / (float)fps_;
 
     tpf_limit = (int)(sleep_interval + 0.495f);
 }

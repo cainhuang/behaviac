@@ -20,6 +20,7 @@ namespace behaviac
      Return values of tick/update and valid states for behaviors.
     */
 
+    [behaviac.TypeMetaInfo()]
     public enum EBTStatus
     {
         BT_INVALID,

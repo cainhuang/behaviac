@@ -14,9 +14,10 @@ namespace behaviac
         // called before loading files, otherwise, locals have been added and will be instantiated
         public void Instantiate(Agent pAgent)
         {
-            foreach(Property property_ in this.m_properties.Values)
+            var e = this.m_properties.Values.GetEnumerator();
+            while (e.MoveNext())
             {
-                property_.Instantiate(pAgent);
+                e.Current.Instantiate(pAgent);
             }
         }
 
@@ -157,9 +158,10 @@ namespace behaviac
 
         public static void UnloadLocals()
         {
-            foreach(var bb in agent_type_blackboards.Values)
+            var e = agent_type_blackboards.Values.GetEnumerator();
+            while (e.MoveNext())
             {
-                bb.ClearLocals();
+                e.Current.ClearLocals();
             }
 
             //don't clear agent types
@@ -168,9 +170,10 @@ namespace behaviac
 
         public static void Cleanup()
         {
-            foreach(var bb in agent_type_blackboards.Values)
+            var e = agent_type_blackboards.Values.GetEnumerator();
+            while (e.MoveNext())
             {
-                bb.cleanup();
+                e.Current.cleanup();
             }
 
             agent_type_blackboards.Clear();
@@ -180,17 +183,28 @@ namespace behaviac
 
         static partial void load_cs();
 
+        private static bool _generatedRegisterationTypes = false;
+        public static bool GeneratedRegisterationTypes
+        {
+            get { return _generatedRegisterationTypes; }
+            set { _generatedRegisterationTypes = value; }
+        }
+
         static partial void RegisterTypes_();
 
         static partial void UnRegisterTypes_();
 
         public static void RegisterTypes()
         {
+            GeneratedRegisterationTypes = false;
+
             RegisterTypes_();
         }
 
         public static void UnRegisterTypes()
         {
+            GeneratedRegisterationTypes = false;
+
             UnRegisterTypes_();
         }
 

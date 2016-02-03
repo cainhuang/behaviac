@@ -80,7 +80,7 @@ namespace Behaviac.Design
 
         private void setParTypes() {
             this.typeComboBox.Items.Clear();
-            foreach(string typeName in Plugin.GetAllMemberValueTypeNames(false)) {
+            foreach(string typeName in Plugin.GetAllMemberValueTypeNames(false, true)) {
                 this.typeComboBox.Items.Add(typeName);
             }
         }

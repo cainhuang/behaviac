@@ -69,6 +69,7 @@ LOAD_TEST(btunittest, decoration_not_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/decoration_not_ut_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(1, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -78,6 +79,7 @@ LOAD_TEST(btunittest, decoration_not_ut_1)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/decoration_not_ut_1", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
@@ -505,6 +507,7 @@ LOAD_TEST(btunittest, decoration_alwaysfailure_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/decoration_alwaysfailure_ut_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(1, myTestAgent->testVar_0);
     CHECK_EQUAL(1, myTestAgent->testVar_1);
     CHECK_FLOAT_EQUAL(1.0f, myTestAgent->testVar_2);
@@ -517,6 +520,7 @@ LOAD_TEST(btunittest, decoration_alwayssuccess_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/decoration_alwayssuccess_ut_0", format);
     myTestAgent->resetProperties();
     behaviac::EBTStatus status = myTestAgent->btexec();
+    BEHAVIAC_UNUSED_VAR(status);
     CHECK_EQUAL(0, myTestAgent->testVar_0);
     CHECK_EQUAL(0, myTestAgent->testVar_1);
     CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);
@@ -533,6 +537,7 @@ LOAD_TEST(btunittest, decoration_alwaysrunning_ut_0)
     {
         myTestAgent->resetProperties();
         behaviac::EBTStatus status = myTestAgent->btexec();
+        BEHAVIAC_UNUSED_VAR(status);
         CHECK_EQUAL(0, myTestAgent->testVar_0);
         CHECK_EQUAL(0, myTestAgent->testVar_1);
         CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);

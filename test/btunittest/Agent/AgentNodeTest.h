@@ -101,7 +101,7 @@ public:
     {
     }
 
-    void initChildAgentTest(const char* strChildAgentName);
+    void initChildAgentTest();
 
     template<class ChildAgentType>
     ChildAgentType* getChildAgent(int var_0, const char* strChildAgentName)
@@ -294,4 +294,8 @@ public:
     virtual ~ChildNodeTest();
 
     DECLARE_BEHAVIAC_AGENT(ChildNodeTest, AgentNodeTest);
+
+public:
+	float GetConstFloatValue();
+	double GetConstDoubleValue();
 };

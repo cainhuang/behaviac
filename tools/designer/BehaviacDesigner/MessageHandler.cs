@@ -48,6 +48,8 @@ namespace Behaviac.Design
                 if (msg.StartsWith("[workspace]")) {
                     processWorkspace(msg);
 
+                    TimelineDock.Continue();
+
                 } else if (msg.StartsWith("[connected]")) {
                     processConnected();
 

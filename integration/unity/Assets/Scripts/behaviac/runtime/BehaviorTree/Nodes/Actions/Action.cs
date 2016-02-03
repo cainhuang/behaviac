@@ -183,8 +183,9 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach(property_t p in properties)
+            for (int i = 0; i < properties.Count; ++i)
             {
+                property_t p = properties[i];
                 if (p.name == "Method")
                 {
                     if (!string.IsNullOrEmpty(p.value))

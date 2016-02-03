@@ -763,9 +763,9 @@ namespace behaviac
 
             public void Load(Agent parent, ISerializableNode node)
             {
-                foreach(CMemberBase m in ms_members)
+                for (int i = 0; i < ms_members.Count; ++i)
                 {
-                    m.Load(parent, node);
+                    ms_members[i].Load(parent, node);
                 }
 
                 if (this.m_parent != null)
@@ -781,9 +781,9 @@ namespace behaviac
                     this.m_parent.Save(parent, node);
                 }
 
-                foreach(CMemberBase m in ms_members)
+                for (int i = 0; i < ms_members.Count; ++i)
                 {
-                    m.Save(parent, node);
+                    ms_members[i].Save(parent, node);
                 }
             }
 
@@ -1512,15 +1512,17 @@ namespace behaviac
         public void btunloadall()
         {
             List<BehaviorTree> bts = new List<BehaviorTree>();
-            foreach(BehaviorTreeTask btTask in this.BehaviorTreeTasks)
+            for (int i = 0; i < this.BehaviorTreeTasks.Count; ++i)
             {
+                BehaviorTreeTask btTask = this.BehaviorTreeTasks[i];
                 BehaviorNode btNode = btTask.GetNode();
                 Debug.Check(btNode is BehaviorTree);
                 BehaviorTree bt = (BehaviorTree)btNode;
 
                 bool bFound = false;
-                foreach(BehaviorTree it in bts)
+                for (int t = 0; t < bts.Count; ++t)
                 {
+                    BehaviorTree it = bts[t];
                     if (it == bt)
                     {
                         bFound = true;
@@ -1536,8 +1538,9 @@ namespace behaviac
                 Workspace.Instance.DestroyBehaviorTreeTask(btTask, this);
             }
 
-            foreach(BehaviorTree it in bts)
+            for (int t = 0; t < bts.Count; ++t)
             {
+                BehaviorTree it = bts[t];
                 this.btunload_pars(it);
 
                 Workspace.Instance.UnLoad(it.GetName());
@@ -1562,8 +1565,9 @@ namespace behaviac
                 List<string> bts = new List<string>();
 
                 //collect the bts
-                foreach(BehaviorTreeTask bt in this.m_behaviorTreeTasks)
+                for (int i = 0; i < this.m_behaviorTreeTasks.Count; ++i)
                 {
+                    BehaviorTreeTask bt = this.m_behaviorTreeTasks[i];
                     string btName = bt.GetName();
 
                     if (bts.IndexOf(btName) == -1)

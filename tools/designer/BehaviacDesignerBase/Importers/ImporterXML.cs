@@ -254,6 +254,8 @@ namespace Behaviac.Design.Importers
                         string classfullname = (classfullnameNode != null && classfullnameNode.Value.Length > 0) ? classfullnameNode.Value : "";
                         string className = HandleBaseName(classfullname);
 
+                        Plugin.AllMetaTypes.Add(classfullname);
+
                         XmlAttribute baseNode = agentNode.Attributes["base"];
                         string baseName = (baseNode != null && baseNode.Value.Length > 0) ? baseNode.Value : "Agent";
 
@@ -264,13 +266,16 @@ namespace Behaviac.Design.Importers
                         XmlNode isRefTypeNode = agentNode.Attributes["IsRefType"];
                         string isRefType = (isRefTypeNode != null) ? isRefTypeNode.Value : "false";
 
+                        XmlNode isStaticNode = agentNode.Attributes["IsStatic"];
+                        string isStatic = (isStaticNode != null) ? isStaticNode.Value : "false";
+
                         XmlNode displayNameNode = agentNode.Attributes["DisplayName"];
                         string displayName = (displayNameNode != null && displayNameNode.Value.Length > 0) ? displayNameNode.Value : classfullname;
 
                         XmlNode descNode = agentNode.Attributes["Desc"];
                         string desc = (descNode != null && descNode.Value.Length > 0) ? descNode.Value : displayName;
 
-                        wrtr.WriteLine("\t[Behaviac.Design.ClassDesc(\"{0}\", \"{1}\", {2}, {3}, \"{4}\", \"{5}\")]", classfullname, baseName, isinherited, isRefType, displayName, desc);
+                        wrtr.WriteLine("\t[Behaviac.Design.ClassDesc(\"{0}\", \"{1}\", {2}, {3}, {4}, \"{5}\", \"{6}\")]", classfullname, baseName, isinherited, isRefType, isStatic, displayName, desc);
                         wrtr.WriteLine("\tpublic class {0} : {1}", HandleHierarchyName(classfullname), (baseName == "Agent") ? "Behaviac.Design.Agent" : HandleHierarchyName(baseName));
                         wrtr.WriteLine("\t{");
                         {

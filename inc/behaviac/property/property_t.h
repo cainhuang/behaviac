@@ -153,6 +153,19 @@ namespace behaviac
             return result;
         }
 
+		virtual double GetDoubleValue(Agent* pAgent) const
+		{
+#ifdef _DEBUG
+            typedef VALUE_TYPE(VariableType) TTYPE;
+			BEHAVIAC_ASSERT(GetClassTypeNumberId<double>() == GetClassTypeNumberId<TTYPE>() ||
+				GetClassTypeNumberId<float>() == GetClassTypeNumberId<TTYPE>());
+#endif
+			const VariableType& retV = this->GetValue(pAgent);
+
+			double result = ConvertToDouble(retV);
+			return result;
+		}
+
 		virtual float DifferencePercentage(const Property* reference, const Property* other) const
         {
 			return const_cast<CMemberBase*>(this->m_memberBase)->DifferencePercentage(reference, other);

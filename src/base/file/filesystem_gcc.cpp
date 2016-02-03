@@ -737,9 +737,13 @@ namespace behaviac
 		s_bThreadFinish = false;
 
 		behaviac::wstring dirW = dir;
-		behaviac::string buffer = behaviac::StringUtils::Wide2Char(dirW);
 
-		if (pthread_create(&s_tid, NULL, ThreadFunc, const_cast<char*>(buffer.c_str())) < 0)
+		//to use static!
+		static behaviac::string s_buffer = "";
+
+		s_buffer = behaviac::StringUtils::Wide2Char(dirW);
+
+		if (pthread_create(&s_tid, NULL, ThreadFunc, const_cast<char*>(s_buffer.c_str())) < 0)
 		{
 			return false;
 		}

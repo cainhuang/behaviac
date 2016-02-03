@@ -6,10 +6,6 @@
     <node class="DecoratorCountLimit" id="1">
       <property Count="const int 5" />
       <property DecorateWhenChildEnds="true" />
-      <node class="Action" id="2">
-        <property Method="Self.AgentNodeTest::setTestVar_0(0)" />
-        <property ResultOption="BT_SUCCESS" />
-      </node>
       <custom>
         <node class="Or" id="4">
           <node class="And" id="5">
@@ -31,6 +27,10 @@
           </node>
         </node>
       </custom>
+      <node class="Action" id="2">
+        <property Method="Self.AgentNodeTest::setTestVar_0(0)" />
+        <property ResultOption="BT_SUCCESS" />
+      </node>
     </node>
     <node class="Action" id="3">
       <property Method="Self.AgentNodeTest::setTestVar_0(1)" />

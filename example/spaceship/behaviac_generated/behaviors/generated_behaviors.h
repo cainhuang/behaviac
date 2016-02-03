@@ -194,6 +194,18 @@ namespace framework
 		return this->framework::Ship::Fire();
 	}
 
+	struct METHOD_TYPE_framework_Ship_GetConstDoubleValue { };
+	template<>  double Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GetConstDoubleValue>()
+	{
+		return this->framework::Ship::GetConstDoubleValue();
+	}
+
+	struct METHOD_TYPE_framework_Ship_GetConstFloatValue { };
+	template<>  float Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_GetConstFloatValue>()
+	{
+		return this->framework::Ship::GetConstFloatValue();
+	}
+
 	struct METHOD_TYPE_framework_Ship_getXPosition { };
 	template<>  float Ship::_Execute_Method_<METHOD_TYPE_framework_Ship_getXPosition>()
 	{
@@ -1297,7 +1309,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return (float&)pAgent->GetVariable<float >(2032254993u);
@@ -1498,10 +1510,10 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
-			return 1000;
+			return ((framework::Ship*)pAgent)->_Execute_Method_<framework::METHOD_TYPE_framework_Ship_GetConstFloatValue, float >();
 		}
 	};
 
@@ -1746,7 +1758,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 1000;
@@ -1931,7 +1943,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 1000;
@@ -2161,7 +2173,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 500;
@@ -2234,7 +2246,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 200;
@@ -2307,7 +2319,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 200;
@@ -2642,7 +2654,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 500;
@@ -3044,7 +3056,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 1000;
@@ -3349,7 +3361,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 500;
@@ -3886,7 +3898,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 1000;

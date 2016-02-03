@@ -5,7 +5,7 @@
   <node class="Sequence" id="1">
     <node class="DecoratorFrames" id="23">
       <property DecorateWhenChildEnds="false" />
-      <property Time="const int 5" />
+      <property Frames="const int 5" />
       <node class="Sequence" id="15">
         <node class="Action" id="16">
           <property Method="Self.AgentNodeTest::SelectTarget()" />

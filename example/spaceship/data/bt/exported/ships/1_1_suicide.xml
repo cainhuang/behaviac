@@ -27,7 +27,7 @@
             <property ResultOption="BT_INVALID" />
           </node>
           <node class="Wait" id="7">
-            <property Time="const float 1000" />
+            <property Time="Self.framework::Ship::GetConstFloatValue()" />
           </node>
         </node>
         <node class="Assignment" id="0">

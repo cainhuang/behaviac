@@ -58,6 +58,15 @@ namespace Behaviac.Design
 
             this.toolTipTimer.Interval = 1000;
             this.toolTipTimer.Tick += new EventHandler(toolTipTimer_Tick);
+
+            this.Disposed += new EventHandler(NodeTreeList_Disposed);
+        }
+
+        private void NodeTreeList_Disposed(object sender, EventArgs e)
+        {
+            AgentInstancePool.AddInstanceHandler -= AgentInstancePool_AddInstanceHandler;
+            FrameStatePool.AddPlanningHanlder -= AgentInstancePool_AddPlanningHandler;
+            Plugin.DebugAgentHandler -= DebugAgentInstance_SetHandler;
         }
 
         internal TreeView TreeView {

@@ -67,6 +67,8 @@
 			</Method>
 			<Method Name="getXPosition" DisplayName="" Desc="" Class="framework::Ship" ReturnType="float" />
 			<Method Name="getYPosition" DisplayName="" Desc="" Class="framework::Ship" ReturnType="float" />
+			<Method Name="GetConstFloatValue" DisplayName="" Desc="" Class="framework::Ship" ReturnType="float" />
+			<Method Name="GetConstDoubleValue" DisplayName="" Desc="" Class="framework::Ship" ReturnType="double" />
 		</agent>
 		<agent classfullname="framework::WorldState" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
 			<Member Name="time" DisplayName="" Desc="" Type="uint" Class="framework::WorldState" />

@@ -745,9 +745,10 @@ namespace behaviac
                 if (this->m_writeSocket)
                 {
                     SendAllPackets();
-                }
 
-                Socket::Close(m_writeSocket);
+					Socket::Close(m_writeSocket);
+				}
+
                 this->Clear();
 
                 Log("behaviac: disconnected. \n");

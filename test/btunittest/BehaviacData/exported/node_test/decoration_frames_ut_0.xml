@@ -5,7 +5,7 @@
   <node class="Sequence" id="0">
     <node class="DecoratorFrames" id="1">
       <property DecorateWhenChildEnds="false" />
-      <property Time="const int 100" />
+      <property Frames="const int 100" />
       <node class="Action" id="2">
         <property Method="Self.AgentNodeTest::setTestVar_0(0)" />
         <property ResultOption="BT_SUCCESS" />

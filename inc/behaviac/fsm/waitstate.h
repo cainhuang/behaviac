@@ -25,10 +25,11 @@ namespace behaviac
     public:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
 
-		virtual float GetTime(Agent* pAgent) const;
+		virtual double GetTime(Agent* pAgent) const;
 
     protected:
-		Property*	m_time_var;
+		Property*		m_time_var;
+		CMethodBase*	m_time_m;
 
 		friend class WaitStateTask;
     };
@@ -48,10 +49,10 @@ namespace behaviac
         virtual void onexit(Agent* pAgent, EBTStatus s);
         virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
 
-		float	GetTime(Agent* pAgent) const;
+		double	GetTime(Agent* pAgent) const;
 
-		float	m_start;
-		float	m_time;
+		double	m_start;
+		double	m_time;
     };
 }
 #endif//BEHAVIAC_FSM_WAITSTATE_H

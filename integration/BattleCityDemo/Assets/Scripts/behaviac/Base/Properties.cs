@@ -1614,6 +1614,7 @@ namespace behaviac
 
             return null;
         }
+
         public virtual VariableType Get<VariableType>(Agent pAgent, bool bMemberGet, CMemberBase pMember, uint varId)
         {
             if (!this.m_variables.ContainsKey(varId))
@@ -1645,29 +1646,30 @@ namespace behaviac
 
             return default(VariableType);
         }
+
         public virtual void Log(Agent pAgent, bool bForce)
         {
 #if !BEHAVIAC_RELEASE
-
             if (Config.IsLoggingOrSocketing)
             {
-                foreach(IVariable pVar in this.m_variables.Values)
+                var e = this.m_variables.Values.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    if (bForce || pVar.IsChanged())
+                    if (bForce || e.Current.IsChanged())
                     {
-                        pVar.Log(pAgent);
+                        e.Current.Log(pAgent);
                     }
                 }
             }
-
 #endif
         }
 
         public void Reset()
         {
-            foreach(IVariable pVar in this.m_variables.Values)
+            var e = this.m_variables.Values.GetEnumerator();
+            while (e.MoveNext())
             {
-                pVar.Reset();
+                e.Current.Reset();
             }
         }
 
@@ -1680,18 +1682,20 @@ namespace behaviac
         {
             target.m_variables.Clear();
 
-            foreach(IVariable pVar in this.m_variables.Values)
+            var e = this.m_variables.Values.GetEnumerator();
+            while (e.MoveNext())
             {
-                IVariable pNew = pVar.clone();
+                IVariable pNew = e.Current.clone();
 
                 target.m_variables[pNew.GetId()] = pNew;
             }
 
             if (!Object.ReferenceEquals(pAgent, null))
             {
-                foreach(IVariable pVar in target.m_variables.Values)
+                e = target.m_variables.Values.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    pVar.CopyTo(pAgent);
+                    e.Current.CopyTo(pAgent);
                 }
             }
         }
@@ -1701,9 +1705,10 @@ namespace behaviac
             CSerializationID variablesId = new CSerializationID("vars");
             ISerializableNode varsNode = node.newChild(variablesId);
 
-            foreach(IVariable pVar in this.m_variables.Values)
+            var e = this.m_variables.Values.GetEnumerator();
+            while (e.MoveNext())
             {
-                pVar.Save(varsNode);
+                e.Current.Save(varsNode);
             }
         }
 

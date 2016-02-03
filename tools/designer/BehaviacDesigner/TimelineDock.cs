@@ -51,7 +51,10 @@ namespace Behaviac.Design
         }
 
         internal static void UpdateUIState(EditModes editMode) {
-            if (_timelineDock != null) {
+            _currentFrame = -1;
+
+            if (_timelineDock != null)
+            {
                 if (Plugin.UpdateMode == UpdateModes.Continue) {
                     _timelineDock.playButton.Image = Resources.Pause;
                     _timelineDock.toolTip.SetToolTip(_timelineDock.playButton, "Pause");
@@ -77,8 +80,6 @@ namespace Behaviac.Design
                 if (editMode != EditModes.Connect) {
                     MessageQueue.IsConnected = false;
                 }
-
-                _currentFrame = AgentDataPool.TotalFrames;
             }
         }
 
@@ -419,7 +420,7 @@ namespace Behaviac.Design
 
             } else {
                 if (Plugin.EditMode == EditModes.Connect) {
-                    _currentFrame = AgentDataPool.TotalFrames;
+                    _currentFrame = -1;
                 }
 
                 this.effectTimer.Enabled = true;

@@ -68,6 +68,7 @@ namespace PluginBehaviac.NodeExporters
             {
                 string className = GetGeneratedClassName(node, btClassName, nodeName);
 
+                stream.WriteLine("{0}\t[behaviac.GeneratedTypeMetaInfo()]", indent);
                 stream.WriteLine("{0}\tclass {1} : behaviac.{2}\r\n{0}\t{{", indent, className, node.ExportClass);
 
                 stream.WriteLine("{0}\t\tpublic {1}()", indent, className);

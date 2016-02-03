@@ -116,7 +116,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((CPerformanceAgent*)pAgent)->DistanceToEnemy;
+			float& opl = ((CPerformanceAgent*)pAgent)->DistanceToEnemy;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_SmallDisance") == 4142645218u);
 			float& opr = (float&)pAgent->GetVariable<float >(4142645218u);
 			bool op = Details::LessEqual(opl, opr);
@@ -136,7 +136,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((CPerformanceAgent*)pAgent)->HP;
+			float& opl = ((CPerformanceAgent*)pAgent)->HP;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_HealthThreshold") == 1146605254u);
 			float& opr = (float&)pAgent->GetVariable<float >(1146605254u);
 			bool op = Details::LessEqual(opl, opr);
@@ -174,7 +174,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			float opl = ((CPerformanceAgent*)pAgent)->DistanceToEnemy;
+			float& opl = ((CPerformanceAgent*)pAgent)->DistanceToEnemy;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_BigDistance") == 1778440178u);
 			float& opr2 = (float&)pAgent->GetVariable<float >(1778440178u);
 			bool op = Details::Greater(opl, opr2);
@@ -227,7 +227,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((CPerformanceAgent*)pAgent)->DistanceToEnemy;
+			float& opl = ((CPerformanceAgent*)pAgent)->DistanceToEnemy;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_SmallDisance") == 4142645218u);
 			float& opr = (float&)pAgent->GetVariable<float >(4142645218u);
 			bool op = Details::Greater(opl, opr);
@@ -247,7 +247,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((CPerformanceAgent*)pAgent)->Hungry;
+			float& opl = ((CPerformanceAgent*)pAgent)->Hungry;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_HungryThreshold") == 825091127u);
 			float& opr = (float&)pAgent->GetVariable<float >(825091127u);
 			bool op = Details::GreaterEqual(opl, opr);
@@ -267,7 +267,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((CPerformanceAgent*)pAgent)->Food;
+			float& opl = ((CPerformanceAgent*)pAgent)->Food;
 			float opr = 0;
 			bool op = Details::Equal(opl, opr);
 			return op ? BT_SUCCESS : BT_FAILURE;
@@ -334,7 +334,7 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			float opl = ((CPerformanceAgent*)pAgent)->DistanceToEnemy;
+			float& opl = ((CPerformanceAgent*)pAgent)->DistanceToEnemy;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_SmallDisance") == 4142645218u);
 			float& opr = (float&)pAgent->GetVariable<float >(4142645218u);
 			bool op = Details::Greater(opl, opr);
@@ -385,7 +385,7 @@ namespace behaviac
 			pBT->SetId((uint16_t)-1);
 			pBT->SetName("performance/Performance");
 			pBT->SetIsFSM(false);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 			pBT->SetAgentType("CPerformanceAgent");
 #endif
 			// pars
@@ -398,7 +398,7 @@ namespace behaviac
 				DecoratorLoop_bt_performance_Performance_node1* node1 = BEHAVIAC_NEW DecoratorLoop_bt_performance_Performance_node1;
 				node1->SetClassNameString("DecoratorLoop");
 				node1->SetId(1);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 				node1->SetAgentType("CPerformanceAgent");
 #endif
 				pBT->AddChild(node1);
@@ -406,7 +406,7 @@ namespace behaviac
 					Selector* node21 = BEHAVIAC_NEW Selector;
 					node21->SetClassNameString("Selector");
 					node21->SetId(21);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 					node21->SetAgentType("CPerformanceAgent");
 #endif
 					node1->AddChild(node21);
@@ -414,7 +414,7 @@ namespace behaviac
 						Sequence* node0 = BEHAVIAC_NEW Sequence;
 						node0->SetClassNameString("Sequence");
 						node0->SetId(0);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node0->SetAgentType("CPerformanceAgent");
 #endif
 						node21->AddChild(node0);
@@ -422,7 +422,7 @@ namespace behaviac
 							Condition_bt_performance_Performance_node5* node5 = BEHAVIAC_NEW Condition_bt_performance_Performance_node5;
 							node5->SetClassNameString("Condition");
 							node5->SetId(5);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node5->SetAgentType("CPerformanceAgent");
 #endif
 							node0->AddChild(node5);
@@ -432,7 +432,7 @@ namespace behaviac
 							Selector* node11 = BEHAVIAC_NEW Selector;
 							node11->SetClassNameString("Selector");
 							node11->SetId(11);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node11->SetAgentType("CPerformanceAgent");
 #endif
 							node0->AddChild(node11);
@@ -440,7 +440,7 @@ namespace behaviac
 								Sequence* node2 = BEHAVIAC_NEW Sequence;
 								node2->SetClassNameString("Sequence");
 								node2->SetId(2);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node2->SetAgentType("CPerformanceAgent");
 #endif
 								node11->AddChild(node2);
@@ -448,7 +448,7 @@ namespace behaviac
 									Condition_bt_performance_Performance_node6* node6 = BEHAVIAC_NEW Condition_bt_performance_Performance_node6;
 									node6->SetClassNameString("Condition");
 									node6->SetId(6);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node6->SetAgentType("CPerformanceAgent");
 #endif
 									node2->AddChild(node6);
@@ -458,7 +458,7 @@ namespace behaviac
 									Action_bt_performance_Performance_node7* node7 = BEHAVIAC_NEW Action_bt_performance_Performance_node7;
 									node7->SetClassNameString("Action");
 									node7->SetId(7);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node7->SetAgentType("CPerformanceAgent");
 #endif
 									// attachments
@@ -466,7 +466,7 @@ namespace behaviac
 										Precondition_bt_performance_Performance_attach3* attach3 = BEHAVIAC_NEW Precondition_bt_performance_Performance_attach3;
 										attach3->SetClassNameString("Precondition");
 										attach3->SetId(3);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										attach3->SetAgentType("CPerformanceAgent");
 #endif
 										node7->Attach(attach3, true, false, false);
@@ -481,7 +481,7 @@ namespace behaviac
 								Action_bt_performance_Performance_node19* node19 = BEHAVIAC_NEW Action_bt_performance_Performance_node19;
 								node19->SetClassNameString("Action");
 								node19->SetId(19);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node19->SetAgentType("CPerformanceAgent");
 #endif
 								node11->AddChild(node19);
@@ -495,7 +495,7 @@ namespace behaviac
 						Parallel_bt_performance_Performance_node22* node22 = BEHAVIAC_NEW Parallel_bt_performance_Performance_node22;
 						node22->SetClassNameString("Parallel");
 						node22->SetId(22);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node22->SetAgentType("CPerformanceAgent");
 #endif
 						node21->AddChild(node22);
@@ -503,7 +503,7 @@ namespace behaviac
 							Condition_bt_performance_Performance_node16* node16 = BEHAVIAC_NEW Condition_bt_performance_Performance_node16;
 							node16->SetClassNameString("Condition");
 							node16->SetId(16);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node16->SetAgentType("CPerformanceAgent");
 #endif
 							node22->AddChild(node16);
@@ -513,7 +513,7 @@ namespace behaviac
 							Sequence* node23 = BEHAVIAC_NEW Sequence;
 							node23->SetClassNameString("Sequence");
 							node23->SetId(23);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node23->SetAgentType("CPerformanceAgent");
 #endif
 							node22->AddChild(node23);
@@ -521,7 +521,7 @@ namespace behaviac
 								Condition_bt_performance_Performance_node9* node9 = BEHAVIAC_NEW Condition_bt_performance_Performance_node9;
 								node9->SetClassNameString("Condition");
 								node9->SetId(9);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node9->SetAgentType("CPerformanceAgent");
 #endif
 								node23->AddChild(node9);
@@ -531,7 +531,7 @@ namespace behaviac
 								Selector* node10 = BEHAVIAC_NEW Selector;
 								node10->SetClassNameString("Selector");
 								node10->SetId(10);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node10->SetAgentType("CPerformanceAgent");
 #endif
 								node23->AddChild(node10);
@@ -539,7 +539,7 @@ namespace behaviac
 									Sequence* node12 = BEHAVIAC_NEW Sequence;
 									node12->SetClassNameString("Sequence");
 									node12->SetId(12);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node12->SetAgentType("CPerformanceAgent");
 #endif
 									node10->AddChild(node12);
@@ -547,7 +547,7 @@ namespace behaviac
 										Condition_bt_performance_Performance_node13* node13 = BEHAVIAC_NEW Condition_bt_performance_Performance_node13;
 										node13->SetClassNameString("Condition");
 										node13->SetId(13);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										node13->SetAgentType("CPerformanceAgent");
 #endif
 										node12->AddChild(node13);
@@ -557,7 +557,7 @@ namespace behaviac
 										Action_bt_performance_Performance_node14* node14 = BEHAVIAC_NEW Action_bt_performance_Performance_node14;
 										node14->SetClassNameString("Action");
 										node14->SetId(14);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 										node14->SetAgentType("CPerformanceAgent");
 #endif
 										node12->AddChild(node14);
@@ -569,7 +569,7 @@ namespace behaviac
 									Action_bt_performance_Performance_node15* node15 = BEHAVIAC_NEW Action_bt_performance_Performance_node15;
 									node15->SetClassNameString("Action");
 									node15->SetId(15);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 									node15->SetAgentType("CPerformanceAgent");
 #endif
 									node10->AddChild(node15);
@@ -585,7 +585,7 @@ namespace behaviac
 						Parallel_bt_performance_Performance_node20* node20 = BEHAVIAC_NEW Parallel_bt_performance_Performance_node20;
 						node20->SetClassNameString("Parallel");
 						node20->SetId(20);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 						node20->SetAgentType("CPerformanceAgent");
 #endif
 						node21->AddChild(node20);
@@ -593,7 +593,7 @@ namespace behaviac
 							Condition_bt_performance_Performance_node8* node8 = BEHAVIAC_NEW Condition_bt_performance_Performance_node8;
 							node8->SetClassNameString("Condition");
 							node8->SetId(8);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node8->SetAgentType("CPerformanceAgent");
 #endif
 							node20->AddChild(node8);
@@ -603,7 +603,7 @@ namespace behaviac
 							Sequence* node17 = BEHAVIAC_NEW Sequence;
 							node17->SetClassNameString("Sequence");
 							node17->SetId(17);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 							node17->SetAgentType("CPerformanceAgent");
 #endif
 							node20->AddChild(node17);
@@ -611,7 +611,7 @@ namespace behaviac
 								Action_bt_performance_Performance_node18* node18 = BEHAVIAC_NEW Action_bt_performance_Performance_node18;
 								node18->SetClassNameString("Action");
 								node18->SetId(18);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node18->SetAgentType("CPerformanceAgent");
 #endif
 								node17->AddChild(node18);
@@ -621,7 +621,7 @@ namespace behaviac
 								Action_bt_performance_Performance_node4* node4 = BEHAVIAC_NEW Action_bt_performance_Performance_node4;
 								node4->SetClassNameString("Action");
 								node4->SetId(4);
-#if !defined(BEHAVIAC_RELEASE)
+#if !BEHAVIAC_RELEASE
 								node4->SetAgentType("CPerformanceAgent");
 #endif
 								node17->AddChild(node4);

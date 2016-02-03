@@ -121,6 +121,11 @@ namespace behaviac
     class BEHAVIAC_API AutoProfileBlock
     {
     public:
+        void setProfiler(Profiler* profiler)
+        {
+            this->profiler_ = profiler;
+        }
+
         /// Construct. begin a profiling block with the specified name and optional call count.
         AutoProfileBlock(Profiler* profiler, const char* name, bool bDebugBlock);
 

@@ -60,7 +60,6 @@ namespace behaviac
             {
                 if (StringUtils::IsValidString(p.value))
                 {
-                    //int pParenthesis = p.value.IndexOf('(');
                     int pParenthesis = p_value.find_first_of('(');
 
                     if (pParenthesis == -1)

@@ -366,13 +366,14 @@ namespace behaviac
                             Type structType = this.m_params_value[i].GetType();
                             Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(structType.FullName);
 
-                            foreach(KeyValuePair<string, Property> pair in this.m_params[i].paramStructMembers)
+                            var e = this.m_params[i].paramStructMembers.GetEnumerator();
+                            while (e.MoveNext())
                             {
-                                CMemberBase member = objectDesc.GetMember(pair.Key);
+                                CMemberBase member = objectDesc.GetMember(e.Current.Key);
                                 object v = member.Get(this.m_params_value[i]);
 
-                                Agent pAgent = pair.Value.GetParentAgent(pSelf);
-                                pair.Value.SetValue(pAgent, v);
+                                Agent pAgent = e.Current.Value.GetParentAgent(pSelf);
+                                e.Current.Value.SetValue(pAgent, v);
                             }
                         }
                     }//end of if isRefOut
@@ -413,11 +414,12 @@ namespace behaviac
                         Type structType = this.m_params_value[i].GetType();
                         Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(structType.FullName);
 
-                        foreach(KeyValuePair<string, Property> pair in this.m_params[i].paramStructMembers)
+                        var e = this.m_params[i].paramStructMembers.GetEnumerator();
+                        while (e.MoveNext())
                         {
-                            CMemberBase member = objectDesc.GetMember(pair.Key);
+                            CMemberBase member = objectDesc.GetMember(e.Current.Key);
 
-                            object v = pair.Value.GetValue(parent, pSelf);
+                            object v = e.Current.Value.GetValue(parent, pSelf);
 
                             member.Set(this.m_params_value[i], v);
                         }
@@ -1180,8 +1182,9 @@ namespace behaviac
             }
 
             // search loaded plugins
-            foreach(Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+            for (int i = 0; i < AppDomain.CurrentDomain.GetAssemblies().Length; ++i)
             {
+                Assembly a = AppDomain.CurrentDomain.GetAssemblies()[i];
                 type = a.GetType(typeName);
 
                 if (type != null)
@@ -1693,8 +1696,9 @@ namespace behaviac
                 if (bIsStruct)
                 {
                     FieldInfo[] fields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-                    foreach(FieldInfo f in fields)
+                    for (int i = 0; i < fields.Length; ++i)
                     {
+                        FieldInfo f = fields[i];
                         object lf = f.GetValue(l);
                         object rf = f.GetValue(r);
                         bool bi = IfEquals(lf, rf);

@@ -92,17 +92,18 @@ namespace Behaviac.Design.Attributes
                 }
             }
 
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.SelfMethod)) {
+            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.SelfMethod))
+            {
                 _names.Add(VariableDef.kSelfMethod);
                 _types.Add(VariableDef.kSelfMethod);
-            }
 
-            if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Instance))
-            {
-                foreach (Plugin.InstanceName_t instanceName in instanceNames)
+                if (enumAtt.HasStyles(DesignerPropertyEnum.AllowStyles.Instance))
                 {
-                    _names.Add(instanceName.name_ + VariableDef.kMethod);
-                    _types.Add(instanceName.displayName_ + VariableDef.kMethod);
+                    foreach (Plugin.InstanceName_t instanceName in instanceNames)
+                    {
+                        _names.Add(instanceName.name_ + VariableDef.kMethod);
+                        _types.Add(instanceName.displayName_ + VariableDef.kMethod);
+                    }
                 }
             }
 

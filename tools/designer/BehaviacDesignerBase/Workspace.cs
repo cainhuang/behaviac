@@ -704,7 +704,7 @@ namespace Behaviac.Design
 
             // Set the default base agent.
             if (Plugin.AgentTypes.Count == 0) {
-                AgentType agent = new AgentType(typeof(Agent), "Agent", false, "Agent", "");
+                AgentType agent = new AgentType(typeof(Agent), "Agent", false, false, "Agent", "");
                 Plugin.AgentTypes.Add(agent);
             }
 

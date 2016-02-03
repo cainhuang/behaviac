@@ -28,8 +28,10 @@ namespace behaviac
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
-            foreach(property_t p in properties)
+
+            for (int i = 0; i < properties.Count; ++i)
             {
+                property_t p = properties[i];
                 if (p.name == "Frames")
                 {
                     int pParenthesis = p.value.IndexOf('(');
@@ -52,16 +54,19 @@ namespace behaviac
         {
             if (this.m_frames_var != null)
             {
-                Debug.Check(this.m_frames_var != null);
                 int frames = (int)this.m_frames_var.GetValue(pAgent);
 
                 return frames;
             }
-            else if (this.m_frames_method != null)
+            else
             {
-                int frames = (int)this.m_frames_method.Invoke(pAgent);
+                Debug.Check(this.m_frames_method != null);
+                if (this.m_frames_method != null)
+                {
+                    int frames = (int)this.m_frames_method.Invoke(pAgent);
 
-                return frames;
+                    return frames;
+                }
             }
 
             return 0;

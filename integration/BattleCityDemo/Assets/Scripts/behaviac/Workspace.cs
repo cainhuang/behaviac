@@ -375,7 +375,7 @@ namespace behaviac
         //
         // Summary:
         //     The real time in seconds since the game started (Read Only).
-        public virtual float TimeSinceStartup
+        public virtual double TimeSinceStartup
         {
             get
             {
@@ -468,6 +468,8 @@ namespace behaviac
 
             this.m_bInited = true;
 
+            this.RegisterStuff();           
+
             if (string.IsNullOrEmpty(this.FilePath))
             {
                 behaviac.Debug.LogError("No FilePath file is specified!");
@@ -483,12 +485,6 @@ namespace behaviac
             LoadWorkspaceAbsolutePath();
 
             m_frameSinceStartup = -1;
-
-            //////////////////////////////////////////////////////////
-            this.RegisterStuff();
-
-            AgentProperties.RegisterTypes();
-            AgentProperties.Load();
 
 #if !BEHAVIAC_RELEASE
 #if BEHAVIAC_HOTRELOAD
@@ -543,7 +539,6 @@ namespace behaviac
 
             Debug.Check(this.m_bRegistered);
 
-            AgentProperties.UnRegisterTypes();
             this.UnRegisterStuff();
 
             Context.Cleanup(-1);
@@ -562,8 +557,6 @@ namespace behaviac
             }
 #endif
 
-            AgentProperties.Cleanup();
-
             PlannerTask.Cleanup();
 
             LogManager.Instance.Close();
@@ -580,10 +573,27 @@ namespace behaviac
 
                 behaviac.Details.RegisterCompareValue();
                 behaviac.Details.RegisterComputeValue();
-                this.RegisterBehaviorNode();
-                this.RegisterMetas();
-                //Register all basic Types
+
+                AgentProperties.RegisterTypes();
+
+                if (!AgentProperties.GeneratedRegisterationTypes)
+                {
+                    this.RegisterMetas();
+                }
+                else
+                {
+                    for (int i = 0; i < m_agentTypes.Count; ++i)
+                    {
+                        TypeInfo_t typeInfo = m_agentTypes[i];
+                        RegisterType(typeInfo.type, true);
+                    }
+
+                    m_metaRegistered = true;
+                }
+
                 IVariable.RegisterBasicTypes();
+
+                AgentProperties.Load();
             }
         }
 
@@ -593,10 +603,12 @@ namespace behaviac
 
             this.UnRegisterBehaviorNode();
             this.UnRegisterMetas();
-            //unRegister all basic Types
+
             IVariable.UnRegisterBasicTypes();
+            AgentProperties.UnRegisterTypes();
 
             behaviac.Details.Cleanup();
+            AgentProperties.Cleanup();
 
             this.m_bRegistered = false;
         }
@@ -605,7 +617,8 @@ namespace behaviac
         {
             string wksAbsPath = this.GetWorkspaceAbsolutePath();
 
-            if (!string.IsNullOrEmpty(wksAbsPath))
+            // Even if the wksAbsPath is empty, the [workspace] should be sent out.
+            //if (!string.IsNullOrEmpty(wksAbsPath))
             {
                 Workspace.EFileFormat format = this.FileFormat;
                 string formatString = (format == Workspace.EFileFormat.EFF_xml ? "xml" : "bson");
@@ -812,15 +825,16 @@ namespace behaviac
                 List<string> results = new List<string>();
                 DateTime now = DateTime.Now;
 
-                foreach (KeyValuePair<string, DateTime> entry in events)
+                var e = events.GetEnumerator();
+                while (e.MoveNext())
                 {
                     // If the path has not received a new event in the last 75ms
                     // an event for the path should be fired
-                    double diff = now.Subtract(entry.Value).TotalMilliseconds;
+                    double diff = now.Subtract(e.Current.Value).TotalMilliseconds;
 
                     if (diff >= 75)
                     {
-                        results.Add(entry.Key);
+                        results.Add(e.Current.Key);
                     }
                 }
 
@@ -1508,7 +1522,12 @@ namespace behaviac
             Debug.Check(string.IsNullOrEmpty(StringUtils.FindExtension(relativePath)), "no extention to specify");
             Debug.Check(this.IsValidPath(relativePath));
 
-            this.TryInit();
+            bool bOk = this.TryInit();
+            if (!bOk)
+            {
+                //not init correctly
+                return false;
+            }
 
             BehaviorTree pBT = null;
 
@@ -1826,53 +1845,41 @@ namespace behaviac
 
         #region ExportMeta
 
-        private Dictionary<string, Type> m_behaviorNodeTypes = null;
-
-        private void RegisterBehaviorNode()
-        {
-            //Assembly a = Assembly.GetExecutingAssembly();
-            Assembly a = Assembly.GetCallingAssembly();
-
-            RegisterBehaviorNode(a);
-        }
+        private Dictionary<string, Type> m_behaviorNodeTypes = new Dictionary<string, Type>();
 
         private void UnRegisterBehaviorNode()
         {
             Debug.Check(m_behaviorNodeTypes != null);
             m_behaviorNodeTypes.Clear();
-            m_behaviorNodeTypes = null;
-        }
-
-        private void RegisterBehaviorNode(Assembly a)
-        {
-            //Debug.Check(m_behaviorNodeTypes != null);
-            if (m_behaviorNodeTypes == null)
-            {
-                m_behaviorNodeTypes = new Dictionary<string, Type>();
-            }
-
-            //List<Type> agentTypes = new List<Type>();
-            Type[] types = a.GetTypes();
-            foreach (Type type in types)
-            {
-                if (type.IsSubclassOf(typeof(behaviac.BehaviorNode)) && !type.IsAbstract)
-                {
-                    //Attribute[] attributes = (Attribute[])type.GetCustomAttributes(typeof(Behaviac.Design.BehaviorNodeDescAttribute), false);
-                    //if (attributes.Length > 0)
-                    {
-                        m_behaviorNodeTypes[type.Name] = type;
-                    }
-                }
-            }
         }
 
         public BehaviorNode CreateBehaviorNode(string className)
         {
-            Debug.Check(m_behaviorNodeTypes != null);
+            Type type = null;
 
             if (m_behaviorNodeTypes.ContainsKey(className))
             {
-                Type type = m_behaviorNodeTypes[className];
+                type = m_behaviorNodeTypes[className];
+            }
+            else
+            {
+                string fullClassName = "behaviac." + className.Replace("::", ".");
+                type = this.CallingAssembly.GetType(fullClassName, false);
+                Debug.Check(type != null);
+
+                if (type == null)
+                {
+                    type = this.CallingAssembly.GetType(className, false);
+                }
+
+                if (type != null)
+                {
+                    m_behaviorNodeTypes[className] = type;
+                }
+            }
+
+            if (type != null)
+            {
                 object p = Activator.CreateInstance(type);
                 return p as BehaviorNode;
             }
@@ -2046,8 +2053,9 @@ namespace behaviac
             {
                 MethodInfo[] methods = type.GetMethods(bindingFlags);
 
-                foreach (MethodInfo m in methods)
+                for (int i = 0; i < methods.Length; ++i)
                 {
+                    MethodInfo m = methods[i];
                     Attribute[] attributes = (Attribute[])m.GetCustomAttributes(typeof(behaviac.MethodMetaInfoAttribute), false);
 
                     if (attributes.Length > 0)
@@ -2062,8 +2070,9 @@ namespace behaviac
         {
             FieldInfo[] fields = type.GetFields(bindingFlags);
 
-            foreach (FieldInfo f in fields)
+            for (int i = 0; i < fields.Length; ++i)
             {
+                FieldInfo f = fields[i];
                 CollectMember(types, type, bIsAgentType, onlyExportPublicMembers, f, f.FieldType);
             }
         }
@@ -2072,8 +2081,9 @@ namespace behaviac
         {
             PropertyInfo[] properties = type.GetProperties(bindingFlags);
 
-            foreach (PropertyInfo p in properties)
+            for (int i = 0; i < properties.Length; ++i)
             {
+                PropertyInfo p = properties[i];
                 Attribute[] attributes = (Attribute[])p.GetCustomAttributes(typeof(behaviac.MemberMetaInfoAttribute), false);
 
                 if (attributes.Length > 0)
@@ -2134,8 +2144,9 @@ namespace behaviac
 
             ParameterInfo[] parameters = m.GetParameters();
 
-            foreach (ParameterInfo para in parameters)
+            for (int i = 0; i < parameters.Length; ++i)
             {
+                ParameterInfo para = parameters[i];
                 Type paramType = para.ParameterType;
 
                 if (para.ParameterType.IsByRef)
@@ -2268,15 +2279,16 @@ namespace behaviac
                 }
 
                 Array list = Enum.GetValues(type);
-                foreach (object enumVal in list)
+                var e = list.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    string value = Enum.GetName(type, enumVal);
+                    string value = Enum.GetName(type, e.Current);
 
                     xmlWriter.WriteStartElement("enum");
                     xmlWriter.WriteAttributeString("NativeValue", ns + value);
                     xmlWriter.WriteAttributeString("Value", value);
-                    xmlWriter.WriteAttributeString("DisplayName", behaviac.MemberMetaInfoAttribute.GetEnumDisplayName(enumVal));
-                    xmlWriter.WriteAttributeString("Desc", behaviac.MemberMetaInfoAttribute.GetEnumDescription(enumVal));
+                    xmlWriter.WriteAttributeString("DisplayName", behaviac.MemberMetaInfoAttribute.GetEnumDisplayName(e.Current));
+                    xmlWriter.WriteAttributeString("Desc", behaviac.MemberMetaInfoAttribute.GetEnumDescription(e.Current));
 
                     //end of enum
                     xmlWriter.WriteEndElement();
@@ -2299,8 +2311,9 @@ namespace behaviac
                 List<string> exportedMethods = new List<string>();
 
                 MethodInfo[] methods = type.GetMethods(bindingFlags);
-                foreach (MethodInfo m in methods)
+                for (int i = 0; i < methods.Length; ++i)
                 {
+                    MethodInfo m = methods[i];
                     Attribute[] attributes = (Attribute[])m.GetCustomAttributes(typeof(behaviac.MethodMetaInfoAttribute), false);
 
                     if (attributes.Length > 0)
@@ -2327,8 +2340,9 @@ namespace behaviac
         {
             FieldInfo[] fields = type.GetFields(bindingFlags);
 
-            foreach (FieldInfo f in fields)
+            for (int i = 0; i < fields.Length; ++i)
             {
+                FieldInfo f = fields[i];
                 ExportMember(xmlWriter, type, bIsAgentType, onlyExportPublicMembers, f, f.FieldType);
             }
         }
@@ -2337,8 +2351,9 @@ namespace behaviac
         {
             PropertyInfo[] properties = type.GetProperties(bindingFlags);
 
-            foreach (PropertyInfo p in properties)
+            for (int i = 0; i < properties.Length; ++i)
             {
+                PropertyInfo p = properties[i];
                 Attribute[] attributes = (Attribute[])p.GetCustomAttributes(typeof(behaviac.MemberMetaInfoAttribute), false);
 
                 if (attributes.Length > 0)
@@ -2467,8 +2482,9 @@ namespace behaviac
 
             ParameterInfo[] parameters = m.GetParameters();
 
-            foreach (ParameterInfo para in parameters)
+            for (int i = 0; i < parameters.Length; ++i)
             {
+                ParameterInfo para = parameters[i];
                 Attribute[] paramAttributes = (Attribute[])para.GetCustomAttributes(typeof(behaviac.ParamMetaInfoAttribute), false);
 
                 Type paramType = para.ParameterType;
@@ -2547,14 +2563,15 @@ namespace behaviac
             {
                 xmlWriter.WriteStartElement("instances");
 
-                foreach (Agent.AgentName_t m in Agent.Names.Values)
+                var e = Agent.Names.Values.GetEnumerator();
+                while (e.MoveNext())
                 {
                     xmlWriter.WriteStartElement("instance");
 
-                    xmlWriter.WriteAttributeString("name", m.instantceName_.Replace(".", "::"));
-                    xmlWriter.WriteAttributeString("class", m.className_.Replace(".", "::"));
-                    xmlWriter.WriteAttributeString("DisplayName", m.displayName_);
-                    xmlWriter.WriteAttributeString("Desc", m.desc_);
+                    xmlWriter.WriteAttributeString("name", e.Current.instantceName_.Replace(".", "::"));
+                    xmlWriter.WriteAttributeString("class", e.Current.className_.Replace(".", "::"));
+                    xmlWriter.WriteAttributeString("DisplayName", e.Current.displayName_);
+                    xmlWriter.WriteAttributeString("Desc", e.Current.desc_);
 
                     xmlWriter.WriteEndElement();
                 }
@@ -2632,20 +2649,22 @@ namespace behaviac
                             xmlWriter.WriteStartElement("types");
 
                             // export all enums
-                            foreach (KeyValuePair<string, Type> type in m_registerTypes)
+                            var e = m_registerTypes.GetEnumerator();
+                            while (e.MoveNext())
                             {
-                                if (Utils.IsEnumType(type.Value))
+                                if (Utils.IsEnumType(e.Current.Value))
                                 {
-                                    ExportEnumTypeField(xmlWriter, type.Value);
+                                    ExportEnumTypeField(xmlWriter, e.Current.Value);
                                 }
                             }
 
                             // export all structs
-                            foreach (KeyValuePair<string, Type> type in m_registerTypes)
+                            e = m_registerTypes.GetEnumerator();
+                            while (e.MoveNext())
                             {
-                                if (Utils.IsCustomClassType(type.Value) && !Utils.IsAgentType(type.Value) && !Utils.IsStaticType(type.Value))
+                                if (Utils.IsCustomClassType(e.Current.Value) && !Utils.IsAgentType(e.Current.Value) && !Utils.IsStaticType(e.Current.Value))
                                 {
-                                    ExportStructTypeField(xmlWriter, type.Value, onlyExportPublicMembers);
+                                    ExportStructTypeField(xmlWriter, e.Current.Value, onlyExportPublicMembers);
                                 }
                             }
 
@@ -2655,8 +2674,9 @@ namespace behaviac
                             // agents
                             xmlWriter.WriteStartElement("agents");
 
-                            foreach (TypeInfo_t typeInfo in m_agentTypes)
+                            for (int i = 0; i < m_agentTypes.Count; ++i)
                             {
+                                TypeInfo_t typeInfo = m_agentTypes[i];
                                 Type agentType = typeInfo.type;
 
                                 //Debug.Check(Utils.IsAgentType(agentType) || Utils.IsStaticType(agentType));
@@ -2681,11 +2701,16 @@ namespace behaviac
                                 if (attributes.Length > 0)
                                 {
                                     //behaviac.AgentTypeAttribute cda = (behaviac.AgentTypeAttribute)attributes[0];
-                                    Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(agentType.Name);
+                                    Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(agentType.FullName);
 
                                     xmlWriter.WriteAttributeString("DisplayName", objectDesc.displayName);
                                     xmlWriter.WriteAttributeString("Desc", objectDesc.desc);
                                     xmlWriter.WriteAttributeString("IsRefType", "true");
+
+                                    if (Utils.IsStaticType(agentType))
+                                    {
+                                        xmlWriter.WriteAttributeString("IsStatic", "true");
+                                    }
 
                                     ExportType(xmlWriter, agentType, true, onlyExportPublicMembers);
                                 }
@@ -2699,6 +2724,11 @@ namespace behaviac
                                     xmlWriter.WriteAttributeString("DisplayName", "");
                                     xmlWriter.WriteAttributeString("Desc", "");
                                     xmlWriter.WriteAttributeString("IsRefType", "true");
+
+                                    if (Utils.IsStaticType(agentType))
+                                    {
+                                        xmlWriter.WriteAttributeString("IsStatic", "true");
+                                    }
 
                                     if (!string.IsNullOrEmpty(agentType.Namespace))
                                     {
@@ -2747,11 +2777,23 @@ namespace behaviac
         private class TypeInfo_t
         {
             public Type type;
-            public bool bIsInherited;
+            public bool bIsInherited = false;
         }
 
         private List<TypeInfo_t> m_agentTypes = new List<TypeInfo_t>();
         private List<TypeInfo_t> m_agentTypes_Referenced = new List<TypeInfo_t>();
+
+        public void AddAgentType(Type agentType, bool isInherited)
+        {
+            if (!IsRegisterd(agentType))
+            {
+                TypeInfo_t typeInfo = new TypeInfo_t();
+                typeInfo.type = agentType;
+                typeInfo.bIsInherited = isInherited;
+
+                m_agentTypes.Add(typeInfo);
+            }
+        }
 
         private bool IsRegisterd(Type type)
         {
@@ -2773,15 +2815,27 @@ namespace behaviac
             return p != -1;
         }
 
+        private Assembly m_callingAssembly = null;
+        private Assembly CallingAssembly
+        {
+            get
+            {
+                if (m_callingAssembly == null)
+                {
+                    m_callingAssembly = Assembly.GetCallingAssembly();
+                }
+
+                return m_callingAssembly;
+            }
+        }
+
         private bool m_metaRegistered = false;
 
         private void RegisterMetas()
         {
             if (!m_metaRegistered)
             {
-                Assembly a = Assembly.GetCallingAssembly();
-
-                RegisterMetas(a);
+                RegisterMetas(this.CallingAssembly);
 
                 m_metaRegistered = true;
             }
@@ -2801,8 +2855,9 @@ namespace behaviac
             List<Type> baseTypes = new List<Type>();
 
             Type[] types = a.GetTypes();
-            foreach (Type type in types)
+            for (int i = 0; i < types.Length; ++i)
             {
+                Type type = types[i];
                 //if (type.IsSubclassOf(typeof(behaviac.Agent)) || Utils.IsStaticType(type))
                 {
                     if (!IsRegisterd(type))
@@ -2828,8 +2883,9 @@ namespace behaviac
                 }
             }
 
-            foreach (Type type in baseTypes)
+            for (int i = 0; i < baseTypes.Count; ++i)
             {
+                Type type = baseTypes[i];
                 if (!IsRegisterd(type))
                 {
                     TypeInfo_t typeInfo = new TypeInfo_t();
@@ -2842,8 +2898,9 @@ namespace behaviac
 
             SortAgentTypes(m_agentTypes);
 
-            foreach (TypeInfo_t typeInfo in m_agentTypes)
+            for (int i = 0; i < m_agentTypes.Count; ++i)
             {
+                TypeInfo_t typeInfo = m_agentTypes[i];
                 Type type = typeInfo.type;
                 //Debug.Check(Utils.IsAgentType(type) || Utils.IsStaticType(type));
                 RegisterType(type, true);
@@ -2854,8 +2911,9 @@ namespace behaviac
             baseTypes.Clear();
 
             //collect all its ancestor agent types if not registered yet
-            foreach (TypeInfo_t typeInfo in m_agentTypes_Referenced)
+            for (int i = 0; i < m_agentTypes_Referenced.Count; ++i)
             {
+                TypeInfo_t typeInfo = m_agentTypes_Referenced[i];
                 Type type = typeInfo.type;
 
                 if (!IsRegisterd(type))
@@ -2864,8 +2922,9 @@ namespace behaviac
                 }
             }
 
-            foreach (Type type in baseTypes)
+            for (int i = 0; i < baseTypes.Count; ++i)
             {
+                Type type = baseTypes[i];
                 if (!IsRegisterd_Referenced(type) && !IsRegisterd(type))
                 {
                     TypeInfo_t typeInfo = new TypeInfo_t();
@@ -2938,8 +2997,9 @@ namespace behaviac
         {
             m_registerTypes.Clear();
 
-            foreach (TypeInfo_t typeInfo in m_agentTypes)
+            for (int i = 0; i < m_agentTypes.Count; ++i)
             {
+                TypeInfo_t typeInfo = m_agentTypes[i];
                 Type agentType = typeInfo.type;
 
                 string typeFullName = GetFullTypeName(agentType);
@@ -2957,13 +3017,14 @@ namespace behaviac
                 }
             }
 
-            foreach (KeyValuePair<string, Type> type in m_registerTypes)
+            var e = m_registerTypes.GetEnumerator();
+            while (e.MoveNext())
             {
-                string typeName = type.Key;
+                string typeName = e.Current.Key;
                 typeName = typeName.Replace("::", ".");
                 typeName = typeName.Replace("+", ".");
 
-                IVariable.RegisterType(type.Value, typeName);
+                IVariable.RegisterType(e.Current.Value, typeName);
 
                 //int index = typeName.LastIndexOf(".");
                 //if (index >= 0)
@@ -3020,8 +3081,9 @@ namespace behaviac
                 BindingFlags bindingFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
 
                 FieldInfo[] fields = type.GetFields(bindingFlags);
-                foreach (FieldInfo f in fields)
+                for (int i = 0; i < fields.Length; ++i)
                 {
+                    FieldInfo f = fields[i];
                     //for agent type, only register members with MemberDescAttribute
                     behaviac.MemberMetaInfoAttribute memberDesc;
                     bool bToRegister = IfToRegister(bExpandMembers, f, out memberDesc);
@@ -3035,8 +3097,9 @@ namespace behaviac
                 }
 
                 PropertyInfo[] properties = type.GetProperties(bindingFlags);
-                foreach (PropertyInfo p in properties)
+                for (int i = 0; i < properties.Length; ++i)
                 {
+                    PropertyInfo p = properties[i];
                     //for agent type, only register members with MemberDescAttribute
                     behaviac.MemberMetaInfoAttribute memberDesc;
                     bool bToRegister = IfToRegister(bExpandMembers, p, out memberDesc);
@@ -3052,8 +3115,9 @@ namespace behaviac
                 if (bExpandMembers)
                 {
                     MethodInfo[] methods = type.GetMethods(bindingFlags);
-                    foreach (MethodInfo m in methods)
+                    for (int i = 0; i < methods.Length; ++i)
                     {
+                        MethodInfo m = methods[i];
                         Attribute[] attributes2 = (Attribute[])m.GetCustomAttributes(typeof(behaviac.MethodMetaInfoAttribute), false);
 
                         if (attributes2.Length > 0)
@@ -3064,9 +3128,9 @@ namespace behaviac
                             objectDesc.ms_methods.Add(method);
 
                             ParameterInfo[] parameters = m.GetParameters();
-
-                            foreach (ParameterInfo para in parameters)
+                            for (int k = 0; k < parameters.Length; ++k)
                             {
+                                ParameterInfo para = parameters[k];
                                 if ((Utils.IsCustomClassType(para.ParameterType) || Utils.IsEnumType(para.ParameterType)) &&
                                     !Agent.IsTypeRegisterd(para.ParameterType.FullName))
                                 {
@@ -3080,22 +3144,7 @@ namespace behaviac
                                 RegisterType(m.ReturnType, false);
                             }
                         }
-                    }//end of foreach
-
-                    //Type[] delegates = type.GetNestedTypes(bindingFlags);
-                    //foreach (Type d in delegates)
-                    //{
-                    //    Attribute[] attributes0 = (Attribute[])d.GetCustomAttributes(typeof(behaviac.EventMetaInfoAttribute), false);
-                    //    if (attributes0.Length > 0)
-                    //    {
-                    //        behaviac.EventMetaInfoAttribute eventDesc = (behaviac.EventMetaInfoAttribute)attributes0[0];
-
-                    //        MethodInfo m = d.GetMethod("Invoke");
-
-                    //        CNamedEvent method = new CNamedEvent(m, eventDesc, d.Name);
-                    //        objectDesc.m_methods.Add(method);
-                    //    }
-                    //}
+                    }//end of for
                 }//if (bIsAgentType)
             }
         }

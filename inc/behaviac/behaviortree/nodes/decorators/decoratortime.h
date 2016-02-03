@@ -38,13 +38,14 @@ namespace behaviac
         virtual ~DecoratorTime();
         virtual void load(int version, const char* agentType, const properties_t& properties);
 
-        virtual float GetTime(Agent* pAgent) const;
+		virtual double GetTime(Agent* pAgent) const;
 
     private:
         virtual BehaviorTask* createTask() const;
 
     protected:
-        Property*	m_time_var;
+        Property*		m_time_var;
+		CMethodBase*	m_time_m;
 
         friend class DecoratorTimeTask;
     };
@@ -66,11 +67,11 @@ namespace behaviac
         virtual bool onenter(Agent* pAgent);
         virtual EBTStatus decorate(EBTStatus status);
 
-        float GetTime(Agent* pAgent) const;
+		double GetTime(Agent* pAgent) const;
 
     private:
-        float m_start;
-        float m_time;
+        double m_start;
+		double m_time;
     };
     /*! @} */
     /*! @} */

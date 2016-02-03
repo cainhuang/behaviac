@@ -1,4 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tencent is pleased to support the open source community by making behaviac available.
 //
 // Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
@@ -61,7 +61,7 @@ namespace PluginBehaviac.NodeExporters
             return null;
         }
 
-        public void GenerateClass(Attachment attachment, StreamWriter stream, string indent, string nodeName, string btClassName)
+        public override void GenerateClass(Attachment attachment, StreamWriter stream, string indent, string nodeName, string btClassName)
         {
             if (ShouldGenerateClass())
             {
@@ -85,7 +85,7 @@ namespace PluginBehaviac.NodeExporters
             }
         }
 
-        public virtual void GenerateInstance(Attachment attachment, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
+        public override void GenerateInstance(Attachment attachment, StreamWriter stream, string indent, string nodeName, string agentType, string btClassName)
         {
             string className = GetGeneratedClassName(attachment, btClassName, nodeName);
 

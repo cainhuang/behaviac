@@ -29,7 +29,12 @@
 
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
+
+#if BEHAVIAC_COMPILER_MSVC2015
+extern "C" { FILE __iob_func[3] = { *stdin,*stdout,*stderr }; }
 #endif
+#endif
+
 
 struct level_t
 {
@@ -295,8 +300,8 @@ public:
 	int SelectLevel()
 	{
 		int levels = BEHAVIAC_ARRAY_NELEMENT(gs_levels);
-		int level = -1;
-		while (level == -1)
+		int lev = -1;
+		while (lev == -1)
 		{
 			printf("select a level: \n");
 
@@ -305,8 +310,8 @@ public:
 			{
 				if (l >= 0 && l < levels)
 				{
-					level = l;
-					printf("level: %d %s\n", level, gs_levels[level].name);
+					lev = l;
+					printf("level: %d %s\n", lev, gs_levels[lev].name);
 					break;
 				}
 				else
@@ -316,7 +321,7 @@ public:
 			}
 		}
 
-		return level;
+		return lev;
 	}
 };
 

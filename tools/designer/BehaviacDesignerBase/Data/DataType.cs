@@ -1590,6 +1590,26 @@ namespace Behaviac.Design
             }
         }
 
+        public string ValueClassReal
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_valueClass))
+                {
+                    int pos = this._valueClass.IndexOf(VariableDef.kMethod);
+
+                    if (pos != -1)
+                    {
+                        string type = _valueClass.Substring(0, pos);
+                        return type;
+                    }
+                }
+
+                //not a method
+                return _valueClass;
+            }
+        }
+
         public bool IsConst
         {
             get { return _valueClass == kConst; }

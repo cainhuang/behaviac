@@ -11,9 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef BEHAVIAC_SHARED_H_
-#define BEHAVIAC_SHARED_H_
-
 #include "behaviac/base/base.h"
 #include "behaviac/base/core/system.h"
 
@@ -162,4 +159,3 @@ namespace behaviac
     }
 }//namespace behaviac
 
-#endif // BEHAVIAC_SHARED_H_

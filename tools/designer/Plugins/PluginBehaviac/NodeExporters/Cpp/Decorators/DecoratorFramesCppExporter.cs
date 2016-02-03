@@ -38,13 +38,13 @@ namespace PluginBehaviac.NodeExporters
             if (decoratorFrames == null)
                 return;
 
-            if (decoratorFrames.Time != null)
+            if (decoratorFrames.Frames != null)
             {
                 stream.WriteLine("{0}\t\tvirtual int GetFrames(Agent* pAgent) const", indent);
                 stream.WriteLine("{0}\t\t{{", indent);
                 stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
 
-                string retStr = VariableCppExporter.GenerateCode(decoratorFrames.Time, false, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
+                string retStr = RightValueCppExporter.GenerateCode(decoratorFrames.Frames, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
 
                 stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
                 stream.WriteLine("{0}\t\t}}", indent);

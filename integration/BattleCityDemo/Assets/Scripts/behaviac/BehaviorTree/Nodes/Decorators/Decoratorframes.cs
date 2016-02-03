@@ -30,12 +30,23 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            foreach(property_t p in properties)
+            for (int i = 0; i < properties.Count; ++i)
             {
-                if (p.name == "Time")
+                property_t p = properties[i];
+                if (p.name == "Frames")
                 {
-                    string typeName = null;
-                    this.m_frames_var = Condition.LoadRight(p.value, ref typeName);
+                    int pParenthesis = p.value.IndexOf('(');
+
+                    if (pParenthesis == -1)
+                    {
+                        string typeName = null;
+                        this.m_frames_var = Condition.LoadRight(p.value, ref typeName);
+                    }
+                    else
+                    {
+                        //method
+                        this.m_frames_method = Action.LoadMethod(p.value);
+                    }
                 }
             }
         }
@@ -44,10 +55,19 @@ namespace behaviac
         {
             if (this.m_frames_var != null)
             {
-                Debug.Check(this.m_frames_var != null);
                 int frames = (int)this.m_frames_var.GetValue(pAgent);
 
                 return frames;
+            }
+            else
+            {
+                Debug.Check(this.m_frames_method != null);
+                if (this.m_frames_method != null)
+                {
+                    int frames = (int)this.m_frames_method.Invoke(pAgent);
+
+                    return frames;
+                }
             }
 
             return 0;
@@ -61,6 +81,7 @@ namespace behaviac
         }
 
         private Property m_frames_var;
+        protected CMethodBase m_frames_method;
 
         private class DecoratorFramesTask : DecoratorTask
         {

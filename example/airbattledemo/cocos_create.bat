@@ -21,5 +21,7 @@ attrib -R %GENERATED_PATH_%/Resources\*.*  /S
 
 robocopy %GENERATED_PATH_%/ ./ /s /xd Classes Resources
 
+copy .\Classes\CMakeLists.txt .\CMakeLists.txt /Y
+
 rd %GENERATED_PATH_%\ /s/q
 

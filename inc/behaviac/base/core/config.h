@@ -27,8 +27,22 @@
 /**
 BEHAVIAC_RELEASE	0	// development mode
 BEHAVIAC_RELEASE	1	// release/retail mode
+
+BEHAVIAC_RELEASE MUST be defined the same in lib(behaviac) and app(your game).
+
+Please don't define BEHAVIAC_RELEASE unless you know what you are doing.
 */
-#define BEHAVIAC_RELEASE				0
+#include "_config.h"
+
+#if (defined(_DEBUG) || defined(DEBUG))
+	#ifndef BEHAVIAC_RELEASE
+		#define BEHAVIAC_RELEASE				0
+	#endif
+#else
+	#ifndef BEHAVIAC_RELEASE
+		#define BEHAVIAC_RELEASE				1
+	#endif
+#endif//
 
 #if (defined(_DEBUG) || defined(DEBUG))
 	#define _BEHAVIAC_VERSION_STR_ "behavaic_debug"

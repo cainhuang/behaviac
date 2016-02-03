@@ -24,9 +24,7 @@
 #include "behaviac/base/string/valuefromstring.h"
 #include "behaviac/property/vector_ext.h"
 #include "behaviac/base/object/typehandler.h"
-
-#include <map>
-
+#include "behaviac/base/functions.h"
 
 class CMemberBase;
 
@@ -94,6 +92,7 @@ namespace behaviac
         virtual void SetDefaultValue(const Property* r) = 0;
         virtual void SetDefaultInteger(int count) = 0;
         virtual uint64_t GetDefaultInteger() const = 0;
+		virtual double GetDoubleValue(Agent* pAgent) const = 0;
         virtual void Instantiate(Agent* pAgent) = 0;
         virtual void UnInstantiate(Agent* pAgent) = 0;
         virtual void UnLoad(Agent* pAgent) = 0;
@@ -221,141 +220,7 @@ namespace behaviac
         bool                    m_bIsLocal;
     };
 
-    template<typename VariableType>
-    inline uint64_t ConvertToInteger(const VariableType& v)
-    {
-        BEHAVIAC_UNUSED_VAR(v);
-        return 0;
-    }
-
-    template<>
-    inline uint64_t ConvertToInteger(const long& v)
-    {
-        return (uint64_t)v;
-    }
-
-    template<>
-    inline uint64_t ConvertToInteger(const int& v)
-    {
-        return (uint64_t)v;
-    }
-
-    template<>
-    inline uint64_t ConvertToInteger(const short& v)
-    {
-        return (uint64_t)v;
-    }
-
-    //template<>
-    //inline uint64_t ConvertToInteger(const __int8& v)
-    //{
-    //	return (uint64_t)v;
-    //}
-
-    template<>
-    inline uint64_t ConvertToInteger(const char& v)
-    {
-        return (uint64_t)v;
-    }
-
-    template<>
-    inline uint64_t ConvertToInteger(const unsigned long& v)
-    {
-        return (uint64_t)v;
-    }
-
-    template<>
-    inline uint64_t ConvertToInteger(const unsigned int& v)
-    {
-        return (uint64_t)v;
-    }
-
-    template<>
-    inline uint64_t ConvertToInteger(const unsigned short& v)
-    {
-        return (uint64_t)v;
-    }
-
-    //template<>
-    //inline uint64_t ConvertToInteger(const unsigned __int8& v)
-    //{
-    //	return (uint64_t)v;
-    //}
-
-    template<>
-    inline uint64_t ConvertToInteger(const unsigned char& v)
-    {
-        return (uint64_t)v;
-    }
-    ////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////
-    template<typename VariableType>
-    inline void ConvertFromInteger(int v, VariableType& ret)
-    {
-        BEHAVIAC_UNUSED_VAR(v);
-        ret = VariableType();
-    }
-
-    template<>
-    inline void ConvertFromInteger(int v, long& ret)
-    {
-        ret = (long)v;
-    }
-
-    template<>
-    inline void ConvertFromInteger(int v, int& ret)
-    {
-        ret = (int)v;
-    }
-
-    template<>
-    inline void ConvertFromInteger(int v, short& ret)
-    {
-        ret = (short)v;
-    }
-
-    //template<>
-    //inline void ConvertFromInteger(int v, __int8& ret)
-    //{
-    //	ret = (__int8)v;
-    //}
-
-    template<>
-    inline void ConvertFromInteger(int v, char& ret)
-    {
-        ret = (char)v;
-    }
-
-    template<>
-    inline void ConvertFromInteger(int v, unsigned long& ret)
-    {
-        ret = (unsigned long)v;
-    }
-
-    template<>
-    inline void ConvertFromInteger(int v, unsigned int& ret)
-    {
-        ret = (unsigned int)v;
-    }
-
-    template<>
-    inline void ConvertFromInteger(int v, unsigned short& ret)
-    {
-        ret = (unsigned short)v;
-    }
-
-    //template<>
-    //inline unsigned __int8 ConvertFromInteger(int v)
-    //{
-    //	ret = (unsigned __int8)v;
-    //}
-
-    template<>
-    inline void ConvertFromInteger(int v, unsigned char& ret)
-    {
-        ret = (unsigned char)v;
-    }
-    ////////////////////////////////////////////////////////////////////////
 }
+
 
 #endif//BEHAVIAC_PROPERTY_H

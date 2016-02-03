@@ -487,7 +487,7 @@ namespace behaviac
 		{
 		}
 	protected:
-		virtual float GetTime(Agent* pAgent) const
+		virtual double GetTime(Agent* pAgent) const
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			return 10;

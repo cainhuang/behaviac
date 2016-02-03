@@ -61,10 +61,12 @@ namespace Behaviac.Design
         private List<PropertyDef> _propertyList = new List<PropertyDef>();
         private List<MethodDef> _methodsList = new List<MethodDef>();
 
-        public AgentType(Type type, string fullname, bool isInherited, string displayName, string description) {
+        public AgentType(Type type, string fullname, bool isInherited, bool isStaticClass, string displayName, string description)
+        {
             this._agentType = type;
             this._fullname = fullname;
             this._inherited = isInherited;
+            this._isStatic = isStaticClass;
             this._displayName = displayName;
             this._description = description;
 
@@ -429,6 +431,12 @@ namespace Behaviac.Design
             get { return this._inherited; }
         }
 
+        private bool _isStatic = false;
+        public bool IsStatic
+        {
+            get { return this._isStatic; }
+        }
+
         private string _displayName;
         public string DisplayName {
             get { return string.IsNullOrEmpty(this._displayName) ? this.AgentTypeName : this._displayName; }
@@ -521,7 +529,7 @@ namespace Behaviac.Design
 
                         } else {
                             if ((methodReturnType & ValueTypes.Int) == ValueTypes.Int &&
-                                Plugin.IsIntergerType32(m.ReturnType)) {
+                                Plugin.IsIntergerType(m.ReturnType)) {
                                 if (!methods.Contains(m))
                                 { methods.Add(m); }
 
@@ -696,12 +704,13 @@ namespace Behaviac.Design
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ClassDescAttribute : Attribute
     {
-        public ClassDescAttribute(string fullname, string baseName, bool isInherited, bool isRefType, string displayName, string description)
+        public ClassDescAttribute(string fullname, string baseName, bool isInherited, bool isRefType, bool isStatic, string displayName, string description)
         {
             _fullname = fullname;
             _baseName = baseName;
             _isInherited = isInherited;
             _isRefType = isRefType;
+            _isStatic = isStatic;
             _displayName = displayName;
             _description = description;
         }
@@ -720,6 +729,12 @@ namespace Behaviac.Design
         public bool IsRefType
         {
             get { return this._isRefType; }
+        }
+
+        private bool _isStatic = false;
+        public bool IsStatic
+        {
+            get { return this._isStatic; }
         }
 
         private string _fullname = "";
@@ -1611,7 +1626,7 @@ namespace Behaviac.Design
     }
 
 
-    [Behaviac.Design.ClassDesc("Behaviac::Design::llong", "llong", true, false, "llong", "llong")]
+    [Behaviac.Design.ClassDesc("Behaviac::Design::llong", "llong", true, false, false, "llong", "llong")]
     public class llong
     {
     }
@@ -1720,7 +1735,7 @@ namespace Behaviac.Design
     }
 
 
-    [Behaviac.Design.ClassDesc("Behaviac::Design::ullong", "ullong", true, false, "ullong", "ullong")]
+    [Behaviac.Design.ClassDesc("Behaviac::Design::ullong", "ullong", true, false, false, "ullong", "ullong")]
     public class ullong
     {
     }

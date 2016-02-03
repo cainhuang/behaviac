@@ -1044,7 +1044,7 @@ namespace Behaviac.Design
 
                         instanceName.name_ = prop.BasicName;
                         instanceName.className_ = prop.AgentType.AgentTypeName;
-                        instanceName.agentType_ = behavior.AgentType;
+                        instanceName.agentType_ = Plugin.GetAgentType(prop.Type);
                         instanceName.displayName_ = prop.DisplayName;
                         instanceName.desc_ = prop.BasicDescription;
 
@@ -1144,6 +1144,7 @@ namespace Behaviac.Design
         }
 
         private static List<string> _allMetaTypes = new List<string>();
+
         public static List<string> AllMetaTypes
         {
             get { return _allMetaTypes; }
@@ -1254,7 +1255,7 @@ namespace Behaviac.Design
             get
             {
                 if (_agentTypes.Count == 0) {
-                    AgentType baseAgent = new AgentType(typeof(Agent), "behaviac::Agent", false, "behaviac::Agent", "");
+                    AgentType baseAgent = new AgentType(typeof(Agent), "behaviac::Agent", false, false, "behaviac::Agent", "");
                     _agentTypes.Add(baseAgent);
                 }
 
@@ -1280,6 +1281,20 @@ namespace Behaviac.Design
                     {
                         return at;
                     }
+                }
+            }
+
+            return null;
+        }
+
+        public static AgentType GetAgentType(Type type)
+        {
+            if (type != null)
+            {
+                foreach (AgentType at in _agentTypes)
+                {
+                    if (at.AgentTypeType == type)
+                        return at;
                 }
             }
 
@@ -1344,6 +1359,7 @@ namespace Behaviac.Design
                 if (type.IsSubclassOf(typeof(Behaviac.Design.Agent))) {
                     string fullname = type.Name;
                     bool isInherited = false;
+                    bool isStatic = false;
                     string displayName = type.Name;
                     string description = displayName;
 
@@ -1354,13 +1370,14 @@ namespace Behaviac.Design
 
                         fullname = cda.Fullname;
                         isInherited = cda.IsInherited;
+                        isStatic = cda.IsStatic;
                         displayName = cda.DisplayName;
                         description = cda.Description;
 
                         _agentTypeHierarchy[fullname] = cda.BaseName;
                     }
 
-                    AgentType at = new AgentType(type, fullname, isInherited, displayName, description);
+                    AgentType at = new AgentType(type, fullname, isInherited, isStatic, displayName, description);
                     _agentTypes.Add(at);
                 }
             }
@@ -1413,19 +1430,24 @@ namespace Behaviac.Design
             return null;
         }
 
-        public static IList<string> GetAllMemberValueTypeNames(bool hasVoid) {
+        public static IList<string> GetAllMemberValueTypeNames(bool hasVoid, bool ignoreStatic)
+        {
             List<string> allTypeNames = new List<string>();
 
-            if (hasVoid) {
+            if (hasVoid)
+            {
                 allTypeNames.Add("void");
             }
 
-            foreach(Type key in Plugin.TypeHandlers.Keys) {
+            foreach (Type key in Plugin.TypeHandlers.Keys)
+            {
                 allTypeNames.Add(Plugin.GetNativeTypeName(key.Name, false, true));
             }
 
-            foreach(AgentType at in Plugin.AgentTypes) {
-                allTypeNames.Add(at.DisplayName);
+            foreach (AgentType at in Plugin.AgentTypes)
+            {
+                if (!ignoreStatic || !at.IsStatic)
+                    allTypeNames.Add(at.DisplayName);
             }
 
             return allTypeNames.AsReadOnly();
@@ -1704,30 +1726,38 @@ namespace Behaviac.Design
             return type != null && !type.IsByRef && (type.IsClass || type.IsValueType) && type != typeof(void) && !type.IsEnum && !type.IsPrimitive && !IsStringType(type) && !IsArrayType(type);
         }
 
-
-        public static bool IsCompatibleType(Type filterType, Type typeToFilter, bool bArrayType) {
+        public static bool IsCompatibleType(ValueTypes valueType, Type filterType, Type typeToFilter, bool bArrayType)
+        {
             Debug.Check(typeToFilter != null);
 
-            if (filterType == null ||
-                (filterType.Name == "System_Object" && !Plugin.IsArrayType(typeToFilter))) {
+            if (filterType == null || (filterType.Name == "System_Object" && !Plugin.IsArrayType(typeToFilter)))
                 return true;
+
+            if (valueType != ValueTypes.All)
+            {
+                if ((valueType & ValueTypes.Int) == ValueTypes.Int && Plugin.IsIntergerType(typeToFilter) ||
+                    (valueType & ValueTypes.Float) == ValueTypes.Float && Plugin.IsFloatType(typeToFilter))
+                    return true;
             }
 
             bool bCompatible = false;
 
-            if (bArrayType && Plugin.IsArrayType(typeToFilter)) {
+            if (bArrayType && Plugin.IsArrayType(typeToFilter))
+            {
                 //list of the same type
                 Type typeToFilterElement = typeToFilter.GetGenericArguments()[0];
 
-                if (Plugin.IsCompatibleType(typeToFilterElement, filterType, false)) {
+                if (Plugin.IsCompatibleType(valueType, typeToFilterElement, filterType, false))
+                {
                     bCompatible = true;
                 }
-
-            } else if (filterType == typeToFilter) {
+            }
+            else if (filterType == typeToFilter)
+            {
                 bCompatible = true;
-
-            } else {
-
+            }
+            else
+            {
                 bCompatible = Plugin.IsAgentDerived(typeToFilter.Name, filterType.Name);
             }
 

@@ -78,6 +78,19 @@ namespace Behaviac.Design
             }
         }
 
+        private void openGameDemo(string demoFile)
+        {
+            try
+            {
+                demoFile = Path.Combine(Application.StartupPath, demoFile);
+                demoFile = Path.GetFullPath(demoFile);
+                System.Diagnostics.Process.Start(demoFile);
+            }
+            catch
+            {
+            }
+        }
+
         private void workspace1Button_Click(object sender, EventArgs e)
         {
             loadWorkspace("../../../integration/unity/Assets/behaviac/workspace/behaviacunittest.workspace.xml");
@@ -86,6 +99,8 @@ namespace Behaviac.Design
         private void workspace2Button_Click(object sender, EventArgs e)
         {
             loadWorkspace("../../../integration/BattleCityDemo/Assets/behaviac/workspace/BattleCity.workspace.xml");
+
+            openGameDemo("../../../integration/BuildExe/BattleCityDemo.exe");
         }
 
         private void workspace3Button_Click(object sender, EventArgs e)
@@ -96,6 +111,8 @@ namespace Behaviac.Design
         private void workspace4Button_Click(object sender, EventArgs e)
         {
             loadWorkspace("../../../example/spaceship/data/ships.workspace.xml");
+
+            openGameDemo("../../../bin/spaceship_msvc_debug.exe");
         }
 
         private void referLinkTextBox_LinkClicked(object sender, LinkClickedEventArgs e)

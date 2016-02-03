@@ -31,8 +31,9 @@ namespace behaviac
 
             if (properties.Count > 0)
             {
-                foreach(property_t p in properties)
+                for (int i = 0; i < properties.Count; ++i)
                 {
+                    property_t p = properties[i];
                     if (p.name == "Domain")
                     {
                         m_domain = p.value;
@@ -217,19 +218,20 @@ namespace behaviac
                         BehaviorTree btFound = null;
                         float similarityMax = -1.0f;
 
-                        foreach(BehaviorTree bt in bs.Values)
+                        var e = bs.Values.GetEnumerator();
+                        while (e.MoveNext())
                         {
-                            string domains = bt.GetDomains();
+                            string domains = e.Current.GetDomains();
 
                             if (string.IsNullOrEmpty(pQueryNode.m_domain) || (!string.IsNullOrEmpty(domains) && domains.IndexOf(pQueryNode.m_domain) != -1))
                             {
-                                List<BehaviorTree.Descriptor_t> bd = bt.GetDescriptors();
+                                List<BehaviorTree.Descriptor_t> bd = e.Current.GetDescriptors();
                                 float similarity = pQueryNode.ComputeSimilarity(qd, bd);
 
                                 if (similarity > similarityMax)
                                 {
                                     similarityMax = similarity;
-                                    btFound = bt;
+                                    btFound = e.Current;
                                 }
                             }
                         }
