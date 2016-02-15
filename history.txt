@@ -1,3 +1,7 @@
+2016-02-15	3.3.3
+	add the updated CMakeLists.txt and build scripts
+
+
 2016-02-03	3.3.2
 	Fix a bug for the Frames of the DecoratorFrames and WaitFrames nodes.
 	Fix a bug for generating the C++ codes for the methods.

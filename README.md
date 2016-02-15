@@ -1,4 +1,4 @@
-﻿##[访问http://www.behaviac.com/获取文档，教程，FAQ等一切相关资料](http://www.behaviac.com/)
+##[访问http://www.behaviac.com/获取文档，教程，FAQ等一切相关资料](http://www.behaviac.com/)
 
  - behaviac是游戏AI的开发框架组件，也是游戏原型的快速设计工具
  - 支持行为树BT，状态机FSM，HTN等多种范式
