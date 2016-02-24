@@ -1,7 +1,7 @@
 ## Cpp
  我们使用cmake来生成对应平台的项目文件。
 
-### windwos平台
+### windows平台
  * 首先下载并安装 [cmake](https://cmake.org/files/v3.4/cmake-3.4.3-win32-x86.exe)
  * 运行build目录下的cmake_generate_projects.bat生成项目文件
  * 如果需要build android版本

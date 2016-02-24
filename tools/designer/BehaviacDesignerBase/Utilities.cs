@@ -74,8 +74,14 @@ namespace Behaviac.Design
         {
             if (string.IsNullOrEmpty(_localIP))
             {
-                String strHostName = Dns.GetHostName();
-                _localIP = GetIP(strHostName);
+                try
+                {
+                    String strHostName = Dns.GetHostName();
+                    _localIP = GetIP(strHostName);
+                }
+                catch
+                {
+                }
             }
 
             return _localIP;
@@ -104,6 +110,29 @@ namespace Behaviac.Design
             }
 
             return IPStr;
+        }
+
+        private static string _localMac = "";
+        public static string GetLocalMac()
+        {
+            if (string.IsNullOrEmpty(_localMac))
+            {
+                try
+                {
+                    ManagementObjectSearcher query = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapterConfiguration");
+                    ManagementObjectCollection queryCollection = query.Get();
+                    foreach (ManagementObject mo in queryCollection)
+                    {
+                        if (mo["IPEnabled"].ToString() == "True")
+                            _localMac = mo["MacAddress"].ToString();
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            return _localMac;
         }
 
         private static string _cpuID = "";
@@ -230,7 +259,9 @@ namespace Behaviac.Design
 
         private static string getHeaderString()
         {
-            return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\"", GetLocalIP(), GetCpuID(), GetHarddiskID(), System.Reflection.Assembly.GetEntryAssembly().GetName().Version);
+            return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"",
+                GetLocalIP(), GetCpuID(), GetHarddiskID(), System.Reflection.Assembly.GetEntryAssembly().GetName().Version,
+                Dns.GetHostName(), GetLocalMac());
         }
 
         private static string getTqosFile()

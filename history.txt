@@ -1,3 +1,7 @@
+2016-02-24	3.3.6
+	Fix a bug for resetting the node id when replacing the node.
+	Report the username and mac address to the TQOS.
+
 2016-02-23	3.3.5
 	Fix a bug for updating the local vars for the Task node.
 	Filter the IListy type when adding a property or method.

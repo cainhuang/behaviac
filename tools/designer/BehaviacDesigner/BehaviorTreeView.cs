@@ -874,7 +874,7 @@ namespace Behaviac.Design
 
             // After being created, its Id should be reset.
             if (newnode != null) {
-                newnode.ResetId(isPrefabInstance);
+                newnode.ResetId(true);
 
                 // set the prefab dirty for the current parent
                 if (newnode.Parent != null) {
