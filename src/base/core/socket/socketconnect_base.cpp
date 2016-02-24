@@ -215,7 +215,7 @@ namespace behaviac
 
 #if BEHAVIAC_COMPILER_MSVC
     uint32_t t_packetBufferIndex = TLS_OUT_OF_INDEXES;
-#elif BEHAVIAC_COMPILER_APPLE
+#elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID
     uint32_t t_packetBufferIndex = (unsigned int) - 1;
 #else
     __thread uint32_t t_packetBufferIndex = (unsigned int) - 1;

@@ -198,6 +198,10 @@ namespace Behaviac.Design.Nodes
         {
         }
 
+        public virtual void PostCreatedByEditor()
+        {
+        }
+
         public new BehaviorNode Behavior {
             get { return ((BaseNode)this).Behavior; }
         }

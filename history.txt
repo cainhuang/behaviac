@@ -1,3 +1,14 @@
+2016-02-23	3.3.5
+	Fix a bug for updating the local vars for the Task node.
+	Filter the IListy type when adding a property or method.
+	Fix some bugs for the editor.
+
+2016-02-17	3.3.4
+	android_2015 added to test android
+
+2016-02-15	3.3.3
+	add the updated CMakeLists.txt and build scripts
+
 2016-02-03	3.3.2
 	Fix a bug for the Frames of the DecoratorFrames and WaitFrames nodes.
 	Fix a bug for generating the C++ codes for the methods.

@@ -1517,26 +1517,6 @@ namespace behaviac
 		}
 	};
 
-	class Assignment_bt_ships_1_1_suicide_node0 : public Assignment
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_ships_1_1_suicide_node0, Assignment);
-		Assignment_bt_ships_1_1_suicide_node0()
-		{
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			EBTStatus result = BT_SUCCESS;
-			int opr = 10;
-			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_b") == 1614475600u);
-			pAgent->SetVariable("par_b", opr, 1614475600u);
-			return result;
-		}
-	};
-
 	class ReferencedBehavior_bt_ships_1_1_suicide_node8 : public ReferencedBehavior
 	{
 	public:
@@ -1632,16 +1612,6 @@ namespace behaviac
 								node5->SetHasEvents(node5->HasEvents() | node7->HasEvents());
 							}
 							node3->SetHasEvents(node3->HasEvents() | node5->HasEvents());
-						}
-						{
-							Assignment_bt_ships_1_1_suicide_node0* node0 = BEHAVIAC_NEW Assignment_bt_ships_1_1_suicide_node0;
-							node0->SetClassNameString("Assignment");
-							node0->SetId(0);
-#if !BEHAVIAC_RELEASE
-							node0->SetAgentType("framework::Ship");
-#endif
-							node3->AddChild(node0);
-							node3->SetHasEvents(node3->HasEvents() | node0->HasEvents());
 						}
 						node2->SetHasEvents(node2->HasEvents() | node3->HasEvents());
 					}

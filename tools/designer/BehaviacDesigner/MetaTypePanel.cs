@@ -131,6 +131,7 @@ namespace Behaviac.Design
                 }
             }
 
+            this.typeComboBox.Items.Clear();
             this.typeComboBox.Enabled = _isNew;
             foreach (string type in Enum.GetNames(typeof(MetaTypes)))
             {

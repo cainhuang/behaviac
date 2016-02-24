@@ -2,6 +2,8 @@ call build_apidoc.bat
 
 call vsbatchbuild2013.bat
 
+call vsbatchbuild2015.bat
+
 set VSEXE="%VS120COMNTOOLS%..\IDE\devenv.exe"
 
 cd ..\tools\Designer\

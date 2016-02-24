@@ -718,7 +718,7 @@
     <value>什么时候起作用</value>
   </data>
   <data name="CustomizedMethodError" xml:space="preserve">
-    <value>定制的方法不能被导出！</value>
+    <value>自定义的方法不能被导出，需要在游戏端实现该方法并重新导出元信息</value>
   </data>
   <data name="DecoratorIterator" xml:space="preserve">
     <value>尝试</value>

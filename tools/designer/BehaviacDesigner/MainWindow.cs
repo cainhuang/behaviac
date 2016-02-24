@@ -958,9 +958,8 @@ namespace Behaviac.Design
                     dock.BehaviorTreeView.RootNode.AgentType.AddPars(((Behavior)dock.BehaviorTreeView.RootNode).LocalVars);
                 }
 
-                if (MetaStoreDock.IsVisible()) {
-                    MetaStoreDock.Inspect(dock);
-                }
+                if (Plugin.UpdateMetaStoreHandler != null)
+                    Plugin.UpdateMetaStoreHandler(dock);
 
                 OnNodeClicked(dock.BehaviorTreeView.SelectedNode);
 

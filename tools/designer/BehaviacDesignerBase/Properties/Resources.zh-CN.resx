@@ -775,10 +775,10 @@
     <value>遍历</value>
   </data>
   <data name="CustomizedMethodError" xml:space="preserve">
-    <value>定制的方法不能被导出！</value>
+    <value>自定义的方法不能被导出，需要在游戏端实现该方法并重新导出元信息</value>
   </data>
   <data name="TaskMethodChildrenOrOne" xml:space="preserve">
-    <value>任务节点只接受方法节点或者只是一个其他类型的节点。</value>
+    <value>任务节点只接受方法节点或者只是一个其他类型的节点</value>
   </data>
   <data name="Task" xml:space="preserve">
     <value>任务</value>

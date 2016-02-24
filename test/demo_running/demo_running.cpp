@@ -22,6 +22,15 @@
 #include <windows.h>
 #endif
 
+#if BEHAVIAC_COMPILER_ANDROID
+	#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "demo_running", __VA_ARGS__))
+#else
+	#define LOGI printf
+#endif
+
+//#define LOGI BEHAVIAC_LOGINFO
+
+
 using namespace std;
 using namespace behaviac;
 
@@ -48,9 +57,11 @@ static void SetExePath()
 #endif
 }
 
-bool InitBehavic(behaviac::Workspace::EFileFormat ff)
+bool InitBehavic(behaviac::Workspace::EFileFormat ff, 
+	const char* szFilePath = "../test/demo_running/behaviac/exported", 
+	const char* szExportMetaFile = "../test/demo_running/behaviac/demo_running.xml")
 {
-	printf("InitBehavic\n");
+	LOGI("InitBehavic\n");
 
     //behaviac::Config::SetSocketing(false);
 #if !BEHAVIAC_COMPILER_MSVC
@@ -61,10 +72,10 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
 
     behaviac::Agent::Register<CBTPlayer>();
 
-    behaviac::Workspace::GetInstance()->SetFilePath("../test/demo_running/behaviac/exported");
+    behaviac::Workspace::GetInstance()->SetFilePath(szFilePath);
     behaviac::Workspace::GetInstance()->SetFileFormat(ff);
 
-    behaviac::Workspace::GetInstance()->ExportMetas("../test/demo_running/behaviac/demo_running.xml");
+    behaviac::Workspace::GetInstance()->ExportMetas(szExportMetaFile);
 
     //behaviac::Agent::SetIdMask(kIdMask_Wolrd | kIdMask_Opponent);
 
@@ -73,7 +84,7 @@ bool InitBehavic(behaviac::Workspace::EFileFormat ff)
 
 bool InitPlayer(const char* pszTreeName)
 {
-	printf("InitPlayer\n");
+	LOGI("InitPlayer\n");
     g_player = behaviac::Agent::Create<CBTPlayer>();
 
     bool bRet = false;
@@ -90,11 +101,11 @@ void UpdateLoop()
 	int frames = 0;
 	behaviac::EBTStatus status = behaviac::BT_RUNNING;
 
-	printf("UpdateLoop\n");
+	LOGI("UpdateLoop\n");
 
 	while (status == behaviac::BT_RUNNING)
 	{
-		printf("frame %d\n", ++frames);
+		LOGI("frame %d\n", ++frames);
 
 		status = g_player->btexec();
 	}
@@ -102,18 +113,19 @@ void UpdateLoop()
 
 void CleanupPlayer()
 {
-	printf("CleanupPlayer\n");
+	LOGI("CleanupPlayer\n");
     behaviac::Agent::Destroy(g_player);
 }
 
 void CleanupBehaviac()
 {
-	printf("CleanupBehaviac\n");
+	LOGI("CleanupBehaviac\n");
     behaviac::Agent::UnRegister<CBTPlayer>();
 
 	behaviac::Workspace::GetInstance()->Cleanup();
 }
 
+#if !BEHAVIAC_COMPILER_ANDROID
 //cmdline: behaviorTreePath Count ifprint fileformat
 int main(int argc, char** argv)
 {
@@ -122,11 +134,11 @@ int main(int argc, char** argv)
 
     SetExePath();
 
-	printf("BEHAVIAC_COMPILER_NAME=%s\n", BEHAVIAC_COMPILER_NAME);
+	LOGI("BEHAVIAC_COMPILER_NAME=%s\n", BEHAVIAC_COMPILER_NAME);
 
 	const char* szTreeName = "demo_running";
 
-	printf("bt: %s\n\n", szTreeName);
+	LOGI("bt: %s\n\n", szTreeName);
 
     behaviac::Workspace::EFileFormat ff = behaviac::Workspace::EFF_xml;
 
@@ -139,9 +151,11 @@ int main(int argc, char** argv)
     CleanupBehaviac();
 
 #if defined(BEHAVIAC_COMPILER_MSVC)
-    printf("\npress any key to exit\n");
+    LOGI("\npress any key to exit\n");
     getchar();
 #endif
 
     return 0;
 }
+
+#endif

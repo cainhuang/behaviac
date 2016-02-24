@@ -17,6 +17,13 @@
 using namespace std;
 using namespace behaviac;
 
+#if BEHAVIAC_COMPILER_ANDROID
+	#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "demo_running", __VA_ARGS__))
+#else
+	#define LOGI printf
+#endif
+
+
 BEGIN_PROPERTIES_DESCRIPTION(CBTPlayer)
 {
 	REGISTER_PROPERTY(m_iBaseSpeed);
@@ -41,20 +48,20 @@ CBTPlayer::~CBTPlayer()
 bool CBTPlayer::Condition()
 {
     m_Frames = 0;
-    cout << "\tCondition\n";
+    LOGI("\tCondition\n");
     return true;
 }
 
 behaviac::EBTStatus CBTPlayer::Action1()
 {
-    cout << "\tAction1\n";
+	LOGI("\tAction1\n");
 
     return behaviac::BT_SUCCESS;
 }
 
 behaviac::EBTStatus CBTPlayer::Action3()
 {
-    cout << "\tAction3\n";
+	LOGI("\tAction3\n");
 
     m_Frames++;
 

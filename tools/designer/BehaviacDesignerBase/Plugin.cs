@@ -478,6 +478,9 @@ namespace Behaviac.Design
     /// </summary>
     public class Plugin
     {
+        public delegate void UpdateMetaStoreDelegate(object dock);
+        public static UpdateMetaStoreDelegate UpdateMetaStoreHandler;
+
         private static string _sourceLanguage = "";
         public static string SourceLanguage
         {
@@ -1441,7 +1444,8 @@ namespace Behaviac.Design
 
             foreach (Type key in Plugin.TypeHandlers.Keys)
             {
-                allTypeNames.Add(Plugin.GetNativeTypeName(key.Name, false, true));
+                if (key != typeof(System.Collections.IList) && !Plugin.IsArrayType(key))
+                    allTypeNames.Add(Plugin.GetNativeTypeName(key.Name, false, true));
             }
 
             foreach (AgentType at in Plugin.AgentTypes)

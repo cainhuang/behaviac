@@ -757,6 +757,9 @@ namespace Behaviac.Design
             } else {
                 // simply create the node which is supposed to be created.
                 newnode = Node.Create(nodetag.NodeType);
+
+                if (newnode != null)
+                    newnode.PostCreatedByEditor();
             }
 
             if (newnode == null) {
@@ -2090,11 +2093,24 @@ namespace Behaviac.Design
             return SelectedTreeCanBeDeleted();
         }
 
-        public bool SelectedNodeCanBeDeleted() {
-            return Plugin.EditMode == EditModes.Design &&
-                   SelectedNode != null &&
-                   (SelectedNode.SelectedSubItem != null ||
-                    SelectedNode.Node.Parent != null && SelectedNode.CanBeDeleted());
+        public bool SelectedNodeCanBeDeleted()
+        {
+            if (Plugin.EditMode == EditModes.Design && SelectedNode != null)
+            {
+                if (SelectedNode.SelectedSubItem != null)
+                {
+                    if (SelectedNode.SelectedSubItem.CanBeDeleted)
+                    {
+                        return true;
+                    }
+                }
+                else if (SelectedNode.Node.Parent != null && SelectedNode.CanBeDeleted())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool SelectedTreeCanBeDeleted() {

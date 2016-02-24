@@ -45,7 +45,7 @@ namespace PluginBehaviac.Events
 
         public override bool CanBeDeleted
         {
-            get { return true; }
+            get { return false; }
         }
     }
 }

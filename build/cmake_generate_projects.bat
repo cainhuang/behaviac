@@ -1,4 +1,4 @@
-rem 
+@echo off
 
 echo "please visit http://www.behaviac.com/docs/zh/articles/build/ for more information"
 echo "please make sure you have installed cmake 3.3 above (https://cmake.org/files/v3.4/cmake-3.4.3-win32-x86.exe)"
@@ -14,7 +14,7 @@ rem cd ..
 
 mkdir vs2013
 cd vs2013
-cmake -G "Visual Studio 12" --build ../../..
+cmake -G "Visual Studio 12 2013" --build ../../..
 cd ..
 
 rem ----------------------------------------------------
@@ -43,7 +43,7 @@ rem ----------------------------------------------------example airbattledemo
 mkdir example_airbattledemo_vs2013
 cd example_airbattledemo_vs2013
 rem use vs2013 only, it seems cocos vs2015 version is buggy
-cmake -G "Visual Studio 12" --build ../../../example/airbattledemo
+cmake -G "Visual Studio 12 2013" --build ../../../example/airbattledemo
 cd ..
 
 rem ----------------------------------------------------

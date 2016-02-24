@@ -20,6 +20,13 @@ namespace PluginBehaviac.Nodes
             this.Name = Resources.WaitFramesState;
         }
 
+        public override void PostCreatedByEditor()
+        {
+            Attachment attach = Attachment.Create(typeof(WaitTransition), this);
+            attach.ResetId();
+            this.AddAttachment(attach);
+        }
+
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(79, 129, 189));
         protected override Brush DefaultBackgroundBrush
         {

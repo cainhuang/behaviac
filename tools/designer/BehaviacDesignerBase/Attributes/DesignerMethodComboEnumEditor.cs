@@ -287,6 +287,8 @@ namespace Behaviac.Design.Attributes
 
         private void valueComboBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e) {
             resetMethods();
+
+            valueComboBox.DroppedDown = false;
         }
 
         private void valueComboBox_SelectedIndexChanged(object sender, EventArgs e) {

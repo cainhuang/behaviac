@@ -37,9 +37,8 @@
 #include <jni.h>
 #include <android/log.h>
 
-#define  LOG_TAG    "behaviacjni"
-//#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
-#define  LOGI(str)  __android_log_write(ANDROID_LOG_INFO,LOG_TAG,str)
+#define  LOG_TAG    "libbehaviac"
+#define  LOGI(str)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, str)
 #else
 #define  LOGI(str)  printf("%s", str)
 #endif//#if BEHAVIAC_COMPILER_ANDROID
@@ -98,7 +97,12 @@ namespace behaviac
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     bool                            ConsoleOut::IsInit = false;
-    uint32_t                        ConsoleOut::EnableMask = ELOG_VCOUTPUT | ELOG_FILE;
+	uint32_t                        ConsoleOut::EnableMask = ELOG_VCOUTPUT | ELOG_FILE
+#if BEHAVIAC_COMPILER_ANDROID
+		| ELOG_CONSOLE
+#endif
+		;
+
     static Private::SafeLock*		gs_lock;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

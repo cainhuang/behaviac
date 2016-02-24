@@ -30,10 +30,6 @@
             <property Time="Self.framework::Ship::GetConstFloatValue()" />
           </node>
         </node>
-        <node class="Assignment" id="0">
-          <property Opl="int Self.framework::Ship::par_b" />
-          <property Opr="const int 10" />
-        </node>
       </node>
     </node>
     <node class="ReferencedBehavior" id="8">

@@ -87,6 +87,8 @@ namespace Behaviac.Design
 
             _previousSelectedTypeIndex = -1;
             _previousSelectedMemberIndex = -1;
+
+            Plugin.UpdateMetaStoreHandler += Plugin_UpdateMetaStoreHandler;
         }
 
         private void MetaStoreDock_FormClosing(object sender, FormClosingEventArgs e) {
@@ -95,6 +97,14 @@ namespace Behaviac.Design
             //e.Cancel = true;
 
             _metaStoreDock = null;
+
+            Plugin.UpdateMetaStoreHandler -= Plugin_UpdateMetaStoreHandler;
+        }
+
+        private void Plugin_UpdateMetaStoreHandler(object dock)
+        {
+            if (MetaStoreDock.IsVisible())
+                MetaStoreDock.Inspect(dock as BehaviorTreeViewDock);
         }
 
         private void apply(bool query, int typeSelectedIndex, int memberSelectedIndex, bool resetSelectedIndex)

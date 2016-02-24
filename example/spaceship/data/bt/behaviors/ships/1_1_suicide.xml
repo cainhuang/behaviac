@@ -30,9 +30,6 @@
                       </Node>
                     </Connector>
                   </Node>
-                  <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="0" Opl="int Self.framework::Ship::par_b" Opr="const int 10" PrefabName="" PrefabNodeId="-1">
-                    <Comment Background="NoColor" Text="" />
-                  </Node>
                 </Connector>
               </Node>
             </Connector>

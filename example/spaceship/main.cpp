@@ -483,7 +483,7 @@ int main(int argc, char* argv[])
 	behaviac::Agent::RegisterInstanceName<framework::WorldState>();
 	framework::WorldState* pWorldState = behaviac::Agent::Create<framework::WorldState>();
 
-	pWorldState->SetIdFlag(kIdMask_Wolrd);
+	pWorldState->SetIdFlag(kIdMask_World);
 
 	behaviac::Agent::Register<framework::Ship>();
 	behaviac::Agent::Register<framework::Projectile>();
@@ -492,7 +492,7 @@ int main(int argc, char* argv[])
 
 	if (!cl.IsProfiling())
 	{
-		behaviac::Agent::SetIdMask(kIdMask_Wolrd | kIdMask_Opponent);
+		behaviac::Agent::SetIdMask(kIdMask_World | kIdMask_Opponent);
 	}
 
 	behaviac::Config::SetLogging(true);

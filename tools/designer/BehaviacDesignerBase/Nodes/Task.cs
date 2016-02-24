@@ -113,9 +113,14 @@ namespace Behaviac.Design.Nodes
 
                     pars.Add(par);
                 }
+
+                this.Behavior.AgentType.ClearPars();
+                this.Behavior.AgentType.AddPars(pars);
+
+                if (Plugin.UpdateMetaStoreHandler != null)
+                    Plugin.UpdateMetaStoreHandler(null);
             }
         }
-
 
         //can only added to the 'Behavior'
         protected override bool CanBeAdoptedBy(BaseNode parent) {

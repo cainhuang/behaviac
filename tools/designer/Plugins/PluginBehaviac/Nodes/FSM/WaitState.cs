@@ -20,6 +20,13 @@ namespace PluginBehaviac.Nodes
             this.Name = Resources.WaitState;
         }
 
+        public override void PostCreatedByEditor()
+        {
+            Attachment attach = Attachment.Create(typeof(WaitTransition), this);
+            attach.ResetId();
+            this.AddAttachment(attach);
+        }
+
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(79, 129, 189));
         protected override Brush DefaultBackgroundBrush
         {
@@ -41,16 +48,8 @@ namespace PluginBehaviac.Nodes
             return (obj != null) && (obj is WaitTransition);
         }
 
-        private bool _ignoreTimeScale = false;
-        [DesignerBoolean("IgnoreTimeScale", "IgnoreTimeScaleDesc", "WaitState", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoFlags)]
-        public bool IgnoreTimeScale
-        {
-            get { return _ignoreTimeScale; }
-            set { this._ignoreTimeScale = value; }
-        }
-
         protected RightValueDef _time = new RightValueDef(new VariableDef(1000.0f));
-        [DesignerRightValueEnum("Duration", "DurationDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "", "", ValueTypes.Float)]
+        [DesignerRightValueEnum("Duration", "DurationDesc", "WaitState", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "", "", ValueTypes.Float)]
         public RightValueDef Time
         {
             get { return _time; }
@@ -66,8 +65,6 @@ namespace PluginBehaviac.Nodes
             {
                 dec._time = (RightValueDef)_time.Clone();
             }
-
-            dec._ignoreTimeScale = this._ignoreTimeScale;
         }
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
