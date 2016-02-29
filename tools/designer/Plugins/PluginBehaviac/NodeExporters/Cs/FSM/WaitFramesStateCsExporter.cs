@@ -31,6 +31,34 @@ namespace PluginBehaviac.NodeExporters
             return (waitFramesState != null);
         }
 
+        protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
+        {
+            base.GenerateConstructor(node, stream, indent, className);
+
+            WaitFramesState waitFramesState = node as WaitFramesState;
+            if (waitFramesState == null)
+                return;
+
+            if (waitFramesState.Frames != null)
+            {
+                RightValueCsExporter.GenerateClassConstructor(waitFramesState.Frames, stream, indent, "Frames");
+            }
+        }
+
+        protected override void GenerateMember(Node node, StreamWriter stream, string indent)
+        {
+            base.GenerateMember(node, stream, indent);
+
+            WaitFramesState waitFramesState = node as WaitFramesState;
+            if (waitFramesState == null)
+                return;
+
+            if (waitFramesState.Frames != null)
+            {
+                RightValueCsExporter.GenerateClassMember(waitFramesState.Frames, stream, indent, "Frames");
+            }
+        }
+
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
         {
             base.GenerateMethod(node, stream, indent);
@@ -44,7 +72,12 @@ namespace PluginBehaviac.NodeExporters
                 stream.WriteLine("{0}\t\tprotected override int GetFrames(Agent pAgent)", indent);
                 stream.WriteLine("{0}\t\t{{", indent);
 
-                string retStr = RightValueCsExporter.GenerateCode(waitFramesState.Frames, stream, indent + "\t\t\t", string.Empty, string.Empty, string.Empty);
+                string retStr = RightValueCsExporter.GenerateCode(waitFramesState.Frames, stream, indent + "\t\t\t", string.Empty, string.Empty, "Frames");
+
+                if (!waitFramesState.Frames.IsPublic && (waitFramesState.Frames.IsMethod || waitFramesState.Frames.Var != null && waitFramesState.Frames.Var.IsProperty))
+                {
+                    retStr = string.Format("Convert.ToInt32({0})", retStr);
+                }
 
                 stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
                 stream.WriteLine("{0}\t\t}}", indent);

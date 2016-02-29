@@ -1,3 +1,9 @@
+2016-02-29	3.3.8
+	Add the automatic signature for the setup package.
+
+2016-02-25	3.3.7
+	Fix a bug for the parameters of method generation.
+
 2016-02-24	3.3.6
 	Fix a bug for resetting the node id when replacing the node.
 	Report the username and mac address to the TQOS.

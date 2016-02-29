@@ -31,6 +31,34 @@ namespace PluginBehaviac.NodeExporters
             return (waitState != null);
         }
 
+        protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
+        {
+            base.GenerateConstructor(node, stream, indent, className);
+
+            WaitState waitState = node as WaitState;
+            if (waitState == null)
+                return;
+
+            if (waitState.Time != null)
+            {
+                RightValueCsExporter.GenerateClassConstructor(waitState.Time, stream, indent, "Time");
+            }
+        }
+
+        protected override void GenerateMember(Node node, StreamWriter stream, string indent)
+        {
+            base.GenerateMember(node, stream, indent);
+
+            WaitState waitState = node as WaitState;
+            if (waitState == null)
+                return;
+
+            if (waitState.Time != null)
+            {
+                RightValueCsExporter.GenerateClassMember(waitState.Time, stream, indent, "Time");
+            }
+        }
+
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
         {
             base.GenerateMethod(node, stream, indent);
@@ -45,6 +73,11 @@ namespace PluginBehaviac.NodeExporters
                 stream.WriteLine("{0}\t\t{{", indent);
 
                 string retStr = RightValueCppExporter.GenerateCode(waitState.Time, stream, indent + "\t\t\t", string.Empty, string.Empty, "Time");
+
+                if (!waitState.Time.IsPublic && (waitState.Time.IsMethod || waitState.Time.Var != null && waitState.Time.Var.IsProperty))
+                {
+                    retStr = string.Format("Convert.ToDouble({0})", retStr);
+                }
 
                 stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
                 stream.WriteLine("{0}\t\t}}", indent);

@@ -30,6 +30,34 @@ namespace PluginBehaviac.NodeExporters
             return (decoratorTime != null);
         }
 
+        protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
+        {
+            base.GenerateConstructor(node, stream, indent, className);
+
+            DecoratorTime decoratorTime = node as DecoratorTime;
+            if (decoratorTime == null)
+                return;
+
+            if (decoratorTime.Time != null)
+            {
+                RightValueCppExporter.GenerateClassConstructor(decoratorTime.Time, stream, indent, "Time");
+            }
+        }
+
+        protected override void GenerateMember(Node node, StreamWriter stream, string indent)
+        {
+            base.GenerateMember(node, stream, indent);
+
+            DecoratorTime decoratorTime = node as DecoratorTime;
+            if (decoratorTime == null)
+                return;
+
+            if (decoratorTime.Time != null)
+            {
+                RightValueCppExporter.GenerateClassMember(decoratorTime.Time, stream, indent, "Time");
+            }
+        }
+
         protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
         {
             base.GenerateMethod(node, stream, indent);

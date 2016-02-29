@@ -2007,6 +2007,24 @@ namespace Behaviac.Design
             }
         }
 
+        public bool IsPublic
+        {
+            get
+            {
+                if (this.Method != null)
+                {
+                    return this.Method.IsPublic;
+                }
+
+                if (this.Var != null && this.Var.Property != null)
+                {
+                    return this.Var.Property.IsPublic;
+                }
+
+                return false;
+            }
+        }
+
         public string ValueClassReal
         {
             get
