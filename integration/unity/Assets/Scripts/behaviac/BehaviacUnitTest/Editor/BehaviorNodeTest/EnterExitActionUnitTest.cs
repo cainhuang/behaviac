@@ -13,6 +13,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace BehaviorNodeUnitTest
@@ -186,6 +187,19 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual("world", testAgent.testVar_str_0);
 
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+        }
+
+        [Test]
+        [Category("test_cstringid")]
+        public void test_cstringid()
+        {
+            var list = new List<object>();
+            list.Add(new behaviac.CStringID("aaa"));
+
+            if (list.Contains("?"))
+            {
+                System.Console.WriteLine("");
+            }
         }
     }
 }

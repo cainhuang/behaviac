@@ -189,7 +189,7 @@ namespace Behaviac.Design
         {
             try
             {
-                string qosData = "http://ied-tqosweb.qq.com:8001/?tqos={\"Head\":{\"Cmd\":5},\"Body\":{\"QOSRep\":{\"BusinessID\":1,\"QosNum\":1,\"QosList\":[{\"QosID\":7001,\"QosVal\":0,\"AppendDescFlag\":2,\"AppendDesc\":{\"Comm\":{\"IntNum\":";
+                string qosData = "http://stats.behaviac.com/web/index.php?r=log/add&tqos={\"Head\":{\"Cmd\":5},\"Body\":{\"QOSRep\":{\"BusinessID\":1,\"QosNum\":1,\"QosList\":[{\"QosID\":7001,\"QosVal\":0,\"AppendDescFlag\":2,\"AppendDesc\":{\"Comm\":{\"IntNum\":";
                 qosData += intNum;
                 qosData += ",\"IntList\":[";
                 qosData += intList;
@@ -259,9 +259,11 @@ namespace Behaviac.Design
 
         private static string getHeaderString()
         {
-            return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"",
+            string workspaceName = (Workspace.Current != null) ? Workspace.Current.Name : string.Empty;
+
+            return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"",
                 GetLocalIP(), GetCpuID(), GetHarddiskID(), System.Reflection.Assembly.GetEntryAssembly().GetName().Version,
-                Dns.GetHostName(), GetLocalMac());
+                Dns.GetHostName(), GetLocalMac(), workspaceName);
         }
 
         private static string getTqosFile()

@@ -1,3 +1,7 @@
+2016-03-02	3.3.9
+	The C++/C# export path shoule be the same drive as the workspace.
+	Change the web link for stats.
+
 2016-02-29	3.3.8
 	Add the automatic signature for the setup package.
 

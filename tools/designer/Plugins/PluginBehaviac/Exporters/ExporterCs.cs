@@ -42,7 +42,7 @@ namespace PluginBehaviac.Exporters
             {
                 string behaviorFolder = Path.GetDirectoryName(behaviorFilename);
                 clearFolder(behaviorFolder);
-                clearFolder(agentFolder);
+                //clearFolder(agentFolder);
 
                 ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
 

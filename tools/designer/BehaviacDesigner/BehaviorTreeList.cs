@@ -748,8 +748,6 @@ namespace Behaviac.Design
                                 UndoManager.Save(behavior);
                             }
 
-                            Utilities.ReportLoadBehavior();
-
                         } catch (Exception ex) {
                             MessageBox.Show(ex.Message, Resources.LoadError, MessageBoxButtons.OK);
                         }
@@ -831,6 +829,8 @@ namespace Behaviac.Design
                     UIUtilities.ShowErrorDialog(ref _errorDialog, this, BehaviorTreeViewDock.LastFocused.BehaviorTreeView,
                         this.ParentForm, Resources.LoadError, result);
                 }
+
+                Utilities.ReportLoadBehavior();
             }
         }
 

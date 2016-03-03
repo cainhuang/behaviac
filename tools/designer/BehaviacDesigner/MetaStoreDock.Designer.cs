@@ -168,11 +168,11 @@ namespace Behaviac.Design
             // 
             // typeListBox
             // 
+            resources.ApplyResources(this.typeListBox, "typeListBox");
             this.typeListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.typeListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.typeListBox.ForeColor = System.Drawing.Color.LightGray;
             this.typeListBox.FormattingEnabled = true;
-            resources.ApplyResources(this.typeListBox, "typeListBox");
             this.typeListBox.Name = "typeListBox";
             this.typeListBox.SelectedIndexChanged += new System.EventHandler(this.typeListBox_SelectedIndexChanged);
             // 
@@ -254,9 +254,9 @@ namespace Behaviac.Design
             // 
             // MetaStoreDock
             // 
+            resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.closeButton;
-            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.metaTypePanel);
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.downMemberButton);

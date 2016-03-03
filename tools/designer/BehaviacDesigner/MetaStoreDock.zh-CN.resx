@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="instanceLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 187</value>
+  </data>
   <data name="instanceLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 12</value>
   </data>
@@ -127,23 +130,32 @@
   <data name="closeButton.Text" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="memberListBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 258</value>
+  </data>
   <data name="instanceComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 195</value>
+    <value>75, 183</value>
   </data>
   <data name="instanceComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 20</value>
+    <value>422, 20</value>
   </data>
   <data name="memberTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 222</value>
+    <value>75, 210</value>
   </data>
   <data name="memberTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 20</value>
+    <value>150, 20</value>
+  </data>
+  <data name="memberTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 213</value>
   </data>
   <data name="memberTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 12</value>
   </data>
   <data name="memberTypeLabel.Text" xml:space="preserve">
     <value>成员类型:</value>
+  </data>
+  <data name="memberFilterLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 214</value>
   </data>
   <data name="memberFilterLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 12</value>
@@ -152,10 +164,13 @@
     <value>筛选字符:</value>
   </data>
   <data name="memberFilterTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 250</value>
+    <value>322, 210</value>
   </data>
   <data name="memberFilterTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 21</value>
+    <value>175, 21</value>
+  </data>
+  <data name="memberListLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 238</value>
   </data>
   <data name="memberListLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 12</value>
@@ -164,7 +179,7 @@
     <value>成员列表:</value>
   </data>
   <data name="memberCountLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 277</value>
+    <value>73, 238</value>
   </data>
   <data name="typeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 12</value>
@@ -173,13 +188,13 @@
     <value>类型列表:</value>
   </data>
   <data name="addMemberButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 300</value>
+    <value>504, 258</value>
   </data>
   <data name="addMemberButton.Text" xml:space="preserve">
     <value>新增</value>
   </data>
   <data name="removeMemberButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 327</value>
+    <value>504, 342</value>
   </data>
   <data name="removeMemberButton.Text" xml:space="preserve">
     <value>删除</value>
@@ -198,7 +213,7 @@
     <value>True</value>
   </data>
   <data name="memberFilterCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 255</value>
+    <value>504, 215</value>
   </data>
   <data name="memberFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 16</value>
@@ -206,8 +221,14 @@
   <data name="memberFilterCheckBox.Text" xml:space="preserve">
     <value>开始于</value>
   </data>
+  <data name="downMemberButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>504, 314</value>
+  </data>
   <data name="downMemberButton.Text" xml:space="preserve">
     <value>往下</value>
+  </data>
+  <data name="upMemberButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>504, 286</value>
   </data>
   <data name="upMemberButton.Text" xml:space="preserve">
     <value>往上</value>
@@ -5079,6 +5100,10 @@
         ACCEDBgQgAQQAIAEMAGABjABgAQQCAgAAAgIAAAYDiAAMI/AAfGPgAHxh4AB8YeAAeCDgAHg48ABweHA
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Inherit</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>元信息浏览器</value>

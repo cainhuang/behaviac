@@ -1213,6 +1213,7 @@ namespace Behaviac.Design
             _isStatic = other._isStatic;
             _isPublic = other._isPublic;
             _isProperty = other._isProperty;
+            _isReadonly = other._isReadonly;
             _classname = other._classname;
             _owner = other._owner;
             _name = other._name;

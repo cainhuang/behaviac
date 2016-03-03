@@ -153,6 +153,15 @@ namespace Behaviac.Design
                 dialog.SelectedPath = this.exportFolderTextBox.Text;
 
                 if (dialog.ShowDialog() == DialogResult.OK) {
+                    string driveStr0 = Path.GetPathRoot(Workspace.Current.FileName);
+                    string driveStr1 = Path.GetPathRoot(dialog.SelectedPath);
+
+                    if (driveStr1 != driveStr0)
+                    {
+                        MessageBox.Show(Resources.WorkspaceExportRootWarning, Resources.Warning, MessageBoxButtons.OK);
+                        return;
+                    }
+
                     this.exportFolderTextBox.Text = dialog.SelectedPath;
                 }
             }
