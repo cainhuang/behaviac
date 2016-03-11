@@ -141,7 +141,7 @@ namespace Behaviac.Design
 
             ParInfo par = this._property as ParInfo;
 
-            if (_property.Variable == null || _property.Variable.GetValueType() != type)
+            if (_property.Variable == null || _property.Variable.ValueType != type)
             {
                 _property.Variable = new VariableDef(Plugin.DefaultValue(type));
             }

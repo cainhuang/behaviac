@@ -38,6 +38,11 @@ namespace Behaviac.Design.Attributes
             { this.propertyEditor.ReadOnly(); }
         }
 
+        public override void Clear()
+        {
+            this.propertyEditor.Clear();
+        }
+
         private bool _methodOnly = false;
         private bool _allowConst = true;
         private List<string> _names = new List<string>();
@@ -276,7 +281,7 @@ namespace Behaviac.Design.Attributes
                 VariableDef variable = propertyMember as VariableDef;
 
                 if (variable != null)
-                { return variable.GetValueType(); }
+                { return variable.ValueType; }
 
                 RightValueDef varRV = propertyMember as RightValueDef;
 
@@ -301,7 +306,7 @@ namespace Behaviac.Design.Attributes
 
                     if (variable != null) {
                         variable.ValueClass = valueClass;
-                        return variable.GetValueType();
+                        return variable.ValueType;
                     }
 
                     RightValueDef varRV = propertyMember as RightValueDef;
@@ -391,7 +396,8 @@ namespace Behaviac.Design.Attributes
                         { editor.SetRange(enumAtt.MinValue, enumAtt.MaxValue); }
 
                     } else {
-                        if (varRV == null || varRV.Var == null || varRV.ValueClass != var.ValueClass || varRV.ValueType != var.GetValueType()) {
+                        if (varRV == null || varRV.Var == null || varRV.ValueClass != var.ValueClass || varRV.ValueType != var.ValueType)
+                        {
                             varRV = new RightValueDef(var);
                         }
 

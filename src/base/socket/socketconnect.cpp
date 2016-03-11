@@ -289,15 +289,11 @@ namespace behaviac
             {
                 if (!s_tracer.IsWorkspaceSent() && s_tracer.IsConnected())
                 {
-                    behaviac::string workspaceName;
-                    behaviac::StringUtils::WCSToMBS(workspaceName, behaviac::Workspace::GetInstance()->GetWorkspaceAbsolutePath());
-
-                    if (!workspaceName.empty())
                     {
                         Workspace::EFileFormat format = Workspace::GetInstance()->GetFileFormat();
                         const char* formatString = (format == Workspace::EFF_xml ? "xml" : "bson");
 
-                        behaviac::string msg = FormatString("[workspace] %s \"%s\"\n", formatString, workspaceName.c_str());
+                        behaviac::string msg = FormatString("[workspace] %s \"%s\"\n", formatString, "");
                         //behaviac::Socket::SendText(msg.c_str());
                         LogManager::GetInstance()->LogWorkspace(true, msg.c_str());
 

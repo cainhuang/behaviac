@@ -1,3 +1,6 @@
+2016-03-08	3.3.10
+	behaviors.dbg.xml is not used any more
+
 2016-03-02	3.3.9
 	The C++/C# export path shoule be the same drive as the workspace.
 	Change the web link for stats.

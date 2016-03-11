@@ -94,7 +94,7 @@ namespace Behaviac.Design
             VariableDef var = propertyEditor.GetVariable();
 
             if (var.Value.ToString().ToLower() != valueStr.ToLower()) {
-                Plugin.InvokeTypeParser(null, var.GetValueType(), valueStr, (object value) => var.Value = value, null);
+                Plugin.InvokeTypeParser(null, var.ValueType, valueStr, (object value) => var.Value = value, null);
 
                 propertyEditor.ValueWasnotAssigned();
 

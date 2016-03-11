@@ -108,7 +108,8 @@ namespace Behaviac.Design.Attributes
                     valueChanged();
                 }
 
-                if (Plugin.IsCharType(variable.GetValueType())) {
+                if (Plugin.IsCharType(variable.ValueType))
+                {
                     textBox.MaxLength = 1;
                 }
             }
@@ -151,7 +152,8 @@ namespace Behaviac.Design.Attributes
                 }
 
             } else if (_variable != null) {
-                if (Plugin.IsCharType(_variable.GetValueType())) {
+                if (Plugin.IsCharType(_variable.ValueType))
+                {
                     char c = GetChar(textBox.Text);
 
                     _variable.Value = c;

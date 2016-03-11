@@ -122,7 +122,10 @@ namespace behaviac
 
             s = BT_RUNNING;
         }
+
+		return s;
     }
+
     bool  Sequence::CheckIfInterrupted(Agent* pAgent)
     {
         bool bInterrupted = this->EvaluteCustomCondition(pAgent);

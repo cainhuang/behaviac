@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tencent Games")]
 [assembly: AssemblyProduct("Behaviac Designer")]
-[assembly: AssemblyCopyright("Copyright © Tencent 2015")]
+[assembly: AssemblyCopyright("Copyright © Tencent 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("3.3.9")]
-[assembly: AssemblyFileVersion("3.3.9")]
+[assembly: AssemblyVersion("3.3.10")]
+[assembly: AssemblyFileVersion("3.3.10")]

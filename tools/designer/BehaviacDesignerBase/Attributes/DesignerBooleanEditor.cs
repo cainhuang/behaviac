@@ -75,7 +75,7 @@ namespace Behaviac.Design.Attributes
             base.SetVariable(variable, obj);
 
             if (variable != null) {
-                Type valueType = variable.GetValueType();
+                Type valueType = variable.ValueType;
 
                 if (valueType == typeof(bool))
                 { checkBox.Checked = (bool)variable.Value; }

@@ -906,6 +906,8 @@ namespace Behaviac.Design
             TreeNode newNode = new TreeNode(((Node)behavior).Label, (int)NodeIcon.BehaviorModified, (int)NodeIcon.BehaviorModified);
             newNode.Tag = new NodeTag(nodeTagType, behavior.GetType(), filename);
 
+            ((NodeTag)(newNode.Tag)).AssignLoadedBehavior(behavior);
+
             // add the new node to the folder node, and select it.
             folder.Nodes.Add(newNode);
             treeView.SelectedNode = newNode;
@@ -2147,6 +2149,8 @@ namespace Behaviac.Design
         {
             try
             {
+                Plugin.WrongWorksapceReported = false;
+
                 if (Plugin.EditMode == EditModes.Connect || NetworkManager.Instance.IsConnected())
                 {
                     if (Settings.Default.DumpConnectData)

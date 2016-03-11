@@ -595,6 +595,9 @@ namespace Behaviac.Design
                     PropertiesDock.InspectObject(null, null);
 
                     Utilities.ReportOpenWorkspace();
+
+                    if (Plugin.PostSetWorkspaceHandler != null)
+                        Plugin.PostSetWorkspaceHandler();
                 }
 
             } catch (Exception ex) {

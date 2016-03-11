@@ -57,7 +57,16 @@ namespace PluginBehaviac.Nodes
         [DesignerRightValueEnum("Operand1", "OperandDesc1", "Compute", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "Opl", "Opr2", ValueTypes.Int | ValueTypes.Float)]
         public RightValueDef Opr1
         {
-            get { return _opr1; }
+            get
+            {
+                if (_opl != null && _opr1 != null)
+                {
+                    _opr1.NativeType = _opl.NativeType;
+                }
+
+                return _opr1;
+            }
+
             set { this._opr1 = value; }
         }
 
@@ -73,7 +82,16 @@ namespace PluginBehaviac.Nodes
         [DesignerRightValueEnum("Operand2", "OperandDesc2", "Compute", DesignerProperty.DisplayMode.Parameter, 3, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "Opl", "", ValueTypes.Int | ValueTypes.Float)]
         public RightValueDef Opr2
         {
-            get { return _opr2; }
+            get
+            {
+                if (_opl != null && _opr2 != null)
+                {
+                    _opr2.NativeType = _opl.NativeType;
+                }
+
+                return _opr2;
+            }
+
             set { this._opr2 = value; }
         }
 
@@ -142,7 +160,7 @@ namespace PluginBehaviac.Nodes
                     bool bIsBool = false;
                     bool bIsNumber = false;
 
-                    Type type = this.Opl.GetValueType();
+                    Type type = this.Opl.ValueType;
                     if (type != null)
                     {
                         bIsBool = Plugin.IsBooleanType(type);
@@ -166,6 +184,11 @@ namespace PluginBehaviac.Nodes
             }
 
             return null;
+        }
+
+        public override Behaviac.Design.ObjectUI.ObjectUIPolicy CreateUIPolicy()
+        {
+            return new Behaviac.Design.ObjectUI.ComputeUIPolicy();
         }
 
         protected override void CloneProperties(Node newnode)

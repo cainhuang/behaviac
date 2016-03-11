@@ -298,7 +298,7 @@ namespace Behaviac.Design.Attributes
                 // extract the value
                 decimal value = 0;
 
-                Type valueType = variable.GetValueType();
+                Type valueType = variable.ValueType;
 
                 if (Plugin.IsFloatType(valueType)) {
                     const float maxValue = 1000000000000;

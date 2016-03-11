@@ -129,7 +129,7 @@ namespace BehaviorOtherUnitTest
             behaviac.Agent.UnbindInstance("Name_Agent_0");
             behaviac.Agent.UnbindInstance("AgentNodeTest");
 
-            testAgent_3 = behaviac.Agent.GetAgent("AgentNodeTest#@NodeTestAgent_1") as AgentNodeTest;
+            testAgent_3 = behaviac.Agent.GetAgent("AgentNodeTest#") as AgentNodeTest;
             Assert.AreEqual(nodeTestAgent, testAgent_3);
 
             behaviac.Agent testAgent_0_0 = behaviac.Agent.GetInstance<behaviac.Agent>("Name_Agent_0");

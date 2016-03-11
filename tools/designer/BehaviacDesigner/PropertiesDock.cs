@@ -293,26 +293,27 @@ namespace Behaviac.Design
 
         //private void UpdateProperties(IList<DesignerPropertyInfo> properties, List<MethodDef.Param> parameters, string parametersCategory)
         private void UpdateProperties(IList<DesignerPropertyInfo> properties) {
-            //Console.WriteLine("UpdateProperties");
-            //this.SuspendLayout();
+            DefaultObject obj = SelectedObject as DefaultObject;
+
+            if (obj != null)
+            {
+                uiPolicy = obj.CreateUIPolicy();
+                uiPolicy.Initialize(obj);
+            }
 
             List<string> categories = new List<string>();
-            foreach(DesignerPropertyInfo property in properties) {
-                if (!property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoDisplay) &&
+            foreach(DesignerPropertyInfo property in properties)
+            {
+                if (uiPolicy.ShouldAddProperty(property) &&
+                    !property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoDisplay) &&
                     (property.Attribute.CategoryResourceString != "CategoryVersion" || Settings.Default.ShowVersionInfo) &&
-                    !categories.Contains(property.Attribute.CategoryResourceString)) {
+                    !categories.Contains(property.Attribute.CategoryResourceString))
+                {
                     categories.Add(property.Attribute.CategoryResourceString);
                 }
             }
 
             categories.Sort(new CategorySorter());
-
-            DefaultObject obj = SelectedObject as DefaultObject;
-
-            if (obj != null) {
-                uiPolicy = obj.CreateUIPolicy();
-                uiPolicy.Initialize(obj);
-            }
 
             foreach(string category in categories) {
                 propertyGrid.AddCategory(Plugin.GetResourceString(category), true);
@@ -417,10 +418,8 @@ namespace Behaviac.Design
             }
 
             if (uiPolicy != null) {
-                uiPolicy.Update();
+                uiPolicy.Update(null, new DesignerPropertyInfo());
             }
-
-            //this.ResumeLayout(false);
         }
 
         void createArrayIndexEditor(string preBlank, MethodDef.Param arrayIndex) {

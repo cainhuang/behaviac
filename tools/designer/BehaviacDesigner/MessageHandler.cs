@@ -152,61 +152,9 @@ namespace Behaviac.Design
 
                 Debug.Check(ms_fileFormat == "xml" || ms_fileFormat == "bson");
 
-                //skip the space
-                string str = str_.Substring(pos + 1);
+                MainWindow.Instance.NodeTreeList.SetNodeList();
 
-                if (!string.IsNullOrEmpty(str)) {
-                    string wksName = string.Empty;
-
-                    if (str[0] == '\"') {
-                        for (int i = 1; i < str.Length; ++i) {
-                            if (str[i] == '\"') {
-                                wksName = str.Substring(1, i - 1);
-                                break;
-                            }
-                        }
-
-                    } else {
-                        string[] tokens = str.Split(' ');
-                        wksName = tokens[0].Trim(new char[] { ' ', '\"' });
-                    }
-
-                    if (!string.IsNullOrEmpty(wksName))
-                        wksName = Path.GetFullPath(wksName);
-
-                    try
-                    {
-                        if (string.IsNullOrEmpty(wksName) || !File.Exists(wksName))
-                        {
-                            string wks = string.IsNullOrEmpty(wksName) ? "" : Path.GetFileNameWithoutExtension(wksName);
-                            string currentWks = (Workspace.Current != null) ? Path.GetFileNameWithoutExtension(Workspace.Current.FileName) : "";
-
-                            if (!string.IsNullOrEmpty(wks) && wks != currentWks)
-                            {
-                                // Close the connection
-                                MainWindow.Instance.BehaviorTreeList.HandleConnect();
-
-                                string errorInfo = string.Format(Resources.WorkspaceDebugErrorInfo, wksName);
-
-                                MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
-
-                                //ErrorInfoDock.Inspect();
-                                //ErrorInfoDock.WriteLine(errorInfo);
-                            }
-
-                            MainWindow.Instance.NodeTreeList.SetNodeList();
-                        }
-                        else
-                        {
-                            Plugin.WorkspaceDelegateHandler(wksName, false);
-                        }
-                    }
-                    catch
-                    {
-                    }
-
-                    AgentDataPool.TotalFrames = 0;
-                }
+                AgentDataPool.TotalFrames = 0;
             }
         }
 

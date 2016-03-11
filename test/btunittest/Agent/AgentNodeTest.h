@@ -135,6 +135,11 @@ public:
         return 1;
     }
 
+	int getConstThousand(int a, int b)
+	{
+		return a + b;
+	}
+
     void setTestVar_0(int var)
     {
         testVar_0 = var;

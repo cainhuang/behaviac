@@ -258,6 +258,10 @@
 				<Param DisplayName="" Desc="" Type="AgentNodeTest*" />
 			</Method>
 			<Method Name="getConstOne" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="int" />
+			<Method Name="getConstThousand" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="int">
+				<Param DisplayName="" Desc="" Type="int" />
+				<Param DisplayName="" Desc="" Type="int" />
+			</Method>
 			<Method Name="setTestVar_0" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
 				<Param DisplayName="" Desc="" Type="int" />
 			</Method>

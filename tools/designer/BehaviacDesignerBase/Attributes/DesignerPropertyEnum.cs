@@ -292,7 +292,7 @@ namespace Behaviac.Design.Attributes
             VariableDef variableDepended = propertyMemberDepended as VariableDef;
 
             if (variableDepended != null) {
-                valueType = variableDepended.GetValueType();
+                valueType = variableDepended.ValueType;
 
             } else if (propertyMemberDepended != null) {
                 MethodDef methodDepended = propertyMemberDepended as MethodDef;

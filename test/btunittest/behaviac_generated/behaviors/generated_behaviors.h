@@ -705,6 +705,12 @@ template<>  int AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getCon
 	return this->AgentNodeTest::getConstOne();
 }
 
+struct METHOD_TYPE_AgentNodeTest_getConstThousand { };
+template<>  int AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstThousand>(int p0, int p1)
+{
+	return this->AgentNodeTest::getConstThousand(p0, p1);
+}
+
 struct METHOD_TYPE_AgentNodeTest_getExtendedStruct { };
 template<>  TestNS::Float2& AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_getExtendedStruct>()
 {
@@ -6803,6 +6809,8 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_action_ut_0_node1, Compute);
 		Compute_bt_node_test_action_ut_0_node1()
 		{
+			opr1_p0 = 600;
+			opr1_p1 = 400;
 		}
 	protected:
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
@@ -6810,12 +6818,14 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			int opr1 = 1000;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstThousand, int, int, int >(opr1_p0, opr1_p1);
 			int opr2 = 500;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par_int_type_0") == 4028995106u);
 			pAgent->SetVariable("par_int_type_0", (int)(opr1 + opr2), 4028995106u);
 			return result;
 		}
+		int opr1_p0;
+		int opr1_p1;
 	};
 
 	class Action_bt_node_test_action_ut_0_node2 : public Action

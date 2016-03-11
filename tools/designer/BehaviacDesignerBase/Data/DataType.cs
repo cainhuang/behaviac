@@ -197,7 +197,7 @@ namespace Behaviac.Design
                         if (this._value is VariableDef)
                         {
                             VariableDef varDef = this._value as VariableDef;
-                            return varDef.GetValueType();
+                            return varDef.ValueType;
                         }
 
                         return this._value.GetType();
@@ -1288,7 +1288,7 @@ namespace Behaviac.Design
                     return _propertyInfo.FieldType;
 
                 if (this.Variable != null)
-                    return this.Variable.GetValueType();
+                    return this.Variable.ValueType;
 
                 return null;
             }
@@ -1712,7 +1712,7 @@ namespace Behaviac.Design
                 if (_valueClass == kConst)
                 {
                     if (string.IsNullOrEmpty(_nativeType))
-                        return Plugin.GetNativeTypeName(this.GetValueType());
+                        return Plugin.GetNativeTypeName(this.ValueType);
                 }
                 else if (_property != null)
                 {
@@ -1756,15 +1756,18 @@ namespace Behaviac.Design
             }
         }
 
-        public Type GetValueType()
+        public Type ValueType
         {
-            if (_valueClass == kConst && _value != null)
-            { return _value.GetType(); }
+            get
+            {
+                if (_valueClass == kConst && _value != null)
+                    return _value.GetType();
 
-            if (_property != null)
-            { return _property.Type; }
+                if (_property != null)
+                    return _property.Type;
 
-            return null;
+                return null;
+            }
         }
 
         public override string ToString()
@@ -1968,7 +1971,7 @@ namespace Behaviac.Design
             get
             {
                 if (m_var != null)
-                { return m_var.GetValueType(); }
+                { return m_var.ValueType; }
 
                 if (m_method != null)
                 { return m_method.ReturnType; }
@@ -2308,27 +2311,30 @@ namespace Behaviac.Design
             }
         }
 
-        public override string Description
-        {
-            set
-            {
-                _description = value;
-                OnValueChanged();
-            }
-        }
-
         public override Type Type
         {
-            get { return (_type != null) ? _type : ((this.Variable != null) ? this.Variable.GetValueType() : null); }
+            get { return (_type != null) ? _type : ((this.Variable != null) ? this.Variable.ValueType : null); }
             set
             {
                 if (_type != value)
                 {
                     _type = value;
 
+                    if (_type != null)
+                        this.TypeName = _type.FullName;
+
                     if (this.Variable != null)
-                    { this.Variable.Value = Plugin.DefaultValue(_type); }
+                        this.Variable.Value = Plugin.DefaultValue(_type);
                 }
+            }
+        }
+
+        public override string Description
+        {
+            set
+            {
+                _description = value;
+                OnValueChanged();
             }
         }
 

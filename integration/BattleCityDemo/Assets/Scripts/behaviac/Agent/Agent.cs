@@ -121,12 +121,12 @@ namespace behaviac
 
         protected void Init()
         {
-            Init_(this.m_contextId, this, this.m_priority, this.name);
         }
 
-        //protected Agent()
-        //{
-        //}
+        public Agent()
+        {
+            Init_(this.m_contextId, this, this.m_priority);
+        }
 
         //~Agent()
         //{
@@ -1128,19 +1128,14 @@ namespace behaviac
         private const int kAGENT_DEBUG_VERY = 0x01010101;
 #endif//#if !BEHAVIAC_RELEASE
 
-        protected static void Init_(int contextId, Agent pAgent, int priority, string agentInstanceName)
+        protected static void Init_(int contextId, Agent pAgent, int priority)
         {
-#if !BEHAVIAC_RELEASE
-            pAgent.m_debug_verify = kAGENT_DEBUG_VERY;
-#endif//#if !BEHAVIAC_RELEASE
-
             Debug.Check(contextId >= 0, "invalid context id");
 
             pAgent.m_contextId = contextId;
             pAgent.m_id = ms_agent_index++;
             pAgent.m_priority = priority;
 
-            pAgent.SetName(agentInstanceName);
             pAgent.InitVariableRegistry();
 
             Context.AddAgent(pAgent);
@@ -1393,7 +1388,12 @@ namespace behaviac
 
 #if !BEHAVIAC_RELEASE
                 this.m_debug_count = 0;
-                Debug.Check(this.m_debug_verify == kAGENT_DEBUG_VERY, "You did not call Agent.Init!");
+                if (this.m_debug_verify != kAGENT_DEBUG_VERY)
+                {
+                    this.SetName(this.name);
+
+                    this.m_debug_verify = kAGENT_DEBUG_VERY;
+                }
 #endif//#if !BEHAVIAC_RELEASE
                 this.InstantiateProperties();
 

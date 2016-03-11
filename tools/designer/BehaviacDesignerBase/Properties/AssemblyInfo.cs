@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tencent ETC")]
 [assembly: AssemblyProduct("BehaviacDesigner Base")]
-[assembly: AssemblyCopyright("Copyright © Tencent 2015")]
+[assembly: AssemblyCopyright("Copyright © Tencent 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

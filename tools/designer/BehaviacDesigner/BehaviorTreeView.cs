@@ -3562,6 +3562,11 @@ namespace Behaviac.Design
                 // when we attach a behaviour we must create a special referenced behaviour node
                 if (bDragBTOverNode) {
                     //drag an event(a bt) to a node
+                    if (!File.Exists(sourceNodeTag.Filename))
+                    {
+                        MainWindow.Instance.SaveBehavior(sourceNodeTag.Defaults as Nodes.BehaviorNode, false);
+                    }
+
                     if (File.Exists(sourceNodeTag.Filename)) {
                         // get the behavior we want to reference
                         BehaviorNode behavior = _behaviorTreeList.LoadBehavior(sourceNodeTag.Filename);

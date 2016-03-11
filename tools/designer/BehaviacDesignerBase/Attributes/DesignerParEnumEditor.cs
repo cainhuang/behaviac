@@ -55,7 +55,7 @@ namespace Behaviac.Design.Attributes
 
             if (param.IsFromStruct && (param.Type == typeof(VariableDef))) {
                 VariableDef v = param.Value as VariableDef;
-                FilterType = v.GetValueType();
+                FilterType = v.ValueType;
 
             } else {
                 FilterType = param.Type;

@@ -38,6 +38,19 @@ namespace Behaviac.Design.Attributes
         private List<MethodDef> _methods = new List<MethodDef>();
         private bool _resetMethods = false;
 
+        public override void Clear()
+        {
+            if (_property.Property != null)
+            {
+                _property.Property.SetValue(_object, null, null);
+            }
+
+            _resetMethods = false;
+            _methods.Clear();
+            comboBox.Text = "";
+            comboBox.Items.Clear();
+        }
+
         public override void SetProperty(DesignerPropertyInfo property, object obj) {
             base.SetProperty(property, obj);
 
@@ -54,7 +67,7 @@ namespace Behaviac.Design.Attributes
                 VariableDef var = propMember as VariableDef;
 
                 if (var != null) {
-                    this.FilterType = var.GetValueType();
+                    this.FilterType = var.ValueType;
 
                 } else {
                     MethodDef method = propMember as MethodDef;

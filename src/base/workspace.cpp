@@ -179,13 +179,6 @@ namespace behaviac
         void SendWorkspaceSettings();
     }
 
-    const wchar_t* Workspace::GetWorkspaceAbsolutePath()
-    {
-        this->TryInit();
-
-        return m_workspace_file;
-    }
-
     Workspace* Workspace::ms_instance = 0;
 
     Workspace::Workspace() : m_bInited(false), m_bExecAgents(true), m_fileFormat(Workspace::EFF_xml),
@@ -197,7 +190,6 @@ namespace behaviac
         m_allBehaviorTreeTasks = 0;
 #endif//BEHAVIAC_ENABLE_HOTRELOAD
         memset(this->m_fileBufferOffset, 0, sizeof(m_fileBufferOffset));
-        memset(this->m_workspace_file, 0, sizeof(m_workspace_file));
         //memset(m_szWorkspaceExportPath, 0, sizeof(m_szWorkspaceExportPath));
         string_cpy(m_szWorkspaceExportPath, "./behaviac/workspace/exported/");
 		this->m_fileBufferLength = 0;
@@ -373,8 +365,6 @@ namespace behaviac
 
         //BEHAVIAC_ASSERT(!StringUtils::EndsWith(szWorkspaceExportPath, "\\"), "use '/' instead of '\\'");
 
-        LoadWorkspaceAbsolutePath();
-
 #if BEHAVIAC_ENABLE_HOTRELOAD
 		if (behaviac::Config::IsHotReload())
 		{
@@ -400,86 +390,17 @@ namespace behaviac
     */
     void Workspace::LogWorkspaceInfo()
     {
-        const wchar_t* wksAbsPath = this->GetWorkspaceAbsolutePath();
-
-        if (wksAbsPath)
         {
             Workspace::EFileFormat format = this->GetFileFormat();
             const char* formatString = (format == EFF_xml ? "xml" : "bson");
 
             char msg[1024] = { 0 };
-            sprintf(msg, "[workspace] %s \"%S\"\n", formatString, wksAbsPath);
+            sprintf(msg, "[workspace] %s \"%s\"\n", formatString, "");
             LogManager::GetInstance()->LogWorkspace(false, msg);
         }
     }
 
-    void Workspace::LoadWorkspaceAbsolutePath()
-    {
-#if !BEHAVIAC_RELEASE
-
-        if (Config::IsLoggingOrSocketing())
-        {
-            //relative to exe's current path
-            const char* workspaceExportPath = this->GetFilePath();
-
-            //workspaceExportPath is the path to the export:
-            //like: ..\example\spaceship\data\bt\exported
-            behaviac::string fullPath = StringUtils::CombineDir(workspaceExportPath, "behaviors.dbg.xml");
-            behaviac::string workspaceFilePathRelative;
-            bool bOk = LoadWorkspaceSetting(fullPath.c_str(), workspaceFilePathRelative);
-
-            if (bOk)
-            {
-                //workspaceFilePathRelative stored in behaviors.dbg.xml is the path relative to export
-                //convert it to the full path
-                wchar_t* workspaceRootPath = this->m_workspace_file;
-                workspaceRootPath[0] = '\0';
-
-                if (behaviac::CFileManager::GetInstance()->PathIsRelative(workspaceExportPath))
-                {
-                    const behaviac::wstring currentWD = behaviac::CFileManager::GetInstance()->GetCurrentWorkingDirectory();
-                    int len = currentWD.size();
-                    BEHAVIAC_ASSERT(len + 1 < kMaxPath, "path is too long !");
-                    wcscpy(workspaceRootPath, currentWD.c_str());
-                    wchar_t last = workspaceRootPath[len - 1];
-
-                    if (last != L'/' && last != L'\\')
-                    {
-                        workspaceRootPath[len] = L'/';
-                        workspaceRootPath[len + 1] = L'\0';
-                    }
-
-                    m_workspaceExportPathAbs = workspaceRootPath;
-
-                    //{
-                    //    uint32_t p = m_workspaceExportPathAbs.find_last_of(STRING2WSTRING("Assets"));
-
-                    //    if (p != (uint32_t)-1) {
-                    //        m_workspaceExportPathAbs = m_workspaceExportPathAbs.substr(0, p);
-                    //    }
-                    //}
-
-                    m_workspaceExportPathAbs = StringUtils::CombineDir(m_workspaceExportPathAbs.c_str(), STRING2WSTRING(workspaceExportPath).c_str());
-                }
-                else
-                {
-                    m_workspaceExportPathAbs = STRING2WSTRING(workspaceExportPath);
-                }
-
-                m_workspaceExportPathAbs = StringUtils::CombineDir(m_workspaceExportPathAbs.c_str(), STRING2WSTRING(workspaceFilePathRelative).c_str());
-
-                //ms_workspace_file = m_workspaceExportPathAbs+workspaceFilePathRelative;
-                wcscpy(m_workspace_file, m_workspaceExportPathAbs.c_str());
-            }
-            else
-            {
-            }
-        }
-
-#endif
-    }
-
-	void Workspace::SetTimeSinceStartup(double timeSinceStartup)
+  	void Workspace::SetTimeSinceStartup(double timeSinceStartup)
     {
         m_timeSinceStartup = timeSinceStartup;
     }
@@ -1117,8 +1038,6 @@ namespace behaviac
         }
 
         m_behaviortrees.clear();
-
-        m_workspace_file[0] = '\0';
 
 		AgentProperties::UnloadLocals();
     }

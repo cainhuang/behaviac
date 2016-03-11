@@ -38,6 +38,17 @@ namespace Behaviac.Design
             }
 
             if (!File.Exists(behaviorFilename)) {
+                if (!Plugin.WrongWorksapceReported)
+                {
+                    Plugin.WrongWorksapceReported = true;
+                    string errorInfo = string.Format(Resources.WorkspaceDebugErrorInfo, behaviorFilename);
+
+                    MessageBox.Show(errorInfo, Resources.WorkspaceError, MessageBoxButtons.OK);
+
+                    ErrorInfoDock.Inspect();
+                    ErrorInfoDock.WriteLine(errorInfo);
+                }
+
                 return null;
             }
 

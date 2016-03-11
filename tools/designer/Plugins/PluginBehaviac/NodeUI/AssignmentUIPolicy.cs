@@ -19,23 +19,32 @@ using Behaviac.Design.Attributes;
 
 namespace Behaviac.Design.ObjectUI
 {
-    class BehaviorUIPolicy : ObjectUIPolicy
+    class AssignmentUIPolicy : ObjectUIPolicy
     {
-        public override bool ShouldAddProperty(DesignerPropertyInfo property)
+        public override void Update(object sender, DesignerPropertyInfo property)
         {
             if (_obj != null)
             {
-                if (Plugin.IsQueryFiltered)
+                DesignerPropertyEditor oplEditor = GetEditor(_obj, "Opl");
+                Debug.Check(oplEditor != null);
+                if (oplEditor == sender)
                 {
-                    DesignerPropertyInfo domainsProp = DesignerProperty.GetDesignerProperty(_obj.GetType(), "Domains");
-                    DesignerPropertyInfo descriptorRefsProp = DesignerProperty.GetDesignerProperty(_obj.GetType(), "DescriptorRefs");
+                    VariableDef opl = (VariableDef)GetProperty(_obj, "Opl");
 
-                    return property.Property != domainsProp.Property &&
-                        property.Property != descriptorRefsProp.Property;
+                    if (opl != null)
+                    {
+                        RightValueDef opr = (RightValueDef)GetProperty(_obj, "Opr");
+
+                        if (opr != null && opl.ValueType != opr.ValueType)
+                        {
+                            DesignerPropertyEditor oprEditor = GetEditor(_obj, "Opr");
+                            Debug.Check(oprEditor != null);
+
+                            oprEditor.Clear();
+                        }
+                    }
                 }
             }
-
-            return true;
         }
     }
 }

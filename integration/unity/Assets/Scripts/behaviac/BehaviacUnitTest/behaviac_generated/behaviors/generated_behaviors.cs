@@ -4762,16 +4762,20 @@ namespace behaviac
 	{
 		public Compute_bt_node_test_action_ut_0_node1()
 		{
+			opr1_params = new object[2];
+			opr1_params[0] = 600;
+			opr1_params[1] = 400;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			int opr1 = 1000;
+			int opr1 = (int)AgentExtra_Generated.ExecuteMethod(pAgent, "getConstThousand", opr1_params);
 			int opr2 = 500;
 			Debug.Check(behaviac.Utils.MakeVariableId("par_int_type_0") == 4028995106u);
 			pAgent.SetVariable<int>("par_int_type_0", (int)(opr1 + opr2), 4028995106u);
 			return result;
 		}
+		object[] opr1_params;
 	}
 
 	[behaviac.GeneratedTypeMetaInfo()]

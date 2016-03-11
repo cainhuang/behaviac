@@ -53,7 +53,7 @@ namespace PluginBehaviac.Nodes
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
-            Type valueType = this._count.GetValueType();
+            Type valueType = this._count.ValueType;
 
             string typeName = Plugin.GetNativeTypeName(valueType.FullName);
 

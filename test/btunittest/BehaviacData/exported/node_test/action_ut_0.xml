@@ -40,7 +40,7 @@
     <node class="Compute" id="1">
       <property Operator="Add" />
       <property Opl="int Self.AgentNodeTest::par_int_type_0" />
-      <property Opr1="const int 1000" />
+      <property Opr1="Self.AgentNodeTest::getConstThousand(600,400)" />
       <property Opr2="const int 500" />
     </node>
     <node class="Action" id="2">

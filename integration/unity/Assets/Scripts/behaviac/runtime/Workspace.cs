@@ -482,8 +482,6 @@ namespace behaviac
 
             Debug.Check(!this.FilePath.EndsWith("\\"), "use '/' instead of '\\'");
 
-            LoadWorkspaceAbsolutePath();
-
             m_frameSinceStartup = -1;
 
 #if !BEHAVIAC_RELEASE
@@ -615,15 +613,11 @@ namespace behaviac
 
         public void LogWorkspaceInfo()
         {
-            string wksAbsPath = this.GetWorkspaceAbsolutePath();
-
-            // Even if the wksAbsPath is empty, the [workspace] should be sent out.
-            //if (!string.IsNullOrEmpty(wksAbsPath))
             {
                 Workspace.EFileFormat format = this.FileFormat;
                 string formatString = (format == Workspace.EFileFormat.EFF_xml ? "xml" : "bson");
 
-                string msg = string.Format("[workspace] {0} \"{1}\"\n", formatString, wksAbsPath);
+                string msg = string.Format("[workspace] {0} \"{1}\"\n", formatString, "");
                 LogManager.Instance.LogWorkspace(msg);
             }
         }
@@ -671,68 +665,6 @@ namespace behaviac
             }
 
             return false;
-        }
-
-        private string m_workspaceFileAbs = "";
-
-        private string GetWorkspaceAbsolutePath()
-        {
-            return m_workspaceFileAbs;
-        }
-
-        public void LoadWorkspaceAbsolutePath()
-        {
-#if !BEHAVIAC_RELEASE
-
-            if (Config.IsLoggingOrSocketing)
-            {
-                //relative to exe's current path
-                string workspaceExportPath = this.FilePath;
-
-                //workspaceExportPath is the path to the export:
-                //like: ..\example\spaceship\data\bt\exported
-                string fullPath = Path.Combine(workspaceExportPath, "behaviors.dbg");
-
-                string workspaceFilePathRelative = "";
-                bool bOk = LoadWorkspaceSetting(fullPath, ".xml", ref workspaceFilePathRelative);
-
-                if (bOk)
-                {
-                    //workspaceFilePathRelative stored in behaviors.dbg.xml is the path relative to export
-                    //convert it to the full path
-                    if (!Path.IsPathRooted(workspaceExportPath))
-                    {
-                        m_workspaceExportPathAbs = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-                        {
-                            int p = m_workspaceExportPathAbs.LastIndexOf("Assets", StringComparison.OrdinalIgnoreCase);
-
-                            if (p != -1)
-                            {
-                                m_workspaceExportPathAbs = m_workspaceExportPathAbs.Substring(0, p);
-                            }
-                        }
-
-                        m_workspaceExportPathAbs = Path.Combine(m_workspaceExportPathAbs, workspaceExportPath);
-                    }
-                    else
-                    {
-                        m_workspaceExportPathAbs = workspaceExportPath;
-                    }
-
-                    m_workspaceExportPathAbs = Path.GetFullPath(m_workspaceExportPathAbs);
-                    m_workspaceExportPathAbs = m_workspaceExportPathAbs.Replace('\\', '/');
-
-                    m_workspaceFileAbs = Path.Combine(m_workspaceExportPathAbs, workspaceFilePathRelative);
-                    m_workspaceFileAbs = Path.GetFullPath(m_workspaceFileAbs);
-                    m_workspaceFileAbs = m_workspaceFileAbs.Replace('\\', '/');
-                }
-                else
-                {
-                }
-            }
-
-#endif
         }
 
         #region HotReload

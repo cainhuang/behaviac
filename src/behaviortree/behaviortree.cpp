@@ -122,7 +122,7 @@ namespace behaviac
 		m_enter_precond(0), m_update_precond(0), m_both_precond(0), 
 		m_success_effectors(0), m_failure_effectors(0), m_both_effectors(0),
         m_attachments(0), m_pars(0), m_parent(0), m_children(0),
-        m_customCondition(0), m_enterAction(0), m_exitAction(0),
+        m_customCondition(0), 
         m_bHasEvents(false), m_loadAttachment(false)
     {
     }
@@ -134,9 +134,6 @@ namespace behaviac
 
     void BehaviorNode::Clear()
     {
-        BEHAVIAC_DELETE(m_enterAction);
-        BEHAVIAC_DELETE(m_exitAction);
-
         if (this->m_pars)
         {
             this->m_pars->clear();
@@ -581,27 +578,6 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(version);
         BEHAVIAC_UNUSED_VAR(agentType);
         BEHAVIAC_UNUSED_VAR(properties);
-
-        for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
-        {
-            const property_t& p = (*it);
-
-            if (StringUtils::StrEqual(p.name, "EnterAction"))
-            {
-                if (p.value[0] != '\0')
-                {
-                    this->m_enterAction = Action::LoadMethod(p.value);
-                }//if (p.value[0] != '\0')
-
-            }
-            else if (StringUtils::StrEqual(p.name, "ExitAction"))
-            {
-                if (p.value[0] != '\0')
-                {
-                    this->m_exitAction = Action::LoadMethod(p.value);
-                }//if (p.value[0] != '\0')
-            }
-        }
 
         {
             const char* nodeType = this->GetObjectTypeName();

@@ -21,7 +21,7 @@ namespace Behaviac.Design.ObjectUI
 {
     class ParallelUIPolicy : ObjectUIPolicy
     {
-        public override void Update()
+        public override void Update(object sender, DesignerPropertyInfo property)
         {
             if (_obj != null)
             {

@@ -29,29 +29,26 @@ namespace PluginBehaviac.DataExporters
             string agentName = GetGenerateAgentName(property, var, caller);
             string prop = GetProperty(property, arrayIndexElement, stream, indent, var, caller);
 
-            if (!property.IsReadonly)
+            if (setValue == null)
             {
-                if (setValue == null)
+                if (!string.IsNullOrEmpty(var))
                 {
-                    if (!string.IsNullOrEmpty(var))
+                    if (string.IsNullOrEmpty(typename))
                     {
-                        if (string.IsNullOrEmpty(typename))
-                        {
-                            stream.WriteLine("{0}{1} = {2};", indent, var, prop);
-                        }
-                        else
-                        {
-                            string nativeType = DataCsExporter.GetPropertyNativeType(property, arrayIndexElement);
+                        stream.WriteLine("{0}{1} = {2};", indent, var, prop);
+                    }
+                    else
+                    {
+                        string nativeType = DataCsExporter.GetPropertyNativeType(property, arrayIndexElement);
 
-                            stream.WriteLine("{0}{1} {2} = {3};", indent, nativeType, var, prop);
-                        }
+                        stream.WriteLine("{0}{1} {2} = {3};", indent, nativeType, var, prop);
                     }
                 }
-                else
-                {
-                    string propBasicName = property.BasicName.Replace("[]", "");
-                    stream.WriteLine("{0}AgentExtra_Generated.SetProperty({1}, \"{2}\", {3});", indent, agentName, propBasicName, setValue);
-                }
+            }
+            else
+            {
+                string propBasicName = property.BasicName.Replace("[]", "");
+                stream.WriteLine("{0}AgentExtra_Generated.SetProperty({1}, \"{2}\", {3});", indent, agentName, propBasicName, setValue);
             }
 
             return prop;

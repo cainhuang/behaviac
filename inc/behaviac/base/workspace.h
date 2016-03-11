@@ -175,9 +175,7 @@ namespace behaviac
         bool ExportMetas(const char* xmlMetaFilePath);
         void Cleanup();
 
-        const wchar_t* GetWorkspaceAbsolutePath();
         void LogWorkspaceInfo();
-        void LoadWorkspaceAbsolutePath();
 
         /**
         Load the specified behavior tree
@@ -308,13 +306,9 @@ namespace behaviac
         ActionCount_t			m_actions_count;
 
         behaviac::Mutex			m_cs;
-        behaviac::wstring		m_workspaceExportPathAbs;
 
         static const int kMaxPath = 260 * 2;
         static const int kFileBufferDepth = 20;
-
-        //workspace file, absolute path
-        wchar_t					m_workspace_file[kMaxPath];
 
         char					m_szWorkspaceExportPath[kMaxPath];
 

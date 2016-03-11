@@ -2641,11 +2641,17 @@ namespace behaviac
 
         public static void Cleanup()
         {
-            ms_comparers.Clear();
-            ms_comparers = null;
+            if (ms_comparers != null)
+            {
+                ms_comparers.Clear();
+                ms_comparers = null;
+            }
 
-            ms_computers.Clear();
-            ms_computers = null;
+            if (ms_computers != null)
+            {
+                ms_computers.Clear();
+                ms_computers = null;
+            }
         }
     }
 

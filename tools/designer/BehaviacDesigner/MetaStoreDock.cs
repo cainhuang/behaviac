@@ -51,6 +51,7 @@ namespace Behaviac.Design
 
         private static MetaStoreDock _metaStoreDock = null;
         private static AgentType _lastAgent = null;
+        private static string _lastSelectedType = "";
         private static int _lastMemberTypeIndex = (int)MemberType.Property;
         private static Nodes.BehaviorNode _isParDirtyBehavior = null;
 
@@ -78,6 +79,14 @@ namespace Behaviac.Design
             }
         }
 
+        internal static void Reset()
+        {
+            if (_metaStoreDock != null)
+            {
+                _metaStoreDock.Clear();
+            }
+        }
+
         private BehaviorTreeViewDock _dock = null;
 
         public MetaStoreDock() {
@@ -89,6 +98,7 @@ namespace Behaviac.Design
             _previousSelectedMemberIndex = -1;
 
             Plugin.UpdateMetaStoreHandler += Plugin_UpdateMetaStoreHandler;
+            Plugin.PostSetWorkspaceHandler += Plugin_PostSetWorkspaceHandler;
         }
 
         private void MetaStoreDock_FormClosing(object sender, FormClosingEventArgs e) {
@@ -99,12 +109,26 @@ namespace Behaviac.Design
             _metaStoreDock = null;
 
             Plugin.UpdateMetaStoreHandler -= Plugin_UpdateMetaStoreHandler;
+            Plugin.PostSetWorkspaceHandler -= Plugin_PostSetWorkspaceHandler;
+
+            _lastSelectedType = "";
         }
 
         private void Plugin_UpdateMetaStoreHandler(object dock)
         {
             if (MetaStoreDock.IsVisible())
                 MetaStoreDock.Inspect(dock as BehaviorTreeViewDock);
+        }
+
+        private void Plugin_PostSetWorkspaceHandler()
+        {
+            if (MetaStoreDock.IsVisible())
+                MetaStoreDock.Reset();
+        }
+
+        private void Clear()
+        {
+            _lastSelectedType = "";
         }
 
         private void apply(bool query, int typeSelectedIndex, int memberSelectedIndex, bool resetSelectedIndex)
@@ -247,13 +271,24 @@ namespace Behaviac.Design
             this.instanceComboBox.Items.Clear();
             this.memberTypeComboBox.Items.Clear();
 
-            AgentType agentType = getCurrentViewAgentType();
+            string selectedType = _lastSelectedType;
 
-            if (agentType == null) {
-                agentType = _lastAgent;
+            if (string.IsNullOrEmpty(_lastSelectedType))
+            {
+                AgentType agentType = getCurrentViewAgentType();
+
+                if (agentType == null)
+                {
+                    agentType = _lastAgent;
+                }
+
+                if (agentType != null)
+                {
+                    selectedType = agentType.AgentTypeName;
+                }
             }
 
-            resetAllTypes(agentType != null ? agentType.AgentTypeName : "");
+            resetAllTypes(selectedType);
 
             // set all member types
             foreach(string mt in Enum.GetNames(typeof(MemberType))) {
@@ -859,21 +894,26 @@ namespace Behaviac.Design
             return CustomizedTypeManager.Instance.Structs[index];
         }
 
-        private void addTypeButton_Click(object sender, EventArgs e) {
+        private void addTypeButton_Click(object sender, EventArgs e)
+        {
             MetaTypeDialog typeDialog = new MetaTypeDialog(null);
 
-            if (DialogResult.OK == typeDialog.ShowDialog()) {
+            if (DialogResult.OK == typeDialog.ShowDialog())
+            {
                 Workspace.Current.IsBlackboardDirty = true;
 
                 MetaTypePanel.MetaTypes metaType = typeDialog.GetMetaType();
 
-                if (metaType == MetaTypePanel.MetaTypes.Agent) {
+                if (metaType == MetaTypePanel.MetaTypes.Agent)
+                {
                     AgentType agentType = typeDialog.GetCustomizedAgent();
                     Debug.Check(agentType != null);
 
                     Plugin.AgentTypes.Add(agentType);
 
                     resetAllTypes(agentType.AgentTypeName);
+
+                    _lastSelectedType = agentType.AgentTypeName;
                 }
                 else if (metaType == MetaTypePanel.MetaTypes.Enum)
                 {
@@ -883,6 +923,8 @@ namespace Behaviac.Design
                     CustomizedTypeManager.Instance.Enums.Add(customizedEnum);
 
                     resetAllTypes(customizedEnum.Name);
+
+                    _lastSelectedType = customizedEnum.Name;
                 }
                 else if (metaType == MetaTypePanel.MetaTypes.Struct)
                 {
@@ -892,7 +934,12 @@ namespace Behaviac.Design
                     CustomizedTypeManager.Instance.Structs.Add(customizedStruct);
 
                     resetAllTypes(customizedStruct.Name);
+
+                    _lastSelectedType = customizedStruct.Name;
                 }
+
+                // refresh the workspace to load the type               
+                save(true);
             }
         }
 
@@ -911,6 +958,8 @@ namespace Behaviac.Design
 
                     string disp = Customized_Str + agentType.AgentTypeName;
                     this.typeListBox.Items[typeSelectedIndex] = disp;
+
+                    _lastSelectedType = agentType.AgentTypeName;
                 }
                 else if (metaType == MetaTypePanel.MetaTypes.Enum)
                 {
@@ -919,6 +968,8 @@ namespace Behaviac.Design
 
                     string disp = Customized_Str + customizedEnum.Name;
                     this.typeListBox.Items[typeSelectedIndex] = disp;
+
+                    _lastSelectedType = customizedEnum.Name;
                 }
                 else if (metaType == MetaTypePanel.MetaTypes.Struct)
                 {
@@ -927,6 +978,8 @@ namespace Behaviac.Design
 
                     string disp = Customized_Str + customizedStruct.Name;
                     this.typeListBox.Items[typeSelectedIndex] = disp;
+
+                    _lastSelectedType = customizedStruct.Name;
                 }
 
                 // refresh the workspace to load the type
@@ -969,6 +1022,8 @@ namespace Behaviac.Design
                 }
 
                 this.typeListBox.SelectedIndex = index;
+
+                _lastSelectedType = "";
 
                 // refresh the workspace to load the type
                 save(true);
@@ -1034,6 +1089,8 @@ namespace Behaviac.Design
                                     this.memberListBox.Items.Add(new MemberItem(Customized_Str + prop.DisplayName, prop));
                                     this.memberListBox.SelectedIndex = this.memberListBox.Items.Count - 1;
                                 }
+
+                                _lastSelectedType = "";
                             }
                         }
 
@@ -1050,6 +1107,8 @@ namespace Behaviac.Design
 
                                 this.memberListBox.Items.Add(new MemberItem(Customized_Str + method.DisplayName, method));
                                 this.memberListBox.SelectedIndex = this.memberListBox.Items.Count - 1;
+
+                                _lastSelectedType = "";
                             }
                         }
                     }
@@ -1072,6 +1131,8 @@ namespace Behaviac.Design
                                 this.memberListBox.Items.Add(Customized_Str + enumMember.DisplayName);
                                 this.memberListBox.SelectedIndex = this.memberListBox.Items.Count - 1;
 
+                                _lastSelectedType = customizedEnum.Name;
+
                                 // refresh the workspace to load the type
                                 save(true);
                             }
@@ -1092,6 +1153,8 @@ namespace Behaviac.Design
 
                                 this.memberListBox.Items.Add(Customized_Str + prop.DisplayName);
                                 this.memberListBox.SelectedIndex = this.memberListBox.Items.Count - 1;
+
+                                _lastSelectedType = customizedStruct.Name;
 
                                 // refresh the workspace to load the type
                                 save(true);
@@ -1300,6 +1363,8 @@ namespace Behaviac.Design
 
                     if (bEdit)
                     {
+                        _lastSelectedType = "";
+
                         Workspace.Current.IsBlackboardDirty = true;
 
                         // update the memberListBox
@@ -1331,6 +1396,8 @@ namespace Behaviac.Design
 
                                 bEdit = true;
 
+                                _lastSelectedType = customizedEnum.Name;
+
                                 // refresh the workspace to load the type
                                 save(true);
                             }
@@ -1350,6 +1417,8 @@ namespace Behaviac.Design
                                 this.memberListBox.Items[memberIndex] = Customized_Str + prop.DisplayName;
 
                                 bEdit = true;
+
+                                _lastSelectedType = customizedStruct.Name;
 
                                 // refresh the workspace to load the type
                                 save(true);
@@ -1440,6 +1509,8 @@ namespace Behaviac.Design
                     if (bRemoved) {
                         setDescription();
 
+                        _lastSelectedType = "";
+
                         Workspace.Current.IsBlackboardDirty = true;
 
                         BehaviorTreeViewDock.RefreshAll();
@@ -1453,6 +1524,8 @@ namespace Behaviac.Design
                             CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[index - Plugin.AgentTypes.Count];
 
                             customizedEnum.Members.RemoveAt(memberIndex);
+
+                            _lastSelectedType = customizedEnum.Name;
                         }
 
                         // struct
@@ -1460,6 +1533,8 @@ namespace Behaviac.Design
                             CustomizedStruct customizedStruct = CustomizedTypeManager.Instance.Structs[index - Plugin.AgentTypes.Count - CustomizedTypeManager.Instance.Enums.Count];
 
                             customizedStruct.Properties.RemoveAt(memberIndex);
+
+                            _lastSelectedType = customizedStruct.Name;
                         }
 
                         this.memberListBox.Items.RemoveAt(memberIndex);

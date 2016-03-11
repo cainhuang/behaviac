@@ -213,7 +213,9 @@
     <Compile Include="Nodes\FSM\WaitTransition.cs" />
     <Compile Include="Nodes\HTN\Method.cs" />
     <Compile Include="Nodes\HTN\Task.cs" />
+    <Compile Include="NodeUI\ComputeUIPolicy.cs" />
     <Compile Include="NodeUI\EffectorUIPolicy.cs" />
+    <Compile Include="NodeUI\AssignmentUIPolicy.cs" />
     <Compile Include="NodeUI\TransitionUIPolicy.cs" />
     <Compile Include="NodeUI\ParallelUIPolicy.cs" />
     <Compile Include="NodeUI\PreconditionUIPolicy.cs" />

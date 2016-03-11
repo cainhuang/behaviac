@@ -54,11 +54,23 @@ namespace behaviac
                 return false;
             }
 
-            // If parameter cannot be cast to Point return false.
-            CStringID p = (CStringID)obj;
+            // If parameter cannot be cast to CStringID return false.
+            if (obj is CStringID)
+            {
+                CStringID p = (CStringID)obj;
 
-            // Return true if the fields match:
-            return (m_id == p.m_id);
+                // Return true if the fields match:
+                return (m_id == p.m_id);
+            }
+            else if (obj is string)
+            {
+                CStringID p = new CStringID((string)obj);
+
+                // Return true if the fields match:
+                return (m_id == p.m_id);
+            }
+
+            return false;
         }
 
         public bool Equals(CStringID p)
@@ -2629,11 +2641,17 @@ namespace behaviac
 
         public static void Cleanup()
         {
-            ms_comparers.Clear();
-            ms_comparers = null;
+            if (ms_comparers != null)
+            {
+                ms_comparers.Clear();
+                ms_comparers = null;
+            }
 
-            ms_computers.Clear();
-            ms_computers = null;
+            if (ms_computers != null)
+            {
+                ms_computers.Clear();
+                ms_computers = null;
+            }
         }
     }
 

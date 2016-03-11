@@ -168,7 +168,7 @@ namespace Behaviac.Design.Attributes
             clear();
 
             if (variable != null) {
-                Type enumtype = variable.GetValueType();
+                Type enumtype = variable.ValueType;
 
                 if (enumtype.IsEnum) {
                     Array list = Enum.GetValues(enumtype);

@@ -730,9 +730,9 @@
     <value>重复</value>
   </data>
   <data name="DecoratorRepeatDesc" xml:space="preserve">
-    <value>重复子节点指定的次数然后成功，如果子节点失败了，则失败。
-如果子节点一直运行，则本节点一直阻塞。如果‘子节点结束时’不为真，则不会阻塞。
-本节点只能成功或失败，不会返回运行。</value>
+    <value>根据指定的次数，重复执行子节点然后返回。如果子节点失败了，则返回失败。
+如果子节点一直运行，则本节点一直阻塞。但如果‘子节点结束时作用’设置不为真，则不会阻塞。
+其他情况，则返回成功。本节点只能成功或失败，不会返回运行。</value>
   </data>
   <data name="StartCondition" xml:space="preserve">
     <value>开始</value>

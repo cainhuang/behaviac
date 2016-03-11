@@ -108,6 +108,11 @@ namespace PluginBehaviac.Nodes
             return bReset;
         }
 
+        public override Behaviac.Design.ObjectUI.ObjectUIPolicy CreateUIPolicy()
+        {
+            return new Behaviac.Design.ObjectUI.AssignmentUIPolicy();
+        }
+
         protected override void CloneProperties(Node newnode)
         {
             base.CloneProperties(newnode);
@@ -124,7 +129,7 @@ namespace PluginBehaviac.Nodes
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
             if (this.Opl == null || this.Opr == null || this.Opl.ToString() == "" || this.Opr.ToString() == "" ||
-                !Plugin.CheckTwoTypes(this.Opl.GetValueType(), this.Opr.ValueType))
+                !Plugin.CheckTwoTypes(this.Opl.ValueType, this.Opr.ValueType))
             {
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.OperandError));
             }

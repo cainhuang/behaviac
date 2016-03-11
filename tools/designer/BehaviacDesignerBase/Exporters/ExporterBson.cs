@@ -150,10 +150,10 @@ namespace Behaviac.Design.Exporters
 
 #if QUERY_EANBLED
         private void ExportDescritorRefs(BsonSerializer file, Behavior b) {
-            if (Plugin.IsQueryFiltered)
-            {
-                return;
-            }
+            //if (Plugin.IsQueryFiltered)
+            //{
+            //    return;
+            //}
 
             if (b.DescriptorRefs.Count > 0)
             {
@@ -398,7 +398,7 @@ namespace Behaviac.Design.Exporters
                 VariableDef varType = obj as VariableDef;
 
                 if (varType != null) {
-                    valueType = varType.GetValueType();
+                    valueType = varType.ValueType;
 
                 } else {
                     RightValueDef rvarType = obj as RightValueDef;

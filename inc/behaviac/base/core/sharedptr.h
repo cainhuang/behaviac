@@ -152,36 +152,36 @@ namespace behaviac
             std::swap(_pCounter, ptr._pCounter);
         }
 
-        template <class Other>
-        shared_ptr<Other, RC, RP> cast() const
-        /// Casts the shared_ptr via a dynamic cast to the given type.
-        /// Returns an shared_ptr containing NULL if the cast fails.
-        /// Example: (assume class Sub: public Super)
-        ///    shared_ptr<Super> super(new Sub());
-        ///    shared_ptr<Sub> sub = super.cast<Sub>();
-        ///    poco_assert (sub.get());
-        {
-            Other* pOther = dynamic_cast<Other*>(_ptr);
+        //template <class Other>
+        //shared_ptr<Other, RC, RP> cast() const
+        ///// Casts the shared_ptr via a dynamic cast to the given type.
+        ///// Returns an shared_ptr containing NULL if the cast fails.
+        ///// Example: (assume class Sub: public Super)
+        /////    shared_ptr<Super> super(new Sub());
+        /////    shared_ptr<Sub> sub = super.cast<Sub>();
+        /////    poco_assert (sub.get());
+        //{
+        //    Other* pOther = dynamic_cast<Other*>(_ptr);
 
-            if (pOther)
-            {
-                return shared_ptr<Other, RC, RP>(_pCounter, pOther);
-            }
+        //    if (pOther)
+        //    {
+        //        return shared_ptr<Other, RC, RP>(_pCounter, pOther);
+        //    }
 
-            return shared_ptr<Other, RC, RP>();
-        }
+        //    return shared_ptr<Other, RC, RP>();
+        //}
 
-        template <class Other>
-        shared_ptr<Other, RC, RP> unsafeCast() const
-        /// Casts the shared_ptr via a static cast to the given type.
-        /// Example: (assume class Sub: public Super)
-        ///    shared_ptr<Super> super(new Sub());
-        ///    shared_ptr<Sub> sub = super.unsafeCast<Sub>();
-        ///    poco_assert (sub.get());
-        {
-            Other* pOther = static_cast<Other*>(_ptr);
-            return shared_ptr<Other, RC, RP>(_pCounter, pOther);
-        }
+        //template <class Other>
+        //shared_ptr<Other, RC, RP> unsafeCast() const
+        ///// Casts the shared_ptr via a static cast to the given type.
+        ///// Example: (assume class Sub: public Super)
+        /////    shared_ptr<Super> super(new Sub());
+        /////    shared_ptr<Sub> sub = super.unsafeCast<Sub>();
+        /////    poco_assert (sub.get());
+        //{
+        //    Other* pOther = static_cast<Other*>(_ptr);
+        //    return shared_ptr<Other, RC, RP>(_pCounter, pOther);
+        //}
 
         C* operator -> ()
         {

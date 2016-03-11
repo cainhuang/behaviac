@@ -112,7 +112,7 @@ namespace PluginBehaviac.Nodes
         public override void CheckForErrors(BehaviorNode rootBehavior, List<Node.ErrorCheck> result)
         {
             if (this.Opl == null || this.Opr == null || this.Opl.ToString() == "" || this.Opr.ToString() == "" ||
-                !Plugin.IsArrayType(this.Opr.ValueType) || this.Opl.GetValueType() != this.Opr.ValueType.GetGenericArguments()[0])
+                !Plugin.IsArrayType(this.Opr.ValueType) || this.Opl.ValueType != this.Opr.ValueType.GetGenericArguments()[0])
             {
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.OperandError));
             }

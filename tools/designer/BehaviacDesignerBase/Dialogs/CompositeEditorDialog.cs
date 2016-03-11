@@ -230,7 +230,7 @@ namespace Behaviac.Design.Attributes
             }
 
             if (uiPolicy != null) {
-                uiPolicy.Update();
+                uiPolicy.Update(null, new DesignerPropertyInfo());
             }
 
             if (properties.Count > 0) {

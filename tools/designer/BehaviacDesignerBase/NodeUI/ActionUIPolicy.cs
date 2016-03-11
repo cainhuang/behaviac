@@ -21,7 +21,8 @@ namespace Behaviac.Design.ObjectUI
 {
     class ActionUIPolicy : ObjectUIPolicy
     {
-        public override void Update() {
+        public override void Update(object sender, DesignerPropertyInfo property)
+        {
             if (_obj != null) {
                 DesignerPropertyEditor resultOptionEditor = GetEditor(_obj, "ResultOption");
                 DesignerPropertyEditor resultFunctorEditor = GetEditor(_obj, "ResultFunctor");

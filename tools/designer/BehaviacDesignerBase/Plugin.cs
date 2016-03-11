@@ -109,7 +109,7 @@ namespace Behaviac.Design
         /// <param name="behavior">The behaviour we have loaded.</param>
         public void AssignLoadedBehavior(BehaviorNode behavior) {
             Debug.Check(_type == NodeTagType.Behavior || _type == NodeTagType.Prefab);
-            Debug.Check(_filename == behavior.FileManager.Filename);
+            Debug.Check(behavior.FileManager == null || _filename == behavior.FileManager.Filename);
 
             _defaults = (DefaultObject)behavior;
         }
@@ -481,6 +481,9 @@ namespace Behaviac.Design
         public delegate void UpdateMetaStoreDelegate(object dock);
         public static UpdateMetaStoreDelegate UpdateMetaStoreHandler;
 
+        public delegate void PostSetWorkspaceDelegate();
+        public static PostSetWorkspaceDelegate PostSetWorkspaceHandler;
+
         private static string _sourceLanguage = "";
         public static string SourceLanguage
         {
@@ -524,6 +527,19 @@ namespace Behaviac.Design
                     if (EditModeHandler != null)
                     { EditModeHandler(preEditMode, value); }
                 }
+            }
+        }
+
+        private static bool wrongWorksapceReported = false;
+        public static bool WrongWorksapceReported
+        {
+            get
+            {
+                return wrongWorksapceReported; 
+            }
+            set
+            {
+                wrongWorksapceReported = value;
             }
         }
 
@@ -1737,7 +1753,7 @@ namespace Behaviac.Design
             if (filterType == null || (filterType.Name == "System_Object" && !Plugin.IsArrayType(typeToFilter)))
                 return true;
 
-            if (valueType != ValueTypes.All)
+            if (filterType == null && valueType != ValueTypes.All)
             {
                 if ((valueType & ValueTypes.Int) == ValueTypes.Int && Plugin.IsIntergerType(typeToFilter) ||
                     (valueType & ValueTypes.Float) == ValueTypes.Float && Plugin.IsFloatType(typeToFilter))

@@ -83,7 +83,8 @@ BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
     REGISTER_METHOD(setEventVarBool);
     REGISTER_METHOD(setEventVarFloat);
     REGISTER_METHOD(setEventVarAgent);
-    REGISTER_METHOD(getConstOne);
+	REGISTER_METHOD(getConstOne);
+	REGISTER_METHOD(getConstThousand);
     REGISTER_METHOD(setTestVar_0);
     REGISTER_METHOD(setTestVar_1);
     REGISTER_METHOD(setTestVar_2);

@@ -265,12 +265,12 @@ namespace Behaviac.Design.Attributes
                         if (_param.Value is VariableDef)
                         {
                             VariableDef v = _param.Value as VariableDef;
-                            _param.Value = Plugin.DefaultValue(v.GetValueType());
+                            _param.Value = Plugin.DefaultValue(v.ValueType);
                         }
                         else if (_param.Value is ParInfo)
                         {
                             ParInfo v = _param.Value as ParInfo;
-                            _param.Value = Plugin.DefaultValue(v.Variable.GetValueType());
+                            _param.Value = Plugin.DefaultValue(v.Variable.ValueType);
                         }
                     }
                 }
@@ -286,12 +286,12 @@ namespace Behaviac.Design.Attributes
 
                     if (v.ValueClass != valueType)
                     {
-                        Type t1 = v.GetValueType() != null ? v.GetValueType() : _param.Type;
+                        Type t1 = v.ValueType != null ? v.ValueType : _param.Type;
                         object dv = Plugin.DefaultValue(t1);
                         _param.Value = new VariableDef(dv, valueType);
                     }
 
-                    propertyEnumEditor.FilterType = (v.GetValueType() != null ? v.GetValueType() : _param.Type);
+                    propertyEnumEditor.FilterType = (v.ValueType != null ? v.ValueType : _param.Type);
                 }
                 else if (_param.Value is ParInfo)
                 {
@@ -299,11 +299,11 @@ namespace Behaviac.Design.Attributes
 
                     if (v.Variable.ValueClass != valueType)
                     {
-                        object dv = Plugin.DefaultValue(v.Variable.GetValueType());
+                        object dv = Plugin.DefaultValue(v.Variable.ValueType);
                         _param.Value = new VariableDef(dv, valueType);
                     }
 
-                    propertyEnumEditor.FilterType = v.Variable.GetValueType();
+                    propertyEnumEditor.FilterType = v.Variable.ValueType;
                 }
                 else
                 {

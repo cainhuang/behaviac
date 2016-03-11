@@ -54,6 +54,19 @@ namespace Behaviac.Design.Attributes
             comboBox.Enabled = false;
         }
 
+        public override void Clear()
+        {
+            if (_property.Property != null)
+            {
+                _property.Property.SetValue(_object, null, null);
+            }
+
+            _resetProperties = false;
+            _properties.Clear();
+            comboBox.Text = "";
+            comboBox.Items.Clear();
+        }
+
         AgentType _agentType = null;
         string _valueOwner = VariableDef.kSelf;
         private List<PropertyDef> _properties = new List<PropertyDef>();
@@ -109,7 +122,7 @@ namespace Behaviac.Design.Attributes
                     VariableDef var = propMember as VariableDef;
 
                     if (var != null) {
-                        this.FilterType = var.GetValueType();
+                        this.FilterType = var.ValueType;
 
                     } else {
                         MethodDef method = propMember as MethodDef;

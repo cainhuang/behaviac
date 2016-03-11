@@ -161,6 +161,12 @@ where T : behaviac.Agent
     }
 
     [behaviac.MethodMetaInfo()]
+    int getConstThousand(int a, int b)
+    {
+        return a + b;
+    }
+
+    [behaviac.MethodMetaInfo()]
     public void setTestVar_0(int var) {
         testVar_0 = var;
     }

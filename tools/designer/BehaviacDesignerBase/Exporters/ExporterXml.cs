@@ -186,10 +186,10 @@ namespace Behaviac.Design.Exporters
 
 #if QUERY_EANBLED
         private void ExportDescritorRefs(XmlWriter file, Behavior b) {
-            if (Plugin.IsQueryFiltered)
-            { 
-                return; 
-            }
+            //if (Plugin.IsQueryFiltered)
+            //{ 
+            //    return; 
+            //}
 
             if (b.DescriptorRefs.Count > 0)
             {

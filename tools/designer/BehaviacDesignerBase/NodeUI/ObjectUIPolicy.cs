@@ -39,7 +39,8 @@ namespace Behaviac.Design.ObjectUI
             return true;
         }
 
-        public virtual void Update() {
+        public virtual void Update(object sender, DesignerPropertyInfo property)
+        {
         }
 
         public virtual bool ShouldUpdatePropertyGrids(DesignerPropertyInfo property) {
@@ -51,7 +52,7 @@ namespace Behaviac.Design.ObjectUI
         }
 
         private void editor_ValueWasChanged(object sender, DesignerPropertyInfo property) {
-            Update();
+            Update(sender, property);
         }
 
         protected DesignerPropertyEditor GetEditor(object obj, string propertyName) {

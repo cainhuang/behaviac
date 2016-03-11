@@ -94,6 +94,8 @@ namespace behaviac
         }
         else
         {
+			const Agent* pParent1 = _opr1_m->GetParentAgent(pSelf);
+			_opr1_m->run(pParent1, pSelf);
 			opr1 = _opr1_m->GetReturnValue<VariableType>(pSelf);
         }
 
@@ -106,6 +108,8 @@ namespace behaviac
         }
         else
         {
+			const Agent* pParent2 = _opr2_m->GetParentAgent(pSelf);
+			_opr2_m->run(pParent2, pSelf);
 			opr2 = _opr2_m->GetReturnValue<VariableType>(pSelf);
         }
 

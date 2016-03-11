@@ -308,9 +308,6 @@ namespace behaviac
         Nodes*				m_children;
         BehaviorNode*		m_customCondition;
 
-        CMethodBase*		m_enterAction;
-        CMethodBase*		m_exitAction;
-
         bool				m_bHasEvents;
         bool				m_loadAttachment;
         friend class BehaviorTree;
