@@ -485,6 +485,8 @@ namespace behaviac
             m_frameSinceStartup = -1;
 
 #if !BEHAVIAC_RELEASE
+            this.m_workspaceExportPathAbs = Path.GetFullPath(this.FilePath);
+
 #if BEHAVIAC_HOTRELOAD
             // set the file watcher
             if (Config.IsDesktop && behaviac.Config.IsHotReload)

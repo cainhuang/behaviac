@@ -1304,7 +1304,7 @@ namespace behaviac
                 {
                     Precondition.EPhase ph = pPrecond.Phase;
 
-                    if (ph == Precondition.EPhase.E_BOTH || ph == phase)
+                    if (phase == Precondition.EPhase.E_BOTH || ph == Precondition.EPhase.E_BOTH || ph == phase)
                     {
                         bool taskBoolean = pPrecond.Evaluate(pAgent);
 

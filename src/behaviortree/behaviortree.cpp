@@ -121,7 +121,7 @@ namespace behaviac
     BehaviorNode::BehaviorNode() : m_id(INVALID_NODE_ID),
 		m_enter_precond(0), m_update_precond(0), m_both_precond(0), 
 		m_success_effectors(0), m_failure_effectors(0), m_both_effectors(0),
-        m_attachments(0), m_pars(0), m_parent(0), m_children(0),
+        m_pars(0), m_parent(0), m_children(0),
         m_customCondition(0), 
         m_bHasEvents(false), m_loadAttachment(false)
     {
@@ -139,19 +139,6 @@ namespace behaviac
             this->m_pars->clear();
             BEHAVIAC_DELETE(this->m_pars);
             this->m_pars = 0;
-        }
-
-        if (this->m_attachments)
-        {
-            for (size_t i = 0; i < this->m_attachments->size(); ++i)
-            {
-                BehaviorNode* pAttachment = (*m_attachments)[i];
-                BEHAVIAC_DELETE(pAttachment);
-            }
-
-            this->m_attachments->clear();
-            BEHAVIAC_DELETE(this->m_attachments);
-            this->m_attachments = 0;
         }
 
         if (this->m_children)
@@ -217,7 +204,7 @@ namespace behaviac
             {
                 Precondition::EPhase ph = pPrecond->GetPhase();
 
-                if (ph == Precondition::E_BOTH || ph == phase)
+				if (phase == Precondition::E_BOTH || ph == Precondition::E_BOTH || ph == phase)
                 {
                     bool taskBoolean = pPrecond->Evaluate((Agent*)pAgent);
 
@@ -440,26 +427,6 @@ namespace behaviac
         if (this->m_children && index < this->m_children->size())
         {
             return (*this->m_children)[index];
-        }
-
-        return 0;
-    }
-
-    uint32_t BehaviorNode::GetAttachmentsCount() const
-    {
-        if (this->m_attachments)
-        {
-            return this->m_attachments->size();
-        }
-
-        return 0;
-    }
-
-    const BehaviorNode* BehaviorNode::GetAttachment(uint32_t index) const
-    {
-        if (this->m_attachments && index < this->m_attachments->size())
-        {
-            return (*this->m_attachments)[index];
         }
 
         return 0;

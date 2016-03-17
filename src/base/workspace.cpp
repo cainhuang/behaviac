@@ -209,7 +209,7 @@ namespace behaviac
         {
 			if (version_str && !StringUtils::StrEqual(version_str, BEHAVIAC_VERSION_STR))
 			{
-				BEHAVIAC_LOGERROR("lib is built with '%s', while the app is built with '%s'!\n", BEHAVIAC_VERSION_STR, version_str);
+				BEHAVIAC_LOGERROR("lib is built with '%s', while the app is built with '%s'! please use the same define for '_DEBUG' in both the lib and app's make.\n", BEHAVIAC_VERSION_STR, version_str);
 				BEHAVIAC_ASSERT(false);
 				return 0;
 			}

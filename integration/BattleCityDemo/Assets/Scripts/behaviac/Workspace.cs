@@ -485,6 +485,9 @@ namespace behaviac
             m_frameSinceStartup = -1;
 
 #if !BEHAVIAC_RELEASE
+            this.m_workspaceExportPathAbs = Path.GetFullPath(this.FilePath);
+
+            this.m_workspaceExportPathAbs = this.m_workspaceExportPathAbs.Replace('\\', '/');
 #if BEHAVIAC_HOTRELOAD
             // set the file watcher
             if (Config.IsDesktop && behaviac.Config.IsHotReload)
@@ -823,7 +826,7 @@ namespace behaviac
 
                     if (pos != -1)
                     {
-                        filename = filename.Substring(m_workspaceExportPathAbs.Length + pos);
+                        filename = filename.Substring(m_workspaceExportPathAbs.Length + pos + 1);
                         lock (m_ModifiedFiles)
                         {
                             if (!m_ModifiedFiles.Contains(filename))

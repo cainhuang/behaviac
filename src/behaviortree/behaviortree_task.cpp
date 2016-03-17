@@ -85,19 +85,6 @@ namespace behaviac
 
         this->m_node = (const BehaviorNode*)node;
         this->m_id = this->m_node->GetId();
-
-        uint32_t attachmentsCount = node->GetAttachmentsCount();
-
-        if (attachmentsCount > 0)
-        {
-            for (uint32_t i = 0; i < attachmentsCount; i++)
-            {
-                const BehaviorNode* attachmentNode = node->GetAttachment(i);
-                AttachmentTask* attachmentTask = (AttachmentTask*)attachmentNode->CreateAndInitTask();
-
-                this->Attach(attachmentTask);
-            }
-        }
     }
 
     void BehaviorTask::DestroyTask(BehaviorTask* task)

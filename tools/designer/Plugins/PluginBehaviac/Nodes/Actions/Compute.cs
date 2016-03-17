@@ -176,9 +176,9 @@ namespace PluginBehaviac.Nodes
                     }
                     else
                     {
-                        object[] excludedOperators = new object[] { ComputeOperator.Invalid };
+                        //object[] excludedOperators = new object[] { ComputeOperator.Invalid };
 
-                        return excludedOperators;
+                        //return excludedOperators;
                     }
                 }
             }

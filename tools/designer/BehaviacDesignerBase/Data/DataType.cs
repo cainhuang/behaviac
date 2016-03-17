@@ -76,8 +76,8 @@ namespace Behaviac.Design
         [Behaviac.Design.EnumMemberDesc("Div", "/")]
         Div,
 
-        [Behaviac.Design.EnumMemberDesc("Invalid", "x")]
-        Invalid
+        //[Behaviac.Design.EnumMemberDesc("Invalid", "x")]
+        //Invalid
     }
 
     [Behaviac.Design.EnumDesc("PluginBehaviac.Nodes.ComputeOpr", "计算作符", "计算操作符选择")]

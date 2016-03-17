@@ -60,7 +60,6 @@ namespace behaviac
     class Agent;
     class BehaviorTask;
     class BehaviorTreeTask;
-    class Attachment;
     class BsonDeserizer;
     class Effector;
     class Precondition;
@@ -203,8 +202,6 @@ namespace behaviac
         uint32_t GetChildrenCount() const;
         const BehaviorNode* GetChild(uint32_t index) const;
 		BehaviorNode* GetChildById(uint32_t nodeId) const;
-        uint32_t GetAttachmentsCount() const;
-        const BehaviorNode* GetAttachment(uint32_t index) const;
 
         const BehaviorNode* GetParent() const
         {
@@ -297,9 +294,6 @@ namespace behaviac
         behaviac::vector<BehaviorNode*>		m_events;
 
     protected:
-        typedef behaviac::vector<BehaviorNode*> Attachments;
-        Attachments*		m_attachments;
-
         typedef behaviac::vector<Property*> Properties_t;
         Properties_t*		m_pars;
 

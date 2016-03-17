@@ -25,8 +25,8 @@
       <enum NativeValue="FSMAgentTest::Resume" Value="Resume" DisplayName="Resume" Desc="Resume" />
       <enum NativeValue="FSMAgentTest::Exit" Value="Exit" DisplayName="Exit" Desc="Exit" />
     </enumtype>
-    <enumtype Type="TNS::NE::NAT::eColor" DisplayName="鑹插僵鏋氫妇" Desc="eColor 鏄?竴涓?敤浜庢祴璇曟灇涓句娇鐢ㄧ殑绫诲瀷">
-      <enum NativeValue="TNS::NE::NAT::RED" Value="RED" DisplayName="绾㈣壊 Red" Desc="Red 鏄?竴绉嶉潪甯告縺杩涚殑鑹插僵" />
+    <enumtype Type="TNS::NE::NAT::eColor" DisplayName="色彩枚举" Desc="eColor 是一个用于测试枚举使用的类型">
+      <enum NativeValue="TNS::NE::NAT::RED" Value="RED" DisplayName="红色 Red" Desc="Red 是一种非常激进的色彩" />
       <enum NativeValue="TNS::NE::NAT::GREEN" Value="GREEN" DisplayName="GREEN" Desc="GREEN" />
       <enum NativeValue="TNS::NE::NAT::BLUE" Value="BLUE" DisplayName="BLUE" Desc="BLUE" />
       <enum NativeValue="TNS::NE::NAT::YELLOW" Value="YELLOW" DisplayName="YELLOW" Desc="YELLOW" />
@@ -352,7 +352,7 @@
         <Param DisplayName="y" Desc="y" Type="int" />
       </Method>
     </agent>
-    <agent classfullname="ParTestAgentBase" base="behaviac::Agent" DisplayName="ParTestAgentBase" Desc="娴嬭瘯Agent鐨勬渶搴曞眰鍩虹被" IsRefType="true">
+    <agent classfullname="ParTestAgentBase" base="behaviac::Agent" DisplayName="ParTestAgentBase" Desc="测试Agent的最底层基类" IsRefType="true">
       <Member Name="TV_ECOLOR_0" DisplayName="0 # TV_ECOLOR_0" Desc="A" Type="TNS::NE::NAT::eColor" Class="ParTestAgentBase" Public="true" />
       <Member Name="STV_ECOLOR_0" DisplayName="0 # STV_ECOLOR_0" Desc="A" Type="TNS::NE::NAT::eColor" Class="ParTestAgentBase" Static="true" Public="true" />
       <Member Name="TV_BOOL_0" DisplayName="0 # TV_BOOL_0" Desc="A" Type="bool" Class="ParTestAgentBase" Public="true" />

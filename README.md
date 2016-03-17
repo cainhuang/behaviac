@@ -6,6 +6,7 @@
  - 支持全平台，适用于客户端和服务器，助力游戏快速迭代开发
  - [官方网站](http://www.behaviac.com/)是文档，教程，API，FAQ，源码，下载等一切的入口
  - 您可以访问[behaviac Q&A](http://bbs.behaviac.com/)获取答案或提出问题
+ - 您可以加入我们的QQ群433547396获得即时的帮助或者信息反馈。请大家优先使用[behaviac Q&A](http://bbs.behaviac.com/)。
  - BehaviacSetup*.exe是安装包，内含可执行的编辑器及示例。如需要自行构建，可以访问官网或[github behaviac](https://github.com/TencentOpen/behaviac)
  
 
