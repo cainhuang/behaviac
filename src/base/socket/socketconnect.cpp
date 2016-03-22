@@ -287,19 +287,33 @@ namespace behaviac
         {
             if (Config::IsSocketing())
             {
-                if (!s_tracer.IsWorkspaceSent() && s_tracer.IsConnected())
-                {
-                    {
-                        Workspace::EFileFormat format = Workspace::GetInstance()->GetFileFormat();
-                        const char* formatString = (format == Workspace::EFF_xml ? "xml" : "bson");
+				if (!s_tracer.IsWorkspaceSent() && s_tracer.IsConnected())
+				{
+#if BEHAVIAC_COMPILER_MSVC
+					const char* platform = "Windows";
+#elif BEHAVIAC_COMPILER_APPLE
+					const char* platform = "iOS";
+#elif BEHAVIAC_COMPILER_ANDROID
+					const char* platform = "Android";
+#elif BEHAVIAC_COMPILER_GCC_LINUX
+					const char* platform = "Linux";
+#elif BEHAVIAC_COMPILER_GCC_CYGWIN
+					const char* platform = "Cygwin";
+#else
+					const char* platform = "Unknown Platform";
+#endif
 
-                        behaviac::string msg = FormatString("[workspace] %s \"%s\"\n", formatString, "");
-                        //behaviac::Socket::SendText(msg.c_str());
-                        LogManager::GetInstance()->LogWorkspace(true, msg.c_str());
+					behaviac::string msg = FormatString("[platform] %s\n", platform);
+					LogManager::GetInstance()->LogWorkspace(true, msg.c_str());
 
-                        s_tracer.SetWorkspaceSent(true);
-                    }
-                }
+					Workspace::EFileFormat format = Workspace::GetInstance()->GetFileFormat();
+					const char* formatString = (format == Workspace::EFF_xml ? "xml" : "bson");
+
+					msg = FormatString("[workspace] %s \"%s\"\n", formatString, "");
+					LogManager::GetInstance()->LogWorkspace(true, msg.c_str());
+
+					s_tracer.SetWorkspaceSent(true);
+				}
             }
         }
 

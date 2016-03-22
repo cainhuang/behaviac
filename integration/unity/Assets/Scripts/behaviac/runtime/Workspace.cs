@@ -615,13 +615,17 @@ namespace behaviac
 
         public void LogWorkspaceInfo()
         {
-            {
-                Workspace.EFileFormat format = this.FileFormat;
-                string formatString = (format == Workspace.EFileFormat.EFF_xml ? "xml" : "bson");
+            OperatingSystem osInfo = Environment.OSVersion;
+            string platformID = osInfo.Platform.ToString();
 
-                string msg = string.Format("[workspace] {0} \"{1}\"\n", formatString, "");
-                LogManager.Instance.LogWorkspace(msg);
-            }
+            string msg = string.Format("[platform] {0}\n", platformID);
+            LogManager.Instance.LogWorkspace(msg);
+
+            Workspace.EFileFormat format = this.FileFormat;
+            string formatString = (format == Workspace.EFileFormat.EFF_xml ? "xml" : "bson");
+
+            msg = string.Format("[workspace] {0} \"{1}\"\n", formatString, "");
+            LogManager.Instance.LogWorkspace(msg);
         }
 
         private bool LoadWorkspaceSetting(string file, string ext, ref string workspaceFile)

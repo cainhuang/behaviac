@@ -200,9 +200,8 @@ namespace Behaviac.Design
         }
 
         private void treeView_MouseUp(object sender, MouseEventArgs e) {
-            if (Plugin.EditMode == EditModes.Design || e.Button != MouseButtons.Right) {
+            if (e.Button != MouseButtons.Right)
                 return;
-            }
 
             TreeNode treeNode = this.treeView.SelectedNode;
 
@@ -210,6 +209,23 @@ namespace Behaviac.Design
                 return;
             }
 
+            if (Plugin.EditMode == EditModes.Design)
+            {
+                documentMenuItem.Visible = true;
+                debugMenuItem.Visible = false;
+                showPropMenuItem.Visible = false;
+                showPlanningMenuItem.Visible = false;
+                separator.Visible = false;
+            }
+            else
+            {
+                documentMenuItem.Visible = false;
+                debugMenuItem.Visible = true;
+                showPropMenuItem.Visible = true;
+                showPlanningMenuItem.Visible = true;
+                separator.Visible = true;
+            }
+            
             this.contextMenuStrip.Show(this, new Point(e.X, e.Y));
         }
 
@@ -391,13 +407,13 @@ namespace Behaviac.Design
 
             if (treeNode.Tag != null && treeNode.Tag is FrameStatePool.PlanningProcess) {
                 this.debugMenuItem.Enabled = false;
-                this.parameterMenuItem.Enabled = true;
-                this.showPlanningToolStripMenuItem.Enabled = true;
+                this.showPropMenuItem.Enabled = true;
+                this.showPlanningMenuItem.Enabled = true;
 
             } else {
                 this.debugMenuItem.Enabled = true;
-                this.parameterMenuItem.Enabled = true;
-                this.showPlanningToolStripMenuItem.Enabled = false;
+                this.showPropMenuItem.Enabled = true;
+                this.showPlanningMenuItem.Enabled = false;
             }
         }
 
@@ -441,6 +457,35 @@ namespace Behaviac.Design
                 this.debugLabel.Width = this.toolStrip.Width - 140;
                 this.debugLabel.Visible = true;
             }
+        }
+
+        private void showDoc()
+        {
+            if (treeView.SelectedNode != null)
+            {
+                if (treeView.SelectedNode.Tag is NodeTag)
+                {
+                    NodeTag nodetag = (NodeTag)treeView.SelectedNode.Tag;
+
+                    if (nodetag.Defaults != null)
+                        MainWindow.Instance.OpenURL(nodetag.Defaults.DocLink);
+                }
+            }
+        }
+
+        private void treeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                showDoc();
+
+                e.Handled = true;
+            }
+        }
+
+        private void documentMenuItem_Click(object sender, EventArgs e)
+        {
+            showDoc();
         }
     }
 }

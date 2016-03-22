@@ -69,6 +69,13 @@ namespace Behaviac.Design
             return true;
         }
 
+        private static string _runtimePlatform = "";
+        public static String RuntimePlatform
+        {
+            set { _runtimePlatform = value; }
+            get { return _runtimePlatform; }
+        }
+
         private static string _localIP = "";
         public static String GetLocalIP()
         {
@@ -261,9 +268,9 @@ namespace Behaviac.Design
         {
             string workspaceName = (Workspace.Current != null) ? Workspace.Current.Name : string.Empty;
 
-            return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"",
+            return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\"",
                 GetLocalIP(), GetCpuID(), GetHarddiskID(), System.Reflection.Assembly.GetEntryAssembly().GetName().Version,
-                Dns.GetHostName(), GetLocalMac(), workspaceName);
+                Dns.GetHostName(), GetLocalMac(), workspaceName, RuntimePlatform);
         }
 
         private static string getTqosFile()
@@ -347,7 +354,7 @@ namespace Behaviac.Design
                     int intNum = 8;
                     string intList = string.Format("0,0,0,0,0,0,{0},{1}", (int)operation.Type, operation.Count);
 
-                    int strNum = 4;
+                    int strNum = 8;
                     string strList = getHeaderString();
 
                     if (!ReportToTQOS(intNum, intList, strNum, strList))

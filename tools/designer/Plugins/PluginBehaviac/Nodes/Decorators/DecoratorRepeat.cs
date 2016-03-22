@@ -29,6 +29,10 @@ namespace PluginBehaviac.Nodes
             this._count = new VariableDef((int)1);
 		}
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/decorator/#repeat"; }
+        }
 
         public override string ExportClass
         {

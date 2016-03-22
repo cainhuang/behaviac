@@ -79,6 +79,11 @@ namespace Behaviac.Design.Nodes
         //    set { _preconditionFailedResult = value; }
         //}
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/action/"; }
+        }
+
         public override string Description {
             get {
                 string str = base.Description;

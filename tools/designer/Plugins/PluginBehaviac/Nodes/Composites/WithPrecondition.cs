@@ -28,13 +28,17 @@ namespace PluginBehaviac.Nodes
         protected ConnectorSingle _Precondition;
         protected ConnectorSingle _Action;
 
-
         public WithPrecondition()
             : base(Resources.WithPrecondition, Resources.WithPreconditionDesc)
 		{
             _Precondition = new ConnectorSingle(_children, Resources.WithPreconditionPrecondition, "Precondition");
             _Action = new ConnectorSingle(_children, Resources.WithPreconditionAction, "Action");
 		}
+
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/tutorials/selectormonitor/"; }
+        }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(79, 129, 189));
         protected override Brush DefaultBackgroundBrush
@@ -61,11 +65,11 @@ namespace PluginBehaviac.Nodes
         {
             if (_Precondition.Child == null)
             {
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.NoPreconditionError));
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoPreconditionError));
             }
             if (_Action.Child == null)
             {
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.NoActionError));
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoActionError));
             }
             if (!(this.Parent is SelectorLoop))
             {

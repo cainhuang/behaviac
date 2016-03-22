@@ -10,6 +10,7 @@ public class PreconEffectorAgent : behaviac.Agent
         this.count_success = 0;
         this.count_failure = 0;
         this.count_both = 0;
+        this.ret = 0;
         this.Variables.Clear();
     }
 
@@ -22,7 +23,7 @@ public class PreconEffectorAgent : behaviac.Agent
     }
 
     [behaviac.MemberMetaInfo("", "")]
-    private int count_success = 0;
+    public int count_success = 0;
 
     public int get_count_success() {
         return count_success;

@@ -50,6 +50,11 @@ namespace PluginBehaviac.Nodes
 			_exportName = "Wait";
 		}
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/wait/"; }
+        }
+
         public override string ExportClass
         {
             get { return "Wait"; }

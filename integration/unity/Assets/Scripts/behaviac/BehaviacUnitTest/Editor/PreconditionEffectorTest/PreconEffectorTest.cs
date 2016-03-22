@@ -94,5 +94,70 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(2, testAgent.count_both);
         }
 
+        [Test]
+        [Category("test_precond_effector")]
+        public void test_effector_2() {
+            testAgent.btsetcurrent("node_test/PreconditionEffectorTest/PreconditionEffectorTest_2");
+            testAgent.resetProperties();
+
+            testAgent.count_both = 1;
+            testAgent.btexec();
+            Assert.AreEqual(2, testAgent.count_success);
+            Assert.AreEqual(0, testAgent.count_failure);
+            Assert.AreEqual(2, testAgent.ret);
+
+            testAgent.count_both = 0;
+            testAgent.btexec();
+            Assert.AreEqual(4, testAgent.count_success);
+            Assert.AreEqual(0, testAgent.count_failure);
+            Assert.AreEqual(2, testAgent.ret);
+
+            testAgent.count_both = 1;
+            testAgent.btexec();
+            Assert.AreEqual(6, testAgent.count_success);
+            Assert.AreEqual(0, testAgent.count_failure);
+            Assert.AreEqual(4, testAgent.ret);
+
+            testAgent.count_both = 0;
+            testAgent.btexec();
+            Assert.AreEqual(8, testAgent.count_success);
+            Assert.AreEqual(0, testAgent.count_failure);
+            Assert.AreEqual(4, testAgent.ret);
+
+        }
+
+        [Test]
+        [Category("test_precond_effector")]
+        public void test_effector_3() {
+            testAgent.btsetcurrent("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3");
+            testAgent.resetProperties();
+
+            testAgent.count_both = 1;
+            testAgent.btexec();
+            Assert.AreEqual(0, testAgent.count_success);
+            Assert.AreEqual(0, testAgent.count_failure);
+            Assert.AreEqual(0, testAgent.ret);
+
+            testAgent.count_both = 0;
+            testAgent.btexec();
+
+            Assert.AreEqual(1, testAgent.count_success);
+            Assert.AreEqual(1, testAgent.count_failure);
+            Assert.AreEqual(2, testAgent.ret);
+
+            testAgent.count_both = 1;
+            testAgent.btexec();
+            Assert.AreEqual(1, testAgent.count_success);
+            Assert.AreEqual(2, testAgent.count_failure);
+            Assert.AreEqual(3, testAgent.ret);
+
+            testAgent.count_both = 0;
+            testAgent.btexec();
+
+            Assert.AreEqual(2, testAgent.count_success);
+            Assert.AreEqual(3, testAgent.count_failure);
+            Assert.AreEqual(5, testAgent.ret);
+
+        }
     }
 }

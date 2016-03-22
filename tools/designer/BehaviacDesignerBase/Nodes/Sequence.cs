@@ -55,6 +55,11 @@ namespace Behaviac.Design.Nodes
             _genericChildren = new ConnectorMultiple(_children, "", Connector.kGeneric, 2, int.MaxValue);
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/sequence/"; }
+        }
+
         protected virtual void CreateInterruptChild() {
             _interruptChild = new ConnectorSingle(_children, "", Connector.kInterupt);
         }

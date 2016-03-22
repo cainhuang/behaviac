@@ -29,6 +29,11 @@ namespace PluginBehaviac.Nodes
 		{
 		}
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/decorator/#countlimit"; }
+        }
+
         protected override void CreateInterruptChild()
         {
             _reinit = new ConnectorSingle(_children, Resources.Reinit, Connector.kInterupt);

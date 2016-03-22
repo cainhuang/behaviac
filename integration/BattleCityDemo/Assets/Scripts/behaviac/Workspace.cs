@@ -487,7 +487,6 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
             this.m_workspaceExportPathAbs = Path.GetFullPath(this.FilePath);
 
-            this.m_workspaceExportPathAbs = this.m_workspaceExportPathAbs.Replace('\\', '/');
 #if BEHAVIAC_HOTRELOAD
             // set the file watcher
             if (Config.IsDesktop && behaviac.Config.IsHotReload)
@@ -616,13 +615,17 @@ namespace behaviac
 
         public void LogWorkspaceInfo()
         {
-            {
-                Workspace.EFileFormat format = this.FileFormat;
-                string formatString = (format == Workspace.EFileFormat.EFF_xml ? "xml" : "bson");
+            OperatingSystem osInfo = Environment.OSVersion;
+            string platformID = osInfo.Platform.ToString();
 
-                string msg = string.Format("[workspace] {0} \"{1}\"\n", formatString, "");
-                LogManager.Instance.LogWorkspace(msg);
-            }
+            string msg = string.Format("[platform] {0}\n", platformID);
+            LogManager.Instance.LogWorkspace(msg);
+
+            Workspace.EFileFormat format = this.FileFormat;
+            string formatString = (format == Workspace.EFileFormat.EFF_xml ? "xml" : "bson");
+
+            msg = string.Format("[workspace] {0} \"{1}\"\n", formatString, "");
+            LogManager.Instance.LogWorkspace(msg);
         }
 
         private bool LoadWorkspaceSetting(string file, string ext, ref string workspaceFile)
@@ -826,7 +829,7 @@ namespace behaviac
 
                     if (pos != -1)
                     {
-                        filename = filename.Substring(m_workspaceExportPathAbs.Length + pos + 1);
+                        filename = filename.Substring(m_workspaceExportPathAbs.Length + pos);
                         lock (m_ModifiedFiles)
                         {
                             if (!m_ModifiedFiles.Contains(filename))

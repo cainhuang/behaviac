@@ -35,6 +35,11 @@ namespace PluginBehaviac.Nodes
             _else = new ConnectorSingle(_children, Resources.IfElseElse, "_else");
 		}
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/ifelse/"; }
+        }
+
         public override string ExportClass
         {
             get { return "IfElse"; }

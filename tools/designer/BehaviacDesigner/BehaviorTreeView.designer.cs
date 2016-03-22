@@ -75,6 +75,8 @@ namespace Behaviac.Design
             this.zoomOutButton = new System.Windows.Forms.Button();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fitToViewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.docMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.expandMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -242,6 +244,8 @@ namespace Behaviac.Design
             this.contextMenu.BackColor = System.Drawing.Color.DarkGray;
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fitToViewMenuItem,
+            this.toolStripSeparator7,
+            this.docMenuItem,
             this.toolStripSeparator1,
             this.expandMenuItem,
             this.collapseMenuItem,
@@ -275,6 +279,21 @@ namespace Behaviac.Design
             this.fitToViewMenuItem.Name = "fitToViewMenuItem";
             resources.ApplyResources(this.fitToViewMenuItem, "fitToViewMenuItem");
             this.fitToViewMenuItem.Click += new System.EventHandler(this.fitToViewMenuItem_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.BackColor = System.Drawing.Color.DarkGray;
+            this.toolStripSeparator7.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
+            // 
+            // docMenuItem
+            // 
+            this.docMenuItem.BackColor = System.Drawing.Color.DarkGray;
+            this.docMenuItem.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.docMenuItem.Name = "docMenuItem";
+            resources.ApplyResources(this.docMenuItem, "docMenuItem");
+            this.docMenuItem.Click += new System.EventHandler(this.docMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -568,5 +587,7 @@ namespace Behaviac.Design
         private System.Windows.Forms.ToolStripMenuItem copySubtreeMenuItem;
         private System.Windows.Forms.Button zoomInButton;
         private System.Windows.Forms.Button zoomOutButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem docMenuItem;
     }
 }

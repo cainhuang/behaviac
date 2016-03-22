@@ -1742,27 +1742,34 @@ namespace Behaviac.Design
             return Path.GetFullPath(filename);
         }
 
-        private void openURL(string url)
+        public void OpenURL(string url)
         {
             try
             {
                 System.Diagnostics.Process.Start(url);
+
+                Utilities.ReportOpenDoc();
             }
             catch
             {
             }
         }
 
-        public void OpenOverviewDoc()
+        private void docMenuItem_Click(object sender, EventArgs e)
         {
-            openURL("http://www.behaviac.com/");
+            string url = "http://www.behaviac.com/";
 
-            Utilities.ReportOpenDoc();
+            if (Settings.Default.Language == 1)
+            {
+                url += "en";
+            }
+
+            OpenURL(url);
         }
 
-        private void overviewMenuItem_Click(object sender, EventArgs e)
+        private void questionMenuItem_Click(object sender, EventArgs e)
         {
-            OpenOverviewDoc();
+            OpenURL("http://bbs.behaviac.com/");
         }
 
         private void controlsMenuItem_Click(object sender, EventArgs e)
@@ -1777,7 +1784,9 @@ namespace Behaviac.Design
             try
             {
                 //behaviorTreeList.CheckVersionSync();
-                System.Diagnostics.Process.Start("https://github.com/TencentOpen/behaviac");
+                OpenURL("https://github.com/TencentOpen/behaviac/releases");
+
+                Utilities.ReportOpenDoc();
             }
             catch
             {

@@ -59,6 +59,11 @@ namespace Behaviac.Design.Nodes
             set { _colorTheme = value; }
         }
 
+        public virtual string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/"; }
+        }
+
         public static Dictionary<string, Brush> BackgroundBrushes = new Dictionary<string, Brush>();
 
         protected readonly static Brush __backgroundBrush = new SolidBrush(Color.FromArgb(30, 99, 120));

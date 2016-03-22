@@ -31,6 +31,11 @@ namespace PluginBehaviac.Nodes
             _exportName = "WaitFrames";
 		}
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/waitframes/"; }
+        }
+
         public override string ExportClass
         {
             get { return "WaitFrames"; }

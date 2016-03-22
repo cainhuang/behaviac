@@ -2740,6 +2740,10 @@ namespace Behaviac.Design
                     toggleEnableNode();
                     break;
 
+                case (Keys.F1):
+                    openDoc();
+                    break;
+
                 case (Keys.Left):
                 case (Keys.Right):
                 case (Keys.Up):
@@ -2807,6 +2811,31 @@ namespace Behaviac.Design
             CenterNode(_rootNodeView);
 
             emptyButton.Focus();
+        }
+
+        private void openDoc()
+        {
+            string docLink = "http://www.behaviac.com/";
+
+            if (SelectedNode != null)
+            {
+                if (SelectedNode.SelectedSubItem != null && SelectedNode.SelectedSubItem.SelectableObject is Attachments.Attachment)
+                {
+                    Attachments.Attachment attach = SelectedNode.SelectedSubItem.SelectableObject as Attachments.Attachment;
+                    docLink = attach.DocLink;
+                }
+                else if (SelectedNode.Node != null)
+                {
+                    docLink = SelectedNode.Node.DocLink;
+                }
+            }
+
+            MainWindow.Instance.OpenURL(docLink);
+        }
+
+        private void docMenuItem_Click(object sender, EventArgs e)
+        {
+            openDoc();
         }
 
         private void zoomInButton_Click(object sender, EventArgs e) {

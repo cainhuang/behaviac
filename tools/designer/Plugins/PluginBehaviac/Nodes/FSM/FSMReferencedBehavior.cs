@@ -22,6 +22,11 @@ namespace PluginBehaviac.Nodes
         {
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/fsm/"; }
+        }
+
         public override bool IsFSM
         {
             get { return true; }

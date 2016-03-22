@@ -44,8 +44,12 @@ namespace Behaviac.Design
                 int pos = _msg.IndexOf("][");
                 string msg = _msg.Substring(pos + 1);
 
-                //Console.WriteLine(msg.Trim());
-                if (msg.StartsWith("[workspace]")) {
+                if (msg.StartsWith("[platform]"))
+                {
+                    processPlatform(msg);
+                }
+                else if (msg.StartsWith("[workspace]"))
+                {
                     processWorkspace(msg);
 
                     TimelineDock.Continue();
@@ -130,6 +134,11 @@ namespace Behaviac.Design
             NetworkManager.Instance.SendLoadedBreakpoints();
 
             Plugin.UpdateMode = UpdateModes.Continue;
+        }
+
+        private static void processPlatform(string msg)
+        {
+            Utilities.RuntimePlatform = msg.Substring(10).Trim();
         }
 
         private static void processWorkspace(string msg) {

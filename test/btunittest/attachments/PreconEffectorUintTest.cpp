@@ -36,10 +36,7 @@ void finlTestEnvPreEff(PreconEffectorAgent* testAgent)
 
     behaviac::Profiler::DestroyInstance();
 }
-/**
-unittest for PreconditionEffectorTest_0
 
-*/
 LOAD_TEST(btunittest, preconditioneffectortest_0)
 {
     PreconEffectorAgent* testAgent = initTestEnvPreEff("node_test/PreconditionEffectorTest/PreconditionEffectorTest_0", format);
@@ -53,10 +50,7 @@ LOAD_TEST(btunittest, preconditioneffectortest_0)
     CHECK_EQUAL(1, testAgent->count_both);
     finlTestEnvPreEff(testAgent);
 }
-/**
-unit test for precondition_alive
 
-*/
 LOAD_TEST(btunittest, test_precondition_alive)
 {
     PreconEffectorAgent* testAgent = initTestEnvPreEff("node_test/PreconditionEffectorTest/PreconditionEffectorTest_1", format);
@@ -84,10 +78,7 @@ LOAD_TEST(btunittest, test_precondition_alive)
 
     finlTestEnvPreEff(testAgent);
 }
-/**
-unit test for effector
 
-*/
 LOAD_TEST(btunittest, test_effector)
 {
     PreconEffectorAgent* testAgent = initTestEnvPreEff("node_test/PreconditionEffectorTest/PreconditionEffectorTest_0", format);
@@ -99,4 +90,71 @@ LOAD_TEST(btunittest, test_effector)
     CHECK_EQUAL(1, testAgent->count_failure);
     CHECK_EQUAL(2, testAgent->count_both);
     finlTestEnvPreEff(testAgent);
+}
+
+
+LOAD_TEST(btunittest, preconditioneffectortest_2)
+{
+	PreconEffectorAgent* testAgent = initTestEnvPreEff("node_test/PreconditionEffectorTest/PreconditionEffectorTest_2", format);
+	testAgent->resetProperties();
+
+	testAgent->count_both = 1;
+	testAgent->btexec();
+	CHECK_EQUAL(2, testAgent->count_success);
+	CHECK_EQUAL(0, testAgent->count_failure);
+	CHECK_EQUAL(2, testAgent->ret);
+
+	testAgent->count_both = 0;
+	testAgent->btexec();
+	CHECK_EQUAL(4, testAgent->count_success);
+	CHECK_EQUAL(0, testAgent->count_failure);
+	CHECK_EQUAL(2, testAgent->ret);
+
+	testAgent->count_both = 1;
+	testAgent->btexec();
+	CHECK_EQUAL(6, testAgent->count_success);
+	CHECK_EQUAL(0, testAgent->count_failure);
+	CHECK_EQUAL(4, testAgent->ret);
+
+	testAgent->count_both = 0;
+	testAgent->btexec();
+	CHECK_EQUAL(8, testAgent->count_success);
+	CHECK_EQUAL(0, testAgent->count_failure);
+	CHECK_EQUAL(4, testAgent->ret);
+
+	finlTestEnvPreEff(testAgent);
+}
+
+LOAD_TEST(btunittest, preconditioneffectortest_3)
+{
+	PreconEffectorAgent* testAgent = initTestEnvPreEff("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3", format);
+	testAgent->resetProperties();
+
+	testAgent->count_both = 1;
+	testAgent->btexec();
+	CHECK_EQUAL(0, testAgent->count_success);
+	CHECK_EQUAL(0, testAgent->count_failure);
+	CHECK_EQUAL(0, testAgent->ret);
+
+	testAgent->count_both = 0;
+	testAgent->btexec();
+
+	CHECK_EQUAL(1, testAgent->count_success);
+	CHECK_EQUAL(1, testAgent->count_failure);
+	CHECK_EQUAL(2, testAgent->ret);
+
+	testAgent->count_both = 1;
+	testAgent->btexec();
+	CHECK_EQUAL(1, testAgent->count_success);
+	CHECK_EQUAL(2, testAgent->count_failure);
+	CHECK_EQUAL(3, testAgent->ret);
+
+	testAgent->count_both = 0;
+	testAgent->btexec();
+
+	CHECK_EQUAL(2, testAgent->count_success);
+	CHECK_EQUAL(3, testAgent->count_failure);
+	CHECK_EQUAL(5, testAgent->ret);
+
+	finlTestEnvPreEff(testAgent);
 }

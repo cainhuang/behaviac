@@ -20,6 +20,11 @@ namespace PluginBehaviac.Nodes
             this.Name = Resources.WaitFramesState;
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/fsm/"; }
+        }
+
         public override void PostCreatedByEditor()
         {
             Attachment attach = Attachment.Create(typeof(WaitTransition), this);

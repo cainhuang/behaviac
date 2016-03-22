@@ -30,6 +30,11 @@ namespace PluginBehaviac.Nodes
 		{
 		}
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/waitforsignal/"; }
+        }
+
         public override string ExportClass
         {
             get { return "WaitforSignal"; }

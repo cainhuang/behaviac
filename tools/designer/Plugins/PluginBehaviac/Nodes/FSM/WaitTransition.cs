@@ -18,6 +18,11 @@ namespace PluginBehaviac.Events
         {
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/fsm/"; }
+        }
+
         public WaitTransition(Node node, string label, string desc)
             : base(node, label, desc)
         {

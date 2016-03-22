@@ -31,6 +31,11 @@ namespace Behaviac.Design.Nodes
             _do_sequence_error_check = false;
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/task/"; }
+        }
+
         protected override void CreateInterruptChild() {
         }
 

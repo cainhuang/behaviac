@@ -299,6 +299,8 @@ namespace Behaviac.Design
         private void openSelectedFiles() {
             foreach(DataGridViewRow row in this.filesGridView.SelectedRows) {
                 UIUtilities.ShowBehaviorTree((string)row.Cells["filepathColumn"].Value);
+
+                Utilities.ReportLoadBehavior();
             }
 
             this.Close();

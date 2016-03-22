@@ -1,3 +1,8 @@
+2016-03-22	3.3.12
+	Send the platform info of the runtime part.
+	Add the QA menu item for the editor.
+	Fix some bugs for the editor.
+
 2016-03-14	3.3.11
 	define _DEBUG when debug configuration
 

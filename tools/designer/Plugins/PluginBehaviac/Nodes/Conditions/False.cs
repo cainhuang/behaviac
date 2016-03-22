@@ -30,7 +30,6 @@ namespace PluginBehaviac.Nodes
 		{
 		}
 
-
         public override string ExportClass
         {
             get { return "False"; }

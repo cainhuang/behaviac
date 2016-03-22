@@ -497,7 +497,7 @@ namespace behaviac
 
 		stat(path, &statbuff);
 
-		if (!statbuff.st_mode & S_IFDIR)
+		if (!(statbuff.st_mode & S_IFDIR))
 		{
 			return false;
 		}

@@ -544,7 +544,7 @@
       </Method>
     </agent>
     <agent classfullname="PreconEffectorAgent" base="behaviac::Agent" DisplayName="PreconEffectorAgent" Desc="PreconEffectorAgent" IsRefType="true">
-      <Member Name="count_success" DisplayName="" Desc="" Type="int" Class="PreconEffectorAgent" />
+      <Member Name="count_success" DisplayName="" Desc="" Type="int" Class="PreconEffectorAgent" Public="true" />
       <Member Name="count_failure" DisplayName="" Desc="" Type="int" Class="PreconEffectorAgent" Public="true" />
       <Member Name="count_both" DisplayName="" Desc="" Type="int" Class="PreconEffectorAgent" Public="true" />
       <Member Name="ret" DisplayName="" Desc="" Type="int" Class="PreconEffectorAgent" Public="true" />

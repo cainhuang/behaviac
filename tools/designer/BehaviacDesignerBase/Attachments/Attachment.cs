@@ -61,6 +61,11 @@ namespace Behaviac.Design.Attachments
             return atta;
         }
 
+        public virtual string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/attachment/"; }
+        }
+
         public virtual bool CanBeDisabled()
         {
             return this.Enable ? false : true;

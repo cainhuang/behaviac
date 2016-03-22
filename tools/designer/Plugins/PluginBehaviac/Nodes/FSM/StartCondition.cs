@@ -22,6 +22,11 @@ namespace PluginBehaviac.Events
         {
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/fsm/"; }
+        }
+
         public override string ExportClass
         {
             get { return "StartCondition"; }

@@ -84,6 +84,11 @@ namespace Behaviac.Design.Nodes
         {
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/condition/"; }
+        }
+
         public override bool IsCondition
         {
             get { return true; }

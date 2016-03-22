@@ -29,6 +29,7 @@ namespace Behaviac.Design
     {
         string Description { get; }
         string Label { get; }
+        string DocLink { get; }
         Nodes.BehaviorNode Behavior { get; }
         int Id { get; }
         bool CanBeAttached { get; }

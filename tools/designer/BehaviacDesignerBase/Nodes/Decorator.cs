@@ -34,6 +34,11 @@ namespace Behaviac.Design.Nodes
             _genericChildren = new ConnectorSingle(_children, string.Empty, Connector.kGeneric);
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/decorator/"; }
+        }
+
         protected virtual void CreateInterruptChild()
         {
         }

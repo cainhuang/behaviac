@@ -3974,7 +3974,7 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			int opl = (int)AgentExtra_Generated.GetProperty(pAgent, "count_success");
+			int opl = ((PreconEffectorAgent)pAgent).count_success;
 			int opr2 = 0;
 			bool op = (opl == opr2);
 			if (!op)
@@ -3994,7 +3994,7 @@ namespace behaviac
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			int opr2 = 1;
-			AgentExtra_Generated.SetProperty(pAgent, "count_success", opr2);
+			((PreconEffectorAgent)pAgent).count_success = opr2;
 			return result;
 		}
 	}
@@ -4155,7 +4155,7 @@ namespace behaviac
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			int opl = (int)AgentExtra_Generated.GetProperty(pAgent, "count_success");
+			int opl = ((PreconEffectorAgent)pAgent).count_success;
 			int opr2 = 0;
 			bool op = (opl == opr2);
 			if (!op)
@@ -4232,7 +4232,7 @@ namespace behaviac
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
 			int opr2 = 1;
-			AgentExtra_Generated.SetProperty(pAgent, "count_success", opr2);
+			((PreconEffectorAgent)pAgent).count_success = opr2;
 			return result;
 		}
 	}
@@ -4355,6 +4355,1012 @@ namespace behaviac
 				}
 				bt.AddChild(node4);
 				bt.SetHasEvents(bt.HasEvents() | node4.HasEvents());
+			}
+			return true;
+		}
+	}
+
+	// Source file: node_test/PreconditionEffectorTest/PreconditionEffectorTest_2
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node7 : behaviac.DecoratorLoop
+	{
+		public DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node7()
+		{
+			m_bDecorateWhenChildEnds = true;
+		}
+		protected override int GetCount(Agent pAgent)
+		{
+			return -1;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node13 : behaviac.Condition
+	{
+		public Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node13()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((PreconEffectorAgent)pAgent).count_both;
+			int opr = 0;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach16 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach16()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).ret;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).ret = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node4 : behaviac.Action
+	{
+		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node4()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((PreconEffectorAgent)pAgent).action();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach8 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach8()
+		{
+			this.Phase = Effector.EPhase.E_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_success;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_success = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach19 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach19()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_failure;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_failure = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node9 : behaviac.Action
+	{
+		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node9()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((PreconEffectorAgent)pAgent).action();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach2 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach2()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_failure;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_failure = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach18 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach18()
+		{
+			this.Phase = Effector.EPhase.E_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_success;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_success = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node12 : behaviac.Condition
+	{
+		public Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node12()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((PreconEffectorAgent)pAgent).count_both;
+			int opr = 1;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach17 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach17()
+		{
+			this.Phase = Effector.EPhase.E_BOTH;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).ret;
+			int opr2 = 2;
+			((PreconEffectorAgent)pAgent).ret = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node10 : behaviac.Action
+	{
+		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node10()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((PreconEffectorAgent)pAgent).action();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach15 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach15()
+		{
+			this.Phase = Effector.EPhase.E_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_success;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_success = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach20 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach20()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_failure;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_failure = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node1 : behaviac.Action
+	{
+		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node1()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((PreconEffectorAgent)pAgent).action();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach21 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach21()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_failure;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_failure = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach3 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach3()
+		{
+			this.Phase = Effector.EPhase.E_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_success;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_success = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	public static class bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_2");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("PreconEffectorAgent");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node7 node7 = new DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node7();
+				node7.SetClassNameString("DecoratorLoop");
+				node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+				node7.SetAgentType("PreconEffectorAgent");
+#endif
+				bt.AddChild(node7);
+				{
+					SelectorLoop node6 = new SelectorLoop();
+					node6.SetClassNameString("SelectorLoop");
+					node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+					node6.SetAgentType("PreconEffectorAgent");
+#endif
+					node7.AddChild(node6);
+					{
+						WithPrecondition node5 = new WithPrecondition();
+						node5.SetClassNameString("WithPrecondition");
+						node5.SetId(5);
+#if !BEHAVIAC_RELEASE
+						node5.SetAgentType("PreconEffectorAgent");
+#endif
+						node6.AddChild(node5);
+						{
+							Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node13 node13 = new Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node13();
+							node13.SetClassNameString("Condition");
+							node13.SetId(13);
+#if !BEHAVIAC_RELEASE
+							node13.SetAgentType("PreconEffectorAgent");
+#endif
+							node5.AddChild(node13);
+							node5.SetHasEvents(node5.HasEvents() | node13.HasEvents());
+						}
+						{
+							Sequence node11 = new Sequence();
+							node11.SetClassNameString("Sequence");
+							node11.SetId(11);
+#if !BEHAVIAC_RELEASE
+							node11.SetAgentType("PreconEffectorAgent");
+#endif
+							// attachments
+							{
+								Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach16 attach16 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach16();
+								attach16.SetClassNameString("Effector");
+								attach16.SetId(16);
+#if !BEHAVIAC_RELEASE
+								attach16.SetAgentType("PreconEffectorAgent");
+#endif
+								node11.Attach(attach16, false, true, false);
+							}
+							node5.AddChild(node11);
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node4 node4 = new Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node4();
+								node4.SetClassNameString("Action");
+								node4.SetId(4);
+#if !BEHAVIAC_RELEASE
+								node4.SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach8 attach8 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach8();
+									attach8.SetClassNameString("Effector");
+									attach8.SetId(8);
+#if !BEHAVIAC_RELEASE
+									attach8.SetAgentType("PreconEffectorAgent");
+#endif
+									node4.Attach(attach8, false, true, false);
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach19 attach19 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach19();
+									attach19.SetClassNameString("Effector");
+									attach19.SetId(19);
+#if !BEHAVIAC_RELEASE
+									attach19.SetAgentType("PreconEffectorAgent");
+#endif
+									node4.Attach(attach19, false, true, false);
+								}
+								node11.AddChild(node4);
+								node11.SetHasEvents(node11.HasEvents() | node4.HasEvents());
+							}
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node9 node9 = new Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node9();
+								node9.SetClassNameString("Action");
+								node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+								node9.SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach2 attach2 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach2();
+									attach2.SetClassNameString("Effector");
+									attach2.SetId(2);
+#if !BEHAVIAC_RELEASE
+									attach2.SetAgentType("PreconEffectorAgent");
+#endif
+									node9.Attach(attach2, false, true, false);
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach18 attach18 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach18();
+									attach18.SetClassNameString("Effector");
+									attach18.SetId(18);
+#if !BEHAVIAC_RELEASE
+									attach18.SetAgentType("PreconEffectorAgent");
+#endif
+									node9.Attach(attach18, false, true, false);
+								}
+								node11.AddChild(node9);
+								node11.SetHasEvents(node11.HasEvents() | node9.HasEvents());
+							}
+							node5.SetHasEvents(node5.HasEvents() | node11.HasEvents());
+						}
+						node6.SetHasEvents(node6.HasEvents() | node5.HasEvents());
+					}
+					{
+						WithPrecondition node0 = new WithPrecondition();
+						node0.SetClassNameString("WithPrecondition");
+						node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+						node0.SetAgentType("PreconEffectorAgent");
+#endif
+						node6.AddChild(node0);
+						{
+							Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node12 node12 = new Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node12();
+							node12.SetClassNameString("Condition");
+							node12.SetId(12);
+#if !BEHAVIAC_RELEASE
+							node12.SetAgentType("PreconEffectorAgent");
+#endif
+							node0.AddChild(node12);
+							node0.SetHasEvents(node0.HasEvents() | node12.HasEvents());
+						}
+						{
+							Sequence node14 = new Sequence();
+							node14.SetClassNameString("Sequence");
+							node14.SetId(14);
+#if !BEHAVIAC_RELEASE
+							node14.SetAgentType("PreconEffectorAgent");
+#endif
+							// attachments
+							{
+								Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach17 attach17 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach17();
+								attach17.SetClassNameString("Effector");
+								attach17.SetId(17);
+#if !BEHAVIAC_RELEASE
+								attach17.SetAgentType("PreconEffectorAgent");
+#endif
+								node14.Attach(attach17, false, true, false);
+							}
+							node0.AddChild(node14);
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node10 node10 = new Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node10();
+								node10.SetClassNameString("Action");
+								node10.SetId(10);
+#if !BEHAVIAC_RELEASE
+								node10.SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach15 attach15 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach15();
+									attach15.SetClassNameString("Effector");
+									attach15.SetId(15);
+#if !BEHAVIAC_RELEASE
+									attach15.SetAgentType("PreconEffectorAgent");
+#endif
+									node10.Attach(attach15, false, true, false);
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach20 attach20 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach20();
+									attach20.SetClassNameString("Effector");
+									attach20.SetId(20);
+#if !BEHAVIAC_RELEASE
+									attach20.SetAgentType("PreconEffectorAgent");
+#endif
+									node10.Attach(attach20, false, true, false);
+								}
+								node14.AddChild(node10);
+								node14.SetHasEvents(node14.HasEvents() | node10.HasEvents());
+							}
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node1 node1 = new Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node1();
+								node1.SetClassNameString("Action");
+								node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+								node1.SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach21 attach21 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach21();
+									attach21.SetClassNameString("Effector");
+									attach21.SetId(21);
+#if !BEHAVIAC_RELEASE
+									attach21.SetAgentType("PreconEffectorAgent");
+#endif
+									node1.Attach(attach21, false, true, false);
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach3 attach3 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach3();
+									attach3.SetClassNameString("Effector");
+									attach3.SetId(3);
+#if !BEHAVIAC_RELEASE
+									attach3.SetAgentType("PreconEffectorAgent");
+#endif
+									node1.Attach(attach3, false, true, false);
+								}
+								node14.AddChild(node1);
+								node14.SetHasEvents(node14.HasEvents() | node1.HasEvents());
+							}
+							node0.SetHasEvents(node0.HasEvents() | node14.HasEvents());
+						}
+						node6.SetHasEvents(node6.HasEvents() | node0.HasEvents());
+					}
+					node7.SetHasEvents(node7.HasEvents() | node6.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node7.HasEvents());
+			}
+			return true;
+		}
+	}
+
+	// Source file: node_test/PreconditionEffectorTest/PreconditionEffectorTest_3
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7 : behaviac.DecoratorLoop
+	{
+		public DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7()
+		{
+			m_bDecorateWhenChildEnds = true;
+		}
+		protected override int GetCount(Agent pAgent)
+		{
+			return -1;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13 : behaviac.Condition
+	{
+		public Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((PreconEffectorAgent)pAgent).count_both;
+			int opr = 0;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).ret;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).ret = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4 : behaviac.Action
+	{
+		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((PreconEffectorAgent)pAgent).action();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8()
+		{
+			this.Phase = Effector.EPhase.E_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_success;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_success = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_failure;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_failure = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9 : behaviac.Action
+	{
+		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9()
+		{
+			this.m_resultOption = EBTStatus.BT_RUNNING;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((PreconEffectorAgent)pAgent).action();
+			return EBTStatus.BT_RUNNING;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_failure;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_failure = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18()
+		{
+			this.Phase = Effector.EPhase.E_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_success;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_success = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12 : behaviac.Condition
+	{
+		public Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			int opl = ((PreconEffectorAgent)pAgent).count_both;
+			int opr = 1;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17()
+		{
+			this.Phase = Effector.EPhase.E_BOTH;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).ret;
+			int opr2 = 2;
+			((PreconEffectorAgent)pAgent).ret = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10 : behaviac.Action
+	{
+		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10()
+		{
+			this.m_resultOption = EBTStatus.BT_RUNNING;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((PreconEffectorAgent)pAgent).action();
+			return EBTStatus.BT_RUNNING;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15()
+		{
+			this.Phase = Effector.EPhase.E_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_success;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_success = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_failure;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_failure = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1 : behaviac.Action
+	{
+		public Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((PreconEffectorAgent)pAgent).action();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21()
+		{
+			this.Phase = Effector.EPhase.E_FAILURE;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_failure;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_failure = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3 : behaviac.Effector
+	{
+		public Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3()
+		{
+			this.Phase = Effector.EPhase.E_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent)pAgent).count_success;
+			int opr2 = 1;
+			((PreconEffectorAgent)pAgent).count_success = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	public static class bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("PreconEffectorAgent");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7 node7 = new DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7();
+				node7.SetClassNameString("DecoratorLoop");
+				node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+				node7.SetAgentType("PreconEffectorAgent");
+#endif
+				bt.AddChild(node7);
+				{
+					SelectorLoop node6 = new SelectorLoop();
+					node6.SetClassNameString("SelectorLoop");
+					node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+					node6.SetAgentType("PreconEffectorAgent");
+#endif
+					node7.AddChild(node6);
+					{
+						WithPrecondition node5 = new WithPrecondition();
+						node5.SetClassNameString("WithPrecondition");
+						node5.SetId(5);
+#if !BEHAVIAC_RELEASE
+						node5.SetAgentType("PreconEffectorAgent");
+#endif
+						node6.AddChild(node5);
+						{
+							Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13 node13 = new Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13();
+							node13.SetClassNameString("Condition");
+							node13.SetId(13);
+#if !BEHAVIAC_RELEASE
+							node13.SetAgentType("PreconEffectorAgent");
+#endif
+							node5.AddChild(node13);
+							node5.SetHasEvents(node5.HasEvents() | node13.HasEvents());
+						}
+						{
+							Sequence node11 = new Sequence();
+							node11.SetClassNameString("Sequence");
+							node11.SetId(11);
+#if !BEHAVIAC_RELEASE
+							node11.SetAgentType("PreconEffectorAgent");
+#endif
+							// attachments
+							{
+								Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16 attach16 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16();
+								attach16.SetClassNameString("Effector");
+								attach16.SetId(16);
+#if !BEHAVIAC_RELEASE
+								attach16.SetAgentType("PreconEffectorAgent");
+#endif
+								node11.Attach(attach16, false, true, false);
+							}
+							node5.AddChild(node11);
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4 node4 = new Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4();
+								node4.SetClassNameString("Action");
+								node4.SetId(4);
+#if !BEHAVIAC_RELEASE
+								node4.SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8 attach8 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8();
+									attach8.SetClassNameString("Effector");
+									attach8.SetId(8);
+#if !BEHAVIAC_RELEASE
+									attach8.SetAgentType("PreconEffectorAgent");
+#endif
+									node4.Attach(attach8, false, true, false);
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19 attach19 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19();
+									attach19.SetClassNameString("Effector");
+									attach19.SetId(19);
+#if !BEHAVIAC_RELEASE
+									attach19.SetAgentType("PreconEffectorAgent");
+#endif
+									node4.Attach(attach19, false, true, false);
+								}
+								node11.AddChild(node4);
+								node11.SetHasEvents(node11.HasEvents() | node4.HasEvents());
+							}
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9 node9 = new Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9();
+								node9.SetClassNameString("Action");
+								node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+								node9.SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2 attach2 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2();
+									attach2.SetClassNameString("Effector");
+									attach2.SetId(2);
+#if !BEHAVIAC_RELEASE
+									attach2.SetAgentType("PreconEffectorAgent");
+#endif
+									node9.Attach(attach2, false, true, false);
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18 attach18 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18();
+									attach18.SetClassNameString("Effector");
+									attach18.SetId(18);
+#if !BEHAVIAC_RELEASE
+									attach18.SetAgentType("PreconEffectorAgent");
+#endif
+									node9.Attach(attach18, false, true, false);
+								}
+								node11.AddChild(node9);
+								node11.SetHasEvents(node11.HasEvents() | node9.HasEvents());
+							}
+							node5.SetHasEvents(node5.HasEvents() | node11.HasEvents());
+						}
+						node6.SetHasEvents(node6.HasEvents() | node5.HasEvents());
+					}
+					{
+						WithPrecondition node0 = new WithPrecondition();
+						node0.SetClassNameString("WithPrecondition");
+						node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+						node0.SetAgentType("PreconEffectorAgent");
+#endif
+						node6.AddChild(node0);
+						{
+							Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12 node12 = new Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12();
+							node12.SetClassNameString("Condition");
+							node12.SetId(12);
+#if !BEHAVIAC_RELEASE
+							node12.SetAgentType("PreconEffectorAgent");
+#endif
+							node0.AddChild(node12);
+							node0.SetHasEvents(node0.HasEvents() | node12.HasEvents());
+						}
+						{
+							Sequence node14 = new Sequence();
+							node14.SetClassNameString("Sequence");
+							node14.SetId(14);
+#if !BEHAVIAC_RELEASE
+							node14.SetAgentType("PreconEffectorAgent");
+#endif
+							// attachments
+							{
+								Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17 attach17 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17();
+								attach17.SetClassNameString("Effector");
+								attach17.SetId(17);
+#if !BEHAVIAC_RELEASE
+								attach17.SetAgentType("PreconEffectorAgent");
+#endif
+								node14.Attach(attach17, false, true, false);
+							}
+							node0.AddChild(node14);
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10 node10 = new Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10();
+								node10.SetClassNameString("Action");
+								node10.SetId(10);
+#if !BEHAVIAC_RELEASE
+								node10.SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15 attach15 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15();
+									attach15.SetClassNameString("Effector");
+									attach15.SetId(15);
+#if !BEHAVIAC_RELEASE
+									attach15.SetAgentType("PreconEffectorAgent");
+#endif
+									node10.Attach(attach15, false, true, false);
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20 attach20 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20();
+									attach20.SetClassNameString("Effector");
+									attach20.SetId(20);
+#if !BEHAVIAC_RELEASE
+									attach20.SetAgentType("PreconEffectorAgent");
+#endif
+									node10.Attach(attach20, false, true, false);
+								}
+								node14.AddChild(node10);
+								node14.SetHasEvents(node14.HasEvents() | node10.HasEvents());
+							}
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1 node1 = new Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1();
+								node1.SetClassNameString("Action");
+								node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+								node1.SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21 attach21 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21();
+									attach21.SetClassNameString("Effector");
+									attach21.SetId(21);
+#if !BEHAVIAC_RELEASE
+									attach21.SetAgentType("PreconEffectorAgent");
+#endif
+									node1.Attach(attach21, false, true, false);
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3 attach3 = new Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3();
+									attach3.SetClassNameString("Effector");
+									attach3.SetId(3);
+#if !BEHAVIAC_RELEASE
+									attach3.SetAgentType("PreconEffectorAgent");
+#endif
+									node1.Attach(attach3, false, true, false);
+								}
+								node14.AddChild(node1);
+								node14.SetHasEvents(node14.HasEvents() | node1.HasEvents());
+							}
+							node0.SetHasEvents(node0.HasEvents() | node14.HasEvents());
+						}
+						node6.SetHasEvents(node6.HasEvents() | node0.HasEvents());
+					}
+					node7.SetHasEvents(node7.HasEvents() | node6.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node7.HasEvents());
 			}
 			return true;
 		}

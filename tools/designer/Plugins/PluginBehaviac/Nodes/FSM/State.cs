@@ -23,6 +23,11 @@ namespace PluginBehaviac.Nodes
         {
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/fsm/"; }
+        }
+
         [DesignerString("Name", "NameDesc", "State", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.NoExport)]
         public override string Name
         {

@@ -47,6 +47,11 @@ namespace PluginBehaviac.Events
             this._operator = OperatorTypes.Assign;
         }
 
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/attachment/#section"; }
+        }
+
         public override string ExportClass
         {
             get { return "Effector"; }
