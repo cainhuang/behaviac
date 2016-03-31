@@ -175,7 +175,9 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(childStatus);
 
-		if (Workspace::GetInstance()->GetFrameSinceStartup() - this->m_start + 1 >= this->m_frames)
+		int frames = Workspace::GetInstance()->GetFrameSinceStartup();
+
+		if (frames - this->m_start + 1 >= this->m_frames)
 		{
 			return BT_SUCCESS;
 		}

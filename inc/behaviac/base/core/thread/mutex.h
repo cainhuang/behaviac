@@ -14,6 +14,9 @@
 #ifndef BEHAVIAC_BASE_THREAD_MUTEX_H
 #define BEHAVIAC_BASE_THREAD_MUTEX_H
 #include "behaviac/base/core/config.h"
+#include "behaviac/base/core/compiler.h"
+#include "behaviac/base/core/types.h"
+
 #include "behaviac/base/core/assert_t.h"
 
 namespace behaviac

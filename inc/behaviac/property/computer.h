@@ -14,6 +14,7 @@
 #ifndef BEHAVIAC_COMPUTER_H
 #define BEHAVIAC_COMPUTER_H
 
+#include "behaviac/base/core/config.h"
 #include "behaviac/property/property.h"
 #include "behaviac/agent/agent.h"
 #include "behaviac/property/property_t.h"

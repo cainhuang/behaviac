@@ -7,7 +7,7 @@
  - [官方网站](http://www.behaviac.com/)是文档，教程，API，FAQ，源码，下载等一切的入口
  - 您可以访问[behaviac Q&A](http://bbs.behaviac.com/)获取答案或提出问题
  - 您可以加入我们的QQ群433547396获得即时的帮助或者信息反馈。请大家优先使用[behaviac Q&A](http://bbs.behaviac.com/)。
- - BehaviacSetup*.exe是安装包，内含可执行的编辑器及示例。如需要自行构建，可以访问官网或[github behaviac](https://github.com/TencentOpen/behaviac)
+ - BehaviacSetup*.exe是安装包，内含可执行的编辑器及示例。如需要自行构建，需要去[官方网站](http://www.behaviac.com/)或[github behaviac](https://github.com/TencentOpen/behaviac)下载或克隆源码，然后可以访问[build](http://www.behaviac.com/docs/zh/articles/build/)获取构建帮助
  
 
 ---------------------------------------------

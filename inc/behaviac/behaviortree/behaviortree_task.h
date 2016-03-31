@@ -114,7 +114,7 @@ namespace behaviac
 			this->m_bHasManagingParent = bHasManagingParent;
 		}
 
-        virtual void traverse(NodeHandler_t handler, Agent* pAgent, void* user_data) = 0;
+        virtual void traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data) = 0;
 
         virtual void SetCurrentTask(BehaviorTask* node)
         {
@@ -205,7 +205,7 @@ namespace behaviac
         virtual void save(ISerializableNode* node) const;
         virtual void load(ISerializableNode* node);
     public:
-        virtual void traverse(NodeHandler_t handler, Agent* pAgent, void* user_data);
+        virtual void traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data);
     };
 
     // ============================================================================
@@ -215,7 +215,7 @@ namespace behaviac
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(LeafTask);
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(LeafTask, BehaviorTask);
 
-        virtual void traverse(NodeHandler_t handler, Agent* pAgent, void* user_data);
+        virtual void traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data);
     protected:
         LeafTask();
         virtual ~LeafTask();
@@ -278,7 +278,7 @@ namespace behaviac
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(CompositeTask);
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(CompositeTask, BranchTask);
 
-        virtual void traverse(NodeHandler_t handler, Agent* pAgent, void* user_data);
+        virtual void traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data);
         BehaviorTask* GetChildById(int nodeId) const;
     protected:
         CompositeTask();
@@ -307,7 +307,7 @@ namespace behaviac
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(SingeChildTask);
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(SingeChildTask, BranchTask);
 
-        virtual void traverse(NodeHandler_t handler, Agent* pAgent, void* user_data);
+        virtual void traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data);
     protected:
         SingeChildTask();
         virtual ~SingeChildTask();

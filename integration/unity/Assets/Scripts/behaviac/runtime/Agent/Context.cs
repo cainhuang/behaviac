@@ -71,6 +71,9 @@ namespace behaviac
 
         ~Context()
         {
+            delayAddedAgents.Clear();
+            delayRemovedAgents.Clear();
+
             this.CleanupStaticVariables();
             this.CleanupInstances();
         }
@@ -147,18 +150,43 @@ namespace behaviac
             }
         }
 
+        private List<Agent> delayAddedAgents = new List<Agent>();
+        private List<Agent> delayRemovedAgents = new List<Agent>();
+
         public static void AddAgent(Agent pAgent)
         {
-            Context c = Context.GetContext(pAgent.GetContextId());
+            if (pAgent != null)
+            {
+                Context c = Context.GetContext(pAgent.GetContextId());
 
-            c.addAgent_(pAgent);
+                c.delayAddedAgents.Add(pAgent);
+            }
         }
 
         public static void RemoveAgent(Agent pAgent)
         {
-            Context c = Context.GetContext(pAgent.GetContextId());
+            if (pAgent != null)
+            {
+                Context c = Context.GetContext(pAgent.GetContextId());
 
-            c.removeAgent_(pAgent);
+                c.delayRemovedAgents.Add(pAgent);
+            }
+        }
+
+        private void DelayProcessingAgents()
+        {
+            for (int i = 0; i < delayAddedAgents.Count; ++i)
+            {
+                addAgent_(delayAddedAgents[i]);
+            }
+
+            for (int i = 0; i < delayRemovedAgents.Count; ++i)
+            {
+                removeAgent_(delayRemovedAgents[i]);
+            }
+
+            delayAddedAgents.Clear();
+            delayRemovedAgents.Clear();
         }
 
         private void addAgent_(Agent pAgent)
@@ -218,19 +246,24 @@ namespace behaviac
                 var e = ms_contexts.Values.GetEnumerator();
                 while (e.MoveNext())
                 {
-                    e.Current.execAgents_();
+                    Context pContext = e.Current;
+
+                    pContext.execAgents_();
                 }
             }
         }
 
         private void execAgents_()
         {
+            this.DelayProcessingAgents();
+
             this.Agents.Sort();
 
             for (int i = 0; i < this.Agents.Count; ++i)
             {
                 HeapItem_t pa = this.Agents[i];
                 var e = pa.agents.Values.GetEnumerator();
+
                 while (e.MoveNext())
                 {
                     if (e.Current.IsActive())

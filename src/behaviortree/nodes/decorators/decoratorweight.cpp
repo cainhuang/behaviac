@@ -58,6 +58,11 @@ namespace behaviac
         return 0;
     }
 
+	bool DecoratorWeight::IsManagingChildrenAsSubTrees() const
+	{
+		return false;
+	}
+
     BehaviorTask* DecoratorWeight::createTask() const
     {
         DecoratorWeightTask* pTask = BEHAVIAC_NEW DecoratorWeightTask();

@@ -53,11 +53,12 @@ namespace behaviac
         void LogCurrentState();
 
     public:
-        //void btexec();
+		void AddAgent(Agent* pAgent);
         void RemoveAgent(Agent* pAgent);
-        void AddAgent(Agent* pAgent);
+
         static void execAgents(int contextId);
         static Context& GetContext(int contextId);
+
         template<typename VariableType>
         const VariableType* GetStaticVariable(const char* staticClassName, uint32_t variableId)
         {
@@ -81,7 +82,6 @@ namespace behaviac
 
         static void LogCurrentStates(int contextId);
 
-    public:
         virtual ~Context();
 
         void ResetChangedVariables();
@@ -154,6 +154,7 @@ namespace behaviac
                 return lhs.priority < rhs.priority;
             }
         };
+
     protected:
         Context(int contextId);
 
@@ -161,7 +162,15 @@ namespace behaviac
         void CleanupInstances();
 
         void execAgents_();
+
     private:
+		void DelayProcessingAgents();
+		void addAgent_(Agent* pAgent);
+		void removeAgent_(Agent* pAgent);
+
+		behaviac::vector<Agent*> delayAddedAgents;
+		behaviac::vector<Agent*> delayRemovedAgents;
+
         typedef behaviac::map<behaviac::string, Agent*> NamedAgents_t;
         NamedAgents_t m_namedAgents;
 

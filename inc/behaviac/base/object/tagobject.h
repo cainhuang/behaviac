@@ -16,6 +16,7 @@
 
 #include "behaviac/base/base.h"
 #include "behaviac/base/serialization/serializablenode.h"
+
 #include "behaviac/base/swapbyte.h"
 
 #include "behaviac/base/serialization/textnode.h"
@@ -322,7 +323,49 @@ BEHAVIAC_API bool Equal_Struct(const CTagObjectDescriptor& object_desc, const CT
 ////////////////////////////////////////////////////////////////////////////////
 // CTagObject macros
 ////////////////////////////////////////////////////////////////////////////////
+#if BEHAVIAC_ENABLE_LUA
+	#define DECLARE_BEHAVIAC_OBJECT_LUA_NOVIRTUAL(className)						\
+		static int GetScriptTag();							                        \
+		static void SetScriptTag(int tag);											\
+		static int ms_scriptTag;                                                    \
+		static void CopyScriptProperties(int tagDest) {}                            \
+		static bool IsAScriptKindOf(int tag)										\
+		{                                                                           \
+			if (ms_scriptTag == tag)                                                \
+			{																		\
+				return true;                                                        \
+			}																		\
+			return false;                                                           \
+		}																			\
+		SCRIPTMARSHAL_DECLARE_OBJECT_TABLE(className)								
 
+	#define DECLARE_BEHAVIAC_OBJECT_LUA(className)									\
+		static int GetScriptTag();  						                        \
+		static void SetScriptTag(int tag);											\
+		static int ms_scriptTag;                                                    \
+		static void CopyScriptProperties(int tagDest)                               \
+		{                                                                           \
+			if (super::GetScriptTag() == -1)                                        \
+			{                                                                       \
+				super::CopyScriptProperties(tagDest);                               \
+				return;                                                             \
+			}                                                                       \
+			else                                                                    \
+				LuaCopyTag(super::GetScriptTag(), tagDest);                         \
+		}                                                                           \
+		static bool IsAScriptKindOf(int tag)										\
+		{                                                                           \
+			if (GetScriptTag() == tag)                                              \
+			{                                                                       \
+				return true;                                                        \
+			}                                                                       \
+			return super::IsAScriptKindOf(tag);                                     \
+		}																			\
+		SCRIPTMARSHAL_DECLARE_OBJECT_TABLE(className)
+#else
+	#define DECLARE_BEHAVIAC_OBJECT_LUA_NOVIRTUAL(className)
+	#define DECLARE_BEHAVIAC_OBJECT_LUA(className)
+#endif//#if BEHAVIAC_ENABLE_LUA
 
 #define ACCESS_PROPERTY_METHOD													\
     template<typename T, typename R>											\
@@ -368,7 +411,8 @@ BEHAVIAC_API bool Equal_Struct(const CTagObjectDescriptor& object_desc, const CT
     static CTagObjectDescriptor& GetObjectDescriptorDirectly();					\
     virtual const CTagObjectDescriptor& GetDescriptor() const					\
     { RegisterProperties(); return className::GetObjectDescriptor(); }          \
-    static void RegisterProperties();
+    static void RegisterProperties();											\
+	DECLARE_BEHAVIAC_OBJECT_LUA(className)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -377,7 +421,7 @@ classFullNameWithNamespace is the class full name with namespace, like test_ns::
 even the class is delared in a namespace, it is still advised to use the full name with the name space.
 the corresponding BEGIN_PROPERTIES_DESCRIPTION/END_PROPERTIES_DESCRIPTION in the cpp can be put in or out of that namespace.
 */
-#define DECLARE_BEHAVIAC_AGENT(classFullNameWithNamespace, parentClassName)					\
+#define DECLARE_BEHAVIAC_AGENT(classFullNameWithNamespace, parentClassName)						\
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(classFullNameWithNamespace)								\
     BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(classFullNameWithNamespace, parentClassName);			\
     DECLARE_BEHAVIAC_OBJECT_SIMPLE(classFullNameWithNamespace, parentClassName);				\
@@ -389,6 +433,23 @@ DECLARE_BEHAVIAC_OBJECT is deprecated, please use DECLARE_BEHAVIAC_AGENT
 */
 #define DECLARE_BEHAVIAC_OBJECT DECLARE_BEHAVIAC_AGENT
 /////////////////////////////////////////////////////////////////////////////////////////
+
+#if BEHAVIAC_ENABLE_LUA
+#define BEHAVIAC_OBJECT_LUA_DESCRIPTION(className)								\
+    SCRIPTMARSHAL_IMPLEMENT_OBJECT_TABLE(className);                            \
+    int className::ms_scriptTag = -1;                                           \
+    int className::GetScriptTag() { return ms_scriptTag; }                      \
+    void className::SetScriptTag(int tag)										\
+	    { if (ms_scriptTag != -1) return; ms_scriptTag = tag; }
+
+#define BEHAVIAC_OBJECT_LUA_DESCRIPTION_TEMPLATE(className)						\
+    template<class T> SCRIPTMARSHAL_IMPLEMENT_OBJECT_TABLE(className<T>)        \
+    template<class T> int className<T>::ms_scriptTag = -1;
+#else
+	#define BEHAVIAC_OBJECT_LUA_DESCRIPTION(className)
+	#define BEHAVIAC_OBJECT_LUA_DESCRIPTION_TEMPLATE(className)
+#endif//if BEHAVIAC_ENABLE_LUA
+
 
 
 typedef behaviac::map<behaviac::string, const CTagObjectDescriptorBSS*>	TagObjectDescriptorMap_t;
@@ -453,6 +514,7 @@ struct RegisterPropertiesGetter<T, true>
         className::RegisterProperties();										\
         return className::ms_descriptor.Get();									\
     }																			\
+	BEHAVIAC_OBJECT_LUA_DESCRIPTION(className)									\
     void className::RegisterProperties()                                        \
     {                                                                           \
         if (className::GetObjectDescriptorDirectly().ms_isInitialized)			\
@@ -486,6 +548,7 @@ struct RegisterPropertiesGetter<T, true>
         return className<T>::ms_descriptor.Get();								\
     }																			\
     template<class T> CTagObjectDescriptor& className<T>::GetObjectDescriptorDirectly()	{return className<T>::ms_descriptor.Get();}\
+	BEHAVIAC_OBJECT_LUA_DESCRIPTION_TEMPLATE(className)							\
     template<class T> inline void className<T>::RegisterProperties()            \
     {                                                                           \
         if (className<T>::GetObjectDescriptorDirectly().ms_isInitialized)       \
@@ -559,7 +622,9 @@ struct RegisterPropertiesGetter<T, true>
     }																			\
     \
     static void RegisterParent() {}                                             \
-    static void RegisterProperties();
+	static void RegisterProperties();                                           \
+	DECLARE_BEHAVIAC_OBJECT_LUA_NOVIRTUAL(className)
+
 
 #define DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO(className, bRefType)	\
     DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO_BASE(className, bRefType)	\
@@ -627,7 +692,7 @@ the 2nd param is true or false indicating if the class is a ref type. a ref type
 ex: BEHAVIAC_EXTEND_EXISTING_TYPE(myNode, cocos2d::Node)
 */
 #define BEHAVIAC_EXTEND_EXISTING_TYPE(myType, existingType)				\
-	BEHAVIAC_DECLARE_SPECIALIZE_TYPE_HANDLER(existingType);							\
+	BEHAVIAC_DECLARE_SPECIALIZE_TYPE_HANDLER(existingType);				\
 	template <>															\
 	inline CTagObjectDescriptor& GetObjectDescriptor<existingType>()	\
 	{																	\

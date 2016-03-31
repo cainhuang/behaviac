@@ -293,8 +293,13 @@ namespace Behaviac.Design.Nodes
         /// <summary>
         /// The description of this node.
         /// </summary>
-        public virtual string Description {
-            get { return /*Resources.ResourceManager.GetString(*/_description/*, Resources.Culture)*/; }
+        public virtual string Description
+        {
+            get
+            {
+                string desc = Resources.PressF1 + "\n" + _description;
+                return desc;
+            }
         }
 
         public virtual object[] GetExcludedEnums(DesignerEnum enumAttr) {

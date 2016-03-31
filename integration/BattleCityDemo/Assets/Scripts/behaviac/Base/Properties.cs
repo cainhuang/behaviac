@@ -655,6 +655,11 @@ namespace behaviac
                 if (pProperty.InstanceName != instanceName)
                 {
                     Debug.Check(pProperty.Name == variableName);
+
+                    Property pNew = pProperty.clone();
+                    AgentProperties.AddPropertyInstance(agentType, pNew);
+
+                    pProperty = pNew;
                     pProperty.InstanceName = instanceName;
                 }
 
@@ -694,6 +699,13 @@ namespace behaviac
             }
 
             Property p = Property.create(pMember, bConst, typeName, propertyName, instanceName, valueStr);
+
+            return p;
+        }
+
+        public virtual Property clone()
+        {
+            Property p = new Property(this);
 
             return p;
         }

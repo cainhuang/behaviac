@@ -15,20 +15,22 @@
 #define BEHAVIAC_BASE_ASSERT_H
 
 #include "behaviac/base/core/config.h"
+#include "behaviac/base/core/compiler.h"
+#include "behaviac/base/core/types.h"
 
 //#include <assert.h>
 //_CRTDBG_MAP_ALLOC predefined in the project files
 //#define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 
-#if BEHAVIAC_COMPILER_MSVC
-#include <crtdbg.h>
+#if _MSC_VER
+	#include <crtdbg.h>
 #else
-#include <assert.h>
-#define _ASSERT(exp) assert(exp)
-#endif//BEHAVIAC_COMPILER_MSVC
+	#include <assert.h>
+	#define _ASSERT(exp) assert(exp)
+#endif//_MSC_VER
 
-#ifdef _DEBUG
+#if (defined(_DEBUG) || defined(DEBUG))
 #define BEHAVIAC_ENABLE_ASSERTS	1
 #endif//#ifdef _DEBUG
 

@@ -166,7 +166,9 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(childStatus);
 
-		if (Workspace::GetInstance()->GetTimeSinceStartup() * 1000 - this->m_start >= this->m_time)
+		double time = Workspace::GetInstance()->GetTimeSinceStartup();
+
+		if (time * 1000 - this->m_start >= this->m_time)
 		{
 			return BT_SUCCESS;
 		}

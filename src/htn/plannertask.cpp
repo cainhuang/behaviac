@@ -123,7 +123,7 @@ namespace behaviac
         BEHAVIAC_UNUSED_VAR(other);
         return true;
     }
-    void PlannerTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    void PlannerTask::traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data)
     {
         BEHAVIAC_UNUSED_VAR(handler);
         BEHAVIAC_UNUSED_VAR(pAgent);

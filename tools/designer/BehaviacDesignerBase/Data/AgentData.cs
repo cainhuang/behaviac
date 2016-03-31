@@ -47,12 +47,13 @@ namespace Behaviac.Design.Data
 
             if (!instances.Contains(agentName)) {
                 instances.Add(agentName);
-            }
 
-            if (string.IsNullOrEmpty(Plugin.DebugAgentInstance) && AddInstanceHandler != null) {
-                AddInstanceHandler(agentType, agentName); 
+                if (AddInstanceHandler != null)
+                {
+                    AddInstanceHandler(agentType, agentName);
 
-                return true;
+                    return true;
+                }
             }
 
             return false;

@@ -290,6 +290,12 @@ namespace behaviac
 		return p;
 	}
 
+	Property* Property::clone() {
+		BEHAVIAC_ASSERT(false);
+
+		return 0;
+	}
+
     const char* Property::GetInstanceName()
     {
         return this->m_instanceName.c_str();
@@ -323,7 +329,13 @@ namespace behaviac
             {
                 //Properties().insert(std::pair<Property*, bool>(pProperty, true));
                 BEHAVIAC_ASSERT(strcmp(pProperty->Name(), variableName) == 0);
-                pProperty->SetInstanceName(instanceName);
+
+				Property* pNew = pProperty->clone();
+				pNew->SetInstanceName(instanceName);
+
+				pProperty = pNew;
+
+				AgentProperties::AddPropertyInstance(agentType, pNew);
             }
             else
             {

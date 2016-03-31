@@ -16,12 +16,11 @@
 #include "behaviac/agent/state.h"
 
 #include "behaviac/base/core/thread/mutex.h"
-
 #include "behaviac/base/file/filesystem.h"
 
 namespace behaviac
 {
-    Context::Contexts_t* Context::ms_contexts;
+    Context::Contexts_t* Context::ms_contexts = NULL;
 
     Context::Context(int contextId) : m_context_id(contextId), m_bCreatedByMe(false)
     {
@@ -29,6 +28,9 @@ namespace behaviac
 
     Context::~Context()
     {
+		delayAddedAgents.clear();
+		delayRemovedAgents.clear();
+
         if (this->m_bCreatedByMe)
         {
             this->m_bCreatedByMe = false;
@@ -37,21 +39,20 @@ namespace behaviac
         this->CleanupStaticVariables();
         this->CleanupInstances();
 
-        {
-            for (AgentStaticEvents_t::iterator it = ms_eventInfosGlobal.begin(); it != ms_eventInfosGlobal.end(); ++it)
-            {
-                AgentEvents_t& es = it->second;
+		for (AgentStaticEvents_t::iterator it = ms_eventInfosGlobal.begin(); it != ms_eventInfosGlobal.end(); ++it)
+		{
+			AgentEvents_t& es = it->second;
 
-                for (AgentEvents_t::iterator itj = es.begin(); itj != es.end(); ++itj)
-                {
-                    CNamedEvent* p = itj->second;
-                    BEHAVIAC_DELETE(p);
-                }
-            }
+			for (AgentEvents_t::iterator itj = es.begin(); itj != es.end(); ++itj)
+			{
+				CNamedEvent* p = itj->second;
+				BEHAVIAC_DELETE(p);
+			}
+		}
 
-            ms_eventInfosGlobal.clear();
-        }
+		ms_eventInfosGlobal.clear();
     }
+
     Context& Context::GetContext(int contextId)
     {
         if (!ms_contexts)
@@ -91,7 +92,6 @@ namespace behaviac
 
                 BEHAVIAC_DELETE(ms_contexts);
                 ms_contexts = 0;
-
             }
             else
             {
@@ -103,7 +103,6 @@ namespace behaviac
 
                     BEHAVIAC_DELETE(pContext);
                     ms_contexts->erase(contextId);
-
                 }
                 else
                 {
@@ -112,8 +111,6 @@ namespace behaviac
             }
         }
     }
-
-
 
     void Context::LogStaticVariables(const char* agentClassName)
     {
@@ -130,8 +127,7 @@ namespace behaviac
         }
         else
         {
-            for (AgentTypeStaticVariables_t::iterator it = m_static_variables.begin();
-                 it != m_static_variables.end(); ++it)
+            for (AgentTypeStaticVariables_t::iterator it = m_static_variables.begin(); it != m_static_variables.end(); ++it)
             {
                 Variables& variables = it->second;
 
@@ -288,7 +284,23 @@ namespace behaviac
         return true;
     }
 
-    void Context::AddAgent(Agent* pAgent)
+	void Context::AddAgent(Agent* pAgent)
+	{
+		if (pAgent != NULL)
+		{
+			delayAddedAgents.push_back(pAgent);
+		}
+	}
+
+	void Context::RemoveAgent(Agent* pAgent)
+	{
+		if (pAgent != NULL)
+		{
+			delayRemovedAgents.push_back(pAgent);
+		}
+	}
+
+    void Context::addAgent_(Agent* pAgent)
     {
         ASSERT_MAIN_THREAD();
 
@@ -302,7 +314,6 @@ namespace behaviac
             pa.priority = priority;
             pa.agents[agentId] = pAgent;
             this->m_agents.push_back(pa);
-
         }
         else
         {
@@ -311,7 +322,7 @@ namespace behaviac
         }
     }
 
-    void Context::RemoveAgent(Agent* pAgent)
+    void Context::removeAgent_(Agent* pAgent)
     {
         ASSERT_MAIN_THREAD();
 
@@ -333,28 +344,46 @@ namespace behaviac
         }
     }
 
+	void Context::DelayProcessingAgents()
+	{
+		for (unsigned int i = 0; i < delayAddedAgents.size(); ++i)
+		{
+			addAgent_(delayAddedAgents[i]);
+		}
+
+		for (unsigned int i = 0; i < delayRemovedAgents.size(); ++i)
+		{
+			removeAgent_(delayRemovedAgents[i]);
+		}
+
+		delayAddedAgents.clear();
+		delayRemovedAgents.clear();
+	}
+
     void Context::execAgents(int contextId)
-    {
+	{
         if (contextId >= 0)
         {
             Context& pContext = Context::GetContext(contextId);
 
-            pContext.execAgents_();
-
+			pContext.execAgents_();
         }
         else
         {
             for (Contexts_t::iterator it = ms_contexts->begin(); it != ms_contexts->end(); ++it)
             {
                 Context* pContext = it->second;
-                pContext->execAgents_();
+
+				pContext->execAgents_();
             }
         }
     }
 
     void Context::execAgents_()
     {
-        std::make_heap(this->m_agents.begin(), this->m_agents.end(), HeapCompare_t());
+		this->DelayProcessingAgents();
+
+		std::make_heap(this->m_agents.begin(), this->m_agents.end(), HeapCompare_t());
 
         for (vector<behaviac::Context::HeapItem_t>::iterator it = this->m_agents.begin(); it != this->m_agents.end(); ++it)
         {
@@ -381,7 +410,6 @@ namespace behaviac
             this->LogStaticVariables(0);
         }
     }
-
 
     //void Context::btexec()
     //{

@@ -350,8 +350,8 @@ namespace behaviac
 
 		static partial void RegisterTypes_()
 		{
-			behaviac.IVariable.Register<EnumTest>("EnumTest");
 			behaviac.IVariable.Register<behaviac.EBTStatus>("behaviac.EBTStatus");
+			behaviac.IVariable.Register<EnumTest>("EnumTest");
 			behaviac.IVariable.Register<ETest>("ETest");
 			behaviac.IVariable.Register<FSMAgentTest.EMessage>("FSMAgentTest.EMessage");
 			behaviac.IVariable.Register<TNS.NE.NAT.eColor>("TNS.NE.NAT.eColor");
@@ -402,8 +402,8 @@ namespace behaviac
 
 		static partial void UnRegisterTypes_()
 		{
-			behaviac.IVariable.UnRegister<EnumTest>("EnumTest");
 			behaviac.IVariable.UnRegister<behaviac.EBTStatus>("behaviac.EBTStatus");
+			behaviac.IVariable.UnRegister<EnumTest>("EnumTest");
 			behaviac.IVariable.UnRegister<ETest>("ETest");
 			behaviac.IVariable.UnRegister<FSMAgentTest.EMessage>("FSMAgentTest.EMessage");
 			behaviac.IVariable.UnRegister<TNS.NE.NAT.eColor>("TNS.NE.NAT.eColor");

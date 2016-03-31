@@ -567,6 +567,8 @@ namespace behaviac
         */
         public static bool RegisterInstanceName<TAGENT>(string agentInstanceName, string displayName, string desc) where TAGENT : Agent
         {
+            Debug.Check(string.IsNullOrEmpty(agentInstanceName) || !agentInstanceName.Contains(" "));
+
             string agentInstanceNameAny = agentInstanceName;
 
             if (string.IsNullOrEmpty(agentInstanceNameAny))

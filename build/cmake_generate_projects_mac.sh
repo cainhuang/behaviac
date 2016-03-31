@@ -1,5 +1,6 @@
 
 echo "please visit http://www.behaviac.com/docs/zh/articles/build/ for more information"
+echo ---------------------------------------------------------------------------------
 
 mkdir cmake_binary
 cd cmake_binary

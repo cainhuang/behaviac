@@ -44,6 +44,9 @@ namespace behaviac
         static Property* GetProperty(const char* agentType, const char* variableName);
         static Property* GetProperty(const char* agentType, uint32_t variableId);
         static AgentProperties* Get(const char* agentType);
+
+		static void AddPropertyInstance(const char* agentType, Property* pPropertyInstance);
+
         static void UnloadLocals();
 
         static void Cleanup();
@@ -62,9 +65,14 @@ namespace behaviac
         behaviac::map<uint32_t, Property*> m_properties;
         behaviac::map<uint32_t, Property*> m_locals;
 
+		//some properties can't be shared, so they are cloned and kept here to free them
+        behaviac::vector<Property*> m_properties_instance;
+
         Property* GetProperty(uint32_t variableId);
         Property* Getproperty(const char* variableName);
         Property* AddLocal(const char* typeName, const char* variableName, const char* valueStr);
+
+		void AddPropertyInstance(Property* pPropertyInstance);
 
         void ClearLocals();
         void cleanup();

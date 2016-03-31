@@ -54,6 +54,12 @@ namespace behaviac
             return 0;
         }
 
+        public override bool IsManagingChildrenAsSubTrees()
+        {
+            return false;
+        }
+
+
         protected override BehaviorTask createTask()
         {
             DecoratorWeightTask pTask = new DecoratorWeightTask();

@@ -75,6 +75,13 @@ namespace PluginBehaviac.Events
             set { _phase = value; }
         }
 
+        [DesignerRightValueEnum("OperandLeft", "OperandLeftDesc", "Operation", DesignerProperty.DisplayMode.Parameter, 2, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.AttributesMethod, MethodType.Method, "", "Opr2", ValueTypes.All)]
+        public override RightValueDef Opl
+        {
+            get { return _opl; }
+            set { this._opl = value; }
+        }
+
         protected override void CloneProperties(Behaviac.Design.Attachments.Attachment newattach)
         {
             base.CloneProperties(newattach);

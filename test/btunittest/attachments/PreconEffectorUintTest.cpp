@@ -158,3 +158,36 @@ LOAD_TEST(btunittest, preconditioneffectortest_3)
 
 	finlTestEnvPreEff(testAgent);
 }
+
+LOAD_TEST(btunittest, preconditioneffectortest_4)
+{
+	PreconEffectorAgent* testAgent = initTestEnvPreEff("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3", format);
+	testAgent->resetProperties();
+
+	testAgent->count_both = 1;
+	testAgent->btexec();
+	CHECK_EQUAL(0, testAgent->count_success);
+	CHECK_EQUAL(0, testAgent->count_failure);
+	CHECK_EQUAL(0, testAgent->ret);
+
+	testAgent->count_both = 0;
+	testAgent->btexec();
+
+	CHECK_EQUAL(1, testAgent->count_success);
+	CHECK_EQUAL(1, testAgent->count_failure);
+	CHECK_EQUAL(2, testAgent->ret);
+
+	testAgent->btsetcurrent("node_test/PreconditionEffectorTest/PreconditionEffectorTest_0");
+	CHECK_EQUAL(1, testAgent->count_success);
+	CHECK_EQUAL(2, testAgent->count_failure);
+	CHECK_EQUAL(3, testAgent->ret);
+
+	testAgent->btexec();
+
+	CHECK_EQUAL(1, testAgent->count_success);
+	CHECK_EQUAL(2, testAgent->count_failure);
+	CHECK_EQUAL(3, testAgent->ret);
+
+
+	finlTestEnvPreEff(testAgent);
+}

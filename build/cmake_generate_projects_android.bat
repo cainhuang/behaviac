@@ -1,7 +1,10 @@
 @echo off
 
-echo "please visit http://www.behaviac.com/docs/zh/articles/build/ for more information"
-echo "please make sure you have installed cmake android above (https://github.com/Microsoft/CMake/tree/feature/VCMDDAndroid)"
+echo please visit http://www.behaviac.com/docs/zh/articles/build/ for more information
+echo ---------------------------------------------------------------------------------
+
+where cmake
+IF %ERRORLEVEL% NEQ 0 GOTO l_cmake_error
 
 mkdir cmake_binary
 cd cmake_binary
@@ -21,3 +24,13 @@ rem cd ..
 rem ----------------------------------------------------
 rem back cmake_binary
 cd ..
+
+goto l_end
+
+:l_cmake_error
+echo please make sure you have installed cmake 3.3 above (https://cmake.org/files/)
+echo and please add cmake's Path to the environment 'PATH'
+
+pause
+
+:l_end

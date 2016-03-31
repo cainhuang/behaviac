@@ -38,9 +38,9 @@ namespace Behaviac.Design.Attachments
             get { return "AttachAction"; }
         }
 
-        private RightValueDef _opl;
+        protected RightValueDef _opl;
         [DesignerRightValueEnum("OperandLeft", "OperandLeftDesc", "Operation", DesignerProperty.DisplayMode.Parameter, 2, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.NoReadonly, DesignerPropertyEnum.AllowStyles.AttributesMethod, MethodType.Method, "", "Opr2", ValueTypes.All)]
-        public RightValueDef Opl {
+        public virtual RightValueDef Opl {
             get { return _opl; }
             set { this._opl = value; }
         }
@@ -208,6 +208,13 @@ namespace Behaviac.Design.Attachments
 
             if (enumAttr != null && enumAttr.ExcludeTag == "AttachActionOperaptor") {
                 if (this.Opl != null && !string.IsNullOrEmpty(this.Opl.NativeType)) {
+                    bool isPropReadonly = false;
+
+                    if (this.Opl.Var != null && this.Opl.Var.IsProperty && this.Opl.Var.Property != null)
+                    {
+                        isPropReadonly = this.Opl.Var.Property.IsReadonly;
+                    }
+
                     bool bIsBool = false;
                     bool bIsNumber = false;
 
@@ -230,7 +237,7 @@ namespace Behaviac.Design.Attachments
                         enums.Add(OperatorTypes.LessEqual);
                     }
 
-                    if (this.Opl.IsMethod && this.Opl.Method != null) {
+                    if (isPropReadonly || this.Opl.IsMethod && this.Opl.Method != null) {
                         enums.Add(OperatorTypes.Assign);
 
                         if (!enums.Contains(OperatorTypes.Add)) {

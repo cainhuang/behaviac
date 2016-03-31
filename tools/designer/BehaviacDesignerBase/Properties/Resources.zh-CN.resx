@@ -849,4 +849,7 @@
   <data name="MethodWithSameDisplayName" xml:space="preserve">
     <value>方法"{0}"和"{1}"具有相同的显示名 "{2}"，请修改它们的显示名，并重新导出为元信息后再使用。</value>
   </data>
+  <data name="PressF1" xml:space="preserve">
+    <value>点击F1键查看文档</value>
+  </data>
 </root>

@@ -97,7 +97,7 @@ namespace behaviac
             return EBTStatus.BT_SUCCESS;
         }
 
-        public override void traverse(NodeHandler_t handler, Agent pAgent, object user_data)
+        public override void traverse(bool childFirst, NodeHandler_t handler, Agent pAgent, object user_data)
         { }
     }
 

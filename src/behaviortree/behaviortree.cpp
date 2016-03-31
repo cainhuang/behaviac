@@ -402,7 +402,7 @@ namespace behaviac
 
         return 0;
     }
-	BehaviorNode* BehaviorNode::GetChildById(uint32_t nodeId) const
+	BehaviorNode* BehaviorNode::GetChildById(int16_t nodeId) const
     {
         size_t m_childCount = this->m_children->size();
 
@@ -442,14 +442,14 @@ namespace behaviac
         return this->m_className;
     }
 
-	uint16_t BehaviorNode::GetId() const
+	int16_t BehaviorNode::GetId() const
     {
         //BEHAVIAC_ASSERT(this->m_id != INVALID_NODE_ID);
 
         return this->m_id;
     }
 
-	void BehaviorNode::SetId(uint16_t id)
+	void BehaviorNode::SetId(int16_t id)
     {
         this->m_id = id;
     }

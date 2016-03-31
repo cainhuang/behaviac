@@ -14,5 +14,9 @@
     <node class="Wait" id="2">
       <property Time="par_child_agent_1.ChildNodeTest::GetConstDoubleValue()" />
     </node>
+    <node class="Action" id="4">
+      <property Method="Self.AgentNodeTest::setTestVar_0(2)" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
   </node>
 </behavior>

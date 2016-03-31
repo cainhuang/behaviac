@@ -6357,563 +6357,6 @@ namespace behaviac
 		}
 	};
 
-	// Source file: node_test/PreconditionEffectorTest/PreconditionEffectorTest_3
-
-	class DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7 : public DecoratorLoop
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7, DecoratorLoop);
-		DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7()
-		{
-			m_bDecorateWhenChildEnds = true;
-		}
-	protected:
-		virtual int GetCount(Agent* pAgent) const
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			return -1;
-		}
-	};
-
-	class Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13 : public Condition
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13, Condition);
-		Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13()
-		{
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both, int >();
-			int opr = 0;
-			bool op = Details::Equal(opl, opr);
-			return op ? BT_SUCCESS : BT_FAILURE;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16()
-		{
-			this->SetPhase(Effector::E_FAILURE);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4 : public Action
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4, Action);
-		Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4()
-		{
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			((PreconEffectorAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action, void >();
-			return BT_SUCCESS;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8()
-		{
-			this->SetPhase(Effector::E_SUCCESS);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19()
-		{
-			this->SetPhase(Effector::E_FAILURE);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9 : public Action
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9, Action);
-		Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9()
-		{
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			((PreconEffectorAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action, void >();
-			return BT_RUNNING;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2()
-		{
-			this->SetPhase(Effector::E_FAILURE);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18()
-		{
-			this->SetPhase(Effector::E_SUCCESS);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12 : public Condition
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12, Condition);
-		Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12()
-		{
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both, int >();
-			int opr = 1;
-			bool op = Details::Equal(opl, opr);
-			return op ? BT_SUCCESS : BT_FAILURE;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17()
-		{
-			this->SetPhase(Effector::E_BOTH);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret, int >();
-			int opr2 = 2;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10 : public Action
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10, Action);
-		Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10()
-		{
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			((PreconEffectorAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action, void >();
-			return BT_RUNNING;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15()
-		{
-			this->SetPhase(Effector::E_SUCCESS);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20()
-		{
-			this->SetPhase(Effector::E_FAILURE);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1 : public Action
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1, Action);
-		Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1()
-		{
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			BEHAVIAC_UNUSED_VAR(pAgent);
-			BEHAVIAC_UNUSED_VAR(childStatus);
-			((PreconEffectorAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action, void >();
-			return BT_SUCCESS;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21()
-		{
-			this->SetPhase(Effector::E_FAILURE);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3 : public Effector
-	{
-	public:
-		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3, Effector);
-		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3()
-		{
-			this->SetPhase(Effector::E_SUCCESS);
-		}
-	protected:
-		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
-		{
-			EBTStatus result = BT_SUCCESS;
-			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
-			int opr2 = 1;
-			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >() = (int)(opr1 + opr2);
-			return result;
-		}
-	};
-
-	class bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3
-	{
-	public:
-		static bool Create(BehaviorTree* pBT)
-		{
-			pBT->SetClassNameString("BehaviorTree");
-			pBT->SetId((uint16_t)-1);
-			pBT->SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3");
-			pBT->SetIsFSM(false);
-#if !BEHAVIAC_RELEASE
-			pBT->SetAgentType("PreconEffectorAgent");
-#endif
-			// children
-			{
-				DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7* node7 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7;
-				node7->SetClassNameString("DecoratorLoop");
-				node7->SetId(7);
-#if !BEHAVIAC_RELEASE
-				node7->SetAgentType("PreconEffectorAgent");
-#endif
-				pBT->AddChild(node7);
-				{
-					SelectorLoop* node6 = BEHAVIAC_NEW SelectorLoop;
-					node6->SetClassNameString("SelectorLoop");
-					node6->SetId(6);
-#if !BEHAVIAC_RELEASE
-					node6->SetAgentType("PreconEffectorAgent");
-#endif
-					node7->AddChild(node6);
-					{
-						WithPrecondition* node5 = BEHAVIAC_NEW WithPrecondition;
-						node5->SetClassNameString("WithPrecondition");
-						node5->SetId(5);
-#if !BEHAVIAC_RELEASE
-						node5->SetAgentType("PreconEffectorAgent");
-#endif
-						node6->AddChild(node5);
-						{
-							Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13* node13 = BEHAVIAC_NEW Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13;
-							node13->SetClassNameString("Condition");
-							node13->SetId(13);
-#if !BEHAVIAC_RELEASE
-							node13->SetAgentType("PreconEffectorAgent");
-#endif
-							node5->AddChild(node13);
-							node5->SetHasEvents(node5->HasEvents() | node13->HasEvents());
-						}
-						{
-							Sequence* node11 = BEHAVIAC_NEW Sequence;
-							node11->SetClassNameString("Sequence");
-							node11->SetId(11);
-#if !BEHAVIAC_RELEASE
-							node11->SetAgentType("PreconEffectorAgent");
-#endif
-							// attachments
-							{
-								Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16* attach16 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16;
-								attach16->SetClassNameString("Effector");
-								attach16->SetId(16);
-#if !BEHAVIAC_RELEASE
-								attach16->SetAgentType("PreconEffectorAgent");
-#endif
-								node11->Attach(attach16, false, true, false);
-								node11->SetHasEvents(node11->HasEvents() | (Event::DynamicCast(attach16) != 0));
-							}
-							node5->AddChild(node11);
-							{
-								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4;
-								node4->SetClassNameString("Action");
-								node4->SetId(4);
-#if !BEHAVIAC_RELEASE
-								node4->SetAgentType("PreconEffectorAgent");
-#endif
-								// attachments
-								{
-									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8* attach8 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8;
-									attach8->SetClassNameString("Effector");
-									attach8->SetId(8);
-#if !BEHAVIAC_RELEASE
-									attach8->SetAgentType("PreconEffectorAgent");
-#endif
-									node4->Attach(attach8, false, true, false);
-									node4->SetHasEvents(node4->HasEvents() | (Event::DynamicCast(attach8) != 0));
-								}
-								{
-									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19* attach19 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19;
-									attach19->SetClassNameString("Effector");
-									attach19->SetId(19);
-#if !BEHAVIAC_RELEASE
-									attach19->SetAgentType("PreconEffectorAgent");
-#endif
-									node4->Attach(attach19, false, true, false);
-									node4->SetHasEvents(node4->HasEvents() | (Event::DynamicCast(attach19) != 0));
-								}
-								node11->AddChild(node4);
-								node11->SetHasEvents(node11->HasEvents() | node4->HasEvents());
-							}
-							{
-								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9;
-								node9->SetClassNameString("Action");
-								node9->SetId(9);
-#if !BEHAVIAC_RELEASE
-								node9->SetAgentType("PreconEffectorAgent");
-#endif
-								// attachments
-								{
-									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2;
-									attach2->SetClassNameString("Effector");
-									attach2->SetId(2);
-#if !BEHAVIAC_RELEASE
-									attach2->SetAgentType("PreconEffectorAgent");
-#endif
-									node9->Attach(attach2, false, true, false);
-									node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach2) != 0));
-								}
-								{
-									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18* attach18 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18;
-									attach18->SetClassNameString("Effector");
-									attach18->SetId(18);
-#if !BEHAVIAC_RELEASE
-									attach18->SetAgentType("PreconEffectorAgent");
-#endif
-									node9->Attach(attach18, false, true, false);
-									node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach18) != 0));
-								}
-								node11->AddChild(node9);
-								node11->SetHasEvents(node11->HasEvents() | node9->HasEvents());
-							}
-							node5->SetHasEvents(node5->HasEvents() | node11->HasEvents());
-						}
-						node6->SetHasEvents(node6->HasEvents() | node5->HasEvents());
-					}
-					{
-						WithPrecondition* node0 = BEHAVIAC_NEW WithPrecondition;
-						node0->SetClassNameString("WithPrecondition");
-						node0->SetId(0);
-#if !BEHAVIAC_RELEASE
-						node0->SetAgentType("PreconEffectorAgent");
-#endif
-						node6->AddChild(node0);
-						{
-							Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12* node12 = BEHAVIAC_NEW Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12;
-							node12->SetClassNameString("Condition");
-							node12->SetId(12);
-#if !BEHAVIAC_RELEASE
-							node12->SetAgentType("PreconEffectorAgent");
-#endif
-							node0->AddChild(node12);
-							node0->SetHasEvents(node0->HasEvents() | node12->HasEvents());
-						}
-						{
-							Sequence* node14 = BEHAVIAC_NEW Sequence;
-							node14->SetClassNameString("Sequence");
-							node14->SetId(14);
-#if !BEHAVIAC_RELEASE
-							node14->SetAgentType("PreconEffectorAgent");
-#endif
-							// attachments
-							{
-								Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17* attach17 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17;
-								attach17->SetClassNameString("Effector");
-								attach17->SetId(17);
-#if !BEHAVIAC_RELEASE
-								attach17->SetAgentType("PreconEffectorAgent");
-#endif
-								node14->Attach(attach17, false, true, false);
-								node14->SetHasEvents(node14->HasEvents() | (Event::DynamicCast(attach17) != 0));
-							}
-							node0->AddChild(node14);
-							{
-								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10* node10 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10;
-								node10->SetClassNameString("Action");
-								node10->SetId(10);
-#if !BEHAVIAC_RELEASE
-								node10->SetAgentType("PreconEffectorAgent");
-#endif
-								// attachments
-								{
-									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15* attach15 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15;
-									attach15->SetClassNameString("Effector");
-									attach15->SetId(15);
-#if !BEHAVIAC_RELEASE
-									attach15->SetAgentType("PreconEffectorAgent");
-#endif
-									node10->Attach(attach15, false, true, false);
-									node10->SetHasEvents(node10->HasEvents() | (Event::DynamicCast(attach15) != 0));
-								}
-								{
-									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20* attach20 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20;
-									attach20->SetClassNameString("Effector");
-									attach20->SetId(20);
-#if !BEHAVIAC_RELEASE
-									attach20->SetAgentType("PreconEffectorAgent");
-#endif
-									node10->Attach(attach20, false, true, false);
-									node10->SetHasEvents(node10->HasEvents() | (Event::DynamicCast(attach20) != 0));
-								}
-								node14->AddChild(node10);
-								node14->SetHasEvents(node14->HasEvents() | node10->HasEvents());
-							}
-							{
-								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1;
-								node1->SetClassNameString("Action");
-								node1->SetId(1);
-#if !BEHAVIAC_RELEASE
-								node1->SetAgentType("PreconEffectorAgent");
-#endif
-								// attachments
-								{
-									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21* attach21 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21;
-									attach21->SetClassNameString("Effector");
-									attach21->SetId(21);
-#if !BEHAVIAC_RELEASE
-									attach21->SetAgentType("PreconEffectorAgent");
-#endif
-									node1->Attach(attach21, false, true, false);
-									node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach21) != 0));
-								}
-								{
-									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3* attach3 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3;
-									attach3->SetClassNameString("Effector");
-									attach3->SetId(3);
-#if !BEHAVIAC_RELEASE
-									attach3->SetAgentType("PreconEffectorAgent");
-#endif
-									node1->Attach(attach3, false, true, false);
-									node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach3) != 0));
-								}
-								node14->AddChild(node1);
-								node14->SetHasEvents(node14->HasEvents() | node1->HasEvents());
-							}
-							node0->SetHasEvents(node0->HasEvents() | node14->HasEvents());
-						}
-						node6->SetHasEvents(node6->HasEvents() | node0->HasEvents());
-					}
-					node7->SetHasEvents(node7->HasEvents() | node6->HasEvents());
-				}
-				pBT->SetHasEvents(pBT->HasEvents() | node7->HasEvents());
-			}
-			return true;
-		}
-	};
-
 	// Source file: node_test/PreconditionEffectorTest/PreconditionEffectorTest_2
 
 	class DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node7 : public DecoratorLoop
@@ -7448,6 +6891,563 @@ namespace behaviac
 								}
 								{
 									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach3* attach3 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_attach3;
+									attach3->SetClassNameString("Effector");
+									attach3->SetId(3);
+#if !BEHAVIAC_RELEASE
+									attach3->SetAgentType("PreconEffectorAgent");
+#endif
+									node1->Attach(attach3, false, true, false);
+									node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach3) != 0));
+								}
+								node14->AddChild(node1);
+								node14->SetHasEvents(node14->HasEvents() | node1->HasEvents());
+							}
+							node0->SetHasEvents(node0->HasEvents() | node14->HasEvents());
+						}
+						node6->SetHasEvents(node6->HasEvents() | node0->HasEvents());
+					}
+					node7->SetHasEvents(node7->HasEvents() | node6->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node7->HasEvents());
+			}
+			return true;
+		}
+	};
+
+	// Source file: node_test/PreconditionEffectorTest/PreconditionEffectorTest_3
+
+	class DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7, DecoratorLoop);
+		DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7()
+		{
+			m_bDecorateWhenChildEnds = true;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return -1;
+		}
+	};
+
+	class Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13, Condition);
+		Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both, int >();
+			int opr = 0;
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16()
+		{
+			this->SetPhase(Effector::E_FAILURE);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4, Action);
+		Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((PreconEffectorAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action, void >();
+			return BT_SUCCESS;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8()
+		{
+			this->SetPhase(Effector::E_SUCCESS);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19()
+		{
+			this->SetPhase(Effector::E_FAILURE);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9, Action);
+		Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((PreconEffectorAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action, void >();
+			return BT_RUNNING;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2()
+		{
+			this->SetPhase(Effector::E_FAILURE);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18()
+		{
+			this->SetPhase(Effector::E_SUCCESS);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12, Condition);
+		Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			int& opl = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_both, int >();
+			int opr = 1;
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17()
+		{
+			this->SetPhase(Effector::E_BOTH);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret, int >();
+			int opr2 = 2;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_ret, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10, Action);
+		Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((PreconEffectorAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action, void >();
+			return BT_RUNNING;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15()
+		{
+			this->SetPhase(Effector::E_SUCCESS);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20()
+		{
+			this->SetPhase(Effector::E_FAILURE);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1, Action);
+		Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((PreconEffectorAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_PreconEffectorAgent_action, void >();
+			return BT_SUCCESS;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21()
+		{
+			this->SetPhase(Effector::E_FAILURE);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_failure, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3 : public Effector
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3, Effector);
+		Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3()
+		{
+			this->SetPhase(Effector::E_SUCCESS);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >();
+			int opr2 = 1;
+			((PreconEffectorAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_PreconEffectorAgent_count_success, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3");
+			pBT->SetIsFSM(false);
+#if !BEHAVIAC_RELEASE
+			pBT->SetAgentType("PreconEffectorAgent");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7* node7 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7;
+				node7->SetClassNameString("DecoratorLoop");
+				node7->SetId(7);
+#if !BEHAVIAC_RELEASE
+				node7->SetAgentType("PreconEffectorAgent");
+#endif
+				pBT->AddChild(node7);
+				{
+					SelectorLoop* node6 = BEHAVIAC_NEW SelectorLoop;
+					node6->SetClassNameString("SelectorLoop");
+					node6->SetId(6);
+#if !BEHAVIAC_RELEASE
+					node6->SetAgentType("PreconEffectorAgent");
+#endif
+					node7->AddChild(node6);
+					{
+						WithPrecondition* node5 = BEHAVIAC_NEW WithPrecondition;
+						node5->SetClassNameString("WithPrecondition");
+						node5->SetId(5);
+#if !BEHAVIAC_RELEASE
+						node5->SetAgentType("PreconEffectorAgent");
+#endif
+						node6->AddChild(node5);
+						{
+							Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13* node13 = BEHAVIAC_NEW Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node13;
+							node13->SetClassNameString("Condition");
+							node13->SetId(13);
+#if !BEHAVIAC_RELEASE
+							node13->SetAgentType("PreconEffectorAgent");
+#endif
+							node5->AddChild(node13);
+							node5->SetHasEvents(node5->HasEvents() | node13->HasEvents());
+						}
+						{
+							Sequence* node11 = BEHAVIAC_NEW Sequence;
+							node11->SetClassNameString("Sequence");
+							node11->SetId(11);
+#if !BEHAVIAC_RELEASE
+							node11->SetAgentType("PreconEffectorAgent");
+#endif
+							// attachments
+							{
+								Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16* attach16 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach16;
+								attach16->SetClassNameString("Effector");
+								attach16->SetId(16);
+#if !BEHAVIAC_RELEASE
+								attach16->SetAgentType("PreconEffectorAgent");
+#endif
+								node11->Attach(attach16, false, true, false);
+								node11->SetHasEvents(node11->HasEvents() | (Event::DynamicCast(attach16) != 0));
+							}
+							node5->AddChild(node11);
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node4;
+								node4->SetClassNameString("Action");
+								node4->SetId(4);
+#if !BEHAVIAC_RELEASE
+								node4->SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8* attach8 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach8;
+									attach8->SetClassNameString("Effector");
+									attach8->SetId(8);
+#if !BEHAVIAC_RELEASE
+									attach8->SetAgentType("PreconEffectorAgent");
+#endif
+									node4->Attach(attach8, false, true, false);
+									node4->SetHasEvents(node4->HasEvents() | (Event::DynamicCast(attach8) != 0));
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19* attach19 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach19;
+									attach19->SetClassNameString("Effector");
+									attach19->SetId(19);
+#if !BEHAVIAC_RELEASE
+									attach19->SetAgentType("PreconEffectorAgent");
+#endif
+									node4->Attach(attach19, false, true, false);
+									node4->SetHasEvents(node4->HasEvents() | (Event::DynamicCast(attach19) != 0));
+								}
+								node11->AddChild(node4);
+								node11->SetHasEvents(node11->HasEvents() | node4->HasEvents());
+							}
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9* node9 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node9;
+								node9->SetClassNameString("Action");
+								node9->SetId(9);
+#if !BEHAVIAC_RELEASE
+								node9->SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2* attach2 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach2;
+									attach2->SetClassNameString("Effector");
+									attach2->SetId(2);
+#if !BEHAVIAC_RELEASE
+									attach2->SetAgentType("PreconEffectorAgent");
+#endif
+									node9->Attach(attach2, false, true, false);
+									node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach2) != 0));
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18* attach18 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach18;
+									attach18->SetClassNameString("Effector");
+									attach18->SetId(18);
+#if !BEHAVIAC_RELEASE
+									attach18->SetAgentType("PreconEffectorAgent");
+#endif
+									node9->Attach(attach18, false, true, false);
+									node9->SetHasEvents(node9->HasEvents() | (Event::DynamicCast(attach18) != 0));
+								}
+								node11->AddChild(node9);
+								node11->SetHasEvents(node11->HasEvents() | node9->HasEvents());
+							}
+							node5->SetHasEvents(node5->HasEvents() | node11->HasEvents());
+						}
+						node6->SetHasEvents(node6->HasEvents() | node5->HasEvents());
+					}
+					{
+						WithPrecondition* node0 = BEHAVIAC_NEW WithPrecondition;
+						node0->SetClassNameString("WithPrecondition");
+						node0->SetId(0);
+#if !BEHAVIAC_RELEASE
+						node0->SetAgentType("PreconEffectorAgent");
+#endif
+						node6->AddChild(node0);
+						{
+							Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12* node12 = BEHAVIAC_NEW Condition_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node12;
+							node12->SetClassNameString("Condition");
+							node12->SetId(12);
+#if !BEHAVIAC_RELEASE
+							node12->SetAgentType("PreconEffectorAgent");
+#endif
+							node0->AddChild(node12);
+							node0->SetHasEvents(node0->HasEvents() | node12->HasEvents());
+						}
+						{
+							Sequence* node14 = BEHAVIAC_NEW Sequence;
+							node14->SetClassNameString("Sequence");
+							node14->SetId(14);
+#if !BEHAVIAC_RELEASE
+							node14->SetAgentType("PreconEffectorAgent");
+#endif
+							// attachments
+							{
+								Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17* attach17 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach17;
+								attach17->SetClassNameString("Effector");
+								attach17->SetId(17);
+#if !BEHAVIAC_RELEASE
+								attach17->SetAgentType("PreconEffectorAgent");
+#endif
+								node14->Attach(attach17, false, true, false);
+								node14->SetHasEvents(node14->HasEvents() | (Event::DynamicCast(attach17) != 0));
+							}
+							node0->AddChild(node14);
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10* node10 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node10;
+								node10->SetClassNameString("Action");
+								node10->SetId(10);
+#if !BEHAVIAC_RELEASE
+								node10->SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15* attach15 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach15;
+									attach15->SetClassNameString("Effector");
+									attach15->SetId(15);
+#if !BEHAVIAC_RELEASE
+									attach15->SetAgentType("PreconEffectorAgent");
+#endif
+									node10->Attach(attach15, false, true, false);
+									node10->SetHasEvents(node10->HasEvents() | (Event::DynamicCast(attach15) != 0));
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20* attach20 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach20;
+									attach20->SetClassNameString("Effector");
+									attach20->SetId(20);
+#if !BEHAVIAC_RELEASE
+									attach20->SetAgentType("PreconEffectorAgent");
+#endif
+									node10->Attach(attach20, false, true, false);
+									node10->SetHasEvents(node10->HasEvents() | (Event::DynamicCast(attach20) != 0));
+								}
+								node14->AddChild(node10);
+								node14->SetHasEvents(node14->HasEvents() | node10->HasEvents());
+							}
+							{
+								Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1* node1 = BEHAVIAC_NEW Action_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node1;
+								node1->SetClassNameString("Action");
+								node1->SetId(1);
+#if !BEHAVIAC_RELEASE
+								node1->SetAgentType("PreconEffectorAgent");
+#endif
+								// attachments
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21* attach21 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach21;
+									attach21->SetClassNameString("Effector");
+									attach21->SetId(21);
+#if !BEHAVIAC_RELEASE
+									attach21->SetAgentType("PreconEffectorAgent");
+#endif
+									node1->Attach(attach21, false, true, false);
+									node1->SetHasEvents(node1->HasEvents() | (Event::DynamicCast(attach21) != 0));
+								}
+								{
+									Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3* attach3 = BEHAVIAC_NEW Effector_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_attach3;
 									attach3->SetClassNameString("Effector");
 									attach3->SetId(3);
 #if !BEHAVIAC_RELEASE
@@ -24090,6 +24090,736 @@ namespace behaviac
 		}
 	};
 
+	// Source file: node_test/selector_probability_ut_3
+
+	class DecoratorLoop_bt_node_test_selector_probability_ut_3_node4 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_node_test_selector_probability_ut_3_node4, DecoratorLoop);
+		DecoratorLoop_bt_node_test_selector_probability_ut_3_node4()
+		{
+			m_bDecorateWhenChildEnds = true;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 1;
+		}
+	};
+
+	class SelectorProbability_bt_node_test_selector_probability_ut_3_node0 : public SelectorProbability
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(SelectorProbability_bt_node_test_selector_probability_ut_3_node0, SelectorProbability);
+		SelectorProbability_bt_node_test_selector_probability_ut_3_node0()
+		{
+		}
+	public:
+		void Initialize(const char* method)
+		{
+			this->m_method = Action::LoadMethod(method);
+		}
+	};
+
+	class DecoratorWeight_bt_node_test_selector_probability_ut_3_node5 : public DecoratorWeight
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorWeight_bt_node_test_selector_probability_ut_3_node5, DecoratorWeight);
+		DecoratorWeight_bt_node_test_selector_probability_ut_3_node5()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+	protected:
+		virtual int GetWeight(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 10;
+		}
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_3_node2 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_3_node2, Compute);
+		Compute_bt_node_test_selector_probability_ut_3_node2()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class WaitFrames_bt_node_test_selector_probability_ut_3_node10 : public WaitFrames
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(WaitFrames_bt_node_test_selector_probability_ut_3_node10, WaitFrames);
+		WaitFrames_bt_node_test_selector_probability_ut_3_node10()
+		{
+		}
+	protected:
+		virtual int GetFrames(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 3;
+		}
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_3_node11 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_3_node11, Compute);
+		Compute_bt_node_test_selector_probability_ut_3_node11()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = (int)(opr1 - opr2);
+			return result;
+		}
+	};
+
+	class DecoratorWeight_bt_node_test_selector_probability_ut_3_node6 : public DecoratorWeight
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorWeight_bt_node_test_selector_probability_ut_3_node6, DecoratorWeight);
+		DecoratorWeight_bt_node_test_selector_probability_ut_3_node6()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+	protected:
+		virtual int GetWeight(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 10;
+		}
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_3_node3 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_3_node3, Compute);
+		Compute_bt_node_test_selector_probability_ut_3_node3()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class WaitFrames_bt_node_test_selector_probability_ut_3_node9 : public WaitFrames
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(WaitFrames_bt_node_test_selector_probability_ut_3_node9, WaitFrames);
+		WaitFrames_bt_node_test_selector_probability_ut_3_node9()
+		{
+		}
+	protected:
+		virtual int GetFrames(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 3;
+		}
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_3_node1 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_3_node1, Compute);
+		Compute_bt_node_test_selector_probability_ut_3_node1()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = (int)(opr1 - opr2);
+			return result;
+		}
+	};
+
+	class bt_node_test_selector_probability_ut_3
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/selector_probability_ut_3");
+			pBT->SetIsFSM(false);
+#if !BEHAVIAC_RELEASE
+			pBT->SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_selector_probability_ut_3_node4* node4 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_selector_probability_ut_3_node4;
+				node4->SetClassNameString("DecoratorLoop");
+				node4->SetId(4);
+#if !BEHAVIAC_RELEASE
+				node4->SetAgentType("AgentNodeTest");
+#endif
+				pBT->AddChild(node4);
+				{
+					SelectorProbability_bt_node_test_selector_probability_ut_3_node0* node0 = BEHAVIAC_NEW SelectorProbability_bt_node_test_selector_probability_ut_3_node0;
+					node0->SetClassNameString("SelectorProbability");
+					node0->SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0->SetAgentType("AgentNodeTest");
+#endif
+					node4->AddChild(node0);
+					{
+						DecoratorWeight_bt_node_test_selector_probability_ut_3_node5* node5 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_3_node5;
+						node5->SetClassNameString("DecoratorWeight");
+						node5->SetId(5);
+#if !BEHAVIAC_RELEASE
+						node5->SetAgentType("AgentNodeTest");
+#endif
+						node0->AddChild(node5);
+						{
+							Sequence* node7 = BEHAVIAC_NEW Sequence;
+							node7->SetClassNameString("Sequence");
+							node7->SetId(7);
+#if !BEHAVIAC_RELEASE
+							node7->SetAgentType("AgentNodeTest");
+#endif
+							node5->AddChild(node7);
+							{
+								Compute_bt_node_test_selector_probability_ut_3_node2* node2 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_3_node2;
+								node2->SetClassNameString("Compute");
+								node2->SetId(2);
+#if !BEHAVIAC_RELEASE
+								node2->SetAgentType("AgentNodeTest");
+#endif
+								node7->AddChild(node2);
+								node7->SetHasEvents(node7->HasEvents() | node2->HasEvents());
+							}
+							{
+								WaitFrames_bt_node_test_selector_probability_ut_3_node10* node10 = BEHAVIAC_NEW WaitFrames_bt_node_test_selector_probability_ut_3_node10;
+								node10->SetClassNameString("WaitFrames");
+								node10->SetId(10);
+#if !BEHAVIAC_RELEASE
+								node10->SetAgentType("AgentNodeTest");
+#endif
+								node7->AddChild(node10);
+								node7->SetHasEvents(node7->HasEvents() | node10->HasEvents());
+							}
+							{
+								Compute_bt_node_test_selector_probability_ut_3_node11* node11 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_3_node11;
+								node11->SetClassNameString("Compute");
+								node11->SetId(11);
+#if !BEHAVIAC_RELEASE
+								node11->SetAgentType("AgentNodeTest");
+#endif
+								node7->AddChild(node11);
+								node7->SetHasEvents(node7->HasEvents() | node11->HasEvents());
+							}
+							node5->SetHasEvents(node5->HasEvents() | node7->HasEvents());
+						}
+						node0->SetHasEvents(node0->HasEvents() | node5->HasEvents());
+					}
+					{
+						DecoratorWeight_bt_node_test_selector_probability_ut_3_node6* node6 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_3_node6;
+						node6->SetClassNameString("DecoratorWeight");
+						node6->SetId(6);
+#if !BEHAVIAC_RELEASE
+						node6->SetAgentType("AgentNodeTest");
+#endif
+						node0->AddChild(node6);
+						{
+							Sequence* node8 = BEHAVIAC_NEW Sequence;
+							node8->SetClassNameString("Sequence");
+							node8->SetId(8);
+#if !BEHAVIAC_RELEASE
+							node8->SetAgentType("AgentNodeTest");
+#endif
+							node6->AddChild(node8);
+							{
+								Compute_bt_node_test_selector_probability_ut_3_node3* node3 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_3_node3;
+								node3->SetClassNameString("Compute");
+								node3->SetId(3);
+#if !BEHAVIAC_RELEASE
+								node3->SetAgentType("AgentNodeTest");
+#endif
+								node8->AddChild(node3);
+								node8->SetHasEvents(node8->HasEvents() | node3->HasEvents());
+							}
+							{
+								WaitFrames_bt_node_test_selector_probability_ut_3_node9* node9 = BEHAVIAC_NEW WaitFrames_bt_node_test_selector_probability_ut_3_node9;
+								node9->SetClassNameString("WaitFrames");
+								node9->SetId(9);
+#if !BEHAVIAC_RELEASE
+								node9->SetAgentType("AgentNodeTest");
+#endif
+								node8->AddChild(node9);
+								node8->SetHasEvents(node8->HasEvents() | node9->HasEvents());
+							}
+							{
+								Compute_bt_node_test_selector_probability_ut_3_node1* node1 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_3_node1;
+								node1->SetClassNameString("Compute");
+								node1->SetId(1);
+#if !BEHAVIAC_RELEASE
+								node1->SetAgentType("AgentNodeTest");
+#endif
+								node8->AddChild(node1);
+								node8->SetHasEvents(node8->HasEvents() | node1->HasEvents());
+							}
+							node6->SetHasEvents(node6->HasEvents() | node8->HasEvents());
+						}
+						node0->SetHasEvents(node0->HasEvents() | node6->HasEvents());
+					}
+					node4->SetHasEvents(node4->HasEvents() | node0->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node4->HasEvents());
+			}
+			return true;
+		}
+	};
+
+	// Source file: node_test/selector_probability_ut_4
+
+	class DecoratorLoop_bt_node_test_selector_probability_ut_4_node15 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_node_test_selector_probability_ut_4_node15, DecoratorLoop);
+		DecoratorLoop_bt_node_test_selector_probability_ut_4_node15()
+		{
+			m_bDecorateWhenChildEnds = true;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 1;
+		}
+	};
+
+	class SelectorProbability_bt_node_test_selector_probability_ut_4_node0 : public SelectorProbability
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(SelectorProbability_bt_node_test_selector_probability_ut_4_node0, SelectorProbability);
+		SelectorProbability_bt_node_test_selector_probability_ut_4_node0()
+		{
+		}
+	public:
+		void Initialize(const char* method)
+		{
+			this->m_method = Action::LoadMethod(method);
+		}
+	};
+
+	class DecoratorWeight_bt_node_test_selector_probability_ut_4_node5 : public DecoratorWeight
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorWeight_bt_node_test_selector_probability_ut_4_node5, DecoratorWeight);
+		DecoratorWeight_bt_node_test_selector_probability_ut_4_node5()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+	protected:
+		virtual int GetWeight(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 10;
+		}
+	};
+
+	class Parallel_bt_node_test_selector_probability_ut_4_node10 : public Parallel
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Parallel_bt_node_test_selector_probability_ut_4_node10, Parallel);
+		Parallel_bt_node_test_selector_probability_ut_4_node10()
+		{
+			m_failPolicy = FAIL_ON_ONE;
+			m_succeedPolicy = SUCCEED_ON_ALL;
+			m_exitPolicy = EXIT_ABORT_RUNNINGSIBLINGS;
+			m_childFinishPolicy = CHILDFINISH_LOOP;
+		}
+	protected:
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_4_node2 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_4_node2, Compute);
+		Compute_bt_node_test_selector_probability_ut_4_node2()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_4_node13 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_4_node13, Compute);
+		Compute_bt_node_test_selector_probability_ut_4_node13()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			float opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >();
+			float opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_2, float >() = (float)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Wait_bt_node_test_selector_probability_ut_4_node4 : public Wait
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_node_test_selector_probability_ut_4_node4, Wait);
+		Wait_bt_node_test_selector_probability_ut_4_node4()
+		{
+		}
+	protected:
+		virtual double GetTime(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 1000;
+		}
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_4_node11 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_4_node11, Compute);
+		Compute_bt_node_test_selector_probability_ut_4_node11()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = (int)(opr1 - opr2);
+			return result;
+		}
+	};
+
+	class DecoratorWeight_bt_node_test_selector_probability_ut_4_node6 : public DecoratorWeight
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorWeight_bt_node_test_selector_probability_ut_4_node6, DecoratorWeight);
+		DecoratorWeight_bt_node_test_selector_probability_ut_4_node6()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+	protected:
+		virtual int GetWeight(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 10;
+		}
+	};
+
+	class Parallel_bt_node_test_selector_probability_ut_4_node12 : public Parallel
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Parallel_bt_node_test_selector_probability_ut_4_node12, Parallel);
+		Parallel_bt_node_test_selector_probability_ut_4_node12()
+		{
+			m_failPolicy = FAIL_ON_ONE;
+			m_succeedPolicy = SUCCEED_ON_ALL;
+			m_exitPolicy = EXIT_ABORT_RUNNINGSIBLINGS;
+			m_childFinishPolicy = CHILDFINISH_LOOP;
+		}
+	protected:
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_4_node3 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_4_node3, Compute);
+		Compute_bt_node_test_selector_probability_ut_4_node3()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_4_node14 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_4_node14, Compute);
+		Compute_bt_node_test_selector_probability_ut_4_node14()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			float opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3, float >();
+			float opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_3, float >() = (float)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class Wait_bt_node_test_selector_probability_ut_4_node9 : public Wait
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_node_test_selector_probability_ut_4_node9, Wait);
+		Wait_bt_node_test_selector_probability_ut_4_node9()
+		{
+		}
+	protected:
+		virtual double GetTime(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 1000;
+		}
+	};
+
+	class Compute_bt_node_test_selector_probability_ut_4_node1 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_selector_probability_ut_4_node1, Compute);
+		Compute_bt_node_test_selector_probability_ut_4_node1()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_1, int >() = (int)(opr1 - opr2);
+			return result;
+		}
+	};
+
+	class bt_node_test_selector_probability_ut_4
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/selector_probability_ut_4");
+			pBT->SetIsFSM(false);
+#if !BEHAVIAC_RELEASE
+			pBT->SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_selector_probability_ut_4_node15* node15 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_selector_probability_ut_4_node15;
+				node15->SetClassNameString("DecoratorLoop");
+				node15->SetId(15);
+#if !BEHAVIAC_RELEASE
+				node15->SetAgentType("AgentNodeTest");
+#endif
+				pBT->AddChild(node15);
+				{
+					SelectorProbability_bt_node_test_selector_probability_ut_4_node0* node0 = BEHAVIAC_NEW SelectorProbability_bt_node_test_selector_probability_ut_4_node0;
+					node0->SetClassNameString("SelectorProbability");
+					node0->SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0->SetAgentType("AgentNodeTest");
+#endif
+					node15->AddChild(node0);
+					{
+						DecoratorWeight_bt_node_test_selector_probability_ut_4_node5* node5 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_4_node5;
+						node5->SetClassNameString("DecoratorWeight");
+						node5->SetId(5);
+#if !BEHAVIAC_RELEASE
+						node5->SetAgentType("AgentNodeTest");
+#endif
+						node0->AddChild(node5);
+						{
+							Sequence* node7 = BEHAVIAC_NEW Sequence;
+							node7->SetClassNameString("Sequence");
+							node7->SetId(7);
+#if !BEHAVIAC_RELEASE
+							node7->SetAgentType("AgentNodeTest");
+#endif
+							node5->AddChild(node7);
+							{
+								Parallel_bt_node_test_selector_probability_ut_4_node10* node10 = BEHAVIAC_NEW Parallel_bt_node_test_selector_probability_ut_4_node10;
+								node10->SetClassNameString("Parallel");
+								node10->SetId(10);
+#if !BEHAVIAC_RELEASE
+								node10->SetAgentType("AgentNodeTest");
+#endif
+								node7->AddChild(node10);
+								{
+									Compute_bt_node_test_selector_probability_ut_4_node2* node2 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_4_node2;
+									node2->SetClassNameString("Compute");
+									node2->SetId(2);
+#if !BEHAVIAC_RELEASE
+									node2->SetAgentType("AgentNodeTest");
+#endif
+									node10->AddChild(node2);
+									node10->SetHasEvents(node10->HasEvents() | node2->HasEvents());
+								}
+								{
+									Compute_bt_node_test_selector_probability_ut_4_node13* node13 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_4_node13;
+									node13->SetClassNameString("Compute");
+									node13->SetId(13);
+#if !BEHAVIAC_RELEASE
+									node13->SetAgentType("AgentNodeTest");
+#endif
+									node10->AddChild(node13);
+									node10->SetHasEvents(node10->HasEvents() | node13->HasEvents());
+								}
+								node7->SetHasEvents(node7->HasEvents() | node10->HasEvents());
+							}
+							{
+								Wait_bt_node_test_selector_probability_ut_4_node4* node4 = BEHAVIAC_NEW Wait_bt_node_test_selector_probability_ut_4_node4;
+								node4->SetClassNameString("Wait");
+								node4->SetId(4);
+#if !BEHAVIAC_RELEASE
+								node4->SetAgentType("AgentNodeTest");
+#endif
+								node7->AddChild(node4);
+								node7->SetHasEvents(node7->HasEvents() | node4->HasEvents());
+							}
+							{
+								Compute_bt_node_test_selector_probability_ut_4_node11* node11 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_4_node11;
+								node11->SetClassNameString("Compute");
+								node11->SetId(11);
+#if !BEHAVIAC_RELEASE
+								node11->SetAgentType("AgentNodeTest");
+#endif
+								node7->AddChild(node11);
+								node7->SetHasEvents(node7->HasEvents() | node11->HasEvents());
+							}
+							node5->SetHasEvents(node5->HasEvents() | node7->HasEvents());
+						}
+						node0->SetHasEvents(node0->HasEvents() | node5->HasEvents());
+					}
+					{
+						DecoratorWeight_bt_node_test_selector_probability_ut_4_node6* node6 = BEHAVIAC_NEW DecoratorWeight_bt_node_test_selector_probability_ut_4_node6;
+						node6->SetClassNameString("DecoratorWeight");
+						node6->SetId(6);
+#if !BEHAVIAC_RELEASE
+						node6->SetAgentType("AgentNodeTest");
+#endif
+						node0->AddChild(node6);
+						{
+							Sequence* node8 = BEHAVIAC_NEW Sequence;
+							node8->SetClassNameString("Sequence");
+							node8->SetId(8);
+#if !BEHAVIAC_RELEASE
+							node8->SetAgentType("AgentNodeTest");
+#endif
+							node6->AddChild(node8);
+							{
+								Parallel_bt_node_test_selector_probability_ut_4_node12* node12 = BEHAVIAC_NEW Parallel_bt_node_test_selector_probability_ut_4_node12;
+								node12->SetClassNameString("Parallel");
+								node12->SetId(12);
+#if !BEHAVIAC_RELEASE
+								node12->SetAgentType("AgentNodeTest");
+#endif
+								node8->AddChild(node12);
+								{
+									Compute_bt_node_test_selector_probability_ut_4_node3* node3 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_4_node3;
+									node3->SetClassNameString("Compute");
+									node3->SetId(3);
+#if !BEHAVIAC_RELEASE
+									node3->SetAgentType("AgentNodeTest");
+#endif
+									node12->AddChild(node3);
+									node12->SetHasEvents(node12->HasEvents() | node3->HasEvents());
+								}
+								{
+									Compute_bt_node_test_selector_probability_ut_4_node14* node14 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_4_node14;
+									node14->SetClassNameString("Compute");
+									node14->SetId(14);
+#if !BEHAVIAC_RELEASE
+									node14->SetAgentType("AgentNodeTest");
+#endif
+									node12->AddChild(node14);
+									node12->SetHasEvents(node12->HasEvents() | node14->HasEvents());
+								}
+								node8->SetHasEvents(node8->HasEvents() | node12->HasEvents());
+							}
+							{
+								Wait_bt_node_test_selector_probability_ut_4_node9* node9 = BEHAVIAC_NEW Wait_bt_node_test_selector_probability_ut_4_node9;
+								node9->SetClassNameString("Wait");
+								node9->SetId(9);
+#if !BEHAVIAC_RELEASE
+								node9->SetAgentType("AgentNodeTest");
+#endif
+								node8->AddChild(node9);
+								node8->SetHasEvents(node8->HasEvents() | node9->HasEvents());
+							}
+							{
+								Compute_bt_node_test_selector_probability_ut_4_node1* node1 = BEHAVIAC_NEW Compute_bt_node_test_selector_probability_ut_4_node1;
+								node1->SetClassNameString("Compute");
+								node1->SetId(1);
+#if !BEHAVIAC_RELEASE
+								node1->SetAgentType("AgentNodeTest");
+#endif
+								node8->AddChild(node1);
+								node8->SetHasEvents(node8->HasEvents() | node1->HasEvents());
+							}
+							node6->SetHasEvents(node6->HasEvents() | node8->HasEvents());
+						}
+						node0->SetHasEvents(node0->HasEvents() | node6->HasEvents());
+					}
+					node15->SetHasEvents(node15->HasEvents() | node0->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node15->HasEvents());
+			}
+			return true;
+		}
+	};
+
 	// Source file: node_test/selector_stochastic_ut_0
 
 	class SelectorStochastic_bt_node_test_selector_stochastic_ut_0_node0 : public SelectorStochastic
@@ -26288,6 +27018,25 @@ namespace behaviac
 		}
 	};
 
+	class Action_bt_node_test_wait_ut_0_node4 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_wait_ut_0_node4, Action);
+		Action_bt_node_test_wait_ut_0_node4()
+		{
+			method_p0 = 2;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_0, void, int >(method_p0);
+			return BT_SUCCESS;
+		}
+		int method_p0;
+	};
+
 	class bt_node_test_wait_ut_0
 	{
 	public:
@@ -26339,6 +27088,16 @@ namespace behaviac
 					node0->AddChild(node2);
 					node0->SetHasEvents(node0->HasEvents() | node2->HasEvents());
 				}
+				{
+					Action_bt_node_test_wait_ut_0_node4* node4 = BEHAVIAC_NEW Action_bt_node_test_wait_ut_0_node4;
+					node4->SetClassNameString("Action");
+					node4->SetId(4);
+#if !BEHAVIAC_RELEASE
+					node4->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node4);
+					node0->SetHasEvents(node0->HasEvents() | node4->HasEvents());
+				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}
 			return true;
@@ -26381,6 +27140,25 @@ namespace behaviac
 		}
 	};
 
+	class Action_bt_node_test_wait_ut_1_node3 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_wait_ut_1_node3, Action);
+		Action_bt_node_test_wait_ut_1_node3()
+		{
+			method_p0 = 2;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_setTestVar_0, void, int >(method_p0);
+			return BT_SUCCESS;
+		}
+		int method_p0;
+	};
+
 	class bt_node_test_wait_ut_1
 	{
 	public:
@@ -26421,6 +27199,16 @@ namespace behaviac
 #endif
 					node0->AddChild(node2);
 					node0->SetHasEvents(node0->HasEvents() | node2->HasEvents());
+				}
+				{
+					Action_bt_node_test_wait_ut_1_node3* node3 = BEHAVIAC_NEW Action_bt_node_test_wait_ut_1_node3;
+					node3->SetClassNameString("Action");
+					node3->SetId(3);
+#if !BEHAVIAC_RELEASE
+					node3->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node3);
+					node0->SetHasEvents(node0->HasEvents() | node3->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}
@@ -34615,8 +35403,8 @@ namespace behaviac
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/htn/travel/travel_by_air", bt_node_test_htn_travel_travel_by_air::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/PreconditionEffectorTest/PreconditionEffectorTest_0", bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/PreconditionEffectorTest/PreconditionEffectorTest_1", bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_1::Create);
-			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3", bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/PreconditionEffectorTest/PreconditionEffectorTest_2", bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3", bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/repeat/repeat_ut_0", bt_node_test_repeat_repeat_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/action_child_agent_0", bt_node_test_action_child_agent_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/action_noop_ut_0", bt_node_test_action_noop_ut_0::Create);
@@ -34711,6 +35499,8 @@ namespace behaviac
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_probability_ut_0", bt_node_test_selector_probability_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_probability_ut_1", bt_node_test_selector_probability_ut_1::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_probability_ut_2", bt_node_test_selector_probability_ut_2::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_probability_ut_3", bt_node_test_selector_probability_ut_3::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_probability_ut_4", bt_node_test_selector_probability_ut_4::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_stochastic_ut_0", bt_node_test_selector_stochastic_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_stochastic_ut_1", bt_node_test_selector_stochastic_ut_1::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_stochastic_ut_2", bt_node_test_selector_stochastic_ut_2::Create);

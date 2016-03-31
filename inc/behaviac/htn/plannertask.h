@@ -48,7 +48,7 @@ namespace behaviac
 
         bool IsHigherPriority(PlannerTask* other);
 
-        void traverse(NodeHandler_t handler, Agent* pAgent, void* user_data);
+        virtual void traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data);
     protected:
         virtual void Init(const BehaviorNode* node);
         virtual void copyto(BehaviorTask* target) const;

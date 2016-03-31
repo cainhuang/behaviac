@@ -320,7 +320,7 @@ namespace behaviac
 
         public void abort(Agent pAgent)
         {
-            this.traverse(abort_handler_, pAgent, null);
+            this.traverse(true, abort_handler_, pAgent, null);
         }
 
         ///reset the status to invalid
@@ -328,7 +328,7 @@ namespace behaviac
         {
             //BEHAVIAC_PROFILE("BehaviorTask.reset");
 
-            this.traverse(reset_handler_, pAgent, null);
+            this.traverse(true, reset_handler_, pAgent, null);
         }
 
         public EBTStatus GetStatus()
@@ -356,7 +356,7 @@ namespace behaviac
             return this.m_parent;
         }
 
-        public abstract void traverse(NodeHandler_t handler, Agent pAgent, object user_data);
+        public abstract void traverse(bool childFirst, NodeHandler_t handler, Agent pAgent, object user_data);
 
         /**
         return false if the event handling needs to be stopped
@@ -716,7 +716,7 @@ namespace behaviac
             base.copyto(target);
         }
 
-        public override void traverse(NodeHandler_t handler, Agent pAgent, object user_data)
+        public override void traverse(bool childFirst, NodeHandler_t handler, Agent pAgent, object user_data)
         {
             handler(this, pAgent, user_data);
         }
@@ -725,7 +725,7 @@ namespace behaviac
     // ============================================================================
     public class LeafTask : BehaviorTask
     {
-        public override void traverse(NodeHandler_t handler, Agent pAgent, object user_data)
+        public override void traverse(bool childFirst, NodeHandler_t handler, Agent pAgent, object user_data)
         {
             handler(this, pAgent, user_data);
         }
@@ -1002,14 +1002,27 @@ namespace behaviac
     // ============================================================================
     public class CompositeTask : BranchTask
     {
-        public override void traverse(NodeHandler_t handler, Agent pAgent, object user_data)
+        public override void traverse(bool childFirst, NodeHandler_t handler, Agent pAgent, object user_data)
         {
-            if (handler(this, pAgent, user_data))
+            if (childFirst)
             {
                 for (int i = 0; i < this.m_children.Count; ++i)
                 {
                     BehaviorTask task = this.m_children[i];
-                    task.traverse(handler, pAgent, user_data);
+                    task.traverse(childFirst, handler, pAgent, user_data);
+                }
+
+                handler(this, pAgent, user_data);
+            }
+            else
+            {
+                if (handler(this, pAgent, user_data))
+                {
+                    for (int i = 0; i < this.m_children.Count; ++i)
+                    {
+                        BehaviorTask task = this.m_children[i];
+                        task.traverse(childFirst, handler, pAgent, user_data);
+                    }
                 }
             }
         }
@@ -1126,13 +1139,25 @@ namespace behaviac
     // ============================================================================
     public class SingeChildTask : BranchTask
     {
-        public override void traverse(NodeHandler_t handler, Agent pAgent, object user_data)
+        public override void traverse(bool childFirst, NodeHandler_t handler, Agent pAgent, object user_data)
         {
-            if (handler(this, pAgent, user_data))
+            if (childFirst)
             {
                 if (this.m_root != null)
                 {
-                    this.m_root.traverse(handler, pAgent, user_data);
+                    this.m_root.traverse(childFirst, handler, pAgent, user_data);
+                }
+
+                handler(this, pAgent, user_data);
+            }
+            else
+            {
+                if (handler(this, pAgent, user_data))
+                {
+                    if (this.m_root != null)
+                    {
+                        this.m_root.traverse(childFirst, handler, pAgent, user_data);
+                    }
                 }
             }
         }

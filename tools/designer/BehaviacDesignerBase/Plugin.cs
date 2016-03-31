@@ -448,21 +448,6 @@ namespace Behaviac.Design
         Break
     }
 
-    [Behaviac.Design.EnumDesc("Behaviac.Design.EBTStatus", "函数返回检查类型", "函数返回检查类型选择")]
-    public enum EBTStatus {
-        [Behaviac.Design.EnumMemberDesc("BT_INVALID", "Invalid", "无效，表示不采用结果选项（ResultOption），而采用结果函数（ResultFunctor）")]
-        BT_INVALID,
-
-        [Behaviac.Design.EnumMemberDesc("BT_SUCCESS", "Success", "成功")]
-        BT_SUCCESS,
-
-        [Behaviac.Design.EnumMemberDesc("BT_FAILURE", "Failure", "失败")]
-        BT_FAILURE,
-
-        [Behaviac.Design.EnumMemberDesc("BT_RUNNING", "Running", "正在运行")]
-        BT_RUNNING
-    };
-
     public struct ObjectPair {
         public ObjectPair(Nodes.Node root, DefaultObject obj) {
             Root = root;
@@ -847,7 +832,6 @@ namespace Behaviac.Design
             return null;
         }
 
-
         /// <summary>
         /// Returns the types based of a given type. It searches all loaded plugins for this type.
         /// </summary>
@@ -958,8 +942,7 @@ namespace Behaviac.Design
 
             public string displayName_;
             public string desc_;
-        };
-
+        }
 
         private static Dictionary<string, InstanceName_t> _instanceNamesDict = new Dictionary<string, InstanceName_t>();
 
@@ -1166,7 +1149,13 @@ namespace Behaviac.Design
 
         public static List<string> AllMetaTypes
         {
-            get { return _allMetaTypes; }
+            get
+            {
+                if (!_allMetaTypes.Contains("behaviac::EBTStatus"))
+                    _allMetaTypes.Add("behaviac::EBTStatus");
+
+                return _allMetaTypes;
+            }
         }
 
         public static string GetClassName(string str) {
@@ -1411,8 +1400,15 @@ namespace Behaviac.Design
         }
 
         static private Dictionary<string, string> ms_namesInNamespace = new Dictionary<string, string>();
-        static public Dictionary<string, string> NamesInNamespace {
-            get { return ms_namesInNamespace; }
+        static public Dictionary<string, string> NamesInNamespace
+        {
+            get
+            {
+                if (!ms_namesInNamespace.ContainsKey("behaviac_EBTStatus"))
+                    ms_namesInNamespace["behaviac_EBTStatus"] = "behaviac::EBTStatus";
+
+                return ms_namesInNamespace;
+            }
         }
 
         public static string GetMemberValueTypeName(Type type) {

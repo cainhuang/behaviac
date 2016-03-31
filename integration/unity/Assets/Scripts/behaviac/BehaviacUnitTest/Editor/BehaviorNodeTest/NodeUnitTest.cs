@@ -566,6 +566,77 @@ namespace BehaviorNodeUnitTest
                 --loopCount;
             }
         }
+
+        [Test]
+        [Category("test_selector_probability_3")]
+        public void test_selector_probability_3()
+        {
+            testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/selector_probability_ut_3");
+            behaviac.Workspace.Instance.FrameSinceStartup = 0;
+
+            for (int i = 0; i < 2; ++i)
+            {
+                testAgent.btexec();
+                if (testAgent.testVar_0 != -1)
+                {
+                    //Assert.AreEqual(i, testAgent.testVar_0);
+                    Assert.AreEqual(0, testAgent.testVar_0);
+                    Assert.AreEqual(-1, testAgent.testVar_1);
+                }
+                else
+                {
+                    //Assert.AreEqual(i, testAgent.testVar_1);
+                    Assert.AreEqual(0, testAgent.testVar_1);
+                    Assert.AreEqual(-1, testAgent.testVar_0);
+                }
+
+                behaviac.Workspace.Instance.FrameSinceStartup = behaviac.Workspace.Instance.FrameSinceStartup + 1;
+            }
+
+            testAgent.btexec();
+
+            Assert.AreEqual(-1, testAgent.testVar_0);
+            Assert.AreEqual(-1, testAgent.testVar_1);
+        }
+
+        [Test]
+        [Category("test_selector_probability_4")]
+        public void test_selector_probability_4()
+        {
+            testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/selector_probability_ut_4");
+
+            behaviac.Workspace.Instance.TimeSinceStartup = 0.0;
+
+            for (int i = 0; i < 10; ++i)
+            {
+                testAgent.btexec();
+                if (testAgent.testVar_0 != -1)
+                {
+                    Assert.AreEqual(0, testAgent.testVar_0);
+                    Assert.AreEqual(-1, testAgent.testVar_1);
+                    Assert.AreEqual(0.0, testAgent.testVar_2);
+                }
+                else
+                {
+                    Assert.AreEqual(-1, testAgent.testVar_0);
+                    Assert.AreEqual(0, testAgent.testVar_1);
+                    Assert.AreEqual(-1, testAgent.testVar_2);
+                }
+
+                behaviac.Workspace.Instance.TimeSinceStartup = behaviac.Workspace.Instance.TimeSinceStartup + 0.1;
+            }
+
+            behaviac.Workspace.Instance.TimeSinceStartup = behaviac.Workspace.Instance.TimeSinceStartup + 0.1;
+            testAgent.btexec();
+
+            Assert.AreEqual(-1, testAgent.testVar_0);
+            Assert.AreEqual(-1, testAgent.testVar_1);
+        }
+
+
+
     }
 
     [TestFixture]
@@ -794,7 +865,7 @@ namespace BehaviorNodeUnitTest
         {
             testAgent.btsetcurrent("node_test/action_child_agent_0");
             testAgent.resetProperties();
-            
+
             testAgent.initChildAgentTest();
             testAgent.btexec();
 
@@ -848,22 +919,34 @@ namespace BehaviorNodeUnitTest
         [Category("test_wait_0")]
         public void test_wait_0()
         {
+            behaviac.Workspace.Instance.TimeSinceStartup = 0;
             testAgent.btsetcurrent("node_test/wait_ut_0");
             testAgent.resetProperties();
-            testAgent.btexec();
-
+            behaviac.EBTStatus status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
             Assert.AreEqual(1, testAgent.testVar_0);
+
+            behaviac.Workspace.Instance.TimeSinceStartup = 1001;
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+            Assert.AreEqual(2, testAgent.testVar_0);
         }
 
         [Test]
         [Category("test_wait_1")]
         public void test_wait_1()
         {
+            behaviac.Workspace.Instance.TimeSinceStartup = 0;
             testAgent.btsetcurrent("node_test/wait_ut_1");
             testAgent.resetProperties();
-            testAgent.btexec();
-
+            behaviac.EBTStatus status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
             Assert.AreEqual(1, testAgent.testVar_0);
+
+            behaviac.Workspace.Instance.TimeSinceStartup = 1001;
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
+            Assert.AreEqual(2, testAgent.testVar_0);
         }
     }
 

@@ -166,7 +166,8 @@ namespace behaviac
                 WithPreconditionTask* pCurrentSubTree = (WithPreconditionTask*)this->m_children[this->m_activeChildIndex];
                 BEHAVIAC_ASSERT(WithPreconditionTask::DynamicCast(pCurrentSubTree));
 				BehaviorTask* action = pCurrentSubTree->ActionNode();
-				action->abort(pAgent);
+				BEHAVIAC_UNUSED_VAR(action);
+				pCurrentSubTree->abort(pAgent);
             }
 
             for (uint32_t i = index; i < this->m_children.size(); ++i)
@@ -192,11 +193,12 @@ namespace behaviac
                 if (s == BT_RUNNING)
                 {
                     this->m_activeChildIndex = i;
-
+					pSubTree->m_status = BT_RUNNING;
                 }
                 else
                 {
                     //pActionTree->reset(pAgent);
+					pSubTree->m_status = s;
 
                     if (s == BT_FAILURE)
                     {

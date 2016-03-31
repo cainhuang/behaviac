@@ -372,6 +372,8 @@ namespace behaviac
             }
         }
 
+
+        private double m_timeSinceStartup = -1.0;
         //
         // Summary:
         //     The real time in seconds since the game started (Read Only).
@@ -379,7 +381,16 @@ namespace behaviac
         {
             get
             {
+                if (this.m_timeSinceStartup >= 0.0)
+                {
+                    return this.m_timeSinceStartup;
+                }
+
                 return Time.realtimeSinceStartup;
+            }
+            set
+            {
+                this.m_timeSinceStartup = value;
             }
         }
 

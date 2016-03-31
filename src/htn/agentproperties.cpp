@@ -57,6 +57,11 @@ namespace behaviac
         return p;
     }
 
+	void AgentProperties::AddPropertyInstance(Property* pPropertyInstance)
+	{
+		this->m_properties_instance.push_back(pPropertyInstance);
+	}
+
     Property* AgentProperties::AddLocal(const char* typeName, const char* variableName, const char* valueStr)
     {
         BEHAVIAC_ASSERT(variableName[strlen(variableName - 1)] != ']');
@@ -86,6 +91,13 @@ namespace behaviac
         {
             BEHAVIAC_DELETE it->second;
         }
+
+		for (behaviac::vector<Property*>::iterator it = this->m_properties_instance.begin(); it != this->m_properties_instance.end(); ++it)
+		{
+			BEHAVIAC_DELETE *it;
+		}
+
+		this->m_properties_instance.clear();
 
         this->m_properties.clear();
 
@@ -190,6 +202,21 @@ namespace behaviac
 
         return NULL;
     }
+
+	void AgentProperties::AddPropertyInstance(const char* agentType, Property* pPropertyInstance)
+	{
+		AgentProperties* bb = AgentProperties::Get(agentType);
+
+		if (bb)
+		{
+			bb->AddPropertyInstance(pPropertyInstance);
+		}
+		else
+		{
+			//cpp, there is no corresponding AgentProperties
+			//BEHAVIAC_LOGWARNING("behaviac.bb is not loaded? Is SetVariable/GetVariable invoked too early?\n");
+		}
+	}
 
     void AgentProperties::UnloadLocals()
     {

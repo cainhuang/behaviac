@@ -10,6 +10,7 @@ namespace behaviac
     {
         private Dictionary<uint, Property> m_properties = new Dictionary<uint, Property>();
         private Dictionary<uint, Property> m_locals = new Dictionary<uint, Property>();
+        private List<Property> m_properties_instance = new List<Property>();
 
         // called before loading files, otherwise, locals have been added and will be instantiated
         public void Instantiate(Agent pAgent)
@@ -68,6 +69,11 @@ namespace behaviac
             return null;
         }
 
+        public void AddPropertyInstance(Property pPropertyInstance)
+        {
+            m_properties_instance.Add(pPropertyInstance);
+        }
+
         private Property AddLocal(string typeName, string variableName, string valueStr)
         {
             Debug.Check(!variableName.EndsWith("]"));
@@ -117,6 +123,15 @@ namespace behaviac
             return pProperty;
         }
 
+        public static void AddPropertyInstance(string agentType, Property pPropertyInstance)
+        {
+            AgentProperties bb = AgentProperties.Get(agentType);
+            Debug.Check(bb != null);
+
+            bb.AddPropertyInstance(pPropertyInstance);
+        }
+
+
         private Type agent_type;
 
         public Type AgentType
@@ -152,6 +167,8 @@ namespace behaviac
 
         private void cleanup()
         {
+            this.m_properties_instance.Clear();
+
             this.m_properties.Clear();
             this.m_locals.Clear();
         }

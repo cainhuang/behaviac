@@ -179,12 +179,15 @@ namespace Behaviac.Design
                 agentTreeNode = this.treeView.Nodes.Add(agentType, agentType, (int)NodeIcon.FolderClosed, (int)NodeIcon.FolderClosed);
             }
 
-            agentTreeNode.Nodes.Insert(agentTreeNode.GetNodeCount(false), agentType + "#" + agentName, agentName, (int)NodeIcon.FlagRed, (int)NodeIcon.FlagRed);
+            TreeNode curNode = agentTreeNode.Nodes.Insert(agentTreeNode.GetNodeCount(false), agentType + "#" + agentName, agentName, (int)NodeIcon.FlagRed, (int)NodeIcon.FlagRed);
             agentTreeNode.Expand();
 
-            if (string.IsNullOrEmpty(Plugin.DebugAgentInstance)) {
-                Plugin.DebugAgentInstance = agentType + "#" + agentName;
-            }
+            //if (string.IsNullOrEmpty(Plugin.DebugAgentInstance))
+            //{
+            //    this.treeView.SelectedNode = curNode;
+
+            //    setDebugInstance();
+            //}
         }
 
         private void cancelButton_Click(object sender, EventArgs e) {

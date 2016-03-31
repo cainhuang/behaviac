@@ -10,5 +10,9 @@
     <node class="Wait" id="2">
       <property Time="const float 1000" />
     </node>
+    <node class="Action" id="3">
+      <property Method="Self.AgentNodeTest::setTestVar_0(2)" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
   </node>
 </behavior>

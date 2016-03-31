@@ -1,3 +1,12 @@
+2016-03-31	3.3.14
+	Fix a bug for adding or removing agents when updating all agents.
+	Show the behaviac::EBTStatus by default.
+	Set the type of the id to int16_t.
+	Add F1 for the documents of all nodes.
+
+2016-03-23	3.3.13
+	Fix a bug for the readonly property as the attachment.
+
 2016-03-22	3.3.12
 	Send the platform info of the runtime part.
 	Add the QA menu item for the editor.

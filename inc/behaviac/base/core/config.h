@@ -14,16 +14,6 @@
 #ifndef BEHAVIAC_BASE_CORE_CONFIG_H
 #define BEHAVIAC_BASE_CORE_CONFIG_H
 
-#include "behaviac/base/core/staticassert.h"
-#include "behaviac/base/core/compiler.h"
-
-#include "behaviac/base/core/types.h"
-
-//please don't use the following macros in the public header files unless you know what you are doing.
-//otherwise, it might be causing uncompatible layout for types
-
-#define BEHAVIAC_ENABLE_NETWORKD		0
-
 /**
 BEHAVIAC_RELEASE	0	// development mode
 BEHAVIAC_RELEASE	1	// release/retail mode
@@ -45,22 +35,45 @@ Please don't define BEHAVIAC_RELEASE unless you know what you are doing.
 #endif//
 
 #if (defined(_DEBUG) || defined(DEBUG))
-	#define _BEHAVIAC_VERSION_STR_ "behavaic_debug"
+	#define _BEHAVIAC_BUILD_CONFIG_STR_ "behavaic_debug"
 #else
-	#define _BEHAVIAC_VERSION_STR_ "behavaic_ndebug"
+	#define _BEHAVIAC_BUILD_CONFIG_STR_ "behavaic_ndebug"
 #endif//
                      
 #define _BEHAVIAC_M_STRING_CONCAT_(a, b) a # b
 
 #ifdef BEHAVIAC_RELEASE
-	#define BEHAVIAC_VERSION_STR _BEHAVIAC_M_STRING_CONCAT_(_BEHAVIAC_VERSION_STR_, "_RELEASE")
+	#define BEHAVIAC_BUILD_CONFIG_STR _BEHAVIAC_M_STRING_CONCAT_(_BEHAVIAC_BUILD_CONFIG_STR_, "_RELEASE")
 #else
-	#define BEHAVIAC_VERSION_STR _BEHAVIAC_M_STRING_CONCAT_(_BEHAVIAC_VERSION_STR_, "_NRELEASE")
+	#define BEHAVIAC_BUILD_CONFIG_STR _BEHAVIAC_M_STRING_CONCAT_(_BEHAVIAC_BUILD_CONFIG_STR_, "_NRELEASE")
 #endif
 
 #if !BEHAVIAC_RELEASE
-#define BEHAVIAC_ENABLE_HOTRELOAD	1
-#define BEHAVIAC_ENABLE_PROFILING	1
+	#define BEHAVIAC_ENABLE_HOTRELOAD	1
+	#define BEHAVIAC_ENABLE_PROFILING	1
 #endif//BEHAVIAC_RELEASE
+
+//please don't use the following macros in the public header files unless you know what you are doing.
+//otherwise, it might be causing uncompatible layout for types
+#ifndef BEHAVIAC_ENABLE_NETWORKD
+	#define BEHAVIAC_ENABLE_NETWORKD	0
+#endif//BEHAVIAC_ENABLE_NETWORKD
+
+#ifndef BEHAVIAC_ENABLE_LUA
+	#define BEHAVIAC_ENABLE_LUA			0
+#endif//BEHAVIAC_ENABLE_LUA
+
+#if _MSC_VER
+#if BEHAVIAC_ENABLE_LUA
+	#pragma warning(disable : 4244) //conversion from 'int' to 'char', possible loss of data
+	#pragma warning(disable : 4702) //unreachable code
+	#pragma warning(disable : 4310) //cast truncates constant value
+#endif
+#endif
+
+
+#include "behaviac/base/core/compiler.h"
+//#include "behaviac/base/core/types.h"
+
 
 #endif//BEHAVIAC_BASE_CORE_CONFIG_H

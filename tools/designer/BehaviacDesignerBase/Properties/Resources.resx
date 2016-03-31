@@ -851,4 +851,7 @@ Are your sure continue the undo/redo operation?</value>
   <data name="MethodWithSameDisplayName" xml:space="preserve">
     <value>The methods "{0}" and "{1}" have the same display name "{2}". Please modify their display name, and then export them as the meta info.</value>
   </data>
+  <data name="PressF1" xml:space="preserve">
+    <value>Click F1 to check its document.</value>
+  </data>
 </root>

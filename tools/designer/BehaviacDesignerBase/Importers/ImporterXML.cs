@@ -488,7 +488,7 @@ namespace Behaviac.Design.Importers
 
                 string enumName = HandleHierarchyName(typeNode.Value);
 
-                if (nodeDict.ContainsKey(enumName))
+                if (typeNode.Value == "behaviac::EBTStatus" || nodeDict.ContainsKey(enumName))
                     return;
 
                 Plugin.AllMetaTypes.Add(typeNode.Value);

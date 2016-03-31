@@ -554,22 +554,25 @@ namespace behaviac
 
             return true;
         }
+
         // finds the behaviac::string in the array of strings
         // returns its 0-based index or -1 if not found
         // comparison is case-sensitive
-        // The behaviac::string array end is demarked by the NULL value
-        inline int FindString(const char* szString, const char* arrStringList[])
-        {
-            for (const char** p = arrStringList; *p; ++p)
-            {
-                if (0 == strcmp(*p, szString))
-                {
-                    return int(p - arrStringList);
-                }
-            }
+		inline int FindString(const char* szString, const char* arrStringList[], unsigned int arrStrCount)
+		{
+			if (szString)
+			{
+				for (unsigned int i = 0; i < arrStrCount; ++i)
+				{
+					if (0 == strcmp(arrStringList[i], szString))
+					{
+						return i;
+					}
+				}
+			}
 
-            return -1; // behaviac::string was not found
-        }
+			return -1; // behaviac::string was not found
+		}
 
         /////////////////////////////////////////////
         // File related functions

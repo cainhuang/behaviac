@@ -1,7 +1,10 @@
 @echo off
 
-echo "please visit http://www.behaviac.com/docs/zh/articles/build/ for more information"
-echo "please make sure you have installed cmake 3.3 above (https://cmake.org/files/v3.4/cmake-3.4.3-win32-x86.exe)"
+echo please visit http://www.behaviac.com/docs/zh/articles/build/ for more information
+echo ---------------------------------------------------------------------------------
+
+where cmake
+IF %ERRORLEVEL% NEQ 0 GOTO l_cmake_error
 
 mkdir cmake_binary
 cd cmake_binary
@@ -40,6 +43,14 @@ cmake -G "Sublime Text 2 - Unix Makefiles" --build ../../..
 cd ..
 
 rem ----------------------------------------------------example airbattledemo
+
+if not exist ..\..\example\airbattledemo\CMakeLists.txt (
+	pushd ..\..\example\airbattledemo\ 
+	call cocos_create.bat
+	popd
+)
+
+
 mkdir example_airbattledemo_vs2013
 cd example_airbattledemo_vs2013
 rem use vs2013 only, it seems cocos vs2015 version is buggy
@@ -49,3 +60,13 @@ cd ..
 rem ----------------------------------------------------
 rem back cmake_binary
 cd ..
+
+goto l_end
+
+:l_cmake_error
+echo please make sure you have installed cmake 3.3 above (https://cmake.org/files/)
+echo and please add cmake's Path to the environment 'PATH'
+
+pause
+
+:l_end

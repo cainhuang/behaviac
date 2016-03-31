@@ -201,7 +201,7 @@ namespace behaviac
 
         uint32_t GetChildrenCount() const;
         const BehaviorNode* GetChild(uint32_t index) const;
-		BehaviorNode* GetChildById(uint32_t nodeId) const;
+		BehaviorNode* GetChildById(int16_t nodeId) const;
 
         const BehaviorNode* GetParent() const
         {
@@ -265,8 +265,8 @@ namespace behaviac
         void SetClassNameString(const char* className);
         const behaviac::string& GetClassNameString() const;
 
-		uint16_t GetId() const;
-		void SetId(uint16_t id);
+		int16_t GetId() const;
+		void SetId(int16_t id);
 
         void SetAgentType(const behaviac::string& agentType);
 
@@ -283,7 +283,7 @@ namespace behaviac
 
         behaviac::string		m_className;
         behaviac::string		m_agentType;
-		uint16_t				m_id;
+		int16_t					m_id;
         char					m_enter_precond;
         char					m_update_precond;
         char					m_both_precond;

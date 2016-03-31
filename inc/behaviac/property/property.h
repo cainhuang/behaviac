@@ -122,6 +122,8 @@ namespace behaviac
         static Property* Create(const char* typeName, const char* fullName, bool bIsStatic, const char* arrayIndexStr);
         static Property* Create(const char* typeName, const char* instanceName, const char* agentType, const char* propertyName, const char* valueStr);
 
+		virtual Property* clone() = 0;
+
         static void DeleteFromCache(Property* property_);
 
         template<typename T>

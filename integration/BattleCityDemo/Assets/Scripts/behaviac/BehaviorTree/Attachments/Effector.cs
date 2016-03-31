@@ -25,50 +25,50 @@ namespace behaviac
             E_BOTH
         }
 
-    public class EffectorConfig : ActionConfig
+        public class EffectorConfig : ActionConfig
         {
             public EPhase m_phase = EPhase.E_SUCCESS;
 
             public override bool load(List<property_t> properties)
-        {
-            bool loaded = base.load(properties);
-
-            try
             {
-                for (int i = 0; i < properties.Count; ++i)
-                {
-                    property_t p = properties[i];
-                    if (p.name == "Phase")
-                    {
-                        if (p.value == "Success")
-                        {
-                            this.m_phase = EPhase.E_SUCCESS;
-                        }
-                        else if (p.value == "Failure")
-                        {
-                            this.m_phase = EPhase.E_FAILURE;
-                        }
-                        else if (p.value == "Both")
-                        {
-                            this.m_phase = EPhase.E_BOTH;
-                        }
-                        else
-                        {
-                            Debug.Check(false);
-                        }
+                bool loaded = base.load(properties);
 
-                        break;
+                try
+                {
+                    for (int i = 0; i < properties.Count; ++i)
+                    {
+                        property_t p = properties[i];
+                        if (p.name == "Phase")
+                        {
+                            if (p.value == "Success")
+                            {
+                                this.m_phase = EPhase.E_SUCCESS;
+                            }
+                            else if (p.value == "Failure")
+                            {
+                                this.m_phase = EPhase.E_FAILURE;
+                            }
+                            else if (p.value == "Both")
+                            {
+                                this.m_phase = EPhase.E_BOTH;
+                            }
+                            else
+                            {
+                                Debug.Check(false);
+                            }
+
+                            break;
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.Check(false, ex.Message);
-                loaded = false;
-            }
+                catch (Exception ex)
+                {
+                    Debug.Check(false, ex.Message);
+                    loaded = false;
+                }
 
-            return loaded;
-        }
+                return loaded;
+            }
         }
 
         public Effector()

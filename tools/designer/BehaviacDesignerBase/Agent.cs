@@ -1758,7 +1758,6 @@ namespace Behaviac.Design
                 setter(result);
 
                 return true;
-
             }
             else
             {
@@ -1885,7 +1884,6 @@ namespace Behaviac.Design
             set { _y = value; }
         }
     }
-
 
     public class Vector3
     {
@@ -2048,4 +2046,79 @@ namespace Behaviac.Design
         }
     }
 
+    [Behaviac.Design.EnumDesc("behaviac::EBTStatus", "函数返回检查类型", "函数返回检查类型选择")]
+    public enum EBTStatus
+    {
+        [Behaviac.Design.EnumMemberDesc("behaviac::BT_INVALID", "Invalid", "无效，表示不采用结果选项（ResultOption），而采用结果函数（ResultFunctor）")]
+        BT_INVALID,
+
+        [Behaviac.Design.EnumMemberDesc("behaviac::BT_SUCCESS", "Success", "成功")]
+        BT_SUCCESS,
+
+        [Behaviac.Design.EnumMemberDesc("behaviac::BT_FAILURE", "Failure", "失败")]
+        BT_FAILURE,
+
+        [Behaviac.Design.EnumMemberDesc("behaviac::BT_RUNNING", "Running", "正在运行")]
+        BT_RUNNING
+    }
 }//namespace Behaviac.Design
+
+namespace XMLPluginBehaviac
+{
+    [Behaviac.Design.EnumDesc("behaviac::EBTStatus", "函数返回检查类型", "函数返回检查类型选择")]
+    public enum behaviac_EBTStatus
+    {
+        [Behaviac.Design.EnumMemberDesc("behaviac::BT_INVALID", "Invalid", "无效，表示不采用结果选项（ResultOption），而采用结果函数（ResultFunctor）")]
+        BT_INVALID,
+
+        [Behaviac.Design.EnumMemberDesc("behaviac::BT_SUCCESS", "Success", "成功")]
+        BT_SUCCESS,
+
+        [Behaviac.Design.EnumMemberDesc("behaviac::BT_FAILURE", "Failure", "失败")]
+        BT_FAILURE,
+
+        [Behaviac.Design.EnumMemberDesc("behaviac::BT_RUNNING", "Running", "正在运行")]
+        BT_RUNNING
+    }
+
+    [Behaviac.Design.TypeHandler(typeof(behaviac_EBTStatus))]
+    public class behaviac_EBTStatusTypeHandler
+    {
+        public static object Create()
+        {
+            behaviac_EBTStatus instance = (behaviac_EBTStatus)DefaultValue("");
+            return instance;
+        }
+
+        public static bool Parse(object parent, string paramName, string parStr, Behaviac.Design.Plugin.SetValue setter)
+        {
+            behaviac_EBTStatus result = (behaviac_EBTStatus)Enum.Parse(typeof(behaviac_EBTStatus), parStr, true);
+            setter(result);
+            return true;
+        }
+
+        public static DesignerProperty CreateDesignerProperty(string category, string name, Type type, float rangeMin, float rangeMax)
+        {
+            return new DesignerEnum(name, name, category, DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, "");
+        }
+
+        public static object DefaultValue(string defaultValue)
+        {
+            Array values = Enum.GetValues(typeof(behaviac_EBTStatus));
+            foreach (object enumVal in values)
+            {
+                string enumValueName = Enum.GetName(typeof(behaviac_EBTStatus), enumVal);
+                if (enumValueName == defaultValue)
+                {
+                    return enumVal;
+                }
+            }
+            return behaviac_EBTStatus.BT_INVALID;
+        }
+
+        public static Type GetEditorType()
+        {
+            return typeof(DesignerEnumEditor);
+        }
+    }
+}//namespace XMLPluginBehaviac

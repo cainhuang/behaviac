@@ -709,7 +709,7 @@ namespace PluginBehaviac.Exporters
                     }
                 }
 
-                if (hasCustomizedProperty || hasCustomizedMethod)
+                //if (hasCustomizedProperty || hasCustomizedMethod)
                 {
                     string filename = Path.Combine(agentFolder, agent.BasicClassName + ".h");
                     Encoding utf8WithBom = new UTF8Encoding(true);

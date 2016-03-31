@@ -15,6 +15,7 @@
 #define BEHAVIAC_BASE_CORE_TYPES_H
 
 #include "behaviac/base/core/config.h"
+#include "behaviac/base/core/staticassert.h"
 
 #if defined(_MSC_VER) && _MSC_VER < 1600 /* MSVC2010 */
 #include "behaviac/base/core/msc_stdint.h"

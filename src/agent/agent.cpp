@@ -871,7 +871,6 @@ namespace behaviac
                             if (this->m_currentBT != pCurrent)
                             {
                                 s = this->m_currentBT->resume(this, s);
-
                             }
                             else
                             {
@@ -898,7 +897,6 @@ namespace behaviac
             }
 
             return s;
-
         }
         else
         {

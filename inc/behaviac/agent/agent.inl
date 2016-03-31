@@ -652,6 +652,9 @@ namespace behaviac
     template<typename TAGENT>
     BEHAVIAC_FORCEINLINE bool Agent::RegisterInstanceName(const char* agentInstanceName, const wchar_t* displayName, const wchar_t* desc)
     {
+		const char* arrStr[] = { " " };
+		BEHAVIAC_ASSERT(StringUtils::FindString(agentInstanceName, arrStr, 1) == -1);
+
         const char* agentInstanceNameAny = agentInstanceName;
 
         if (!agentInstanceNameAny)

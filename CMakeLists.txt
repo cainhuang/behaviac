@@ -11,18 +11,19 @@ project (behaviac)
 # set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Profile" CACHE STRING "" FORCE) 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE) 
 
-# if(NOT CMAKE_BUILD_TYPE)
-#   set(CMAKE_BUILD_TYPE Debug CACHE STRING
-#       "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
-#       FORCE)
-# endif(NOT CMAKE_BUILD_TYPE)
-
-# The version number.
+# The version number. This version is not necessarily the same with designer's version.
 set (BEHAVIAC_VERSION_MAJOR 	3)
-set (BEHAVIAC_VERSION_MINOR 	2)
-set (BEHAVIAC_VERSION_REVISION 	22)
+set (BEHAVIAC_VERSION_MINOR 	3)
+set (BEHAVIAC_VERSION_REVISION 	13)
 
 set (BEHAVIAC_VERSION 	${BEHAVIAC_VERSION_MAJOR}.${BEHAVIAC_VERSION_MINOR}.${BEHAVIAC_VERSION_REVISION})
+
+#option( BUILD_SHARED_LIBS "set to OFF to build static libraries" ON )
+SET(BUILD_SHARED_LIBS ON CACHE BOOL "set to OFF to build static libraries")
+
+#option( BUILD_ENABLE_LUA "set to OFF to disable lua" ON )
+SET(BUILD_ENABLE_LUA OFF CACHE BOOL "set to OFF to disable lua")
+set (BEHAVIAC_ENABLE_LUA 0)
 
 # configure a header file to pass some of the CMake settings
 # to the source code
@@ -30,6 +31,59 @@ set (BEHAVIAC_VERSION 	${BEHAVIAC_VERSION_MAJOR}.${BEHAVIAC_VERSION_MINOR}.${BEH
 
 file(GLOB_RECURSE BEHAVIAC_INC  "${PROJECT_SOURCE_DIR}/inc/*.*")
 file(GLOB_RECURSE BEHAVIAC_SRC  "${PROJECT_SOURCE_DIR}/src/*.*")
+
+# exclude_dir = "/exclude_dir/"
+macro (ExcludeDir src_files exclude_dir)
+	foreach (TMP_PATH ${src_files})
+		string (FIND ${TMP_PATH} ${exclude_dir} EXCLUDE_DIR_FOUND)
+		if (NOT ${EXCLUDE_DIR_FOUND} EQUAL -1)
+			list (REMOVE_ITEM ${src_files} ${TMP_PATH})
+		endif ()
+	endforeach(TMP_PATH)
+endmacro()
+
+if (BUILD_ENABLE_LUA)
+	set (BEHAVIAC_ENABLE_LUA 1)
+	#message( STATUS "Enable Lua" )
+else()
+	set (BEHAVIAC_ENABLE_LUA 0)
+	#message( STATUS "Disable Lua, Excluding Lua ... " )
+
+	#ExcludeDir(BEHAVIAC_INC "/lua/")
+	#ExcludeDir(BEHAVIAC_SRC "/lua/")
+endif()
+
+
+# usage: GroupSources("${PROJECT_SOURCE_DIR}/inc/", "inc")
+macro(GroupSources dir prefix)
+    # file(GLOB_RECURSE elements RELATIVE ${dir} *.h *.hpp *.c *.cpp *.cc)
+    file(GLOB_RECURSE elements RELATIVE ${dir} *.*)
+
+    foreach(element ${elements})
+      # Extract filename and directory
+      get_filename_component(element_name ${element} NAME)
+      get_filename_component(element_dir ${element} DIRECTORY)
+
+      if (NOT ${element_dir} STREQUAL "")
+        # If the file is in a subdirectory use it as source group.
+          # Use the full hierarchical structure to build source_groups.
+          string(REPLACE "/" "\\" group_name ${element_dir})
+          source_group("${prefix}\\${group_name}" FILES ${dir}/${element})
+      else()
+        # If the file is in the root directory, place it in the root source_group.
+        source_group("${prefix}\\" FILES ${dir}/${element})
+      endif()
+    endforeach()
+endmacro()
+
+if (MSVC)
+	GroupSources("${PROJECT_SOURCE_DIR}/inc/" "inc")
+	GroupSources("${PROJECT_SOURCE_DIR}/src/" "src")
+endif()
+
+
+# source_group(inc FILES ${BEHAVIAC_INC})
+# source_group(src FILES ${BEHAVIAC_SRC})
 
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
@@ -58,8 +112,6 @@ include_directories ("${PROJECT_SOURCE_DIR}/inc")
 #add_subdirectory
 #ADD_DEPENDENCIES
 
-option( BUILD_SHARED_LIBS "set to OFF to build static libraries" ON )
-
 set(BEHAVIAC_VERSION_MODE "Default" CACHE STRING "version mode, force to use dev/release version or default(dev version on Debug config and release version on Release config)")
 SET_PROPERTY(CACHE BEHAVIAC_VERSION_MODE PROPERTY STRINGS Default ForceUseDev ForeUseRelease) 
 if(NOT(DEFINED BEHAVIAC_VERSION_MODE_LAST))
@@ -84,18 +136,36 @@ if(${BEHAVIAC_VERSION_MODE} MATCHES "ForeUseRelease")
 	set (BEHAVIAC_RELEASE_ON 1)
 endif()
 
-# mark_as_advanced(CMAKE_BUILD_TYPE)
-if( NOT CMAKE_BUILD_TYPE )
-	# set( CMAKE_BUILD_TYPE "Debug" )
-	set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Debug or Release")
-	SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Debug Release) 
-endif()
+set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
+	$<$<CONFIG:Debug>:_DEBUG>
+	$<$<CONFIG:Release>:NDEBUG>
+)		
 
-if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
-	#add_definitions( "-DDEBUG" )
-	add_definitions( "-D_DEBUG" )
-else()
-	add_definitions( "-DNDEBUG" )
+# if(MSVC OR BEHAVIAC_ANDROID_ON)
+# 	set(MY_DEFINITION 
+# 		$<$<CONFIG:Debug>:"_DEBUG">
+# 		$<$<CONFIG:Release>:"NDEBUG"> 
+# 		)
+# else()
+# 	# mark_as_advanced(CMAKE_BUILD_TYPE)
+# 	if( NOT CMAKE_BUILD_TYPE )
+# 		# set( CMAKE_BUILD_TYPE "Debug" )
+# 		set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Debug or Release")
+# 		SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Debug Release) 
+# 	endif()
+
+# 	if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
+# 		#add_definitions( "-DDEBUG" )
+# 		set(MY_DEFINITION "-D_DEBUG")
+# 	else()
+# 		set(MY_DEFINITION "-DNDEBUG")
+# 	endif()
+	
+# 	add_definitions( ${MY_DEFINITION} )
+# endif()
+
+if (DBEHAVIAC_ENABLE_LUA)
+	add_definitions( "-DBEHAVIAC_ENABLE_LUA=1" )
 endif()
 
 message( STATUS "CMAKE_GENERATOR = ${CMAKE_GENERATOR}" )
@@ -167,10 +237,15 @@ endif()
 
 
 message( STATUS "BUILD_SHARED_LIBS = ${BUILD_SHARED_LIBS}" )
+message( STATUS "BUILD_ENABLE_LUA = ${BUILD_ENABLE_LUA}" )
 message( STATUS "BEHAVIAC_VERSION_MODE = ${BEHAVIAC_VERSION_MODE}" )
 message( STATUS "CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}" )
 # message( STATUS "BEHAVIAC_VERSION = ${BEHAVIAC_VERSION}" )
-message( STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}" )
+if(MSVC OR BEHAVIAC_ANDROID_ON)
+	message( STATUS "Config = Debug|Release" )
+else()
+	message( STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}" )
+endif()
 # MESSAGE( STATUS "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}" )
 
 configure_file (

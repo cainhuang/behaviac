@@ -38,6 +38,7 @@ namespace behaviac
         virtual void load(int version, const char* agentType, const properties_t& properties);
 
         virtual int GetWeight(behaviac::Agent* pAgent) const;
+        virtual bool IsManagingChildrenAsSubTrees() const;
 
     private:
         virtual BehaviorTask* createTask() const;

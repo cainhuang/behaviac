@@ -731,7 +731,7 @@ namespace behaviac
 
     void BehaviorTask::abort(Agent* pAgent)
     {
-        this->traverse(&abort_handler, pAgent, 0);
+        this->traverse(true, &abort_handler, pAgent, 0);
     }
 
     void BehaviorTask::reset(Agent* pAgent)
@@ -739,7 +739,7 @@ namespace behaviac
 #if BEHAVIAC_ENABLE_PROFILING
         BEHAVIAC_PROFILE("BehaviorTask::reset");
 #endif
-        this->traverse(&reset_handler, pAgent, 0);
+        this->traverse(true, &reset_handler, pAgent, 0);
     }
 
     AttachmentTask::AttachmentTask() : BehaviorTask()
@@ -753,7 +753,7 @@ namespace behaviac
     AttachmentTask::~AttachmentTask()
     {}
 
-    void AttachmentTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    void AttachmentTask::traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data)
     {
         handler(this, pAgent, user_data);
     }
@@ -958,7 +958,7 @@ namespace behaviac
             int id = this->m_currentTask->GetId();
             getnode_t temp(id);
 
-            ttask->traverse(&getid_handler, 0, &temp);
+            ttask->traverse(true, &getid_handler, 0, &temp);
             BEHAVIAC_ASSERT(temp.task_);
 
             ttask->m_currentTask = temp.task_;
@@ -1259,18 +1259,31 @@ namespace behaviac
         this->m_children.push_back(pBehavior);
     }
 
-    void CompositeTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    void CompositeTask::traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data)
     {
-        if (handler(this, pAgent, user_data))
-        {
-            for (BehaviorTasks_t::iterator it = this->m_children.begin();
-                 it != this->m_children.end(); ++it)
-            {
-                //BehaviorTask* task = *it;
-                (*it)->traverse(handler, pAgent, user_data);
-                //task->traverse(handler, pAgent, user_data);
-            }
-        }
+		if (childFirst) {
+			for (BehaviorTasks_t::iterator it = this->m_children.begin();
+				it != this->m_children.end(); ++it)
+			{
+				//BehaviorTask* task = *it;
+				(*it)->traverse(childFirst, handler, pAgent, user_data);
+				//task->traverse(handler, pAgent, user_data);
+			}
+
+			handler(this, pAgent, user_data);
+		}
+		else {
+			if (handler(this, pAgent, user_data))
+			{
+				for (BehaviorTasks_t::iterator it = this->m_children.begin();
+					it != this->m_children.end(); ++it)
+				{
+					//BehaviorTask* task = *it;
+					(*it)->traverse(childFirst, handler, pAgent, user_data);
+					//task->traverse(handler, pAgent, user_data);
+				}
+			}
+		}
     }
 
     SingeChildTask::SingeChildTask() : m_root(0)
@@ -1288,15 +1301,25 @@ namespace behaviac
         this->m_root = pBehavior;
     }
 
-    void SingeChildTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    void SingeChildTask::traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data)
     {
-        if (handler(this, pAgent, user_data))
-        {
-            if (this->m_root)
-            {
-                this->m_root->traverse(handler, pAgent, user_data);
-            }
-        }
+		if (childFirst) {
+			if (this->m_root)
+			{
+				this->m_root->traverse(childFirst, handler, pAgent, user_data);
+			}
+
+			handler(this, pAgent, user_data);
+		}
+		else {
+			if (handler(this, pAgent, user_data))
+			{
+				if (this->m_root)
+				{
+					this->m_root->traverse(childFirst, handler, pAgent, user_data);
+				}
+			}
+		}
     }
 
     void SingeChildTask::Init(const BehaviorNode* node)
@@ -1495,7 +1518,7 @@ namespace behaviac
     LeafTask::~LeafTask()
     {}
 
-    void LeafTask::traverse(NodeHandler_t handler, Agent* pAgent, void* user_data)
+    void LeafTask::traverse(bool childFirst, NodeHandler_t handler, Agent* pAgent, void* user_data)
     {
         handler(this, pAgent, user_data);
     }

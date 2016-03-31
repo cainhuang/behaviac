@@ -20579,6 +20579,648 @@ namespace behaviac
 		}
 	}
 
+	// Source file: node_test/selector_probability_ut_3
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorLoop_bt_node_test_selector_probability_ut_3_node4 : behaviac.DecoratorLoop
+	{
+		public DecoratorLoop_bt_node_test_selector_probability_ut_3_node4()
+		{
+			m_bDecorateWhenChildEnds = true;
+		}
+		protected override int GetCount(Agent pAgent)
+		{
+			return 1;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class SelectorProbability_bt_node_test_selector_probability_ut_3_node0 : behaviac.SelectorProbability
+	{
+		public SelectorProbability_bt_node_test_selector_probability_ut_3_node0()
+		{
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorWeight_bt_node_test_selector_probability_ut_3_node5 : behaviac.DecoratorWeight
+	{
+		public DecoratorWeight_bt_node_test_selector_probability_ut_3_node5()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+		protected override int GetWeight(Agent pAgent)
+		{
+			return 10;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_3_node2 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_3_node2()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_0;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_0 = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class WaitFrames_bt_node_test_selector_probability_ut_3_node10 : behaviac.WaitFrames
+	{
+		public WaitFrames_bt_node_test_selector_probability_ut_3_node10()
+		{
+		}
+		protected override int GetFrames(Agent pAgent)
+		{
+			return 3;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_3_node11 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_3_node11()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_0;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_0 = (int)(opr1 - opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorWeight_bt_node_test_selector_probability_ut_3_node6 : behaviac.DecoratorWeight
+	{
+		public DecoratorWeight_bt_node_test_selector_probability_ut_3_node6()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+		protected override int GetWeight(Agent pAgent)
+		{
+			return 10;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_3_node3 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_3_node3()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_1;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_1 = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class WaitFrames_bt_node_test_selector_probability_ut_3_node9 : behaviac.WaitFrames
+	{
+		public WaitFrames_bt_node_test_selector_probability_ut_3_node9()
+		{
+		}
+		protected override int GetFrames(Agent pAgent)
+		{
+			return 3;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_3_node1 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_3_node1()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_1;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_1 = (int)(opr1 - opr2);
+			return result;
+		}
+	}
+
+	public static class bt_node_test_selector_probability_ut_3
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/selector_probability_ut_3");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_selector_probability_ut_3_node4 node4 = new DecoratorLoop_bt_node_test_selector_probability_ut_3_node4();
+				node4.SetClassNameString("DecoratorLoop");
+				node4.SetId(4);
+#if !BEHAVIAC_RELEASE
+				node4.SetAgentType("AgentNodeTest");
+#endif
+				bt.AddChild(node4);
+				{
+					SelectorProbability_bt_node_test_selector_probability_ut_3_node0 node0 = new SelectorProbability_bt_node_test_selector_probability_ut_3_node0();
+					node0.SetClassNameString("SelectorProbability");
+					node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0.SetAgentType("AgentNodeTest");
+#endif
+					node4.AddChild(node0);
+					{
+						DecoratorWeight_bt_node_test_selector_probability_ut_3_node5 node5 = new DecoratorWeight_bt_node_test_selector_probability_ut_3_node5();
+						node5.SetClassNameString("DecoratorWeight");
+						node5.SetId(5);
+#if !BEHAVIAC_RELEASE
+						node5.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node5);
+						{
+							Sequence node7 = new Sequence();
+							node7.SetClassNameString("Sequence");
+							node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+							node7.SetAgentType("AgentNodeTest");
+#endif
+							node5.AddChild(node7);
+							{
+								Compute_bt_node_test_selector_probability_ut_3_node2 node2 = new Compute_bt_node_test_selector_probability_ut_3_node2();
+								node2.SetClassNameString("Compute");
+								node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+								node2.SetAgentType("AgentNodeTest");
+#endif
+								node7.AddChild(node2);
+								node7.SetHasEvents(node7.HasEvents() | node2.HasEvents());
+							}
+							{
+								WaitFrames_bt_node_test_selector_probability_ut_3_node10 node10 = new WaitFrames_bt_node_test_selector_probability_ut_3_node10();
+								node10.SetClassNameString("WaitFrames");
+								node10.SetId(10);
+#if !BEHAVIAC_RELEASE
+								node10.SetAgentType("AgentNodeTest");
+#endif
+								node7.AddChild(node10);
+								node7.SetHasEvents(node7.HasEvents() | node10.HasEvents());
+							}
+							{
+								Compute_bt_node_test_selector_probability_ut_3_node11 node11 = new Compute_bt_node_test_selector_probability_ut_3_node11();
+								node11.SetClassNameString("Compute");
+								node11.SetId(11);
+#if !BEHAVIAC_RELEASE
+								node11.SetAgentType("AgentNodeTest");
+#endif
+								node7.AddChild(node11);
+								node7.SetHasEvents(node7.HasEvents() | node11.HasEvents());
+							}
+							node5.SetHasEvents(node5.HasEvents() | node7.HasEvents());
+						}
+						node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
+					}
+					{
+						DecoratorWeight_bt_node_test_selector_probability_ut_3_node6 node6 = new DecoratorWeight_bt_node_test_selector_probability_ut_3_node6();
+						node6.SetClassNameString("DecoratorWeight");
+						node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+						node6.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node6);
+						{
+							Sequence node8 = new Sequence();
+							node8.SetClassNameString("Sequence");
+							node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+							node8.SetAgentType("AgentNodeTest");
+#endif
+							node6.AddChild(node8);
+							{
+								Compute_bt_node_test_selector_probability_ut_3_node3 node3 = new Compute_bt_node_test_selector_probability_ut_3_node3();
+								node3.SetClassNameString("Compute");
+								node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+								node3.SetAgentType("AgentNodeTest");
+#endif
+								node8.AddChild(node3);
+								node8.SetHasEvents(node8.HasEvents() | node3.HasEvents());
+							}
+							{
+								WaitFrames_bt_node_test_selector_probability_ut_3_node9 node9 = new WaitFrames_bt_node_test_selector_probability_ut_3_node9();
+								node9.SetClassNameString("WaitFrames");
+								node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+								node9.SetAgentType("AgentNodeTest");
+#endif
+								node8.AddChild(node9);
+								node8.SetHasEvents(node8.HasEvents() | node9.HasEvents());
+							}
+							{
+								Compute_bt_node_test_selector_probability_ut_3_node1 node1 = new Compute_bt_node_test_selector_probability_ut_3_node1();
+								node1.SetClassNameString("Compute");
+								node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+								node1.SetAgentType("AgentNodeTest");
+#endif
+								node8.AddChild(node1);
+								node8.SetHasEvents(node8.HasEvents() | node1.HasEvents());
+							}
+							node6.SetHasEvents(node6.HasEvents() | node8.HasEvents());
+						}
+						node0.SetHasEvents(node0.HasEvents() | node6.HasEvents());
+					}
+					node4.SetHasEvents(node4.HasEvents() | node0.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node4.HasEvents());
+			}
+			return true;
+		}
+	}
+
+	// Source file: node_test/selector_probability_ut_4
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorLoop_bt_node_test_selector_probability_ut_4_node15 : behaviac.DecoratorLoop
+	{
+		public DecoratorLoop_bt_node_test_selector_probability_ut_4_node15()
+		{
+			m_bDecorateWhenChildEnds = true;
+		}
+		protected override int GetCount(Agent pAgent)
+		{
+			return 1;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class SelectorProbability_bt_node_test_selector_probability_ut_4_node0 : behaviac.SelectorProbability
+	{
+		public SelectorProbability_bt_node_test_selector_probability_ut_4_node0()
+		{
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorWeight_bt_node_test_selector_probability_ut_4_node5 : behaviac.DecoratorWeight
+	{
+		public DecoratorWeight_bt_node_test_selector_probability_ut_4_node5()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+		protected override int GetWeight(Agent pAgent)
+		{
+			return 10;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Parallel_bt_node_test_selector_probability_ut_4_node10 : behaviac.Parallel
+	{
+		public Parallel_bt_node_test_selector_probability_ut_4_node10()
+		{
+			m_failPolicy = behaviac.FAILURE_POLICY.FAIL_ON_ONE;
+			m_succeedPolicy = behaviac.SUCCESS_POLICY.SUCCEED_ON_ALL;
+			m_exitPolicy = behaviac.EXIT_POLICY.EXIT_ABORT_RUNNINGSIBLINGS;
+			m_childFinishPolicy = behaviac.CHILDFINISH_POLICY.CHILDFINISH_LOOP;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_4_node2 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_4_node2()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_0;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_0 = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_4_node13 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_4_node13()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			float opr1 = ((AgentNodeTest)pAgent).testVar_2;
+			float opr2 = 1f;
+			((AgentNodeTest)pAgent).testVar_2 = (float)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Wait_bt_node_test_selector_probability_ut_4_node4 : behaviac.Wait
+	{
+		public Wait_bt_node_test_selector_probability_ut_4_node4()
+		{
+		}
+		protected override double GetTime(Agent pAgent)
+		{
+			return 1000f;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_4_node11 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_4_node11()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_0;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_0 = (int)(opr1 - opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorWeight_bt_node_test_selector_probability_ut_4_node6 : behaviac.DecoratorWeight
+	{
+		public DecoratorWeight_bt_node_test_selector_probability_ut_4_node6()
+		{
+			m_bDecorateWhenChildEnds = false;
+		}
+		protected override int GetWeight(Agent pAgent)
+		{
+			return 10;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Parallel_bt_node_test_selector_probability_ut_4_node12 : behaviac.Parallel
+	{
+		public Parallel_bt_node_test_selector_probability_ut_4_node12()
+		{
+			m_failPolicy = behaviac.FAILURE_POLICY.FAIL_ON_ONE;
+			m_succeedPolicy = behaviac.SUCCESS_POLICY.SUCCEED_ON_ALL;
+			m_exitPolicy = behaviac.EXIT_POLICY.EXIT_ABORT_RUNNINGSIBLINGS;
+			m_childFinishPolicy = behaviac.CHILDFINISH_POLICY.CHILDFINISH_LOOP;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_4_node3 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_4_node3()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_1;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_1 = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_4_node14 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_4_node14()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			float opr1 = ((AgentNodeTest)pAgent).testVar_3;
+			float opr2 = 1f;
+			((AgentNodeTest)pAgent).testVar_3 = (float)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Wait_bt_node_test_selector_probability_ut_4_node9 : behaviac.Wait
+	{
+		public Wait_bt_node_test_selector_probability_ut_4_node9()
+		{
+		}
+		protected override double GetTime(Agent pAgent)
+		{
+			return 1000f;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_selector_probability_ut_4_node1 : behaviac.Compute
+	{
+		public Compute_bt_node_test_selector_probability_ut_4_node1()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_1;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_1 = (int)(opr1 - opr2);
+			return result;
+		}
+	}
+
+	public static class bt_node_test_selector_probability_ut_4
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/selector_probability_ut_4");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_selector_probability_ut_4_node15 node15 = new DecoratorLoop_bt_node_test_selector_probability_ut_4_node15();
+				node15.SetClassNameString("DecoratorLoop");
+				node15.SetId(15);
+#if !BEHAVIAC_RELEASE
+				node15.SetAgentType("AgentNodeTest");
+#endif
+				bt.AddChild(node15);
+				{
+					SelectorProbability_bt_node_test_selector_probability_ut_4_node0 node0 = new SelectorProbability_bt_node_test_selector_probability_ut_4_node0();
+					node0.SetClassNameString("SelectorProbability");
+					node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0.SetAgentType("AgentNodeTest");
+#endif
+					node15.AddChild(node0);
+					{
+						DecoratorWeight_bt_node_test_selector_probability_ut_4_node5 node5 = new DecoratorWeight_bt_node_test_selector_probability_ut_4_node5();
+						node5.SetClassNameString("DecoratorWeight");
+						node5.SetId(5);
+#if !BEHAVIAC_RELEASE
+						node5.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node5);
+						{
+							Sequence node7 = new Sequence();
+							node7.SetClassNameString("Sequence");
+							node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+							node7.SetAgentType("AgentNodeTest");
+#endif
+							node5.AddChild(node7);
+							{
+								Parallel_bt_node_test_selector_probability_ut_4_node10 node10 = new Parallel_bt_node_test_selector_probability_ut_4_node10();
+								node10.SetClassNameString("Parallel");
+								node10.SetId(10);
+#if !BEHAVIAC_RELEASE
+								node10.SetAgentType("AgentNodeTest");
+#endif
+								node7.AddChild(node10);
+								{
+									Compute_bt_node_test_selector_probability_ut_4_node2 node2 = new Compute_bt_node_test_selector_probability_ut_4_node2();
+									node2.SetClassNameString("Compute");
+									node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+									node2.SetAgentType("AgentNodeTest");
+#endif
+									node10.AddChild(node2);
+									node10.SetHasEvents(node10.HasEvents() | node2.HasEvents());
+								}
+								{
+									Compute_bt_node_test_selector_probability_ut_4_node13 node13 = new Compute_bt_node_test_selector_probability_ut_4_node13();
+									node13.SetClassNameString("Compute");
+									node13.SetId(13);
+#if !BEHAVIAC_RELEASE
+									node13.SetAgentType("AgentNodeTest");
+#endif
+									node10.AddChild(node13);
+									node10.SetHasEvents(node10.HasEvents() | node13.HasEvents());
+								}
+								node7.SetHasEvents(node7.HasEvents() | node10.HasEvents());
+							}
+							{
+								Wait_bt_node_test_selector_probability_ut_4_node4 node4 = new Wait_bt_node_test_selector_probability_ut_4_node4();
+								node4.SetClassNameString("Wait");
+								node4.SetId(4);
+#if !BEHAVIAC_RELEASE
+								node4.SetAgentType("AgentNodeTest");
+#endif
+								node7.AddChild(node4);
+								node7.SetHasEvents(node7.HasEvents() | node4.HasEvents());
+							}
+							{
+								Compute_bt_node_test_selector_probability_ut_4_node11 node11 = new Compute_bt_node_test_selector_probability_ut_4_node11();
+								node11.SetClassNameString("Compute");
+								node11.SetId(11);
+#if !BEHAVIAC_RELEASE
+								node11.SetAgentType("AgentNodeTest");
+#endif
+								node7.AddChild(node11);
+								node7.SetHasEvents(node7.HasEvents() | node11.HasEvents());
+							}
+							node5.SetHasEvents(node5.HasEvents() | node7.HasEvents());
+						}
+						node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
+					}
+					{
+						DecoratorWeight_bt_node_test_selector_probability_ut_4_node6 node6 = new DecoratorWeight_bt_node_test_selector_probability_ut_4_node6();
+						node6.SetClassNameString("DecoratorWeight");
+						node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+						node6.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node6);
+						{
+							Sequence node8 = new Sequence();
+							node8.SetClassNameString("Sequence");
+							node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+							node8.SetAgentType("AgentNodeTest");
+#endif
+							node6.AddChild(node8);
+							{
+								Parallel_bt_node_test_selector_probability_ut_4_node12 node12 = new Parallel_bt_node_test_selector_probability_ut_4_node12();
+								node12.SetClassNameString("Parallel");
+								node12.SetId(12);
+#if !BEHAVIAC_RELEASE
+								node12.SetAgentType("AgentNodeTest");
+#endif
+								node8.AddChild(node12);
+								{
+									Compute_bt_node_test_selector_probability_ut_4_node3 node3 = new Compute_bt_node_test_selector_probability_ut_4_node3();
+									node3.SetClassNameString("Compute");
+									node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+									node3.SetAgentType("AgentNodeTest");
+#endif
+									node12.AddChild(node3);
+									node12.SetHasEvents(node12.HasEvents() | node3.HasEvents());
+								}
+								{
+									Compute_bt_node_test_selector_probability_ut_4_node14 node14 = new Compute_bt_node_test_selector_probability_ut_4_node14();
+									node14.SetClassNameString("Compute");
+									node14.SetId(14);
+#if !BEHAVIAC_RELEASE
+									node14.SetAgentType("AgentNodeTest");
+#endif
+									node12.AddChild(node14);
+									node12.SetHasEvents(node12.HasEvents() | node14.HasEvents());
+								}
+								node8.SetHasEvents(node8.HasEvents() | node12.HasEvents());
+							}
+							{
+								Wait_bt_node_test_selector_probability_ut_4_node9 node9 = new Wait_bt_node_test_selector_probability_ut_4_node9();
+								node9.SetClassNameString("Wait");
+								node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+								node9.SetAgentType("AgentNodeTest");
+#endif
+								node8.AddChild(node9);
+								node8.SetHasEvents(node8.HasEvents() | node9.HasEvents());
+							}
+							{
+								Compute_bt_node_test_selector_probability_ut_4_node1 node1 = new Compute_bt_node_test_selector_probability_ut_4_node1();
+								node1.SetClassNameString("Compute");
+								node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+								node1.SetAgentType("AgentNodeTest");
+#endif
+								node8.AddChild(node1);
+								node8.SetHasEvents(node8.HasEvents() | node1.HasEvents());
+							}
+							node6.SetHasEvents(node6.HasEvents() | node8.HasEvents());
+						}
+						node0.SetHasEvents(node0.HasEvents() | node6.HasEvents());
+					}
+					node15.SetHasEvents(node15.HasEvents() | node0.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node15.HasEvents());
+			}
+			return true;
+		}
+	}
+
 	// Source file: node_test/selector_stochastic_ut_0
 
 	[behaviac.GeneratedTypeMetaInfo()]
@@ -22561,6 +23203,22 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_wait_ut_0_node4 : behaviac.Action
+	{
+		public Action_bt_node_test_wait_ut_0_node4()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_p0 = 2;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).setTestVar_0(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+		int method_p0;
+	}
+
 	public static class bt_node_test_wait_ut_0
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -22611,6 +23269,16 @@ namespace behaviac
 					node0.AddChild(node2);
 					node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
 				}
+				{
+					Action_bt_node_test_wait_ut_0_node4 node4 = new Action_bt_node_test_wait_ut_0_node4();
+					node4.SetClassNameString("Action");
+					node4.SetId(4);
+#if !BEHAVIAC_RELEASE
+					node4.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node4);
+					node0.SetHasEvents(node0.HasEvents() | node4.HasEvents());
+				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}
 			return true;
@@ -22645,6 +23313,22 @@ namespace behaviac
 		{
 			return 1000f;
 		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_wait_ut_1_node3 : behaviac.Action
+	{
+		public Action_bt_node_test_wait_ut_1_node3()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_p0 = 2;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).setTestVar_0(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+		int method_p0;
 	}
 
 	public static class bt_node_test_wait_ut_1
@@ -22686,6 +23370,16 @@ namespace behaviac
 #endif
 					node0.AddChild(node2);
 					node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
+				}
+				{
+					Action_bt_node_test_wait_ut_1_node3 node3 = new Action_bt_node_test_wait_ut_1_node3();
+					node3.SetClassNameString("Action");
+					node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+					node3.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node3);
+					node0.SetHasEvents(node0.HasEvents() | node3.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}

@@ -55,7 +55,7 @@ namespace PluginBehaviac.Nodes
         }
 
         protected VariableDef _weight = new VariableDef((int)1);
-        [DesignerPropertyEnum("DecoratorWeight", "DecoratorWeightDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributes, "", "", ValueTypes.Int, 1, 100000)]
+        [DesignerPropertyEnum("DecoratorWeight", "DecoratorWeightDesc", "CategoryBasic", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributes, "", "", ValueTypes.Int, 0, 100000)]
         public VariableDef Weight
         {
             get { return _weight; }

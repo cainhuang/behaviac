@@ -1757,6 +1757,15 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click F1 to check its document..
+        /// </summary>
+        internal static string PressF1 {
+            get {
+                return ResourceManager.GetString("PressF1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Properties.
         /// </summary>
         internal static string Properties {

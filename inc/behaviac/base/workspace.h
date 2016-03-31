@@ -127,7 +127,7 @@ namespace behaviac
 		version_str is used to make sure the lib compiling defines are the same with app's
 		just use this default param and don't provode any param unless you know what you are doing
 		*/
-		static Workspace* GetInstance(const char* version_str = BEHAVIAC_VERSION_STR);
+		static Workspace* GetInstance(const char* version_str = BEHAVIAC_BUILD_CONFIG_STR);
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         /**
