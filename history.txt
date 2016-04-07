@@ -1,3 +1,8 @@
+2016-04-06	3.3.15
+	Set the ShowNodeId be to true by default.
+	Add the GetRunningNodes() method of the class BehaviorTask.
+	Set the UTF-8 format for the control doc.
+
 2016-03-31	3.3.14
 	Fix a bug for adding or removing agents when updating all agents.
 	Show the behaviac::EBTStatus by default.

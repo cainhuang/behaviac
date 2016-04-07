@@ -292,6 +292,16 @@ namespace behaviac
             return tree;
         }
 
+        private static bool getRunningNodes_handler(BehaviorTask node, Agent pAgent, object user_data)
+        {
+            if (node.m_status == EBTStatus.BT_RUNNING)
+            {
+                ((List<BehaviorTask>)user_data).Add(node);
+            }
+
+            return true;
+        }
+
         private static bool abort_handler(BehaviorTask node, Agent pAgent, object user_data)
         {
             if (node.m_status == EBTStatus.BT_RUNNING)
@@ -315,8 +325,31 @@ namespace behaviac
             return true;
         }
 
+        private static NodeHandler_t getRunningNodes_handler_ = getRunningNodes_handler;
         private static NodeHandler_t abort_handler_ = abort_handler;
         private static NodeHandler_t reset_handler_ = reset_handler;
+
+        public List<BehaviorTask> GetRunningNodes(bool onlyLeaves = true)
+        {
+            List<BehaviorTask> nodes = new List<BehaviorTask>();
+            this.traverse(true, getRunningNodes_handler_, null, nodes);
+
+            if (onlyLeaves && nodes.Count > 0)
+            {
+                List<BehaviorTask> leaves = new List<BehaviorTask>();
+                for (int i = 0; i < nodes.Count; ++i)
+                {
+                    if (nodes[i] is LeafTask)
+                    {
+                        leaves.Add(nodes[i]);
+                    }
+                }
+
+                return leaves;
+            }
+
+            return nodes;
+        }
 
         public void abort(Agent pAgent)
         {

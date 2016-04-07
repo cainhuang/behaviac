@@ -113,13 +113,13 @@ namespace Behaviac.Design.Attributes
 
         public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
-            if (type != typeof(int))
-            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
+            if (!Plugin.IsIntergerNumberType(type))
+                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType);
 
-            int resultValue;
+            int resultValue = 0;
 
             if (int.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out resultValue))
-            { return resultValue; }
+                return resultValue;
 
             throw new Exception(string.Format(Resources.ExceptionDesignerAttributeIllegalIntegerValue, str));
         }

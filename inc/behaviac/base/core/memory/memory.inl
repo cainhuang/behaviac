@@ -343,7 +343,7 @@ BEHAVIAC_FORCEINLINE void operator delete[](void* ptr, const behaviac::STagOpera
     behaviac::Private::MemHelperFreeAlignment(&behaviac::GetMemoryAllocator(), ptr, BEHAVIAC_DEFAULT_ALIGN, tag, file, line);
 }
 
-#define BEHAVIAC_DECLARE_MEMORY_OPERATORS_(CLASS, align) \
+#define BEHAVIAC_DECLARE_MEMORY_OPERATORS_COMMON_(CLASS, align) \
     public: \
     friend BEHAVIAC_FORCEINLINE void operator ^(const behaviac::STagOperatorNewType& type, CLASS * object) \
     { \
@@ -384,14 +384,27 @@ BEHAVIAC_FORCEINLINE void operator delete[](void* ptr, const behaviac::STagOpera
         behaviac::Private::MemHelperFreeAlignment(behaviac::GetAllocator<CLASS>(), ptr, align, tag, file, line); \
     } \
     private:\
-    BEHAVIAC_FORCEINLINE void tag_special_delete(const behaviac::STagOperatorNewType& /*type*/) const \
-    { \
-        /*operator delete((void*)this, type, __FILE__, __LINE__);*/\
-        delete this;\
-    } \
     BEHAVIAC_FORCEINLINE void tag_special_delete_array(const behaviac::STagOperatorNewArrayType& /*type*/) const \
     { \
         /*operator delete[]((void*)this, type, __FILE__, __LINE__);*/\
         delete[] this;\
     } \
     public :
+
+#define BEHAVIAC_DECLARE_MEMORY_OPERATORS_(CLASS, align) \
+    BEHAVIAC_DECLARE_MEMORY_OPERATORS_COMMON_(CLASS, align) \
+	BEHAVIAC_FORCEINLINE void tag_special_delete(const behaviac::STagOperatorNewType& /*type*/) const \
+    { \
+        /*operator delete((void*)this, type, __FILE__, __LINE__);*/\
+        delete this;\
+    } \
+	public :
+
+#define BEHAVIAC_DECLARE_MEMORY_OPERATORS_AGENT_(CLASS, align) \
+	BEHAVIAC_DECLARE_MEMORY_OPERATORS_COMMON_(CLASS, align) \
+	BEHAVIAC_FORCEINLINE void tag_special_delete(const behaviac::STagOperatorNewType& /*type*/) \
+    { \
+        /*operator delete((void*)this, type, __FILE__, __LINE__);*/\
+        destroy_();\
+    } \
+	public :

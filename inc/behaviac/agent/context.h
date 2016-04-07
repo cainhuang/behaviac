@@ -53,11 +53,13 @@ namespace behaviac
         void LogCurrentState();
 
     public:
-		void AddAgent(Agent* pAgent);
-        void RemoveAgent(Agent* pAgent);
-
         static void execAgents(int contextId);
         static Context& GetContext(int contextId);
+
+		void AddAgent(Agent* pAgent);
+		void RemoveAgent(Agent* pAgent);
+
+		bool IsExecuting();
 
         template<typename VariableType>
         const VariableType* GetStaticVariable(const char* staticClassName, uint32_t variableId)
@@ -183,6 +185,7 @@ namespace behaviac
 
         int     m_context_id;
         bool    m_bCreatedByMe;
+		bool	m_IsExecuting;
     };
     /*! @} */
     /*! @} */

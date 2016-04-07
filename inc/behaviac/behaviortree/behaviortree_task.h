@@ -85,6 +85,8 @@ namespace behaviac
         EBTStatus exec(Agent* pAgent);
         EBTStatus exec(Agent* pAgent, EBTStatus childStatus);
 
+		behaviac::vector<BehaviorTask*> GetRunningNodes(bool onlyLeaves = true);
+
         void abort(Agent* pAgent);
 
         ///reset the status to invalid
@@ -159,7 +161,8 @@ namespace behaviac
 		bool CheckParentUpdatePreconditions(Agent* pAgent);
         BranchTask*		GetTopManageBranchTask();
 
-        friend bool abort_handler(BehaviorTask* task, Agent* pAgent, void* user_data);
+		friend bool getRunningNodes_handler(BehaviorTask* task, Agent* pAgent, void* user_data);
+		friend bool abort_handler(BehaviorTask* task, Agent* pAgent, void* user_data);
         friend bool reset_handler(BehaviorTask* task, Agent* pAgent, void* user_data);
         friend bool checkevent_handler(BehaviorTask* task, Agent* pAgent, void* user_data);
 

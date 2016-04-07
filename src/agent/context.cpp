@@ -22,12 +22,14 @@ namespace behaviac
 {
     Context::Contexts_t* Context::ms_contexts = NULL;
 
-    Context::Context(int contextId) : m_context_id(contextId), m_bCreatedByMe(false)
+	Context::Context(int contextId) : m_context_id(contextId), m_bCreatedByMe(false), m_IsExecuting(false)
     {
     }
 
     Context::~Context()
     {
+		m_IsExecuting = false;
+
 		delayAddedAgents.clear();
 		delayRemovedAgents.clear();
 
@@ -284,11 +286,23 @@ namespace behaviac
         return true;
     }
 
+	bool Context::IsExecuting()
+	{
+		return m_IsExecuting;
+	}
+
 	void Context::AddAgent(Agent* pAgent)
 	{
 		if (pAgent != NULL)
 		{
-			delayAddedAgents.push_back(pAgent);
+			if (IsExecuting())
+			{
+				delayAddedAgents.push_back(pAgent);
+			}
+			else
+			{
+				addAgent_(pAgent);
+			}
 		}
 	}
 
@@ -296,7 +310,14 @@ namespace behaviac
 	{
 		if (pAgent != NULL)
 		{
-			delayRemovedAgents.push_back(pAgent);
+			if (IsExecuting())
+			{
+				delayRemovedAgents.push_back(pAgent);
+			}
+			else
+			{
+				removeAgent_(pAgent);
+			}
 		}
 	}
 
@@ -346,18 +367,28 @@ namespace behaviac
 
 	void Context::DelayProcessingAgents()
 	{
-		for (unsigned int i = 0; i < delayAddedAgents.size(); ++i)
+		if (delayAddedAgents.size() > 0)
 		{
-			addAgent_(delayAddedAgents[i]);
+			for (unsigned int i = 0; i < delayAddedAgents.size(); ++i)
+			{
+				addAgent_(delayAddedAgents[i]);
+			}
+
+			delayAddedAgents.clear();
 		}
 
-		for (unsigned int i = 0; i < delayRemovedAgents.size(); ++i)
+		if (delayRemovedAgents.size() > 0)
 		{
-			removeAgent_(delayRemovedAgents[i]);
-		}
+			for (unsigned int i = 0; i < delayRemovedAgents.size(); ++i)
+			{
+				removeAgent_(delayRemovedAgents[i]);
 
-		delayAddedAgents.clear();
-		delayRemovedAgents.clear();
+				// It should be deleted absolutely here.
+				BEHAVIAC_DELETE(delayRemovedAgents[i]);
+			}
+
+			delayRemovedAgents.clear();
+		}
 	}
 
     void Context::execAgents(int contextId)
@@ -381,7 +412,12 @@ namespace behaviac
 
     void Context::execAgents_()
     {
-		this->DelayProcessingAgents();
+		if (!Workspace::GetInstance()->IsExecAgents())
+		{
+			return;
+		}
+
+		m_IsExecuting = true;
 
 		std::make_heap(this->m_agents.begin(), this->m_agents.end(), HeapCompare_t());
 
@@ -398,6 +434,7 @@ namespace behaviac
                     pA->btexec();
                 }
 
+				// in case IsExecAgents was set to false by pA's bt
                 if (!Workspace::GetInstance()->IsExecAgents())
                 {
                     break;
@@ -409,6 +446,10 @@ namespace behaviac
         {
             this->LogStaticVariables(0);
         }
+
+		m_IsExecuting = false;
+
+		this->DelayProcessingAgents();
     }
 
     //void Context::btexec()

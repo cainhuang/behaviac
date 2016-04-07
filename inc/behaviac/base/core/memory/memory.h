@@ -109,6 +109,9 @@ namespace behaviac
 #define BEHAVIAC_DECLARE_MEMORY_OPERATORS(CLASS) \
     BEHAVIAC_DECLARE_MEMORY_OPERATORS_(CLASS, BEHAVIAC_ALIGNOF(CLASS))
 
+#define BEHAVIAC_DECLARE_MEMORY_OPERATORS_AGENT(CLASS) \
+    BEHAVIAC_DECLARE_MEMORY_OPERATORS_AGENT_(CLASS, BEHAVIAC_ALIGNOF(CLASS))
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
 BEHAVIAC_G_* is more reliable and flexible, but, the following macros' syntax is more similiar to the system's new/delete

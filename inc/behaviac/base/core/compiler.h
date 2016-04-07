@@ -158,8 +158,8 @@
 #define BEHAVIAC_ALIGN_SUFFIX(alignment)				__attribute__ ((aligned(n)))
 
 #ifdef BEHAVIAC_DLL
-#	define BEHAVIAC_DLL_ENTRY_IMPORT					__attribute__ ((dllimport))
-#	define BEHAVIAC_DLL_ENTRY_EXPORT					__attribute__ ((dllexport))
+#	define BEHAVIAC_DLL_ENTRY_IMPORT					
+#	define BEHAVIAC_DLL_ENTRY_EXPORT					__attribute__((visibility("default")))
 #else
 #	define BEHAVIAC_DLL_ENTRY_IMPORT
 #	define BEHAVIAC_DLL_ENTRY_EXPORT
@@ -179,8 +179,8 @@
 #define BEHAVIAC_ALIGN_SUFFIX(alignment)				__attribute__ ((aligned(n)))
 
 #ifdef BEHAVIAC_DLL
-#	define BEHAVIAC_DLL_ENTRY_IMPORT					__attribute__ ((dllimport))
-#	define BEHAVIAC_DLL_ENTRY_EXPORT					__attribute__ ((dllexport))
+#	define BEHAVIAC_DLL_ENTRY_IMPORT					
+#	define BEHAVIAC_DLL_ENTRY_EXPORT					__attribute__((visibility("default")))
 #else
 #	define BEHAVIAC_DLL_ENTRY_IMPORT
 #	define BEHAVIAC_DLL_ENTRY_EXPORT

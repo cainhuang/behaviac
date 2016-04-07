@@ -62,15 +62,19 @@ namespace behaviac
             }
         }
 
-        private int m_context_id;
+        private int m_context_id = -1;
+        private bool m_IsExecuting = false;
 
         private Context(int contextId)
         {
             m_context_id = contextId;
+            m_IsExecuting = false;
         }
 
         ~Context()
         {
+            m_IsExecuting = false;
+
             delayAddedAgents.Clear();
             delayRemovedAgents.Clear();
 
@@ -155,43 +159,63 @@ namespace behaviac
 
         public static void AddAgent(Agent pAgent)
         {
-            if (pAgent != null)
+            if (!Object.ReferenceEquals(pAgent, null))
             {
                 Context c = Context.GetContext(pAgent.GetContextId());
 
-                c.delayAddedAgents.Add(pAgent);
+                if (c.m_IsExecuting)
+                {
+                    c.delayAddedAgents.Add(pAgent);
+                }
+                else
+                {
+                    c.addAgent_(pAgent);
+                }
             }
         }
 
         public static void RemoveAgent(Agent pAgent)
         {
-            if (pAgent != null)
+            if (!Object.ReferenceEquals(pAgent, null))
             {
                 Context c = Context.GetContext(pAgent.GetContextId());
 
-                c.delayRemovedAgents.Add(pAgent);
+                if (c.m_IsExecuting)
+                {
+                    c.delayRemovedAgents.Add(pAgent);
+                }
+                else
+                {
+                    c.removeAgent_(pAgent);
+                }
             }
         }
 
         private void DelayProcessingAgents()
         {
-            for (int i = 0; i < delayAddedAgents.Count; ++i)
+            if (delayAddedAgents.Count > 0)
             {
-                addAgent_(delayAddedAgents[i]);
+                for (int i = 0; i < delayAddedAgents.Count; ++i)
+                {
+                    addAgent_(delayAddedAgents[i]);
+                }
+
+                delayAddedAgents.Clear();
             }
 
-            for (int i = 0; i < delayRemovedAgents.Count; ++i)
+            if (delayRemovedAgents.Count > 0)
             {
-                removeAgent_(delayRemovedAgents[i]);
-            }
+                for (int i = 0; i < delayRemovedAgents.Count; ++i)
+                {
+                    removeAgent_(delayRemovedAgents[i]);
+                }
 
-            delayAddedAgents.Clear();
-            delayRemovedAgents.Clear();
+                delayRemovedAgents.Clear();
+            }
         }
 
         private void addAgent_(Agent pAgent)
         {
-            //ASSERT_MAIN_THREAD();
             int agentId = pAgent.GetId();
             int priority = pAgent.GetPriority();
             int itemIndex = this.Agents.FindIndex(delegate(HeapItem_t h)
@@ -215,8 +239,6 @@ namespace behaviac
 
         private void removeAgent_(Agent pAgent)
         {
-            //ASSERT_MAIN_THREAD();
-
             int agentId = pAgent.GetId();
             int priority = pAgent.GetPriority();
             int itemIndex = this.Agents.FindIndex(delegate(HeapItem_t h)
@@ -255,7 +277,12 @@ namespace behaviac
 
         private void execAgents_()
         {
-            this.DelayProcessingAgents();
+            if (!Workspace.Instance.IsExecAgents)
+            {
+                return;
+            }
+
+            m_IsExecuting = true;
 
             this.Agents.Sort();
 
@@ -270,7 +297,7 @@ namespace behaviac
                     {
                         e.Current.btexec();
 
-                        //in case IsExecAgents was set to false by pA's bt
+                        // in case IsExecAgents was set to false by pA's bt
                         if (!Workspace.Instance.IsExecAgents)
                         {
                             break;
@@ -283,6 +310,10 @@ namespace behaviac
             {
                 this.LogStaticVariables(null);
             }
+
+            m_IsExecuting = false;
+
+            this.DelayProcessingAgents();
         }
 
         private void LogCurrentState()

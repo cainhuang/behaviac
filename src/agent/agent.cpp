@@ -205,12 +205,21 @@ namespace behaviac
         this->m_eventInfos.clear();
 
         this->m_variables.Clear();
-
-        int contextId = this->GetContextId();
-
-        Context& c = Context::GetContext(contextId);
-        c.RemoveAgent(this);
     }
+
+	void Agent::destroy_()
+	{
+		int contextId = this->GetContextId();
+		Context& c = Context::GetContext(contextId);
+
+		c.RemoveAgent(this);
+
+		// It should be deleted absolutely here.
+		if (!c.IsExecuting())
+		{
+			delete this;
+		}
+	}
 
     void Agent::Init_(int contextId, Agent* pAgent, short priority, const char* agentInstanceName)
     {

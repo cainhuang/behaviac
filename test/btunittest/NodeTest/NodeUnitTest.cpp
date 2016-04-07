@@ -601,12 +601,12 @@ LOAD_TEST(btunittest, selector_probability_ut_4)
 		if (myTestAgent->testVar_0 != -1) {
 			CHECK_EQUAL(0, myTestAgent->testVar_0);
 			CHECK_EQUAL(-1, myTestAgent->testVar_1);
-			CHECK_EQUAL(0.0, myTestAgent->testVar_2);
+			CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);
 		}
 		else {
 			CHECK_EQUAL(-1, myTestAgent->testVar_0);
 			CHECK_EQUAL(0, myTestAgent->testVar_1);
-			CHECK_EQUAL(-1, myTestAgent->testVar_2);
+			CHECK_FLOAT_EQUAL(-1, myTestAgent->testVar_2);
 		}
 
 		behaviac::Workspace::GetInstance()->SetTimeSinceStartup(behaviac::Workspace::GetInstance()->GetTimeSinceStartup() + 0.1);

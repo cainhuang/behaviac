@@ -499,6 +499,8 @@ namespace behaviac
         Agent();
         virtual ~Agent();
 
+		void destroy_();
+
         int	m_context_id;
 
     private:

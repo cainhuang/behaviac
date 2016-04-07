@@ -43,7 +43,7 @@ struct TypeTest2_t
 class ObjectTest : public CTagObject
 {
 public:
-    DECLARE_BEHAVIAC_AGENT(ObjectTest, CTagObject);
+	DECLARE_BEHAVIAC_TAG_OBJECT(ObjectTest, CTagObject);
 
     ObjectTest() : Property1(10), Property2(true), Property3(10.0f)
     {}
@@ -214,7 +214,7 @@ public:
     // operations
     //-----------------------------------------
 public:
-    DECLARE_BEHAVIAC_AGENT(CGrassMorphData, CTagObject);
+	DECLARE_BEHAVIAC_TAG_OBJECT(CGrassMorphData, CTagObject);
 
     static CTagObject* CreateObject()
     {

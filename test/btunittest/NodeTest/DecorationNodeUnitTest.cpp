@@ -20,6 +20,7 @@ LOAD_TEST(btunittest, save_meta_file)
     behaviac::Workspace::GetInstance()->ExportMetas("../test/btunittest/BehaviacData/xmlmeta/UnitTestCppMeta.xml");
     unregisterAllTypes();
 }
+
 //< Decoration Loop Tests
 LOAD_TEST(btunittest, decoration_loop_ut_0)
 {
@@ -29,8 +30,21 @@ LOAD_TEST(btunittest, decoration_loop_ut_0)
     while (loopCount > 0)
     {
         myTestAgent->resetProperties();
-        myTestAgent->btexec();
-        CHECK_EQUAL(0, myTestAgent->testVar_0);
+
+		behaviac::EBTStatus status = myTestAgent->btexec();
+
+		CHECK_EQUAL(behaviac::BT_RUNNING, status);
+		CHECK_EQUAL(0, myTestAgent->testVar_0);
+
+		behaviac::BehaviorTreeTask* btTask = myTestAgent->btgetcurrent();
+		CHECK_EQUAL(true, btTask != NULL);
+
+		behaviac::vector<behaviac::BehaviorTask*> nodes = btTask->GetRunningNodes(false);
+		CHECK_EQUAL(3, nodes.size());
+
+		behaviac::vector<behaviac::BehaviorTask*> leaves = btTask->GetRunningNodes(true);
+		CHECK_EQUAL(0, leaves.size());
+
         --loopCount;
     }
 

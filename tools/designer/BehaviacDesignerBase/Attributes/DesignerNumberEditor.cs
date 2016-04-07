@@ -131,7 +131,15 @@ namespace Behaviac.Design.Attributes
             DesignerInteger intAtt = property.Attribute as DesignerInteger;
 
             if (intAtt != null) {
-                int val = (int)property.Property.GetValue(obj, null);
+                int val = 0;
+
+                try
+                {
+                    val = Convert.ToInt32(property.Property.GetValue(obj, null));
+                }
+                catch
+                {
+                }
 
                 value = (decimal)val;
             }

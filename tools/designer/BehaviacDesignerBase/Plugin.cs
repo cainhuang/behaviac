@@ -1664,6 +1664,14 @@ namespace Behaviac.Design
             return false;
         }
 
+        public static bool IsIntergerNumberType(Type type)
+        {
+            return type == typeof(int) || type == typeof(uint) ||
+                type == typeof(short) || type == typeof(ushort) ||
+                type == typeof(sbyte) || type == typeof(byte) ||
+                type == typeof(long) || type == typeof(ulong);
+        }
+
         public static ValueTypes GetValueType(Type type) {
             if (IsBooleanType(type))
             { return ValueTypes.Bool; }

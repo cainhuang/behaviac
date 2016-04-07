@@ -422,11 +422,16 @@ even the class is delared in a namespace, it is still advised to use the full na
 the corresponding BEGIN_PROPERTIES_DESCRIPTION/END_PROPERTIES_DESCRIPTION in the cpp can be put in or out of that namespace.
 */
 #define DECLARE_BEHAVIAC_AGENT(classFullNameWithNamespace, parentClassName)						\
-    BEHAVIAC_DECLARE_MEMORY_OPERATORS(classFullNameWithNamespace)								\
+    BEHAVIAC_DECLARE_MEMORY_OPERATORS_AGENT(classFullNameWithNamespace)							\
     BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(classFullNameWithNamespace, parentClassName);			\
     DECLARE_BEHAVIAC_OBJECT_SIMPLE(classFullNameWithNamespace, parentClassName);				\
     ACCESS_PROPERTY_METHOD
 
+#define DECLARE_BEHAVIAC_TAG_OBJECT(classFullNameWithNamespace, parentClassName)				\
+    BEHAVIAC_DECLARE_MEMORY_OPERATORS(classFullNameWithNamespace)								\
+    BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(classFullNameWithNamespace, parentClassName);			\
+    DECLARE_BEHAVIAC_OBJECT_SIMPLE(classFullNameWithNamespace, parentClassName);				\
+    ACCESS_PROPERTY_METHOD
 
 /**
 DECLARE_BEHAVIAC_OBJECT is deprecated, please use DECLARE_BEHAVIAC_AGENT

@@ -164,7 +164,7 @@ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
 # 	add_definitions( ${MY_DEFINITION} )
 # endif()
 
-if (DBEHAVIAC_ENABLE_LUA)
+if (BEHAVIAC_ENABLE_LUA)
 	add_definitions( "-DBEHAVIAC_ENABLE_LUA=1" )
 endif()
 
@@ -210,13 +210,13 @@ if(MSVC OR BEHAVIAC_ANDROID_ON)
 
 	if (BEHAVIAC_ANDROID_ON)
 		message(STATUS "set msvc flags for android")
-		set (BUILD_SHARED_LIBS OFF)
+		set (BUILD_SHARED_LIBS OFF CACHE BOOL "set to OFF to build static libraries")
 		mark_as_advanced(BUILD_SHARED_LIBS)
 		set (COMPILE_POSTFIX "msvc_android")
 	endif()
 else()
 	# Update if necessary
-	set (BUILD_SHARED_LIBS OFF)
+	set (BUILD_SHARED_LIBS OFF CACHE BOOL "set to OFF to build static libraries")
 	mark_as_advanced(BUILD_SHARED_LIBS)
 	mark_as_advanced(CMAKE_GNUtoMS)
 	

@@ -699,6 +699,18 @@ namespace behaviac
 		return bValid;
 	}
 
+	bool getRunningNodes_handler(BehaviorTask* node, Agent* pAgent, void* user_data)
+	{
+		BEHAVIAC_UNUSED_VAR(user_data);
+
+		if (node->m_status == BT_RUNNING)
+		{
+			(*(behaviac::vector<BehaviorTask*>*)(user_data)).push_back(node);
+		}
+
+		return true;
+	}
+
     bool abort_handler(BehaviorTask* node, Agent* pAgent, void* user_data)
     {
         BEHAVIAC_UNUSED_VAR(user_data);
@@ -728,6 +740,28 @@ namespace behaviac
 
         return true;
     }
+
+	behaviac::vector<BehaviorTask*> BehaviorTask::GetRunningNodes(bool onlyLeaves)
+	{
+		behaviac::vector<BehaviorTask*> nodes;
+		this->traverse(true, &getRunningNodes_handler, NULL, &nodes);
+
+		if (onlyLeaves && nodes.size() > 0)
+		{
+			behaviac::vector<BehaviorTask*> leaves;
+			for (unsigned int i = 0; i < nodes.size(); ++i)
+			{
+				if (LeafTask::DynamicCast(nodes[i]))
+				{
+					leaves.push_back(nodes[i]);
+				}
+			}
+
+			return leaves;
+		}
+
+		return nodes;
+	}
 
     void BehaviorTask::abort(Agent* pAgent)
     {
