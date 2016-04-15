@@ -26,7 +26,7 @@ namespace behaviac
 
 	int32_t CPropertyNode::getChildCount() const
 	{
-		return m_children.size();
+		return (int32_t)m_children.size();
 	}
 
 	ISerializableNode* CPropertyNode::getChild(int32_t childIndex)

@@ -4636,138 +4636,34 @@ namespace behaviac
 	// Source file: Tank_Fire
 
 	[behaviac.GeneratedTypeMetaInfo()]
-	class DecoratorLoop_bt_Tank_Fire_node0 : behaviac.DecoratorLoop
+	class Assignment_bt_Tank_Fire_node2 : behaviac.Assignment
 	{
-		public DecoratorLoop_bt_Tank_Fire_node0()
+		public Assignment_bt_Tank_Fire_node2()
 		{
-			m_bDecorateWhenChildEnds = true;
-		}
-		protected override int GetCount(Agent pAgent)
-		{
-			return -1;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class Parallel_bt_Tank_Fire_node1 : behaviac.Parallel
-	{
-		public Parallel_bt_Tank_Fire_node1()
-		{
-			m_failPolicy = behaviac.FAILURE_POLICY.FAIL_ON_ONE;
-			m_succeedPolicy = behaviac.SUCCESS_POLICY.SUCCEED_ON_ALL;
-			m_exitPolicy = behaviac.EXIT_POLICY.EXIT_ABORT_RUNNINGSIBLINGS;
-			m_childFinishPolicy = behaviac.CHILDFINISH_POLICY.CHILDFINISH_LOOP;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class DecoratorAlwaysSuccess_bt_Tank_Fire_node5 : behaviac.DecoratorAlwaysSuccess
-	{
-		public DecoratorAlwaysSuccess_bt_Tank_Fire_node5()
-		{
-			m_bDecorateWhenChildEnds = false;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class SelectorProbability_bt_Tank_Fire_node2 : behaviac.SelectorProbability
-	{
-		public SelectorProbability_bt_Tank_Fire_node2()
-		{
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class DecoratorWeight_bt_Tank_Fire_node6 : behaviac.DecoratorWeight
-	{
-		public DecoratorWeight_bt_Tank_Fire_node6()
-		{
-			m_bDecorateWhenChildEnds = false;
-		}
-		protected override int GetWeight(Agent pAgent)
-		{
-			return 70;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class Action_bt_Tank_Fire_node7 : behaviac.Action
-	{
-		public Action_bt_Tank_Fire_node7()
-		{
-			this.m_resultOption = EBTStatus.BT_INVALID;
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			behaviac.EBTStatus result = (behaviac.EBTStatus)((GameActor)pAgent).moveForward();
-			return result;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class DecoratorWeight_bt_Tank_Fire_node8 : behaviac.DecoratorWeight
-	{
-		public DecoratorWeight_bt_Tank_Fire_node8()
-		{
-			m_bDecorateWhenChildEnds = false;
-		}
-		protected override int GetWeight(Agent pAgent)
-		{
-			return 30;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class Assignment_bt_Tank_Fire_node11 : behaviac.Assignment
-	{
-		public Assignment_bt_Tank_Fire_node11()
-		{
-			opr_p1 = eMapDirection.UNKNOWN;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
-			Debug.Check(behaviac.Utils.MakeVariableId("parIn_Self") == 2069719536u);
-			GameActor opr_p0 = pAgent.GetVariable<GameActor>(2069719536u);
-			behaviac.Agent pAgent_opr = behaviac.Utils.GetParentAgent(pAgent, "GameLevel");
-			Debug.Check(pAgent_opr != null || Utils.IsStaticClass("GameLevel"));
-			float opr = (float)((GameLevelCommon)pAgent_opr).getAvailabeMoveDirection(opr_p0, opr_p1);
-			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
-			pAgent.SetVariable<float>("parT_RotateAngle", opr, 760191237u);
+			behaviac.EBTStatus opr = behaviac.EBTStatus.BT_SUCCESS;
+			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
+			pAgent.SetVariable<behaviac.EBTStatus>("Status", opr, 525979889u);
 			return result;
 		}
-		eMapDirection opr_p1;
 	}
 
 	[behaviac.GeneratedTypeMetaInfo()]
-	class Condition_bt_Tank_Fire_node3 : behaviac.Condition
+	class Condition_bt_Tank_Fire_node1 : behaviac.Condition
 	{
-		public Condition_bt_Tank_Fire_node3()
+		public Condition_bt_Tank_Fire_node1()
 		{
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
-			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
-			float opl = pAgent.GetVariable<float>(760191237u);
-			float opr = 0f;
-			bool op = opl >= opr;
+			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
+			behaviac.EBTStatus opl = pAgent.GetVariable<behaviac.EBTStatus>(525979889u);
+			behaviac.EBTStatus opr = behaviac.EBTStatus.BT_SUCCESS;
+			bool op = opl == opr;
 			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class Action_bt_Tank_Fire_node4 : behaviac.Action
-	{
-		public Action_bt_Tank_Fire_node4()
-		{
-			this.m_resultOption = EBTStatus.BT_INVALID;
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			Debug.Check(behaviac.Utils.MakeVariableId("parT_RotateAngle") == 760191237u);
-			float method_p0 = pAgent.GetVariable<float>(760191237u);
-			behaviac.EBTStatus result = (behaviac.EBTStatus)((GameActor)pAgent).rotateToAngle(method_p0);
-			return result;
 		}
 	}
 
@@ -4798,135 +4694,44 @@ namespace behaviac
 #endif
 			// pars
 			bt.AddPar("Player", "Player", "parIn_Self", "null");
-			bt.AddPar("Player", "float", "parT_RotateAngle", "0");
 			// children
 			{
-				DecoratorLoop_bt_Tank_Fire_node0 node0 = new DecoratorLoop_bt_Tank_Fire_node0();
-				node0.SetClassNameString("DecoratorLoop");
+				Sequence node0 = new Sequence();
+				node0.SetClassNameString("Sequence");
 				node0.SetId(0);
 #if !BEHAVIAC_RELEASE
 				node0.SetAgentType("Player");
 #endif
 				bt.AddChild(node0);
 				{
-					Parallel_bt_Tank_Fire_node1 node1 = new Parallel_bt_Tank_Fire_node1();
-					node1.SetClassNameString("Parallel");
+					Assignment_bt_Tank_Fire_node2 node2 = new Assignment_bt_Tank_Fire_node2();
+					node2.SetClassNameString("Assignment");
+					node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+					node2.SetAgentType("Player");
+#endif
+					node0.AddChild(node2);
+					node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
+				}
+				{
+					Condition_bt_Tank_Fire_node1 node1 = new Condition_bt_Tank_Fire_node1();
+					node1.SetClassNameString("Condition");
 					node1.SetId(1);
 #if !BEHAVIAC_RELEASE
 					node1.SetAgentType("Player");
 #endif
 					node0.AddChild(node1);
-					{
-						DecoratorAlwaysSuccess_bt_Tank_Fire_node5 node5 = new DecoratorAlwaysSuccess_bt_Tank_Fire_node5();
-						node5.SetClassNameString("DecoratorAlwaysSuccess");
-						node5.SetId(5);
-#if !BEHAVIAC_RELEASE
-						node5.SetAgentType("Player");
-#endif
-						node1.AddChild(node5);
-						{
-							SelectorProbability_bt_Tank_Fire_node2 node2 = new SelectorProbability_bt_Tank_Fire_node2();
-							node2.SetClassNameString("SelectorProbability");
-							node2.SetId(2);
-#if !BEHAVIAC_RELEASE
-							node2.SetAgentType("Player");
-#endif
-							node5.AddChild(node2);
-							{
-								DecoratorWeight_bt_Tank_Fire_node6 node6 = new DecoratorWeight_bt_Tank_Fire_node6();
-								node6.SetClassNameString("DecoratorWeight");
-								node6.SetId(6);
-#if !BEHAVIAC_RELEASE
-								node6.SetAgentType("Player");
-#endif
-								node2.AddChild(node6);
-								{
-									Action_bt_Tank_Fire_node7 node7 = new Action_bt_Tank_Fire_node7();
-									node7.SetClassNameString("Action");
-									node7.SetId(7);
-#if !BEHAVIAC_RELEASE
-									node7.SetAgentType("Player");
-#endif
-									node6.AddChild(node7);
-									node6.SetHasEvents(node6.HasEvents() | node7.HasEvents());
-								}
-								node2.SetHasEvents(node2.HasEvents() | node6.HasEvents());
-							}
-							{
-								DecoratorWeight_bt_Tank_Fire_node8 node8 = new DecoratorWeight_bt_Tank_Fire_node8();
-								node8.SetClassNameString("DecoratorWeight");
-								node8.SetId(8);
-#if !BEHAVIAC_RELEASE
-								node8.SetAgentType("Player");
-#endif
-								node2.AddChild(node8);
-								{
-									Sequence node9 = new Sequence();
-									node9.SetClassNameString("Sequence");
-									node9.SetId(9);
-#if !BEHAVIAC_RELEASE
-									node9.SetAgentType("Player");
-#endif
-									node8.AddChild(node9);
-									{
-										Assignment_bt_Tank_Fire_node11 node11 = new Assignment_bt_Tank_Fire_node11();
-										node11.SetClassNameString("Assignment");
-										node11.SetId(11);
-#if !BEHAVIAC_RELEASE
-										node11.SetAgentType("Player");
-#endif
-										node9.AddChild(node11);
-										node9.SetHasEvents(node9.HasEvents() | node11.HasEvents());
-									}
-									{
-										Sequence node10 = new Sequence();
-										node10.SetClassNameString("Sequence");
-										node10.SetId(10);
-#if !BEHAVIAC_RELEASE
-										node10.SetAgentType("Player");
-#endif
-										node9.AddChild(node10);
-										{
-											Condition_bt_Tank_Fire_node3 node3 = new Condition_bt_Tank_Fire_node3();
-											node3.SetClassNameString("Condition");
-											node3.SetId(3);
-#if !BEHAVIAC_RELEASE
-											node3.SetAgentType("Player");
-#endif
-											node10.AddChild(node3);
-											node10.SetHasEvents(node10.HasEvents() | node3.HasEvents());
-										}
-										{
-											Action_bt_Tank_Fire_node4 node4 = new Action_bt_Tank_Fire_node4();
-											node4.SetClassNameString("Action");
-											node4.SetId(4);
-#if !BEHAVIAC_RELEASE
-											node4.SetAgentType("Player");
-#endif
-											node10.AddChild(node4);
-											node10.SetHasEvents(node10.HasEvents() | node4.HasEvents());
-										}
-										node9.SetHasEvents(node9.HasEvents() | node10.HasEvents());
-									}
-									node8.SetHasEvents(node8.HasEvents() | node9.HasEvents());
-								}
-								node2.SetHasEvents(node2.HasEvents() | node8.HasEvents());
-							}
-							node5.SetHasEvents(node5.HasEvents() | node2.HasEvents());
-						}
-						node1.SetHasEvents(node1.HasEvents() | node5.HasEvents());
-					}
-					{
-						Action_bt_Tank_Fire_node16 node16 = new Action_bt_Tank_Fire_node16();
-						node16.SetClassNameString("Action");
-						node16.SetId(16);
-#if !BEHAVIAC_RELEASE
-						node16.SetAgentType("Player");
-#endif
-						node1.AddChild(node16);
-						node1.SetHasEvents(node1.HasEvents() | node16.HasEvents());
-					}
 					node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
+				}
+				{
+					Action_bt_Tank_Fire_node16 node16 = new Action_bt_Tank_Fire_node16();
+					node16.SetClassNameString("Action");
+					node16.SetId(16);
+#if !BEHAVIAC_RELEASE
+					node16.SetAgentType("Player");
+#endif
+					node0.AddChild(node16);
+					node0.SetHasEvents(node0.HasEvents() | node16.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}
@@ -5585,7 +5390,7 @@ namespace behaviac
 	{
 		public Transition_bt_Tank_FSM_MoveFire_attach10()
 		{
-			this.TargetStateId = 7;
+			this.TargetStateId = 13;
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
@@ -5593,57 +5398,6 @@ namespace behaviac
 			int opl = ((Player)pAgent).hp;
 			int opr2 = 0;
 			bool op = (opl >= opr2);
-			if (!op)
-				result = EBTStatus.BT_FAILURE;
-			return result;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class State_bt_Tank_FSM_MoveFire_node7 : behaviac.State
-	{
-		public State_bt_Tank_FSM_MoveFire_node7()
-		{
-			this.m_bIsEndState = false;
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			return behaviac.EBTStatus.BT_RUNNING;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class Precondition_bt_Tank_FSM_MoveFire_attach12 : behaviac.Precondition
-	{
-		public Precondition_bt_Tank_FSM_MoveFire_attach12()
-		{
-			this.Phase = Precondition.EPhase.E_UPDATE;
-			this.IsAnd = true;
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			EBTStatus result = EBTStatus.BT_SUCCESS;
-			behaviac.EBTStatus opr2 = (behaviac.EBTStatus)((Player)pAgent).fire();
-			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
-			pAgent.SetVariable("Status", opr2, 525979889u);
-			return result;
-		}
-	}
-
-	[behaviac.GeneratedTypeMetaInfo()]
-	class Transition_bt_Tank_FSM_MoveFire_attach8 : behaviac.Transition
-	{
-		public Transition_bt_Tank_FSM_MoveFire_attach8()
-		{
-			this.TargetStateId = 1;
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			EBTStatus result = EBTStatus.BT_SUCCESS;
-			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
-			behaviac.EBTStatus opl = pAgent.GetVariable<behaviac.EBTStatus>(525979889u);
-			behaviac.EBTStatus opr2 = behaviac.EBTStatus.BT_SUCCESS;
-			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
 			return result;
@@ -5677,6 +5431,41 @@ namespace behaviac
 			int opl = ((Player)pAgent).hp;
 			int opr2 = 0;
 			bool op = (opl > opr2);
+			if (!op)
+				result = EBTStatus.BT_FAILURE;
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class ReferencedBehavior_bt_Tank_FSM_MoveFire_node13 : behaviac.ReferencedBehavior
+	{
+		public ReferencedBehavior_bt_Tank_FSM_MoveFire_node13()
+		{
+			this.m_referencedBehaviorPath = "Tank_Fire";
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
+			Debug.Check(behaviorTree != null);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Transition_bt_Tank_FSM_MoveFire_attach7 : behaviac.Transition
+	{
+		public Transition_bt_Tank_FSM_MoveFire_attach7()
+		{
+			this.TargetStateId = 1;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
+			behaviac.EBTStatus opl = pAgent.GetVariable<behaviac.EBTStatus>(525979889u);
+			behaviac.EBTStatus opr2 = behaviac.EBTStatus.BT_SUCCESS;
+			bool op = (opl == opr2);
 			if (!op)
 				result = EBTStatus.BT_FAILURE;
 			return result;
@@ -5775,35 +5564,6 @@ namespace behaviac
 					fsm.SetHasEvents(fsm.HasEvents() | node2.HasEvents());
 				}
 				{
-					State_bt_Tank_FSM_MoveFire_node7 node7 = new State_bt_Tank_FSM_MoveFire_node7();
-					node7.SetClassNameString("State");
-					node7.SetId(7);
-#if !BEHAVIAC_RELEASE
-					node7.SetAgentType("Player");
-#endif
-					// attachments
-					{
-						Precondition_bt_Tank_FSM_MoveFire_attach12 attach12 = new Precondition_bt_Tank_FSM_MoveFire_attach12();
-						attach12.SetClassNameString("Precondition");
-						attach12.SetId(12);
-#if !BEHAVIAC_RELEASE
-						attach12.SetAgentType("Player");
-#endif
-						node7.Attach(attach12, true, false, false);
-					}
-					{
-						Transition_bt_Tank_FSM_MoveFire_attach8 attach8 = new Transition_bt_Tank_FSM_MoveFire_attach8();
-						attach8.SetClassNameString("Transition");
-						attach8.SetId(8);
-#if !BEHAVIAC_RELEASE
-						attach8.SetAgentType("Player");
-#endif
-						node7.Attach(attach8, false, false, true);
-					}
-					fsm.AddChild(node7);
-					fsm.SetHasEvents(fsm.HasEvents() | node7.HasEvents());
-				}
-				{
 					State_bt_Tank_FSM_MoveFire_node9 node9 = new State_bt_Tank_FSM_MoveFire_node9();
 					node9.SetClassNameString("State");
 					node9.SetId(9);
@@ -5822,6 +5582,26 @@ namespace behaviac
 					}
 					fsm.AddChild(node9);
 					fsm.SetHasEvents(fsm.HasEvents() | node9.HasEvents());
+				}
+				{
+					ReferencedBehavior_bt_Tank_FSM_MoveFire_node13 node13 = new ReferencedBehavior_bt_Tank_FSM_MoveFire_node13();
+					node13.SetClassNameString("ReferencedBehavior");
+					node13.SetId(13);
+#if !BEHAVIAC_RELEASE
+					node13.SetAgentType("Player");
+#endif
+					// attachments
+					{
+						Transition_bt_Tank_FSM_MoveFire_attach7 attach7 = new Transition_bt_Tank_FSM_MoveFire_attach7();
+						attach7.SetClassNameString("Transition");
+						attach7.SetId(7);
+#if !BEHAVIAC_RELEASE
+						attach7.SetAgentType("Player");
+#endif
+						node13.Attach(attach7, false, false, true);
+					}
+					fsm.AddChild(node13);
+					fsm.SetHasEvents(fsm.HasEvents() | node13.HasEvents());
 				}
 				bt.AddChild(fsm);
 			}

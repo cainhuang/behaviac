@@ -147,24 +147,6 @@ namespace behaviac
         Val = Float32_Max;    //< Set Val to the maximum value for a 32 bits float
     }
 
-    inline int _isnan(Float32 x)
-    {
-#if BEHAVIAC_COMPILER_MSVC
-        return ::_isnan(x);
-#else
-        return isnan(x);
-#endif//BEHAVIAC_COMPILER_MSVC
-    }
-
-    inline int _isnan(Float64 x)
-    {
-#if BEHAVIAC_COMPILER_MSVC
-        return ::_isnan(x);
-#else
-        return isnan(x);
-#endif//BEHAVIAC_COMPILER_MSVC
-    }
-
     inline int _finite(Float32 x)
     {
 #if BEHAVIAC_COMPILER_MSVC
@@ -411,13 +393,13 @@ namespace behaviac
         return (Float32)((int)(x + (x > 0.0f ? 0.5f : -0.5f)));
     }
 
-    /// Calculates the ceiling of a value
-    /*! The ceil function returns a value representing the smallest integer that is greater than or equal to x.
-    */
-    inline Float32 GetRoundUp(Float32 x)
-    {
-        return ceilf(x);
-    }
+    ///// Calculates the ceiling of a value
+    ///*! The ceil function returns a value representing the smallest integer that is greater than or equal to x.
+    //*/
+    //inline Float32 GetRoundUp(Float32 x)
+    //{
+    //    return ceilf(x);
+    //}
 
     /// Calculates the floor of a value
     /*! The floor function returns a floating-point value representing the largest integer that is less than or equal to x.

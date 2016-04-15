@@ -654,6 +654,7 @@ namespace behaviac
     {
 		const char* arrStr[] = { " " };
 		BEHAVIAC_ASSERT(StringUtils::FindString(agentInstanceName, arrStr, 1) == -1);
+		BEHAVIAC_UNUSED_VAR(arrStr);
 
         const char* agentInstanceNameAny = agentInstanceName;
 
@@ -929,7 +930,7 @@ namespace behaviac
 
         if (this->state_stack.size() > 0)
         {
-            int stackIndex = 0;
+			size_t stackIndex = 0;
 
             if (bLocal)
             {
@@ -958,7 +959,7 @@ namespace behaviac
     {
         if (this->state_stack.size() > 0)
         {
-            for (int i = this->state_stack.size() - 1; i >= 0; --i)
+			for (int i = (int)this->state_stack.size() - 1; i >= 0; --i)
             {
                 AgentState* t = this->state_stack[i];
                 const VariableType* result = t->Get<VariableType>(pAgent, false, pMember, varId);

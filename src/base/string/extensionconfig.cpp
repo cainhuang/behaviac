@@ -62,14 +62,14 @@ namespace behaviac
 		if (str && str[0])
 		{
 			const char* ext = str - 1;
-			uint32_t resSize = m_resInfos.size();
+			size_t resSize = m_resInfos.size();
 
-			for (uint32_t i = 0; i < resSize; ++i)
+			for (size_t i = 0; i < resSize; ++i)
 			{
 				SConfigInfo& cfg = m_resInfos[i];
-				uint32_t extSize = cfg.m_sourceExt.size();
+				size_t extSize = cfg.m_sourceExt.size();
 
-				for (uint32_t j = 0; j < extSize; ++j)
+				for (size_t j = 0; j < extSize; ++j)
 				{
 					if (strcmp(cfg.m_sourceExt[j].c_str(), ext) == 0)
 					{

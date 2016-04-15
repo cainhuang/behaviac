@@ -3,7 +3,7 @@
 <Configuration>
 	<FilterNodes>
 		<node FullName="PluginBehaviac.Nodes.Query" />
-		<node FullName="PluginBehaviac.Nodes.DecoratorLog" />
+		<!--node FullName="PluginBehaviac.Nodes.DecoratorLog" /-->
 		<node FullName="PluginBehaviac.Nodes.DecoratorAlwaysRunning" />
 		<node FullName="PluginBehaviac.Nodes.DecoratorAlwaysFailure" />
 		<node FullName="PluginBehaviac.Nodes.DecoratorAlwaysSuccess" />

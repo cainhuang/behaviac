@@ -26,7 +26,7 @@ namespace behaviac
 
 	int32_t CTextNode::getChildCount() const
 	{
-		return m_children.size();
+		return (int32_t)m_children.size();
 	}
 
 	ISerializableNode* CTextNode::getChild(int32_t childIndex)
@@ -179,7 +179,7 @@ namespace behaviac
 		behaviac::string temp;
 		m_constXmlNode->getXML(temp);
 
-		file->Write(temp.c_str(), temp.size());
+		file->Write(temp.c_str(), (uint32_t)temp.size());
 
 		return true;
 	}

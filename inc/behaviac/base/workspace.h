@@ -35,6 +35,8 @@ namespace behaviac
         static unsigned short ms_socketPort;
 
     public:
+		static void LogInfo();
+
         static bool IsProfiling();
 
         /**

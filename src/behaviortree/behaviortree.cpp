@@ -397,7 +397,7 @@ namespace behaviac
     {
         if (this->m_children)
         {
-            return this->m_children->size();
+			return (uint32_t)this->m_children->size();
         }
 
         return 0;

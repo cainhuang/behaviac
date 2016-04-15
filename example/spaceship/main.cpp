@@ -269,7 +269,7 @@ public:
 			}
 			else
 			{
-				int index = arg.find("-l=");
+				size_t index = arg.find("-l=");
 				std::string number;
 				if (index == 0)
 				{
@@ -462,7 +462,7 @@ int main(int argc, char* argv[])
 	SetDirectory();
 
 	behaviac::IMemAllocator& allocator = behaviac::GetDefaultMemoryAllocator();
-	uint32_t allocatedSize = allocator.GetAllocatedSize();
+	size_t allocatedSize = allocator.GetAllocatedSize();
 
 	MyCommandLine cl(argc, argv);
 	cl.PrintHelp();
@@ -648,8 +648,8 @@ int main(int argc, char* argv[])
 	behaviac::Agent::UnRegisterInstanceName<framework::WorldState>();
 
 
-	uint32_t allocatedSize1 = allocator.GetAllocatedSize();
-	int32_t allocDiff = allocatedSize1 - allocatedSize;
+	size_t allocatedSize1 = allocator.GetAllocatedSize();
+	size_t allocDiff = allocatedSize1 - allocatedSize;
 
 	if (cl.IsProfiling())
 	{

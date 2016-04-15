@@ -44,7 +44,7 @@ namespace behaviac
         return 0;
     }
 
-    static const int kNameLength = 256;
+	static const size_t kNameLength = 256;
     const char* Action::ParseMethodNames(const char* fullName, char* agentIntanceName, char* agentClassName, char* methodName)
     {
         //Self.test_ns::AgentActionTest::Action2(0)
@@ -53,7 +53,7 @@ namespace behaviac
         const char*  pClassBegin = strchr(fullName, '.');
         BEHAVIAC_ASSERT(pClassBegin);
 
-        int posClass = pClassBegin - fullName;
+        size_t posClass = pClassBegin - fullName;
         BEHAVIAC_ASSERT(posClass < kNameLength);
         string_ncpy(agentIntanceName, fullName, posClass);
         agentIntanceName[posClass] = '\0';
@@ -70,13 +70,13 @@ namespace behaviac
         BEHAVIAC_ASSERT(pBeginMethod[0] == ':' && pBeginMethod[-1] == ':');
         pBeginMethod += 1;
 
-        int pos1 = pBeginP - pBeginMethod;
+        size_t pos1 = pBeginP - pBeginMethod;
         BEHAVIAC_ASSERT(pos1 < kNameLength);
 
         string_ncpy(methodName, pBeginMethod, pos1);
         methodName[pos1] = '\0';
 
-        int pos = pBeginMethod - 2 - pBeginAgentClass;
+		size_t pos = pBeginMethod - 2 - pBeginAgentClass;
         BEHAVIAC_ASSERT(pos < kNameLength);
 
         string_ncpy(agentClassName, pBeginAgentClass, pos);
@@ -168,7 +168,7 @@ namespace behaviac
             behaviac::vector<behaviac::string> tokens;
 
             {
-                int len = strlen(params);
+                size_t len = strlen(params);
 
                 BEHAVIAC_ASSERT(params[len - 1] == ')');
 

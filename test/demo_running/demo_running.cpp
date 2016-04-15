@@ -35,7 +35,7 @@ using namespace std;
 using namespace behaviac;
 
 CBTPlayer* g_player = NULL;
-
+#if !BEHAVIAC_COMPILER_ANDROID
 static void SetExePath()
 {
 #if BEHAVIAC_COMPILER_MSVC
@@ -56,6 +56,7 @@ static void SetExePath()
     SetCurrentDirectory(szCurPath);
 #endif
 }
+#endif
 
 bool InitBehavic(behaviac::Workspace::EFileFormat ff, 
 	const char* szFilePath = "../test/demo_running/behaviac/exported", 

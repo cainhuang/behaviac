@@ -135,8 +135,8 @@ namespace XmlBase64
         BEHAVIAC_ASSERT(*inBuff != '\0');
         const int8_t* curPos = inBuff;
         //1 for the truncation error
-        int32_t buffSize = ((strlen((const char*)inBuff) * 3) / 4) + 3;
-        int32_t indexOutBuff = 0;
+        size_t buffSize = ((strlen((const char*)inBuff) * 3) / 4) + 3;
+		size_t indexOutBuff = 0;
         //Clients will free it
         outBuff = (int8_t*)BEHAVIAC_MALLOC_WITHTAG(buffSize, "Decode64 buff");
         int8_t toDecode[4];

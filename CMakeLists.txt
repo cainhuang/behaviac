@@ -11,12 +11,7 @@ project (behaviac)
 # set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Profile" CACHE STRING "" FORCE) 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE) 
 
-# The version number. This version is not necessarily the same with designer's version.
-set (BEHAVIAC_VERSION_MAJOR 	3)
-set (BEHAVIAC_VERSION_MINOR 	3)
-set (BEHAVIAC_VERSION_REVISION 	13)
-
-set (BEHAVIAC_VERSION 	${BEHAVIAC_VERSION_MAJOR}.${BEHAVIAC_VERSION_MINOR}.${BEHAVIAC_VERSION_REVISION})
+set (BEHAVIAC_PACKAGE_VERSION 3.3.16)
 
 #option( BUILD_SHARED_LIBS "set to OFF to build static libraries" ON )
 SET(BUILD_SHARED_LIBS ON CACHE BOOL "set to OFF to build static libraries")
@@ -136,10 +131,20 @@ if(${BEHAVIAC_VERSION_MODE} MATCHES "ForeUseRelease")
 	set (BEHAVIAC_RELEASE_ON 1)
 endif()
 
-set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
-	$<$<CONFIG:Debug>:_DEBUG>
-	$<$<CONFIG:Release>:NDEBUG>
-)		
+if(MSVC)
+	set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
+		$<$<CONFIG:Debug>:_DEBUG>
+		$<$<CONFIG:Release>:NDEBUG>
+	)
+else()
+	if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
+		#add_definitions( "-DDEBUG" )
+		add_definitions( "-D_DEBUG" )
+	else()
+		add_definitions( "-DNDEBUG" )
+	endif()
+endif()
+
 
 # if(MSVC OR BEHAVIAC_ANDROID_ON)
 # 	set(MY_DEFINITION 
@@ -168,11 +173,39 @@ if (BEHAVIAC_ENABLE_LUA)
 	add_definitions( "-DBEHAVIAC_ENABLE_LUA=1" )
 endif()
 
-message( STATUS "CMAKE_GENERATOR = ${CMAKE_GENERATOR}" )
+SET(BUILD_USE_64BITS OFF CACHE BOOL "set to ON to use 64 bits")	
+
+if (MSVC)
+	if (CMAKE_GENERATOR MATCHES "64")
+		SET(BUILD_USE_64BITS ON CACHE BOOL "CMAKE_GENERATOR is for 64 bit, set to ON accordingly" FORCE)	
+	endif()
+else()
+	# SET(BUILD_USE_64BITS ON CACHE BOOL "CMAKE_GENERATOR is for 64 bit, set to ON accordingly" FORCE)	
+endif()
+
+if (BUILD_USE_64BITS)
+	if (MSVC)
+		if (NOT CMAKE_GENERATOR MATCHES "64")
+			#
+			message( SEND_ERROR "You need to specify '${CMAKE_GENERATOR} Win64' to generate project file for 64 bit" )
+		endif()
+	else()
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64")
+		# set (CMAKE_OSX_ARCHITECTURES x86_64)
+	endif()
+endif()
+
 message( STATUS "CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}" )
+message( STATUS "BUILD_USE_64BITS = ${BUILD_USE_64BITS}" )
+
+message( STATUS "CMAKE_GENERATOR = ${CMAKE_GENERATOR}" )
 
 if (MSVC)
 	message( STATUS "MSVC" )
+	
+	if (BUILD_USE_64BITS)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
+	endif()
 endif()
 
 if (VC_MDD_ANDROID)
@@ -216,7 +249,7 @@ if(MSVC OR BEHAVIAC_ANDROID_ON)
 	endif()
 else()
 	# Update if necessary
-	set (BUILD_SHARED_LIBS OFF CACHE BOOL "set to OFF to build static libraries")
+	set (BUILD_SHARED_LIBS OFF CACHE BOOL "set to OFF to build static libraries" FORCE)
 	mark_as_advanced(BUILD_SHARED_LIBS)
 	mark_as_advanced(CMAKE_GNUtoMS)
 	
@@ -234,7 +267,6 @@ else()
 
 	set (COMPILE_POSTFIX "gcc")
 endif()
-
 
 message( STATUS "BUILD_SHARED_LIBS = ${BUILD_SHARED_LIBS}" )
 message( STATUS "BUILD_ENABLE_LUA = ${BUILD_ENABLE_LUA}" )

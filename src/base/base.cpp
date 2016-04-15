@@ -51,6 +51,11 @@ namespace behaviac
         return ms_nStarted >= 1;
     }
 
+	const char* GetVersionString() {
+		//return BEHAVIAC_VERSION_STRING;
+		return BEHAVIAC_BUILD_CONFIG_STR;
+	}
+
     bool BaseStart()
     {
         //BEHAVIAC_ASSERT(ms_nStarted == 0, "behaviac::Stop was not invoked! or behaviac::Start had been invoked already!");

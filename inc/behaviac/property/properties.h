@@ -354,7 +354,6 @@ namespace behaviac
                 if (pVar->m_instantiated == 0)
                 {
                     pVar->SetProperty(property_);
-
                 }
                 else
                 {

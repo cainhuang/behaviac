@@ -235,15 +235,6 @@ namespace behaviac
 
 		this->m_subTree = Workspace::GetInstance()->CreateBehaviorTreeTask(pNode->m_referencedBehaviorPath.c_str());
 
-		{
-			const char* pThisTree = pAgent->btgetcurrent()->GetName().c_str();
-			const char* pReferencedTree = pNode->m_referencedBehaviorPath.c_str();
-
-			behaviac::string msg = FormatString("%s[%d] %s", pThisTree, pNode->GetId(), pReferencedTree);
-
-			LogManager::GetInstance()->Log(pAgent, msg.c_str(), EAR_none, ELM_jump);
-		}
-
         return true;
     }
 

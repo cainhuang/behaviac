@@ -9,16 +9,14 @@ IF %ERRORLEVEL% NEQ 0 GOTO l_cmake_error
 mkdir cmake_binary
 cd cmake_binary
 
-rem ----------------------------------------------------
-rem mkdir vs2015
-rem cd vs2015
-rem cmake -G "Visual Studio 14" --build ../../..
-rem cd ..
-
 mkdir vs2013
 cd vs2013
+REM cmake -G "Visual Studio 12 2013 Win64" --build ../../..
 cmake -G "Visual Studio 12 2013" --build ../../..
 cd ..
+
+where make
+IF %ERRORLEVEL% NEQ 0 GOTO l_no_make
 
 rem ----------------------------------------------------
 mkdir linux
@@ -26,6 +24,7 @@ cd linux
 
 mkdir debug
 cd debug
+REM cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DBUILD_USE_64BITS=ON -DBUILD_ENABLE_LUA=ON --build ../../../..
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug --build ../../../..
 cd ..
 
@@ -42,6 +41,7 @@ cd sublime
 cmake -G "Sublime Text 2 - Unix Makefiles" --build ../../..
 cd ..
 
+:l_no_make
 rem ----------------------------------------------------example airbattledemo
 
 if not exist ..\..\example\airbattledemo\CMakeLists.txt (

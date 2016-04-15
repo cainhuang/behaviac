@@ -1226,7 +1226,7 @@ namespace behaviac
                 BehaviorTask* childTask = this->m_children[i];
 
                 //CSerializationID  nodeId("node");
-                ISerializableNode* chidlNode = node->getChild(i);
+                ISerializableNode* chidlNode = node->getChild((int32_t)i);
                 childTask->load(chidlNode);
             }
         }

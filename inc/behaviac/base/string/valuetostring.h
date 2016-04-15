@@ -105,7 +105,7 @@ namespace behaviac
                 string_sprintf(str, "%lu", val);
                 return str;
             }
-#if !BEHAVIAC_COMPILER_GCC_LINUX
+#if !BEHAVIAC_COMPILER_64BITS
             inline behaviac::string ToString(int64_t val)
             {
                 char str[23];

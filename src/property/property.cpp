@@ -243,7 +243,7 @@ namespace behaviac
         return pParent;
     }
 
-    const int kInstanceLength = 256;
+	const size_t kInstanceLength = 256;
     const char*  Property::ParseInstanceNameProperty(const char* fullName, char* agentIntanceName, char* agentType)
     {
         //Self.AgentActionTest::Action2(0)
@@ -251,7 +251,7 @@ namespace behaviac
 
         if (pClassBegin)
         {
-            int posClass = pClassBegin - fullName;
+			size_t posClass = pClassBegin - fullName;
             BEHAVIAC_ASSERT(posClass < kInstanceLength);
             string_ncpy(agentIntanceName, fullName, posClass);
             agentIntanceName[posClass] = '\0';
@@ -260,7 +260,7 @@ namespace behaviac
 
             const char* pPropertyName = strrchr(pAgentType, ':');
             BEHAVIAC_ASSERT(pPropertyName);
-            int agentTypeLength = pPropertyName - 1 - pAgentType;
+			size_t agentTypeLength = pPropertyName - 1 - pAgentType;
             string_ncpy(agentType, pAgentType, agentTypeLength);
             agentType[agentTypeLength] = '\0';
 

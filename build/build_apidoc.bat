@@ -1,5 +1,5 @@
-doxygen.exe doxyfile
+doxygen.exe doxyfile > nul
 
-copy ..\intermediate\html\behaviac.chm ..\docs\ /Y
+copy ..\intermediate\html\behaviac.chm ..\docs\ /Y > nul
 
 rem pause

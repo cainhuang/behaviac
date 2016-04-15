@@ -60,9 +60,9 @@ namespace behaviac
             {
                 if (StringUtils::IsValidString(p.value))
                 {
-                    int pParenthesis = p_value.find_first_of('(');
+					size_t pParenthesis = p_value.find_first_of('(');
 
-                    if (pParenthesis == -1)
+                    if (pParenthesis == (size_t)-1)
                     {
                         this->m_opl = Condition::LoadRight(p.value, this->m_typeName);
                     }
@@ -81,9 +81,9 @@ namespace behaviac
             {
                 if (StringUtils::IsValidString(p.value))
                 {
-                    int pParenthesis = p_value.find_first_of('(');
+					size_t pParenthesis = p_value.find_first_of('(');
 
-                    if (pParenthesis == -1)
+                    if (pParenthesis == (size_t)-1)
                     {
                         this->m_opr1 = Condition::LoadRight(p.value, this->m_typeName);
                     }
@@ -155,9 +155,9 @@ namespace behaviac
             {
                 if (StringUtils::IsValidString(p.value))
                 {
-                    int pParenthesis = p_value.find_first_of('(');
+					size_t pParenthesis = p_value.find_first_of('(');
 
-                    if (pParenthesis == -1)
+                    if (pParenthesis == (size_t)-1)
                     {
                         this->m_opr2 = Condition::LoadRight(p.value, this->m_typeName);
                     }

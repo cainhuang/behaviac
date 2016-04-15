@@ -44,23 +44,7 @@
         <property Operator="GreaterEqual" />
         <property Opl="int Self.Player::hp" />
         <property Opr2="const int 0" />
-        <property TargetFSMNodeId="7" />
-      </attachment>
-    </node>
-    <node class="State" id="7">
-      <property IsEndState="false" />
-      <attachment class="Precondition" id="12" flag="precondition">
-        <property BinaryOperator="And" />
-        <property Operator="Assign" />
-        <property Opl="behaviac::EBTStatus Self.Player::Status" />
-        <property Opr2="Self.Player::fire()" />
-        <property Phase="Update" />
-      </attachment>
-      <attachment class="Transition" id="8" flag="transition">
-        <property Operator="Equal" />
-        <property Opl="behaviac::EBTStatus Self.Player::Status" />
-        <property Opr2="const behaviac::EBTStatus BT_SUCCESS" />
-        <property TargetFSMNodeId="1" />
+        <property TargetFSMNodeId="13" />
       </attachment>
     </node>
     <node class="State" id="9">
@@ -70,6 +54,15 @@
         <property Operator="Greater" />
         <property Opl="int Self.Player::hp" />
         <property Opr2="const int 0" />
+        <property TargetFSMNodeId="1" />
+      </attachment>
+    </node>
+    <node class="ReferencedBehavior" id="13">
+      <property ReferenceFilename="Tank_Fire" />
+      <attachment class="Transition" id="7" flag="transition">
+        <property Operator="Equal" />
+        <property Opl="behaviac::EBTStatus Self.Player::Status" />
+        <property Opr2="const behaviac::EBTStatus BT_SUCCESS" />
         <property TargetFSMNodeId="1" />
       </attachment>
     </node>

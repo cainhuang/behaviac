@@ -62,12 +62,13 @@ namespace Behaviac.Design
             this.format = "";
 
             for (int i = 0; i < args.Length; ++i) {
-                string arg = args[i].ToLowerInvariant();
+                string arg = args[i];
 
-                if (arg == "/help") {
+                if (arg.StartsWith("/help", StringComparison.OrdinalIgnoreCase)) {
                     this.help = true;
-
-                } else if (arg.StartsWith("/export")) {
+                }
+                else if (arg.StartsWith("/export", StringComparison.OrdinalIgnoreCase))
+                {
                     this.export = true;
 
                     int pos = arg.IndexOf('=');
@@ -87,8 +88,9 @@ namespace Behaviac.Design
                             System.Diagnostics.Debug.Assert(false);
                         }
                     }
-
-                } else if (arg.StartsWith("/bt")) {
+                }
+                else if (arg.StartsWith("/bt", StringComparison.OrdinalIgnoreCase))
+                {
                     int pos = arg.IndexOf('=');
 
                     if (pos != -1) {

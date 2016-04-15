@@ -532,7 +532,7 @@
     <value>RandomGenerator</value>
   </data>
   <data name="RandomGeneratorDesc" xml:space="preserve">
-    <value>You can specify a method to return a 'int' as the random number.</value>
+    <value>You can specify a method to return a float value between 0.0 and 1.0 as the random number.</value>
   </data>
   <data name="DecoratorFrames" xml:space="preserve">
     <value>Frames</value>
@@ -644,7 +644,7 @@
     <value>PreAction</value>
   </data>
   <data name="PreconditionDesc" xml:space="preserve">
-    <value>PreAction is an action or precondition whichi is executed/evaluated before 'entering' a node. </value>
+    <value>PreAction is an action or precondition which is executed/evaluated before 'entering' a node. </value>
   </data>
   <data name="TaskNoChildrenError" xml:space="preserve">
     <value>task has no children.</value>

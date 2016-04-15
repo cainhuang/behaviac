@@ -11,12 +11,12 @@ cd linux
 
 mkdir debug
 cd debug
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug --build ../../../..
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DBUILD_USE_64BITS=ON --build ../../../..
 cd ..
 
 mkdir release
 cd release
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release --build ../../../..
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_USE_64BITS=ON --build ../../../..
 cd ..
 
 # linux

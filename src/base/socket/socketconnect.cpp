@@ -33,7 +33,7 @@ namespace behaviac
 {
     uint32_t Packet::CalcPacketSize() const
     {
-        uint32_t packetSize(0);
+		size_t packetSize(0);
 
         if (command == CommandId::CMDID_TEXT)
         {
@@ -47,7 +47,7 @@ namespace behaviac
         }
 
         packetSize += sizeof(command);
-        return packetSize;
+        return (uint32_t)packetSize;
     }
 }
 

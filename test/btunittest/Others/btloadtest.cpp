@@ -28,7 +28,7 @@ void memory_leak_test(behaviac::Workspace::EFileFormat format)
     _CrtSetBreakAlloc(s_breakalloc);
 #endif
     behaviac::IMemAllocator& allocator = behaviac::GetMemoryAllocator();
-    uint32_t allocatedSize = allocator.GetAllocatedSize();
+	size_t allocatedSize = allocator.GetAllocatedSize();
 
 #if ENABLE_MEMORYDUMP
     _CrtMemState s1;
@@ -70,8 +70,8 @@ void memory_leak_test(behaviac::Workspace::EFileFormat format)
 
     behaviac::Profiler::DestroyInstance();
 
-    uint32_t allocatedSize1 = allocator.GetAllocatedSize();
-    int32_t allocateDiff = allocatedSize1 - allocatedSize;
+	size_t allocatedSize1 = allocator.GetAllocatedSize();
+	size_t allocateDiff = allocatedSize1 - allocatedSize;
 
 #if !ENABLE_MEMORYDUMP
     //if CStringID is used before this test, CStringID::Cleaup() will free more memory

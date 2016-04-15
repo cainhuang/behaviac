@@ -1421,7 +1421,7 @@ namespace behaviac
         return obejctDesc.GetMember(propertyId);
     }
 
-    static const int kNameLength = 256;
+	static const size_t kNameLength = 256;
     static const char* ParsePropertyNames(const char* fullPropertnName, char* agentClassName)
     {
         //http://action.tenpay.com/2013/legua/?ADTAG=MSG.CUIFEI.LEGUA.TX_OK_PIC
@@ -1436,7 +1436,7 @@ namespace behaviac
             BEHAVIAC_ASSERT(pBeginProperty[0] == ':' && pBeginProperty[-1] == ':');
             pBeginProperty += 1;
 
-            int pos = pBeginProperty - 2 - pBeginAgentClass;
+			size_t pos = pBeginProperty - 2 - pBeginAgentClass;
             BEHAVIAC_ASSERT(pos < kNameLength);
 
             string_ncpy(agentClassName, pBeginAgentClass, pos);

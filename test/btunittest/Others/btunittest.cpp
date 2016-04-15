@@ -59,7 +59,7 @@ TEST(btunittest, coroutine)
 TEST(btunittest, mbstowcs)
 {
     behaviac::string str = "A中B国C";
-    int mbs_len = str.size();
+    size_t mbs_len = str.size();
     BEHAVIAC_UNUSED_VAR(mbs_len);
     //CHECK_EQUAL(7, mbs_len);
     BEHAVIAC_ASSERT(mbs_len == 7 || mbs_len == 9);
@@ -73,7 +73,7 @@ TEST(btunittest, mbstowcs)
     {
         CHECK_EQUAL(true, bOk);
 
-        int wcs_len = wstr.size();
+		size_t wcs_len = wstr.size();
         CHECK_EQUAL(5, wcs_len);
     }
 }
@@ -81,7 +81,7 @@ TEST(btunittest, mbstowcs)
 TEST(btunittest, wcstombs)
 {
     behaviac::wstring wstr = L"A中B国C";
-    int wcs_len = wstr.size();
+	size_t wcs_len = wstr.size();
     CHECK_EQUAL(5, wcs_len);
 
     behaviac::string str;
@@ -93,7 +93,7 @@ TEST(btunittest, wcstombs)
     {
         CHECK_EQUAL(true, bOk);
 
-        int mbs_len = str.size();
+		size_t mbs_len = str.size();
         BEHAVIAC_UNUSED_VAR(mbs_len);
         //CHECK_EQUAL(7, mbs_len);
         BEHAVIAC_ASSERT(mbs_len == 7 || mbs_len == 9);

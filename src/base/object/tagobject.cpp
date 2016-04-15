@@ -423,7 +423,7 @@ namespace behaviac
                     behaviac::string::size_type posEqual = src.find_first_of('=', posBegin);
                     BEHAVIAC_ASSERT(posEqual > posBegin);
 
-                    int length = posEqual - posBegin;
+					size_t length = posEqual - posBegin;
                     behaviac::string memmberName = src.substr(posBegin, length);
                     behaviac::string memmberValue;
                     char c = src[posEqual + 1];

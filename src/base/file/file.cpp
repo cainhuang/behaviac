@@ -310,7 +310,7 @@ namespace behaviac
 	uint32_t CSequentialReader::Read(void* pBuffer, uint32_t numberOfBytesToRead)
 	{
 		uint32_t dataRead = 0;
-		uint32_t dataAvailable = m_bufferPointerEnd - m_bufferPointer;
+		uint32_t dataAvailable = (uint32_t)(m_bufferPointerEnd - m_bufferPointer);
 
 		if (dataAvailable > 0)
 		{
@@ -336,7 +336,7 @@ namespace behaviac
 				// Fill the buffer and take what we need
 				FillBuffer();
 				// file read may have failed so check what is available
-				uint32_t dataAvailable1 = m_bufferPointerEnd - m_bufferPointer;
+				uint32_t dataAvailable1 = (uint32_t)(m_bufferPointerEnd - m_bufferPointer);
 				dataNeeded = behaviac::Min(dataAvailable1, dataNeeded);
 				memcpy(pBuffer, (void*)m_bufferPointer, dataNeeded);
 				m_bufferPointer += dataNeeded;

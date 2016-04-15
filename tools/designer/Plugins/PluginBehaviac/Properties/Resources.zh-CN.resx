@@ -532,7 +532,7 @@
     <value>随机数</value>
   </data>
   <data name="RandomGeneratorDesc" xml:space="preserve">
-    <value>随机数产生器,该随机数产生器需要是一个返回int的函数</value>
+    <value>随机数产生器,该随机数产生器需要是一个返回0.0到1.0的float值的函数</value>
   </data>
   <data name="DecoratorFrames" xml:space="preserve">
     <value>帧数</value>
@@ -610,7 +610,7 @@
     <value>前置</value>
   </data>
   <data name="PreconditionDesc" xml:space="preserve">
-    <value>只有前置条件满足了，才能进入节点。</value>
+    <value>进入节点前需要执行前置的操作或条件，如果是条件则需满足后，才会执行所在的节点。</value>
   </data>
   <data name="TaskNoChildrenError" xml:space="preserve">
     <value>任务没有任何方法子节点。</value>

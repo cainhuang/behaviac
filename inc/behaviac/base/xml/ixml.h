@@ -422,7 +422,7 @@ namespace behaviac
 			string_sprintf(str, "0x%08x", value);
 			setAttrText(key, str);
 		}
-#if !BEHAVIAC_COMPILER_GCC_LINUX
+#if !BEHAVIAC_COMPILER_64BITS
 		inline void setAttr_Hex(const char* key, int64_t& value)
 		{
 			char str[19];
@@ -589,7 +589,7 @@ namespace behaviac
 
 			return false;
 		}
-#if !BEHAVIAC_COMPILER_GCC_LINUX
+#if !BEHAVIAC_COMPILER_64BITS
 		inline bool getAttr_Hex(const char* key, int64_t& value) const
 		{
 			const char* str = getAttr(key);

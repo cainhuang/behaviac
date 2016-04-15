@@ -344,7 +344,7 @@ namespace behaviac
         if (maximumNumberOfObjectInPool != U32_Max)
         {
             //allocate needed segments (default : 33% of the total segment count)
-            uint32_t initialSegmentCount = ((uint32_t)GetInteger(GetRoundUp(((float)m_maxSegmentCount * initialyCreatedRatio))));
+            uint32_t initialSegmentCount = ((uint32_t)GetInteger(((float)m_maxSegmentCount * (0.5f + initialyCreatedRatio))));
 
             for (uint32_t i = 0; i < initialSegmentCount; i++)
             {

@@ -2255,21 +2255,32 @@ namespace Behaviac.Design
         /// <param name="node">The node you want to show.</param>
         /// <returns>Returns the NodeViewData which will be shown.</returns>
         internal NodeViewData ShowNode(Node node, Node root = null) {
-            if (node != null) {
-                if (ShowBehavior != null) {
-                    if (root != null && root is BehaviorNode) {
-                        ShowBehavior((BehaviorNode)root);
+            try
+            {
+                if (node != null)
+                {
+                    if (ShowBehavior != null)
+                    {
+                        if (root != null && root is BehaviorNode)
+                        {
+                            ShowBehavior((BehaviorNode)root);
+                        }
+                        else
+                        {
+                            ShowBehavior(node.Behavior);
+                        }
+                    }
 
-                    } else {
-                        ShowBehavior(node.Behavior);
+                    BehaviorTreeView behaviorTreeView = getFocusedView();
+
+                    if (behaviorTreeView != null && behaviorTreeView.RootNodeView != null)
+                    {
+                        return behaviorTreeView.RootNodeView.FindNodeViewData(node);
                     }
                 }
-
-                BehaviorTreeView behaviorTreeView = getFocusedView();
-
-                if (behaviorTreeView != null && behaviorTreeView.RootNodeView != null) {
-                    return behaviorTreeView.RootNodeView.FindNodeViewData(node);
-                }
+            }
+            catch
+            {
             }
 
             return null;

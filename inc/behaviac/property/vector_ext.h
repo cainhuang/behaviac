@@ -148,7 +148,7 @@ public:
 
     virtual int size() const
     {
-        return this->vector_->size();
+        return (int)this->vector_->size();
     }
 
     virtual void add(const System::Object& o)
@@ -232,7 +232,7 @@ public:
 
         if (listPool.pool->size() > 1)
         {
-            int32_t n = listPool.pool->size();
+			size_t n = listPool.pool->size();
             TList<T>* pList = (*listPool.pool)[n - 1];
 
             listPool.pool->pop_back();

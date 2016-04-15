@@ -39,6 +39,8 @@ namespace behaviac
     BEHAVIAC_API void SetBreakpointPromptHandler(BreakpointPromptHandler_fn fn);
 
     BEHAVIAC_API BreakpointPromptHandler_fn GetBreakpointPromptHandler();
+
+	BEHAVIAC_API const char* GetVersionString();
 }//namespace behaviac
 
 #define ASSERT_MAIN_THREAD()  BEHAVIAC_ASSERT(behaviac::IsMainThread(), "called in a thread different from the creating thread")

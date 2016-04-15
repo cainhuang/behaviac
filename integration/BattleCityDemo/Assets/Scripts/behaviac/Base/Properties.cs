@@ -324,13 +324,9 @@ namespace behaviac
                 {
                     this.SetValue(pAgent, v);
                 }
-                else if (v != null)
+                else
                 {
                     pAgent.Instantiate(v, this);
-                }
-                else 
-                {
-                    Debug.Check(true);
                 }
             }
         }
@@ -1465,13 +1461,15 @@ namespace behaviac
                 IVariable pVar = this.m_variables[varId];
                 Debug.Check(pVar.m_instantiated >= 1);
 
-                //don't erase it as it might be accessed after the bt's ticking
-                //this.m_variables.erase(varId);
-                pVar.m_instantiated--;
-
-                if (pVar.m_instantiated == 0)
                 {
-                    pVar.SetProperty(null);
+                    //don't erase it as it might be accessed after the bt's ticking
+                    //this.m_variables.erase(varId);
+                    pVar.m_instantiated--;
+
+                    if (pVar.m_instantiated == 0)
+                    {
+                        pVar.SetProperty(null);
+                    }
                 }
             }
         }

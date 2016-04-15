@@ -22,7 +22,8 @@ BEHAVIAC_RELEASE MUST be defined the same in lib(behaviac) and app(your game).
 
 Please don't define BEHAVIAC_RELEASE unless you know what you are doing.
 */
-#include "_config.h"
+#include "behaviac/base/core/_config.h"
+#include "behaviac/base/core/staticassert.h"
 
 #if (defined(_DEBUG) || defined(DEBUG))
 	#ifndef BEHAVIAC_RELEASE
@@ -34,18 +35,22 @@ Please don't define BEHAVIAC_RELEASE unless you know what you are doing.
 	#endif
 #endif//
 
-#if (defined(_DEBUG) || defined(DEBUG))
-	#define _BEHAVIAC_BUILD_CONFIG_STR_ "behavaic_debug"
+#if _MSC_VER
+	#define BEHAVIAC_STRING_CONTAT(A, B)	BEHAVIAC_JOIN_TOKENS(A, B)
 #else
-	#define _BEHAVIAC_BUILD_CONFIG_STR_ "behavaic_ndebug"
-#endif//
-                     
-#define _BEHAVIAC_M_STRING_CONCAT_(a, b) a # b
+	#define BEHAVIAC_STRING_CONTAT(A, B)	A B
+#endif
 
-#ifdef BEHAVIAC_RELEASE
-	#define BEHAVIAC_BUILD_CONFIG_STR _BEHAVIAC_M_STRING_CONCAT_(_BEHAVIAC_BUILD_CONFIG_STR_, "_RELEASE")
+#if (defined(_DEBUG) || defined(DEBUG))
+	#define _BEHAVIAC_BUILD_CONFIG_STR_ BEHAVIAC_STRING_CONTAT(BEHAVIAC_VERSION_STRING, "_behavaic_debug_")
 #else
-	#define BEHAVIAC_BUILD_CONFIG_STR _BEHAVIAC_M_STRING_CONCAT_(_BEHAVIAC_BUILD_CONFIG_STR_, "_NRELEASE")
+	#define _BEHAVIAC_BUILD_CONFIG_STR_ BEHAVIAC_STRING_CONTAT(BEHAVIAC_VERSION_STRING, "_behavaic_ndebug")
+#endif//
+
+#if BEHAVIAC_RELEASE
+	#define BEHAVIAC_BUILD_CONFIG_STR BEHAVIAC_STRING_CONTAT(_BEHAVIAC_BUILD_CONFIG_STR_, "_RELEASE")
+#else
+	#define BEHAVIAC_BUILD_CONFIG_STR BEHAVIAC_STRING_CONTAT(_BEHAVIAC_BUILD_CONFIG_STR_, "_NRELEASE")
 #endif
 
 #if !BEHAVIAC_RELEASE

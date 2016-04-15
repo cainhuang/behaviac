@@ -60,6 +60,17 @@ namespace behaviac
         false;
 #endif//BEHAVIAC_RELEASE
 
+	void Config::LogInfo() {
+		BEHAVIAC_LOGINFO("Config::IsDesktopPlatform %s\n", IsDesktopPlatform() ? "true" : "false");
+		BEHAVIAC_LOGINFO("Config::IsProfiling %s\n", IsProfiling() ? "true" : "false");
+		BEHAVIAC_LOGINFO("Config::IsLogging %s\n", IsLogging() ? "true" : "false");
+		BEHAVIAC_LOGINFO("Config::IsLoggingFlush %s\n", IsLoggingFlush() ? "true" : "false");
+		BEHAVIAC_LOGINFO("Config::IsSocketing %s\n", IsSocketing() ? "true" : "false");
+		BEHAVIAC_LOGINFO("Config::IsSocketBlocking %s\n", IsSocketBlocking() ? "true" : "false");
+		BEHAVIAC_LOGINFO("Config::IsHotReload %s\n", IsHotReload() ? "true" : "false");
+		BEHAVIAC_LOGINFO("Config::SocketPort %d\n", GetSocketPort());
+	}
+
     bool Config::IsProfiling()
     {
         return ms_bProfiling;
@@ -263,7 +274,7 @@ namespace behaviac
     {
         string_ncpy(this->m_szWorkspaceExportPath, szExportPath, kMaxPath);
 
-		int len = strlen(szExportPath);
+		size_t len = strlen(szExportPath);
 		if (szExportPath[len - 1] == '/' || szExportPath[len - 1] == '\\')
 		{
 		}
@@ -338,6 +349,9 @@ namespace behaviac
         }
 
         this->m_bInited = true;
+
+		BEHAVIAC_LOGINFO("Version: %s\n", behaviac::GetVersionString());
+		Config::LogInfo();
 
         bool bOk = TryStart();
 
@@ -623,9 +637,9 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(pBuffer);
         BEHAVIAC_ASSERT(m_fileBufferTop < kFileBufferDepth - 1 && m_fileBufferTop > 0);
-        BEHAVIAC_DEBUGCODE(uint32_t offset = pBuffer - m_fileBuffer);
+		BEHAVIAC_DEBUGCODE(size_t offset = pBuffer - m_fileBuffer);
 
-        BEHAVIAC_DEBUGCODE(uint32_t offset_recorded = m_fileBufferOffset[m_fileBufferTop - 1]);
+		BEHAVIAC_DEBUGCODE(size_t offset_recorded = m_fileBufferOffset[m_fileBufferTop - 1]);
         BEHAVIAC_DEBUGCODE(BEHAVIAC_ASSERT(offset == offset_recorded));
 
         m_fileBufferOffset[m_fileBufferTop] = 0;
@@ -1054,13 +1068,13 @@ namespace behaviac
 
 			behaviac::vector<behaviac::string> modifiedFiles;
 			CFileSystem::GetModifiedFiles(modifiedFiles);
-			uint32_t fileCount = modifiedFiles.size();
+			size_t fileCount = modifiedFiles.size();
 
 			if (fileCount > 0)
 			{
 				Workspace::EFileFormat f = Workspace::GetFileFormat();
 
-				for (uint32_t i = 0; i < fileCount; ++i)
+				for (size_t i = 0; i < fileCount; ++i)
 				{
 					behaviac::string relativePath = modifiedFiles[i];
 
@@ -1083,11 +1097,11 @@ namespace behaviac
 								BTItem_t& btItems = (*m_allBehaviorTreeTasks)[relativePath];
 								BehaviorTree* behaviorTree = m_behaviortrees[relativePath];
 
-								uint32_t taskCount = btItems.bts.size();
+								size_t taskCount = btItems.bts.size();
 
 								if (taskCount > 0)
 								{
-									for (uint32_t j = 0; j < taskCount; ++j)
+									for (size_t j = 0; j < taskCount; ++j)
 									{
 										BehaviorTreeTask* behaviorTreeTask = btItems.bts[j];
 										BEHAVIAC_ASSERT(behaviorTreeTask);

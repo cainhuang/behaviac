@@ -41,9 +41,9 @@ namespace behaviac
 			{
 				if (StringUtils::IsValidString(p.value))
 				{
-					int pParenthesis = p_value.find_first_of('(');
+					size_t pParenthesis = p_value.find_first_of('(');
 
-					if (pParenthesis == -1)
+					if (pParenthesis == (size_t)-1)
 					{
 						behaviac::string typeName;
 						this->m_time_var = Condition::LoadRight(p.value, typeName);

@@ -725,7 +725,7 @@ namespace behaviac
             return lhs <= rhs;
         }
 
-#if !BEHAVIAC_COMPILER_GCC_LINUX
+#if !BEHAVIAC_COMPILER_64BITS
         //------------------------------------------------------------------------
         template<>
         BEHAVIAC_FORCEINLINE bool Equal(const int64_t& lhs, const int64_t& rhs)

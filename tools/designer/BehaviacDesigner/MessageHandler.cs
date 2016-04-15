@@ -324,44 +324,58 @@ namespace Behaviac.Design
             }
         }
 
+        private static void processReturn(string msg)
+        {
+            try
+            {
+                // [return]CleaningRobot::RobotController#Controller CleanRooms.xml
+                string[] tokens = msg.Substring(8).Split(' ');
 
-        private static void processReturn(string msg) {
-            // [return]CleaningRobot::RobotController#Controller CleanRooms.xml MoveToRoom.xml
+                if (tokens.Length == 2)
+                {
+                    string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                    Debug.Check(types.Length == 2);
+                    string agentType = types[0];
+                    string agentName = types[1];
+                    string agentFullname = tokens[0];
 
-            string[] tokens = msg.Substring(8).Split(' ');
+                    //AgentInstancePool.AddInstance(agentType, agentName, true);
 
-            if (tokens.Length == 2) {
-                string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-                Debug.Check(types.Length == 2);
-                string agentType = types[0];
-                string agentName = types[1];
-                string agentFullname = tokens[0];
+                    string returnFromTree = tokens[1].Trim(new char[] { '\n' });
 
-                //AgentInstancePool.AddInstance(agentType, agentName, true);
-
-                string returnFromTree = tokens[1].Trim(new char[] { '\n' });
-
-                FrameStatePool.SetReturnInfo(agentFullname, returnFromTree);
+                    FrameStatePool.SetReturnInfo(agentFullname, returnFromTree);
+                }
+            }
+            catch
+            {
             }
         }
 
-        private static void processJump(string msg) {
-            // [jump]CleaningRobot::RobotController#Controller CleanRooms.xml
+        private static void processJump(string msg)
+        {
+            try
+            {
+                // [jump]CleaningRobot::RobotController#Controller CleanRooms.xml
 
-            string[] tokens = msg.Substring(6).Split(' ');
+                string[] tokens = msg.Substring(6).Split(' ');
 
-            if (tokens.Length == 2) {
-                string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-                Debug.Check(types.Length == 2);
-                string agentType = types[0];
-                string agentName = types[1];
-                string agentFullname = tokens[0];
+                if (tokens.Length == 2)
+                {
+                    string[] types = tokens[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                    Debug.Check(types.Length == 2);
+                    string agentType = types[0];
+                    string agentName = types[1];
+                    string agentFullname = tokens[0];
 
-                //AgentInstancePool.AddInstance(agentType, agentName, true);
-                string jumpTree = tokens[1].Trim(new char[] { '\n' });
+                    //AgentInstancePool.AddInstance(agentType, agentName, true);
+                    string jumpTree = tokens[1].Trim(new char[] { '\n' });
 
-                checkBehaviorFiles(jumpTree);
-                FrameStatePool.SetJumpInfo(agentFullname, jumpTree, false);
+                    checkBehaviorFiles(jumpTree);
+                    FrameStatePool.SetJumpInfo(agentFullname, jumpTree, false);
+                }
+            }
+            catch
+            {
             }
         }
 
@@ -387,6 +401,8 @@ namespace Behaviac.Design
 
                     checkBehaviorFiles(behaviorFilename);
                     FrameStatePool.SetJumpInfo(agentFullname, behaviorFilename, true);
+
+                    behaviorFilename = FrameStatePool.GetCurrentBehaviorTree(agentFullname, behaviorFilename);
 
                     string[] actions = nodes[1].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
 

@@ -166,7 +166,7 @@ namespace behaviac
 		char* temp = (char*)BEHAVIAC_MALLOC_WITHTAG(bufLen + 1, "XmlParserImp::parse");
 		memcpy(temp, buffer, bufLen);
 		BEHAVIAC_ASSERT(temp[bufLen] == '\0');
-		XmlNodeRef result = this->parseBuffer(temp, bufLen, rootNodeName);
+		XmlNodeRef result = this->parseBuffer(temp, (int)bufLen, rootNodeName);
 		BEHAVIAC_FREE(temp);
 		return result;
 	}

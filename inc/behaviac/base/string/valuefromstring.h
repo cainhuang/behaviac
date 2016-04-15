@@ -169,7 +169,7 @@ namespace behaviac
             {
                 return sscanf(str, "%lu", &val) == 1;
             }
-#if !BEHAVIAC_COMPILER_GCC_LINUX
+#if !BEHAVIAC_COMPILER_64BITS
             inline bool FromString(const char* str, int64_t& val)
             {
                 return sscanf(str, "%lli", &val) == 1;
@@ -463,11 +463,11 @@ namespace behaviac
                     if (posNext)
                     {
                         //*(char*)posNext = '\0';
-                        int len = posNext - (pos + 1);
+						size_t len = posNext - (pos + 1);
                         itemTemp.resize(len);
                         char* data = (char*)itemTemp.data();
 
-                        for (int i = 0; i < len; ++i)
+						for (size_t i = 0; i < len; ++i)
                         {
                             data[i] = pos[i + 1];
                         }

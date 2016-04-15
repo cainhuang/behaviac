@@ -42,9 +42,9 @@ namespace behaviac
             if (strcmp(p->name, "Opl") == 0)
             {
                 behaviac::string str(p->value);
-                int pParenthesis = str.find_first_of('(');
+                size_t pParenthesis = str.find_first_of('(');
 
-                if (pParenthesis == -1)
+				if (pParenthesis == (size_t)-1)
                 {
                     this->m_opl = Condition::LoadLeft(p->value);
 
@@ -57,9 +57,9 @@ namespace behaviac
             else if (strcmp(p->name, "Opr") == 0)
             {
                 behaviac::string str(p->value);
-                int pParenthesis = str.find_first_of('(');
+                size_t pParenthesis = str.find_first_of('(');
 
-                if (pParenthesis == -1)
+				if (pParenthesis == (size_t)-1)
                 {
                     this->m_opr = Condition::LoadRight(p->value, typeName);
 

@@ -50,8 +50,8 @@ namespace behaviac
         MemDefaultAllocator();
         virtual ~MemDefaultAllocator();
 
-        virtual uint32_t GetMaxAllocationSize(void) const;
-        virtual uint32_t GetAllocatedSize() const;
+		virtual size_t GetMaxAllocationSize(void) const;
+		virtual size_t GetAllocatedSize() const;
         virtual void* Alloc(size_t size, const char* tag, const char* pFile, unsigned int Line);
         virtual void* Realloc(void* pOldPtr, size_t size, const char* tag, const char* pFile, unsigned int Line);
         virtual void Free(void* pData, const char* tag, const char* pFile, unsigned int Line);
@@ -119,12 +119,12 @@ namespace behaviac
 #endif
     }
 
-    uint32_t MemDefaultAllocator::GetMaxAllocationSize(void) const
+	size_t MemDefaultAllocator::GetMaxAllocationSize(void) const
     {
-        return uint32_t(-1);
+		return size_t(-1);
     }
 
-    uint32_t MemDefaultAllocator::GetAllocatedSize() const
+    size_t MemDefaultAllocator::GetAllocatedSize() const
     {
 #if BEHAVIAC_DEBUG_MEMORY_STATS
 
@@ -390,7 +390,7 @@ namespace behaviac
         PtrSizePool		m_pool;
         behaviac::Mutex	m_cs;
 
-        unsigned int GetBlockSize(const void* ptr);
+		size_t GetBlockSize(const void* ptr);
     public:
         PtrSizeRegister_();
         virtual ~PtrSizeRegister_();
@@ -418,7 +418,7 @@ namespace behaviac
         g_bIgnore = false;
     }
 
-    unsigned int PtrSizeRegister_::GetBlockSize(const void* ptr)
+	size_t PtrSizeRegister_::GetBlockSize(const void* ptr)
     {
         {
             size_t* size = this->m_hashtable.find((size_t)ptr);
@@ -477,7 +477,7 @@ namespace behaviac
     {
         behaviac::ScopedLock locker(m_cs);
 
-        unsigned int bytes = GetBlockSize(ptr);
+		size_t bytes = GetBlockSize(ptr);
         HashTable_t::HashItem* pP = this->m_hashtable.remove((size_t)ptr);
 
         BEHAVIAC_ASSERT(pP);

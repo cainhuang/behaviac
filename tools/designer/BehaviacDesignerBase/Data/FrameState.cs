@@ -454,6 +454,20 @@ namespace Behaviac.Design.Data
             }
         }
 
+        public static string GetCurrentBehaviorTree(string agentFullName, string behaviorFilename)
+        {
+            if (_btStack.ContainsKey(agentFullName))
+            {
+                List<string> stack = _btStack[agentFullName];
+                if (stack.Count > 0)
+                {
+                    return stack[stack.Count - 1];
+                }
+            }
+
+            return behaviorFilename;
+        }
+
         public static void SetReturnInfo(string agentFullName, string returnFromTree) {
             if (_btStack.ContainsKey(agentFullName)) {
                 List<string> stack = _btStack[agentFullName];

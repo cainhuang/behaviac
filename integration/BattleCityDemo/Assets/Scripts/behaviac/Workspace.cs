@@ -55,6 +55,18 @@ namespace behaviac
 
         private static bool m_bProfiling = false;
 
+        public static void LogInfo()
+        {
+            Debug.Log(string.Format("Config::IsDesktopPlayer {0}", Config.IsDesktopPlayer ? "true" : "false"));
+            Debug.Log(string.Format("Config::IsProfiling {0}", Config.IsProfiling ? "true" : "false"));
+            Debug.Log(string.Format("Config::IsLogging {0}", Config.IsLogging ? "true" : "false"));
+            Debug.Log(string.Format("Config::IsLoggingFlush {0}", Config.IsLoggingFlush ? "true" : "false"));
+            Debug.Log(string.Format("Config::IsSocketing {0}", Config.IsSocketing ? "true" : "false"));
+            Debug.Log(string.Format("Config::IsSocketBlocking {0}", Config.IsSocketBlocking ? "true" : "false"));
+            Debug.Log(string.Format("Config::IsHotReload {0}", Config.IsHotReload ? "true" : "false"));
+            Debug.Log(string.Format("Config::SocketPort {0}", Config.SocketPort));
+        }
+
         public static bool IsProfiling
         {
             get
@@ -478,6 +490,8 @@ namespace behaviac
             }
 
             this.m_bInited = true;
+
+            Config.LogInfo();
 
             this.RegisterStuff();           
 

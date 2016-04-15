@@ -106,7 +106,7 @@ namespace behaviac
             this->m_set.resize(this->m_children.size());
         }
 
-        uint32_t n = this->m_set.size();
+		uint32_t n = (uint32_t)this->m_set.size();
 
         for (uint32_t i = 0; i < n; ++i)
         {

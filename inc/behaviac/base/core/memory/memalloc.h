@@ -127,9 +127,9 @@ namespace behaviac
         }
 
         /// Returns the maximum size that can be allocated
-        virtual uint32_t GetMaxAllocationSize(void) const
+		virtual size_t GetMaxAllocationSize(void) const
         {
-            return (uint32_t) - 1;
+			return (size_t)-1;
         }
 
         /// Returns the real memory size allocated by the allocator for a precise pointer
@@ -139,7 +139,7 @@ namespace behaviac
         \return                 Return the real total size allocated in memory, including the header & padding
         at the end (for alignment purpose).
         */
-        virtual uint32_t GetAllocatedSize() const = 0;
+		virtual size_t GetAllocatedSize() const = 0;
     };
 
     /// Call this function to retreive the Allocator used by default

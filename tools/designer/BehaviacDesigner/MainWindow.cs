@@ -861,24 +861,30 @@ namespace Behaviac.Design
 
         private void AsyncUpdateProperties()
         {
-            this.Invoke((System.Action<NodeViewData>)delegate
+            try
             {
-                if (_clickedNVD == null)
+                this.Invoke((System.Action<NodeViewData>)delegate
                 {
-                    PropertiesDock.InspectObject(null, null);
-                }
-                else
-                {
-                    if (_clickedNVD.SelectedSubItem == null || _clickedNVD.SelectedSubItem.SelectableObject == null)
+                    if (_clickedNVD == null)
                     {
-                        PropertiesDock.InspectObject(_clickedNVD.RootBehavior, _clickedNVD.Node, false);
+                        PropertiesDock.InspectObject(null, null);
                     }
                     else
                     {
-                        PropertiesDock.InspectObject(_clickedNVD.RootBehavior, _clickedNVD.SelectedSubItem.SelectableObject, false);
+                        if (_clickedNVD.SelectedSubItem == null || _clickedNVD.SelectedSubItem.SelectableObject == null)
+                        {
+                            PropertiesDock.InspectObject(_clickedNVD.RootBehavior, _clickedNVD.Node, false);
+                        }
+                        else
+                        {
+                            PropertiesDock.InspectObject(_clickedNVD.RootBehavior, _clickedNVD.SelectedSubItem.SelectableObject, false);
+                        }
                     }
-                }
-            }, _clickedNVD);
+                }, _clickedNVD);
+            }
+            catch
+            {
+            }
         }
 
         private void OnNodeClicked(NodeViewData nvd)

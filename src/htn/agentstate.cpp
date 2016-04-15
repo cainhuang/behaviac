@@ -22,11 +22,11 @@ namespace behaviac
 
     int AgentState::Depth()
     {
-        int d = 1;
+		size_t d = 1;
 
         if (this->state_stack.size() > 0)
         {
-            for (int i = this->state_stack.size() - 1; i >= 0; --i)
+			for (int i = (int)this->state_stack.size() - 1; i >= 0; --i)
             {
                 AgentState* t = this->state_stack[i];
 #if BEHAVIAC_ENABLE_PUSH_OPT
@@ -37,14 +37,14 @@ namespace behaviac
             }
         }
 
-        return d;
+        return (int)d;
     }
 
     int AgentState::Top()
     {
         if (this->state_stack.size() > 0)
         {
-            return this->state_stack.size() - 1;
+            return (int)this->state_stack.size() - 1;
         }
 
         return -1;
@@ -171,7 +171,7 @@ namespace behaviac
             {
                 map<behaviac::string, bool> logged;
 
-                for (int i = this->state_stack.size() - 1; i >= 0; --i)
+                for (int i = (int)this->state_stack.size() - 1; i >= 0; --i)
                 {
                     AgentState* t = this->state_stack[i];
                     behaviac::map<uint32_t, IVariable*>& _value = t->Vars();

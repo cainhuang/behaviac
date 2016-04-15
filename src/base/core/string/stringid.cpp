@@ -158,13 +158,13 @@ namespace behaviac
 			}
 			else
 			{
-				uint32_t len = strlen(content);
+				size_t len = strlen(content);
 				char* str = (char*)BEHAVIAC_MALLOC(sizeof(char) * (len + 1));
 				string_cpy(str, content);
 
 				if (noCase)
 				{
-					for (uint32_t i = 0; i < len; ++i)
+					for (size_t i = 0; i < len; ++i)
 					{
 						str[i] = (char)tolower(str[i]);
 					}
