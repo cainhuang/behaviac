@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: hero.xml-->
-<behavior name="hero" agenttype="Hero" fsm="true" version="3">
+<behavior name="hero" agenttype="Hero" fsm="true" version="4">
   <node class="FSM" id="-1">
     <property initialid="1" />
     <node class="State" id="1">

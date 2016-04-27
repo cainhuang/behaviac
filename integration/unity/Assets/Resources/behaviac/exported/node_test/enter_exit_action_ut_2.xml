@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\enter_exit_action_ut_2.xml-->
-<behavior name="node_test/enter_exit_action_ut_2" agenttype="AgentNodeTest" version="3">
+<behavior name="node_test/enter_exit_action_ut_2" agenttype="AgentNodeTest" version="4">
   <node class="Parallel" id="0">
     <property ChildFinishPolicy="CHILDFINISH_LOOP" />
     <property ExitPolicy="EXIT_ABORT_RUNNINGSIBLINGS" />

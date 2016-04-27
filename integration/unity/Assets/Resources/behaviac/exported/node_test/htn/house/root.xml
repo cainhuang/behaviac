@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\htn\house\root.xml-->
-<behavior name="node_test/htn/house/root" agenttype="HTNAgentHouse" version="3">
+<behavior name="node_test/htn/house/root" agenttype="HTNAgentHouse" version="4">
   <node class="Task" id="1">
     <property Prototype="Self.HTNAgentHouse::root()" />
     <property IsHTN="true" />
@@ -62,7 +62,7 @@
           </node>
         </node>
         <node class="ReferencedBehavior" id="11">
-          <property ReferenceFilename="node_test/htn/house/build_house" />
+          <property ReferenceBehavior="const string &quot;node_test/htn/house/build_house&quot;" />
           <property Task="Self.HTNAgentHouse::build_house()" />
         </node>
       </node>

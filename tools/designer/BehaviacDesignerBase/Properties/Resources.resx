@@ -291,11 +291,11 @@
   <data name="ReferencedBehaviorDesc" xml:space="preserve">
     <value>This node works like an action which calls the subtree.</value>
   </data>
-  <data name="ReferencedBehaviorFilename" xml:space="preserve">
-    <value>Reference Name</value>
+  <data name="ReferencedBehaviorPath" xml:space="preserve">
+    <value>ReferencedBehaviorPath</value>
   </data>
-  <data name="ReferencedBehaviorFilenameDesc" xml:space="preserve">
-    <value>The file loaded as the referenced behaviour.</value>
+  <data name="ReferencedBehaviorPathDesc" xml:space="preserve">
+    <value>SubTree RelativePath</value>
   </data>
   <data name="SelectorNoChildrenError" xml:space="preserve">
     <value>Selector has no children.</value>
@@ -853,5 +853,14 @@ Are your sure continue the undo/redo operation?</value>
   </data>
   <data name="PressF1" xml:space="preserve">
     <value>Click F1 to check its document.</value>
+  </data>
+  <data name="ReferencedTreeOrMethodNeeded" xml:space="preserve">
+    <value>You need to specify the Referencd Tree or provide a method to return it.</value>
+  </data>
+  <data name="ReferenceGenerator" xml:space="preserve">
+    <value>A method returning a string as the referenced behavior's path</value>
+  </data>
+  <data name="ReferenceGeneratorDesc" xml:space="preserve">
+    <value>A method returning a string as the referenced behavior's path</value>
   </data>
 </root>

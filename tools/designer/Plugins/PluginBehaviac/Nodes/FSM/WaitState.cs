@@ -57,8 +57,12 @@ namespace PluginBehaviac.Nodes
         [DesignerRightValueEnum("Duration", "DurationDesc", "WaitState", DesignerProperty.DisplayMode.Parameter, 1, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "", "", ValueTypes.Float)]
         public RightValueDef Time
         {
-            get { return _time; }
-            set { this._time = value; }
+            get { 
+                return _time; 
+            }
+            set { 
+                this._time = value; 
+            }
         }
 
         protected override void CloneProperties(Node newnode)

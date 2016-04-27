@@ -66,54 +66,54 @@ namespace Behaviac.Design
             this.discardButton = new System.Windows.Forms.Button();
             this.behaviorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            //
+            // 
             // behaviorListBox
-            //
-            resources.ApplyResources(this.behaviorListBox, "behaviorListBox");
+            // 
             this.behaviorListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.behaviorListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.behaviorListBox.CheckOnClick = true;
             this.behaviorListBox.ForeColor = System.Drawing.Color.LightGray;
             this.behaviorListBox.FormattingEnabled = true;
+            resources.ApplyResources(this.behaviorListBox, "behaviorListBox");
             this.behaviorListBox.Name = "behaviorListBox";
-            //
+            // 
             // saveButton
-            //
-            resources.ApplyResources(this.saveButton, "saveButton");
+            // 
             this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.saveButton.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.saveButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.saveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            resources.ApplyResources(this.saveButton, "saveButton");
             this.saveButton.Name = "saveButton";
             this.saveButton.UseVisualStyleBackColor = false;
-            //
+            // 
             // cancelButton
-            //
-            resources.ApplyResources(this.cancelButton, "cancelButton");
+            // 
             this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            resources.ApplyResources(this.cancelButton, "cancelButton");
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = false;
-            //
+            // 
             // discardButton
-            //
-            resources.ApplyResources(this.discardButton, "discardButton");
+            // 
             this.discardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.discardButton.DialogResult = System.Windows.Forms.DialogResult.No;
             this.discardButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.discardButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            resources.ApplyResources(this.discardButton, "discardButton");
             this.discardButton.Name = "discardButton";
             this.discardButton.UseVisualStyleBackColor = false;
-            //
+            // 
             // behaviorLabel
-            //
+            // 
             resources.ApplyResources(this.behaviorLabel, "behaviorLabel");
             this.behaviorLabel.Name = "behaviorLabel";
-            //
+            // 
             // MainWindowCloseDialog
-            //
+            // 
             this.AcceptButton = this.saveButton;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -129,6 +129,7 @@ namespace Behaviac.Design
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "MainWindowCloseDialog";
             this.ShowInTaskbar = false;
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

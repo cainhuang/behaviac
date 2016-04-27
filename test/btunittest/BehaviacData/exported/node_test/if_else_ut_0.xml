@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\if_else_ut_0.xml-->
-<behavior name="node_test/if_else_ut_0" agenttype="AgentNodeTest" version="3">
+<behavior name="node_test/if_else_ut_0" agenttype="AgentNodeTest" version="4">
   <node class="IfElse" id="0">
     <node class="True" id="1" />
     <node class="Action" id="2">

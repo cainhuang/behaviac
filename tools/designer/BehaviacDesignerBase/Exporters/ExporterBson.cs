@@ -124,7 +124,8 @@ namespace Behaviac.Design.Exporters
             for (int i = 0; i < behavior.LocalVars.Count; ++i) {
                 ParInfo par = behavior.LocalVars[i];
 
-                if (par.Display) {
+                //if (par.Display) 
+                {
                     ExportPar(file, par, true);
                 }
             }

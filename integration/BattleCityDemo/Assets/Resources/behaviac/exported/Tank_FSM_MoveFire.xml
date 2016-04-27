@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Tank_FSM_MoveFire.xml-->
-<behavior name="Tank_FSM_MoveFire" agenttype="Player" fsm="true" version="3">
+<behavior name="Tank_FSM_MoveFire" agenttype="Player" fsm="true" version="4">
   <pars>
     <par name="rotateAngle" type="float" value="0" />
     <par name="parIn_Self" type="Player" value="null" />
@@ -58,7 +58,7 @@
       </attachment>
     </node>
     <node class="ReferencedBehavior" id="13">
-      <property ReferenceFilename="Tank_Fire" />
+      <property ReferenceBehavior="const string &quot;Tank_Fire&quot;" />
       <attachment class="Transition" id="7" flag="transition">
         <property Operator="Equal" />
         <property Opl="behaviac::EBTStatus Self.Player::Status" />

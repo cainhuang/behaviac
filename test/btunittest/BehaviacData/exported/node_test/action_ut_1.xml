@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\action_ut_1.xml-->
-<behavior name="node_test/action_ut_1" agenttype="AgentNodeTest" version="3">
+<behavior name="node_test/action_ut_1" agenttype="AgentNodeTest" version="4">
   <pars>
     <par name="par_go" type="UnityEngine::GameObject" value="null" />
     <par name="par_float_type_0" type="float" value="0" />

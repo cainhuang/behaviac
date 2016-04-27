@@ -968,13 +968,35 @@ LOAD_TEST(btunittest, action_noop_ut_0)
 //< Reference Node test
 LOAD_TEST(btunittest, reference_ut_0)
 {
-    //AgentNodeTest* myTestAgent = initTestEnvNode("node_test/reference_ut_0", format);
-    //myTestAgent->resetProperties();
+    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/reference_ut_0", format);
+    myTestAgent->resetProperties();
 
-    //myTestAgent->btexec();
-    //CHECK_EQUAL(1, myTestAgent->testVar_0);
-    //CHECK_EQUAL(1.0, myTestAgent->testVar_2);
-    //finlTestEnvNode(myTestAgent);
+    myTestAgent->btexec();
+    CHECK_EQUAL(1, myTestAgent->testVar_0);
+    CHECK_FLOAT_EQUAL(1.0f, myTestAgent->testVar_2);
+    finlTestEnvNode(myTestAgent);
+}
+
+LOAD_TEST(btunittest, reference_ut_1)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/reference_ut_1", format);
+	myTestAgent->resetProperties();
+
+	myTestAgent->btexec();
+	CHECK_EQUAL(0, myTestAgent->testVar_0);
+	CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);
+	finlTestEnvNode(myTestAgent);
+}
+
+LOAD_TEST(btunittest, reference_ut_2)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/reference_ut_2", format);
+	myTestAgent->resetProperties();
+
+	myTestAgent->btexec();
+	CHECK_EQUAL(0, myTestAgent->testVar_0);
+	CHECK_FLOAT_EQUAL(0.0f, myTestAgent->testVar_2);
+	finlTestEnvNode(myTestAgent);
 }
 
 LOAD_TEST(btunittest, par_test_custom_property_reset)

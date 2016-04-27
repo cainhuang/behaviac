@@ -1533,7 +1533,7 @@ namespace behaviac
     public class BehaviorTree : BehaviorNode
     {
         //keep this version equal to designers' NewVersion
-        private const int SupportedVersion = 3;
+        private const int SupportedVersion = 4;
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {

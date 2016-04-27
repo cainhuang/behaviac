@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\action_child_agent_0.xml-->
-<behavior name="node_test/action_child_agent_0" agenttype="AgentNodeTest" version="3">
+<behavior name="node_test/action_child_agent_0" agenttype="AgentNodeTest" version="4">
   <pars>
     <par name="par_child_agent" type="AgentNodeTest" value="null" />
   </pars>

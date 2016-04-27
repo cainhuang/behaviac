@@ -381,13 +381,18 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1()
 		{
-			this.m_referencedBehaviorPath = "node_test/fsm/fsm_ut_0";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/fsm/fsm_ut_0";
 		}
 	}
 
@@ -509,13 +514,18 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6()
 		{
-			this.m_referencedBehaviorPath = "node_test/fsm/action_ut_1_2";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/fsm/action_ut_1_2";
 		}
 	}
 
@@ -887,13 +897,18 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18()
 		{
-			this.m_referencedBehaviorPath = "node_test/fsm/fsm_ut_0";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/fsm/fsm_ut_0";
 		}
 	}
 
@@ -2184,15 +2199,20 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_htn_house_build_house_node20()
 		{
-			this.m_referencedBehaviorPath = "node_test/htn/house/construct";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentHouse::construct()") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/htn/house/construct";
 		}
 	}
 
@@ -2402,15 +2422,20 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_htn_house_build_house_node26()
 		{
-			this.m_referencedBehaviorPath = "node_test/htn/house/construct";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentHouse::construct()") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/htn/house/construct";
 		}
 	}
 
@@ -3133,15 +3158,20 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_htn_house_root_node11()
 		{
-			this.m_referencedBehaviorPath = "node_test/htn/house/build_house";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentHouse::build_house()") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/htn/house/build_house";
 		}
 	}
 
@@ -3353,15 +3383,20 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_htn_travel_root_node4()
 		{
-			this.m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::start,int Self.HTNAgentTravel::finish)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/htn/travel/travel";
 		}
 	}
 
@@ -3517,15 +3552,20 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_node6()
 		{
-			this.m_referencedBehaviorPath = "node_test/htn/travel/travel_by_air";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentTravel::travel_by_air(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::_$local_task_param_$_1)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/htn/travel/travel_by_air";
 		}
 	}
 
@@ -3702,15 +3742,20 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8()
 		{
-			this.m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::ax)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/htn/travel/travel";
 		}
 	}
 
@@ -3737,15 +3782,20 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4()
 		{
-			this.m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::ay,int Self.HTNAgentTravel::_$local_task_param_$_1)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/htn/travel/travel";
 		}
 	}
 
@@ -7466,13 +7516,18 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_circular_ut_0_node6()
 		{
-			this.m_referencedBehaviorPath = "node_test/circular_ut_0";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/circular_ut_0";
 		}
 	}
 
@@ -12720,13 +12775,18 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_event_ut_1_node2()
 		{
-			this.m_referencedBehaviorPath = "node_test/event_ut_0";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/event_ut_0";
 		}
 	}
 
@@ -17893,15 +17953,20 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_node_test_reference_ut_0_node1()
 		{
-			this.m_referencedBehaviorPath = "node_test/reference_sub_0";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
 			this.m_taskMethod = Action.LoadMethod("Self.AgentNodeTest::task_test(1,1)") as CTaskMethod;
 			Debug.Check(this.m_taskMethod != null);
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/reference_sub_0";
 		}
 	}
 
@@ -17919,6 +17984,146 @@ namespace behaviac
 			// children
 			{
 				ReferencedBehavior_bt_node_test_reference_ut_0_node1 node1 = new ReferencedBehavior_bt_node_test_reference_ut_0_node1();
+				node1.SetClassNameString("ReferencedBehavior");
+				node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+				node1.SetAgentType("AgentNodeTest");
+#endif
+				bt.AddChild(node1);
+				bt.SetHasEvents(bt.HasEvents() | node1.HasEvents());
+			}
+			return true;
+		}
+	}
+
+	// Source file: node_test/reference_ut_1
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_node_test_reference_ut_1_node2 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_reference_ut_1_node2()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			string opr = "node_test/reference_sub_0";
+			Debug.Check(behaviac.Utils.MakeVariableId("subTreePath") == 526556242u);
+			pAgent.SetVariable<string>("subTreePath", opr, 526556242u);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class ReferencedBehavior_bt_node_test_reference_ut_1_node1 : behaviac.ReferencedBehavior
+	{
+		public ReferencedBehavior_bt_node_test_reference_ut_1_node1()
+		{
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			if (pAgent != null) {
+			return pAgent.GetVariable<string>(526556242u);
+			}
+			return null;
+		}
+	}
+
+	public static class bt_node_test_reference_ut_1
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/reference_ut_1");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// pars
+			bt.AddPar("AgentNodeTest", "string", "subTreePath", "");
+			// children
+			{
+				Sequence node0 = new Sequence();
+				node0.SetClassNameString("Sequence");
+				node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+				node0.SetAgentType("AgentNodeTest");
+#endif
+				bt.AddChild(node0);
+				{
+					Assignment_bt_node_test_reference_ut_1_node2 node2 = new Assignment_bt_node_test_reference_ut_1_node2();
+					node2.SetClassNameString("Assignment");
+					node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+					node2.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node2);
+					node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
+				}
+				{
+					ReferencedBehavior_bt_node_test_reference_ut_1_node1 node1 = new ReferencedBehavior_bt_node_test_reference_ut_1_node1();
+					node1.SetClassNameString("ReferencedBehavior");
+					node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+					node1.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node1);
+					node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
+			}
+			return true;
+		}
+	}
+
+	// Source file: node_test/reference_ut_2
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class ReferencedBehavior_bt_node_test_reference_ut_2_node1 : behaviac.ReferencedBehavior
+	{
+		public ReferencedBehavior_bt_node_test_reference_ut_2_node1()
+		{
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			if (pAgent != null) {
+			return ((AgentNodeTest)pAgent).GetRefTree();
+			}
+			return null;
+		}
+	}
+
+	public static class bt_node_test_reference_ut_2
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/reference_ut_2");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				ReferencedBehavior_bt_node_test_reference_ut_2_node1 node1 = new ReferencedBehavior_bt_node_test_reference_ut_2_node1();
 				node1.SetClassNameString("ReferencedBehavior");
 				node1.SetId(1);
 #if !BEHAVIAC_RELEASE
@@ -23546,16 +23751,15 @@ namespace behaviac
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node2()
 		{
-			opr = "test string";
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
+			string opr = "test string";
 			Debug.Check(behaviac.Utils.MakeVariableId("c_StaticString") == 2438934774u);
 			pAgent.SetVariable<string>("c_StaticString", opr, 2438934774u);
 			return result;
 		}
-		string opr;
 	}
 
 	[behaviac.GeneratedTypeMetaInfo()]
@@ -23949,16 +24153,15 @@ namespace behaviac
 	{
 		public Assignment_bt_par_test_local_out_scope_node2()
 		{
-			opr = "test string";
 		}
 		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
 		{
 			EBTStatus result = EBTStatus.BT_SUCCESS;
+			string opr = "test string";
 			Debug.Check(behaviac.Utils.MakeVariableId("c_StaticString") == 2438934774u);
 			pAgent.SetVariable<string>("c_StaticString", opr, 2438934774u);
 			return result;
 		}
-		string opr;
 	}
 
 	[behaviac.GeneratedTypeMetaInfo()]

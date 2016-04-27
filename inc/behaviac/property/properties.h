@@ -314,7 +314,7 @@ namespace behaviac
         Variables();
         virtual ~Variables();
 
-        void Clear();
+		virtual void Clear(bool bFull);
 
         bool IsExisting(uint32_t varId) const
         {

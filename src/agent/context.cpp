@@ -143,7 +143,7 @@ namespace behaviac
         for (AgentTypeStaticVariables_t::iterator it = m_static_variables.begin(); it != m_static_variables.end(); ++it)
         {
             Variables& variables = it->second;
-            variables.Clear();
+            variables.Clear(true);
         }
 
         m_static_variables.clear();

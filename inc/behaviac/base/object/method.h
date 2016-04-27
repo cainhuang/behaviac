@@ -1481,7 +1481,11 @@ public:
 
     void Invoke(const CTagObject* pAgent)
     {
-        const behaviac::Agent* pParent = this->GetParentAgent((behaviac::Agent*)pAgent);
+		const behaviac::Agent* pParent = 0;
+		if (pAgent) {
+			pParent = this->GetParentAgent((behaviac::Agent*)pAgent);
+		}
+
         this->run((CTagObject*)pParent, pAgent);
     }
 

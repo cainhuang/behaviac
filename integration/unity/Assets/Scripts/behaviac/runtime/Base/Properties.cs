@@ -1237,10 +1237,13 @@ namespace behaviac
         }
         protected override void SetValueObject(object value)
         {
-            //force convert object type to VariableType not a good way, however it is only called in the Instantiate
-            //this.m_value = (VariableType)value;
-            //this.m_value = Utils.Clone((VariableType)value);
-            Utils.Clone(ref this.m_value , (VariableType)value);
+            if (value != null)
+            {
+                //force convert object type to VariableType not a good way, however it is only called in the Instantiate
+                //this.m_value = (VariableType)value;
+                //this.m_value = Utils.Clone((VariableType)value);
+                Utils.Clone(ref this.m_value, (VariableType)value);
+            }
         }
         public override void SetValueObject(object v, Agent pAgent)
         {
@@ -1395,10 +1398,10 @@ namespace behaviac
 
         ~Variables()
         {
-            this.Clear();
+            this.Clear(true);
         }
 
-        public void Clear()
+        public virtual void Clear(bool bFull)
         {
             this.m_variables.Clear();
         }

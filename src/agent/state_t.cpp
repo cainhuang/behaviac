@@ -48,7 +48,7 @@ namespace behaviac
 
     void State_t::Clear()
     {
-        this->m_vars.Clear();
+        this->m_vars.Clear(true);
 
         BEHAVIAC_DELETE(this->m_bt);
         this->m_bt = 0;

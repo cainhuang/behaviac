@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\fsm\fsm_ref_bt_ut.xml-->
-<behavior name="node_test/fsm/fsm_ref_bt_ut" agenttype="AgentNodeTest" fsm="true" version="3">
+<behavior name="node_test/fsm/fsm_ref_bt_ut" agenttype="AgentNodeTest" fsm="true" version="4">
   <node class="FSM" id="-1">
     <property initialid="1" />
     <node class="State" id="1">
@@ -25,7 +25,7 @@
       </attachment>
     </node>
     <node class="ReferencedBehavior" id="6">
-      <property ReferenceFilename="node_test/fsm/action_ut_1_2" />
+      <property ReferenceBehavior="const string &quot;node_test/fsm/action_ut_1_2&quot;" />
       <attachment class="Precondition" id="5" flag="precondition">
         <property BinaryOperator="And" />
         <property Operator="Add" />

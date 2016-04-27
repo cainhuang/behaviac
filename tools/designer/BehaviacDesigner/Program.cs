@@ -184,6 +184,8 @@ namespace Behaviac.Design
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
+                MainWindow.SetDefaultSettings();
+
                 Plugin.LoadPlugins();
 
                 //only do it when there are args

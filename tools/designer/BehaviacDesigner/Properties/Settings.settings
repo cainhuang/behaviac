@@ -94,6 +94,7 @@
   &lt;string&gt;PluginBehaviac.Nodes.Assignment&lt;/string&gt;
   &lt;string&gt;PluginBehaviac.Nodes.Selector&lt;/string&gt;
   &lt;string&gt;PluginBehaviac.Nodes.Sequence&lt;/string&gt;
+  &lt;string&gt;Behaviac.Design.Nodes.ReferencedBehavior&lt;/string&gt;
   &lt;string&gt;PluginBehaviac.Nodes.Parallel&lt;/string&gt;
   &lt;string&gt;PluginBehaviac.Nodes.DecoratorLoop&lt;/string&gt;
   &lt;string&gt;PluginBehaviac.Nodes.DecoratorLoopUntil&lt;/string&gt;

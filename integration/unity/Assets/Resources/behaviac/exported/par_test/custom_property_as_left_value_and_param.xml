@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\custom_property_as_left_value_and_param.xml-->
-<behavior name="par_test/custom_property_as_left_value_and_param" agenttype="CustomPropertyAgent" version="3">
+<behavior name="par_test/custom_property_as_left_value_and_param" agenttype="CustomPropertyAgent" version="4">
   <pars>
     <par name="l_Int" type="int" value="1" />
     <par name="l_Location" type="UnityEngine::Vector3" value="{x=0;y=0;z=0;}" />

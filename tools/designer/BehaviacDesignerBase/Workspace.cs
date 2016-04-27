@@ -68,6 +68,8 @@ namespace Behaviac.Design
 
         public static bool DebugWorkspace = true;
 
+        public const string kExtraMeta = "_extra_meta.xml";
+
         private string _name;
 
         /// <summary>
@@ -629,13 +631,18 @@ namespace Behaviac.Design
             }
         }
 
-        private string getBlackboardPath() {
-            //string wsDir = Path.GetDirectoryName(this.FileName);
-            string wsDir = this.Folder;
-            return Path.Combine(wsDir, "behaviac.bb.xml");
+        private string getExtraMetaPath()
+        {
+            return Path.Combine(this.XMLFolder, kExtraMeta);
         }
 
-        private string getExportCustomMembersXmlPath() {
+        private string getBlackboardPath()
+        {
+            return Path.Combine(this.Folder, "behaviac.bb.xml");
+        }
+
+        private string getExportCustomMembersXmlPath()
+        {
             return Path.Combine(this.DefaultExportFolder, "behaviac.bb.xml");
         }
 
@@ -666,22 +673,20 @@ namespace Behaviac.Design
                 bbfile.Load(fs);
                 fs.Close();
 
-                XmlNode root = bbfile.ChildNodes[1];
-
-                if (root.Name == "meta") {
-                    foreach(XmlNode xmlNode in root.ChildNodes) {
-                        if (xmlNode.Name == "agents") {
-                            _agentsXMLNode = xmlNode;
-
-                        } else if (xmlNode.Name == "types") {
-                            _typesXMLNode = xmlNode;
+                foreach (XmlNode root in bbfile.ChildNodes) {
+                    if (root.Name == "meta") {
+                        foreach(XmlNode xmlNode in root.ChildNodes) {
+                            if (xmlNode.Name == "agents") {
+                                _agentsXMLNode = xmlNode;
+                            } else if (xmlNode.Name == "types") {
+                                _typesXMLNode = xmlNode;
+                            }
                         }
+                    } 
+                    else if (root.Name == "agents") {
+                        _agentsXMLNode = root;
                     }
-
-                } else if (root.Name == "agents") {
-                    _agentsXMLNode = root;
                 }
-
             } catch (Exception e) {
                 MessageBox.Show(e.Message, Resources.LoadError, MessageBoxButtons.OK);
 
@@ -953,6 +958,126 @@ namespace Behaviac.Design
             set { _isBlackboardDirty = value; }
         }
 
+        public static bool SaveExtraMeta(Workspace ws)
+        {
+            string extraPath = ws.getExtraMetaPath();
+            XmlDocument extrafile = new XmlDocument();
+
+            try
+            {
+                FileManagers.SaveResult result = FileManagers.FileManager.MakeWritable(extraPath, Resources.SaveFileWarning);
+
+                if (FileManagers.SaveResult.Succeeded != result)
+                    return false;
+
+                extrafile.RemoveAll();
+
+                XmlDeclaration declaration = extrafile.CreateXmlDeclaration("1.0", "utf-8", null);
+                extrafile.AppendChild(declaration);
+
+                XmlComment comment = extrafile.CreateComment("EXPORTED BY TOOL, DON'T MODIFY IT!");
+                extrafile.AppendChild(comment);
+
+                XmlElement meta = extrafile.CreateElement("extrameta");
+                extrafile.AppendChild(meta);
+
+                if (SaveExtraMembers(extrafile, meta))
+                    extrafile.Save(extraPath);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                extrafile.RemoveAll();
+
+                string msgError = string.Format(Resources.SaveFileError, extraPath, ex.Message);
+                MessageBox.Show(msgError, Resources.SaveError, MessageBoxButtons.OK);
+            }
+
+            return false;
+        }
+
+        private static bool SaveExtraMembers(XmlDocument extrafile, XmlNode meta)
+        {
+            XmlElement root = extrafile.CreateElement("agents");
+            meta.AppendChild(root);
+
+            bool hasChangeableType = false;
+
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
+                XmlElement extraEle = extrafile.CreateElement("agent");
+                extraEle.SetAttribute("classfullname", agent.AgentTypeName);
+
+                XmlElement propsEle = extrafile.CreateElement("properties");
+                bool hasChangeableProperty = false;
+
+                foreach (PropertyDef prop in agent.GetProperties())
+                {
+                    if (prop.IsChangeableType)
+                    {
+                        hasChangeableProperty = true;
+
+                        XmlElement propEle = extrafile.CreateElement("property");
+
+                        propEle.SetAttribute("name", prop.BasicName);
+                        propEle.SetAttribute("type", prop.NativeType);
+
+                        propsEle.AppendChild(propEle);
+                    }
+                }
+
+                if (hasChangeableProperty)
+                    extraEle.AppendChild(propsEle);
+
+                XmlElement methodsEle = extrafile.CreateElement("methods");
+                bool hasChangeabledMethod = false;
+
+                foreach (MethodDef method in agent.GetMethods())
+                {
+                    if (method.IsChangeableType)
+                    {
+                        hasChangeabledMethod = true;
+
+                        XmlElement methodEle = extrafile.CreateElement("method");
+
+                        methodEle.SetAttribute("name", method.BasicName);
+                        methodEle.SetAttribute("returntype", method.ReturnType.FullName);
+
+                        foreach (MethodDef.Param param in method.Params)
+                        {
+                            XmlElement paramEle = extrafile.CreateElement("parameter");
+
+                            paramEle.SetAttribute("name", param.Name);
+                            paramEle.SetAttribute("type", param.NativeType);
+
+                            if (param.IsOut)
+                                paramEle.SetAttribute("isout", "true");
+
+                            if (param.IsRef)
+                                paramEle.SetAttribute("isref", "true");
+
+                            methodEle.AppendChild(paramEle);
+                        }
+
+                        methodsEle.AppendChild(methodEle);
+                    }
+                }
+
+                if (hasChangeabledMethod)
+                    extraEle.AppendChild(methodsEle);
+
+                if (hasChangeableProperty || hasChangeabledMethod)
+                {
+                    hasChangeableType = true;
+
+                    root.AppendChild(extraEle);
+                }
+            }
+
+            return hasChangeableType;
+        }
+
         public static bool SaveCustomMeta(Workspace ws) {
             string bbPath = ws.getBlackboardPath();
             XmlDocument bbfile = new XmlDocument();
@@ -967,6 +1092,9 @@ namespace Behaviac.Design
 
                 XmlDeclaration declaration = bbfile.CreateXmlDeclaration("1.0", "utf-8", null);
                 bbfile.AppendChild(declaration);
+
+                XmlComment comment = bbfile.CreateComment("EXPORTED BY TOOL, DON'T MODIFY IT!");
+                bbfile.AppendChild(comment);
 
                 XmlElement meta = bbfile.CreateElement("meta");
                 bbfile.AppendChild(meta);

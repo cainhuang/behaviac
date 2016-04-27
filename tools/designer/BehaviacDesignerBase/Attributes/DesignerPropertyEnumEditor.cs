@@ -221,6 +221,7 @@ namespace Behaviac.Design.Attributes
                         bool isInt = Plugin.IsIntergerType(p.Type);
                         bool isFloat = Plugin.IsFloatType(p.Type);
                         bool isBool = Plugin.IsBooleanType(p.Type);
+                        bool isString = Plugin.IsStringType(p.Type);
                         bool bOk = false;
 
                         if (bArrayOnly) {
@@ -231,7 +232,8 @@ namespace Behaviac.Design.Attributes
                             bOk = (this.ValueType == ValueTypes.All) ||
                                   (isBool && ((this.ValueType & ValueTypes.Bool) == ValueTypes.Bool)) ||
                                   (isInt && ((this.ValueType & ValueTypes.Int) == ValueTypes.Int)) ||
-                                  (isFloat && ((this.ValueType & ValueTypes.Float) == ValueTypes.Float));
+                                  (isFloat && ((this.ValueType & ValueTypes.Float) == ValueTypes.Float) ||
+                                  (isString && ((this.ValueType & ValueTypes.String) == ValueTypes.String)));
                         }
 
                         if (bOk) {

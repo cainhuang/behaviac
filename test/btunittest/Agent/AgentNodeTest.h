@@ -288,6 +288,11 @@ public:
 	{
 		return behaviac::BT_RUNNING;
 	}
+
+	const char* GetRefTree() const {
+		return "node_test/reference_sub_0";
+	}
+
     void initChildAgent();
 };
 

@@ -27,7 +27,10 @@ namespace behaviac
     {
     }
     Task::~Task()
-    {}
+    {
+		BEHAVIAC_DELETE(m_task);
+	}
+
     void Task::load(int version, const char* agentType, const properties_t& properties)
     {
         super::load(version, agentType, properties);

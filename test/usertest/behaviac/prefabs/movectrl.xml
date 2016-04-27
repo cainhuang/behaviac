@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Behavior Version="3">
+<Behavior Version="4">
   <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="CBTPlayer" Domains="" Enable="true" HasOwnPrefabData="false" Id="-1" PrefabName="" PrefabNodeId="-1">
     <Comment Background="NoColor" Text="" />
     <DescriptorRefs value="0:" />
@@ -12,7 +12,7 @@
             <Connector Identifier="GenericChildren">
               <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="1" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="Gray" Text="走" />
-                <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="2" Operator="Invalid" Opl="Self.CBTPlayer::MoveAhead(0)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Enter" PrefabAttachmentId="-1" />
+                <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="2" Operator="Invalid" Opl="Self.CBTPlayer::MoveAhead(0)" Opr1="&quot;&quot;" Opr2="&quot;&quot;" Phase="Enter" PrefabAttachmentId="-1" />
                 <Connector Identifier="GenericChildren">
                   <Node Class="PluginBehaviac.Nodes.Selector" Enable="true" HasOwnPrefabData="false" Id="4" PrefabName="" PrefabNodeId="-1">
                     <Comment Background="NoColor" Text="" />
@@ -23,7 +23,7 @@
                       <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="5" PrefabName="" PrefabNodeId="-1">
                         <Comment Background="NoColor" Text="" />
                         <Connector Identifier="GenericChildren">
-                          <Node Class="PluginBehaviac.Nodes.Wait" Enable="true" HasOwnPrefabData="false" Id="8" IgnoreTimeScale="false" PrefabName="" PrefabNodeId="-1" Time="const float 10">
+                          <Node Class="PluginBehaviac.Nodes.Wait" Enable="true" HasOwnPrefabData="false" Id="8" PrefabName="" PrefabNodeId="-1" Time="const float 10">
                             <Comment Background="NoColor" Text="" />
                           </Node>
                         </Connector>

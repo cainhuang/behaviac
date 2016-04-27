@@ -27,11 +27,11 @@ namespace behaviac
             this.m_time_m = null;
         }
 
-        ~Wait()
-        {
-            this.m_time_var = null;
-            this.m_time_m = null;
-        }
+        //~Wait()
+        //{
+        //    this.m_time_var = null;
+        //    this.m_time_m = null;
+        //}
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {

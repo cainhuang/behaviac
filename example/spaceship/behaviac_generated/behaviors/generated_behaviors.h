@@ -1523,15 +1523,22 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_ships_1_1_suicide_node8, ReferencedBehavior);
 		ReferencedBehavior_bt_ships_1_1_suicide_node8()
 		{
-			m_referencedBehaviorPath = "base/homing";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("base/homing");
+		}
 	};
 
 	class bt_ships_1_1_suicide
@@ -1676,15 +1683,22 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_ships_1_2_suicide_node4, ReferencedBehavior);
 		ReferencedBehavior_bt_ships_1_2_suicide_node4()
 		{
-			m_referencedBehaviorPath = "base/homing";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("base/homing");
+		}
 	};
 
 	class DecoratorLoop_bt_ships_1_2_suicide_node0 : public DecoratorLoop
@@ -1861,15 +1875,22 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_ships_1_3_suicide_node4, ReferencedBehavior);
 		ReferencedBehavior_bt_ships_1_3_suicide_node4()
 		{
-			m_referencedBehaviorPath = "base/homing";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("base/homing");
+		}
 	};
 
 	class DecoratorLoop_bt_ships_1_3_suicide_node0 : public DecoratorLoop

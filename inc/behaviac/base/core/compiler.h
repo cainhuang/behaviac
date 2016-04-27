@@ -120,7 +120,8 @@
 
 #if BEHAVIAC_COMPILER_MSVC
 /// Define the force inline compiler indicator
-#define BEHAVIAC_FORCEINLINE __forceinline
+//#define BEHAVIAC_FORCEINLINE __forceinline
+#define BEHAVIAC_FORCEINLINE __inline
 #define BEHAVIAC_FORCENOINLINE _declspec(noinline)
 
 #if _MSC_VER >= 1400

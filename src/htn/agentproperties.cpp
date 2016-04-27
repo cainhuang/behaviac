@@ -35,16 +35,22 @@ namespace behaviac
 
     Property* AgentProperties::GetProperty(uint32_t variableId)
     {
-        if (this->m_properties.size() > 0 && this->m_properties.find(variableId) != this->m_properties.end())
+        if (this->m_properties.size() > 0)
         {
-            BEHAVIAC_ASSERT(this->m_properties[variableId]);
-            return this->m_properties[variableId];
+			behaviac::map<uint32_t, Property*>::const_iterator it = this->m_properties.find(variableId);
+			if (it != this->m_properties.end()) {
+				Property* p = it->second;
+				return p;
+			}
         }
 
-        if (this->m_locals.size() > 0 && this->m_locals.find(variableId) != this->m_locals.end())
+        if (this->m_locals.size() > 0)
         {
-            BEHAVIAC_ASSERT(this->m_locals[variableId]);
-            return this->m_locals[variableId];
+			behaviac::map<uint32_t, Property*>::const_iterator it = this->m_locals.find(variableId);
+			if (it != this->m_locals.end()) {
+				Property* p = it->second;
+				return p;
+			}
         }
 
         return NULL;
@@ -130,14 +136,18 @@ namespace behaviac
     }
     Property* AgentProperties::GetLocal(const char* variableName)
     {
-        uint32_t variableid = MakeVariableId(variableName);
+		if (this->m_locals.size() > 0) {
+			uint32_t variableid = MakeVariableId(variableName);
 
-        if (this->m_locals[variableid] != NULL)
-        {
-            return this->m_locals[variableid];
-        }
+			behaviac::map<uint32_t, Property*>::const_iterator it = this->m_locals.find(variableid);
+			if (it != this->m_locals.end())
+			{
+				Property* p = it->second;
+				return p;
+			}
+		}
 
-        return NULL;
+        return 0;
     }
 
     Property* AgentProperties::AddLocal(const char* agentType, const char* typeName, const char* variableName, const char* valueStr)

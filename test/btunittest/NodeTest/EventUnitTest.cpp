@@ -37,6 +37,9 @@ LOAD_TEST(btunittest, event_ut_0)
 	myTestAgent->btexec();
 	myTestAgent->FireEvent("event_test_int", 13);
 	CHECK_EQUAL(13, myTestAgent->event_test_var_int);
+
+	myTestAgent->FireEvent("event_test_float2", myTestAgent->TestFloat2);
+	myTestAgent->FireEvent("event_test_float2_ref", myTestAgent->TestFloat2);
 			
 	status = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_RUNNING, status);

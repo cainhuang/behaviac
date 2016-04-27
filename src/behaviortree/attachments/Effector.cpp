@@ -39,25 +39,19 @@ namespace behaviac
 
         for (propertie_const_iterator_t p = properties.begin(); p != properties.end(); ++p)
         {
-            behaviac::string p_value(p->value);
-            behaviac::string p_name(p->name);
-
-            if (p_name == "Phase")
+            if (StringUtils::StrEqual(p->name, "Phase"))
             {
-                if (p_value == "Success")
+                if (StringUtils::StrEqual(p->value,"Success"))
                 {
                     this->m_phase = E_SUCCESS;
-
                 }
-                else if (p_value == "Failure")
+                else if (StringUtils::StrEqual(p->value,"Failure"))
                 {
                     this->m_phase = E_FAILURE;
-
                 }
-                else if (p_value == "Both")
+                else if (StringUtils::StrEqual(p->value,"Both"))
                 {
                     this->m_phase = E_BOTH;
-
                 }
                 else
                 {

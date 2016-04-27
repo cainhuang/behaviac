@@ -204,7 +204,7 @@ namespace behaviac
 
         this->m_eventInfos.clear();
 
-        this->m_variables.Clear();
+        this->m_variables.Clear(true);
     }
 
 	void Agent::destroy_()
@@ -822,6 +822,9 @@ namespace behaviac
                 }
 
                 this->m_currentBT = pTask;
+
+				this->_balckboard_bound = false;
+				this->m_variables.Clear(false);
             }
         }
         else

@@ -82,6 +82,7 @@ namespace Behaviac.Design
 
             if (languageChanged) {
                 MessageBox.Show(Resources.LanguageChangedWarning, Resources.Warning, MessageBoxButtons.OK);
+                //MainWindow.Instance.ReloadLayout();
             }
         }
 

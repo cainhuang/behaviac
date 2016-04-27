@@ -1002,11 +1002,30 @@ namespace behaviac
 		return UserDefinedTypeAssert<T, behaviac::Meta::IsPtr<T>::Result && behaviac::Meta::IsRefType<T>::Result>::IsAKindOf(child, baseClass);
 	}
 
+#if BEHAVIAC_ENABLE_ASSERTS
+	template<typename T>
+	static bool CheckCompatibleType(const behaviac::string& typeName) {
+		behaviac::string t = GetTypeDescString<T>();
+
+		if (typeName == t) {
+			return true;
+		}
+
+		t = GetTypeDescString<T&>();
+
+		if (typeName == t) {
+			return true;
+		}
+
+		return false;
+	}
+#endif
+
     template<typename ParamType>
-    void CNamedEvent::SetParam(Agent* pAgent, ParamType param)
+    void CNamedEvent::SetParam(Agent* pAgent, const ParamType& param)
     {
         BEHAVIAC_ASSERT(this->m_paramTypes.size() == 1);
-		BEHAVIAC_ASSERT(this->m_paramTypes[0] == ::GetClassTypeName((ParamType*)0) || IsChildOf(param, this->m_paramTypes[0].c_str()), "SetParam's Param is not compatible");
+		BEHAVIAC_ASSERT(CheckCompatibleType<ParamType>(this->m_paramTypes[0]) || IsChildOf(param, this->m_paramTypes[0].c_str()), "SetParam's Param is not compatible");
 
         AgentState* currentState = pAgent->m_variables.Push(false);
 
@@ -1018,11 +1037,11 @@ namespace behaviac
     }
 
     template<typename ParamType1, typename ParamType2>
-    void CNamedEvent::SetParam(Agent* pAgent, ParamType1 param1, ParamType2 param2)
+	void CNamedEvent::SetParam(Agent* pAgent, const ParamType1& param1, const ParamType2& param2)
     {
         BEHAVIAC_ASSERT(this->m_paramTypes.size() == 2);
-        BEHAVIAC_ASSERT(this->m_paramTypes[0] == ::GetClassTypeName((ParamType1*)0) || IsChildOf(param1, this->m_paramTypes[0].c_str()), "SetParam's Param1 is not compatible");
-        BEHAVIAC_ASSERT(this->m_paramTypes[1] == ::GetClassTypeName((ParamType2*)0) || IsChildOf(param2, this->m_paramTypes[1].c_str()), "SetParam's Param2 is not compatible");
+		BEHAVIAC_ASSERT(CheckCompatibleType<ParamType1>(this->m_paramTypes[0]) || IsChildOf(param1, this->m_paramTypes[0].c_str()), "SetParam's Param1 is not compatible");
+        BEHAVIAC_ASSERT(CheckCompatibleType<ParamType2>(this->m_paramTypes[1]) || IsChildOf(param2, this->m_paramTypes[1].c_str()), "SetParam's Param2 is not compatible");
 
         AgentState* currentState = pAgent->m_variables.Push(false);
 		BEHAVIAC_UNUSED_VAR(currentState);
@@ -1034,12 +1053,12 @@ namespace behaviac
     }
 
     template<typename ParamType1, typename ParamType2, typename ParamType3>
-    void CNamedEvent::SetParam(Agent* pAgent, ParamType1 param1, ParamType2 param2, ParamType3 param3)
+	void CNamedEvent::SetParam(Agent* pAgent, const ParamType1& param1, const ParamType2& param2, const ParamType3& param3)
     {
         BEHAVIAC_ASSERT(this->m_paramTypes.size() == 3);
-        BEHAVIAC_ASSERT(this->m_paramTypes[0] == ::GetClassTypeName((ParamType1*)0) || IsChildOf(param1, this->m_paramTypes[0].c_str()), "SetParam's Param1 is not compatible");
-        BEHAVIAC_ASSERT(this->m_paramTypes[1] == ::GetClassTypeName((ParamType2*)0) || IsChildOf(param2, this->m_paramTypes[1].c_str()), "SetParam's Param2 is not compatible");
-        BEHAVIAC_ASSERT(this->m_paramTypes[2] == ::GetClassTypeName((ParamType3*)0) || IsChildOf(param3, this->m_paramTypes[2].c_str()), "SetParam's Param3 is not compatible");
+		BEHAVIAC_ASSERT(CheckCompatibleType<ParamType1>(this->m_paramTypes[0]) || IsChildOf(param1, this->m_paramTypes[0].c_str()), "SetParam's Param1 is not compatible");
+        BEHAVIAC_ASSERT(CheckCompatibleType<ParamType2>(this->m_paramTypes[1]) || IsChildOf(param2, this->m_paramTypes[1].c_str()), "SetParam's Param2 is not compatible");
+        BEHAVIAC_ASSERT(CheckCompatibleType<ParamType3>(this->m_paramTypes[2]) || IsChildOf(param3, this->m_paramTypes[2].c_str()), "SetParam's Param3 is not compatible");
 
         AgentState* currentState = pAgent->m_variables.Push(false);
 		BEHAVIAC_UNUSED_VAR(currentState);

@@ -717,6 +717,12 @@ template<>  TestNS::Float2& AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNod
 	return this->AgentNodeTest::getExtendedStruct();
 }
 
+struct METHOD_TYPE_AgentNodeTest_GetRefTree { };
+template<>  const char* AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_GetRefTree>()
+{
+	return this->AgentNodeTest::GetRefTree();
+}
+
 struct METHOD_TYPE_AgentNodeTest_initChildAgent { };
 template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_initChildAgent>()
 {
@@ -1947,15 +1953,22 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_fsm_bt_ref_fsm_node1()
 		{
-			m_referencedBehaviorPath = "node_test/fsm/fsm_ut_0";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/fsm/fsm_ut_0");
+		}
 	};
 
 	class bt_node_test_fsm_bt_ref_fsm
@@ -2092,15 +2105,22 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_fsm_fsm_ref_bt_ut_node6()
 		{
-			m_referencedBehaviorPath = "node_test/fsm/action_ut_1_2";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/fsm/action_ut_1_2");
+		}
 	};
 
 	class Precondition_bt_node_test_fsm_fsm_ref_bt_ut_attach5 : public Precondition
@@ -2523,15 +2543,22 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_fsm_fsm_ref_fsm_ut_node18()
 		{
-			m_referencedBehaviorPath = "node_test/fsm/fsm_ut_0";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/fsm/fsm_ut_0");
+		}
 	};
 
 	class Precondition_bt_node_test_fsm_fsm_ref_fsm_ut_attach11 : public Precondition
@@ -3984,17 +4011,24 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_htn_house_build_house_node20, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_htn_house_build_house_node20()
 		{
-			m_referencedBehaviorPath = "node_test/htn/house/construct";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentHouse::construct()");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/htn/house/construct");
+		}
 	};
 
 	class Action_bt_node_test_htn_house_build_house_node19 : public Action
@@ -4232,17 +4266,24 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_htn_house_build_house_node26, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_htn_house_build_house_node26()
 		{
-			m_referencedBehaviorPath = "node_test/htn/house/construct";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentHouse::construct()");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/htn/house/construct");
+		}
 	};
 
 	class bt_node_test_htn_house_build_house
@@ -5026,17 +5067,24 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_htn_house_root_node11, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_htn_house_root_node11()
 		{
-			m_referencedBehaviorPath = "node_test/htn/house/build_house";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentHouse::build_house()");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/htn/house/build_house");
+		}
 	};
 
 	class bt_node_test_htn_house_root
@@ -5261,17 +5309,24 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_htn_travel_root_node4, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_htn_travel_root_node4()
 		{
-			m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::start,int Self.HTNAgentTravel::finish)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/htn/travel/travel");
+		}
 	};
 
 	class bt_node_test_htn_travel_root
@@ -5439,17 +5494,24 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_htn_travel_travel_node6, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_htn_travel_travel_node6()
 		{
-			m_referencedBehaviorPath = "node_test/htn/travel/travel_by_air";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentTravel::travel_by_air(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::_$local_task_param_$_1)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/htn/travel/travel_by_air");
+		}
 	};
 
 	class bt_node_test_htn_travel_travel
@@ -5637,17 +5699,24 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node8()
 		{
-			m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::ax)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/htn/travel/travel");
+		}
 	};
 
 	class Action_bt_node_test_htn_travel_travel_by_air_node7 : public Action
@@ -5677,17 +5746,24 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_htn_travel_travel_by_air_node4()
 		{
-			m_referencedBehaviorPath = "node_test/htn/travel/travel";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::ay,int Self.HTNAgentTravel::_$local_task_param_$_1)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/htn/travel/travel");
+		}
 	};
 
 	class bt_node_test_htn_travel_travel_by_air
@@ -9808,15 +9884,22 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_circular_ut_0_node6, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_circular_ut_0_node6()
 		{
-			m_referencedBehaviorPath = "node_test/circular_ut_0";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/circular_ut_0");
+		}
 	};
 
 	class Compute_bt_node_test_circular_ut_0_node1 : public Compute
@@ -15514,15 +15597,22 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_event_ut_1_node2, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_event_ut_1_node2()
 		{
-			m_referencedBehaviorPath = "node_test/event_ut_0";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/event_ut_0");
+		}
 	};
 
 	class Action_bt_node_test_event_ut_1_node7 : public Action
@@ -21183,17 +21273,24 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_reference_ut_0_node1, ReferencedBehavior);
 		ReferencedBehavior_bt_node_test_reference_ut_0_node1()
 		{
-			m_referencedBehaviorPath = "node_test/reference_sub_0";
-			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
 			BEHAVIAC_ASSERT(behaviorTree);
 			if (behaviorTree)
 			{
 				this->m_bHasEvents |= behaviorTree->HasEvents();
 			}
+			}
 			m_taskMethod = (CTaskMethod*)Action::LoadMethod("Self.AgentNodeTest::task_test(1,1)");
 			BEHAVIAC_ASSERT(m_taskMethod);
 		}
 	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/reference_sub_0");
+		}
 	};
 
 	class bt_node_test_reference_ut_0
@@ -21211,6 +21308,160 @@ namespace behaviac
 			// children
 			{
 				ReferencedBehavior_bt_node_test_reference_ut_0_node1* node1 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_reference_ut_0_node1;
+				node1->SetClassNameString("ReferencedBehavior");
+				node1->SetId(1);
+#if !BEHAVIAC_RELEASE
+				node1->SetAgentType("AgentNodeTest");
+#endif
+				pBT->AddChild(node1);
+				pBT->SetHasEvents(pBT->HasEvents() | node1->HasEvents());
+			}
+			return true;
+		}
+	};
+
+	// Source file: node_test/reference_ut_1
+
+	class Assignment_bt_node_test_reference_ut_1_node2 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_reference_ut_1_node2, Assignment);
+		Assignment_bt_node_test_reference_ut_1_node2()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			string opr = (char*)("node_test/reference_sub_0");
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("subTreePath") == 526556242u);
+			pAgent->SetVariable("subTreePath", opr, 526556242u);
+			return result;
+		}
+	};
+
+	class ReferencedBehavior_bt_node_test_reference_ut_1_node1 : public ReferencedBehavior
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_reference_ut_1_node1, ReferencedBehavior);
+		ReferencedBehavior_bt_node_test_reference_ut_1_node1()
+		{
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
+			}
+		}
+	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			if (pAgent) {
+			return (char*)((behaviac::string&)pAgent->GetVariable<behaviac::string>(526556242u)).c_str();
+			}
+			return 0;
+		}
+	};
+
+	class bt_node_test_reference_ut_1
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/reference_ut_1");
+			pBT->SetIsFSM(false);
+#if !BEHAVIAC_RELEASE
+			pBT->SetAgentType("AgentNodeTest");
+#endif
+			// pars
+			pBT->AddPar("AgentNodeTest", "string", "subTreePath", "");
+			// children
+			{
+				Sequence* node0 = BEHAVIAC_NEW Sequence;
+				node0->SetClassNameString("Sequence");
+				node0->SetId(0);
+#if !BEHAVIAC_RELEASE
+				node0->SetAgentType("AgentNodeTest");
+#endif
+				pBT->AddChild(node0);
+				{
+					Assignment_bt_node_test_reference_ut_1_node2* node2 = BEHAVIAC_NEW Assignment_bt_node_test_reference_ut_1_node2;
+					node2->SetClassNameString("Assignment");
+					node2->SetId(2);
+#if !BEHAVIAC_RELEASE
+					node2->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node2);
+					node0->SetHasEvents(node0->HasEvents() | node2->HasEvents());
+				}
+				{
+					ReferencedBehavior_bt_node_test_reference_ut_1_node1* node1 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_reference_ut_1_node1;
+					node1->SetClassNameString("ReferencedBehavior");
+					node1->SetId(1);
+#if !BEHAVIAC_RELEASE
+					node1->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node1);
+					node0->SetHasEvents(node0->HasEvents() | node1->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
+			}
+			return true;
+		}
+	};
+
+	// Source file: node_test/reference_ut_2
+
+	class ReferencedBehavior_bt_node_test_reference_ut_2_node1 : public ReferencedBehavior
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_reference_ut_2_node1, ReferencedBehavior);
+		ReferencedBehavior_bt_node_test_reference_ut_2_node1()
+		{
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
+			}
+		}
+	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			if (pAgent) {
+			return ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_GetRefTree, const char* >();
+			}
+			return 0;
+		}
+	};
+
+	class bt_node_test_reference_ut_2
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/reference_ut_2");
+			pBT->SetIsFSM(false);
+#if !BEHAVIAC_RELEASE
+			pBT->SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				ReferencedBehavior_bt_node_test_reference_ut_2_node1* node1 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_reference_ut_2_node1;
 				node1->SetClassNameString("ReferencedBehavior");
 				node1->SetId(1);
 #if !BEHAVIAC_RELEASE
@@ -27395,7 +27646,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_par_test_custom_property_as_left_value_and_param_node2, Assignment);
 		Assignment_bt_par_test_custom_property_as_left_value_and_param_node2()
 		{
-			opr = (char*)("test string");
 		}
 	protected:
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
@@ -27403,11 +27653,11 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
+			string opr = (char*)("test string");
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_StaticString") == 2438934774u);
 			pAgent->SetVariable("c_StaticString", opr, 2438934774u);
 			return result;
 		}
-		string opr;
 	};
 
 	class Assignment_bt_par_test_custom_property_as_left_value_and_param_node3 : public Assignment
@@ -27845,7 +28095,6 @@ namespace behaviac
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_par_test_local_out_scope_node2, Assignment);
 		Assignment_bt_par_test_local_out_scope_node2()
 		{
-			opr = (char*)("test string");
 		}
 	protected:
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
@@ -27853,11 +28102,11 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
+			string opr = (char*)("test string");
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_StaticString") == 2438934774u);
 			pAgent->SetVariable("c_StaticString", opr, 2438934774u);
 			return result;
 		}
-		string opr;
 	};
 
 	class Assignment_bt_par_test_local_out_scope_node3 : public Assignment
@@ -35487,6 +35736,8 @@ namespace behaviac
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/reference_sub_0", bt_node_test_reference_sub_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/reference_sub_1", bt_node_test_reference_sub_1::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/reference_ut_0", bt_node_test_reference_ut_0::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/reference_ut_1", bt_node_test_reference_ut_1::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/reference_ut_2", bt_node_test_reference_ut_2::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_loop_ut_0", bt_node_test_selector_loop_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_loop_ut_1", bt_node_test_selector_loop_ut_1::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/selector_loop_ut_2", bt_node_test_selector_loop_ut_2::Create);

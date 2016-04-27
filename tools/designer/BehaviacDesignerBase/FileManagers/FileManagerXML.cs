@@ -260,11 +260,17 @@ namespace Behaviac.Design.FileManagers
                 { getBehaviorNode((BehaviorNode)node); }
 
                 // maintain compatibility with version 1
-                if (node is ReferencedBehaviorNode) {
-                    ReferencedBehaviorNode refbehavior = (ReferencedBehaviorNode)node;
+                if (node is ReferencedBehavior) {
+                    ReferencedBehavior refbehavior = (ReferencedBehavior)node;
 
-                    if (refbehavior.ReferenceFilename == null)
-                    { refbehavior.ReferenceFilename = GetAttribute(xml, "Reference"); }
+                    if (refbehavior.Behavior.Version <= 3)
+                    {
+                        string refTree = null;
+                        if (GetAttribute(xml, "ReferenceFilename", out refTree) && !string.IsNullOrEmpty(refTree))
+                        {
+                            refbehavior.SetReferenceBehavior(refTree);
+                        }
+                    }
                 }
 
                 // update node with properties

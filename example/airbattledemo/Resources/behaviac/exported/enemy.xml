@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: enemy.xml-->
-<behavior name="enemy" agenttype="Enemy" version="3">
+<behavior name="enemy" agenttype="Enemy" version="4">
   <node class="Sequence" id="0">
     <node class="Assignment" id="1">
       <property Opl="int Self.Enemy::enemyType" />

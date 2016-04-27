@@ -410,7 +410,7 @@ namespace behaviac
             _logged = false;
 #endif
             pNode.SetTaskParams(pAgent);
-            this.m_subTree = Workspace.Instance.CreateBehaviorTreeTask(pNode.ReferencedTree);
+            this.m_subTree = Workspace.Instance.CreateBehaviorTreeTask(pNode.GetReferencedTree(pAgent));
 
             return true;
         }
@@ -423,7 +423,7 @@ namespace behaviac
 
             this.m_subTree = null;
 #if !BEHAVIAC_RELEASE
-            pAgent.LogReturnTree(pNode.ReferencedTree);
+            pAgent.LogReturnTree(pNode.GetReferencedTree(pAgent));
 #endif
 
             Debug.Check(this.currentState != null);
@@ -438,7 +438,7 @@ namespace behaviac
 
             EBTStatus status = EBTStatus.BT_RUNNING;
 
-            if (pNode.RootTaskNode == null)
+            if (pNode.RootTaskNode(pAgent) == null)
             {
                 status = this.m_subTree.exec(pAgent);
             }
@@ -447,7 +447,7 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
                 if (!_logged)
                 {
-                    pAgent.LogJumpTree(pNode.ReferencedTree);
+                    pAgent.LogJumpTree(pNode.GetReferencedTree(pAgent));
                     _logged = true;
                 }
 #endif

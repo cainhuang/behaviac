@@ -60,6 +60,8 @@ namespace behaviac
         void Pop();
         void Log(Agent* pAgent, bool bForce);
 
+		virtual void Clear(bool bFull);
+
         template<typename VariableType>
         void Set(bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId = 0);
 

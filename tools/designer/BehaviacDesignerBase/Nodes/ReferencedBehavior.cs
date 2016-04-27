@@ -43,198 +43,117 @@ using Behaviac.Design.Data;
 
 namespace Behaviac.Design.Nodes
 {
-    public interface ReferencedBehaviorNode {
-        BehaviorNode Reference { get; }
-        string ReferenceFilename { get; set; }
-        event ReferencedBehavior.ReferencedBehaviorWasModifiedEventDelegate ReferencedBehaviorWasModified;
-    }
-
     /// <summary>
     /// This node represents a referenced behaviour which can be attached to the behaviour tree.
     /// </summary>
-    public class ReferencedBehavior : Node, ReferencedBehaviorNode
+    [NodeDesc("Composites", NodeIcon.Behavior)]
+    public class ReferencedBehavior : Node
     {
         protected Connector _genericChildren;
-        protected BehaviorNode _referencedBehavior;
 
-        /// <summary>
-        /// The behaviour which is referenced by this node.
-        /// </summary>
-        public BehaviorNode Reference {
-            get { return _referencedBehavior; }
+        protected RightValueDef _referencedBehavior = new RightValueDef(new VariableDef(""));
+        [DesignerRightValueEnum("ReferencedBehaviorPath", "ReferencedBehaviorPathDesc", "ReferencedBehavior", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, DesignerPropertyEnum.AllowStyles.ConstAttributesMethod, MethodType.Getter, "", "", ValueTypes.String)]
+        public RightValueDef ReferenceBehavior
+        {
+            get {
+                return this._referencedBehavior;
+            }
+            set {
+                this._referencedBehavior = value;
+
+                if (this._referencedBehavior == null || this._referencedBehavior.Var == null || !this._referencedBehavior.Var.IsConst)
+                {
+                    this._task = null;
+                }
+                else if (this._task == null)
+                {
+                    this.SetTask(this.ReferenceBehaviorString);
+                }
+            }
         }
 
-        private static int ms_expanding = 0;
-
-        /// <summary>
-        /// The filename of the referenced behaviour.
-        /// </summary>
-        [DesignerString("ReferencedBehaviorFilename", "ReferencedBehaviorFilenameDesc", "ReferencedBehavior", DesignerProperty.DisplayMode.NoDisplay, 0, DesignerProperty.DesignerFlags.ReadOnly)]
-        public string ReferenceFilename {
+        public string ReferenceBehaviorString
+        {
             get
             {
-                if (_referencedBehavior != null) {
-                    // make the path of the reference relative
-                    string relativeFilename = Behavior.MakeRelative(_referencedBehavior.FileManager.Filename);
+                string refTreeStr = this._referencedBehavior.GetExportValue();
 
-                    // make sure the behaviour filename is still correct
-                    Debug.Check(Behavior.MakeAbsolute(relativeFilename) == _referencedBehavior.FileManager.Filename);
-                    Debug.Check(!Path.IsPathRooted(relativeFilename));
+                string[] tokens = refTreeStr.Split(' ');
 
-                    relativeFilename = relativeFilename.Replace('\\', '/');
-                    int pos = relativeFilename.IndexOf(".xml");
+                if (tokens != null)
+                {
+                    if (tokens[0] == "const")
+                    {
+                        string refTreePath = tokens[tokens.Length - 1];
 
-                    if (pos != -1) {
-                        relativeFilename = relativeFilename.Remove(pos);
+                        if (refTreePath[0] == '\'' || refTreePath[0] == '\"')
+                        {
+                            refTreePath = refTreePath.Substring(1, refTreePath.Length - 2);
+                        }
+
+                        return refTreePath;
                     }
-
-                    return relativeFilename;
                 }
 
-                return string.Empty;
+                return null;
             }
+        }
 
-            set
+        public BehaviorNode ReferenceBehaviorNode
+        {
+            get
             {
-                if (!string.IsNullOrEmpty(value)) {
-                    // transform referenced behaviour into an abolute path
-                    string absoluteFilename = Behavior.MakeAbsolute(value);
+                string refTreePath = this.ReferenceBehaviorString;
 
-                    // make sure the behaviour filename is still correct
-                    Debug.Check(Path.IsPathRooted(absoluteFilename));
+                if (!string.IsNullOrEmpty(refTreePath))
+                {
+                    string fullPath = FileManagers.FileManager.GetFullPath(refTreePath);
 
-                    // update the label
-                    Label = Path.GetFileNameWithoutExtension(absoluteFilename);
-
-                    if (!absoluteFilename.EndsWith(".xml")) {
-                        absoluteFilename += ".xml";
-                    }
-
-                    if (!File.Exists(absoluteFilename)) {
-                        string info = string.Format(Resources.ReferencedBehaviorError, Label);
-                        MessageBox.Show(info, Resources.LoadWarning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    // load the referenced behaviour
-                    BehaviorNode refBehavior = BehaviorManager.Instance.LoadBehavior(absoluteFilename);
-
-                    //don't update locals if expanding for planning tree
-                    if (ms_expanding == 0) {
-                        //restore the local vars
-                        Behavior b = this.Behavior as Behavior;
-                        Debug.Check(b != null);
-
-                        b.AgentType.AddPars(b.LocalVars);
-                    }
-
-                    this.SetReferenceBehavior(refBehavior);
+                    BehaviorNode referencedBehavior = BehaviorManager.Instance.GetBehavior(fullPath);
+                    return referencedBehavior;
                 }
+
+                return null;
             }
         }
 
-        private void SetReferenceBehavior(BehaviorNode referencedBehavior_) {
-            Debug.Check(referencedBehavior_ != null);
+        public void SetReferenceBehavior(string referencedBehaviorFileName)
+        {
+            this._referencedBehavior = new RightValueDef(new VariableDef(referencedBehaviorFileName));
 
-            Behavior refTree = null;
-            bool bPlanningExpand = this.IsPlanningExpand();
-
-            if (bPlanningExpand) {
-                //set it first here as it might recursively point to itself
-                //otherwise in the following Clone, referencedBehavior_  will be null
-                this._referencedBehavior = referencedBehavior_;
-
-                refTree = (Behavior)referencedBehavior_.Clone();
-                refTree.ParentNode = this;
-                refTree.PlanningProcess = Plugin.PlanningProcess;
-
-                //TrimForPlanning_(refTree);
-
-            } else {
-                Behavior b = referencedBehavior_ as Behavior;
-                refTree = new Behavior(b);
-            }
-
-            this._referencedBehavior = refTree;
-
-            _referencedBehavior.WasModified += new WasModifiedEventDelegate(referencedBehavior_WasModified);
-            _referencedBehavior.WasRenamed += new WasRenamedEventDelegate(referencedBehavior_WasRenamed);
-
-            if (bPlanningExpand) {
-                // assign the connector of the behaviour
-                _genericChildren = _referencedBehavior.GenericChildren;
-                _children.SetConnector(_genericChildren);
-
-                this._planningProcess = Plugin.PlanningProcess;
-
-                ms_expanding++;
-                ExpandRefBehavior(refTree);
-                ms_expanding--;
-            }
-
-            //when expand planning process, don't update _task, as it will be set wrongly
-            if (Plugin.EditMode == EditModes.Design) {
-                Behavior refTree_ = referencedBehavior_ as Behavior;
-
-                if (refTree_.Children.Count > 0 && refTree_.Children[0] is Task) {
-                    Task rootTask = refTree_.Children[0] as Task;
-                    this._task = (MethodDef)rootTask.Prototype.Clone();
-                }
-            }
+            SetTask(referencedBehaviorFileName);
         }
 
-        private static void ExpandRefBehavior(Node node) {
-            if (node is ReferencedBehavior) {
-                ReferencedBehavior refBeh = node as ReferencedBehavior;
-                bool bPlanningExpand = refBeh.IsPlanningExpand();
+        private void SetTask(string referencedBehaviorFileName)
+        {
+            string fullPath = FileManagers.FileManager.GetFullPath(referencedBehaviorFileName);
 
-                if (bPlanningExpand) {
-                    refBeh.ReferenceFilename = refBeh.ReferenceFilename;
-                }
+            BehaviorNode referencedBehavior = BehaviorManager.Instance.GetBehavior(fullPath);
 
-            } else {
-                foreach(BaseNode n in node.Children) {
-                    Node nn = n as Node;
+            if (referencedBehavior != null)
+            {
+                //when expand planning process, don't update _task, as it will be set wrongly
+                if (Plugin.EditMode == EditModes.Design)
+                {
+                    Behavior refTree_ = referencedBehavior as Behavior;
 
-                    ExpandRefBehavior(nn);
-                }
-            }
-        }
-
-        private FrameStatePool.PlanningProcess _planningProcess = null;
-        public FrameStatePool.PlanningProcess PlanningProcess {
-            get { return this._planningProcess; }
-        }
-
-        private static void TrimForPlanning_(BaseNode n) {
-            if (n is ReferencedBehavior) {
-                ReferencedBehavior refBeh = n as ReferencedBehavior;
-
-                if (!refBeh.IsPlanningExpand()) {
-                    refBeh.ReferenceFilename = null;
-                }
-            }
-
-            foreach(BaseNode child in n.Children) {
-                TrimForPlanning_(child);
-            }
-        }
-
-        private bool IsPlanningExpand() {
-            bool bPlanningExpand = false;
-
-            if (Plugin.EditMode != EditModes.Design) {
-                if (Plugin.PlanningProcess != null) {
-                    string fullId = this.GetFullId();
-                    Behaviac.Design.Data.FrameStatePool.PlanningState nodeState = Plugin.PlanningProcess.GetNode(fullId);
-
-                    if (nodeState != null) {
-                        bPlanningExpand = true;
+                    if (refTree_.Children.Count > 0 && refTree_.Children[0] is Task)
+                    {
+                        Task rootTask = refTree_.Children[0] as Task;
+                        if (rootTask.Prototype != null)
+                        {
+                            this._task = (MethodDef)rootTask.Prototype.Clone();
+                        }
                     }
                 }
             }
+        }
 
-            return bPlanningExpand;
+        private void SetReferenceBehavior(BehaviorNode referencedBehavior_)
+        {
+            string referencedBehaviorFileName = FileManagers.FileManager.GetRelativePath(referencedBehavior_.Filename);
+
+            this.SetReferenceBehavior(referencedBehaviorFileName);
         }
 
         // when this node is saved, the children won't as they belong to another behaviour
@@ -248,8 +167,9 @@ namespace Behaviac.Design.Nodes
         /// <param name="rootBehavior">The behaviour this node belongs not. NOT the one is references.</param>
         /// <param name="referencedBehavior">The behaviour you want to reference.</param>
         public ReferencedBehavior(BehaviorNode rootBehavior, BehaviorNode referencedBehavior)
-            : base(((Node)referencedBehavior).Label, Resources.ReferencedBehaviorDesc) {
-            this.SetReferenceBehavior(referencedBehavior);
+            : base(Resources.ReferencedBehavior, Resources.ReferencedBehaviorDesc)
+        {
+                this.SetReferenceBehavior(referencedBehavior);
         }
 
         /// <summary>
@@ -267,151 +187,153 @@ namespace Behaviac.Design.Nodes
             get { return "ReferencedBehavior"; }
         }
 
-        public delegate void ReferencedBehaviorWasModifiedEventDelegate(ReferencedBehaviorNode node);
-
-        /// <summary>
-        /// Event is triggered when the behaviour referenced by this node is modified.
-        /// </summary>
-        public event ReferencedBehaviorWasModifiedEventDelegate ReferencedBehaviorWasModified;
-
-        /// <summary>
-        /// Handles when the behaviour referenced by this node is modified.
-        /// </summary>
-        /// <param name="node">The referenced behaviour node whose behaviour was modified.</param>
-        void referencedBehavior_WasModified(BehaviorNode root, Node node) {
-            // update the filename and the label
-            if (_referencedBehavior != null &&
-                _referencedBehavior.FileManager != null &&
-                _referencedBehavior.FileManager.Filename != string.Empty) {
-                Label = Path.GetFileNameWithoutExtension(_referencedBehavior.FileManager.Filename);
-            }
-
-            // call the event
-            if (ReferencedBehaviorWasModified != null)
-            { ReferencedBehaviorWasModified(this); }
-        }
-
-        void referencedBehavior_WasRenamed(BehaviorNode node) {
-            this.Behavior.TriggerWasModified(node as Node);
-        }
-
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
-            if (this.Reference == null)
-            { return; }
+            Type valueType = (this._referencedBehavior != null) ? this._referencedBehavior.ValueType : null;
 
-            // if our referenced behaviour could be loaded, check it as well for errors
-            Behavior b = this.Reference as Behavior;
-
-            if (b != null && b.AgentType != null) {
-                Behavior rootB = rootBehavior as Behavior;
-                Debug.Check(rootB != null);
-
-                if (rootB.AgentType != null) {
-                    string childBTAgent = b.AgentType.ToString();
-                    string rootBTAgent = rootB.AgentType.ToString();
-
-                    //the agent type specified at root bt should be derived from the agent type at child bt
-                    if (!Plugin.IsAgentDerived(rootBTAgent, childBTAgent)) {
-                        result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.AgentTypeError));
-                    }
-                }
+            if (valueType == null)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "ReferencedBehaviorPath is not set!"));
             }
-
-            if (Plugin.EditMode == EditModes.Design) {
-                // circular reference
-                if (this.Reference != rootBehavior) {
-                    List<Node.ErrorCheck> childResult = new List<Node.ErrorCheck>();
-                    ((Node)this.Reference).CheckForErrors(rootBehavior, childResult);
-
-                    if (childResult.Count > 0) {
-                        int start = 0;
-                        string errorMsg = Resources.BehaviorIsEmptyError;
-
-                        if (childResult[0].Level == ErrorCheckLevel.Error && childResult[0].Description.IndexOf(errorMsg) > 0) {
-                            start = 1;
+            else
+            {
+                if (!Plugin.IsStringType(valueType))
+                {
+                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "ReferencedBehaviorPath should be a string type!"));
+                }
+                else
+                {
+                    if (this._referencedBehavior != null && this._referencedBehavior.Var != null && 
+                        this._referencedBehavior.Var.IsConst)
+                    {
+                        string treePath = this._referencedBehavior.Var.Value.ToString();
+                        if (string.IsNullOrEmpty(treePath))
+                        {
+                            result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "ReferencedBehaviorPath should not be empty!"));
                         }
+                        else
+                        {
+                            //treePath might have not been loaded yet. 
+                            //BehaviorNode referencedTree = this.ReferencedTree; 
+                            string fullPath = FileManagers.FileManager.GetFullPath(treePath);
 
-                        bool bErrorFound = false;
+                            //to load it forcefully
+                            BehaviorNode referencedTree = BehaviorManager.Instance.GetBehavior(fullPath);
+                            if (referencedTree == null)
+                            {
+                                referencedTree = BehaviorManager.Instance.LoadBehavior(fullPath, true);
+                            }
 
-                        for (int i = start; i < childResult.Count; ++i) {
-                            Node.ErrorCheck c = childResult[i];
-
-                            if (c.Level == ErrorCheckLevel.Error) {
-                                bErrorFound = true;
-                                break;
+                            if (referencedTree == null)
+                            {
+                                string errMsg = string.Format("'{0}' is not a valid relative tree path!", treePath);
+                                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, errMsg));
+                            }
+                            else {
+                                checkErrorForSubTree(rootBehavior, referencedTree, result);
                             }
                         }
-
-                        if (bErrorFound) {
-                            result.Add(new Node.ErrorCheck(this, bErrorFound ? ErrorCheckLevel.Error : ErrorCheckLevel.Warning, bErrorFound ? Resources.ReferenceError : Resources.ReferenceWarning));
-                        }
                     }
-                }
-            }
-
-            if (this.Task != null) {
-                bool isParamCompleted = true;
-                foreach(MethodDef.Param param in this.Task.Params) {
-                    if (param.Value == null) {
-                        isParamCompleted = false;
-                        break;
-                    }
-                }
-
-                if (!isParamCompleted) {
-                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoParam));
                 }
             }
 
             base.CheckForErrors(rootBehavior, result);
         }
 
+        private void checkErrorForSubTree(BehaviorNode rootBehavior, BehaviorNode referencedBehavior, List<ErrorCheck> result)
+        {
+            if (referencedBehavior != null)
+            {
+                // if our referenced behaviour could be loaded, check it as well for errors
+                Behavior b = referencedBehavior as Behavior;
+
+                if (b != null && b.AgentType != null)
+                {
+                    Behavior rootB = rootBehavior as Behavior;
+                    Debug.Check(rootB != null);
+
+                    if (rootB.AgentType != null)
+                    {
+                        string childBTAgent = b.AgentType.ToString();
+                        string rootBTAgent = rootB.AgentType.ToString();
+
+                        //the agent type specified at root bt should be derived from the agent type at child bt
+                        if (!Plugin.IsAgentDerived(rootBTAgent, childBTAgent))
+                        {
+                            result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.AgentTypeError));
+                        }
+                    }
+                }
+
+                if (Plugin.EditMode == EditModes.Design)
+                {
+                    // circular reference
+                    if (referencedBehavior != rootBehavior)
+                    {
+                        List<Node.ErrorCheck> childResult = new List<Node.ErrorCheck>();
+                        if (referencedBehavior != null)
+                        {
+                            ((Node)referencedBehavior).CheckForErrors(rootBehavior, childResult);
+                        }
+
+                        if (childResult.Count > 0)
+                        {
+                            int start = 0;
+                            string errorMsg = Resources.BehaviorIsEmptyError;
+
+                            if (childResult[0].Level == ErrorCheckLevel.Error && childResult[0].Description.IndexOf(errorMsg) > 0)
+                            {
+                                start = 1;
+                            }
+
+                            bool bErrorFound = false;
+
+                            for (int i = start; i < childResult.Count; ++i)
+                            {
+                                Node.ErrorCheck c = childResult[i];
+
+                                if (c.Level == ErrorCheckLevel.Error)
+                                {
+                                    bErrorFound = true;
+                                    break;
+                                }
+                            }
+
+                            if (bErrorFound)
+                            {
+                                result.Add(new Node.ErrorCheck(this, bErrorFound ? ErrorCheckLevel.Error : ErrorCheckLevel.Warning, bErrorFound ? Resources.ReferenceError : Resources.ReferenceWarning));
+                            }
+                        }
+                    }
+                }
+
+                if (this.Task != null)
+                {
+                    bool isParamCompleted = true;
+                    foreach (MethodDef.Param param in this.Task.Params)
+                    {
+                        if (param.Value == null)
+                        {
+                            isParamCompleted = false;
+                            break;
+                        }
+                    }
+
+                    if (!isParamCompleted)
+                    {
+                        result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.NoParam));
+                    }
+                }
+            }
+        }
+
+        public override string DocLink
+        {
+            get { return "http://www.behaviac.com/docs/zh/references/subtree/"; }
+        }
+
         public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null) {
             // This function should be empty here, so don't remove it.
             return false;
-        }
-
-        public override void GetReferencedFiles(ref List<string> referencedFiles) {
-            Debug.Check(this.Reference != null);
-
-            string file = this.ReferenceFilename;
-
-            if (!string.IsNullOrEmpty(file) && !referencedFiles.Contains(file)) {
-                referencedFiles.Add(file);
-            }
-
-            ((Node)this.Reference).GetReferencedFiles(ref referencedFiles);
-        }
-
-        public override bool ResetReferenceBehavior(string referenceFilename) {
-            Debug.Check(this.Reference != null);
-
-            bool reset = false;
-
-            if (this.ReferenceFilename == referenceFilename) {
-                this.ReferenceFilename = referenceFilename;
-                reset = true;
-            }
-
-            reset |= ((Node)this.Reference).ResetReferenceBehavior(referenceFilename);
-
-            return reset;
-        }
-
-        public override void GetObjectsByType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
-            Debug.Check(this.Reference != null);
-
-            GetObjectsBySelfType(root, nodeType, matchCase, matchWholeWord, ref objects);
-
-            ((Node)this.Reference).GetObjectsByType(root, nodeType, matchCase, matchWholeWord, ref objects);
-        }
-
-        public override void GetObjectsByPropertyMethod(Nodes.Node root, string propertyName, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
-            Debug.Check(this.Reference != null);
-
-            Plugin.GetObjectsBySelfPropertyMethod(root, this, propertyName, matchCase, matchWholeWord, ref objects);
-
-            ((Node)this.Reference).GetObjectsByPropertyMethod(root, propertyName, matchCase, matchWholeWord, ref objects);
         }
 
         private readonly static Brush __defaultBackgroundBrush = new SolidBrush(Color.FromArgb(140, 170, 80));
@@ -426,7 +348,10 @@ namespace Behaviac.Design.Nodes
         /// <param name="parent">The parent of the NodeViewData created.</param>
         /// <returns>Returns a new NodeViewData object for this node.</returns>
         public override NodeViewData CreateNodeViewData(NodeViewData parent, BehaviorNode rootBehavior) {
-            return new NodeViewDataReferencedBehavior(parent, rootBehavior, this, null, BackgroundBrush, Label, Description);
+            NodeViewData nvd = base.CreateNodeViewData(parent, rootBehavior);
+            nvd.ChangeShape(NodeShape.Rectangle);
+
+            return nvd;
         }
 
         /// <summary>
@@ -440,10 +365,10 @@ namespace Behaviac.Design.Nodes
                     ReferencedBehavior refnode = (ReferencedBehavior)nvd.Node;
 
                     // if both nodes reference the same behaviour we copy the view related data
-                    if (_referencedBehavior != null && refnode.Reference == _referencedBehavior ||
-                        ReferenceFilename == refnode.ReferenceFilename) {
-                        NodeViewDataReferencedBehavior nvdrb = (NodeViewDataReferencedBehavior)nvd;
-                        NodeViewDataReferencedBehavior newdata = (NodeViewDataReferencedBehavior)CreateNodeViewData(nvd.Parent, nvd.RootBehavior);
+                    if (_referencedBehavior != null && refnode.ReferenceBehaviorNode == _referencedBehavior)
+                    {
+                        NodeViewData nvdrb = (NodeViewData)nvd;
+                        NodeViewData newdata = (NodeViewData)CreateNodeViewData(nvd.Parent, nvd.RootBehavior);
 
                         // copy data
                         newdata.IsExpanded = nvdrb.IsExpanded;
@@ -453,107 +378,16 @@ namespace Behaviac.Design.Nodes
                     }
                 }
 
-                if (nvd.Node == this)
-                { return nvd; }
+                if (nvd.Node == this) { 
+                    return nvd; 
+                }
             }
 
             return null;
         }
 
-        /// <summary>
-        /// Adds subitems for all children in the current connector.
-        /// </summary>
-        protected void AddSubItemsForConnector() {
-            /*int count= Math.Max(_genericChildren.ChildCount, _genericChildren.MinCount);
-            for(int i= 0; i <count; ++i)
-            {
-                Node child= i <_genericChildren.ChildCount ? _genericChildren.GetChild(i) : null;
-                AddSubItem(new SubItemConnector(_genericChildren, child, i));
-            }*/
-        }
-
-        /// <summary>
-        /// Removes all subitems for all children in the current connector.
-        /// </summary>
-        protected void RemoveSubItemsForConnector() {
-            /*for(int i= 0; i <_subItems.Count; ++i)
-            {
-                SubItemConnector subconn= _subItems[i] as SubItemConnector;
-                if(subconn !=null && subconn.Connector ==_genericChildren)
-                {
-                    RemoveSubItem(subconn);
-                    --i;
-                }
-            }*/
-        }
-
-        public override bool AddChild(Connector connector, Node node) {
-            Debug.Check(connector.Owner == this || connector.Owner == _referencedBehavior);
-
-            if (connector.Owner == this)
-            { return base.AddChild(connector, node); }
-
-            if (((Node)_referencedBehavior).AddChild(connector, node)) {
-                _children.RequiresRebuild();
-                RemoveSubItemsForConnector();
-                AddSubItemsForConnector();
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public override bool AddChild(Connector connector, Node node, int index) {
-            Debug.Check(connector.Owner == this || connector.Owner == _referencedBehavior);
-
-            if (connector.Owner == this)
-            { return base.AddChild(connector, node, index); }
-
-            if (((Node)_referencedBehavior).AddChild(connector, node, index)) {
-                _children.RequiresRebuild();
-                RemoveSubItemsForConnector();
-                AddSubItemsForConnector();
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public override bool AddChildNotModified(Node.Connector connector, Node node) {
-            Debug.Check(connector.Owner == this || connector.Owner == _referencedBehavior);
-
-            if (connector.Owner == this)
-            { return base.AddChildNotModified(connector, node); }
-
-            if (((Node)_referencedBehavior).AddChildNotModified(connector, node)) {
-                _children.RequiresRebuild();
-                RemoveSubItemsForConnector();
-                AddSubItemsForConnector();
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public override void RemoveChild(Connector connector, Node node) {
-            Debug.Check(connector.Owner == this || connector.Owner == _referencedBehavior);
-
-            if (connector.Owner == this) {
-                base.RemoveChild(connector, node);
-                return;
-            }
-
-            ((Node)_referencedBehavior).RemoveChild(connector, node);
-
-            _children.RequiresRebuild();
-            RemoveSubItemsForConnector();
-        }
-
         private MethodDef _task = null;
-        [DesignerMethodEnum("TaskPrototype", "TaskPrototypeDesc", "Task", DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags | DesignerProperty.DesignerFlags.ReadOnly, MethodType.Task)]
+        [DesignerMethodEnum("TaskPrototype", "TaskPrototypeDesc", "Task", DesignerProperty.DisplayMode.List, 1, DesignerProperty.DesignerFlags.ReadOnly, MethodType.Task)]
         public MethodDef Task {
             get { return _task; }
             set
@@ -565,19 +399,31 @@ namespace Behaviac.Design.Nodes
             }
         }
 
-        public override string GenerateNewLabel() {
-            string newlabel = string.Empty;
+        //public override string GenerateNewLabel()
+        //{
+        //    string newlabel = string.Empty;
 
-            if (this._task != null) {
-                //newlabel =  this._task.PrototypeName;
-                newlabel = this._task.GetDisplayValue();
+        //    if (this._task != null)
+        //    {
+        //        //newlabel =  this._task.PrototypeName;
+        //        newlabel = this._task.GetDisplayValue();
+        //    }
+        //    else
+        //    {
+        //        if (!string.IsNullOrEmpty(this.ReferencedTreePath))
+        //        {
+        //            string szTreeInfo = this.ReferencedTreePath;
+        //            newlabel = string.Format("{0}(\"{1}\")", this.Label, szTreeInfo);
+        //        }
+        //        else
+        //        {
+        //            string szTreeInfo = this.ReferenceBehavior.GetDisplayValue();
+        //            newlabel = string.Format("{0}({1})", this.Label, szTreeInfo);
+        //        }
+        //    }
 
-            } else {
-                newlabel = this.Label;
-            }
-
-            return newlabel;
-        }
+        //    return newlabel;
+        //}
 
         protected override void CloneProperties(Node newnode) {
             base.CloneProperties(newnode);
@@ -585,29 +431,9 @@ namespace Behaviac.Design.Nodes
             ReferencedBehavior refbehav = (ReferencedBehavior)newnode;
             refbehav.Label = Label;
 
-            if (_referencedBehavior != null) {
-                //bool bPlanningExpand = this.IsPlanningExpand();
-
-                //if (bPlanningExpand)
-                //{
-                //    Behavior refTree = (Behavior)this._referencedBehavior.Clone();
-                //    refTree.ParentNode = refbehav;
-                //    refbehav._referencedBehavior = refTree;
-
-                //    TrimForPlanning_(refTree);
-                //}
-                //else
-                //{
-                //    Behavior b = this._referencedBehavior as Behavior;
-                //    refbehav._referencedBehavior = new Behavior(b);
-                //}
-                refbehav._referencedBehavior = this._referencedBehavior;
-
-                //if (bPlanningExpand)
-                //{
-                //    refbehav._genericChildren = refbehav._referencedBehavior.GenericChildren;
-                //    refbehav._children.SetConnector(refbehav._genericChildren);
-                //}
+            if (this._referencedBehavior != null)
+            {
+                refbehav._referencedBehavior = (RightValueDef)_referencedBehavior.Clone();
             }
 
             if (this._task != null) {

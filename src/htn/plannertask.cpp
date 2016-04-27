@@ -450,7 +450,7 @@ namespace behaviac
          _logged = false;
 #endif
 		pNode->SetTaskParams(pAgent);
-		this->m_subTree = Workspace::GetInstance()->CreateBehaviorTreeTask(pNode->GetReferencedTree());
+		this->m_subTree = Workspace::GetInstance()->CreateBehaviorTreeTask(pNode->GetReferencedTree(pAgent));
 
         return true;
     }
@@ -469,7 +469,7 @@ namespace behaviac
 		this->m_subTree = 0;
 
 #if !BEHAVIAC_RELEASE
-        pAgent->LogReturnTree(pNode->GetReferencedTree());
+		pAgent->LogReturnTree(pNode->GetReferencedTree(pAgent));
 #endif
 
         BEHAVIAC_ASSERT(this->currentState != NULL);
@@ -491,7 +491,7 @@ namespace behaviac
 
         //pNode->SetTaskParams(pAgent);
 
-        if (pNode->RootTaskNode() == NULL)
+		if (pNode->RootTaskNode(pAgent) == NULL)
         {
 			status = this->m_subTree->exec(pAgent);
         }
@@ -500,7 +500,7 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
             if (!_logged)
             {
-				pAgent->LogJumpTree(pNode->GetReferencedTree());
+				pAgent->LogJumpTree(pNode->GetReferencedTree(pAgent));
 				_logged = true;
             }
 #endif

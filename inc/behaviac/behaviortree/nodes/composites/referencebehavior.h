@@ -17,6 +17,7 @@
 #include "behaviac/base/base.h"
 #include "behaviac/behaviortree/behaviortree.h"
 #include "behaviac/behaviortree/behaviortree_task.h"
+#include "behaviac/base/object/method.h"
 
 namespace behaviac
 {
@@ -38,17 +39,20 @@ namespace behaviac
         virtual bool decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner);
         virtual void load(int version, const char* agentType, const properties_t& properties);
         void SetTaskParams(Agent* pAgent);
-        Task* RootTaskNode();
+		Task* RootTaskNode(Agent* pAgent);
 
-        const char* GetReferencedTree() const;
+		virtual const char* GetReferencedTree(const Agent* pAgent) const;
         virtual void Attach(BehaviorNode* pAttachment, bool bIsPrecondition, bool bIsEffector, bool bIsTransition);
+
     protected:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
     private:
         virtual BehaviorTask* createTask() const;
         Task*							m_taskNode;
     protected:
-        behaviac::string				m_referencedBehaviorPath;
+		Property*		m_referencedBehaviorPath_var;
+		CMethodBase*	m_referencedBehaviorPath_m;
+
         CTaskMethod*					m_taskMethod;
         behaviac::vector<Transition*>*	m_transitions;
 

@@ -17,15 +17,15 @@ namespace behaviac
 {
     CCustomMethod::~CCustomMethod()
     {
-        if (this->m_bCopy)
-        {
-            for (behaviac::vector<behaviac::Property*>::iterator it = this->m_params.begin(); it != this->m_params.end(); ++it)
-            {
-                behaviac::Property* p = *it;
+        //if (this->m_bCopy)
+        //{
+        //    for (behaviac::vector<behaviac::Property*>::iterator it = this->m_params.begin(); it != this->m_params.end(); ++it)
+        //    {
+        //        behaviac::Property* p = *it;
 
-                BEHAVIAC_DELETE p;
-            }
-        }
+        //        BEHAVIAC_DELETE p;
+        //    }
+        //}
 
         this->m_params.clear();
     }

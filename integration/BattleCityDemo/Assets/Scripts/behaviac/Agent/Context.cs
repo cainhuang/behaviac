@@ -362,7 +362,7 @@ namespace behaviac
             var e = m_static_variables.Values.GetEnumerator();
             while (e.MoveNext())
             {
-                e.Current.Clear();
+                e.Current.Clear(true);
             }
 
             m_static_variables.Clear();

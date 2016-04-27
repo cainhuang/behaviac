@@ -218,7 +218,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="NodeViewData\NodeViewData.SubItemOverride.cs" />
-    <Compile Include="NodeViewData\NodeViewDataReferencedBehavior.cs" />
     <Compile Include="Attachments\Overrides\Override.cs" />
     <Compile Include="Attachments\Overrides\OverrideRandom.cs" />
     <Compile Include="Plugin.cs" />

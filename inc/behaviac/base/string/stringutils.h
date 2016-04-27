@@ -1020,6 +1020,12 @@ namespace behaviac
             return 0 == strncmp(str + str_len - suffix_len, suffix, suffix_len);
         }
 
+		inline const char* StrFind(const char* str1, const char sep)
+		{
+			return strchr(str1, sep);
+		}
+
+
         inline bool StrEqual(const char* str1, const char* str2)
         {
             return strcmp(str1, str2) == 0;

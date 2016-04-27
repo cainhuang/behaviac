@@ -395,32 +395,38 @@ namespace behaviac
 
         public  void LogVarValue(Agent pAgent, string name, object value)
         {
-            string valueStr = StringUtils.ToString(value);
-            string typeName = "";
+#if !BEHAVIAC_RELEASE
 
-            if (!Object.ReferenceEquals(value, null))
+            if (Config.IsLoggingOrSocketing)
             {
-                typeName = Utils.GetNativeTypeName(value.GetType());
-            }
-            else
-            {
-                typeName = "Agent";
-            }
+                string valueStr = StringUtils.ToString(value);
+                string typeName = "";
 
-            string full_name = name;
-
-            if (!Object.ReferenceEquals(pAgent, null))
-            {
-                CMemberBase pMember = pAgent.FindMember(name);
-
-                if (pMember != null)
+                if (!Object.ReferenceEquals(value, null))
                 {
-                    string classFullName = pMember.GetClassNameString().Replace(".", "::");
-                    full_name = string.Format("{0}::{1}", classFullName, name);
+                    typeName = Utils.GetNativeTypeName(value.GetType());
                 }
-            }
+                else
+                {
+                    typeName = "Agent";
+                }
 
-            LogManager.Instance.Log(pAgent, typeName, full_name, valueStr);
+                string full_name = name;
+
+                if (!Object.ReferenceEquals(pAgent, null))
+                {
+                    CMemberBase pMember = pAgent.FindMember(name);
+
+                    if (pMember != null)
+                    {
+                        string classFullName = pMember.GetClassNameString().Replace(".", "::");
+                        full_name = string.Format("{0}::{1}", classFullName, name);
+                    }
+                }
+
+                LogManager.Instance.Log(pAgent, typeName, full_name, valueStr);
+            }
+#endif
         }
 
         public  void Warning(string format, params object[] args)

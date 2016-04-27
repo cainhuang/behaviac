@@ -54,7 +54,7 @@ namespace Behaviac.Design
 
     public class AgentType
     {
-        private static MethodDef _nullMethod = new MethodDef(null, MemberType.Method, false, false, "NullAgent", "NullAgent", "null_method", "null", "null method", "void", typeof(void), false, new List<MethodDef.Param>());
+        private static MethodDef _nullMethod = new MethodDef(null, MemberType.Method, false ,false, false, "NullAgent", "NullAgent", "null_method", "null", "null method", "void", typeof(void), false, new List<MethodDef.Param>());
 
         private Type _agentType;
 
@@ -542,10 +542,15 @@ namespace Behaviac.Design
                                        Plugin.IsBooleanType(m.ReturnType)) {
                                 if (!methods.Contains(m))
                                 { methods.Add(m); }
+                            } else if ((methodReturnType & ValueTypes.String) == ValueTypes.String &&
+                                       Plugin.IsStringType(m.ReturnType)) {
+                                if (!methods.Contains(m)) { 
+                                    methods.Add(m); 
+                                }
                             }
                         }
                     }
-                }
+                }//for each
             }
 
             if ((methodType & MethodType.Status) == MethodType.Status) {
@@ -620,6 +625,7 @@ namespace Behaviac.Design
             System.Reflection.MethodInfo method = AgentType.GetMethodInfo(delegateType);
             System.Reflection.ParameterInfo[] parameters = AgentType.GetMethodParams(method);
 
+            bool isChangeableType = false;
             bool isPublic = false;
             bool isStatic = false;
             string name = typeName + "::" + delegateType.Name;
@@ -629,14 +635,17 @@ namespace Behaviac.Design
             Attribute[] attributes = (Attribute[])delegateType.GetCustomAttributes(typeof(Behaviac.Design.MethodDescAttribute), false);
 
             if (attributes.Length > 0) {
-                isPublic = ((MethodDescAttribute)attributes[0]).IsPublic;
-                isStatic = ((MethodDescAttribute)attributes[0]).IsStatic;
-                nativeReturnType = ((MethodDescAttribute)attributes[0]).NativeReturnType;
-                displayName = typeDisplayName + "::" + ((MethodDescAttribute)attributes[0]).DisplayName;
-                description = ((MethodDescAttribute)attributes[0]).Description;
+                MethodDescAttribute methodAttr = (MethodDescAttribute)attributes[0];
+
+                isChangeableType = methodAttr.IsChangeableType;
+                isPublic = methodAttr.IsPublic;
+                isStatic = methodAttr.IsStatic;
+                nativeReturnType = methodAttr.NativeReturnType;
+                displayName = typeDisplayName + "::" + methodAttr.DisplayName;
+                description = methodAttr.Description;
             }
 
-            MethodDef methodDef = new MethodDef(agentType, isNamedEvent ? MemberType.Task : MemberType.Method, isPublic, isStatic, typeName, owner, name, displayName, description, nativeReturnType, method.ReturnType, isActionMethodOnly, new List<MethodDef.Param>());
+            MethodDef methodDef = new MethodDef(agentType, isNamedEvent ? MemberType.Task : MemberType.Method, isChangeableType, isPublic, isStatic, typeName, owner, name, displayName, description, nativeReturnType, method.ReturnType, isActionMethodOnly, new List<MethodDef.Param>());
 
             string category = "Arguments";
             foreach(System.Reflection.ParameterInfo par in parameters) {
@@ -672,6 +681,7 @@ namespace Behaviac.Design
         }
 
         private static PropertyDef CreateProperty(AgentType agentType, FieldInfo field, string owner, string typeName, string typeDisplayName, bool isStatic, out string displayName) {
+            bool isChangeableType = false;
             bool isReadonly = false;
             bool isPublic = false;
             bool isProperty = false;
@@ -682,15 +692,18 @@ namespace Behaviac.Design
             Attribute[] attributes = (Attribute[])field.GetCustomAttributes(typeof(Behaviac.Design.MemberDescAttribute), false);
 
             if (attributes.Length > 0) {
-                isPublic = ((MemberDescAttribute)attributes[0]).IsPublic;
-                isProperty = ((MemberDescAttribute)attributes[0]).IsProperty;
-                isReadonly = ((MemberDescAttribute)attributes[0]).IsReadonly;
-                nativeType = ((MemberDescAttribute)attributes[0]).NativeType;
-                displayName = typeDisplayName + "::" + ((MemberDescAttribute)attributes[0]).DisplayName;
-                description = ((MemberDescAttribute)attributes[0]).Description;
+                MemberDescAttribute memAttr = (MemberDescAttribute)attributes[0];
+
+                isChangeableType = memAttr.IsChangeableType;
+                isPublic = memAttr.IsPublic;
+                isProperty = memAttr.IsProperty;
+                isReadonly = memAttr.IsReadonly;
+                nativeType = memAttr.NativeType;
+                displayName = typeDisplayName + "::" + memAttr.DisplayName;
+                description = memAttr.Description;
             }
 
-            return new PropertyDef(agentType, field, isStatic, isPublic, isProperty, isReadonly, typeName, owner, name, nativeType, displayName, description);
+            return new PropertyDef(agentType, field, isChangeableType, isStatic, isPublic, isProperty, isReadonly, typeName, owner, name, nativeType, displayName, description);
         }
     }
 
@@ -767,9 +780,10 @@ namespace Behaviac.Design
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class MemberDescAttribute : Attribute
     {
-        public MemberDescAttribute(string className, bool isStatic, bool isPublic, bool isProperty, bool isReadonly, string nativeType, string displayName, string description)
+        public MemberDescAttribute(string className, bool isChangeableType, bool isStatic, bool isPublic, bool isProperty, bool isReadonly, string nativeType, string displayName, string description)
         {
             _className = className;
+            _isChangeableType = isChangeableType;
             _isStatic = isStatic;
             _isPublic = isPublic;
             _isProperty = isProperty;
@@ -782,6 +796,12 @@ namespace Behaviac.Design
         private string _className;
         public string ClassName {
             get { return _className; }
+        }
+
+        private bool _isChangeableType = false;
+        public bool IsChangeableType
+        {
+            get { return _isChangeableType; }
         }
 
         private bool _isStatic;
@@ -824,8 +844,9 @@ namespace Behaviac.Design
     [AttributeUsage(AttributeTargets.Delegate | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class MethodDescAttribute : Attribute
     {
-        public MethodDescAttribute(string className, bool isStatic, bool isPublic, bool isNamedEvent, bool isActionMethodOnly, string nativeReturnType, string displayName, string description) {
+        public MethodDescAttribute(string className, bool isChangeableType, bool isStatic, bool isPublic, bool isNamedEvent, bool isActionMethodOnly, string nativeReturnType, string displayName, string description) {
             _className = className;
+            _isChangeableType = isChangeableType;
             _isStatic = isStatic;
             _isPublic = isPublic;
             _isNamedEvent = isNamedEvent;
@@ -838,6 +859,12 @@ namespace Behaviac.Design
         private string _className;
         public string ClassName {
             get { return _className; }
+        }
+
+        private bool _isChangeableType = false;
+        public bool IsChangeableType
+        {
+            get { return _isChangeableType; }
         }
 
         private bool _isStatic;
@@ -880,8 +907,9 @@ namespace Behaviac.Design
     [AttributeUsage(AttributeTargets.Delegate, AllowMultiple = false, Inherited = false)]
     public class EventDescAttribute : MethodDescAttribute
     {
-        public EventDescAttribute(string className, bool isStatic, bool isPublic, string nativeReturnType, string displayName, string description) :
-            base(className, isStatic, isPublic, true, false, nativeReturnType, displayName, description) {
+        public EventDescAttribute(string className, bool isChangeableType, bool isStatic, bool isPublic, string nativeReturnType, string displayName, string description) :
+            base(className, isChangeableType, isStatic, isPublic, true, false, nativeReturnType, displayName, description)
+        {
         }
     }
 

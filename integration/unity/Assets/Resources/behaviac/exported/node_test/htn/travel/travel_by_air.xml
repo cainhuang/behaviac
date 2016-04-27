@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\htn\travel\travel_by_air.xml-->
-<behavior name="node_test/htn/travel/travel_by_air" agenttype="HTNAgentTravel" version="3">
+<behavior name="node_test/htn/travel/travel_by_air" agenttype="HTNAgentTravel" version="4">
   <pars>
     <par name="ax" type="int" value="0" />
     <par name="ay" type="int" value="0" />
@@ -33,7 +33,7 @@
         <property Opr="vector&lt;int&gt; Self.HTNAgentTravel::as" />
         <node class="Sequence" id="6">
           <node class="ReferencedBehavior" id="8">
-            <property ReferenceFilename="node_test/htn/travel/travel" />
+            <property ReferenceBehavior="const string &quot;node_test/htn/travel/travel&quot;" />
             <property Task="Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::ax)" />
           </node>
           <node class="Action" id="7">
@@ -41,7 +41,7 @@
             <property ResultOption="BT_SUCCESS" />
           </node>
           <node class="ReferencedBehavior" id="4">
-            <property ReferenceFilename="node_test/htn/travel/travel" />
+            <property ReferenceBehavior="const string &quot;node_test/htn/travel/travel&quot;" />
             <property Task="Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::ay,int Self.HTNAgentTravel::_$local_task_param_$_1)" />
           </node>
         </node>

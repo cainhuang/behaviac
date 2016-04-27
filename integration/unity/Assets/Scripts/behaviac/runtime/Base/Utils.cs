@@ -348,11 +348,16 @@ namespace behaviac
 
         private object run(Agent parent, Agent pSelf)
         {
-            this.GetParamsValue(parent, pSelf, true);
+            object returnValue = null;
 
-            object returnValue = this.method_.Invoke(parent, this.m_params_value);
+            if (this.method_.IsStatic || parent != null)
+            {
+                this.GetParamsValue(parent, pSelf, true);
 
-            this.UpdateAgentValue(pSelf);
+                returnValue = this.method_.Invoke(parent, this.m_params_value);
+
+                this.UpdateAgentValue(pSelf);
+            }
 
             return returnValue;
         }
@@ -901,6 +906,7 @@ namespace behaviac
         {
             //pAgent.SetVariable(paramName, parasValue[i]);
             Property localProperty = agentT.GetLocal(paramName);
+            Debug.Check(localProperty != null);
             localProperty.SetValue(pAgent, paramValu);
         }
     }

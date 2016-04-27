@@ -302,6 +302,14 @@ namespace behaviac
 			customeMethod->AddParamType("AgentNodeTest");
 			objectDesc->ms_methods.push_back(customeMethod);
 
+			customeMethod = BEHAVIAC_NEW CTaskMethod("AgentNodeTest", "event_test_float2");
+			customeMethod->AddParamType("TestNS::Float2");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("AgentNodeTest", "event_test_float2_ref");
+			customeMethod->AddParamType("TestNS::Float2&");
+			objectDesc->ms_methods.push_back(customeMethod);
+
 			// ChildNodeTest
 			objectDesc = (CTagObjectDescriptor*)Agent::GetDescriptorByName("ChildNodeTest");
 			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "root");
@@ -332,6 +340,14 @@ namespace behaviac
 
 			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "event_test_agent");
 			customeMethod->AddParamType("AgentNodeTest");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "event_test_float2");
+			customeMethod->AddParamType("TestNS::Float2");
+			objectDesc->ms_methods.push_back(customeMethod);
+
+			customeMethod = BEHAVIAC_NEW CTaskMethod("ChildNodeTest", "event_test_float2_ref");
+			customeMethod->AddParamType("TestNS::Float2&");
 			objectDesc->ms_methods.push_back(customeMethod);
 
 			// HTNAgentHouse

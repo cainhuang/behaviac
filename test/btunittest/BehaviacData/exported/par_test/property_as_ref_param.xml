@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\property_as_ref_param.xml-->
-<behavior name="par_test/property_as_ref_param" agenttype="EmployeeParTestAgent" version="3">
+<behavior name="par_test/property_as_ref_param" agenttype="EmployeeParTestAgent" version="4">
   <pars>
     <par name="par2_ulong_0" type="ulong" value="0" />
     <par name="par2_uint_0" type="uint" value="0" />

@@ -76,8 +76,8 @@ namespace Behaviac.Design
             this.isLocalCheckBox.Checked = customizedStruct == null && _property.IsPar;
             this.isLocalCheckBox.Visible = canBePar && customizedStruct == null && !_property.IsMember;
             this.nameTextBox.Enabled = canBeEdit;
-            this.arrayCheckBox.Enabled = canBeEdit;
-            this.typeComboBox.Enabled = canBeEdit;
+            this.arrayCheckBox.Enabled = canBeEdit || _property.IsChangeableType;
+            this.typeComboBox.Enabled = canBeEdit || _property.IsChangeableType;
             this.isStaticCheckBox.Enabled = canBeEdit;
             this.isConstcheckBox.Enabled = canBeEdit;
             this.dispTextBox.Enabled = canBeEdit;
@@ -235,7 +235,6 @@ namespace Behaviac.Design
                         type = typeof(List<>).MakeGenericType(type);
                     }
                 }
-
             }
             else
             {

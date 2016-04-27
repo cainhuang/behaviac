@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Behavior Version="3">
+<Behavior Version="4">
   <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="Enemy" Domains="" Enable="true" HasOwnPrefabData="false" Id="-1" PrefabName="" PrefabNodeId="-1">
     <Comment Background="NoColor" Text="" />
     <DescriptorRefs value="0:" />
@@ -21,7 +21,7 @@
             <Connector Identifier="GenericChildren">
               <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="4" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
-                <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Id="9" Operator="Equal" Opl="Self.Enemy::isAlive()" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Update" PrefabAttachmentId="-1" />
+                <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="9" Operator="Equal" Opl="Self.Enemy::isAlive()" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Update" PrefabAttachmentId="-1" />
                 <Connector Identifier="GenericChildren">
                   <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="5" Opl="float Self.Enemy::randomSpeed" Opr="Self.Enemy::getRandomSpeedByInitSpeed(float Self.Enemy::initSpeed)" PrefabName="" PrefabNodeId="-1">
                     <Comment Background="Gray" Text="calculate a random speed" />

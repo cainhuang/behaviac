@@ -168,6 +168,7 @@
         <Param DisplayName="i" Desc="i" Type="int" />
         <Param DisplayName="str" Desc="str" Type="string" />
       </Method>
+      <Method Name="GetRefTree" DisplayName="" Desc="" ReturnType="string" Class="AgentNodeTest" Public="true" />
     </agent>
     <agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="ChildNodeTest" Desc="ChildNodeTest" IsRefType="true">
       <Method Name="GetConstFloatValue" DisplayName="" Desc="" ReturnType="float" Class="ChildNodeTest" Public="true" />

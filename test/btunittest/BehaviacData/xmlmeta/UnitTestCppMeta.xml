@@ -317,6 +317,7 @@
 			<Method Name="CanSeeEnemy" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="bool" />
 			<Method Name="Move" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus" />
 			<Method Name="MoveToTarget" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus" />
+			<Method Name="GetRefTree" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="const char*" />
 			<Method Name="initChildAgent" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void" />
 			<Method Name="initChildAgentTest" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void" />
 		</agent>

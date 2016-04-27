@@ -339,7 +339,7 @@ namespace Behaviac.Design.Nodes
             Debug.Check(_parentConnector == null || _parentConnector.Owner == _parent);
             Debug.Check(_parentConnector == null || _parentConnector.HasChild(this));
 
-            if (_parent != null && _parent is ReferencedBehaviorNode)
+            if (_parent != null && _parent is ReferencedBehavior)
             { Debug.Check(_debugIsSubreferencedGraphNode); }
 
             foreach(Connector connector in _children.Connectors) {

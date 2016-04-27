@@ -259,7 +259,7 @@ namespace behaviac
         if (Config::IsLoggingOrSocketing())
         {
             behaviac::string ni = BehaviorTask::GetTickInfo(a, referencedNode, NULL);
-            const char* refTreeStr = referencedNode->GetReferencedTree();
+            const char* refTreeStr = referencedNode->GetReferencedTree(a);
             LogManager::GetInstance()->Log("[plan_referencetree_enter]%s %s.xml\n", ni.c_str(), refTreeStr);
         }
 
@@ -275,7 +275,7 @@ namespace behaviac
         if (Config::IsLoggingOrSocketing())
         {
             behaviac::string ni = BehaviorTask::GetTickInfo(a, referencedNode, NULL);
-            const char* refTreeStr = referencedNode->GetReferencedTree();
+            const char* refTreeStr = referencedNode->GetReferencedTree(a);
 
             LogManager::GetInstance()->Log("[plan_referencetree_exit]%s %s.xml\n", ni.c_str(), refTreeStr);
         }

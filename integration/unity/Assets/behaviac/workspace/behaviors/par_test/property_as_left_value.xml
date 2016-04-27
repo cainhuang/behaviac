@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Behavior Version="3">
+<Behavior Version="4">
   <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="EmployeeParTestAgent" Domains="" Enable="true" HasOwnPrefabData="false" Id="-1" PrefabName="" PrefabNodeId="-1">
     <Comment Background="NoColor" Text="" />
     <Parameters>
@@ -41,7 +41,7 @@
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="0" Opl="behaviac::Agent Self.EmployeeParTestAgent::TV_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentIR(behaviac::Agent Self.EmployeeParTestAgent::par2_agent_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
-              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="15" Opl="vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentListIR(vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::par2_agent_list_0)" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="15" Opl="behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0" Opr="Self.EmployeeParTestAgent::Func_AgentListIR(vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::par2_agent_list_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="2" Opl="double Self.EmployeeParTestAgent::TV_D_0" Opr="Self.EmployeeParTestAgent::Func_DoubleIR(double Self.EmployeeParTestAgent::par2_double_0)" PrefabName="" PrefabNodeId="-1">
@@ -65,10 +65,10 @@
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="8" Opl="ulong Self.EmployeeParTestAgent::TV_ULONG_0" Opr="Self.EmployeeParTestAgent::Func_ULongIR(ulong Self.EmployeeParTestAgent::par2_ulong_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
-              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="30" Opl="long Self.EmployeeParTestAgent::TV_LL_0" Opr="const long -666" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="30" Opl="llong Self.EmployeeParTestAgent::TV_LL_0" Opr="const llong -666" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
-              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="31" Opl="ulong Self.EmployeeParTestAgent::TV_ULL_0" Opr="const ulong 666" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="31" Opl="ullong Self.EmployeeParTestAgent::TV_ULL_0" Opr="const ullong 666" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
             </Connector>
@@ -91,7 +91,7 @@
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="17" Opl="TNS::ST::PER::WRK::kEmployee Self.ParTestAgent::TV_KEMPLOYEE_0" Opr="Self.ParTestAgent::Func_kEmployeeIR(TNS::ST::PER::WRK::kEmployee Self.EmployeeParTestAgent::par1_kemployee_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
-              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="19" Opl="vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0" Opr="Self.ParTestAgent::Func_kEmployeeListIR(vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.EmployeeParTestAgent::par1_kemployee_list_0)" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="19" Opl="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0" Opr="Self.ParTestAgent::Func_kEmployeeListIR(vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.EmployeeParTestAgent::par1_kemployee_list_0)" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
               </Node>
               <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="18" Opl="ushort Self.ParTestAgent::TV_USHORT_0" Opr="Self.ParTestAgent::Func_UShortIR(ushort Self.EmployeeParTestAgent::par1_ushort_0)" PrefabName="" PrefabNodeId="-1">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\htn\travel\root.xml-->
-<behavior name="node_test/htn/travel/root" agenttype="HTNAgentTravel" version="3">
+<behavior name="node_test/htn/travel/root" agenttype="HTNAgentTravel" version="4">
   <pars>
     <par name="start" type="int" value="0" />
     <par name="finish" type="int" value="0" />
@@ -25,7 +25,7 @@
         <property Phase="Enter" />
       </attachment>
       <node class="ReferencedBehavior" id="4">
-        <property ReferenceFilename="node_test/htn/travel/travel" />
+        <property ReferenceBehavior="const string &quot;node_test/htn/travel/travel&quot;" />
         <property Task="Self.HTNAgentTravel::travel(int Self.HTNAgentTravel::start,int Self.HTNAgentTravel::finish)" />
       </node>
     </node>

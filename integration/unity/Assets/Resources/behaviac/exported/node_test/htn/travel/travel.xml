@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\htn\travel\travel.xml-->
-<behavior name="node_test/htn/travel/travel" agenttype="HTNAgentTravel" version="3">
+<behavior name="node_test/htn/travel/travel" agenttype="HTNAgentTravel" version="4">
   <pars>
     <par name="_$local_task_param_$_0" type="int" value="0" />
     <par name="_$local_task_param_$_1" type="int" value="0" />
@@ -31,7 +31,7 @@
         <property Phase="Enter" />
       </attachment>
       <node class="ReferencedBehavior" id="6">
-        <property ReferenceFilename="node_test/htn/travel/travel_by_air" />
+        <property ReferenceBehavior="const string &quot;node_test/htn/travel/travel_by_air&quot;" />
         <property Task="Self.HTNAgentTravel::travel_by_air(int Self.HTNAgentTravel::_$local_task_param_$_0,int Self.HTNAgentTravel::_$local_task_param_$_1)" />
       </node>
     </node>

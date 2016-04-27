@@ -203,7 +203,7 @@ public interface BehaviorNode :
         }
 
         //please update BehaviorTree.SupportedVersion when you update the NewVersion
-        public static int NewVersion = 3;
+        public static int NewVersion = 4;
 
         private int _version = NewVersion;
         public int Version {
@@ -536,19 +536,7 @@ public interface BehaviorNode :
             }
         }
 
-        public override bool ResetReferenceBehavior(string referenceFilename) {
-            bool reset = false;
 
-            if (!this._isVisiting) {
-                this._isVisiting = true;
-
-                reset = base.ResetReferenceBehavior(referenceFilename);
-
-                this._isVisiting = false;
-            }
-
-            return reset;
-        }
 
         public override void GetObjectsByType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
             if (!this._isVisiting) {

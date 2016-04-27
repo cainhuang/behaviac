@@ -978,6 +978,31 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(1, testAgent.testVar_0);
             Assert.AreEqual(1.0, testAgent.testVar_2);
         }
+
+        [Test]
+        [Category("reference_ut_1")]
+        public void reference_ut_1()
+        {
+            testAgent.btsetcurrent("node_test/reference_ut_1");
+            testAgent.resetProperties();
+            testAgent.btexec();
+
+            Assert.AreEqual(0, testAgent.testVar_0);
+            Assert.AreEqual(0.0, testAgent.testVar_2);
+        }
+
+        [Test]
+        [Category("reference_ut_2")]
+        public void reference_ut_2()
+        {
+            testAgent.btsetcurrent("node_test/reference_ut_2");
+            testAgent.resetProperties();
+            testAgent.btexec();
+
+            Assert.AreEqual(0, testAgent.testVar_0);
+            Assert.AreEqual(0.0, testAgent.testVar_2);
+        }
+
     }
 
 }

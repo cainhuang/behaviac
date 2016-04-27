@@ -156,13 +156,6 @@ namespace Behaviac.Design
                 return;
             }
 
-            // check if this is a referenced behaviour. If so register the view on the ReferencedBehaviorWasModified event.
-            if (node is ReferencedBehaviorNode) {
-                ReferencedBehaviorNode refnode = (ReferencedBehaviorNode)node;
-
-                refnode.ReferencedBehaviorWasModified += new ReferencedBehavior.ReferencedBehaviorWasModifiedEventDelegate(refnode_ReferencedBehaviorWasModified);
-            }
-
             // check the children
             foreach(Node child in node.Children)
             RegisterReferencedBehaviors(processedBehaviors.Branch(child), child);
@@ -702,10 +695,7 @@ namespace Behaviac.Design
                 // behavior
                 if (nodetag.Type == NodeTagType.Behavior) {
                     // create the referenced behaviour node for the behaviour
-                    ReferencedBehaviorNode refnode = Node.CreateReferencedBehaviorNode(_rootNodeView.RootBehavior, behavior, mode == NodeAttachMode.None || ((Node)this.RootNode).IsFSM);
-
-                    // register the view so it gets updated when the referenced behaviour gets updated.
-                    refnode.ReferencedBehaviorWasModified += new ReferencedBehavior.ReferencedBehaviorWasModifiedEventDelegate(refnode_ReferencedBehaviorWasModified);
+                    ReferencedBehavior refnode = Node.CreateReferencedBehaviorNode(_rootNodeView.RootBehavior, behavior, mode == NodeAttachMode.None || ((Node)this.RootNode).IsFSM);
 
                     newnode = (Node)refnode;
                     //the comment seems too long to overlap the node
@@ -905,7 +895,7 @@ namespace Behaviac.Design
         /// Handles when a referenced behaviour is modified.
         /// </summary>
         /// <param name="node">The referenced behaviour node whose referenced behaviour is modified.</param>
-        void refnode_ReferencedBehaviorWasModified(ReferencedBehaviorNode node) {
+        void refnode_ReferencedBehaviorWasModified(ReferencedBehavior node) {
             LayoutChanged();
         }
 
@@ -3263,7 +3253,7 @@ namespace Behaviac.Design
                 // Open the referenced tree file.
                 if (SelectedNode.Node is ReferencedBehavior) {
                     ReferencedBehavior refBehavior = SelectedNode.Node as ReferencedBehavior;
-                    UIUtilities.ShowBehaviorTree(refBehavior.ReferenceFilename);
+                    UIUtilities.ShowBehaviorTree(refBehavior.ReferenceBehaviorString);
                 }
 
                 // Save as a referenced tree file.
@@ -3332,8 +3322,7 @@ namespace Behaviac.Design
                     behaviorNode = _behaviorTreeList.LoadBehavior(filename);
 
                     // Create a referenced node to hold the new behavior node.
-                    ReferencedBehaviorNode refNode = Node.CreateReferencedBehaviorNode(_rootNodeView.RootBehavior, behaviorNode);
-                    refNode.ReferencedBehaviorWasModified += new ReferencedBehavior.ReferencedBehaviorWasModifiedEventDelegate(refnode_ReferencedBehaviorWasModified);
+                    ReferencedBehavior refNode = Node.CreateReferencedBehaviorNode(_rootNodeView.RootBehavior, behaviorNode);
 
                     // Add the new referenced node.
                     Node newNode = refNode as Node;

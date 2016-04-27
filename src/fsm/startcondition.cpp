@@ -42,12 +42,9 @@ namespace behaviac
 
         for (propertie_const_iterator_t p = properties.begin(); p != properties.end(); ++p)
         {
-            behaviac::string p_name(p->name);
-
-            if (p_name == "TargetFSMNodeId")
+            if (StringUtils::StrEqual(p->name, "TargetFSMNodeId"))
             {
                 this->m_targetId = atoi(p->value);
-
             }
             else
             {

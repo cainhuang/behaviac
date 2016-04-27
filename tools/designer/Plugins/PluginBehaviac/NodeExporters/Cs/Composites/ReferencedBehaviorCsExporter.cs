@@ -17,6 +17,7 @@ using System.Text;
 using System.IO;
 using Behaviac.Design;
 using Behaviac.Design.Nodes;
+using PluginBehaviac.DataExporters;
 
 namespace PluginBehaviac.NodeExporters
 {
@@ -28,27 +29,82 @@ namespace PluginBehaviac.NodeExporters
             return (referencedBehavior != null);
         }
 
+        protected override void GenerateMember(Node node, StreamWriter stream, string indent)
+        {
+            base.GenerateMember(node, stream, indent);
+
+            ReferencedBehavior pReferencedBehavior = node as ReferencedBehavior;
+            if (pReferencedBehavior == null)
+                return;
+
+            if (pReferencedBehavior.ReferenceBehavior != null)
+            {
+                RightValueCsExporter.GenerateClassMember(pReferencedBehavior.ReferenceBehavior, stream, indent, "Behavior");
+            }
+        }
+
+        protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
+        {
+            base.GenerateMethod(node, stream, indent);
+
+            ReferencedBehavior pReferencedBehavior = node as ReferencedBehavior;
+            if (pReferencedBehavior == null)
+                return;
+
+            if (pReferencedBehavior.ReferenceBehavior != null)
+            {
+                stream.WriteLine("{0}\t\tpublic override string GetReferencedTree(Agent pAgent)", indent);
+                stream.WriteLine("{0}\t\t{{", indent);
+
+                string retStr = RightValueCsExporter.GenerateCode(pReferencedBehavior.ReferenceBehavior, stream, indent + "\t\t\t", string.Empty, string.Empty, "Behavior");
+
+                bool bConst = false;
+                if (pReferencedBehavior.ReferenceBehavior.Var != null && pReferencedBehavior.ReferenceBehavior.Var.IsConst)
+                {
+                    bConst = true;
+                }
+
+                if (!bConst)
+                {
+                    stream.WriteLine("{0}\t\t\tif (pAgent != null) {{", indent);
+                }
+
+                stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
+
+                if (!bConst)
+                {
+                    stream.WriteLine("{0}\t\t\t}}", indent);
+                    stream.WriteLine("{0}\t\t\treturn null;", indent);
+                }
+
+                stream.WriteLine("{0}\t\t}}", indent);
+            }
+        }
+
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
         {
             base.GenerateConstructor(node, stream, indent, className);
 
-            ReferencedBehavior referencedBehavior = node as ReferencedBehavior;
-            if (referencedBehavior == null)
+            ReferencedBehavior pReferencedBehavior = node as ReferencedBehavior;
+            if (pReferencedBehavior == null)
                 return;
 
-            stream.WriteLine("{0}\t\t\tthis.m_referencedBehaviorPath = \"{1}\";", indent, referencedBehavior.ReferenceFilename);
-            stream.WriteLine("{0}\t\t\tBehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);", indent);
-            stream.WriteLine("{0}\t\t\tDebug.Check(behaviorTree != null);", indent);
+            stream.WriteLine("{0}\t\t\tstring szTreePath = this.GetReferencedTree(null);", indent);
+            stream.WriteLine("{0}\t\t\tif (!string.IsNullOrEmpty(szTreePath)) {{", indent);
+            stream.WriteLine("{0}\t\t\tBehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);", indent);
             stream.WriteLine("{0}\t\t\tif (behaviorTree != null)", indent);
             stream.WriteLine("{0}\t\t\t{{", indent);
             stream.WriteLine("{0}\t\t\t\tthis.m_bHasEvents |= behaviorTree.HasEvents();", indent);
             stream.WriteLine("{0}\t\t\t}}", indent);
+            stream.WriteLine("{0}\t\t\t}}", indent);
 
-            if (referencedBehavior.Task != null)
+            if (pReferencedBehavior.Task != null)
             {
-                stream.WriteLine("{0}\t\t\tthis.m_taskMethod = Action.LoadMethod(\"{1}\") as CTaskMethod;", indent, referencedBehavior.Task.GetExportValue());
+                stream.WriteLine("{0}\t\t\tthis.m_taskMethod = Action.LoadMethod(\"{1}\") as CTaskMethod;", indent, pReferencedBehavior.Task.GetExportValue());
                 stream.WriteLine("{0}\t\t\tDebug.Check(this.m_taskMethod != null);", indent);
             }
         }
+
+
     }
 }

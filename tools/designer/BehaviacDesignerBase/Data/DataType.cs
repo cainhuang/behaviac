@@ -56,10 +56,12 @@ namespace Behaviac.Design
         //return float, double
         Float = 4,
 
-        Array = 8,
+        String = 8, 
+
+        Array = 16,
 
         //all types
-        All = Bool | Int | Float
+        All = Bool | Int | Float | String
     }
 
     [Behaviac.Design.EnumDesc("PluginBehaviac.Nodes.ComputeOpr", "计算作符", "计算操作符选择")]
@@ -493,9 +495,10 @@ namespace Behaviac.Design
             }
         }
 
-        public MethodDef(AgentType agentType, MemberType memberType, bool isPublic, bool isStatic, string classname, string owner, string name, string displayName, string description, string nativeReturnType, Type returnType, bool isActionMethodOnly, List<Param> pars)
+        public MethodDef(AgentType agentType, MemberType memberType, bool isChangeableType, bool isPublic, bool isStatic, string classname, string owner, string name, string displayName, string description, string nativeReturnType, Type returnType, bool isActionMethodOnly, List<Param> pars)
         {
             _agentType = agentType;
+            _isChangeableType = isChangeableType;
             _isPublic = isPublic;
             _isStatic = isStatic;
             _classname = classname;
@@ -520,6 +523,7 @@ namespace Behaviac.Design
         public MethodDef(AgentType agentType, MemberType memberType, string classname, string name, string displayName, string description, string nativeReturnType, Type returnType)
         {
             _agentType = agentType;
+            _isChangeableType = false;
             _isCustomized = true;
             _memberType = memberType;
             _isPublic = true;
@@ -542,6 +546,7 @@ namespace Behaviac.Design
         public void CopyFrom(MethodDef other)
         {
             _agentType = other._agentType;
+            _isChangeableType = other._isChangeableType;
             _isPublic = other._isPublic;
             _isStatic = other._isStatic;
             _classname = other._classname;
@@ -564,6 +569,12 @@ namespace Behaviac.Design
         public AgentType AgentType
         {
             get { return _agentType; }
+        }
+
+        bool _isChangeableType = false;
+        public bool IsChangeableType
+        {
+            get { return _isChangeableType; }
         }
 
         private bool _isInherited = false;
@@ -1156,10 +1167,11 @@ namespace Behaviac.Design
     public class PropertyDef : ISerializableData
     {
         // Meta Property
-        public PropertyDef(AgentType agentType, FieldInfo pi, bool isStatic, bool isPublic, bool isProperty, bool isReadonly, string classname, string owner, string name, string nativeType, string displayName, string description)
+        public PropertyDef(AgentType agentType, FieldInfo pi, bool isChangeableType, bool isStatic, bool isPublic, bool isProperty, bool isReadonly, string classname, string owner, string name, string nativeType, string displayName, string description)
         {
             _agentType = agentType;
             _propertyInfo = pi;
+            _isChangeableType = isChangeableType;
             _isStatic = isStatic;
             _isPublic = isPublic;
             _isProperty = isProperty;
@@ -1178,6 +1190,7 @@ namespace Behaviac.Design
             _agentType = agentType;
             _propertyInfo = null;
             _type = type;
+            _isChangeableType = false;
             _isStatic = false;
             _isPublic = true;
             _isProperty = false;
@@ -1211,6 +1224,7 @@ namespace Behaviac.Design
             _agentType = other._agentType;
             _propertyInfo = other._propertyInfo;
             _type = other._type;
+            _isChangeableType = other._isChangeableType;
             _isStatic = other._isStatic;
             _isPublic = other._isPublic;
             _isProperty = other._isProperty;
@@ -1260,6 +1274,12 @@ namespace Behaviac.Design
             get { return _propertyInfo != null; }
         }
 
+        private bool _isChangeableType = false;
+        public bool IsChangeableType
+        {
+            get { return _isChangeableType; }
+        }
+
         public virtual bool IsCustomized
         {
             get { return !IsInherited && !IsMember; }
@@ -1294,7 +1314,10 @@ namespace Behaviac.Design
                 return null;
             }
 
-            set { _type = value; }
+            set
+            {
+                _type = value;
+            }
         }
 
         protected bool _isStatic = false;

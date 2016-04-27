@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\const_param.xml-->
-<behavior name="par_test/const_param" agenttype="EmployeeParTestAgent" version="3">
+<behavior name="par_test/const_param" agenttype="EmployeeParTestAgent" version="4">
   <node class="Sequence" id="22">
     <node class="Assignment" id="0">
       <property Opl="bool Self.ParTestAgentBase::TV_BOOL_0" />

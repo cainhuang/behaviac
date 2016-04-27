@@ -31,9 +31,33 @@ namespace Behaviac.Design.Importers
         private static Hashtable structNodeDict = new Hashtable();
         private static Hashtable enumNodeDict = new Hashtable();
 
+        // propertyFullname, propertyType
+        private static Dictionary<string, string> extraPropertyDict = new Dictionary<string, string>();
+
+        private class Method
+        {
+            public class Param
+            {
+                public string Name;
+                public string Type = "System.Object";
+                public string IsOut = "false";
+                public string IsRef = "false";
+            }
+
+            public string Name;
+            public string ReturnType = "System.Object";
+            public List<Param> Params = new List<Param>();
+        }
+
+        // methodFullname, methodType
+        private static Dictionary<string, Method> extraMethodDict = new Dictionary<string, Method>();
+        
         public static string ImportXML(string xmlDir, IList<string> xmlFilenames) {
             try {
-                if (xmlFilenames.Count == 0) {
+                extraPropertyDict.Clear();
+
+                if (xmlFilenames.Count == 0)
+                {
                     return string.Empty;
                 }
 
@@ -55,10 +79,20 @@ namespace Behaviac.Design.Importers
                 string[] filenames = Directory.GetFiles(xmlDir);
                 bool needBuildDll = false;
 
-                // Convert all xml files to cs files.
-                foreach(string filename in filenames) {
-                    if (xmlFilenames.Contains(Path.GetFileName(filename))) {
-                        string csFilename = Path.Combine(csDir, Path.GetFileName(filename));
+                // Add the extra meta xml files firstly.
+                string extraMeta = Path.Combine(xmlDir, Workspace.kExtraMeta);
+                if (File.Exists(extraMeta))
+                {
+                    loadExtraMeta(extraMeta);
+                }
+
+                // Then convert all xml files to cs files.
+                foreach (string filename in filenames)
+                {
+                    string file = Path.GetFileName(filename);
+                    if (Workspace.kExtraMeta != file && xmlFilenames.Contains(file))
+                    {
+                        string csFilename = Path.Combine(csDir, file);
                         csFilename = Path.ChangeExtension(csFilename, ".cs");
                         needBuildDll |= generateCsFile(csFilename, filename);
                     }
@@ -148,6 +182,103 @@ namespace Behaviac.Design.Importers
             return string.Empty;
         }
 
+        private static string GetAttribute(XmlNode node, string att)
+        {
+            XmlNode value = node.Attributes.GetNamedItem(att);
+
+            if (value != null && value.NodeType == XmlNodeType.Attribute)
+                return value.Value;
+
+            return string.Empty;
+        }
+
+        private static void loadExtraMeta(string xmlFilename)
+        {
+            try
+            {
+                extraPropertyDict.Clear();
+
+                XmlDocument xmlDoc = new XmlDocument();
+                Encoding utf8WithoutBom = new UTF8Encoding(false);
+                using (StreamReader fileStream = new StreamReader(xmlFilename, utf8WithoutBom))
+                {
+                    xmlDoc.Load(fileStream);
+                }
+
+                XmlNode rootNode = xmlDoc.DocumentElement;
+
+                if (rootNode.Name == "extrameta")
+                {
+                    foreach (XmlNode typeNode in rootNode.ChildNodes)
+                    {
+                        if (typeNode.Name == "agents")
+                        {
+                            foreach (XmlNode xmlNode in typeNode.ChildNodes)
+                            {
+                                if (xmlNode.Name == "agent")
+                                {
+                                    string agentName = GetAttribute(xmlNode, "classfullname");
+
+                                    foreach (XmlNode bbNode in xmlNode)
+                                    {
+                                        if (bbNode.Name == "properties")
+                                        {
+                                            foreach (XmlNode propNode in bbNode)
+                                            {
+                                                if (propNode.Name == "property")
+                                                {
+                                                    string propName = GetAttribute(propNode, "name");
+                                                    string propType = GetAttribute(propNode, "type");
+
+                                                    extraPropertyDict[agentName + "::" + propName] = propType;
+                                                }
+                                            }
+                                        }
+                                        else if (bbNode.Name == "methods")
+                                        {
+                                            foreach (XmlNode methodNode in bbNode)
+                                            {
+                                                if (methodNode.Name == "method")
+                                                {
+                                                    Method method = new Method();
+
+                                                    method.Name = GetAttribute(methodNode, "name");
+                                                    method.ReturnType = GetAttribute(methodNode, "returntype");
+
+                                                    foreach (XmlNode paramNode in methodNode)
+                                                    {
+                                                        Method.Param param = new Method.Param();
+
+                                                        param.Name = GetAttribute(paramNode, "name");
+                                                        param.Type = GetAttribute(paramNode, "type");
+                                                        param.IsOut = GetAttribute(paramNode, "isout");
+                                                        param.IsRef = GetAttribute(paramNode, "isref");
+
+                                                        if (string.IsNullOrEmpty(param.IsOut))
+                                                            param.IsOut = "false";
+
+                                                        if (string.IsNullOrEmpty(param.IsRef))
+                                                            param.IsRef = "false";
+
+                                                        method.Params.Add(param);
+                                                    }
+
+                                                    extraMethodDict[agentName + "::" + method.Name] = method;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
         private static bool generateCsFile(string csFilename, string xmlFilename) {
             try {
                 XmlDocument xmlDoc = new XmlDocument();
@@ -157,8 +288,11 @@ namespace Behaviac.Design.Importers
                     xmlDoc.Load(fileStream);
                 }
 
-                XmlNode rootNode_ = xmlDoc.DocumentElement;
-                XmlNode versionNode = rootNode_.Attributes["version"];
+                XmlNode rootNode = xmlDoc.DocumentElement;
+                if (rootNode.Name != "metas")
+                    return false;
+
+                XmlNode versionNode = rootNode.Attributes["version"];
                 bool bInvalid = false;
 
                 if (versionNode == null) {
@@ -178,7 +312,7 @@ namespace Behaviac.Design.Importers
                     return false;
                 }
 
-                XmlNode languageNode = rootNode_.Attributes["language"];
+                XmlNode languageNode = rootNode.Attributes["language"];
                 Plugin.SourceLanguage = (languageNode != null) ? languageNode.Value : "";
 
                 Stream s = File.Open(csFilename, FileMode.Create);
@@ -194,7 +328,7 @@ namespace Behaviac.Design.Importers
 
                 // types
                 XmlNode typesNode = null;
-                foreach(XmlNode c in rootNode_.ChildNodes) {
+                foreach(XmlNode c in rootNode.ChildNodes) {
                     if (c.Name == "types") {
                         typesNode = c;
                         break;
@@ -238,7 +372,7 @@ namespace Behaviac.Design.Importers
 
                 // agents
                 XmlNode agentsNode = null;
-                foreach(XmlNode c in rootNode_.ChildNodes) {
+                foreach(XmlNode c in rootNode.ChildNodes) {
                     if (c.Name == "agents") {
                         agentsNode = c;
                         break;
@@ -282,12 +416,6 @@ namespace Behaviac.Design.Importers
                             writeMembers(agentNode, className, wrtr, false);
                             wrtr.WriteLine("");
                             writeMethods(agentNode, className, wrtr);
-
-                            //string methodDesc = "\t\t[Behaviac.Design.MethodDesc(\"Agent\", true, true, false, false, \"int\", \"VectorLength\", \"VectorLength\")]";
-                            //string delegateStr = "\t\tpublic delegate int VectorLength(System.Collections.IList list);";
-
-                            //wrtr.WriteLine(methodDesc);
-                            //wrtr.WriteLine(delegateStr);
                         }
                         wrtr.WriteLine("\t}\n");
                     }
@@ -296,7 +424,7 @@ namespace Behaviac.Design.Importers
 
                 // instances
                 XmlNode instancesNode = null;
-                foreach(XmlNode c in rootNode_.ChildNodes) {
+                foreach(XmlNode c in rootNode.ChildNodes) {
                     if (c.Name == "instances") {
                         instancesNode = c;
                         break;
@@ -618,35 +746,56 @@ namespace Behaviac.Design.Importers
                     string memberName = (nameNode != null) ? childNode.Attributes["Name"].Value : "";
 
                     XmlNode typeNode = childNode.Attributes["Type"];
-                    string memberType = (typeNode != null) ? HandleHierarchyName(typeNode.Value) : "";
+                    string memberOriginalType = (typeNode != null) ? typeNode.Value : "";
+                    string memberType = HandleHierarchyName(memberOriginalType);
 
                     XmlAttribute readonlyNode = childNode.Attributes["Readonly"];
-                    string isReadOnly = (readonlyNode != null) ? readonlyNode.Value : "false";
+                    string isReadOnly = (readonlyNode != null) ? readonlyNode.Value.ToLowerInvariant() : "false";
 
                     XmlAttribute staticNode = childNode.Attributes["Static"];
-                    string isStatic = (staticNode != null) ? staticNode.Value : "false";
+                    string isStatic = (staticNode != null) ? staticNode.Value.ToLowerInvariant() : "false";
+
+                    XmlNode displayNameNode = childNode.Attributes["DisplayName"];
+                    string displayName = (displayNameNode != null && displayNameNode.Value.Length > 0) ? displayNameNode.Value : memberName;
+
+                    XmlNode descNode = childNode.Attributes["Desc"];
+                    string desc = (descNode != null && descNode.Value.Length > 0) ? descNode.Value : displayName;
+
+                    string isChangeableType = "false";
+                    if (string.IsNullOrEmpty(memberType))
+                    {
+                        isChangeableType = "true";
+
+                        string memberFullname = myClassName + "::" + memberName;
+                        if (extraPropertyDict.ContainsKey(memberFullname))
+                        {
+                            memberType = extraPropertyDict[memberFullname];
+                        }
+                        else
+                        {
+                            memberType = "System.Object";
+                        }
+                    }
 
                     memberType = fixTypeName(memberType);
 
                     if (isStruct) {
-                        string defaultValue = string.Empty;
                         Type type = Plugin.GetTypeFromName(memberType);
+                        string defaultValue = string.Empty;
 
                         if (type == null || Plugin.IsCustomClassType(type))
-                        { defaultValue = string.Format(" = new {0}()", memberType); }
-
-                        else if (Plugin.IsCharType(type)) {
+                        {
+                            defaultValue = string.Format(" = new {0}()", memberType);
+                        }
+                        else if (Plugin.IsCharType(type))
+                        {
                             //defaultValue = "= \'\\0\'";
                             defaultValue = "= \'A\'";
-
-                        } else if (Plugin.IsStringType(type))
-                        { defaultValue = string.Format(" = string.Empty"); }
-
-                        XmlNode displayNameNode = childNode.Attributes["DisplayName"];
-                        string displayName = (displayNameNode != null && displayNameNode.Value.Length > 0) ? displayNameNode.Value : memberName;
-
-                        XmlNode descNode = childNode.Attributes["Desc"];
-                        string desc = (descNode != null && descNode.Value.Length > 0) ? descNode.Value : displayName;
+                        }
+                        else if (Plugin.IsStringType(type))
+                        {
+                            defaultValue = string.Format(" = string.Empty");
+                        }
 
                         string staticStr = (isStatic == "true") ? "static " : "";
 
@@ -669,21 +818,12 @@ namespace Behaviac.Design.Importers
                         string className = (classNode != null) ? classNode.Value : myClassName;
 
                         XmlAttribute publicNode = childNode.Attributes["Public"];
-                        string isPublic = (publicNode != null) ? publicNode.Value : "false";
+                        string isPublic = (publicNode != null) ? publicNode.Value.ToLowerInvariant() : "false";
 
                         XmlAttribute propertyNode = childNode.Attributes["Property"];
-                        string isProperty = (propertyNode != null) ? propertyNode.Value : "false";
+                        string isProperty = (propertyNode != null) ? propertyNode.Value.ToLowerInvariant() : "false";
 
-                        typeNode = childNode.Attributes["Type"];
-                        string type = (typeNode != null && typeNode.Value.Length > 0) ? typeNode.Value : string.Empty;
-
-                        XmlNode displayNameNode = childNode.Attributes["DisplayName"];
-                        string displayName = (displayNameNode != null && displayNameNode.Value.Length > 0) ? displayNameNode.Value : memberName;
-
-                        XmlNode descNode = childNode.Attributes["Desc"];
-                        string desc = (descNode != null && descNode.Value.Length > 0) ? descNode.Value : displayName;
-
-                        wrtr.WriteLine("\t\t[Behaviac.Design.MemberDesc(\"{0}\", {1}, {2}, {3}, {4}, \"{5}\", \"{6}\", \"{7}\")]", className, isStatic, isPublic, isProperty, isReadOnly, type, displayName, desc);
+                        wrtr.WriteLine("\t\t[Behaviac.Design.MemberDesc(\"{0}\", {1}, {2}, {3}, {4}, {5}, \"{6}\", \"{7}\", \"{8}\")]", className, isChangeableType, isStatic, isPublic, isProperty, isReadOnly, memberOriginalType, displayName, desc);
                         wrtr.WriteLine("\t\tpublic {0} {1};", memberType, memberName);
                     }
 
@@ -722,7 +862,24 @@ namespace Behaviac.Design.Importers
 
                     XmlNode returnNode = childNode.Attributes["ReturnType"];
                     string nativeReturnType = (returnNode != null) ? returnNode.Value : "void";
-                    string returnType = (returnNode != null) ? fixTypeName(HandleHierarchyName(nativeReturnType)) : "void";
+                    string isChangeableType = (returnNode == null || string.IsNullOrEmpty(returnNode.Value)) ? "true" : "false";
+
+                    Method method = null;
+                    if (isChangeableType == "true")
+                    {
+                        string methodFullname = myClassName + "::" + methodName;
+                        if (extraMethodDict.ContainsKey(methodFullname))
+                        {
+                            method = extraMethodDict[methodFullname];
+                            nativeReturnType = method.ReturnType;
+                        }
+                        else
+                        {
+                            nativeReturnType = "System.Object";
+                        }
+                    }
+
+                    string returnType = fixTypeName(HandleHierarchyName(nativeReturnType));
 
                     XmlAttribute classNode = childNode.Attributes["Class"];
                     string className = (classNode != null) ? classNode.Value : myClassName;
@@ -756,7 +913,7 @@ namespace Behaviac.Design.Importers
 
                     Debug.Check(isGetter.ToLower() == "false" || returnType.ToLower() != "void");
 
-                    wrtr.WriteLine("\t\t[Behaviac.Design.MethodDesc(\"{0}\", {1}, {2}, {3}, {4}, \"{5}\", \"{6}\", \"{7}\")]", className, isStatic, isPublic, isNamedEvent, isActionMethodOnly, nativeReturnType, displayName, desc);
+                    wrtr.WriteLine("\t\t[Behaviac.Design.MethodDesc(\"{0}\", {1}, {2}, {3}, {4}, {5}, \"{6}\", \"{7}\", \"{8}\")]", className, isChangeableType, isStatic, isPublic, isNamedEvent, isActionMethodOnly, nativeReturnType, displayName, desc);
                     wrtr.WriteLine("\t\tpublic delegate {0} {1}(", returnType, methodName);
 
                     int paramCount = 0;
@@ -802,6 +959,24 @@ namespace Behaviac.Design.Importers
 
                             XmlNode paramRangeMaxNode = paramNode.Attributes["RangeMax"];
                             string paramRangeMax = (paramRangeMaxNode != null && paramRangeMaxNode.Value.Length > 0) ? paramRangeMaxNode.Value : null;
+
+                            if (isChangeableType == "true")
+                            {
+                                if (method != null)
+                                {
+                                    paramName = method.Params[i].Name;
+                                    paramType = method.Params[i].Type;
+                                    isOut = method.Params[i].IsOut;
+                                    isRef = method.Params[i].IsRef;
+                                }
+                                else
+                                {
+                                    paramType = "System.Object";
+                                }
+
+                                paramNativeType = paramType;
+                                paramType = fixTypeName(paramType);
+                            }
 
                             if (string.IsNullOrEmpty(paramRangeMin) && string.IsNullOrEmpty(paramRangeMax)) {
                                 wrtr.WriteLine("\t\t\t[Behaviac.Design.ParamDesc(\"{0}\", \"{1}\", \"{2}\", \"{3}\", {4}, {5})]", paramNativeType, paramDisplayName, paramDesc, defaultValue, isOut, isRef);

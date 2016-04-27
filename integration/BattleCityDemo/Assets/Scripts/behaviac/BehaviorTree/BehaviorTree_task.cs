@@ -479,7 +479,7 @@ namespace behaviac
                     //filter out intermediate bt, whose class name is empty
                     if (!string.IsNullOrEmpty(bClassName))
                     {
-                        string btName = GetParentTreeName(n);
+                        string btName = GetParentTreeName(pAgent, n);
 
                         string bpstr = "";
 
@@ -505,7 +505,7 @@ namespace behaviac
             return string.Empty;
         }
 
-        private static string GetParentTreeName(BehaviorNode n)
+        private static string GetParentTreeName(Agent pAgent, BehaviorNode n)
         {
             string btName = null;
 
@@ -538,7 +538,7 @@ namespace behaviac
             else if (bIsRefTree)
             {
                 ReferencedBehavior refTree = n as ReferencedBehavior;
-                btName = refTree.ReferencedTree;
+                btName = refTree.GetReferencedTree(pAgent);
             }
             else
             {

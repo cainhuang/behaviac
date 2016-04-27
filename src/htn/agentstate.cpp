@@ -137,7 +137,7 @@ namespace behaviac
             return;
         }
 
-        this->Clear();
+        this->Clear(true);
         //Debug.Check(this->state_stack == NULL);
         BEHAVIAC_ASSERT(this->state_stack.size() == 0);
         //Debug.Check(this.parent != NULL);
@@ -158,6 +158,28 @@ namespace behaviac
         //remove the last one
         this->state_stack.pop_back();//
     }
+
+	void AgentState::Clear(bool bFull) {
+		if (bFull) {
+#if BEHAVIAC_ENABLE_PUSH_OPT
+			this->m_forced = false;
+			this->m_pushed = 0;
+#endif
+			if (this->state_stack.size() > 0)
+			{
+				for (int i = (int)this->state_stack.size() - 1; i >= 0; --i)
+				{
+					AgentState* t = this->state_stack[i];
+
+					t->Clear(bFull);
+				}
+
+				this->state_stack.clear();
+			}
+		}
+
+		Variables::Clear(bFull);
+	}
 
     void AgentState::Log(Agent* pAgent, bool bForce)
     {

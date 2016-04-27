@@ -144,7 +144,7 @@ namespace behaviac
                 return;
             }
 
-            this.Clear();
+            this.Clear(true);
             Debug.Check(this.state_stack == null);
             Debug.Check(this.parent != null);
 
@@ -164,6 +164,23 @@ namespace behaviac
             Debug.Check(this.state_stack.Count > 0);
             //remove the last one
             this.state_stack.RemoveAt(this.state_stack.Count - 1);
+        }
+
+        public override void Clear(bool bFull)
+        {
+            if (bFull)
+            {
+#if BEHAVIAC_ENABLE_PUSH_OPT
+                this.m_pushed = 0;
+                this.m_forced = false;
+#endif
+                if (this.state_stack != null)
+                {
+                    this.state_stack.Clear(); 
+                }
+            }
+
+            base.Clear(bFull);
         }
 
         public override void Log(Agent pAgent, bool bForce)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\selector_loop_ut_6.xml-->
-<behavior name="node_test/selector_loop_ut_6" agenttype="AgentNodeTest" version="3">
+<behavior name="node_test/selector_loop_ut_6" agenttype="AgentNodeTest" version="4">
   <node class="DecoratorLoop" id="9">
     <property Count="const int 10" />
     <property DecorateWhenChildEnds="false" />

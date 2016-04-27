@@ -26,7 +26,7 @@ namespace PluginBehaviac.DataExporters
             if (variable.ValueClass == Behaviac.Design.VariableDef.kConst)
             {
                 Type type = variable.Value.GetType();
-                if (Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type) || Plugin.IsStringType(type))
+                if (Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type) || (Plugin.IsStringType(type) && !variable.IsConst))
                 {
                     if (Plugin.IsArrayType(type))
                     {
@@ -41,7 +41,7 @@ namespace PluginBehaviac.DataExporters
                     {
                         StructCsExporter.GenerateCode(variable.Value, stream, indent + "\t\t\t", var, null, "");
                     }
-                    else if (Plugin.IsStringType(type))
+                    else if ((Plugin.IsStringType(type) && !variable.IsConst))
                     {
                         string nativeType = DataCsExporter.GetGeneratedNativeType(variable.NativeType);
                         string retStr = DataCsExporter.GenerateCode(variable.Value, stream, indent + "\t\t\t", nativeType, string.Empty, string.Empty);
@@ -56,7 +56,7 @@ namespace PluginBehaviac.DataExporters
             if (variable.ValueClass == Behaviac.Design.VariableDef.kConst)
             {
                 Type type = variable.Value.GetType();
-                if (Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type) || Plugin.IsStringType(type))
+                if (Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type) || (Plugin.IsStringType(type) && !variable.IsConst))
                 {
                     string nativeType = DataCsExporter.GetGeneratedNativeType(variable.NativeType);
 
@@ -90,7 +90,7 @@ namespace PluginBehaviac.DataExporters
             {
                 bool shouldGenerate = true;
                 Type type = variable.Value.GetType();
-                if (Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type) || Plugin.IsStringType(type))
+                if (Plugin.IsArrayType(type) || Plugin.IsCustomClassType(type) || (Plugin.IsStringType(type) && !variable.IsConst))
                 {
                     shouldGenerate = false;
                 }

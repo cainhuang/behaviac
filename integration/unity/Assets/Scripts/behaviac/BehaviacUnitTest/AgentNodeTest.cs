@@ -100,7 +100,7 @@ public class AgentNodeTest : behaviac.Agent
         TestFloat2.y = 2.0f;
 
         testVar_str_0 = string.Empty;
-        this.Variables.Clear();
+        this.Variables.Clear(true);
     }
 
     [behaviac.MethodMetaInfo()]
@@ -332,6 +332,12 @@ where T : behaviac.Agent
         testVar_str_0 = str;
         action_2_exit_count++;
     }
+
+    [behaviac.MethodMetaInfo()]
+   	public string GetRefTree()  {
+		return "node_test/reference_sub_0";
+	}
+
 }
 
 

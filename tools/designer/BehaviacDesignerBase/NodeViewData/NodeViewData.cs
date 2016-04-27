@@ -245,7 +245,7 @@ public partial class NodeViewData : BaseNode
             NodeViewData nvd = this.Parent;
 
             while (nvd != null) {
-                if (nvd.Node is ReferencedBehaviorNode)
+                if (nvd.Node is ReferencedBehavior)
                 { referencedNodeViews.Add(nvd); }
 
                 nvd = nvd.Parent;
@@ -258,9 +258,9 @@ public partial class NodeViewData : BaseNode
     public bool IsBehaviorReferenced(BehaviorNode behavior) {
         if (behavior != null && this.Parent != null) {
             foreach(NodeViewData nvd in ReferencedNodeViews) {
-                Debug.Check(nvd.Node is ReferencedBehaviorNode);
+                Debug.Check(nvd.Node is ReferencedBehavior);
 
-                if (((ReferencedBehaviorNode)nvd.Node).Reference == behavior)
+                if (((ReferencedBehavior)nvd.Node).ReferenceBehaviorNode == behavior)
                 { return true; }
             }
 
@@ -904,7 +904,8 @@ public partial class NodeViewData : BaseNode
             DesignerProperty att = properties[p].Attribute;
 
             if (att.Display == DesignerProperty.DisplayMode.List) {
-                bool bDo = true;
+                object pValue = properties[p].Property.GetValue(node, null);
+                bool bDo = pValue != null;
 
                 if (bDo) {
                     AddSubItem(new SubItemProperty(node, properties[p].Property, att));

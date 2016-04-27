@@ -17,6 +17,7 @@ using System.Text;
 using System.IO;
 using Behaviac.Design;
 using Behaviac.Design.Nodes;
+using PluginBehaviac.DataExporters;
 
 namespace PluginBehaviac.NodeExporters
 {
@@ -28,6 +29,56 @@ namespace PluginBehaviac.NodeExporters
             return (referencedBehavior != null);
         }
 
+        protected override void GenerateMember(Node node, StreamWriter stream, string indent)
+        {
+            base.GenerateMember(node, stream, indent);
+
+            ReferencedBehavior pReferencedNode = node as ReferencedBehavior;
+            if (pReferencedNode == null)
+                return;
+
+            if (pReferencedNode.ReferenceBehavior != null)
+            {
+                RightValueCppExporter.GenerateClassMember(pReferencedNode.ReferenceBehavior, stream, indent, "Behavior");
+            }
+        }
+
+        protected override void GenerateMethod(Node node, StreamWriter stream, string indent)
+        {
+            base.GenerateMethod(node, stream, indent);
+
+            ReferencedBehavior referencedBehavior = node as ReferencedBehavior;
+            if (referencedBehavior == null)
+                return;
+
+            stream.WriteLine("{0}\t\tvirtual const char* GetReferencedTree(const Agent* pAgent) const", indent);
+            stream.WriteLine("{0}\t\t{{", indent);
+            stream.WriteLine("{0}\t\t\tBEHAVIAC_UNUSED_VAR(pAgent);", indent);
+
+            string retStr = RightValueCppExporter.GenerateCode(referencedBehavior.ReferenceBehavior, stream, indent + "\t\t\t", "const char*", string.Empty, "_referencedBehavior");
+
+            bool bConst = false;
+            if (referencedBehavior.ReferenceBehavior.Var != null && referencedBehavior.ReferenceBehavior.Var.IsConst)
+            {
+                bConst = true;
+            }
+
+            if (!bConst)
+            {
+                stream.WriteLine("{0}\t\t\tif (pAgent) {{", indent);
+            }
+
+            stream.WriteLine("{0}\t\t\treturn {1};", indent, retStr);
+
+            if (!bConst)
+            {
+                stream.WriteLine("{0}\t\t\t}}", indent);
+                stream.WriteLine("{0}\t\t\treturn 0;", indent);
+            }
+
+            stream.WriteLine("{0}\t\t}}", indent);
+        }
+
         protected override void GenerateConstructor(Node node, StreamWriter stream, string indent, string className)
         {
             base.GenerateConstructor(node, stream, indent, className);
@@ -36,12 +87,14 @@ namespace PluginBehaviac.NodeExporters
             if (referencedBehavior == null)
                 return;
 
-            stream.WriteLine("{0}\t\t\tm_referencedBehaviorPath = \"{1}\";", indent, referencedBehavior.ReferenceFilename);
-            stream.WriteLine("{0}\t\t\tBehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(this->m_referencedBehaviorPath.c_str());", indent);
+            stream.WriteLine("{0}\t\t\tconst char* szTreePath = this->GetReferencedTree(0);", indent);
+            stream.WriteLine("{0}\t\t\tif (szTreePath) {{", indent);
+            stream.WriteLine("{0}\t\t\tBehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);", indent);
             stream.WriteLine("{0}\t\t\tBEHAVIAC_ASSERT(behaviorTree);", indent);
             stream.WriteLine("{0}\t\t\tif (behaviorTree)", indent);
-			stream.WriteLine("{0}\t\t\t{{", indent);
-			stream.WriteLine("{0}\t\t\t\tthis->m_bHasEvents |= behaviorTree->HasEvents();", indent);
+            stream.WriteLine("{0}\t\t\t{{", indent);
+            stream.WriteLine("{0}\t\t\t\tthis->m_bHasEvents |= behaviorTree->HasEvents();", indent);
+            stream.WriteLine("{0}\t\t\t}}", indent);
             stream.WriteLine("{0}\t\t\t}}", indent);
 
             if (referencedBehavior.Task != null)

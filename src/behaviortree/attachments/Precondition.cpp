@@ -29,43 +29,36 @@ namespace behaviac
 
         for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
         {
-            property_t p = *it;
-            behaviac::string p_name(p.name);
-            behaviac::string p_value(p.value);
+            const property_t& p = *it;
 
-            if (p_name == "BinaryOperator")
+            if (StringUtils::StrEqual(p.name,"BinaryOperator"))
             {
-                if (p_value == "Or")
+				if (StringUtils::StrEqual(p.value, "Or"))
                 {
                     this->m_bAnd = false;
-
                 }
-                else if (p_value == "And")
+				else if (StringUtils::StrEqual(p.value, "And"))
                 {
                     this->m_bAnd = true;
-
                 }
                 else
                 {
                     BEHAVIAC_ASSERT(false);
                 }
             }
-            else if (p_name == "Phase")
+            else if (StringUtils::StrEqual(p.name,"Phase"))
             {
-                if (p_value == "Enter")
+                if (StringUtils::StrEqual(p.value,"Enter"))
                 {
                     this->m_phase = E_ENTER;
-
                 }
-                else if (p_value == "Update")
+				else if (StringUtils::StrEqual(p.value, "Update"))
                 {
                     this->m_phase = E_UPDATE;
-
                 }
-                else if (p_value == "Both")
+				else if (StringUtils::StrEqual(p.value, "Both"))
                 {
                     this->m_phase = E_BOTH;
-
                 }
                 else
                 {

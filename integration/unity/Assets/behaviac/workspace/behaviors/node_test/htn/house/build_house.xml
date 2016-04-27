@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Behavior Version="3">
+<Behavior Version="4">
   <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="HTNAgentHouse" Domains="" Enable="true" HasOwnPrefabData="false" Id="-1" PrefabName="" PrefabNodeId="-1">
     <Comment Background="NoColor" Text="" />
     <DescriptorRefs value="0:" />
@@ -29,7 +29,7 @@
                       </Node>
                     </Connector>
                   </Node>
-                  <Node Class="Behaviac.Design.Nodes.ReferencedBehavior" Enable="true" HasOwnPrefabData="false" Id="20" PrefabName="" PrefabNodeId="-1" ReferenceFilename="node_test/htn/house/construct" Task="Self.HTNAgentHouse::construct()">
+                  <Node Class="Behaviac.Design.Nodes.ReferencedBehavior" Enable="true" HasOwnPrefabData="false" Id="20" PrefabName="" PrefabNodeId="-1" ReferenceBehavior="const string &quot;node_test/htn/house/construct&quot;" Task="Self.HTNAgentHouse::construct()">
                     <Comment Background="Gray" Text="" />
                   </Node>
                   <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="19" Method="Self.HTNAgentHouse::PayBuilder()" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS">
@@ -71,7 +71,7 @@
                       </Node>
                     </Connector>
                   </Node>
-                  <Node Class="Behaviac.Design.Nodes.ReferencedBehavior" Enable="true" HasOwnPrefabData="false" Id="26" PrefabName="" PrefabNodeId="-1" ReferenceFilename="node_test/htn/house/construct" Task="Self.HTNAgentHouse::construct()">
+                  <Node Class="Behaviac.Design.Nodes.ReferencedBehavior" Enable="true" HasOwnPrefabData="false" Id="26" PrefabName="" PrefabNodeId="-1" ReferenceBehavior="const string &quot;node_test/htn/house/construct&quot;" Task="Self.HTNAgentHouse::construct()">
                     <Comment Background="Gray" Text="" />
                   </Node>
                 </Connector>

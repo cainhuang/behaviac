@@ -47,7 +47,9 @@ namespace Behaviac.Design
 
         private const string Par_Str = "-  ";
         private const string Customized_Str = "*  ";
-        private const string Non_Customized_Str = "   ";
+        private const string Member_Str = "   ";
+        private const string Empty_Type_Str = "?  ";
+        private const string Changeable_Type_Str = "$  ";
 
         private static MetaStoreDock _metaStoreDock = null;
         private static AgentType _lastAgent = null;
@@ -212,6 +214,8 @@ namespace Behaviac.Design
 
             bool isBlackboardDirty = Workspace.Current.IsBlackboardDirty;
 
+            Workspace.SaveExtraMeta(Workspace.Current);
+
             Workspace.SaveCustomMeta(Workspace.Current);
 
             if (_isParDirtyBehavior != null) {
@@ -307,7 +311,7 @@ namespace Behaviac.Design
 
             for (int i = 0; i < Plugin.AgentTypes.Count; ++i) {
                 AgentType agent = Plugin.AgentTypes[i];
-                string agentName = (agent.IsCustomized ? Customized_Str : Non_Customized_Str) + agent.AgentTypeName;
+                string agentName = (agent.IsCustomized ? Customized_Str : Member_Str) + agent.AgentTypeName;
                 this.typeListBox.Items.Add(agentName);
 
                 if (agent.AgentTypeName == selectedType) {
@@ -354,6 +358,37 @@ namespace Behaviac.Design
             return (focusedView != null && focusedView.RootNode != null) ? focusedView.RootNode.AgentType : null;
         }
 
+        private string getPrefixString(PropertyDef p)
+        {
+            if (p != null)
+            {
+                if (p.IsChangeableType)
+                    return (p.Type == typeof(object)) ? Empty_Type_Str : Changeable_Type_Str;
+
+                if (p.IsPar)
+                    return Par_Str;
+
+                if (!p.IsMember)
+                    return Customized_Str;
+            }
+
+            return Member_Str;
+        }
+
+        private string getPrefixString(MethodDef m)
+        {
+            if (m != null)
+            {
+                if (m.IsChangeableType)
+                    return (m.ReturnType == typeof(object)) ? Empty_Type_Str : Changeable_Type_Str;
+
+                if (m.IsCustomized)
+                    return Customized_Str;
+            }
+
+            return Member_Str;
+        }
+
         private void setMembers() {
             this.addMemberButton.Enabled = false;
             this.removeMemberButton.Enabled = false;
@@ -375,17 +410,24 @@ namespace Behaviac.Design
 
                     if (agentType != null) {
                         if (this.memberTypeComboBox.SelectedIndex == (int)MemberType.Property) {
+                            Nodes.BehaviorNode root = this.getCurrentRootNode();
+                            if (root == null || root.AgentType != agentType)
+                            {
+                                agentType.ClearPars();
+                            }
+
                             IList<PropertyDef> properties = agentType.GetProperties();
+
                             foreach(PropertyDef p in properties) {
-                                if (p.IsArrayElement) {
+                                if (p.IsArrayElement)
                                     continue;
-                                }
 
                                 string propName = p.DisplayName.ToLowerInvariant();
 
                                 if (memberFilterCheckBox.Checked && propName.StartsWith(filter) ||
-                                    !memberFilterCheckBox.Checked && propName.Contains(filter)) {
-                                    string disp = (p.IsPar ? Par_Str : (!p.IsMember ? Customized_Str : Non_Customized_Str)) + p.DisplayName;
+                                    !memberFilterCheckBox.Checked && propName.Contains(filter))
+                                {
+                                    string disp = getPrefixString(p) + p.DisplayName;
                                     this.memberListBox.Items.Add(new MemberItem(disp, p));
                                 }
                             }
@@ -403,8 +445,9 @@ namespace Behaviac.Design
                                 string methodName = m.DisplayName.ToLowerInvariant();
 
                                 if (memberFilterCheckBox.Checked && methodName.StartsWith(filter) ||
-                                    !memberFilterCheckBox.Checked && methodName.Contains(filter)) {
-                                    string disp = (m.IsCustomized ? Customized_Str : Non_Customized_Str) + m.DisplayName;
+                                    !memberFilterCheckBox.Checked && methodName.Contains(filter))
+                                {
+                                    string disp = getPrefixString(m) + m.DisplayName;
                                     this.memberListBox.Items.Add(new MemberItem(disp, m));
                                 }
                             }
@@ -835,8 +878,11 @@ namespace Behaviac.Design
                 string instanceName = this.instanceComboBox.Text;
 
                 if (!string.IsNullOrEmpty(instanceName)) {
+                    instanceName = instanceName.Replace(Par_Str, "");
                     instanceName = instanceName.Replace(Customized_Str, "");
-                    instanceName = instanceName.Replace(Non_Customized_Str, "");
+                    instanceName = instanceName.Replace(Member_Str, "");
+                    instanceName = instanceName.Replace(Empty_Type_Str, "");
+                    instanceName = instanceName.Replace(Changeable_Type_Str, "");
                     instanceName = instanceName.Trim();
 
                     MemberItem item = this.memberListBox.SelectedItem as MemberItem;
@@ -1250,12 +1296,12 @@ namespace Behaviac.Design
                             PropertyDef curProp = this._metaPropertyPanel.GetProperty();
                             Debug.Check(curProp != null);
 
-                            if (prop.IsMember)
+                            if (prop.IsMember && !prop.IsChangeableType)
                             {
                                 prop.IsExportedButAlsoCustomized = curProp.IsExportedButAlsoCustomized;
                                 bEdit = true;
                             }
-                            else if (canBeEdit && (curProp.Name == prop.Name || checkMembersInWorkspace(agent, false, null, curProp)))
+                            else if ((prop.IsChangeableType || canBeEdit) && (curProp.Name == prop.Name || checkMembersInWorkspace(agent, false, null, curProp)))
                             {
                                 if (curProp.IsPar || curProp.IsPar != prop.IsPar)
                                 {
@@ -1283,7 +1329,7 @@ namespace Behaviac.Design
 
                                 prop.CopyFrom(curProp);
 
-                                item.DisplayName = (prop.IsPar ? Par_Str : Customized_Str) + prop.DisplayName;
+                                item.DisplayName = getPrefixString(prop) + prop.DisplayName;
                                 bEdit = true;
 
                                 if (curProp.IsPar != prop.IsPar)
@@ -1349,13 +1395,13 @@ namespace Behaviac.Design
                             MethodDef curMethod = this._metaMethodPanel.GetMethod();
                             Debug.Check(curMethod != null);
 
-                            if (method.IsCustomized && checkMembersInWorkspace(agent, false, curMethod, null))
+                            if ((method.IsChangeableType || method.IsCustomized) && checkMembersInWorkspace(agent, false, curMethod, null))
                             {
                                 resetMembersInWorkspace(agent, false, curMethod, null);
 
                                 method.CopyFrom(curMethod);
 
-                                item.DisplayName = Customized_Str + method.DisplayName;
+                                item.DisplayName = getPrefixString(method) + method.DisplayName;
                                 bEdit = true;
                             }
                         }

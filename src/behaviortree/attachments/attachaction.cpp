@@ -26,6 +26,13 @@ namespace behaviac
         m_operator = E_INVALID;
 		m_comparator = 0;
     }
+ 
+	AttachAction::ActionConfig::~ActionConfig() {
+		BEHAVIAC_DELETE(m_opl_m);
+		BEHAVIAC_DELETE(m_opr1_m);
+		BEHAVIAC_DELETE(m_opr2_m);
+	}
+
     bool AttachAction::ActionConfig::load(const properties_t& properties)
     {
         string propertyName = "";
@@ -33,11 +40,8 @@ namespace behaviac
 
         for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
         {
-            property_t p = *it;
-            behaviac::string p_name(p.name);
-            behaviac::string p_value(p.value);
-
-            if (p_name == "Mode")
+            const property_t& p = *it;
+            if (StringUtils::StrEqual(p.name, "Mode"))
             {
                 if (StringUtils::StrEqual(p.value, "Condition"))
                 {
@@ -56,13 +60,13 @@ namespace behaviac
                     this->m_mode = TM_End;
                 }
             }
-            else if (p_name == "Opl")
+			else if (StringUtils::StrEqual(p.name, "Opl"))
             {
                 if (StringUtils::IsValidString(p.value))
                 {
-					size_t pParenthesis = p_value.find_first_of('(');
+					const char* pParenthesis = StringUtils::StrFind(p.value, '(');
 
-                    if (pParenthesis == (size_t)-1)
+                    if (pParenthesis == 0)
                     {
                         this->m_opl = Condition::LoadRight(p.value, this->m_typeName);
                     }
@@ -77,13 +81,12 @@ namespace behaviac
                     }
                 }
             }
-            else if (p_name == "Opr1")
+			else if (StringUtils::StrEqual(p.name, "Opr1"))
             {
                 if (StringUtils::IsValidString(p.value))
                 {
-					size_t pParenthesis = p_value.find_first_of('(');
-
-                    if (pParenthesis == (size_t)-1)
+					const char* pParenthesis = StringUtils::StrFind(p.value, '(');
+                    if (pParenthesis == 0)
                     {
                         this->m_opr1 = Condition::LoadRight(p.value, this->m_typeName);
                     }
@@ -98,66 +101,65 @@ namespace behaviac
                     }
                 }
             }
-            else if (p_name == "Operator")
+			else if (StringUtils::StrEqual(p.name, "Operator"))
             {
-                comparatorName = p_value;
+                comparatorName = p.value;
 
-                if (p_value == "Invalid")
+                if (StringUtils::StrEqual(p.value, "Invalid"))
                 {
                     this->m_operator = E_INVALID;
                 }
-                else if (p_value == "Assign")
+				else if (StringUtils::StrEqual(p.value, "Assign"))
                 {
                     this->m_operator = E_ASSIGN;
                 }
-                else if (p_value == "Add")
+				else if (StringUtils::StrEqual(p.value, "Add"))
                 {
                     this->m_operator = E_ADD;
                 }
-                else if (p_value == "Sub")
+				else if (StringUtils::StrEqual(p.value, "Sub"))
                 {
                     this->m_operator = E_SUB;
                 }
-                else if (p_value == "Mul")
+				else if (StringUtils::StrEqual(p.value, "Mul"))
                 {
                     this->m_operator = E_MUL;
                 }
-                else if (p_value == "Div")
+				else if (StringUtils::StrEqual(p.value, "Div"))
                 {
                     this->m_operator = E_DIV;
                 }
-                else if (p_value == "Equal")
+				else if (StringUtils::StrEqual(p.value, "Equal"))
                 {
                     this->m_operator = E_EQUAL;
                 }
-                else if (p_value == "NotEqual")
+				else if (StringUtils::StrEqual(p.value, "NotEqual"))
                 {
                     this->m_operator = E_NOTEQUAL;
                 }
-                else if (p_value == "Greater")
+				else if (StringUtils::StrEqual(p.value, "Greater"))
                 {
                     this->m_operator = E_GREATER;
                 }
-                else if (p_value == "Less")
+				else if (StringUtils::StrEqual(p.value, "Less"))
                 {
                     this->m_operator = E_LESS;
                 }
-                else if (p_value == "GreaterEqual")
+				else if (StringUtils::StrEqual(p.value, "GreaterEqual"))
                 {
                     this->m_operator = E_GREATEREQUAL;
                 }
-                else if (p_value == "LessEqual")
+				else if (StringUtils::StrEqual(p.value, "LessEqual"))
                 {
                     this->m_operator = E_LESSEQUAL;
                 }
             }
-            else if (p_name == "Opr2")
+			else if (StringUtils::StrEqual(p.name, "Opr2"))
             {
                 if (StringUtils::IsValidString(p.value))
                 {
-					size_t pParenthesis = p_value.find_first_of('(');
-
-                    if (pParenthesis == (size_t)-1)
+					const char* pParenthesis = StringUtils::StrFind(p.value, '(');
+                    if (pParenthesis == 0)
                     {
                         this->m_opr2 = Condition::LoadRight(p.value, this->m_typeName);
                     }

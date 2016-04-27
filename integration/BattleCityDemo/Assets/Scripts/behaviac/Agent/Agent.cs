@@ -72,12 +72,12 @@ namespace behaviac
 
             ~State_t()
             {
-                this.Clear();
+                this.Clear(true);
             }
 
-            public void Clear()
+            public void Clear(bool bFull)
             {
-                this.m_vars.Clear();
+                this.m_vars.Clear(bFull);
 
                 this.m_bt = null;
             }
@@ -1277,7 +1277,9 @@ namespace behaviac
                     this.m_currentBT = pTask;
 
                     this.m_bBbBound = false;
-                    this.Variables.Clear();
+
+                    //don't clear fully, as the task's parameter might have been set before changing tree
+                    this.Variables.Clear(false);
                     //string pThisTree = this.m_currentBT.GetName();
                     //this.LogJumpTree(pThisTree);
                 }

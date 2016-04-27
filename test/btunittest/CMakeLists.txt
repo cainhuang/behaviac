@@ -13,10 +13,21 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 # add the executable
 add_executable(btunittest ${BTUNITTEST_INC} ${BTUNITTEST_SRC})
 
-target_link_libraries (btunittest  libbehaviac ${CMAKE_THREAD_LIBS_INIT})
+# target_link_libraries (btunittest libbehaviac ${CMAKE_THREAD_LIBS_INIT} ${LINKER_SCRIPT})
+target_link_libraries (btunittest libbehaviac ${CMAKE_THREAD_LIBS_INIT})
+
+# if (BEHAVIAC_RELEASE_ON)
+	# set_target_properties(btunittest PROPERTIES INTERPROCEDURAL_OPTIMIZATION True)
+# endif()
 
 set_target_properties(btunittest PROPERTIES PREFIX "")
 # set_target_properties(btunittest PROPERTIES OUTPUT_NAME_DEBUG libbehaviac${${CMAKE_DEBUG_POSTFIX}}
 # set_target_properties(btunittest PROPERTIES OUTPUT_NAME_RELEASE libbehaviac${${CMAKE_RELEASE_POSTFIX}}
 set_target_properties(btunittest PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 set_target_properties(btunittest PROPERTIES RELEASE_POSTFIX ${CMAKE_RELEASE_POSTFIX})
+
+IF(MSVC)
+   SET_TARGET_PROPERTIES(btunittest PROPERTIES LINK_FLAGS "/MAP")
+else()
+   set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Map=btunittest_gcc_${CMAKE_BUILD_TYPE}.map")
+ENDIF()

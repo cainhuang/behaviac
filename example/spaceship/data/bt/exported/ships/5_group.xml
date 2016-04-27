@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: ships\5_group.xml-->
-<behavior name="ships/5_group" agenttype="framework::Ship" version="3">
+<behavior name="ships/5_group" agenttype="framework::Ship" version="4">
   <node class="Parallel" id="1">
     <property ChildFinishPolicy="CHILDFINISH_LOOP" />
     <property ExitPolicy="EXIT_NONE" />

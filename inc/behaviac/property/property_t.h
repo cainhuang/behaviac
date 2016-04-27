@@ -419,7 +419,7 @@ namespace behaviac
             const VariableType& retV_vec = this->GetValue(pAgentFrom);
 			const ElementType& retV = retV_vec[index];
 
-#if BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_MSVC2015 || BEHAVIAC_COMPILER_ANDROID
+#if 1//BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_MSVC2015 || BEHAVIAC_COMPILER_ANDROID
 			//this is not thread safe
 			ASSERT_MAIN_THREAD();
 			//xcode, it reports compiling error, so to use a static here, not perfect

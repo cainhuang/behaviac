@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <meta>
   <types>
     <enumtype Type="ETest" DisplayName="ETest" Desc="">
@@ -45,6 +46,12 @@
         </method>
         <method name="event_test_agent" returntype="System.Void" classname="AgentNodeTest" static="false" public="true" istask="true" disp="event_test_agent" desc="event_test_agent">
           <parameter name="agent" type="XMLPluginBehaviac.AgentNodeTest" disp="agent" desc="" />
+        </method>
+        <method name="event_test_float2" returntype="System.Void" classname="AgentNodeTest" static="false" public="true" istask="true" disp="event_test_float2" desc="event_test_float2">
+          <parameter name="float2" type="XMLPluginBehaviac.TestNS_Float2" disp="float2" desc="" />
+        </method>
+        <method name="event_test_float2_ref" returntype="System.Void" classname="AgentNodeTest" static="false" public="true" istask="true" disp="event_test_float2_ref" desc="event_test_float2_ref">
+          <parameter name="float2" type="XMLPluginBehaviac.TestNS_Float2" isref="true" disp="float2" desc="" />
         </method>
       </methods>
     </agent>

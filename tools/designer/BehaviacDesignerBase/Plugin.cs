@@ -605,19 +605,22 @@ namespace Behaviac.Design
 
                 Plugin.RegisterTypeHandlers(_DesignerBaseDll);
                 Plugin.RegisterAgentTypes(_DesignerBaseDll);
+
+                Plugin.InitNodeGroups();
+
                 Plugin.RegisterNodeDesc(_DesignerBaseDll);
 
-                Plugin.RegisterTypeName("Tag_Vector2", "Vector2");
-                Plugin.RegisterTypeName("Tag_Vector3", "Vector3");
-                Plugin.RegisterTypeName("Tag_Vector4", "Vector4");
-                Plugin.RegisterTypeName("Tag_Float2", "Vector2");
-                Plugin.RegisterTypeName("Tag_Float3", "Vector3");
-                Plugin.RegisterTypeName("Tag_Float4", "Vector4");
-                Plugin.RegisterTypeName("Tag_Quaternion", "Quaternion");
-                Plugin.RegisterTypeName("Tag_Aabb3", "Aabb3");
-                Plugin.RegisterTypeName("Tag_Ray3", "Ray3");
-                Plugin.RegisterTypeName("Tag_Sphere", "Sphere");
-                Plugin.RegisterTypeName("Angle3F", "Angle3F");
+                //Plugin.RegisterTypeName("Tag_Vector2", "Vector2");
+                //Plugin.RegisterTypeName("Tag_Vector3", "Vector3");
+                //Plugin.RegisterTypeName("Tag_Vector4", "Vector4");
+                //Plugin.RegisterTypeName("Tag_Float2", "Vector2");
+                //Plugin.RegisterTypeName("Tag_Float3", "Vector3");
+                //Plugin.RegisterTypeName("Tag_Float4", "Vector4");
+                //Plugin.RegisterTypeName("Tag_Quaternion", "Quaternion");
+                //Plugin.RegisterTypeName("Tag_Aabb3", "Aabb3");
+                //Plugin.RegisterTypeName("Tag_Ray3", "Ray3");
+                //Plugin.RegisterTypeName("Tag_Sphere", "Sphere");
+                //Plugin.RegisterTypeName("Angle3F", "Angle3F");
             }
         }
 
@@ -635,9 +638,10 @@ namespace Behaviac.Design
             return __loadedPlugins.AsReadOnly();
         }
 
-        public delegate void RegisterPluginDelegate(Assembly assembly, Plugin plugin, object nodeList, bool bAddNodes);
+        public delegate void RegisterPluginDelegate(Assembly assembly, Plugin plugin, ImageList imgList, bool bAddNodes);
 
-        public static void LoadPlugins(RegisterPluginDelegate registerPlugin = null, object nodeList = null, bool bAddNodes = false) {
+        public static void LoadPlugins(RegisterPluginDelegate registerPlugin = null, ImageList imgList = null, bool bAddNodes = false)
+        {
             // get all the DLL files
             string appDir = Path.GetDirectoryName(Application.ExecutablePath);
             string[] files = Directory.GetFiles(appDir, "*.dll", SearchOption.TopDirectoryOnly);
@@ -673,7 +677,17 @@ namespace Behaviac.Design
                 Plugin plugin = (Plugin)assembly.CreateInstance(classname + ".Plugin");
 
                 if (plugin != null && registerPlugin != null) {
-                    registerPlugin(assembly, plugin, nodeList, bAddNodes);
+                    registerPlugin(assembly, plugin, imgList, bAddNodes);
+                }
+
+                if (imgList != null)
+                {
+                    ImageList nodeImageList = imgList as ImageList;
+
+                    foreach (Image image in Plugin.ImagesList)
+                    {
+                        nodeImageList.Images.Add(image);
+                    }
                 }
             }
         }
@@ -894,12 +908,12 @@ namespace Behaviac.Design
         }
 
         /// <summary>
-        /// The type used to create referenced behaviour nodes. Must implement the interface Nodes.ReferencedBehaviorNode.
+        /// The type used to create referenced behaviour nodes. Must implement the interface Nodes.ReferencedBehavior.
         /// </summary>
         private static Type __usedReferencedBehaviorNodeType = typeof(Nodes.ReferencedBehavior);
 
         /// <summary>
-        /// The type used to create referenced behaviour nodes. Must implement the interface Nodes.ReferencedBehaviorNode.
+        /// The type used to create referenced behaviour nodes. Must implement the interface Nodes.ReferencedBehavior.
         /// </summary>
         public static Type ReferencedBehaviorNodeType {
             get { return __usedReferencedBehaviorNodeType; }
@@ -914,9 +928,9 @@ namespace Behaviac.Design
         /// <summary>
         /// Defines the type used when referenced behaviour nodes are created.
         /// </summary>
-        /// <param name="type">The type used to create referenced behaviour nodes. Must implement Nodes.ReferencedBehaviorNode.</param>
+        /// <param name="type">The type used to create referenced behaviour nodes. Must implement Nodes.ReferencedBehavior.</param>
         protected void SetUsedReferencedBehaviorNodeType(Type type) {
-            if (!typeof(Nodes.ReferencedBehaviorNode).IsAssignableFrom(type) || type.IsAbstract)
+            if (!typeof(Nodes.ReferencedBehavior).IsAssignableFrom(type) || type.IsAbstract)
             { throw new Exception(Resources.ExceptionReferencedBehaviorNodeTypeInvalid); }
 
             __usedReferencedBehaviorNodeType = type;
@@ -1415,6 +1429,9 @@ namespace Behaviac.Design
             if (type == typeof(void))
                 return "void";
 
+            if (type == typeof(object))
+                return "System::Object";
+
             foreach(Type key in Plugin.TypeHandlers.Keys) {
                 if (key == type)
                 { return Plugin.GetNativeTypeName(key); }
@@ -1430,7 +1447,10 @@ namespace Behaviac.Design
 
         public static Type GetMemberValueType(string typeName) {
             if (typeName == "void")
-            { return typeof(void); }
+                return typeof(void);
+
+            if (typeName == "System::Object" || typeName == "Object" || typeName == "object")
+                return typeof(object);
 
             foreach(Type key in Plugin.TypeHandlers.Keys) {
                 if (Plugin.GetNativeTypeName(key) == typeName)
@@ -1591,50 +1611,23 @@ namespace Behaviac.Design
 
         public static Type GetTypeFromName(string typeName) {
             if (string.IsNullOrEmpty(typeName))
-            { return null; }
+                return null;
 
             switch (typeName) {
-                case "bool"     :
-                    return typeof(bool);
-
-                case "int"      :
-                    return typeof(int);
-
-                case "uint"     :
-                    return typeof(uint);
-
-                case "short"    :
-                    return typeof(short);
-
-                case "ushort"   :
-                    return typeof(ushort);
-
-                case "char"     :
-                    return typeof(char);
-
-                case "sbyte"    :
-                    return typeof(sbyte);
-
-                case "ubyte"    :
-                    return typeof(byte);
-
-                case "byte"     :
-                    return typeof(byte);
-
-                case "long"     :
-                    return typeof(long);
-
-                case "ulong"    :
-                    return typeof(ulong);
-
-                case "float"    :
-                    return typeof(float);
-
-                case "double"   :
-                    return typeof(double);
-
-                case "string"   :
-                    return typeof(string);
+                case "bool"     : return typeof(bool);
+                case "int"      : return typeof(int);
+                case "uint"     : return typeof(uint);
+                case "short"    : return typeof(short);
+                case "ushort"   : return typeof(ushort);
+                case "char"     : return typeof(char);
+                case "sbyte"    : return typeof(sbyte);
+                case "ubyte"    : return typeof(byte);
+                case "byte"     : return typeof(byte);
+                case "long"     : return typeof(long);
+                case "ulong"    : return typeof(ulong);
+                case "float"    : return typeof(float);
+                case "double"   : return typeof(double);
+                case "string"   : return typeof(string);
             }
 
             return Plugin.GetType(typeName);
@@ -1647,7 +1640,7 @@ namespace Behaviac.Design
 
         public static bool IsIntergerNumberType(string typeName) {
             if (string.IsNullOrEmpty(typeName))
-            { return false; }
+                return false;
 
             switch (typeName) {
                 case "int"      :
@@ -1682,6 +1675,9 @@ namespace Behaviac.Design
             if (IsFloatType(type))
             { return ValueTypes.Float; }
 
+            if (IsStringType(type))
+            { return ValueTypes.String; }
+
             return ValueTypes.All;
         }
 
@@ -1695,6 +1691,9 @@ namespace Behaviac.Design
 
                 case ValueTypes.Float   :
                     return typeof(float);
+
+                case ValueTypes.String:
+                    return typeof(String);
             }
 
             return null;
@@ -1760,7 +1759,9 @@ namespace Behaviac.Design
             if (filterType == null && valueType != ValueTypes.All)
             {
                 if ((valueType & ValueTypes.Int) == ValueTypes.Int && Plugin.IsIntergerType(typeToFilter) ||
-                    (valueType & ValueTypes.Float) == ValueTypes.Float && Plugin.IsFloatType(typeToFilter))
+                    (valueType & ValueTypes.Float) == ValueTypes.Float && Plugin.IsFloatType(typeToFilter) ||
+                    (valueType & ValueTypes.Bool) == ValueTypes.Float && Plugin.IsBooleanType(typeToFilter) ||
+                    (valueType & ValueTypes.String) == ValueTypes.Float && Plugin.IsStringType(typeToFilter))
                     return true;
             }
 
@@ -2030,7 +2031,7 @@ namespace Behaviac.Design
 
                 // children
                 foreach(BaseNode child in node.GetChildNodes()) {
-                    if (child is Node && !(child is ReferencedBehaviorNode)) {
+                    if (child is Node && !(child is ReferencedBehavior)) {
                         Node childNode = child as Node;
                         CheckPar(childNode, par, ref result);
                     }
@@ -2177,7 +2178,7 @@ namespace Behaviac.Design
                 { return new DesignerArrayStruct(name, "", category, DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoExport); }
 
             } else {
-                if (type.IsSubclassOf(typeof(Agent))) {
+                if (type == typeof(object) || type.IsSubclassOf(typeof(Agent))) {
                     return new DesignerArrayInteger(name, "", category, DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoExport);
                 }
             }
@@ -2240,16 +2241,14 @@ namespace Behaviac.Design
                 return Activator.CreateInstance(type);
 
             } else {
-                if (type.IsSubclassOf(typeof(Agent))) {
-                    //AgentType defaultAgentType = new AgentType(type, false, "", "");
-                    //return defaultAgentType;
-
+                if (type.IsSubclassOf(typeof(Agent)))
                     return Activator.CreateInstance(type);
-                }
 
-                if (Plugin.IsArrayType(type) || type == typeof(System.Collections.IList)) {
+                if (Plugin.IsArrayType(type) || type == typeof(System.Collections.IList))
                     return null;
-                }
+
+                if (type == typeof(object))
+                    return null;
 
                 string message = string.Format("DefaultValue for {0} is not registered!", type.Name);
                 throw new Exception(message);
@@ -2432,9 +2431,14 @@ namespace Behaviac.Design
             }
         }
 
-        public static List<Image> RegisterNodeDesc(Assembly a, int iconCount = 0) {
-            List<Image> nodeImages = new List<Image>();
+        private static List<Image> _nodeImages = new List<Image>();
+        public static List<Image> ImagesList {
+            get {
+                return _nodeImages;
+            }
+        }
 
+        public static  void RegisterNodeDesc(Assembly a, int iconCount = 0) {
             Type[] types = a.GetTypes();
             foreach(Type type in types) {
                 // to skip it if confiured in the filter nodes
@@ -2462,8 +2466,9 @@ namespace Behaviac.Design
                         if (group == null) {
                             group = new NodeGroup(name, NodeIcon.FolderClosed, curGroup);
 
-                            if (curGroup == null)
-                            { curNodeGroups.Add(group); }
+                            if (curGroup == null) { 
+                                curNodeGroups.Add(group); 
+                            }
                         }
 
                         curGroup = group;
@@ -2475,16 +2480,14 @@ namespace Behaviac.Design
                         Image image = GetResourceImage(nodeDescAttr.ImageName);
 
                         if (image != null) {
-                            nodeImages.Add(image);
-                            icon = (NodeIcon)(iconCount + nodeImages.Count - 1);
+                            _nodeImages.Add(image);
+                            icon = (NodeIcon)(iconCount + _nodeImages.Count - 1);
                         }
 
                         curGroup.Items.Add(new NodeItem(type, icon));
                     }
                 }
             }
-
-            return nodeImages;
         }
 
         //protected static void RegisterNodeDesc()

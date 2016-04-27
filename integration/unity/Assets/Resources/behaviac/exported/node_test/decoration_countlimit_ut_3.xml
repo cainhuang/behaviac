@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\decoration_countlimit_ut_3.xml-->
-<behavior name="node_test/decoration_countlimit_ut_3" agenttype="AgentNodeTest" version="3">
+<behavior name="node_test/decoration_countlimit_ut_3" agenttype="AgentNodeTest" version="4">
   <node class="Selector" id="0">
     <node class="DecoratorCountLimit" id="1">
       <property Count="const int 5" />

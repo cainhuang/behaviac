@@ -47,6 +47,7 @@ namespace behaviac
     {
 		BEHAVIAC_ASSERT(agentT);
         behaviac::Property* pProperty = agentT->GetLocal(paramName);
+		BEHAVIAC_ASSERT(pProperty);
         pProperty->SetFrom(pAgent, valueProperty, pAgent);
     }
 }

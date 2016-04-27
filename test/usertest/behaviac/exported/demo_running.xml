@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: demo_running.xml-->
-<behavior name="demo_running" agenttype="CBTPlayer" version="3">
+<behavior name="demo_running" agenttype="CBTPlayer" version="4">
   <node class="DecoratorLoop" id="0">
     <property Count="const int 3" />
     <property DecorateWhenChildEnds="true" />

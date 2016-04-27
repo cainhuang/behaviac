@@ -326,11 +326,12 @@ namespace Behaviac.Design.Nodes
         /// <param name="rootBehavior">The behaviour we are adding the reference to.</param>
         /// <param name="referencedBehavior">The behaviour we are referencing.</param>
         /// <returns>Returns the created referenced behaviour node.</returns>
-        public static ReferencedBehaviorNode CreateReferencedBehaviorNode(BehaviorNode rootBehavior, BehaviorNode referencedBehavior, bool isFSM = false) {
+        public static ReferencedBehavior CreateReferencedBehaviorNode(BehaviorNode rootBehavior, BehaviorNode referencedBehavior, bool isFSM = false)
+        {
             Type type = isFSM ? Plugin.FSMReferencedBehaviorNodeType : Plugin.ReferencedBehaviorNodeType;
             Debug.Check(type != null);
 
-            ReferencedBehaviorNode node = (ReferencedBehaviorNode)type.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, null, new object[] { rootBehavior, referencedBehavior });
+            ReferencedBehavior node = (ReferencedBehavior)type.InvokeMember(string.Empty, BindingFlags.CreateInstance, null, null, new object[] { rootBehavior, referencedBehavior });
 
             if (node == null)
             { throw new Exception(Resources.ExceptionMissingNodeConstructor); }
@@ -350,7 +351,7 @@ namespace Behaviac.Design.Nodes
             if (type == typeof(BehaviorNode))
             { type = Plugin.BehaviorNodeType; }
 
-            else if (type == typeof(ReferencedBehaviorNode))
+            else if (type == typeof(ReferencedBehavior))
             { type = Plugin.ReferencedBehaviorNodeType; }
 
             Debug.Check(type != null);
@@ -943,15 +944,7 @@ namespace Behaviac.Design.Nodes
             }
         }
 
-        public virtual bool ResetReferenceBehavior(string referenceFilename) {
-            bool reset = false;
 
-            foreach(Node child in this.GetChildNodes()) {
-                reset |= child.ResetReferenceBehavior(referenceFilename);
-            }
-
-            return reset;
-        }
 
         public virtual void GetObjectsByType(Nodes.Node root, string nodeType, bool matchCase, bool matchWholeWord, ref List<ObjectPair> objects) {
             if (root == null || string.IsNullOrEmpty(nodeType))
@@ -1025,7 +1018,7 @@ namespace Behaviac.Design.Nodes
         /// <param name="newparent">The parent the clone children will be added to.</param>
         private void CloneChildNodes(Node newparent) {
             // we may not clone children of a referenced behavior
-            if (newparent is ReferencedBehaviorNode)
+            if (newparent is ReferencedBehavior)
             { return; }
 
             // for each connector
@@ -1085,7 +1078,7 @@ namespace Behaviac.Design.Nodes
         public Node CloneBranch() {
             Node newnode;
 
-            if (this is ReferencedBehaviorNode) {
+            if (this is ReferencedBehavior) {
                 // if we want to clone the branch of a referenced behaviour we have to create a new behaviour node for that.
                 // this should only be used to visualise stuff, never in the behaviour tree itself!
                 newnode = Create(typeof(BehaviorNode));
@@ -1173,7 +1166,7 @@ namespace Behaviac.Design.Nodes
         /// <returns>Returns false if the parent cannot apobt the children and the operation fails.</returns>
         public bool ExtractNode() {
             // we cannot adopt children from a referenced behavior
-            if (this is ReferencedBehaviorNode && _parent != null) {
+            if (this is ReferencedBehavior && _parent != null) {
                 ((Node)_parent).RemoveChild(_parentConnector, this);
                 return true;
             }

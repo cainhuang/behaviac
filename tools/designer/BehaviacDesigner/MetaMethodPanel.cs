@@ -209,15 +209,15 @@ namespace Behaviac.Design
             this.isPublicCheckBox.Checked = _method.IsPublic;
 
             this.nameTextBox.Enabled = canBeEdit;
-            this.returnTypeComboBox.Enabled = (memberType != MemberType.Task) ? canBeEdit : false;
-            this.arrayCheckBox.Enabled = (memberType != MemberType.Task) ? canBeEdit : false;
+            this.returnTypeComboBox.Enabled = (memberType != MemberType.Task) ? (canBeEdit || _method.IsChangeableType) : false;
+            this.arrayCheckBox.Enabled = this.returnTypeComboBox.Enabled;
             this.isStaticCheckBox.Enabled = canBeEdit;
             this.isPublicCheckBox.Enabled = canBeEdit;
             this.dispTextBox.Enabled = canBeEdit;
             this.descTextBox.Enabled = canBeEdit;
             this.addParamButton.Enabled = canBeEdit;
             this.removeParamButton.Enabled = canBeEdit;
-            this.tableLayoutPanel.Enabled = canBeEdit;
+            this.tableLayoutPanel.Enabled = canBeEdit || _method.IsChangeableType; // parameters
 
             _initialized = true;
         }

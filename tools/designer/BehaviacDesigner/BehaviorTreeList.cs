@@ -142,20 +142,16 @@ namespace Behaviac.Design
             }
         }
 
-        private void RegisterPlugin(Assembly assembly, Plugin plugin, object nodeList, bool bAddNodes) {
+        private void RegisterPlugin(Assembly assembly, Plugin plugin, ImageList imageList, bool bAddNodes) {
             // register the plugin
             Plugin.AddLoadedPlugin(assembly);
             Plugin.RegisterTypeHandlers(assembly);
             Plugin.RegisterAgentTypes(assembly);
 
             // register all the groups we need in the node explorer
-            if (bAddNodes && nodeList is NodeTreeList) {
-                NodeTreeList nodeTreeList = nodeList as NodeTreeList;
-                List<Image> images = Plugin.RegisterNodeDesc(assembly, nodeTreeList.ImageList.Images.Count);
-                foreach(Image image in images) {
-                    nodeTreeList.ImageList.Images.Add(image);
-                }
-
+            if (bAddNodes && imageList != null)
+            {
+                Plugin.RegisterNodeDesc(assembly, imageList.Images.Count);
             } else {
                 Plugin.RegisterNodeDesc(assembly);
             }
@@ -169,9 +165,8 @@ namespace Behaviac.Design
         /// </summary>
         /// <param name="path">The directory which is the root for the given list of plugins.</param>
         internal void LoadPlugins(NodeTreeList nodeTreeList, bool bAddNodes) {
-            Plugin.InitNodeGroups();
 
-            Plugin.LoadPlugins(RegisterPlugin, nodeTreeList, bAddNodes);
+            Plugin.LoadPlugins(RegisterPlugin, nodeTreeList.ImageList, bAddNodes);
 
             if (bAddNodes) {
                 // create the tree nodes for all behavior nodes.

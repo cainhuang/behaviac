@@ -24,7 +24,7 @@
 #include "behaviac/behaviortree/attachments/effector.h"
 #include "behaviac/fsm/startcondition.h"
 #include "behaviac/fsm/transitioncondition.h"
-
+#include "behaviac/behaviortree/nodes/composites/referencebehavior.h"
 
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
@@ -302,6 +302,49 @@ namespace behaviac
         return BehaviorTask::GetTickInfo(pAgent, b->GetNode(), action);
     }
 
+	static const behaviac::string GetParentTreeName(const Agent* pAgent, const BehaviorNode* n)
+	{
+		behaviac::string btName;
+
+		if (ReferencedBehavior::DynamicCast(n))
+		{
+			n = n->GetParent();
+		}
+
+		bool bIsTree = false;
+		bool bIsRefTree = false;
+
+		while (n != 0)
+		{
+			bIsTree = BehaviorTree::DynamicCast(n) != 0;
+			bIsRefTree = ReferencedBehavior::DynamicCast(n) != 0;
+
+			if (bIsTree || bIsRefTree)
+			{
+				break;
+			}
+
+			n = n->GetParent();
+		}
+
+		if (bIsTree)
+		{
+			const BehaviorTree* bt = BehaviorTree::DynamicCast(n);
+			btName = bt->GetName();
+		}
+		else if (bIsRefTree)
+		{
+			const ReferencedBehavior* refTree = ReferencedBehavior::DynamicCast(n);
+			btName = refTree->GetReferencedTree(pAgent);
+		}
+		else
+		{
+			BEHAVIAC_ASSERT(false);
+		}
+
+		return btName;
+	}
+
     behaviac::string BehaviorTask::GetTickInfo(const behaviac::Agent* pAgent, const behaviac::BehaviorNode* n, const char* action)
     {
         if (pAgent && pAgent->IsMasked())
@@ -313,22 +356,20 @@ namespace behaviac
             //filter out intermediate bt, whose class name is empty
             if (!bClassName.empty())
             {
-                int nodeId = n->GetId();
-                const BehaviorTreeTask* bt = pAgent ? pAgent->btgetcurrent() : 0;
+				const behaviac::string& btName = GetParentTreeName(pAgent, n);
 
+                int nodeId = n->GetId();
                 //TestBehaviorGroup\scratch.xml->EventetTask[0]:enter
                 behaviac::string bpstr;
 
-                if (bt)
+				if (!StringUtils::IsNullOrEmpty(btName.c_str()))
                 {
-                    const behaviac::string& btName = bt->GetName();
-
                     bpstr = FormatString("%s.xml->", btName.c_str());
                 }
 
                 bpstr += FormatString("%s[%i]", bClassName.c_str(), nodeId);
 
-                if (action)
+				if (!StringUtils::IsNullOrEmpty(action))
                 {
                     bpstr += FormatString(":%s", action);
                 }
@@ -1712,7 +1753,7 @@ namespace behaviac
         bool bGoOn = this->m_currentTask->onevent(pAgent, eventName);
 
         //give the handling back to parents
-        if (bGoOn)
+		if (bGoOn && this->m_currentTask)
         {
             BranchTask* parentBranch = this->m_currentTask->GetParent();
 

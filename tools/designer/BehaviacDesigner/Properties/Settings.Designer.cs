@@ -358,6 +358,7 @@ namespace Behaviac.Design.Properties {
   <string>PluginBehaviac.Nodes.Assignment</string>
   <string>PluginBehaviac.Nodes.Selector</string>
   <string>PluginBehaviac.Nodes.Sequence</string>
+  <string>Behaviac.Design.Nodes.ReferencedBehavior</string>
   <string>PluginBehaviac.Nodes.Parallel</string>
   <string>PluginBehaviac.Nodes.DecoratorLoop</string>
   <string>PluginBehaviac.Nodes.DecoratorLoopUntil</string>

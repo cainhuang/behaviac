@@ -276,7 +276,7 @@ namespace behaviac
             if (Config.IsLoggingOrSocketing)
             {
                 string ni = BehaviorTask.GetTickInfo(a, referencedNode, null);
-                LogManager.Instance.Log("[plan_referencetree_enter]{0} {1}.xml\n", ni, referencedNode.ReferencedTree);
+                LogManager.Instance.Log("[plan_referencetree_enter]{0} {1}.xml\n", ni, referencedNode.GetReferencedTree(a));
             }
 
 #endif
@@ -289,7 +289,7 @@ namespace behaviac
             if (Config.IsLoggingOrSocketing)
             {
                 string ni = BehaviorTask.GetTickInfo(a, referencedNode, null);
-                LogManager.Instance.Log("[plan_referencetree_exit]{0} {1}.xml\n", ni, referencedNode.ReferencedTree);
+                LogManager.Instance.Log("[plan_referencetree_exit]{0} {1}.xml\n", ni, referencedNode.GetReferencedTree(a));
             }
 
 #endif

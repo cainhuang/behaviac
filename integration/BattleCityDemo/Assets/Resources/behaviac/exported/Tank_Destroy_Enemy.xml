@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Tank_Destroy_Enemy.xml-->
-<behavior name="Tank_Destroy_Enemy" agenttype="Player" version="3">
+<behavior name="Tank_Destroy_Enemy" agenttype="Player" version="4">
   <pars>
     <par name="parT_enemyPosition" type="UnityEngine::Vector3" value="{x=0;y=0;z=0;}" />
     <par name="parT_nearestEnemy" type="behaviac::Agent" value="null" />

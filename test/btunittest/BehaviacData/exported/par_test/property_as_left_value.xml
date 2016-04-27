@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\property_as_left_value.xml-->
-<behavior name="par_test/property_as_left_value" agenttype="EmployeeParTestAgent" version="3">
+<behavior name="par_test/property_as_left_value" agenttype="EmployeeParTestAgent" version="4">
   <pars>
     <par name="par2_double_0" type="double" value="5.7" />
     <par name="par2_single_0" type="float" value="98.2" />

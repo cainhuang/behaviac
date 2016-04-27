@@ -5442,13 +5442,18 @@ namespace behaviac
 	{
 		public ReferencedBehavior_bt_Tank_FSM_MoveFire_node13()
 		{
-			this.m_referencedBehaviorPath = "Tank_Fire";
-			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(this.m_referencedBehaviorPath);
-			Debug.Check(behaviorTree != null);
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
 			if (behaviorTree != null)
 			{
 				this.m_bHasEvents |= behaviorTree.HasEvents();
 			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "Tank_Fire";
 		}
 	}
 

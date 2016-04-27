@@ -80,7 +80,7 @@ namespace behaviac
     //bson deserizer
 
     //keep this version equal to designers' NewVersion
-    const int SupportedVersion = 3;
+    const int SupportedVersion = 4;
 
     BEGIN_PROPERTIES_DESCRIPTION(BehaviorTree::Descriptor_t);
     {

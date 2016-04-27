@@ -25,6 +25,7 @@ namespace behaviac
 
     Wait::~Wait()
     {
+		BEHAVIAC_DELETE(m_time_m);
     }
 
     void Wait::load(int version, const char* agentType, const properties_t& properties)
@@ -34,16 +35,14 @@ namespace behaviac
         for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
         {
 			const property_t& p = (*it);
-			behaviac::string p_name(p.name);
-			behaviac::string p_value(p.value);
 
-			if (p_name == "Time")
+			if (StringUtils::StrEqual(p.name, "Time"))
 			{
 				if (StringUtils::IsValidString(p.value))
 				{
-					size_t pParenthesis = p_value.find_first_of('(');
+					const char* pParenthesis = strchr(p.value, '(');
 
-					if (pParenthesis == (size_t)-1)
+					if (pParenthesis == 0)
 					{
 						behaviac::string typeName;
 						this->m_time_var = Condition::LoadRight(p.value, typeName);

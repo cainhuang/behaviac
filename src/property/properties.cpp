@@ -25,11 +25,13 @@ namespace behaviac
 
     Variables::~Variables()
     {
-        this->Clear();
+        this->Clear(true);
     }
 
-    void Variables::Clear()
+	void Variables::Clear(bool bFull)
     {
+		BEHAVIAC_UNUSED_VAR(bFull);
+
         for (Variables_t::iterator it = this->m_variables.begin();
              it != this->m_variables.end(); ++it)
         {

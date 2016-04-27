@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: ships\1_2_suicide.xml-->
-<behavior name="ships/1_2_suicide" agenttype="framework::Ship" version="3">
+<behavior name="ships/1_2_suicide" agenttype="framework::Ship" version="4">
   <node class="Parallel" id="1">
     <property ChildFinishPolicy="CHILDFINISH_LOOP" />
     <property ExitPolicy="EXIT_NONE" />
@@ -16,7 +16,7 @@
         </node>
       </custom>
       <node class="ReferencedBehavior" id="4">
-        <property ReferenceFilename="base/homing" />
+        <property ReferenceBehavior="const string &quot;base/homing&quot;" />
       </node>
     </node>
     <node class="DecoratorLoop" id="0">

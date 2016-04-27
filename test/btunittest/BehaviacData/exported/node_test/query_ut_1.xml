@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\query_ut_1.xml-->
-<behavior name="node_test/query_ut_1" agenttype="AgentNodeTest" version="3">
+<behavior name="node_test/query_ut_1" agenttype="AgentNodeTest" version="4">
   <node class="Sequence" id="0">
     <attachment class="Precondition" id="1" flag="precondition">
       <property BinaryOperator="And" />

@@ -47,6 +47,8 @@ using Behaviac.Design.Data;
 using Behaviac.Design.Nodes;
 using Behaviac.Design.Properties;
 
+using System.Configuration;
+
 namespace Behaviac.Design
 {
     /// <summary>
@@ -60,8 +62,10 @@ namespace Behaviac.Design
         }
 
         // The filename used for storing the layout
-        private static string __layoutDesignFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BehaviacDesigner\\config\\layout.xml";
-        private static string __layoutDebugFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BehaviacDesigner\\config\\layout_debug.xml";
+        private static string __ProductPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BehaviacDesigner";
+        private static string __ConfigPath = __ProductPath + "\\config";
+        private static string __layoutDesignFile = __ConfigPath + "\\layout.xml";
+        private static string __layoutDebugFile = __ConfigPath + "\\layout_debug.xml";
         private static string __layoutFile = __layoutDesignFile;
 
         internal WeifenLuo.WinFormsUI.Docking.DockPanel DockPanel {
@@ -94,8 +98,6 @@ namespace Behaviac.Design
             if (regKey != null) {
                 regKey.Close();
             }
-
-            SetDefaultSettings();
 
             // Add the designers resource manager to the list of all available resource managers
             Plugin.AddResourceManager(Resources.ResourceManager);
@@ -281,7 +283,7 @@ namespace Behaviac.Design
             }
         }
 
-        private void SetDefaultSettings()
+        public static void SetDefaultSettings()
         {
             //TODO: add a setting in base to hold all these settings
             Node.ColorTheme = (Node.ColorThemes)Settings.Default.ColorTheme;
@@ -318,20 +320,66 @@ namespace Behaviac.Design
 
         public void ResetLayout() {
             try {
-                Properties.Settings.Default.Reset();
+                Settings.Default.Reset();
+                DeleteUserConfigs();
+
+                Settings.Default.Save();
+
                 SetDefaultSettings();
 
-                bool layoutFileExisting = System.IO.File.Exists(__layoutFile);
-
-                if (layoutFileExisting) {
-                    System.IO.File.Delete(__layoutFile);
-                }
+                DeleteDbgAndLayout();
 
                 loadLayout(Plugin.EditMode, __layoutFile, true);
 
             } catch {
             }
         }
+
+        private static void DeleteUserConfigs()
+        {
+            try
+            {
+                String p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Tencent_Games");
+                string[] ss = Directory.GetDirectories(p, "BehaviacDesigner.*");
+                foreach (string s in ss)
+                {
+                    Directory.Delete(s, true);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+
+        private static void DeleteDbgAndLayout()
+        {
+            try
+            {
+                //Directory.Delete(__ConfigPath, true);
+                var dir = new DirectoryInfo(__ProductPath);
+
+                foreach (var file in dir.GetFiles("behaviac_*.dbg"))
+                {
+                    file.Delete();
+                }
+
+                bool layoutFileExisting = System.IO.File.Exists(__layoutFile);
+
+                if (layoutFileExisting)
+                {
+                    System.IO.File.Delete(__layoutFile);
+                }
+            }
+            catch
+            { }
+        }
+
+        //public void ReloadLayout()
+        //{
+        //    loadLayout(Plugin.EditMode, __layoutFile, true);
+        //}
 
         private void loadLayout(EditModes editMode, string layoutFile, bool bLoadWks) {
             try

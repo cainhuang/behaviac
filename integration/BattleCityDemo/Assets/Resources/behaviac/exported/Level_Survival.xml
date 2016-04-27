@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Level_Survival.xml-->
-<behavior name="Level_Survival" agenttype="GameLevelCommon" version="3">
+<behavior name="Level_Survival" agenttype="GameLevelCommon" version="4">
   <pars>
     <par name="parT_EnemyCount" type="int" value="0" />
     <par name="parT_AwardType" type="int" value="0" />

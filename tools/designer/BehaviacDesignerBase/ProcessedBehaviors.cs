@@ -43,7 +43,7 @@ namespace Behaviac.Design
     /// </summary>
     public class ProcessedBehaviors
     {
-        protected List<ReferencedBehaviorNode> _processedBehaviors = new List<ReferencedBehaviorNode>();
+        protected List<ReferencedBehavior> _processedBehaviors = new List<ReferencedBehavior>();
 
         /// <summary>
         /// Used to create a new list of processed behaviours.
@@ -65,7 +65,7 @@ namespace Behaviac.Design
         /// <param name="node">The node we want to process.</param>
         /// <returns>Returns true when the node may be processed, if not the calling function has to stop.</returns>
         public bool MayProcessCheckOnly(Node node) {
-            ReferencedBehaviorNode refnode = node as ReferencedBehaviorNode;
+            ReferencedBehavior refnode = node as ReferencedBehavior;
 
             if (refnode != null)
             { return !_processedBehaviors.Contains(refnode); }
@@ -79,7 +79,7 @@ namespace Behaviac.Design
         /// <param name="node">The node we want to process.</param>
         /// <returns>Returns true when the node may be processed, if not the calling function has to stop.</returns>
         public bool MayProcess(Node node) {
-            ReferencedBehaviorNode refnode = node as ReferencedBehaviorNode;
+            ReferencedBehavior refnode = node as ReferencedBehavior;
 
             if (refnode != null) {
                 if (_processedBehaviors.Contains(refnode))
@@ -97,7 +97,7 @@ namespace Behaviac.Design
         /// <param name="node">The node we are branching for.</param>
         /// <returns>A new list which contains the previously processed behaviours for referenced behaviours. For other nodes it returns the same list.</returns>
         public ProcessedBehaviors Branch(Node node) {
-            ReferencedBehaviorNode refnode = node as ReferencedBehaviorNode;
+            ReferencedBehavior refnode = node as ReferencedBehavior;
 
             if (refnode != null)
             { return new ProcessedBehaviors(this); }

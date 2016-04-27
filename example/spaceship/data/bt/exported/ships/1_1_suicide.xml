@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: ships\1_1_suicide.xml-->
-<behavior name="ships/1_1_suicide" agenttype="framework::Ship" version="3">
+<behavior name="ships/1_1_suicide" agenttype="framework::Ship" version="4">
   <pars>
     <par name="par_b" type="int" value="0" />
   </pars>
@@ -33,7 +33,7 @@
       </node>
     </node>
     <node class="ReferencedBehavior" id="8">
-      <property ReferenceFilename="base/homing" />
+      <property ReferenceBehavior="const string &quot;base/homing&quot;" />
     </node>
   </node>
 </behavior>

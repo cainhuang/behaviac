@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: monster.xml-->
-<behavior name="monster" agenttype="CBTPlayer" version="3">
+<behavior name="monster" agenttype="CBTPlayer" version="4">
   <pars>
     <par name="CurStep" type="int" value="0" />
   </pars>

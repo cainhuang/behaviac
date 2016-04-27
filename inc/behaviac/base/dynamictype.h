@@ -229,7 +229,15 @@ public:
     {
         const SHierarchyInfo* info = GetHierarchyInfo();
 		const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)info->m_hierarchy;
-		return (level <= info->m_hierarchyLevel) && pTargetHierarchy[level - 1] == classId;
+		if (level > 0 && level <= info->m_hierarchyLevel) {
+			const behaviac::CStringID& my = pTargetHierarchy[level - 1];
+			
+			if (my.GetUniqueID() == classId.GetUniqueID()) {
+				return true;
+			}
+		}
+
+		return false;
     }
 
     template <class T> inline static bool CallParent(T handler)

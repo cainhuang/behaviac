@@ -291,10 +291,10 @@
   <data name="ReferencedBehaviorDesc" xml:space="preserve">
     <value>该节点引用一棵行为树</value>
   </data>
-  <data name="ReferencedBehaviorFilename" xml:space="preserve">
+  <data name="ReferencedBehaviorPath" xml:space="preserve">
     <value>引用文件名</value>
   </data>
-  <data name="ReferencedBehaviorFilenameDesc" xml:space="preserve">
+  <data name="ReferencedBehaviorPathDesc" xml:space="preserve">
     <value>作为引用行为树的文件名</value>
   </data>
   <data name="SelectorNoChildrenError" xml:space="preserve">
@@ -851,5 +851,14 @@
   </data>
   <data name="PressF1" xml:space="preserve">
     <value>点击F1键查看文档</value>
+  </data>
+  <data name="ReferencedTreeOrMethodNeeded" xml:space="preserve">
+    <value>请指定子树或者提供一个方法来返回子树</value>
+  </data>
+  <data name="ReferenceGenerator" xml:space="preserve">
+    <value>可以指定一个方法，其返回值需要是一个字符串，用来指定子树。</value>
+  </data>
+  <data name="ReferenceGeneratorDesc" xml:space="preserve">
+    <value>可以指定一个方法，其返回值需要是一个字符串，用来指定子树。</value>
   </data>
 </root>

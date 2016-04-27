@@ -1,3 +1,11 @@
+2016-04-27	3.4.1
+	DecoratorLog, DecoratorAwaysRunning, DecoratorAwaysSuccess, DecoratorAwaysFailure reshown in the node list
+	update cmake scripts to handle LTO, esp. for gcc
+	fix bug in FireEvent, passing param by reference
+
+2016-04-21	3.4.0
+	subtree refactored to support variable/method to allow dynamic tree
+
 2016-04-13	3.3.16
 	64 bit supported, esp. in CMakelists.txt fro win
 

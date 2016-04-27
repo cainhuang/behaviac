@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\action_ut_0.xml-->
-<behavior name="node_test/action_ut_0" agenttype="AgentNodeTest" version="3">
+<behavior name="node_test/action_ut_0" agenttype="AgentNodeTest" version="4">
   <pars>
     <par name="par_int_type_0" type="int" value="0" />
     <par name="par_int_type_1" type="int" value="0" />
