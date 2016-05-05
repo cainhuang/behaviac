@@ -12093,6 +12093,18 @@ namespace behaviac
 		bool method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Wait_bt_node_test_event_subtree_0_node3 : behaviac.Wait
+	{
+		public Wait_bt_node_test_event_subtree_0_node3()
+		{
+		}
+		protected override double GetTime(Agent pAgent)
+		{
+			return 5000f;
+		}
+	}
+
 	public static class bt_node_test_event_subtree_0
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -12140,6 +12152,16 @@ namespace behaviac
 #endif
 						node0.AddChild(node2);
 						node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
+					}
+					{
+						Wait_bt_node_test_event_subtree_0_node3 node3 = new Wait_bt_node_test_event_subtree_0_node3();
+						node3.SetClassNameString("Wait");
+						node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+						node3.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node3);
+						node0.SetHasEvents(node0.HasEvents() | node3.HasEvents());
 					}
 					node6.SetHasEvents(node6.HasEvents() | node0.HasEvents());
 				}

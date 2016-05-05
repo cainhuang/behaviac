@@ -104,7 +104,9 @@ AgentNodeTest* initTestEnvNode(const char* treePath, behaviac::Workspace::EFileF
 
 void finlTestEnvNode(AgentNodeTest* testAgent)
 {
-    BEHAVIAC_DELETE(testAgent);
+    //BEHAVIAC_DELETE(testAgent);
+	behaviac::Agent::Destroy(testAgent);
+
     unregisterAllTypes();
 
     behaviac::Profiler::DestroyInstance();
@@ -129,7 +131,8 @@ EmployeeParTestAgent* initTestEnvPar(const char* treePath, behaviac::Workspace::
 
 void finlTestEnvPar(EmployeeParTestAgent* testAgent)
 {
-    BEHAVIAC_DELETE(testAgent);
+    //BEHAVIAC_DELETE(testAgent);
+	behaviac::Agent::Destroy(testAgent);
     unregisterAllTypes();
 
     behaviac::Profiler::DestroyInstance();

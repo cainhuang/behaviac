@@ -283,6 +283,14 @@ namespace behaviac
 			customeMethod.AddParamType("AgentNodeTest");
 			objectDesc.ms_methods.Add(customeMethod);
 
+			customeMethod = new CTaskMethod("AgentNodeTest", "event_test_float2");
+			customeMethod.AddParamType("TestNS::Float2");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("AgentNodeTest", "event_test_float2_ref");
+			customeMethod.AddParamType("TestNS::Float2&");
+			objectDesc.ms_methods.Add(customeMethod);
+
 			// ChildNodeTest
 			objectDesc = Agent.GetDescriptorByName("ChildNodeTest");
 			customeMethod = new CTaskMethod("ChildNodeTest", "root");
@@ -313,6 +321,14 @@ namespace behaviac
 
 			customeMethod = new CTaskMethod("ChildNodeTest", "event_test_agent");
 			customeMethod.AddParamType("AgentNodeTest");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("ChildNodeTest", "event_test_float2");
+			customeMethod.AddParamType("TestNS::Float2");
+			objectDesc.ms_methods.Add(customeMethod);
+
+			customeMethod = new CTaskMethod("ChildNodeTest", "event_test_float2_ref");
+			customeMethod.AddParamType("TestNS::Float2&");
 			objectDesc.ms_methods.Add(customeMethod);
 
 			// HTNAgentHouse

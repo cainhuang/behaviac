@@ -1265,6 +1265,12 @@ namespace behaviac
                                 break;
                             }
                         }
+
+                        if (pTask.GetStatus() != EBTStatus.BT_INVALID)
+                        {
+                            pTask.reset(this);
+                        }
+
                     }
 
                     if (pTask == null || bRecursive)
@@ -1326,10 +1332,11 @@ namespace behaviac
                         this.m_currentBT = lastOne.bt;
                         this.BTStack.RemoveAt(this.BTStack.Count - 1);
 
+
+                        bool bExecCurrent = false;
+
                         if (lastOne.triggerMode == TriggerMode.TM_Return)
                         {
-                            //string lastBT = this.m_currentBT.GetName();
-                            //this.LogReturnTree(lastBT, currentBT);
                             if (!lastOne.triggerByEvent)
                             {
                                 if (this.m_currentBT != pCurrentBT)
@@ -1343,8 +1350,17 @@ namespace behaviac
                                     Debug.Check(true);
                                 }
                             }
+                            else
+                            {
+                                bExecCurrent = true;
+                            }
                         }
                         else
+                        {
+                            bExecCurrent = true;
+                        }
+
+                        if (bExecCurrent)
                         {
                             pCurrentBT = this.m_currentBT;
                             s = this.m_currentBT.exec(this);

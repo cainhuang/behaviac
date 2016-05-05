@@ -169,25 +169,27 @@ namespace behaviac
 
     EBTStatus TaskTask::update(Agent* pAgent, EBTStatus childStatus)
     {
-        BEHAVIAC_UNUSED_VAR(childStatus);
+		EBTStatus status = childStatus;
 
-        BEHAVIAC_ASSERT(Task::DynamicCast(this->GetNode()) != 0, "node is not an Method");
-        Task* pTaskNode = (Task*)(this->GetNode());
+		if (childStatus == BT_RUNNING) {
+			BEHAVIAC_ASSERT(Task::DynamicCast(this->GetNode()) != 0, "node is not an Method");
+			Task* pTaskNode = (Task*)(this->GetNode());
 
-        if (pTaskNode->IsHTN())
-        {
-            EBTStatus status = _planner->Update();
+			if (pTaskNode->IsHTN())
+			{
+				status = _planner->Update();
+			}
+			else
+			{
+				BEHAVIAC_ASSERT(this->m_children.size() == 1);
+				BehaviorTask* c = this->m_children[0];
+				status = c->exec(pAgent);
+			}
+		}
+		else {
+			BEHAVIAC_ASSERT(true);
+		}
 
-            return status;
-
-        }
-        else
-        {
-            BEHAVIAC_ASSERT(this->m_children.size() == 1);
-            BehaviorTask* c = this->m_children[0];
-            EBTStatus status = c->exec(pAgent);
-
-            return status;
-        }
+		return status;
     }
 }

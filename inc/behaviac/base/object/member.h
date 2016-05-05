@@ -397,21 +397,4 @@ enum EPersistenceType
     EPersistenceType_All_UiInfo = EPersistenceType_Description | EPersistenceType_State | EPersistenceType_UiInfo,
 };
 
-/////////////////////////////////////////////////////////
-////////////////     GENERIC MEMBER      ////////////////
-/////////////////////////////////////////////////////////
-
-static const uint32_t DefaultPropertyFlags = EPersistenceType_All;
-
-#define DECLARE_UIWRAPPER(UiDescriptor)																\
-    UiGenericType* localWrapper = UiDescriptorAllocate_##UiDescriptor
-
-#define REGISTER_MEMBER(propertyName, memberName, propertyFlags, MemberHandler, UiDescriptor)		\
-    {																								\
-        DECLARE_UIWRAPPER(UiDescriptor);															\
-        CMemberBase* _property = CMemberFactory::Create<MemberHandler, propertyFlags>(              \
-                                 objectType::GetClassTypeName(), propertyName, &objectType::memberName, localWrapper);	\
-        CTagObjectDescriptor::PushBackMember(ms_members, _property);								\
-    }
-
 #endif // #ifndef BEHAVIAC_ENGINESERVICES_MEMBER_H

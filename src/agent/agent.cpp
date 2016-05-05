@@ -812,6 +812,10 @@ namespace behaviac
                             break;
                         }
                     }
+
+					if (pTask->GetStatus() != BT_INVALID) {
+						pTask->reset(this);
+					}
                 }
 
                 if (pTask == 0 || bRecursive)
@@ -874,10 +878,10 @@ namespace behaviac
                     this->m_btStack.pop_back();
                     this->m_currentBT = lastOne.bt;
 
-                    if (lastOne.triggerMode == TM_Return)
-                    {
-                        /*const char* newBT = this->m_currentBT->GetName().c_str();
-                        LogManager::GetInstance()->Log(this, newBT, EAR_none, ELM_return);*/
+
+					bool bExecCurrent = false;
+
+                    if (lastOne.triggerMode == TM_Return) {
                         if (!lastOne.triggerByEvent)
                         {
                             if (this->m_currentBT != pCurrent)
@@ -888,13 +892,16 @@ namespace behaviac
                             {
                                 BEHAVIAC_ASSERT(true);
                             }
-
-                            //EBTStatus s0 = this->m_currentBT->resume(this, s);
-                            //BEHAVIAC_UNUSED_VAR(s0);
                         }
+						else {
+							bExecCurrent = true;
+						}
                     }
-                    else
-                    {
+					else {
+						bExecCurrent = true;
+					}
+                    
+					if (bExecCurrent) {
                         pCurrent = this->m_currentBT;
                         s = this->m_currentBT->exec(this);
                         break;

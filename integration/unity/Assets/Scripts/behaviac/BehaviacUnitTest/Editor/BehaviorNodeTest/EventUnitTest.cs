@@ -74,11 +74,18 @@ namespace BehaviorNodeUnitTest
             testAgent.resetProperties();
             testAgent.btsetcurrent("node_test/event_ut_0");
             testAgent.btexec();
+
+            behaviac.Workspace.Instance.TimeSinceStartup = 0;
             testAgent.FireEvent("event_test_int", 13);
             Assert.AreEqual(13, testAgent.event_test_var_int);
 
             status = testAgent.btexec();
             Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            behaviac.Workspace.Instance.TimeSinceStartup = 5.1;
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
 
             testAgent.resetProperties();
             testAgent.btsetcurrent("node_test/event_ut_0");

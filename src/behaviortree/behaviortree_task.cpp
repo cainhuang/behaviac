@@ -1488,10 +1488,9 @@ namespace behaviac
 
     EBTStatus SingeChildTask::update(Agent* pAgent, EBTStatus childStatus)
     {
-        BEHAVIAC_UNUSED_VAR(childStatus);
         if (this->m_root)
         {
-            EBTStatus s = this->m_root->exec(pAgent);
+			EBTStatus s = this->m_root->exec(pAgent, childStatus);
             return s;
         }
 

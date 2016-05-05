@@ -27,7 +27,7 @@ endif()
 # set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Profile" CACHE STRING "" FORCE) 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE) 
 
-set (BEHAVIAC_PACKAGE_VERSION 3.4.1)
+set (BEHAVIAC_PACKAGE_VERSION 3.4.2)
 
 #option( BUILD_SHARED_LIBS "set to OFF to build static libraries" ON )
 SET(BUILD_SHARED_LIBS ON CACHE BOOL "set to OFF to build static libraries")
@@ -169,7 +169,16 @@ if(BEHAVIAC_RELEASE_ON)
 				message( STATUS "SET LTO Flags" )
 
 				# set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects -O3 -ffunction-sections -fdata-sections -fvisibility=hidden -fvisibility-inlines-hidden" )
-				set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects -O3" )
+				set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -O3" )
+				
+				check_cxx_compiler_flag( -fno-fat-lto-objects GXX_HAS_NO_FAT_LTO_FLAG )
+				
+				message( STATUS "GXX_HAS_NO_FAT_LTO_FLAG = ${GXX_HAS_NO_FAT_LTO_FLAG}" )
+				
+				if (GXX_HAS_NO_FAT_LTO_FLAG)
+					set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-fat-lto-objects" )
+				endif()
+				
 				set( CMAKE_AR "${CMAKE_GCC_AR}" )
 				set( CMAKE_NM "${CMAKE_GCC_NM}" )
 				set( CMAKE_RANLIB "${CMAKE_GCC_RANLIB}" )

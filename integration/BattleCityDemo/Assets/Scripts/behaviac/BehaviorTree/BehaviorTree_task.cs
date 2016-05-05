@@ -1272,7 +1272,7 @@ namespace behaviac
         {
             if (this.m_root != null)
             {
-                EBTStatus s = this.m_root.exec(pAgent);
+                EBTStatus s = this.m_root.exec(pAgent, childStatus);
                 return s;
             }
 

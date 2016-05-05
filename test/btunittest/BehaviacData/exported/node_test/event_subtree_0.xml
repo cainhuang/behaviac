@@ -11,6 +11,9 @@
         <property Method="Self.AgentNodeTest::setEventVarBool(true)" />
         <property ResultOption="BT_SUCCESS" />
       </node>
+      <node class="Wait" id="3">
+        <property Time="const float 5000" />
+      </node>
     </node>
   </node>
 </behavior>

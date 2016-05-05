@@ -168,23 +168,30 @@ namespace behaviac
 
         protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
         {
-            Debug.Check(this.GetNode() is Task, "node is not an Method");
-            Task pTaskNode = (Task)(this.GetNode());
+            EBTStatus status = childStatus;
 
-            if (pTaskNode.IsHTN)
+            if (childStatus == EBTStatus.BT_RUNNING)
             {
-                EBTStatus status = _planner.Update();
+                Debug.Check(this.GetNode() is Task, "node is not an Method");
+                Task pTaskNode = (Task)(this.GetNode());
 
-                return status;
+                if (pTaskNode.IsHTN)
+                {
+                    status = _planner.Update();
+                }
+                else
+                {
+                    Debug.Check(this.m_children.Count == 1);
+                    BehaviorTask c = this.m_children[0];
+                    status = c.exec(pAgent);
+                }
             }
             else
             {
-                Debug.Check(this.m_children.Count == 1);
-                BehaviorTask c = this.m_children[0];
-                EBTStatus status = c.exec(pAgent);
-
-                return status;
+                Debug.Check(true);
             }
+
+            return status;
         }
     }
 }

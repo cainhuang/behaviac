@@ -14862,6 +14862,21 @@ namespace behaviac
 		bool method_p0;
 	};
 
+	class Wait_bt_node_test_event_subtree_0_node3 : public Wait
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Wait_bt_node_test_event_subtree_0_node3, Wait);
+		Wait_bt_node_test_event_subtree_0_node3()
+		{
+		}
+	protected:
+		virtual double GetTime(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 5000;
+		}
+	};
+
 	class bt_node_test_event_subtree_0
 	{
 	public:
@@ -14910,6 +14925,16 @@ namespace behaviac
 #endif
 						node0->AddChild(node2);
 						node0->SetHasEvents(node0->HasEvents() | node2->HasEvents());
+					}
+					{
+						Wait_bt_node_test_event_subtree_0_node3* node3 = BEHAVIAC_NEW Wait_bt_node_test_event_subtree_0_node3;
+						node3->SetClassNameString("Wait");
+						node3->SetId(3);
+#if !BEHAVIAC_RELEASE
+						node3->SetAgentType("AgentNodeTest");
+#endif
+						node0->AddChild(node3);
+						node0->SetHasEvents(node0->HasEvents() | node3->HasEvents());
 					}
 					node6->SetHasEvents(node6->HasEvents() | node0->HasEvents());
 				}

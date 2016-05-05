@@ -26,8 +26,14 @@ LOAD_TEST(btunittest, event_ut_0)
 	behaviac::EBTStatus status = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_RUNNING, status);
 
+	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(0);
 	myTestAgent->FireEvent("event_test_void");
 	CHECK_EQUAL(true, myTestAgent->event_test_var_bool);
+
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(5.1);
 
 	status = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_RUNNING, status);
