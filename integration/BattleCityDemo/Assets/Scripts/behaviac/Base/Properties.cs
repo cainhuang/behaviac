@@ -833,6 +833,21 @@ namespace behaviac
 
 #endif
 
+        public bool IsLocal()
+        {
+            if (this.m_pMember == null)
+            {
+                if (this.m_property != null)
+                {
+                    return this.m_property.IsLocal;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
         public uint GetId()
         {
             return this.m_id;
@@ -1403,7 +1418,32 @@ namespace behaviac
 
         public virtual void Clear(bool bFull)
         {
-            this.m_variables.Clear();
+            if (bFull)
+            {
+                this.m_variables.Clear();
+            }
+            else if (this.m_variables.Count > 0)
+            {
+                var keysToRemove = new List<uint>();
+                var e = this.m_variables.Keys.GetEnumerator();
+                while (e.MoveNext())
+                {
+                    uint key = e.Current;
+                    IVariable pVar = this.m_variables[key];
+
+                    if (pVar.IsLocal())
+                    {
+                        keysToRemove.Add(key);
+                    }
+                }
+
+                for (int i = 0; i < keysToRemove.Count; ++i)
+                {
+                    uint key = keysToRemove[i];
+
+                    this.m_variables.Remove(key);
+                }
+            }
         }
 
         public bool IsExisting(uint varId)

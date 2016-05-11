@@ -827,7 +827,7 @@ namespace behaviac
 
                 this->m_currentBT = pTask;
 
-				this->_balckboard_bound = false;
+				//this->_balckboard_bound = false;
 				this->m_variables.Clear(false);
             }
         }
@@ -928,7 +928,7 @@ namespace behaviac
     {
         if (!_balckboard_bound)
         {
-			//this->m_variables.Clear();
+			//this->m_variables.Clear(true);
 
             AgentProperties* bb = AgentProperties::Get(this->GetObjectTypeName());
 
@@ -1116,6 +1116,7 @@ namespace behaviac
         this->m_btStack.clear();
 
         this->m_variables.Unload();
+		this->_balckboard_bound = false;
     }
 
     void Agent::btreloadall()

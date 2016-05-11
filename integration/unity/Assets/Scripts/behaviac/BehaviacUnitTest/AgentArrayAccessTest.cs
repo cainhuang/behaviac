@@ -9,7 +9,7 @@ namespace TestNS
         {
             ListInts = new List<int> { 1, 2, 3, 4, 5 };
 
-            this.Variables.Clear(true);
+            this.Variables.Clear(false);
         }
 
         public void init()

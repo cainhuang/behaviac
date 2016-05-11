@@ -18,7 +18,8 @@ cd ..
 echo ---------------------------------------------------------------------------------
 mkdir release
 cd release
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBEHAVIAC_VERSION_MODE=ForeUseRelease -DBUILD_USE_64BITS=ON --build ../../../..
+# cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBEHAVIAC_VERSION_MODE=ForeUseRelease -DBUILD_USE_64BITS=ON --build ../../../..
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_USE_64BITS=ON --build ../../../..
 cd ..
 
 # linux

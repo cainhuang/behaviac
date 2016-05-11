@@ -107,10 +107,21 @@ namespace behaviac
 
         virtual void Reset() = 0;
 
-        bool IsMember() const
-        {
+        bool IsMember() const {
             return this->m_pMember != 0;
         }
+
+		bool IsLocal() const {
+			if (this->m_pMember == 0) {
+				if (this->m_property) {
+					return this->m_property->m_bIsLocal;
+				}
+
+				return true;
+			}
+
+			return false;
+		}
 
     protected:
         uint32_t			m_id;

@@ -29,19 +29,34 @@ namespace behaviac
     }
 
 	void Variables::Clear(bool bFull)
-    {
-		BEHAVIAC_UNUSED_VAR(bFull);
+	{
+		if (bFull) {
+			for (Variables_t::iterator it = this->m_variables.begin();
+				it != this->m_variables.end(); ++it)
+			{
+				IVariable* pVar = it->second;
 
-        for (Variables_t::iterator it = this->m_variables.begin();
-             it != this->m_variables.end(); ++it)
-        {
-            IVariable* pVar = it->second;
+				BEHAVIAC_DELETE(pVar);
+			}
 
-            BEHAVIAC_DELETE(pVar);
-        }
+			this->m_variables.clear();
+		}
+		else {
+			for (Variables_t::iterator it = this->m_variables.begin();
+				it != this->m_variables.end(); )
+			{
+				IVariable* pVar = it->second;
 
-        this->m_variables.clear();
-    }
+				Variables_t::iterator it_temp = it;
+				++it;
+
+				if (pVar->IsLocal()) {
+					BEHAVIAC_DELETE(pVar);
+					this->m_variables.erase(it_temp);
+				}
+			}
+		}
+	}
 
     void Variables::Log(const Agent* pAgent, bool bForce)
     {
@@ -61,14 +76,12 @@ namespace behaviac
                 if (bForce)
                 {
                     bToLog = true;
-
                 }
                 else
                 {
                     if (pVar->IsChanged())
                     {
                         bToLog = true;
-
                     }
                     else
                     {

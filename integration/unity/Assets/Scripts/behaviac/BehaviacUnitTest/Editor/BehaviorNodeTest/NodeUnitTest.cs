@@ -743,8 +743,8 @@ namespace BehaviorNodeUnitTest
         [Category("test_action_2")]
         public void test_action_2()
         {
-            testAgent.btsetcurrent("node_test/action_ut_2");
             testAgent.resetProperties();
+            testAgent.btsetcurrent("node_test/action_ut_2");
             testAgent.btexec();
 
             Assert.AreEqual(500000, testAgent.testVar_0);

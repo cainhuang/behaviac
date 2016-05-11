@@ -33,7 +33,8 @@ cd ..
 echo ---------------------------------------------------------------------------------
 mkdir release
 cd release
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBEHAVIAC_VERSION_MODE=ForeUseRelease --build ../../../..
+REM cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBEHAVIAC_VERSION_MODE=ForeUseRelease --build ../../../..
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release --build ../../../..
 cd ..
 
 rem linux

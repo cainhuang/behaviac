@@ -26,8 +26,10 @@ set_target_properties(btunittest PROPERTIES PREFIX "")
 set_target_properties(btunittest PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 set_target_properties(btunittest PROPERTIES RELEASE_POSTFIX ${CMAKE_RELEASE_POSTFIX})
 
-IF(MSVC)
+if(MSVC)
    SET_TARGET_PROPERTIES(btunittest PROPERTIES LINK_FLAGS "/MAP")
-else()
+else(XCODE)
+	#
+else(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Map=btunittest_gcc_${CMAKE_BUILD_TYPE}.map")
-ENDIF()
+endif()

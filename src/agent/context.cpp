@@ -399,7 +399,7 @@ namespace behaviac
 
 			pContext.execAgents_();
         }
-        else
+		else if (ms_contexts != NULL)
         {
             for (Contexts_t::iterator it = ms_contexts->begin(); it != ms_contexts->end(); ++it)
             {

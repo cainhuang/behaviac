@@ -1,3 +1,9 @@
+2016-05-11	3.4.3
+	fix cmake xcode _DEBUG
+	fix cmake debug config with the wrong BEHAVIAC_RELEASE
+	fix bug that property is not updated in the connected designer
+	 
+
 2016-05-05	3.4.2
 	fix bug in task due to a ended running sub node
 	fix bug when sub tree reenter

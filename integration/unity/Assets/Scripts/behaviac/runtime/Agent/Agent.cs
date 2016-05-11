@@ -1282,7 +1282,7 @@ namespace behaviac
 
                     this.m_currentBT = pTask;
 
-                    this.m_bBbBound = false;
+                    //this.m_bBbBound = false;
 
                     //don't clear fully, as the task's parameter might have been set before changing tree
                     this.Variables.Clear(false);
@@ -1298,7 +1298,8 @@ namespace behaviac
         {
             if (!this.m_bBbBound)
             {
-                //this.Variables.Clear();
+                //this.Variables.Clear(false);
+
                 AgentProperties bb = AgentProperties.Get(this.GetClassTypeName());
 
                 if (bb != null)
@@ -1573,6 +1574,7 @@ namespace behaviac
             this.BTStack.Clear();
 
             this.Variables.Unload();
+            this.m_bBbBound = false;
         }
 
         public void btreloadall()

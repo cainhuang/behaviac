@@ -27,7 +27,7 @@ endif()
 # set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Profile" CACHE STRING "" FORCE) 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE) 
 
-set (BEHAVIAC_PACKAGE_VERSION 3.4.2)
+set (BEHAVIAC_PACKAGE_VERSION 3.4.3)
 
 #option( BUILD_SHARED_LIBS "set to OFF to build static libraries" ON )
 SET(BUILD_SHARED_LIBS ON CACHE BOOL "set to OFF to build static libraries")
@@ -132,12 +132,22 @@ if(${BEHAVIAC_VERSION_MODE} MATCHES "ForeUseRelease")
 endif()
 
 # set (LINKER_SCRIPT "")
+
+if (CMAKE_GENERATOR MATCHES "Xcode")
+	message( STATUS "XCODE = ${XCODE}" )
+endif()
  
-if(MSVC)
+# if(MSVC OR (CMAKE_GENERATOR MATCHES "Xcode"))
+if(MSVC OR XCODE)
 	set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
 		$<$<CONFIG:Debug>:_DEBUG>
 		$<$<CONFIG:Release>:NDEBUG>
 	)
+	
+	if (XCODE)
+		set(XCODE_ATTRIBUTE_GCC_PREPROCESSOR_DEFINITIONS[variant=Debug] "_DEBUG")
+		set(XCODE_ATTRIBUTE_GCC_PREPROCESSOR_DEFINITIONS[variant=Release] "NDEBUG")
+	endif()
 else()
 	if( CMAKE_BUILD_TYPE MATCHES Debug )
 		#add_definitions( "-DDEBUG" )
@@ -240,7 +250,7 @@ message( STATUS "BUILD_USE_64BITS = ${BUILD_USE_64BITS}" )
 message( STATUS "CMAKE_GENERATOR = ${CMAKE_GENERATOR}" )
 
 if (MSVC)
-	message( STATUS "MSVC" )
+	# message( STATUS "MSVC" )
 	
 	if (BUILD_USE_64BITS)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
@@ -374,6 +384,11 @@ function (add_target_definitions target)
   endforeach ()
   set_target_properties(${target} PROPERTIES COMPILE_DEFINITIONS "${deflist}")
 endfunction ()
+
+# if (XCODE)
+	# set_target_properties(libbehaviac PROPERTIES  XCODE_ATTRIBUTE_GCC_PREPROCESSOR_DEFINITIONS[variant=Debug] "_DEBUG")
+	# set_target_properties(libbehaviac PROPERTIES  XCODE_ATTRIBUTE_GCC_PREPROCESSOR_DEFINITIONS[variant=Release] "NDEBUG")
+# endif()
 
 if( BUILD_SHARED_LIBS )
 	# SET_TARGET_PROPERTIES(libbehaviac PROPERTIES

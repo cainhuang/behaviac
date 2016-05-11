@@ -24,6 +24,9 @@ cd ..
 # --------------------------------------------------------------
 mkdir xcode
 cd xcode
+# cmake -G "Xcode" -DBUILD_USE_64BITS=ON --build ../../..
+# cmake -G "Xcode" -DCMAKE_BUILD_TYPE=Release --build ../../..
+# cmake -G "Xcode" --build -DCMAKE_BUILD_TYPE=Debug ../../..
 cmake -G "Xcode" --build ../../..
 cd ..
 # --------------------------------------------------------------
