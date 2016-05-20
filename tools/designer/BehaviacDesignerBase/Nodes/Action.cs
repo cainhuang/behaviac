@@ -60,7 +60,16 @@ namespace Behaviac.Design.Nodes
         protected EBTStatus _methodResultOption = EBTStatus.BT_SUCCESS;
         [DesignerEnum("StatusOption", "StatusOptionDesc", "Action", DesignerProperty.DisplayMode.NoDisplay, 2, DesignerProperty.DesignerFlags.NoFlags, "")]
         public EBTStatus ResultOption {
-            get { return _methodResultOption; }
+            get
+            {
+                if (_methodResultOption != EBTStatus.BT_INVALID && this.Method != null && "behaviac::EBTStatus" == this.Method.NativeReturnType)
+                {
+                    _methodResultOption = EBTStatus.BT_INVALID;
+                }
+
+                return _methodResultOption;
+            }
+
             set { _methodResultOption = value; }
         }
 

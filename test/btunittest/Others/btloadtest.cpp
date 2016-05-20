@@ -17,7 +17,8 @@
 #include "../behaviac_generated/types/agentproperties.h"
 #include "../behaviac_generated/behaviors/generated_behaviors.h"
 
-#if BEHAVIAC_COMPILER_MSVC
+//#if BEHAVIAC_COMPILER_MSVC
+#if 1
 void memory_leak_test(behaviac::Workspace::EFileFormat format)
 {
 #if ENABLE_MEMORYDUMP

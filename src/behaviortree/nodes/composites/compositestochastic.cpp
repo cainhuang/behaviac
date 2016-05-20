@@ -83,8 +83,7 @@ namespace behaviac
             BEHAVIAC_ASSERT(pParent);
 
             method->run(pParent, pAgent);
-			value = method->GetReturnValue<double>(pParent);
-
+			value = method->GetReturnDoubleValue(pParent);
         }
         else
         {

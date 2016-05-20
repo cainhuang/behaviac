@@ -303,6 +303,11 @@ namespace behaviac
         }
     }
 
+	void Workspace::SetBehaviorNodeLoader(BehaviorNodeLoader loaderCallback) {
+		this->m_pBehaviorNodeLoader = loaderCallback;
+	}
+
+
     void Workspace::HandleFileFormat(const behaviac::string& fullPath, behaviac::string& ext, Workspace::EFileFormat& f)
     {
         if (f == EFF_default)

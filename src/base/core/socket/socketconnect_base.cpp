@@ -214,11 +214,11 @@ namespace behaviac
     };
 
 #if BEHAVIAC_COMPILER_MSVC
-    uint32_t t_packetBufferIndex = TLS_OUT_OF_INDEXES;
+	uint32_t t_packetBufferIndex = TLS_OUT_OF_INDEXES;
 #elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID
-    uint32_t t_packetBufferIndex = (unsigned int) - 1;
+	uint32_t t_packetBufferIndex = (uint32_t) - 1;
 #else
-    __thread uint32_t t_packetBufferIndex = (unsigned int) - 1;
+    __thread uint32_t t_packetBufferIndex = (uint32_t) - 1;
 #endif
 
     ConnectorInterface::ConnectorInterface() :
@@ -425,10 +425,10 @@ namespace behaviac
     {
 #if BEHAVIAC_COMPILER_MSVC
         BEHAVIAC_ASSERT(t_packetBufferIndex != TLS_OUT_OF_INDEXES);
-        int bufferIndex = (int)TlsGetValue(t_packetBufferIndex);
+		uint32_t bufferIndex = (uint32_t)(uint64_t)TlsGetValue(t_packetBufferIndex);
 #else
         BEHAVIAC_ASSERT(t_packetBufferIndex != (unsigned int) - 1);
-        int bufferIndex = (int)t_packetBufferIndex;
+		uint32_t bufferIndex = t_packetBufferIndex;
 #endif
         //WHEN bReserve is false, it is unsafe to allocate memory as other threads might be allocating
         //you can avoid the following assert to malloc a block of memory in your thread at the very beginning
@@ -440,7 +440,7 @@ namespace behaviac
             bufferIndex = ReserveThreadPacketBuffer();
         }
 
-        return bufferIndex;
+        return (int)bufferIndex;
     }
 
 
@@ -516,9 +516,9 @@ namespace behaviac
     int ConnectorInterface::ReserveThreadPacketBuffer()
     {
 #if BEHAVIAC_COMPILER_MSVC
-        int bufferIndex = (int)TlsGetValue(t_packetBufferIndex);
+		uint32_t bufferIndex = (uint32_t)(uint64_t)TlsGetValue(t_packetBufferIndex);
 #else
-        int bufferIndex = t_packetBufferIndex;
+		uint32_t bufferIndex = t_packetBufferIndex;
 #endif
         //THREAD_ID_TYPE id = behaviac::GetTID();
         //BEHAVIAC_LOGINFO("ReserveThreadPacketBuffer:%d thread %d\n", bufferIndex, id);
@@ -557,7 +557,7 @@ namespace behaviac
             if (retIndex > 0)
             {
 #if BEHAVIAC_COMPILER_MSVC
-                TlsSetValue(t_packetBufferIndex, (PVOID)retIndex);
+                TlsSetValue(t_packetBufferIndex, (PVOID)(uint64_t)retIndex);
 #else
                 t_packetBufferIndex = retIndex;
 #endif

@@ -20,7 +20,6 @@
 //******************************************************************************
 //* XmlParserImp class.
 //******************************************************************************
-using namespace rapidxml;
 
 namespace behaviac
 {
@@ -35,7 +34,7 @@ namespace behaviac
 	protected:
 		XmlNodeRef m_root;
 
-		xml_document<>	m_parser;
+		rapidxml::xml_document<>	m_parser;
 		char*			m_buffer;
 	};
 
@@ -51,17 +50,17 @@ namespace behaviac
 		BEHAVIAC_FREE(m_buffer);
 	}
 
-	XmlNodeRef cloneXmlNodeFrom(xml_node<>* xmlnode)
+	XmlNodeRef cloneXmlNodeFrom(rapidxml::xml_node<>* xmlnode)
 	{
 		XmlNodeRef node = CreateXmlNode(xmlnode->name());
 
-		for (xml_attribute<>* attr = xmlnode->first_attribute();
+		for (rapidxml::xml_attribute<>* attr = xmlnode->first_attribute();
 			attr; attr = attr->next_attribute())
 		{
 			node->setAttrText(attr->name(), attr->value());
 		}
 
-		for (xml_node<>* subNode = xmlnode->first_node(); subNode; subNode = subNode->next_sibling())
+		for (rapidxml::xml_node<>* subNode = xmlnode->first_node(); subNode; subNode = subNode->next_sibling())
 		{
 			XmlNodeRef sub = cloneXmlNodeFrom(subNode);
 			node->addChild(sub);
@@ -78,7 +77,7 @@ namespace behaviac
 
 		m_parser.parse<0>(buffer);
 
-		xml_node<>* xmlnode = m_parser.first_node(rootNodeName);
+		rapidxml::xml_node<>* xmlnode = m_parser.first_node(rootNodeName);
 
 		XmlNodeRef node = cloneXmlNodeFrom(xmlnode);
 

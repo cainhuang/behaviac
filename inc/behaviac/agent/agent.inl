@@ -240,7 +240,7 @@ namespace behaviac
             }
             else
             {
-                BEHAVIAC_ASSERT(0, "unregistered event %s", eventName);
+                //BEHAVIAC_ASSERT(0, "unregistered event %s", eventName);
             }
         }
     }
@@ -274,7 +274,7 @@ namespace behaviac
             }
             else
             {
-                BEHAVIAC_ASSERT(0, "unregistered event %s", eventName);
+                //BEHAVIAC_ASSERT(0, "unregistered event %s", eventName);
             }
         }
     }
@@ -308,7 +308,7 @@ namespace behaviac
             }
             else
             {
-                BEHAVIAC_ASSERT(0, "unregistered event %s", eventName);
+                //BEHAVIAC_ASSERT(0, "unregistered event %s", eventName);
             }
         }
     }
@@ -342,7 +342,7 @@ namespace behaviac
             }
             else
             {
-                BEHAVIAC_ASSERT(0, "unregistered event %s", eventName);
+                //BEHAVIAC_ASSERT(0, "unregistered event %s", eventName);
             }
         }
     }

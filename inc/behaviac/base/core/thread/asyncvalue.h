@@ -105,7 +105,9 @@ namespace behaviac
 		virtual double GetDouble() const
 		{
 			BEHAVIAC_ASSERT(GetClassTypeNumberId<double>() == GetClassTypeNumberId<TTYPE>() || 
-				GetClassTypeNumberId<float>() == GetClassTypeNumberId<TTYPE>());
+				GetClassTypeNumberId<float>() == GetClassTypeNumberId<TTYPE>() ||
+				GetClassTypeNumberId<int>() == GetClassTypeNumberId<TTYPE>() || 
+				GetClassTypeNumberId<long>() == GetClassTypeNumberId<TTYPE>());
 
 			double r = ConvertToDouble(mValue->value);
 			return r;

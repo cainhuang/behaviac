@@ -130,6 +130,8 @@ public class Compute : BehaviorNode
                 value1 = opr1.GetValue(pParentR);
             }
 
+            Debug.Check(value1 != null, "weird, have you modified your meta? please reexport your trees");
+
             if (opr2_m != null)
             {
                 bValid = true;

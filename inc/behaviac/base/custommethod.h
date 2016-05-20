@@ -58,7 +58,7 @@ namespace behaviac
         {
             BEHAVIAC_UNUSED_VAR(parent);
             BEHAVIAC_UNUSED_VAR(xmlNode);
-            BEHAVIAC_ASSERT(0);
+            //BEHAVIAC_ASSERT(0);
         }
 
         virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
@@ -66,7 +66,7 @@ namespace behaviac
             BEHAVIAC_UNUSED_VAR(types);
             BEHAVIAC_UNUSED_VAR(parent);
             BEHAVIAC_UNUSED_VAR(xmlNode);
-            BEHAVIAC_ASSERT(0);
+            //BEHAVIAC_ASSERT(0);
         }
 
     public:

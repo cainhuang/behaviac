@@ -505,7 +505,7 @@ namespace behaviac
             return string.Empty;
         }
 
-        private static string GetParentTreeName(Agent pAgent, BehaviorNode n)
+        public static string GetParentTreeName(Agent pAgent, BehaviorNode n)
         {
             string btName = null;
 

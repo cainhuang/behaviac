@@ -95,6 +95,10 @@ namespace behaviac
 		super::onexit(pAgent, s);
 	}
 
+#if !BEHAVIAC_RELEASE
+	const behaviac::string GetParentTreeName(const Agent* pAgent, const BehaviorNode* n);
+#endif
+
 	EBTStatus FSMTask::UpdateFSM(Agent* pAgent, EBTStatus childStatus)
 	{
 		BEHAVIAC_ASSERT(this->m_node != 0);
@@ -102,6 +106,11 @@ namespace behaviac
 
 		EBTStatus status = childStatus;
 		bool bLoop = true;
+
+#if !BEHAVIAC_RELEASE
+		const int kMaxCount = 10;
+		behaviac::map<int, int> state_update_count;
+#endif//#if !BEHAVIAC_RELEASE
 
 		while (bLoop)
 		{
@@ -128,6 +137,15 @@ namespace behaviac
 			}
 			else
 			{
+#if !BEHAVIAC_RELEASE
+				state_update_count[this->m_currentNodeId]++;
+				if (state_update_count[this->m_currentNodeId] > kMaxCount) {
+					behaviac::string treeName = GetParentTreeName(pAgent, this->GetNode());
+					BEHAVIAC_LOGERROR("%s might be updating an FSM('%s') endlessly, possibly a dead loop, please redesign it!", pAgent->GetName().c_str(), treeName.c_str());
+					BEHAVIAC_ASSERT(false);
+				}
+#endif
+
 				//if transitioned, go on next state
 				this->m_currentNodeId = nextStateId;
 			}

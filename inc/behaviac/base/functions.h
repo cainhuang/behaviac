@@ -146,6 +146,18 @@ namespace behaviac
 	}
 
 	template<>
+	inline double ConvertToDouble(const int& v)
+	{
+		return (double)v;
+	}
+
+	template<>
+	inline double ConvertToDouble(const long& v)
+	{
+		return (double)v;
+	}
+
+	template<>
 	inline double ConvertToDouble(const float& v)
 	{
 		return (double)v;

@@ -302,7 +302,7 @@ namespace behaviac
         return BehaviorTask::GetTickInfo(pAgent, b->GetNode(), action);
     }
 
-	static const behaviac::string GetParentTreeName(const Agent* pAgent, const BehaviorNode* n)
+	const behaviac::string GetParentTreeName(const Agent* pAgent, const BehaviorNode* n)
 	{
 		behaviac::string btName;
 

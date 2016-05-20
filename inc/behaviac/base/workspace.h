@@ -167,12 +167,15 @@ namespace behaviac
 		void DebugUpdate();
 
         /**
-        this is called for every behavior node, in which uses can do some custom stuff
+        this is called for every behavior node, in which users can do some custom stuff
         */
         typedef void (*BehaviorNodeLoader)(const char* nodeType, const properties_t& properties);
         void SetBehaviorNodeLoader(BehaviorNodeLoader loaderCallback);
 
-        void BehaviorNodeLoaded(const char* nodeType, const properties_t& properties);
+		/**
+		either override BehaviorNodeLoaded or call 'SetBehaviorNodeLoader' to set a callback
+		*/
+        virtual void BehaviorNodeLoaded(const char* nodeType, const properties_t& properties);
 
         bool ExportMetas(const char* xmlMetaFilePath);
         void Cleanup();

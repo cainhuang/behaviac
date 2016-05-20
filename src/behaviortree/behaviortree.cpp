@@ -22,31 +22,34 @@
 #include "behaviac/fsm/state.h"
 #include "behaviac/htn/agentproperties.h"
 
-namespace rapidxml
+namespace behaviac
 {
-    //! When exceptions are disabled by defining RAPIDXML_NO_EXCEPTIONS,
-    //! this function is called to notify user about the error.
-    //! It must be defined by the user.
-    //! <br><br>
-    //! This function cannot return. If it does, the results are undefined.
-    //! <br><br>
-    //! A very simple definition might look like that:
-    //! <pre>
-    //! void %rapidxml::%parse_error_handler(const char *what, void *where)
-    //! {
-    //!     std::cout << "Parse error: " << what << "\n";
-    //!     std::abort();
-    //! }
-    //! </pre>
-    //! \param what Human readable description of the error.
-    //! \param where Pointer to character data where error was detected.
-    void parse_error_handler(const char* what, void* where)
-    {
-        BEHAVIAC_UNUSED_VAR(where);
+	namespace rapidxml
+	{
+		//! When exceptions are disabled by defining RAPIDXML_NO_EXCEPTIONS,
+		//! this function is called to notify user about the error.
+		//! It must be defined by the user.
+		//! <br><br>
+		//! This function cannot return. If it does, the results are undefined.
+		//! <br><br>
+		//! A very simple definition might look like that:
+		//! <pre>
+		//! void %rapidxml::%parse_error_handler(const char *what, void *where)
+		//! {
+		//!     std::cout << "Parse error: " << what << "\n";
+		//!     std::abort();
+		//! }
+		//! </pre>
+		//! \param what Human readable description of the error.
+		//! \param where Pointer to character data where error was detected.
+		void parse_error_handler(const char* what, void* where)
+		{
+			BEHAVIAC_UNUSED_VAR(where);
 
-        BEHAVIAC_LOGERROR("rapidxml parse error: %s\n", what);
-        BEHAVIAC_ASSERT(0);
-    }
+			BEHAVIAC_LOGERROR("rapidxml parse error: %s\n", what);
+			BEHAVIAC_ASSERT(0);
+		}
+	}
 }
 
 namespace behaviac

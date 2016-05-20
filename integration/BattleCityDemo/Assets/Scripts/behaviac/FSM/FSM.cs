@@ -126,6 +126,11 @@ namespace behaviac
                 Debug.Check(this.m_node != null);
                 Debug.Check(this.m_currentNodeId != -1);
 
+#if !BEHAVIAC_RELEASE
+		        int kMaxCount = 10;
+		        Dictionary<int, int> state_update_count = new Dictionary<int,int>();
+#endif//#if !BEHAVIAC_RELEASE
+
                 EBTStatus status = childStatus;
                 bool bLoop = true;
 
@@ -153,6 +158,24 @@ namespace behaviac
                     }
                     else
                     {
+#if !BEHAVIAC_RELEASE
+                        if (state_update_count.ContainsKey(this.m_currentNodeId))
+                        {
+                            state_update_count[this.m_currentNodeId]++;
+                        }
+                        else
+                        {
+                            state_update_count.Add(this.m_currentNodeId, 1);
+                        }
+
+                        if (state_update_count[this.m_currentNodeId] > kMaxCount)
+                        {
+                            string treeName = BehaviorTask.GetParentTreeName(pAgent, this.GetNode());
+                            Debug.LogError(string.Format("{0} might be updating an FSM('{1}') endlessly, possibly a dead loop, please redesign it!\n", pAgent.GetName(), treeName));
+                            Debug.Check(false);
+                        }
+#endif
+
                         //if transitioned, go on next state
                         this.m_currentNodeId = nextStateId;
                     }
