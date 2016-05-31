@@ -18,16 +18,18 @@ project (behaviac)
 
 message( STATUS "MSVC=${MSVC}" )
 
-if (MSVC)
-	cmake_minimum_required (VERSION 3.3)
-else()
-	cmake_minimum_required (VERSION 2.8)
-endif()
+# if (MSVC)
+	# cmake_minimum_required (VERSION 3.3)
+# else()
+	# cmake_minimum_required (VERSION 2.8)
+# endif()
+
+cmake_minimum_required (VERSION 2.8)
 
 # set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Profile" CACHE STRING "" FORCE) 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE) 
 
-set (BEHAVIAC_PACKAGE_VERSION 3.4.4)
+set (BEHAVIAC_PACKAGE_VERSION 3.5.0)
 
 #option( BUILD_SHARED_LIBS "set to OFF to build static libraries" ON )
 SET(BUILD_SHARED_LIBS ON CACHE BOOL "set to OFF to build static libraries")
@@ -259,6 +261,7 @@ endif()
 
 if (VC_MDD_ANDROID)
 	message( STATUS "VC_MDD_ANDROID" )
+	cmake_minimum_required (VERSION 3.4)
 endif()
 
 set (BEHAVIAC_ANDROID_ON 0)

@@ -81,7 +81,6 @@ public class Player : GameActor
 	public bool init()
 	{
 		//< for bt debug
-		base.Init();
 		this.SetIdFlag(1);
 		
 		transform.localRotation = Quaternion.Euler(0, currentOrientation, 0);
@@ -155,7 +154,9 @@ public class Player : GameActor
 	public override void updateBehaviacParameter()
 	{
 		base.updateBehaviacParameter();
-		SetVariable("parIn_Self", this);
+
+        if (IsValidVariable("parIn_Self"))
+		    SetVariable("parIn_Self", this);
 	}
 
 	public void tick()

@@ -1,3 +1,7 @@
+2016-05-31	3.5.0
+    to handle the case of no meta xml files
+    csharp GC free even on xml/bson
+
 2016-05-20	3.4.4
 	to include version number for unitypackage 
 	enable memory_leak_test for all platforms

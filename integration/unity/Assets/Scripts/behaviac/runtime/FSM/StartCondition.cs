@@ -20,17 +20,7 @@ namespace behaviac
     public class StartCondition : Precondition
     {
         protected List<Effector.EffectorConfig> m_effectors = new List<Effector.EffectorConfig>();
-
-        // ============================================================================
         protected int m_targetId = -1;
-
-        public StartCondition()
-        {
-        }
-
-        ~StartCondition()
-        {
-        }
 
         public int TargetStateId
         {

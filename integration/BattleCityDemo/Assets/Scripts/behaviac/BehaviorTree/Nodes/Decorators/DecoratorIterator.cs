@@ -18,14 +18,6 @@ namespace behaviac
 {
     public class DecoratorIterator : DecoratorNode
     {
-        public DecoratorIterator()
-        {
-        }
-
-        ~DecoratorIterator()
-        {
-        }
-
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             DecoratorIterator pForEach = (DecoratorIterator)node;
@@ -76,8 +68,6 @@ namespace behaviac
         {
             base.load(version, agentType, properties);
 
-            string typeName = null;
-
             for (int i = 0; i < properties.Count; ++i)
             {
                 property_t p = properties[i];
@@ -87,7 +77,7 @@ namespace behaviac
 
                     if (pParenthesis == -1)
                     {
-                        this.m_opl = Condition.LoadLeft(p.value);
+                        this.m_opl = AgentMeta.ParseProperty(p.value);
                     }
                     else
                     {
@@ -100,17 +90,12 @@ namespace behaviac
 
                     if (pParenthesis == -1)
                     {
-                        this.m_opr = Condition.LoadRight(p.value, ref typeName);
+                        this.m_opr = AgentMeta.ParseProperty(p.value);
                     }
                     else
                     {
-                        //method
-                        this.m_opr_m = Action.LoadMethod(p.value);
+                        this.m_opr = AgentMeta.ParseMethod(p.value);
                     }
-                }
-                else
-                {
-                    //Debug.Check(0, "unrecognised property %s", p.name);
                 }
             }
         }
@@ -127,36 +112,17 @@ namespace behaviac
 
         public bool IterateIt(Agent pAgent, int index, ref int count)
         {
-            if (this.m_opr_m != null)
+            if (this.m_opl != null && this.m_opr != null)
             {
-                object returnValue = this.m_opr_m.Invoke(pAgent);
-
-                Agent pParentOpl = this.m_opl.GetParentAgent(pAgent);
-
-                IList rhs_a = returnValue as IList;
+                Debug.Check(this.m_opr is CInstanceMember<IList>);
+                IList rhs_a = ((CInstanceMember<IList>)this.m_opr).GetValue(pAgent);
 
                 if (index >= 0 && index < rhs_a.Count)
                 {
                     object rhs_v = rhs_a[index];
 
-                    this.m_opl.SetValue(pParentOpl, rhs_v);
-                    count = rhs_a.Count;
+                    this.m_opl.SetValue(pAgent, rhs_v);
 
-                    return true;
-                }
-            }
-            else if (this.m_opr != null)
-            {
-                Agent pParentL = this.m_opl.GetParentAgent(pAgent);
-                Agent pParentR = this.m_opr.GetParentAgent(pAgent);
-                object rhs = this.m_opr.GetValue(pParentR);
-
-                IList rhs_a = rhs as IList;
-
-                if (index >= 0 && index < rhs_a.Count)
-                {
-                    object rhs_v = rhs_a[index];
-                    this.m_opl.SetValue(pParentL, rhs_v);
                     count = rhs_a.Count;
 
                     return true;
@@ -176,8 +142,7 @@ namespace behaviac
             return null;
         }
 
-        protected Property m_opl;
-        protected Property m_opr;
-        protected CMethodBase m_opr_m;
+        protected IInstanceMember m_opl;
+        protected IInstanceMember m_opr;
     }
 }

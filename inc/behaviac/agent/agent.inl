@@ -63,7 +63,7 @@ namespace behaviac
     BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(const char* agentInstanceName, int contextId, short priority)
     {
         const char* agentInstanceNameAny = agentInstanceName;
-        if (!agentInstanceName)
+        if (StringUtils::IsNullOrEmpty(agentInstanceName))
         {
             agentInstanceNameAny = TAGENT::GetClassTypeName();
         }
@@ -88,7 +88,7 @@ namespace behaviac
     BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(T1 p1, const char* agentInstanceName, int contextId, short priority)
     {
         const char* agentInstanceNameAny = agentInstanceName;
-        if (!agentInstanceName)
+		if (StringUtils::IsNullOrEmpty(agentInstanceName))
         {
             agentInstanceNameAny = TAGENT::GetClassTypeName();
         }
@@ -113,7 +113,7 @@ namespace behaviac
     BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(T1 p1, T2 p2, const char* agentInstanceName, int contextId, short priority)
     {
         const char* agentInstanceNameAny = agentInstanceName;
-        if (!agentInstanceName)
+		if (StringUtils::IsNullOrEmpty(agentInstanceName))
         {
             agentInstanceNameAny = TAGENT::GetClassTypeName();
         }
@@ -138,7 +138,7 @@ namespace behaviac
     BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(T1 p1, T2 p2, T3 p3, const char* agentInstanceName, int contextId, short priority)
     {
         const char* agentInstanceNameAny = agentInstanceName;
-        if (!agentInstanceName)
+		if (StringUtils::IsNullOrEmpty(agentInstanceName))
         {
             agentInstanceNameAny = TAGENT::GetClassTypeName();
         }
@@ -163,7 +163,7 @@ namespace behaviac
     BEHAVIAC_FORCEINLINE TAGENT* Agent::Create(T1 p1, T2 p2, T3 p3, T4 p4, const char* agentInstanceName, int contextId, short priority)
     {
         const char* agentInstanceNameAny = agentInstanceName;
-        if (!agentInstanceName)
+		if (StringUtils::IsNullOrEmpty(agentInstanceName))
         {
             agentInstanceNameAny = TAGENT::GetClassTypeName();
         }
@@ -209,7 +209,7 @@ namespace behaviac
     {
         const char* agentInstanceNameAny = agentInstanceName;
 
-        if (!agentInstanceNameAny)
+		if (StringUtils::IsNullOrEmpty(agentInstanceName))
         {
             agentInstanceNameAny = TAGENT::GetClassTypeName();
         }
@@ -658,7 +658,7 @@ namespace behaviac
 
         const char* agentInstanceNameAny = agentInstanceName;
 
-        if (!agentInstanceNameAny)
+		if (StringUtils::IsNullOrEmpty(agentInstanceName))
         {
             agentInstanceNameAny = TAGENT::GetClassTypeName();
         }
@@ -682,7 +682,7 @@ namespace behaviac
     {
         const char* agentInstanceNameAny = agentInstanceName;
 
-        if (!agentInstanceNameAny)
+		if (StringUtils::IsNullOrEmpty(agentInstanceName))
         {
             agentInstanceNameAny = TAGENT::GetClassTypeName();
         }

@@ -18,17 +18,6 @@ namespace behaviac
     // ============================================================================
     public class State : BehaviorNode
     {
-        public State()
-        {
-            m_bIsEndState = false;
-            m_method = null;
-        }
-
-        ~State()
-        {
-            m_method = null;
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
@@ -38,20 +27,11 @@ namespace behaviac
                 property_t p = properties[i];
                 if (p.name == "Method")
                 {
-                    if (!string.IsNullOrEmpty(p.value))
-                    {
-                        this.m_method = Action.LoadMethod(p.value);
-                    }//if (p.value[0] != '\0')
+                    this.m_method = AgentMeta.ParseMethod(p.value);
                 }
                 else if (p.name == "IsEndState")
                 {
-                    if (!string.IsNullOrEmpty(p.value))
-                    {
-                        if (p.value == "true")
-                        {
-                            this.m_bIsEndState = true;
-                        }
-                    }
+                    this.m_bIsEndState = (p.value == "true");
                 }
             }
         }
@@ -102,7 +82,7 @@ namespace behaviac
 
             if (this.m_method != null)
             {
-                this.m_method.Invoke(pAgent);
+                this.m_method.Run(pAgent);
             }
             else
             {
@@ -111,6 +91,7 @@ namespace behaviac
 
             return result;
         }
+
         protected override BehaviorTask createTask()
         {
             StateTask pTask = new StateTask();
@@ -180,20 +161,12 @@ namespace behaviac
         }
 
         protected bool m_bIsEndState;
-        protected CMethodBase m_method;
+        protected IMethod m_method;
 
         protected List<Transition> m_transitions;
 
         public class StateTask : LeafTask
         {
-            public StateTask()
-            {
-            }
-
-            ~StateTask()
-            {
-            }
-
             public override void copyto(BehaviorTask target)
             {
                 base.copyto(target);
@@ -248,6 +221,5 @@ namespace behaviac
                 return result;
             }
         }
-
     }
 }

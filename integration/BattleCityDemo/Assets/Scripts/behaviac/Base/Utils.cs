@@ -140,14 +140,11 @@ namespace behaviac
         protected CMethodBase(CMethodBase copy)
         {
             this.m_variableName = copy.m_variableName;
-            this.m_instanceName = copy.m_instanceName;
             this.method_ = copy.method_;
             this.descAttrbute_ = copy.descAttrbute_;
             this.m_id = copy.m_id;
-            Debug.Check(copy.m_params == null);
         }
 
-        protected string m_instanceName;
         protected string m_variableName;
 
         public string Name
@@ -165,160 +162,6 @@ namespace behaviac
             return m_id;
         }
 
-        public string InstanceName
-        {
-            get
-            {
-                return this.m_instanceName;
-            }
-            set
-            {
-                this.m_instanceName = value;
-            }
-        }
-
-        public virtual int ParamsCount
-        {
-            get
-            {
-                return this.method_ != null ? this.method_.GetParameters().Length : 0;
-            }
-        }
-
-        public virtual List<Type> ParamTypes
-        {
-            get
-            {
-                List<Type> paramTypes = null;
-
-                if (this.method_ != null)
-                {
-                    System.Reflection.ParameterInfo[] parameters = this.method_.GetParameters();
-                    int paramsCount = parameters.Length;
-                    paramTypes = new List<Type>();
-
-                    for (int i = 0; i < paramsCount; ++i)
-                    {
-                        paramTypes.Add(parameters[i].ParameterType);
-                    }
-                }
-                else
-                {
-                    int paramsCount = this.m_params.Length;
-
-                    for (int i = 0; i < paramsCount; ++i)
-                    {
-                        paramTypes.Add(this.m_params[i].paramProperty.PropertyType);
-                    }
-                }
-
-                return paramTypes;
-            }
-        }
-
-        public Agent GetParentAgent(Agent pAgent)
-        {
-            return Utils.GetParentAgent(pAgent, this.m_instanceName);
-        }
-
-        public static Param_t[] LoadParams(List<string> paramsToken, List<Type> parameters, ref object[] _params_value)
-        {
-            int paramCount = parameters != null ? parameters.Count : paramsToken.Count;
-            Param_t[] _params = null;
-
-            if (paramCount > 0)
-            {
-                _params = new Param_t[paramCount];
-                _params_value = new object[paramCount];
-
-                for (int i = 0; i < paramsToken.Count; ++i)
-                {
-                    if (parameters != null)
-                    {
-                        Type paramType = parameters[i];
-
-                        bool isStruct = paramsToken[i][0] == '{';
-
-                        if (isStruct)
-                        {
-                            Dictionary<string, Property> props = new Dictionary<string, Property>();
-                            string strT = "";
-
-                            if (StringUtils.ParseForStruct(paramType, paramsToken[i], ref strT, props))
-                            {
-                                object paramValue = StringUtils.FromString(paramType, strT, false);
-
-                                _params_value[i] = paramValue;
-                                _params[i].paramStructMembers = props;
-                            }
-                        }
-                        else
-                        {
-                            //paramsToken[i][0] = '"', then it is a string
-                            bool isString = paramsToken[i][0] == '"';
-
-                            if (isString || paramsToken[i].IndexOf(' ') == -1)
-                            {
-                                //" is paired
-                                Debug.Check(!isString || paramsToken[i][paramsToken[i].Length - 1] == '"');
-                                string paramStr = isString ? paramsToken[i].Substring(1, paramsToken[i].Length - 2) : paramsToken[i];
-
-                                object paramValue = StringUtils.FromString(paramType, paramStr, false);
-
-                                _params_value[i] = paramValue;
-                            }
-                            else
-                            {
-                                ParseMethodParamProperty(paramsToken[i], _params, i);
-                            }
-                        }
-
-                        _params[i].isRefOut = paramType.IsByRef;
-                    }
-                    else
-                    {
-                        ParseMethodParamProperty(paramsToken[i], _params, i);
-                    }
-                }//end of for
-            }
-
-            return _params;
-        }
-
-        private static void ParseMethodParamProperty(string paramToken, Param_t[] _params, int i)
-        {
-            string typeName = null;
-            Property paramProperty = Condition.ParseProperty(paramToken, ref typeName);
-            _params[i].paramProperty = paramProperty;
-        }
-
-        public void Load(List<string> paramsToken)
-        {
-            int paramsCount = this.ParamsCount;
-
-            if (paramsCount > 0)
-            {
-                if (paramsToken.Count == paramsCount)
-                {
-                    this.m_params = LoadParams(paramsToken, this.ParamTypes, ref this.m_params_value);
-                }
-                else
-                {
-                    Debug.Check(false);
-                }
-            }
-        }
-
-        public bool IsStatic()
-        {
-            return false;
-        }
-
-        public virtual string GetClassNameString()
-        {
-            return this.method_.DeclaringType.FullName;
-        }
-
         public virtual bool IsNamedEvent()
         {
             return false;
@@ -327,168 +170,6 @@ namespace behaviac
         public virtual CMethodBase clone()
         {
             return new CMethodBase(this);
-        }
-
-        public struct Param_t
-        {
-            public bool isRefOut;
-            public Property paramProperty;
-            public Dictionary<string, Property> paramStructMembers;
-        };
-
-        protected Param_t[] m_params = null;
-        protected object[] m_params_value = null;
-
-        public void GetParamsValue(Agent pAgent, bool bAllowNullValue)
-        {
-            Agent pParent = this.GetParentAgent(pAgent);
-
-            this.GetParamsValue(pParent, pAgent, bAllowNullValue);
-        }
-
-        private object run(Agent parent, Agent pSelf)
-        {
-            object returnValue = null;
-
-            if (this.method_.IsStatic || parent != null)
-            {
-                this.GetParamsValue(parent, pSelf, true);
-
-                returnValue = this.method_.Invoke(parent, this.m_params_value);
-
-                this.UpdateAgentValue(pSelf);
-            }
-
-            return returnValue;
-        }
-
-        private void UpdateAgentValue(Agent pSelf)
-        {
-            if (this.m_params != null)
-            {
-                for (int i = 0; i < this.m_params.Length; ++i)
-                {
-                    if (this.m_params[i].isRefOut)
-                    {
-                        Property property = this.m_params[i].paramProperty;
-
-                        if (property != null)
-                        {
-                            Agent pAgent = property.GetParentAgent(pSelf);
-                            property.SetValue(pAgent, this.m_params_value[i]);
-                        }
-
-                        if (this.m_params[i].paramStructMembers != null)
-                        {
-                            Type structType = this.m_params_value[i].GetType();
-                            Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(structType.FullName);
-
-                            var e = this.m_params[i].paramStructMembers.GetEnumerator();
-                            while (e.MoveNext())
-                            {
-                                CMemberBase member = objectDesc.GetMember(e.Current.Key);
-                                object v = member.Get(this.m_params_value[i]);
-
-                                Agent pAgent = e.Current.Value.GetParentAgent(pSelf);
-                                e.Current.Value.SetValue(pAgent, v);
-                            }
-                        }
-                    }//end of if isRefOut
-                }
-            }
-        }
-
-        private void GetParamsValue(Agent parent, Agent pSelf, bool bAllowNullValue)
-        {
-            if (this.m_params != null)
-            {
-                Debug.Check(this.m_params_value != null && this.m_params_value.Length == this.m_params.Length);
-
-                for (int i = 0; i < this.m_params.Length; ++i)
-                {
-                    Property property = this.m_params[i].paramProperty;
-
-                    if (property != null)
-                    {
-                        object v = property.GetValue(parent, pSelf);
-
-                        if (this.m_params_value[i] == null || !this.m_params_value[i].GetType().IsValueType)
-                        {
-                            Utils.Clone(ref this.m_params_value[i], v);
-                        }
-                        else
-                        {
-                            this.m_params_value[i] = v;
-                        }
-
-                        Debug.Check(bAllowNullValue || this.m_params_value[i] != null);
-                    }
-
-                    //Debug.Check(this.m_this.m_params[i].value != null);
-
-                    if (this.m_params[i].paramStructMembers != null)
-                    {
-                        Type structType = this.m_params_value[i].GetType();
-                        Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(structType.FullName);
-
-                        var e = this.m_params[i].paramStructMembers.GetEnumerator();
-                        while (e.MoveNext())
-                        {
-                            CMemberBase member = objectDesc.GetMember(e.Current.Key);
-
-                            object v = e.Current.Value.GetValue(parent, pSelf);
-
-                            member.Set(this.m_params_value[i], v);
-                        }
-                    }
-                }
-            }
-        }
-
-        public object Invoke(Agent pParent, Agent pAgent)
-        {
-            object returnValue = this.run(pParent, pAgent);
-
-            return returnValue;
-        }
-
-        public object Invoke(Agent pAgent)
-        {
-            Agent pParent = this.GetParentAgent(pAgent);
-
-            object returnValue = this.run(pParent, pAgent);
-
-            return returnValue;
-        }
-
-        public object Invoke(Agent pSelf, object param)
-        {
-            Agent pParent = this.GetParentAgent(pSelf);
-
-            Debug.Check(this.m_params_value.Length == 1);
-
-            this.m_params_value[0] = param;
-
-            object returnValue = this.method_.Invoke(pParent, this.m_params_value);
-            //this.UpdateAgentValue(pSelf);
-
-            return returnValue;
-        }
-
-        public object Invoke(Agent pSelf, object[] paramsValue)
-        {
-            Agent pParent = this.GetParentAgent(pSelf);
-
-            for (int i = 0; i < paramsValue.Length; ++i)
-            {
-                this.m_params_value[i] = paramsValue[i];
-            }
-
-            object returnValue = this.method_.Invoke(pParent, this.m_params_value);
-
-            //this.UpdateAgentValue(pSelf);
-
-            return returnValue;
         }
     }
 
@@ -552,30 +233,18 @@ namespace behaviac
             return null;
         }
 
-        private string m_instaceName;
+        private string m_instanceName;
 
         public string InstanceName
         {
             get
             {
-                return m_instaceName;
+                return m_instanceName;
             }
             set
             {
-                m_instaceName = value;
+                m_instanceName = value;
             }
-        }
-
-        public Property CreateProperty(string defaultValue, bool bConst)
-        {
-            Property p = new Property(this, bConst);
-
-            if (!string.IsNullOrEmpty(defaultValue))
-            {
-                p.SetDefaultValue(defaultValue);
-            }
-
-            return p;
         }
 
         public virtual int GetTypeId()
@@ -718,378 +387,6 @@ namespace behaviac
         }
     }
 
-    public class CCustomMethod : CMethodBase
-    {
-        private string m_className;
-        protected List<Type> m_paramTypes = null;
-
-        public CCustomMethod(string className, string eventName)
-            : base(null, null, eventName)
-        {
-            m_className = className;
-        }
-
-        protected CCustomMethod(CCustomMethod copy)
-            : base(copy)
-        {
-            m_className = copy.m_className;
-            m_paramTypes = copy.m_paramTypes;
-        }
-
-        public void AddParamType(string typeName)
-        {
-            Type type = Utils.GetTypeFromName(typeName);
-
-            if (this.m_paramTypes == null)
-            {
-                this.m_paramTypes = new List<Type>();
-            }
-
-            this.m_paramTypes.Add(type);
-        }
-
-        public override int ParamsCount
-        {
-            get
-            {
-                if (this.m_paramTypes != null)
-                {
-                    return this.m_paramTypes.Count;
-                }
-
-                return 0;
-            }
-        }
-
-        public override List<Type> ParamTypes
-        {
-            get
-            {
-                return this.m_paramTypes;
-            }
-        }
-
-        public override string GetClassNameString()
-        {
-            return m_className;
-        }
-    }
-
-    public class CNamedEvent : CCustomMethod
-    {
-        public CNamedEvent(string className, string eventName)
-            : base(className, eventName)
-        {
-        }
-
-        protected CNamedEvent(CNamedEvent copy)
-            : base(copy)
-        {
-        }
-
-        public override CMethodBase clone()
-        {
-            return new CNamedEvent(this);
-        }
-
-        public override bool IsNamedEvent()
-        {
-            return true;
-        }
-
-        private bool m_bFired;
-
-        public bool IsFired()
-        {
-            return this.m_bFired;
-        }
-
-        public void SetFired(Agent pAgent, bool bFired)
-        {
-            this.m_bFired = bFired;
-
-            if (bFired)
-            {
-                pAgent.btonevent(this.Name);
-            }
-        }
-
-        public void SetParam<ParamType>(Agent pAgent, ParamType param)
-        {
-            Debug.Check(this.m_paramTypes != null && m_paramTypes.Count == 1);
-            Debug.Check(this.m_paramTypes[0] == typeof(ParamType) || typeof(ParamType).IsSubclassOf(this.m_paramTypes[0]), "SetParam's Param is not compatible");
-
-            //string eventName = string.Format("{0}_param0", this.Name);
-            AgentState currentState = pAgent.Variables.Push(false);
-            Debug.Check(currentState != null);
-
-            string eventName = string.Format("{0}{1}", Task.LOCAL_TASK_PARAM_PRE, 0);
-
-            //AgentProperties agentT = AgentProperties.Get(pAgent.GetClassTypeName());
-            pAgent.SetVariable(eventName, param);
-        }
-
-        public void SetParam<ParamType1, ParamType2>(Agent pAgent, ParamType1 param1, ParamType2 param2)
-        {
-            Debug.Check(this.m_paramTypes != null && m_paramTypes.Count == 2);
-            Debug.Check(this.m_paramTypes[0] == typeof(ParamType1) || typeof(ParamType1).IsSubclassOf(this.m_paramTypes[0]), "SetParam's Param1 is not compatible");
-            Debug.Check(this.m_paramTypes[1] == typeof(ParamType2) || typeof(ParamType2).IsSubclassOf(this.m_paramTypes[1]), "SetParam's Param2 is not compatible");
-
-            AgentState currentState = pAgent.Variables.Push(false);
-            Debug.Check(currentState != null);
-
-            //AgentProperties agentT = AgentProperties.Get(pAgent.GetClassTypeName());
-
-            string eventName1 = string.Format("{0}{1}", Task.LOCAL_TASK_PARAM_PRE, 0);
-            pAgent.SetVariable(eventName1, param1);
-            string eventName2 = string.Format("{0}{1}", Task.LOCAL_TASK_PARAM_PRE, 1);
-            pAgent.SetVariable(eventName2, param2);
-        }
-
-        public void SetParam<ParamType1, ParamType2, ParamType3>(Agent pAgent, ParamType1 param1, ParamType2 param2, ParamType3 param3)
-        {
-            Debug.Check(this.m_paramTypes != null && m_paramTypes.Count == 3);
-            Debug.Check(this.m_paramTypes[0] == typeof(ParamType1) || typeof(ParamType1).IsSubclassOf(this.m_paramTypes[0]), "SetParam's Param1 is not compatible");
-            Debug.Check(this.m_paramTypes[1] == typeof(ParamType2) || typeof(ParamType2).IsSubclassOf(this.m_paramTypes[1]), "SetParam's Param2 is not compatible");
-            Debug.Check(this.m_paramTypes[2] == typeof(ParamType3) || typeof(ParamType3).IsSubclassOf(this.m_paramTypes[2]), "SetParam's Param3 is not compatible");
-
-            AgentState currentState = pAgent.Variables.Push(false);
-            Debug.Check(currentState != null);
-
-            //AgentProperties agentT = AgentProperties.Get(pAgent.GetClassTypeName());
-
-            string eventName1 = string.Format("{0}{1}", Task.LOCAL_TASK_PARAM_PRE, 0);
-            pAgent.SetVariable(eventName1, param1);
-            string eventName2 = string.Format("{0}{1}", Task.LOCAL_TASK_PARAM_PRE, 1);
-            pAgent.SetVariable(eventName2, param2);
-            string eventName3 = string.Format("{0}{1}", Task.LOCAL_TASK_PARAM_PRE, 2);
-            pAgent.SetVariable(eventName3, param3);
-        }
-    }
-
-    public class CTaskMethod : CNamedEvent
-    {
-        public CTaskMethod(string className, string eventName)
-            : base(className, eventName)
-        {
-        }
-
-        private CTaskMethod(CTaskMethod copy)
-            : base(copy)
-        {
-        }
-
-        public override CMethodBase clone()
-        {
-            return new CTaskMethod(this);
-        }
-
-        public void SetTaskParams(Agent pAgent)
-        {
-            if (this.ParamsCount > 0)
-            {
-                this.GetParamsValue(pAgent, false);
-
-                string agentType = pAgent.GetClassTypeName();
-                Debug.Check(agentType != null);
-                AgentProperties agentT = AgentProperties.Get(agentType);
-
-                for (int i = 0; i < this.m_params_value.Length; ++i)
-                {
-                    string paramName = string.Format("{0}{1}", Task.LOCAL_TASK_PARAM_PRE, i);
-                    CTaskMethod.SetTaskParam(pAgent, agentT, paramName, this.m_params_value[i]);
-                }
-            }
-        }
-
-        private static void SetTaskParam(Agent pAgent, AgentProperties agentT, string paramName, object paramValu)
-        {
-            //pAgent.SetVariable(paramName, parasValue[i]);
-            Property localProperty = agentT.GetLocal(paramName);
-            Debug.Check(localProperty != null);
-            localProperty.SetValue(pAgent, paramValu);
-        }
-    }
-
-    public enum E_VariableComparisonType
-    {
-        VariableComparisonType_Assignment,      //( "Assignment (=)" )
-        VariableComparisonType_Equal,           //( "Equal (==)" )
-        VariableComparisonType_NotEqual,        //( "Not Equal (!=)" )
-        VariableComparisonType_Greater,         //( "Greater (>)"  )
-        VariableComparisonType_GreaterEqual,    //( "Greater Or Equal (>=)" )
-        VariableComparisonType_Less,            //( "Lower (<)"  )
-        VariableComparisonType_LessEqual,       //( "Lower Or Equal (<=)" )
-        VariableComparisonType_And,             //( "Lower Or Equal (&&)" )
-        VariableComparisonType_Or               //( "Lower Or Equal (||)" )
-    }
-
-    public class VariableComparator
-    {
-        public static E_VariableComparisonType ParseComparisonType(string comparionOperator)
-    {
-        if (comparionOperator == "Assignment")
-        {
-            return E_VariableComparisonType.VariableComparisonType_Assignment;
-        }
-        else if (comparionOperator == "Equal")
-        {
-            return E_VariableComparisonType.VariableComparisonType_Equal;
-        }
-        else if (comparionOperator == "NotEqual")
-        {
-            return E_VariableComparisonType.VariableComparisonType_NotEqual;
-        }
-        else if (comparionOperator == "Greater")
-        {
-            return E_VariableComparisonType.VariableComparisonType_Greater;
-        }
-        else if (comparionOperator == "GreaterEqual")
-        {
-            return E_VariableComparisonType.VariableComparisonType_GreaterEqual;
-        }
-        else if (comparionOperator == "Less")
-        {
-            return E_VariableComparisonType.VariableComparisonType_Less;
-        }
-        else if (comparionOperator == "LessEqual")
-        {
-            return E_VariableComparisonType.VariableComparisonType_LessEqual;
-        }
-        else
-        {
-            Debug.Check(false);
-        }
-
-        return E_VariableComparisonType.VariableComparisonType_Equal;
-    }
-
-    public VariableComparator(Property lhs, CMethodBase lhs_m, Property rhs, CMethodBase rhs_m)
-    {
-        m_lhs = lhs;
-        m_lhs_m = lhs_m;
-        m_rhs = rhs;
-        m_rhs_m = rhs_m;
-    }
-
-    private VariableComparator(VariableComparator copy)
-    {
-        m_lhs = copy.m_lhs;
-        m_lhs_m = copy.m_lhs_m;
-        m_rhs = copy.m_rhs;
-        m_rhs_m = copy.m_rhs_m;
-    }
-
-    ~VariableComparator()
-    {
-        m_lhs = null;
-        m_lhs_m = null;
-        m_rhs = null;
-        m_rhs_m = null;
-    }
-
-    public VariableComparator clone()
-    {
-        return new VariableComparator(this);
-    }
-
-    public static VariableComparator Create(Property lhs, CMethodBase lhs_m, Property rhs, CMethodBase rhs_m)
-    {
-        return new VariableComparator(lhs, lhs_m, rhs, rhs_m);
-    }
-
-    public bool Execute(Agent agent)
-    {
-        object lhs = null;
-
-        Agent agentL = agent;
-
-        if (this.m_lhs != null)
-        {
-            agentL = this.m_lhs.GetParentAgent(agentL);
-            lhs = this.m_lhs.GetValue(agentL);
-        }
-        else
-        {
-            Debug.Check(this.m_lhs_m != null);
-            lhs = this.m_lhs_m.Invoke(agentL);
-        }
-
-        object rhs = null;
-
-        Agent agentR = agent;
-
-        if (this.m_rhs != null)
-        {
-            agentR = this.m_rhs.GetParentAgent(agentR);
-            rhs = this.m_rhs.GetValue(agentR);
-        }
-        else
-        {
-            Debug.Check(this.m_rhs_m != null);
-            rhs = this.m_rhs_m.Invoke(agentR);
-        }
-
-        switch (this.m_comparisonType)
-        {
-            case E_VariableComparisonType.VariableComparisonType_Assignment:
-                Debug.Check(this.m_lhs != null);
-                //this.m_lhs.SetFrom(agentR, this.m_rhs, agentL);
-                this.m_lhs.SetValue(agentL, rhs);
-
-                return true;
-
-            case E_VariableComparisonType.VariableComparisonType_Equal:
-                return Details.Equals_(lhs, rhs);
-
-            case E_VariableComparisonType.VariableComparisonType_NotEqual:
-                return !Details.Equals_(lhs, rhs);
-
-            case E_VariableComparisonType.VariableComparisonType_Greater:
-                return Details.Greater(lhs, rhs);
-
-            case E_VariableComparisonType.VariableComparisonType_GreaterEqual:
-                return Details.GreaterEqual(lhs, rhs);
-
-            case E_VariableComparisonType.VariableComparisonType_Less:
-                return Details.Less(lhs, rhs);
-
-            case E_VariableComparisonType.VariableComparisonType_LessEqual:
-                return Details.LessEqual(lhs, rhs);
-
-            default:
-                Debug.Check(false, "Unsupported comparison type");
-                break;
-        }
-
-        return false;
-    }
-
-    private void SetProperty(Property lhs, Property rhs)
-    {
-        m_lhs = lhs;
-        m_rhs = rhs;
-    }
-
-    public void SetComparisonType(E_VariableComparisonType type)
-    {
-        m_comparisonType = type;
-    }
-
-    private E_VariableComparisonType GetComparisonType()
-    {
-        return m_comparisonType;
-    }
-
-    protected Property m_lhs;
-    protected CMethodBase m_lhs_m;
-    protected Property m_rhs;
-    protected CMethodBase m_rhs_m;
-
-    //The operator used in the comparison
-    protected E_VariableComparisonType m_comparisonType;
-    }
-
     public class CTextNode
     {
         public CTextNode(string name)
@@ -1163,12 +460,6 @@ namespace behaviac
         {
             return EqualityComparer<T>.Default.Equals(obj, default(T));
         }
-
-        //public static bool IsNull(UnityEngine.Object p)
-        //{
-        //    bool isNull = !p;
-        //    return isNull;
-        //}
 
         public static uint MakeVariableId(string idstring)
         {
@@ -1443,52 +734,66 @@ namespace behaviac
             switch (typeName)
             {
                 case "bool":
+                case "Boolean":
                     return typeof(bool);
 
                 case "int":
+                case "Int32":
                     return typeof(int);
 
                 case "uint":
+                case "UInt32":
                     return typeof(uint);
 
                 case "short":
+                case "Int16":
                     return typeof(short);
 
                 case "ushort":
+                case "UInt16":
                     return typeof(ushort);
 
                 case "char":
+                case "Char":
                     return typeof(char);
 
                 case "sbyte":
+                case "SByte":
                     return typeof(sbyte);
 
                 case "ubyte":
+                case "Ubyte":
                 case "byte":
+                case "Byte":
                     return typeof(byte);
 
                 case "long":
                 case "llong":
+                case "Int64":
                     return typeof(long);
 
                 case "ulong":
                 case "ullong":
+                case "UInt64":
                     return typeof(ulong);
 
                 case "float":
+                case "Single":
                     return typeof(float);
 
                 case "double":
+                case "Double":
                     return typeof(double);
 
                 case "string":
+                case "String":
                     return typeof(string);
             }
 
             return Utils.GetType(typeName);
         }
 
-        private static Type GetElementTypeFromName(string typeName)
+        public static Type GetElementTypeFromName(string typeName)
         {
             bool bArrayType = false;
 
@@ -1731,7 +1036,7 @@ namespace behaviac
                 }
             }
 
-            bool bIsEqual = Details.Equals_(l, r);
+            bool bIsEqual = Object.Equals(l, r);
 
             return bIsEqual;
         }
@@ -1741,10 +1046,11 @@ namespace behaviac
             if (c == null)
             {
                 o = default(T);
-                return ;
+                return;
             }
 
-            Type type = c.GetType();
+            //Type type = c.GetType();
+            Type type = typeof(T);
 
             if (type.IsPrimitive || type.IsEnum || type.IsValueType)
             {
@@ -1784,7 +1090,7 @@ namespace behaviac
 
                 if (o == null)
                 {
-                    o = (T) Convert.ChangeType(copied, type);
+                    o = (T)Convert.ChangeType(copied, type);
                 }
             }
             else if (Utils.IsArrayType(type))
@@ -1838,7 +1144,7 @@ namespace behaviac
                             {
                                 object fv = f.GetValue(c);
                                 object fv2 = null;
-                                Utils.Clone(ref fv2 , fv);
+                                Utils.Clone(ref fv2, fv);
 
                                 f.SetValue(o, fv2);
                             }
@@ -1932,736 +1238,6 @@ namespace behaviac
             //System.Diagnostics.Debug.Assert(false);
         }
     }
-
-    #region Detail
-
-    static public class Details
-    {
-        #region Impl
-
-        private class CompareValue<T> where T : struct, IComparable<T>
-        {
-            public static bool Greater(object lhs, object rhs)
-            {
-                return ((T)lhs).CompareTo((T)rhs) > 0;
-            }
-
-            public static bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((T)lhs).CompareTo((T)rhs) >= 0;
-            }
-
-            public static bool Less(object lhs, object rhs)
-            {
-                return ((T)lhs).CompareTo((T)rhs) < 0;
-            }
-
-            public static bool LessEqual(object lhs, object rhs)
-            {
-                return ((T)lhs).CompareTo((T)rhs) <= 0;
-            }
-        }
-
-        private interface ICompareValue
-        {
-            bool Greater(object lhs, object rhs);
-
-            bool GreaterEqual(object lhs, object rhs);
-
-            bool Less(object lhs, object rhs);
-
-            bool LessEqual(object lhs, object rhs);
-        }
-
-        private class CompareValueInt : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((int)lhs) > ((int)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((int)lhs) >= ((int)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((int)lhs) < ((int)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((int)lhs) <= ((int)rhs);
-            }
-        }
-
-        private class CompareValueLong : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((long)lhs) > ((long)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((long)lhs) >= ((long)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((long)lhs) < ((long)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((long)lhs) <= ((long)rhs);
-            }
-        }
-
-        private class CompareValueShort : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((short)lhs) > ((short)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((short)lhs) >= ((short)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((short)lhs) < ((short)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((short)lhs) <= ((short)rhs);
-            }
-        }
-
-        private class CompareValueByte : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((sbyte)lhs) > ((sbyte)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((sbyte)lhs) >= ((sbyte)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((sbyte)lhs) < ((sbyte)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((sbyte)lhs) <= ((sbyte)rhs);
-            }
-        }
-
-        private class CompareValueFloat : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((float)lhs) > ((float)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((float)lhs) >= ((float)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((float)lhs) < ((float)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((float)lhs) <= ((float)rhs);
-            }
-        }
-
-        private class CompareValueUInt : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((uint)lhs) > ((uint)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((uint)lhs) >= ((uint)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((uint)lhs) < ((uint)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((uint)lhs) <= ((uint)rhs);
-            }
-        }
-
-        private class CompareValueULong : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((ulong)lhs) > ((ulong)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((ulong)lhs) >= ((ulong)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((ulong)lhs) < ((ulong)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((ulong)lhs) <= ((ulong)rhs);
-            }
-        }
-
-        private class CompareValueUShort : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((ushort)lhs) > ((ushort)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((ushort)lhs) >= ((ushort)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((ushort)lhs) < ((ushort)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((ushort)lhs) <= ((ushort)rhs);
-            }
-        }
-
-        private class CompareValueUByte : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((byte)lhs) > ((byte)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((byte)lhs) >= ((byte)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((byte)lhs) < ((byte)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((byte)lhs) <= ((byte)rhs);
-            }
-        }
-
-        private class CompareValueDouble : ICompareValue
-        {
-            public bool Greater(object lhs, object rhs)
-            {
-                return ((double)lhs) > ((double)rhs);
-            }
-
-            public bool GreaterEqual(object lhs, object rhs)
-            {
-                return ((double)lhs) >= ((double)rhs);
-            }
-
-            public bool Less(object lhs, object rhs)
-            {
-                return ((double)lhs) < ((double)rhs);
-            }
-
-            public bool LessEqual(object lhs, object rhs)
-            {
-                return ((double)lhs) <= ((double)rhs);
-            }
-        }
-
-        ///
-        private interface IComputeValue
-        {
-            object Add(object opr1, object opr2);
-
-            object Sub(object opr1, object opr2);
-
-            object Mul(object opr1, object opr2);
-
-            object Div(object opr1, object opr2);
-        }
-
-        private class ComputeValueInt : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                int r = ((int)lhs) + ((int)rhs);
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                int r = ((int)lhs) - ((int)rhs);
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                int r = ((int)lhs) * ((int)rhs);
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                int r = ((int)lhs) / ((int)rhs);
-                return r;
-            }
-        }
-
-        private class ComputeValueLong : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                long r = ((long)lhs) + ((long)rhs);
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                long r = ((long)lhs) - ((long)rhs);
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                long r = ((long)lhs) * ((long)rhs);
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                long r = ((long)lhs) / ((long)rhs);
-                return r;
-            }
-        }
-
-        private class ComputeValueShort : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                short r = (short)(((short)lhs) + ((short)rhs));
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                short r = (short)(((short)lhs) - ((short)rhs));
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                short r = (short)(((short)lhs) * ((short)rhs));
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                short r = (short)(((short)lhs) / ((short)rhs));
-                return r;
-            }
-        }
-
-        private class ComputeValueByte : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                sbyte r = (sbyte)(((sbyte)lhs) + ((sbyte)rhs));
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                sbyte r = (sbyte)(((sbyte)lhs) - ((sbyte)rhs));
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                sbyte r = (sbyte)(((sbyte)lhs) * ((sbyte)rhs));
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                sbyte r = (sbyte)(((sbyte)lhs) / ((sbyte)rhs));
-                return r;
-            }
-        }
-
-        private class ComputeValueFloat : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                float r = ((float)lhs) + ((float)rhs);
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                float r = ((float)lhs) - ((float)rhs);
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                float r = ((float)lhs) * ((float)rhs);
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                float r = ((float)lhs) / ((float)rhs);
-                return r;
-            }
-        }
-
-        private class ComputeValueUInt : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                uint r = ((uint)lhs) + ((uint)rhs);
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                uint r = ((uint)lhs) - ((uint)rhs);
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                uint r = ((uint)lhs) * ((uint)rhs);
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                uint r = ((uint)lhs) / ((uint)rhs);
-                return r;
-            }
-        }
-
-        private class ComputeValueULong : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                ulong r = ((ulong)lhs) + ((ulong)rhs);
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                ulong r = ((ulong)lhs) - ((ulong)rhs);
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                ulong r = ((ulong)lhs) * ((ulong)rhs);
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                ulong r = ((ulong)lhs) / ((ulong)rhs);
-                return r;
-            }
-        }
-
-        private class ComputeValueUShort : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                ushort r = (ushort)(((ushort)lhs) + ((ushort)rhs));
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                ushort r = (ushort)(((ushort)lhs) - ((ushort)rhs));
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                ushort r = (ushort)(((ushort)lhs) * ((ushort)rhs));
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                ushort r = (ushort)(((ushort)lhs) / ((ushort)rhs));
-                return r;
-            }
-        }
-
-        private class ComputeValueUByte : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                byte r = (byte)(((byte)lhs) + ((byte)rhs));
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                byte r = (byte)(((byte)lhs) - ((byte)rhs));
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                byte r = (byte)(((byte)lhs) * ((byte)rhs));
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                byte r = (byte)(((byte)lhs) / ((byte)rhs));
-                return r;
-            }
-        }
-
-        private class ComputeValueDouble : IComputeValue
-        {
-            public object Add(object lhs, object rhs)
-            {
-                double r = ((double)lhs) + ((double)rhs);
-                return r;
-            }
-
-            public object Sub(object lhs, object rhs)
-            {
-                double r = ((double)lhs) - ((double)rhs);
-                return r;
-            }
-
-            public object Mul(object lhs, object rhs)
-            {
-                double r = ((double)lhs) * ((double)rhs);
-                return r;
-            }
-
-            public object Div(object lhs, object rhs)
-            {
-                double r = ((double)lhs) / ((double)rhs);
-                return r;
-            }
-        }
-
-        #endregion Impl
-
-        private static Dictionary<Type, ICompareValue> ms_comparers = null;
-
-        public static void RegisterCompareValue()
-        {
-            Debug.Check(ms_comparers == null);
-
-            ms_comparers = new Dictionary<Type, ICompareValue>();
-
-            ms_comparers[typeof(int)] = new CompareValueInt();
-            ms_comparers[typeof(long)] = new CompareValueLong();
-            ms_comparers[typeof(short)] = new CompareValueShort();
-            ms_comparers[typeof(sbyte)] = new CompareValueByte();
-            ms_comparers[typeof(float)] = new CompareValueFloat();
-
-            ms_comparers[typeof(uint)] = new CompareValueUInt();
-            ms_comparers[typeof(ulong)] = new CompareValueULong();
-            ms_comparers[typeof(ushort)] = new CompareValueUShort();
-            ms_comparers[typeof(byte)] = new CompareValueUByte();
-            ms_comparers[typeof(double)] = new CompareValueDouble();
-        }
-
-        public static bool Equals_(object lhs, object rhs)
-        {
-            return System.Object.Equals(lhs, rhs);
-            //return ((lhs == rhs) ||
-            //    (((lhs != null) && (rhs != null)) && lhs.Equals(rhs)));
-        }
-
-        public static bool Greater(object lhs, object rhs)
-        {
-            Debug.Check(lhs != null && rhs != null);
-            Type lhs_t = lhs.GetType();
-            Debug.Check(lhs_t == rhs.GetType());
-            Debug.Check(ms_comparers != null);
-
-            if (ms_comparers.ContainsKey(lhs_t))
-            {
-                ICompareValue d = ms_comparers[lhs_t];
-                return d.Greater(lhs, rhs);
-            }
-            else
-            {
-                Debug.Check(false);
-            }
-
-            return false;
-        }
-
-        public static bool GreaterEqual(object lhs, object rhs)
-        {
-            Debug.Check(lhs != null && rhs != null);
-            Type lhs_t = lhs.GetType();
-            Debug.Check(lhs_t == rhs.GetType());
-
-            if (ms_comparers.ContainsKey(lhs_t))
-            {
-                ICompareValue d = ms_comparers[lhs_t];
-                return d.GreaterEqual(lhs, rhs);
-            }
-            else
-            {
-                Debug.Check(false);
-            }
-
-            return false;
-        }
-
-        public static bool Less(object lhs, object rhs)
-        {
-            Debug.Check(lhs != null && rhs != null);
-            Type lhs_t = lhs.GetType();
-            Debug.Check(lhs_t == rhs.GetType());
-
-            if (ms_comparers.ContainsKey(lhs_t))
-            {
-                ICompareValue d = ms_comparers[lhs_t];
-                return d.Less(lhs, rhs);
-            }
-            else
-            {
-                Debug.Check(false);
-            }
-
-            return false;
-        }
-
-        public static bool LessEqual(object lhs, object rhs)
-        {
-            Debug.Check(lhs != null && rhs != null);
-            Type lhs_t = lhs.GetType();
-            Debug.Check(lhs_t == rhs.GetType());
-
-            if (ms_comparers.ContainsKey(lhs_t))
-            {
-                ICompareValue d = ms_comparers[lhs_t];
-                return d.LessEqual(lhs, rhs);
-            }
-            else
-            {
-                Debug.Check(false);
-            }
-
-            return false;
-        }
-
-        private static Dictionary<Type, IComputeValue> ms_computers = null;
-
-        public static void RegisterComputeValue()
-        {
-            ms_computers = new Dictionary<Type, IComputeValue>();
-
-            ms_computers[typeof(int)] = new ComputeValueInt();
-            ms_computers[typeof(long)] = new ComputeValueLong();
-            ms_computers[typeof(short)] = new ComputeValueShort();
-            ms_computers[typeof(sbyte)] = new ComputeValueByte();
-            ms_computers[typeof(float)] = new ComputeValueFloat();
-
-            ms_computers[typeof(uint)] = new ComputeValueUInt();
-            ms_computers[typeof(ulong)] = new ComputeValueULong();
-            ms_computers[typeof(ushort)] = new ComputeValueUShort();
-            ms_computers[typeof(byte)] = new ComputeValueUByte();
-            ms_computers[typeof(double)] = new ComputeValueDouble();
-        }
-
-        public static object ComputeValue(object value1, object value2, EComputeOperator opr)
-        {
-            Debug.Check(value1 != null && value2 != null);
-            Type lhs_t = value1.GetType();
-            Debug.Check(lhs_t == value2.GetType());
-            Debug.Check(ms_computers != null);
-
-            if (ms_computers.ContainsKey(lhs_t))
-            {
-                IComputeValue d = ms_computers[lhs_t];
-
-                switch (opr)
-                {
-                    case EComputeOperator.E_ADD:
-                        return d.Add(value1, value2);
-
-                    case EComputeOperator.E_SUB:
-                        return d.Sub(value1, value2);
-
-                    case EComputeOperator.E_MUL:
-                        return d.Mul(value1, value2);
-
-                    case EComputeOperator.E_DIV:
-                        return d.Div(value1, value2);
-
-                    default:
-                        Debug.Check(false);
-                        break;
-                }
-            }
-
-            return null;
-        }
-
-        public static void Cleanup()
-        {
-            if (ms_comparers != null)
-            {
-                ms_comparers.Clear();
-                ms_comparers = null;
-            }
-
-            if (ms_computers != null)
-            {
-                ms_computers.Clear();
-                ms_computers = null;
-            }
-        }
-    }
-
-    #endregion Detail
 
     //public static class ListExtra
     //{
@@ -2903,9 +1479,9 @@ namespace behaviac
                     v = StringUtils.FromStringVector(type, valStr);
                 }
             }
-            else if (type == typeof(behaviac.Property))
+            else if (type == typeof(behaviac.IProperty))
             {
-                v = Condition.LoadProperty(valStr);
+                v = AgentMeta.ParseProperty(valStr);
             }
             else if (Utils.IsCustomClassType(type))
             {
@@ -3013,7 +1589,20 @@ namespace behaviac
         public static List<string> SplitTokens(string str)
         {
             List<string> ret = new List<string>();
-            //"int Self.AgentArrayAccessTest::ListInts[int Self.AgentArrayAccessTest::l_index]"
+
+            // "const string \"test string\""
+            // "const int 10"
+            // "int Self.AgentArrayAccessTest::ListInts[int Self.AgentArrayAccessTest::l_index]"
+
+            if (str.StartsWith("const string "))
+            {
+                ret.Add("const");
+                ret.Add("string");
+                ret.Add(str.Substring(13));
+
+                return ret;
+            }
+
             int pB = 0;
             int i = 0;
 
@@ -3074,7 +1663,7 @@ namespace behaviac
             return strT;
         }
 
-        public static bool ParseForStruct(Type type, string str, ref string strT, Dictionary<string, Property> props)
+        public static bool ParseForStruct(Type type, string str, ref string strT, Dictionary<string, IInstanceMember> props)
         {
             int pB = 0;
             int i = 0;
@@ -3109,6 +1698,8 @@ namespace behaviac
                     Debug.Check(str[p] == '=');
                     p++;
 
+                    string valueStr = str.Substring(p);
+
                     string typeStr = "";
 
                     while (str[p] != ' ')
@@ -3116,7 +1707,7 @@ namespace behaviac
                         typeStr += str[p++];
                     }
 
-                    bool bStatic = false;
+                    //bool bStatic = false;
 
                     if (typeStr == "static")
                     {
@@ -3129,7 +1720,7 @@ namespace behaviac
                             typeStr += str[p++];
                         }
 
-                        bStatic = true;
+                        //bStatic = true;
                     }
 
                     string parName = "";
@@ -3143,7 +1734,7 @@ namespace behaviac
                         parName += str[i++];
                     }
 
-                    props[propName] = behaviac.Property.Create(typeStr, parName, bStatic, null);
+                    props[propName] = AgentMeta.ParseProperty(valueStr);
 
                     //skip ';'
                     Debug.Check(str[i] == ';');

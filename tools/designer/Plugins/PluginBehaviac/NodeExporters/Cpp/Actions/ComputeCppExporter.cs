@@ -84,7 +84,7 @@ namespace PluginBehaviac.NodeExporters
 
             if (compute.Opl != null && compute.Opr1 != null && compute.Opr2 != null)
             {
-                string typeName = Plugin.GetNativeTypeName(compute.Opr1.ValueType);
+                string typeName = DataCppExporter.GetGeneratedNativeType(compute.Opr1.ValueType);
 
                 RightValueCppExporter.GenerateCode(compute.Opr1, stream, indent + "\t\t\t", typeName, "opr1", "opr1");
                 RightValueCppExporter.GenerateCode(compute.Opr2, stream, indent + "\t\t\t", typeName, "opr2", "opr2");

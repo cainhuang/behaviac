@@ -17,15 +17,6 @@ namespace behaviac
 {
     public abstract class CompositeStochastic : BehaviorNode
     {
-        public CompositeStochastic()
-        {
-        }
-
-        ~CompositeStochastic()
-        {
-            m_method = null;
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
@@ -35,14 +26,7 @@ namespace behaviac
                 property_t p = properties[i];
                 if (p.name == "RandomGenerator")
                 {
-                    if (p.value[0] != '\0')
-                    {
-                        this.m_method = Action.LoadMethod(p.value);
-                    }//if (p.value[0] != '\0')
-                }
-                else
-                {
-                    //Debug.Check(0, "unrecognised property %s", p.name);
+                    this.m_method = AgentMeta.ParseMethod(p.value);
                 }
             }
         }
@@ -64,26 +48,18 @@ namespace behaviac
             return base.IsValid(pAgent, pTask);
         }
 
-        protected CMethodBase m_method;
+        protected IMethod m_method;
 
         public class CompositeStochasticTask : CompositeTask
         {
-            public CompositeStochasticTask()
-            {
-            }
-
-            ~CompositeStochasticTask()
-            {
-            }
-
             //generate a random float value between 0 and 1.
-            public static float GetRandomValue(CMethodBase method, Agent pAgent)
+            public static float GetRandomValue(IMethod method, Agent pAgent)
             {
                 float value = 0;
 
                 if (method != null)
                 {
-                    value = (float)method.Invoke(pAgent);
+                    value = ((CInstanceMember<float>)method).GetValue(pAgent);
                 }
                 else
                 {

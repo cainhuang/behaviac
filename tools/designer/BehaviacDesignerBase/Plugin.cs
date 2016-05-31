@@ -1247,6 +1247,9 @@ namespace Behaviac.Design
 
                     return classDesc.IsRefType;
                 }
+
+                if (type.IsInterface)
+                    return true;
             }
 
             return false;
@@ -2241,8 +2244,12 @@ namespace Behaviac.Design
                 return Activator.CreateInstance(type);
 
             } else {
-                if (type.IsSubclassOf(typeof(Agent)))
+                if (type == typeof(Agent) || type.IsSubclassOf(typeof(Agent)))
+                //if (!type.IsValueType)
+                {
                     return Activator.CreateInstance(type);
+                    //return null;
+                }
 
                 if (Plugin.IsArrayType(type) || type == typeof(System.Collections.IList))
                     return null;

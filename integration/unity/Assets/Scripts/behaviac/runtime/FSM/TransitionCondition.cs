@@ -17,14 +17,6 @@ namespace behaviac
 {
     public class Transition : StartCondition
     {
-        public Transition()
-        {
-        }
-
-        ~Transition()
-        {
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);

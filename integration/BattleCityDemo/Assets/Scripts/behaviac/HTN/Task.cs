@@ -6,24 +6,12 @@ namespace behaviac
     {
         public const string LOCAL_TASK_PARAM_PRE = "_$local_task_param_$_";
 
+        protected IMethod m_task;
+
         protected bool m_bHTN;
-
-        protected CTaskMethod m_task;
-
-        public Task()
-        {
-        }
-
-        ~Task()
-        {
-        }
-
         public bool IsHTN
         {
-            get
-            {
-                return this.m_bHTN;
-            }
+            get { return this.m_bHTN; }
         }
 
         public int FindMethodIndex(Method method)
@@ -57,14 +45,7 @@ namespace behaviac
 
             return pTask;
         }
-        /// <summary>
-        /// implement the decompose
-        /// </summary>
-        /// <param name="task"></param>
-        /// <param name="seqTask"></param>
-        /// <param name="depth"></param>
-        /// <param name="planner"></param>
-        /// <returns></returns>
+
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             bool bOk = false;
@@ -89,18 +70,11 @@ namespace behaviac
                 property_t p = properties[i];
                 if (p.name == "Prototype")
                 {
-                    if (!string.IsNullOrEmpty(p.value))
-                    {
-                        CMethodBase m = Action.LoadMethod(p.value);
-                        this.m_task = m as CTaskMethod;
-                    }//if (p.value[0] != '\0')
+                    this.m_task = AgentMeta.ParseMethod(p.value);
                 }
                 else if (p.name == "IsHTN")
                 {
-                    if (p.value == "true")
-                    {
-                        this.m_bHTN = true;
-                    }
+                    this.m_bHTN = (p.value == "true");
                 }
             }
         }
@@ -109,11 +83,6 @@ namespace behaviac
     internal class TaskTask : Sequence.SequenceTask
     {
         private Planner _planner = new Planner();
-
-        public TaskTask()
-            : base()
-        {
-        }
 
         public override void copyto(BehaviorTask target)
         {
@@ -131,16 +100,6 @@ namespace behaviac
             }
 
             base.Init(node);
-        }
-
-        public override void load(ISerializableNode node)
-        {
-            base.load(node);
-        }
-
-        public override void save(ISerializableNode node)
-        {
-            base.save(node);
         }
 
         protected override void addChild(BehaviorTask pBehavior)
@@ -163,6 +122,7 @@ namespace behaviac
         protected override void onexit(Agent pAgent, EBTStatus s)
         {
             _planner.Uninit();
+
             base.onexit(pAgent, s);
         }
 

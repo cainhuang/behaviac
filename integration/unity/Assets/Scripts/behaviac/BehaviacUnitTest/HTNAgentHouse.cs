@@ -11,6 +11,7 @@ public class HTNAgentHouse : HTNAgentHouseBase
 
     public void init() {
         base.Init();
+
         resetProperties();
     }
 

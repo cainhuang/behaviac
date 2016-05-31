@@ -145,7 +145,8 @@ namespace Behaviac.Design.Attributes
                 button.Enabled = true;
 
             } else {
-                textBox.Text = "(None)";
+                textBox.Text = "null";
+                //textBox.Text = DesignerPropertyUtility.RetrieveDisplayValue(_property, null, null);
                 button.Enabled = false;
             }
         }

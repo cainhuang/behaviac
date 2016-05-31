@@ -38,7 +38,7 @@ namespace PluginBehaviac.NodeExporters
 
             if (task.Prototype != null)
             {
-                stream.WriteLine("{0}\t\t\tthis.m_task = Action.LoadMethod(\"{1}\") as CTaskMethod;", indent, task.Prototype.GetExportValue());
+                stream.WriteLine("{0}\t\t\tthis.m_task = AgentMeta.ParseMethod(\"{1}\");", indent, task.Prototype.GetExportValue());
                 stream.WriteLine("{0}\t\t\tDebug.Check(this.m_task != null);", indent);
                 stream.WriteLine("{0}\t\t\tthis.m_bHTN = {1};", indent, task.IsHTN ? "true" : "false");
             }

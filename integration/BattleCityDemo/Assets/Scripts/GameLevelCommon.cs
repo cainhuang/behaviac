@@ -100,7 +100,6 @@ public class GameLevelCommon : behaviac.Agent
 	void Awake()
 	{
 		//< for bt debug
-		base.Init();
 		this.SetIdFlag(1);
 
 		instance = this;
@@ -801,7 +800,30 @@ public class GameLevelCommon : behaviac.Agent
 		return playerID;
 	}
 
-	[behaviac.MethodMetaInfo()]
+    [behaviac.MethodMetaInfo()]
+    public int spawnGameActor1(string behaviorTree, Color clr, int id)
+    {
+        return spawnGameActor(eGameForce.RED_FORCE, 16, behaviorTree, 800, 300, 1, 3, 720, 720, 0, clr, id);
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public int spawnGameActor2(string behaviorTree, int spawnIndex, Color clr)
+    {
+        return spawnGameActor(eGameForce.BLUE_FORCE, 8, behaviorTree, 2000, 1000, 1, 1, 180, 360, spawnIndex, clr, -1);
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public int spawnGameActor3(string behaviorTree, Color clr)
+    {
+        return spawnGameActor(eGameForce.RED_FORCE, 8, behaviorTree, 1500, 500, 1, 3, 180, 180, 0, clr, -1);
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public int spawnGameActor4(eGameForce force, string behaviorTree, int spawnIndex, Color clr, int id)
+    {
+        return spawnGameActor(force, 10, behaviorTree, 1500, 500, 1, 3, 180, 360, spawnIndex, clr, id);
+    }
+
 	public int spawnGameActor(eGameForce force, float moveSpeed, string behaviorTree, int fireInterval, 
 	                                     int twoBulletInterval, int hp, int damageLevel, float aimSpeed, 
 	                                     float rotateSpeed, int spawnIndex, Color clr, int id)

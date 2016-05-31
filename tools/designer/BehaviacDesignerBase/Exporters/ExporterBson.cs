@@ -115,34 +115,38 @@ namespace Behaviac.Design.Exporters
             file.WriteEndElement();
         }
 
-        private void ExportPars(BsonSerializer file, Behavior behavior) {
+        private void ExportPars(BsonSerializer file, Behavior behavior)
+        {
             if (behavior.LocalVars.Count == 0)
-            { return; }
+            {
+                return;
+            }
 
             file.WriteStartElement("pars");
 
-            for (int i = 0; i < behavior.LocalVars.Count; ++i) {
+            for (int i = 0; i < behavior.LocalVars.Count; ++i)
+            {
                 ParInfo par = behavior.LocalVars[i];
 
-                //if (par.Display) 
-                {
-                    ExportPar(file, par, true);
-                }
+                ExportPar(file, par, true);
             }
 
             file.WriteEndElement();
         }
 
-        private void ExportPar(BsonSerializer file, ParInfo par, bool bExportValue) {
+        private void ExportPar(BsonSerializer file, ParInfo par, bool bExportValue)
+        {
             file.WriteStartElement("par");
 
             file.WriteString(par.BasicName);
             file.WriteString(par.NativeType);
 
-            if (bExportValue) {
+            if (bExportValue)
+            {
                 file.WriteString(par.DefaultValue);
-
-            } else {
+            }
+            else
+            {
                 file.WriteString("");
             }
 

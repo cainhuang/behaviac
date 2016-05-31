@@ -48,7 +48,7 @@ namespace PluginBehaviac.DataExporters
             else
             {
                 string propBasicName = property.BasicName.Replace("[]", "");
-                stream.WriteLine("{0}AgentExtra_Generated.SetProperty({1}, \"{2}\", {3});", indent, agentName, propBasicName, setValue);
+                stream.WriteLine("{0}AgentMetaVisitor.SetProperty({1}, \"{2}\", {3});", indent, agentName, propBasicName, setValue);
             }
 
             return prop;
@@ -71,7 +71,7 @@ namespace PluginBehaviac.DataExporters
 
                 if (setValue != null)
                 {
-                    stream.WriteLine("{0}AgentExtra_Generated.SetProperty({1}, \"{2}\", {3});", indent, agentName, propBasicName, prop);
+                    stream.WriteLine("{0}AgentMetaVisitor.SetProperty({1}, \"{2}\", {3});", indent, agentName, propBasicName, prop);
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace PluginBehaviac.DataExporters
                 }
                 typename = DataCsExporter.GetGeneratedNativeType(typename);
 
-                stream.WriteLine("{0}{1}.SetVariable<{2}>(\"{3}\", {4}, {5}u);", indent, agentName, typename, property.BasicName, prop, id);
+                stream.WriteLine("{0}{1}.SetVariable<{2}>(\"{3}\", {4}u, {5});", indent, agentName, typename, property.BasicName, id, prop);
 
             }
         }
@@ -125,7 +125,7 @@ namespace PluginBehaviac.DataExporters
                 }
             }
 
-            return string.Format("({0})AgentExtra_Generated.GetProperty({1}, \"{2}\")", nativeType, agentName, propName);
+            return string.Format("({0})AgentMetaVisitor.GetProperty({1}, \"{2}\")", nativeType, agentName, propName);
         }
 
         public static string GetProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent, string var, string caller)

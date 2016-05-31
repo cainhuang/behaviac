@@ -49,29 +49,29 @@ namespace PluginBehaviac.Exporters
             _filename = "behaviors/generated_behaviors.h";
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile, bool generateCustomizedTypes)
+        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile, bool exportBehaviors)
         {
             string behaviorFilename = "behaviors/generated_behaviors.h";
             string agentFolder = string.Empty;
-            Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(ref behaviorFilename, ref agentFolder);
+            Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(exportBehaviors, ref behaviorFilename, ref agentFolder);
             if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
             {
-                string behaviorFolder = Path.GetDirectoryName(behaviorFilename);
-                clearFolder(behaviorFolder);
-                //clearFolder(agentFolder);
-
-                ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
-
-                ExportCustomizedMembers(agentFolder);
-
-                if (generateCustomizedTypes)
+                if (exportBehaviors)
                 {
-                    ExportAgentsDefinition(agentFolder);
-                    ExportAgentsImplemention(agentFolder);
+                    string behaviorFolder = Path.GetDirectoryName(behaviorFilename);
+                    clearFolder(behaviorFolder);
+                    //clearFolder(agentFolder);
 
-                    ExportCustomizedTypesDefinition(agentFolder);
-                    ExportCustomizedTypesImplemention(agentFolder);
+                    ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
+
+                    ExportCustomizedMembers(agentFolder);
                 }
+
+                ExportAgentsDefinition(agentFolder);
+                ExportAgentsImplemention(agentFolder);
+
+                ExportCustomizedTypesDefinition(agentFolder);
+                ExportCustomizedTypesImplemention(agentFolder);
             }
 
             return result;
@@ -129,7 +129,7 @@ namespace PluginBehaviac.Exporters
                         behaviorFilename = Path.Combine("behaviors", behaviorFilename);
                         string agentFolder = string.Empty;
 
-                        Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(ref behaviorFilename, ref agentFolder);
+                        Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(true ,ref behaviorFilename, ref agentFolder);
 
                         if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
                         {
@@ -155,7 +155,7 @@ namespace PluginBehaviac.Exporters
             }
         }
 
-        private Behaviac.Design.FileManagers.SaveResult VerifyFilename(ref string behaviorFilename, ref string agentFolder)
+        private Behaviac.Design.FileManagers.SaveResult VerifyFilename(bool exportBehaviors, ref string behaviorFilename, ref string agentFolder)
         {
             behaviorFilename = Path.Combine(_outputFolder, behaviorFilename);
             agentFolder = Path.Combine(_outputFolder, "types");
@@ -168,9 +168,13 @@ namespace PluginBehaviac.Exporters
             if (!Directory.Exists(agentFolder))
                 Directory.CreateDirectory(agentFolder);
 
-            // verify it can be writable
-            Behaviac.Design.FileManagers.SaveResult result = Behaviac.Design.FileManagers.FileManager.MakeWritable(behaviorFilename, Resources.ExportFileWarning);
-            return result;
+            if (exportBehaviors)
+            {
+                // verify it can be writable
+                return Behaviac.Design.FileManagers.FileManager.MakeWritable(behaviorFilename, Resources.ExportFileWarning);
+            }
+
+            return Behaviac.Design.FileManagers.SaveResult.Succeeded;
         }
 
         private List<string> GetNamespaces(string ns)

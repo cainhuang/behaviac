@@ -108,10 +108,19 @@ public class AgentNodeTest : behaviac.Agent
     {
         var testChildAgent = getChildAgent<ChildNodeTest>("par_child_agent_1");
         this.SetVariable<ChildNodeTest>("par_child_agent_1", testChildAgent);
+
+        if (this.IsValidVariable("par_child"))
+            this.SetVariable<ChildNodeTest>("par_child", _child);
+    }
+
+    private ChildNodeTest _child = null;
+    public void SetChildAgent(ChildNodeTest child)
+    {
+        _child = child;
     }
 
     public T getChildAgent<T>(string strChildAgentName)
-where T : behaviac.Agent
+        where T : behaviac.Agent
     {
         var childAgent = gameObject.AddComponent<T>();
         return childAgent;
@@ -119,6 +128,7 @@ where T : behaviac.Agent
 
     public void init() {
         base.Init();
+
         resetProperties();
     }
 

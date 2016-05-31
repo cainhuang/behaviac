@@ -109,7 +109,7 @@ namespace PluginBehaviac.DataExporters
             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
             stream.WriteLine("{0}Debug.Check(behaviac.Utils.MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
-            stream.WriteLine("{0}pAgent.SetVariable<{1}>(\"{2}\", ({1}){3}, {4}u);", indent, typename, property.Name, var, id);
+            stream.WriteLine("{0}pAgent.SetVariable<{1}>(\"{2}\", {3}u, ({1}){4});", indent, typename, property.Name, id, var);
         }
 
         public static string GetProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent)

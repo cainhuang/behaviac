@@ -92,10 +92,6 @@ namespace behaviac
             m_ActionConfig = new PreconditionConfig();
         }
 
-        ~Precondition()
-        {
-        }
-
         public EPhase Phase
         {
             get { return ((PreconditionConfig)(this.m_ActionConfig)).m_phase; }

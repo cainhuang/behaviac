@@ -119,7 +119,7 @@ namespace PluginBehaviac.NodeExporters
                         {
                             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
-                            stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", opr2, {2}u);", indent, propBasicName, id);
+                            stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", {2}u, opr2);", indent, propBasicName, id);
                         }
                         else if (prop.IsPublic)
                         {
@@ -229,7 +229,7 @@ namespace PluginBehaviac.NodeExporters
                         {
                             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
-                            stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", {2}, {3}u);", indent, propBasicName, oprStr, id);
+                            stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", {2}u, {3});", indent, propBasicName, id, oprStr);
                         }
                         else if (prop.IsPublic)
                         {

@@ -42,15 +42,13 @@ namespace PluginBehaviac.NodeExporters
             {
                 if (iterator.Opl != null)
                 {
-                    stream.WriteLine("{0}\t\t\tthis.m_opl = Condition.LoadLeft(\"{1}\");", indent, iterator.Opl.GetExportValue());
+                    stream.WriteLine("{0}\t\t\tthis.m_opl = AgentMeta.ParseProperty(\"{1}\");", indent, iterator.Opl.GetExportValue());
                     stream.WriteLine("{0}\t\t\tDebug.Check(this.m_opl != null);", indent);
                 }
 
-                stream.WriteLine("{0}\t\t\tstring typeName = null;", indent);
-
                 if (iterator.Opr != null)
                 {
-                    stream.WriteLine("{0}\t\t\tthis.m_opr = Condition.LoadRight(\"{1}\", ref typeName);", indent, iterator.Opr.GetExportValue());
+                    stream.WriteLine("{0}\t\t\tthis.m_opr = AgentMeta.ParseProperty(\"{1}\");", indent, iterator.Opr.GetExportValue());
                     stream.WriteLine("{0}\t\t\tDebug.Check(this.m_opr != null);", indent);
                 }
             }

@@ -10,6 +10,10 @@
     <par name="par_child" type="ChildNodeTest" value="null" />
   </pars>
   <node class="Sequence" id="0">
+    <node class="Action" id="14">
+      <property Method="Self.AgentNodeTest::initChildAgentTest()" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
     <node class="Assignment" id="12">
       <property Opl="int Self.AgentNodeTest::testVar_0" />
       <property Opr="int par_child.AgentNodeTest::testVar_1" />

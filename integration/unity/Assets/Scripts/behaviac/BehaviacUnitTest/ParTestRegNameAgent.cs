@@ -95,8 +95,6 @@ public class ParTestRegNameAgent : behaviac.Agent
     }
 
     public void init() {
-        base.Init();
-
         Agent.RegisterInstanceName<ParTestRegNameAgent>();
         Agent.BindInstance(this);
     }

@@ -50,7 +50,7 @@ namespace PluginBehaviac.NodeExporters
 
             stream.WriteLine("{0}\t\tpublic void Initialize(string eventName, string referencedBehavior, TriggerMode mode, bool once)", indent);
             stream.WriteLine("{0}\t\t{{", indent);
-            stream.WriteLine("{0}\t\t\tthis.m_event = Action.LoadMethod(eventName);", indent);
+            stream.WriteLine("{0}\t\t\tthis.m_event = AgentMeta.ParseMethod(eventName, ref this.m_eventName);", indent);
             stream.WriteLine("{0}\t\t\tthis.m_referencedBehaviorPath = referencedBehavior;", indent);
             stream.WriteLine("{0}\t\t\tthis.m_triggerMode = mode;", indent);
             stream.WriteLine("{0}\t\t\tthis.m_bTriggeredOnce = once;", indent);

@@ -352,13 +352,18 @@ namespace behaviac
             return path;
         }
 
-        private string m_workspaceExportPath = GetDefaultExportPath();
+        private string m_workspaceExportPath = null;
 
         //read from 'WorkspaceFile', prepending with 'WorkspacePath', relative to the exe's path
         public string FilePath
         {
             get
             {
+                if (string.IsNullOrEmpty(m_workspaceExportPath))
+                {
+                    m_workspaceExportPath = GetDefaultExportPath();
+                }
+
                 return this.m_workspaceExportPath;
             }
             set
@@ -476,24 +481,19 @@ namespace behaviac
         private bool m_bInited = false;
         internal bool IsInited
         {
-            get
-            {
-                return m_bInited;
-            }
+            get { return m_bInited; }
         }
 
-        private bool TryInit()
+        public bool TryInit()
         {
             if (this.m_bInited)
-            {
                 return true;
-            }
 
             this.m_bInited = true;
 
-            Config.LogInfo();
+            Workspace.Instance.RegisterStuff();
 
-            this.RegisterStuff();           
+            Config.LogInfo();
 
             if (string.IsNullOrEmpty(this.FilePath))
             {
@@ -589,36 +589,16 @@ namespace behaviac
             this.m_bInited = false;
         }
 
-        private void RegisterStuff()
+        internal void RegisterStuff()
         {
             //only register metas and others at the 1st time
             if (!this.m_bRegistered)
             {
                 this.m_bRegistered = true;
 
-                behaviac.Details.RegisterCompareValue();
-                behaviac.Details.RegisterComputeValue();
+                AgentMeta.Register();
 
-                AgentProperties.RegisterTypes();
-
-                if (!AgentProperties.GeneratedRegisterationTypes)
-                {
-                    this.RegisterMetas();
-                }
-                else
-                {
-                    for (int i = 0; i < m_agentTypes.Count; ++i)
-                    {
-                        TypeInfo_t typeInfo = m_agentTypes[i];
-                        RegisterType(typeInfo.type, true);
-                    }
-
-                    m_metaRegistered = true;
-                }
-
-                IVariable.RegisterBasicTypes();
-
-                AgentProperties.Load();
+                this.RegisterMetas();
             }
         }
 
@@ -629,11 +609,7 @@ namespace behaviac
             this.UnRegisterBehaviorNode();
             this.UnRegisterMetas();
 
-            IVariable.UnRegisterBasicTypes();
-            AgentProperties.UnRegisterTypes();
-
-            behaviac.Details.Cleanup();
-            AgentProperties.Cleanup();
+            AgentMeta.UnRegister();
 
             this.m_bRegistered = false;
         }
@@ -1443,8 +1419,6 @@ namespace behaviac
             m_allBehaviorTreeTasks.Clear();
             BehaviorTrees.Clear();
             BTCreators.Clear();
-
-            AgentProperties.UnloadLocals();
         }
 
         public byte[] ReadFileToBuffer(string file, string ext)
@@ -1485,12 +1459,7 @@ namespace behaviac
             Debug.Check(string.IsNullOrEmpty(StringUtils.FindExtension(relativePath)), "no extention to specify");
             Debug.Check(this.IsValidPath(relativePath));
 
-            bool bOk = this.TryInit();
-            if (!bOk)
-            {
-                //not init correctly
-                return false;
-            }
+            TryInit();
 
             BehaviorTree pBT = null;
 
@@ -1922,7 +1891,7 @@ namespace behaviac
             }
 
             PropertyInfo f = m as PropertyInfo;
-            MethodInfo getter = f.GetGetMethod();
+            MethodInfo getter = f.GetGetMethod(false);
 
             if (getter != null)
             {
@@ -1930,7 +1899,7 @@ namespace behaviac
             }
             else
             {
-                MethodInfo setter = f.GetSetMethod();
+                MethodInfo setter = f.GetSetMethod(false);
 
                 if (setter != null)
                 {
@@ -1951,11 +1920,11 @@ namespace behaviac
             }
 
             PropertyInfo f = m as PropertyInfo;
-            MethodInfo getter = f.GetGetMethod();
+            MethodInfo getter = f.GetGetMethod(false);
 
             if (getter != null)
             {
-                MethodInfo setter = f.GetSetMethod();
+                MethodInfo setter = f.GetSetMethod(false);
 
                 if (setter == null)
                 {
@@ -2978,23 +2947,6 @@ namespace behaviac
                 {
                     CollectType(m_registerTypes, agentType, true, false);
                 }
-            }
-
-            var e = m_registerTypes.GetEnumerator();
-            while (e.MoveNext())
-            {
-                string typeName = e.Current.Key;
-                typeName = typeName.Replace("::", ".");
-                typeName = typeName.Replace("+", ".");
-
-                IVariable.RegisterType(e.Current.Value, typeName);
-
-                //int index = typeName.LastIndexOf(".");
-                //if (index >= 0)
-                //{
-                //    typeName = typeName.Substring(index + 1);
-                //    IVariable.RegisterType(type.Value, typeName);
-                //}
             }
         }
 

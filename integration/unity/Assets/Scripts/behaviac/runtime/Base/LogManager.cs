@@ -213,10 +213,11 @@ namespace behaviac
                 if (!System.Object.ReferenceEquals(pAgent, null) && pAgent.IsMasked())
                 {
                     string agentClassName = pAgent.GetClassTypeName();
-                    string agentInstanceName = pAgent.GetName();
-
                     agentClassName = agentClassName.Replace(".", "::");
-                    agentInstanceName = agentInstanceName.Replace(".", "::");
+
+                    string agentInstanceName = pAgent.GetName();
+                    if (!string.IsNullOrEmpty(agentInstanceName))
+                        agentInstanceName = agentInstanceName.Replace(".", "::");
 
                     //[property]WorldState.World WorldState.time.276854364
                     //[property]Ship.Ship_1 GameObject.HP.100
@@ -287,7 +288,7 @@ namespace behaviac
                         //string agentClassName = pAgent.GetObjectTypeName();
                         //string agentInstanceName = pAgent.GetName();
 
-                        BehaviorTreeTask bt = !System.Object.ReferenceEquals(pAgent, null) ? pAgent.btgetcurrent() : null;
+                        BehaviorTreeTask bt = !System.Object.ReferenceEquals(pAgent, null) ? pAgent.CurrentBT : null;
 
                         string btName;
 

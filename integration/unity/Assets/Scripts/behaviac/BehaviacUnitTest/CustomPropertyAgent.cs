@@ -4,11 +4,12 @@
 public class CustomPropertyAgent : behaviac.Agent
 {
     public void resetProperties() {
+        base.Init();
+
         this.Variables.Clear(false);
     }
 
     public void init() {
-        base.Init();
         resetProperties();
     }
 

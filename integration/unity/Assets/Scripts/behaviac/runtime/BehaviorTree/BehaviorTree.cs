@@ -364,15 +364,6 @@ namespace behaviac
 
         public void Clear()
         {
-            //m_enterAction = null;
-            //m_exitAction = null;
-
-            if (this.m_pars != null)
-            {
-                this.m_pars.Clear();
-                this.m_pars = null;
-            }
-
             if (this.m_events != null)
             {
                 this.m_events.Clear();
@@ -430,19 +421,9 @@ namespace behaviac
         }
 
 #if BEHAVIAC_USE_SYSTEM_XML
-        private void load_par(int version, string agentType, XmlNode node)
+        protected virtual void load_par(int version, string agentType, XmlNode node)
         {
-            if (node.Name != "par")
-            {
-                Debug.Check(false);
-                return;
-            }
-
-            string name = node.Attributes["name"].Value;
-            string type = node.Attributes["type"].Value.Replace("::", ".");
-            string value = node.Attributes["value"].Value;
-
-            this.AddPar(agentType, type, name, value);
+            Debug.Check(false);
         }
 
         protected void load_properties_pars_attachments_children(bool bNode, int version, string agentType, XmlNode node)
@@ -624,19 +605,9 @@ namespace behaviac
         }
 #else
 
-        private void load_par(int version, string agentType, SecurityElement node)
+        protected virtual void load_par(int version, string agentType, SecurityElement node)
         {
-            if (node.Tag != "par")
-            {
-                Debug.Check(false);
-                return;
-            }
-
-            string name = node.Attribute("name");
-            string type = node.Attribute("type").Replace("::", ".");
-            string value = node.Attribute("value");
-
-            this.AddPar(agentType, type, name, value);
+            Debug.Check(false);
         }
 
         protected void load_properties_pars_attachments_children(bool bNode, int version, string agentType, SecurityElement node)
@@ -976,16 +947,9 @@ namespace behaviac
             return pNode;
         }
 
-        protected void load_par(int version, string agentType, BsonDeserizer d)
+        protected virtual void load_par(int version, string agentType, BsonDeserizer d)
         {
-            d.OpenDocument();
-
-            string name = d.ReadString();
-            string type = d.ReadString().Replace("::", ".");
-            string value = d.ReadString();
-            this.AddPar(agentType, type, name, value);
-
-            d.CloseDocument(true);
+            Debug.Check(false);
         }
 
         protected void load_attachments(int version, string agentType, BsonDeserizer d, bool bIsTransition)
@@ -1202,48 +1166,6 @@ namespace behaviac
             this.m_id = id;
         }
 
-        public void AddPar(string agentType, string type, string name, string value)
-        {
-            Property pProperty = AgentProperties.AddLocal(agentType, type, name, value);
-
-            if (this.m_pars == null)
-            {
-                this.m_pars = new List<Property>();
-            }
-
-            this.m_pars.Add(pProperty);
-        }
-
-        public void InstantiatePars(Agent pAgent)
-        {
-            if (this.m_pars != null)
-            {
-                for (int i = 0; i < this.m_pars.Count; ++i)
-                {
-                    Property property_ = this.m_pars[i];
-
-                    //if (pAgent != null && property_.GetVariableName() == "par0_char_0")
-                    //{
-                    //    behaviac.Debug.Check(true);
-                    //}
-
-                    property_.Instantiate(pAgent);
-                }
-            }
-        }
-
-        public void UnInstantiatePars(Agent pAgent)
-        {
-            if (this.m_pars != null)
-            {
-                for (int i = 0; i < this.m_pars.Count; ++i)
-                {
-                    Property property_ = this.m_pars[i];
-                    property_.UnInstantiate(pAgent);
-                }
-            }
-        }
-
         public string GetPath()
         {
             return "";
@@ -1377,7 +1299,7 @@ namespace behaviac
             return;
         }
 
-        public bool CheckEvents(string eventName, Agent pAgent)
+        public bool CheckEvents(string eventName, Agent pAgent, Dictionary<uint, IInstantiatedVariable> eventParams)
         {
             if (this.m_events != null)
             {
@@ -1394,7 +1316,7 @@ namespace behaviac
 
                         if (!string.IsNullOrEmpty(pEventName) && pEventName == eventName)
                         {
-                            pE.switchTo(pAgent);
+                            pE.switchTo(pAgent, eventParams);
 
                             if (pE.TriggeredOnce())
                             {
@@ -1464,7 +1386,6 @@ namespace behaviac
         protected List<BehaviorNode> m_events;
         private List<Precondition> m_preconditions;
         private List<Effector> m_effectors;
-        public List<Property> m_pars;
         protected bool m_loadAttachment = false;
         private byte m_enter_precond;
         private byte m_update_precond;
@@ -1477,11 +1398,8 @@ namespace behaviac
         protected List<BehaviorNode> m_children;
         protected BehaviorNode m_customCondition;
 
-        //public CMethodBase m_enterAction;
-        //public CMethodBase m_exitAction;
-
         protected bool m_bHasEvents;
-    };
+    }
 
     public abstract class DecoratorNode : BehaviorNode
     {
@@ -1489,9 +1407,6 @@ namespace behaviac
         {
             m_bDecorateWhenChildEnds = false;
         }
-
-        ~DecoratorNode()
-        { }
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -1527,7 +1442,7 @@ namespace behaviac
         }
 
         public bool m_bDecorateWhenChildEnds;
-    };
+    }
 
     // ============================================================================
     public class BehaviorTree : BehaviorNode
@@ -1535,54 +1450,98 @@ namespace behaviac
         //keep this version equal to designers' NewVersion
         private const int SupportedVersion = 4;
 
-        protected override void load(int version, string agentType, List<property_t> properties)
+        private Dictionary<uint, ICustomizedProperty> m_localProps;
+        public Dictionary<uint, ICustomizedProperty> LocalProps
         {
-            base.load(version, agentType, properties);
+            get { return m_localProps; }
+        }
 
-            if (properties.Count > 0)
+        public void AddPar(string agentType, string typeName, string name, string value)
+        {
+            if (this.m_localProps == null)
             {
-                for (int i = 0; i < properties.Count; ++i)
+                this.m_localProps = new Dictionary<uint, ICustomizedProperty>();
+            }
+
+            uint varId = Utils.MakeVariableId(name);
+            ICustomizedProperty prop = AgentMeta.CreateProperty(typeName, varId, name, value);
+            this.m_localProps[varId] = prop;
+
+            Type type = Utils.GetElementTypeFromName(typeName);
+            if (type != null)
+            {
+                typeName = Utils.GetNativeTypeName(type);
+                prop = AgentMeta.CreateArrayItemProperty(typeName, varId, name);
+                varId = Utils.MakeVariableId(name + "[]");
+                this.m_localProps[varId] = prop;
+            }
+        }
+
+        public void InstantiatePars(Dictionary<uint, IInstantiatedVariable> vars)
+        {
+            if (this.m_localProps != null)
+            {
+                foreach (KeyValuePair<uint, ICustomizedProperty> pair in this.m_localProps)
                 {
-                    property_t p = properties[i];
-                    if (p.name == "Domains")
-                    {
-                        m_domains = p.value;
-                    }
-                    else if (p.name == "DescriptorRefs")
-                    {
-                        this.m_descriptorRefs = (List<Descriptor_t>)StringUtils.FromString(typeof(List<Descriptor_t>), p.value, false);
-
-                        for (int k = 0; k < this.m_descriptorRefs.Count; ++k)
-                        {
-                            Descriptor_t d = this.m_descriptorRefs[k];
-
-                            if (d.Descriptor != null)
-                            {
-                                d.Descriptor.SetDefaultValue(d.Reference);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        //BEHAVIAC_ASSERT(0, "unrecognised property %s", p.name);
-                    }
+                    vars[pair.Key] = pair.Value.Instantiate();
                 }
             }
         }
 
-        /**
-        <?xml version="1.0" encoding="utf-8"?>
-        <behavior agenttype="AgentTest">
-        <!--EXPORTED BY TOOL, DON'T MODIFY IT!-.
-        <!--Source File: ... -.
-        <node class="DecoratorLoopTask">
-        <property Count="10" />
-        <node class="SelectorTask">
-            ...
-        </node>
-        </node>
-        </behavior>
-        */
+        public void UnInstantiatePars(Dictionary<uint, IInstantiatedVariable> vars)
+        {
+            if (this.m_localProps != null)
+            {
+                foreach (uint varId in this.m_localProps.Keys)
+                {
+                    vars.Remove(varId);
+                }
+            }
+        }
+
+#if BEHAVIAC_USE_SYSTEM_XML
+        protected override void load_par(int version, string agentType, XmlNode node)
+        {
+            if (node.Name != "par")
+            {
+                Debug.Check(false);
+                return;
+            }
+
+            string name = node.Attributes["name"].Value;
+            string type = node.Attributes["type"].Value.Replace("::", ".");
+            string value = node.Attributes["value"].Value;
+
+            this.AddPar(agentType, type, name, value);
+        }
+#else
+        protected override void load_par(int version, string agentType, SecurityElement node)
+        {
+            if (node.Tag != "par")
+            {
+                Debug.Check(false);
+                return;
+            }
+
+            string name = node.Attribute("name");
+            string type = node.Attribute("type").Replace("::", ".");
+            string value = node.Attribute("value");
+
+            this.AddPar(agentType, type, name, value);
+        }
+#endif
+
+        protected override void load_par(int version, string agentType, BsonDeserizer d)
+        {
+            d.OpenDocument();
+
+            string name = d.ReadString();
+            string type = d.ReadString().Replace("::", ".");
+            string value = d.ReadString();
+            this.AddPar(agentType, type, name, value);
+
+            d.CloseDocument(true);
+        }
 
         public bool load_xml(byte[] pBuffer)
         {
@@ -1721,74 +1680,10 @@ namespace behaviac
         }
         #endregion
 
-        public BehaviorTree()
-        {
-        }
-
-        ~BehaviorTree()
-        {
-            if (m_descriptorRefs != null)
-            {
-                m_descriptorRefs.Clear();
-            }
-        }
-
         protected override BehaviorTask createTask()
         {
             BehaviorTreeTask pTask = new BehaviorTreeTask();
             return pTask;
         }
-
-        public class Descriptor_t
-        {
-            public Property Descriptor;
-            public Property Reference;
-
-            public Descriptor_t()
-            { }
-
-            public Descriptor_t(Descriptor_t copy)
-            {
-                Descriptor = copy.Descriptor;
-                Reference = copy.Reference;
-            }
-
-            ~Descriptor_t()
-            {
-                this.Descriptor = null;
-                this.Reference = null;
-            }
-        };
-
-        protected string m_domains;
-
-        public string GetDomains()
-        {
-            return this.m_domains;
-        }
-
-        public void SetDomains(string domains)
-        {
-            this.m_domains = domains;
-        }
-
-        private List<Descriptor_t> m_descriptorRefs;
-
-        public List<Descriptor_t> GetDescriptors()
-        {
-            return m_descriptorRefs;
-        }
-
-        public void SetDescriptors(string descriptors)
-        {
-            this.m_descriptorRefs = (List<Descriptor_t>)StringUtils.FromString(typeof(List<Descriptor_t>), descriptors, false);
-
-            for (int i = 0; i < this.m_descriptorRefs.Count; ++i)
-            {
-                Descriptor_t d = this.m_descriptorRefs[i];
-                d.Descriptor.SetDefaultValue(d.Reference);
-            }
-        }
-
-    };
+    }
 }

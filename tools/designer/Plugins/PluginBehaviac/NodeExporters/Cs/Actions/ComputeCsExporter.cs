@@ -132,7 +132,7 @@ namespace PluginBehaviac.NodeExporters
                         uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
                         string typename = DataCsExporter.GetGeneratedNativeType(prop.NativeType);
-                        stream.WriteLine("{0}\t\t\tpAgent.SetVariable<{1}>(\"{2}\", {3}, {4}u);", indent, typename, propBasicName, oprStr, id);
+                        stream.WriteLine("{0}\t\t\tpAgent.SetVariable<{1}>(\"{2}\", {3}u, {4});", indent, typename, propBasicName, id, oprStr);
                     }
                     else
                     {

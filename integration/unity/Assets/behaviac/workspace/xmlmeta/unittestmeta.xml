@@ -70,19 +70,19 @@
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
       </Method>
       <Method Name="VectorAdd" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
         <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorRemove" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
         <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorContains" DisplayName="" Desc="" ReturnType="bool" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
         <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorClear" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
       </Method>
     </agent>
     <agent classfullname="AgentNodeTest" base="behaviac::Agent" DisplayName="AgentNodeTest" Desc="AgentNodeTest" IsRefType="true">

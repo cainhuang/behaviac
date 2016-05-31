@@ -150,7 +150,6 @@ namespace behaviac
             {
                 typeId = 0;
                 (*ms_agent_type_index)[typeFullName] = 1;
-
             }
             else
             {
@@ -158,7 +157,6 @@ namespace behaviac
             }
 
             this->m_name += FormatString("%s_%d_%d", typeName, typeId, this->m_id);
-
         }
         else
         {

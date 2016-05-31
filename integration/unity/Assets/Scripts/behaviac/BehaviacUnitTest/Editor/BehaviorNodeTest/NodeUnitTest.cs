@@ -702,7 +702,7 @@ namespace BehaviorNodeUnitTest
             testAgent.testVar_3 = 1;
             testChildAgent.testVar_2 = 2;
 
-            testAgent.SetVariable<ChildNodeTest>("par_child", testChildAgent);
+            testAgent.SetChildAgent(testChildAgent);
 
             testAgent.btexec();
 

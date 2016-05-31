@@ -18,12 +18,6 @@ namespace behaviac
 
         #region Constructor
 
-        public PlannerTask()
-        { }
-
-        //~PlannerTask()
-        //{ }
-
         public PlannerTask(BehaviorNode node, Agent pAgent)
             : base()
         {
@@ -409,8 +403,9 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
             _logged = false;
 #endif
-            pNode.SetTaskParams(pAgent);
+
             this.m_subTree = Workspace.Instance.CreateBehaviorTreeTask(pNode.GetReferencedTree(pAgent));
+            pNode.SetTaskParams(pAgent, this.m_subTree);
 
             return true;
         }
@@ -470,13 +465,13 @@ namespace behaviac
 
         protected override bool onenter(Agent pAgent)
         {
-            this.m_node.Parent.InstantiatePars(pAgent);
+            //this.m_node.Parent.InstantiatePars(this.LocalVars);
             return true;
         }
 
         protected override void onexit(Agent pAgent, EBTStatus s)
         {
-            this.m_node.Parent.UnInstantiatePars(pAgent);
+            //this.m_node.Parent.UnInstantiatePars(this.LocalVars);
             base.onexit(pAgent, s);
         }
 

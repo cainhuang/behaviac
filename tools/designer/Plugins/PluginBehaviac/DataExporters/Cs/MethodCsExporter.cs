@@ -231,7 +231,7 @@ namespace PluginBehaviac.DataExporters
             }
             else
             {
-                retStr = string.Format("AgentExtra_Generated.ExecuteMethod({0}, \"{1}\", {2})", agentName, method.BasicName, paramsName);
+                retStr = string.Format("AgentMetaVisitor.ExecuteMethod({0}, \"{1}\", {2})", agentName, method.BasicName, paramsName);
             }
 
             if (!string.IsNullOrEmpty(var))

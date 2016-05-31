@@ -17,15 +17,6 @@ namespace behaviac
 {
     public class SelectorProbability : BehaviorNode
     {
-        public SelectorProbability()
-        {
-        }
-
-        ~SelectorProbability()
-        {
-            m_method = null;
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
@@ -35,14 +26,7 @@ namespace behaviac
                 property_t p = properties[i];
                 if (p.name == "RandomGenerator")
                 {
-                    if (p.value[0] != '\0')
-                    {
-                        this.m_method = Action.LoadMethod(p.value);
-                    }//if (p.value[0] != '\0')
-                }
-                else
-                {
-                    //Debug.Check(0, "unrecognised property %s", p.name);
+                    this.m_method = AgentMeta.ParseMethod(p.value);
                 }
             }
         }
@@ -79,7 +63,7 @@ namespace behaviac
             return pTask;
         }
 
-        protected CMethodBase m_method;
+        protected IMethod m_method;
 
         ///Executes behaviors randomly, based on a given set of weights.
         /** The weights are not percentages, but rather simple ratios.
@@ -90,14 +74,6 @@ namespace behaviac
 
         private class SelectorProbabilityTask : CompositeTask
         {
-            public SelectorProbabilityTask()
-            {
-            }
-
-            ~SelectorProbabilityTask()
-            {
-            }
-
             public override void copyto(BehaviorTask target)
             {
                 base.copyto(target);

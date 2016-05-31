@@ -56,19 +56,19 @@
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
       </Method>
       <Method Name="VectorAdd" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
         <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorRemove" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
         <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorContains" DisplayName="" Desc="" ReturnType="bool" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
         <Param DisplayName="element" Desc="element" Type="System::Object*" />
       </Method>
       <Method Name="VectorClear" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
-        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList&amp;" IsRef="true" />
+        <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
       </Method>
     </agent>
     <agent classfullname="GameActor" base="behaviac::Agent" DisplayName="GameActor" Desc="GameActor -&gt; Agent" IsRefType="true">
@@ -162,16 +162,23 @@
       <Method Name="spawnRandomActor" DisplayName="" Desc="" ReturnType="int" Class="GameLevelCommon" Public="true">
         <Param DisplayName="force" Desc="force" Type="eGameForce" />
       </Method>
-      <Method Name="spawnGameActor" DisplayName="" Desc="" ReturnType="int" Class="GameLevelCommon" Public="true">
-        <Param DisplayName="force" Desc="force" Type="eGameForce" />
-        <Param DisplayName="moveSpeed" Desc="moveSpeed" Type="float" />
+      <Method Name="spawnGameActor1" DisplayName="" Desc="" ReturnType="int" Class="GameLevelCommon" Public="true">
         <Param DisplayName="behaviorTree" Desc="behaviorTree" Type="string" />
-        <Param DisplayName="fireInterval" Desc="fireInterval" Type="int" />
-        <Param DisplayName="twoBulletInterval" Desc="twoBulletInterval" Type="int" />
-        <Param DisplayName="hp" Desc="hp" Type="int" />
-        <Param DisplayName="damageLevel" Desc="damageLevel" Type="int" />
-        <Param DisplayName="aimSpeed" Desc="aimSpeed" Type="float" />
-        <Param DisplayName="rotateSpeed" Desc="rotateSpeed" Type="float" />
+        <Param DisplayName="clr" Desc="clr" Type="UnityEngine::Color" />
+        <Param DisplayName="id" Desc="id" Type="int" />
+      </Method>
+      <Method Name="spawnGameActor2" DisplayName="" Desc="" ReturnType="int" Class="GameLevelCommon" Public="true">
+        <Param DisplayName="behaviorTree" Desc="behaviorTree" Type="string" />
+        <Param DisplayName="spawnIndex" Desc="spawnIndex" Type="int" />
+        <Param DisplayName="clr" Desc="clr" Type="UnityEngine::Color" />
+      </Method>
+      <Method Name="spawnGameActor3" DisplayName="" Desc="" ReturnType="int" Class="GameLevelCommon" Public="true">
+        <Param DisplayName="behaviorTree" Desc="behaviorTree" Type="string" />
+        <Param DisplayName="clr" Desc="clr" Type="UnityEngine::Color" />
+      </Method>
+      <Method Name="spawnGameActor4" DisplayName="" Desc="" ReturnType="int" Class="GameLevelCommon" Public="true">
+        <Param DisplayName="force" Desc="force" Type="eGameForce" />
+        <Param DisplayName="behaviorTree" Desc="behaviorTree" Type="string" />
         <Param DisplayName="spawnIndex" Desc="spawnIndex" Type="int" />
         <Param DisplayName="clr" Desc="clr" Type="UnityEngine::Color" />
         <Param DisplayName="id" Desc="id" Type="int" />

@@ -15,6 +15,7 @@ namespace TestNS
         public void init()
         {
             base.Init();
+
             resetProperties();
         }
 

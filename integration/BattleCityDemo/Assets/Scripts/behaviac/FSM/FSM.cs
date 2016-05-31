@@ -17,21 +17,12 @@ namespace behaviac
 {
     public class FSM : BehaviorNode
     {
-        public FSM()
-        {
-        }
-
-        ~FSM()
-        {
-        }
-
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             Debug.Check(false);
 
             return false;
         }
-
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -46,6 +37,7 @@ namespace behaviac
                 }
             }
         }
+
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
             if (!(pTask.GetNode() is FSM))
@@ -59,14 +51,8 @@ namespace behaviac
         private int m_initialid = -1;
         public int InitialId
         {
-            get
-            {
-                return this.m_initialid;
-            }
-            set
-            {
-                this.m_initialid = value;
-            }
+            get { return this.m_initialid; }
+            set { this.m_initialid = value; }
         }
 
         protected override BehaviorTask createTask()
@@ -76,14 +62,6 @@ namespace behaviac
 
         public class FSMTask : CompositeTask
         {
-            public FSMTask()
-            {
-            }
-
-            ~FSMTask()
-            {
-            }
-
             public override void copyto(BehaviorTask target)
             {
                 base.copyto(target);

@@ -11,6 +11,7 @@ public class PropertyReadonlyAgent : behaviac.Agent
 
     public void init() {
         base.Init();
+
         resetProperties();
     }
 

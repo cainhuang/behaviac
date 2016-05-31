@@ -17,17 +17,6 @@ namespace behaviac
 {
     public class Assignment : BehaviorNode
     {
-        public Assignment()
-        {
-        }
-
-        ~Assignment()
-        {
-            m_opl = null;
-            m_opr = null;
-            m_opr_m = null;
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
@@ -37,7 +26,7 @@ namespace behaviac
                 property_t p = properties[i];
                 if (p.name == "Opl")
                 {
-                    this.m_opl = Condition.LoadLeft(p.value);
+                    this.m_opl = AgentMeta.ParseProperty(p.value);
                 }
                 else if (p.name == "Opr")
                 {
@@ -45,49 +34,14 @@ namespace behaviac
 
                     if (pParenthesis == -1)
                     {
-                        string typeName = null;
-                        this.m_opr = Condition.LoadRight(p.value, ref typeName);
+                        this.m_opr = AgentMeta.ParseProperty(p.value);
                     }
                     else
                     {
-                        //method
-                        this.m_opr_m = Action.LoadMethod(p.value);
+                        this.m_opr = AgentMeta.ParseMethod(p.value);
                     }
                 }
-                else
-                {
-                    //Debug.Check(0, "unrecognised property %s", p.name);
-                }
             }
-        }
-
-        public static bool EvaluteAssignment(Agent pAgent, Property opl, Property opr, behaviac.CMethodBase opr_m)
-        {
-            bool bValid = false;
-
-            if (opl != null)
-            {
-                if (opr_m != null)
-                {
-                    object returnValue = opr_m.Invoke(pAgent);
-
-                    Agent pParentOpl = opl.GetParentAgent(pAgent);
-                    opl.SetValue(pParentOpl, returnValue);
-
-                    bValid = true;
-                }
-                else if (opr != null)
-                {
-                    Agent pParentL = opl.GetParentAgent(pAgent);
-                    Agent pParentR = opr.GetParentAgent(pAgent);
-
-                    opl.SetFrom(pParentR, opr, pParentL);
-
-                    bValid = true;
-                }
-            }
-
-            return bValid;
         }
 
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
@@ -105,19 +59,11 @@ namespace behaviac
             return new AssignmentTask();
         }
 
-        protected Property m_opl;
-        protected Property m_opr;
-        protected CMethodBase m_opr_m;
+        protected IInstanceMember m_opl;
+        protected IInstanceMember m_opr;
 
         private class AssignmentTask : LeafTask
         {
-            public AssignmentTask()
-            { }
-
-            ~AssignmentTask()
-            {
-            }
-
             public override void copyto(BehaviorTask target)
             {
                 base.copyto(target);
@@ -150,9 +96,12 @@ namespace behaviac
                 Assignment pAssignmentNode = (Assignment)(this.GetNode());
 
                 EBTStatus result = EBTStatus.BT_SUCCESS;
-                bool bValid = Assignment.EvaluteAssignment(pAgent, pAssignmentNode.m_opl, pAssignmentNode.m_opr, pAssignmentNode.m_opr_m);
 
-                if (!bValid)
+                if (pAssignmentNode.m_opl != null)
+                {
+                    pAssignmentNode.m_opl.SetValue(pAgent, pAssignmentNode.m_opr);
+                }
+                else
                 {
                     result = pAssignmentNode.update_impl(pAgent, childStatus);
                 }

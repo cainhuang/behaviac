@@ -216,16 +216,11 @@ namespace behaviac
                     base.Log(pAgent, bForce);
                 }
             }
-
 #endif
         }
+
         public override void SetObject(bool bMemberSet, Agent pAgent, bool bLocal, CMemberBase pMember, string variableName, object value, uint varId)
         {
-            //if (variableName == "DirtyRooms")
-            //{
-            //    Debug.Check(true);
-            //}
-
             // not in planning
             if (pAgent.PlanningTop == -1 && !bLocal)
             {

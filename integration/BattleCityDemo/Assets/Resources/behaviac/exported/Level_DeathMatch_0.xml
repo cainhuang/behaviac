@@ -46,7 +46,7 @@
                   <property Opr="const int 0" />
                 </node>
                 <node class="Action" id="10">
-                  <property Method="Self.GameLevelCommon::spawnGameActor(BLUE_FORCE,8,&quot;Tank_Wander_RandomFire&quot;,2000,1000,1,1,180,360,int Self.GameLevelCommon::parT_SpawnCountPerWave,{a=1;b=1;g=0;r=0;},-1)" />
+                  <property Method="Self.GameLevelCommon::spawnGameActor2(&quot;Tank_Wander_RandomFire&quot;,int Self.GameLevelCommon::parT_SpawnCountPerWave,{a=1;b=1;g=0;r=0;})" />
                   <property ResultOption="BT_SUCCESS" />
                 </node>
                 <node class="Compute" id="8">
@@ -141,7 +141,7 @@
               <property Time="const float 1000" />
             </node>
             <node class="Action" id="37">
-              <property Method="Self.GameLevelCommon::spawnGameActor(RED_FORCE,8,&quot;Tank_Nav&quot;,1500,500,1,3,180,180,0,{a=1;b=0;g=0;r=1;},-1)" />
+              <property Method="Self.GameLevelCommon::spawnGameActor3(&quot;Tank_Nav&quot;,{a=1;b=0;g=0;r=1;})" />
               <property ResultOption="BT_SUCCESS" />
             </node>
           </node>

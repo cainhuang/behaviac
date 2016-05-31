@@ -132,7 +132,7 @@ public class EmployeeParTestAgent : ParTestAgent
     }
 
     public void init() {
-        base.Init();
+        this.Init();
     }
 
     public void finl() {

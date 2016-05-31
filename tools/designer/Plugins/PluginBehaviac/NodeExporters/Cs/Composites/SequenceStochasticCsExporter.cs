@@ -55,7 +55,7 @@ namespace PluginBehaviac.NodeExporters
             {
                 stream.WriteLine("{0}\t\tpublic void Initialize(string method)", indent);
                 stream.WriteLine("{0}\t\t{{", indent);
-                stream.WriteLine("{0}\t\t\tthis.m_method = Action.LoadMethod(method);", indent);
+                stream.WriteLine("{0}\t\t\tthis.m_method = AgentMeta.ParseMethod(method);", indent);
                 stream.WriteLine("{0}\t\t}}", indent);
             }
         }

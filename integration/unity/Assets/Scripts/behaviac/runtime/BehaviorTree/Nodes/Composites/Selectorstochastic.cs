@@ -26,14 +26,6 @@ namespace behaviac
 
     public class SelectorStochastic : CompositeStochastic
     {
-        public SelectorStochastic()
-        {
-        }
-
-        ~SelectorStochastic()
-        {
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
@@ -56,14 +48,8 @@ namespace behaviac
             return pTask;
         }
 
-        // ============================================================================
         private class SelectorStochasticTask : CompositeStochasticTask
         {
-            public SelectorStochasticTask()
-                : base()
-            {
-            }
-
             protected override void addChild(BehaviorTask pBehavior)
             {
                 base.addChild(pBehavior);

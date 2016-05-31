@@ -17,148 +17,29 @@ namespace behaviac
 {
     public class Condition : ConditionBase
     {
-        public Condition()
-        {
-        }
-
-        ~Condition()
-        {
-            m_opl = null;
-            m_opr = null;
-            m_opl_m = null;
-            m_opr_m = null;
-            m_comparator = null;
-        }
-
-        public static VariableComparator Create(string comparionOperator, Property lhs, CMethodBase lhs_m, Property rhs, CMethodBase rhs_m)
-        {
-            E_VariableComparisonType comparisonType = VariableComparator.ParseComparisonType(comparionOperator);
-
-            VariableComparator pComparator = VariableComparator.Create(lhs, lhs_m, rhs, rhs_m);
-            pComparator.SetComparisonType(comparisonType);
-
-            return pComparator;
-        }
-
-        public static Property LoadLeft(string value)
-        {
-            Property opl = null;
-
-            if (!string.IsNullOrEmpty(value))
-            {
-                string typeName = null;
-                opl = ParseProperty(value, ref typeName);
-            }
-
-            return opl;
-        }
-
-        public static Property LoadRight(string value, ref string typeName)
-        {
-            Property opr = null;
-
-            if (!string.IsNullOrEmpty(value))
-            {
-                if (value.StartsWith("const"))
-                {
-                    //const Int32 0
-                    const int kConstLength = 5;
-                    string strRemaining = value.Substring(kConstLength + 1);
-                    int p = StringUtils.FirstToken(strRemaining, ' ', ref typeName);
-
-                    typeName = typeName.Replace("::", ".");
-
-                    string strVale = strRemaining.Substring(p + 1);
-                    opr = Property.Create(typeName, strVale);
-                }
-                else
-                {
-                    opr = ParseProperty(value, ref typeName);
-                }
-            }
-
-            return opr;
-        }
-
-        public static Property ParseProperty(string value, ref string typeName)
-        {
-            try
-            {
-                Property opr = null;
-                List<string> tokens = StringUtils.SplitTokens(value);
-
-                if (tokens[0] == "static")
-                {
-                    //static int Property1
-                    typeName = tokens[1].Replace("::", ".");
-
-                    if (tokens.Count == 3)
-                    {
-                        opr = Property.Create(typeName, tokens[2], true, null);
-                    }
-                    else
-                    {
-                        Debug.Check(tokens.Count == 4);
-                        opr = Property.Create(typeName, tokens[2], true, tokens[3]);
-                    }
-                }
-                else
-                {
-                    //int Property1
-                    typeName = tokens[0].Replace("::", ".");
-
-                    if (tokens.Count == 2)
-                    {
-                        opr = Property.Create(typeName, tokens[1], false, null);
-                    }
-                    else
-                    {
-                        opr = Property.Create(typeName, tokens[1], false, tokens[2]);
-                    }
-                }
-
-                return opr;
-            }
-            catch (System.Exception e)
-            {
-                Debug.Check(false, e.Message);
-            }
-
-            return null;
-        }
-
-        public static Property LoadProperty(string value)
-        {
-            string typeName = null;
-            return LoadRight(value, ref typeName);
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
 
-            string typeName = null;
-            string comparatorName = null;
-
             for (int i = 0; i < properties.Count; ++i)
             {
                 property_t p = properties[i];
-                if (p.name == "Operator")
-                {
-                    comparatorName = p.value;
-                }
-                else if (p.name == "Opl")
+                if (p.name == "Opl")
                 {
                     int pParenthesis = p.value.IndexOf('(');
 
                     if (pParenthesis == -1)
                     {
-                        this.m_opl = LoadLeft(p.value);
+                        this.m_opl = AgentMeta.ParseProperty(p.value);
                     }
                     else
                     {
-                        this.m_opl_m = Action.LoadMethod(p.value);
+                        this.m_opl = AgentMeta.ParseMethod(p.value);
                     }
+                }
+                else if (p.name == "Operator")
+                {
+                    this.m_operator = OperationUtils.ParseOperatorType(p.value);
                 }
                 else if (p.name == "Opr")
                 {
@@ -166,22 +47,13 @@ namespace behaviac
 
                     if (pParenthesis == -1)
                     {
-                        this.m_opr = LoadRight(p.value, ref typeName);
+                        this.m_opr = AgentMeta.ParseProperty(p.value);
                     }
                     else
                     {
-                        this.m_opr_m = Action.LoadMethod(p.value);
+                        this.m_opr = AgentMeta.ParseMethod(p.value);
                     }
                 }
-                else
-                {
-                    //Debug.Check(0, "unrecognised property %s", p.name);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(comparatorName) && (this.m_opl != null || this.m_opl_m != null) && (this.m_opr != null || this.m_opr_m != null))
-            {
-                this.m_comparator = Condition.Create(comparatorName, this.m_opl, this.m_opl_m, this.m_opr, this.m_opr_m);
             }
         }
 
@@ -197,9 +69,9 @@ namespace behaviac
 
         public override bool Evaluate(Agent pAgent)
         {
-            if (this.m_comparator != null)
+            if (this.m_opl != null && this.m_opr != null)
             {
-                return this.m_comparator.Execute(pAgent);
+                return this.m_opl.Compare(pAgent, this.m_opr, this.m_operator);
             }
             else
             {
@@ -216,22 +88,12 @@ namespace behaviac
             return pTask;
         }
 
-        protected Property m_opl;
-        private Property m_opr;
-        private CMethodBase m_opl_m;
-        private CMethodBase m_opr_m;
-        private VariableComparator m_comparator;
+        protected IInstanceMember m_opl;
+        protected IInstanceMember m_opr;
+        protected EOperatorType m_operator = EOperatorType.E_EQUAL;
 
         private class ConditionTask : ConditionBaseTask
         {
-            public ConditionTask()
-            {
-            }
-
-            ~ConditionTask()
-            {
-            }
-
             public override void copyto(BehaviorTask target)
             {
                 base.copyto(target);

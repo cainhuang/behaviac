@@ -26,9 +26,7 @@ namespace BehaviorNodeUnitTest
         protected const int kLoopBias = kLoopMed / 10;
 
         public AgentNodeTest testAgent = null;
-
         public ChildNodeTest testChildAgent = null;
-
         public GameObject testAgentObject = null;
 
         [TestFixtureSetUp]
@@ -47,7 +45,6 @@ namespace BehaviorNodeUnitTest
 
             testChildAgent = testAgentObject.AddComponent<ChildNodeTest>();
             testChildAgent.init();
-
 
             //Debug.Log("InitTestFixture");
         }

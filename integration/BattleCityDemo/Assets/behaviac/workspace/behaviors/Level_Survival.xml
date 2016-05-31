@@ -84,7 +84,7 @@
                               <Node Class="PluginBehaviac.Nodes.Condition" Enable="true" HasOwnPrefabData="false" Id="21" Operator="Greater" Opl="int Self.GameLevelCommon::parT_PlayerLifeCount" Opr="const int 0" PrefabName="" PrefabNodeId="-1">
                                 <Comment Background="NoColor" Text="" />
                               </Node>
-                              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="22" Method="Self.GameLevelCommon::spawnGameActor(RED_FORCE,16,&quot;Tank_Agressive&quot;,800,300,1,3,720,720,0,{a=1;b=0;g=1;r=0;},int Self.GameLevelCommon::parT_PlayerID)" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS">
+                              <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="22" Method="Self.GameLevelCommon::spawnGameActor1(&quot;Tank_Agressive&quot;,{a=1;b=0;g=1;r=0;},int Self.GameLevelCommon::parT_PlayerID)" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS">
                                 <Comment Background="NoColor" Text="" />
                               </Node>
                               <Node Class="PluginBehaviac.Nodes.Compute" Enable="true" HasOwnPrefabData="false" Id="38" Operator="Sub" Opl="int Self.GameLevelCommon::parT_PlayerLifeCount" Opr1="int Self.GameLevelCommon::parT_PlayerLifeCount" Opr2="const int 1" PrefabName="" PrefabNodeId="-1">

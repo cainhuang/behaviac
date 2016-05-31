@@ -137,7 +137,7 @@
                   <property Opr="Self.GameLevelCommon::getStringArrayElement(vector&lt;string&gt; Self.GameLevelCommon::parT_BehaviorTree,int Self.GameLevelCommon::parT_PlayerIndex)" />
                 </node>
                 <node class="Action" id="49">
-                  <property Method="Self.GameLevelCommon::spawnGameActor(eGameForce Self.GameLevelCommon::parT_ActorForce,10,string Self.GameLevelCommon::parT_Tree,1500,500,1,3,180,360,int Self.GameLevelCommon::parT_PlayerIndex,UnityEngine::Color Self.GameLevelCommon::parT_ActorColor,int Self.GameLevelCommon::parT_ID)" />
+                  <property Method="Self.GameLevelCommon::spawnGameActor4(eGameForce Self.GameLevelCommon::parT_ActorForce,string Self.GameLevelCommon::parT_Tree,int Self.GameLevelCommon::parT_PlayerIndex,UnityEngine::Color Self.GameLevelCommon::parT_ActorColor,int Self.GameLevelCommon::parT_ID)" />
                   <property ResultOption="BT_SUCCESS" />
                 </node>
                 <node class="Compute" id="41">

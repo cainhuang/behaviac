@@ -19,13 +19,9 @@ namespace behaviac
     {
         public Event()
         {
+            m_eventName = null;
             m_bTriggeredOnce = false;
             m_triggerMode = TriggerMode.TM_Transfer;
-        }
-
-        ~Event()
-        {
-            m_event = null;
         }
 
         protected override void load(int version, string agentType, List<property_t> properties)
@@ -37,8 +33,7 @@ namespace behaviac
                 property_t p = properties[i];
                 if (p.name == "Task")
                 {
-                    //method
-                    this.m_event = Action.LoadMethod(p.value);
+                    this.m_event = AgentMeta.ParseMethod(p.value, ref this.m_eventName);
                 }
                 else if (p.name == "ReferenceFilename")
                 {
@@ -46,10 +41,7 @@ namespace behaviac
                 }
                 else if (p.name == "TriggeredOnce")
                 {
-                    if (p.value == "true")
-                    {
-                        this.m_bTriggeredOnce = true;
-                    }
+                    this.m_bTriggeredOnce = (p.value == "true");
                 }
                 else if (p.name == "TriggerMode")
                 {
@@ -66,21 +58,12 @@ namespace behaviac
                         Debug.Check(false, string.Format("unrecognised trigger mode {0}", p.value));
                     }
                 }
-                else
-                {
-                    //Debug.Check(0, "unrecognised property %s", p.name);
-                }
             }
         }
 
         public string GetEventName()
         {
-            if (this.m_event != null)
-            {
-                return this.m_event.Name;
-            }
-
-            return null;
+            return this.m_eventName;
         }
 
         public bool TriggeredOnce()
@@ -93,7 +76,7 @@ namespace behaviac
             return this.m_triggerMode;
         }
 
-        public void switchTo(Agent pAgent)
+        public void switchTo(Agent pAgent, Dictionary<uint, IInstantiatedVariable> eventParams)
         {
             if (!string.IsNullOrEmpty(this.m_referencedBehaviorPath))
             {
@@ -102,6 +85,10 @@ namespace behaviac
                     TriggerMode tm = this.GetTriggerMode();
 
                     pAgent.bteventtree(pAgent, this.m_referencedBehaviorPath, tm);
+
+                    Debug.Check(pAgent.CurrentBT != null);
+                    pAgent.CurrentBT.AddVariables(eventParams);
+
                     pAgent.btexec();
                 }
             }
@@ -123,15 +110,10 @@ namespace behaviac
             return null;
         }
 
-        protected CMethodBase m_event;
-
+        protected IMethod m_event;
+        protected string m_eventName;
         protected string m_referencedBehaviorPath = null;
-
         protected TriggerMode m_triggerMode;
-
-        //an event can be configured to stop being checked if triggered
-        protected bool m_bTriggeredOnce;
-
-        // ============================================================================
+        protected bool m_bTriggeredOnce; //an event can be configured to stop being checked if triggered
     }
 }

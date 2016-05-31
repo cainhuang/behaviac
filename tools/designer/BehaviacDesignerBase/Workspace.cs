@@ -164,13 +164,6 @@ namespace Behaviac.Design
                 set { _exportUnifiedFile = value; }
             }
 
-            private bool _generateCustomizedTypes = true;
-            public bool GenerateCustomizedTypes
-            {
-                get { return _generateCustomizedTypes; }
-                set { _generateCustomizedTypes = value; }
-            }
-
             /// <summary>
             /// ExportFolder should be saved as relative path, but used as absoluted path.
             /// </summary>
@@ -194,7 +187,7 @@ namespace Behaviac.Design
             get { return _exportDatas; }
         }
 
-        public void SetExportInfo(string format, bool isExported, bool exportUnifiedFile, bool generateCustomizedTypes, string folder = null, List<string> includedFilenames = null)
+        public void SetExportInfo(string format, bool isExported, bool exportUnifiedFile, string folder = null, List<string> includedFilenames = null)
         {
             if (!_exportDatas.ContainsKey(format)) {
                 _exportDatas[format] = new ExportData();
@@ -203,7 +196,6 @@ namespace Behaviac.Design
             ExportData data = _exportDatas[format];
             data.IsExported = isExported;
             data.ExportUnifiedFile = exportUnifiedFile;
-            data.GenerateCustomizedTypes = generateCustomizedTypes;
 
             if (folder != null)
                 data.ExportFolder = folder;
@@ -231,20 +223,6 @@ namespace Behaviac.Design
             {
                 ExportData data = _exportDatas[format];
                 return data.ExportUnifiedFile;
-            }
-
-            return true;
-        }
-
-        public bool GenerateCustomizedTypes(string format)
-        {
-            if (format == "xml" || format == "bson")
-                return false;
-
-            if (_exportDatas.ContainsKey(format))
-            {
-                ExportData data = _exportDatas[format];
-                return data.GenerateCustomizedTypes;
             }
 
             return true;
@@ -497,10 +475,6 @@ namespace Behaviac.Design
                                                         data.ExportUnifiedFile = Boolean.Parse(exportInfoNode.InnerText.Trim());
                                                         break;
 
-                                                    case "generatecustomizedtypes":
-                                                        data.GenerateCustomizedTypes = Boolean.Parse(exportInfoNode.InnerText.Trim());
-                                                        break;
-
                                                     case "folder":
                                                         data.ExportFolder = exportInfoNode.InnerText.Trim();
                                                         break;
@@ -585,14 +559,6 @@ namespace Behaviac.Design
                                 exporter.AppendChild(exportUnifiedFile);
                             }
 
-                            // Create generateCustomizedTypes node.
-                            if (format != "xml" && format != "bson")
-                            {
-                                XmlElement generateCustomizedTypes = xml.CreateElement("generatecustomizedtypes");
-                                generateCustomizedTypes.InnerText = data.GenerateCustomizedTypes.ToString();
-                                exporter.AppendChild(generateCustomizedTypes);
-                            }
-
                             // Create folder node.
                             if (!string.IsNullOrEmpty(data.ExportFolder)) {
                                 XmlElement folder = xml.CreateElement("folder");
@@ -668,26 +634,37 @@ namespace Behaviac.Design
 
             XmlDocument bbfile = new XmlDocument();
 
-            try {
+            try
+            {
                 FileStream fs = new FileStream(bbPath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 bbfile.Load(fs);
                 fs.Close();
 
-                foreach (XmlNode root in bbfile.ChildNodes) {
-                    if (root.Name == "meta") {
-                        foreach(XmlNode xmlNode in root.ChildNodes) {
-                            if (xmlNode.Name == "agents") {
+                for (int i = 1; i < bbfile.ChildNodes.Count; ++i)
+                {
+                    XmlNode root = bbfile.ChildNodes[i];
+                    if (root.Name == "meta")
+                    {
+                        foreach (XmlNode xmlNode in root.ChildNodes)
+                        {
+                            if (xmlNode.Name == "agents")
+                            {
                                 _agentsXMLNode = xmlNode;
-                            } else if (xmlNode.Name == "types") {
+                            }
+                            else if (xmlNode.Name == "types")
+                            {
                                 _typesXMLNode = xmlNode;
                             }
                         }
-                    } 
-                    else if (root.Name == "agents") {
+                    }
+                    else if (root.Name == "agents")
+                    {
                         _agentsXMLNode = root;
                     }
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show(e.Message, Resources.LoadError, MessageBoxButtons.OK);
 
                 bbfile.RemoveAll();

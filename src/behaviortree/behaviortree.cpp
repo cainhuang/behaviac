@@ -813,6 +813,7 @@ namespace behaviac
                         else if (StringUtils::StrEqual(c->name(), kStrNode))
                         {
                             BehaviorNode* pChildNode = BehaviorNode::load(agentType, c, version);
+							BEHAVIAC_ASSERT(pChildNode);
                             bHasEvents |= pChildNode->m_bHasEvents;
 
                             this->AddChild(pChildNode);
@@ -965,6 +966,7 @@ namespace behaviac
             {
                 pNode->SetClassNameString(pClassName);
                 const char* idStr = node->first_attribute(kStrId)->value();//node.Attribute("id");
+				BEHAVIAC_ASSERT(idStr);
 				pNode->SetId((uint16_t)atoi(idStr));
 
                 pNode->load_properties_pars_attachments_children(true, version, agentType, node);
@@ -1099,6 +1101,7 @@ namespace behaviac
         {
             pNode->SetClassNameString(pClassName);
             const char* idString = d.ReadString();
+			BEHAVIAC_ASSERT(idString);
 			pNode->SetId((uint16_t)atoi(idString));
 
             pNode->load_properties_pars_attachments_children(version, agentType, d, false);
@@ -1573,6 +1576,7 @@ namespace behaviac
         d.OpenDocument();
 
         BehaviorNode* pChildNode = this->load(agentType, d, version);
+		BEHAVIAC_ASSERT(pChildNode);
         bool bHasEvents = pChildNode->m_bHasEvents;
 
         this->AddChild(pChildNode);

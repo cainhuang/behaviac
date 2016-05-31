@@ -143,43 +143,36 @@ namespace Behaviac.Design.Exporters
             file.WriteEndElement();
         }
 
-        private void ExportPars(XmlWriter file, Behavior behavior) {
-            if (behavior.LocalVars.Count == 0) {
+        private void ExportPars(XmlWriter file, Behavior behavior)
+        {
+            if (behavior.LocalVars.Count == 0)
+            {
                 return;
             }
 
             file.WriteStartElement("pars");
 
-            for (int i = 0; i < behavior.LocalVars.Count; ++i) {
+            for (int i = 0; i < behavior.LocalVars.Count; ++i)
+            {
                 ParInfo par = behavior.LocalVars[i];
 
-                //for node, only display pars are exported
-                //if (bIsBehaviorRoot || par.Display)
-                {
-                    ExportPar(file, par, true);
-                }
+                ExportPar(file, par, true);
             }
 
             file.WriteEndElement();
         }
 
-        private void ExportPar(XmlWriter file, ParInfo par, bool bExportValue) {
+        private void ExportPar(XmlWriter file, ParInfo par, bool bExportValue)
+        {
             file.WriteStartElement("par");
 
             file.WriteAttributeString("name", par.BasicName);
             file.WriteAttributeString("type", par.NativeType);
 
-            if (bExportValue) {
+            if (bExportValue)
+            {
                 file.WriteAttributeString("value", par.DefaultValue);
             }
-
-            //if (!string.IsNullOrEmpty(par.EventParam))
-            //{
-            //    file.WriteAttributeString("eventParam", par.EventParam);
-            //}
-            //file.WriteAttributeString("member", "false");
-            //if (par.AgentType != null)
-            //    file.WriteAttributeString("agent", par.AgentType.AgentTypeName);
 
             file.WriteEndElement();
         }

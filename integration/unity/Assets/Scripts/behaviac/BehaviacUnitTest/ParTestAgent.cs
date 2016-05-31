@@ -82,7 +82,8 @@ public class ParTestAgent : ParTestAgentBase
     }
 
     public void initAgent() {
-        base.Init();
+        this.Init();
+
         resetProperties();
     }
 

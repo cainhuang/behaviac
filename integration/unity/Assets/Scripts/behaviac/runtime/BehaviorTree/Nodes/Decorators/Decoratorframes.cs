@@ -17,15 +17,6 @@ namespace behaviac
 {
     public class DecoratorFrames : DecoratorNode
     {
-        public DecoratorFrames()
-        {
-        }
-
-        ~DecoratorFrames()
-        {
-            this.m_frames_var = null;
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
@@ -39,13 +30,11 @@ namespace behaviac
 
                     if (pParenthesis == -1)
                     {
-                        string typeName = null;
-                        this.m_frames_var = Condition.LoadRight(p.value, ref typeName);
+                        this.m_frames = AgentMeta.ParseProperty(p.value);
                     }
                     else
                     {
-                        //method
-                        this.m_frames_method = Action.LoadMethod(p.value);
+                        this.m_frames = AgentMeta.ParseMethod(p.value);
                     }
                 }
             }
@@ -53,21 +42,10 @@ namespace behaviac
 
         protected virtual int GetFrames(Agent pAgent)
         {
-            if (this.m_frames_var != null)
+            if (this.m_frames != null)
             {
-                int frames = (int)this.m_frames_var.GetValue(pAgent);
-
-                return frames;
-            }
-            else
-            {
-                Debug.Check(this.m_frames_method != null);
-                if (this.m_frames_method != null)
-                {
-                    int frames = (int)this.m_frames_method.Invoke(pAgent);
-
-                    return frames;
-                }
+                Debug.Check(this.m_frames is CInstanceMember<int>);
+                return ((CInstanceMember<int>)this.m_frames).GetValue(pAgent);
             }
 
             return 0;
@@ -80,19 +58,10 @@ namespace behaviac
             return pTask;
         }
 
-        private Property m_frames_var;
-        protected CMethodBase m_frames_method;
+        protected IInstanceMember m_frames;
 
         private class DecoratorFramesTask : DecoratorTask
         {
-            public DecoratorFramesTask()
-            {
-            }
-
-            ~DecoratorFramesTask()
-            {
-            }
-
             public override void copyto(BehaviorTask target)
             {
                 base.copyto(target);
@@ -148,7 +117,7 @@ namespace behaviac
                 return pNode != null ? pNode.GetFrames(pAgent) : 0;
             }
 
-            private int m_start;
+            private int m_start = 0;
             private int m_frames = 0;
         }
     }

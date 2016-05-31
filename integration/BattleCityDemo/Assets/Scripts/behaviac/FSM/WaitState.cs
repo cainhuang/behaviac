@@ -18,21 +18,6 @@ namespace behaviac
 {
     public class WaitState : State
     {
-        protected Property m_time_var;
-        protected CMethodBase m_time_m;
-
-        public WaitState()
-        {
-            this.m_time_var = null;
-            this.m_time_m = null;
-        }
-
-        ~WaitState()
-        {
-            this.m_time_var = null;
-            this.m_time_m = null;
-        }
-
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
@@ -46,13 +31,11 @@ namespace behaviac
 
                     if (pParenthesis == -1)
                     {
-                        string typeName = null;
-                        this.m_time_var = Condition.LoadRight(p.value, ref typeName);
+                        this.m_time = AgentMeta.ParseProperty(p.value);
                     }
                     else
                     {
-                        //method
-                        this.m_time_m = Action.LoadMethod(p.value);
+                        this.m_time = AgentMeta.ParseMethod(p.value);
                     }
                 }
             }
@@ -60,28 +43,28 @@ namespace behaviac
 
         protected virtual double GetTime(Agent pAgent)
         {
-            object timeObj = null;
+            double time = 0;
 
-            if (this.m_time_var != null)
+            if (this.m_time != null)
             {
-                timeObj = this.m_time_var.GetValue(pAgent);
-            }
-            else
-            {
-                Debug.Check(this.m_time_m != null);
-                if (this.m_time_m != null)
+                if (this.m_time is CInstanceMember<double>)
                 {
-                    timeObj = this.m_time_m.Invoke(pAgent);
+                    time = ((CInstanceMember<double>)this.m_time).GetValue(pAgent);
+                }
+                else if (this.m_time is CInstanceMember<float>)
+                {
+                    time = ((CInstanceMember<float>)this.m_time).GetValue(pAgent);
+                }
+                else if (this.m_time is CInstanceMember<int>)
+                {
+                    time = ((CInstanceMember<int>)this.m_time).GetValue(pAgent);
                 }
             }
 
-            if (timeObj != null)
-            {
-                return Convert.ToDouble(timeObj);
-            }
-
-            return 0;
+            return time;
         }
+
+        protected IInstanceMember m_time;
 
         protected override BehaviorTask createTask()
         {

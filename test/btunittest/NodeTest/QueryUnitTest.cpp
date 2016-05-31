@@ -14,54 +14,54 @@
 #include "../btloadtestsuite.h"
 #include "behaviac/base/core/profiler/profiler.h"
 
-LOAD_TEST(btunittest, query_ut_0)
-{
-    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/query_ut_0", format);
-    myTestAgent->btload("node_test/query_subtree_0");
-    myTestAgent->btload("node_test/query_subtree_1");
-    myTestAgent->btload("node_test/query_subtree_2");
-    myTestAgent->resetProperties();
-    behaviac::EBTStatus status = myTestAgent->btexec();
-    CHECK_EQUAL(1, myTestAgent->testVar_0);
-    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-    finlTestEnvNode(myTestAgent);
-}
-
-LOAD_TEST(btunittest, query_ut_1)
-{
-    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/query_ut_1", format);
-    myTestAgent->btload("node_test/query_subtree_0");
-    myTestAgent->btload("node_test/query_subtree_1");
-    myTestAgent->btload("node_test/query_subtree_2");
-    myTestAgent->resetProperties();
-    behaviac::EBTStatus status = myTestAgent->btexec();
-    CHECK_EQUAL(2, myTestAgent->testVar_0);
-    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-    finlTestEnvNode(myTestAgent);
-}
-
-LOAD_TEST(btunittest, query_ut_2)
-{
-    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/query_ut_2", format);
-    myTestAgent->btload("node_test/query_subtree_0");
-    myTestAgent->btload("node_test/query_subtree_1");
-    myTestAgent->btload("node_test/query_subtree_2");
-    myTestAgent->resetProperties();
-    behaviac::EBTStatus status = myTestAgent->btexec();
-    CHECK_EQUAL(2, myTestAgent->testVar_0);
-    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-    finlTestEnvNode(myTestAgent);
-}
-
-LOAD_TEST(btunittest, query_ut_3)
-{
-    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/query_ut_3", format);
-    myTestAgent->btload("node_test/query_subtree_0");
-    myTestAgent->btload("node_test/query_subtree_1");
-    myTestAgent->btload("node_test/query_subtree_2");
-    myTestAgent->resetProperties();
-    behaviac::EBTStatus status = myTestAgent->btexec();
-    CHECK_EQUAL(0, myTestAgent->testVar_0);
-    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
-    finlTestEnvNode(myTestAgent);
-}
+//LOAD_TEST(btunittest, query_ut_0)
+//{
+//    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/query_ut_0", format);
+//    myTestAgent->btload("node_test/query_subtree_0");
+//    myTestAgent->btload("node_test/query_subtree_1");
+//    myTestAgent->btload("node_test/query_subtree_2");
+//    myTestAgent->resetProperties();
+//    behaviac::EBTStatus status = myTestAgent->btexec();
+//    CHECK_EQUAL(1, myTestAgent->testVar_0);
+//    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+//    finlTestEnvNode(myTestAgent);
+//}
+//
+//LOAD_TEST(btunittest, query_ut_1)
+//{
+//    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/query_ut_1", format);
+//    myTestAgent->btload("node_test/query_subtree_0");
+//    myTestAgent->btload("node_test/query_subtree_1");
+//    myTestAgent->btload("node_test/query_subtree_2");
+//    myTestAgent->resetProperties();
+//    behaviac::EBTStatus status = myTestAgent->btexec();
+//    CHECK_EQUAL(2, myTestAgent->testVar_0);
+//    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+//    finlTestEnvNode(myTestAgent);
+//}
+//
+//LOAD_TEST(btunittest, query_ut_2)
+//{
+//    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/query_ut_2", format);
+//    myTestAgent->btload("node_test/query_subtree_0");
+//    myTestAgent->btload("node_test/query_subtree_1");
+//    myTestAgent->btload("node_test/query_subtree_2");
+//    myTestAgent->resetProperties();
+//    behaviac::EBTStatus status = myTestAgent->btexec();
+//    CHECK_EQUAL(2, myTestAgent->testVar_0);
+//    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+//    finlTestEnvNode(myTestAgent);
+//}
+//
+//LOAD_TEST(btunittest, query_ut_3)
+//{
+//    AgentNodeTest* myTestAgent = initTestEnvNode("node_test/query_ut_3", format);
+//    myTestAgent->btload("node_test/query_subtree_0");
+//    myTestAgent->btload("node_test/query_subtree_1");
+//    myTestAgent->btload("node_test/query_subtree_2");
+//    myTestAgent->resetProperties();
+//    behaviac::EBTStatus status = myTestAgent->btexec();
+//    CHECK_EQUAL(0, myTestAgent->testVar_0);
+//    CHECK_EQUAL(behaviac::BT_SUCCESS, status);
+//    finlTestEnvNode(myTestAgent);
+//}
