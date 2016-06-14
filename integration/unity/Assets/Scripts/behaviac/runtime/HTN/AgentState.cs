@@ -1,3 +1,17 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Tencent is pleased to support the open source community by making behaviac available.
+//
+// Copyright (C) 2015 THL A29 Limited, a Tencent company. All rights reserved.
+//
+// Licensed under the BSD 3-Clause License (the "License"); you may not use this file except in
+// compliance with the License. You may obtain a copy of the License at http://opensource.org/licenses/BSD-3-Clause
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License
+// is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+// or implied. See the License for the specific language governing permissions and limitations under
+// the License.
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define BEHAVIAC_ENABLE_PUSH_OPT
 
 using System;
@@ -5,9 +19,128 @@ using System.Collections.Generic;
 
 namespace behaviac
 {
+    public class Variables
+    {
+        public Variables(Dictionary<uint, IInstantiatedVariable> vars)
+        {
+            this.m_variables = vars;
+        }
+
+        public Variables()
+        {
+            this.m_variables = new Dictionary<uint,IInstantiatedVariable>();
+        }
+
+        public bool IsExisting(uint varId)
+        {
+            return this.m_variables.ContainsKey(varId);
+        }
+
+        public virtual IInstantiatedVariable GetVariable(uint varId)
+        {
+            if (this.m_variables.ContainsKey(varId))
+            {
+                return this.m_variables[varId];
+            }
+
+            return null;
+        }
+
+        public virtual void AddVariable(uint varId, IInstantiatedVariable pVar, int stackIndex)
+        {
+            Debug.Check(!this.m_variables.ContainsKey(varId));
+
+            this.m_variables[varId] = pVar;
+        }
+
+        public void Log(Agent agent)
+        {
+#if !BEHAVIAC_RELEASE
+            var e = this.m_variables.Keys.GetEnumerator();
+            while (e.MoveNext())
+            {
+                uint id = e.Current;
+                IInstantiatedVariable pVar = this.m_variables[id];
+
+                pVar.Log(agent);
+            }
+#endif
+        }
+
+        public void UnLoad(string variableName)
+        {
+            Debug.Check(!string.IsNullOrEmpty(variableName));
+
+            uint varId = Utils.MakeVariableId(variableName);
+            if (this.m_variables.ContainsKey(varId))
+            {
+                this.m_variables.Remove(varId);
+            }
+        }
+
+        public void Unload()
+        {
+        }
+
+        public void CopyTo(Agent pAgent, Variables target)
+        {
+            target.m_variables.Clear();
+
+            var e = this.m_variables.Keys.GetEnumerator();
+            while (e.MoveNext())
+            {
+                uint id = e.Current;
+                IInstantiatedVariable pVar = this.m_variables[id];
+                IInstantiatedVariable pNew = pVar.clone();
+
+                target.m_variables[id] = pNew;
+            }
+
+            if (!Object.ReferenceEquals(pAgent, null))
+            {
+                e = target.m_variables.Keys.GetEnumerator();
+                while (e.MoveNext())
+                {
+                    uint id = e.Current;
+                    IInstantiatedVariable pVar = this.m_variables[id];
+
+                    pVar.CopyTo(pAgent);
+                }
+            }
+        }
+
+        private void Save(ISerializableNode node)
+        {
+            CSerializationID variablesId = new CSerializationID("vars");
+            ISerializableNode varsNode = node.newChild(variablesId);
+
+            var e = this.m_variables.Values.GetEnumerator();
+            while (e.MoveNext())
+            {
+                e.Current.Save(varsNode);
+            }
+        }
+
+        protected Dictionary<uint, IInstantiatedVariable> m_variables = new Dictionary<uint, IInstantiatedVariable>();
+
+        public Dictionary<uint, IInstantiatedVariable> Vars
+        {
+            get
+            {
+                return this.m_variables;
+            }
+        }
+    }
+
+#if BEHAVIAC_USE_HTN
     public class AgentState : Variables, IDisposable
     {
         private List<AgentState> state_stack = null;
+
+        public AgentState(Dictionary<uint, IInstantiatedVariable> vars) : base(vars)
+        {
+
+        }
 
         public AgentState()
         {
@@ -64,6 +197,41 @@ namespace behaviac
             }
         }
 
+        public override void AddVariable(uint varId, IInstantiatedVariable pVar, int stackIndex)
+        {
+            if (this.state_stack != null && this.state_stack.Count > 0 &&
+                stackIndex > 0 && stackIndex < this.state_stack.Count)
+            {
+                AgentState t = this.state_stack[stackIndex];
+                t.AddVariable(varId, pVar, -1);
+            }
+            else
+            {
+                base.AddVariable(varId, pVar, -1);
+            }
+        }
+
+        public override IInstantiatedVariable GetVariable(uint varId)
+        {
+            if (this.state_stack != null && this.state_stack.Count > 0)
+            {
+                for (int i = this.state_stack.Count - 1; i >= 0; --i)
+                {
+                    AgentState t = this.state_stack[i];
+
+                    IInstantiatedVariable pVar = t.GetVariable(varId);
+
+                    if (pVar != null)
+                    {
+                        return pVar;
+                    }
+                }
+            }
+
+            return base.GetVariable(varId);
+        }
+
+
         public AgentState Push(bool bForcePush)
         {
 #if BEHAVIAC_ENABLE_PUSH_OPT
@@ -103,7 +271,8 @@ namespace behaviac
 
                 if (bForcePush)
                 {
-                    base.CopyTo(null, newly);
+                    //base.CopyTo(null, newly);
+                    this.CopyTopValueTo(newly);
                 }
             }
 
@@ -116,6 +285,20 @@ namespace behaviac
             this.state_stack.Add(newly);
 
             return newly;
+        }
+
+        private void CopyTopValueTo(AgentState newly)
+        {
+            var e = this.m_variables.Keys.GetEnumerator();
+            while (e.MoveNext())
+            {
+                uint id = e.Current;
+
+                IInstantiatedVariable pVar = this.GetVariable(id);
+                IInstantiatedVariable pNew = pVar.clone();
+
+                newly.m_variables[id] = pNew;
+            }
         }
 
         public void Pop()
@@ -144,7 +327,16 @@ namespace behaviac
                 return;
             }
 
-            this.Clear(true);
+#if BEHAVIAC_ENABLE_PUSH_OPT
+            this.m_pushed = 0;
+            this.m_forced = false;
+#endif
+            if (this.state_stack != null)
+            {
+                this.state_stack.Clear();
+            }
+            this.m_variables.Clear();
+
             Debug.Check(this.state_stack == null);
             Debug.Check(this.parent != null);
 
@@ -166,113 +358,6 @@ namespace behaviac
             this.state_stack.RemoveAt(this.state_stack.Count - 1);
         }
 
-        public override void Clear(bool bFull)
-        {
-            if (bFull)
-            {
-#if BEHAVIAC_ENABLE_PUSH_OPT
-                this.m_pushed = 0;
-                this.m_forced = false;
-#endif
-                if (this.state_stack != null)
-                {
-                    this.state_stack.Clear(); 
-                }
-            }
-
-            base.Clear(bFull);
-        }
-
-        public override void Log(Agent pAgent, bool bForce)
-        {
-#if !BEHAVIAC_RELEASE
-
-            if (Config.IsLoggingOrSocketing)
-            {
-                if (this.state_stack != null && this.state_stack.Count > 0)
-                {
-                    Dictionary<string, bool> logged = new Dictionary<string, bool>();
-
-                    for (int i = this.state_stack.Count - 1; i >= 0; --i)
-                    {
-                        AgentState t = this.state_stack[i];
-
-                        var e = t.Vars.Values.GetEnumerator();
-                        while (e.MoveNext())
-                        {
-                            if (bForce || e.Current.IsChanged())
-                            {
-                                if (!logged.ContainsKey(e.Current.Name))
-                                {
-                                    e.Current.Log(pAgent);
-                                    logged.Add(e.Current.Name, true);
-                                }
-                            }
-                        }
-                    }//end of for
-                }
-                else
-                {
-                    base.Log(pAgent, bForce);
-                }
-            }
-#endif
-        }
-
-        public override void SetObject(bool bMemberSet, Agent pAgent, bool bLocal, CMemberBase pMember, string variableName, object value, uint varId)
-        {
-            // not in planning
-            if (pAgent.PlanningTop == -1 && !bLocal)
-            {
-                base.SetObject(bMemberSet, pAgent, bLocal, pMember, variableName, value, varId);
-                return;
-            }
-
-            if (this.state_stack != null && this.state_stack.Count > 0)
-            {
-                int stackIndex = 0;
-
-                if (bLocal)
-                {
-                    //top
-                    stackIndex = this.state_stack.Count - 1;
-                }
-                else
-                {
-                    //bottom
-                    stackIndex = pAgent.PlanningTop;
-                }
-
-                AgentState t = this.state_stack[stackIndex];
-
-                //if there are something in the state stack, it is used for planning, so, don't really set member
-                t.SetObject(false, pAgent, bLocal, null, variableName, value, varId);
-            }
-            else
-            {
-                base.SetObject(bMemberSet, pAgent, bLocal, pMember, variableName, value, varId);
-            }
-        }
-
-        public override object GetObject(Agent pAgent, bool bMemberGet, CMemberBase pMember, uint varId)
-        {
-            if (this.state_stack != null && this.state_stack.Count > 0)
-            {
-                for (int i = this.state_stack.Count - 1; i >= 0; --i)
-                {
-                    AgentState t = this.state_stack[i];
-                    object result = t.GetObject(pAgent, false, pMember, varId);
-
-                    if (result != null)
-                    {
-                        return result;
-                    }
-                }
-            }
-
-            object result1 = base.GetObject(pAgent, bMemberGet, pMember, varId);
-
-            return result1;
-        }
     }
+#endif//BEHAVIAC_USE_HTN
 }

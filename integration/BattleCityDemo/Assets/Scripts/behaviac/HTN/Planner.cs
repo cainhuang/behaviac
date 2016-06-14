@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#if BEHAVIAC_USE_HTN
 namespace behaviac
 {
     public class Planner
@@ -199,7 +200,7 @@ namespace behaviac
 
                 LogManager.Instance.Log(buffer);
 
-                a.Variables.Log(a, true);
+                a.LogVariables(true);
             }
 
 #endif
@@ -235,9 +236,8 @@ namespace behaviac
                 string ni = BehaviorTask.GetTickInfo(a, n, null);
 
                 LogManager.Instance.Log("[plan_node_begin]{0}\n", ni);
-                a.Variables.Log(a, true);
+                a.LogVariables(true);
             }
-
 #endif
         }
 
@@ -304,9 +304,8 @@ namespace behaviac
                 string ni = BehaviorTask.GetTickInfo(a, m, null);
                 LogManager.Instance.Log("[plan_method_begin]{0}\n", ni);
 
-                a.Variables.Log(a, true);
+                a.LogVariables(true);
             }
-
 #endif
         }
 
@@ -331,7 +330,7 @@ namespace behaviac
             {
                 string ni = BehaviorTask.GetTickInfo(a, pForEach, null);
                 LogManager.Instance.Log("[plan_foreach_begin]{0} {1} {2}\n", ni, index, count);
-                a.Variables.Log(a, true);
+                a.LogVariables(true);
             }
 
 #endif
@@ -516,3 +515,4 @@ namespace behaviac
         #endregion Private decompose methods
     }
 }
+#endif//

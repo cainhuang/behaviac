@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Tank_FSM_MoveFire.xml-->
-<behavior name="Tank_FSM_MoveFire" agenttype="Player" fsm="true" version="4">
+<behavior name="Tank_FSM_MoveFire" agenttype="Player" fsm="true" version="5">
   <pars>
     <par name="rotateAngle" type="float" value="0" />
     <par name="parIn_Self" type="Player" value="null" />

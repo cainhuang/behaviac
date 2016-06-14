@@ -2330,6 +2330,16 @@ namespace Behaviac.Design
                     {
                         return false;
                     }
+
+                    if (Plugin.SourceLanguage != "cpp" && !Workspace.Current.IsSetExportFolder(Plugin.SourceLanguage))
+                    {
+                        if (DialogResult.OK == MessageBox.Show(Resources.InvalidExportedTypePath, Resources.ExportError, MessageBoxButtons.OK))
+                        {
+                            MetaStoreDock.Inspect(null);
+
+                            return false;
+                        }
+                    }
                 }
 
                 try
@@ -2358,12 +2368,16 @@ namespace Behaviac.Design
                         {
                             ExporterInfo info = Plugin.Exporters[i];
 
-                            if ((string.IsNullOrEmpty(format) && Workspace.Current.ShouldBeExported(info.ID)) || (info.ID == format))
+                            if ((string.IsNullOrEmpty(format) && (Workspace.Current.ShouldBeExported(info.ID) || (info.ID == Plugin.SourceLanguage))) || (info.ID == format))
                             {
                                 exportXML |= (info.ID == "xml");
                                 exportBson |= (info.ID == "bson");
 
-                                exportBehavior(dialog.ExportBehaviors, i, exportedPath, dialog.treeView.Nodes, ref aborted);
+                                bool bExportBehaviors = dialog.ExportBehaviors;
+                                if (info.ID == Plugin.SourceLanguage && !Workspace.Current.ShouldBeExported(info.ID))
+                                    bExportBehaviors = false;
+
+                                exportBehavior(bExportBehaviors, i, exportedPath, dialog.treeView.Nodes, ref aborted);
 
                                 if (aborted)
                                 {
@@ -2374,7 +2388,10 @@ namespace Behaviac.Design
 
                         if (!aborted)
                         {
-                            Workspace.ExportCustomMembers(Workspace.Current, exportXML, exportBson);
+                            if (Plugin.SourceLanguage == "cpp")
+                            {
+                                Workspace.ExportCustomMembers(Workspace.Current, exportXML, exportBson);
+                            }
 
                             Utilities.ReportExportBehavior();
                         }

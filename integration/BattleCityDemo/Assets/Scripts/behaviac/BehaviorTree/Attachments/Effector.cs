@@ -76,9 +76,9 @@ namespace behaviac
             m_ActionConfig = new EffectorConfig();
         }
 
-        ~Effector()
-        {
-        }
+        //~Effector()
+        //{
+        //}
 
         public EPhase Phase
         {

@@ -72,7 +72,10 @@ namespace PluginBehaviac.DataExporters
                                 {
                                     stream.WriteLine("{0}\t\t\t{1} = null;", indent, param);
                                 }
-                                StructCsExporter.GenerateCode(obj, stream, indent + "\t\t\t", param, null, "");
+
+                                string paramType = DataCsExporter.GetGeneratedNativeType(method.Params[i].NativeType);
+                                StructCsExporter.GenerateCode(obj, stream, indent + "\t\t\t", param, paramType, null, "");
+
                                 if (!method.IsPublic)
                                 {
                                     stream.WriteLine("{0}\t\t\t{1} = {2};", indent, paramName, param);
@@ -163,11 +166,17 @@ namespace PluginBehaviac.DataExporters
                         PropertyDef prop = method.Params[i].Property;
                         if (prop != null && prop.IsArrayElement)
                         {
-                            string property = PropertyCsExporter.GetProperty(prop, v.ArrayIndexElement, stream, indent, param, caller);
-                            string propName = prop.BasicName.Replace("[]", "");
-
                             ParameterCsExporter.GenerateCode(v.ArrayIndexElement, stream, indent, "int", param + "_index", param + caller);
-                            param = string.Format("({0})[{1}_index]", property, param);
+
+                            if (string.IsNullOrEmpty(param))
+                            {
+                                string property = PropertyCsExporter.GetProperty(prop, v.ArrayIndexElement, stream, indent, param, caller);
+                                param = string.Format("({0})[{1}_index]", property, param);
+                            }
+                            else
+                            {
+                                param = string.Format("{0}[{0}_index]", param);
+                            }
                         }
                     }
                 }
@@ -180,7 +189,9 @@ namespace PluginBehaviac.DataExporters
                         if (Plugin.IsCustomClassType(type) && !DesignerStruct.IsPureConstDatum(obj, method, method.Params[i].Name))
                         {
                             string paramName = getParamName(var, caller, i);
-                            StructCsExporter.GenerateCode(obj, stream, indent, paramName, method, method.Params[i].Name);
+                            string paramType = DataCsExporter.GetGeneratedNativeType(method.Params[i].NativeType);
+
+                            StructCsExporter.GenerateCode(obj, stream, indent, paramName, paramType, method, method.Params[i].Name);
                             if (!method.IsPublic)
                             {
                                 stream.WriteLine("{0}{1} = {2};", indent, param, paramName);

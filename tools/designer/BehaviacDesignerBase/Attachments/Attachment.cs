@@ -63,7 +63,7 @@ namespace Behaviac.Design.Attachments
 
         public virtual string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/attachment/"; }
+            get { return "http://www.behaviac.com/language/zh/attachment/"; }
         }
 
         public virtual bool CanBeDisabled()

@@ -431,10 +431,10 @@ namespace behaviac
             m_packetsCapacity = (0);
         }
 
-        ~PacketCollection()
-        {
-            Close();
-        }
+        //~PacketCollection(
+        //{
+        //    Close();
+        //}
 
         public void Init(int capacity)
         {

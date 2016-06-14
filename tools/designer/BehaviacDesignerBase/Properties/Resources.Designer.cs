@@ -1222,6 +1222,16 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The meta file is invalid : {0}
+        ///Please reexport the meta with the latest runtime!.
+        /// </summary>
+        internal static string InvalidMetaInfo {
+            get {
+                return ResourceManager.GetString("InvalidMetaInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leaf.
         /// </summary>
         internal static string Leaf {

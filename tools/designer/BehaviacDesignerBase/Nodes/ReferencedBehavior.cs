@@ -328,7 +328,7 @@ namespace Behaviac.Design.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/subtree/"; }
+            get { return "http://www.behaviac.com/language/zh/subtree/"; }
         }
 
         public override bool ResetMembers(bool check, AgentType agentType, bool clear, MethodDef method = null, PropertyDef property = null) {

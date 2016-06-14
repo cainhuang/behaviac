@@ -61,6 +61,9 @@ namespace Behaviac.Design
             this.downMemberButton = new System.Windows.Forms.Button();
             this.upMemberButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
+            this.exportFolderLabel = new System.Windows.Forms.Label();
+            this.typeBrowseButton = new System.Windows.Forms.Button();
+            this.exportTypeTextBox = new System.Windows.Forms.TextBox();
             this.metaTypePanel = new Behaviac.Design.MetaTypePanel();
             this.SuspendLayout();
             // 
@@ -244,6 +247,30 @@ namespace Behaviac.Design
             this.applyButton.UseVisualStyleBackColor = false;
             this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
+            // exportFolderLabel
+            // 
+            resources.ApplyResources(this.exportFolderLabel, "exportFolderLabel");
+            this.exportFolderLabel.Name = "exportFolderLabel";
+            // 
+            // typeBrowseButton
+            // 
+            resources.ApplyResources(this.typeBrowseButton, "typeBrowseButton");
+            this.typeBrowseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.typeBrowseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.typeBrowseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.typeBrowseButton.Name = "typeBrowseButton";
+            this.typeBrowseButton.UseVisualStyleBackColor = false;
+            this.typeBrowseButton.Click += new System.EventHandler(this.typeBrowseButton_Click);
+            // 
+            // exportTypeTextBox
+            // 
+            resources.ApplyResources(this.exportTypeTextBox, "exportTypeTextBox");
+            this.exportTypeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.exportTypeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.exportTypeTextBox.ForeColor = System.Drawing.Color.LightGray;
+            this.exportTypeTextBox.Name = "exportTypeTextBox";
+            this.exportTypeTextBox.ReadOnly = true;
+            // 
             // metaTypePanel
             // 
             resources.ApplyResources(this.metaTypePanel, "metaTypePanel");
@@ -257,6 +284,9 @@ namespace Behaviac.Design
             resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.closeButton;
+            this.Controls.Add(this.exportFolderLabel);
+            this.Controls.Add(this.typeBrowseButton);
+            this.Controls.Add(this.exportTypeTextBox);
             this.Controls.Add(this.metaTypePanel);
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.downMemberButton);
@@ -314,6 +344,9 @@ namespace Behaviac.Design
         private System.Windows.Forms.Button upMemberButton;
         private System.Windows.Forms.Button applyButton;
         private MetaTypePanel metaTypePanel;
+        private System.Windows.Forms.Label exportFolderLabel;
+        private System.Windows.Forms.Button typeBrowseButton;
+        private System.Windows.Forms.TextBox exportTypeTextBox;
 
     }
 }

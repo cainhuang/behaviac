@@ -225,7 +225,7 @@ namespace PluginBehaviac.DataExporters
                         stream.WriteLine("{0}{1} {2};", indent, typename, var);
                     }
 
-                    StructCsExporter.GenerateCode(obj, stream, indent, var, null, "");
+                    StructCsExporter.GenerateCode(obj, stream, indent, var, typename, null, "");
                 }
                 // Other types
                 else

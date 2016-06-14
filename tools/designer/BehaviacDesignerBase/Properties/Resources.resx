@@ -863,4 +863,8 @@ Are your sure continue the undo/redo operation?</value>
   <data name="ReferenceGeneratorDesc" xml:space="preserve">
     <value>A method returning a string as the referenced behavior's path</value>
   </data>
+  <data name="InvalidMetaInfo" xml:space="preserve">
+    <value>The meta file is invalid : {0}
+Please reexport the meta with the latest runtime!</value>
+  </data>
 </root>

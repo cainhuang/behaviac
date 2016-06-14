@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: npc.xml-->
-<behavior name="npc" agenttype="NPC" version="4">
+<behavior name="npc" agenttype="NPC" version="5">
   <node class="Sequence" id="1">
     <node class="Action" id="0">
       <property Method="Self.NPC::setLeveUpScore(1,30)" />

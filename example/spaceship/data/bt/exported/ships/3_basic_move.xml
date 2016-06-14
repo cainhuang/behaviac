@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: ships\3_basic_move.xml-->
-<behavior name="ships/3_basic_move" agenttype="framework::Ship" version="4">
+<behavior name="ships/3_basic_move" agenttype="framework::Ship" version="5">
   <node class="Parallel" id="1">
     <property ChildFinishPolicy="CHILDFINISH_LOOP" />
     <property ExitPolicy="EXIT_NONE" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\vector_test.xml-->
-<behavior name="par_test/vector_test" agenttype="TestNS::AgentArrayAccessTest" version="4">
+<behavior name="par_test/vector_test" agenttype="TestNS::AgentArrayAccessTest" version="5">
   <pars>
     <par name="l_index" type="int" value="0" />
     <par name="l_ListInts" type="vector&lt;int&gt;" value="5:100|200|300|400|500" />

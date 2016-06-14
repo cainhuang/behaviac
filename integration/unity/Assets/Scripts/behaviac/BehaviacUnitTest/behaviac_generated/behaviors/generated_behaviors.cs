@@ -5606,6 +5606,28 @@ namespace behaviac
 	// Source file: node_test/action_ut_0
 
 	[behaviac.GeneratedTypeMetaInfo()]
+	class Precondition_bt_node_test_action_ut_0_attach15 : behaviac.Precondition
+	{
+		public Precondition_bt_node_test_action_ut_0_attach15()
+		{
+			opl_params = null;
+			this.Phase = Precondition.EPhase.E_ENTER;
+			this.IsAnd = true;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			behaviac.EBTStatus opl = (behaviac.EBTStatus)AgentMetaVisitor.ExecuteMethod(pAgent, "Move", opl_params);
+			behaviac.EBTStatus opr2 = behaviac.EBTStatus.BT_RUNNING;
+			bool op = (opl == opr2);
+			if (!op)
+				result = EBTStatus.BT_FAILURE;
+			return result;
+		}
+		object[] opl_params;
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Action_bt_node_test_action_ut_0_node14 : behaviac.Action
 	{
 		public Action_bt_node_test_action_ut_0_node14()
@@ -5863,6 +5885,16 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
 				node0.SetAgentType("AgentNodeTest");
 #endif
+				// attachments
+				{
+					Precondition_bt_node_test_action_ut_0_attach15 attach15 = new Precondition_bt_node_test_action_ut_0_attach15();
+					attach15.SetClassNameString("Precondition");
+					attach15.SetId(15);
+#if !BEHAVIAC_RELEASE
+					attach15.SetAgentType("AgentNodeTest");
+#endif
+					node0.Attach(attach15, true, false, false);
+				}
 				bt.AddChild(node0);
 				{
 					Action_bt_node_test_action_ut_0_node14 node14 = new Action_bt_node_test_action_ut_0_node14();
@@ -6437,10 +6469,9 @@ namespace behaviac
 		{
 			Debug.Check(behaviac.Utils.MakeVariableId("test_int_array") == 4065205216u);
 			List<int> method_p0 = pAgent.GetVariable<List<int>>(4065205216u);
-			Debug.Check(behaviac.Utils.MakeVariableId("test_int_array") == 4065205216u);
 			Debug.Check(behaviac.Utils.MakeVariableId("par_int_type_0") == 4028995106u);
 			int method_p0_index = pAgent.GetVariable<int>(4028995106u);
-			((AgentNodeTest)pAgent).setTestVar_0((pAgent.GetVariable<List<int>>(4065205216u))[method_p0_index]);
+			((AgentNodeTest)pAgent).setTestVar_0(method_p0[method_p0_index]);
 			return EBTStatus.BT_SUCCESS;
 		}
 	}
@@ -6760,6 +6791,23 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_action_ut_3_node6 : behaviac.Condition
+	{
+		public Condition_bt_node_test_action_ut_3_node6()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			Debug.Check(behaviac.Utils.MakeVariableId("redirectCount") == 767249388u);
+			uint opl = pAgent.GetVariable<uint>(767249388u);
+			Debug.Check(behaviac.Utils.MakeVariableId("redirectTime") == 3775965105u);
+			uint opr = pAgent.GetVariable<uint>(3775965105u);
+			bool op = opl >= opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
 	public static class bt_node_test_action_ut_3
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -6833,6 +6881,16 @@ namespace behaviac
 #endif
 					node0.AddChild(node5);
 					node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_3_node6 node6 = new Condition_bt_node_test_action_ut_3_node6();
+					node6.SetClassNameString("Condition");
+					node6.SetId(6);
+#if !BEHAVIAC_RELEASE
+					node6.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node6);
+					node0.SetHasEvents(node0.HasEvents() | node6.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}
@@ -22653,6 +22711,225 @@ namespace behaviac
 		}
 	}
 
+	// Source file: node_test/wait_ut_2
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_node_test_wait_ut_2_node5 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_wait_ut_2_node5()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr = 1;
+			Debug.Check(behaviac.Utils.MakeVariableId("l_IntVar") == 1949893163u);
+			pAgent.SetVariable<int>("l_IntVar", 1949893163u, opr);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Precondition_bt_node_test_wait_ut_2_attach6 : behaviac.Precondition
+	{
+		public Precondition_bt_node_test_wait_ut_2_attach6()
+		{
+			this.Phase = Precondition.EPhase.E_BOTH;
+			this.IsAnd = true;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			Debug.Check(behaviac.Utils.MakeVariableId("l_IntVar") == 1949893163u);
+			int opl = pAgent.GetVariable<int>(1949893163u);
+			int opr2 = 1;
+			bool op = (opl == opr2);
+			if (!op)
+				result = EBTStatus.BT_FAILURE;
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_wait_ut_2_node1 : behaviac.Action
+	{
+		public Action_bt_node_test_wait_ut_2_node1()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_p0 = 1;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).setTestVar_0(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+		int method_p0;
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Wait_bt_node_test_wait_ut_2_node2 : behaviac.Wait
+	{
+		public Wait_bt_node_test_wait_ut_2_node2()
+		{
+		}
+		protected override double GetTime(Agent pAgent)
+		{
+			return 1000f;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_node_test_wait_ut_2_node8 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_wait_ut_2_node8()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr = 2;
+			Debug.Check(behaviac.Utils.MakeVariableId("l_IntVar") == 1949893163u);
+			pAgent.SetVariable<int>("l_IntVar", 1949893163u, opr);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Wait_bt_node_test_wait_ut_2_node7 : behaviac.Wait
+	{
+		public Wait_bt_node_test_wait_ut_2_node7()
+		{
+		}
+		protected override double GetTime(Agent pAgent)
+		{
+			return 1000f;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_wait_ut_2_node3 : behaviac.Action
+	{
+		public Action_bt_node_test_wait_ut_2_node3()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_p0 = 2;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).setTestVar_0(method_p0);
+			return EBTStatus.BT_SUCCESS;
+		}
+		int method_p0;
+	}
+
+	public static class bt_node_test_wait_ut_2
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/wait_ut_2");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// pars
+			bt.AddPar("AgentNodeTest", "int", "l_IntVar", "0");
+			// children
+			{
+				Sequence node4 = new Sequence();
+				node4.SetClassNameString("Sequence");
+				node4.SetId(4);
+#if !BEHAVIAC_RELEASE
+				node4.SetAgentType("AgentNodeTest");
+#endif
+				bt.AddChild(node4);
+				{
+					Assignment_bt_node_test_wait_ut_2_node5 node5 = new Assignment_bt_node_test_wait_ut_2_node5();
+					node5.SetClassNameString("Assignment");
+					node5.SetId(5);
+#if !BEHAVIAC_RELEASE
+					node5.SetAgentType("AgentNodeTest");
+#endif
+					node4.AddChild(node5);
+					node4.SetHasEvents(node4.HasEvents() | node5.HasEvents());
+				}
+				{
+					Sequence node0 = new Sequence();
+					node0.SetClassNameString("Sequence");
+					node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0.SetAgentType("AgentNodeTest");
+#endif
+					// attachments
+					{
+						Precondition_bt_node_test_wait_ut_2_attach6 attach6 = new Precondition_bt_node_test_wait_ut_2_attach6();
+						attach6.SetClassNameString("Precondition");
+						attach6.SetId(6);
+#if !BEHAVIAC_RELEASE
+						attach6.SetAgentType("AgentNodeTest");
+#endif
+						node0.Attach(attach6, true, false, false);
+					}
+					node4.AddChild(node0);
+					{
+						Action_bt_node_test_wait_ut_2_node1 node1 = new Action_bt_node_test_wait_ut_2_node1();
+						node1.SetClassNameString("Action");
+						node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+						node1.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node1);
+						node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
+					}
+					{
+						Wait_bt_node_test_wait_ut_2_node2 node2 = new Wait_bt_node_test_wait_ut_2_node2();
+						node2.SetClassNameString("Wait");
+						node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+						node2.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node2);
+						node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
+					}
+					{
+						Assignment_bt_node_test_wait_ut_2_node8 node8 = new Assignment_bt_node_test_wait_ut_2_node8();
+						node8.SetClassNameString("Assignment");
+						node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+						node8.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node8);
+						node0.SetHasEvents(node0.HasEvents() | node8.HasEvents());
+					}
+					{
+						Wait_bt_node_test_wait_ut_2_node7 node7 = new Wait_bt_node_test_wait_ut_2_node7();
+						node7.SetClassNameString("Wait");
+						node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+						node7.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node7);
+						node0.SetHasEvents(node0.HasEvents() | node7.HasEvents());
+					}
+					{
+						Action_bt_node_test_wait_ut_2_node3 node3 = new Action_bt_node_test_wait_ut_2_node3();
+						node3.SetClassNameString("Action");
+						node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+						node3.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node3);
+						node0.SetHasEvents(node0.HasEvents() | node3.HasEvents());
+					}
+					node4.SetHasEvents(node4.HasEvents() | node0.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node4.HasEvents());
+			}
+			return true;
+		}
+	}
+
 	// Source file: par_test/const_param
 
 	[behaviac.GeneratedTypeMetaInfo()]
@@ -22860,6 +23137,7 @@ namespace behaviac
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node11()
 		{
+			opr = new UnityEngine.Vector3();
 			opr.x = 1f;
 			opr.y = 1f;
 			opr.z = 1f;
@@ -22894,6 +23172,7 @@ namespace behaviac
 	{
 		public Assignment_bt_par_test_custom_property_as_left_value_and_param_node9()
 		{
+			opr = new UnityEngine.Vector3();
 			opr.x = 2f;
 			opr.y = 2f;
 			opr.z = 2f;

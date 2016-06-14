@@ -118,19 +118,24 @@ namespace BehaviorOtherUnitTest
 
             behaviac.Agent testAgent_0 = behaviac.Agent.GetInstance<behaviac.Agent>("Name_Agent_0");
             AgentNodeTest testAgent_1 = behaviac.Agent.GetInstance<AgentNodeTest>();
-            AgentNodeTest testAgent_3 = behaviac.Agent.GetAgent("AgentNodeTest") as AgentNodeTest;
+
+//#if !BEHAVIAC_RELEASE
+//            AgentNodeTest testAgent_3 = behaviac.Agent.GetAgent("AgentNodeTest") as AgentNodeTest;
+//            Assert.AreEqual(testAgent_1, testAgent_3);
+//#endif
 
             Assert.AreEqual(testAgent_0, parTestAgent);
             Assert.AreEqual(testAgent_1, nodeTestAgent);
-            Assert.AreEqual(testAgent_1, testAgent_3);
             Assert.NotNull(testAgent_0);
             Assert.NotNull(testAgent_1);
 
             behaviac.Agent.UnbindInstance("Name_Agent_0");
             behaviac.Agent.UnbindInstance("AgentNodeTest");
 
-            testAgent_3 = behaviac.Agent.GetAgent("AgentNodeTest#") as AgentNodeTest;
-            Assert.AreEqual(nodeTestAgent, testAgent_3);
+//#if !BEHAVIAC_RELEASE
+//            testAgent_3 = behaviac.Agent.GetAgent("AgentNodeTest#") as AgentNodeTest;
+//            Assert.AreEqual(nodeTestAgent, testAgent_3);
+//#endif
 
             behaviac.Agent testAgent_0_0 = behaviac.Agent.GetInstance<behaviac.Agent>("Name_Agent_0");
             AgentNodeTest testAgent_1_0 = behaviac.Agent.GetInstance<AgentNodeTest>();

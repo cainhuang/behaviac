@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\PreconditionEffectorTest\PreconditionEffectorTest_0.xml-->
-<behavior name="node_test/PreconditionEffectorTest/PreconditionEffectorTest_0" agenttype="PreconEffectorAgent" version="4">
+<behavior name="node_test/PreconditionEffectorTest/PreconditionEffectorTest_0" agenttype="PreconEffectorAgent" version="5">
   <node class="Selector" id="3">
     <attachment class="Precondition" id="0" flag="precondition">
       <property BinaryOperator="And" />

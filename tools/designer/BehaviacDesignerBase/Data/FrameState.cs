@@ -297,8 +297,9 @@ namespace Behaviac.Design.Data
         public static Dictionary<string, NodeProfileInfos.ProfileInfo> GetProfileInfos(int frame, string behaviorFilename) {
             Dictionary<string, NodeProfileInfos.ProfileInfo> frameProfileInfos = new Dictionary<string, NodeProfileInfos.ProfileInfo>();
 
-            if (frame < 0 || string.IsNullOrEmpty(behaviorFilename))
-            { return frameProfileInfos; }
+            if (frame < 0 || string.IsNullOrEmpty(behaviorFilename)) { 
+                return frameProfileInfos; 
+            }
 
             if (_nodeFrameProfiles.ContainsKey(behaviorFilename)) {
                 Dictionary<string, NodeProfileInfos> nodeProfileInfos = _nodeFrameProfiles[behaviorFilename];
@@ -307,7 +308,6 @@ namespace Behaviac.Design.Data
 
                     if (profileInfos.ProfileInfos.ContainsKey(frame)) {
                         frameProfileInfos[nodeId] = profileInfos.ProfileInfos[frame].Clone();
-
                     } else if (profileInfos.LastValidFrame > -1) {
                         Debug.Check(profileInfos.ProfileInfos.ContainsKey(profileInfos.LastValidFrame));
                         frameProfileInfos[nodeId] = profileInfos.ProfileInfos[profileInfos.LastValidFrame].Clone();

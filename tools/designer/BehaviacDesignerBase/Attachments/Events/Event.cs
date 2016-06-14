@@ -45,7 +45,7 @@ namespace Behaviac.Design.Attachments
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/attachment/#section-1"; }
+            get { return "http://www.behaviac.com/language/zh/attachment/#section-1"; }
         }
 
         public override string ExportClass

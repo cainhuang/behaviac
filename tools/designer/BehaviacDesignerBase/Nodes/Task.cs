@@ -33,7 +33,7 @@ namespace Behaviac.Design.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/task/"; }
+            get { return "http://www.behaviac.com/language/zh/task/"; }
         }
 
         protected override void CreateInterruptChild() {

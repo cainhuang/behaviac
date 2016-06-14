@@ -25,6 +25,9 @@ Please don't define BEHAVIAC_RELEASE unless you know what you are doing.
 #include "behaviac/base/core/_config.h"
 #include "behaviac/base/core/staticassert.h"
 
+//if BEHAVIAC_RELEASE is not defined in _config.h, BEHAVIAC_RELEASE will be defined
+// as 0 for Debug and 1 for Release
+//if BEHAVIAC_RELEASE is defined in _config.h, then, it will be used and will not be defined in the following.
 #if (defined(_DEBUG) || defined(DEBUG))
 	#ifndef BEHAVIAC_RELEASE
 		#define BEHAVIAC_RELEASE				0

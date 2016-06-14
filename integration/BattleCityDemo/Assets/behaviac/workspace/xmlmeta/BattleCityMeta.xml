@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
-<metas version="3.0" language="cs">
+<metas version="5" language="cs">
   <types>
     <enumtype Type="behaviac::EBTStatus" DisplayName="" Desc="">
       <enum NativeValue="behaviac::BT_INVALID" Value="BT_INVALID" DisplayName="BT_INVALID" Desc="BT_INVALID" />

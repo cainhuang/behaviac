@@ -228,6 +228,17 @@ namespace Behaviac.Design
             return true;
         }
 
+        public bool IsSetExportFolder(string format)
+        {
+            if (_exportDatas.ContainsKey(format))
+            {
+                ExportData data = _exportDatas[format];
+                return !string.IsNullOrEmpty(data.ExportFolder);
+            }
+
+            return false;
+        }
+
         public string GetExportFolder(string format) {
             string exportFolder = "";
 
@@ -681,251 +692,313 @@ namespace Behaviac.Design
 
         private static void LoadCustomMembers(List<Nodes.Node.ErrorCheck> result, XmlNode rootNode)
         {
-            if (rootNode == null)
-            { return; }
+            try
+            {
+                if (rootNode == null)
+                { return; }
 
-            // Set the default base agent.
-            if (Plugin.AgentTypes.Count == 0) {
-                AgentType agent = new AgentType(typeof(Agent), "Agent", false, false, "Agent", "");
-                Plugin.AgentTypes.Add(agent);
-            }
+                // Set the default base agent.
+                if (Plugin.AgentTypes.Count == 0)
+                {
+                    AgentType agent = new AgentType(typeof(Agent), "Agent", false, false, "Agent", "");
+                    Plugin.AgentTypes.Add(agent);
+                }
 
-            foreach(XmlNode xmlNode in rootNode.ChildNodes) {
-                if (xmlNode.Name == "agent") {
-                    string agentName = GetAttribute(xmlNode, "type");
-                    string agentBase = GetAttribute(xmlNode, "base");
-                    int baseIndex = -1;
+                foreach (XmlNode xmlNode in rootNode.ChildNodes)
+                {
+                    if (xmlNode.Name == "agent")
+                    {
+                        string agentName = GetAttribute(xmlNode, "type");
+                        string agentBase = GetAttribute(xmlNode, "base");
+                        int baseIndex = -1;
 
-                    for (int i = 0; i < Plugin.AgentTypes.Count; ++i) {
-                        if (Plugin.AgentTypes[i].AgentTypeName == agentBase) {
-                            baseIndex = i;
-                            break;
-                        }
-                    }
-
-                    string agentDisp = GetAttribute(xmlNode, "disp");
-                    string agentDesc = GetAttribute(xmlNode, "desc");
-
-                    if (string.IsNullOrEmpty(agentDisp))
-                    { agentDisp = agentName; }
-
-                    AgentType agent = Plugin.GetAgentType(agentName);
-
-                    if (agent == null) {
-                        agent = new AgentType(agentName, (baseIndex > -1) ? Plugin.AgentTypes[baseIndex] : null, agentDisp, agentDesc);
-                        Plugin.AgentTypes.Add(agent);
-                    }
-
-                    foreach(XmlNode bbNode in xmlNode) {
-                        if (bbNode.Name == "properties") {
-                            foreach(XmlNode propNode in bbNode) {
-                                if (propNode.Name == "property") {
-                                    string propName = GetAttribute(propNode, "name");
-
-                                    string isStatic = GetAttribute(propNode, "static");
-                                    bool bStatic = false;
-
-                                    if (!string.IsNullOrEmpty(isStatic) && isStatic == "true")
-                                    { bStatic = true; }
-
-                                    string isPublic = GetAttribute(propNode, "public");
-                                    bool bPublic = false;
-
-                                    if (string.IsNullOrEmpty(isPublic) || isPublic == "true")
-                                    { bPublic = true; }
-
-                                    string isReadonly = GetAttribute(propNode, "readonly");
-                                    bool bReadonly = false;
-
-                                    if (!string.IsNullOrEmpty(isReadonly) && isReadonly == "true")
-                                    { bReadonly = true; }
-
-                                    string propType = GetAttribute(propNode, "type");
-                                    Type type = Plugin.GetTypeFromName(propType);
-
-                                    string classname = GetAttribute(propNode, "classname");
-
-                                    if (string.IsNullOrEmpty(classname))
-                                    { classname = agent.AgentTypeName; }
-
-                                    string propDisp = GetAttribute(propNode, "disp");
-
-                                    if (string.IsNullOrEmpty(propDisp))
-                                    { propDisp = propName; }
-
-                                    string propDesc = GetAttribute(propNode, "desc");
-
-                                    PropertyDef prop = new PropertyDef(agent, type, classname, propName, propDisp, propDesc);
-                                    prop.IsStatic = bStatic;
-                                    prop.IsPublic = bPublic;
-                                    prop.IsReadonly = bReadonly;
-
-                                    string defaultValue = GetAttribute(propNode, "defaultvalue");
-
-                                    if (!string.IsNullOrEmpty(defaultValue)) {
-                                        prop.Variable = new VariableDef(null);
-                                        Plugin.InvokeTypeParser(result, type, defaultValue, (object value) => prop.Variable.Value = value, null);
-                                    }
-
-                                    agent.AddProperty(prop);
-                                }
+                        for (int i = 0; i < Plugin.AgentTypes.Count; ++i)
+                        {
+                            if (Plugin.AgentTypes[i].AgentTypeName == agentBase)
+                            {
+                                baseIndex = i;
+                                break;
                             }
+                        }
 
-                        } else if (bbNode.Name == "methods") {
-                            foreach(XmlNode methodNode in bbNode) {
-                                if (methodNode.Name == "method") {
-                                    string methodName = GetAttribute(methodNode, "name");
-                                    Type returnType = Plugin.GetTypeFromName(GetAttribute(methodNode, "returntype"));
+                        string agentDisp = GetAttribute(xmlNode, "disp");
+                        string agentDesc = GetAttribute(xmlNode, "desc");
 
-                                    string isStatic = GetAttribute(methodNode, "static");
-                                    bool bStatic = false;
+                        if (string.IsNullOrEmpty(agentDisp))
+                        { agentDisp = agentName; }
 
-                                    if (!string.IsNullOrEmpty(isStatic) && isStatic == "true")
-                                    { bStatic = true; }
+                        AgentType agent = Plugin.GetAgentType(agentName);
 
-                                    string isPublic = GetAttribute(methodNode, "public");
-                                    bool bPublic = false;
+                        if (agent == null)
+                        {
+                            agent = new AgentType(agentName, (baseIndex > -1) ? Plugin.AgentTypes[baseIndex] : null, agentDisp, agentDesc);
+                            Plugin.AgentTypes.Add(agent);
+                        }
 
-                                    if (string.IsNullOrEmpty(isPublic) || isPublic == "true")
-                                    { bPublic = true; }
+                        foreach (XmlNode bbNode in xmlNode)
+                        {
+                            if (bbNode.Name == "properties")
+                            {
+                                foreach (XmlNode propNode in bbNode)
+                                {
+                                    if (propNode.Name == "property")
+                                    {
+                                        string propName = GetAttribute(propNode, "name");
+                                        try
+                                        {
+                                            string isStatic = GetAttribute(propNode, "static");
+                                            bool bStatic = false;
 
-                                    string classname = GetAttribute(methodNode, "classname");
+                                            if (!string.IsNullOrEmpty(isStatic) && isStatic == "true")
+                                            { bStatic = true; }
 
-                                    if (string.IsNullOrEmpty(classname))
-                                    { classname = agent.AgentTypeName; }
+                                            string isPublic = GetAttribute(propNode, "public");
+                                            bool bPublic = false;
 
-                                    string methodDisp = GetAttribute(methodNode, "disp");
+                                            if (string.IsNullOrEmpty(isPublic) || isPublic == "true")
+                                            { bPublic = true; }
 
-                                    if (string.IsNullOrEmpty(methodDisp))
-                                    { methodDisp = methodName; }
+                                            string isReadonly = GetAttribute(propNode, "readonly");
+                                            bool bReadonly = false;
 
-                                    string methodDesc = GetAttribute(methodNode, "desc");
+                                            if (!string.IsNullOrEmpty(isReadonly) && isReadonly == "true")
+                                            { bReadonly = true; }
 
-                                    bool istask = (GetAttribute(methodNode, "istask") == "true");
-                                    //bool isevent = (GetAttribute(methodNode, "isevent") == "true");
+                                            string propType = GetAttribute(propNode, "type");
+                                            Type type = Plugin.GetTypeFromName(propType);
 
-                                    MemberType memberType = MemberType.Method;
+                                            string classname = GetAttribute(propNode, "classname");
 
-                                    if (istask) {
-                                        memberType = MemberType.Task;
+                                            if (string.IsNullOrEmpty(classname))
+                                            { classname = agent.AgentTypeName; }
+
+                                            string propDisp = GetAttribute(propNode, "disp");
+
+                                            if (string.IsNullOrEmpty(propDisp))
+                                            { propDisp = propName; }
+
+                                            string propDesc = GetAttribute(propNode, "desc");
+
+                                            PropertyDef prop = new PropertyDef(agent, type, classname, propName, propDisp, propDesc);
+                                            prop.IsStatic = bStatic;
+                                            prop.IsPublic = bPublic;
+                                            prop.IsReadonly = bReadonly;
+
+                                            string defaultValue = GetAttribute(propNode, "defaultvalue");
+
+                                            if (!string.IsNullOrEmpty(defaultValue))
+                                            {
+                                                prop.Variable = new VariableDef(null);
+                                                Plugin.InvokeTypeParser(result, type, defaultValue, (object value) => prop.Variable.Value = value, null);
+                                            }
+
+                                            agent.AddProperty(prop);
+                                        }
+                                        catch(Exception)
+                                        {
+                                            string errorInfo = string.Format("error when loading Agent '{0}' Member '{1}'", agentName, propName);
+                                            MessageBox.Show(errorInfo, "Loading Custom Meta", MessageBoxButtons.OK);
+                                        }
                                     }
+                                }
 
-                                    methodName = string.Format("{0}::{1}", agent.AgentTypeName, methodName);
+                            }
+                            else if (bbNode.Name == "methods")
+                            {
+                                foreach (XmlNode methodNode in bbNode)
+                                {
+                                    if (methodNode.Name == "method")
+                                    {
+                                        string methodName = GetAttribute(methodNode, "name");
+                                        try
+                                        {
+                                            Type returnType = Plugin.GetTypeFromName(GetAttribute(methodNode, "returntype"));
 
-                                    MethodDef method = new MethodDef(agent, memberType, classname, methodName, methodDisp, methodDesc, "", returnType);
-                                    method.IsStatic = bStatic;
-                                    method.IsPublic = bPublic;
+                                            string isStatic = GetAttribute(methodNode, "static");
+                                            bool bStatic = false;
 
-                                    agent.AddMethod(method);
+                                            if (!string.IsNullOrEmpty(isStatic) && isStatic == "true")
+                                            { bStatic = true; }
 
-                                    foreach(XmlNode paramNode in methodNode) {
-                                        string paramName = GetAttribute(paramNode, "name");
-                                        Type paramType = Plugin.GetTypeFromName(GetAttribute(paramNode, "type"));
-                                        bool isOut = (GetAttribute(paramNode, "isout") == "true");
-                                        bool isRef = (GetAttribute(paramNode, "isref") == "true");
-                                        string nativeType = Plugin.GetNativeTypeName(paramType);
+                                            string isPublic = GetAttribute(methodNode, "public");
+                                            bool bPublic = false;
 
-                                        string paramDisp = GetAttribute(paramNode, "disp");
+                                            if (string.IsNullOrEmpty(isPublic) || isPublic == "true")
+                                            { bPublic = true; }
 
-                                        if (string.IsNullOrEmpty(paramDisp))
-                                        { paramDisp = paramName; }
+                                            string classname = GetAttribute(methodNode, "classname");
 
-                                        string paramDesc = GetAttribute(paramNode, "desc");
+                                            if (string.IsNullOrEmpty(classname))
+                                            { classname = agent.AgentTypeName; }
 
-                                        MethodDef.Param param = new MethodDef.Param(paramName, paramType, nativeType, paramDisp, paramDesc);
-                                        param.IsOut = isOut;
-                                        param.IsRef = isRef;
+                                            string methodDisp = GetAttribute(methodNode, "disp");
 
-                                        method.Params.Add(param);
+                                            if (string.IsNullOrEmpty(methodDisp))
+                                            { methodDisp = methodName; }
+
+                                            string methodDesc = GetAttribute(methodNode, "desc");
+
+                                            bool istask = (GetAttribute(methodNode, "istask") == "true");
+                                            //bool isevent = (GetAttribute(methodNode, "isevent") == "true");
+
+                                            MemberType memberType = MemberType.Method;
+
+                                            if (istask)
+                                            {
+                                                memberType = MemberType.Task;
+                                            }
+
+                                            methodName = string.Format("{0}::{1}", agent.AgentTypeName, methodName);
+
+                                            MethodDef method = new MethodDef(agent, memberType, classname, methodName, methodDisp, methodDesc, "", returnType);
+                                            method.IsStatic = bStatic;
+                                            method.IsPublic = bPublic;
+
+                                            agent.AddMethod(method);
+
+                                            foreach (XmlNode paramNode in methodNode)
+                                            {
+                                                string paramName = GetAttribute(paramNode, "name");
+                                                Type paramType = Plugin.GetTypeFromName(GetAttribute(paramNode, "type"));
+                                                bool isOut = (GetAttribute(paramNode, "isout") == "true");
+                                                bool isRef = (GetAttribute(paramNode, "isref") == "true");
+                                                string nativeType = Plugin.GetNativeTypeName(paramType);
+
+                                                string paramDisp = GetAttribute(paramNode, "disp");
+
+                                                if (string.IsNullOrEmpty(paramDisp))
+                                                { paramDisp = paramName; }
+
+                                                string paramDesc = GetAttribute(paramNode, "desc");
+
+                                                MethodDef.Param param = new MethodDef.Param(paramName, paramType, nativeType, paramDisp, paramDesc);
+                                                param.IsOut = isOut;
+                                                param.IsRef = isRef;
+
+                                                method.Params.Add(param);
+                                            }
+                                        }
+                                        catch (Exception)
+                                        {
+                                            string errorInfo = string.Format("error when loading Agent '{0}' Method '{1}'", agentName, methodName);
+                                            MessageBox.Show(errorInfo, "Loading Custom Meta", MessageBoxButtons.OK);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+            }
+            catch(Exception)
+            {
+                string errorInfo = string.Format("error when loading custom members");
+
+                MessageBox.Show(errorInfo, "Loading Custom Meta", MessageBoxButtons.OK);
             }
         }
 
         private static void LoadCustomTypes(XmlNode rootNode) {
-            if (rootNode == null)
-            { return; }
-
-            CustomizedTypeManager.Instance.Enums.Clear();
-            CustomizedTypeManager.Instance.Structs.Clear();
-
-            foreach(XmlNode xmlNode in rootNode.ChildNodes) {
-                if (xmlNode.Name == "enumtype") {
-                    string enumName = GetAttribute(xmlNode, "Type");
-                    string[] enumNames = enumName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                    enumName = enumNames[enumNames.Length - 1];
-
-                    string displayName = GetAttribute(xmlNode, "DisplayName");
-                    string desc = GetAttribute(xmlNode, "Desc");
-
-                    CustomizedEnum customizedEnum = new CustomizedEnum(null);
-                    customizedEnum.Name = enumName;
-                    customizedEnum.DisplayName = displayName;
-                    customizedEnum.Description = desc;
-
-                    foreach(XmlNode memberNode in xmlNode.ChildNodes) {
-                        if (memberNode.Name == "enum") {
-                            string memberName = GetAttribute(memberNode, "Value");
-                            string[] memberNames = memberName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                            memberName = memberNames[memberNames.Length - 1];
-
-                            string memberDisplayName = GetAttribute(memberNode, "DisplayName");
-                            string memberDesc = GetAttribute(memberNode, "Desc");
-                            string memberValue = GetAttribute(memberNode, "MemberValue");
-
-                            CustomizedEnum.CustomizedEnumMember enumMember = new CustomizedEnum.CustomizedEnumMember(null);
-                            enumMember.Name = memberName;
-                            enumMember.DisplayName = memberDisplayName;
-                            enumMember.Description = memberDesc;
-
-                            try {
-                                enumMember.Value = int.Parse(memberValue);
-
-                            } catch {
-                                enumMember.Value = -1;
-                            }
-
-                            customizedEnum.Members.Add(enumMember);
-                        }
-                    }
-
-                    CustomizedTypeManager.Instance.Enums.Add(customizedEnum);
-
-                } else if (xmlNode.Name == "struct") {
-                    string structName = GetAttribute(xmlNode, "Type");
-                    string[] structNames = structName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                    structName = structNames[structNames.Length - 1];
-
-                    string displayName = GetAttribute(xmlNode, "DisplayName");
-                    string desc = GetAttribute(xmlNode, "Desc");
-
-                    CustomizedStruct customizedStruct = new CustomizedStruct(null);
-                    customizedStruct.Name = structName;
-                    customizedStruct.DisplayName = displayName;
-                    customizedStruct.Description = desc;
-
-                    foreach(XmlNode memberNode in xmlNode.ChildNodes) {
-                        if (memberNode.Name == "Member") {
-                            string memberName = GetAttribute(memberNode, "Name");
-                            string[] memberNames = memberName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                            memberName = memberNames[memberNames.Length - 1];
-
-                            string memberType = GetAttribute(memberNode, "Type");
-                            Type type = Plugin.GetTypeFromName(memberType);
-                            string memberDisplayName = GetAttribute(memberNode, "DisplayName");
-                            string memberDesc = GetAttribute(memberNode, "Desc");
-
-                            PropertyDef structProp = new PropertyDef(null, type, structName, memberName, memberDisplayName, memberDesc);
-                            customizedStruct.Properties.Add(structProp);
-                        }
-                    }
-
-                    CustomizedTypeManager.Instance.Structs.Add(customizedStruct);
+            try
+            {
+                if (rootNode == null)
+                {
+                    return;
                 }
+
+                CustomizedTypeManager.Instance.Enums.Clear();
+                CustomizedTypeManager.Instance.Structs.Clear();
+
+                foreach (XmlNode xmlNode in rootNode.ChildNodes)
+                {
+                    if (xmlNode.Name == "enumtype")
+                    {
+                        string enumName = GetAttribute(xmlNode, "Type");
+                        string[] enumNames = enumName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                        enumName = enumNames[enumNames.Length - 1];
+
+                        string displayName = GetAttribute(xmlNode, "DisplayName");
+                        string desc = GetAttribute(xmlNode, "Desc");
+
+                        CustomizedEnum customizedEnum = new CustomizedEnum(null);
+                        customizedEnum.Name = enumName;
+                        customizedEnum.DisplayName = displayName;
+                        customizedEnum.Description = desc;
+
+                        foreach (XmlNode memberNode in xmlNode.ChildNodes)
+                        {
+                            if (memberNode.Name == "enum")
+                            {
+                                string memberName = GetAttribute(memberNode, "Value");
+                                string[] memberNames = memberName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                                memberName = memberNames[memberNames.Length - 1];
+
+                                string memberDisplayName = GetAttribute(memberNode, "DisplayName");
+                                string memberDesc = GetAttribute(memberNode, "Desc");
+                                string memberValue = GetAttribute(memberNode, "MemberValue");
+
+                                CustomizedEnum.CustomizedEnumMember enumMember = new CustomizedEnum.CustomizedEnumMember(null);
+                                enumMember.Name = memberName;
+                                enumMember.DisplayName = memberDisplayName;
+                                enumMember.Description = memberDesc;
+
+                                try
+                                {
+                                    enumMember.Value = int.Parse(memberValue);
+
+                                }
+                                catch
+                                {
+                                    enumMember.Value = -1;
+                                }
+
+                                customizedEnum.Members.Add(enumMember);
+                            }
+                        }
+
+                        CustomizedTypeManager.Instance.Enums.Add(customizedEnum);
+
+                    }
+                    else if (xmlNode.Name == "struct")
+                    {
+                        string structName = GetAttribute(xmlNode, "Type");
+                        string[] structNames = structName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                        structName = structNames[structNames.Length - 1];
+
+                        string displayName = GetAttribute(xmlNode, "DisplayName");
+                        string desc = GetAttribute(xmlNode, "Desc");
+
+                        CustomizedStruct customizedStruct = new CustomizedStruct(null);
+                        customizedStruct.Name = structName;
+                        customizedStruct.DisplayName = displayName;
+                        customizedStruct.Description = desc;
+
+                        foreach (XmlNode memberNode in xmlNode.ChildNodes)
+                        {
+                            if (memberNode.Name == "Member")
+                            {
+                                string memberName = GetAttribute(memberNode, "Name");
+                                string[] memberNames = memberName.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                                memberName = memberNames[memberNames.Length - 1];
+
+                                string memberType = GetAttribute(memberNode, "Type");
+                                Type type = Plugin.GetTypeFromName(memberType);
+                                string memberDisplayName = GetAttribute(memberNode, "DisplayName");
+                                string memberDesc = GetAttribute(memberNode, "Desc");
+
+                                PropertyDef structProp = new PropertyDef(null, type, structName, memberName, memberDisplayName, memberDesc);
+                                customizedStruct.Properties.Add(structProp);
+                            }
+                        }
+
+                        CustomizedTypeManager.Instance.Structs.Add(customizedStruct);
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                string errorInfo = string.Format("errors when loading custom types");
+                MessageBox.Show(errorInfo, "Loading Meta", MessageBoxButtons.OK);
             }
         }
 

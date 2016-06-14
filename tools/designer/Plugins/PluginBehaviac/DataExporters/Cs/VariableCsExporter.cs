@@ -39,7 +39,8 @@ namespace PluginBehaviac.DataExporters
                     }
                     else if (Plugin.IsCustomClassType(type))
                     {
-                        StructCsExporter.GenerateCode(variable.Value, stream, indent + "\t\t\t", var, null, "");
+                        string nativeType = DataCsExporter.GetGeneratedNativeType(variable.NativeType);
+                        StructCsExporter.GenerateCode(variable.Value, stream, indent + "\t\t\t", var, nativeType, null, "");
                     }
                     else if ((Plugin.IsStringType(type) && !variable.IsConst))
                     {

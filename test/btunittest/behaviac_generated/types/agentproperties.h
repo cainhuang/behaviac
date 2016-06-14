@@ -105,6 +105,8 @@ namespace behaviac
 			bb->AddProperty("ChildNodeTest", false, "par_child_agent_1", "null", "AgentNodeTest");
 			bb->AddProperty("TestNS::Float2", false, "c_ReturnFloat2", "{x=0;y=0;}", "AgentNodeTest");
 			bb->AddProperty("TestNS::Float2", false, "c_ReturnFloat2Const", "{x=0;y=0;}", "AgentNodeTest");
+			bb->AddProperty("uint", false, "redirectCount", "0", "AgentNodeTest");
+			bb->AddProperty("uint", false, "redirectTime", "0", "AgentNodeTest");
 
 			// ChildNodeTest
 			bb = BEHAVIAC_NEW AgentProperties("ChildNodeTest");
@@ -115,6 +117,8 @@ namespace behaviac
 			bb->AddProperty("ChildNodeTest", false, "par_child_agent_1", "null", "ChildNodeTest");
 			bb->AddProperty("TestNS::Float2", false, "c_ReturnFloat2", "{x=0;y=0;}", "ChildNodeTest");
 			bb->AddProperty("TestNS::Float2", false, "c_ReturnFloat2Const", "{x=0;y=0;}", "ChildNodeTest");
+			bb->AddProperty("uint", false, "redirectCount", "0", "ChildNodeTest");
+			bb->AddProperty("uint", false, "redirectTime", "0", "ChildNodeTest");
 			bb->AddProperty("EnumTest", false, "testColor", "EnumTest_One", "ChildNodeTest");
 			bb->AddProperty("int", false, "testVar_0", "0", "ChildNodeTest");
 			bb->AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
@@ -137,6 +141,8 @@ namespace behaviac
 			bb->AddProperty("string", true, "c_StaticString", "", "CustomPropertyAgent");
 			bb->AddProperty("TNS::NE::NAT::eColor", false, "c_Enum", "RED", "CustomPropertyAgent");
 			bb->AddProperty("UnityEngine::Vector3", false, "c_Location", "{x=0;y=0;z=0;}", "CustomPropertyAgent");
+			bb->AddProperty("TestNamespace::ClassAsValueType", false, "TestMember1", "{x=0;y=0;}", "CustomPropertyAgent");
+			bb->AddProperty("TestNamespace::Float2", false, "TestMember2", "{x=0;y=0;}", "CustomPropertyAgent");
 
 			// EmployeeParTestAgent
 			bb = BEHAVIAC_NEW AgentProperties("EmployeeParTestAgent");

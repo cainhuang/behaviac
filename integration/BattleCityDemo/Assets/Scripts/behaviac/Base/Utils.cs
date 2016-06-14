@@ -825,7 +825,8 @@ namespace behaviac
                 return typeof(Agent);
             }
 
-            Type type = Agent.GetTypeFromName(typeName);
+            //Type type = Agent.GetTypeFromName(typeName);
+            Type type = AgentMeta.GetTypeFromName(typeName);
 
             if (type == null)
             {

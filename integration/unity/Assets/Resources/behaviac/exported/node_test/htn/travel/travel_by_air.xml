@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\htn\travel\travel_by_air.xml-->
-<behavior name="node_test/htn/travel/travel_by_air" agenttype="HTNAgentTravel" version="4">
+<behavior name="node_test/htn/travel/travel_by_air" agenttype="HTNAgentTravel" version="5">
   <pars>
     <par name="ax" type="int" value="0" />
     <par name="ay" type="int" value="0" />

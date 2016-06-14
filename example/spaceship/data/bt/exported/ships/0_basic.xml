@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: ships\0_basic.xml-->
-<behavior name="ships/0_basic" agenttype="framework::Ship" version="4">
+<behavior name="ships/0_basic" agenttype="framework::Ship" version="5">
   <pars>
     <par name="par_c" type="float" value="1000" />
   </pars>

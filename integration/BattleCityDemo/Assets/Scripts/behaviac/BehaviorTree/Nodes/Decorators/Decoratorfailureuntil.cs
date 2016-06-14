@@ -21,9 +21,9 @@ namespace behaviac
         {
         }
 
-        ~DecoratorFailureUntil()
-        {
-        }
+        //~DecoratorFailureUntil()
+        //{
+        //}
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {

@@ -289,11 +289,13 @@ namespace behaviac
 
     public abstract class BehaviorNode
     {
+#if BEHAVIAC_USE_HTN
         public virtual bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             Debug.Check(false, "Can't step into this line");
             return false;
         }
+#endif//
 
         public BehaviorTask CreateAndInitTask()
         {
@@ -357,10 +359,10 @@ namespace behaviac
         {
         }
 
-        ~BehaviorNode()
-        {
-            this.Clear();
-        }
+        //~BehaviorNode()
+        //{
+        //    this.Clear();
+        //}
 
         public void Clear()
         {
@@ -1448,7 +1450,7 @@ namespace behaviac
     public class BehaviorTree : BehaviorNode
     {
         //keep this version equal to designers' NewVersion
-        private const int SupportedVersion = 4;
+        private const int SupportedVersion = 5;
 
         private Dictionary<uint, ICustomizedProperty> m_localProps;
         public Dictionary<uint, ICustomizedProperty> LocalProps

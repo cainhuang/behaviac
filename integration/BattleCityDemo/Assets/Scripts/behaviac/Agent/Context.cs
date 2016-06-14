@@ -70,15 +70,15 @@ namespace behaviac
             m_IsExecuting = false;
         }
 
-        ~Context()
-        {
-            m_IsExecuting = false;
+        //~Context()
+        //{
+        //    m_IsExecuting = false;
 
-            delayAddedAgents.Clear();
-            delayRemovedAgents.Clear();
+        //    delayAddedAgents.Clear();
+        //    delayRemovedAgents.Clear();
 
-            this.CleanupInstances();
-        }
+        //    this.CleanupInstances();
+        //}
 
         private int GetContextId()
         {

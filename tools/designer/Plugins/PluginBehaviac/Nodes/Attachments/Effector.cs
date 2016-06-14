@@ -49,7 +49,7 @@ namespace PluginBehaviac.Events
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/attachment/#section"; }
+            get { return "http://www.behaviac.com/language/zh/attachment/#section"; }
         }
 
         public override string ExportClass

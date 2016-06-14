@@ -139,13 +139,16 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>418, 669</value>
+    <value>418, 707</value>
   </data>
   <data name="addMemberButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>504, 259</value>
   </data>
   <data name="&gt;&gt;memberCountLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="exportFolderLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
   </data>
   <data name="&gt;&gt;downMemberButton.Parent" xml:space="preserve">
     <value>$this</value>
@@ -154,10 +157,10 @@
     <value>504, 211</value>
   </data>
   <data name="&gt;&gt;removeTypeButton.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;typeLabel.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="&gt;&gt;downMemberButton.Name" xml:space="preserve">
     <value>downMemberButton</value>
@@ -172,10 +175,16 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;downMemberButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;typeBrowseButton.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;memberListBox.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>22</value>
+  </data>
+  <data name="memberFilterTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 21</value>
   </data>
   <data name="&gt;&gt;memberCountLabel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -196,16 +205,16 @@
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;closeButton.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>23</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>607, 734</value>
+    <value>607, 772</value>
   </data>
   <data name="okButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;upMemberButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;closeButton.Parent" xml:space="preserve">
     <value>$this</value>
@@ -217,7 +226,10 @@
     <value>memberListLabel</value>
   </data>
   <data name="&gt;&gt;typeListBox.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
+  </data>
+  <data name="exportTypeTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 677</value>
   </data>
   <data name="memberTypeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -235,16 +247,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;addMemberButton.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="memberListLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 12</value>
+  </data>
+  <data name="&gt;&gt;typeBrowseButton.Name" xml:space="preserve">
+    <value>typeBrowseButton</value>
   </data>
   <data name="&gt;&gt;memberTypeComboBox.Name" xml:space="preserve">
     <value>memberTypeComboBox</value>
   </data>
   <data name="&gt;&gt;addTypeButton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;metaTypePanel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -255,8 +270,11 @@
   <data name="okButton.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
-  <data name="memberFilterTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 21</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Meta Browser</value>
+  </data>
+  <data name="&gt;&gt;exportFolderLabel.Name" xml:space="preserve">
+    <value>exportFolderLabel</value>
   </data>
   <data name="addMemberButton.Text" xml:space="preserve">
     <value>Add</value>
@@ -273,11 +291,17 @@
   <data name="downMemberButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="&gt;&gt;exportTypeTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="&gt;&gt;addTypeButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="memberListBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="typeBrowseButton.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
   </data>
   <data name="typeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -292,13 +316,13 @@
     <value>Start With</value>
   </data>
   <data name="&gt;&gt;memberFilterCheckBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="addTypeButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>504, 21</value>
   </data>
   <data name="memberListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>485, 122</value>
+    <value>485, 134</value>
   </data>
   <data name="applyButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 22</value>
@@ -306,17 +330,23 @@
   <data name="okButton.Text" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="applyButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="downMemberButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="&gt;&gt;addMemberButton.Parent" xml:space="preserve">
     <value>$this</value>
+  </data>
+  <data name="typeBrowseButton.Text" xml:space="preserve">
+    <value>...</value>
   </data>
   <data name="&gt;&gt;typeLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="closeButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 22</value>
+  </data>
+  <data name="addMemberButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="&gt;&gt;downMemberButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -333,11 +363,17 @@
   <data name="typeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="exportFolderLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 13</value>
+  </data>
   <data name="&gt;&gt;instanceComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="downMemberButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
+  </data>
+  <data name="upMemberButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="&gt;&gt;okButton.Name" xml:space="preserve">
     <value>okButton</value>
@@ -351,6 +387,9 @@
   <data name="memberTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 215</value>
   </data>
+  <data name="&gt;&gt;exportTypeTextBox.Name" xml:space="preserve">
+    <value>exportTypeTextBox</value>
+  </data>
   <data name="&gt;&gt;memberFilterLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -363,6 +402,9 @@
   <data name="instanceLabel.Text" xml:space="preserve">
     <value>Instance Name:</value>
   </data>
+  <data name="&gt;&gt;typeBrowseButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="instanceLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 12</value>
   </data>
@@ -370,16 +412,16 @@
     <value>Member List:</value>
   </data>
   <data name="&gt;&gt;memberTypeLabel.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="memberListLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="okButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
   <data name="&gt;&gt;instanceComboBox.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>21</value>
   </data>
   <data name="memberCountLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -396,6 +438,9 @@
   <data name="typeLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 5</value>
   </data>
+  <data name="instanceComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
   <data name="closeButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
@@ -411,9 +456,6 @@
   <data name="&gt;&gt;addTypeButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="typeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="removeMemberButton.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
@@ -422,9 +464,6 @@
   </data>
   <data name="&gt;&gt;typeLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="downMemberButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
   </data>
   <data name="closeButton.Text" xml:space="preserve">
     <value>Cancel</value>
@@ -442,7 +481,7 @@
     <value>Flat</value>
   </data>
   <data name="&gt;&gt;metaTypePanel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;upMemberButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -453,14 +492,17 @@
   <data name="&gt;&gt;memberTypeComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;exportTypeTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;memberCountLabel.Name" xml:space="preserve">
     <value>memberCountLabel</value>
   </data>
   <data name="memberFilterCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="memberFilterTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>321, 213</value>
+  <data name="typeBrowseButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;memberTypeLabel.Name" xml:space="preserve">
     <value>memberTypeLabel</value>
@@ -474,17 +516,14 @@
   <data name="&gt;&gt;memberTypeLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="memberFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 24</value>
-  </data>
   <data name="memberTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 12</value>
   </data>
   <data name="upMemberButton.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
-  <data name="instanceComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="exportFolderLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="upMemberButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 22</value>
@@ -501,11 +540,11 @@
   <data name="memberTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 211</value>
   </data>
-  <data name="&gt;&gt;memberFilterLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="memberFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 24</value>
   </data>
   <data name="&gt;&gt;okButton.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 22</value>
@@ -516,8 +555,8 @@
   <data name="downMemberButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 22</value>
   </data>
-  <data name="typeListBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;instanceComboBox.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="memberTypeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -534,14 +573,20 @@
   <data name="&gt;&gt;typeListBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;instanceComboBox.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="typeBrowseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="applyButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="applyButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
+  <data name="typeBrowseButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 21</value>
+  </data>
+  <data name="&gt;&gt;instanceLabel.Name" xml:space="preserve">
+    <value>instanceLabel</value>
+  </data>
+  <data name="&gt;&gt;exportFolderLabel.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="memberCountLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>11, 12</value>
@@ -555,11 +600,11 @@
   <data name="memberFilterLabel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
+  <data name="memberTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 20</value>
+  </data>
   <data name="instanceLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Meta Browser</value>
   </data>
   <data name="removeTypeButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -576,8 +621,8 @@
   <data name="memberTypeComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
-  <data name="downMemberButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 354</value>
+  <data name="&gt;&gt;memberFilterLabel.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="typeListBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 21</value>
@@ -597,6 +642,9 @@
   <data name="addMemberButton.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
+  <data name="exportFolderLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="removeMemberButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 22</value>
   </data>
@@ -606,8 +654,11 @@
   <data name="&gt;&gt;memberTypeComboBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="instanceComboBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
+  <data name="instanceComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>394, 20</value>
+  </data>
+  <data name="exportFolderLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="removeTypeButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -615,14 +666,14 @@
   <data name="removeMemberButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;memberFilterCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MetaStoreDock</value>
   </data>
   <data name="instanceLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="memberFilterLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="exportTypeTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>383, 21</value>
   </data>
   <data name="memberListLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 240</value>
@@ -634,7 +685,7 @@
     <value>memberFilterTextBox</value>
   </data>
   <data name="&gt;&gt;memberFilterLabel.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="addTypeButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 22</value>
@@ -642,17 +693,23 @@
   <data name="closeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
+  <data name="exportFolderLabel.Text" xml:space="preserve">
+    <value>Type Generated Path:</value>
+  </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;instanceLabel.Name" xml:space="preserve">
-    <value>instanceLabel</value>
+  <data name="&gt;&gt;applyButton.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;removeMemberButton.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
-  <data name="memberTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 20</value>
+  <data name="memberFilterLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="typeBrowseButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>534, 677</value>
   </data>
   <data name="&gt;&gt;typeListBox.Name" xml:space="preserve">
     <value>typeListBox</value>
@@ -669,8 +726,8 @@
   <data name="memberListBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 259</value>
   </data>
-  <data name="instanceComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="&gt;&gt;memberFilterCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="memberFilterLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 12</value>
@@ -5543,11 +5600,23 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
+  <data name="&gt;&gt;upMemberButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="memberListLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
   <data name="applyButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>331, 669</value>
+    <value>331, 707</value>
+  </data>
+  <data name="&gt;&gt;exportFolderLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="typeBrowseButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="exportTypeTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
   </data>
   <data name="memberListLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5555,17 +5624,23 @@
   <data name="&gt;&gt;removeMemberButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="okButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
   <data name="&gt;&gt;memberFilterLabel.Name" xml:space="preserve">
     <value>memberFilterLabel</value>
   </data>
+  <data name="downMemberButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>504, 354</value>
+  </data>
+  <data name="exportFolderLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 680</value>
+  </data>
   <data name="&gt;&gt;instanceLabel.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>24</value>
   </data>
   <data name="memberFilterLabel.Text" xml:space="preserve">
     <value>Member Filter:</value>
+  </data>
+  <data name="removeTypeButton.Text" xml:space="preserve">
+    <value>Remove</value>
   </data>
   <data name="addTypeButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -5577,19 +5652,22 @@
     <value>26</value>
   </data>
   <data name="&gt;&gt;memberTypeComboBox.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
-  <data name="&gt;&gt;upMemberButton.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="instanceComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="exportTypeTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
   </data>
   <data name="memberTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;memberFilterTextBox.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="&gt;&gt;applyButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;upMemberButton.Name" xml:space="preserve">
     <value>upMemberButton</value>
@@ -5604,7 +5682,7 @@
     <value>504, 48</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>591, 696</value>
+    <value>591, 734</value>
   </data>
   <data name="downMemberButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -5612,14 +5690,20 @@
   <data name="typeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="addMemberButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="&gt;&gt;exportTypeTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;exportFolderLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="memberFilterLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>232, 216</value>
   </data>
-  <data name="instanceComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 20</value>
+  <data name="applyButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="instanceComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="memberCountLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -5636,11 +5720,11 @@
   <data name="metaTypePanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>231, 15</value>
   </data>
-  <data name="&gt;&gt;applyButton.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="applyButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
-  <data name="removeTypeButton.Text" xml:space="preserve">
-    <value>Remove</value>
+  <data name="exportFolderLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
   <data name="removeTypeButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -5649,10 +5733,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="closeButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 669</value>
+    <value>504, 707</value>
   </data>
   <data name="&gt;&gt;memberCountLabel.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="typeLabel.Text" xml:space="preserve">
     <value>Type List:</value>
@@ -5660,20 +5744,23 @@
   <data name="applyButton.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MetaStoreDock</value>
+  <data name="typeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;memberListLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="memberFilterTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>321, 213</value>
   </data>
   <data name="&gt;&gt;memberListLabel.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="&gt;&gt;addTypeButton.Name" xml:space="preserve">
     <value>addTypeButton</value>
   </data>
-  <data name="upMemberButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="&gt;&gt;typeBrowseButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;memberListLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="okButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -5681,17 +5768,20 @@
   <data name="memberTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="&gt;&gt;metaTypePanel.Name" xml:space="preserve">
-    <value>metaTypePanel</value>
+  <data name="typeListBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="closeButton.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
   </data>
   <data name="&gt;&gt;metaTypePanel.Type" xml:space="preserve">
-    <value>Behaviac.Design.MetaTypePanel, BehaviacDesigner, Version=3.3.9.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Behaviac.Design.MetaTypePanel, BehaviacDesigner, Version=3.5.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="addTypeButton.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
+  </data>
+  <data name="&gt;&gt;metaTypePanel.Name" xml:space="preserve">
+    <value>metaTypePanel</value>
   </data>
   <data name="memberFilterLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>

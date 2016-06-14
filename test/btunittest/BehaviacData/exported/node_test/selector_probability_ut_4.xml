@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\selector_probability_ut_4.xml-->
-<behavior name="node_test/selector_probability_ut_4" agenttype="AgentNodeTest" version="4">
+<behavior name="node_test/selector_probability_ut_4" agenttype="AgentNodeTest" version="5">
   <node class="DecoratorLoop" id="15">
     <property Count="const int 1" />
     <property DecorateWhenChildEnds="true" />

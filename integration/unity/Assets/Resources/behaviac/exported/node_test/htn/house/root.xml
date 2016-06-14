@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\htn\house\root.xml-->
-<behavior name="node_test/htn/house/root" agenttype="HTNAgentHouse" version="4">
+<behavior name="node_test/htn/house/root" agenttype="HTNAgentHouse" version="5">
   <node class="Task" id="1">
     <property Prototype="Self.HTNAgentHouse::root()" />
     <property IsHTN="true" />

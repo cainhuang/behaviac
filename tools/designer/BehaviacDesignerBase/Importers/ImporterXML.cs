@@ -337,25 +337,31 @@ namespace Behaviac.Design.Importers
                     }
 
                     XmlNode versionNode = rootNode.Attributes["version"];
-                    bool bInvalid = false;
+                    bool bValid = false;
 
                     if (versionNode == null)
                     {
-                        bInvalid = true;
+                        //bInvalid = true;
                     }
                     else
                     {
-                        float version = float.Parse(versionNode.Value);
-
-                        if (version < 2.0)
+                        try
                         {
-                            bInvalid = true;
+                            int version = int.Parse(versionNode.Value);
+
+                            if (version >= 5)
+                            {
+                                bValid = true;
+                            }
+                        }
+                        catch(Exception)
+                        {
                         }
                     }
 
-                    if (bInvalid)
+                    if (!bValid)
                     {
-                        string msg = string.Format("{0}: \n{1}", Resources.InvalidMeta, xmlFilename);
+                        string msg = string.Format(Resources.InvalidMetaInfo, xmlFilename);
                         System.Windows.Forms.MessageBox.Show(msg, Resources.LoadError, MessageBoxButtons.OK);
                         return false;
                     }
@@ -368,6 +374,7 @@ namespace Behaviac.Design.Importers
                 }
 
                 Plugin.SourceLanguage = (languageNode != null) ? languageNode.Value : "";
+                Debug.Check(Plugin.SourceLanguage == "cpp" || Plugin.SourceLanguage == "cs", "only cpp or cs are supported now");
 
                 Stream s = File.Open(csFilename, FileMode.Create);
                 StreamWriter wrtr = new StreamWriter(s);
@@ -713,7 +720,9 @@ namespace Behaviac.Design.Importers
                 string enumName = HandleHierarchyName(typeNode.Value);
 
                 if (typeNode.Value == "behaviac::EBTStatus" || nodeDict.ContainsKey(enumName))
+                {
                     return;
+                }
 
                 Plugin.AllMetaTypes.Add(typeNode.Value);
 

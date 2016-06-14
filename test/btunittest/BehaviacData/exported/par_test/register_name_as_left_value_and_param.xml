@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\register_name_as_left_value_and_param.xml-->
-<behavior name="par_test/register_name_as_left_value_and_param" agenttype="EmployeeParTestAgent" version="4">
+<behavior name="par_test/register_name_as_left_value_and_param" agenttype="EmployeeParTestAgent" version="5">
   <node class="Sequence" id="0">
     <node class="Assignment" id="1">
       <property Opl="static TNS::ST::PER::WRK::kEmployee ParTestRegNameAgent.ParTestRegNameAgent::STV_KEMPLOYEE_0" />

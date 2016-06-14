@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Level_DeathMatch_0.xml-->
-<behavior name="Level_DeathMatch_0" agenttype="GameLevelCommon" version="4">
+<behavior name="Level_DeathMatch_0" agenttype="GameLevelCommon" version="5">
   <pars>
     <par name="parT_SpawnCountPerWave" type="int" value="0" />
     <par name="parT_WaveCount" type="int" value="10" />

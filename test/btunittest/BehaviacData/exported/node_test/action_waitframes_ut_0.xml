@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\action_waitframes_ut_0.xml-->
-<behavior name="node_test/action_waitframes_ut_0" agenttype="AgentNodeTest" version="4">
+<behavior name="node_test/action_waitframes_ut_0" agenttype="AgentNodeTest" version="5">
   <pars>
     <par name="par_frame_count" type="int" value="5" />
   </pars>

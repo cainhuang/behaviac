@@ -19,9 +19,9 @@ namespace behaviac
         {
         }
 
-        ~ConditionBase()
-        {
-        }
+        //~ConditionBase()
+        //{
+        //}
 
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
@@ -41,9 +41,9 @@ namespace behaviac
         {
         }
 
-        ~ConditionBaseTask()
-        {
-        }
+        //~ConditionBaseTask()
+        //{
+        //}
 
         protected override bool onenter(Agent pAgent)
         {

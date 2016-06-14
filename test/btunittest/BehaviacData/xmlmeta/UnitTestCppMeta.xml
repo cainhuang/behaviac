@@ -1,10 +1,10 @@
-<metas version="3.0" language="cpp">
+<metas version="5" language="cpp">
 	<types>
 		<enumtype Type="behaviac::EBTStatus" DisplayName="BT状态" Desc="BT状态">
-			<enum NativeValue="behaviac::BT_INVALID" Value="invalid" DisplayName="" Desc="" />
-			<enum NativeValue="behaviac::BT_SUCCESS" Value="success" DisplayName="" Desc="" />
-			<enum NativeValue="behaviac::BT_FAILURE" Value="failure" DisplayName="" Desc="" />
-			<enum NativeValue="behaviac::BT_RUNNING" Value="running" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_INVALID" Value="BT_INVALID" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_SUCCESS" Value="BT_SUCCESS" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_FAILURE" Value="BT_FAILURE" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_RUNNING" Value="BT_RUNNING" DisplayName="" Desc="" />
 		</enumtype>
 		<enumtype Type="EnumTest" DisplayName="" Desc="">
 			<enum NativeValue="EnumTest_One" Value="EnumTest_One" DisplayName="" Desc="" />
@@ -27,6 +27,14 @@
 		</enumtype>
 		<struct Type="IList" DisplayName="" Desc="" IsRefType="false" />
 		<struct Type="System::Object" DisplayName="" Desc="" IsRefType="false" />
+		<struct Type="TestNamespace::ClassAsValueType" DisplayName="" Desc="" IsRefType="false">
+			<Member Name="x" DisplayName="" Desc="" Type="float" Class="TestNamespace::ClassAsValueType" />
+			<Member Name="y" DisplayName="" Desc="" Type="float" Class="TestNamespace::ClassAsValueType" />
+		</struct>
+		<struct Type="TestNamespace::Float2" DisplayName="" Desc="" IsRefType="false">
+			<Member Name="x" DisplayName="" Desc="" Type="float" Class="TestNamespace::Float2" />
+			<Member Name="y" DisplayName="" Desc="" Type="float" Class="TestNamespace::Float2" />
+		</struct>
 		<struct Type="TestNS::Float2" DisplayName="" Desc="" IsRefType="false">
 			<Member Name="x" DisplayName="" Desc="" Type="float" Class="myFloat2" />
 			<Member Name="y" DisplayName="" Desc="" Type="float" Class="myFloat2" />
@@ -334,6 +342,12 @@
 			<Member Name="Location" DisplayName="" Desc="" Type="UnityEngine::Vector3" Class="CustomPropertyAgent" />
 			<Method Name="FnWithOutParam" DisplayName="" Desc="" Class="CustomPropertyAgent" ReturnType="void">
 				<Param DisplayName="" Desc="" Type="int&amp;" />
+			</Method>
+			<Method Name="TestFn1" DisplayName="" Desc="" Class="CustomPropertyAgent" ReturnType="void">
+				<Param DisplayName="" Desc="" Type="const TestNamespace::Float2&amp;" />
+			</Method>
+			<Method Name="TestFn2" DisplayName="" Desc="" Class="CustomPropertyAgent" ReturnType="void">
+				<Param DisplayName="" Desc="" Type="TestNamespace::ClassAsValueType*" />
 			</Method>
 		</agent>
 		<agent classfullname="EmployeeParTestAgent" base="ParTestAgent" DisplayName="" Desc="" IsRefType="true">

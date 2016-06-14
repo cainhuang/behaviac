@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\readonly_default.xml-->
-<behavior name="par_test/readonly_default" agenttype="PropertyReadonlyAgent" version="4">
+<behavior name="par_test/readonly_default" agenttype="PropertyReadonlyAgent" version="5">
   <node class="Sequence" id="0">
     <node class="Assignment" id="3">
       <property Opl="int Self.PropertyReadonlyAgent::PropertyGetterSetter" />

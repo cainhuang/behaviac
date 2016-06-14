@@ -582,7 +582,9 @@ namespace behaviac
             }
 #endif
 
+#if BEHAVIAC_USE_HTN
             PlannerTask.Cleanup();
+#endif//
 
             LogManager.Instance.Close();
 
@@ -598,7 +600,9 @@ namespace behaviac
 
                 AgentMeta.Register();
 
+#if !BEHAVIAC_RELEASE
                 this.RegisterMetas();
+#endif
             }
         }
 
@@ -607,7 +611,9 @@ namespace behaviac
             Debug.Check(this.m_bRegistered);
 
             this.UnRegisterBehaviorNode();
+#if !BEHAVIAC_RELEASE
             this.UnRegisterMetas();
+#endif
 
             AgentMeta.UnRegister();
 
@@ -1775,8 +1781,6 @@ namespace behaviac
 
         #endregion Load
 
-        #region ExportMeta
-
         private Dictionary<string, Type> m_behaviorNodeTypes = new Dictionary<string, Type>();
 
         private void UnRegisterBehaviorNode()
@@ -1819,6 +1823,8 @@ namespace behaviac
             return null;
         }
 
+        #region ExportMeta
+#if !BEHAVIAC_RELEASE
         private string GetFullTypeName(Type type, bool isValue = false)
         {
             string baseTypeName = Utils.GetNativeTypeName(type);
@@ -2133,6 +2139,7 @@ namespace behaviac
                 CollectEnumTypeField(types, returnType);
             }
         }
+#endif//BEHAVIAC_RELEASE
 
 #if !BEHAVIAC_RELEASE
 
@@ -2144,6 +2151,7 @@ namespace behaviac
                 string desc = displayName;
 
                 Attribute[] attributes = (Attribute[])type.GetCustomAttributes(typeof(behaviac.TypeMetaInfoAttribute), false);
+                ERefType refType = ERefType.ERT_Undefined;
 
                 if (attributes.Length > 0)
                 {
@@ -2158,6 +2166,8 @@ namespace behaviac
                     {
                         desc = cda.Description;
                     }
+
+                    refType = cda.RefType;
                 }
 
                 string typeFullName = GetFullTypeName(type);
@@ -2167,10 +2177,23 @@ namespace behaviac
                 xmlWriter.WriteAttributeString("Type", typeFullName);
                 xmlWriter.WriteAttributeString("DisplayName", displayName);
                 xmlWriter.WriteAttributeString("Desc", desc);
-                xmlWriter.WriteAttributeString("IsRefType", type.IsClass ? "true" : "false");
+
+
+                bool bIsRefType = type.IsClass;
+                if (refType == ERefType.ERT_ValueType)
+                {
+                    bIsRefType = false;
+                }
+                else
+                {
+                    //if refType is undefined, a class is a ref type while a struct is a value type 
+                }
+
+                xmlWriter.WriteAttributeString("IsRefType", bIsRefType ? "true" : "false");
 
                 // members
-                if (!Utils.IsRefNullType(type))
+                //if (!Utils.IsRefNullType(type))
+                if (!bIsRefType)
                 {
                     ExportType(xmlWriter, type, false, onlyExportPublicMembers);
                 }
@@ -2536,7 +2559,7 @@ namespace behaviac
             }
         }
 
-#endif
+#endif//BEHAVIAC_RELEASE
 
         public bool ExportMetas(string xmlMetaFilePath, bool onlyExportPublicMembers)
         {
@@ -2574,7 +2597,7 @@ namespace behaviac
                             xmlWriter.WriteComment("EXPORTED BY TOOL, DON'T MODIFY IT!");
 
                             xmlWriter.WriteStartElement("metas");
-                            xmlWriter.WriteAttributeString("version", "3.0");
+                            xmlWriter.WriteAttributeString("version", "5");
                             xmlWriter.WriteAttributeString("language", "cs");
 
                             // export all types
@@ -2637,6 +2660,7 @@ namespace behaviac
 
                                     xmlWriter.WriteAttributeString("DisplayName", objectDesc.displayName);
                                     xmlWriter.WriteAttributeString("Desc", objectDesc.desc);
+                                    //agent is a ref type no matter TypeMetaInfoAttribute
                                     xmlWriter.WriteAttributeString("IsRefType", "true");
 
                                     if (Utils.IsStaticType(agentType))
@@ -2655,6 +2679,7 @@ namespace behaviac
 
                                     xmlWriter.WriteAttributeString("DisplayName", "");
                                     xmlWriter.WriteAttributeString("Desc", "");
+                                    //agent is a ref type no matter TypeMetaInfoAttribute
                                     xmlWriter.WriteAttributeString("IsRefType", "true");
 
                                     if (Utils.IsStaticType(agentType))
@@ -2696,8 +2721,9 @@ namespace behaviac
                     behaviac.Debug.LogError(ex.Message);
                 }
             }
-
-#endif
+#else
+            Debug.LogWarning("when BEHAVIAC_RELEASE is defined, no Meta will be exported!");
+#endif//BEHAVIAC_RELEASE
             return false;
         }
 
@@ -2706,6 +2732,21 @@ namespace behaviac
             return ExportMetas(exportPathRelativeToWorkspace, false);
         }
 
+        private Assembly m_callingAssembly = null;
+        private Assembly CallingAssembly
+        {
+            get
+            {
+                if (m_callingAssembly == null)
+                {
+                    m_callingAssembly = Assembly.GetCallingAssembly();
+                }
+
+                return m_callingAssembly;
+            }
+        }
+
+#if !BEHAVIAC_RELEASE
         private class TypeInfo_t
         {
             public Type type;
@@ -2745,20 +2786,6 @@ namespace behaviac
             });
 
             return p != -1;
-        }
-
-        private Assembly m_callingAssembly = null;
-        private Assembly CallingAssembly
-        {
-            get
-            {
-                if (m_callingAssembly == null)
-                {
-                    m_callingAssembly = Assembly.GetCallingAssembly();
-                }
-
-                return m_callingAssembly;
-            }
         }
 
         private bool m_metaRegistered = false;
@@ -3111,7 +3138,7 @@ namespace behaviac
                 //Debug.LogWarning(msg);
             }
         }
-
+#endif//BEHAVIAC_RELEASE
         #endregion ExportMeta
     }
 }

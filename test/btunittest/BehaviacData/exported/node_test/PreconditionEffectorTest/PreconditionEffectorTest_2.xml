@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\PreconditionEffectorTest\PreconditionEffectorTest_2.xml-->
-<behavior name="node_test/PreconditionEffectorTest/PreconditionEffectorTest_2" agenttype="PreconEffectorAgent" version="4">
+<behavior name="node_test/PreconditionEffectorTest/PreconditionEffectorTest_2" agenttype="PreconEffectorAgent" version="5">
   <node class="DecoratorLoop" id="7">
     <property Count="const int -1" />
     <property DecorateWhenChildEnds="true" />

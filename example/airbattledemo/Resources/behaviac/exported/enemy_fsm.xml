@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: enemy_fsm.xml-->
-<behavior name="enemy_fsm" agenttype="Enemy" fsm="true" version="4">
+<behavior name="enemy_fsm" agenttype="Enemy" fsm="true" version="5">
   <pars>
     <par name="frameCount" type="int" value="0" />
   </pars>

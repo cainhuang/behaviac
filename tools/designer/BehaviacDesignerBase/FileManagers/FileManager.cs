@@ -251,7 +251,10 @@ public abstract class FileManager : ICloneable
         }
 
         if (rootLength < 1)
-        { throw new Exception("Relative path goes further up than the depth of the absolute path"); }
+        {
+            //throw new Exception("Relative path goes further up than the depth of the absolute path");
+            rootLength = 1;
+        }
 
         // add absolute path base
         string absolute = string.Empty;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Tank_WalkUtilCollision.xml-->
-<behavior name="Tank_WalkUtilCollision" agenttype="Player" version="4">
+<behavior name="Tank_WalkUtilCollision" agenttype="Player" version="5">
   <pars>
     <par name="parT_moveTarget" type="UnityEngine::Vector3" value="{x=0;y=0;z=0;}" />
     <par name="parIn_Self" type="Player" value="null" />

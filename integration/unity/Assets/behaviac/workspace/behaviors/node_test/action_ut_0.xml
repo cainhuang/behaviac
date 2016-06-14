@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Behavior Version="4">
+<Behavior Version="5">
   <Node Class="Behaviac.Design.Nodes.Behavior" AgentType="AgentNodeTest" Domains="" Enable="true" HasOwnPrefabData="false" Id="-1" PrefabName="" PrefabNodeId="-1">
     <Comment Background="NoColor" Text="" />
     <Parameters>
@@ -13,6 +13,7 @@
     <Connector Identifier="GenericChildren">
       <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="0" PrefabName="" PrefabNodeId="-1">
         <Comment Background="NoColor" Text="" />
+        <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="15" Operator="Equal" Opl="Self.AgentNodeTest::Move()" Opr1="&quot;&quot;" Opr2="const behaviac::EBTStatus BT_RUNNING" Phase="Enter" PrefabAttachmentId="-1" />
         <Connector Identifier="GenericChildren">
           <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="14" Method="Self.AgentNodeTest::initChildAgentTest()" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS">
             <Comment Background="NoColor" Text="" />

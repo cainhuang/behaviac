@@ -15,6 +15,18 @@ using System;
 
 namespace behaviac
 {
+    public enum ERefType
+    {
+        /**by default, a class is a ref type while a struct is a value type 
+         * 
+         * a ref type in designer will be displayed as a 'pointer, which is not expanded so that its members can't be configured individually
+         **/
+        ERT_Undefined, 
+
+        //forced to be a value type
+        ERT_ValueType
+    }
+
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum, AllowMultiple = false, Inherited = false)]
     public class TypeMetaInfoAttribute : Attribute
     {
@@ -24,8 +36,20 @@ namespace behaviac
             this.desc_ = description;
         }
 
+        public TypeMetaInfoAttribute(string displayName, string description, ERefType refType)
+        {
+            this.displayName_ = displayName;
+            this.desc_ = description;
+            this.refType_ = refType;
+        }
+
         public TypeMetaInfoAttribute()
         {
+        }
+
+        public TypeMetaInfoAttribute(ERefType refType)
+        {
+            this.refType_ = refType;
         }
 
         private string displayName_;
@@ -44,6 +68,17 @@ namespace behaviac
             get
             {
                 return this.desc_;
+            }
+        }
+
+        //0, by default, class is reftype while struct is value type
+        //1, even it is a class, it is still as a value type in designer
+        private ERefType refType_ = ERefType.ERT_Undefined;
+        public ERefType RefType
+        {
+            get
+            {
+                return refType_;
             }
         }
     }

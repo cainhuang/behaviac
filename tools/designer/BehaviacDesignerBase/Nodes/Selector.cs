@@ -56,7 +56,7 @@ namespace Behaviac.Design.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/selector/"; }
+            get { return "http://www.behaviac.com/language/zh/selector/"; }
         }
 
         public override string ExportClass {

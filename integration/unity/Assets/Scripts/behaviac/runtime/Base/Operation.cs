@@ -15,6 +15,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace behaviac
@@ -186,26 +187,56 @@ namespace behaviac
             }
         }
 
-        public static Func<TArg1, TArg2, bool> MakeEqualsMethod<TArg1, TArg2>()
+        public static Func<TArg1, TArg2, bool> MakeMemberEqualsMethod<TArg1, TArg2>()
         {
             try
             {
-                Type type = typeof(TArg1);
-                ParameterExpression pThis = Expression.Parameter(type, "lhs");
-                ParameterExpression pThat = Expression.Parameter(type, "rhs");
+                Type type1 = typeof(TArg1);
+                Type type2 = typeof(TArg1);
+                Debug.Check(Utils.IsCustomStructType(type1));
 
-                // cast to the subclass type
-                UnaryExpression pCastThis = Expression.Convert(pThis, type);
-                UnaryExpression pCastThat = Expression.Convert(pThat, type);
+                ParameterExpression pThis = Expression.Parameter(type1, "lhs");
+                ParameterExpression pThat = Expression.Parameter(type2, "rhs");
+
+                // cast to the subclass type1
+                UnaryExpression pCastThis = Expression.Convert(pThis, type1);
+                UnaryExpression pCastThat = Expression.Convert(pThat, type2);
 
                 // compound AND expression using short-circuit evaluation
                 Expression last = null;
-                foreach (PropertyInfo property in type.GetProperties())
+                BindingFlags bindingFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
+                foreach (FieldInfo field in type1.GetFields(bindingFlags))
                 {
-                    BinaryExpression equals = Expression.Equal(
-                        Expression.Property(pCastThis, property),
-                        Expression.Property(pCastThat, property)
-                    );
+                    BinaryExpression equals = null;
+
+                    if (field.FieldType == typeof(System.Char))
+                    {
+                        //Char needs to be checked before primitive
+                        MethodInfo CharEquals = typeof(Extensions).GetMethod("CharEquals");
+                        equals = Expression.Equal(
+                            Expression.Field(pCastThis, field),
+                            Expression.Field(pCastThat, field),
+                            false,
+                            CharEquals
+                        );
+                    }
+                    else if (field.FieldType.IsPrimitive || field.FieldType == typeof (string) || field.FieldType.IsEnum)
+                    {
+                        equals = Expression.Equal(
+                            Expression.Field(pCastThis, field),
+                            Expression.Field(pCastThat, field)
+                        );
+                    }
+                    else
+                    {
+                        MethodInfo TypesEquals = typeof(Extensions).GetMethod("TypesEquals").MakeGenericMethod(field.FieldType); ;
+                        equals = Expression.Equal(
+                            Expression.Field(pCastThis, field),
+                            Expression.Field(pCastThat, field),
+                            false,
+                            TypesEquals
+                        );
+                    }
 
                     if (last == null)
                         last = equals;
@@ -213,11 +244,13 @@ namespace behaviac
                         last = Expression.AndAlso(last, equals);
                 }
 
-                // call Object.Equals if second parameter doesn't match type
+                //Expression<Func<bool>> falsePredicate = () => false;
+                Expression falsePredicate = Expression.Constant(false);
+                // call Object.Equals if second parameter doesn't match type1
                 last = Expression.Condition(
-                    Expression.TypeIs(pThat, type),
+                    Expression.TypeIs(pThat, type1),
                     last,
-                    Expression.Equal(pThis, pThat)
+                    falsePredicate
                 );
 
                 // compile method
@@ -229,6 +262,93 @@ namespace behaviac
                 return delegate { throw new InvalidOperationException(msg); };
             }
         }
+
+        class Extensions
+        {
+            /// more than ten times faster than SequenceEquals
+            public static bool ListsAreEqual<T>(List<T> a, List<T> b)
+            {
+                // if both are null, ReferenceEquals returns true
+                if (Object.ReferenceEquals(a, b))
+                {
+                    return true;
+                }
+
+                if (a == null || b == null)
+                {
+                    return false;
+                }
+
+                if (a.Count != b.Count)
+                {
+                    return false;
+                }
+
+                //EqualityComparer<T> comparer = EqualityComparer<T>.Default;
+                //return !b1.Where((t, i) => !comparer.Equals(t, b2[i])).Any();
+
+                for (int i = 0; i < a.Count; ++i)
+                {
+                    T ai = a[i];
+                    T bi = b[i];
+
+                    bool bEqual = OperationUtils.Compare(ai, bi, EOperatorType.E_EQUAL);
+                    if (!bEqual)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            public static bool CharEquals(System.Char a, System.Char b)
+            {
+                return a == b;
+            }
+
+            public static bool TypesEquals<T>(T a, T b)
+            {
+                return OperationUtils.Compare(a, b, EOperatorType.E_EQUAL);
+            }
+        }
+
+        //Debug.Log(System.Enviroment.Version);
+        public static Func<TArg1, TArg2, bool> MakeItemEqualsMethod<TArg1, TArg2>()
+        {
+            try
+            {
+                Type type1 = typeof(TArg1);
+                Type type2 = typeof(TArg1);
+                Debug.Check(Utils.IsArrayType(type1));
+
+                ParameterExpression pThis = Expression.Parameter(type1, "lhs");
+                ParameterExpression pThat = Expression.Parameter(type2, "rhs");
+
+                // cast to the subclass type1
+                UnaryExpression pCastThis = Expression.Convert(pThis, type1);
+                UnaryExpression pCastThat = Expression.Convert(pThat, type2);
+
+                Type elementType = type1.GetGenericArguments()[0];
+                MethodInfo enEqualsMethod = typeof(Extensions).GetMethod("ListsAreEqual").MakeGenericMethod(elementType);
+                Expression equals = Expression.Call(enEqualsMethod, pCastThis, pCastThat);
+
+                Expression last = Expression.Condition(
+                    Expression.TypeIs(pThat, type1),
+                    equals,
+                    Expression.Constant(false)
+                );
+
+                // compile method
+                return Expression.Lambda<Func<TArg1, TArg2, bool>>(last, pThis, pThat).Compile();
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+                return delegate { throw new InvalidOperationException(msg); };
+            }
+        }
+
     }
 
     public static class Operator<T>
@@ -241,8 +361,12 @@ namespace behaviac
         public static Func<T, T, T> Divide { get { return divide; } }
 
         static readonly Func<T, T, bool> memberEqual, equal, notEqual, greaterThan, lessThan, greaterThanOrEqual, lessThanOrEqual;
+        static readonly Func<T, T, bool> itemEqual;
 
         public static Func<T, T, bool> MemberEqual { get { return memberEqual; } }
+
+        public static Func<T, T, bool> ItemEqual { get { return itemEqual; } }
+
         public static Func<T, T, bool> Equal { get { return equal; } }
         public static Func<T, T, bool> NotEqual { get { return notEqual; } }
         public static Func<T, T, bool> GreaterThan { get { return greaterThan; } }
@@ -268,9 +392,13 @@ namespace behaviac
                 lessThanOrEqual = ExpressionUtil.CreateExpression<T, T, bool>(Expression.LessThanOrEqual);
             }
 
-            if (Utils.IsCustomStructType(type) || Utils.IsArrayType(type))
+            if (Utils.IsCustomStructType(type))
             {
-                memberEqual = ExpressionUtil.MakeEqualsMethod<T, T>();
+                memberEqual = ExpressionUtil.MakeMemberEqualsMethod<T, T>();
+            }
+            else if (Utils.IsArrayType(type))
+            {
+                itemEqual = ExpressionUtil.MakeItemEqualsMethod<T, T>();
             }
             else
             {
@@ -321,63 +449,71 @@ namespace behaviac
             return EOperatorType.E_INVALID;
         }
 
-        private static bool MemberCompare(object left, object right)
-        {
-            if (Object.ReferenceEquals(left, right))
-                return true;
+        //private static bool MemberCompare(object left, object right)
+        //{
+        //    if (Object.ReferenceEquals(left, right))
+        //        return true;
 
-            if (left == null || right == null)
-                return false;
+        //    if (left == null || right == null)
+        //        return false;
 
-            Type type = left.GetType();
-            if (type != right.GetType())
-                return false;
+        //    Type type = left.GetType();
+        //    if (type != right.GetType())
+        //        return false;
 
-            if (left as ValueType != null)
-                return left.Equals(right);
+        //    if (left as ValueType != null)
+        //        return left.Equals(right);
 
-            if (left as IEnumerable != null)
-            {
-                IEnumerator rightEnumerator = (right as IEnumerable).GetEnumerator();
-                rightEnumerator.Reset();
-                foreach (object leftItem in left as IEnumerable)
-                {
-                    if (!rightEnumerator.MoveNext())
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        if (!MemberCompare(leftItem, rightEnumerator.Current))
-                            return false;
-                    }
-                }
-            }
-            else
-            {
-                Debug.Check(false);
-            }
+        //    if (left as IEnumerable != null)
+        //    {
+        //        IEnumerator rightEnumerator = (right as IEnumerable).GetEnumerator();
+        //        rightEnumerator.Reset();
+        //        foreach (object leftItem in left as IEnumerable)
+        //        {
+        //            if (!rightEnumerator.MoveNext())
+        //            {
+        //                return false;
+        //            }
+        //            else
+        //            {
+        //                if (!MemberCompare(leftItem, rightEnumerator.Current))
+        //                    return false;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Debug.Check(false);
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         public static bool Compare<T>(T left, T right, EOperatorType comparisonType)
         {
             Type type = typeof(T);
 
-            if (Utils.IsCustomStructType(type) || Utils.IsArrayType(type))
+            if (Utils.IsCustomStructType(type))
             {
+                //bool bEqual = MemberCompare(left, right);
+                bool bEqual = Operator<T>.MemberEqual(left, right);
+
                 switch (comparisonType)
                 {
-                    case EOperatorType.E_EQUAL: return MemberCompare(left, right);
-                    case EOperatorType.E_NOTEQUAL: return !MemberCompare(left, right);
+                    case EOperatorType.E_EQUAL: return bEqual;
+                    case EOperatorType.E_NOTEQUAL: return !bEqual;
                 }
+            }
+            else if (Utils.IsArrayType(type))
+            {
+                //bool bEqual = MemberCompare(left, right);
+                bool bEqual = Operator<T>.ItemEqual(left, right);
 
-                //switch (comparisonType)
-                //{
-                //    case EOperatorType.E_EQUAL: return Operator<T>.MemberEqual(left, right);
-                //    case EOperatorType.E_NOTEQUAL: return !Operator<T>.MemberEqual(left, right);
-                //}
+                switch (comparisonType)
+                {
+                    case EOperatorType.E_EQUAL: return bEqual;
+                    case EOperatorType.E_NOTEQUAL: return !bEqual;
+                }
             }
             else if (Utils.IsStringType(type) || type == typeof(bool))
             {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: ships\1_3_suicide.xml-->
-<behavior name="ships/1_3_suicide" agenttype="framework::Ship" version="4">
+<behavior name="ships/1_3_suicide" agenttype="framework::Ship" version="5">
   <node class="SelectorLoop" id="1">
     <node class="WithPrecondition" id="2">
       <node class="Condition" id="3">

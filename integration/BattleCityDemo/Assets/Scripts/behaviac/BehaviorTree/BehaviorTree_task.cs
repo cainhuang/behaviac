@@ -13,6 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace behaviac
 {
@@ -114,6 +115,32 @@ namespace behaviac
             return null;
         }
 
+#if !BEHAVIAC_RELEASE
+        struct AutoProfileBlockSend
+        {
+            string classId_;
+            Agent agent_;
+            float time_;
+
+            public AutoProfileBlockSend(string taskClassid, Agent agent)
+            {
+                this.classId_ = taskClassid;
+                this.agent_ = agent;
+                this.time_ = Time.realtimeSinceStartup; 
+            }
+
+            public void Close()
+            {
+                float endTime = Time.realtimeSinceStartup; 
+
+                //micro second
+                long duration = (long)((endTime - this.time_) * 1000000.0f);
+
+                LogManager.Instance.Log(this.agent_, this.classId_, duration);
+            }
+        }
+#endif
+
         public EBTStatus exec(Agent pAgent)
         {
             EBTStatus childStatus = EBTStatus.BT_RUNNING;
@@ -126,6 +153,12 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
             Debug.Check(this.m_node == null || this.m_node.IsValid(pAgent, this),
                         string.Format("Agent In BT:{0} while the Agent used for: {1}", this.m_node.GetAgentType(), pAgent.GetClassTypeName()));
+
+            string classStr = (this.m_node != null ? this.m_node.GetClassNameString() : "BT");
+            int nodeId = (this.m_node != null ? this.m_node.GetId() : -1);
+            string taskClassid = string.Format("{0}[{1}]", classStr, nodeId);
+
+            AutoProfileBlockSend profiler_block = new AutoProfileBlockSend(taskClassid, pAgent);
 #endif//#if !BEHAVIAC_RELEASE
             bool bEnterResult = false;
 
@@ -195,6 +228,10 @@ namespace behaviac
             {
                 this.m_status = EBTStatus.BT_FAILURE;
             }
+
+#if !BEHAVIAC_RELEASE
+            profiler_block.Close();
+#endif
 
             return this.m_status;
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\static_property_as_left_value_and_param.xml-->
-<behavior name="par_test/static_property_as_left_value_and_param" agenttype="EmployeeParTestAgent" version="4">
+<behavior name="par_test/static_property_as_left_value_and_param" agenttype="EmployeeParTestAgent" version="5">
   <node class="Sequence" id="0">
     <node class="Sequence" id="1">
       <node class="Assignment" id="4">

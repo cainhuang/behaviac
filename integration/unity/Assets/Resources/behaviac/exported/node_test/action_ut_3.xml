@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\action_ut_3.xml-->
-<behavior name="node_test/action_ut_3" agenttype="AgentNodeTest" version="4">
+<behavior name="node_test/action_ut_3" agenttype="AgentNodeTest" version="5">
   <pars>
     <par name="par_float_type_0" type="float" value="0" />
     <par name="par_float_type_1" type="float" value="0" />
@@ -31,6 +31,11 @@
     <node class="Action" id="5">
       <property Method="Self.AgentNodeTest::setTestVar_3(float Self.AgentNodeTest::par_float_type_0)" />
       <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Condition" id="6">
+      <property Operator="GreaterEqual" />
+      <property Opl="uint Self.AgentNodeTest::redirectCount" />
+      <property Opr="uint Self.AgentNodeTest::redirectTime" />
     </node>
   </node>
 </behavior>

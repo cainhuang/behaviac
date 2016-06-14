@@ -31,7 +31,7 @@ namespace PluginBehaviac.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/selectorprobability/"; }
+            get { return "http://www.behaviac.com/language/zh/selectorprobability/"; }
         }
 
         public override string ExportClass

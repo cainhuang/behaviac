@@ -203,7 +203,7 @@ public interface BehaviorNode :
         }
 
         //please update BehaviorTree.SupportedVersion when you update the NewVersion
-        public static int NewVersion = 4;
+        public static int NewVersion = 5;
 
         private int _version = NewVersion;
         public int Version {

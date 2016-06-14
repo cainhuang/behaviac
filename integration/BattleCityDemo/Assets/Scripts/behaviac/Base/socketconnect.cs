@@ -67,9 +67,9 @@ namespace behaviac
             m_bHandleMessage = false;
         }
 
-        ~ConnectorImpl()
-        {
-        }
+        //~ConnectorImpl()
+        //{
+        //}
 
         private void SendInitialSettings()
         {

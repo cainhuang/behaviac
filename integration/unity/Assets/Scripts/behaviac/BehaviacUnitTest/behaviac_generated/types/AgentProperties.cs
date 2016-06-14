@@ -1838,6 +1838,8 @@ namespace behaviac
 			meta.RegisterCustomizedProperty(448638693, new CCustomizedProperty<ChildNodeTest>(448638693, "par_child_agent_1", "null"));
 			meta.RegisterCustomizedProperty(257770974, new CCustomizedProperty<TestNS.Float2>(257770974, "c_ReturnFloat2", "{x=0;y=0;}"));
 			meta.RegisterCustomizedProperty(2482280992, new CCustomizedProperty<TestNS.Float2>(2482280992, "c_ReturnFloat2Const", "{x=0;y=0;}"));
+			meta.RegisterCustomizedProperty(767249388, new CCustomizedProperty<uint>(767249388, "redirectCount", "0"));
+			meta.RegisterCustomizedProperty(3775965105, new CCustomizedProperty<uint>(3775965105, "redirectTime", "0"));
 			meta.RegisterMethod(3417736963, new CAgentMethod<bool>(delegate(Agent self) { return (bool)AgentMetaVisitor.ExecuteMethod(self, "CanSeeEnemy", null); }));
 			meta.RegisterMethod(3841737076, new CAgentMethod<TestNS.Node>(delegate(Agent self) { return (TestNS.Node)AgentMetaVisitor.ExecuteMethod(self, "createExtendedNode", null); }));
 			meta.RegisterMethod(612351346, new CAgentMethod<UnityEngine.GameObject>(delegate(Agent self) { return ((AgentNodeTest)self).createGameObject(); }));
@@ -1897,6 +1899,8 @@ namespace behaviac
 			meta.RegisterCustomizedProperty(448638693, new CCustomizedProperty<ChildNodeTest>(448638693, "par_child_agent_1", "null"));
 			meta.RegisterCustomizedProperty(257770974, new CCustomizedProperty<TestNS.Float2>(257770974, "c_ReturnFloat2", "{x=0;y=0;}"));
 			meta.RegisterCustomizedProperty(2482280992, new CCustomizedProperty<TestNS.Float2>(2482280992, "c_ReturnFloat2Const", "{x=0;y=0;}"));
+			meta.RegisterCustomizedProperty(767249388, new CCustomizedProperty<uint>(767249388, "redirectCount", "0"));
+			meta.RegisterCustomizedProperty(3775965105, new CCustomizedProperty<uint>(3775965105, "redirectTime", "0"));
 			meta.RegisterMemberProperty(198962147, new CMemberProperty<EnumTest>("testColor", delegate(Agent self, EnumTest value) { ((ChildNodeTest)self).testColor = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testColor; }));
 			meta.RegisterMemberProperty(2970758673, new CMemberProperty<int>("testVar_0", delegate(Agent self, int value) { ((ChildNodeTest)self).testVar_0 = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testVar_0; }));
 			meta.RegisterMemberProperty(2819170128, new CMemberProperty<int>("testVar_1", delegate(Agent self, int value) { ((ChildNodeTest)self).testVar_1 = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testVar_1; }));
@@ -1971,7 +1975,11 @@ namespace behaviac
 			meta.RegisterStaticCustomizedProperty(2438934774, new CCustomizedProperty<string>(2438934774, "c_StaticString", ""));
 			meta.RegisterCustomizedProperty(99975606, new CCustomizedProperty<TNS.NE.NAT.eColor>(99975606, "c_Enum", "RED"));
 			meta.RegisterCustomizedProperty(1335260864, new CCustomizedProperty<UnityEngine.Vector3>(1335260864, "c_Location", "{x=0;y=0;z=0;}"));
+			meta.RegisterCustomizedProperty(476653369, new CCustomizedProperty<TestNamespace.ClassAsValueType>(476653369, "TestMember1", "{x=0;y=0;}"));
+			meta.RegisterCustomizedProperty(927233274, new CCustomizedProperty<TestNamespace.Float2>(927233274, "TestMember2", "{x=0;y=0;}"));
 			meta.RegisterMethod(537561990, new CMethod_CustomPropertyAgent_FnWithOutParam());
+			meta.RegisterMethod(3084186706, new CAgentMethodVoid<TestNamespace.Float2>(delegate(Agent self, TestNamespace.Float2 param0) { ((CustomPropertyAgent)self).TestFn1(param0); }));
+			meta.RegisterMethod(2633607057, new CAgentMethodVoid<TestNamespace.ClassAsValueType>(delegate(Agent self, TestNamespace.ClassAsValueType param0) { ((CustomPropertyAgent)self).TestFn2(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2454,6 +2462,8 @@ namespace behaviac
 			AgentMeta.Register<TestNS.Node>("TestNS.Node");
 			AgentMeta.Register<TestNS.Float2>("TestNS.Float2");
 			AgentMeta.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
+			AgentMeta.Register<TestNamespace.Float2>("TestNamespace.Float2");
+			AgentMeta.Register<TestNamespace.ClassAsValueType>("TestNamespace.ClassAsValueType");
 			AgentMeta.Register<TNS.ST.PER.WRK.kEmployee>("TNS.ST.PER.WRK.kEmployee");
 			AgentMeta.Register<TNS.ST.kCar>("TNS.ST.kCar");
 			AgentMeta.Register<StructTest>("StructTest");
@@ -2471,25 +2481,8 @@ namespace behaviac
 			AgentMeta.Register<ParTestRegNameAgent>("ParTestRegNameAgent");
 			AgentMeta.Register<PreconEffectorAgent>("PreconEffectorAgent");
 			AgentMeta.Register<PropertyReadonlyAgent>("PropertyReadonlyAgent");
-			Agent.RegisterStaticClass(typeof(StaticAgent), "StaticAgent", "StaticAgent");
 			AgentMeta.Register<TestNS.AgentArrayAccessTest>("TestNS.AgentArrayAccessTest");
 
-			Workspace.Instance.AddAgentType(typeof(behaviac.Agent), false);
-			Workspace.Instance.AddAgentType(typeof(AgentNodeTest), false);
-			Workspace.Instance.AddAgentType(typeof(ChildNodeTest), false);
-			Workspace.Instance.AddAgentType(typeof(CustomPropertyAgent), false);
-			Workspace.Instance.AddAgentType(typeof(EmployeeParTestAgent), false);
-			Workspace.Instance.AddAgentType(typeof(FSMAgentTest), false);
-			Workspace.Instance.AddAgentType(typeof(HTNAgentHouseBase), false);
-			Workspace.Instance.AddAgentType(typeof(HTNAgentHouse), false);
-			Workspace.Instance.AddAgentType(typeof(HTNAgentTravel), false);
-			Workspace.Instance.AddAgentType(typeof(ParTestAgentBase), false);
-			Workspace.Instance.AddAgentType(typeof(ParTestAgent), false);
-			Workspace.Instance.AddAgentType(typeof(ParTestRegNameAgent), false);
-			Workspace.Instance.AddAgentType(typeof(PreconEffectorAgent), false);
-			Workspace.Instance.AddAgentType(typeof(PropertyReadonlyAgent), false);
-			Workspace.Instance.AddAgentType(typeof(StaticAgent), false);
-			Workspace.Instance.AddAgentType(typeof(TestNS.AgentArrayAccessTest), false);
 		}
 
 		static partial void unRegisterMeta()
@@ -2504,6 +2497,8 @@ namespace behaviac
 			AgentMeta.UnRegister<TestNS.Node>("TestNS.Node");
 			AgentMeta.UnRegister<TestNS.Float2>("TestNS.Float2");
 			AgentMeta.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
+			AgentMeta.UnRegister<TestNamespace.Float2>("TestNamespace.Float2");
+			AgentMeta.UnRegister<TestNamespace.ClassAsValueType>("TestNamespace.ClassAsValueType");
 			AgentMeta.UnRegister<TNS.ST.PER.WRK.kEmployee>("TNS.ST.PER.WRK.kEmployee");
 			AgentMeta.UnRegister<TNS.ST.kCar>("TNS.ST.kCar");
 			AgentMeta.UnRegister<StructTest>("StructTest");

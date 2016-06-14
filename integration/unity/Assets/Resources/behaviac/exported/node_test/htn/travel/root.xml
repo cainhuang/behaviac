@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\htn\travel\root.xml-->
-<behavior name="node_test/htn/travel/root" agenttype="HTNAgentTravel" version="4">
+<behavior name="node_test/htn/travel/root" agenttype="HTNAgentTravel" version="5">
   <pars>
     <par name="start" type="int" value="0" />
     <par name="finish" type="int" value="0" />

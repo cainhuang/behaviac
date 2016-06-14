@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
-<metas version="3.0" language="cs">
+<metas version="5" language="cs">
   <types>
     <enumtype Type="EnumTest" DisplayName="EnumTest" Desc="EnumTest">
       <enum NativeValue="EnumTest_One" Value="EnumTest_One" DisplayName="EnumTest_One" Desc="EnumTest_One" />
@@ -44,6 +44,14 @@
       <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="UnityEngine::Vector3" Public="true" />
       <Member Name="y" DisplayName="y" Desc="y" Type="float" Class="UnityEngine::Vector3" Public="true" />
       <Member Name="z" DisplayName="z" Desc="z" Type="float" Class="UnityEngine::Vector3" Public="true" />
+    </struct>
+    <struct Type="TestNamespace::Float2" DisplayName="Float2" Desc="Float2 structure" IsRefType="false">
+      <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="TestNamespace::Float2" Public="true" />
+      <Member Name="y" DisplayName="y" Desc="y" Type="float" Class="TestNamespace::Float2" Public="true" />
+    </struct>
+    <struct Type="TestNamespace::ClassAsValueType" DisplayName="ClassAsValueType" Desc="ClassAsValueType" IsRefType="false">
+      <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="TestNamespace::ClassAsValueType" Public="true" />
+      <Member Name="y" DisplayName="y" Desc="y" Type="float" Class="TestNamespace::ClassAsValueType" Public="true" />
     </struct>
     <struct Type="TNS::ST::PER::WRK::kEmployee" DisplayName="kEmployee" Desc="kEmployee" IsRefType="false">
       <Member Name="id" DisplayName="id" Desc="id" Type="int" Class="TNS::ST::PER::WRK::kEmployee" Public="true" />
@@ -181,6 +189,12 @@
       <Member Name="Location" DisplayName="" Desc="" Type="UnityEngine::Vector3" Class="CustomPropertyAgent" Public="true" />
       <Member Name="IntProperty" DisplayName="" Desc="" Type="int" Class="CustomPropertyAgent" Public="true" />
       <Member Name="FloatPropertyReadonly" DisplayName="" Desc="" Type="float" Class="CustomPropertyAgent" Readonly="true" Public="true" />
+      <Method Name="TestFn1" DisplayName="" Desc="" ReturnType="void" Class="CustomPropertyAgent" Public="true">
+        <Param DisplayName="v" Desc="v" Type="TestNamespace::Float2" />
+      </Method>
+      <Method Name="TestFn2" DisplayName="" Desc="" ReturnType="void" Class="CustomPropertyAgent" Public="true">
+        <Param DisplayName="v" Desc="v" Type="TestNamespace::ClassAsValueType*" />
+      </Method>
       <Method Name="FnWithOutParam" DisplayName="" Desc="" ReturnType="void" Class="CustomPropertyAgent" Public="true">
         <Param DisplayName="param" Desc="param" Type="int" IsOut="true" />
       </Method>

@@ -90,7 +90,7 @@ namespace Behaviac.Design.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/action/"; }
+            get { return "http://www.behaviac.com/language/zh/action/"; }
         }
 
         public override string Description {

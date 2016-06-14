@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Level_DeathMatch_1.xml-->
-<behavior name="Level_DeathMatch_1" agenttype="GameLevelCommon" version="4">
+<behavior name="Level_DeathMatch_1" agenttype="GameLevelCommon" version="5">
   <pars>
     <par name="parT_PlayerIDs" type="vector&lt;int&gt;" value="4:10|11|12|13" />
     <par name="parT_ID" type="int" value="0" />

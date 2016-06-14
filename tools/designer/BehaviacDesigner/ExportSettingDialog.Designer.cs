@@ -175,6 +175,7 @@ namespace Behaviac.Design
             this.exportFolderTextBox.ForeColor = System.Drawing.Color.LightGray;
             this.exportFolderTextBox.Name = "exportFolderTextBox";
             this.exportFolderTextBox.ReadOnly = true;
+            this.exportFolderTextBox.TextChanged += new System.EventHandler(this.exportFolderTextBox_TextChanged);
             // 
             // browseButton
             // 
@@ -190,6 +191,7 @@ namespace Behaviac.Design
             // 
             resources.ApplyResources(this.exportFolderLabel, "exportFolderLabel");
             this.exportFolderLabel.Name = "exportFolderLabel";
+            this.exportFolderLabel.Click += new System.EventHandler(this.exportFolderLabel_Click);
             // 
             // unifiedCheckBox
             // 

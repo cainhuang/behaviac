@@ -33,7 +33,7 @@ namespace PluginBehaviac.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/waitframes/"; }
+            get { return "http://www.behaviac.com/language/zh/waitframes/"; }
         }
 
         public override string ExportClass

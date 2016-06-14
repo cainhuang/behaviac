@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\fsm\fsm_ut_0.xml-->
-<behavior name="node_test/fsm/fsm_ut_0" agenttype="FSMAgentTest" fsm="true" version="4">
+<behavior name="node_test/fsm/fsm_ut_0" agenttype="FSMAgentTest" fsm="true" version="5">
   <node class="FSM" id="-1">
     <property initialid="3" />
     <node class="State" id="3">

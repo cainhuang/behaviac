@@ -21,9 +21,9 @@ namespace behaviac
         {
         }
 
-        ~DecoratorRepeat()
-        {
-        }
+        //~DecoratorRepeat()
+        //{
+        //}
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -59,9 +59,9 @@ namespace behaviac
             {
             }
 
-            ~DecoratorRepeatTask()
-            {
-            }
+            //~DecoratorRepeatTask()
+            //{
+            //}
 
             public override void copyto(BehaviorTask target)
             {

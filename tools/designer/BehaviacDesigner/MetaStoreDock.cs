@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -230,6 +231,15 @@ namespace Behaviac.Design
                 }
             }
 
+            // save the export path
+            string wsFilename = Workspace.Current.FileName.Replace('/', '\\');
+            string exportFolder = this.exportTypeTextBox.Text.Replace('/', '\\');
+            exportFolder = Workspace.MakeRelative(exportFolder, wsFilename, true, true);
+            exportFolder = exportFolder.Replace('\\', '/');
+
+            Workspace.Current.SetExportInfo(Plugin.SourceLanguage, Workspace.Current.ShouldBeExported(Plugin.SourceLanguage), Workspace.Current.ExportedUnifiedFile(Plugin.SourceLanguage), exportFolder);
+            Workspace.SaveWorkspaceFile(Workspace.Current);
+
             if (refreshWorkspace && isBlackboardDirty)
             {
                 // refresh the meta
@@ -300,6 +310,8 @@ namespace Behaviac.Design
             }
 
             this.memberTypeComboBox.SelectedIndex = _lastMemberTypeIndex;
+
+            this.exportTypeTextBox.Text = Workspace.Current.GetExportAbsoluteFolder(Plugin.SourceLanguage);
 
             _initialized = true;
         }
@@ -1743,6 +1755,29 @@ namespace Behaviac.Design
         private void MetaStoreDock_Resize(object sender, EventArgs e)
         {
             setMetaPanelLocation();
+        }
+
+        private void typeBrowseButton_Click(object sender, EventArgs e)
+        {
+            using (Ookii.Dialogs.VistaFolderBrowserDialog dialog = new Ookii.Dialogs.VistaFolderBrowserDialog())
+            {
+                dialog.Description = "Type Location";
+                dialog.SelectedPath = this.exportTypeTextBox.Text;
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    string driveStr0 = Path.GetPathRoot(Workspace.Current.FileName);
+                    string driveStr1 = Path.GetPathRoot(dialog.SelectedPath);
+
+                    if (driveStr1 != driveStr0)
+                    {
+                        MessageBox.Show(Resources.WorkspaceExportRootWarning, Resources.Warning, MessageBoxButtons.OK);
+                        return;
+                    }
+
+                    this.exportTypeTextBox.Text = dialog.SelectedPath;
+                }
+            }
         }
     }
 }

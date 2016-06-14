@@ -426,7 +426,7 @@ namespace behaviac
             std::sort(metasSorted.begin(), metasSorted.end(), MetaComparator());
 
             XmlNodeRef metasNode = CreateXmlNode("metas");
-            metasNode->setAttr("version", "3.0");
+            metasNode->setAttr("version", "5");
             metasNode->setAttr("language", "cpp");
 
             // collect all types
@@ -556,7 +556,8 @@ namespace behaviac
             CFileSystem::MakeSureDirectoryExist(xmlMetaFilePath);
             return metasNode->saveToFile(xmlMetaFilePath);
         }
-
+#else
+		BEHAVIAC_LOGWARNING("when BEHAVIAC_RELEASE is defined, no Meta will be exported!");
 #endif//BEHAVIAC_RELEASE
         return false;
     }

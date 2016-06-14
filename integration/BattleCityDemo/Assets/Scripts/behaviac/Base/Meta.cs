@@ -27,6 +27,7 @@ namespace behaviac
 
         private static Dictionary<uint, AgentMeta> _agentMetas = new Dictionary<uint, AgentMeta>();
         private static Dictionary<string, TypeCreator> _Creators = new Dictionary<string, TypeCreator>();
+        private static Dictionary<string, Type> _typesRegistered = new Dictionary<string, Type>();
 
         public static void Register()
         {
@@ -45,6 +46,16 @@ namespace behaviac
             _Creators.Clear();
         }
 
+        public static Type GetTypeFromName(string typeName)
+        {
+            if (_typesRegistered.ContainsKey(typeName))
+            {
+                return _typesRegistered[typeName];
+            }
+
+            return null;
+        }
+
         static partial void registerMeta();
 
         static partial void unRegisterMeta();
@@ -61,24 +72,43 @@ namespace behaviac
         {
             Dictionary<uint, IInstantiatedVariable> vars = new Dictionary<uint, IInstantiatedVariable>();
 
-            foreach (KeyValuePair<uint, ICustomizedProperty> pair in _customizedProperties)
+            //instance customzied properties
             {
-                vars[pair.Key] = pair.Value.Instantiate();
+                var e = this._customizedProperties.Keys.GetEnumerator();
+                while (e.MoveNext())
+                {
+                    uint id = e.Current;
+                    ICustomizedProperty pCustomProperty = this._customizedProperties[id];
+
+                    vars[id] = pCustomProperty.Instantiate();
+                }
             }
 
             if (_customizedStaticVars == null)
             {
                 _customizedStaticVars = new Dictionary<uint, IInstantiatedVariable>();
 
-                foreach (KeyValuePair<uint, ICustomizedProperty> pair in _customizedStaticProperties)
+                var e = this._customizedStaticProperties.Keys.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    _customizedStaticVars[pair.Key] = pair.Value.Instantiate();
+                    uint id = e.Current;
+                    ICustomizedProperty pCustomProperty = this._customizedStaticProperties[id];
+
+                    this._customizedStaticVars[id] = pCustomProperty.Instantiate();
                 }
             }
 
-            foreach (KeyValuePair<uint, IInstantiatedVariable> pair in _customizedStaticVars)
+            //static customzied properties
             {
-                vars[pair.Key] = pair.Value;
+                var e = this._customizedStaticVars.Keys.GetEnumerator();
+                while (e.MoveNext())
+                {
+                    uint id = e.Current;
+                    IInstantiatedVariable pVar = this._customizedStaticVars[id];
+
+                    vars[id] = pVar; 
+                }
+
             }
 
             return vars;
@@ -104,33 +134,6 @@ namespace behaviac
             _methods[methodId] = method;
         }
 
-#if !BEHAVIAC_RELEASE
-        public void LogPropertyValue(Agent agent)
-        {
-            List<IProperty> properties = new List<IProperty>();
-
-            foreach (KeyValuePair<uint, IProperty> pair in _memberProperties)
-            {
-                properties.Add(pair.Value);
-            }
-
-            foreach (KeyValuePair<uint, ICustomizedProperty> pair in _customizedProperties)
-            {
-                properties.Add(pair.Value);
-            }
-
-            foreach (KeyValuePair<uint, ICustomizedProperty> pair in _customizedStaticProperties)
-            {
-                properties.Add(pair.Value);
-            }
-
-            foreach (IProperty prop in properties)
-            {
-                prop.Log(agent);
-            }
-        }
-#endif
-
         public IProperty GetProperty(uint propId)
         {
             if (_customizedStaticProperties.ContainsKey(propId))
@@ -151,6 +154,11 @@ namespace behaviac
                 return _memberProperties[propId];
 
             return null;
+        }
+
+        public Dictionary<uint, IProperty> GetMemberProperties()
+        {
+            return _memberProperties;
         }
 
         public IMethod GetMethod(uint methodId)
@@ -323,11 +331,15 @@ namespace behaviac
             TypeCreator tcl = new TypeCreator(CreatorProperty<List<T>>, CreatorArrayItemProperty<List<T>>, CreatorInstanceProperty<List<T>>, CreatorInstanceConst<List<T>>);
             _Creators[vectorTypeName] = tcl;
 
+            _typesRegistered[typeName] = typeof(T);
+
             return true;
         }
 
         public static void UnRegister<T>(string typeName)
         {
+            _typesRegistered.Remove(typeName);
+
             _Creators.Remove(typeName);
 
             string vectorTypeName = string.Format("vector<{0}>", typeName);
@@ -539,7 +551,9 @@ namespace behaviac
                     // property
                     IProperty p = meta.GetProperty(propId);
                     if (p != null)
+                    {
                         return p.CreateInstance(instantceName, indexMember);
+                    }
 
                     // local var
                     return AgentMeta.CreateInstanceProperty(typeName, instantceName, indexMember, propId);

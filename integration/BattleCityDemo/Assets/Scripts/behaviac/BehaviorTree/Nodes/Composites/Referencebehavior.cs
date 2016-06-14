@@ -18,6 +18,7 @@ namespace behaviac
 {
     public class ReferencedBehavior : BehaviorNode
     {
+#if BEHAVIAC_USE_HTN
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             ReferencedBehavior taskSubTree = (ReferencedBehavior)node;
@@ -26,6 +27,13 @@ namespace behaviac
             int depth2 = planner.GetAgent().Variables.Depth;
             using(AgentState currentState = planner.GetAgent().Variables.Push(false))
             {
+                Agent pAgent = planner.GetAgent();
+
+                string szTreePath = taskSubTree.GetReferencedTree(pAgent);
+                BehaviorTreeTask subTreeTask = Workspace.Instance.CreateBehaviorTreeTask(szTreePath);
+
+                taskSubTree.SetTaskParams(pAgent, subTreeTask);
+
                 Task task = taskSubTree.RootTaskNode(planner.GetAgent());
 
                 if (task != null)
@@ -33,11 +41,17 @@ namespace behaviac
                     planner.LogPlanReferenceTreeEnter(planner.GetAgent(), taskSubTree);
                     //task.Parent.InstantiatePars(this.LocalVars);
 
+                    BehaviorTreeTask oldCurrentTreeTask = pAgent.ExcutingTreeTask;
+                    pAgent.ExcutingTreeTask = subTreeTask; 
                     PlannerTask childTask = planner.decomposeNode(task, depth);
+                    pAgent.ExcutingTreeTask = oldCurrentTreeTask;
 
                     if (childTask != null)
                     {
                         //taskSubTree.SetTaskParams(planner.GetAgent(), childTask);
+                        PlannerTaskReference subTreeRef = (PlannerTaskReference)seqTask;
+
+                        subTreeRef.SubTreeTask = subTreeTask;
                         seqTask.AddChild(childTask);
                         bOk = true;
                     }
@@ -51,6 +65,7 @@ namespace behaviac
             Debug.Check(planner.GetAgent().Variables.Depth == depth2);
             return bOk;
         }
+#endif//
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -180,21 +195,24 @@ namespace behaviac
 
         public class ReferencedBehaviorTask : SingeChildTask
         {
+#if BEHAVIAC_USE_HTN
             private AgentState currentState;
-
+#endif//
             protected override bool CheckPreconditions(Agent pAgent, bool bIsAlive)
             {
+#if BEHAVIAC_USE_HTN
                 this.currentState = pAgent.Variables.Push(false);
                 Debug.Check(currentState != null);
+#endif//
 
                 bool bOk = base.CheckPreconditions(pAgent, bIsAlive);
-
+#if BEHAVIAC_USE_HTN
                 if (!bOk)
                 {
                     this.currentState.Pop();
                     this.currentState = null;
                 }
-
+#endif//
                 return bOk;
             }
 
@@ -238,8 +256,11 @@ namespace behaviac
             protected override void onexit(Agent pAgent, EBTStatus s)
             {
                 this.m_subTree = null;
+
+#if BEHAVIAC_USE_HTN
                 Debug.Check(this.currentState != null);
                 this.currentState.Pop();
+#endif//
                 base.onexit(pAgent, s);
             }
 

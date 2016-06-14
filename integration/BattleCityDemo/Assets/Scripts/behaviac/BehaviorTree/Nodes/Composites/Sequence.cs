@@ -21,10 +21,11 @@ namespace behaviac
         {
         }
 
-        ~Sequence()
-        {
-        }
+        //~Sequence()
+        //{
+        //}
 
+#if BEHAVIAC_USE_HTN
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             Sequence sequence = (Sequence)node;
@@ -54,7 +55,7 @@ namespace behaviac
 
             return bOk;
         }
-
+#endif//
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -143,9 +144,9 @@ namespace behaviac
             {
             }
 
-            ~SequenceTask()
-            {
-            }
+            //~SequenceTask()
+            //{
+            //}
 
             public override void copyto(BehaviorTask target)
             {

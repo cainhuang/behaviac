@@ -211,6 +211,10 @@ namespace Behaviac.Design
             this.deleteSelectedMenuItem.Enabled = enabled;
             this.deleteTreeMenuItem.Enabled = enabled;
 
+            this.showProfilingToolStripMenuItem.Enabled = !enabled;
+            this.showProfilingToolStripMenuItem.Checked = Settings.Default.ShowProfilingInfo;
+            this.showNodeIdToolStripMenuItem.Checked = NodeViewData.ShowNodeId;
+
             switch (editMode) {
                 case EditModes.Design:
                     this.connectMenuItem.Text = Resources.ConnectServer;
@@ -1838,7 +1842,7 @@ namespace Behaviac.Design
             try
             {
                 //behaviorTreeList.CheckVersionSync();
-                OpenURL("https://github.com/TencentOpen/behaviac/releases");
+                OpenURL("http://www.behaviac.com/language/zh/behaviac%E7%89%88%E6%9C%AC%E4%B8%8B%E8%BD%BD/");
 
                 Utilities.ReportOpenDoc();
             }
@@ -1851,6 +1855,20 @@ namespace Behaviac.Design
             using(AboutBox box = new AboutBox()) {
                 box.ShowDialog();
             }
+        }
+
+        private void showNodeIdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NodeViewData.ShowNodeId = !NodeViewData.ShowNodeId;
+            BehaviorTreeViewDock.RefreshAll();
+            UpdateUIState(Plugin.EditMode);
+        }
+
+        private void showProfilingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ShowProfilingInfo = !Settings.Default.ShowProfilingInfo;
+            BehaviorTreeViewDock.RefreshAll();
+            UpdateUIState(Plugin.EditMode);
         }
     }
 }

@@ -1042,7 +1042,7 @@ LOAD_TEST(btunittest, wait_ut_0)
 	CHECK_EQUAL(behaviac::BT_RUNNING, status);
 	CHECK_EQUAL(1, myTestAgent->testVar_0);
 
-	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(1001);
+	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(1.001f);
 	status = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
 	CHECK_EQUAL(2, myTestAgent->testVar_0);
@@ -1060,11 +1060,40 @@ LOAD_TEST(btunittest, wait_ut_1)
 	CHECK_EQUAL(behaviac::BT_RUNNING, status);
 	CHECK_EQUAL(1, myTestAgent->testVar_0);
 
-	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(1001);
+	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(1.001f);
 	status = myTestAgent->btexec();
 	CHECK_EQUAL(behaviac::BT_SUCCESS, status);
 	CHECK_EQUAL(2, myTestAgent->testVar_0);
 
 	finlTestEnvNode(myTestAgent);
 }
+
+LOAD_TEST(btunittest, wait_ut_2)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/wait_ut_2", format);
+
+	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(0);
+	myTestAgent->resetProperties();
+	behaviac::EBTStatus status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+	CHECK_EQUAL(1, myTestAgent->testVar_0);
+
+	for (int i = 0; i < 10; ++i) {
+		double time = (i + 1) / 1000.0f;
+		behaviac::Workspace::GetInstance()->SetTimeSinceStartup(time);
+		status = myTestAgent->btexec();
+		CHECK_EQUAL(behaviac::BT_RUNNING, status);
+	}
+	
+	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(1.001f);
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_RUNNING, status);
+
+	behaviac::Workspace::GetInstance()->SetTimeSinceStartup(1.100f);
+	status = myTestAgent->btexec();
+	CHECK_EQUAL(behaviac::BT_FAILURE, status);
+
+	finlTestEnvNode(myTestAgent);
+}
+
 

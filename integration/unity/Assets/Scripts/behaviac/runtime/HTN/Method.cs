@@ -22,9 +22,9 @@ namespace behaviac
         {
         }
 
-        ~Method()
-        {
-        }
+        //~Method()
+        //{
+        //}
 
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
         {
@@ -42,6 +42,7 @@ namespace behaviac
             return null;
         }
 
+#if BEHAVIAC_USE_HTN
         public override bool decompose(BehaviorNode branch, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             bool bOk = false;
@@ -58,6 +59,7 @@ namespace behaviac
 
             return bOk;
         }
+#endif//
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {

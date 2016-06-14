@@ -86,6 +86,10 @@ using namespace behaviac;
 
 namespace behaviac
 {
+}
+
+namespace behaviac
+{
 	// Source file: performance/Performance
 
 	class DecoratorLoop_bt_performance_Performance_node1 : public DecoratorLoop

@@ -1429,13 +1429,13 @@ public partial class NodeViewData : BaseNode
 
             if (profileInfos.ContainsKey(fullId)) {
                 FrameStatePool.NodeProfileInfos.ProfileInfo profileInfo = profileInfos[fullId];
-                string timeStr = string.Format("{0:F3}", Math.Abs(profileInfo.Time));
-                string avgTimeStr = (profileInfo.Count <= 0) ? "0" : string.Format("{0:F3}", profileInfo.TotalTime / profileInfo.Count);
+                string timeStr = string.Format("{0:F3}ms", Math.Abs(profileInfo.Time));
+                string avgTimeStr = (profileInfo.Count <= 0) ? "0" : string.Format("{0:F3}ms", profileInfo.TotalTime / profileInfo.Count);
                 string info = string.Format("{0}  {1}  {2}", timeStr, avgTimeStr, profileInfo.Count);
                 SizeF txtSize = MeasureDisplayStringWidth(graphics, info, _profileFont);
                 float x = boundingBox.Left;
                 float y = boundingBox.Top - txtSize.Height - 2;
-                graphics.DrawString(info, (profileInfo.Time >= 0) ? _profileBoldFont : _profileFont, Brushes.Black, x, y);
+                graphics.DrawString(info, (profileInfo.Time >= 0) ? _profileBoldFont : _profileFont, Brushes.Yellow, x, y);
             }
         }
 

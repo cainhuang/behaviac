@@ -52,7 +52,7 @@ namespace PluginBehaviac.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/wait/"; }
+            get { return "http://www.behaviac.com/language/zh/wait/"; }
         }
 
         public override string ExportClass

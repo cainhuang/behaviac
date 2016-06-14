@@ -158,7 +158,7 @@ namespace behaviac
                 maxTime_ = time;
             }
 
-            time_ += time;
+            time_ = time;
         }
 
         void send()
@@ -277,7 +277,7 @@ namespace behaviac
     };
 
     bool HiresTimer::supported(false);
-    long long HiresTimer::frequency(1000);
+	long long HiresTimer::frequency(1000LL);
 
     HiresTimer::HiresTimer()
     {
@@ -289,19 +289,16 @@ namespace behaviac
         long long currentTime;
 
 #ifdef BEHAVIAC_COMPILER_MSVC
-
         if (supported)
         {
             LARGE_INTEGER counter;
             QueryPerformanceCounter(&counter);
             currentTime = counter.QuadPart;
-
         }
         else
         {
             currentTime = timeGetTime();
         }
-
 #else
         struct timeval time;
         gettimeofday(&time, NULL);
@@ -333,13 +330,11 @@ namespace behaviac
             LARGE_INTEGER counter;
             QueryPerformanceCounter(&counter);
             startTime_ = counter.QuadPart;
-
         }
         else
         {
             startTime_ = timeGetTime();
         }
-
 #else
         struct timeval time;
         gettimeofday(&time, NULL);
@@ -357,7 +352,11 @@ namespace behaviac
             HiresTimer::frequency = frequency.QuadPart;
             HiresTimer::supported = true;
         }
-
+		else
+		{
+			//timeGetTime returns milliseconds
+			HiresTimer::frequency = 1000LL;
+		}
 #else
         HiresTimer::frequency = 1000000;
         HiresTimer::supported = true;

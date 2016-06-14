@@ -1,12 +1,31 @@
 ﻿using UnityEngine;
 
+namespace TestNamespace
+{
+    [behaviac.TypeMetaInfo("Float2", "Float2 structure")]
+    public struct Float2
+    {
+        [behaviac.MemberMetaInfo("x", "x Axis")]
+        public float x;
+        [behaviac.MemberMetaInfo("y", "y Axis")]
+        public float y;
+    }
+
+    [behaviac.TypeMetaInfo(behaviac.ERefType.ERT_ValueType)]
+    public class ClassAsValueType
+    {
+        public float x;
+        public float y;
+    }
+
+}
+
+
 [behaviac.TypeMetaInfo()]
 public class CustomPropertyAgent : behaviac.Agent
 {
     public void resetProperties() {
         base.Init();
-
-        this.Variables.Clear(false);
     }
 
     public void init() {
@@ -45,6 +64,19 @@ public class CustomPropertyAgent : behaviac.Agent
 
     [behaviac.MemberMetaInfo()]
     public const int IntMemberConst = 0;
+
+    [behaviac.MethodMetaInfo()]
+    public void TestFn1(TestNamespace.Float2 v)
+    {
+
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public void TestFn2(TestNamespace.ClassAsValueType v)
+    {
+
+    }
+
 
     [behaviac.MemberMetaInfo(true)]
     public string StringMemberReadonly = "read only sting";

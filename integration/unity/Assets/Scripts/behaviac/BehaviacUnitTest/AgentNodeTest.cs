@@ -100,7 +100,6 @@ public class AgentNodeTest : behaviac.Agent
         TestFloat2.y = 2.0f;
 
         testVar_str_0 = string.Empty;
-        this.Variables.Clear(true);
     }
 
     [behaviac.MethodMetaInfo()]

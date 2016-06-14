@@ -10,10 +10,10 @@
 //// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //// See the License for the specific language governing permissions and limitations under the License.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//#include "behaviac/agent/agent.h"
+
+#include "behaviac/agent/agent.h"
 //#include "behaviac/property/property.h"
-//
+
 //void CNamedEvent::run(const CTagObject* parent, const CTagObject* parHolder)
 //{
 //	BEHAVIAC_UNUSED_VAR(parent);

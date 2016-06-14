@@ -55,8 +55,8 @@ namespace behaviac
             m_seed = seed;
         }
 
-        ~RandomGenerator()
-        { }
+        //~RandomGenerator()
+        //{ }
 
         private uint m_seed;
     };

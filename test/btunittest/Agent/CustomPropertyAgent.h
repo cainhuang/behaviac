@@ -33,6 +33,27 @@ namespace UnityEngine
     };
 }
 
+
+namespace TestNamespace
+{
+	struct Float2
+	{
+	public:
+		float x;
+		float y;
+
+		DECLARE_BEHAVIAC_STRUCT(TestNamespace::Float2);
+	};
+
+	class ClassAsValueType
+	{
+		float x;
+		float y;
+		DECLARE_BEHAVIAC_STRUCT(TestNamespace::ClassAsValueType, false);
+	};
+
+}
+
 class CustomPropertyAgent : public behaviac::Agent
 {
 public:
@@ -67,6 +88,16 @@ public:
     bool BoolMemberReadonly;
 
     static int IntMemberConst;
+
+	void TestFn1(const TestNamespace::Float2& v)
+	{
+
+	}
+
+	void TestFn2(TestNamespace::ClassAsValueType* v)
+	{
+
+	}
 
     behaviac::string StringMemberReadonly ;
 

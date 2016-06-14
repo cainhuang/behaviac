@@ -28,10 +28,10 @@ namespace behaviac
             ms_instance = this;
         }
 
-        ~FileManager()
-        {
-            ms_instance = null;
-        }
+        //~FileManager()
+        //{
+        //    ms_instance = null;
+        //}
 
         #endregion Singleton
 

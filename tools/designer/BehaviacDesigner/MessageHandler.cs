@@ -109,7 +109,9 @@ namespace Behaviac.Design
                             string[] ids = nodes[1].Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
 
                             if (ids.Length == 2) {
-                                FrameStatePool.SetProfileInfo(AgentDataPool.TotalFrames, behaviorFilename, ids[1], 0.001f * int.Parse(tokens[1]));
+                                //convert microsecond to millisecond by mul 0.001
+                                float milliseconds = 0.001f * int.Parse(tokens[1]);
+                                FrameStatePool.SetProfileInfo(AgentDataPool.TotalFrames, behaviorFilename, ids[1], milliseconds);
                             }
                         }
                     }

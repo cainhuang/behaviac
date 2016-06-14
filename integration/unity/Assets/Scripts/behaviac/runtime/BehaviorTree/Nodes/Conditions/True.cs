@@ -21,9 +21,9 @@ namespace behaviac
         {
         }
 
-        ~True()
-        {
-        }
+        //~True()
+        //{
+        //}
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -55,9 +55,9 @@ namespace behaviac
             {
             }
 
-            ~TrueTask()
-            {
-            }
+            //~TrueTask()
+            //{
+            //}
 
             public override void copyto(BehaviorTask target)
             {

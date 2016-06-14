@@ -127,6 +127,7 @@ namespace behaviac
 		{
 			this.m_resultOption = EBTStatus.BT_SUCCESS;
 			method_p0 = "Tank_Wander_RandomFire";
+			method_p2 = new UnityEngine.Color();
 			method_p2.a = 1f;
 			method_p2.b = 1f;
 			method_p2.g = 0f;
@@ -449,6 +450,7 @@ namespace behaviac
 		{
 			this.m_resultOption = EBTStatus.BT_SUCCESS;
 			method_p0 = "Tank_Nav";
+			method_p1 = new UnityEngine.Color();
 			method_p1.a = 1f;
 			method_p1.b = 0f;
 			method_p1.g = 0f;
@@ -2459,6 +2461,7 @@ namespace behaviac
 		{
 			this.m_resultOption = EBTStatus.BT_SUCCESS;
 			method_p0 = "Tank_Agressive";
+			method_p1 = new UnityEngine.Color();
 			method_p1.a = 1f;
 			method_p1.b = 0f;
 			method_p1.g = 1f;

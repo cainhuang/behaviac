@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: ships\4_destroy_projectiles.xml-->
-<behavior name="ships/4_destroy_projectiles" agenttype="framework::Ship" version="4">
+<behavior name="ships/4_destroy_projectiles" agenttype="framework::Ship" version="5">
   <node class="DecoratorLoop" id="1">
     <property Count="const int -1" />
     <property DecorateWhenChildEnds="true" />

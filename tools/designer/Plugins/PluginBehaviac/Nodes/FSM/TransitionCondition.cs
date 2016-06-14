@@ -26,7 +26,7 @@ namespace PluginBehaviac.Events
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/fsm/"; }
+            get { return "http://www.behaviac.com/language/zh/fsm/"; }
         }
 
         public override string ExportClass

@@ -18,6 +18,7 @@ namespace behaviac
 {
     public class DecoratorIterator : DecoratorNode
     {
+#if BEHAVIAC_USE_HTN
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             DecoratorIterator pForEach = (DecoratorIterator)node;
@@ -63,6 +64,7 @@ namespace behaviac
 
             return bOk;
         }
+#endif//
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -114,16 +116,11 @@ namespace behaviac
         {
             if (this.m_opl != null && this.m_opr != null)
             {
-                Debug.Check(this.m_opr is CInstanceMember<IList>);
-                IList rhs_a = ((CInstanceMember<IList>)this.m_opr).GetValue(pAgent);
+                count = this.m_opr.GetCount(pAgent);
 
-                if (index >= 0 && index < rhs_a.Count)
+                if (index >= 0 && index < count)
                 {
-                    object rhs_v = rhs_a[index];
-
-                    this.m_opl.SetValue(pAgent, rhs_v);
-
-                    count = rhs_a.Count;
+                    this.m_opl.SetValue(pAgent, this.m_opr, index);
 
                     return true;
                 }

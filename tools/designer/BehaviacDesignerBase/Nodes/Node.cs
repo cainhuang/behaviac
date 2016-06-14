@@ -61,7 +61,7 @@ namespace Behaviac.Design.Nodes
 
         public virtual string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/"; }
+            get { return "http://www.behaviac.com/language/zh/"; }
         }
 
         public static Dictionary<string, Brush> BackgroundBrushes = new Dictionary<string, Brush>();

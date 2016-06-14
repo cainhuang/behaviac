@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\predicate_action_ut_2.xml-->
-<behavior name="node_test/predicate_action_ut_2" agenttype="AgentNodeTest" version="4">
+<behavior name="node_test/predicate_action_ut_2" agenttype="AgentNodeTest" version="5">
   <node class="Sequence" id="0">
     <node class="Action" id="1">
       <property Method="Self.AgentNodeTest::setTestVar_0(0)" />

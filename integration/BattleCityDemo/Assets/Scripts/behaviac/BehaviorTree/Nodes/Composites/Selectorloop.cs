@@ -161,7 +161,7 @@ namespace behaviac
                         this.m_activeChildIndex != index)
                     {
                         WithPreconditionTask pCurrentSubTree = (WithPreconditionTask)this.m_children[this.m_activeChildIndex];
-                        BehaviorTask action = pCurrentSubTree.ActionNode;
+                        //BehaviorTask action = pCurrentSubTree.ActionNode;
                         pCurrentSubTree.abort(pAgent);
 
                         //don't set it here

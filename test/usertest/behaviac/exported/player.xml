@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: player.xml-->
-<behavior name="player" agenttype="CBTPlayer" version="4">
+<behavior name="player" agenttype="CBTPlayer" version="5">
   <pars>
     <par name="CurStep" type="int" value="0" />
   </pars>

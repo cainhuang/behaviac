@@ -711,4 +711,7 @@ Please be sure to open the workspace which is used by the runtime!</value>
   <data name="FaultBehaviors" xml:space="preserve">
     <value>Behaviors with Errors:</value>
   </data>
+  <data name="InvalidExportedTypePath" xml:space="preserve">
+    <value>The path for the generated type is empty, so please go to the Meta Browser to set it.</value>
+  </data>
 </root>

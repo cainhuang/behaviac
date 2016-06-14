@@ -46,6 +46,7 @@ namespace behaviac
             return pTask;
         }
 
+#if BEHAVIAC_USE_HTN
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             bool bOk = false;
@@ -60,6 +61,7 @@ namespace behaviac
 
             return bOk;
         }
+#endif//
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -82,7 +84,9 @@ namespace behaviac
 
     internal class TaskTask : Sequence.SequenceTask
     {
+#if BEHAVIAC_USE_HTN
         private Planner _planner = new Planner();
+#endif//
 
         public override void copyto(BehaviorTask target)
         {
@@ -114,14 +118,18 @@ namespace behaviac
             Debug.Check(this.m_activeChildIndex == CompositeTask.InvalidChildIndex);
             Task pMethodNode = (Task)(this.GetNode());
 
+#if BEHAVIAC_USE_HTN
             _planner.Init(pAgent, pMethodNode);
+#endif//
 
             return base.onenter(pAgent);
         }
 
         protected override void onexit(Agent pAgent, EBTStatus s)
         {
+#if BEHAVIAC_USE_HTN
             _planner.Uninit();
+#endif//
 
             base.onexit(pAgent, s);
         }
@@ -137,7 +145,9 @@ namespace behaviac
 
                 if (pTaskNode.IsHTN)
                 {
+#if BEHAVIAC_USE_HTN
                     status = _planner.Update();
+#endif//
                 }
                 else
                 {

@@ -57,7 +57,7 @@ namespace Behaviac.Design.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/sequence/"; }
+            get { return "http://www.behaviac.com/language/zh/sequence/"; }
         }
 
         protected virtual void CreateInterruptChild() {

@@ -17,12 +17,14 @@ namespace behaviac
 {
     public class FSM : BehaviorNode
     {
+#if BEHAVIAC_USE_HTN
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             Debug.Check(false);
 
             return false;
         }
+#endif//
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {

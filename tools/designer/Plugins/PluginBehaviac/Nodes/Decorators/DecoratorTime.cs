@@ -31,7 +31,7 @@ namespace PluginBehaviac.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/decorator/#time"; }
+            get { return "http://www.behaviac.com/language/zh/decorator/#time"; }
         }
 
         public override string ExportClass

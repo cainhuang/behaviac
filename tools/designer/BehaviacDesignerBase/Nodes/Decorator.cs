@@ -36,7 +36,7 @@ namespace Behaviac.Design.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/decorator/"; }
+            get { return "http://www.behaviac.com/language/zh/decorator/"; }
         }
 
         protected virtual void CreateInterruptChild()

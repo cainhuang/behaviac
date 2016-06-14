@@ -590,10 +590,6 @@ namespace behaviac
 			AgentMeta.Register<GameLevelCommon>("GameLevelCommon");
 			AgentMeta.Register<Player>("Player");
 
-			Workspace.Instance.AddAgentType(typeof(behaviac.Agent), false);
-			Workspace.Instance.AddAgentType(typeof(GameActor), false);
-			Workspace.Instance.AddAgentType(typeof(GameLevelCommon), false);
-			Workspace.Instance.AddAgentType(typeof(Player), false);
 		}
 
 		static partial void unRegisterMeta()

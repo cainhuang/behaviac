@@ -127,7 +127,6 @@ public class HTNAgentTravel : behaviac.Agent
         _locations[sz_hotel] = new Location(sz_hotel, city_sz);
 
         _path.Clear();
-        this.Variables.Clear(false);
     }
 
     [behaviac.MethodMetaInfo()]

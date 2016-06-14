@@ -33,6 +33,8 @@ void registerAllTypes()
     behaviac::TypeRegister::Register<TestNS::Node>("TestNS::Node");
     behaviac::TypeRegister::Register<TestNS::Float2>("TestNS::Float2");
 	behaviac::TypeRegister::Register<EnumTest>("EnumTest");
+	behaviac::TypeRegister::Register<TestNamespace::ClassAsValueType>("TestNamespace::ClassAsValueType");
+	behaviac::TypeRegister::Register<TestNamespace::Float2>("TestNamespace::Float2");
 
     behaviac::Agent::Register<EmployeeParTestAgent>();
 
@@ -82,6 +84,8 @@ void unregisterAllTypes()
     behaviac::TypeRegister::UnRegister<UnityEngine::Vector3>("UnityEngine::Vector3");
     behaviac::TypeRegister::UnRegister<FSMAgentTest::EMessage>("FSMAgentTest::EMessage");
 	behaviac::TypeRegister::UnRegister<EnumTest>("EnumTest");
+	behaviac::TypeRegister::UnRegister<TestNamespace::ClassAsValueType>("TestNamespace::ClassAsValueType");
+	behaviac::TypeRegister::UnRegister<TestNamespace::Float2>("TestNamespace::Float2");
 
     behaviac::Workspace::GetInstance()->Cleanup();
 }

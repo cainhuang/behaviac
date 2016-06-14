@@ -22,9 +22,9 @@ namespace behaviac
             m_until = true;
         }
 
-        ~DecoratorLoopUntil()
-        {
-        }
+        //~DecoratorLoopUntil()
+        //{
+        //}
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {

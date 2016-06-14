@@ -21,9 +21,9 @@ namespace behaviac
         {
         }
 
-        ~WithPrecondition()
-        {
-        }
+        //~WithPrecondition()
+        //{
+        //}
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {

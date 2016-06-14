@@ -21,9 +21,9 @@ namespace behaviac
         {
         }
 
-        ~WaitforSignal()
-        {
-        }
+        //~WaitforSignal()
+        //{
+        //}
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -63,9 +63,9 @@ namespace behaviac
             m_bTriggered = false;
         }
 
-        ~WaitforSignalTask()
-        {
-        }
+        //~WaitforSignalTask()
+        //{
+        //}
 
         public override void copyto(BehaviorTask target)
         {

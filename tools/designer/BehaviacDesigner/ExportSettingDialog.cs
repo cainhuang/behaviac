@@ -192,5 +192,15 @@ namespace Behaviac.Design
                 }
             }
         }
+
+        private void exportFolderTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exportFolderLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

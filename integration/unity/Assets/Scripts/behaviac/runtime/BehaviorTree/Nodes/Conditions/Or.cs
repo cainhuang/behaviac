@@ -21,9 +21,9 @@ namespace behaviac
         {
         }
 
-        ~Or()
-        {
-        }
+        //~Or()
+        //{
+        //}
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -72,9 +72,9 @@ namespace behaviac
             {
             }
 
-            ~OrTask()
-            {
-            }
+            //~OrTask()
+            //{
+            //}
 
             public override void copyto(BehaviorTask target)
             {

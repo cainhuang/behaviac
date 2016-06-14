@@ -1,4 +1,4 @@
-<metas version="3.0" language="cpp">
+<metas version="5" language="cpp">
 	<types>
 		<enumtype Type="behaviac::EBTStatus" DisplayName="BT状态" Desc="BT状态">
 			<enum NativeValue="behaviac::BT_INVALID" Value="invalid" DisplayName="" Desc="" />

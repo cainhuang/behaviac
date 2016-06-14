@@ -995,6 +995,15 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The path for the generated type is empty, so please go to the Meta Browser to set it..
+        /// </summary>
+        internal static string InvalidExportedTypePath {
+            get {
+                return ResourceManager.GetString("InvalidExportedTypePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The language setting will take effect when the editor is launched next time..
         /// </summary>
         internal static string LanguageChangedWarning {

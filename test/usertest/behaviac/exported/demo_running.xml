@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: demo_running.xml-->
-<behavior name="demo_running" agenttype="CBTPlayer" version="4">
+<behavior name="demo_running" agenttype="CBTPlayer" version="5">
   <node class="DecoratorLoop" id="0">
     <property Count="const int 3" />
     <property DecorateWhenChildEnds="true" />
@@ -13,7 +13,7 @@
       </node>
       <node class="Action" id="3">
         <property Method="Self.CBTPlayer::Action1()" />
-        <property ResultOption="BT_SUCCESS" />
+        <property ResultOption="BT_INVALID" />
       </node>
       <node class="Action" id="4">
         <property Method="Self.CBTPlayer::Action3()" />

@@ -22,12 +22,17 @@ namespace PluginBehaviac.DataExporters
 {
     public class StructCsExporter
     {
-        public static void GenerateCode(object obj, StreamWriter stream, string indent, string var, object parent, string paramName)
+        public static void GenerateCode(object obj, StreamWriter stream, string indent, string var, string typename, object parent, string paramName)
         {
             Debug.Check(obj != null);
 
             Type type = obj.GetType();
             Debug.Check(Plugin.IsCustomClassType(type));
+
+            if (!Plugin.IsRefType(type))
+            {
+                stream.WriteLine("{0}{1} = new {2}();", indent, var, typename);
+            }
 
             MethodDef method = parent as MethodDef;
             IList<DesignerPropertyInfo> properties = DesignerProperty.GetDesignerProperties(type);
@@ -38,7 +43,8 @@ namespace PluginBehaviac.DataExporters
                     object member = property.GetValue(obj);
                     if (property.Attribute is DesignerStruct)
                     {
-                        GenerateCode(member, stream, indent, var + "." + property.Property.Name, parent, paramName);
+                        string memberType = DataCsExporter.GetGeneratedNativeType(member.GetType());
+                        GenerateCode(member, stream, indent, var + "." + property.Property.Name, memberType, parent, paramName);
                     }
                     else
                     {

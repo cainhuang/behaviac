@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Tank_Fire_Detect.xml-->
-<behavior name="Tank_Fire_Detect" agenttype="Player" version="4">
+<behavior name="Tank_Fire_Detect" agenttype="Player" version="5">
   <pars>
     <par name="parT_EnemyAzimuth" type="float" value="0" />
   </pars>

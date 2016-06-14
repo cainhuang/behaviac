@@ -19,6 +19,7 @@ namespace behaviac
 {
     public interface IValue
     {
+        void Log(Agent agent, string name, bool bForce);
     }
 
     public class TValue<T> : IValue
@@ -39,10 +40,26 @@ namespace behaviac
         {
             return new TValue<T>(this);
         }
+
+        public void Log(Agent agent, string name, bool bForce)
+        {
+#if !BEHAVIAC_RELEASE
+            T currentValue = agent.GetVariable<T>(name);
+
+            if (bForce || OperationUtils.Compare<T>(currentValue, this.value, EOperatorType.E_NOTEQUAL))
+            {
+                LogManager.Instance.LogVarValue(agent, name, this.value);
+                this.value = currentValue;
+            }
+#endif
+        }
     }
 
     public interface IInstanceMember
     {
+        int GetCount(Agent self);
+        void SetValue(Agent self, IInstanceMember right, int index);
+
         object GetValueObject(Agent self);
 
         void SetValue(Agent self, object value);
@@ -54,25 +71,24 @@ namespace behaviac
         void Compute(Agent self, IInstanceMember right1, IInstanceMember right2, EOperatorType computeType);
     }
 
-    public interface IMember
+    public interface IProperty
     {
-        IInstanceMember CreateInstance(string instance, IInstanceMember indexMember);
-    }
+        string Name
+        { get; }
 
-    public interface IProperty : IMember
-    {
         void SetValue(Agent self, IInstanceMember right);
 
         object GetValueObject(Agent self);
 
         object GetValueObject(Agent self, int index);
 
+        IInstanceMember CreateInstance(string instance, IInstanceMember indexMember);
+
+        IValue CreateIValue();
+
 #if !BEHAVIAC_RELEASE
-        string Name { get; }
-
-        bool IsArrayItem();
-
-        void Log(Agent self);
+        bool IsArrayItem
+        { get; }
 #endif
     }
 
@@ -96,6 +112,27 @@ namespace behaviac
         {
             _instance = rhs._instance;
             _indexMember = rhs._indexMember;
+        }
+
+        public int GetCount(Agent self)
+        {
+            Agent agent = Utils.GetParentAgent(self, _instance);
+            IList list = (IList)this.GetValueObject(agent);
+
+            return list.Count;
+        }
+
+        public void SetValue(Agent self, IInstanceMember right, int index)
+        {
+            Agent agent = Utils.GetParentAgent(self, _instance);
+            object rightObject = right.GetValueObject(agent);
+            Debug.Check(rightObject is IList);
+            IList il = (IList)rightObject;
+            List<T> list = (List<T>)il;
+
+            T item = list[index];
+
+            this.SetValue(self, item);
         }
 
         public virtual T GetValue(Agent self)
@@ -148,12 +185,47 @@ namespace behaviac
         }
     }
 
-    public class CMember<T> : IMember
+    public class CProperty<T> : IProperty
     {
-        public virtual IInstanceMember CreateInstance(string instance, IInstanceMember indexMember)
+        string _name;
+        public string Name
         {
-            Debug.Check(false);
-            return null;
+            get { return _name; }
+        }
+
+#if !BEHAVIAC_RELEASE
+        public virtual bool IsArrayItem
+        {
+            get
+            {
+                return false;
+            }
+        }
+#endif
+
+        public CProperty(string name)
+        {
+            _name = name;
+        }
+
+        public IInstanceMember CreateInstance(string instance, IInstanceMember indexMember)
+        {
+            return new CInstanceProperty<T>(instance, indexMember, this);
+        }
+
+        public IValue CreateIValue()
+        {
+            return new TValue<T>(default(T));
+        }
+
+        public object GetValueObject(Agent self)
+        {
+            return GetValue(self);
+        }
+
+        public object GetValueObject(Agent self, int index)
+        {
+            return GetValue(self, index);
         }
 
         public void SetValue(Agent self, IInstanceMember right)
@@ -184,63 +256,7 @@ namespace behaviac
             Debug.Check(false);
             return default(T);
         }
-    }
 
-    public class CProperty<T> : CMember<T>, IProperty
-    {
-        string _name;
-        public string Name
-        {
-            get { return _name; }
-        }
-
-#if !BEHAVIAC_RELEASE
-        public virtual bool IsArrayItem()
-        {
-            return false;
-        }
-#endif
-
-        public CProperty(string name)
-        {
-#if !BEHAVIAC_RELEASE
-            _name = name;
-#endif
-        }
-
-        public override IInstanceMember CreateInstance(string instance, IInstanceMember indexMember)
-        {
-            return new CInstanceProperty<T>(instance, indexMember, this);
-        }
-
-        public object GetValueObject(Agent self)
-        {
-            return GetValue(self);
-        }
-
-        public object GetValueObject(Agent self, int index)
-        {
-            return GetValue(self, index);
-        }
-
-#if !BEHAVIAC_RELEASE
-        public void Log(Agent self)
-        {
-            if (!this.IsArrayItem())
-            {
-                uint id = Utils.MakeVariableId(this.Name);
-                T value = this.GetValue(self);
-                T preValue;
-                bool isValid = self.GetPropertyValue(id, out preValue);
-
-                if (!isValid || OperationUtils.Compare<T>(value, preValue, EOperatorType.E_NOTEQUAL))
-                {
-                    LogManager.Instance.LogVarValue(self, this.Name, value);
-                    self.SetPropertyValue(id, value);
-                }
-            }
-        }
-#endif
     }
 
     public class CInstanceProperty<T> : CInstanceMember<T>
@@ -328,9 +344,12 @@ namespace behaviac
         }
 
 #if !BEHAVIAC_RELEASE
-        public override bool IsArrayItem()
+        public override bool IsArrayItem
         {
-            return true;
+            get
+            {
+                return true;
+            }
         }
 #endif
         public override T GetValue(Agent self, int index)
@@ -367,6 +386,19 @@ namespace behaviac
         {
             Debug.Check(_gfp != null);
 
+#if BEHAVIAC_USE_HTN
+            if (self.PlanningTop > -1)
+            {
+                uint id = Utils.MakeVariableId(this.Name);
+                IInstantiatedVariable pVar = self.Variables.GetVariable(id);
+                if (pVar != null)
+                {
+                    CVariable<T> pTVar = (CVariable<T>)pVar;
+                    return pTVar.GetValue(self);
+                }
+            }
+#endif
+
             return _gfp(self);
         }
 
@@ -374,7 +406,27 @@ namespace behaviac
         {
             Debug.Check(_sfp != null);
 
-            _sfp(self, value);
+#if BEHAVIAC_USE_HTN
+            if (self.PlanningTop > -1)
+            {
+                uint id = Utils.MakeVariableId(this.Name);
+                IInstantiatedVariable pVar = self.Variables.GetVariable(id);
+                if (pVar == null)
+                {
+                    pVar = new CVariable<T>(this.Name, value);
+                    self.Variables.AddVariable(id, pVar, 1);
+                }
+                else
+                {
+                    CVariable<T> pTVar = (CVariable<T>)pVar;
+                    pTVar.SetValue(self, value);
+                }
+            }
+            else
+#endif//
+            {
+                _sfp(self, value);
+            }
         }
     }
 
@@ -394,9 +446,12 @@ namespace behaviac
         }
 
 #if !BEHAVIAC_RELEASE
-        public override bool IsArrayItem()
+        public override bool IsArrayItem
         {
-            return true;
+            get
+            {
+                return true;
+            }
         }
 #endif
 
@@ -430,9 +485,15 @@ namespace behaviac
 
         void SetValue(Agent self, object value, int index);
 
-#if !BEHAVIAC_RELEASE
+        string Name
+        { get; }
+
         void Log(Agent self);
-#endif
+
+        IInstantiatedVariable clone();
+
+        void CopyTo(Agent pAgent);
+        void Save(ISerializableNode node);
     }
 
     public class CCustomizedProperty<T> : CProperty<T>, ICustomizedProperty
@@ -449,12 +510,21 @@ namespace behaviac
 
         public override T GetValue(Agent self)
         {
-            return self.GetVariable<T>(_id);
+            T value;
+            if (self.GetVarValue<T>(_id, out value))
+            {
+                return value;
+            }
+
+            Debug.Check(false);
+
+            return value; 
         }
 
         public override void SetValue(Agent self, T value)
         {
-            self.SetVariable<T>("", _id, value);
+            bool bOk = self.SetVarValue<T>(_id, value);
+            Debug.Check(bOk);
         }
 
         public IInstantiatedVariable Instantiate()
@@ -476,9 +546,12 @@ namespace behaviac
         }
 
 #if !BEHAVIAC_RELEASE
-        public override bool IsArrayItem()
+        public override bool IsArrayItem
         {
-            return true;
+            get
+            {
+                return true;
+            }
         }
 #endif
 
@@ -486,6 +559,7 @@ namespace behaviac
         {
             List<T> arrayValue = self.GetVariable<List<T>>(_parentId);
             Debug.Check(arrayValue != null);
+            Debug.Check(index >= 0 && index < arrayValue.Count);
 
             return arrayValue[index];
         }
@@ -508,32 +582,36 @@ namespace behaviac
     {
         T _value;
 
-#if !BEHAVIAC_RELEASE
         string _name;
 
+#if !BEHAVIAC_RELEASE
         bool _isModified = false;
         internal bool IsModified
         {
-            set { _isModified = value; }
+            get
+            {
+                return this._isModified;
+            }
+
+            set
+            {
+                _isModified = value;
+            }
         }
 #endif
 
         public CVariable(string name, T value)
         {
-            _value = value;
+            Utils.Clone<T>(ref this._value, value);
 
-#if !BEHAVIAC_RELEASE
             _name = name;
-#endif
         }
 
         public CVariable(string name, string valueStr)
         {
             ValueConverter<T>.Convert(valueStr, out _value);
 
-#if !BEHAVIAC_RELEASE
             _name = name;
-#endif
         }
 
         public T GetValue(Agent self)
@@ -571,35 +649,64 @@ namespace behaviac
             Debug.Check(false);
         }
 
-#if !BEHAVIAC_RELEASE
-        public void Log(Agent self)
+        public string Name
         {
-            if (_isModified)
+            get
             {
-                LogManager.Instance.LogVarValue(self, _name, this.GetValueObject(self));
-
-                _isModified = false;
+                return this._name;
             }
         }
+
+        public void Log(Agent self)
+        {
+#if !BEHAVIAC_RELEASE
+            if (_isModified)
+            {
+                LogManager.Instance.LogVarValue(self, this.Name, this._value);
+            }
 #endif
+        }
+
+        public void CopyTo(Agent pAgent)
+        {
+            //TODO:
+            Debug.Check(false);
+        }
+
+        public void Save(ISerializableNode node)
+        {
+            //base.Save(node);
+            CSerializationID variableId = new CSerializationID("var");
+            ISerializableNode varNode = node.newChild(variableId);
+
+            CSerializationID nameId = new CSerializationID("name");
+            varNode.setAttr(nameId, this._name);
+
+            CSerializationID valueId = new CSerializationID("value");
+            varNode.setAttr(valueId, this._value);
+        }
+
+        public IInstantiatedVariable clone()
+        {
+            CVariable<T> p = new CVariable<T>(this._name, this._value);
+
+            return p;
+        }
     }
 
     public class CArrayItemVariable<T> : IInstantiatedVariable
     {
+        string _name;
         uint _parentId;
-        public uint ParentId
-        {
-            get { return _parentId; }
-        }
-
-        public CArrayItemVariable(uint parentId, string parentName)
+        public CArrayItemVariable(uint parentId, string name)
         {
             _parentId = parentId;
+            _name = name;
         }
 
         public T GetValue(Agent self, int index)
         {
-            IInstantiatedVariable v = self.GetVar(this.ParentId);
+            IInstantiatedVariable v = self.GetInstantiatedVariable(this._parentId);
 
             if (typeof(T).IsValueType)
             {
@@ -613,7 +720,7 @@ namespace behaviac
 
         public void SetValue(Agent self, T value, int index)
         {
-            IInstantiatedVariable v = self.GetVar(this.ParentId);
+            IInstantiatedVariable v = self.GetInstantiatedVariable(this._parentId);
             CVariable<List<T>> arrayVar = (CVariable<List<T>>)v;
             if (arrayVar != null)
             {
@@ -646,11 +753,42 @@ namespace behaviac
             SetValue(self, (T)value, index);
         }
 
-#if !BEHAVIAC_RELEASE
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+        }
+
         public void Log(Agent self)
         {
-        }
+#if !BEHAVIAC_RELEASE
+            IInstantiatedVariable v = self.GetInstantiatedVariable(this._parentId);
+            CVariable<List<T>> arrayVar = (CVariable<List<T>>)v;
+            if (arrayVar != null && arrayVar.IsModified)
+            {
+                LogManager.Instance.LogVarValue(self, this.Name, arrayVar);
+            }
 #endif
+        }
+
+        public void CopyTo(Agent pAgent)
+        {
+            Debug.Check(false);
+        }
+
+        public void Save(ISerializableNode node)
+        {
+            Debug.Check(false);
+        }
+
+        public IInstantiatedVariable clone()
+        {
+            CArrayItemVariable<T> p = new CArrayItemVariable<T>(this._parentId, this._name);
+
+            return p;
+        }
     }
 
     public class CInstanceCustomizedProperty<T> : CInstanceMember<T>
@@ -767,7 +905,9 @@ namespace behaviac
         public override T GetValue(Agent self)
         {
             if (self != null)
+            {
                 Run(self);
+            }
 
             return _returnValue.value;
         }
@@ -775,7 +915,9 @@ namespace behaviac
         public virtual IValue GetIValue(Agent self)
         {
             if (self != null)
+            {
                 Run(self);
+            }
 
             return _returnValue;
         }
@@ -2127,6 +2269,17 @@ namespace behaviac
             Debug.Check(false);
 
             _instance = instance;
+        }
+
+        public int GetCount(Agent self)
+        {
+            Debug.Check(false);
+            return 0;
+        }
+
+        public void SetValue(Agent self, IInstanceMember right, int index)
+        {
+            Debug.Check(false);
         }
 
         public virtual void Run(Agent self)

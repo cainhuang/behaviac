@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: Tank_SafeWander_RandomFire.xml-->
-<behavior name="Tank_SafeWander_RandomFire" agenttype="Player" version="4">
+<behavior name="Tank_SafeWander_RandomFire" agenttype="Player" version="5">
   <pars>
     <par name="parIn_Self" type="Player" value="null" />
     <par name="parT_RotateAngle" type="float" value="0" />

@@ -117,317 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="metaStoreMenuItem.Text" xml:space="preserve">
+    <value>Meta Browser</value>
+  </data>
+  <data name="fileMenuButton.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="&gt;&gt;exitMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="saveAllMenuItem.Text" xml:space="preserve">
+    <value>Save All</value>
+  </data>
+  <data name="&gt;&gt;getLatestVersionMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dockPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="closeBehaviorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+F4</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="dockPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 28</value>
+  <data name="callToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
   </data>
-  <data name="dockPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 700</value>
+  <data name="&gt;&gt;toolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dockPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;findFileMenuItem.Name" xml:space="preserve">
+    <value>findFileMenuItem</value>
   </data>
-  <data name="&gt;&gt;dockPanel.Name" xml:space="preserve">
-    <value>dockPanel</value>
-  </data>
-  <data name="&gt;&gt;dockPanel.Type" xml:space="preserve">
-    <value>WeifenLuo.WinFormsUI.Docking.DockPanel, WeifenLuo.WinFormsUI.Docking, Version=2.5.0.20138, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;dockPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;dockPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="newWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="newWorkspaceMenuItem.Text" xml:space="preserve">
-    <value>New Workspace...</value>
-  </data>
-  <data name="openWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="openWorkspaceMenuItem.Text" xml:space="preserve">
-    <value>Open Workspace...</value>
-  </data>
-  <data name="editWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="editWorkspaceMenuItem.Text" xml:space="preserve">
-    <value>Edit Workspace...</value>
-  </data>
-  <data name="reloadWorkspaceMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+R</value>
-  </data>
-  <data name="reloadWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="reloadWorkspaceMenuItem.Text" xml:space="preserve">
-    <value>Reload Workspace</value>
-  </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 6</value>
-  </data>
-  <data name="connectMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-</value>
-  </data>
-  <data name="connectMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+L</value>
-  </data>
-  <data name="connectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="connectMenuItem.Text" xml:space="preserve">
-    <value>Connect Server...</value>
-  </data>
-  <data name="analyzeDumpMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="helpMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAEKSURBVDhPlZMxEoIwEEU5D5fwFKk5CtxECscil5DaoaR0
-        xivYW6z7NtmADCr+mc8Cs//nZwkVmO4iw22QcUz1fH1IPEZjm6s1fgLCuomZIqHVZ6j3vMMkt26DFU2s
-        IsQIZpM/DJI4McA2JWq15tZtvCdQIxMn7k9wmPdvK2uNl2gDhWW4+Z1XM+CBLwEZqIugPDM3UB+CVO7c
-        9yeL2nVdIcagqvSiJmlLaVvADGjiOwPqpBUj0liCJVZpzMCbXMTEvbqxY3k26KkbEmgT4kIVEp9Brg08
-        ASkFAxJ8A3MBWzOwBL8MSORAsOauBB4XgSXgjGgK+392JWDPi1X9j91lwBBpMurEy31hkBcRdDAe7S9E
-        6gAAAABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIVSURBVDhPtVJNaxNRFM1PyE+Yn1AUXLjK0uWgDWQZwUUX
+        KsGFBEEcCkIwqBEpGiydsSo2kupsasdo7Yi2toh0sFZjG5JpiZo20/TpVOmH5njvm8BYahEXHji8+968
+        c+55l4n8F0zM+rhVWkHmdg29A/PoK1Yw8uIjOp/3xpvqBgrjLeilZbjNLXxZ34bwt6jexMVCGRndQenl
+        0p+NWHzPXoP3rQ3bAbQhQM0E5Np2BKprbZzrm8TIs8puE+68+r0NwwZiacCwALEBCVcAqet8JlAjk1PZ
+        JzsNJt6u4+FMS3ZmMV9mmFNAMhesbBZLC6oFdOsd8oVXocmdx018Ej9k1FgqiJ0zgS6qlR6BVI4iEFRN
+        IJlxMF/1cfTMcGiQvbskB6ZqgairJ6BCTJKYu9tlAUW1oSRsNDwfB+JXQ4PzN6s07W0ZPxDS5aSgJEFn
+        06Y9CaOqSauJRvMr9qmXQ4P8/RoWvU16eyBUEq5kbigwiKoOMTBQ0zbKlTq6TxihwejkZ1iOJwfEwmiC
+        BQ49yaW50J7Fh0xJw3IxbM3hwo2x0ICRHZzFgveTunYERK5lgo5YMxx8WPFw5Li+U8wYm66jNz+Naov+
+        Beqiao58N5NrPluoryJO0QeKU7sNGKPPazh9aRzGo/eYmVvEMk270fTlmzl2N3XW9xL/jv7iaxw7+wAH
+        E9ew//AVxE8OItv/9O/Cf0ck8gud2vKswuxNZgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="analyzeDumpMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
+  <data name="helpMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 25</value>
   </data>
-  <data name="analyzeDumpMenuItem.Text" xml:space="preserve">
-    <value>Analyze...</value>
+  <data name="&gt;&gt;copySelectedSubtreeMenuItem.Name" xml:space="preserve">
+    <value>copySelectedSubtreeMenuItem</value>
   </data>
-  <data name="dumpMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
+  <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
+    <value>toolStripSeparator6</value>
   </data>
-  <data name="dumpMenuItem.Text" xml:space="preserve">
-    <value>Dump...</value>
-  </data>
-  <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 6</value>
-  </data>
-  <data name="newBehaviorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+N</value>
-  </data>
-  <data name="newBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="newBehaviorMenuItem.Text" xml:space="preserve">
-    <value>New Behavior</value>
-  </data>
-  <data name="createGroupMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="createGroupMenuItem.Text" xml:space="preserve">
-    <value>Create Group</value>
-  </data>
-  <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 6</value>
+  <data name="&gt;&gt;settingsMenuItem.Name" xml:space="preserve">
+    <value>settingsMenuItem</value>
   </data>
   <data name="saveBehaviorMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -446,38 +190,111 @@
         AABJRU5ErkJggg==
 </value>
   </data>
-  <data name="saveBehaviorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+S</value>
+  <data name="settingsMenuItem.Text" xml:space="preserve">
+    <value>Settings...</value>
+  </data>
+  <data name="&gt;&gt;createGroupMenuItem.Name" xml:space="preserve">
+    <value>createGroupMenuItem</value>
+  </data>
+  <data name="fitToViewMenuItem.Text" xml:space="preserve">
+    <value>Fit to View</value>
+  </data>
+  <data name="&gt;&gt;metaStoreMenuItem.Name" xml:space="preserve">
+    <value>metaStoreMenuItem</value>
+  </data>
+  <data name="&gt;&gt;callToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="createGroupMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="&gt;&gt;docMenuItem.Name" xml:space="preserve">
+    <value>docMenuItem</value>
+  </data>
+  <data name="findMenuItem.Text" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="&gt;&gt;reloadWorkspaceMenuItem.Name" xml:space="preserve">
+    <value>reloadWorkspaceMenuItem</value>
+  </data>
+  <data name="&gt;&gt;showNodeIdToolStripMenuItem.Name" xml:space="preserve">
+    <value>showNodeIdToolStripMenuItem</value>
+  </data>
+  <data name="dumpMenuItem.Text" xml:space="preserve">
+    <value>Dump...</value>
   </data>
   <data name="saveBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 22</value>
   </data>
-  <data name="saveBehaviorMenuItem.Text" xml:space="preserve">
-    <value>Save Behavior</value>
+  <data name="&gt;&gt;settingsMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="saveAsBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="aboutMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK/wAA
+        Cv8BNGKaggAAAW9JREFUOE+lkF1LwmAYhv1LCkWgHXlkeSwWdtIXSf4Mq4M6iwpCJMo+pqhgmThJ0wiS
+        ilEpRJFhB0ZZYxJimePufSeb0ZxGXXBzP2x7rr28OgD/ijJEMtf4mVAyBybOwbebpZn/vihHGeiCFp7A
+        IXoHxttKlCGcypNqz5IvDvY4J0sWyCO1IJC4INWexfWYtCyHoBZs75+RasHzPFwuFwRBwGdDlCSyiKAW
+        bEROSLVwu90wm81gGAbVWh1Pr1VJ0GMZo6/VAm/oiFQLh8MBm80Gu30IfKWG4mOls2CVSZJqwnEcLBYL
+        CoV7GAwGxNg0boo8VrYS2oLlTZZUE6fTKZ1gZnYORqMRk1PTuLwtw+NPaQvo8SiiKMJqteK5XIbw9o7w
+        HiudInpwjrVQpruA3jz9qz8QxEOJh8nUD71ej+GRUexEs+gbnKCfaQsoH/WGcnH5uxdkr0pInhbhDaa7
+        n4B2p3QU0Je/ibxDowx/C3RftIMEHQNNoCgAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
+    <value>toolStripSeparator7</value>
+  </data>
+  <data name="&gt;&gt;dockPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;exportBehaviorMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;findAllMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="exportAllMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+T</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;aboutMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveAllMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openWorkspaceMenuItem.Name" xml:space="preserve">
+    <value>openWorkspaceMenuItem</value>
+  </data>
+  <data name="&gt;&gt;redoMenuItem.Name" xml:space="preserve">
+    <value>redoMenuItem</value>
+  </data>
+  <data name="metaStoreMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 22</value>
+  </data>
+  <data name="controlsMenuItem.Text" xml:space="preserve">
+    <value>Start Page</value>
+  </data>
+  <data name="&gt;&gt;undoMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="propertyMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+P</value>
+  </data>
+  <data name="fileMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="newBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 22</value>
   </data>
-  <data name="saveAsBehaviorMenuItem.Text" xml:space="preserve">
-    <value>Save Behavior As...</value>
+  <data name="&gt;&gt;closeAllMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="exportBehaviorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+T</value>
-  </data>
-  <data name="exportBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="exportBehaviorMenuItem.Text" xml:space="preserve">
-    <value>Export Behavior...</value>
-  </data>
-  <data name="closeBehaviorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F4</value>
-  </data>
-  <data name="closeBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="closeBehaviorMenuItem.Text" xml:space="preserve">
-    <value>Close Behavior</value>
+  <data name="&gt;&gt;dockPanel.Name" xml:space="preserve">
+    <value>dockPanel</value>
   </data>
   <data name="saveAllMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -495,353 +312,144 @@
         s3XD5FWtG/ybSPsNT0fLLe9Z0fYAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="saveAllMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+S</value>
+  <data name="&gt;&gt;metaStoreMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="saveAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
+  <data name="&gt;&gt;checkErrorMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="saveAllMenuItem.Text" xml:space="preserve">
-    <value>Save All</value>
+  <data name="&gt;&gt;deleteSelectedMenuItem.Name" xml:space="preserve">
+    <value>deleteSelectedMenuItem</value>
   </data>
-  <data name="exportAllMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAaLSURBVFhHzZd7TBRXFMZtU9vapmnaSFrUqm2tqf3DRKP+UWtaa5XaCDVq1EJ9oKLBKBZk4wsE
-        FVAeokB5KQrIQ1ssijxFt4gIChh5iALSXZHX4sLyfvgY5+u5d5jtursIpmnSk3zZmdmb+X3nnHvvzIww
-        iFdIr5Pe/A/1BulVktl4izTD2tp6uY2NzYr/QMspbEaOHPm+hDON90gr79fWtvylUulUarVOrb6vU9+v
-        1dE1Xe2DB7oHTHV1ujqm+npdvayGBl2DrMZGvRqN9FCrbbG0tPxEwpkGc2ZHg4TGJg2aNM1ofvgQdA5t
-        SwtaWlu5WnU66Jja2tDG1N6OdqaODq4Ops5Os+rp6RHHjh37qYQzDW6AYIKm2RTeKsMNwYNAO7u6uLqM
-        1NvbO7QBggkmcDNgGdo5AGSA0upGXCutw+VCFdo7u9Dd3Y3unh69+vr6ZANswpsEN0AwQQY/BzcotTGY
-        g0juYZehvNOMvdEFOJpYAI22DT29vSxzrv7+/qENEEwwBOvhxuABKMuMestB2w4mIb28CWm3mxF0vgRb
-        /dNQqdawzLkePXo0dAuozAKHG2Yuww0zNgDzDAmwxfMEEvPu4cx1NVdsTiUc/TJwVnkXHV09ePz48TAM
-        tLcLHDwAZ702zrqT+lvb0Ix76kbcu9+IGiZ1PdY4+yMysxQnlXdwghR1uQKRWeXYEZkLv4Qi1Dd3DN0C
-        ylYyYJy5QdY5129jb3Ay7N1isJa0etcx/KwIwSIHLxw9V4xfU0u4gi/colbcxJHkIpoXudgWpBQnfrdr
-        6ehZm8zuhtwAAQUZ/lzmBuUOjcvEZp947InMgGe0El5xuTiYmA/fMzcQcLaYdBMBScXw+70Qh05fh3d8
-        HvbHXoHb8UtYuTe5ZeqqUy4TFp9k2/JzwQ0QVDDOXN/rgckUEpMKux0R2HY4GTvCsuAWlQPP2Gs4EH8D
-        3olFXF4JhTgQdx2eMXn8/50R2dgenEYT8yxW7IgVJi8JSZnwY/hkCS2F3oBx2eVlxOC0lBAcnYJFjoex
-        fn8inAJToQhTYk9UHjxiCHiqkMRKfgO7o/LpvyvYGpgF+/1/YIlLNOasCsDn3+/EmNlbxY8WeNdIaCm4
-        AZrlAis9n+0DPTeE01JC0IlkTFnoitmrAmHjEgc7jwvY4HsJjodzsPlILhwDc7HR/0/Y+2TD1iMNixVJ
-        WLA5Gl+tCcG0pT7iZKtdmPCt6+MJVl6/SWgpJAPd3YK81MzBaSnhaNRZTJrvjJkr/LHQKQ4r3FNhf1CJ
-        TQFXycA1Lna87pASdvuysGzXefzgFI+v14djxnJfcYqNp26ilceWsfMPvC2hpeAGCCzIfTcHf/LkCcLj
-        UvDFIgVm2fpjkUsCQdIpYyW2BF2Fa8RNbA+/iW0hN6gSeVSFy1jpngZr59P4xiFMnGK9J99yzi/T35nk
-        JFENQm9AP+ON4LKBsko1bTphsHP2wxpFIOwVAVjn6osvF2/E7phS7D5ZDsWxW3AiExt8c7CS2rDQ6Ti8
-        Is6Loz+ePo22gcH3AYILL8reRE+f4umAHFw84XGmEvsTqrCHTDiHFWO1TwaWKcKRqixCX79+Kx7cAMEF
-        c9nLQBkmCALXs2fP9Nro6gWvcyocTFLBPfYOfvI+h00eobhTrebJ0H2G3ooJLhhnb5jxYHAmB4U3fNLq
-        4J5YgaVux3Ek6gx/psjbOd1XHDdu3IsN0CBhONkbw9l1Z69Q2IakwXbnUWTnFKCFHutaeq94SO8X9DbG
-        zPSPHz9+nIQzDb0Bc703hBsbYNfZ2MKKapzOvILyirtQqVS4W1mJkpIS3K6oQFV19ZP09HSfUaNGsbdj
-        syEZ6OvTGxhO79kxG8faxkrd1NSE3NxcJCUlISMjA8XFxWJ5ebmYkpISPW/ePAsJZT64AYJzA8MtP7vG
-        zLLNi/W7pqYGqampvOd0TayqqnpGRs5bWVmNkTCDxz8GhlF+URT5r2H2rN9lZWWgUvNzMiNmZWUp7e3t
-        P6N7m116hqE3MJz+MwPsmI1h+wZ7gdFoNMjPz0dBQQGHZ2dnX127di2DD/o1ZBjDMiCXnomds3HsucHK
-        X1/fwAyIVAXx4sWLaQ4ODpPonkNmLse/NkBfRmzCPaIWHKOef0D3Gzacxbska+pdM00gLU0gLd2Yi0rM
-        Rb3WkkG92DkbR+Wn9mu1ZECTmZm5b+7cuewz76XjNdKHfn5+M0mzXlYBAQEzQ0NDp1pYWAy6zv+HMWLE
-        3z2qV+tOSFfNAAAAAElFTkSuQmCC
-</value>
+  <data name="questionMenuItem.Text" xml:space="preserve">
+    <value>Ask Questions</value>
   </data>
-  <data name="exportAllMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+T</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>BehaviacDesigner</value>
   </data>
-  <data name="exportAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="exportAllMenuItem.Text" xml:space="preserve">
-    <value>Export All...</value>
-  </data>
-  <data name="closeAllMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+W</value>
-  </data>
-  <data name="closeAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="closeAllMenuItem.Text" xml:space="preserve">
-    <value>Close All</value>
-  </data>
-  <data name="toolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 6</value>
-  </data>
-  <data name="settingsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="settingsMenuItem.Text" xml:space="preserve">
-    <value>Settings...</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 6</value>
-  </data>
-  <data name="recentFilesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="recentFilesMenuItem.Text" xml:space="preserve">
-    <value>Recent Files</value>
-  </data>
-  <data name="recentWorkspacesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="recentWorkspacesMenuItem.Text" xml:space="preserve">
-    <value>Recent Workspaces</value>
-  </data>
-  <data name="exitMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F4</value>
-  </data>
-  <data name="exitMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 22</value>
-  </data>
-  <data name="exitMenuItem.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="fileMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="fileMenuButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 25</value>
-  </data>
-  <data name="fileMenuButton.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="undoMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Z</value>
-  </data>
-  <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="checkErrorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>216, 22</value>
   </data>
-  <data name="undoMenuItem.Text" xml:space="preserve">
-    <value>Undo</value>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
   </data>
-  <data name="redoMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Y</value>
+  <data name="deleteSelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
   </data>
-  <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="saveAsBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="newBehaviorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+N</value>
+  </data>
+  <data name="checkErrorMenuItem.Text" xml:space="preserve">
+    <value>Check Error...</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="getLatestVersionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cutSelectedMenuItem.Text" xml:space="preserve">
+    <value>Cut Selected Object</value>
+  </data>
+  <data name="newWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="closeBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="&gt;&gt;instancePropertyMenuItem.Name" xml:space="preserve">
+    <value>instancePropertyMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dockPanel.Type" xml:space="preserve">
+    <value>WeifenLuo.WinFormsUI.Docking.DockPanel, WeifenLuo.WinFormsUI.Docking, Version=2.5.0.17924, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;errorInfoMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fitToViewMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+E</value>
+  </data>
+  <data name="logConsoleMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="exportBehaviorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 6</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="openWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="copySelectedSubtreeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>216, 22</value>
   </data>
   <data name="redoMenuItem.Text" xml:space="preserve">
     <value>Redo</value>
   </data>
-  <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 6</value>
-  </data>
-  <data name="cutSelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="cutSelectedMenuItem.Text" xml:space="preserve">
-    <value>Cut Selected Object</value>
-  </data>
-  <data name="cutTreeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="cutTreeMenuItem.Text" xml:space="preserve">
-    <value>Cut Selected SubTree</value>
-  </data>
-  <data name="copySelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="copySelectedMenuItem.Text" xml:space="preserve">
-    <value>Copy Selected Object</value>
-  </data>
-  <data name="copySelectedSubtreeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="copySelectedSubtreeMenuItem.Text" xml:space="preserve">
-    <value>Copy Selected Subtree</value>
-  </data>
-  <data name="pasteSelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="pasteSelectedMenuItem.Text" xml:space="preserve">
-    <value>Paste Selected Object</value>
-  </data>
-  <data name="deleteSelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="deleteSelectedMenuItem.Text" xml:space="preserve">
-    <value>Delete Selected Object</value>
-  </data>
-  <data name="deleteTreeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="deleteTreeMenuItem.Text" xml:space="preserve">
-    <value>Delete Seleted SubTree</value>
-  </data>
-  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 6</value>
-  </data>
-  <data name="fitToViewMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+E</value>
-  </data>
-  <data name="fitToViewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="fitToViewMenuItem.Text" xml:space="preserve">
-    <value>Fit to View</value>
-  </data>
-  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 6</value>
-  </data>
-  <data name="findFileMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+Shift+O</value>
-  </data>
-  <data name="findFileMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="findFileMenuItem.Text" xml:space="preserve">
-    <value>Open File...</value>
-  </data>
   <data name="checkErrorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+K</value>
   </data>
-  <data name="checkErrorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
+  <data name="&gt;&gt;deleteSelectedMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="checkErrorMenuItem.Text" xml:space="preserve">
-    <value>Check Error...</value>
+  <data name="&gt;&gt;errorInfoMenuItem.Name" xml:space="preserve">
+    <value>errorInfoMenuItem</value>
   </data>
-  <data name="saveImageMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 22</value>
-  </data>
-  <data name="saveImageMenuItem.Text" xml:space="preserve">
-    <value>Save Image...</value>
-  </data>
-  <data name="editMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPxZIxDoMwDEU5Ty7RUzBzFLgJDFWHXKLMnRkr
-        cQX2Dm5eiCOH0E6VGunLseP8/01ofrL6UeQTWtCXcAnp+k5we2wFtGbJAIRE1/mawDaCXdHn6DqUU7QE
-        /u5lfs4ir01kTfsQYx6gZ4upuUtrCMb9IJOYvb2k+RIEXXdCME1X6YNFQN6HekTIh2GIY1CHvHBAkx6o
-        is0ZZ1kljxUdnI2gaoWDlAN1UBGoA4VVPubsQeUA21YRyzFXpDpElQM+XpwRFRqScp754IRnPx0BZkCj
-        RprZ5xh6QXt0ACNvG+M3aI/9D/64muYN1DQu+IFgTbIAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="editMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="editMenuButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 25</value>
-  </data>
-  <data name="editMenuButton.Text" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="findMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F</value>
-  </data>
-  <data name="findMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
-  </data>
-  <data name="findMenuItem.Text" xml:space="preserve">
-    <value>Find</value>
-  </data>
-  <data name="findAllMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+F</value>
-  </data>
-  <data name="findAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
-  </data>
-  <data name="findAllMenuItem.Text" xml:space="preserve">
-    <value>Find All</value>
-  </data>
-  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 6</value>
-  </data>
-  <data name="metaStoreMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+M</value>
-  </data>
-  <data name="metaStoreMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
-  </data>
-  <data name="metaStoreMenuItem.Text" xml:space="preserve">
-    <value>Meta Browser</value>
-  </data>
-  <data name="propertyMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
-  </data>
-  <data name="propertyMenuItem.Text" xml:space="preserve">
-    <value>Property</value>
-  </data>
-  <data name="breakPointMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
-  </data>
-  <data name="breakPointMenuItem.Text" xml:space="preserve">
-    <value>Breakpoints</value>
-  </data>
-  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 6</value>
-  </data>
-  <data name="timelineMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="timelineMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
-  </data>
-  <data name="timelineMenuItem.Text" xml:space="preserve">
-    <value>Timeline</value>
-  </data>
-  <data name="viewMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPxZIxDoMwDEU5Ty7RUzBzFLgJDFWHXKLMnRkr
-        cQX2Dm5eiCOH0E6VGunLseP8/01ofrL6UeQTWtCXcAnp+k5we2wFtGbJAIRE1/mawDaCXdHn6DqUU7QE
-        /u5lfs4ir01kTfsQYx6gZ4upuUtrCMb9IJOYvb2k+RIEXXdCME1X6YNFQN6HekTIh2GIY1CHvHBAkx6o
-        is0ZZ1kljxUdnI2gaoWDlAN1UBGoA4VVPubsQeUA21YRyzFXpDpElQM+XpwRFRqScp754IRnPx0BZkCj
-        RprZ5xh6QXt0ACNvG+M3aI/9D/64muYN1DQu+IFgTbIAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="viewMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="viewMenuButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 25</value>
-  </data>
-  <data name="viewMenuButton.Text" xml:space="preserve">
-    <value>View</value>
-  </data>
-  <data name="instancePropertyMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
-  </data>
-  <data name="instancePropertyMenuItem.Text" xml:space="preserve">
-    <value>Instance Property</value>
-  </data>
-  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 6</value>
-  </data>
-  <data name="logConsoleMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
-  </data>
-  <data name="logConsoleMenuItem.Text" xml:space="preserve">
-    <value>Logs</value>
-  </data>
-  <data name="errorInfoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
+  <data name="&gt;&gt;toolStripSeparator.Name" xml:space="preserve">
+    <value>toolStripSeparator</value>
   </data>
   <data name="errorInfoMenuItem.Text" xml:space="preserve">
     <value>Error List</value>
   </data>
-  <data name="callToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
+  <data name="&gt;&gt;cutTreeMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="callToolStripMenuItem.Text" xml:space="preserve">
-    <value>Tree Exec Stack</value>
-  </data>
-  <data name="debugMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="viewMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIVSURBVDhPtVJNaxNRFM1PyE+Yn1AUXLjK0uWgDWQZwUUX
-        KsGFBEEcCkIwqBEpGiydsSo2kupsasdo7Yi2toh0sFZjG5JpiZo20/TpVOmH5njvm8BYahEXHji8+968
-        c+55l4n8F0zM+rhVWkHmdg29A/PoK1Yw8uIjOp/3xpvqBgrjLeilZbjNLXxZ34bwt6jexMVCGRndQenl
-        0p+NWHzPXoP3rQ3bAbQhQM0E5Np2BKprbZzrm8TIs8puE+68+r0NwwZiacCwALEBCVcAqet8JlAjk1PZ
-        JzsNJt6u4+FMS3ZmMV9mmFNAMhesbBZLC6oFdOsd8oVXocmdx018Ej9k1FgqiJ0zgS6qlR6BVI4iEFRN
-        IJlxMF/1cfTMcGiQvbskB6ZqgairJ6BCTJKYu9tlAUW1oSRsNDwfB+JXQ4PzN6s07W0ZPxDS5aSgJEFn
-        06Y9CaOqSauJRvMr9qmXQ4P8/RoWvU16eyBUEq5kbigwiKoOMTBQ0zbKlTq6TxihwejkZ1iOJwfEwmiC
-        BQ49yaW50J7Fh0xJw3IxbM3hwo2x0ICRHZzFgveTunYERK5lgo5YMxx8WPFw5Li+U8wYm66jNz+Naov+
-        Beqiao58N5NrPluoryJO0QeKU7sNGKPPazh9aRzGo/eYmVvEMk270fTlmzl2N3XW9xL/jv7iaxw7+wAH
-        E9ew//AVxE8OItv/9O/Cf0ck8gud2vKswuxNZgAAAABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAADtSURBVDhPxZIxDoMwDEU5Ty7RUzBzFLgJDFWHXKLMnRkr
+        cQX2Dm5eiCOH0E6VGunLseP8/01ofrL6UeQTWtCXcAnp+k5we2wFtGbJAIRE1/mawDaCXdHn6DqUU7QE
+        /u5lfs4ir01kTfsQYx6gZ4upuUtrCMb9IJOYvb2k+RIEXXdCME1X6YNFQN6HekTIh2GIY1CHvHBAkx6o
+        is0ZZ1kljxUdnI2gaoWDlAN1UBGoA4VVPubsQeUA21YRyzFXpDpElQM+XpwRFRqScp754IRnPx0BZkCj
+        RprZ5xh6QXt0ACNvG+M3aI/9D/64muYN1DQu+IFgTbIAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="debugMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
   </data>
-  <data name="debugMenuButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 25</value>
+  <data name="showNodeIdToolStripMenuItem.Text" xml:space="preserve">
+    <value>Show NodeId</value>
   </data>
-  <data name="debugMenuButton.Text" xml:space="preserve">
-    <value>Debug</value>
+  <data name="exportBehaviorMenuItem.Text" xml:space="preserve">
+    <value>Export Behavior...</value>
+  </data>
+  <data name="&gt;&gt;saveBehaviorMenuItem.Name" xml:space="preserve">
+    <value>saveBehaviorMenuItem</value>
+  </data>
+  <data name="&gt;&gt;debugMenuButton.Name" xml:space="preserve">
+    <value>debugMenuButton</value>
+  </data>
+  <data name="exportAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="editWorkspaceMenuItem.Text" xml:space="preserve">
+    <value>Edit Workspace...</value>
+  </data>
+  <data name="&gt;&gt;copySelectedMenuItem.Name" xml:space="preserve">
+    <value>copySelectedMenuItem</value>
+  </data>
+  <data name="showNodeIdToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+I</value>
   </data>
   <data name="controlsMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -860,131 +468,135 @@
         L2PdwmxM8d9B0i+k/s5JFmy4DAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="controlsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+  <data name="&gt;&gt;toolStripSeparator13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="controlsMenuItem.Text" xml:space="preserve">
-    <value>Start Page</value>
+  <data name="saveImageMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
   </data>
-  <data name="docMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="docMenuItem.Text" xml:space="preserve">
-    <value>Documents</value>
+  <data name="saveAllMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+S</value>
   </data>
-  <data name="questionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+  <data name="breakPointMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 22</value>
   </data>
-  <data name="questionMenuItem.Text" xml:space="preserve">
-    <value>Ask Questions</value>
+  <data name="&gt;&gt;newBehaviorMenuItem.Name" xml:space="preserve">
+    <value>newBehaviorMenuItem</value>
   </data>
-  <data name="getLatestVersionMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK/wAA
-        Cv8BNGKaggAAAvpJREFUOE+NkvtPk2cYhvlfzGJMnInR6TT+4CGk6KAG0A8LAuKopRzKoWAtcijSjzoZ
-        o7QDShC0lU0mwTFaP4KHiOABQ9BlmQMPGDWcTC2YiakH9LKvyz5csiz74X7yJu97X2+e57mjAFWl9cr6
-        iGRrXWCo3KXM25v7nx+q81/NOXLGZrR1rv307d9SD2UNfXkVbuWBb3CICw9GUSb78E1UUaAYkOQTZJb6
-        xvVlpwyfmoU+lsNOJVf2Ki+775zj1p+/M/ZqmpKeGpz3y8n+RctWRy0p8jDJ1vaFDEvbPyBRlrrAunJ3
-        YKJlxEXfrJeBuRFGF+4wFg7SNeXH4HGg8fzBBncPG5v0SIX143uLmtV2BKC62qfguV1L04QF7xM3vkkH
-        zb/5yPmxC2NLiJS6R6w6nciKH2LZbM9nT16DTQUUH+sdbAk8Rlac5N7cSeFIHGavlZIOBfn4z8iudqy1
-        9aS7slnZqGHlsQQSjbUDKqDA0RNqPf8KW2sr2tMavlKS0Te7aDzl5+LgVWaCz3gyG6TjbC9pZSaW1cSg
-        zZRDKsBk7w65AmEOdwRJt+qJbf0ac0c1/ZcHI/fwdhFehN8xPbeIu/0Mm0yJ7EivXALkHukaKGx6iOn4
-        a4yuCRJKTVS4v2XqaVA1zz5/y92pN/iHxklMSyU62brUQnbVT7aco1fI/P4lGc45ku3XOHRUZvJp6C/z
-        /GLE/Jrhu2FauoeJl5LYIpmXhigSJkKyv+YWum9m0VSNINnN9PZfZmY+8vP0G27cC3NudIE8SyVx0r75
-        6vLiNhUgikhYmsW3sKfiGquKHaw2p5JlLqKtM0DP0Bies8PkHawkSbebTmcqvZ789w1yiV0FCImE6fIb
-        x7cXuIjW56A1OpCybEh795Mg6UhJisdt3sbMSQ3vrmfg/a5IQLQqQEgkTIRE7FmsSkxbDEz0nKKNtmTF
-        reXXyi+Y9Gwh5E/ioGHnkvn/KALYZYhdwyXLlxyI+Rxd7Pr4f334XxKQTauXE7Pxs11A1AfYZbKmmEBO
-        JgAAAABJRU5ErkJggg==
-</value>
+  <data name="&gt;&gt;saveImageMenuItem.Name" xml:space="preserve">
+    <value>saveImageMenuItem</value>
   </data>
-  <data name="getLatestVersionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 6</value>
   </data>
-  <data name="getLatestVersionMenuItem.Text" xml:space="preserve">
-    <value>Get Latest Version</value>
+  <data name="deleteTreeMenuItem.Text" xml:space="preserve">
+    <value>Delete Seleted SubTree</value>
   </data>
-  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
+  <data name="&gt;&gt;timelineMenuItem.Name" xml:space="preserve">
+    <value>timelineMenuItem</value>
   </data>
-  <data name="aboutMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK/wAA
-        Cv8BNGKaggAAAW9JREFUOE+lkF1LwmAYhv1LCkWgHXlkeSwWdtIXSf4Mq4M6iwpCJMo+pqhgmThJ0wiS
-        ilEpRJFhB0ZZYxJimePufSeb0ZxGXXBzP2x7rr28OgD/ijJEMtf4mVAyBybOwbebpZn/vihHGeiCFp7A
-        IXoHxttKlCGcypNqz5IvDvY4J0sWyCO1IJC4INWexfWYtCyHoBZs75+RasHzPFwuFwRBwGdDlCSyiKAW
-        bEROSLVwu90wm81gGAbVWh1Pr1VJ0GMZo6/VAm/oiFQLh8MBm80Gu30IfKWG4mOls2CVSZJqwnEcLBYL
-        CoV7GAwGxNg0boo8VrYS2oLlTZZUE6fTKZ1gZnYORqMRk1PTuLwtw+NPaQvo8SiiKMJqteK5XIbw9o7w
-        HiudInpwjrVQpruA3jz9qz8QxEOJh8nUD71ej+GRUexEs+gbnKCfaQsoH/WGcnH5uxdkr0pInhbhDaa7
-        n4B2p3QU0Je/ibxDowx/C3RftIMEHQNNoCgAAAAASUVORK5CYII=
-</value>
+  <data name="&gt;&gt;exportAllMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="aboutMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+  <data name="&gt;&gt;cutSelectedMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="aboutMenuItem.Text" xml:space="preserve">
-    <value>About</value>
+  <data name="&gt;&gt;newWorkspaceMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="helpMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIVSURBVDhPtVJNaxNRFM1PyE+Yn1AUXLjK0uWgDWQZwUUX
-        KsGFBEEcCkIwqBEpGiydsSo2kupsasdo7Yi2toh0sFZjG5JpiZo20/TpVOmH5njvm8BYahEXHji8+968
-        c+55l4n8F0zM+rhVWkHmdg29A/PoK1Yw8uIjOp/3xpvqBgrjLeilZbjNLXxZ34bwt6jexMVCGRndQenl
-        0p+NWHzPXoP3rQ3bAbQhQM0E5Np2BKprbZzrm8TIs8puE+68+r0NwwZiacCwALEBCVcAqet8JlAjk1PZ
-        JzsNJt6u4+FMS3ZmMV9mmFNAMhesbBZLC6oFdOsd8oVXocmdx018Ej9k1FgqiJ0zgS6qlR6BVI4iEFRN
-        IJlxMF/1cfTMcGiQvbskB6ZqgairJ6BCTJKYu9tlAUW1oSRsNDwfB+JXQ4PzN6s07W0ZPxDS5aSgJEFn
-        06Y9CaOqSauJRvMr9qmXQ4P8/RoWvU16eyBUEq5kbigwiKoOMTBQ0zbKlTq6TxihwejkZ1iOJwfEwmiC
-        BQ49yaW50J7Fh0xJw3IxbM3hwo2x0ICRHZzFgveTunYERK5lgo5YMxx8WPFw5Li+U8wYm66jNz+Naov+
-        Beqiao58N5NrPluoryJO0QeKU7sNGKPPazh9aRzGo/eYmVvEMk270fTlmzl2N3XW9xL/jv7iaxw7+wAH
-        E9ew//AVxE8OItv/9O/Cf0ck8gud2vKswuxNZgAAAABJRU5ErkJggg==
-</value>
+  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 6</value>
   </data>
-  <data name="helpMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
   </data>
-  <data name="helpMenuButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 25</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="timelineMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="helpMenuButton.Text" xml:space="preserve">
-    <value>Help</value>
+  <data name="saveBehaviorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+S</value>
   </data>
-  <data name="toolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="findMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 22</value>
   </data>
-  <data name="toolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 25</value>
+  <data name="propertyMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 22</value>
   </data>
-  <data name="toolStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;findFileMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStrip.Text" xml:space="preserve">
-    <value>toolStrip1</value>
+  <data name="&gt;&gt;findMenuItem.Name" xml:space="preserve">
+    <value>findMenuItem</value>
   </data>
-  <data name="&gt;&gt;toolStrip.Name" xml:space="preserve">
-    <value>toolStrip</value>
+  <data name="&gt;&gt;saveAsBehaviorMenuItem.Name" xml:space="preserve">
+    <value>saveAsBehaviorMenuItem</value>
   </data>
-  <data name="&gt;&gt;toolStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 6</value>
   </data>
-  <data name="&gt;&gt;toolStrip.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;questionMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStrip.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="closeAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>58</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+  <data name="errorInfoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 730</value>
+  <data name="&gt;&gt;instancePropertyMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="undoMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Z</value>
+  </data>
+  <data name="&gt;&gt;saveBehaviorMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1024, 768</value>
+  </data>
+  <data name="&gt;&gt;breakPointMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;undoMenuItem.Name" xml:space="preserve">
+    <value>undoMenuItem</value>
+  </data>
+  <data name="findAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 22</value>
+  </data>
+  <data name="connectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="settingsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
+    <value>toolStripSeparator8</value>
+  </data>
+  <data name="cutTreeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
+  </data>
+  <data name="metaStoreMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+M</value>
+  </data>
+  <data name="&gt;&gt;viewMenuButton.Name" xml:space="preserve">
+    <value>viewMenuButton</value>
+  </data>
+  <data name="showProfilingToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+G</value>
+  </data>
+  <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
+  </data>
+  <data name="cutTreeMenuItem.Text" xml:space="preserve">
+    <value>Cut Selected SubTree</value>
+  </data>
+  <data name="exitMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5851,406 +5463,833 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1024, 768</value>
+  <data name="closeAllMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+W</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>BehaviacDesigner</value>
+  <data name="debugMenuButton.Text" xml:space="preserve">
+    <value>Debug</value>
   </data>
-  <data name="&gt;&gt;fileMenuButton.Name" xml:space="preserve">
-    <value>fileMenuButton</value>
+  <data name="findFileMenuItem.Text" xml:space="preserve">
+    <value>Open File...</value>
   </data>
-  <data name="&gt;&gt;fileMenuButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="pasteSelectedMenuItem.Text" xml:space="preserve">
+    <value>Paste Selected Object</value>
   </data>
-  <data name="&gt;&gt;newWorkspaceMenuItem.Name" xml:space="preserve">
-    <value>newWorkspaceMenuItem</value>
-  </data>
-  <data name="&gt;&gt;newWorkspaceMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openWorkspaceMenuItem.Name" xml:space="preserve">
-    <value>openWorkspaceMenuItem</value>
-  </data>
-  <data name="&gt;&gt;openWorkspaceMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;editWorkspaceMenuItem.Name" xml:space="preserve">
-    <value>editWorkspaceMenuItem</value>
-  </data>
-  <data name="&gt;&gt;editWorkspaceMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;reloadWorkspaceMenuItem.Name" xml:space="preserve">
-    <value>reloadWorkspaceMenuItem</value>
-  </data>
-  <data name="&gt;&gt;reloadWorkspaceMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;connectMenuItem.Name" xml:space="preserve">
-    <value>connectMenuItem</value>
-  </data>
-  <data name="&gt;&gt;connectMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;analyzeDumpMenuItem.Name" xml:space="preserve">
-    <value>analyzeDumpMenuItem</value>
-  </data>
-  <data name="&gt;&gt;analyzeDumpMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dumpMenuItem.Name" xml:space="preserve">
-    <value>dumpMenuItem</value>
-  </data>
-  <data name="&gt;&gt;dumpMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
-    <value>toolStripSeparator7</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;newBehaviorMenuItem.Name" xml:space="preserve">
-    <value>newBehaviorMenuItem</value>
-  </data>
-  <data name="&gt;&gt;newBehaviorMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;createGroupMenuItem.Name" xml:space="preserve">
-    <value>createGroupMenuItem</value>
-  </data>
-  <data name="&gt;&gt;createGroupMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator13.Name" xml:space="preserve">
-    <value>toolStripSeparator13</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveBehaviorMenuItem.Name" xml:space="preserve">
-    <value>saveBehaviorMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveBehaviorMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveAsBehaviorMenuItem.Name" xml:space="preserve">
-    <value>saveAsBehaviorMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveAsBehaviorMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exportBehaviorMenuItem.Name" xml:space="preserve">
-    <value>exportBehaviorMenuItem</value>
-  </data>
-  <data name="&gt;&gt;exportBehaviorMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;closeBehaviorMenuItem.Name" xml:space="preserve">
-    <value>closeBehaviorMenuItem</value>
-  </data>
-  <data name="&gt;&gt;closeBehaviorMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveAllMenuItem.Name" xml:space="preserve">
-    <value>saveAllMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveAllMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exportAllMenuItem.Name" xml:space="preserve">
-    <value>exportAllMenuItem</value>
-  </data>
-  <data name="&gt;&gt;exportAllMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;closeAllMenuItem.Name" xml:space="preserve">
-    <value>closeAllMenuItem</value>
-  </data>
-  <data name="&gt;&gt;closeAllMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator.Name" xml:space="preserve">
-    <value>toolStripSeparator</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsMenuItem.Name" xml:space="preserve">
-    <value>settingsMenuItem</value>
-  </data>
-  <data name="&gt;&gt;settingsMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;recentFilesMenuItem.Name" xml:space="preserve">
-    <value>recentFilesMenuItem</value>
-  </data>
-  <data name="&gt;&gt;recentFilesMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;recentWorkspacesMenuItem.Name" xml:space="preserve">
-    <value>recentWorkspacesMenuItem</value>
-  </data>
-  <data name="&gt;&gt;recentWorkspacesMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exitMenuItem.Name" xml:space="preserve">
-    <value>exitMenuItem</value>
-  </data>
-  <data name="&gt;&gt;exitMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;editMenuButton.Name" xml:space="preserve">
-    <value>editMenuButton</value>
-  </data>
-  <data name="&gt;&gt;editMenuButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;undoMenuItem.Name" xml:space="preserve">
-    <value>undoMenuItem</value>
-  </data>
-  <data name="&gt;&gt;undoMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;redoMenuItem.Name" xml:space="preserve">
-    <value>redoMenuItem</value>
-  </data>
-  <data name="&gt;&gt;redoMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
-    <value>toolStripSeparator14</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cutSelectedMenuItem.Name" xml:space="preserve">
-    <value>cutSelectedMenuItem</value>
-  </data>
-  <data name="&gt;&gt;cutSelectedMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cutTreeMenuItem.Name" xml:space="preserve">
-    <value>cutTreeMenuItem</value>
-  </data>
-  <data name="&gt;&gt;cutTreeMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;copySelectedMenuItem.Name" xml:space="preserve">
-    <value>copySelectedMenuItem</value>
-  </data>
-  <data name="&gt;&gt;copySelectedMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;copySelectedSubtreeMenuItem.Name" xml:space="preserve">
-    <value>copySelectedSubtreeMenuItem</value>
-  </data>
-  <data name="&gt;&gt;copySelectedSubtreeMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pasteSelectedMenuItem.Name" xml:space="preserve">
-    <value>pasteSelectedMenuItem</value>
-  </data>
-  <data name="&gt;&gt;pasteSelectedMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteSelectedMenuItem.Name" xml:space="preserve">
-    <value>deleteSelectedMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deleteSelectedMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteTreeMenuItem.Name" xml:space="preserve">
-    <value>deleteTreeMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deleteTreeMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
-    <value>toolStripSeparator6</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fitToViewMenuItem.Name" xml:space="preserve">
-    <value>fitToViewMenuItem</value>
-  </data>
-  <data name="&gt;&gt;fitToViewMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
-    <value>toolStripSeparator8</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;findFileMenuItem.Name" xml:space="preserve">
-    <value>findFileMenuItem</value>
-  </data>
-  <data name="&gt;&gt;findFileMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkErrorMenuItem.Name" xml:space="preserve">
-    <value>checkErrorMenuItem</value>
-  </data>
-  <data name="&gt;&gt;checkErrorMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveImageMenuItem.Name" xml:space="preserve">
-    <value>saveImageMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveImageMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;viewMenuButton.Name" xml:space="preserve">
-    <value>viewMenuButton</value>
-  </data>
-  <data name="&gt;&gt;viewMenuButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;findMenuItem.Name" xml:space="preserve">
-    <value>findMenuItem</value>
-  </data>
-  <data name="&gt;&gt;findMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;findAllMenuItem.Name" xml:space="preserve">
-    <value>findAllMenuItem</value>
-  </data>
-  <data name="&gt;&gt;findAllMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator11.Name" xml:space="preserve">
-    <value>toolStripSeparator11</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;metaStoreMenuItem.Name" xml:space="preserve">
-    <value>metaStoreMenuItem</value>
-  </data>
-  <data name="&gt;&gt;metaStoreMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;propertyMenuItem.Name" xml:space="preserve">
-    <value>propertyMenuItem</value>
+  <data name="deleteSelectedMenuItem.Text" xml:space="preserve">
+    <value>Delete Selected Object</value>
   </data>
   <data name="&gt;&gt;propertyMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;breakPointMenuItem.Name" xml:space="preserve">
-    <value>breakPointMenuItem</value>
-  </data>
-  <data name="&gt;&gt;breakPointMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator9.Name" xml:space="preserve">
     <value>toolStripSeparator9</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator9.Type" xml:space="preserve">
+  <data name="&gt;&gt;controlsMenuItem.Name" xml:space="preserve">
+    <value>controlsMenuItem</value>
+  </data>
+  <data name="&gt;&gt;viewMenuButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;connectMenuItem.Name" xml:space="preserve">
+    <value>connectMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dumpMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="docMenuItem.Text" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="&gt;&gt;dockPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;analyzeDumpMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;propertyMenuItem.Name" xml:space="preserve">
+    <value>propertyMenuItem</value>
+  </data>
+  <data name="&gt;&gt;exitMenuItem.Name" xml:space="preserve">
+    <value>exitMenuItem</value>
+  </data>
+  <data name="&gt;&gt;showProfilingToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator11.Name" xml:space="preserve">
+    <value>toolStripSeparator11</value>
+  </data>
+  <data name="&gt;&gt;saveAsBehaviorMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="propertyMenuItem.Text" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="callToolStripMenuItem.Text" xml:space="preserve">
+    <value>Tree Exec Stack</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 6</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;timelineMenuItem.Name" xml:space="preserve">
-    <value>timelineMenuItem</value>
+  <data name="getLatestVersionMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK/wAA
+        Cv8BNGKaggAAAvpJREFUOE+NkvtPk2cYhvlfzGJMnInR6TT+4CGk6KAG0A8LAuKopRzKoWAtcijSjzoZ
+        o7QDShC0lU0mwTFaP4KHiOABQ9BlmQMPGDWcTC2YiakH9LKvyz5csiz74X7yJu97X2+e57mjAFWl9cr6
+        iGRrXWCo3KXM25v7nx+q81/NOXLGZrR1rv307d9SD2UNfXkVbuWBb3CICw9GUSb78E1UUaAYkOQTZJb6
+        xvVlpwyfmoU+lsNOJVf2Ki+775zj1p+/M/ZqmpKeGpz3y8n+RctWRy0p8jDJ1vaFDEvbPyBRlrrAunJ3
+        YKJlxEXfrJeBuRFGF+4wFg7SNeXH4HGg8fzBBncPG5v0SIX143uLmtV2BKC62qfguV1L04QF7xM3vkkH
+        zb/5yPmxC2NLiJS6R6w6nciKH2LZbM9nT16DTQUUH+sdbAk8Rlac5N7cSeFIHGavlZIOBfn4z8iudqy1
+        9aS7slnZqGHlsQQSjbUDKqDA0RNqPf8KW2sr2tMavlKS0Te7aDzl5+LgVWaCz3gyG6TjbC9pZSaW1cSg
+        zZRDKsBk7w65AmEOdwRJt+qJbf0ac0c1/ZcHI/fwdhFehN8xPbeIu/0Mm0yJ7EivXALkHukaKGx6iOn4
+        a4yuCRJKTVS4v2XqaVA1zz5/y92pN/iHxklMSyU62brUQnbVT7aco1fI/P4lGc45ku3XOHRUZvJp6C/z
+        /GLE/Jrhu2FauoeJl5LYIpmXhigSJkKyv+YWum9m0VSNINnN9PZfZmY+8vP0G27cC3NudIE8SyVx0r75
+        6vLiNhUgikhYmsW3sKfiGquKHaw2p5JlLqKtM0DP0Bies8PkHawkSbebTmcqvZ789w1yiV0FCImE6fIb
+        x7cXuIjW56A1OpCybEh795Mg6UhJisdt3sbMSQ3vrmfg/a5IQLQqQEgkTIRE7FmsSkxbDEz0nKKNtmTF
+        reXXyi+Y9Gwh5E/ioGHnkvn/KALYZYhdwyXLlxyI+Rxd7Pr4f334XxKQTauXE7Pxs11A1AfYZbKmmEBO
+        JgAAAABJRU5ErkJggg==
+</value>
   </data>
-  <data name="&gt;&gt;timelineMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="fitToViewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
   </data>
-  <data name="&gt;&gt;debugMenuButton.Name" xml:space="preserve">
-    <value>debugMenuButton</value>
-  </data>
-  <data name="&gt;&gt;debugMenuButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;instancePropertyMenuItem.Name" xml:space="preserve">
-    <value>instancePropertyMenuItem</value>
-  </data>
-  <data name="&gt;&gt;instancePropertyMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
-    <value>toolStripMenuItem4</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;logConsoleMenuItem.Name" xml:space="preserve">
-    <value>logConsoleMenuItem</value>
+  <data name="&gt;&gt;breakPointMenuItem.Name" xml:space="preserve">
+    <value>breakPointMenuItem</value>
   </data>
   <data name="&gt;&gt;logConsoleMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;errorInfoMenuItem.Name" xml:space="preserve">
-    <value>errorInfoMenuItem</value>
+  <data name="editMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAADtSURBVDhPxZIxDoMwDEU5Ty7RUzBzFLgJDFWHXKLMnRkr
+        cQX2Dm5eiCOH0E6VGunLseP8/01ofrL6UeQTWtCXcAnp+k5we2wFtGbJAIRE1/mawDaCXdHn6DqUU7QE
+        /u5lfs4ir01kTfsQYx6gZ4upuUtrCMb9IJOYvb2k+RIEXXdCME1X6YNFQN6HekTIh2GIY1CHvHBAkx6o
+        is0ZZ1kljxUdnI2gaoWDlAN1UBGoA4VVPubsQeUA21YRyzFXpDpElQM+XpwRFRqScp754IRnPx0BZkCj
+        RprZ5xh6QXt0ACNvG+M3aI/9D/64muYN1DQu+IFgTbIAAAAASUVORK5CYII=
+</value>
   </data>
-  <data name="&gt;&gt;errorInfoMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;recentWorkspacesMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator13.Name" xml:space="preserve">
+    <value>toolStripSeparator13</value>
+  </data>
+  <data name="cutSelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
+  </data>
+  <data name="viewMenuButton.Text" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="closeAllMenuItem.Text" xml:space="preserve">
+    <value>Close All</value>
+  </data>
+  <data name="&gt;&gt;editMenuButton.Name" xml:space="preserve">
+    <value>editMenuButton</value>
+  </data>
+  <data name="viewMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 25</value>
+  </data>
+  <data name="&gt;&gt;deleteTreeMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fitToViewMenuItem.Name" xml:space="preserve">
+    <value>fitToViewMenuItem</value>
+  </data>
+  <data name="analyzeDumpMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="findAllMenuItem.Text" xml:space="preserve">
+    <value>Find All</value>
+  </data>
+  <data name="&gt;&gt;fitToViewMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="reloadWorkspaceMenuItem.Text" xml:space="preserve">
+    <value>Reload Workspace</value>
+  </data>
+  <data name="saveImageMenuItem.Text" xml:space="preserve">
+    <value>Save Image...</value>
+  </data>
+  <data name="&gt;&gt;findAllMenuItem.Name" xml:space="preserve">
+    <value>findAllMenuItem</value>
+  </data>
+  <data name="&gt;&gt;analyzeDumpMenuItem.Name" xml:space="preserve">
+    <value>analyzeDumpMenuItem</value>
+  </data>
+  <data name="exitMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="&gt;&gt;deleteTreeMenuItem.Name" xml:space="preserve">
+    <value>deleteTreeMenuItem</value>
+  </data>
+  <data name="&gt;&gt;toolStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="docMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="&gt;&gt;checkErrorMenuItem.Name" xml:space="preserve">
+    <value>checkErrorMenuItem</value>
+  </data>
+  <data name="undoMenuItem.Text" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="&gt;&gt;redoMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 6</value>
+  </data>
+  <data name="editMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 25</value>
+  </data>
+  <data name="connectMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
+    <value>toolStripSeparator14</value>
+  </data>
+  <data name="toolStrip.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;newWorkspaceMenuItem.Name" xml:space="preserve">
+    <value>newWorkspaceMenuItem</value>
+  </data>
+  <data name="&gt;&gt;aboutMenuItem.Name" xml:space="preserve">
+    <value>aboutMenuItem</value>
+  </data>
+  <data name="openWorkspaceMenuItem.Text" xml:space="preserve">
+    <value>Open Workspace...</value>
+  </data>
+  <data name="controlsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="dockPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 28</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="&gt;&gt;findMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="aboutMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="&gt;&gt;saveImageMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="aboutMenuItem.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;copySelectedSubtreeMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpMenuButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="saveAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="timelineMenuItem.Text" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="debugMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;showNodeIdToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;recentFilesMenuItem.Name" xml:space="preserve">
+    <value>recentFilesMenuItem</value>
+  </data>
+  <data name="deleteTreeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
+  </data>
+  <data name="helpMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;toolStrip.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="findFileMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
+  </data>
+  <data name="&gt;&gt;questionMenuItem.Name" xml:space="preserve">
+    <value>questionMenuItem</value>
+  </data>
+  <data name="exportAllMenuItem.Text" xml:space="preserve">
+    <value>Export All...</value>
+  </data>
+  <data name="&gt;&gt;reloadWorkspaceMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cutSelectedMenuItem.Name" xml:space="preserve">
+    <value>cutSelectedMenuItem</value>
+  </data>
+  <data name="editMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;closeAllMenuItem.Name" xml:space="preserve">
+    <value>closeAllMenuItem</value>
+  </data>
+  <data name="findFileMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+Shift+O</value>
+  </data>
+  <data name="exportBehaviorMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+T</value>
+  </data>
+  <data name="&gt;&gt;helpMenuButton.Name" xml:space="preserve">
+    <value>helpMenuButton</value>
+  </data>
+  <data name="toolStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;editWorkspaceMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;callToolStripMenuItem.Name" xml:space="preserve">
     <value>callToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;callToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="reloadWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
   </data>
-  <data name="&gt;&gt;helpMenuButton.Name" xml:space="preserve">
-    <value>helpMenuButton</value>
-  </data>
-  <data name="&gt;&gt;helpMenuButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;controlsMenuItem.Name" xml:space="preserve">
-    <value>controlsMenuItem</value>
-  </data>
-  <data name="&gt;&gt;controlsMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;docMenuItem.Name" xml:space="preserve">
-    <value>docMenuItem</value>
-  </data>
-  <data name="&gt;&gt;docMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;questionMenuItem.Name" xml:space="preserve">
-    <value>questionMenuItem</value>
-  </data>
-  <data name="&gt;&gt;questionMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;getLatestVersionMenuItem.Name" xml:space="preserve">
-    <value>getLatestVersionMenuItem</value>
-  </data>
-  <data name="&gt;&gt;getLatestVersionMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
-    <value>toolStripMenuItem3</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;aboutMenuItem.Name" xml:space="preserve">
-    <value>aboutMenuItem</value>
+  <data name="dockPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;aboutMenuItem.Type" xml:space="preserve">
+  <data name="createGroupMenuItem.Text" xml:space="preserve">
+    <value>Create Group</value>
+  </data>
+  <data name="getLatestVersionMenuItem.Text" xml:space="preserve">
+    <value>Get Latest Version</value>
+  </data>
+  <data name="toolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 6</value>
+  </data>
+  <data name="saveAsBehaviorMenuItem.Text" xml:space="preserve">
+    <value>Save Behavior As...</value>
+  </data>
+  <data name="dockPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="copySelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
+  </data>
+  <data name="&gt;&gt;fileMenuButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="helpMenuButton.Text" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="reloadWorkspaceMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+R</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainWindow</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="dumpMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
   </data>
+  <data name="redoMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Y</value>
+  </data>
+  <data name="&gt;&gt;createGroupMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pasteSelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 22</value>
+  </data>
+  <data name="recentFilesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="&gt;&gt;cutTreeMenuItem.Name" xml:space="preserve">
+    <value>cutTreeMenuItem</value>
+  </data>
+  <data name="debugMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 25</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
+    <value>toolStripMenuItem3</value>
+  </data>
+  <data name="exitMenuItem.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="instancePropertyMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="breakPointMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+B</value>
+  </data>
+  <data name="&gt;&gt;debugMenuButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="questionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="debugMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIVSURBVDhPtVJNaxNRFM1PyE+Yn1AUXLjK0uWgDWQZwUUX
+        KsGFBEEcCkIwqBEpGiydsSo2kupsasdo7Yi2toh0sFZjG5JpiZo20/TpVOmH5njvm8BYahEXHji8+968
+        c+55l4n8F0zM+rhVWkHmdg29A/PoK1Yw8uIjOp/3xpvqBgrjLeilZbjNLXxZ34bwt6jexMVCGRndQenl
+        0p+NWHzPXoP3rQ3bAbQhQM0E5Np2BKprbZzrm8TIs8puE+68+r0NwwZiacCwALEBCVcAqet8JlAjk1PZ
+        JzsNJt6u4+FMS3ZmMV9mmFNAMhesbBZLC6oFdOsd8oVXocmdx018Ej9k1FgqiJ0zgS6qlR6BVI4iEFRN
+        IJlxMF/1cfTMcGiQvbskB6ZqgairJ6BCTJKYu9tlAUW1oSRsNDwfB+JXQ4PzN6s07W0ZPxDS5aSgJEFn
+        06Y9CaOqSauJRvMr9qmXQ4P8/RoWvU16eyBUEq5kbigwiKoOMTBQ0zbKlTq6TxihwejkZ1iOJwfEwmiC
+        BQ49yaW50J7Fh0xJw3IxbM3hwo2x0ICRHZzFgveTunYERK5lgo5YMxx8WPFw5Li+U8wYm66jNz+Naov+
+        Beqiao58N5NrPluoryJO0QeKU7sNGKPPazh9aRzGo/eYmVvEMk270fTlmzl2N3XW9xL/jv7iaxw7+wAH
+        E9ew//AVxE8OItv/9O/Cf0ck8gud2vKswuxNZgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="viewMenuButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;connectMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="copySelectedMenuItem.Text" xml:space="preserve">
+    <value>Copy Selected Object</value>
+  </data>
+  <data name="timelineMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 22</value>
+  </data>
+  <data name="findMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+F</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="connectMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+L</value>
+  </data>
+  <data name="newWorkspaceMenuItem.Text" xml:space="preserve">
+    <value>New Workspace...</value>
+  </data>
+  <data name="breakPointMenuItem.Text" xml:space="preserve">
+    <value>Breakpoints</value>
+  </data>
+  <data name="&gt;&gt;toolStrip.Name" xml:space="preserve">
+    <value>toolStrip</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 6</value>
+  </data>
+  <data name="&gt;&gt;closeBehaviorMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="showProfilingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 22</value>
+  </data>
+  <data name="logConsoleMenuItem.Text" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="&gt;&gt;pasteSelectedMenuItem.Name" xml:space="preserve">
+    <value>pasteSelectedMenuItem</value>
+  </data>
+  <data name="&gt;&gt;closeBehaviorMenuItem.Name" xml:space="preserve">
+    <value>closeBehaviorMenuItem</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportAllMenuItem.Name" xml:space="preserve">
+    <value>exportAllMenuItem</value>
+  </data>
+  <data name="&gt;&gt;copySelectedMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dumpMenuItem.Name" xml:space="preserve">
+    <value>dumpMenuItem</value>
+  </data>
+  <data name="copySelectedSubtreeMenuItem.Text" xml:space="preserve">
+    <value>Copy Selected Subtree</value>
+  </data>
+  <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 6</value>
+  </data>
+  <data name="saveBehaviorMenuItem.Text" xml:space="preserve">
+    <value>Save Behavior</value>
+  </data>
+  <data name="&gt;&gt;getLatestVersionMenuItem.Name" xml:space="preserve">
+    <value>getLatestVersionMenuItem</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1008, 730</value>
+  </data>
+  <data name="recentWorkspacesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="&gt;&gt;editMenuButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timelineMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="recentWorkspacesMenuItem.Text" xml:space="preserve">
+    <value>Recent Workspaces</value>
+  </data>
+  <data name="instancePropertyMenuItem.Text" xml:space="preserve">
+    <value>Instance Property</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="newBehaviorMenuItem.Text" xml:space="preserve">
+    <value>New Behavior</value>
+  </data>
+  <data name="&gt;&gt;recentWorkspacesMenuItem.Name" xml:space="preserve">
+    <value>recentWorkspacesMenuItem</value>
+  </data>
+  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 6</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;docMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dockPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1008, 700</value>
+  </data>
+  <data name="recentFilesMenuItem.Text" xml:space="preserve">
+    <value>Recent Files</value>
+  </data>
+  <data name="&gt;&gt;editWorkspaceMenuItem.Name" xml:space="preserve">
+    <value>editWorkspaceMenuItem</value>
+  </data>
+  <data name="&gt;&gt;openWorkspaceMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="closeBehaviorMenuItem.Text" xml:space="preserve">
+    <value>Close Behavior</value>
+  </data>
+  <data name="&gt;&gt;newBehaviorMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fileMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 25</value>
+  </data>
+  <data name="showProfilingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Show Profiling</value>
+  </data>
+  <data name="&gt;&gt;controlsMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="connectMenuItem.Text" xml:space="preserve">
+    <value>Connect Server...</value>
+  </data>
+  <data name="analyzeDumpMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAEKSURBVDhPlZMxEoIwEEU5D5fwFKk5CtxECscil5DaoaR0
+        xivYW6z7NtmADCr+mc8Cs//nZwkVmO4iw22QcUz1fH1IPEZjm6s1fgLCuomZIqHVZ6j3vMMkt26DFU2s
+        IsQIZpM/DJI4McA2JWq15tZtvCdQIxMn7k9wmPdvK2uNl2gDhWW4+Z1XM+CBLwEZqIugPDM3UB+CVO7c
+        9yeL2nVdIcagqvSiJmlLaVvADGjiOwPqpBUj0liCJVZpzMCbXMTEvbqxY3k26KkbEmgT4kIVEp9Brg08
+        ASkFAxJ8A3MBWzOwBL8MSORAsOauBB4XgSXgjGgK+392JWDPi1X9j91lwBBpMurEy31hkBcRdDAe7S9E
+        6gAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 6</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="showNodeIdToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 22</value>
+  </data>
+  <data name="toolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1008, 25</value>
+  </data>
+  <data name="analyzeDumpMenuItem.Text" xml:space="preserve">
+    <value>Analyze...</value>
+  </data>
+  <data name="&gt;&gt;pasteSelectedMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveAllMenuItem.Name" xml:space="preserve">
+    <value>saveAllMenuItem</value>
+  </data>
+  <data name="&gt;&gt;logConsoleMenuItem.Name" xml:space="preserve">
+    <value>logConsoleMenuItem</value>
+  </data>
+  <data name="editWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 22</value>
+  </data>
+  <data name="&gt;&gt;fileMenuButton.Name" xml:space="preserve">
+    <value>fileMenuButton</value>
+  </data>
+  <data name="&gt;&gt;recentFilesMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;showProfilingToolStripMenuItem.Name" xml:space="preserve">
+    <value>showProfilingToolStripMenuItem</value>
+  </data>
+  <data name="findAllMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+F</value>
+  </data>
+  <data name="&gt;&gt;exportBehaviorMenuItem.Name" xml:space="preserve">
+    <value>exportBehaviorMenuItem</value>
+  </data>
+  <data name="editMenuButton.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="exportAllMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        3z2qV+tOSFfNAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>zh-CN</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>58</value>
+  </metadata>
 </root>

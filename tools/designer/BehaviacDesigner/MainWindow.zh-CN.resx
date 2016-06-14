@@ -118,12 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="fileMenuButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 25</value>
-  </data>
-  <data name="fileMenuButton.Text" xml:space="preserve">
-    <value>文件</value>
-  </data>
   <data name="newWorkspaceMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 22</value>
   </data>
@@ -536,21 +530,11 @@
   <data name="exitMenuItem.Text" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="editMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPxZIxDoMwDEU5Ty7RUzBzFLgJDFWHXKLMnRkr
-        cQX2Dm5eiCOH0E6VGunLseP8/01ofrL6UeQTWtCXcAnp+k5we2wFtGbJAIRE1/mawDaCXdHn6DqUU7QE
-        /u5lfs4ir01kTfsQYx6gZ4upuUtrCMb9IJOYvb2k+RIEXXdCME1X6YNFQN6HekTIh2GIY1CHvHBAkx6o
-        is0ZZ1kljxUdnI2gaoWDlAN1UBGoA4VVPubsQeUA21YRyzFXpDpElQM+XpwRFRqScp754IRnPx0BZkCj
-        RprZ5xh6QXt0ACNvG+M3aI/9D/64muYN1DQu+IFgTbIAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="editMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="fileMenuButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 25</value>
   </data>
-  <data name="editMenuButton.Text" xml:space="preserve">
-    <value>编辑</value>
+  <data name="fileMenuButton.Text" xml:space="preserve">
+    <value>文件</value>
   </data>
   <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -639,7 +623,7 @@
   <data name="saveImageMenuItem.Text" xml:space="preserve">
     <value>截图...</value>
   </data>
-  <data name="viewMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="editMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPxZIxDoMwDEU5Ty7RUzBzFLgJDFWHXKLMnRkr
@@ -649,11 +633,11 @@
         RprZ5xh6QXt0ACNvG+M3aI/9D/64muYN1DQu+IFgTbIAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="viewMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="editMenuButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 25</value>
   </data>
-  <data name="viewMenuButton.Text" xml:space="preserve">
-    <value>视图</value>
+  <data name="editMenuButton.Text" xml:space="preserve">
+    <value>编辑</value>
   </data>
   <data name="findMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>201, 22</value>
@@ -674,7 +658,7 @@
     <value>201, 22</value>
   </data>
   <data name="metaStoreMenuItem.Text" xml:space="preserve">
-    <value>元信息浏览</value>
+    <value>元信息浏览器</value>
   </data>
   <data name="propertyMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>201, 22</value>
@@ -688,35 +672,42 @@
   <data name="breakPointMenuItem.Text" xml:space="preserve">
     <value>断点</value>
   </data>
-  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 6</value>
-  </data>
   <data name="timelineMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>201, 22</value>
   </data>
   <data name="timelineMenuItem.Text" xml:space="preserve">
     <value>时间轴</value>
   </data>
-  <data name="debugMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 6</value>
+  </data>
+  <data name="showNodeIdToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 22</value>
+  </data>
+  <data name="showNodeIdToolStripMenuItem.Text" xml:space="preserve">
+    <value>切换显示节点号</value>
+  </data>
+  <data name="showProfilingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 22</value>
+  </data>
+  <data name="showProfilingToolStripMenuItem.Text" xml:space="preserve">
+    <value>切换显示统计</value>
+  </data>
+  <data name="viewMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIVSURBVDhPtVJNaxNRFM1PyE+Yn1AUXLjK0uWgDWQZwUUX
-        KsGFBEEcCkIwqBEpGiydsSo2kupsasdo7Yi2toh0sFZjG5JpiZo20/TpVOmH5njvm8BYahEXHji8+968
-        c+55l4n8F0zM+rhVWkHmdg29A/PoK1Yw8uIjOp/3xpvqBgrjLeilZbjNLXxZ34bwt6jexMVCGRndQenl
-        0p+NWHzPXoP3rQ3bAbQhQM0E5Np2BKprbZzrm8TIs8puE+68+r0NwwZiacCwALEBCVcAqet8JlAjk1PZ
-        JzsNJt6u4+FMS3ZmMV9mmFNAMhesbBZLC6oFdOsd8oVXocmdx018Ej9k1FgqiJ0zgS6qlR6BVI4iEFRN
-        IJlxMF/1cfTMcGiQvbskB6ZqgairJ6BCTJKYu9tlAUW1oSRsNDwfB+JXQ4PzN6s07W0ZPxDS5aSgJEFn
-        06Y9CaOqSauJRvMr9qmXQ4P8/RoWvU16eyBUEq5kbigwiKoOMTBQ0zbKlTq6TxihwejkZ1iOJwfEwmiC
-        BQ49yaW50J7Fh0xJw3IxbM3hwo2x0ICRHZzFgveTunYERK5lgo5YMxx8WPFw5Li+U8wYm66jNz+Naov+
-        Beqiao58N5NrPluoryJO0QeKU7sNGKPPazh9aRzGo/eYmVvEMk270fTlmzl2N3XW9xL/jv7iaxw7+wAH
-        E9ew//AVxE8OItv/9O/Cf0ck8gud2vKswuxNZgAAAABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPxZIxDoMwDEU5Ty7RUzBzFLgJDFWHXKLMnRkr
+        cQX2Dm5eiCOH0E6VGunLseP8/01ofrL6UeQTWtCXcAnp+k5we2wFtGbJAIRE1/mawDaCXdHn6DqUU7QE
+        /u5lfs4ir01kTfsQYx6gZ4upuUtrCMb9IJOYvb2k+RIEXXdCME1X6YNFQN6HekTIh2GIY1CHvHBAkx6o
+        is0ZZ1kljxUdnI2gaoWDlAN1UBGoA4VVPubsQeUA21YRyzFXpDpElQM+XpwRFRqScp754IRnPx0BZkCj
+        RprZ5xh6QXt0ACNvG+M3aI/9D/64muYN1DQu+IFgTbIAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="debugMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="viewMenuButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 25</value>
   </data>
-  <data name="debugMenuButton.Text" xml:space="preserve">
-    <value>调试</value>
+  <data name="viewMenuButton.Text" xml:space="preserve">
+    <value>视图</value>
   </data>
   <data name="instancePropertyMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 22</value>
@@ -742,7 +733,7 @@
   <data name="callToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 22</value>
   </data>
-  <data name="helpMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="debugMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIVSURBVDhPtVJNaxNRFM1PyE+Yn1AUXLjK0uWgDWQZwUUX
@@ -757,11 +748,11 @@
         E9ew//AVxE8OItv/9O/Cf0ck8gud2vKswuxNZgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="helpMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="debugMenuButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 25</value>
   </data>
-  <data name="helpMenuButton.Text" xml:space="preserve">
-    <value>帮助</value>
+  <data name="debugMenuButton.Text" xml:space="preserve">
+    <value>调试</value>
   </data>
   <data name="controlsMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -781,19 +772,19 @@
 </value>
   </data>
   <data name="controlsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="controlsMenuItem.Text" xml:space="preserve">
     <value>起始页</value>
   </data>
   <data name="docMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="docMenuItem.Text" xml:space="preserve">
     <value>文档查看</value>
   </data>
   <data name="questionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="questionMenuItem.Text" xml:space="preserve">
     <value>问题咨询</value>
@@ -819,13 +810,13 @@
 </value>
   </data>
   <data name="getLatestVersionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="getLatestVersionMenuItem.Text" xml:space="preserve">
     <value>最新版本</value>
   </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
+    <value>121, 6</value>
   </data>
   <data name="aboutMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -841,10 +832,31 @@
 </value>
   </data>
   <data name="aboutMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="aboutMenuItem.Text" xml:space="preserve">
     <value>关于</value>
+  </data>
+  <data name="helpMenuButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIVSURBVDhPtVJNaxNRFM1PyE+Yn1AUXLjK0uWgDWQZwUUX
+        KsGFBEEcCkIwqBEpGiydsSo2kupsasdo7Yi2toh0sFZjG5JpiZo20/TpVOmH5njvm8BYahEXHji8+968
+        c+55l4n8F0zM+rhVWkHmdg29A/PoK1Yw8uIjOp/3xpvqBgrjLeilZbjNLXxZ34bwt6jexMVCGRndQenl
+        0p+NWHzPXoP3rQ3bAbQhQM0E5Np2BKprbZzrm8TIs8puE+68+r0NwwZiacCwALEBCVcAqet8JlAjk1PZ
+        JzsNJt6u4+FMS3ZmMV9mmFNAMhesbBZLC6oFdOsd8oVXocmdx018Ej9k1FgqiJ0zgS6qlR6BVI4iEFRN
+        IJlxMF/1cfTMcGiQvbskB6ZqgairJ6BCTJKYu9tlAUW1oSRsNDwfB+JXQ4PzN6s07W0ZPxDS5aSgJEFn
+        06Y9CaOqSauJRvMr9qmXQ4P8/RoWvU16eyBUEq5kbigwiKoOMTBQ0zbKlTq6TxihwejkZ1iOJwfEwmiC
+        BQ49yaW50J7Fh0xJw3IxbM3hwo2x0ICRHZzFgveTunYERK5lgo5YMxx8WPFw5Li+U8wYm66jNz+Naov+
+        Beqiao58N5NrPluoryJO0QeKU7sNGKPPazh9aRzGo/eYmVvEMk270fTlmzl2N3XW9xL/jv7iaxw7+wAH
+        E9ew//AVxE8OItv/9O/Cf0ck8gud2vKswuxNZgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="helpMenuButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 25</value>
+  </data>
+  <data name="helpMenuButton.Text" xml:space="preserve">
+    <value>帮助</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

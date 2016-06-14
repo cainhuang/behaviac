@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\selector_loop_ut_7.xml-->
-<behavior name="node_test/selector_loop_ut_7" agenttype="AgentNodeTest" version="4">
+<behavior name="node_test/selector_loop_ut_7" agenttype="AgentNodeTest" version="5">
   <node class="Sequence" id="15">
     <node class="Action" id="16">
       <property Method="Self.AgentNodeTest::SelectTarget()" />

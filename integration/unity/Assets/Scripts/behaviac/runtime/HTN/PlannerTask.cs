@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+
+#if BEHAVIAC_USE_HTN
 namespace behaviac
 {
     #region PlannerTask
@@ -393,7 +395,17 @@ namespace behaviac
         private bool _logged = false;
 #endif
 
+        BehaviorTreeTask oldTreeTask_ = null;
+
         BehaviorTreeTask m_subTree = null;
+        public BehaviorTreeTask SubTreeTask
+        {
+            set
+            {
+                m_subTree = value;
+            }
+        }
+
         protected override bool onenter(Agent pAgent)
         {
             Debug.Check(this.m_node is ReferencedBehavior);
@@ -404,8 +416,12 @@ namespace behaviac
             _logged = false;
 #endif
 
-            this.m_subTree = Workspace.Instance.CreateBehaviorTreeTask(pNode.GetReferencedTree(pAgent));
+            //this.m_subTree = Workspace.Instance.CreateBehaviorTreeTask(pNode.GetReferencedTree(pAgent));
+            Debug.Check(this.m_subTree != null);
             pNode.SetTaskParams(pAgent, this.m_subTree);
+
+            this.oldTreeTask_ = pAgent.ExcutingTreeTask;
+            pAgent.ExcutingTreeTask = this.m_subTree;
 
             return true;
         }
@@ -417,6 +433,7 @@ namespace behaviac
             Debug.Check(pNode != null);
 
             this.m_subTree = null;
+            pAgent.ExcutingTreeTask = this.oldTreeTask_;
 #if !BEHAVIAC_RELEASE
             pAgent.LogReturnTree(pNode.GetReferencedTree(pAgent));
 #endif
@@ -449,7 +466,12 @@ namespace behaviac
                 Debug.Check(this.m_children.Count == 1);
                 BehaviorTask c = this.m_children[0];
 
+                BehaviorTreeTask oldTreeTask = pAgent.ExcutingTreeTask;
+                pAgent.ExcutingTreeTask = this.m_subTree;
+
                 status = c.exec(pAgent);
+
+                pAgent.ExcutingTreeTask = oldTreeTask;
             }
 
             return status;
@@ -510,3 +532,4 @@ namespace behaviac
         }
     }
 }
+#endif//#if BEHAVIAC_USE_HTN

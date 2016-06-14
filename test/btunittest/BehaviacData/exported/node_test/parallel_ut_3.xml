@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: node_test\parallel_ut_3.xml-->
-<behavior name="node_test/parallel_ut_3" agenttype="AgentNodeTest" version="4">
+<behavior name="node_test/parallel_ut_3" agenttype="AgentNodeTest" version="5">
   <node class="Sequence" id="1">
     <node class="Parallel" id="0">
       <property ChildFinishPolicy="CHILDFINISH_ONCE" />

@@ -861,4 +861,8 @@
   <data name="ReferenceGeneratorDesc" xml:space="preserve">
     <value>可以指定一个方法，其返回值需要是一个字符串，用来指定子树。</value>
   </data>
+  <data name="InvalidMetaInfo" xml:space="preserve">
+    <value>元数据文件有错误 : {0}
+请用最新的运行时重新导出元信息！</value>
+  </data>
 </root>

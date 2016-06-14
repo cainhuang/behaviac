@@ -31,7 +31,7 @@ namespace PluginBehaviac.Nodes
 
         public override string DocLink
         {
-            get { return "http://www.behaviac.com/docs/zh/references/sequencestochastic/"; }
+            get { return "http://www.behaviac.com/language/zh/sequencestochastic/"; }
         }
 
         public override string ExportClass

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
 <!--Source File: par_test\local_out_scope.xml-->
-<behavior name="par_test/local_out_scope" agenttype="CustomPropertyAgent" version="4">
+<behavior name="par_test/local_out_scope" agenttype="CustomPropertyAgent" version="5">
   <pars>
     <par name="l_IntArray" type="vector&lt;int&gt;" value="2:2|3" />
   </pars>

@@ -229,6 +229,7 @@ namespace behaviac
 
                     bool bOutput = true;
 
+#if BEHAVIAC_USE_HTN
                     if (pAgent.PlanningTop >= 0)
                     {
                         string agentFullName = string.Format("{0}#{1}", agentClassName, agentInstanceName);
@@ -261,7 +262,7 @@ namespace behaviac
                             p.Add(varName, value);
                         }
                     }
-
+#endif//
                     if (bOutput)
                     {
                         Output(pAgent, buffer);
@@ -305,7 +306,7 @@ namespace behaviac
                         string buffer;
 
                         //buffer = FormatString("[profiler]%s.%s %s.%s %d\n", agentClassName, agentInstanceName, btName, btMsg, time);
-                        buffer = string.Format("[profiler]{0}.xml.{1} {2}\n", btName, btMsg, time);
+                        buffer = string.Format("[profiler]{0}.xml->{1} {2}\n", btName, btMsg, time);
 
                         Output(pAgent, buffer);
                     }

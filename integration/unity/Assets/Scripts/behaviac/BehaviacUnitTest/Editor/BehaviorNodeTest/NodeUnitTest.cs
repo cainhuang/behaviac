@@ -948,6 +948,35 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(behaviac.EBTStatus.BT_SUCCESS, status);
             Assert.AreEqual(2, testAgent.testVar_0);
         }
+
+        [Test]
+        [Category("test_wait_2")]
+        public void test_wait_2()
+        {
+            behaviac.Workspace.Instance.TimeSinceStartup = 0;
+            testAgent.btsetcurrent("node_test/wait_ut_2");
+            testAgent.resetProperties();
+            behaviac.EBTStatus status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            Assert.AreEqual(1, testAgent.testVar_0);
+
+            for (int i = 0; i < 10; ++i)
+            {
+                double time = (i + 1) / 1000.0f;
+                behaviac.Workspace.Instance.TimeSinceStartup = time;
+                status = testAgent.btexec();
+                Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            }
+
+            behaviac.Workspace.Instance.TimeSinceStartup = 1.001;
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+
+            behaviac.Workspace.Instance.TimeSinceStartup = 1.100;
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_FAILURE, status);
+        }
+
     }
 
     [TestFixture]

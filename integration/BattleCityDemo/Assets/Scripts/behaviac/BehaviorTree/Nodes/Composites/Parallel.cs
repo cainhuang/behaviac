@@ -75,6 +75,7 @@ namespace behaviac
             m_childFinishPolicy = CHILDFINISH_POLICY.CHILDFINISH_LOOP;
         }
 
+#if BEHAVIAC_USE_HTN
         public override bool decompose(BehaviorNode node, PlannerTaskComplex seqTask, int depth, Planner planner)
         {
             Parallel parallel = (Parallel)node;
@@ -103,6 +104,7 @@ namespace behaviac
 
             return bOk;
         }
+#endif//
 
         protected override void load(int version, string agentType, List<property_t> properties)
         {
@@ -314,10 +316,10 @@ namespace behaviac
 
         private class ParallelTask : CompositeTask
         {
-            ~ParallelTask()
-            {
-                this.m_children.Clear();
-            }
+            //~ParallelTask()
+            //{
+            //    this.m_children.Clear();
+            //}
 
             protected override bool onenter(Agent pAgent)
             {
