@@ -903,12 +903,34 @@ public partial class NodeViewData : BaseNode
         for (int p = 0; p < properties.Count; ++p) {
             DesignerProperty att = properties[p].Attribute;
 
-            if (att.Display == DesignerProperty.DisplayMode.List) {
+            if (att.Display == DesignerProperty.DisplayMode.List || att.Display == DesignerProperty.DisplayMode.ListTrue) {
                 object pValue = properties[p].Property.GetValue(node, null);
                 bool bDo = pValue != null;
 
                 if (bDo) {
-                    AddSubItem(new SubItemProperty(node, properties[p].Property, att));
+                    bool bDisplay = true;
+
+                    if (att.Display == DesignerProperty.DisplayMode.ListTrue)
+                    {
+                        if (pValue is bool)
+                        {
+                            bool bValue = (bool)pValue;
+                            
+                            if (bValue)
+                            {
+                                //bDisplay = true;
+                            }
+                            else
+                            {
+                                bDisplay = false;
+                            }
+                        }
+                    }
+
+                    if (bDisplay)
+                    {
+                        AddSubItem(new SubItemProperty(node, properties[p].Property, att));
+                    }
                 }
             }
         }

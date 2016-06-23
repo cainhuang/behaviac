@@ -184,8 +184,9 @@ namespace behaviac
                 for (uint32_t i = 0; i < tokens.size(); ++i)
                 {
                     const behaviac::string& token = tokens[i];
-                    behaviac::string attriName = FormatString("param%d", i + 1);
-                    xmlNode->setAttr(attriName.c_str(), token);
+					char attriName[1024];
+					string_sprintf(attriName, "param%d", i + 1);
+                    xmlNode->setAttr(attriName, token);
                 }
 
                 CTextNode node(xmlNode);

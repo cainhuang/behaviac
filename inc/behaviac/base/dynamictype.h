@@ -279,8 +279,7 @@ struct ClassTypeNameGetter<T, true, false>
         const char* pType = ::GetClassTypeName((ElementType*)0);
 
         static char s_buffer[256];
-        const char* p = FormatString("vector<%s>", pType);
-        string_ncpy(s_buffer, p, 256);
+        string_sprintf(s_buffer, "vector<%s>", pType);
         return s_buffer;
     }
 };
@@ -297,8 +296,7 @@ struct ClassTypeNameGetter<T, false, true>
         const char* pValueType = ::GetClassTypeName((ValueType*)0);
 
         static char s_buffer[256];
-        const char* p = FormatString("map<%s, %s>", pKeyType, pValueType);
-        string_ncpy(s_buffer, p, 256);
+		string_sprintf(s_buffer, "map<%s, %s>", pKeyType, pValueType);
         return s_buffer;
     }
 };

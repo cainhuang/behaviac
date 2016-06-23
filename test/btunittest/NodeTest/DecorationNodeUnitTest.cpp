@@ -306,6 +306,18 @@ LOAD_TEST(btunittest, decoration_repeat_0)
     CHECK_EQUAL(5, myTestAgent->testVar_0);
     finlTestEnvNode(myTestAgent);
 }
+
+LOAD_TEST(btunittest, decoration_repeat_1)
+{
+	AgentNodeTest* myTestAgent = initTestEnvNode("node_test/repeat/repeat_ut_1", format);
+	myTestAgent->resetProperties();
+
+	myTestAgent->btexec();
+
+	CHECK_EQUAL(5, myTestAgent->testVar_0);
+	finlTestEnvNode(myTestAgent);
+}
+
 //< Decoration Count Limit Tests
 LOAD_TEST(btunittest, decoration_countlimit_ut_0)
 {

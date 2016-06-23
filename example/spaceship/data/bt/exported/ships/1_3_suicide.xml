@@ -18,6 +18,7 @@
       <node class="DecoratorLoop" id="0">
         <property Count="const int -1" />
         <property DecorateWhenChildEnds="true" />
+        <property DoneWithinFrame="false" />
         <node class="Sequence" id="7">
           <node class="Action" id="8">
             <property Method="Self.framework::Ship::Fire()" />

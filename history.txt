@@ -1,3 +1,13 @@
+2016-06-23	3.5.4
+    DoneWithinFrame added to replace repeat
+    fix bug in DecoratorLoop for cpp/c# format
+    ShowProfilingInfo false by default
+    fix bugs in DesignerFloat to support double
+    fix bugs when a struct has an array member
+    fix bugs in socket connect on linux
+    fix a bug for the Local Var when debugging
+    fix bug when no xml meta file when creating agent
+
 2016-06-14	3.5.3
     don't export behaviac.bb for cs
     property refactored for c#

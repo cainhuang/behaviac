@@ -51,6 +51,38 @@ namespace PluginBehaviac.Nodes
                 dec._count = (VariableDef)_count.Clone();
 		}
 
+        protected long GetCount()
+        {
+            long count = -2;
+
+            Type valueType = this._count.ValueType;
+
+            string typeName = Plugin.GetNativeTypeName(valueType.FullName);
+
+            if (Plugin.IsIntergerNumberType(typeName))
+            {
+                if (this._count.ValueClass == VariableDef.kConst)
+                {
+                    string valueString = this._count.Value.ToString();
+                    if (valueType == typeof(long) || valueType == typeof(int) || valueType == typeof(short) || valueType == typeof(sbyte))
+                    {
+                        count = long.Parse(valueString);
+                    }
+                    else if (valueType == typeof(ulong) || valueType == typeof(uint) || valueType == typeof(ushort) || valueType == typeof(byte))
+                    {
+                        ulong ucount = ulong.Parse(valueString);
+
+                        count = (long)ucount;
+                    }
+                    else
+                    {
+                    }
+                }
+            }
+
+            return count;
+        }
+
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
             Type valueType = this._count.ValueType;

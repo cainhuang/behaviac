@@ -9,6 +9,7 @@
   <node class="DecoratorLoop" id="6">
     <property Count="const int -1" />
     <property DecorateWhenChildEnds="true" />
+    <property DoneWithinFrame="false" />
     <node class="SelectorProbability" id="2">
       <node class="DecoratorWeight" id="0">
         <property DecorateWhenChildEnds="false" />

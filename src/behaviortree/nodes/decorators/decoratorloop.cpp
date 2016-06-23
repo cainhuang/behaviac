@@ -19,7 +19,7 @@
 
 namespace behaviac
 {
-    DecoratorLoop::DecoratorLoop()
+	DecoratorLoop::DecoratorLoop() : m_bDoneWithinFrame(false)
     {
     }
 
@@ -30,6 +30,27 @@ namespace behaviac
     void DecoratorLoop::load(int version, const char* agentType, const properties_t& properties)
     {
         DecoratorCount::load(version, agentType, properties);
+
+		for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
+		{
+			const property_t& p = (*it);
+
+			if (StringUtils::StrEqual(p.name, "DoneWithinFrame"))
+			{
+				if (p.value[0] != '\0')
+				{
+					if (StringUtils::StrEqual(p.value, "true"))
+					{
+						this->m_bDoneWithinFrame = true;
+					}
+				}//if (p.value[0] != '\0')
+			}
+			else
+			{
+				//BEHAVIAC_ASSERT(0, "unrecognised property %s", p.name);
+			}
+		}
+
     }
 
     bool DecoratorLoop::decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner)
@@ -116,4 +137,41 @@ namespace behaviac
 
         return BT_SUCCESS;
     }
+
+	EBTStatus DecoratorLoopTask::update(Agent* pAgent, EBTStatus childStatus)
+	{
+		BEHAVIAC_ASSERT(DecoratorLoop::DynamicCast(this->m_node));
+		DecoratorLoop* node = (DecoratorLoop*)this->m_node;
+
+		if (node->m_bDoneWithinFrame)
+		{
+			BEHAVIAC_ASSERT(this->m_n >= 0);
+			BEHAVIAC_ASSERT(this->m_root != NULL);
+
+			EBTStatus status = BT_INVALID;
+
+			for (int i = 0; i < this->m_n; ++i)
+			{
+				status = this->m_root->exec(pAgent, childStatus);
+
+				if (node->m_bDecorateWhenChildEnds)
+				{
+					while (status == BT_RUNNING)
+					{
+						status = super::update(pAgent, childStatus);
+					}
+				}
+
+				if (status == BT_FAILURE)
+				{
+					return BT_FAILURE;
+				}
+			}
+
+			return BT_SUCCESS;
+		}
+
+		return super::update(pAgent, childStatus);
+	}
+
 }//namespace behaviac

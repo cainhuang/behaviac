@@ -27,6 +27,7 @@
     <node class="DecoratorLoop" id="6">
       <property Count="const int 2" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="Noop" id="7" />
     </node>
   </node>

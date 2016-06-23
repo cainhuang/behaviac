@@ -156,7 +156,11 @@ namespace behaviac
                 typeId = (*ms_agent_type_index)[typeFullName]++;
             }
 
-            this->m_name += FormatString("%s_%d_%d", typeName, typeId, this->m_id);
+			char temp[1024];
+
+			string_sprintf(temp, "%s_%d_%d", typeName, typeId, this->m_id);
+
+			this->m_name += temp;
         }
         else
         {
@@ -178,7 +182,8 @@ namespace behaviac
             const char* agentClassName = this->GetObjectTypeName();
             const behaviac::string& instanceName = this->GetName();
 
-            behaviac::string aName = FormatString("%s#%s", agentClassName, instanceName.c_str());
+			char aName[1024];
+			string_sprintf(aName, "%s#%s", agentClassName, instanceName.c_str());
 
             agents->erase(aName);
         }
@@ -244,7 +249,8 @@ namespace behaviac
         const char* agentClassName = pAgent->GetObjectTypeName();
         const behaviac::string& instanceName = pAgent->GetName();
 
-        behaviac::string aName = FormatString("%s#%s", agentClassName, instanceName.c_str());
+		char aName[1024];
+        string_sprintf(aName, "%s#%s", agentClassName, instanceName.c_str());
 
         (*agents)[aName] = pAgent;
 #endif//BEHAVIAC_RELEASE

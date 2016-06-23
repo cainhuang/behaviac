@@ -18,6 +18,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Level_DeathMatch_0_node1()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -1064,6 +1065,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Level_DeathMatch_1_node50()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -2239,6 +2241,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Level_Survival_node27()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -3012,6 +3015,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_Agressive_node2()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -3935,6 +3939,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_Chase_node4()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -4574,6 +4579,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_Fire_Detect_node5()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -4729,6 +4735,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_Fire_Only_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -4860,6 +4867,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_Fire_Random_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -5552,6 +5560,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_SafeWander_RandomFire_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -5577,6 +5586,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_SafeWander_RandomFire_node9()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -6703,6 +6713,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_TendencyWander_node16()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -7109,6 +7120,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_TendencyWander_RandomFire_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -7722,6 +7734,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_WalkUtilCollision_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -7945,6 +7958,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_WalkUtilCollision_2Agents_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -8086,6 +8100,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_Wander_node6()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -8322,6 +8337,7 @@ namespace behaviac
 		public DecoratorLoop_bt_Tank_Wander_RandomFire_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{

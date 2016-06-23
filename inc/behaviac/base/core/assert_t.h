@@ -44,14 +44,11 @@ namespace behaviac
 #define _BEHAVIAC_ASSERT_GROUP_MESSAGE_(exp, message) \
     do { \
         static bool zz_doAssert = true; \
-        if (::behaviac::IsAssertEnabled() && zz_doAssert) \
-        { \
+        if (::behaviac::IsAssertEnabled() && zz_doAssert) { \
             bool eval=!(exp); \
-            if (eval) \
-            { \
-                /*assert(0);*/\
-                /*_ASSERT_EXPR(0, _CRT_WIDE(message));*/\
-                _ASSERT(0);\
+            if (eval) { \
+	            /*_ASSERT_EXPR(0, message);*/\
+				_ASSERT(0); \
             } \
         } \
     } while ( false )

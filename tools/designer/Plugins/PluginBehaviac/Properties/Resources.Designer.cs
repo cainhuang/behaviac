@@ -806,6 +806,24 @@ namespace PluginBehaviac.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DoneWithinFrame.
+        /// </summary>
+        internal static string DoneWithinFrame {
+            get {
+                return ResourceManager.GetString("DoneWithinFrame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to if true, the whole Loop will be blocked until the loop is done within a frame.
+        /// </summary>
+        internal static string DoneWithinFrameDesc {
+            get {
+                return ResourceManager.GetString("DoneWithinFrameDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         internal static string Duration {
@@ -815,7 +833,7 @@ namespace PluginBehaviac.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The time(milliseconds) it will wait..
+        ///   Looks up a localized string similar to Duration (milliseconds in float).
         /// </summary>
         internal static string DurationDesc {
             get {

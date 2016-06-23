@@ -67,6 +67,7 @@
     <node class="DecoratorLoop" id="14">
       <property Count="const int -1" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="Condition" id="15">
         <property Operator="Equal" />
         <property Opl="Self.framework::GameObject::alignedWithPlayer()" />
@@ -85,6 +86,7 @@
     <node class="DecoratorLoop" id="18">
       <property Count="uint framework::WorldState.framework::WorldState::time" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="Noop" id="19" />
     </node>
     <node class="Sequence" id="20">

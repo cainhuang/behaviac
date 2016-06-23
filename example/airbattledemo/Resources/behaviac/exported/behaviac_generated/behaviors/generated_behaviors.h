@@ -337,6 +337,7 @@ namespace behaviac
 		DecoratorLoop_bt_enemy_node3()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -1550,6 +1551,7 @@ namespace behaviac
 		DecoratorLoop_bt_npc_node5()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const

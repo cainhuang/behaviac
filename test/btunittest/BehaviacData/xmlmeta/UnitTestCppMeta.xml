@@ -328,6 +328,9 @@
 			<Method Name="GetRefTree" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="const char*" />
 			<Method Name="initChildAgent" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void" />
 			<Method Name="initChildAgentTest" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void" />
+			<Method Name="testVectorStruct" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
+				<Param DisplayName="" Desc="" Type="const vector&lt;TestNS::Float2&gt;&amp;" />
+			</Method>
 		</agent>
 		<agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="" Desc="" IsRefType="true">
 			<Method Name="GetConstFloatValue" DisplayName="" Desc="" Class="ChildNodeTest" ReturnType="float" />

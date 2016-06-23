@@ -10,6 +10,7 @@
     <node class="DecoratorLoop" id="2">
       <property Count="const int -1" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="SelectorProbability" id="3">
         <node class="DecoratorWeight" id="4">
           <property DecorateWhenChildEnds="false" />
@@ -73,6 +74,7 @@
     <node class="DecoratorLoop" id="19">
       <property Count="const int -1" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="Action" id="20">
         <property Method="Self.framework::GameObject::TurnTowardsTarget(3)" />
         <property ResultOption="BT_RUNNING" />

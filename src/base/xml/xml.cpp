@@ -667,6 +667,7 @@ namespace behaviac
 		}
 		else
 		{
+			BEHAVIAC_LOGERROR("CXmlNode::SaveLevel, cannot open for write %s, xml won't be saved\n", fileName);
 			BEHAVIAC_ASSERT(0, "CXmlNode::SaveLevel, cannot open for write %s, xml won't be saved\n", fileName);
 		}
 

@@ -11,6 +11,7 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TestNS
@@ -346,6 +347,10 @@ public class AgentNodeTest : behaviac.Agent
    	public string GetRefTree()  {
 		return "node_test/reference_sub_0";
 	}
+
+    [behaviac.MethodMetaInfo()]
+    void testVectorStruct(List<TestNS.Float2> param)
+	{}
 
 }
 

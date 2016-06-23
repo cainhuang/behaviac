@@ -17,6 +17,7 @@
 #include "behaviac/base/core/string/formatstring.h"
 #include "behaviac/base/string/stringutils.h"
 
+#include "behaviac/base/core/thread/thread.h"
 #include "behaviac/base/core/logging/log.h"
 #include "behaviac/base/core/logging/consoleout.h"
 #include "behaviac/base/core/system.h"
@@ -316,9 +317,10 @@ namespace behaviac
                     time_t tTime = time(NULL);
                     tm* ptmCurrent = localtime(&tTime);
 
-                    behaviac::string buffer = FormatString("[behaviac][%05d][thread %04d]CREATED ON %d-%.2d-%.2d\n\n", 0, threadId, ptmCurrent->tm_year + 1900, ptmCurrent->tm_mon + 1, ptmCurrent->tm_mday);
+					char buffer[1024];
+					string_sprintf(buffer, "[behaviac][%05d][thread %04d]CREATED ON %d-%.2d-%.2d\n\n", 0, threadId, ptmCurrent->tm_year + 1900, ptmCurrent->tm_mon + 1, ptmCurrent->tm_mday);
 
-                    fwrite(buffer.c_str(), 1, buffer.size(), s_file);
+                    fwrite(buffer, 1, strlen(buffer), s_file);
                 }
             }
 
@@ -380,11 +382,7 @@ namespace behaviac
         int index = s_index++;
         const int kMaxStringLength = 2048;
         char temp[kMaxStringLength];
-#if BEHAVIAC_COMPILER_MSVC
         string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %04d][%s][%s]%s", index, (int)threadId, szTime, LogFilterStr, pStr);
-#else
-		string_snprintf(temp, kMaxStringLength, "[behaviac][%05d][thread %p][%s][%s]%s", index, threadId, szTime, LogFilterStr, pStr);
-#endif
         temp[kMaxStringLength - 1] = '\0';
 
         OutputLine(temp);

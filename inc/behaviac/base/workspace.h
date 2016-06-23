@@ -372,7 +372,8 @@ protected:
         behaviac::LogManager::GetInstance()->Flush(0); \
         behaviac::Socket::Flush(); \
         const char* filterStr = (filter == 0 || *filter == '\0') ? "empty" : filter; \
-        const char* msg = FormatString("BehaviorTreeTask AppLog Breaked at: %s(%d)\n\n'%s:%s'\n\nOk to break, Cancel to continue.", __FILE__, __LINE__, filterStr, appLog); \
+		char msg[1024];\
+		string_sprintf(msg, "BehaviorTreeTask AppLog Breaked at: %s(%d)\n\n'%s:%s'\n\nOk to break, Cancel to continue.", __FILE__, __LINE__, filterStr, appLog); \
         if (IDOK == MessageBoxA(0, msg, "BehaviorTreeTask AppLog", MB_OKCANCEL | MB_ICONHAND | MB_SETFOREGROUND | MB_SYSTEMMODAL)) \
         { \
             DebugBreak_(); \

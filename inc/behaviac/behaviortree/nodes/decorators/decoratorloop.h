@@ -44,6 +44,10 @@ namespace behaviac
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
     private:
         virtual BehaviorTask* createTask() const;
+	protected:
+		bool m_bDoneWithinFrame;
+
+		friend class DecoratorLoopTask;
     };
 
     ///Returns BT_FAILURE for the specified number of iterations, then returns BT_SUCCESS after that
@@ -60,6 +64,7 @@ namespace behaviac
         virtual void save(ISerializableNode* node) const;
         virtual void load(ISerializableNode* node);
 
+		virtual EBTStatus update(Agent* pAgent, EBTStatus childStatus);
         virtual EBTStatus decorate(EBTStatus status);
     };
     /*! @} */

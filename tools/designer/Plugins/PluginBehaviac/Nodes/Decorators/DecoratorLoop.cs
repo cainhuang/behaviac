@@ -38,9 +38,27 @@ namespace PluginBehaviac.Nodes
             get { return "DecoratorLoop"; }
         }
 
+        protected bool _bDoneWithinFrame = false;
+        [DesignerBoolean("DoneWithinFrame", "DoneWithinFrameDesc", "CategoryBasic", DesignerProperty.DisplayMode.ListTrue, 0, DesignerProperty.DesignerFlags.NoFlags)]
+        public bool DoneWithinFrame
+        {
+            get { return _bDoneWithinFrame; }
+            set { _bDoneWithinFrame = value; }
+        }
+
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
             base.CheckForErrors(rootBehavior, result);
+
+            if (this._bDoneWithinFrame)
+            {
+                long count = this.GetCount();
+
+                if (count == -1)
+                {
+                    result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "when 'DoneWithinFrame' is selected, Count should not be -1 as an endless loop!"));
+                }
+            }
         }
 	}
 }

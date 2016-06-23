@@ -12,6 +12,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "behaviac/base/core/thread/wrapper.h"
+#include "behaviac/base/core/thread/thread.h"
 #include "behaviac/base/core/thread/mutex.h"
 
 namespace behaviac

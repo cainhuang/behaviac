@@ -77,8 +77,9 @@ namespace behaviac
         {
             const behaviac::string& paramTypeName = this->m_paramTypes[i];
 
-            const char* paramName = FormatString("param%d", i + 1);
-            Property* p = this->LoadFromXML(parent, xmlNode, paramTypeName.c_str(), paramName);
+			char temp[1024];
+			string_sprintf(temp, "param%d", i + 1);
+			Property* p = this->LoadFromXML(parent, xmlNode, paramTypeName.c_str(), temp);
 
             this->m_params.push_back(p);
         }

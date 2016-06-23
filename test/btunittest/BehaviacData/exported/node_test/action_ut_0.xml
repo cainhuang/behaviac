@@ -80,5 +80,9 @@
       <property Method="StaticAgent.StaticAgent::sAction()" />
       <property ResultOption="BT_SUCCESS" />
     </node>
+    <node class="Action" id="16">
+      <property Method="Self.AgentNodeTest::testVectorStruct(1:{x=0.01;y=-0.01;})" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
   </node>
 </behavior>

@@ -1,10 +1,10 @@
 <metas version="5" language="cpp">
 	<types>
 		<enumtype Type="behaviac::EBTStatus" DisplayName="BT状态" Desc="BT状态">
-			<enum NativeValue="behaviac::BT_INVALID" Value="invalid" DisplayName="" Desc="" />
-			<enum NativeValue="behaviac::BT_SUCCESS" Value="success" DisplayName="" Desc="" />
-			<enum NativeValue="behaviac::BT_FAILURE" Value="failure" DisplayName="" Desc="" />
-			<enum NativeValue="behaviac::BT_RUNNING" Value="running" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_INVALID" Value="BT_INVALID" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_SUCCESS" Value="BT_SUCCESS" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_FAILURE" Value="BT_FAILURE" DisplayName="" Desc="" />
+			<enum NativeValue="behaviac::BT_RUNNING" Value="BT_RUNNING" DisplayName="" Desc="" />
 		</enumtype>
 		<struct Type="IList" DisplayName="" Desc="" IsRefType="false" />
 		<struct Type="System::Object" DisplayName="" Desc="" IsRefType="false" />

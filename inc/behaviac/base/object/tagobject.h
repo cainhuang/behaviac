@@ -276,9 +276,10 @@ namespace behaviac
         template<typename T>
         inline bool FromString_Struct(const char* str, T& val)
         {
-            behaviac::string typeNameT = FormatString("%s", GetClassTypeName((T*)0));
+			char temp[1024];
+			string_sprintf(temp, "%s", GetClassTypeName((T*)0));
 
-            behaviac::XmlNodeRef xmlNode = MakeXmlNodeStruct(str, typeNameT);
+			behaviac::XmlNodeRef xmlNode = MakeXmlNodeStruct(str, temp);
 
             if ((IXmlNode*)xmlNode)
             {

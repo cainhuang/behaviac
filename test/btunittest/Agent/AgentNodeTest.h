@@ -294,6 +294,9 @@ public:
 	}
 
     void initChildAgent();
+
+	void testVectorStruct(const behaviac::vector<TestNS::Float2>& param)
+	{}
 };
 
 

@@ -296,7 +296,7 @@ namespace Behaviac.Design.Attributes
         /// <summary>
         /// The enumeration defines how this attribute will be visualised in the editor.
         /// </summary>
-        public enum DisplayMode { NoDisplay, Parameter, List }
+        public enum DisplayMode { NoDisplay, Parameter, List, ListTrue }
 
         /// <summary>
         /// This method is used to sort properties by their name.

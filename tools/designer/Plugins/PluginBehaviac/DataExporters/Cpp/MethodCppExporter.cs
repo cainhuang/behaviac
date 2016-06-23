@@ -133,6 +133,17 @@ namespace PluginBehaviac.DataExporters
                     if (obj != null)
                     {
                         Type type = obj.GetType();
+
+                        //if (Plugin.IsArrayType(type))
+                        //{
+                        //    string nativeTypeStr = DataCppExporter.GetGeneratedNativeType(method.Params[i].NativeType);
+                        //    int startIndex = nativeTypeStr.IndexOf('<');
+                        //    int endIndex = nativeTypeStr.LastIndexOf('>');
+                        //    string itemType = nativeTypeStr.Substring(startIndex + 1, endIndex - startIndex - 1);
+
+                        //    ArrayCppExporter.GenerateCode(obj, stream, indent, itemType, param);
+                        //}
+                        //else 
                         if (Plugin.IsCustomClassType(type) && !DesignerStruct.IsPureConstDatum(obj, method, method.Params[i].Name))
                         {
                             StructCppExporter.GenerateCode(obj, stream, indent, param, method, method.Params[i].Name);

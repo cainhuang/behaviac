@@ -36,26 +36,42 @@ namespace PluginBehaviac.DataExporters
                 if (!property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoSave))
                 {
                     object member = property.GetValue(obj);
-                    if (property.Attribute is DesignerStruct)
+
+                    Type memberType = member.GetType();
+
+                    if (Plugin.IsArrayType(memberType))
                     {
-                        GenerateCode(member, stream, indent, var + "." + property.Property.Name, parent, paramName);
+                        string memberNativeType = Plugin.GetNativeTypeName(memberType);
+                        string nativeTypeStr = DataCppExporter.GetGeneratedNativeType(memberNativeType);
+                        int startIndex = nativeTypeStr.IndexOf('<');
+                        int endIndex = nativeTypeStr.LastIndexOf('>');
+                        string itemType = nativeTypeStr.Substring(startIndex + 1, endIndex - startIndex - 1);
+
+                        ArrayCppExporter.GenerateCode(member, stream, indent, itemType, paramName);
                     }
                     else
                     {
-                        bool bStructProperty = false;
-                        if (method != null)
+                        if (property.Attribute is DesignerStruct)
                         {
-                            MethodDef.Param param = method.GetParam(paramName, property);
-                            if (param != null)
-                            {
-                                bStructProperty = true;
-                                ParameterCppExporter.GenerateCode(param, stream, indent, string.Empty, var + "." + property.Property.Name, string.Empty);
-                            }
+                            GenerateCode(member, stream, indent, var + "." + property.Property.Name, parent, paramName);
                         }
-
-                        if (!bStructProperty)
+                        else
                         {
-                            DataCppExporter.GenerateCode(member, stream, indent, string.Empty, var + "." + property.Property.Name, string.Empty);
+                            bool bStructProperty = false;
+                            if (method != null)
+                            {
+                                MethodDef.Param param = method.GetParam(paramName, property);
+                                if (param != null)
+                                {
+                                    bStructProperty = true;
+                                    ParameterCppExporter.GenerateCode(param, stream, indent, string.Empty, var + "." + property.Property.Name, string.Empty);
+                                }
+                            }
+
+                            if (!bStructProperty)
+                            {
+                                DataCppExporter.GenerateCode(member, stream, indent, string.Empty, var + "." + property.Property.Name, string.Empty);
+                            }
                         }
                     }
                 }

@@ -10,6 +10,7 @@
     <node class="DecoratorLoop" id="2">
       <property Count="const int -1" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="Sequence" id="3">
         <node class="Condition" id="4">
           <property Operator="Equal" />
@@ -33,6 +34,7 @@
     <node class="DecoratorLoop" id="8">
       <property Count="const int -1" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="Sequence" id="9">
         <node class="Condition" id="10">
           <property Operator="Equal" />

@@ -18,6 +18,7 @@
     <node class="DecoratorLoop" id="3">
       <property Count="const int -1" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="Sequence" id="4">
         <attachment class="Precondition" id="9" flag="precondition">
           <property BinaryOperator="And" />

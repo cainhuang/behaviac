@@ -122,6 +122,18 @@ namespace BehaviorNodeUnitTest
             testAgent.btexec();
             Assert.AreEqual(5, testAgent.testVar_0);
         }
+
+        [Test]
+        [Category("test_decoration_repeat_1")]
+        public void test_decoration_repeat_1()
+        {
+            testAgent.btsetcurrent("node_test/repeat/repeat_ut_1");
+            testAgent.resetProperties();
+            testAgent.btexec();
+            Assert.AreEqual(5, testAgent.testVar_0);
+        }
+
+
         [Test]
         [Category("test_decoration_not_0")]
         public void test_decoration_not_0()

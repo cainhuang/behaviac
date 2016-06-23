@@ -263,6 +263,8 @@ namespace behaviac
 		char directory[kMAX_PATH];
 		string_cpy(directory, filename);
 		char* iter = directory;
+		
+		mode_t  old = umask(0);
 
 		while (*iter != 0)
 		{
@@ -276,6 +278,8 @@ namespace behaviac
 
 			iter++;
 		}
+
+		umask(old);
 	}
 
 	void CFileSystem::findFiles(const char* fileName, behaviac::vector<behaviac::string>& fileList,

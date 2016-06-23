@@ -16,6 +16,7 @@
 
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
+#include "behaviac/base/core/thread/thread.h"
 #include "behaviac/base/core/container/string_t.h"
 #include "behaviac/base/core/container/vector_t.h"
 #include "behaviac/base/core/container/map_t.h"

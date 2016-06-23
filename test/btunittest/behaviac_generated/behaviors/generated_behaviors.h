@@ -849,6 +849,12 @@ template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testG
 	this->AgentNodeTest::testGameObject(p0);
 }
 
+struct METHOD_TYPE_AgentNodeTest_testVectorStruct { };
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testVectorStruct>(behaviac::vector<TestNS::Float2>& p0)
+{
+	this->AgentNodeTest::testVectorStruct(p0);
+}
+
 struct METHOD_TYPE_ChildNodeTest_GetConstDoubleValue { };
 template<>  double ChildNodeTest::_Execute_Method_<METHOD_TYPE_ChildNodeTest_GetConstDoubleValue>()
 {
@@ -1675,6 +1681,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_fsm_action_ut_1_2_node8()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -6454,6 +6461,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node7()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -7011,6 +7019,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -7673,6 +7682,121 @@ namespace behaviac
 		}
 	};
 
+	// Source file: node_test/repeat/repeat_ut_1
+
+	class Assignment_bt_node_test_repeat_repeat_ut_1_node3 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_repeat_repeat_ut_1_node3, Assignment);
+		Assignment_bt_node_test_repeat_repeat_ut_1_node3()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr = 0;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = opr;
+			return result;
+		}
+	};
+
+	class DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0, DecoratorLoop);
+		DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0()
+		{
+			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = true;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 5;
+		}
+	};
+
+	class Compute_bt_node_test_repeat_repeat_ut_1_node1 : public Compute
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Compute_bt_node_test_repeat_repeat_ut_1_node1, Compute);
+		Compute_bt_node_test_repeat_repeat_ut_1_node1()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr1 = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			int opr2 = 1;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >() = (int)(opr1 + opr2);
+			return result;
+		}
+	};
+
+	class bt_node_test_repeat_repeat_ut_1
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/repeat/repeat_ut_1");
+			pBT->SetIsFSM(false);
+#if !BEHAVIAC_RELEASE
+			pBT->SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				Sequence* node2 = BEHAVIAC_NEW Sequence;
+				node2->SetClassNameString("Sequence");
+				node2->SetId(2);
+#if !BEHAVIAC_RELEASE
+				node2->SetAgentType("AgentNodeTest");
+#endif
+				pBT->AddChild(node2);
+				{
+					Assignment_bt_node_test_repeat_repeat_ut_1_node3* node3 = BEHAVIAC_NEW Assignment_bt_node_test_repeat_repeat_ut_1_node3;
+					node3->SetClassNameString("Assignment");
+					node3->SetId(3);
+#if !BEHAVIAC_RELEASE
+					node3->SetAgentType("AgentNodeTest");
+#endif
+					node2->AddChild(node3);
+					node2->SetHasEvents(node2->HasEvents() | node3->HasEvents());
+				}
+				{
+					DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0* node0 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0;
+					node0->SetClassNameString("DecoratorLoop");
+					node0->SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0->SetAgentType("AgentNodeTest");
+#endif
+					node2->AddChild(node0);
+					{
+						Compute_bt_node_test_repeat_repeat_ut_1_node1* node1 = BEHAVIAC_NEW Compute_bt_node_test_repeat_repeat_ut_1_node1;
+						node1->SetClassNameString("Compute");
+						node1->SetId(1);
+#if !BEHAVIAC_RELEASE
+						node1->SetAgentType("AgentNodeTest");
+#endif
+						node0->AddChild(node1);
+						node0->SetHasEvents(node0->HasEvents() | node1->HasEvents());
+					}
+					node2->SetHasEvents(node2->HasEvents() | node0->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node2->HasEvents());
+			}
+			return true;
+		}
+	};
+
 	// Source file: node_test/action_child_agent_0
 
 	class Action_bt_node_test_action_child_agent_0_node3 : public Action
@@ -8188,6 +8312,29 @@ namespace behaviac
 		}
 	};
 
+	class Action_bt_node_test_action_ut_0_node16 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_action_ut_0_node16, Action);
+		Action_bt_node_test_action_ut_0_node16()
+		{
+			method_p0.reserve(1);
+			TestNS::Float2 method_p0_item0;
+			method_p0_item0.x = 0.01f;
+			method_p0_item0.y = -0.01f;
+			method_p0.push_back(method_p0_item0);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_testVectorStruct, void, behaviac::vector<TestNS::Float2>& >(method_p0);
+			return BT_SUCCESS;
+		}
+		behaviac::vector<TestNS::Float2> method_p0;
+	};
+
 	class bt_node_test_action_ut_0
 	{
 	public:
@@ -8365,6 +8512,16 @@ namespace behaviac
 #endif
 					node0->AddChild(node6);
 					node0->SetHasEvents(node0->HasEvents() | node6->HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_0_node16* node16 = BEHAVIAC_NEW Action_bt_node_test_action_ut_0_node16;
+					node16->SetClassNameString("Action");
+					node16->SetId(16);
+#if !BEHAVIAC_RELEASE
+					node16->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node16);
+					node0->SetHasEvents(node0->HasEvents() | node16->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}
@@ -13114,6 +13271,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_decoration_loopuntil_ut_0_node2()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -13264,6 +13422,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_decoration_loopuntil_ut_1_node2()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -13523,6 +13682,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_decoration_loop_ut_0_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -13636,6 +13796,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_decoration_loop_ut_1_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -21480,6 +21641,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_selector_loop_ut_6_node9()
 		{
 			m_bDecorateWhenChildEnds = false;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -21744,6 +21906,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_selector_loop_ut_7_node9()
 		{
 			m_bDecorateWhenChildEnds = false;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -22317,6 +22480,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_selector_loop_ut_8_node9()
 		{
 			m_bDecorateWhenChildEnds = false;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -23536,6 +23700,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_selector_probability_ut_3_node4()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -23847,6 +24012,7 @@ namespace behaviac
 		DecoratorLoop_bt_node_test_selector_probability_ut_4_node15()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -27221,6 +27387,7 @@ namespace behaviac
 		DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -27565,6 +27732,7 @@ namespace behaviac
 		DecoratorLoop_bt_par_test_local_out_scope_node6()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -28364,6 +28532,7 @@ namespace behaviac
 		DecoratorLoop_bt_par_test_par_as_left_value_and_param_node33()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -29440,6 +29609,7 @@ namespace behaviac
 		DecoratorLoop_bt_par_test_par_as_ref_param_node33()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const
@@ -35084,6 +35254,7 @@ namespace behaviac
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/PreconditionEffectorTest/PreconditionEffectorTest_2", bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/PreconditionEffectorTest/PreconditionEffectorTest_3", bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/repeat/repeat_ut_0", bt_node_test_repeat_repeat_ut_0::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/repeat/repeat_ut_1", bt_node_test_repeat_repeat_ut_1::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/action_child_agent_0", bt_node_test_action_child_agent_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/action_noop_ut_0", bt_node_test_action_noop_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/action_ut_0", bt_node_test_action_ut_0::Create);

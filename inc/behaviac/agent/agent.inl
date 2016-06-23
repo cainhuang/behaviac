@@ -742,6 +742,7 @@ namespace behaviac
     template<typename VariableType>
     void TVariable<VariableType>::Log(const Agent* pAgent)
     {
+#if !BEHAVIAC_RELEASE
         //BEHAVIAC_ASSERT(this->m_changed);
 
         behaviac::string valueStr = StringUtils::ToString(this->m_value);
@@ -751,11 +752,13 @@ namespace behaviac
 
         if (this->m_pMember)
         {
-            full_name = FormatString("%s::%s", this->m_pMember->GetClassNameString(), this->m_name.c_str());
+			char temp[1024];
+			string_sprintf(temp, "%s::%s", this->m_pMember->GetClassNameString(), this->m_name.c_str());
+			full_name = temp;
         }
 
         LogManager::GetInstance()->Log(pAgent, typeName.c_str(), full_name.c_str(), valueStr.c_str());
-#if !BEHAVIAC_RELEASE
+
         this->m_changed = false;
 #endif
     }
@@ -1031,9 +1034,10 @@ namespace behaviac
 
 		BEHAVIAC_UNUSED_VAR(currentState);
 
-        behaviac::string eventName = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
+		char temp[1024];
+		string_sprintf(temp, "%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
 
-        pAgent->SetVariable(eventName.c_str(), param);
+		pAgent->SetVariable(temp, param);
     }
 
     template<typename ParamType1, typename ParamType2>
@@ -1046,10 +1050,11 @@ namespace behaviac
         AgentState* currentState = pAgent->m_variables.Push(false);
 		BEHAVIAC_UNUSED_VAR(currentState);
 
-        behaviac::string eventName1 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
-        pAgent->SetVariable(eventName1.c_str(), param1);
-        behaviac::string eventName2 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 1);
-        pAgent->SetVariable(eventName2.c_str(), param2);
+		char temp[1024];
+		string_sprintf(temp, "%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
+        pAgent->SetVariable(temp, param1);
+        string_sprintf(temp, "%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 1);
+        pAgent->SetVariable(temp, param2);
     }
 
     template<typename ParamType1, typename ParamType2, typename ParamType3>
@@ -1063,12 +1068,14 @@ namespace behaviac
         AgentState* currentState = pAgent->m_variables.Push(false);
 		BEHAVIAC_UNUSED_VAR(currentState);
 
-        behaviac::string eventName1 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
-        pAgent->SetVariable(eventName1.c_str(), param1);
-        behaviac::string eventName2 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 1);
-        pAgent->SetVariable(eventName2.c_str(), param2);
-        behaviac::string eventName3 = FormatString("%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 2);
-        pAgent->SetVariable(eventName3.c_str(), param3);
+		char temp[1024];
+
+        string_sprintf(temp, "%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 0);
+        pAgent->SetVariable(temp, param1);
+        string_sprintf(temp, "%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 1);
+		pAgent->SetVariable(temp, param2);
+        string_sprintf(temp, "%s%d", BEHAVIAC_LOCAL_TASK_PARAM_PRE, 2);
+        pAgent->SetVariable(temp, param3);
     }
 }//namespace behaviac
 

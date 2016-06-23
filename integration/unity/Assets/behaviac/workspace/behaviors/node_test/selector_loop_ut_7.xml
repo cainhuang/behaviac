@@ -16,7 +16,7 @@
           <Node Class="PluginBehaviac.Nodes.Selector" Enable="true" HasOwnPrefabData="false" Id="10" PrefabName="" PrefabNodeId="-1">
             <Comment Background="NoColor" Text="" />
             <Connector Identifier="GenericChildren">
-              <Node Class="PluginBehaviac.Nodes.DecoratorLoop" Count="const int -1" DecorateWhenChildEnds="false" Enable="true" HasOwnPrefabData="false" Id="9" PrefabName="" PrefabNodeId="-1">
+              <Node Class="PluginBehaviac.Nodes.DecoratorLoop" Count="const int -1" DecorateWhenChildEnds="false" DoneWithinFrame="false" Enable="true" HasOwnPrefabData="false" Id="9" PrefabName="" PrefabNodeId="-1">
                 <Comment Background="NoColor" Text="" />
                 <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="14" Operator="Equal" Opl="Self.AgentNodeTest::IsTargetValid()" Opr1="&quot;&quot;" Opr2="const bool true" Phase="Both" PrefabAttachmentId="-1" />
                 <Attachment Class="PluginBehaviac.Events.Precondition" BinaryOperator="And" Enable="true" Id="17" Operator="Add" Opl="int Self.AgentNodeTest::testVar_1" Opr1="int Self.AgentNodeTest::testVar_1" Opr2="const int 1" Phase="Update" PrefabAttachmentId="-1" />

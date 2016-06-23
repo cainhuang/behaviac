@@ -2,7 +2,8 @@
 
 <Configuration>
 	<FilterNodes>
-		<!--node FullName="PluginBehaviac.Nodes.Query" /-->
+		<node FullName="PluginBehaviac.Nodes.Query" />
+        
 		<!--node FullName="PluginBehaviac.Nodes.DecoratorLog" /-->
 		<!--node FullName="PluginBehaviac.Nodes.DecoratorAlwaysRunning" /-->
 		<!--node FullName="PluginBehaviac.Nodes.DecoratorAlwaysFailure" /-->
@@ -12,6 +13,8 @@
 		<node FullName="PluginBehaviac.Nodes.DecoratorIterator" />
 		<node FullName="PluginBehaviac.Nodes.Method" />
 		
+        <node FullName="PluginBehaviac.Nodes.DecoratorRepeat" />
+        
 		<!--node FullName="PluginBehaviac.Nodes.State" /-->
 		<!--node FullName="PluginBehaviac.Events.TransitionCondition" /-->
     </FilterNodes>

@@ -499,7 +499,7 @@
     <value>持续时间</value>
   </data>
   <data name="DurationDesc" xml:space="preserve">
-    <value>持续的时间（毫秒）</value>
+    <value>持续的时间（毫秒, float类型）</value>
   </data>
   <data name="IfElseCondition" xml:space="preserve">
     <value>条件</value>
@@ -796,5 +796,11 @@
   </data>
   <data name="WaitTransitionDesc" xml:space="preserve">
     <value>等待转换</value>
+  </data>
+  <data name="DoneWithinFrame" xml:space="preserve">
+    <value>一帧内结束</value>
+  </data>
+  <data name="DoneWithinFrameDesc" xml:space="preserve">
+    <value>如果被选中，该循环被阻塞，循环在一帧内结束。否则该循环在该帧只是返回‘running’，直到循环结束才返回‘成功’</value>
   </data>
 </root>

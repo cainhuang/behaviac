@@ -23,6 +23,7 @@
         <node class="DecoratorLoop" id="9">
           <property Count="const int -1" />
           <property DecorateWhenChildEnds="false" />
+          <property DoneWithinFrame="false" />
           <attachment class="Precondition" id="14" flag="precondition">
             <property BinaryOperator="And" />
             <property Operator="Equal" />

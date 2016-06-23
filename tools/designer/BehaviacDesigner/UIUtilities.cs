@@ -28,7 +28,7 @@ namespace Behaviac.Design
         /// Show the behavior tree view.
         /// </summary>
         /// <param name="behaviorFilename">The behavior filename in the workspace folder.</param>
-        public static BehaviorTreeView ShowBehaviorTree(string behaviorFilename) {
+        public static BehaviorNode ShowBehavior(string behaviorFilename) {
             if (string.IsNullOrEmpty(behaviorFilename)) {
                 return null;
             }
@@ -76,6 +76,12 @@ namespace Behaviac.Design
                 }
             }
 
+            return behavior;
+        }
+
+        public static BehaviorTreeView ShowBehaviorTree(string behaviorFilename)
+        {
+            BehaviorNode behavior = ShowBehavior(behaviorFilename);
             return BehaviorTreeViewDock.GetBehaviorTreeView(behavior);
         }
 

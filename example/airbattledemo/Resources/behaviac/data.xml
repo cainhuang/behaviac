@@ -1,4 +1,4 @@
-<metas version="3.0" language="cpp">
+<metas version="5" language="cpp">
 	<types>
 		<struct Type="IList" DisplayName="" Desc="" IsRefType="false" />
 		<struct Type="System::Object" DisplayName="" Desc="" IsRefType="false" />

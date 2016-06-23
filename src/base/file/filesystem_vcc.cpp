@@ -115,7 +115,7 @@ namespace behaviac
 		{
 			uint32_t error = ::GetLastError();
 			BEHAVIAC_UNUSED_VAR(error);
-			BEHAVIAC_LOGWARNING("Invalid file %s (error code %u)\n", szFullPath, error);
+			BEHAVIAC_LOGERROR("Invalid file '%s' (error code %u)\n", szFullPath, error);
 		}
 
 		return hFile;

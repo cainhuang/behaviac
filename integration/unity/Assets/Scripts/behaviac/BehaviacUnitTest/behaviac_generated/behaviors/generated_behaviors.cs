@@ -18,6 +18,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_fsm_action_ut_1_2_node8()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -4311,6 +4312,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_2_node7()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -4814,6 +4816,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_PreconditionEffectorTest_PreconditionEffectorTest_3_node7()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -5411,6 +5414,109 @@ namespace behaviac
 		}
 	}
 
+	// Source file: node_test/repeat/repeat_ut_1
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_node_test_repeat_repeat_ut_1_node3 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_repeat_repeat_ut_1_node3()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr = 0;
+			((AgentNodeTest)pAgent).testVar_0 = opr;
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0 : behaviac.DecoratorLoop
+	{
+		public DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0()
+		{
+			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = true;
+		}
+		protected override int GetCount(Agent pAgent)
+		{
+			return 5;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Compute_bt_node_test_repeat_repeat_ut_1_node1 : behaviac.Compute
+	{
+		public Compute_bt_node_test_repeat_repeat_ut_1_node1()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr1 = ((AgentNodeTest)pAgent).testVar_0;
+			int opr2 = 1;
+			((AgentNodeTest)pAgent).testVar_0 = (int)(opr1 + opr2);
+			return result;
+		}
+	}
+
+	public static class bt_node_test_repeat_repeat_ut_1
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/repeat/repeat_ut_1");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				Sequence node2 = new Sequence();
+				node2.SetClassNameString("Sequence");
+				node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+				node2.SetAgentType("AgentNodeTest");
+#endif
+				bt.AddChild(node2);
+				{
+					Assignment_bt_node_test_repeat_repeat_ut_1_node3 node3 = new Assignment_bt_node_test_repeat_repeat_ut_1_node3();
+					node3.SetClassNameString("Assignment");
+					node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+					node3.SetAgentType("AgentNodeTest");
+#endif
+					node2.AddChild(node3);
+					node2.SetHasEvents(node2.HasEvents() | node3.HasEvents());
+				}
+				{
+					DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0 node0 = new DecoratorLoop_bt_node_test_repeat_repeat_ut_1_node0();
+					node0.SetClassNameString("DecoratorLoop");
+					node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0.SetAgentType("AgentNodeTest");
+#endif
+					node2.AddChild(node0);
+					{
+						Compute_bt_node_test_repeat_repeat_ut_1_node1 node1 = new Compute_bt_node_test_repeat_repeat_ut_1_node1();
+						node1.SetClassNameString("Compute");
+						node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+						node1.SetAgentType("AgentNodeTest");
+#endif
+						node0.AddChild(node1);
+						node0.SetHasEvents(node0.HasEvents() | node1.HasEvents());
+					}
+					node2.SetHasEvents(node2.HasEvents() | node0.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node2.HasEvents());
+			}
+			return true;
+		}
+	}
+
 	// Source file: node_test/action_child_agent_0
 
 	[behaviac.GeneratedTypeMetaInfo()]
@@ -5860,6 +5966,31 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_action_ut_0_node16 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_0_node16()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_params = new object[1];
+			method_p0 = new List<TestNS.Float2>();
+			method_p0.Capacity = 1;
+			TestNS.Float2 method_p0_item0;
+			method_p0_item0 = new TestNS.Float2();
+			method_p0_item0.x = 0.01f;
+			method_p0_item0.y = -0.01f;
+			method_p0.Add(method_p0_item0);
+			method_params[0] = method_p0;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			AgentMetaVisitor.ExecuteMethod(pAgent, "testVectorStruct", method_params);
+			return EBTStatus.BT_SUCCESS;
+		}
+		object[] method_params;
+		List<TestNS.Float2> method_p0;
+	}
+
 	public static class bt_node_test_action_ut_0
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -6035,6 +6166,16 @@ namespace behaviac
 #endif
 					node0.AddChild(node6);
 					node0.SetHasEvents(node0.HasEvents() | node6.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_0_node16 node16 = new Action_bt_node_test_action_ut_0_node16();
+					node16.SetClassNameString("Action");
+					node16.SetId(16);
+#if !BEHAVIAC_RELEASE
+					node16.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node16);
+					node0.SetHasEvents(node0.HasEvents() | node16.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}
@@ -10372,6 +10513,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_decoration_loopuntil_ut_0_node2()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -10509,6 +10651,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_decoration_loopuntil_ut_1_node2()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -10749,6 +10892,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_decoration_loop_ut_0_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -10852,6 +10996,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_decoration_loop_ut_1_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -18029,6 +18174,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_selector_loop_ut_6_node9()
 		{
 			m_bDecorateWhenChildEnds = false;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -18274,6 +18420,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_selector_loop_ut_7_node9()
 		{
 			m_bDecorateWhenChildEnds = false;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -18808,6 +18955,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_selector_loop_ut_8_node9()
 		{
 			m_bDecorateWhenChildEnds = false;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -19911,6 +20059,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_selector_probability_ut_3_node4()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -20184,6 +20333,7 @@ namespace behaviac
 		public DecoratorLoop_bt_node_test_selector_probability_ut_4_node15()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -23209,6 +23359,7 @@ namespace behaviac
 		public DecoratorLoop_bt_par_test_custom_property_as_left_value_and_param_node6()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -23526,6 +23677,7 @@ namespace behaviac
 		public DecoratorLoop_bt_par_test_local_out_scope_node6()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -24197,6 +24349,7 @@ namespace behaviac
 		public DecoratorLoop_bt_par_test_par_as_left_value_and_param_node33()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{
@@ -25181,6 +25334,7 @@ namespace behaviac
 		public DecoratorLoop_bt_par_test_par_as_ref_param_node33()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 		protected override int GetCount(Agent pAgent)
 		{

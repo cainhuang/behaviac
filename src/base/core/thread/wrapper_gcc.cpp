@@ -13,6 +13,7 @@
 
 #include "behaviac/base/core/thread/wrapper.h"
 #include "behaviac/base/core/thread/mutex.h"
+#include "behaviac/base/core/thread/thread.h"
 
 #if !BEHAVIAC_COMPILER_MSVC
 #include <unistd.h>

@@ -189,6 +189,11 @@ namespace Behaviac.Design
 
         public void SetExportInfo(string format, bool isExported, bool exportUnifiedFile, string folder = null, List<string> includedFilenames = null)
         {
+            if (string.IsNullOrEmpty(format))
+            {
+                return;
+            }
+
             if (!_exportDatas.ContainsKey(format)) {
                 _exportDatas[format] = new ExportData();
             }
@@ -212,12 +217,20 @@ namespace Behaviac.Design
                 return data.IsExported;
             }
 
-            return true;
+            // export xml only by default
+            if (format == "xml")
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public bool ExportedUnifiedFile(string format) {
             if (format == "xml" || format == "bson")
+            {
                 return false;
+            }
 
             if (_exportDatas.ContainsKey(format))
             {

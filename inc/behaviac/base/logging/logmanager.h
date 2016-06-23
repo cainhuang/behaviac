@@ -78,7 +78,7 @@ namespace behaviac
 		void LogWorkspace(bool bSend, const char* format, ...);
 
         template<typename T>
-        void LogVarValue(Agent* pAgent, const behaviac::string& name, const T& value);
+        void LogVarValue(Agent* pAgent, const char* name, const T& value);
 
         void Warning(const char* format, ...);
 

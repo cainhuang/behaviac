@@ -5,6 +5,7 @@
   <node class="DecoratorLoop" id="1">
     <property Count="const int 1" />
     <property DecorateWhenChildEnds="true" />
+    <property DoneWithinFrame="false" />
     <node class="Sequence" id="2">
       <node class="Parallel" id="3">
         <property ChildFinishPolicy="CHILDFINISH_ONCE" />
@@ -14,6 +15,7 @@
         <node class="DecoratorLoop" id="4">
           <property Count="const int 3" />
           <property DecorateWhenChildEnds="true" />
+          <property DoneWithinFrame="false" />
           <node class="Sequence" id="5">
             <node class="Action" id="6">
               <property Method="Self.framework::Ship::Fire()" />

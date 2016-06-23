@@ -170,9 +170,10 @@ namespace behaviac
 
             behaviac::string ni = BehaviorTask::GetTickInfo(a, root, "plan");
             int count = Workspace::GetInstance()->GetActionCount(ni.c_str()) + 1;
-            behaviac::string buffer = FormatString("[plan_begin]%s#%s %s %d\n", agentClassName.c_str(), agentInstanceName.c_str(), ni.c_str(), count);
+			char temp[1024];
+			string_sprintf(temp, "[plan_begin]%s#%s %s %d\n", agentClassName.c_str(), agentInstanceName.c_str(), ni.c_str(), count);
 
-            LogManager::GetInstance()->Log(buffer.c_str());
+			LogManager::GetInstance()->Log(temp);
 
             a->m_variables.Log(a, true);
         }
@@ -192,9 +193,10 @@ namespace behaviac
             behaviac::string agentInstanceName(a->GetName());
 
             behaviac::string ni = BehaviorTask::GetTickInfo(a, root, NULL);
-            behaviac::string buffer = FormatString("[plan_end]%s#%s %s\n", agentClassName.c_str(), agentInstanceName.c_str(), ni.c_str());
+			char temp[1024];
+			string_sprintf(temp, "[plan_end]%s#%s %s\n", agentClassName.c_str(), agentInstanceName.c_str(), ni.c_str());
 
-            LogManager::GetInstance()->Log(buffer.c_str());
+			LogManager::GetInstance()->Log(temp);
         }
 
 #endif

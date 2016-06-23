@@ -91,7 +91,7 @@ struct BEHAVIAC_API IList
 };
 
 template<typename T>
-struct BEHAVIAC_API TList : public IList
+struct TList : public IList
 {
 private:
 	template <typename TYPE>

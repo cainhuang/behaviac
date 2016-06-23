@@ -76,12 +76,13 @@ namespace Behaviac.Design
             }
         }
 
-        internal static void SetProperty(string agentType, string agentName, string valueName, string valueStr) {
+        internal static void SetProperty(BehaviorNode behavior, string agentTypename, string agentName, string valueName, string valueStr)
+        {
             foreach(ParametersDock dock in _parameterDocks)
             {
                 if (dock.AgentName == agentName)
                 {
-                    dock.setProperty(valueName, valueStr);
+                    dock.setProperty(behavior, valueName, valueStr);
                     break;
                 }
             }
@@ -123,7 +124,7 @@ namespace Behaviac.Design
         private void InspectObject(AgentType agentType, string agentName, string agentFullName, FrameStatePool.PlanningState nodeState) {
             Nodes.Node node = null;
 
-            if (agentType == null && !string.IsNullOrEmpty(agentFullName)) {
+            if (!string.IsNullOrEmpty(agentFullName)) {
                 int frame = AgentDataPool.CurrentFrame > -1 ? AgentDataPool.CurrentFrame : 0;
                 string behaviorFilename = FrameStatePool.GetBehaviorFilename(agentFullName, frame);
                 List<string> transitionIds = FrameStatePool.GetHighlightTransitionIds(agentFullName, frame, behaviorFilename);
@@ -163,7 +164,7 @@ namespace Behaviac.Design
 
                 List<AgentDataPool.ValueMark> valueSet = AgentDataPool.GetValidValues(agentType, agentFullName, AgentDataPool.CurrentFrame);
                 foreach(AgentDataPool.ValueMark value in valueSet) {
-                    dock.setProperty(value.Name, value.Value);
+                    dock.setProperty(null, value.Name, value.Value);
                 }
             }
 
@@ -175,8 +176,9 @@ namespace Behaviac.Design
             this.parametersPanel.InspectObject(agentType, agentFullName);
         }
 
-        private bool setProperty(string valueName, string valueStr) {
-            return parametersPanel.SetProperty(valueName, valueStr);
+        private bool setProperty(BehaviorNode behavior, string valueName, string valueStr)
+        {
+            return parametersPanel.SetProperty(behavior, valueName, valueStr);
         }
 
         private void setProperty(FrameStatePool.PlanningState nodeState, string agentFullName) {

@@ -454,7 +454,24 @@ namespace Behaviac.Design.Attributes
 
                 } else if (this._param != null) {
                     if (this._param.Attribute is DesignerFloat)
-                    { this._param.Value = (float)numericUpDown.Value; }
+                    { 
+                        float value =  (float)numericUpDown.Value;
+                        
+                        if (this._param.Value is float )
+                        {
+                            this._param.Value = (float)value; 
+                        }
+                        else if (this._param.Value is double)
+                        {
+                            double d = (double)value;
+                            this._param.Value = d; 
+                        }
+                        else
+                        {
+                            this._param.Value = value; 
+                        }
+
+                    }
 
                     else if (this._param.Attribute is DesignerInteger)
                     { this._param.Value = (int)numericUpDown.Value; }

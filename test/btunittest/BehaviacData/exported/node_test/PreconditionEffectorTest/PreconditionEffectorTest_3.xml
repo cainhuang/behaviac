@@ -5,6 +5,7 @@
   <node class="DecoratorLoop" id="7">
     <property Count="const int -1" />
     <property DecorateWhenChildEnds="true" />
+    <property DoneWithinFrame="false" />
     <node class="SelectorLoop" id="6">
       <node class="WithPrecondition" id="5">
         <node class="Condition" id="13">

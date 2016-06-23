@@ -96,6 +96,7 @@
     <Compile Include="NodeExporters\Cpp\Attachments\EffectorCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Attachments\PreconditionCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\Decorators\DecoratorIteratorCppExporter.cs" />
+    <Compile Include="NodeExporters\Cpp\Decorators\DecoratorLoopCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\FSM\AlwaysTransitionCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\FSM\WaitTransitionCppExporter.cs" />
     <Compile Include="NodeExporters\Cpp\FSM\StateCppExporter.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorFramesCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorLogCsExporter.cs" />
+    <Compile Include="NodeExporters\Cs\Decorators\DecoratorLoopCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorLoopUntilCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorTimeCsExporter.cs" />
     <Compile Include="NodeExporters\Cs\Decorators\DecoratorWeightCsExporter.cs" />

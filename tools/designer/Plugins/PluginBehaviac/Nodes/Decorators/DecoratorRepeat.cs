@@ -41,43 +41,6 @@ namespace PluginBehaviac.Nodes
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
-            Type valueType = this._count.ValueType;
-
-            string typeName = Plugin.GetNativeTypeName(valueType.FullName);
-
-            if (Plugin.IsIntergerNumberType(typeName))
-            {
-                if (this._count.ValueClass == VariableDef.kConst)
-                {
-                    string valueString = this._count.Value.ToString();
-                    if (valueType == typeof(long) || valueType == typeof(int) || valueType == typeof(short) || valueType == typeof(sbyte))
-                    {
-                        long count = long.Parse(valueString);
-                        if (count <= 0)
-                        {
-                            result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Count should be larger than -1!"));
-                        }
-                    }
-                    else if (valueType == typeof(ulong) || valueType == typeof(uint) || valueType == typeof(ushort) || valueType == typeof(byte))
-                    {
-                        ulong count = ulong.Parse(valueString);
-                        if (count >= 100000000)
-                        {
-                            result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, "Count is a huge number it could be wrong!"));
-                        }
-                    }
-                    else
-                    {
-                        string errMsg = string.Format("Count is a '{0}', it is not a number!", valueType.Name);
-                        result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, errMsg));
-                    }
-                }
-            }
-            else
-            {
-                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, "Count should be an integer number type!"));
-            }
-
             base.CheckForErrors(rootBehavior, result);
         }
 	}

@@ -226,7 +226,9 @@ namespace Behaviac.Design.Attributes
             }
             else
             {
-                bOk = Plugin.InvokeTypeParser(result, par.Type, param, (object value) => par.Value = value, node, par.Name);
+                bOk = Plugin.InvokeTypeParser(result, par.Type, param, 
+                    (object value) => par.Value = value, 
+                    node, par.Name);
             }
 
             return bOk;

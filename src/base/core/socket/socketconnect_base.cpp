@@ -214,11 +214,11 @@ namespace behaviac
     };
 
 #if BEHAVIAC_COMPILER_MSVC
-	uint32_t t_packetBufferIndex = TLS_OUT_OF_INDEXES;
+	int32_t t_packetBufferIndex = TLS_OUT_OF_INDEXES;
 #elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID
-	uint32_t t_packetBufferIndex = (uint32_t) - 1;
+	__thread int32_t t_packetBufferIndex = (uint32_t) - 1;
 #else
-    __thread uint32_t t_packetBufferIndex = (uint32_t) - 1;
+    __thread int32_t t_packetBufferIndex = (uint32_t) - 1;
 #endif
 
     ConnectorInterface::ConnectorInterface() :
@@ -290,7 +290,6 @@ namespace behaviac
             if (bBlocking)
             {
                 BEHAVIAC_LOG(BEHAVIAC_LOG_WARNING, "behaviac: SetupConnection is blocked, please Choose 'Connect' in the Designer to continue\n");
-
 				printf("\n[behaviac]wait for the designer to connnect at port %d...\n", (int)m_port);
 
                 while (!this->IsConnected() || !this->IsConnectedFinished())
@@ -300,6 +299,7 @@ namespace behaviac
                 }
 
 				printf("[behaviac]connected.\n");
+				BEHAVIAC_LOG(BEHAVIAC_LOG_INFO, "[behaviac]connected.\n");
 
                 behaviac::Thread::Sleep(1);
 
@@ -425,17 +425,17 @@ namespace behaviac
     {
 #if BEHAVIAC_COMPILER_MSVC
         BEHAVIAC_ASSERT(t_packetBufferIndex != TLS_OUT_OF_INDEXES);
-		uint32_t bufferIndex = (uint32_t)(uint64_t)TlsGetValue(t_packetBufferIndex);
+		int32_t bufferIndex = (uint32_t)(uint64_t)TlsGetValue(t_packetBufferIndex);
 #else
-        BEHAVIAC_ASSERT(t_packetBufferIndex != (unsigned int) - 1);
-		uint32_t bufferIndex = t_packetBufferIndex;
+        //BEHAVIAC_ASSERT(t_packetBufferIndex != (unsigned int) - 1);
+		int32_t bufferIndex = t_packetBufferIndex;
 #endif
+		//BEHAVIAC_LOGINFO("GetBufferIndex %d %d\n", bufferIndex, bReserve ? 1 : 0);
+
         //WHEN bReserve is false, it is unsafe to allocate memory as other threads might be allocating
         //you can avoid the following assert to malloc a block of memory in your thread at the very beginning
-        BEHAVIAC_ASSERT(bufferIndex > 0 || bReserve);
 
-        //bufferIndex initially is 0
-        if (bufferIndex <= 0 && bReserve)
+		if (bufferIndex <= 0 && bReserve)
         {
             bufferIndex = ReserveThreadPacketBuffer();
         }
@@ -456,6 +456,10 @@ namespace behaviac
 
                 this->m_packetsCount++;
             }
+			else
+			{
+				Log("AddPacket error: bufferIndex < 0\n");
+			}
         }
     }
 
@@ -516,12 +520,12 @@ namespace behaviac
     int ConnectorInterface::ReserveThreadPacketBuffer()
     {
 #if BEHAVIAC_COMPILER_MSVC
-		uint32_t bufferIndex = (uint32_t)(uint64_t)TlsGetValue(t_packetBufferIndex);
+		int32_t bufferIndex = (uint32_t)(uint64_t)TlsGetValue(t_packetBufferIndex);
 #else
-		uint32_t bufferIndex = t_packetBufferIndex;
+		int32_t bufferIndex = t_packetBufferIndex;
 #endif
         //THREAD_ID_TYPE id = behaviac::GetTID();
-        //BEHAVIAC_LOGINFO("ReserveThreadPacketBuffer:%d thread %d\n", bufferIndex, id);
+        //BEHAVIAC_LOGINFO("ReserveThreadPacketBuffer 1:%d thread %p\n", bufferIndex, id);
 
         //bufferIndex initially is 0
         if (bufferIndex <= 0)
@@ -554,6 +558,8 @@ namespace behaviac
                 }
             }
 
+			//BEHAVIAC_LOGINFO("ReserveThreadPacketBuffer 3:%d thread %p\n", retIndex, id);
+
             if (retIndex > 0)
             {
 #if BEHAVIAC_COMPILER_MSVC
@@ -561,7 +567,6 @@ namespace behaviac
 #else
                 t_packetBufferIndex = retIndex;
 #endif
-
             }
             else
             {
@@ -571,7 +576,7 @@ namespace behaviac
 
             bufferIndex = retIndex;
 
-            //BEHAVIAC_LOGINFO("ReserveThreadPacketBuffer:%d thread %d\n", bufferIndex, id);
+            //BEHAVIAC_LOGINFO("ReserveThreadPacketBuffer 2:%d thread %p\n", bufferIndex, id);
         }
 
         return bufferIndex;

@@ -44,7 +44,8 @@ namespace behaviac
 				behaviac::Property::Register<T>(typeName);
 				behaviac::Condition::Register<T>(typeName);
 
-				const char* szVectorType = FormatString("vector<%s>", typeName);
+				char szVectorType[1024];
+				string_sprintf(szVectorType, "vector<%s>", typeName);
 				behaviac::Property::Register<behaviac::vector<T> >(szVectorType);
 				behaviac::Condition::Register<behaviac::vector<T> >(szVectorType);
 			}
@@ -54,7 +55,8 @@ namespace behaviac
 				behaviac::Property::UnRegister<T>(typeName);
 				behaviac::Condition::UnRegister<T>(typeName);
 
-				const char* szVectorType = FormatString("vector<%s>", typeName);
+				char szVectorType[1024];
+				string_sprintf(szVectorType, "vector<%s>", typeName);
 				behaviac::Property::UnRegister<behaviac::vector<T> >(szVectorType);
 				behaviac::Condition::UnRegister<behaviac::vector<T> >(szVectorType);
 			}

@@ -349,6 +349,8 @@ namespace behaviac
     {
         if (pAgent && pAgent->IsMasked())
         {
+			char temp[1024];
+
             //BEHAVIAC_PROFILE("GetTickInfo", true);
 
             const behaviac::string& bClassName = n->GetClassNameString();
@@ -364,14 +366,17 @@ namespace behaviac
 
 				if (!StringUtils::IsNullOrEmpty(btName.c_str()))
                 {
-                    bpstr = FormatString("%s.xml->", btName.c_str());
+					string_sprintf(temp, "%s.xml->", btName.c_str());
+					bpstr = temp;
                 }
 
-                bpstr += FormatString("%s[%i]", bClassName.c_str(), nodeId);
+				string_sprintf(temp, "%s[%i]", bClassName.c_str(), nodeId);
+				bpstr += temp;
 
 				if (!StringUtils::IsNullOrEmpty(action))
                 {
-                    bpstr += FormatString(":%s", action);
+					string_sprintf(temp, ":%s", action);
+					bpstr += temp;
                 }
 
                 return bpstr;
@@ -383,12 +388,6 @@ namespace behaviac
 
 #define _MY_BREAKPOINT_BREAK_(pAgent, btMsg, actionResult) \
     { \
-        /*const char* actionResultStr = GetActionResultStr(actionResult); \
-                                                                			const char* msg = FormatString("BehaviorTreeTask Breakpoints at: %s(%d)\n\n'%s%s'\n\nOk to continue.", __FILE__, __LINE__, btMsg, actionResultStr); \
-                                                                			if (IDOK == MessageBoxA(0, msg, "BehaviorTreeTask Breakpoints", MB_OK | MB_ICONHAND | MB_SETFOREGROUND | MB_SYSTEMMODAL)) \
-                                                                			{ \
-                                                                				DebugBreak_(); \
-                                                                			}*/ \
         Workspace::GetInstance()->WaitforContinue(); \
     }
 
@@ -557,7 +556,7 @@ namespace behaviac
     {
     public:
         /// Construct. begin a profiling block with the specified name and optional call count.
-        AutoProfileBlockSend(Profiler* profiler, const behaviac::string& taskClassid, const Agent* agent) : profiler_(profiler)
+        AutoProfileBlockSend(Profiler* profiler, const char* taskClassid, const Agent* agent) : profiler_(profiler)
         {
             if (Config::IsProfiling())
             {
@@ -565,7 +564,7 @@ namespace behaviac
 
                 if (profiler_)
                 {
-                    profiler_->BeginBlock(taskClassid.c_str(), agent);
+                    profiler_->BeginBlock(taskClassid, agent);
                 }
             }
         }
@@ -596,21 +595,21 @@ namespace behaviac
 
     EBTStatus BehaviorTask::exec(Agent* pAgent, EBTStatus childStatus)
     {
+#if !BEHAVIAC_RELEASE
+		char temp[1024];
+#endif
+
 #if BEHAVIAC_ENABLE_PROFILING
-#if 1
         const char* classStr = (this->m_node ? this->m_node->GetClassNameString().c_str() : "BT");
         int nodeId = (this->m_node ? this->m_node->GetId() : -1);
-        behaviac::string taskClassid = FormatString("%s[%i]", classStr, nodeId);
+        string_sprintf(temp, "%s[%i]", classStr, nodeId);
 
-        AutoProfileBlockSend profiler_block(Profiler::GetInstance(), taskClassid, pAgent);
-#else
-        const char* classStr = (this->m_node ? this->m_node->GetClassNameString().c_str() : "BT");
-        BEHAVIAC_PROFILE(classStr);
-#endif
+		AutoProfileBlockSend profiler_block(Profiler::GetInstance(), temp, pAgent);
 #endif//#if BEHAVIAC_ENABLE_PROFILING
-
-        BEHAVIAC_ASSERT(!this->m_node || this->m_node->IsValid(pAgent, this),
-                        FormatString("Agent In BT:%s while the Agent used for: %s", this->m_node->m_agentType.c_str(), pAgent->GetClassTypeName()));
+#if !BEHAVIAC_RELEASE
+		string_sprintf(temp, "Agent In BT:%s while the Agent used for: %s", this->m_node->m_agentType.c_str(), pAgent->GetClassTypeName());
+		BEHAVIAC_ASSERT(!this->m_node || this->m_node->IsValid(pAgent, this), temp);
+#endif
 
         bool bEnterResult = false;
 

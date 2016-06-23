@@ -126,7 +126,16 @@ namespace Behaviac.Design.Attributes
         }
 
         public override string GetDisplayValue(object obj) {
-            return string.Format(CultureInfo.InvariantCulture, "{0}", (float)obj);
+            if (obj is float)
+            {
+                return string.Format("{0}", (float)obj);
+            }
+            else if (obj is double)
+            {
+                return string.Format("{0}", (double)obj);
+            }
+
+            return string.Format("{0}", obj); 
         }
 
         public override string GetExportValue(object owner, object obj) {
@@ -136,13 +145,29 @@ namespace Behaviac.Design.Attributes
 
         public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
-            if (type != typeof(float))
-            { throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); }
+            if (type != typeof(float) && type != typeof(double))
+            { 
+                throw new Exception(Resources.ExceptionDesignerAttributeInvalidType); 
+            }
 
-            float resultValue;
 
-            if (float.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out resultValue))
-            { return resultValue; }
+            if (type == typeof(float))
+            {
+                float resultValue;
+                if (float.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out resultValue))
+                {
+                    return resultValue;
+                }
+            }
+            else if (type == typeof (double))
+            {
+                double resultValue;
+                if (double.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out resultValue))
+                {
+                    return resultValue;
+                }
+
+            }
 
             throw new Exception(string.Format(Resources.ExceptionDesignerAttributeIllegalFloatValue, str));
         }

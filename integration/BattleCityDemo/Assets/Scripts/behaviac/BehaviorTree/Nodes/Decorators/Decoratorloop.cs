@@ -48,6 +48,18 @@ namespace behaviac
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
+
+            for (int i = 0; i < properties.Count; ++i)
+            {
+                property_t p = properties[i];
+                if (p.name == "DoneWithinFrame")
+                {
+					if (p.value == "true")
+					{
+						this.m_bDoneWithinFrame = true;
+					}
+                }
+            }
         }
 
         public int Count(Agent pAgent)
@@ -64,6 +76,8 @@ namespace behaviac
 
             return base.IsValid(pAgent, pTask);
         }
+
+        protected bool m_bDoneWithinFrame;
 
         protected override BehaviorTask createTask()
         {
@@ -121,6 +135,43 @@ namespace behaviac
 
                 return EBTStatus.BT_SUCCESS;
             }
+
+            protected override EBTStatus update(Agent pAgent, EBTStatus childStatus)
+            {
+                Debug.Check(this.m_node is DecoratorLoop);
+                DecoratorLoop node = (DecoratorLoop)this.m_node;
+
+                if (node.m_bDoneWithinFrame)
+                {
+                    Debug.Check(this.m_n >= 0);
+                    Debug.Check(this.m_root != null);
+
+                    EBTStatus status = EBTStatus.BT_INVALID;
+
+                    for (int i = 0; i < this.m_n; ++i)
+                    {
+                        status = this.m_root.exec(pAgent, childStatus);
+
+                        if (node.m_bDecorateWhenChildEnds)
+                        {
+                            while (status == EBTStatus.BT_RUNNING)
+                            {
+                                status = base.update(pAgent, childStatus);
+                            }
+                        }
+
+                        if (status == EBTStatus.BT_FAILURE)
+                        {
+                            return EBTStatus.BT_FAILURE;
+                        }
+                    }
+
+                    return EBTStatus.BT_SUCCESS;
+                }
+
+                return base.update(pAgent, childStatus);
+            }
+
         }
     }
 }

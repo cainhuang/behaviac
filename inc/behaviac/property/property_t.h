@@ -364,19 +364,22 @@ namespace behaviac
     };
 
     template<typename T>
-    void LogManager::LogVarValue(Agent* pAgent, const behaviac::string& name, const T& value)
+    void LogManager::LogVarValue(Agent* pAgent, const char* name, const T& value)
     {
         behaviac::string valueStr = StringUtils::ToString(value);
         behaviac::string typeName = GetClassTypeName((T*)0);
 
         behaviac::string full_name = name;
 
-        const CMemberBase* pMember = pAgent->FindMember(name.c_str());
+        const CMemberBase* pMember = pAgent->FindMember(name);
 
         if (pMember != 0)
         {
             const char* classFullName = pMember->GetClassNameString();
-            full_name = FormatString("%s::%s", classFullName, name.c_str());
+
+			char temp[1024];
+			string_sprintf(temp, "%s::%s", classFullName, name);
+			full_name = temp;
         }
 
         this->Log(pAgent, typeName.c_str(), full_name.c_str(), valueStr.c_str());
@@ -668,9 +671,10 @@ namespace behaviac
 
         if (pSelf != NULL && pSelf->m_planningTop >= 0)
         {
-            behaviac::string varName = FormatString("%s[%d]", this->m_parent->Name(), index);
+			char temp[1024];
+            string_sprintf(temp, "%s[%d]", this->m_parent->Name(), index);
 
-            LogManager::GetInstance()->LogVarValue(pSelf, varName, v);
+			LogManager::GetInstance()->LogVarValue(pSelf, temp, v);
         }
 
 #endif

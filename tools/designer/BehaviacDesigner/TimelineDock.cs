@@ -234,9 +234,17 @@ namespace Behaviac.Design
 
             string typeName = (agentType == null) ? agentName : agentType.ToString();
             string agentFullname = (agentType == null) ? agentName : agentType.ToString() + "#" + agentName;
+            string behaviorFilename = FrameStatePool.GetBehaviorFilename(agentFullname, frame);
+            BehaviorNode behavior = null;
+
+            if (agentFullname == Plugin.DebugAgentInstance)
+            {
+                behavior = UIUtilities.ShowBehavior(behaviorFilename);
+            }
+
             List<AgentDataPool.ValueMark> values = AgentDataPool.GetValidValues(agentType, agentFullname, frame);
             foreach(AgentDataPool.ValueMark value in values) {
-                ParametersDock.SetProperty(typeName, agentName, value.Name, value.Value);
+                ParametersDock.SetProperty(behavior, typeName, agentName, value.Name, value.Value);
             }
         }
 
@@ -244,7 +252,7 @@ namespace Behaviac.Design
         {
             if (agentFullname == Plugin.DebugAgentInstance || breakPoint != null)
             {
-                BehaviorNode behavior = UIUtilities.ShowBehaviorTree(agentFullname, frame, highlightedTransitionIds, highlightNodeIds, updatedNodeIds, breakPoint, profileInfos);
+                UIUtilities.ShowBehaviorTree(agentFullname, frame, highlightedTransitionIds, highlightNodeIds, updatedNodeIds, breakPoint, profileInfos);
             }
         }
 

@@ -14,6 +14,7 @@
 #include "behaviac/base/core/config.h"
 #include "behaviac/base/core/assert_t.h"
 #include "behaviac/base/core/system.h"
+#include "behaviac/base/core/thread/thread.h"
 
 #if BEHAVIAC_COMPILER_MSVC
 #include <windows.h>
@@ -118,52 +119,6 @@ namespace behaviac
 #if BEHAVIAC_CFG_SETEXENAME_BUF_SIZE > 0
     static Char g_ExeName[BEHAVIAC_CFG_SETEXENAME_BUF_SIZE];
 #endif
-
-    bool IsBadReadPointer(void* ptr, uint32_t memSize)
-    {
-        // Check buffer validity using VirtualQuery. This is somewhat safer than trying to rewrite the same value everywhere
-        // Anyway, this should only be used in debug code to avoid accessing invalid members(such as in MemDebug implementation)
-        bool isBad = true;
-        MEMORY_BASIC_INFORMATION info;
-        size_t result = VirtualQuery(ptr, &info, sizeof(info));
-
-        if (result == sizeof(info))
-        {
-            // Check that the associated pages are committed and with right protection level. Also, check
-            // that the whole buffer pointed to by the pointer is within the same protection region.
-            if (info.State == MEM_COMMIT &&
-                (info.AllocationProtect & (PAGE_READWRITE | PAGE_READONLY | PAGE_EXECUTE_READ | PAGE_EXECUTE_READWRITE | PAGE_EXECUTE_WRITECOPY)) &&
-                BEHAVIAC_PTR_TO_ADDR(ptr) + memSize < BEHAVIAC_PTR_TO_ADDR(info.BaseAddress) + info.RegionSize)
-            {
-                isBad = false;
-            }
-        }
-
-        return isBad;
-    }
-
-    bool IsBadWritePointer(void* ptr, uint32_t memSize)
-    {
-        // Check buffer validity using VirtualQuery. This is a somewhat safer than trying to rewrite the same value everywhere
-        // Anyway, this should only be used in debug code to avoid accessing invalid members(such as in MemDebug implementation)
-        bool isBad = true;
-        MEMORY_BASIC_INFORMATION info;
-        size_t result = VirtualQuery(ptr, &info, sizeof(info));
-
-        if (result == sizeof(info))
-        {
-            // Check that the associated pages are committed and with right protection level. Also, check
-            // that the whole buffer pointed to by the pointer is within the same protection region.
-            if (info.State == MEM_COMMIT &&
-                (info.AllocationProtect & (PAGE_READWRITE | PAGE_EXECUTE_WRITECOPY | PAGE_EXECUTE_READWRITE)) &&
-                BEHAVIAC_PTR_TO_ADDR(ptr) + memSize < BEHAVIAC_PTR_TO_ADDR(info.BaseAddress) + info.RegionSize)
-            {
-                isBad = false;
-            }
-        }
-
-        return isBad;
-    }
 
     const Char* GetExeName(Char* exeNameBuffer, uint32_t exeNameBufferSize)
     {

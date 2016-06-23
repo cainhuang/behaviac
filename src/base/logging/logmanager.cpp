@@ -132,8 +132,9 @@ namespace behaviac
                             "%.2d:%.2d:%.2d",
                             ptmCurrent->tm_hour, ptmCurrent->tm_min, ptmCurrent->tm_sec);
 
-            //behaviac::string buffer = FormatString("[%s]%s\n", szTime, msg);
-            behaviac::string buffer = FormatString("[%s]%s", szTime, msg);
+            //behaviac::string buffer = string_sprintf("[%s]%s\n", szTime, msg);
+			char buffer[1024];
+			string_sprintf(buffer, "[%s]%s", szTime, msg);
 
             //printf(buffer.c_str());
 
@@ -142,7 +143,7 @@ namespace behaviac
                 behaviac::Mutex cs;
                 behaviac::ScopedLock lock(cs);
 
-                fwrite(buffer.c_str(), 1, buffer.size(), fp);
+                fwrite(buffer, 1, strlen(buffer), fp);
 
                 if (this->m_bFlush)
                 {
@@ -205,20 +206,23 @@ namespace behaviac
                         //[continue]Ship::Ship_1 ships\suicide.xml->BehaviorTreeTask[0]:enter [all/success/failure] [1]
                         int count = Workspace::GetInstance()->GetActionCount(btMsg);
                         BEHAVIAC_ASSERT(count > 0);
-                        behaviac::string buffer = FormatString("[continue]%s %s [%s] [%d]\n", agentName.c_str(), btMsg, actionResultStr, count);
 
-                        this->Output(pAgent, buffer.c_str());
-                        Socket::SendText(buffer.c_str());
+						char buffer[1024];
+						string_sprintf(buffer, "[continue]%s %s [%s] [%d]\n", agentName.c_str(), btMsg, actionResultStr, count);
+
+                        this->Output(pAgent, buffer);
+                        Socket::SendText(buffer);
                     }
                     else if (mode == behaviac::ELM_breaked)
                     {
                         //[breaked]Ship::Ship_1 ships\suicide.xml->BehaviorTreeTask[0]:enter [all/success/failure] [1]
                         int count = Workspace::GetInstance()->GetActionCount(btMsg);
                         BEHAVIAC_ASSERT(count > 0);
-                        behaviac::string buffer = FormatString("[breaked]%s %s [%s] [%d]\n", agentName.c_str(), btMsg, actionResultStr, count);
+						char buffer[1024];
+						string_sprintf(buffer, "[breaked]%s %s [%s] [%d]\n", agentName.c_str(), btMsg, actionResultStr, count);
 
-                        this->Output(pAgent, buffer.c_str());
-                        Socket::SendText(buffer.c_str());
+                        this->Output(pAgent, buffer);
+                        Socket::SendText(buffer);
                     }
                     else if (mode == behaviac::ELM_tick)
                     {
@@ -228,24 +232,27 @@ namespace behaviac
                         //[tick]Ship::Ship_1 ships\suicide.xml->Selector[1]:update [1]
                         int count = Workspace::GetInstance()->UpdateActionCount(btMsg);
 
-                        behaviac::string buffer = FormatString("[tick]%s %s [%s] [%d]\n", agentName.c_str(), btMsg, actionResultStr, count);
+						char buffer[1024];
+                        string_sprintf(buffer, "[tick]%s %s [%s] [%d]\n", agentName.c_str(), btMsg, actionResultStr, count);
 
-                        this->Output(pAgent, buffer.c_str());
-                        Socket::SendText(buffer.c_str());
+                        this->Output(pAgent, buffer);
+                        Socket::SendText(buffer);
                     }
                     else if (mode == behaviac::ELM_jump)
                     {
-                        behaviac::string buffer = FormatString("[jump]%s %s\n", agentName.c_str(), btMsg);
+						char buffer[1024];
+						string_sprintf(buffer, "[jump]%s %s\n", agentName.c_str(), btMsg);
 
-                        this->Output(pAgent, buffer.c_str());
-                        Socket::SendText(buffer.c_str());
+                        this->Output(pAgent, buffer);
+                        Socket::SendText(buffer);
                     }
                     else if (mode == behaviac::ELM_return)
                     {
-                        behaviac::string buffer = FormatString("[return]%s %s\n", agentName.c_str(), btMsg);
+						char buffer[1024];
+						string_sprintf(buffer, "[return]%s %s\n", agentName.c_str(), btMsg);
 
-                        this->Output(pAgent, buffer.c_str());
-                        Socket::SendText(buffer.c_str());
+                        this->Output(pAgent, buffer);
+                        Socket::SendText(buffer);
                     }
                     else
                     {
@@ -276,7 +283,7 @@ namespace behaviac
                 //[property]Ship::Ship_1 GameObject::HP->100
                 //[property]Ship::Ship_1 GameObject::age->0
                 //[property]Ship::Ship_1 GameObject::speed->0.000000
-                behaviac::string buffer;
+				char buffer[1024];
 
                 bool bIsPar = IsParVar(varName);
 
@@ -299,15 +306,15 @@ namespace behaviac
                         tn = tn2;
                     }
 
-                    buffer = FormatString("[property]%s#%s %s %s->%s\n", agentClassName, agentInstanceName.c_str(), tn.c_str(), varName, value);
+                    string_sprintf(buffer, "[property]%s#%s %s %s->%s\n", agentClassName, agentInstanceName.c_str(), tn.c_str(), varName, value);
                 }
                 else
                 {
-                    buffer = FormatString("[property]%s#%s %s->%s\n", agentClassName, agentInstanceName.c_str(), varName, value);
+                    string_sprintf(buffer, "[property]%s#%s %s->%s\n", agentClassName, agentInstanceName.c_str(), varName, value);
                 }
 
-                this->Output(pAgent, buffer.c_str());
-                Socket::SendText(buffer.c_str());
+                this->Output(pAgent, buffer);
+                Socket::SendText(buffer);
             }
         }
     }
@@ -357,7 +364,8 @@ namespace behaviac
         {
             //BEHAVIAC_PROFILE("LogManager::LogMode");
 
-            char buffer[2048] = "";
+            char buffer[1024] = "";
+			char target[1024] = "";
 
             // make result behaviac::string
             va_list		arglist;
@@ -372,32 +380,30 @@ namespace behaviac
                 filterStr = "empty";
             }
 
-            behaviac::string target;
-
             if (mode == behaviac::ELM_tick)
             {
-                target = FormatString("[applog]%s:%s\n", filterStr, buffer);
+				string_sprintf(target, "[applog]%s:%s\n", filterStr, buffer);
             }
             else if (mode == behaviac::ELM_continue)
             {
-                target = FormatString("[continue][applog]%s:%s\n", filterStr, buffer);
+				string_sprintf(target, "[continue][applog]%s:%s\n", filterStr, buffer);
             }
             else if (mode == behaviac::ELM_breaked)
             {
                 //[applog]door opened
-                target = FormatString("[breaked][applog]%s:%s\n", filterStr, buffer);
+				string_sprintf(target, "[breaked][applog]%s:%s\n", filterStr, buffer);
             }
             else if (mode == behaviac::ELM_log)
             {
-                target = FormatString("[log]%s:%s\n", filterStr, buffer);
+				string_sprintf(target, "[log]%s:%s\n", filterStr, buffer);
             }
             else
             {
                 BEHAVIAC_ASSERT(0);
             }
 
-            this->Output(0, target.c_str());
-            Socket::SendText(target.c_str());
+            this->Output(0, target);
+            Socket::SendText(target);
         }
     }
 
@@ -428,13 +434,13 @@ namespace behaviac
                     }
 
                     //[profiler]Ship::Ship_1 ships\suicide.xml->BehaviorTree[0] 0.031
-                    behaviac::string buffer;
+                    char buffer[1024];
 
-                    //buffer = FormatString("[profiler]%s::%s %s->%s %d\n", agentClassName, agentInstanceName.c_str(), btName.c_str(), btMsg, time);
-                    buffer = FormatString("[profiler]%s.xml->%s %d\n", btName.c_str(), btMsg, time);
+                    //buffer = string_sprintf("[profiler]%s::%s %s->%s %d\n", agentClassName, agentInstanceName.c_str(), btName.c_str(), btMsg, time);
+					string_sprintf(buffer, "[profiler]%s.xml->%s %ld\n", btName.c_str(), btMsg, time);
 
-                    this->Output(pAgent, buffer.c_str());
-                    Socket::SendText(buffer.c_str());
+                    this->Output(pAgent, buffer);
+                    Socket::SendText(buffer);
                 }
             }
         }

@@ -10,6 +10,7 @@
     <node class="DecoratorLoop" id="2">
       <property Count="const int -1" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="Sequence" id="3">
         <node class="Action" id="4">
           <property Method="Self.framework::Ship::GotoPointRelative(10,0,0.5)" />
@@ -36,6 +37,7 @@
     <node class="DecoratorLoop" id="8">
       <property Count="const int -1" />
       <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="false" />
       <node class="SelectorProbability" id="9">
         <node class="DecoratorWeight" id="10">
           <property DecorateWhenChildEnds="false" />

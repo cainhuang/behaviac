@@ -145,7 +145,7 @@ namespace Behaviac.Design.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ShowProfilingInfo {
             get {
                 return ((bool)(this["ShowProfilingInfo"]));
@@ -276,7 +276,7 @@ namespace Behaviac.Design.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool IsDisplayLengthLimited {
             get {
                 return ((bool)(this["IsDisplayLengthLimited"]));

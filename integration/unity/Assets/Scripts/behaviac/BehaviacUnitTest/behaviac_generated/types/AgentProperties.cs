@@ -1875,6 +1875,7 @@ namespace behaviac
 			meta.RegisterMethod(2043807016, new CMethod_AgentNodeTest_testExtendedRefType());
 			meta.RegisterMethod(1444063412, new CMethod_AgentNodeTest_testExtendedStruct());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
+			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -1954,6 +1955,7 @@ namespace behaviac
 			meta.RegisterMethod(2043807016, new CMethod_AgentNodeTest_testExtendedRefType());
 			meta.RegisterMethod(1444063412, new CMethod_AgentNodeTest_testExtendedStruct());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
+			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());

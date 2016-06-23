@@ -255,7 +255,7 @@
 #define string_snprintf _snprintf
 #define string_vnprintf vsnprintf
 #define string_vnwprintf _vsnwprintf_s
-#define string_sprintf(s, fmt, ...) BEHAVIAC_ASSERT(BEHAVIAC_ARRAY_LENGTH(s) > 0); _snprintf(s, BEHAVIAC_ARRAY_LENGTH(s), fmt, __VA_ARGS__); s[BEHAVIAC_ARRAY_LENGTH(s) - 1] = '\0'
+#define string_sprintf(s, fmt, ...) BEHAVIAC_ASSERT(BEHAVIAC_ARRAY_LENGTH(s) > 0); _snprintf(s, BEHAVIAC_ARRAY_LENGTH(s), fmt, __VA_ARGS__); s[BEHAVIAC_ARRAY_LENGTH(s) - 1] = '\0';
 #elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID || BEHAVIAC_COMPILER_GCC_LINUX || BEHAVIAC_COMPILER_GCC_CYGWIN
 #define string_cpy strcpy
 #define string_ncpy strncpy

@@ -177,6 +177,9 @@
         <Param DisplayName="str" Desc="str" Type="string" />
       </Method>
       <Method Name="GetRefTree" DisplayName="" Desc="" ReturnType="string" Class="AgentNodeTest" Public="true" />
+      <Method Name="testVectorStruct" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest">
+        <Param DisplayName="param" Desc="param" Type="vector&lt;TestNS::Float2&gt;" />
+      </Method>
     </agent>
     <agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="ChildNodeTest" Desc="ChildNodeTest" IsRefType="true">
       <Method Name="GetConstFloatValue" DisplayName="" Desc="" ReturnType="float" Class="ChildNodeTest" Public="true" />

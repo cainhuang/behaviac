@@ -32,23 +32,8 @@
 #define BEHAVIAC_CFG_CLASSNAME_MAXLENGTH                    200
 #define BEHAVIAC_CFG_SETEXENAME_BUF_SIZE					256
 
-#if BEHAVIAC_COMPILER_MSVC
-#else
-#include <pthread.h>
-#endif//BEHAVIAC_COMPILER_MSVC
-
 namespace behaviac
 {
-#if BEHAVIAC_COMPILER_MSVC
-    typedef uint32_t THREAD_ID_TYPE;
-#elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID || BEHAVIAC_COMPILER_GCC_LINUX
-    typedef pthread_t* THREAD_ID_TYPE;
-#else
-    typedef __pthread_t* THREAD_ID_TYPE;
-#endif//BEHAVIAC_COMPILER_MSVC
-    // Invalid thread Id definition
-#define BEHAVIAC_INVALID_TID        0xFFFFFFFF
-
     /// This is the Low Level System function set
 
     /// Sleep for a number of milliseconds.
@@ -57,12 +42,6 @@ namespace behaviac
 
     /// Yield the current thread execution to another.
     BEHAVIAC_API void YieldCPU();
-
-    /// Check if the given thread ID is valid.
-    BEHAVIAC_API bool IsValidThread(uint32_t threadID);
-
-    /// Get the current thread ID
-    BEHAVIAC_API THREAD_ID_TYPE GetTID();
 
     /// Get the current module ID
     BEHAVIAC_API Address GetModuleID();
@@ -75,20 +54,6 @@ namespace behaviac
     /// Set the name of the executable.
     /// \param exeNameBuffer pointer to the user provided buffer containing the exe name.
     BEHAVIAC_API void SetExeName(const Char* exeNameBuffer);
-
-    /// Test a memory pointer for read access
-    /// \param ptr the pointer to test
-    /// \param memSize size of the memory pointed on by the pointer, in bytes (4 for an int, for example)
-    /// Note that if the return value is true, your program should make a critical error and stop running,
-    /// since behavior is undefined. for a discussion about this, see http://blogs.msdn.com/oldnewthing/archive/2006/09/27/773741.aspx
-    BEHAVIAC_API bool IsBadReadPointer(void* ptr, uint32_t memSize);
-
-    /// Test a memory pointer for write access
-    /// \param ptr the pointer to test
-    /// \param memSize size of the memory pointed on by the pointer, in bytes (4 for an int, for example)
-    /// Note that if the return value is true, your program should make a critical error and stop running,
-    /// since behavior is undefined. for a discussion about this, see http://blogs.msdn.com/oldnewthing/archive/2006/09/27/773741.aspx
-    BEHAVIAC_API bool IsBadWritePointer(void* ptr, uint32_t memSize);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //

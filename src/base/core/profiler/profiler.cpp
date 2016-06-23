@@ -614,7 +614,9 @@ namespace behaviac
         {
             const ProfilerBlock* root = current_[i].root;
 
-            output += behaviac::string(FormatString("Thread %d:\n", current_[i].threadId));
+			char temp[1024];
+			string_sprintf(temp, "Thread %d:\n", current_[i].threadId);
+            output += temp;
             this->GetData(root, output, 0, maxDepth, showUnused, showTotal);
         }
 

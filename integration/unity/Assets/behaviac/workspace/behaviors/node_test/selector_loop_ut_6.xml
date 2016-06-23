@@ -4,7 +4,7 @@
     <Comment Background="NoColor" Text="" />
     <DescriptorRefs value="0:" />
     <Connector Identifier="GenericChildren">
-      <Node Class="PluginBehaviac.Nodes.DecoratorLoop" Count="const int 10" DecorateWhenChildEnds="false" Enable="true" HasOwnPrefabData="false" Id="9" PrefabName="" PrefabNodeId="-1">
+      <Node Class="PluginBehaviac.Nodes.DecoratorLoop" Count="const int 10" DecorateWhenChildEnds="false" DoneWithinFrame="false" Enable="true" HasOwnPrefabData="false" Id="9" PrefabName="" PrefabNodeId="-1">
         <Comment Background="NoColor" Text="" />
         <Connector Identifier="GenericChildren">
           <Node Class="PluginBehaviac.Nodes.SelectorLoop" Enable="true" HasOwnPrefabData="false" Id="0" PrefabName="" PrefabNodeId="-1">

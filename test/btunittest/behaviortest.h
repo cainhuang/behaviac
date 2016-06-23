@@ -63,11 +63,13 @@ class DecoratorCountMock : public behaviac::DecoratorCount
 public:
     DecoratorCountMock(int count, bool s = true) : m_success(s)
     {
-        behaviac::string valueStr = FormatString("const int %d", count);
+		char temp[1024];
+
+        string_sprintf(temp, "const int %d", count);
         behaviac::string typeName;
         behaviac::string propertyName;
 
-        this->m_count_var = behaviac::Condition::LoadRight(valueStr.c_str(), typeName);
+		this->m_count_var = behaviac::Condition::LoadRight(temp, typeName);
 
         behaviac::Noop* pNoop = BEHAVIAC_NEW behaviac::Noop();
 

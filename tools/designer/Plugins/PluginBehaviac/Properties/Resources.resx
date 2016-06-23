@@ -499,7 +499,7 @@
     <value>Duration</value>
   </data>
   <data name="DurationDesc" xml:space="preserve">
-    <value>The time(milliseconds) it will wait.</value>
+    <value>Duration (milliseconds in float)</value>
   </data>
   <data name="IfElseCondition" xml:space="preserve">
     <value>Condition</value>
@@ -853,5 +853,11 @@ it only returns success or failure and never returns running.
   </data>
   <data name="WaitTransitionDesc" xml:space="preserve">
     <value>WaitTransition can only be appended to WaitState or WaitFramesState</value>
+  </data>
+  <data name="DoneWithinFrame" xml:space="preserve">
+    <value>DoneWithinFrame</value>
+  </data>
+  <data name="DoneWithinFrameDesc" xml:space="preserve">
+    <value>if true, the whole Loop will be blocked until the loop is done within a frame</value>
   </data>
 </root>

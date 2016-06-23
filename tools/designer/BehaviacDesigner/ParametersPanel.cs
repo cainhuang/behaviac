@@ -56,6 +56,7 @@ namespace Behaviac.Design
         }
 
         private List<RowControl> _rowControls = new List<RowControl>();
+        private AgentType _agentType = null;
         private string _agentFullname = string.Empty;
 
         public ParametersPanel() {
@@ -65,6 +66,7 @@ namespace Behaviac.Design
         }
 
         public void InspectObject(AgentType agentType, string agentFullname) {
+            _agentType = agentType;
             _agentFullname = agentFullname;
 
             preLayout();
@@ -73,23 +75,35 @@ namespace Behaviac.Design
 
             if (agentType != null) {
                 IList<PropertyDef> properties = agentType.GetProperties();
-                foreach(PropertyDef p in properties) {
+                foreach(PropertyDef p in properties)
+                {
                     if (!p.IsArrayElement) 
-                    {
                         addRowControl(p);
-                    }
                 }
             }
 
             postLayout();
         }
 
-        public bool SetProperty(string valueName, string valueStr) {
+        public bool SetProperty(BehaviorNode behavior, string valueName, string valueStr)
+        {
             DesignerPropertyEditor propertyEditor = getPropertyEditor(valueName);
 
-            if (propertyEditor == null) {
-                return false;
+            if (propertyEditor == null && behavior != null)
+            {
+                Node root = behavior as Node;
+                foreach (PropertyDef p in root.LocalVars)
+                {
+                    if (!p.IsArrayElement && p.BasicName == valueName)
+                    {
+                        propertyEditor = addRowControl(p);
+                        break;
+                    }
+                }
             }
+
+            if (propertyEditor == null)
+                return false;
 
             VariableDef var = propertyEditor.GetVariable();
 
@@ -118,7 +132,7 @@ namespace Behaviac.Design
                 object v = GetPropertyValue(nodeState, agentFullName, rc.Name);
 
                 if (v != null) {
-                    SetProperty(rc.Name, v.ToString());
+                    SetProperty(null, rc.Name, v.ToString());
                 }
             }
         }
@@ -202,7 +216,7 @@ namespace Behaviac.Design
             return editor;
         }
 
-        private void addRowControl(PropertyDef property) {
+        private DesignerPropertyEditor addRowControl(PropertyDef property) {
             this.tableLayoutPanel.RowCount++;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 
@@ -230,6 +244,8 @@ namespace Behaviac.Design
             rowControl.ValueEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             rowControl.ValueEditor.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel.Controls.Add(rowControl.ValueEditor, 2, rowIndex);
+
+            return rowControl.ValueEditor;
         }
 
         private void deleteAllRowControls() {

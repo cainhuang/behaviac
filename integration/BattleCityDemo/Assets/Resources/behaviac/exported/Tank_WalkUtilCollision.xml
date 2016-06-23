@@ -10,6 +10,7 @@
   <node class="DecoratorLoop" id="0">
     <property Count="const int -1" />
     <property DecorateWhenChildEnds="true" />
+    <property DoneWithinFrame="false" />
     <node class="Selector" id="4">
       <node class="Action" id="1">
         <property Method="Self.GameActor::moveForward()" />

@@ -155,6 +155,7 @@ namespace behaviac
 		DecoratorLoop_bt_demo_running_node0()
 		{
 			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
 		}
 	protected:
 		virtual int GetCount(Agent* pAgent) const

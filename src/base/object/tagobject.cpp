@@ -490,7 +490,9 @@ namespace behaviac
                 const char* tag = xmlNode->getAttrTag(a);
                 const char* value = xmlNode->getAttr(a);
 
-                result += FormatString("%s=%s;", tag, value);
+				char temp[1024];
+				string_sprintf(temp, "%s=%s;", tag, value);
+				result += temp;
             }
 
             for (int c = 0; c < xmlNode->getChildCount(); ++c)
