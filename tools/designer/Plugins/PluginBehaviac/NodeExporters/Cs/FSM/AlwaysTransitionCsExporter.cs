@@ -39,6 +39,7 @@ namespace PluginBehaviac.NodeExporters
                 return;
 
             stream.WriteLine("{0}\t\t\tthis.TargetStateId = {1};", indent, alwaysTransition.TargetFSMNodeId);
+            stream.WriteLine("{0}\t\t\tthis.TransitionPhase = ETransitionPhase.{1};", indent, alwaysTransition.TransitionPhase);
         }
     }
 }

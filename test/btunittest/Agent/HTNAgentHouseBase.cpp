@@ -21,10 +21,10 @@ HTNAgentHouseBase::~HTNAgentHouseBase()
 {
 }
 
-BEGIN_PROPERTIES_DESCRIPTION(HTNAgentHouseBase)
+BEHAVIAC_BEGIN_PROPERTIES(HTNAgentHouseBase)
 {
-    //CLASS_DISPLAYNAME(L"HTNAgentHouseBase DisplayName")
-    //CLASS_DESC(L"HTNAgentHouseBase Desc")
-    REGISTER_METHOD(ObtainPermit);
+    //BEHAVIAC_CLASS_DISPLAYNAME(L"HTNAgentHouseBase DisplayName")
+    //BEHAVIAC_CLASS_DESC(L"HTNAgentHouseBase Desc")
+    BEHAVIAC_REGISTER_METHOD(ObtainPermit);
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()

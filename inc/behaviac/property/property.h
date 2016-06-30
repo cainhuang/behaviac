@@ -26,10 +26,9 @@
 #include "behaviac/base/object/typehandler.h"
 #include "behaviac/base/functions.h"
 
-class CMemberBase;
-
 namespace behaviac
 {
+	class CMemberBase;
     //------------------------------------------------------------------------
     BEHAVIAC_API uint32_t MakeVariableId(const char* idString);
     BEHAVIAC_API const char* GetNameWithoutClassName(const char* variableName);
@@ -49,7 +48,7 @@ namespace behaviac
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(Property);
 
-        Property(const CMemberBase* pMemberBase, bool bIsConst);
+        Property(const behaviac::CMemberBase* pMemberBase, bool bIsConst);
         virtual ~Property();
 
         void SetVariableName(const char* variableName);
@@ -77,13 +76,13 @@ namespace behaviac
 
         virtual void SetFrom(Agent* pAgentfrom, behaviac::IAsyncValue* from, Agent* pAgentTo) = 0;
         virtual void SetFrom(Agent* pAgentfrom, const Property* from, Agent* pAgentTo) = 0;
-        virtual void SetFrom(Agent* pAgentfrom, const CMemberBase* from, Agent* pAgentTo) = 0;
-        virtual void SetFrom(Agent* pAgentFrom, const CMethodBase* from, Agent* pAgentTo) = 0;
+        virtual void SetFrom(Agent* pAgentfrom, const behaviac::CMemberBase* from, Agent* pAgentTo) = 0;
+        virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo) = 0;
 
         virtual void SetVectorElementTo(Agent* pAgentFrom, int index, const Property* to, Agent* pAgentTo) = 0;
         virtual void* GetVectorElementFrom(Agent* pAgentFrom, int index) = 0;
         virtual void SetVectorElementTo(Agent* pAgentTo, int index, void* pValue) = 0;
-        virtual void SetFrom(Agent* pAgentFrom, const CMethodBase* from, Agent* pAgentTo, int index) = 0;
+        virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo, int index) = 0;
 
         virtual void ComputeFrom(Agent* pAgentfrom, behaviac::IAsyncValue* from, Agent* pAgentTo, EComputeOperator opr) = 0;
         virtual void ComputeFrom(Agent* pAgentFrom, const Property* from, Agent* pAgentTo, EComputeOperator opr) = 0;
@@ -127,10 +126,10 @@ namespace behaviac
         static void DeleteFromCache(Property* property_);
 
         template<typename T>
-        static Property* Creator(const char* value, const CMemberBase* pMemberBase, bool bConst);
+        static Property* Creator(const char* value, const behaviac::CMemberBase* pMemberBase, bool bConst);
 
         template<typename T>
-        static Property* Creator(const CMemberBase* pMemberBase, bool bConst);
+        static Property* Creator(const behaviac::CMemberBase* pMemberBase, bool bConst);
 
         static void Cleanup();
         const char* GetInstanceName();
@@ -141,7 +140,7 @@ namespace behaviac
         virtual Property* CreateElelmentAccessor(const char* vecotrAcessorIndex);
         virtual void SetVectorElementAsDefault(Property* pProperty);
 
-        const CMemberBase* GetMember() const
+        const behaviac::CMemberBase* GetMember() const
         {
             return this->m_memberBase;
         }
@@ -152,12 +151,12 @@ namespace behaviac
         Property*				m_index;
 
     private:
-        typedef Property* PropertyCreator(const char* value, const CMemberBase* pMemberBase, bool bConst);
+        typedef Property* PropertyCreator(const char* value, const behaviac::CMemberBase* pMemberBase, bool bConst);
         typedef behaviac::map<behaviac::string, PropertyCreator*> PropertyCreators_t;
         typedef PropertyCreators_t::iterator PropertyCreatorIterator;
         static PropertyCreators_t* ms_propertyCreators;
         static PropertyCreators_t& PropertyCreators();
-        static Property* create(const CMemberBase* pMember, bool bConst, const char* typeName, const char* variableName, const char* instanceName, const char* valueStr);
+        static Property* create(const behaviac::CMemberBase* pMember, bool bConst, const char* typeName, const char* variableName, const char* instanceName, const char* valueStr);
 
         typedef behaviac::map<Property*, bool> Properties_t;
         static Properties_t* ms_properties;
@@ -211,7 +210,7 @@ namespace behaviac
         behaviac::string		m_refParName;
         uint32_t				m_refParNameId;
 
-        const CMemberBase*		m_memberBase;
+        const behaviac::CMemberBase*		m_memberBase;
         behaviac::string		m_instanceName;
 
         bool					m_bValidDefaultValue;

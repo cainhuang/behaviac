@@ -30,14 +30,14 @@ namespace behaviac
 
     Property* LoadLeft(const char* value, behaviac::string& propertyName, const char* constValue);
 
-    BEGIN_PROPERTIES_DESCRIPTION(Query::Descriptor_t)
+    BEHAVIAC_BEGIN_PROPERTIES(Query::Descriptor_t)
     {
-        REGISTER_PROPERTY(Attribute);
-        //REGISTER_PROPERTY_V4(Attribute, "Attribute", EPersistenceType_Description | EPersistenceType_UiInfo,
-        REGISTER_PROPERTY(Reference);
-        REGISTER_PROPERTY(Weight);
+        BEHAVIAC_REGISTER_PROPERTY(Attribute);
+        //BEHAVIAC_REGISTER_PROPERTY_V4(Attribute, "Attribute", EPersistenceType_Description | EPersistenceType_UiInfo,
+        BEHAVIAC_REGISTER_PROPERTY(Reference);
+        BEHAVIAC_REGISTER_PROPERTY(Weight);
     }
-    END_PROPERTIES_DESCRIPTION()
+    BEHAVIAC_END_PROPERTIES()
 
     void Query::load(int version, const char* agentType, const properties_t& properties)
     {

@@ -246,7 +246,7 @@ namespace behaviac
 		template <class T>
 		void setAttr(const CSerializationID& keyID, const T& value)
 		{
-			int typeId = ::GetClassTypeNumberId<T>();
+			int typeId = GetClassTypeNumberId<T>();
 
 			if (this->m_bText)
 			{
@@ -261,7 +261,7 @@ namespace behaviac
 				{
 					if (this->m_bSwap)
 					{
-						SwapByte(*(T*)binaryData);
+						behaviacSwapByte(*(T*)binaryData);
 					}
 
 					this->setAttrRaw(keyID, (const char*)binaryData, typeId, sizeof(T));
@@ -272,7 +272,7 @@ namespace behaviac
 		template <class T>
 		bool getAttr(const CSerializationID& keyID, T& value) const
 		{
-			int typeId = ::GetClassTypeNumberId<T>();
+			int typeId = GetClassTypeNumberId<T>();
 
 			if (this->m_bText)
 			{
@@ -305,7 +305,7 @@ namespace behaviac
 
 					if (bOk && this->m_bSwap)
 					{
-						SwapByte(value);
+						behaviacSwapByte(value);
 					}
 				}
 			}

@@ -18,9 +18,10 @@
 #include "behaviac/base/dynamictype.h"
 #include "behaviac/base/meta/types.h"
 
-class CMethodBase;
 namespace behaviac
 {
+	class CMethodBase;
+
     /*! \addtogroup Network
     * @{ */
     enum NetworkRole
@@ -174,7 +175,7 @@ namespace behaviac
     }
 
     you need to override it to provide the implementation to:
-    virtual void SubscribeToEvent(const char* eventName, behaviac::Agent* pAgent, CMethodBase* pMethod) = 0;
+    virtual void SubscribeToEvent(const char* eventName, behaviac::Agent* pAgent, behaviac::CMethodBase* pMethod) = 0;
     virtual void UnSubscribeToEvent(const char* eventName, behaviac::Agent* pAgent) = 0;
 
     virtual bool IsSinglePlayer() = 0;
@@ -190,7 +191,7 @@ namespace behaviac
     class BEHAVIAC_API Network
     {
     private:
-        virtual void SubscribeToRemoteEvent(const char* eventName, behaviac::Agent* pAgent, CMethodBase* pMethod) = 0;
+        virtual void SubscribeToRemoteEvent(const char* eventName, behaviac::Agent* pAgent, behaviac::CMethodBase* pMethod) = 0;
         virtual void UnSubscribeToRemoteEvent(const char* eventName, behaviac::Agent* pAgent) = 0;
 
     public:
@@ -700,7 +701,7 @@ namespace behaviac
     public:
         virtual ~Network();
 
-        void BindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent, CMethodBase* pMethod);
+        void BindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent, behaviac::CMethodBase* pMethod);
         void UnBindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent);
 
     private:
@@ -710,12 +711,12 @@ namespace behaviac
         struct MethodInstance_t
         {
             Agent*			agent;
-            CMethodBase*	method;
+            behaviac::CMethodBase*	method;
 
             MethodInstance_t() : agent(0), method(0)
             {}
 
-            MethodInstance_t(Agent* a, CMethodBase* m) : agent(a), method(m)
+            MethodInstance_t(Agent* a, behaviac::CMethodBase* m) : agent(a), method(m)
             {}
 
             MethodInstance_t(const MethodInstance_t& copy) : agent(copy.agent), method(copy.method)

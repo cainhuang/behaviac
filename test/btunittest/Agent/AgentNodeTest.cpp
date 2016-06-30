@@ -14,12 +14,12 @@
 #include "AgentNodeTest.h"
 
 
-BEGIN_ENUM_DESCRIPTION(EnumTest, EnumTest)
+BEHAVIAC_BEGIN_ENUM(EnumTest, EnumTest)
 {
-	DEFINE_ENUM_VALUE(EnumTest_One, "EnumTest_One");
-	DEFINE_ENUM_VALUE(EnumTest_OneAfterOne, "EnumTest_OneAfterOne");
+	BEHAVIAC_ENUM_ITEM(EnumTest_One, "EnumTest_One");
+	BEHAVIAC_ENUM_ITEM(EnumTest_OneAfterOne, "EnumTest_OneAfterOne");
 }
-END_ENUM_DESCRIPTION()
+BEHAVIAC_END_ENUM()
 
 AgentNodeTest::AgentNodeTest()
 {
@@ -60,66 +60,66 @@ void AgentNodeTest::resetProperties()
 
 namespace UnityEngine
 {
-    BEGIN_PROPERTIES_DESCRIPTION(GameObject)
+    BEHAVIAC_BEGIN_PROPERTIES(GameObject)
     {
-        REGISTER_PROPERTY(name);
+        BEHAVIAC_REGISTER_PROPERTY(name);
     }
-    END_PROPERTIES_DESCRIPTION()
+    BEHAVIAC_END_PROPERTIES()
 }
 
-BEGIN_PROPERTIES_DESCRIPTION(AgentNodeTest)
+BEHAVIAC_BEGIN_PROPERTIES(AgentNodeTest)
 {
-    //CLASS_DISPLAYNAME(L"测试behaviac::Agent")
-    //CLASS_DESC(L"测试behaviac::Agent的说明")
-    REGISTER_PROPERTY(testVar_0);
-    REGISTER_PROPERTY(testVar_1).DISPLAYNAME(L"testVar_1").DESC(L"testVar_1 property").RANGE(100);
-    REGISTER_PROPERTY(testVar_2);
-    REGISTER_PROPERTY(testVar_3);
-    REGISTER_PROPERTY(waiting_timeout_interval);
-    REGISTER_PROPERTY(testVar_str_0);
-	REGISTER_PROPERTY(testColor);
+    //BEHAVIAC_CLASS_DISPLAYNAME(L"测试behaviac::Agent")
+    //BEHAVIAC_CLASS_DESC(L"测试behaviac::Agent的说明")
+    BEHAVIAC_REGISTER_PROPERTY(testVar_0);
+    BEHAVIAC_REGISTER_PROPERTY(testVar_1).DISPLAYNAME(L"testVar_1").DESC(L"testVar_1 property").RANGE(100);
+    BEHAVIAC_REGISTER_PROPERTY(testVar_2);
+    BEHAVIAC_REGISTER_PROPERTY(testVar_3);
+    BEHAVIAC_REGISTER_PROPERTY(waiting_timeout_interval);
+    BEHAVIAC_REGISTER_PROPERTY(testVar_str_0);
+	BEHAVIAC_REGISTER_PROPERTY(testColor);
 
-    REGISTER_METHOD(setEventVarInt);
-    REGISTER_METHOD(setEventVarBool);
-    REGISTER_METHOD(setEventVarFloat);
-    REGISTER_METHOD(setEventVarAgent);
-	REGISTER_METHOD(getConstOne);
-	REGISTER_METHOD(getConstThousand);
-    REGISTER_METHOD(setTestVar_0);
-    REGISTER_METHOD(setTestVar_1);
-    REGISTER_METHOD(setTestVar_2);
-    REGISTER_METHOD(setTestVar_0_2);
-    REGISTER_METHOD(setTestVar_R);
-    REGISTER_METHOD(setTestVar_3);
-    REGISTER_METHOD(enter_action_0);
-    REGISTER_METHOD(exit_action_0);
-    REGISTER_METHOD(enter_action_1);
-    REGISTER_METHOD(exit_action_1);
-    REGISTER_METHOD(enter_action_2);
-    REGISTER_METHOD(exit_action_2);
-    REGISTER_METHOD(createGameObject);
-    REGISTER_METHOD(testGameObject);
-	REGISTER_METHOD(createExtendedNode);
-	REGISTER_METHOD(testExtendedRefType);
-	REGISTER_METHOD(testExtendedStruct);
-	REGISTER_METHOD(getExtendedStruct);
-	REGISTER_METHOD(getConstExtendedStruct);
-    REGISTER_METHOD(switchRef);
+    BEHAVIAC_REGISTER_METHOD(setEventVarInt);
+    BEHAVIAC_REGISTER_METHOD(setEventVarBool);
+    BEHAVIAC_REGISTER_METHOD(setEventVarFloat);
+    BEHAVIAC_REGISTER_METHOD(setEventVarAgent);
+	BEHAVIAC_REGISTER_METHOD(getConstOne);
+	BEHAVIAC_REGISTER_METHOD(getConstThousand);
+    BEHAVIAC_REGISTER_METHOD(setTestVar_0);
+    BEHAVIAC_REGISTER_METHOD(setTestVar_1);
+    BEHAVIAC_REGISTER_METHOD(setTestVar_2);
+    BEHAVIAC_REGISTER_METHOD(setTestVar_0_2);
+    BEHAVIAC_REGISTER_METHOD(setTestVar_R);
+    BEHAVIAC_REGISTER_METHOD(setTestVar_3);
+    BEHAVIAC_REGISTER_METHOD(enter_action_0);
+    BEHAVIAC_REGISTER_METHOD(exit_action_0);
+    BEHAVIAC_REGISTER_METHOD(enter_action_1);
+    BEHAVIAC_REGISTER_METHOD(exit_action_1);
+    BEHAVIAC_REGISTER_METHOD(enter_action_2);
+    BEHAVIAC_REGISTER_METHOD(exit_action_2);
+    BEHAVIAC_REGISTER_METHOD(createGameObject);
+    BEHAVIAC_REGISTER_METHOD(testGameObject);
+	BEHAVIAC_REGISTER_METHOD(createExtendedNode);
+	BEHAVIAC_REGISTER_METHOD(testExtendedRefType);
+	BEHAVIAC_REGISTER_METHOD(testExtendedStruct);
+	BEHAVIAC_REGISTER_METHOD(getExtendedStruct);
+	BEHAVIAC_REGISTER_METHOD(getConstExtendedStruct);
+    BEHAVIAC_REGISTER_METHOD(switchRef);
 
-	REGISTER_METHOD(Stop);
-	REGISTER_METHOD(SelectTarget);
+	BEHAVIAC_REGISTER_METHOD(Stop);
+	BEHAVIAC_REGISTER_METHOD(SelectTarget);
 
-	REGISTER_METHOD(IsTargetValid);
-	REGISTER_METHOD(CanSeeEnemy);
-	REGISTER_METHOD(Move);
-	REGISTER_METHOD(MoveToTarget);
-	REGISTER_METHOD(GetRefTree);
-	REGISTER_METHOD(initChildAgent);
-	REGISTER_METHOD(initChildAgentTest);
+	BEHAVIAC_REGISTER_METHOD(IsTargetValid);
+	BEHAVIAC_REGISTER_METHOD(CanSeeEnemy);
+	BEHAVIAC_REGISTER_METHOD(Move);
+	BEHAVIAC_REGISTER_METHOD(MoveToTarget);
+	BEHAVIAC_REGISTER_METHOD(GetRefTree);
+	BEHAVIAC_REGISTER_METHOD(initChildAgent);
+	BEHAVIAC_REGISTER_METHOD(initChildAgentTest);
 
-	REGISTER_METHOD(testVectorStruct);
+	BEHAVIAC_REGISTER_METHOD(testVectorStruct);
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()
 
 void AgentNodeTest::initChildAgentTest()
 {
@@ -154,9 +154,9 @@ double ChildNodeTest::GetConstDoubleValue()
 	return 1000.0;
 }
 
-BEGIN_PROPERTIES_DESCRIPTION(ChildNodeTest)
+BEHAVIAC_BEGIN_PROPERTIES(ChildNodeTest)
 {
-	REGISTER_METHOD(GetConstFloatValue);
-	REGISTER_METHOD(GetConstDoubleValue);
+	BEHAVIAC_REGISTER_METHOD(GetConstFloatValue);
+	BEHAVIAC_REGISTER_METHOD(GetConstDoubleValue);
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()

@@ -31,17 +31,17 @@ PropertyReadonlyAgent::~PropertyReadonlyAgent()
 {
 }
 
-BEGIN_PROPERTIES_DESCRIPTION(PropertyReadonlyAgent)
+BEHAVIAC_BEGIN_PROPERTIES(PropertyReadonlyAgent)
 {
-    //CLASS_DISPLAYNAME(L"PropertyReadonlyAgent DisplayName")
-    //CLASS_DESC(L"PropertyReadonlyAgent Desc")
+    //BEHAVIAC_CLASS_DISPLAYNAME(L"PropertyReadonlyAgent DisplayName")
+    //BEHAVIAC_CLASS_DESC(L"PropertyReadonlyAgent Desc")
 
-    REGISTER_PROPERTY("PropertyGetterSetter", PropertyGetterSetter_get, PropertyGetterSetter_set);
-    REGISTER_PROPERTY("PropertyGetterOnly", PropertyGetterOnly_get);
-    REGISTER_PROPERTY("StaticPropertyGetterSetter", StaticPropertyGetterSetter_get, StaticPropertyGetterSetter_set);
-    REGISTER_PROPERTY(MemberReadonly);
-    REGISTER_PROPERTY(MemberReadonlyAs).SETREADONLY();
-    REGISTER_METHOD(FnWithOutParam);
-    REGISTER_METHOD(PassInProperty);
+    BEHAVIAC_REGISTER_PROPERTY("PropertyGetterSetter", PropertyGetterSetter_get, PropertyGetterSetter_set);
+    BEHAVIAC_REGISTER_PROPERTY("PropertyGetterOnly", PropertyGetterOnly_get);
+    BEHAVIAC_REGISTER_PROPERTY("StaticPropertyGetterSetter", StaticPropertyGetterSetter_get, StaticPropertyGetterSetter_set);
+    BEHAVIAC_REGISTER_PROPERTY(MemberReadonly);
+    BEHAVIAC_REGISTER_PROPERTY(MemberReadonlyAs).SETREADONLY();
+    BEHAVIAC_REGISTER_METHOD(FnWithOutParam);
+    BEHAVIAC_REGISTER_METHOD(PassInProperty);
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()

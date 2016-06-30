@@ -40,7 +40,7 @@ namespace behaviac
         Action();
         virtual ~Action();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-        static CMethodBase* LoadMethod(const char* value_);
+        static behaviac::CMethodBase* LoadMethod(const char* value_);
         EBTStatus Execute(Agent* pAgent);
 
         EBTStatus Execute(const Agent* pAgent, EBTStatus childSatus);
@@ -52,9 +52,9 @@ namespace behaviac
         virtual BehaviorTask* createTask() const;
 
     protected:
-        CMethodBase*		m_method;
+        behaviac::CMethodBase*		m_method;
         EBTStatus			m_resultOption;
-        CMethodBase*		m_resultFunctor;
+        behaviac::CMethodBase*		m_resultFunctor;
 
         friend class ActionTask;
     };

@@ -40,7 +40,7 @@ namespace behaviac
     protected:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
 
-        CMethodBase*				m_method;
+        behaviac::CMethodBase*				m_method;
 
         friend class CompositeStochasticTask;
     };

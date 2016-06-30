@@ -32,11 +32,11 @@
       <property name="STV_INT_0" type="int" member="true" static="true" agent="ParTestAgent" />
       <property name="STV_KEMPLOYEE_0" type="TNS::ST::PER::WRK::kEmployee" member="true" static="true" agent="ParTestAgent" />
       <property name="STV_LIST_INT_0" type="vector&lt;int&gt;" member="true" static="true" agent="ParTestAgent" />
-      <property name="STV_LIST_KEMPLOYEE_0" type="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="true" agent="ParTestAgent" />
+      <property name="STV_LIST_KEMPLOYEE_0" type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="true" agent="ParTestAgent" />
       <property name="TV_INT_0" type="int" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_KEMPLOYEE_0" type="TNS::ST::PER::WRK::kEmployee" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_LIST_INT_0" type="vector&lt;int&gt;" member="true" static="false" agent="ParTestAgent" />
-      <property name="TV_LIST_KEMPLOYEE_0" type="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="false" agent="ParTestAgent" />
+      <property name="TV_LIST_KEMPLOYEE_0" type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_LONG_0" type="long" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_SHORT_0" type="short" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_USHORT_0" type="ushort" member="true" static="false" agent="ParTestAgent" />
@@ -174,7 +174,7 @@
     <properties>
       <property name="STV_AGENT_0" type="behaviac::Agent*" member="true" static="true" agent="EmployeeParTestAgent" />
       <property name="STV_F_0" type="float" member="true" static="true" agent="EmployeeParTestAgent" />
-      <property name="STV_LIST_AGENT_0" type="behaviac::vector&lt;behaviac::Agent*&gt;" member="true" static="true" agent="EmployeeParTestAgent" />
+      <property name="STV_LIST_AGENT_0" type="vector&lt;behaviac::Agent*&gt;" member="true" static="true" agent="EmployeeParTestAgent" />
       <property name="STV_LIST_F_0" type="vector&lt;float&gt;" member="true" static="true" agent="EmployeeParTestAgent" />
       <property name="STV_LIST_STR_0" type="vector&lt;string&gt;" member="true" static="true" agent="EmployeeParTestAgent" />
       <property name="STV_STR_0" type="string" member="true" static="true" agent="EmployeeParTestAgent" />
@@ -182,7 +182,7 @@
       <property name="TV_CSZSTR_0" type="cszstring" member="true" static="false" agent="EmployeeParTestAgent" />
       <property name="TV_D_0" type="double" member="true" static="false" agent="EmployeeParTestAgent" />
       <property name="TV_F_0" type="float" member="true" static="false" agent="EmployeeParTestAgent" />
-      <property name="TV_LIST_AGENT_0" type="behaviac::vector&lt;behaviac::Agent*&gt;" member="true" static="false" agent="EmployeeParTestAgent" />
+      <property name="TV_LIST_AGENT_0" type="vector&lt;behaviac::Agent*&gt;" member="true" static="false" agent="EmployeeParTestAgent" />
       <property name="TV_LIST_F_0" type="vector&lt;float&gt;" member="true" static="false" agent="EmployeeParTestAgent" />
       <property name="TV_LIST_STR_0" type="vector&lt;string&gt;" member="true" static="false" agent="EmployeeParTestAgent" />
       <property name="TV_LL_0" type="llong" member="true" static="false" agent="EmployeeParTestAgent" />
@@ -194,11 +194,11 @@
       <property name="STV_INT_0" type="int" member="true" static="true" agent="ParTestAgent" />
       <property name="STV_KEMPLOYEE_0" type="TNS::ST::PER::WRK::kEmployee" member="true" static="true" agent="ParTestAgent" />
       <property name="STV_LIST_INT_0" type="vector&lt;int&gt;" member="true" static="true" agent="ParTestAgent" />
-      <property name="STV_LIST_KEMPLOYEE_0" type="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="true" agent="ParTestAgent" />
+      <property name="STV_LIST_KEMPLOYEE_0" type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="true" agent="ParTestAgent" />
       <property name="TV_INT_0" type="int" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_KEMPLOYEE_0" type="TNS::ST::PER::WRK::kEmployee" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_LIST_INT_0" type="vector&lt;int&gt;" member="true" static="false" agent="ParTestAgent" />
-      <property name="TV_LIST_KEMPLOYEE_0" type="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="false" agent="ParTestAgent" />
+      <property name="TV_LIST_KEMPLOYEE_0" type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_LONG_0" type="long" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_SHORT_0" type="short" member="true" static="false" agent="ParTestAgent" />
       <property name="TV_USHORT_0" type="ushort" member="true" static="false" agent="ParTestAgent" />
@@ -267,13 +267,13 @@
   <agent type="ParTestRegNameAgent" base="behaviac::Agent">
     <properties>
       <property name="STV_KEMPLOYEE_0" type="TNS::ST::PER::WRK::kEmployee" member="true" static="true" agent="ParTestRegNameAgent" />
-      <property name="STV_LIST_KEMPLOYEE_0" type="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="true" agent="ParTestRegNameAgent" />
+      <property name="STV_LIST_KEMPLOYEE_0" type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="true" agent="ParTestRegNameAgent" />
       <property name="STV_LIST_SBYTE_0" type="vector&lt;sbyte&gt;" member="true" static="true" agent="ParTestRegNameAgent" />
       <property name="TV_AGENT_0" type="behaviac::Agent*" member="true" static="false" agent="ParTestRegNameAgent" />
       <property name="TV_BYTE_0" type="ubyte" member="true" static="false" agent="ParTestRegNameAgent" />
       <property name="TV_CHAR_0" type="char" member="true" static="false" agent="ParTestRegNameAgent" />
       <property name="TV_KEMPLOYEE_0" type="TNS::ST::PER::WRK::kEmployee" member="true" static="false" agent="ParTestRegNameAgent" />
-      <property name="TV_LIST_KEMPLOYEE_0" type="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="false" agent="ParTestRegNameAgent" />
+      <property name="TV_LIST_KEMPLOYEE_0" type="vector&lt;TNS::ST::PER::WRK::kEmployee&gt;" member="true" static="false" agent="ParTestRegNameAgent" />
       <property name="TV_SBYTE_0" type="sbyte" member="true" static="false" agent="ParTestRegNameAgent" />
       <property name="TV_STR_0" type="string" member="true" static="false" agent="ParTestRegNameAgent" />
     </properties>

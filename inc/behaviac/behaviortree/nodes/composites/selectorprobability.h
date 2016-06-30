@@ -46,7 +46,7 @@ namespace behaviac
         virtual BehaviorTask* createTask() const;
 
     protected:
-        CMethodBase*		m_method;
+        behaviac::CMethodBase*		m_method;
 
         friend class SelectorProbabilityTask;
     };

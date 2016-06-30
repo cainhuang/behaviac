@@ -17,17 +17,8 @@ namespace behaviac
 {
     public class AttachAction : BehaviorNode
     {
-        public enum TransitionMode
-        {
-            Condition,
-            Success,
-            Failure,
-            End
-        }
-
         public class ActionConfig
         {
-            public TransitionMode m_mode = TransitionMode.Condition;
             protected IInstanceMember m_opl;
             protected IInstanceMember m_opr1;
             protected IInstanceMember m_opr2;
@@ -42,28 +33,8 @@ namespace behaviac
                 for (int i = 0; i < properties.Count; ++i)
                 {
                     property_t p = properties[i];
-                    if (p.name == "Mode")
-                    {
-                        switch (p.value)
-                        {
-                            case "Condition":
-                                this.m_mode = TransitionMode.Condition;
-                                break;
-
-                            case "Success":
-                                this.m_mode = TransitionMode.Success;
-                                break;
-
-                            case "Failure":
-                                this.m_mode = TransitionMode.Failure;
-                                break;
-
-                            case "End":
-                                this.m_mode = TransitionMode.End;
-                                break;
-                        }
-                    }
-                    else if (p.name == "Opl")
+      
+                    if (p.name == "Opl")
                     {
                         if (StringUtils.IsValidString(p.value))
                         {
@@ -174,27 +145,7 @@ namespace behaviac
                 return bValid;
             }
 
-            public bool Execute(Agent pAgent, EBTStatus methodResult)
-            {
-                if (this.m_mode == TransitionMode.Condition)
-                {
-                    return this.Execute(pAgent);
-                }
-                else if (this.m_mode == TransitionMode.Success && methodResult == EBTStatus.BT_SUCCESS)
-                {
-                    return true;
-                }
-                else if (this.m_mode == TransitionMode.Failure && methodResult == EBTStatus.BT_FAILURE)
-                {
-                    return true;
-                }
-                else if (this.m_mode == TransitionMode.End && (methodResult == EBTStatus.BT_SUCCESS || methodResult == EBTStatus.BT_FAILURE))
-                {
-                    return true;
-                }
-
-                return false;
-            }
+       
         }
 
         protected ActionConfig m_ActionConfig;
@@ -207,6 +158,19 @@ namespace behaviac
         }
 
         public override bool Evaluate(Agent pAgent)
+        {
+            bool bValid = this.m_ActionConfig.Execute(pAgent);
+
+            if (!bValid)
+            {
+                EBTStatus childStatus = EBTStatus.BT_INVALID;
+                bValid = (EBTStatus.BT_SUCCESS == this.update_impl(pAgent, childStatus));
+            }
+
+            return bValid;
+        }
+
+        public virtual bool Evaluate(Agent pAgent, EBTStatus status)
         {
             bool bValid = this.m_ActionConfig.Execute(pAgent);
 

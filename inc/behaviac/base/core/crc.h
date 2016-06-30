@@ -16,10 +16,12 @@
 
 #include "behaviac/base/core/config.h"
 
-namespace CRC32
-{
-    BEHAVIAC_API  uint32_t CalcCRC(const char* str);
-    BEHAVIAC_API  uint32_t CalcCRCNoCase(const char* str);
-}
+namespace behaviac {
+	namespace CRC32
+	{
+		BEHAVIAC_API  uint32_t CalcCRC(const char* str);
+		BEHAVIAC_API  uint32_t CalcCRCNoCase(const char* str);
+	}
+}//
 
 #endif // #ifndef BEHAVIAC_BASE_CRC_H

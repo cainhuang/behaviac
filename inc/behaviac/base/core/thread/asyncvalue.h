@@ -137,7 +137,7 @@ namespace behaviac
 
         virtual void GetTypeName(behaviac::string& typeName)
         {
-            typeName = ::GetTypeDescString<T>();
+            typeName = GetTypeDescString<T>();
         }
 
         virtual const char* GetString() const
@@ -277,7 +277,7 @@ namespace behaviac
 
         virtual void GetTypeName(behaviac::string& typeName)
         {
-            typeName = ::GetTypeDescString<const char*>();
+            typeName = GetTypeDescString<const char*>();
         }
 
         virtual const char* GetString() const
@@ -373,7 +373,7 @@ namespace behaviac
 
         virtual void GetTypeName(behaviac::string& typeName)
         {
-            typeName = ::GetTypeDescString<char*>();
+            typeName = GetTypeDescString<char*>();
         }
 
         virtual const char* GetString() const
@@ -470,7 +470,7 @@ namespace behaviac
 
         virtual void GetTypeName(behaviac::string& typeName)
         {
-            typeName = ::GetTypeDescString<char*>();
+            typeName = GetTypeDescString<char*>();
         }
 
         virtual const char* GetString() const

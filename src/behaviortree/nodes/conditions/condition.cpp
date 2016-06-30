@@ -70,13 +70,12 @@ namespace behaviac
         return opr;
     }
 
-    Property* Condition::LoadLeft(const char* value)
+    Property* Condition::LoadLeft(const char* value, behaviac::string& typeName)
     {
         Property* opl = NULL;
 
         if (value[0] != '0')
         {
-            behaviac::string typeName;
             opl = ParseProperty(value, typeName);
         }
 
@@ -129,7 +128,7 @@ namespace behaviac
 
                 if (pParenthesis == 0)
                 {
-                    this->m_opl = LoadLeft(p.value);
+					this->m_opl = LoadLeft(p.value, typeName);
                 }
                 else
                 {
@@ -219,7 +218,7 @@ namespace behaviac
         }
     }
 
-    VariableComparator* Condition::Create(const char* typeName, const char* comparionOperator, Property* lhs, CMethodBase* lhs_m, Property* rhs, CMethodBase* rhs_m)
+    VariableComparator* Condition::Create(const char* typeName, const char* comparionOperator, Property* lhs, behaviac::CMethodBase* lhs_m, Property* rhs, behaviac::CMethodBase* rhs_m)
     {
         E_VariableComparisonType comparisonType = VariableComparator::ParseComparisonType(comparionOperator);
 

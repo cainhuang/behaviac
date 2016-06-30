@@ -29,7 +29,7 @@ namespace behaviac
 
     protected:
 		Property*		m_time_var;
-		CMethodBase*	m_time_m;
+		behaviac::CMethodBase*	m_time_m;
 
 		friend class WaitStateTask;
     };

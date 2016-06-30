@@ -24,12 +24,12 @@ namespace TestNS
 	{
 	}
 
-	BEGIN_PROPERTIES_DESCRIPTION(AgentArrayAccessTest)
+	BEHAVIAC_BEGIN_PROPERTIES(AgentArrayAccessTest)
 	{
-		//CLASS_DISPLAYNAME(L"AgentArrayAccessTest DisplayName")
-		//CLASS_DESC(L"AgentArrayAccessTest Desc")
-		REGISTER_PROPERTY(ListInts);
-		REGISTER_PROPERTY(Int);
+		//BEHAVIAC_CLASS_DISPLAYNAME(L"AgentArrayAccessTest DisplayName")
+		//BEHAVIAC_CLASS_DESC(L"AgentArrayAccessTest Desc")
+		BEHAVIAC_REGISTER_PROPERTY(ListInts);
+		BEHAVIAC_REGISTER_PROPERTY(Int);
 	}
-	END_PROPERTIES_DESCRIPTION()
+	BEHAVIAC_END_PROPERTIES()
 }

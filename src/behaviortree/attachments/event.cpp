@@ -29,7 +29,7 @@ namespace behaviac
         BEHAVIAC_DELETE(m_event);
     }
 
-    //CMethodBase* LoadMethod(const char* value);
+    //behaviac::CMethodBase* LoadMethod(const char* value);
 
     bool Event::IsValid(Agent* pAgent, BehaviorTask* pTask) const
     {

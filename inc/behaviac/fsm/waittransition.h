@@ -37,6 +37,7 @@ namespace behaviac
     protected:
         virtual void load(int version, const char* agentType, const properties_t& properties);
 		virtual bool Evaluate(Agent* pAgent);
+		virtual bool Evaluate(Agent* pAgent, EBTStatus status);
         virtual BehaviorTask* createTask() const
         {
             BEHAVIAC_ASSERT(false);

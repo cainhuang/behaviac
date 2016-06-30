@@ -60,7 +60,7 @@ namespace behaviac
 
         virtual bool Execute(const Agent* pAgent) const = 0;
 
-        void SetProperty(Property* lhs, CMethodBase* lhs_m, Property* rhs, CMethodBase* rhs_m)
+        void SetProperty(Property* lhs, behaviac::CMethodBase* lhs_m, Property* rhs, behaviac::CMethodBase* rhs_m)
         {
             m_lhs = lhs;
             m_lhs_m = lhs_m;
@@ -72,9 +72,9 @@ namespace behaviac
 
     protected:
         Property*					m_lhs;
-        CMethodBase*				m_lhs_m;
+        behaviac::CMethodBase*				m_lhs_m;
         Property*					m_rhs;
-        CMethodBase*				m_rhs_m;
+        behaviac::CMethodBase*				m_rhs_m;
         E_VariableComparisonType	m_comparisonType;
     };
 

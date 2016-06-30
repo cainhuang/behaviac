@@ -28,7 +28,7 @@
         { \
             localWrapper->SetMemberName(elementName); \
         } \
-        CMemberBase* property = NULL; \
+        behaviac::CMemberBase* property = NULL; \
         if( strlen(containerName) == 0 ) \
         { \
             property = CContainerMemberFactory< GenericContainerHandler, TagVectorProvider, DefaultContainedTypeHandler, propertyFlags, false >::Create( \
@@ -43,28 +43,28 @@
     }
 
 template<class ObjectType, class ContainerType, class ContainerHandler, uint32_t PropertyFlags, bool ChildNodeCreate>
-class CContainerMember : public CMemberBase
+class CContainerMember : public behaviac::CMemberBase
 {
 public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CContainerMember);
 
     CContainerMember(ContainerType ObjectType::* memberPtr, const char* className, const char* propertyName, const char* elementName, const char* valueName, const char* idName, UiGenericType* uiWrapper)
-        : CMemberBase(propertyName, className), m_memberPtr(memberPtr), m_uiWrapper(uiWrapper), m_handler(elementName, valueName, idName)
+        : behaviac::CMemberBase(propertyName, className), m_memberPtr(memberPtr), m_uiWrapper(uiWrapper), m_handler(elementName, valueName, idName)
     {}
 
-    CContainerMember(const CContainerMember& copy) : CMemberBase(copy), m_memberPtr(copy.m_memberPtr), m_uiWrapper(copy.m_uiWrapper), m_handler(copy.m_handler)
+    CContainerMember(const CContainerMember& copy) : behaviac::CMemberBase(copy), m_memberPtr(copy.m_memberPtr), m_uiWrapper(copy.m_uiWrapper), m_handler(copy.m_handler)
     {}
 
-    virtual CMemberBase* clone() const
+    virtual behaviac::CMemberBase* clone() const
     {
-        CMemberBase* p = BEHAVIAC_NEW CContainerMember(*this);
+        behaviac::CMemberBase* p = BEHAVIAC_NEW CContainerMember(*this);
 
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
+    virtual void Load(behaviac::CTagObject* parent, const behaviac::ISerializableNode* node)
     {
-        if ((PropertyFlags & EPersistenceType_Description_Load) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_Description_Load) && ObjectType::IsOfMyKind(parent))
         {
             const behaviac::ISerializableNode* childNode;
 
@@ -85,9 +85,9 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
+    virtual void Save(const behaviac::CTagObject* parent, behaviac::ISerializableNode* node)
     {
-        if ((PropertyFlags & EPersistenceType_Description_Save) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_Description_Save) && ObjectType::IsOfMyKind(parent))
         {
             behaviac::ISerializableNode* childNode;
 
@@ -105,9 +105,9 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
+    virtual void LoadState(behaviac::CTagObject* parent, const behaviac::ISerializableNode* node)
     {
-        if ((PropertyFlags & EPersistenceType_State_Load) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_State_Load) && ObjectType::IsOfMyKind(parent))
         {
             const behaviac::ISerializableNode* childNode;
 
@@ -128,9 +128,9 @@ public:
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
+    virtual void SaveState(const behaviac::CTagObject* parent, behaviac::ISerializableNode* node)
     {
-        if ((PropertyFlags & EPersistenceType_State_Save) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_State_Save) && ObjectType::IsOfMyKind(parent))
         {
             behaviac::ISerializableNode* childNode;
 
@@ -148,11 +148,11 @@ public:
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(behaviac::CTagTypeDescriptor::TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         int readonlyFlag = this->READONLYFLAG();
 
-        if ((PropertyFlags & EPersistenceType_UiInfo) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_UiInfo) && ObjectType::IsOfMyKind(parent))
         {
 			behaviac::XmlNodeRef memberNode = xmlNode;
 
@@ -191,7 +191,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(behaviac::CTagTypeDescriptor::TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
 		behaviac::XmlNodeRef childNode = xmlNode;
 
@@ -221,7 +221,7 @@ template <template <class T1, template <class T2> class T3> class ContainerHandl
 struct CContainerMemberFactory
 {
     template<class ObjectType, class ContainerType>
-    static CMemberBase* Create(ContainerType ObjectType::* memberPtr, const char* className, const char* propertyName, const char* elementName, const char* valueName, const char* idName, UiGenericType* uiWrapper)
+    static behaviac::CMemberBase* Create(ContainerType ObjectType::* memberPtr, const char* className, const char* propertyName, const char* elementName, const char* valueName, const char* idName, UiGenericType* uiWrapper)
     {
         typedef CContainerMember<ObjectType, ContainerType, ContainerHandler< ContainerProvider<ObjectType, ContainerType>, ContainedTypeHandler >, PropertyFlags, ChildNodeCreate> MemberType;
         return BEHAVIAC_NEW MemberType(memberPtr, className, propertyName, elementName, valueName, idName, uiWrapper);

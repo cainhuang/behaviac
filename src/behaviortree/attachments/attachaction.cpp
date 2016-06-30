@@ -21,7 +21,7 @@
 
 namespace behaviac
 {
-    AttachAction::ActionConfig::ActionConfig() : m_mode(TM_Condition), m_opl(0), m_opl_m(0), m_opr1(0), m_opr1_m(0), m_opr2(0), m_opr2_m(0)
+    AttachAction::ActionConfig::ActionConfig() : m_opl(0), m_opl_m(0), m_opr1(0), m_opr1_m(0), m_opr2(0), m_opr2_m(0)
     {
         m_operator = E_INVALID;
 		m_comparator = 0;
@@ -41,26 +41,8 @@ namespace behaviac
         for (propertie_const_iterator_t it = properties.begin(); it != properties.end(); ++it)
         {
             const property_t& p = *it;
-            if (StringUtils::StrEqual(p.name, "Mode"))
-            {
-                if (StringUtils::StrEqual(p.value, "Condition"))
-                {
-                    this->m_mode = TM_Condition;
-                }
-                else if (StringUtils::StrEqual(p.value, "Success"))
-                {
-                    this->m_mode = TM_Success;
-                }
-                else if (StringUtils::StrEqual(p.value, "Failure"))
-                {
-                    this->m_mode = TM_Failure;
-                }
-                else if (StringUtils::StrEqual(p.value, "End"))
-                {
-                    this->m_mode = TM_End;
-                }
-            }
-			else if (StringUtils::StrEqual(p.name, "Opl"))
+     
+			if (StringUtils::StrEqual(p.name, "Opl"))
             {
                 if (StringUtils::IsValidString(p.value))
                 {
@@ -254,6 +236,21 @@ namespace behaviac
 
         return bValid;
     }
+
+
+	bool AttachAction::Evaluate(Agent* pAgent, EBTStatus result)
+	{
+		bool bValid = this->m_ActionConfig->Execute((Agent*)pAgent);
+
+		if (!bValid)
+		{
+			EBTStatus childStatus = BT_INVALID;
+			bValid = (BT_SUCCESS == this->update_impl((Agent*)pAgent, childStatus));
+		}
+
+		return bValid;
+	}
+
 
     BehaviorTask* AttachAction::createTask() const
     {

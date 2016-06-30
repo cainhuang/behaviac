@@ -14,7 +14,7 @@
 #include "behaviac/agent/agent.h"
 //#include "behaviac/property/property.h"
 
-//void CNamedEvent::run(const CTagObject* parent, const CTagObject* parHolder)
+//void CNamedEvent::run(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder)
 //{
 //	BEHAVIAC_UNUSED_VAR(parent);
 //	BEHAVIAC_UNUSED_VAR(parHolder);

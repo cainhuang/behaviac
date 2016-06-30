@@ -30,7 +30,7 @@ namespace behaviac
         this->m_params.clear();
     }
 
-    Property* CCustomMethod::LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode, const char* typeName, const char* paramName)
+    Property* CCustomMethod::LoadFromXML(behaviac::CTagObject* parent, const ISerializableNode& xmlNode, const char* typeName, const char* paramName)
     {
         BEHAVIAC_UNUSED_VAR(parent);
 
@@ -71,7 +71,7 @@ namespace behaviac
         return pProperty;
     }
 
-    void CCustomMethod::LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode)
+    void CCustomMethod::LoadFromXML(behaviac::CTagObject* parent, const ISerializableNode& xmlNode)
     {
         for (uint32_t i = 0; i < this->m_paramTypes.size(); ++i)
         {

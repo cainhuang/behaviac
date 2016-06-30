@@ -33,28 +33,28 @@
 #pragma message (_BEHAVIAC_M_STRING_COMPILER_NAME_)
 #endif
 
-BEGIN_PROPERTIES_DESCRIPTION(IList)
+BEHAVIAC_BEGIN_PROPERTIES(IList)
 {
     //
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()
 
-BEGIN_PROPERTIES_DESCRIPTION(System::Object)
+BEHAVIAC_BEGIN_PROPERTIES(System::Object)
 {
     //
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()
 
-BEGIN_PROPERTIES_DESCRIPTION(behaviac::Agent)
+BEHAVIAC_BEGIN_PROPERTIES(behaviac::Agent)
 {
     //REGISTER_MEMBER
-    REGISTER_METHOD(VectorLength);
-    REGISTER_METHOD(VectorAdd);
-    REGISTER_METHOD(VectorRemove);
-    REGISTER_METHOD(VectorContains);
-    REGISTER_METHOD(VectorClear);
+    BEHAVIAC_REGISTER_METHOD(VectorLength);
+    BEHAVIAC_REGISTER_METHOD(VectorAdd);
+    BEHAVIAC_REGISTER_METHOD(VectorRemove);
+    BEHAVIAC_REGISTER_METHOD(VectorContains);
+    BEHAVIAC_REGISTER_METHOD(VectorClear);
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()
 
 namespace behaviac
 {
@@ -121,6 +121,7 @@ namespace behaviac
 
 #if !BEHAVIAC_RELEASE
         this->m_debug_verify = 0;
+		this->m_debug_in_exec = 0;
 #endif//#if !BEHAVIAC_RELEASE
     }
 
@@ -629,7 +630,7 @@ namespace behaviac
 
             for (; it != itEnd; ++it)
             {
-                CMethodBase* m = *it;
+                behaviac::CMethodBase* m = *it;
                 //m->GetUiInfo(parent, xmlNode);
                 m->SubsribeToNetwork(this);
             }
@@ -649,7 +650,7 @@ namespace behaviac
 
             for (; it != itEnd; ++it)
             {
-                CMethodBase* m = *it;
+                behaviac::CMethodBase* m = *it;
                 //m->GetUiInfo(parent, xmlNode);
                 m->UnSubsribeToNetwork(this);
             }
@@ -956,6 +957,7 @@ namespace behaviac
 #if !BEHAVIAC_RELEASE
             BEHAVIAC_ASSERT(this->m_debug_verify == kAGENT_DEBUG_VERY, "Agent can only be created by Agent::Create or Agent::Create!");
 			this->m_debug_count = 0;
+			this->m_debug_in_exec = 1;
 #endif//#if !BEHAVIAC_RELEASE
             this->InstantiateProperties();
 
@@ -974,6 +976,10 @@ namespace behaviac
                 this->LogVariables(false);
             }
 
+#if !BEHAVIAC_RELEASE
+			this->m_debug_in_exec = 0;
+#endif//#if !BEHAVIAC_RELEASE
+
             return s;
         }
 
@@ -984,6 +990,10 @@ namespace behaviac
     {
         if (this->m_currentBT)
         {
+#if !BEHAVIAC_RELEASE
+			BEHAVIAC_ASSERT(this->m_debug_in_exec == 0, "FireEvent should not be called during the Agent is in btexec");
+#endif
+
             this->m_currentBT->onevent(this, btEvent);
         }
     }
@@ -1272,7 +1282,7 @@ namespace behaviac
         return c.InsertEventGlobal(className, pEvent);
     }
 
-    CNamedEvent* Agent::findNamedEventTemplate(const CTagObject::MethodsContainer& methods, const char* eventName, int context_id)
+    CNamedEvent* Agent::findNamedEventTemplate(const behaviac::CTagObject::MethodsContainer& methods, const char* eventName, int context_id)
     {
         Context& c = Context::GetContext(context_id);
 
@@ -1396,7 +1406,7 @@ namespace behaviac
         return true;
     }
 
-    CMethodBase* Agent::CreateMethod(const CStringID& agentClassId, const CStringID& methodClassId)
+    behaviac::CMethodBase* Agent::CreateMethod(const CStringID& agentClassId, const CStringID& methodClassId)
     {
         AgentMetas_t::iterator it = Agent::ms_metas->find(agentClassId);
 
@@ -1410,7 +1420,7 @@ namespace behaviac
             for (CTagObjectDescriptor::MethodsContainer::const_iterator it1 = methods.begin();
                  it1 != methods.end(); ++it1)
             {
-                const CMethodBase* pM = *it1;
+                const behaviac::CMethodBase* pM = *it1;
 
                 if (pM->GetID().GetID() == methodClassId)
                 {
@@ -1422,15 +1432,15 @@ namespace behaviac
         return 0;
     }
 
-    const CMemberBase* Agent::FindMember(const char* property_name) const
+    const behaviac::CMemberBase* Agent::FindMember(const char* property_name) const
     {
         CStringID propertyId(property_name);
 
-        const CMemberBase* m = this->FindMember(propertyId);
+        const behaviac::CMemberBase* m = this->FindMember(propertyId);
         return m;
     }
 
-    const CMemberBase* Agent::FindMember(const CStringID& propertyId) const
+    const behaviac::CMemberBase* Agent::FindMember(const CStringID& propertyId) const
     {
         const CTagObjectDescriptor& obejctDesc = this->GetDescriptor();
 
@@ -1464,7 +1474,7 @@ namespace behaviac
         return 0;
     }
 
-    const CMemberBase* Agent::FindMemberBase(const char* propertyName)
+    const behaviac::CMemberBase* Agent::FindMemberBase(const char* propertyName)
     {
         char agentClassName[kNameLength];
         const char* propertyBaseName = ParsePropertyNames(propertyName, agentClassName);
@@ -1474,14 +1484,14 @@ namespace behaviac
             CStringID agentClassId(agentClassName);
             CStringID propertyId(propertyBaseName);
 
-            const CMemberBase* m = FindMemberBase(agentClassId, propertyId);
+            const behaviac::CMemberBase* m = FindMemberBase(agentClassId, propertyId);
             return m;
         }
 
         return 0;
     }
 
-    const CMethodBase* Agent::FindMethodBase(const char* propertyName)
+    const behaviac::CMethodBase* Agent::FindMethodBase(const char* propertyName)
     {
         char agentClassName[kNameLength];
         const char* propertyBaseName = ParsePropertyNames(propertyName, agentClassName);
@@ -1491,14 +1501,14 @@ namespace behaviac
             CStringID agentClassId(agentClassName);
             CStringID propertyId((propertyBaseName));
 
-            const CMethodBase* m = FindMethodBase(agentClassId, propertyId);
+            const behaviac::CMethodBase* m = FindMethodBase(agentClassId, propertyId);
             return m;
         }
 
         return 0;
     }
 
-    const CMemberBase* Agent::FindMemberBase(const CStringID& agentClassId, const CStringID& propertyId)
+    const behaviac::CMemberBase* Agent::FindMemberBase(const CStringID& agentClassId, const CStringID& propertyId)
     {
         if (Agent::ms_metas)
         {
@@ -1518,7 +1528,7 @@ namespace behaviac
         return 0;
     }
 
-    const CMethodBase* Agent::FindMethodBase(const CStringID& agentClassId, const CStringID& propertyId)
+    const behaviac::CMethodBase* Agent::FindMethodBase(const CStringID& agentClassId, const CStringID& propertyId)
     {
         AgentMetas_t::iterator it = Agent::ms_metas->find(agentClassId);
 
@@ -1532,7 +1542,7 @@ namespace behaviac
             for (MethodsContainer::const_iterator it1 = pObejctDesc->ms_methods.begin();
                  it1 != pObejctDesc->ms_methods.end(); ++it1)
             {
-                const CMethodBase* pMethod = *it1;
+                const behaviac::CMethodBase* pMethod = *it1;
 
                 if (pMethod->GetID().GetID() == propertyId)
                 {
@@ -1550,7 +1560,7 @@ namespace behaviac
     {
         BEHAVIAC_UNUSED_VAR(typeName);
 
-        const CMemberBase* pMember = Agent::FindMemberBase(propertyName);
+        const behaviac::CMemberBase* pMember = Agent::FindMemberBase(propertyName);
 
         if (pMember)
         {
@@ -1561,7 +1571,7 @@ namespace behaviac
 
         //else
         //{
-        //	const CMethodBase* pMethod = 0;
+        //	const behaviac::CMethodBase* pMethod = 0;
         //	if (propertyName && propertyName[0] != '\0')
         //	{
         //		pMethod = Agent::FindMethodBase(propertyName);

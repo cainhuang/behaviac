@@ -25,7 +25,7 @@
 //////////////////////////////////////////////////////////////////
 namespace behaviac
 {
-    class BEHAVIAC_API CCustomMethod : public CMethodBase, public CDynamicType
+    class BEHAVIAC_API CCustomMethod : public behaviac::CMethodBase, public CDynamicType
     {
     protected:
         const char* m_className;
@@ -36,7 +36,7 @@ namespace behaviac
         BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(CCustomMethod, CDynamicType);
 
         CCustomMethod(const char* className, const char* eventName)
-            : CMethodBase(eventName, className)
+            : behaviac::CMethodBase(eventName, className)
         {
             m_className = className;
         }
@@ -44,24 +44,24 @@ namespace behaviac
         virtual ~CCustomMethod();
     protected:
         CCustomMethod(const CCustomMethod& copy)
-            : CMethodBase(copy)
+            : behaviac::CMethodBase(copy)
         {
             m_className = copy.m_className;
             m_paramTypes = copy.m_paramTypes;
             m_params = copy.m_params;
         }
 
-        Property* LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode, const char* typeName, const char* paramName);
+        Property* LoadFromXML(behaviac::CTagObject* parent, const ISerializableNode& xmlNode, const char* typeName, const char* paramName);
 
-        virtual void LoadFromXML(CTagObject* parent, const ISerializableNode& xmlNode);
-        virtual void SaveToXML(const CTagObject* parent, ISerializableNode& xmlNode)
+        virtual void LoadFromXML(behaviac::CTagObject* parent, const ISerializableNode& xmlNode);
+        virtual void SaveToXML(const behaviac::CTagObject* parent, ISerializableNode& xmlNode)
         {
             BEHAVIAC_UNUSED_VAR(parent);
             BEHAVIAC_UNUSED_VAR(xmlNode);
             //BEHAVIAC_ASSERT(0);
         }
 
-        virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
+        virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
         {
             BEHAVIAC_UNUSED_VAR(types);
             BEHAVIAC_UNUSED_VAR(parent);
@@ -94,12 +94,12 @@ namespace behaviac
 
         bool m_bFired;
     public:
-        virtual CMethodBase* clone() const
+        virtual behaviac::CMethodBase* clone() const
         {
             return BEHAVIAC_NEW CNamedEvent(*this);
         }
 
-        virtual void run(const CTagObject* parent, const CTagObject* parHolder)
+        virtual void run(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder)
         {
             BEHAVIAC_UNUSED_VAR(parent);
             BEHAVIAC_UNUSED_VAR(parHolder);

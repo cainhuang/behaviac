@@ -29,7 +29,7 @@ namespace behaviac
 
         CTaskMethod(const char* className, const char* eventName) : CNamedEvent(className, eventName)
         {}
-        virtual CMethodBase* clone() const;
+        virtual behaviac::CMethodBase* clone() const;
 
         void SetTaskParams(behaviac::Agent* pAgent);
 

@@ -44,7 +44,7 @@ namespace behaviac
 
     protected:
         Property*		m_frames_var;
-        CMethodBase*	m_frames_method;
+        behaviac::CMethodBase*	m_frames_method;
 
         friend class WaitFramesTask;
     };

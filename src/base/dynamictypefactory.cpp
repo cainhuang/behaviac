@@ -13,27 +13,31 @@
 
 #include "behaviac/base/dynamictypefactory.h"
 
-BEHAVIAC_IMPLEMNT_SINGLETON(CDynamicTypeFactory);
-
-CDynamicTypeFactory::CDynamicTypeFactory()
+namespace behaviac
 {
-}
+	BEHAVIAC_IMPLEMNT_SINGLETON(CDynamicTypeFactory);
 
-CDynamicTypeFactory::~CDynamicTypeFactory()
-{
-}
+	CDynamicTypeFactory::CDynamicTypeFactory()
+	{
+	}
 
-bool CDynamicTypeFactory::Register(const behaviac::CStringID& typeID, CFactory<CDynamicType>::InstantiateFunctionPointer instantiate)
-{
-    return m_factory.Register(typeID, instantiate);
-}
+	CDynamicTypeFactory::~CDynamicTypeFactory()
+	{
+	}
 
-bool CDynamicTypeFactory::UnRegister(const behaviac::CStringID& typeID)
-{
-    return m_factory.UnRegister(typeID);
-}
+	bool CDynamicTypeFactory::Register(const behaviac::CStringID& typeID, CFactory<CDynamicType>::InstantiateFunctionPointer instantiate)
+	{
+		return m_factory.Register(typeID, instantiate);
+	}
 
-CDynamicType* CDynamicTypeFactory::Create(const behaviac::CStringID& typeID)
-{
-    return m_factory.CreateObject(typeID);
-}
+	bool CDynamicTypeFactory::UnRegister(const behaviac::CStringID& typeID)
+	{
+		return m_factory.UnRegister(typeID);
+	}
+
+	CDynamicType* CDynamicTypeFactory::Create(const behaviac::CStringID& typeID)
+	{
+		return m_factory.CreateObject(typeID);
+	}
+
+}//

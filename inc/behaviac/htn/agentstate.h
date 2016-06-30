@@ -63,10 +63,10 @@ namespace behaviac
 		virtual void Clear(bool bFull);
 
         template<typename VariableType>
-        void Set(bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId = 0);
+        void Set(bool bMemberSet, Agent* pAgent, bool bLocal, const behaviac::CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId = 0);
 
         template<typename VariableType>
-        const VariableType* Get(const Agent* pAgent, bool bMemberGet, const CMemberBase* pMember, uint32_t varId) const;
+        const VariableType* Get(const Agent* pAgent, bool bMemberGet, const behaviac::CMemberBase* pMember, uint32_t varId) const;
 
     private:
         void PopTop();

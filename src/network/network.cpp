@@ -69,7 +69,7 @@ namespace behaviac
         return false;
     }
 
-    void Network::BindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent, CMethodBase* pMethod)
+    void Network::BindToEvent(behaviac::NetworkRole netRole, const char* eventName, Agent* pAgent, behaviac::CMethodBase* pMethod)
     {
         BEHAVIAC_ASSERT(netRole != NET_ROLE_DEFAULT && !this->IsSinglePlayer());
 

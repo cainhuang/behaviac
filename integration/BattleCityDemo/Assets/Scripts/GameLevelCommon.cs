@@ -387,8 +387,10 @@ public class GameLevelCommon : behaviac.Agent
 
 		//< update game level data
 
-		if(btloadResult)
-			btexec();
+        if (btloadResult)
+        {
+            this.btexec();
+        }
 
 		//< update datas in agent's blackboard
         updateAgentAIData();

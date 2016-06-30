@@ -860,4 +860,16 @@ it only returns success or failure and never returns running.
   <data name="DoneWithinFrameDesc" xml:space="preserve">
     <value>if true, the whole Loop will be blocked until the loop is done within a frame</value>
   </data>
+  <data name="StatusTransition" xml:space="preserve">
+    <value>StatusTransition</value>
+  </data>
+  <data name="StatusTransitionDesc" xml:space="preserve">
+    <value>for a subtree state, to transition or not based on its returnning status </value>
+  </data>
+  <data name="TransitionPhase" xml:space="preserve">
+    <value>TransitionPhase</value>
+  </data>
+  <data name="TransitionPhaseDesc" xml:space="preserve">
+    <value>in which case to transition</value>
+  </data>
 </root>

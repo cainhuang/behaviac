@@ -30,14 +30,14 @@ namespace behaviac
     class BEHAVIAC_API IVariable
     {
     public:
-        IVariable(const CMemberBase* pMember, const char* variableName, uint32_t id) :
+        IVariable(const behaviac::CMemberBase* pMember, const char* variableName, uint32_t id) :
             m_id(id), m_name(variableName), m_property(0), m_pMember(pMember), m_instantiated(1)
 #if !BEHAVIAC_RELEASE
             , m_changed(true)
 #endif
         {}
 
-        IVariable(const CMemberBase* pMember, const Property* property_) :
+        IVariable(const behaviac::CMemberBase* pMember, const Property* property_) :
             m_property(property_), m_pMember(pMember), m_instantiated(1)
 #if !BEHAVIAC_RELEASE
             , m_changed(true)
@@ -102,7 +102,7 @@ namespace behaviac
         virtual void Save(ISerializableNode* node) const;
         virtual void Load(ISerializableNode* node);
 
-        virtual void SetFromString(Agent* pAgent, const CMemberBase* pMember, const char* value) = 0;
+        virtual void SetFromString(Agent* pAgent, const behaviac::CMemberBase* pMember, const char* value) = 0;
         virtual void Log(const Agent* pAgent) = 0;
 
         virtual void Reset() = 0;
@@ -127,7 +127,7 @@ namespace behaviac
         uint32_t			m_id;
         behaviac::string	m_name;
         const Property*		m_property;
-        const CMemberBase*	m_pMember;
+        const behaviac::CMemberBase*	m_pMember;
         unsigned char		m_instantiated;
 #if !BEHAVIAC_RELEASE
         bool				m_changed;
@@ -139,10 +139,10 @@ namespace behaviac
     class TVariable : public IVariable
     {
     public:
-        TVariable(const CMemberBase* pMember, const char* variableName, uint32_t varId) : IVariable(pMember, variableName, varId)
+        TVariable(const behaviac::CMemberBase* pMember, const char* variableName, uint32_t varId) : IVariable(pMember, variableName, varId)
         {}
 
-        TVariable(const CMemberBase* pMember, const Property* property_, const VariableType& value) : IVariable(pMember, property_), m_value(value)
+        TVariable(const behaviac::CMemberBase* pMember, const Property* property_, const VariableType& value) : IVariable(pMember, property_), m_value(value)
         {}
 
         TVariable(const TVariable& copy) : IVariable(copy), m_value(copy.m_value)
@@ -152,9 +152,9 @@ namespace behaviac
         {
             if (this->m_pMember)
             {
-                int typeId = ::GetClassTypeNumberId<VariableType>();
+                int typeId = GetClassTypeNumberId<VariableType>();
                 BEHAVIAC_UNUSED_VAR(typeId);
-                BEHAVIAC_ASSERT(typeId == ::GetClassTypeNumberId<System::Object>() ||
+                BEHAVIAC_ASSERT(typeId == GetClassTypeNumberId<System::Object>() ||
                                 typeId == this->m_pMember->GetTypeId());
 
                 const void* pAddr = this->m_pMember->Get(pAgent, typeId);
@@ -171,7 +171,7 @@ namespace behaviac
 
             if (this->m_pMember)
             {
-                int typeId = ::GetClassTypeNumberId<VariableType>();
+                int typeId = GetClassTypeNumberId<VariableType>();
                 BEHAVIAC_UNUSED_VAR(typeId);
                 BEHAVIAC_ASSERT(typeId == this->m_pMember->GetTypeId());
 
@@ -242,7 +242,7 @@ namespace behaviac
         {
             if (this->m_pMember)
             {
-                int typeId = ::GetClassTypeNumberId<VariableType>();
+                int typeId = GetClassTypeNumberId<VariableType>();
                 this->m_pMember->SetVariable(pAgent, &m_value, typeId);
 
             }
@@ -311,7 +311,7 @@ namespace behaviac
             //pAgent->SetVariableFromString(nameStr.c_str(), valueStr.c_str());
         }
 
-        virtual void SetFromString(Agent* pAgent, const CMemberBase* pMember, const char* valueString);
+        virtual void SetFromString(Agent* pAgent, const behaviac::CMemberBase* pMember, const char* valueString);
 
     private:
         VariableType m_value;
@@ -429,10 +429,10 @@ namespace behaviac
         void SetFromString(Agent* pAgent, const char* variableName, const char* value);
 
         template<typename VariableType>
-        void Set(bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId = 0);
+        void Set(bool bMemberSet, Agent* pAgent, bool bLocal, const behaviac::CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId = 0);
 
         template<typename VariableType>
-        const VariableType* Get(const Agent* pAgent, bool bMemberGet, const CMemberBase* pMember, uint32_t varId) const;
+        const VariableType* Get(const Agent* pAgent, bool bMemberGet, const behaviac::CMemberBase* pMember, uint32_t varId) const;
 
         void Log(const Agent* pAgent, bool bForce);
         void Reset();

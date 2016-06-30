@@ -17,7 +17,7 @@
 
 namespace behaviac
 {
-    CMethodBase* CTaskMethod::clone() const
+    behaviac::CMethodBase* CTaskMethod::clone() const
     {
         return BEHAVIAC_NEW CTaskMethod(*this);
     }

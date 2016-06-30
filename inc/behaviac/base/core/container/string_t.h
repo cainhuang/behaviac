@@ -35,22 +35,24 @@ namespace behaviac
     //typedef basic_string_t<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > wstring;
     typedef std::basic_string<char, std::char_traits<char>, behaviac::stl_allocator<char> > string;
     typedef std::basic_string<wchar_t, std::char_traits<wchar_t>, behaviac::stl_allocator<wchar_t> > wstring;
+
+	inline behaviac::string make_lower(const behaviac::string& src)
+	{
+		behaviac::string dst = src;
+		std::transform(dst.begin(), dst.end(), dst.begin(), ::tolower);
+
+		return dst;
+	}
+
+	inline behaviac::string make_upper(const behaviac::string& src)
+	{
+		behaviac::string dst = src;
+		std::transform(dst.begin(), dst.end(), dst.begin(), ::toupper);
+
+		return dst;
+	}
+
 }
 
-inline behaviac::string make_lower(const behaviac::string& src)
-{
-    behaviac::string dst = src;
-    std::transform(dst.begin(), dst.end(), dst.begin(), ::tolower);
-
-    return dst;
-}
-
-inline behaviac::string make_upper(const behaviac::string& src)
-{
-    behaviac::string dst = src;
-    std::transform(dst.begin(), dst.end(), dst.begin(), ::toupper);
-
-    return dst;
-}
 
 #endif //#ifndef BEHAVIAC_BASE_STRING_H

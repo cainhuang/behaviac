@@ -13110,6 +13110,105 @@ namespace behaviac
 		}
 	}
 
+	// Source file: node_test/event_ut_3
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class DecoratorLoop_bt_node_test_event_ut_3_node0 : behaviac.DecoratorLoop
+	{
+		public DecoratorLoop_bt_node_test_event_ut_3_node0()
+		{
+			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
+		}
+		protected override int GetCount(Agent pAgent)
+		{
+			return -1;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Event_bt_node_test_event_ut_3_attach1 : behaviac.Event
+	{
+		public Event_bt_node_test_event_ut_3_attach1()
+		{
+			this.Initialize("Self.AgentNodeTest::event_test_void()", "node_test/event_subtree_0", TriggerMode.TM_Transfer, false);
+		}
+		public void Initialize(string eventName, string referencedBehavior, TriggerMode mode, bool once)
+		{
+			this.m_event = AgentMeta.ParseMethod(eventName, ref this.m_eventName);
+			this.m_referencedBehaviorPath = referencedBehavior;
+			this.m_triggerMode = mode;
+			this.m_bTriggeredOnce = once;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class ReferencedBehavior_bt_node_test_event_ut_3_node2 : behaviac.ReferencedBehavior
+	{
+		public ReferencedBehavior_bt_node_test_event_ut_3_node2()
+		{
+			string szTreePath = this.GetReferencedTree(null);
+			if (!string.IsNullOrEmpty(szTreePath)) {
+			BehaviorTree behaviorTree = Workspace.Instance.LoadBehaviorTree(szTreePath);
+			if (behaviorTree != null)
+			{
+				this.m_bHasEvents |= behaviorTree.HasEvents();
+			}
+			}
+		}
+		public override string GetReferencedTree(Agent pAgent)
+		{
+			return "node_test/if_else_ut_0";
+		}
+	}
+
+	public static class bt_node_test_event_ut_3
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("node_test/event_ut_3");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_event_ut_3_node0 node0 = new DecoratorLoop_bt_node_test_event_ut_3_node0();
+				node0.SetClassNameString("DecoratorLoop");
+				node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+				node0.SetAgentType("AgentNodeTest");
+#endif
+				// attachments
+				{
+					Event_bt_node_test_event_ut_3_attach1 attach1 = new Event_bt_node_test_event_ut_3_attach1();
+					attach1.SetClassNameString("Event");
+					attach1.SetId(1);
+#if !BEHAVIAC_RELEASE
+					attach1.SetAgentType("AgentNodeTest");
+#endif
+					node0.Attach(attach1, false, false, false);
+					node0.SetHasEvents(node0.HasEvents() | (attach1 is Event));
+				}
+				bt.AddChild(node0);
+				{
+					ReferencedBehavior_bt_node_test_event_ut_3_node2 node2 = new ReferencedBehavior_bt_node_test_event_ut_3_node2();
+					node2.SetClassNameString("ReferencedBehavior");
+					node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+					node2.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node2);
+					node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
+			}
+			return true;
+		}
+	}
+
 	// Source file: node_test/frames_ut_0
 
 	[behaviac.GeneratedTypeMetaInfo()]

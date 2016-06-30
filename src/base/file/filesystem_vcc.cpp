@@ -630,7 +630,8 @@ namespace behaviac
 
 			CloseHandle(hToken);
 
-			return bSuccess;
+			//return bSuccess;
+			return TRUE;
 		}
 	};
 

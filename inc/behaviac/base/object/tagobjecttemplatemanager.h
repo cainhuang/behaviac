@@ -16,42 +16,46 @@
 
 #include "behaviac/base/core/singleton.h"
 #include "behaviac/base/serialization/serializablenode.h"
-class CTagObject;
 
-class BEHAVIAC_API CTagObjectTemplateManager
+namespace behaviac
 {
-public:
-    BEHAVIAC_DECLARE_MEMORY_OPERATORS(CTagObjectTemplateManager);
+	class CTagObject;
 
-public:
-    void ParseTemplates();
+	class BEHAVIAC_API CTagObjectTemplateManager
+	{
+	public:
+		BEHAVIAC_DECLARE_MEMORY_OPERATORS(CTagObjectTemplateManager);
 
-    virtual const behaviac::ISerializableNode* GetTemplate(const behaviac::CNoCaseStringID& templateId);
-    const behaviac::ISerializableNode* GetTemplate(const char* templateName)
-    {
-        return GetTemplate(behaviac::CNoCaseStringID(templateName));
-    }
-    const behaviac::ISerializableNode* GetTemplate(const behaviac::string& templateName)
-    {
-        return GetTemplate(templateName.c_str());
-    }
+	public:
+		void ParseTemplates();
 
-    const char* GetTemplatesPath() const;
+		virtual const behaviac::ISerializableNode* GetTemplate(const behaviac::CNoCaseStringID& templateId);
+		const behaviac::ISerializableNode* GetTemplate(const char* templateName)
+		{
+			return GetTemplate(behaviac::CNoCaseStringID(templateName));
+		}
+		const behaviac::ISerializableNode* GetTemplate(const behaviac::string& templateName)
+		{
+			return GetTemplate(templateName.c_str());
+		}
 
-    void NotifyTemplateChanged(const behaviac::string& templateName);
-    void RegisterTemplateChangeListener(const char* templateName, CTagObject* tagObject);
-    void UnregisterTemplateChangeListener(const char* templateName);
-    void UnregisterTemplateChangeListener(CTagObject* tagObject);
+		const char* GetTemplatesPath() const;
 
-protected:
-    CTagObjectTemplateManager();
-    virtual ~CTagObjectTemplateManager();
+		void NotifyTemplateChanged(const behaviac::string& templateName);
+		void RegisterTemplateChangeListener(const char* templateName, behaviac::CTagObject* tagObject);
+		void UnregisterTemplateChangeListener(const char* templateName);
+		void UnregisterTemplateChangeListener(behaviac::CTagObject* tagObject);
 
-    behaviac::SerializableNodeRef m_root;
-    behaviac::map<behaviac::CNoCaseStringID, const behaviac::ISerializableNode*> m_templates;
-    behaviac::map<behaviac::CNoCaseStringID, CTagObject*> m_templateChangeListeners;
+	protected:
+		CTagObjectTemplateManager();
+		virtual ~CTagObjectTemplateManager();
 
-    BEHAVIAC_DELCARE_SINGLETON(CTagObjectTemplateManager);
-};
+		behaviac::SerializableNodeRef m_root;
+		behaviac::map<behaviac::CNoCaseStringID, const behaviac::ISerializableNode*> m_templates;
+		behaviac::map<behaviac::CNoCaseStringID, behaviac::CTagObject*> m_templateChangeListeners;
+
+		BEHAVIAC_DELCARE_SINGLETON(CTagObjectTemplateManager);
+	};
+}//
 
 #endif //BEHAVIAC_ENGINESERVICES_TAGOBJECTTEMPLATEMANAGER_H

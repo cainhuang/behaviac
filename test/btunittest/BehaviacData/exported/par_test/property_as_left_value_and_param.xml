@@ -9,8 +9,8 @@
         <property Opr="Self.EmployeeParTestAgent::Func_AgentIR(behaviac::Agent Self.EmployeeParTestAgent::TV_AGENT_0)" />
       </node>
       <node class="Assignment" id="15">
-        <property Opl="behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0" />
-        <property Opr="Self.EmployeeParTestAgent::Func_AgentListIR(behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" />
+        <property Opl="vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0" />
+        <property Opr="Self.EmployeeParTestAgent::Func_AgentListIR(vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" />
       </node>
       <node class="Assignment" id="2">
         <property Opl="double Self.EmployeeParTestAgent::TV_D_0" />
@@ -71,8 +71,8 @@
         <property Opr="Self.ParTestAgent::Func_kEmployeeIR(TNS::ST::PER::WRK::kEmployee Self.ParTestAgent::TV_KEMPLOYEE_0)" />
       </node>
       <node class="Assignment" id="19">
-        <property Opl="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0" />
-        <property Opr="Self.ParTestAgent::Func_kEmployeeListIR(behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0)" />
+        <property Opl="vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0" />
+        <property Opr="Self.ParTestAgent::Func_kEmployeeListIR(vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0)" />
       </node>
       <node class="Assignment" id="18">
         <property Opl="ushort Self.ParTestAgent::TV_USHORT_0" />

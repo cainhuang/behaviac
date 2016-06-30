@@ -83,7 +83,7 @@ namespace Behaviac.Design
         //Invalid
     }
 
-    [Behaviac.Design.EnumDesc("PluginBehaviac.Nodes.ComputeOpr", "计算作符", "计算操作符选择")]
+    [Behaviac.Design.EnumDesc("PluginBehaviac.Nodes.ComputeOpr", "计算操作符", "计算操作符选择")]
     public enum OperatorTypes
     {
         [Behaviac.Design.EnumMemberDesc("Assign", "=")]

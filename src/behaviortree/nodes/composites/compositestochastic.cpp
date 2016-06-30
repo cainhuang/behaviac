@@ -29,7 +29,7 @@ namespace behaviac
         BEHAVIAC_DELETE(m_method);
     }
 
-    //CMethodBase* LoadMethod(const char* value);
+    //behaviac::CMethodBase* LoadMethod(const char* value);
 
     void CompositeStochastic::load(int version, const char* agentType, const properties_t& properties)
     {
@@ -73,7 +73,7 @@ namespace behaviac
     }
 
     //generate a random double value between 0.0 and 1.0
-    double GetRandomValue(CMethodBase* method, Agent* pAgent)
+    double GetRandomValue(behaviac::CMethodBase* method, Agent* pAgent)
     {
         double value = 0;
 

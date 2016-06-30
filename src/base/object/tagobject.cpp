@@ -18,379 +18,383 @@
 
 #include "behaviac/base/logging/logmanager.h"
 
-CTagObjectDescriptorBSS CTagObject::ms_descriptor;
-CTagObjectDescriptor& CTagObject::GetObjectDescriptorDirectly()
+namespace behaviac
 {
-    return ms_descriptor.Get();
-}
+	CTagObjectDescriptorBSS behaviac::CTagObject::ms_descriptor;
+	CTagObjectDescriptor& behaviac::CTagObject::GetObjectDescriptorDirectly()
+	{
+		return ms_descriptor.Get();
+	}
 
-static TagObjectDescriptorMap_t* s_objectDescriptorMap;
+	static TagObjectDescriptorMap_t* s_objectDescriptorMap;
 
-TagObjectDescriptorMap_t& GetTagObjectDescriptorMaps()
-{
-    if (!s_objectDescriptorMap)
-    {
-        s_objectDescriptorMap = BEHAVIAC_NEW TagObjectDescriptorMap_t;
-    }
+	TagObjectDescriptorMap_t& GetTagObjectDescriptorMaps()
+	{
+		if (!s_objectDescriptorMap)
+		{
+			s_objectDescriptorMap = BEHAVIAC_NEW TagObjectDescriptorMap_t;
+		}
 
-    BEHAVIAC_ASSERT(s_objectDescriptorMap);
-    return *s_objectDescriptorMap;
-}
+		BEHAVIAC_ASSERT(s_objectDescriptorMap);
+		return *s_objectDescriptorMap;
+	}
 
-void CleanupTagObjectDescriptorMaps()
-{
-    if (s_objectDescriptorMap)
-    {
-        TagObjectDescriptorMap_t* classMaps = s_objectDescriptorMap;
+	void CleanupTagObjectDescriptorMaps()
+	{
+		if (s_objectDescriptorMap)
+		{
+			TagObjectDescriptorMap_t* classMaps = s_objectDescriptorMap;
 
-        for (TagObjectDescriptorMap_t::iterator it = classMaps->begin(); it != classMaps->end(); ++it)
-        {
-            //const behaviac::string& className = it->first;
-            CTagObjectDescriptorBSS* pObejctDesc = (CTagObjectDescriptorBSS*)it->second;
-            pObejctDesc->Cleanup();
-        }
+			for (TagObjectDescriptorMap_t::iterator it = classMaps->begin(); it != classMaps->end(); ++it)
+			{
+				//const behaviac::string& className = it->first;
+				CTagObjectDescriptorBSS* pObejctDesc = (CTagObjectDescriptorBSS*)it->second;
+				pObejctDesc->Cleanup();
+			}
 
-        s_objectDescriptorMap->clear();
-        BEHAVIAC_DELETE(s_objectDescriptorMap);
-        s_objectDescriptorMap = 0;
-    }
+			s_objectDescriptorMap->clear();
+			BEHAVIAC_DELETE(s_objectDescriptorMap);
+			s_objectDescriptorMap = 0;
+		}
 
-    CTagObject::CleanupObjectDescriptor();
-}
+		behaviac::CTagObject::CleanupObjectDescriptor();
+	}
 
-void CTagObjectDescriptorBSS::Cleanup()
-{
-    CTagObjectDescriptor* pObejctDescP = this->m_descriptor;
+	void CTagObjectDescriptorBSS::Cleanup()
+	{
+		CTagObjectDescriptor* pObejctDescP = this->m_descriptor;
 
-    if (pObejctDescP)
-    {
-        for (CTagObject::MethodsContainer::iterator it = pObejctDescP->ms_methods.begin();
-             it != pObejctDescP->ms_methods.end(); ++it)
-        {
-            CMethodBase* m = *it;
+		if (pObejctDescP)
+		{
+			for (behaviac::CTagObject::MethodsContainer::iterator it = pObejctDescP->ms_methods.begin();
+				it != pObejctDescP->ms_methods.end(); ++it)
+			{
+				behaviac::CMethodBase* m = *it;
 
-            BEHAVIAC_DELETE(m);
-        }
+				BEHAVIAC_DELETE(m);
+			}
 
-        pObejctDescP->ms_methods.clear();
+			pObejctDescP->ms_methods.clear();
 
-        for (CTagObjectDescriptor::MembersVector_t::iterator it = pObejctDescP->ms_members.membersVector.begin();
-             it != pObejctDescP->ms_members.membersVector.end(); ++it)
-        {
-            CMemberBase* m = *it;
+			for (CTagObjectDescriptor::MembersVector_t::iterator it = pObejctDescP->ms_members.membersVector.begin();
+				it != pObejctDescP->ms_members.membersVector.end(); ++it)
+			{
+				behaviac::CMemberBase* m = *it;
 
-            BEHAVIAC_DELETE(m);
-        }
+				BEHAVIAC_DELETE(m);
+			}
 
-        pObejctDescP->ms_members.membersMap.clear();
-        pObejctDescP->ms_members.membersVector.clear();
+			pObejctDescP->ms_members.membersMap.clear();
+			pObejctDescP->ms_members.membersVector.clear();
 
-        if (pObejctDescP->ms_isInitialized)
-        {
-            BEHAVIAC_ASSERT(pObejctDescP->ms_isInitialized);
-            pObejctDescP->ms_isInitialized = false;
-        }
+			if (pObejctDescP->ms_isInitialized)
+			{
+				BEHAVIAC_ASSERT(pObejctDescP->ms_isInitialized);
+				pObejctDescP->ms_isInitialized = false;
+			}
 
-        BEHAVIAC_DELETE(this->m_descriptor);
-        this->m_descriptor = 0;
-    }
-}
+			BEHAVIAC_DELETE(this->m_descriptor);
+			this->m_descriptor = 0;
+		}
+	}
 
-const CMemberBase* CTagObjectDescriptor::GetMember(const behaviac::CStringID& propertyId) const
-{
-    CTagObjectDescriptor::MembersMap_t::const_iterator it = this->ms_members.membersMap.find(propertyId);
+	const behaviac::CMemberBase* CTagObjectDescriptor::GetMember(const behaviac::CStringID& propertyId) const
+	{
+		CTagObjectDescriptor::MembersMap_t::const_iterator it = this->ms_members.membersMap.find(propertyId);
 
-    if (it != this->ms_members.membersMap.end())
-    {
-        const CMemberBase* pMember = it->second;
+		if (it != this->ms_members.membersMap.end())
+		{
+			const behaviac::CMemberBase* pMember = it->second;
 
-        BEHAVIAC_ASSERT(pMember->GetID().GetID() == propertyId);
+			BEHAVIAC_ASSERT(pMember->GetID().GetID() == propertyId);
 
-        return pMember;
-    }//for
+			return pMember;
+		}//for
 
-    if (this->m_parent)
-    {
-        const CMemberBase* m = this->m_parent->GetMember(propertyId);
+		if (this->m_parent)
+		{
+			const behaviac::CMemberBase* m = this->m_parent->GetMember(propertyId);
 
-        return m;
-    }
+			return m;
+		}
 
-    return 0;
-}
+		return 0;
+	}
 
 #if BEHAVIAC_ENABLE_NETWORKD
-void CTagObjectDescriptor::ReplicateProperties(CTagObject* parent)
-{
-    if (this->m_parent)
-    {
-        this->m_parent->ReplicateProperties();
-    }
+	void CTagObjectDescriptor::ReplicateProperties(behaviac::CTagObject* parent)
+	{
+		if (this->m_parent)
+		{
+			this->m_parent->ReplicateProperties();
+		}
 
-    CTagObjectDescriptor::MembersVector_t::const_iterator it = this->ms_members.membersVector.begin();
-    CTagObjectDescriptor::MembersVector_t::const_iterator itEnd = this->ms_members.membersVector.end();
+		CTagObjectDescriptor::MembersVector_t::const_iterator it = this->ms_members.membersVector.begin();
+		CTagObjectDescriptor::MembersVector_t::const_iterator itEnd = this->ms_members.membersVector.end();
 
-    for (; it != itEnd; ++it)
-    {
-        CMemberBase* m = *it;
+		for (; it != itEnd; ++it)
+		{
+			behaviac::CMemberBase* m = *it;
 
-        m->ReplicateProperty(parent);
-    }
-}
+			m->ReplicateProperty(parent);
+		}
+	}
 #endif
 
-void CTagObjectDescriptor::Load(CTagObject* parent, const behaviac::ISerializableNode* node) const
-{
-    MembersVector_t::const_iterator it = ms_members.membersVector.begin();
-    MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
+	void CTagObjectDescriptor::Load(behaviac::CTagObject* parent, const behaviac::ISerializableNode* node) const
+	{
+		MembersVector_t::const_iterator it = ms_members.membersVector.begin();
+		MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
 
-    for (; it != itEnd; ++it)
-    {
-        CMemberBase* m = *it;
-        m->Load(parent, node);
-    }
+		for (; it != itEnd; ++it)
+		{
+			behaviac::CMemberBase* m = *it;
+			m->Load(parent, node);
+		}
 
-    if (this->m_parent)
-    {
-        this->m_parent->Load(parent, node);
-    }
-}
+		if (this->m_parent)
+		{
+			this->m_parent->Load(parent, node);
+		}
+	}
 
-void CTagObjectDescriptor::Save(const CTagObject* parent, behaviac::ISerializableNode* node) const
-{
-    if (this->m_parent)
-    {
-        this->m_parent->Save(parent, node);
-    }
+	void CTagObjectDescriptor::Save(const behaviac::CTagObject* parent, behaviac::ISerializableNode* node) const
+	{
+		if (this->m_parent)
+		{
+			this->m_parent->Save(parent, node);
+		}
 
-    MembersVector_t::const_iterator it = ms_members.membersVector.begin();
-    MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
+		MembersVector_t::const_iterator it = ms_members.membersVector.begin();
+		MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
 
-    for (; it != itEnd; ++it)
-    {
-        CMemberBase* m = *it;
-        m->Save(parent, node);
-    }
-}
+		for (; it != itEnd; ++it)
+		{
+			behaviac::CMemberBase* m = *it;
+			m->Save(parent, node);
+		}
+	}
 
-void CTagObjectDescriptor::LoadState(CTagObject* parent, const behaviac::ISerializableNode* node) const
-{
-    MembersVector_t::const_iterator it = ms_members.membersVector.begin();
-    MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
+	void CTagObjectDescriptor::LoadState(behaviac::CTagObject* parent, const behaviac::ISerializableNode* node) const
+	{
+		MembersVector_t::const_iterator it = ms_members.membersVector.begin();
+		MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
 
-    for (; it != itEnd; ++it)
-    {
-        CMemberBase* m = *it;
-        m->LoadState(parent, node);
-    }
+		for (; it != itEnd; ++it)
+		{
+			behaviac::CMemberBase* m = *it;
+			m->LoadState(parent, node);
+		}
 
-    if (this->m_parent)
-    {
-        this->m_parent->LoadState(parent, node);
-    }
-}
+		if (this->m_parent)
+		{
+			this->m_parent->LoadState(parent, node);
+		}
+	}
 
-void CTagObjectDescriptor::SaveState(const CTagObject* parent, behaviac::ISerializableNode* node) const
-{
-    if (this->m_parent)
-    {
-        this->m_parent->SaveState(parent, node);
-    }
+	void CTagObjectDescriptor::SaveState(const behaviac::CTagObject* parent, behaviac::ISerializableNode* node) const
+	{
+		if (this->m_parent)
+		{
+			this->m_parent->SaveState(parent, node);
+		}
 
-    MembersVector_t::const_iterator it = ms_members.membersVector.begin();
-    MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
+		MembersVector_t::const_iterator it = ms_members.membersVector.begin();
+		MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
 
-    for (; it != itEnd; ++it)
-    {
-        CMemberBase* m = *it;
-        m->SaveState(parent, node);
-    }
-}
+		for (; it != itEnd; ++it)
+		{
+			behaviac::CMemberBase* m = *it;
+			m->SaveState(parent, node);
+		}
+	}
 
-void CTagObjectDescriptor::GetMembersDescription(TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const
-{
-    if (types == NULL)
-    {
-        xmlNode->setAttr("DisplayName", this->m_displayName);
-        xmlNode->setAttr("Desc", this->m_desc);
-        xmlNode->setAttr("IsRefType", this->m_isRefType);
-    }
+	void CTagObjectDescriptor::GetMembersDescription(TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const
+	{
+		if (types == NULL)
+		{
+			xmlNode->setAttr("DisplayName", this->m_displayName);
+			xmlNode->setAttr("Desc", this->m_desc);
+			xmlNode->setAttr("IsRefType", this->m_isRefType);
+		}
 
-    MembersVector_t::const_iterator it = ms_members.membersVector.begin();
-    MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
+		MembersVector_t::const_iterator it = ms_members.membersVector.begin();
+		MembersVector_t::const_iterator itEnd = ms_members.membersVector.end();
 
-    for (; it != itEnd; ++it)
-    {
-        CMemberBase* m = *it;
-        m->GetUiInfo(types, parent, xmlNode);
-    }
-}
+		for (; it != itEnd; ++it)
+		{
+			behaviac::CMemberBase* m = *it;
+			m->GetUiInfo(types, parent, xmlNode);
+		}
+	}
 
-void CTagObjectDescriptor::GetMethodsDescription(TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const
-{
-    for (MethodsContainer::const_iterator it = ms_methods.begin(); it != ms_methods.end(); ++it)
-    {
-        CMethodBase* m = *it;
+	void CTagObjectDescriptor::GetMethodsDescription(TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode) const
+	{
+		for (MethodsContainer::const_iterator it = ms_methods.begin(); it != ms_methods.end(); ++it)
+		{
+			behaviac::CMethodBase* m = *it;
 
-        //if (string_icmp(m->GetName(), "Func_AgentRef") == 0)
-        //{
-        //	BEHAVIAC_ASSERT(true);
-        //}
-        m->GetUiInfo(types, parent, xmlNode);
-    }
-}
+			//if (string_icmp(m->GetName(), "Func_AgentRef") == 0)
+			//{
+			//	BEHAVIAC_ASSERT(true);
+			//}
+			m->GetUiInfo(types, parent, xmlNode);
+		}
+	}
 
-void CTagObjectDescriptor::PushBackMember(MembersContainer& inMembers, class CMemberBase* toAddMember)
-{
-    //CMemberBase* p2 = toAddMember->clone();
-    //inMembers[toAddMember->GetID().GetString()] = p2;
-    inMembers.membersVector.push_back(toAddMember);
-    inMembers.membersMap[toAddMember->GetID().GetID()] = toAddMember;
-}
+	void CTagObjectDescriptor::PushBackMember(MembersContainer& inMembers, behaviac::CMemberBase* toAddMember)
+	{
+		//behaviac::CMemberBase* p2 = toAddMember->clone();
+		//inMembers[toAddMember->GetID().GetString()] = p2;
+		inMembers.membersVector.push_back(toAddMember);
+		inMembers.membersMap[toAddMember->GetID().GetID()] = toAddMember;
+	}
 
-CTagObjectDescriptor& CTagObject::GetObjectDescriptor()
-{
-    return ms_descriptor.Get();
-}
+	CTagObjectDescriptor& behaviac::CTagObject::GetObjectDescriptor()
+	{
+		return ms_descriptor.Get();
+	}
 
-void CTagObject::CleanupObjectDescriptor()
-{
-    ms_descriptor.Cleanup();
-}
+	void behaviac::CTagObject::CleanupObjectDescriptor()
+	{
+		ms_descriptor.Cleanup();
+	}
 
-void CTagObject::LoadFromXML(const behaviac::XmlConstNodeRef& xmlNode)
-{
-    behaviac::CTextNode textNode(xmlNode);
-    Load(&textNode);
-}
+	void behaviac::CTagObject::LoadFromXML(const behaviac::XmlConstNodeRef& xmlNode)
+	{
+		behaviac::CTextNode textNode(xmlNode);
+		Load(&textNode);
+	}
 
-void CTagObject::SaveToXML(const behaviac::XmlNodeRef& xmlNode)
-{
-    behaviac::CTextNode textNode(xmlNode);
-    Save(&textNode);
-}
+	void behaviac::CTagObject::SaveToXML(const behaviac::XmlNodeRef& xmlNode)
+	{
+		behaviac::CTextNode textNode(xmlNode);
+		Save(&textNode);
+	}
 
-void CTagObject::Load(const behaviac::ISerializableNode* node)
-{
-    GetDescriptor().Load(this, node);
-}
+	void behaviac::CTagObject::Load(const behaviac::ISerializableNode* node)
+	{
+		GetDescriptor().Load(this, node);
+	}
 
-void CTagObject::Save(behaviac::ISerializableNode* node) const
-{
-    GetDescriptor().Save(this, node);
-}
+	void behaviac::CTagObject::Save(behaviac::ISerializableNode* node) const
+	{
+		GetDescriptor().Save(this, node);
+	}
 
 #ifdef USE_METHOD_PARAMS_SYSTEM
-void CTagObject::vCallOld(const behaviac::CStringID& name, const CTagMethodParams& params)
-{
-    const CTagObjectDescriptor& descriptor = GetDescriptor();
+	void behaviac::CTagObject::vCallOld(const behaviac::CStringID& name, const CTagMethodParams& params)
+	{
+		const CTagObjectDescriptor& descriptor = GetDescriptor();
 
-    for (size_t i = 0; i < descriptor.ms_methods.size(); i++)
-    {
-        CMethodBase* method = descriptor.ms_methods[i];
+		for (size_t i = 0; i < descriptor.ms_methods.size(); i++)
+		{
+			behaviac::CMethodBase* method = descriptor.ms_methods[i];
 
-        if (method->GetID() == name)
-        {
-            method->vCallOld(this, params);
-            return;
-        }
-    }
-}
+			if (method->GetID() == name)
+			{
+				method->vCallOld(this, params);
+				return;
+			}
+		}
+	}
 
-void CTagObject::GetMethodParams(const behaviac::CStringID& name, CTagMethodParams& out_param)
-{
-    const CTagObjectDescriptor& descriptor = GetDescriptor();
+	void behaviac::CTagObject::GetMethodParams(const behaviac::CStringID& name, CTagMethodParams& out_param)
+	{
+		const CTagObjectDescriptor& descriptor = GetDescriptor();
 
-    for (size_t i = 0; i < descriptor.ms_methods.size(); i++)
-    {
-        CMethodBase* method = descriptor.ms_methods[i];
+		for (size_t i = 0; i < descriptor.ms_methods.size(); i++)
+		{
+			behaviac::CMethodBase* method = descriptor.ms_methods[i];
 
-        if (method->GetID() == name)
-        {
-            method->GetParams(out_param);
-            return;
-        }
-    }
-}
+			if (method->GetID() == name)
+			{
+				method->GetParams(out_param);
+				return;
+			}
+		}
+	}
 #endif
 
-//CMethodBase* CTagObject::GetMethod(const behaviac::CStringID& functionName)
-//{
-//    const CTagObjectDescriptor& descriptor = GetDescriptor();
-//    for(size_t i=0;i<descriptor.ms_methods.size();i++)
-//    {
-//        CMethodBase* method = descriptor.ms_methods[i];
-//        if(method->GetID() == functionName)
-//        {
-//            return method;
-//        }
-//    }
-//    return NULL;
-//}
-static EnumClassMap_t* s_enumClasses;
-EnumClassMap_t& GetEnumValueNameMaps()
-{
-    if (!s_enumClasses)
-    {
-        s_enumClasses = BEHAVIAC_NEW EnumClassMap_t;
-    }
+	//behaviac::CMethodBase* behaviac::CTagObject::GetMethod(const behaviac::CStringID& functionName)
+	//{
+	//    const CTagObjectDescriptor& descriptor = GetDescriptor();
+	//    for(size_t i=0;i<descriptor.ms_methods.size();i++)
+	//    {
+	//        behaviac::CMethodBase* method = descriptor.ms_methods[i];
+	//        if(method->GetID() == functionName)
+	//        {
+	//            return method;
+	//        }
+	//    }
+	//    return NULL;
+	//}
+	static EnumClassMap_t* s_enumClasses;
+	EnumClassMap_t& GetEnumValueNameMaps()
+	{
+		if (!s_enumClasses)
+		{
+			s_enumClasses = BEHAVIAC_NEW EnumClassMap_t;
+		}
 
-    BEHAVIAC_ASSERT(s_enumClasses);
-    return *s_enumClasses;
+		BEHAVIAC_ASSERT(s_enumClasses);
+		return *s_enumClasses;
+	}
+
+	void CleanupEnumValueNameMaps()
+	{
+		if (s_enumClasses)
+		{
+			EnumClassMap_t* enumClasses = s_enumClasses;
+
+			for (EnumClassMap_t::iterator it = enumClasses->begin(); it != enumClasses->end(); ++it)
+			{
+				EnumClassDescriptionBSS_t* pEnumClassD = (EnumClassDescriptionBSS_t*)it->second;
+				pEnumClassD->descriptor->valueMaps.clear();
+				BEHAVIAC_DELETE(pEnumClassD->descriptor);
+				pEnumClassD->descriptor = 0;
+			}
+
+			s_enumClasses->clear();
+			BEHAVIAC_DELETE(s_enumClasses);
+			s_enumClasses = 0;
+		}
+	}
+
+	//const EnumValueNameMap_t* GetEnumClassValueNames(const char* enumClassName)
+	//{
+	//	EnumClassMap_t::iterator it = gs_enumClasses.find(enumClassName);
+	//	if (it != gs_enumClasses.end())
+	//	{
+	//		const EnumValueNameMap_t* pValues = it->second;
+	//
+	//		return pValues;
+	//	}
+	//
+	//	return 0;
+	//}
+
+	bool Equal_Struct(const CTagObjectDescriptor& object_desc, const behaviac::CTagObject* lhs, const behaviac::CTagObject* rhs)
+	{
+		CTagObjectDescriptor::MembersVector_t::const_iterator it = object_desc.ms_members.membersVector.begin();
+		CTagObjectDescriptor::MembersVector_t::const_iterator itEnd = object_desc.ms_members.membersVector.end();
+
+		for (; it != itEnd; ++it)
+		{
+			behaviac::CMemberBase* m = *it;
+
+			bool bEqual = m->Equal(lhs, rhs);
+
+			if (!bEqual)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
 
-void CleanupEnumValueNameMaps()
-{
-    if (s_enumClasses)
-    {
-        EnumClassMap_t* enumClasses = s_enumClasses;
-
-        for (EnumClassMap_t::iterator it = enumClasses->begin(); it != enumClasses->end(); ++it)
-        {
-            EnumClassDescriptionBSS_t* pEnumClassD = (EnumClassDescriptionBSS_t*)it->second;
-            pEnumClassD->descriptor->valueMaps.clear();
-            BEHAVIAC_DELETE(pEnumClassD->descriptor);
-            pEnumClassD->descriptor = 0;
-        }
-
-        s_enumClasses->clear();
-        BEHAVIAC_DELETE(s_enumClasses);
-        s_enumClasses = 0;
-    }
-}
-
-//const EnumValueNameMap_t* GetEnumClassValueNames(const char* enumClassName)
-//{
-//	EnumClassMap_t::iterator it = gs_enumClasses.find(enumClassName);
-//	if (it != gs_enumClasses.end())
-//	{
-//		const EnumValueNameMap_t* pValues = it->second;
-//
-//		return pValues;
-//	}
-//
-//	return 0;
-//}
-
-bool Equal_Struct(const CTagObjectDescriptor& object_desc, const CTagObject* lhs, const CTagObject* rhs)
-{
-    CTagObjectDescriptor::MembersVector_t::const_iterator it = object_desc.ms_members.membersVector.begin();
-    CTagObjectDescriptor::MembersVector_t::const_iterator itEnd = object_desc.ms_members.membersVector.end();
-
-    for (; it != itEnd; ++it)
-    {
-        CMemberBase* m = *it;
-
-        bool bEqual = m->Equal(lhs, rhs);
-
-        if (!bEqual)
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
 
 namespace behaviac
 {

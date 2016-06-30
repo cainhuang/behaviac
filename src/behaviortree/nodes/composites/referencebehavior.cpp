@@ -81,7 +81,7 @@ namespace behaviac
             else if (strcmp(p.name, "Task") == 0)
             {
                 BEHAVIAC_ASSERT(!StringUtils::IsNullOrEmpty(p.value));
-                CMethodBase* m = Action::LoadMethod(p.value);
+                behaviac::CMethodBase* m = Action::LoadMethod(p.value);
                 //BEHAVIAC_ASSERT(m is CTaskMethod);
 
                 this->m_taskMethod = (CTaskMethod*)m;
@@ -281,6 +281,8 @@ namespace behaviac
 
     void ReferencedBehaviorTask::onexit(Agent* pAgent, EBTStatus s)
     {
+		behaviac::Workspace::GetInstance()->DestroyBehaviorTreeTask(this->m_subTree, pAgent);
+		this->m_subTree = 0;
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(s);
     }
@@ -308,10 +310,16 @@ namespace behaviac
 
 		EBTStatus result = this->m_subTree->exec(pAgent);
 
-		bool bTransitioned = State::UpdateTransitions(pAgent, pNode, pNode->m_transitions, this->m_nextStateId);
+		bool bTransitioned = State::UpdateTransitions(pAgent, pNode, pNode->m_transitions, this->m_nextStateId, result);
 
 		if (bTransitioned)
 		{
+			if (result == BT_RUNNING)
+			{
+				//subtree not exited, but it will transition to other states
+				this->m_subTree->abort(pAgent);
+			}
+
 			result = BT_SUCCESS;
 		}
 

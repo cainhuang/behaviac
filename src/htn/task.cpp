@@ -44,7 +44,7 @@ namespace behaviac
             {
                 if (!StringUtils::IsNullOrEmpty(p.value))
                 {
-                    CMethodBase* m = Action::LoadMethod(p.value);
+                    behaviac::CMethodBase* m = Action::LoadMethod(p.value);
                     this->m_task = (CTaskMethod*)m;
                 }//if (p.value[0] != '\0')
 

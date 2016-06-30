@@ -16,9 +16,9 @@
 
 namespace framework
 {
-	BEGIN_PROPERTIES_DESCRIPTION(Projectile)
+	BEHAVIAC_BEGIN_PROPERTIES(Projectile)
 		//
-	END_PROPERTIES_DESCRIPTION()
+	BEHAVIAC_END_PROPERTIES()
 
 	Projectile::Projectile() : GameObject()
 	{

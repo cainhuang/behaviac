@@ -71,7 +71,7 @@ namespace behaviac
         BEHAVIAC_DELETE(m_opr2_m);
     }
 
-    ////CMethodBase* LoadMethod(const char* value);
+    ////behaviac::CMethodBase* LoadMethod(const char* value);
     //Property* LoadLeft(const char* value, behaviac::string& propertyName, const char* constValue);
     //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
 
@@ -88,7 +88,7 @@ namespace behaviac
 
             if (strcmp(p.name, "Opl") == 0)
             {
-                this->m_opl = Condition::LoadLeft(p.value);
+				this->m_opl = Condition::LoadLeft(p.value, typeName);
             }
             else if (strcmp(p.name, "Operator") == 0)
             {
@@ -151,7 +151,7 @@ namespace behaviac
         this->m_typeName = typeName;
     }
 
-    bool Compute::EvaluteCompute(Agent* pAgent, const behaviac::string& typeName, Property* opl, Property* opr1, CMethodBase* opr1_m, EComputeOperator computeOperator, Property* opr2, CMethodBase* opr2_m)
+    bool Compute::EvaluteCompute(Agent* pAgent, const behaviac::string& typeName, Property* opl, Property* opr1, behaviac::CMethodBase* opr1_m, EComputeOperator computeOperator, Property* opr2, behaviac::CMethodBase* opr2_m)
     {
         bool bValid = false;
 

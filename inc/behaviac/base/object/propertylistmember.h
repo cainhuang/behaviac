@@ -26,41 +26,41 @@
 ///////////////     CONTAINER MEMBER      ///////////////
 /////////////////////////////////////////////////////////
 
-#define REGISTER_PROPERTYLIST_MEMBER(propertyName, memberName, propertyFlags, UiDescriptor) \
+#define BEHAVIAC_REGISTER_PROPERTYLIST_MEMBER(propertyName, memberName, propertyFlags, UiDescriptor) \
     { \
         DECLARE_UIWRAPPER(UiDescriptor); \
         if( localWrapper )\
         { \
             localWrapper->SetMemberName(propertyName); \
         } \
-        CMemberBase* property = NULL; \
+        behaviac::CMemberBase* property = NULL; \
         property = CPropertlyListMemberFactory< propertyFlags>::Create( &objectType::memberName, propertyName, localWrapper); \
         CTagObjectDescriptor::PushBackMember(ms_members, property); \
     }
 
 template<class ObjectType, uint32_t PropertyFlags>
-class CPropertlyListMember : public CMemberBase
+class CPropertlyListMember : public behaviac::CMemberBase
 {
 public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CPropertlyListMember);
 
     CPropertlyListMember(CPropertyList * ObjectType::* memberPtr, const char* className, const char* propertyName, UiGenericType* uiWrapper)
-        : CMemberBase(propertyName, className), m_memberPtr(memberPtr), m_uiWrapper(uiWrapper)
+        : behaviac::CMemberBase(propertyName, className), m_memberPtr(memberPtr), m_uiWrapper(uiWrapper)
     {}
 
-    CPropertlyListMember(const CPropertlyListMember& copy) : CMemberBase(copy), m_memberPtr(copy.m_memberPtr), m_uiWrapper(copy.m_uiWrapper)
+    CPropertlyListMember(const CPropertlyListMember& copy) : behaviac::CMemberBase(copy), m_memberPtr(copy.m_memberPtr), m_uiWrapper(copy.m_uiWrapper)
     {}
 
-    virtual CMemberBase* clone() const
+    virtual behaviac::CMemberBase* clone() const
     {
-        CMemberBase* p = BEHAVIAC_NEW CPropertlyListMember(*this);
+        behaviac::CMemberBase* p = BEHAVIAC_NEW CPropertlyListMember(*this);
 
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const ISerializableNode* node)
+    virtual void Load(behaviac::CTagObject* parent, const ISerializableNode* node)
     {
-        if ((PropertyFlags & EPersistenceType_Description_Load) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_Description_Load) && ObjectType::IsOfMyKind(parent))
         {
             CPropertyList* propList = ((ObjectType*)parent)->*m_memberPtr;
 
@@ -71,9 +71,9 @@ public:
         }
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const behaviac::CTagObject* parent, ISerializableNode* node)
     {
-        if ((PropertyFlags & EPersistenceType_Description_Save) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_Description_Save) && ObjectType::IsOfMyKind(parent))
         {
             CPropertyList* propList = ((ObjectType*)parent)->*m_memberPtr;
 
@@ -84,27 +84,27 @@ public:
         }
     }
 
-    virtual void LoadState(CTagObject* parent, const ISerializableNode* node)
+    virtual void LoadState(behaviac::CTagObject* parent, const ISerializableNode* node)
     {
-        if ((PropertyFlags & EPersistenceType_State_Load) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_State_Load) && ObjectType::IsOfMyKind(parent))
         {
             CPropertyList* propList = ((ObjectType*)parent)->*m_memberPtr;
             propList->Load(node);
         }
     }
 
-    virtual void SaveState(const CTagObject* parent, ISerializableNode* node)
+    virtual void SaveState(const behaviac::CTagObject* parent, ISerializableNode* node)
     {
-        if ((PropertyFlags & EPersistenceType_State_Save) && ObjectType::IsOfMyKind(parent))
+        if ((PropertyFlags & behaviac::EPersistenceType_State_Save) && ObjectType::IsOfMyKind(parent))
         {
             CPropertyList* propList = ((ObjectType*)parent)->*m_memberPtr;
             propList->Save(node);
         }
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
+    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
-        if (types == NULL && (PropertyFlags & EPersistenceType_UiInfo) && ObjectType::IsOfMyKind(parent))
+        if (types == NULL && (PropertyFlags & behaviac::EPersistenceType_UiInfo) && ObjectType::IsOfMyKind(parent))
         {
             const CPropertyListDescriptor& descriptor = (((ObjectType*)parent)->*m_memberPtr)->GetDescriptor();
 
@@ -134,7 +134,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         XmlNodeRef childNode = xmlNode;
 
@@ -155,7 +155,7 @@ template <uint32_t PropertyFlags>
 struct CPropertlyListMemberFactory
 {
     template<class ObjectType>
-    static CMemberBase* Create(CPropertyList * ObjectType::* memberPtr, const char* propertyName, UiGenericType* uiWrapper)
+    static behaviac::CMemberBase* Create(CPropertyList * ObjectType::* memberPtr, const char* propertyName, UiGenericType* uiWrapper)
     {
         typedef CPropertlyListMember<ObjectType, PropertyFlags> MemberType;
         return BEHAVIAC_NEW MemberType(memberPtr, propertyName, uiWrapper);

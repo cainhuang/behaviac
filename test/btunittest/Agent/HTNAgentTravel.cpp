@@ -26,17 +26,17 @@ HTNAgentTravel::~HTNAgentTravel()
 {
 }
 
-BEGIN_PROPERTIES_DESCRIPTION(HTNAgentTravel)
+BEHAVIAC_BEGIN_PROPERTIES(HTNAgentTravel)
 {
-    //CLASS_DISPLAYNAME(L"HTNAgentTravel DisplayName")
-    //CLASS_DESC(L"HTNAgentTravel Desc")
-    REGISTER_METHOD(ride_taxi);
-    REGISTER_METHOD(fly);
-    REGISTER_METHOD(exist_start);
-    REGISTER_METHOD(exist_finish);
-    REGISTER_METHOD(short_distance);
-    REGISTER_METHOD(long_distance);
-    REGISTER_METHOD(exist_airport);
-    REGISTER_METHOD(exist_airports);
+    //BEHAVIAC_CLASS_DISPLAYNAME(L"HTNAgentTravel DisplayName")
+    //BEHAVIAC_CLASS_DESC(L"HTNAgentTravel Desc")
+    BEHAVIAC_REGISTER_METHOD(ride_taxi);
+    BEHAVIAC_REGISTER_METHOD(fly);
+    BEHAVIAC_REGISTER_METHOD(exist_start);
+    BEHAVIAC_REGISTER_METHOD(exist_finish);
+    BEHAVIAC_REGISTER_METHOD(short_distance);
+    BEHAVIAC_REGISTER_METHOD(long_distance);
+    BEHAVIAC_REGISTER_METHOD(exist_airport);
+    BEHAVIAC_REGISTER_METHOD(exist_airports);
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()

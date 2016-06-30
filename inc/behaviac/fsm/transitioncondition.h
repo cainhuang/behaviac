@@ -42,7 +42,6 @@ namespace behaviac
 
     public:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
-
     protected:
         virtual BehaviorTask* createTask() const
         {

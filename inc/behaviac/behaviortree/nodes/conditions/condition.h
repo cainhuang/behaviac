@@ -52,27 +52,27 @@ namespace behaviac
             ComparatorCreators().erase(typeName);
         }
     public:
-        static VariableComparator* Create(const char* typeName, const char* comparionOperator, Property* lhs, CMethodBase* lhs_m, Property* rhs, CMethodBase* rhs_m);
+        static VariableComparator* Create(const char* typeName, const char* comparionOperator, Property* lhs, behaviac::CMethodBase* lhs_m, Property* rhs, behaviac::CMethodBase* rhs_m);
 
         static void Cleanup();
 
-        static Property* LoadLeft(const char* value);
+        static Property* LoadLeft(const char* value, behaviac::string& typeName);
         static Property* LoadRight(const char* value, behaviac::string& typeName);
         static Property* ParseProperty(const char* value, behaviac::string& typeName);
 
     private:
         template<typename T>
         static VariableComparator* _Creator(E_VariableComparisonType comparisonType,
-                                            const Property* lhs, const CMethodBase* lhs_m, const Property* rhs, const CMethodBase* rhs_m)
+                                            const Property* lhs, const behaviac::CMethodBase* lhs_m, const Property* rhs, const behaviac::CMethodBase* rhs_m)
         {
             typedef VariableComparatorImpl<T> VariableComparatorType;
             VariableComparatorType* pComparator = BEHAVIAC_NEW VariableComparatorType;
             pComparator->SetType(comparisonType);
-            pComparator->SetProperty(const_cast<Property*>(lhs), const_cast<CMethodBase*>(lhs_m), const_cast<Property*>(rhs), const_cast<CMethodBase*>(rhs_m));
+            pComparator->SetProperty(const_cast<Property*>(lhs), const_cast<behaviac::CMethodBase*>(lhs_m), const_cast<Property*>(rhs), const_cast<behaviac::CMethodBase*>(rhs_m));
             return pComparator;
         }
 
-        typedef VariableComparator* VariableComparatorCreator(E_VariableComparisonType comparisonType, const Property* lhs, const CMethodBase* lhs_m, const Property* rhs, const CMethodBase* rhs_m);
+        typedef VariableComparator* VariableComparatorCreator(E_VariableComparisonType comparisonType, const Property* lhs, const behaviac::CMethodBase* lhs_m, const Property* rhs, const behaviac::CMethodBase* rhs_m);
         typedef behaviac::map<behaviac::string, VariableComparatorCreator*> VariableComparators;
         typedef VariableComparators::iterator VariableComparatorIterator;
         static VariableComparators* ms_comparatorCreators;
@@ -94,9 +94,9 @@ namespace behaviac
 
     protected:
         Property*			m_opl;
-        CMethodBase*		m_opl_m;
+        behaviac::CMethodBase*		m_opl_m;
         Property*			m_opr;
-        CMethodBase*		m_opr_m;
+        behaviac::CMethodBase*		m_opr_m;
         VariableComparator* m_comparator;
 
         friend class ConditionTask;

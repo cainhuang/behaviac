@@ -39,7 +39,7 @@ namespace behaviac
         virtual ~Assignment();
         virtual void load(int version, const char* agentType, const properties_t& properties);
 
-        static bool EvaluteAssignment(const Agent* pAgent, Property* opl, Property* opr, CMethodBase* opr_m);
+        static bool EvaluteAssignment(const Agent* pAgent, Property* opl, Property* opr, behaviac::CMethodBase* opr_m);
 
     protected:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
@@ -50,7 +50,7 @@ namespace behaviac
     protected:
         Property*			m_opl;
         Property*			m_opr;
-        CMethodBase*		m_opr_m;
+        behaviac::CMethodBase*		m_opr_m;
 
         friend class AssignmentTask;
     };

@@ -34,7 +34,7 @@ namespace behaviac
     protected:
         Property* m_opl;
         Property* m_opr;
-        CMethodBase* m_opr_m;
+        behaviac::CMethodBase* m_opr_m;
     public:
         virtual bool decompose(BehaviorNode* node, PlannerTaskComplex* seqTask, int depth, Planner* planner);
 

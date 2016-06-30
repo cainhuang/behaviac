@@ -255,6 +255,7 @@ namespace behaviac
 
             protected override void onexit(Agent pAgent, EBTStatus s)
             {
+                Workspace.Instance.DestroyBehaviorTreeTask(this.m_subTree, pAgent);
                 this.m_subTree = null;
 
 #if BEHAVIAC_USE_HTN
@@ -284,6 +285,12 @@ namespace behaviac
 
                 if (bTransitioned)
                 {
+                    if (result == EBTStatus.BT_RUNNING)
+                    {
+                        //subtree not exited, but it will transition to other states
+                        this.m_subTree.abort(pAgent);
+                    }
+
                     result = EBTStatus.BT_SUCCESS;
                 }
 

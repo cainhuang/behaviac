@@ -649,10 +649,10 @@
     <value>更新</value>
   </data>
   <data name="TransitionCondition" xml:space="preserve">
-    <value>转换</value>
+    <value>条件转换</value>
   </data>
   <data name="TransitionConditionDesc" xml:space="preserve">
-    <value>转换</value>
+    <value>当条件为真时，跳转到指定的状态</value>
   </data>
   <data name="TaskPrototype" xml:space="preserve">
     <value>任务</value>
@@ -802,5 +802,17 @@
   </data>
   <data name="DoneWithinFrameDesc" xml:space="preserve">
     <value>如果被选中，该循环被阻塞，循环在一帧内结束。否则该循环在该帧只是返回‘running’，直到循环结束才返回‘成功’</value>
+  </data>
+  <data name="StatusTransition" xml:space="preserve">
+    <value>状态转换</value>
+  </data>
+  <data name="StatusTransitionDesc" xml:space="preserve">
+    <value>当状态节点是子树时，可以添加状态转换附件，根据子树的返回状态决定是否转换</value>
+  </data>
+  <data name="TransitionPhase" xml:space="preserve">
+    <value>转换时机</value>
+  </data>
+  <data name="TransitionPhaseDesc" xml:space="preserve">
+    <value>转换时机</value>
   </data>
 </root>

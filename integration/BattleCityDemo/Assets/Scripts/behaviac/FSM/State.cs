@@ -136,7 +136,7 @@ namespace behaviac
                 {
                     Transition transition = transitions[i];
 
-                    if (transition.Evaluate(pAgent))
+                    if (transition.Evaluate(pAgent, result))
                     {
                         nextStateId = transition.TargetStateId;
                         Debug.Check(nextStateId != -1);

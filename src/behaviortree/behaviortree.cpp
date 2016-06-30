@@ -85,12 +85,12 @@ namespace behaviac
     //keep this version equal to designers' NewVersion
     const int SupportedVersion = 5;
 
-    BEGIN_PROPERTIES_DESCRIPTION(BehaviorTree::Descriptor_t);
+    BEHAVIAC_BEGIN_PROPERTIES(BehaviorTree::Descriptor_t);
     {
-        REGISTER_PROPERTY(Descriptor);
-        REGISTER_PROPERTY(Reference);
+        BEHAVIAC_REGISTER_PROPERTY(Descriptor);
+        BEHAVIAC_REGISTER_PROPERTY(Reference);
     }
-    END_PROPERTIES_DESCRIPTION();
+    BEHAVIAC_END_PROPERTIES();
 
     CFactory<BehaviorNode>* BehaviorNode::ms_factory;
     CFactory<BehaviorNode>& BehaviorNode::Factory()
@@ -527,7 +527,7 @@ namespace behaviac
         this->m_customCondition = node;
     }
 
-    //CMethodBase* LoadMethod(const char* value_);
+    //behaviac::CMethodBase* LoadMethod(const char* value_);
 
     bool BehaviorNode::IsValid(Agent* pAgent, BehaviorTask* pTask) const
     {

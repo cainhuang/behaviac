@@ -22,10 +22,19 @@ namespace behaviac
 {
 	class BEHAVIAC_API AlwaysTransition : public Transition
     {
+	protected:
+		enum ETransitionPhase
+		{
+			ETP_Always,
+			ETP_Success,
+			ETP_Failure,
+			ETP_Exit,
+		};
+
     public:
 		BEHAVIAC_DECLARE_DYNAMIC_TYPE(AlwaysTransition, Transition);
 
-        AlwaysTransition()
+		AlwaysTransition() : m_transitionPhase(ETP_Always)
         {
         }
         virtual ~AlwaysTransition()
@@ -37,11 +46,14 @@ namespace behaviac
     protected:
         virtual void load(int version, const char* agentType, const properties_t& properties);
 		virtual bool Evaluate(Agent* pAgent);
+		virtual bool Evaluate(Agent* pAgent, EBTStatus status);
         virtual BehaviorTask* createTask() const
         {
             BEHAVIAC_ASSERT(false);
             return NULL;
         }
+
+		ETransitionPhase m_transitionPhase;
     };
 
 }

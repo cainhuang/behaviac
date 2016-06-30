@@ -28,12 +28,56 @@ namespace behaviac
     void AlwaysTransition::load(int version, const char* agentType, const properties_t& properties)
     {
         super::load(version, agentType, properties);
+
+		for (propertie_const_iterator_t p = properties.begin(); p != properties.end(); ++p)
+		{
+
+			if (StringUtils::StrEqual(p->name, "TransitionPhase"))
+			{
+				if (StringUtils::StrEqual(p->value, "ETP_Exit"))
+				{
+					this->m_transitionPhase = ETP_Exit;
+				}
+				else if (StringUtils::StrEqual(p->value, "ETP_Success"))
+				{
+					this->m_transitionPhase = ETP_Success;
+				}
+				else if (StringUtils::StrEqual(p->value, "ETP_Failure"))
+				{
+					this->m_transitionPhase = ETP_Failure;
+				}
+				else if (StringUtils::StrEqual(p->value, "ETP_Always"))
+				{
+					this->m_transitionPhase = ETP_Always;
+				}
+				else
+				{
+					BEHAVIAC_ASSERT(false);
+				}
+			}
+		}
     }
 
 	bool AlwaysTransition::Evaluate(Agent* pAgent)
 	{
-        BEHAVIAC_UNUSED_VAR(pAgent);
-        
-		return true;
+		return super::Evaluate(pAgent);
+	}
+
+	bool AlwaysTransition::Evaluate(Agent* pAgent, EBTStatus status)
+	{
+		if (this->m_transitionPhase == ETP_Always)
+		{
+			return true;
+		}
+		else if (status == BT_SUCCESS && (this->m_transitionPhase == ETP_Success || this->m_transitionPhase == ETP_Exit))
+		{
+			return true;
+		}
+		else if (status == BT_FAILURE && (this->m_transitionPhase == ETP_Failure || this->m_transitionPhase == ETP_Exit))
+		{
+			return true;
+		}
+
+		return false;
 	}
 }

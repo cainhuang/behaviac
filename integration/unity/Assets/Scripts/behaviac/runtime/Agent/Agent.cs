@@ -317,7 +317,12 @@ namespace behaviac
         public string GetName()
         {
 #if !BEHAVIAC_RELEASE
-            return this.m_debug_name;
+            if (!string.IsNullOrEmpty(this.m_debug_name))
+            {
+                return this.m_debug_name;
+            }
+
+            return this.name;
 #else
             return this.name;
 #endif
@@ -1264,8 +1269,9 @@ namespace behaviac
         }
 
 #if !BEHAVIAC_RELEASE
+        public int m_debug_in_exec;
         public int m_debug_count;
-        private const int kAGENT_DEBUG_VERY = 0x01010101;
+        //private const int kAGENT_DEBUG_VERY = 0x01010101;
 #endif//#if !BEHAVIAC_RELEASE
 
         protected static void Init_(int contextId, Agent pAgent, int priority)
@@ -1281,6 +1287,8 @@ namespace behaviac
             Context.AddAgent(pAgent);
 
 #if !BEHAVIAC_RELEASE
+            pAgent.m_debug_in_exec = 0;
+
             string agentClassName = pAgent.GetClassTypeName();
             string instanceName = pAgent.GetName();
 
@@ -1517,6 +1525,7 @@ namespace behaviac
                 Profiler.BeginSample("btexec");
 
 #if !BEHAVIAC_RELEASE
+                this.m_debug_in_exec = 1;
                 this.m_debug_count = 0;
 #endif
 
@@ -1534,6 +1543,10 @@ namespace behaviac
                 }
 
                 Profiler.EndSample();
+
+#if !BEHAVIAC_RELEASE
+                this.m_debug_in_exec = 0;
+#endif
 
                 return s;
             }
@@ -1767,6 +1780,9 @@ namespace behaviac
                     IMethod e = meta.GetMethod(eventId);
                     if (e != null)
                     {
+#if !BEHAVIAC_RELEASE
+                        Debug.Check(this.m_debug_in_exec == 0, "FireEvent should not be called during the Agent is in btexec");
+#endif
                         this.m_currentBT.onevent(this, btEvent, eventParams);
                     }
                     else

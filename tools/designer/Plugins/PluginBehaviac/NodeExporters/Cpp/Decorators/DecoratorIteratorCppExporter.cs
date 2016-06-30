@@ -40,13 +40,13 @@ namespace PluginBehaviac.NodeExporters
 
             if (iterator.Opl != null || iterator.Opr != null)
             {
+                stream.WriteLine("{0}\t\t\tbehaviac::string typeName;", indent);
+
                 if (iterator.Opl != null)
                 {
-                    stream.WriteLine("{0}\t\t\tthis->m_opl = Condition::LoadLeft(\"{1}\");", indent, iterator.Opl.GetExportValue());
+                    stream.WriteLine("{0}\t\t\tthis->m_opl = Condition::LoadLeft(\"{1}\", typeName);", indent, iterator.Opl.GetExportValue());
                     stream.WriteLine("{0}\t\t\tBEHAVIAC_ASSERT(this->m_opl != NULL);", indent);
                 }
-
-                stream.WriteLine("{0}\t\t\tbehaviac::string typeName;", indent);
 
                 if (iterator.Opr != null)
                 {

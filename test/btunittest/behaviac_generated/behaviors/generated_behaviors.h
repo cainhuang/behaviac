@@ -5703,9 +5703,9 @@ namespace behaviac
 		DecoratorIterator_bt_node_test_htn_travel_travel_by_air_node5()
 		{
 			m_bDecorateWhenChildEnds = false;
-			this->m_opl = Condition::LoadLeft("int Self.HTNAgentTravel::ax");
-			BEHAVIAC_ASSERT(this->m_opl != NULL);
 			behaviac::string typeName;
+			this->m_opl = Condition::LoadLeft("int Self.HTNAgentTravel::ax", typeName);
+			BEHAVIAC_ASSERT(this->m_opl != NULL);
 			this->m_opr = Condition::LoadRight("vector<int> Self.HTNAgentTravel::as", typeName);
 			BEHAVIAC_ASSERT(this->m_opr != NULL);
 		}
@@ -16089,6 +16089,115 @@ namespace behaviac
 #endif
 					node0->AddChild(node7);
 					node0->SetHasEvents(node0->HasEvents() | node7->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
+			}
+			return true;
+		}
+	};
+
+	// Source file: node_test/event_ut_3
+
+	class DecoratorLoop_bt_node_test_event_ut_3_node0 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_node_test_event_ut_3_node0, DecoratorLoop);
+		DecoratorLoop_bt_node_test_event_ut_3_node0()
+		{
+			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = false;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return -1;
+		}
+	};
+
+	class Event_bt_node_test_event_ut_3_attach1 : public Event
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Event_bt_node_test_event_ut_3_attach1, Event);
+		Event_bt_node_test_event_ut_3_attach1()
+		{
+		}
+	public:
+		void Initialize(const char* eventName, const char* referencedBehavior, TriggerMode mode, bool once)
+		{
+			this->m_event = Action::LoadMethod(eventName);
+			this->m_referencedBehaviorPath = referencedBehavior;
+			this->m_triggerMode = mode;
+			this->m_bTriggeredOnce = once;
+		}
+	};
+
+	class ReferencedBehavior_bt_node_test_event_ut_3_node2 : public ReferencedBehavior
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(ReferencedBehavior_bt_node_test_event_ut_3_node2, ReferencedBehavior);
+		ReferencedBehavior_bt_node_test_event_ut_3_node2()
+		{
+			const char* szTreePath = this->GetReferencedTree(0);
+			if (szTreePath) {
+			BehaviorTree* behaviorTree = Workspace::GetInstance()->LoadBehaviorTree(szTreePath);
+			BEHAVIAC_ASSERT(behaviorTree);
+			if (behaviorTree)
+			{
+				this->m_bHasEvents |= behaviorTree->HasEvents();
+			}
+			}
+		}
+	protected:
+		virtual const char* GetReferencedTree(const Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return (char*)("node_test/if_else_ut_0");
+		}
+	};
+
+	class bt_node_test_event_ut_3
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("node_test/event_ut_3");
+			pBT->SetIsFSM(false);
+#if !BEHAVIAC_RELEASE
+			pBT->SetAgentType("AgentNodeTest");
+#endif
+			// children
+			{
+				DecoratorLoop_bt_node_test_event_ut_3_node0* node0 = BEHAVIAC_NEW DecoratorLoop_bt_node_test_event_ut_3_node0;
+				node0->SetClassNameString("DecoratorLoop");
+				node0->SetId(0);
+#if !BEHAVIAC_RELEASE
+				node0->SetAgentType("AgentNodeTest");
+#endif
+				// attachments
+				{
+					Event_bt_node_test_event_ut_3_attach1* attach1 = BEHAVIAC_NEW Event_bt_node_test_event_ut_3_attach1;
+					attach1->SetClassNameString("Event");
+					attach1->SetId(1);
+#if !BEHAVIAC_RELEASE
+					attach1->SetAgentType("AgentNodeTest");
+#endif
+					attach1->Initialize("Self.AgentNodeTest::event_test_void()", "node_test/event_subtree_0", TM_Transfer, false);
+					node0->Attach(attach1, false, false, false);
+					node0->SetHasEvents(node0->HasEvents() | (Event::DynamicCast(attach1) != 0));
+				}
+				pBT->AddChild(node0);
+				{
+					ReferencedBehavior_bt_node_test_event_ut_3_node2* node2 = BEHAVIAC_NEW ReferencedBehavior_bt_node_test_event_ut_3_node2;
+					node2->SetClassNameString("ReferencedBehavior");
+					node2->SetId(2);
+#if !BEHAVIAC_RELEASE
+					node2->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node2);
+					node0->SetHasEvents(node0->HasEvents() | node2->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}
@@ -35302,6 +35411,7 @@ namespace behaviac
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/event_ut_0", bt_node_test_event_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/event_ut_1", bt_node_test_event_ut_1::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/event_ut_2", bt_node_test_event_ut_2::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/event_ut_3", bt_node_test_event_ut_3::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/frames_ut_0", bt_node_test_frames_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/if_else_ut_0", bt_node_test_if_else_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/if_else_ut_1", bt_node_test_if_else_ut_1::Create);

@@ -37,7 +37,7 @@
         <property ResultOption="BT_SUCCESS" />
       </node>
       <node class="Action" id="17">
-        <property Method="Self.EmployeeParTestAgent::Func_AgentListRef(behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" />
+        <property Method="Self.EmployeeParTestAgent::Func_AgentListRef(vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" />
         <property ResultOption="BT_SUCCESS" />
       </node>
       <node class="Action" id="2">
@@ -103,7 +103,7 @@
         <property ResultOption="BT_SUCCESS" />
       </node>
       <node class="Action" id="19">
-        <property Method="Self.ParTestAgent::Func_kEmployeeListRef(behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0)" />
+        <property Method="Self.ParTestAgent::Func_kEmployeeListRef(vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0)" />
         <property ResultOption="BT_SUCCESS" />
       </node>
       <node class="Action" id="20">

@@ -29,7 +29,7 @@ namespace behaviac
     }
 
     //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
-    //CMethodBase* LoadMethod(const char* value);
+    //behaviac::CMethodBase* LoadMethod(const char* value);
 
     void WaitFrames::load(int version, const char* agentType, const properties_t& properties)
     {

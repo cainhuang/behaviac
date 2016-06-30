@@ -113,15 +113,15 @@ namespace behaviac
 }
 
 //add the following to a cpp
-//BEGIN_PROPERTIES_DESCRIPTION(myFloat2)
+//BEHAVIAC_BEGIN_PROPERTIES(myFloat2)
 //{
-//	CLASS_DISPLAYNAME(L"")
-//	CLASS_DESC(L"")
+//	BEHAVIAC_CLASS_DISPLAYNAME(L"")
+//	BEHAVIAC_CLASS_DESC(L"")
 //
-//	REGISTER_PROPERTY(x);
-//	REGISTER_PROPERTY(y);
+//	BEHAVIAC_REGISTER_PROPERTY(x);
+//	BEHAVIAC_REGISTER_PROPERTY(y);
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 
 //add the following to register/unregister
 //behaviac::TypeRegister::Register<TestNS::Float2>("TestNS::Float2");

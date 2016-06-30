@@ -1,3 +1,11 @@
+2016-06-30	3.5.5
+    refactor Compare and Compute to avoid Expression Lamda for bugs on iOS
+    refine referencebehavior to avoid possible memory leak
+    fix bug in compute when right side is function 
+    FireEvent can't be called when btexec
+    transition refined to support transition when success/failure/exit
+    add BEHAVIAC_ prefix for macros and add in behaviac namespace 
+
 2016-06-23	3.5.4
     DoneWithinFrame added to replace repeat
     fix bug in DecoratorLoop for cpp/c# format

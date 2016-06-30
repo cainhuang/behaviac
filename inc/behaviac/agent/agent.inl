@@ -384,7 +384,7 @@ namespace behaviac
     {
         static const VariableType* Get(const AgentState& variables, const Agent* pAgent, Property* pProperty, uint32_t variableId)
         {
-            const CMemberBase* pMember = pProperty != 0 ? pProperty->GetMember() : 0;
+            const behaviac::CMemberBase* pMember = pProperty != 0 ? pProperty->GetMember() : 0;
             return variables.Get<VariableType>(pAgent, true, pMember, variableId);
         }
     };
@@ -470,7 +470,7 @@ namespace behaviac
     template<typename VariableType, bool bRefType>
     struct VariableSettterDispatcher
     {
-        static void Set(AgentState& variables, bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t variableId)
+        static void Set(AgentState& variables, bool bMemberSet, Agent* pAgent, bool bLocal, const behaviac::CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t variableId)
         {
             variables.Set(bMemberSet, pAgent, bLocal, pMember, variableName, value, variableId);
         }
@@ -479,7 +479,7 @@ namespace behaviac
     template<typename VariableType>
     struct VariableSettterDispatcher<VariableType, true>
     {
-        static void Set(AgentState& variables, bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t variableId)
+        static void Set(AgentState& variables, bool bMemberSet, Agent* pAgent, bool bLocal, const behaviac::CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t variableId)
         {
             variables.Set(bMemberSet, pAgent, bLocal, pMember, variableName, (void*)value, variableId);
         }
@@ -520,11 +520,11 @@ namespace behaviac
 
     BEHAVIAC_FORCEINLINE bool Agent::Invoke(Agent* pAgent, const char* methodName)
     {
-        const CMethodBase* pMethod = Agent::FindMethodBase(methodName);
+        const behaviac::CMethodBase* pMethod = Agent::FindMethodBase(methodName);
 
         if (pMethod)
         {
-            const_cast<CMethodBase*>(pMethod)->vCall(pAgent);
+            const_cast<behaviac::CMethodBase*>(pMethod)->vCall(pAgent);
             return true;
         }
 
@@ -534,11 +534,11 @@ namespace behaviac
     template <typename P1>
     BEHAVIAC_FORCEINLINE bool Agent::Invoke(Agent* pAgent, const char* methodName, P1 p1)
     {
-        const CMethodBase* pMethod = Agent::FindMethodBase(methodName);
+        const behaviac::CMethodBase* pMethod = Agent::FindMethodBase(methodName);
 
         if (pMethod)
         {
-            const_cast<CMethodBase*>(pMethod)->vCall(pAgent, &p1);
+            const_cast<behaviac::CMethodBase*>(pMethod)->vCall(pAgent, &p1);
             return true;
         }
 
@@ -548,11 +548,11 @@ namespace behaviac
     template <typename P1, typename P2>
     BEHAVIAC_FORCEINLINE bool Agent::Invoke(Agent* pAgent, const char* methodName, P1 p1, P2 p2)
     {
-        const CMethodBase* pMethod = Agent::FindMethodBase(methodName);
+        const behaviac::CMethodBase* pMethod = Agent::FindMethodBase(methodName);
 
         if (pMethod)
         {
-            const_cast<CMethodBase*>(pMethod)->vCall(pAgent, &p1, &p2);
+            const_cast<behaviac::CMethodBase*>(pMethod)->vCall(pAgent, &p1, &p2);
             return true;
         }
 
@@ -562,11 +562,11 @@ namespace behaviac
     template <typename P1, typename P2, typename P3>
     BEHAVIAC_FORCEINLINE bool Agent::Invoke(Agent* pAgent, const char* methodName, P1 p1, P2 p2, P3 p3)
     {
-        const CMethodBase* pMethod = Agent::FindMethodBase(methodName);
+        const behaviac::CMethodBase* pMethod = Agent::FindMethodBase(methodName);
 
         if (pMethod)
         {
-            const_cast<CMethodBase*>(pMethod)->vCall(pAgent, &p1, &p2, &p3);
+            const_cast<behaviac::CMethodBase*>(pMethod)->vCall(pAgent, &p1, &p2, &p3);
             return true;
         }
 
@@ -576,11 +576,11 @@ namespace behaviac
     template <typename R>
     bool Agent::GetInvokeReturn(Agent* pAgent, const char* methodName, R& returnValue)
     {
-        const CMethodBase* pMethod = Agent::FindMethodBase(methodName);
+        const behaviac::CMethodBase* pMethod = Agent::FindMethodBase(methodName);
 
         if (pMethod)
         {
-            const_cast<CMethodBase*>(pMethod)->GetReturnValue(pAgent, returnValue);
+            const_cast<behaviac::CMethodBase*>(pMethod)->GetReturnValue(pAgent, returnValue);
             return true;
         }
 
@@ -615,8 +615,8 @@ namespace behaviac
         {
             const char* baseTypeFullName = TAGENT::super::GetClassTypeName();
 
-            //filter out CTagObject
-            if (string_icmp(baseTypeFullName, "CTagObject") == 0)
+            //filter out behaviac::CTagObject
+            if (string_icmp(baseTypeFullName, "behaviac::CTagObject") == 0)
             {
                 baseTypeFullName = 0;
             }
@@ -696,7 +696,7 @@ namespace behaviac
     }
 
     template<typename VariableType>
-    BEHAVIAC_FORCEINLINE void Agent::SetVariableRegistry(bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, const char* staticClassName, uint32_t varableId)
+    BEHAVIAC_FORCEINLINE void Agent::SetVariableRegistry(bool bLocal, const behaviac::CMemberBase* pMember, const char* variableName, const VariableType& value, const char* staticClassName, uint32_t varableId)
     {
         bool bValidName = variableName && variableName[0] != '\0';
 
@@ -718,7 +718,7 @@ namespace behaviac
     }
 
     template <typename VariableType>
-    BEHAVIAC_FORCEINLINE const VariableType* Agent::GetVariableRegistry(const char* staticClassName, const CMemberBase* pMember, uint32_t variableId) const
+    BEHAVIAC_FORCEINLINE const VariableType* Agent::GetVariableRegistry(const char* staticClassName, const behaviac::CMemberBase* pMember, uint32_t variableId) const
     {
         const VariableType* val = NULL;
 
@@ -746,7 +746,7 @@ namespace behaviac
         //BEHAVIAC_ASSERT(this->m_changed);
 
         behaviac::string valueStr = StringUtils::ToString(this->m_value);
-        behaviac::string typeName = ::GetClassTypeName((VariableType*)0);
+        behaviac::string typeName = GetClassTypeName((VariableType*)0);
 
         behaviac::string full_name = this->m_name;
 
@@ -770,7 +770,7 @@ namespace behaviac
         //to skip class name
         const char* variableNameOnly = GetNameWithoutClassName(variableName);
 
-        const CMemberBase* pMember = pAgent->FindMember(variableNameOnly);
+        const behaviac::CMemberBase* pMember = pAgent->FindMember(variableNameOnly);
 
         uint32_t varId = MakeVariableId(variableNameOnly);
         Variables_t::iterator it = this->m_variables.find(varId);
@@ -784,7 +784,7 @@ namespace behaviac
     }
 
     template<typename VariableType>
-    void Variables::Set(bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId)
+    void Variables::Set(bool bMemberSet, Agent* pAgent, bool bLocal, const behaviac::CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId)
     {
         BEHAVIAC_UNUSED_VAR(bMemberSet);
         BEHAVIAC_UNUSED_VAR(bLocal);
@@ -839,7 +839,7 @@ namespace behaviac
     }
 
     template<typename VariableType>
-    const VariableType*  Variables::Get(const Agent* pAgent, bool bMemberGet, const CMemberBase* pMember, uint32_t varId) const
+    const VariableType*  Variables::Get(const Agent* pAgent, bool bMemberGet, const behaviac::CMemberBase* pMember, uint32_t varId) const
     {
         typedef TVariable<VariableType> VariableTypeType;
 
@@ -849,7 +849,7 @@ namespace behaviac
             {
                 if (pMember != NULL)
                 {
-                    int typeId = ::GetClassTypeNumberId<VariableType>();
+                    int typeId = GetClassTypeNumberId<VariableType>();
                     //BEHAVIAC_ASSERT(typeId == pMember->GetTypeId());
                     const void* val = pMember->Get(pAgent, typeId);
                     return (const VariableType*)val;
@@ -886,7 +886,7 @@ namespace behaviac
     }
 
     template<typename VariableType>
-    void TVariable<VariableType>::SetFromString(Agent* pAgent, const CMemberBase* pMember, const char* valueString)
+    void TVariable<VariableType>::SetFromString(Agent* pAgent, const behaviac::CMemberBase* pMember, const char* valueString)
     {
         if (valueString)
         {
@@ -903,7 +903,7 @@ namespace behaviac
 
                     if (pMember)
                     {
-                        int typeId = ::GetClassTypeNumberId<VariableType>();
+                        int typeId = GetClassTypeNumberId<VariableType>();
 
                         if (pMember && typeId == pMember->GetTypeId())
                         {
@@ -917,7 +917,7 @@ namespace behaviac
 
 
     template<typename VariableType>
-    void AgentState::Set(bool bMemberSet, Agent* pAgent, bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId)
+    void AgentState::Set(bool bMemberSet, Agent* pAgent, bool bLocal, const behaviac::CMemberBase* pMember, const char* variableName, const VariableType& value, uint32_t varId)
     {
         //if (variableName == "DirtyRooms")
         //{
@@ -958,7 +958,7 @@ namespace behaviac
     }
 
     template<typename VariableType>
-    const VariableType* AgentState::Get(const Agent* pAgent, bool bMemberGet, const CMemberBase* pMember, uint32_t varId) const
+    const VariableType* AgentState::Get(const Agent* pAgent, bool bMemberGet, const behaviac::CMemberBase* pMember, uint32_t varId) const
     {
         if (this->state_stack.size() > 0)
         {
@@ -974,7 +974,7 @@ namespace behaviac
             }
         }
 
-        //CTagObject* result1 = Variables::Get(pAgent, bMemberGet, pMember, varId);
+        //behaviac::CTagObject* result1 = Variables::Get(pAgent, bMemberGet, pMember, varId);
 
         const VariableType* result1 = Variables::Get<VariableType>(pAgent, bMemberGet, pMember, varId); //(pAgent, bMemberGet, pMember, varId);
         return result1;

@@ -25,17 +25,17 @@ PreconEffectorAgent::~PreconEffectorAgent()
 {
 }
 
-BEGIN_PROPERTIES_DESCRIPTION(PreconEffectorAgent)
+BEHAVIAC_BEGIN_PROPERTIES(PreconEffectorAgent)
 {
-    //CLASS_DISPLAYNAME(L"PreconEffectorAgent DisplayName")
-    //CLASS_DESC(L"PreconEffectorAgent Desc")
+    //BEHAVIAC_CLASS_DISPLAYNAME(L"PreconEffectorAgent DisplayName")
+    //BEHAVIAC_CLASS_DESC(L"PreconEffectorAgent Desc")
 
-    REGISTER_PROPERTY(count_success);
-    REGISTER_PROPERTY(count_failure);
-    REGISTER_PROPERTY(count_both);
-    REGISTER_PROPERTY(ret);
+    BEHAVIAC_REGISTER_PROPERTY(count_success);
+    BEHAVIAC_REGISTER_PROPERTY(count_failure);
+    BEHAVIAC_REGISTER_PROPERTY(count_both);
+    BEHAVIAC_REGISTER_PROPERTY(ret);
 
-    REGISTER_METHOD(fn_return);
-    REGISTER_METHOD(action);
+    BEHAVIAC_REGISTER_METHOD(fn_return);
+    BEHAVIAC_REGISTER_METHOD(action);
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()

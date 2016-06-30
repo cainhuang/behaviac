@@ -47,7 +47,7 @@ namespace behaviac
             return null;
         }
 
-        public override bool Evaluate(Agent pAgent)
+        public override bool Evaluate(Agent pAgent, EBTStatus status)
     	{
 	    	return true;
         }

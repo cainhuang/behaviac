@@ -179,6 +179,32 @@ namespace BehaviorNodeUnitTest
         }
 
         [Test]
+        [Category("test_event_3")]
+        public void test_event_3()
+        {
+            testAgent.btsetcurrent("node_test/event_ut_3");
+            testAgent.resetProperties();
+
+            behaviac.EBTStatus status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            Assert.AreEqual(1, testAgent.testVar_0);
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            Assert.AreEqual(1, testAgent.testVar_0);
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+            Assert.AreEqual(1, testAgent.testVar_0);
+
+            testAgent.FireEvent("event_test_void");
+
+            Assert.AreEqual(true, testAgent.event_test_var_bool);
+
+            status = testAgent.btexec();
+            Assert.AreEqual(behaviac.EBTStatus.BT_RUNNING, status);
+        }
+
+
+        [Test]
         [Category("test_local_vars")]
         public void test_local_vars() {
             testAgent.btsetcurrent("node_test/event_ut_1");

@@ -28,7 +28,7 @@ namespace behaviac
         BEHAVIAC_DELETE(m_method);
     }
 
-    //CMethodBase* LoadMethod(const char* value);
+    //behaviac::CMethodBase* LoadMethod(const char* value);
 
     void SelectorProbability::load(int version, const char* agentType, const properties_t& properties)
     {
@@ -141,7 +141,7 @@ namespace behaviac
         this->m_activeChildIndex = CompositeTask::InvalidChildIndex;
     }
 
-    double GetRandomValue(CMethodBase* method, Agent* pAgent);
+    double GetRandomValue(behaviac::CMethodBase* method, Agent* pAgent);
 
     EBTStatus SelectorProbabilityTask::update(Agent* pAgent, EBTStatus childStatus)
     {

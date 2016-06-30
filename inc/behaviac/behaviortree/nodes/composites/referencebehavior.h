@@ -51,7 +51,7 @@ namespace behaviac
         Task*							m_taskNode;
     protected:
 		Property*		m_referencedBehaviorPath_var;
-		CMethodBase*	m_referencedBehaviorPath_m;
+		behaviac::CMethodBase*	m_referencedBehaviorPath_m;
 
         CTaskMethod*					m_taskMethod;
         behaviac::vector<Transition*>*	m_transitions;

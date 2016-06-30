@@ -133,7 +133,7 @@ namespace behaviac
         }
     }
 
-    CMethodBase* Action::LoadMethod(const char* value_)
+    behaviac::CMethodBase* Action::LoadMethod(const char* value_)
     {
         //Self.test_ns::AgentActionTest::Action2(0)
         char agentIntanceName[kNameLength];
@@ -146,7 +146,7 @@ namespace behaviac
         CStringID agentClassId(agentClassName);
         CStringID methodId(methodName);
 
-        CMethodBase* method = Agent::CreateMethod(agentClassId, methodId);
+        behaviac::CMethodBase* method = Agent::CreateMethod(agentClassId, methodId);
 
         if (!method)
         {

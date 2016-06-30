@@ -47,17 +47,17 @@ namespace behaviac
     Each agent belongs to a context, specified by a context id, the default context's id is 0.
     Agent should be created by Agent::Create<YourAgentClass>() and destroyed by Agent::Destory(pAgent).
     */
-    class BEHAVIAC_API Agent : public CTagObject
+    class BEHAVIAC_API Agent : public behaviac::CTagObject
     {
     public:
-        DECLARE_BEHAVIAC_AGENT(behaviac::Agent, CTagObject);
+        DECLARE_BEHAVIAC_AGENT(behaviac::Agent, behaviac::CTagObject);
 
         bool SaveDataToFile(const char* fileName);
         bool LoadDataFromFile(const char* fileName);
         bool SaveDataToFile(IFile* file);
         bool LoadDataFromFile(IFile* file);
         template <typename VariableType>
-        const VariableType* GetVariableRegistry(const char* staticClassName, const CMemberBase* pMember, uint32_t variableId) const;
+        const VariableType* GetVariableRegistry(const char* staticClassName, const behaviac::CMemberBase* pMember, uint32_t variableId) const;
         //bool SaveTypeToFile(IFile* file);
 
         //bool LoadTypeFromFile(IFile* file);
@@ -294,7 +294,7 @@ namespace behaviac
         if staticClassName is no null, it is for static variable
         */
         template<typename VariableType>
-        void SetVariableRegistry(bool bLocal, const CMemberBase* pMember, const char* variableName, const VariableType& value, const char* staticClassName, uint32_t varableId);
+        void SetVariableRegistry(bool bLocal, const behaviac::CMemberBase* pMember, const char* variableName, const VariableType& value, const char* staticClassName, uint32_t varableId);
 
         /**
         instantiate a variable by its name, its type(agent/par/singleton) is determined by the name
@@ -465,26 +465,26 @@ namespace behaviac
         template<typename TAGENT>
         static TAGENT* GetInstance(const char* agentInstanceName = 0, int contextId = 0);
 
-        static const CMemberBase* FindMemberBase(const char* propertyName);
-        static const CMethodBase* FindMethodBase(const char* propertyName);
+        static const behaviac::CMemberBase* FindMemberBase(const char* propertyName);
+        static const behaviac::CMethodBase* FindMethodBase(const char* propertyName);
 
-        static const CMemberBase* FindMemberBase(const CStringID& agentClassId, const CStringID& propertyId);
-        static const CMethodBase* FindMethodBase(const CStringID& agentClassId, const CStringID& propertyId);
+        static const behaviac::CMemberBase* FindMemberBase(const CStringID& agentClassId, const CStringID& propertyId);
+        static const behaviac::CMethodBase* FindMethodBase(const CStringID& agentClassId, const CStringID& propertyId);
 
         static Property* CreateProperty(const char* typeName, const char* propertyName, const char* defaultValue);
         static const CTagObjectDescriptor* GetDescriptorByName(const char* agentTypeClass);
 
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-        static CMethodBase* CreateMethod(const CStringID& agentClassId, const CStringID& methodClassId);
+        static behaviac::CMethodBase* CreateMethod(const CStringID& agentClassId, const CStringID& methodClassId);
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
 
         /**
         find the property's meta
         */
-        const CMemberBase* FindMember(const char* property_name) const;
-        const CMemberBase* FindMember(const CStringID& propertyId) const;
+        const behaviac::CMemberBase* FindMember(const char* property_name) const;
+        const behaviac::CMemberBase* FindMember(const CStringID& propertyId) const;
 #if BEHAVIAC_ENABLE_NETWORKD
         void ReplicateProperties();
 #endif//#if BEHAVIAC_ENABLE_NETWORKD
@@ -553,7 +553,7 @@ namespace behaviac
 
         static const CNamedEvent* findEventStatic(const char* eventName, const char* className, int context_id);
         static void insertEventGlobal(const char* className, CNamedEvent* pEvent, int context_id);
-        static CNamedEvent* findNamedEventTemplate(const CTagObject::MethodsContainer& methods, const char* eventName, int context_id);
+        static CNamedEvent* findNamedEventTemplate(const behaviac::CTagObject::MethodsContainer& methods, const char* eventName, int context_id);
 
         template<typename TAGENT>
         static void RegisterTypeToMetas(bool bInternal);
@@ -693,6 +693,7 @@ namespace behaviac
         int							m_debug_verify;
 public:
         int							m_debug_count;
+		int							m_debug_in_exec;
 private:
 #endif//
 
@@ -751,114 +752,117 @@ namespace behaviac
 
 #include "behaviac/base/object/method.h"
 
-template<class ObjectType>
-class CGenericMethod<behaviac::EBTStatus, ObjectType> : public CGenericMethod_R<behaviac::EBTStatus, ObjectType>
+namespace behaviac
 {
-public:
-    CGenericMethod(behaviac::EBTStatus(ObjectType::*methodPtr)(void),
-                   const char* className, const char* propertyName) : CGenericMethod_R<behaviac::EBTStatus, ObjectType>(methodPtr, className, propertyName)
-    {}
-    CGenericMethod(behaviac::EBTStatus(ObjectType::*methodPtr)(void) const,
-                   const char* className, const char* propertyName) : CGenericMethod_R<behaviac::EBTStatus, ObjectType>(methodPtr, className, propertyName)
-    {}
+	template<class ObjectType>
+	class CGenericMethod<behaviac::EBTStatus, ObjectType> : public CGenericMethod_R<behaviac::EBTStatus, ObjectType>
+	{
+	public:
+		CGenericMethod(behaviac::EBTStatus(ObjectType::*methodPtr)(void),
+			const char* className, const char* propertyName) : CGenericMethod_R<behaviac::EBTStatus, ObjectType>(methodPtr, className, propertyName)
+		{}
+		CGenericMethod(behaviac::EBTStatus(ObjectType::*methodPtr)(void) const,
+			const char* className, const char* propertyName) : CGenericMethod_R<behaviac::EBTStatus, ObjectType>(methodPtr, className, propertyName)
+		{}
 
-    virtual ~CGenericMethod()
-    {
-    }
+		virtual ~CGenericMethod()
+		{
+		}
 
-    virtual CMethodBase* clone() const
-    {
-        return BEHAVIAC_NEW CGenericMethod(*this);
-    }
+		virtual behaviac::CMethodBase* clone() const
+		{
+			return BEHAVIAC_NEW CGenericMethod(*this);
+		}
 
-    virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
-    {
-        BEHAVIAC_UNUSED_VAR(returnResult);
-        int result = (int)(((ObjectType*)parent)->*this->m_methodPtr)();
+		virtual int vRun(const behaviac::CTagObject* parent, behaviac::IAsyncValue& returnResult)
+		{
+			BEHAVIAC_UNUSED_VAR(returnResult);
+			int result = (int)(((ObjectType*)parent)->*this->m_methodPtr)();
 
-        return result;
-    }
-};
+			return result;
+		}
+	};
 
-template<class ObjectType, class ParamType>
-class CGenericMethod1<behaviac::EBTStatus, ObjectType, ParamType> : public CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>
-{
-public:
-    typedef typename CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>::ParamBaseType ParamBaseType;
-    CGenericMethod1(behaviac::EBTStatus(ObjectType::*methodPtr)(ParamType),
-                    const char* className, const char* propertyName) : CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>(methodPtr, className, propertyName)
-    {}
+	template<class ObjectType, class ParamType>
+	class CGenericMethod1<behaviac::EBTStatus, ObjectType, ParamType> : public CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>
+	{
+	public:
+		typedef typename CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>::ParamBaseType ParamBaseType;
+		CGenericMethod1(behaviac::EBTStatus(ObjectType::*methodPtr)(ParamType),
+			const char* className, const char* propertyName) : CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>(methodPtr, className, propertyName)
+		{}
 
-    CGenericMethod1(behaviac::EBTStatus(ObjectType::*methodPtr)(ParamType) const,
-                    const char* className, const char* propertyName) : CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>(methodPtr, className, propertyName)
-    {}
+		CGenericMethod1(behaviac::EBTStatus(ObjectType::*methodPtr)(ParamType) const,
+			const char* className, const char* propertyName) : CGenericMethod1_R<behaviac::EBTStatus, ObjectType, ParamType>(methodPtr, className, propertyName)
+		{}
 
-    virtual ~CGenericMethod1()
-    {
-    }
+		virtual ~CGenericMethod1()
+		{
+		}
 
-    virtual CMethodBase* clone() const
-    {
-        return BEHAVIAC_NEW CGenericMethod1(*this);
-    }
+		virtual behaviac::CMethodBase* clone() const
+		{
+			return BEHAVIAC_NEW CGenericMethod1(*this);
+		}
 
-    virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
-    {
-        const ParamBaseType& returnValue = ((behaviac::AsyncValue<ParamType>*)&returnResult)->get();
+		virtual int vRun(const behaviac::CTagObject* parent, behaviac::IAsyncValue& returnResult)
+		{
+			const ParamBaseType& returnValue = ((behaviac::AsyncValue<ParamType>*)&returnResult)->get();
 
-        int result = (int)(((ObjectType*)parent)->*this->m_methodPtr)((PARAM_CALLEDTYPE(ParamType))returnValue);
+			int result = (int)(((ObjectType*)parent)->*this->m_methodPtr)((PARAM_CALLEDTYPE(ParamType))returnValue);
 
-        return result;
-    }
-};
+			return result;
+		}
+	};
 
-template<>
-class CGenericMethodStatic<behaviac::EBTStatus> : public CGenericMethodStatic_R<behaviac::EBTStatus>
-{
-public:
-    CGenericMethodStatic(behaviac::EBTStatus(*methodPtr)(void), const char* className, const char* propertyName) : CGenericMethodStatic_R<behaviac::EBTStatus>(methodPtr, className, propertyName)
-    {}
+	template<>
+	class CGenericMethodStatic<behaviac::EBTStatus> : public CGenericMethodStatic_R<behaviac::EBTStatus>
+	{
+	public:
+		CGenericMethodStatic(behaviac::EBTStatus(*methodPtr)(void), const char* className, const char* propertyName) : CGenericMethodStatic_R<behaviac::EBTStatus>(methodPtr, className, propertyName)
+		{}
 
-    virtual CMethodBase* clone() const
-    {
-        return BEHAVIAC_NEW CGenericMethodStatic(*this);
-    }
+		virtual behaviac::CMethodBase* clone() const
+		{
+			return BEHAVIAC_NEW CGenericMethodStatic(*this);
+		}
 
-    virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
-    {
-        BEHAVIAC_UNUSED_VAR(parent);
-        BEHAVIAC_UNUSED_VAR(returnResult);
-        behaviac::EBTStatus result = (*this->m_methodPtr)();
+		virtual int vRun(const behaviac::CTagObject* parent, behaviac::IAsyncValue& returnResult)
+		{
+			BEHAVIAC_UNUSED_VAR(parent);
+			BEHAVIAC_UNUSED_VAR(returnResult);
+			behaviac::EBTStatus result = (*this->m_methodPtr)();
 
-        return (int)result;
-    }
-};
+			return (int)result;
+		}
+	};
 
-template<class ParamType>
-class CGenericMethodStatic1<behaviac::EBTStatus, ParamType> : public CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>
-{
-public:
-    typedef typename CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>::ParamBaseType ParamBaseType;
+	template<class ParamType>
+	class CGenericMethodStatic1<behaviac::EBTStatus, ParamType> : public CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>
+	{
+	public:
+		typedef typename CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>::ParamBaseType ParamBaseType;
 
-    CGenericMethodStatic1(behaviac::EBTStatus(*methodPtr)(ParamType), const char* className, const char* propertyName) :
-        CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>(methodPtr, className, propertyName)
-    {}
+		CGenericMethodStatic1(behaviac::EBTStatus(*methodPtr)(ParamType), const char* className, const char* propertyName) :
+			CGenericMethodStatic1_R<behaviac::EBTStatus, ParamType>(methodPtr, className, propertyName)
+		{}
 
-    virtual CMethodBase* clone() const
-    {
-        return BEHAVIAC_NEW CGenericMethodStatic1(*this);
-    }
+		virtual behaviac::CMethodBase* clone() const
+		{
+			return BEHAVIAC_NEW CGenericMethodStatic1(*this);
+		}
 
-    virtual int vRun(const CTagObject* parent, behaviac::IAsyncValue& returnResult)
-    {
-        BEHAVIAC_UNUSED_VAR(parent);
-        const ParamBaseType& returnValue = ((behaviac::AsyncValue<ParamType>*)&returnResult)->get();
+		virtual int vRun(const behaviac::CTagObject* parent, behaviac::IAsyncValue& returnResult)
+		{
+			BEHAVIAC_UNUSED_VAR(parent);
+			const ParamBaseType& returnValue = ((behaviac::AsyncValue<ParamType>*)&returnResult)->get();
 
-        behaviac::EBTStatus result = ((*this->m_methodPtr)((PARAM_CALLEDTYPE(ParamType))returnValue));
+			behaviac::EBTStatus result = ((*this->m_methodPtr)((PARAM_CALLEDTYPE(ParamType))returnValue));
 
-        return (int)result;
-    }
-};
+			return (int)result;
+		}
+	};
+}//
 
 //namespace StringUtils
 //{

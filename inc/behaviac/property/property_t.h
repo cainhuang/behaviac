@@ -18,10 +18,11 @@
 #include "behaviac/agent/agent.h"
 #include "behaviac/base/object/member.h"
 
-class CMemberBase;
 
 namespace behaviac
 {
+	class CMemberBase;
+
     template<typename VariableType>
     inline void ComputeTo(VariableType v, Property* pPropertyTo, Agent* pAgentTo, EComputeOperator opr)
     {
@@ -43,7 +44,7 @@ namespace behaviac
         {}
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(TTProperty);
-        TTProperty(const CMemberBase* pMemberBase, bool bConst) : Property(pMemberBase, bConst)
+        TTProperty(const behaviac::CMemberBase* pMemberBase, bool bConst) : Property(pMemberBase, bConst)
         {
         }
 
@@ -81,7 +82,7 @@ namespace behaviac
 
         virtual void SetFrom(Agent* pAgentFrom, const Property* from, Agent* pAgentTo);
 
-        virtual void SetFrom(Agent* pAgentfrom, const CMemberBase* from, Agent* pAgentTo)
+        virtual void SetFrom(Agent* pAgentfrom, const behaviac::CMemberBase* from, Agent* pAgentTo)
         {
             int typeId = this->GetTypeId();
             const void* pData = from->Get(pAgentfrom, typeId);
@@ -90,11 +91,11 @@ namespace behaviac
             this->SetValue(pAgentTo, *pV);
         }
 
-        virtual void SetFrom(Agent* pAgentFrom, const CMethodBase* from, Agent* pAgentTo)
+        virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo)
         {
-            ((CMethodBase*)from)->Invoke(pAgentFrom);
+            ((behaviac::CMethodBase*)from)->Invoke(pAgentFrom);
 
-			VariableType retV = ((CMethodBase*)from)->GetReturnValue<VariableType>(pAgentFrom);
+			VariableType retV = ((behaviac::CMethodBase*)from)->GetReturnValue<VariableType>(pAgentFrom);
             
             this->SetValue(pAgentTo, retV);
         }
@@ -125,7 +126,7 @@ namespace behaviac
             BEHAVIAC_ASSERT(false);
         }
 
-        virtual void SetFrom(Agent* pAgentFrom, const CMethodBase* from, Agent* pAgentTo, int index);
+        virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo, int index);
         virtual void ComputeFrom(Agent* pAgentFrom, const Property* from, Agent* pAgentTo, EComputeOperator opr);
 
         virtual void ComputeFrom(Agent* pAgentfrom, behaviac::IAsyncValue* from, Agent* pAgentTo, EComputeOperator opr)
@@ -168,7 +169,7 @@ namespace behaviac
 
 		virtual float DifferencePercentage(const Property* reference, const Property* other) const
         {
-			return const_cast<CMemberBase*>(this->m_memberBase)->DifferencePercentage(reference, other);
+			return const_cast<behaviac::CMemberBase*>(this->m_memberBase)->DifferencePercentage(reference, other);
         }
 
         virtual void Instantiate(Agent* pAgent)
@@ -371,7 +372,7 @@ namespace behaviac
 
         behaviac::string full_name = name;
 
-        const CMemberBase* pMember = pAgent->FindMember(name);
+        const behaviac::CMemberBase* pMember = pAgent->FindMember(name);
 
         if (pMember != 0)
         {
@@ -401,7 +402,7 @@ namespace behaviac
         }
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(TTProperty);
-        TTProperty(const CMemberBase* pMemberBase, bool bConst) : TTProperty<VariableType, false>(pMemberBase, bConst)
+        TTProperty(const behaviac::CMemberBase* pMemberBase, bool bConst) : TTProperty<VariableType, false>(pMemberBase, bConst)
         {
         }
 
@@ -471,7 +472,7 @@ namespace behaviac
         {}
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(TProperty);
-        TProperty(const CMemberBase* pMemberBase, bool bConst) : TTProperty<VariableType, behaviac::Meta::IsVector<VariableType>::Result>(pMemberBase, bConst)
+        TProperty(const behaviac::CMemberBase* pMemberBase, bool bConst) : TTProperty<VariableType, behaviac::Meta::IsVector<VariableType>::Result>(pMemberBase, bConst)
         {
         }
 
@@ -491,7 +492,7 @@ namespace behaviac
         {}
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(TProperty);
-        TProperty(const CMemberBase* pMemberBase, bool bConst) : TTProperty<char*, false>(pMemberBase, bConst)
+        TProperty(const behaviac::CMemberBase* pMemberBase, bool bConst) : TTProperty<char*, false>(pMemberBase, bConst)
         {
         }
 
@@ -523,7 +524,7 @@ namespace behaviac
         {}
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(TProperty);
-        TProperty(const CMemberBase* pMemberBase, bool bConst) : TTProperty<const char*, false>(pMemberBase, bConst)
+        TProperty(const behaviac::CMemberBase* pMemberBase, bool bConst) : TTProperty<const char*, false>(pMemberBase, bConst)
         {
         }
 
@@ -554,7 +555,7 @@ namespace behaviac
         {}
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(TProperty);
-        TProperty(const CMemberBase* pMemberBase, bool bConst) : TTProperty<behaviac::string, false>(pMemberBase, bConst)
+        TProperty(const behaviac::CMemberBase* pMemberBase, bool bConst) : TTProperty<behaviac::string, false>(pMemberBase, bConst)
         {
         }
 
@@ -580,11 +581,11 @@ namespace behaviac
         }
 
         using TTProperty<behaviac::string, false>::SetFrom;
-        virtual void SetFrom(Agent* pAgentFrom, const CMethodBase* from, Agent* pAgentTo)
+        virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo)
         {
-            ((CMethodBase*)from)->Invoke(pAgentFrom);
+            ((behaviac::CMethodBase*)from)->Invoke(pAgentFrom);
 
-            //from->GetReturnValue((const CTagObject*)pAgentFrom, (behaviac::Property*)this, (CTagObject*)pAgentTo)
+            //from->GetReturnValue((const behaviac::CTagObject*)pAgentFrom, (behaviac::Property*)this, (behaviac::CTagObject*)pAgentTo)
             const char* strFrom = from->GetReturnString(pAgentFrom);
             behaviac::string retV(strFrom);
 
@@ -600,7 +601,7 @@ namespace behaviac
         {}
     public:
         BEHAVIAC_DECLARE_MEMORY_OPERATORS(TProperty);
-        TProperty(const CMemberBase* pMemberBase, bool bConst) : TTProperty<std::string, false>(pMemberBase, bConst)
+        TProperty(const behaviac::CMemberBase* pMemberBase, bool bConst) : TTProperty<std::string, false>(pMemberBase, bConst)
         {
         }
 
@@ -637,11 +638,11 @@ namespace behaviac
     }
 
     template<typename VariableType, bool bVector>
-    void TTProperty<VariableType, bVector>::SetFrom(Agent* pAgentFrom, const CMethodBase* from, Agent* pAgentTo, int index)
+    void TTProperty<VariableType, bVector>::SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo, int index)
     {
-        ((CMethodBase*)from)->Invoke(pAgentFrom);
+        ((behaviac::CMethodBase*)from)->Invoke(pAgentFrom);
 
-		VariableType retV = ((CMethodBase*)from)->GetReturnValue<VariableType>(pAgentFrom, index);
+		VariableType retV = ((behaviac::CMethodBase*)from)->GetReturnValue<VariableType>(pAgentFrom, index);
        
         TProperty<VariableType>* thisT = (TProperty<VariableType>*)this;
         thisT->SetValue(pAgentTo, retV);
@@ -731,7 +732,7 @@ namespace behaviac
     }
 
     template<typename T>
-    inline Property* Property::Creator(const char* value, const CMemberBase* pMemberBase, bool bConst)
+    inline Property* Property::Creator(const char* value, const behaviac::CMemberBase* pMemberBase, bool bConst)
     {
         TProperty<T>* p = (TProperty<T>*)Creator<T>(pMemberBase, bConst);
 
@@ -757,7 +758,7 @@ namespace behaviac
     }
 
     template<typename T>
-    inline Property* Property::Creator(const CMemberBase* pMemberBase, bool bConst)
+    inline Property* Property::Creator(const behaviac::CMemberBase* pMemberBase, bool bConst)
     {
         typedef TProperty<T> PropertyType;
         PropertyType* p = BEHAVIAC_NEW PropertyType(pMemberBase, bConst);
@@ -812,122 +813,125 @@ namespace behaviac
     M_COMPUTE_TO(double);
 }
 
-template <typename T>
-const T& ParamVariablePrimitiveBase<T>::GetValue(const CTagObject* parent, const CTagObject* parHolder) const
+namespace behaviac
 {
-    BEHAVIAC_ASSERT(this->prop && behaviac::Agent::DynamicCast(parent));
+	template <typename T>
+	const T& ParamVariablePrimitiveBase<T>::GetValue(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder) const
+	{
+		BEHAVIAC_ASSERT(this->prop && behaviac::Agent::DynamicCast(parent));
 
-    behaviac::TProperty<T>* pT = (behaviac::TProperty<T>*)this->prop;
+		behaviac::TProperty<T>* pT = (behaviac::TProperty<T>*)this->prop;
 
-    return pT->GetValue((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
-}
+		return pT->GetValue((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
+	}
 
-template <typename T>
-void ParamVariablePrimitiveBase<T>::SetVariableRegistry(const CTagObject* parHolder, const T& value)
-{
-    if (this->prop && this->IsRefOut() && behaviac::Agent::DynamicCast(parHolder))
-    {
-        behaviac::TProperty<T>* pT = (behaviac::TProperty<T>*)this->prop;
+	template <typename T>
+	void ParamVariablePrimitiveBase<T>::SetVariableRegistry(const behaviac::CTagObject* parHolder, const T& value)
+	{
+		if (this->prop && this->IsRefOut() && behaviac::Agent::DynamicCast(parHolder))
+		{
+			behaviac::TProperty<T>* pT = (behaviac::TProperty<T>*)this->prop;
 
-        pT->SetValue((behaviac::Agent*)parHolder, value);
-    }
-}
+			pT->SetValue((behaviac::Agent*)parHolder, value);
+		}
+	}
 
-template <typename T>
-const char* ParamVariablePrimitiveBase<T>::GetString(const CTagObject* parent, const CTagObject* parHolder) const
-{
-    const char* sz = this->prop->GetString((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
-    return sz;
-}
+	template <typename T>
+	const char* ParamVariablePrimitiveBase<T>::GetString(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder) const
+	{
+		const char* sz = this->prop->GetString((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
+		return sz;
+	}
 
-template <typename T>
-const T& ParamVariablePrimitive<T>::GetValue(const CTagObject* parent, const CTagObject* parHolder) const
-{
-    if (this->prop && behaviac::Agent::DynamicCast(parent))
-    {
-        return ParamVariablePrimitiveBase<T>::GetValue(parent, parHolder);
-    }
+	template <typename T>
+	const T& ParamVariablePrimitive<T>::GetValue(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder) const
+	{
+		if (this->prop && behaviac::Agent::DynamicCast(parent))
+		{
+			return ParamVariablePrimitiveBase<T>::GetValue(parent, parHolder);
+		}
 
-    return this->param;
-}
+		return this->param;
+	}
 
-BEHAVIAC_FORCEINLINE const char* ParamVariablePrimitive<char*>::GetValue(const CTagObject* parent, const CTagObject* parHolder) const
-{
-    if (this->prop && behaviac::Agent::DynamicCast(parent))
-    {
-        return ParamVariablePrimitiveBase<char*>::GetString(parent, parHolder);
-    }
+	BEHAVIAC_FORCEINLINE const char* ParamVariablePrimitive<char*>::GetValue(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder) const
+	{
+		if (this->prop && behaviac::Agent::DynamicCast(parent))
+		{
+			return ParamVariablePrimitiveBase<char*>::GetString(parent, parHolder);
+		}
 
-    return this->param.c_str();
-}
+		return this->param.c_str();
+	}
 
-BEHAVIAC_FORCEINLINE const char* ParamVariablePrimitive<const char*>::GetValue(const CTagObject* parent, const CTagObject* parHolder) const
-{
-    if (this->prop && behaviac::Agent::DynamicCast(parent))
-    {
-        return ParamVariablePrimitiveBase<const char*>::GetString(parent, parHolder);
-    }
+	BEHAVIAC_FORCEINLINE const char* ParamVariablePrimitive<const char*>::GetValue(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder) const
+	{
+		if (this->prop && behaviac::Agent::DynamicCast(parent))
+		{
+			return ParamVariablePrimitiveBase<const char*>::GetString(parent, parHolder);
+		}
 
-    return this->param.c_str();
-}
+		return this->param.c_str();
+	}
 
-BEHAVIAC_FORCEINLINE void ParamVariablePrimitive<char*>::SetVariableRegistry(const CTagObject* parHolder, ParamVariablePrimitive<char*>::GetReturnType value)
-{
-    if (this->prop && this->IsRefOut() && behaviac::Agent::DynamicCast(parHolder))
-    {
-        this->prop->SetString((behaviac::Agent*)parHolder, (char * const&)value);
-    }
-}
+	BEHAVIAC_FORCEINLINE void ParamVariablePrimitive<char*>::SetVariableRegistry(const behaviac::CTagObject* parHolder, ParamVariablePrimitive<char*>::GetReturnType value)
+	{
+		if (this->prop && this->IsRefOut() && behaviac::Agent::DynamicCast(parHolder))
+		{
+			this->prop->SetString((behaviac::Agent*)parHolder, (char * const&)value);
+		}
+	}
 
-BEHAVIAC_FORCEINLINE void ParamVariablePrimitive<const char*>::SetVariableRegistry(const CTagObject* parHolder, ParamVariablePrimitive<const char*>::GetReturnType value)
-{
-    if (this->prop && this->IsRefOut() && behaviac::Agent::DynamicCast(parHolder))
-    {
-        this->prop->SetString((behaviac::Agent*)parHolder, value);
-    }
-}
+	BEHAVIAC_FORCEINLINE void ParamVariablePrimitive<const char*>::SetVariableRegistry(const behaviac::CTagObject* parHolder, ParamVariablePrimitive<const char*>::GetReturnType value)
+	{
+		if (this->prop && this->IsRefOut() && behaviac::Agent::DynamicCast(parHolder))
+		{
+			this->prop->SetString((behaviac::Agent*)parHolder, value);
+		}
+	}
 
 
-BEHAVIAC_FORCEINLINE const IList& ParamVariablePrimitive<IList>::GetValue() const
-{
-    BEHAVIAC_ASSERT(false);
-    return this->GetValue(0, 0);
-}
+	BEHAVIAC_FORCEINLINE const IList& ParamVariablePrimitive<IList>::GetValue() const
+	{
+		BEHAVIAC_ASSERT(false);
+		return this->GetValue(0, 0);
+	}
 
-BEHAVIAC_FORCEINLINE const IList& ParamVariablePrimitive<IList>::GetValue(const CTagObject* parent, const CTagObject* parHolder) const
-{
-    BEHAVIAC_ASSERT(this->prop && behaviac::Agent::DynamicCast(parent));
+	BEHAVIAC_FORCEINLINE const IList& ParamVariablePrimitive<IList>::GetValue(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder) const
+	{
+		BEHAVIAC_ASSERT(this->prop && behaviac::Agent::DynamicCast(parent));
 
-    const IList* pList = this->prop->CreateList((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
-    return *pList;
-}
+		const IList* pList = this->prop->CreateList((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
+		return *pList;
+	}
 
-BEHAVIAC_FORCEINLINE const System::Object& ParamVariablePrimitive<System::Object>::GetValue() const
-{
-    BEHAVIAC_ASSERT(false);
-    return this->GetValue(0, 0);
-}
+	BEHAVIAC_FORCEINLINE const System::Object& ParamVariablePrimitive<System::Object>::GetValue() const
+	{
+		BEHAVIAC_ASSERT(false);
+		return this->GetValue(0, 0);
+	}
 
-BEHAVIAC_FORCEINLINE const System::Object& ParamVariablePrimitive<System::Object>::GetValue(const CTagObject* parent, const CTagObject* parHolder) const
-{
-    BEHAVIAC_ASSERT(this->prop && behaviac::Agent::DynamicCast(parent));
+	BEHAVIAC_FORCEINLINE const System::Object& ParamVariablePrimitive<System::Object>::GetValue(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder) const
+	{
+		BEHAVIAC_ASSERT(this->prop && behaviac::Agent::DynamicCast(parent));
 
-    // behaviac::TProperty<System::Object>* pT = (behaviac::TProperty<System::Object>*)this->prop;
+		// behaviac::TProperty<System::Object>* pT = (behaviac::TProperty<System::Object>*)this->prop;
 
-    // return pT->GetValue((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
-    behaviac::TProperty<int>* pT = (behaviac::TProperty<int>*)this->prop;
+		// return pT->GetValue((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
+		behaviac::TProperty<int>* pT = (behaviac::TProperty<int>*)this->prop;
 
-    const int& v = pT->GetValue((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
+		const int& v = pT->GetValue((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
 
-    const System::Object& r = *(const System::Object*)&v;
+		const System::Object& r = *(const System::Object*)&v;
 
-    return r;
-}
+		return r;
+	}
+}//
 
 namespace behaviac
 {
     template <typename T>
-    const CMemberBase* GetMemberFromName(const behaviac::CStringID& propertyId)
+    const behaviac::CMemberBase* GetMemberFromName(const behaviac::CStringID& propertyId)
     {
         const CTagObjectDescriptor& obejctDesc = T::GetObjectDescriptor();
 
@@ -935,73 +939,76 @@ namespace behaviac
     }
 }
 
-template <typename T>
-const T& ParamVariableStruct<T>::GetValue(const CTagObject* parent, const CTagObject* parHolder) const
+namespace behaviac
 {
-    if (this->prop && behaviac::Agent::DynamicCast(parent))
-    {
-        behaviac::TProperty<T>* pT = (behaviac::TProperty<T>*)this->prop;
+	template <typename T>
+	const T& ParamVariableStruct<T>::GetValue(const behaviac::CTagObject* parent, const behaviac::CTagObject* parHolder) const
+	{
+		if (this->prop && behaviac::Agent::DynamicCast(parent))
+		{
+			behaviac::TProperty<T>* pT = (behaviac::TProperty<T>*)this->prop;
 
-        return pT->GetValue((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
-    }
+			return pT->GetValue((const behaviac::Agent*)parent, (const behaviac::Agent*)parHolder);
+		}
 
-    if (this->m_props.size() > 0)
-    {
-        for (PropsMap_t::const_iterator it = this->m_props.begin();
-             it != this->m_props.end(); ++it)
-        {
-            const behaviac::CStringID& propId = it->first;
-            const behaviac::Property* pProperty = it->second;
+		if (this->m_props.size() > 0)
+		{
+			for (PropsMap_t::const_iterator it = this->m_props.begin();
+				it != this->m_props.end(); ++it)
+			{
+				const behaviac::CStringID& propId = it->first;
+				const behaviac::Property* pProperty = it->second;
 
-            const CMemberBase* pM = behaviac::GetMemberFromName<T>(propId);
-            pM->SetFromProperty((CTagObject*)&this->param, parHolder, pProperty);
-        }
-    }
+				const behaviac::CMemberBase* pM = behaviac::GetMemberFromName<T>(propId);
+				pM->SetFromProperty((behaviac::CTagObject*)&this->param, parHolder, pProperty);
+			}
+		}
 
-    return this->param;
-}
+		return this->param;
+	}
 
-template <typename T>
-void ParamVariableStruct<T>::SetVariableRegistry(const CTagObject* parHolder, const T& value)
-{
-    if (this->IsRefOut())
-    {
-        if (this->m_props.size() > 0)
-        {
-            for (PropsMap_t::iterator it = this->m_props.begin();
-                 it != this->m_props.end(); ++it)
-            {
-                const behaviac::CStringID& propId = it->first;
-                behaviac::Property* pProperty = it->second;
+	template <typename T>
+	void ParamVariableStruct<T>::SetVariableRegistry(const behaviac::CTagObject* parHolder, const T& value)
+	{
+		if (this->IsRefOut())
+		{
+			if (this->m_props.size() > 0)
+			{
+				for (PropsMap_t::iterator it = this->m_props.begin();
+					it != this->m_props.end(); ++it)
+				{
+					const behaviac::CStringID& propId = it->first;
+					behaviac::Property* pProperty = it->second;
 
-                const CMemberBase* pM = behaviac::GetMemberFromName<T>(propId);
-                pProperty->SetFrom((behaviac::Agent*)&this->param, pM, (behaviac::Agent*)parHolder);
-            }
-        }
+					const behaviac::CMemberBase* pM = behaviac::GetMemberFromName<T>(propId);
+					pProperty->SetFrom((behaviac::Agent*)&this->param, pM, (behaviac::Agent*)parHolder);
+				}
+			}
 
-        if (this->prop && behaviac::Agent::DynamicCast(parHolder))
-        {
-            behaviac::TProperty<T>* pT = (behaviac::TProperty<T>*)this->prop;
+			if (this->prop && behaviac::Agent::DynamicCast(parHolder))
+			{
+				behaviac::TProperty<T>* pT = (behaviac::TProperty<T>*)this->prop;
 
-            pT->SetValue((behaviac::Agent*)parHolder, value);
-        }
-    }
-}
+				pT->SetValue((behaviac::Agent*)parHolder, value);
+			}
+		}
+	}
 
 
-template <typename T>
-float CMemberBase::TDifferencePercentage(const behaviac::Property* l, const behaviac::Property* r)
-{
-    const behaviac::TProperty<T>* pV = (const behaviac::TProperty<T>*)l;
-    const T& v = pV->GetDefaultValue();
+	template <typename T>
+	float behaviac::CMemberBase::TDifferencePercentage(const behaviac::Property* l, const behaviac::Property* r)
+	{
+		const behaviac::TProperty<T>* pV = (const behaviac::TProperty<T>*)l;
+		const T& v = pV->GetDefaultValue();
 
-    const behaviac::TProperty<T>* pOtherV = (const behaviac::TProperty<T>*)r;
-    const T& ov = pOtherV->GetDefaultValue();
+		const behaviac::TProperty<T>* pOtherV = (const behaviac::TProperty<T>*)r;
+		const T& ov = pOtherV->GetDefaultValue();
 
-    float result = FloatReturnSubtract(v, ov);
+		float result = FloatReturnSubtract(v, ov);
 
-    return result / this->m_range;
-}
+		return result / this->m_range;
+	}
+}//
 
 namespace behaviac
 {

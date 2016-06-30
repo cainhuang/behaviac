@@ -25,7 +25,7 @@
     { \
         DECLARE_UIWRAPPER(UiDescriptor); \
         CEnumMember* enumMember; \
-        CMemberBase* enumContainerMember = CEnumContainerMemberFactory<GenericContainerHandler, containerProvider, BasicTypeHandlerEnum, propertyFlags, true>::Create( \
+        behaviac::CMemberBase* enumContainerMember = CEnumContainerMemberFactory<GenericContainerHandler, containerProvider, BasicTypeHandlerEnum, propertyFlags, true>::Create( \
                                            &objectType::memberName, containerName, elementName, "sel"enumName, "enum"enumName, localWrapper, enumMember); \
         CTagObjectDescriptor::PushBackMember(ms_members, enumContainerMember);
 
@@ -43,7 +43,7 @@ public:
     {
     }
 
-    virtual void Save(const CTagObject* parent, ISerializableNode* node)
+    virtual void Save(const behaviac::CTagObject* parent, ISerializableNode* node)
     {
         super::Save(parent, node);
         // Retrieve the child node if necessary
@@ -82,7 +82,7 @@ template <template <class T1, template <class T2> class T3> class ContainerHandl
 struct CEnumContainerMemberFactory
 {
     template<class ObjectType, class ContainerType>
-    static CMemberBase* Create(ContainerType ObjectType::* memberPtr, const char* propertyName, const char* elementName, const char* selName, const char* enumName, UiGenericType* uiWrapper, CEnumMember*& enumMember)
+    static behaviac::CMemberBase* Create(ContainerType ObjectType::* memberPtr, const char* propertyName, const char* elementName, const char* selName, const char* enumName, UiGenericType* uiWrapper, CEnumMember*& enumMember)
     {
         typedef CEnumContainerMember<ObjectType, ContainerType, ContainerHandler< ContainerProvider< ObjectType, ContainerType >, ContainedTypeHandler >, PropertyFlags, ChildNodeCreate> MemberType;
         MembetType* enumContainerMember = BEHAVIAC_NEW MembetType(memberPtr, propertyName, elementName, selName, enumName, uiWrapper);

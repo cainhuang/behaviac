@@ -750,7 +750,7 @@ namespace behaviac
 
 			int8_t* outBuff;
 			XmlBase64::DecodeBuff((const int8_t*)str, outBuff);
-			SwapByteArray((typename behaviac::vector<T>::value_type*)outBuff, count);
+			behaviacSwapByteArray((typename behaviac::vector<T>::value_type*)outBuff, count);
 			memcpy(&value[0], outBuff, count * sizeof(typename behaviac::vector<T>::value_type));
 			BEHAVIAC_FREE(outBuff);
 			return true;
@@ -782,7 +782,7 @@ namespace behaviac
 		{
 			int8_t* outBuff;
 			XmlBase64::DecodeBuff((const int8_t*)str, outBuff);
-			SwapByte(*(T*)outBuff);
+			behaviacSwapByte(*(T*)outBuff);
 			memcpy(&value, outBuff, sizeof(T));
 			BEHAVIAC_FREE(outBuff);
 			return true;

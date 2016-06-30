@@ -16,7 +16,7 @@
 #include "behaviac/base/object/method.h"
 
 #if BEHAVIAC_ENABLE_NETWORKD
-CMethodBase& CMethodBase::NETROLE(behaviac::NetworkRole netRole)
+behaviac::CMethodBase& behaviac::CMethodBase::NETROLE(behaviac::NetworkRole netRole)
 {
     this->m_netRole = netRole;
 
@@ -45,7 +45,7 @@ CMethodBase& CMethodBase::NETROLE(behaviac::NetworkRole netRole)
     return *this;
 }
 
-void CMethodBase::SubsribeToNetwork(behaviac::Agent* pAgent)
+void behaviac::CMethodBase::SubsribeToNetwork(behaviac::Agent* pAgent)
 {
     if (this->m_netRole != behaviac::NET_ROLE_DEFAULT)
     {
@@ -70,7 +70,7 @@ void CMethodBase::SubsribeToNetwork(behaviac::Agent* pAgent)
     }
 }
 
-void CMethodBase::UnSubsribeToNetwork(behaviac::Agent* pAgent)
+void behaviac::CMethodBase::UnSubsribeToNetwork(behaviac::Agent* pAgent)
 {
     if (this->m_netRole != behaviac::NET_ROLE_DEFAULT)
     {

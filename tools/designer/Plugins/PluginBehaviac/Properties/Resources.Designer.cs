@@ -1888,6 +1888,24 @@ namespace PluginBehaviac.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to StatusTransition.
+        /// </summary>
+        internal static string StatusTransition {
+            get {
+                return ResourceManager.GetString("StatusTransition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for a subtree state, to transition or not based on its returnning status .
+        /// </summary>
+        internal static string StatusTransitionDesc {
+            get {
+                return ResourceManager.GetString("StatusTransitionDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuccessPolicy.
         /// </summary>
         internal static string SuccessPolicy {
@@ -2067,6 +2085,24 @@ namespace PluginBehaviac.Properties {
         internal static string TransitionParentError {
             get {
                 return ResourceManager.GetString("TransitionParentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TransitionPhase.
+        /// </summary>
+        internal static string TransitionPhase {
+            get {
+                return ResourceManager.GetString("TransitionPhase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in which case to transition.
+        /// </summary>
+        internal static string TransitionPhaseDesc {
+            get {
+                return ResourceManager.GetString("TransitionPhaseDesc", resourceCulture);
             }
         }
         

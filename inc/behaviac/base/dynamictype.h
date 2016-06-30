@@ -30,416 +30,413 @@
 
 #include "behaviac/base/meta/types.h"
 
-/*! This class simulates RTTI behavior where RTTI is necessary but not supported by the compiler options.
- */
-class BEHAVIAC_API CDynamicType
+namespace behaviac
 {
-public:
-    BEHAVIAC_DECLARE_MEMORY_OPERATORS(CDynamicType);
+	/*! This class simulates RTTI behavior where RTTI is necessary but not supported by the compiler options.
+	 */
+	class BEHAVIAC_API CDynamicType
+	{
+	public:
+		BEHAVIAC_DECLARE_MEMORY_OPERATORS(CDynamicType);
 
-protected:
-    struct SHierarchyInfoBase
-    {
-        char const*		m_typeName;
-        uint32_t		m_hierarchyLevel;  // == NumLevels.
-    };
+	protected:
+		struct SHierarchyInfoBase
+		{
+			char const*		m_typeName;
+			uint32_t		m_hierarchyLevel;  // == NumLevels.
+		};
 
-public:
-    struct SHierarchyInfo : public SHierarchyInfoBase
-    {
-        behaviac::CStringID   m_hierarchy[1];
-        inline const behaviac::CStringID& GetClassTypeId() const
-        {
-            return m_hierarchy[m_hierarchyLevel - 1];
-        }
-    };
+	public:
+		struct SHierarchyInfo : public SHierarchyInfoBase
+		{
+			behaviac::CStringID   m_hierarchy[1];
+			inline const behaviac::CStringID& GetClassTypeId() const
+			{
+				return m_hierarchy[m_hierarchyLevel - 1];
+			}
+		};
 
-public:
-    template<int NumLevels>
-    struct SHierarchyInfoDecl : public SHierarchyInfoBase
-    {
-        friend class CDynamicType;
-    protected:
-        // This is to bypass initialization
-        struct FakeCStringID
-        {
-            char m_buf[sizeof(behaviac::CStringID)];
-        };
-        FakeCStringID	m_hierarchy[NumLevels];
+	public:
+		template<int NumLevels>
+		struct SHierarchyInfoDecl : public SHierarchyInfoBase
+		{
+			friend class CDynamicType;
+		protected:
+			// This is to bypass initialization
+			struct FakeCStringID
+			{
+				char m_buf[sizeof(behaviac::CStringID)];
+			};
+			FakeCStringID	m_hierarchy[NumLevels];
 
-    public:
-        void InternalInitClassHierarchyInfo(char const* typeName, const SHierarchyInfoBase* parent_)
-        {
-            SHierarchyInfo*       target = reinterpret_cast<SHierarchyInfo*>(this);
-            const SHierarchyInfo* parent = static_cast<const SHierarchyInfo*>(parent_);
+		public:
+			void InternalInitClassHierarchyInfo(char const* typeName, const SHierarchyInfoBase* parent_)
+			{
+				SHierarchyInfo*       target = reinterpret_cast<SHierarchyInfo*>(this);
+				const SHierarchyInfo* parent = static_cast<const SHierarchyInfo*>(parent_);
 
 #if BEHAVIAC_COMPILER_MSVC
-            {
-				BEHAVIAC_STATIC_ASSERT(BEHAVIAC_OFFSETOF(SHierarchyInfoDecl, m_hierarchy) == BEHAVIAC_OFFSETOF(SHierarchyInfo, m_hierarchy));
-            }
+				{
+					BEHAVIAC_STATIC_ASSERT(BEHAVIAC_OFFSETOF(SHierarchyInfoDecl, m_hierarchy) == BEHAVIAC_OFFSETOF(SHierarchyInfo, m_hierarchy));
+				}
 #endif            
-            // BEHAVIAC_ASSERT(BEHAVIAC_OFFSETOF_POD(SHierarchyInfoDecl, m_hierarchy) == BEHAVIAC_OFFSETOF_POD(SHierarchyInfo, m_hierarchy));
-            {
-                BEHAVIAC_STATIC_ASSERT(sizeof(m_hierarchy[0]) == sizeof(parent->m_hierarchy[0]));
-            }
+				// BEHAVIAC_ASSERT(BEHAVIAC_OFFSETOF_POD(SHierarchyInfoDecl, m_hierarchy) == BEHAVIAC_OFFSETOF_POD(SHierarchyInfo, m_hierarchy));
+			{
+				BEHAVIAC_STATIC_ASSERT(sizeof(m_hierarchy[0]) == sizeof(parent->m_hierarchy[0]));
+			}
 
-            target->m_typeName = typeName;
-            uint32_t parentLevel = 0;
+			target->m_typeName = typeName;
+			uint32_t parentLevel = 0;
 			behaviac::CStringID* pTargetHierarchy = (behaviac::CStringID*)target->m_hierarchy;
 
-            if (parent != NULL)
-            {
-                parentLevel = parent->m_hierarchyLevel;
-                BEHAVIAC_ASSERT(parentLevel < 19);
+			if (parent != NULL)
+			{
+				parentLevel = parent->m_hierarchyLevel;
+				BEHAVIAC_ASSERT(parentLevel < 19);
 
 				const behaviac::CStringID* pParentHierarchy = (const behaviac::CStringID*)parent->m_hierarchy;
 
-                for (uint32_t i = 0; i < parentLevel; i++)
-                {
+				for (uint32_t i = 0; i < parentLevel; i++)
+				{
 					pTargetHierarchy[i] = pParentHierarchy[i];
-                }
-            }
-
-            target->m_hierarchyLevel = parentLevel + 1;
-			pTargetHierarchy[parentLevel] = behaviac::CStringID(typeName);
-        }
-        void InitClassHierarchyInfo(char const* typeName, const SHierarchyInfoBase* parent_);
-    };
-
-    static const uint32_t sm_HierarchyLevel = 0;
-
-public:
-    /// Forces derived classes to have a virtual destructor.
-    virtual ~CDynamicType() {}
-
-    virtual const SHierarchyInfo* GetHierarchyInfo() const
-    {
-        return NULL;
-    }
-
-    const BEHAVIAC_FORCEINLINE behaviac::CStringID& GetObjectTypeId() const
-    {
-        return GetHierarchyInfo()->GetClassTypeId();
-    }
-    const BEHAVIAC_FORCEINLINE char* GetObjectTypeName() const
-    {
-        return GetHierarchyInfo()->m_typeName;
-    }
-
-    /*!
-     * Return the Id of the leaf class.
-     * It returns the real class Id of an object pointer (base class pointer to a derived class will
-     * return the Id of the derived class)
-     * This function must be called from an object instantiation.
-     * There is also a GetClassTypeId that is static and must be called from a class point of view.
-     * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements those functions for the derived class.
-     */
-    //const behaviac::CStringID& GetObjectTypeId() const;
-
-    /*!
-    * Return the name of the leaf class.
-    * It returns the real class name of an object pointer (base class pointer to a derived class will
-    * return the name of the derived class)
-    * This function must be called from an object instantiation.
-    * There is also a GetClassTypeName that is static and must be called from a class point of view.
-    * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements those functions for the derived class.
-    */
-    //const char* GetObjectTypeName() const;
-
-    /*!
-     * Looks up the class hierarchy to determine if the supplied typeId pointer is part of it.
-     * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements this function for the derived class.
-     *
-     * @param typeId A ptr to the static type Id string of the verified class.
-     *
-     * @return True if typeId is a static member of a class part of the object's hierarchy.
-     */
-    bool IsAKindOf(const behaviac::CStringID& typeId) const
-    {
-        const SHierarchyInfo* info = GetHierarchyInfo();
-
-        for (uint32_t i = 0; i < info->m_hierarchyLevel; ++i)
-        {
-			const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)info->m_hierarchy;
-			if (pTargetHierarchy[i] == typeId)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /*!
-    * Returns true if the other object can be DynamicCast to this class.
-    * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements those functions for the derived class.
-    */
-    //static bool IsOfMyKind( CDynamicType *other );
-    //static bool IsOfMyKind( const CDynamicType *other );
-    //static bool IsOfMyKind( CDynamicType & other );
-    //static bool IsOfMyKind( const CDynamicType & other );
-
-    /*!
-     * Returns a pointer cast to this class if other is-a type of this class.
-     * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements this function for the derived class.
-     * Example usage: Derived *derived = Derived::DynamicCast(parent);
-     *     will return a valid pointer to Derived if "parent" is really a Derived. Otherwise derived will be NULL.
-     *
-     * @param *other A pointer to cast to this type.
-     *
-     * @return A pointer cast to the class or NULL if the value is not part of the hierarchy.
-     */
-    static CDynamicType* DynamicCast(CDynamicType* other)
-    {
-        return other;
-    }
-    static const CDynamicType* DynamicCast(const CDynamicType* other)
-    {
-        return other;
-    }
-
-    /*!
-    * Returns a pointer cast to this class by a classic C++ static_cast.
-    * An error check is done at runtime according to compilation switches.
-    * Example usage: Derived *derived = Derived::StaticCast(parent);
-    *     will return a pointer to Derived. If "parent" is not really a Derived it will ASSERT.
-    *
-    * @param *other A pointer to cast to this type.
-    *
-    * @return A pointer cast to the class
-    *
-    * ASSERT if not a valid cast.
-    */
-    static CDynamicType* StaticCast(CDynamicType* other)
-    {
-        return other;
-    }
-    static const CDynamicType* StaticCast(const CDynamicType* other)
-    {
-        return other;
-    }
-
-protected:
-    // If you get a compile error about this function not being declared in
-    // your derived class, you need to use the DECLARE_ROOT_DYNAMIC_TYPE macro.
-    //	virtual void Use_DECLARE_DYNAMIC_TYPE_macro() = 0;
-
-public:
-    bool IsMyParent(uint32_t level, const behaviac::CStringID& classId) const
-    {
-        const SHierarchyInfo* info = GetHierarchyInfo();
-		const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)info->m_hierarchy;
-		if (level > 0 && level <= info->m_hierarchyLevel) {
-			const behaviac::CStringID& my = pTargetHierarchy[level - 1];
-			
-			if (my.GetUniqueID() == classId.GetUniqueID()) {
-				return true;
+				}
 			}
+
+			target->m_hierarchyLevel = parentLevel + 1;
+			pTargetHierarchy[parentLevel] = behaviac::CStringID(typeName);
+			}
+			void InitClassHierarchyInfo(char const* typeName, const SHierarchyInfoBase* parent_);
+		};
+
+		static const uint32_t sm_HierarchyLevel = 0;
+
+	public:
+		/// Forces derived classes to have a virtual destructor.
+		virtual ~CDynamicType() {}
+
+		virtual const SHierarchyInfo* GetHierarchyInfo() const
+		{
+			return NULL;
 		}
 
-		return false;
-    }
+		const BEHAVIAC_FORCEINLINE behaviac::CStringID& GetObjectTypeId() const
+		{
+			return GetHierarchyInfo()->GetClassTypeId();
+		}
+		const BEHAVIAC_FORCEINLINE char* GetObjectTypeName() const
+		{
+			return GetHierarchyInfo()->m_typeName;
+		}
 
-    template <class T> inline static bool CallParent(T handler)
-    {
-        return false;
-    }
-};
+		/*!
+		 * Return the Id of the leaf class.
+		 * It returns the real class Id of an object pointer (base class pointer to a derived class will
+		 * return the Id of the derived class)
+		 * This function must be called from an object instantiation.
+		 * There is also a GetClassTypeId that is static and must be called from a class point of view.
+		 * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements those functions for the derived class.
+		 */
+		//const behaviac::CStringID& GetObjectTypeId() const;
 
-//BEHAVIAC_OVERRIDE_TYPE_NAME_ can't be placed in a namespace
-#define BEHAVIAC_OVERRIDE_TYPE_NAME_(typeFullClassNameWithNamespace, typeName)    \
-    template <> inline const char* GetClassTypeName< typeFullClassNameWithNamespace >(typeFullClassNameWithNamespace*){ return #typeName; } \
-    template <> inline const char* GetClassTypeName< typeFullClassNameWithNamespace >(typeFullClassNameWithNamespace**){ return #typeName"*"; } \
-     
-//BEHAVIAC_OVERRIDE_TYPE_NAME can't be placed in a namespace
-#define BEHAVIAC_OVERRIDE_TYPE_NAME(typeFullNameWithNamespace)    BEHAVIAC_OVERRIDE_TYPE_NAME_(typeFullNameWithNamespace, typeFullNameWithNamespace)
+		/*!
+		* Return the name of the leaf class.
+		* It returns the real class name of an object pointer (base class pointer to a derived class will
+		* return the name of the derived class)
+		* This function must be called from an object instantiation.
+		* There is also a GetClassTypeName that is static and must be called from a class point of view.
+		* The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements those functions for the derived class.
+		*/
+		//const char* GetObjectTypeName() const;
 
-template<typename T>
-const char* GetClassTypeName(T*);
-template<typename T>
-const char* GetClassTypeName(T**);
+		/*!
+		 * Looks up the class hierarchy to determine if the supplied typeId pointer is part of it.
+		 * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements this function for the derived class.
+		 *
+		 * @param typeId A ptr to the static type Id string of the verified class.
+		 *
+		 * @return True if typeId is a static member of a class part of the object's hierarchy.
+		 */
+		bool IsAKindOf(const behaviac::CStringID& typeId) const
+		{
+			const SHierarchyInfo* info = GetHierarchyInfo();
 
-template<typename T, bool bVector, bool bMap>
-struct ClassTypeNameGetter
-{
-    static const char* GetClassTypeName()
-    {
-        const char* pType = T::GetClassTypeName();
-        return pType;
-    }
-};
+			for (uint32_t i = 0; i < info->m_hierarchyLevel; ++i)
+			{
+				const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)info->m_hierarchy;
+				if (pTargetHierarchy[i] == typeId)
+				{
+					return true;
+				}
+			}
 
-template<typename T>
-struct ClassTypeNameGetter<T, true, false>
-{
-    static const char* GetClassTypeName()
-    {
-        typedef typename behaviac::Meta::IsVector<T>::ElementType ElementType;
+			return false;
+		}
 
-        const char* pType = ::GetClassTypeName((ElementType*)0);
+		/*!
+		* Returns true if the other object can be DynamicCast to this class.
+		* The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements those functions for the derived class.
+		*/
+		//static bool IsOfMyKind( CDynamicType *other );
+		//static bool IsOfMyKind( const CDynamicType *other );
+		//static bool IsOfMyKind( CDynamicType & other );
+		//static bool IsOfMyKind( const CDynamicType & other );
 
-        static char s_buffer[256];
-        string_sprintf(s_buffer, "vector<%s>", pType);
-        return s_buffer;
-    }
-};
+		/*!
+		 * Returns a pointer cast to this class if other is-a type of this class.
+		 * The DECLARE_ROOT_DYNAMIC_TYPE macro automatically implements this function for the derived class.
+		 * Example usage: Derived *derived = Derived::DynamicCast(parent);
+		 *     will return a valid pointer to Derived if "parent" is really a Derived. Otherwise derived will be NULL.
+		 *
+		 * @param *other A pointer to cast to this type.
+		 *
+		 * @return A pointer cast to the class or NULL if the value is not part of the hierarchy.
+		 */
+		static CDynamicType* DynamicCast(CDynamicType* other)
+		{
+			return other;
+		}
+		static const CDynamicType* DynamicCast(const CDynamicType* other)
+		{
+			return other;
+		}
 
-template<typename T>
-struct ClassTypeNameGetter<T, false, true>
-{
-    static const char* GetClassTypeName()
-    {
-        typedef typename behaviac::Meta::IsMap<T>::KeyType KeyType;
-        typedef typename behaviac::Meta::IsMap<T>::ValueType ValueType;
+		/*!
+		* Returns a pointer cast to this class by a classic C++ static_cast.
+		* An error check is done at runtime according to compilation switches.
+		* Example usage: Derived *derived = Derived::StaticCast(parent);
+		*     will return a pointer to Derived. If "parent" is not really a Derived it will ASSERT.
+		*
+		* @param *other A pointer to cast to this type.
+		*
+		* @return A pointer cast to the class
+		*
+		* ASSERT if not a valid cast.
+		*/
+		static CDynamicType* StaticCast(CDynamicType* other)
+		{
+			return other;
+		}
+		static const CDynamicType* StaticCast(const CDynamicType* other)
+		{
+			return other;
+		}
 
-        const char* pKeyType = ::GetClassTypeName((KeyType*)0);
-        const char* pValueType = ::GetClassTypeName((ValueType*)0);
+	protected:
+		// If you get a compile error about this function not being declared in
+		// your derived class, you need to use the DECLARE_ROOT_DYNAMIC_TYPE macro.
+		//	virtual void Use_DECLARE_DYNAMIC_TYPE_macro() = 0;
 
-        static char s_buffer[256];
-		string_sprintf(s_buffer, "map<%s, %s>", pKeyType, pValueType);
-        return s_buffer;
-    }
-};
+	public:
+		bool IsMyParent(uint32_t level, const behaviac::CStringID& classId) const
+		{
+			const SHierarchyInfo* info = GetHierarchyInfo();
+			const behaviac::CStringID* pTargetHierarchy = (const behaviac::CStringID*)info->m_hierarchy;
+			if (level > 0 && level <= info->m_hierarchyLevel) {
+				const behaviac::CStringID& my = pTargetHierarchy[level - 1];
 
-template<typename T>
-inline const char* GetClassTypeName(T*)
-{
-    const char* pType = ClassTypeNameGetter<T, behaviac::Meta::IsVector<T>::Result, behaviac::Meta::IsMap<T>::Result>::GetClassTypeName();
-    return pType;
-}
+				if (my.GetUniqueID() == classId.GetUniqueID()) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		template <class T> inline static bool CallParent(T handler)
+		{
+			return false;
+		}
+	};
+
+	template<typename T>
+	const char* GetClassTypeName(T*);
+	template<typename T>
+	const char* GetClassTypeName(T**);
+
+	template<typename T, bool bVector, bool bMap>
+	struct ClassTypeNameGetter
+	{
+		static const char* GetClassTypeName()
+		{
+			const char* pType = T::GetClassTypeName();
+			return pType;
+		}
+	};
+
+	template<typename T>
+	struct ClassTypeNameGetter<T, true, false>
+	{
+		static const char* GetClassTypeName()
+		{
+			typedef typename behaviac::Meta::IsVector<T>::ElementType ElementType;
+
+			const char* pType = behaviac::GetClassTypeName((ElementType*)0);
+
+			static char s_buffer[256];
+			string_sprintf(s_buffer, "vector<%s>", pType);
+			return s_buffer;
+		}
+	};
+
+	template<typename T>
+	struct ClassTypeNameGetter<T, false, true>
+	{
+		static const char* GetClassTypeName()
+		{
+			typedef typename behaviac::Meta::IsMap<T>::KeyType KeyType;
+			typedef typename behaviac::Meta::IsMap<T>::ValueType ValueType;
+
+			const char* pKeyType = behaviac::GetClassTypeName((KeyType*)0);
+			const char* pValueType = behaviac::GetClassTypeName((ValueType*)0);
+
+			static char s_buffer[256];
+			string_sprintf(s_buffer, "map<%s, %s>", pKeyType, pValueType);
+			return s_buffer;
+		}
+	};
+
+	template<typename T>
+	inline const char* GetClassTypeName(T*)
+	{
+		const char* pType = ClassTypeNameGetter<T, behaviac::Meta::IsVector<T>::Result, behaviac::Meta::IsMap<T>::Result>::GetClassTypeName();
+		return pType;
+	}
 
 
-template<typename T>
-inline const char* GetClassTypeName(T**)
-{
-    const char* pType = ClassTypeNameGetter<T, behaviac::Meta::IsVector<T>::Result, behaviac::Meta::IsMap<T>::Result>::GetClassTypeName();
-    return pType;
-}
+	template<typename T>
+	inline const char* GetClassTypeName(T**)
+	{
+		const char* pType = ClassTypeNameGetter<T, behaviac::Meta::IsVector<T>::Result, behaviac::Meta::IsMap<T>::Result>::GetClassTypeName();
+		return pType;
+	}
 
-template<typename T>
-inline behaviac::string GetTypeDescString()
-{
-    typedef REAL_BASETYPE(T)				RealBaseType_t;
-    typedef POINTER_TYPE(RealBaseType_t)	PointerType_t;
-    PointerType_t pT = (PointerType_t)0;
-    behaviac::string typeResult = GetClassTypeName(pT);
-    bool isConst = behaviac::Meta::IsConst<T>::Result;
-    bool isPtr = behaviac::Meta::IsPtr<T>::Result;
-    bool isRef = behaviac::Meta::IsRef<T>::Result;
+	template<typename T>
+	inline behaviac::string GetTypeDescString()
+	{
+		typedef REAL_BASETYPE(T)				RealBaseType_t;
+		typedef POINTER_TYPE(RealBaseType_t)	PointerType_t;
+		PointerType_t pT = (PointerType_t)0;
+		behaviac::string typeResult = behaviac::GetClassTypeName(pT);
+		bool isConst = behaviac::Meta::IsConst<T>::Result;
+		bool isPtr = behaviac::Meta::IsPtr<T>::Result;
+		bool isRef = behaviac::Meta::IsRef<T>::Result;
 
-    if (isConst)
-    {
-        typeResult = "const " + typeResult;
-    }
+		if (isConst)
+		{
+			typeResult = "const " + typeResult;
+		}
 
-    if (isPtr)
-    {
-        typeResult += "*";
-    }
+		if (isPtr)
+		{
+			typeResult += "*";
+		}
 
-    if (isRef)
-    {
-        typeResult += "&";
-    }
+		if (isRef)
+		{
+			typeResult += "&";
+		}
 
-    return typeResult;
-}
+		return typeResult;
+	}
 
-template < typename T, bool bAgent >
-struct GetClassTypeNumberIdSelector
-{
-    static int GetClassTypeNumberId()
-    {
-        const char* typeName = ::GetClassTypeName((T*)0);
-        return CRC32::CalcCRC(typeName);
-    }
-};
+	template < typename T, bool bAgent >
+	struct GetClassTypeNumberIdSelector
+	{
+		static int GetClassTypeNumberId()
+		{
+			const char* typeName = behaviac::GetClassTypeName((T*)0);
+			return CRC32::CalcCRC(typeName);
+		}
+	};
 
-template < typename T >
-struct GetClassTypeNumberIdSelector<T, true>
-{
-    static int GetClassTypeNumberId()
-    {
-        const char* typeName = "void*";
-        return CRC32::CalcCRC(typeName);
-    }
-};
+	template < typename T >
+	struct GetClassTypeNumberIdSelector<T, true>
+	{
+		static int GetClassTypeNumberId()
+		{
+			const char* typeName = "void*";
+			return CRC32::CalcCRC(typeName);
+		}
+	};
 
-template< typename T >
-struct TStruct_GetClassTypeNumberId
-{
-    static int GetClassTypeNumberId()
-    {
-		int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
+	template< typename T >
+	struct TStruct_GetClassTypeNumberId
+	{
+		static int GetClassTypeNumberId()
+		{
+			int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
 
-        return ret;
-    }
-};
+			return ret;
+		}
+	};
 
-template< typename T >
-struct TStruct_GetClassTypeNumberId< const T >
-{
-    static int GetClassTypeNumberId()
-    {
-        //typedef typename behaviac::Meta::RemoveConst<T>::Result BaseType;
-        //int ret = GetClassTypeNumberIdSelector<BaseType, behaviac::Meta::IsRefType<BaseType>::Result>::GetClassTypeNumberId();
-        //int ret = GetClassTypeNumberId<BaseType>();
-		int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
+	template< typename T >
+	struct TStruct_GetClassTypeNumberId< const T >
+	{
+		static int GetClassTypeNumberId()
+		{
+			//typedef typename behaviac::Meta::RemoveConst<T>::Result BaseType;
+			//int ret = GetClassTypeNumberIdSelector<BaseType, behaviac::Meta::IsRefType<BaseType>::Result>::GetClassTypeNumberId();
+			//int ret = GetClassTypeNumberId<BaseType>();
+			int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
 
-        return ret;
-    }
-};
+			return ret;
+		}
+	};
 
-template<typename T>
-inline int GetClassTypeNumberId()
-{
-    //int ret = TStruct_GetClassTypeNumberId<T, behaviac::Meta::IsConst<T>::Result>::GetClassTypeNumberId();
-    int ret = TStruct_GetClassTypeNumberId<T>::GetClassTypeNumberId();
-    //int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
+	template<typename T>
+	inline int GetClassTypeNumberId()
+	{
+		//int ret = TStruct_GetClassTypeNumberId<T, behaviac::Meta::IsConst<T>::Result>::GetClassTypeNumberId();
+		int ret = TStruct_GetClassTypeNumberId<T>::GetClassTypeNumberId();
+		//int ret = GetClassTypeNumberIdSelector<T, behaviac::Meta::IsRefType<T>::Result>::GetClassTypeNumberId();
 
-    return ret;
-}
+		return ret;
+	}
 
 #ifdef _DEBUG
-template <class T> class CTemplateClassDetector {};
+	template <class T> class CTemplateClassDetector {};
 
-template <typename T1, template <typename> class TClass>
-class CTemplateClassDetector< TClass<T1> >
-{
-    typename TClass<T1>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE1__instead m_member;
-};
+	template <typename T1, template <typename> class TClass>
+	class CTemplateClassDetector< TClass<T1> >
+	{
+		typename TClass<T1>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE1__instead m_member;
+	};
 
-template <typename T1, typename T2, template <typename, typename> class TClass>
-class CTemplateClassDetector< TClass<T1, T2> >
-{
-    typename TClass<T1, T2>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE2__instead m_member;
-};
+	template <typename T1, typename T2, template <typename, typename> class TClass>
+	class CTemplateClassDetector< TClass<T1, T2> >
+	{
+		typename TClass<T1, T2>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE2__instead m_member;
+	};
 
-template <typename T1, typename T2, typename T3, template <typename, typename, typename> class TClass>
-class CTemplateClassDetector< TClass<T1, T2, T3> >
-{
-    typename TClass<T1, T2, T3>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE3__instead m_member;
-};
+	template <typename T1, typename T2, typename T3, template <typename, typename, typename> class TClass>
+	class CTemplateClassDetector< TClass<T1, T2, T3> >
+	{
+		typename TClass<T1, T2, T3>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE3__instead m_member;
+	};
 
-template <typename T1, typename T2, typename T3, typename T4, template <typename, typename, typename, typename> class TClass>
-class CTemplateClassDetector< TClass<T1, T2, T3, T4> >
-{
-    typename TClass<T1, T2, T3, T4>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE4__instead m_member;
-};
+	template <typename T1, typename T2, typename T3, typename T4, template <typename, typename, typename, typename> class TClass>
+	class CTemplateClassDetector< TClass<T1, T2, T3, T4> >
+	{
+		typename TClass<T1, T2, T3, T4>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE4__instead m_member;
+	};
 
-template <typename T1, typename T2, typename T3, typename T4, typename T5, template <typename, typename, typename, typename, typename> class TClass>
-class CTemplateClassDetector< TClass<T1, T2, T3, T4, T5> >
-{
-    typename TClass<T1, T2, T3, T4, T5>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE5__instead m_member;
-};
+	template <typename T1, typename T2, typename T3, typename T4, typename T5, template <typename, typename, typename, typename, typename> class TClass>
+	class CTemplateClassDetector< TClass<T1, T2, T3, T4, T5> >
+	{
+		typename TClass<T1, T2, T3, T4, T5>::You_are_using_the_wrong_macro__use__BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE5__instead m_member;
+	};
+#endif
+}//
 
+#ifdef _DEBUG
 #define BEHAVIAC_INTERNAL_DECLARE_DYNAMIC_TYPE_COMPOSER(__type) \
     public: \
     static const char* GetClassTypeName() \
     { \
         /* If this does not compile, it means you are using a templated class with */ \
         /* the non-templated version of the dynamic type macro. */ \
-        CTemplateClassDetector< __type > templateClassDetector; \
+        behaviac::CTemplateClassDetector< __type > templateClassDetector; \
         BEHAVIAC_UNUSED_VAR(templateClassDetector); \
         \
         return #__type; \
@@ -456,25 +453,38 @@ class CTemplateClassDetector< TClass<T1, T2, T3, T4, T5> >
 
 #endif  // #ifdef _DEBUG
 
-BEHAVIAC_API char* GenerateString1(const char* aT1, const char* aT2);
-BEHAVIAC_API char* GenerateString2(const char* aT1, const char* aT2, const char* aT3);
-BEHAVIAC_API char* GenerateString3(const char* aT1, const char* aT2, const char* aT3, const char* aT4);
-BEHAVIAC_API char* GenerateString4(const char* aT1, const char* aT2, const char* aT3, const char* aT4, const char* aT5);
-BEHAVIAC_API char* GenerateString5(const char* aT1, const char* aT2, const char* aT3, const char* aT4, const char* aT5, const char* aT6);
+	//BEHAVIAC_OVERRIDE_TYPE_NAME_ can't be placed in a namespace
+#define BEHAVIAC_OVERRIDE_TYPE_NAME_(typeFullClassNameWithNamespace, typeName)																		\
+	namespace behaviac {																															\
+		template <> inline const char* GetClassTypeName< typeFullClassNameWithNamespace >(typeFullClassNameWithNamespace*){ return #typeName; }		\
+		template <> inline const char* GetClassTypeName< typeFullClassNameWithNamespace >(typeFullClassNameWithNamespace**){ return #typeName"*"; } \
+	}
 
-class CDynamicTypeAutoFreeChar
+	//BEHAVIAC_OVERRIDE_TYPE_NAME can't be placed in a namespace
+#define BEHAVIAC_OVERRIDE_TYPE_NAME(typeFullNameWithNamespace)    BEHAVIAC_OVERRIDE_TYPE_NAME_(typeFullNameWithNamespace, typeFullNameWithNamespace)
+
+namespace behaviac
 {
-public:
-    CDynamicTypeAutoFreeChar(char* str) : m_str(str) {}
-    BEHAVIAC_API ~CDynamicTypeAutoFreeChar();
-    char* m_str;
-};
+	BEHAVIAC_API char* GenerateString1(const char* aT1, const char* aT2);
+	BEHAVIAC_API char* GenerateString2(const char* aT1, const char* aT2, const char* aT3);
+	BEHAVIAC_API char* GenerateString3(const char* aT1, const char* aT2, const char* aT3, const char* aT4);
+	BEHAVIAC_API char* GenerateString4(const char* aT1, const char* aT2, const char* aT3, const char* aT4, const char* aT5);
+	BEHAVIAC_API char* GenerateString5(const char* aT1, const char* aT2, const char* aT3, const char* aT4, const char* aT5, const char* aT6);
+
+	class CDynamicTypeAutoFreeChar
+	{
+	public:
+		CDynamicTypeAutoFreeChar(char* str) : m_str(str) {}
+		BEHAVIAC_API ~CDynamicTypeAutoFreeChar();
+		char* m_str;
+	};
+}
 
 #define BEHAVIAC_INTERNAL_DECLARE_TEMPLATE_DYNAMIC_TYPE_COMPOSER1(__type, ARG1) \
     public: \
     static const char* GetClassTypeName() \
     { \
-        static CDynamicTypeAutoFreeChar typeName(GenerateString1(#__type, ::GetClassTypeName((ARG1*)0))); \
+        static CDynamicTypeAutoFreeChar typeName(GenerateString1(#__type, behaviac::GetClassTypeName((ARG1*)0))); \
         return typeName.m_str; \
     }
 
@@ -482,7 +492,7 @@ public:
     public: \
     static const char* GetClassTypeName() \
     { \
-        static CDynamicTypeAutoFreeChar typeName(GenerateString2(#__type, ::GetClassTypeName((ARG1*)0), ::GetClassTypeName((ARG2*)0))); \
+        static CDynamicTypeAutoFreeChar typeName(GenerateString2(#__type, behaviac::GetClassTypeName((ARG1*)0), behaviac::GetClassTypeName((ARG2*)0))); \
         return typeName.m_str; \
     }
 
@@ -490,7 +500,7 @@ public:
     public: \
     static const char* GetClassTypeName() \
     { \
-        static CDynamicTypeAutoFreeChar typeName(GenerateString3(#__type, ::GetClassTypeName((ARG1*)0), ::GetClassTypeName((ARG2*)0), ::GetClassTypeName((ARG3*)0))); \
+        static CDynamicTypeAutoFreeChar typeName(GenerateString3(#__type, behaviac::GetClassTypeName((ARG1*)0), behaviac::GetClassTypeName((ARG2*)0), behaviac::GetClassTypeName((ARG3*)0))); \
         return typeName.m_str; \
     }
 
@@ -498,7 +508,7 @@ public:
     public: \
     static const char* GetClassTypeName() \
     { \
-        static CDynamicTypeAutoFreeChar typeName(GenerateString4(#__type, ::GetClassTypeName((ARG1*)0), ::GetClassTypeName((ARG2*)0), ::GetClassTypeName((ARG3*)0), ::GetClassTypeName((ARG4*)0))); \
+        static CDynamicTypeAutoFreeChar typeName(GenerateString4(#__type, behaviac::GetClassTypeName((ARG1*)0), behaviac::GetClassTypeName((ARG2*)0), behaviac::GetClassTypeName((ARG3*)0), behaviac::GetClassTypeName((ARG4*)0))); \
         return typeName.m_str; \
     }
 
@@ -506,7 +516,7 @@ public:
     public: \
     static const char* GetClassTypeName() \
     { \
-        static CDynamicTypeAutoFreeChar typeName(GenerateString5(#__type, ::GetClassTypeName((ARG1*)0), ::GetClassTypeName((ARG2*)0), ::GetClassTypeName((ARG3*)0), ::GetClassTypeName((ARG4*)0), ::GetClassTypeName((ARG5*)0))); \
+        static CDynamicTypeAutoFreeChar typeName(GenerateString5(#__type, behaviac::GetClassTypeName((ARG1*)0), behaviac::GetClassTypeName((ARG2*)0), behaviac::GetClassTypeName((ARG3*)0), behaviac::GetClassTypeName((ARG4*)0), behaviac::GetClassTypeName((ARG5*)0))); \
         return typeName.m_str(); \
     }
 
@@ -646,6 +656,11 @@ public:
 */
 #define BEHAVIAC_DECLARE_ROOT_DYNAMIC_TYPE(__type, __parent)    BEHAVIAC_DECLARE_DYNAMIC_TYPE(__type, __parent);
 
+#undef BEHAVIAC_DECLARE_PRIMITE_TYPE
+#define BEHAVIAC_DECLARE_PRIMITE_TYPE(type, typeName)							\
+    BEHAVIAC_OVERRIDE_TYPE_NAME_(type, typeName);								\
+    BEHAVIAC_OVERRIDE_TYPE_NAME_(const type, "const "#typeName);
+
 #define  M_PRIMITIVE_NUMBER_TYPES()												\
     BEHAVIAC_DECLARE_PRIMITE_TYPE(char, char);									\
     BEHAVIAC_DECLARE_PRIMITE_TYPE(unsigned char, ubyte);						\
@@ -670,27 +685,24 @@ public:
     BEHAVIAC_DECLARE_PRIMITE_TYPE(std::string, std::string);					\
     BEHAVIAC_DECLARE_PRIMITE_TYPE(std::wstring, std::wstring);
 
-
-#undef BEHAVIAC_DECLARE_PRIMITE_TYPE
-#define BEHAVIAC_DECLARE_PRIMITE_TYPE(type, typeName)							\
-    BEHAVIAC_OVERRIDE_TYPE_NAME_(type, typeName);								\
-    BEHAVIAC_OVERRIDE_TYPE_NAME_(const type, "const "#typeName);
-
+//BEHAVIAC_M_PRIMITIVE_TYPES preprocessing
 BEHAVIAC_M_PRIMITIVE_TYPES();
 
 //specialization of intrinsics types...
 BEHAVIAC_OVERRIDE_TYPE_NAME(void);
 BEHAVIAC_OVERRIDE_TYPE_NAME(const char*);
 
-#define BEHAVIAC_BASICTYPE_NUMBER_ID(type, id) \
-    template<> inline int GetClassTypeNumberId<type>() \
-    {\
-        return id;\
-    }\
-    template<> inline int GetClassTypeNumberId<const type>() \
-    {\
-        return id; \
-    }
+#define BEHAVIAC_BASICTYPE_NUMBER_ID(type, id)			\
+	namespace behaviac {								\
+		template<> inline int GetClassTypeNumberId<type>() \
+		{\
+			return id;\
+		}\
+		template<> inline int GetClassTypeNumberId<const type>() \
+		{\
+			return id; \
+		}\
+	}
 
 BEHAVIAC_BASICTYPE_NUMBER_ID(bool, 1)
 BEHAVIAC_BASICTYPE_NUMBER_ID(char, 2)
@@ -707,55 +719,59 @@ BEHAVIAC_BASICTYPE_NUMBER_ID(unsigned long long, 12)
 BEHAVIAC_BASICTYPE_NUMBER_ID(float, 13)
 BEHAVIAC_BASICTYPE_NUMBER_ID(double, 14)
 
-
-//
-inline bool IsNumberClassTypeNumberId(int typeId)
+namespace behaviac
 {
-    if (
-        typeId == GetClassTypeNumberId<char>() ||
-        typeId == GetClassTypeNumberId<signed char>() ||
-        typeId == GetClassTypeNumberId<unsigned char>() ||
-        typeId == GetClassTypeNumberId<short>() ||
-        typeId == GetClassTypeNumberId<unsigned short>() ||
-        typeId == GetClassTypeNumberId<int>() ||
-        typeId == GetClassTypeNumberId<unsigned int>() ||
-        typeId == GetClassTypeNumberId<long>() ||
-        typeId == GetClassTypeNumberId<unsigned long>() ||
-        typeId == GetClassTypeNumberId<long long>() ||
-        typeId == GetClassTypeNumberId<unsigned long long>() ||
-        typeId == GetClassTypeNumberId<float>() ||
-        typeId == GetClassTypeNumberId<double>()
-    )
-    {
-        return true;
-    }
+	//
+	inline bool IsNumberClassTypeNumberId(int typeId)
+	{
+		if (
+			typeId == GetClassTypeNumberId<char>() ||
+			typeId == GetClassTypeNumberId<signed char>() ||
+			typeId == GetClassTypeNumberId<unsigned char>() ||
+			typeId == GetClassTypeNumberId<short>() ||
+			typeId == GetClassTypeNumberId<unsigned short>() ||
+			typeId == GetClassTypeNumberId<int>() ||
+			typeId == GetClassTypeNumberId<unsigned int>() ||
+			typeId == GetClassTypeNumberId<long>() ||
+			typeId == GetClassTypeNumberId<unsigned long>() ||
+			typeId == GetClassTypeNumberId<long long>() ||
+			typeId == GetClassTypeNumberId<unsigned long long>() ||
+			typeId == GetClassTypeNumberId<float>() ||
+			typeId == GetClassTypeNumberId<double>()
+			)
+		{
+			return true;
+		}
 
-    return false;
-}
+		return false;
+	}
 
-template<int NumLevels>
-void CDynamicType::SHierarchyInfoDecl<NumLevels>::InitClassHierarchyInfo(char const* typeName, const SHierarchyInfoBase* parent_)
-{
-    InternalInitClassHierarchyInfo(typeName, parent_);
-}
+	template<int NumLevels>
+	void CDynamicType::SHierarchyInfoDecl<NumLevels>::InitClassHierarchyInfo(char const* typeName, const SHierarchyInfoBase* parent_)
+	{
+		InternalInitClassHierarchyInfo(typeName, parent_);
+	}
 
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<1>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<2>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<3>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<4>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<5>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<6>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<7>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<8>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<9>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<10>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<11>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<12>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<13>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<14>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<15>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<16>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<17>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<18>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
-template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<19>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<1>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<2>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<3>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<4>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<5>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<6>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<7>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<8>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<9>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<10>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<11>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<12>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<13>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<14>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<15>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<16>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<17>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<18>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+	template<> void BEHAVIAC_API CDynamicType::SHierarchyInfoDecl<19>::InitClassHierarchyInfo(char const* typeName, const CDynamicType::SHierarchyInfoBase* parent_);
+}//
+
+
 #endif  // BEHAVIAC_BASE_DYNAMICTYPE_H

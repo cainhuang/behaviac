@@ -42,13 +42,6 @@ namespace behaviac
             E_LESSEQUAL      // <=
         };
 
-        enum TransitionMode
-        {
-            TM_Condition,
-            TM_Success,
-            TM_Failure,
-            TM_End
-        };
 
         BEHAVIAC_DECLARE_DYNAMIC_TYPE(AttachAction, BehaviorNode);
         AttachAction();
@@ -56,15 +49,14 @@ namespace behaviac
         class ActionConfig
         {
         public:
-            TransitionMode	m_mode;
             behaviac::string m_typeName;
             Property*		m_opl;
-            CMethodBase*	m_opl_m;
+            behaviac::CMethodBase*	m_opl_m;
             Property*		m_opr1;
-            CMethodBase*	m_opr1_m;
+            behaviac::CMethodBase*	m_opr1_m;
             EOperatorType	m_operator ;
             Property* 		m_opr2;
-            CMethodBase* 	m_opr2_m;
+            behaviac::CMethodBase* 	m_opr2_m;
 
         private:
             VariableComparator* m_comparator;
@@ -85,6 +77,7 @@ namespace behaviac
 
     public:
         virtual bool Evaluate(Agent* pAgent);
+		virtual bool Evaluate(Agent* pAgent, EBTStatus result);
     protected:
         virtual BehaviorTask* createTask() const;
     };

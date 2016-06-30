@@ -76,7 +76,7 @@ namespace behaviac
         BT_RUNNING,
     };
 
-    BEHAVIAC_API CMethodBase* LoadMethod(const char* value);
+    BEHAVIAC_API behaviac::CMethodBase* LoadMethod(const char* value);
     class BsonDeserizer
     {
     public:

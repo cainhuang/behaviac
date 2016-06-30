@@ -27,7 +27,7 @@
 #define BEGIN_ENUM_MEMBER(enumName, enumValueName, propertyFlags) \
     { \
         DECLARE_UIWRAPPER(DefaultUiInfo);\
-        CMemberBase* property_ = CMemberFactory::Create<BasicTypeHandlerEnum, propertyFlags>(objectType::GetClassTypeName(), enumName, (uint32_t objectType::*)&objectType::enumValueName, localWrapper); \
+        behaviac::CMemberBase* property_ = behaviac::CMemberFactory::Create<BasicTypeHandlerEnum, propertyFlags>(objectType::GetClassTypeName(), enumName, (uint32_t objectType::*)&objectType::enumValueName, localWrapper); \
         CTagObjectDescriptor::PushBackMember(ms_members, property_); \
         CEnumMember* enumMember = BEHAVIAC_NEW CEnumMember(enumName, objectType::GetClassTypeName()); \
         enumMember->SetEnumTypeName(&objectType::enumValueName);\
@@ -58,43 +58,35 @@
 #define END_ENUM_MEMBER() \
     }
 
-class CEnumMember : public CMemberBase
+class CEnumMember : public behaviac::CMemberBase
 {
 public:
     BEHAVIAC_DECLARE_MEMORY_OPERATORS(CEnumMember);
 
 public:
     // put u32 as type or enum name ?
-    CEnumMember(const char* enumName, const char* className) : CMemberBase(enumName, className)
+    CEnumMember(const char* enumName, const char* className) : behaviac::CMemberBase(enumName, className)
     {
     }
 
-    CEnumMember(const CEnumMember& copy) : CMemberBase(copy), m_values(copy.m_values), m_enumTypeName(copy.m_enumTypeName)
+    CEnumMember(const CEnumMember& copy) : behaviac::CMemberBase(copy), m_values(copy.m_values), m_enumTypeName(copy.m_enumTypeName)
     {}
 
-    virtual CMemberBase* clone() const
+    virtual behaviac::CMemberBase* clone() const
     {
-        CMemberBase* p = BEHAVIAC_NEW CEnumMember(*this);
+        behaviac::CMemberBase* p = BEHAVIAC_NEW CEnumMember(*this);
 
         return p;
     }
 
-    virtual void Load(CTagObject* parent, const behaviac::ISerializableNode* node)
+    virtual void Load(behaviac::CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
         // DO NOTHING
     }
 
-    virtual void Save(const CTagObject* parent, behaviac::ISerializableNode* node)
-    {
-        BEHAVIAC_UNUSED_VAR(parent);
-        BEHAVIAC_UNUSED_VAR(node);
-
-        // DO NOTHING
-    }
-
-    virtual void LoadState(CTagObject* parent, const behaviac::ISerializableNode* node)
+    virtual void Save(const behaviac::CTagObject* parent, behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -102,7 +94,7 @@ public:
         // DO NOTHING
     }
 
-    virtual void SaveState(const CTagObject* parent, behaviac::ISerializableNode* node)
+    virtual void LoadState(behaviac::CTagObject* parent, const behaviac::ISerializableNode* node)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(node);
@@ -110,7 +102,15 @@ public:
         // DO NOTHING
     }
 
-    virtual void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
+    virtual void SaveState(const behaviac::CTagObject* parent, behaviac::ISerializableNode* node)
+    {
+        BEHAVIAC_UNUSED_VAR(parent);
+        BEHAVIAC_UNUSED_VAR(node);
+
+        // DO NOTHING
+    }
+
+    virtual void GetUiInfo(behaviac::CTagTypeDescriptor::TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(types);
         BEHAVIAC_UNUSED_VAR(parent);
@@ -149,7 +149,7 @@ public:
         }
     }
 
-    virtual void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
+    virtual void GetMethodsDescription(behaviac::CTagTypeDescriptor::TypesMap_t* types, const behaviac::CTagObject* parent, const behaviac::XmlNodeRef& xmlNode)
     {
         BEHAVIAC_UNUSED_VAR(parent);
         BEHAVIAC_UNUSED_VAR(xmlNode);
@@ -170,7 +170,7 @@ public:
     template <typename TOBJ, typename TMEMBER>
     void SetEnumTypeName(TMEMBER TOBJ::* member)
     {
-        this->m_enumTypeName = ::GetClassTypeName((TMEMBER*)0);
+        this->m_enumTypeName = GetClassTypeName((TMEMBER*)0);
     }
 
     virtual behaviac::Property* CreateProperty(const char* defaultValue, bool bConst) const
@@ -184,7 +184,7 @@ public:
 
     virtual float DifferencePercentage(const behaviac::Property* l, const behaviac::Property* r)
     {
-        return CMemberBase::TDifferencePercentage<unsigned int>(l, r);
+        return behaviac::CMemberBase::TDifferencePercentage<unsigned int>(l, r);
     }
 
 private:

@@ -41,7 +41,7 @@ namespace behaviac
         virtual BehaviorTask* createTask() const;
 
     protected:
-        CMethodBase*				m_event;
+        behaviac::CMethodBase*				m_event;
 
         behaviac::string			m_referencedBehaviorPath;
 

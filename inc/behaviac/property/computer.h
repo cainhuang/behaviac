@@ -46,9 +46,9 @@ namespace behaviac
 
         virtual bool Execute(Agent* pSelf,
                              Property* opl,
-                             Property* opr1, CMethodBase* opr1_m,
+                             Property* opr1, behaviac::CMethodBase* opr1_m,
                              EComputeOperator computeOperator,
-                             Property* opr2, CMethodBase* opr2_m) const = 0;
+                             Property* opr2, behaviac::CMethodBase* opr2_m) const = 0;
     };
 
     template< typename VariableType >
@@ -69,18 +69,18 @@ namespace behaviac
 
         virtual bool Execute(Agent* pSelf,
                              Property* opl,
-                             Property* opr1, CMethodBase* opr1_m,
+                             Property* opr1, behaviac::CMethodBase* opr1_m,
                              EComputeOperator computeOperator,
-                             Property* opr2, CMethodBase* opr2_m) const;
+                             Property* opr2, behaviac::CMethodBase* opr2_m) const;
     };
 
     //------------------------------------------------------------------------
     template< typename VariableType >
     bool VariableComputerImpl< VariableType >::Execute(Agent* pSelf,
                                                        Property* _opl,
-                                                       Property* _opr1, CMethodBase* _opr1_m,
+                                                       Property* _opr1, behaviac::CMethodBase* _opr1_m,
                                                        EComputeOperator computeOperator,
-                                                       Property* _opr2, CMethodBase* _opr2_m) const
+                                                       Property* _opr2, behaviac::CMethodBase* _opr2_m) const
     {
         Agent* agentL = _opl->GetParentAgent(pSelf);
 

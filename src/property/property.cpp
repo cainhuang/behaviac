@@ -119,7 +119,7 @@ namespace behaviac
         IList::Cleanup();
     }
 
-    Property::Property(const CMemberBase* pMemberBase, bool bIsConst) :
+    Property::Property(const behaviac::CMemberBase* pMemberBase, bool bIsConst) :
         m_parent(0), m_index(0), m_bIsStatic(false), m_bIsLocal(false)
     {
         m_memberBase = pMemberBase;
@@ -366,7 +366,7 @@ namespace behaviac
         BEHAVIAC_ASSERT(propertyName);
         BEHAVIAC_ASSERT(!StringUtils::EndsWith(propertyName, "]"));
 
-        const CMemberBase* pMember = 0;
+        const behaviac::CMemberBase* pMember = 0;
         bool bConst = false;
 
         if (agentType)
@@ -399,7 +399,7 @@ namespace behaviac
     //     return bAgentPtr;
     // }
 
-    Property*  Property::create(const CMemberBase* pMember, bool bConst, const char* typeName, const char* variableName, const char* instanceName, const char* valueStr)
+    Property*  Property::create(const behaviac::CMemberBase* pMember, bool bConst, const char* typeName, const char* variableName, const char* instanceName, const char* valueStr)
     {
         BEHAVIAC_ASSERT(variableName == 0 || !StringUtils::EndsWith(variableName, "]"));
         bool bValidName = variableName && variableName[0] != '\0';

@@ -26,7 +26,7 @@
       </Node>
       <Node Class="PluginBehaviac.Nodes.FSMReferencedBehavior" Enable="true" HasOwnPrefabData="false" Id="13" PrefabName="" PrefabNodeId="-1" ReferenceBehavior="const string &quot;Tank_Fire&quot;" ScreenLocationX="449.5435" ScreenLocationY="-196.0981" Task="&quot;&quot;">
         <Comment Background="Gray" Text="" />
-        <Attachment Class="PluginBehaviac.Events.TransitionCondition" Effectors="0:" Enable="true" Id="7" Operator="Equal" Opl="behaviac::EBTStatus Self.Player::Status" Opr1="&quot;&quot;" Opr2="const behaviac::EBTStatus BT_SUCCESS" PrefabAttachmentId="-1" TargetFSMNodeId="1" />
+        <Attachment Class="PluginBehaviac.Events.AlwaysTransition" Enable="true" Id="8" PrefabAttachmentId="-1" TargetFSMNodeId="1" TransitionPhase="ETP_Exit" />
       </Node>
     </FSMNodes>
   </Node>

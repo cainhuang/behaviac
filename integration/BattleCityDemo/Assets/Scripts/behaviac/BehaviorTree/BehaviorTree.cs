@@ -1338,6 +1338,8 @@ namespace behaviac
             return false;
         }
 
+
+
         protected bool EvaluteCustomCondition(Agent pAgent)
         {
             if (this.m_customCondition != null)

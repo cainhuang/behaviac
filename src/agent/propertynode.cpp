@@ -179,11 +179,11 @@ namespace behaviac
 	{
 		BEHAVIAC_UNUSED_VAR(length);
 
-		const CMemberBase* m = this->m_pAgent->FindMember(keyID.GetID());
+		const behaviac::CMemberBase* m = this->m_pAgent->FindMember(keyID.GetID());
 
 		if (m)
 		{
-			CMemberBase* pM = const_cast<CMemberBase*>(m);
+			behaviac::CMemberBase* pM = const_cast<behaviac::CMemberBase*>(m);
 
 			//void* p = pM->Get(this->m_pAgent, typeId);
 			void* p = pM->GetVariable(this->m_pAgent, typeId);
@@ -198,11 +198,11 @@ namespace behaviac
 	{
 		BEHAVIAC_UNUSED_VAR(length);
 
-		const CMemberBase* m = this->m_pAgent->FindMember(keyID.GetString());
+		const behaviac::CMemberBase* m = this->m_pAgent->FindMember(keyID.GetString());
 
 		if (m)
 		{
-			CMemberBase* pM = const_cast<CMemberBase*>(m);
+			behaviac::CMemberBase* pM = const_cast<behaviac::CMemberBase*>(m);
 
 			//pM->Set(this->m_pAgent, valueData, typeId);
 			pM->SetVariable(this->m_pAgent, valueData, typeId);

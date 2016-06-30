@@ -14,7 +14,7 @@
 #include "behaviac/agent/agent.h"
 #include "behaviac/base/object/method.h"
 
-behaviac::Agent* CMethodBase::GetParentAgent(const behaviac::Agent* pAgent)
+behaviac::Agent* behaviac::CMethodBase::GetParentAgent(const behaviac::Agent* pAgent)
 {
 	BEHAVIAC_ASSERT(pAgent);
 	behaviac::Agent* pParent = behaviac::Agent::GetInstance(pAgent, this->GetInstanceNameString());

@@ -542,14 +542,14 @@ namespace behaviac
         return 0;
     }
 
-    CNamedEvent* Context::FindNamedEventTemplate(const CTagObject::MethodsContainer& methods, const char* eventName)
+    CNamedEvent* Context::FindNamedEventTemplate(const behaviac::CTagObject::MethodsContainer& methods, const char* eventName)
     {
         CStringID eventID(eventName);
 
         //reverse, so the event in the derived class can override the one in the base class
-        for (CTagObject::MethodsContainer::const_reverse_iterator it = methods.rbegin(); it != methods.rend(); ++it)
+        for (behaviac::CTagObject::MethodsContainer::const_reverse_iterator it = methods.rbegin(); it != methods.rend(); ++it)
         {
-            const CMethodBase* pMethod = *it;
+            const behaviac::CMethodBase* pMethod = *it;
 
             const char* methodName = pMethod->GetName();
             CStringID methodID(methodName);

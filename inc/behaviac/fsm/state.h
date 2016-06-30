@@ -28,10 +28,10 @@ namespace behaviac
 		bool IsEndState() const;
 
         EBTStatus Update(Agent* pAgent, int& nextStateId);
-        static bool UpdateTransitions(Agent* pAgent, const BehaviorNode* node, const behaviac::vector<Transition*>* transitions, int& nextStateId);
+		static bool UpdateTransitions(Agent* pAgent, const BehaviorNode* node, const behaviac::vector<Transition*>* transitions, int& nextStateId, EBTStatus result);
     protected:
 		bool							m_bIsEndState;
-        CMethodBase*					m_method;
+        behaviac::CMethodBase*					m_method;
         behaviac::vector<Transition*>	m_transitions;
     };
 

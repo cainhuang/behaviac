@@ -132,7 +132,7 @@ namespace behaviac
 		}
 		else
 		{
-			bool bTransitioned = UpdateTransitions(pAgent, this, (const behaviac::vector<Transition*>*)&this->m_transitions, nextStateId);
+			bool bTransitioned = UpdateTransitions(pAgent, this, (const behaviac::vector<Transition*>*)&this->m_transitions, nextStateId, result);
 
 			if (bTransitioned)
 			{
@@ -146,7 +146,7 @@ namespace behaviac
 
 	void CHECK_BREAKPOINT(Agent* pAgent, const BehaviorNode* b, const char* action, EActionResult actionResult);
 
-	bool State::UpdateTransitions(Agent* pAgent, const BehaviorNode* node, const behaviac::vector<Transition*>* transitions, int& nextStateId)
+	bool State::UpdateTransitions(Agent* pAgent, const BehaviorNode* node, const behaviac::vector<Transition*>* transitions, int& nextStateId, EBTStatus result)
 	{
 		BEHAVIAC_UNUSED_VAR(node);
 		bool bTransitioned = false;
@@ -157,7 +157,7 @@ namespace behaviac
 			{
 				Transition* transition = (*transitions)[i];
 
-				if (transition->Evaluate(pAgent))
+				if (transition->Evaluate(pAgent, result))
 				{
 					nextStateId = transition->GetTargetStateId();
 					BEHAVIAC_ASSERT(nextStateId != -1);

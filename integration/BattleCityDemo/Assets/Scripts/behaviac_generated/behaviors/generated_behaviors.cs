@@ -5293,22 +5293,12 @@ namespace behaviac
 	}
 
 	[behaviac.GeneratedTypeMetaInfo()]
-	class Transition_bt_Tank_FSM_MoveFire_attach7 : behaviac.Transition
+	class AlwaysTransition_bt_Tank_FSM_MoveFire_attach8 : behaviac.AlwaysTransition
 	{
-		public Transition_bt_Tank_FSM_MoveFire_attach7()
+		public AlwaysTransition_bt_Tank_FSM_MoveFire_attach8()
 		{
 			this.TargetStateId = 1;
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			EBTStatus result = EBTStatus.BT_SUCCESS;
-			Debug.Check(behaviac.Utils.MakeVariableId("Status") == 525979889u);
-			behaviac.EBTStatus opl = pAgent.GetVariable<behaviac.EBTStatus>(525979889u);
-			behaviac.EBTStatus opr2 = behaviac.EBTStatus.BT_SUCCESS;
-			bool op = (opl == opr2);
-			if (!op)
-				result = EBTStatus.BT_FAILURE;
-			return result;
+			this.TransitionPhase = ETransitionPhase.ETP_Exit;
 		}
 	}
 
@@ -5432,13 +5422,13 @@ namespace behaviac
 #endif
 					// attachments
 					{
-						Transition_bt_Tank_FSM_MoveFire_attach7 attach7 = new Transition_bt_Tank_FSM_MoveFire_attach7();
-						attach7.SetClassNameString("Transition");
-						attach7.SetId(7);
+						AlwaysTransition_bt_Tank_FSM_MoveFire_attach8 attach8 = new AlwaysTransition_bt_Tank_FSM_MoveFire_attach8();
+						attach8.SetClassNameString("AlwaysTransition");
+						attach8.SetId(8);
 #if !BEHAVIAC_RELEASE
-						attach7.SetAgentType("Player");
+						attach8.SetAgentType("Player");
 #endif
-						node13.Attach(attach7, false, false, true);
+						node13.Attach(attach8, false, false, true);
 					}
 					fsm.AddChild(node13);
 					fsm.SetHasEvents(fsm.HasEvents() | node13.HasEvents());

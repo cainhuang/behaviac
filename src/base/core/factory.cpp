@@ -16,52 +16,54 @@
 #include "behaviac/base/core/factory.h"
 #include "behaviac/base/core/logging/log.h"
 
-bool FactoryNewUnregisterSub(FactoryContainer* creators, const behaviac::CStringID& typeID)
-{
-    creators->Lock();
-    SFactoryBucket bucket(typeID, NULL);
-    CreatorIt itEnd(creators->end());
-    CreatorIt itFound(std::find(creators->begin(), itEnd, bucket));
+namespace behaviac {
+	bool FactoryNewUnregisterSub(FactoryContainer* creators, const behaviac::CStringID& typeID)
+	{
+		creators->Lock();
+		SFactoryBucket bucket(typeID, NULL);
+		CreatorIt itEnd(creators->end());
+		CreatorIt itFound(std::find(creators->begin(), itEnd, bucket));
 
-    if (itFound != itEnd)
-    {
-        SFactoryBucket& item = *itFound;
-        BEHAVIAC_FREE(item.m_typeConstructor);
-        creators->erase(itFound);
-        creators->Unlock();
-        return true;
-    }
+		if (itFound != itEnd)
+		{
+			SFactoryBucket& item = *itFound;
+			BEHAVIAC_FREE(item.m_typeConstructor);
+			creators->erase(itFound);
+			creators->Unlock();
+			return true;
+		}
 
-    BEHAVIAC_ASSERT("Cannot find the specified factory entry\n");
-    creators->Unlock();
-    return false;
-}
+		BEHAVIAC_ASSERT("Cannot find the specified factory entry\n");
+		creators->Unlock();
+		return false;
+	}
 
-bool FactoryNewRegisterSub(FactoryContainer* creators, const behaviac::CStringID& typeID, void* typeConstructor)
-{
-    SFactoryBucket bucket(typeID, typeConstructor);
-    creators->Lock();
-    CreatorIt itEnd(creators->end());
-    CreatorIt itFound(std::find(creators->begin(), itEnd, bucket));
-    bool wasThere = (itFound != itEnd);
+	bool FactoryNewRegisterSub(FactoryContainer* creators, const behaviac::CStringID& typeID, void* typeConstructor)
+	{
+		SFactoryBucket bucket(typeID, typeConstructor);
+		creators->Lock();
+		CreatorIt itEnd(creators->end());
+		CreatorIt itFound(std::find(creators->begin(), itEnd, bucket));
+		bool wasThere = (itFound != itEnd);
 
-    //Add it only once
-    if (!wasThere)
-    {
-        creators->push_back(bucket);
+		//Add it only once
+		if (!wasThere)
+		{
+			creators->push_back(bucket);
 
-    }
-    else
-    {
+		}
+		else
+		{
 #if STRINGID_USESTRINGCONTENT
-        BEHAVIAC_ASSERT(0);
-        BEHAVIAC_LOG2(BEHAVIAC_LOG_WARNING, "Trying to register an already registered type %d -- %s\n", typeID.GetUniqueID(), typeID.c_str());
+			BEHAVIAC_ASSERT(0);
+			BEHAVIAC_LOG2(BEHAVIAC_LOG_WARNING, "Trying to register an already registered type %d -- %s\n", typeID.GetUniqueID(), typeID.c_str());
 #else
 
-        BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d", typeID.GetUniqueID());
+			BEHAVIAC_ASSERT(0, "Trying to register an already registered type %d", typeID.GetUniqueID());
 #endif // #if STRINGID_USESTRINGCONTENT
-    }
+		}
 
-    creators->Unlock();
-    return !wasThere;
-}
+		creators->Unlock();
+		return !wasThere;
+	}
+}//

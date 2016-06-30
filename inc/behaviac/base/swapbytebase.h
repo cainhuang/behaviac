@@ -48,7 +48,7 @@ inline void SwapByteTempl(behaviac::CStringID& value)
     value.SetContent(s);
 #else
     behaviac::CStringID::IDType id = value.GetUniqueID();
-    SwapByte(id);
+    behaviacSwapByte(id);
 
     value.SetUniqueID(id);
 #endif//#if STRINGID_USESTRINGCONTENT
@@ -62,7 +62,7 @@ inline void SwapByteTempl(behaviac::CPathID& value)
     value.SetContent(s);
 #else
     behaviac::CPathID::IDType id = value.GetUniqueID();
-    SwapByte(id);
+    behaviacSwapByte(id);
 
     value = behaviac::CPathID(id);
 #endif//#if STRINGID_USESTRINGCONTENT

@@ -1120,10 +1120,10 @@ namespace PluginBehaviac.Exporters
                             file.WriteLine();
 
                         CustomizedEnum customizedEnum = CustomizedTypeManager.Instance.Enums[e];
-                        
-                        file.WriteLine("BEGIN_ENUM_DESCRIPTION({0}, {0})", customizedEnum.Name);
+
+                        file.WriteLine("BEHAVIAC_BEGIN_ENUM({0}, {0})", customizedEnum.Name);
                         file.WriteLine("{");
-                        file.WriteLine("\tENUMCLASS_DISPLAY_INFO(L\"{0}\", L\"{1}\");", customizedEnum.DisplayName, customizedEnum.Description);
+                        file.WriteLine("\tBEHAVIAC_ENUMCLASS_DISPLAY_INFO(L\"{0}\", L\"{1}\");", customizedEnum.DisplayName, customizedEnum.Description);
                         file.WriteLine();
 
                         for (int m = 0; m < customizedEnum.Members.Count; ++m)
@@ -1136,11 +1136,11 @@ namespace PluginBehaviac.Exporters
                             if (member.DisplayName != member.Name || !string.IsNullOrEmpty(member.Description))
                                 file.WriteLine("\tDEFINE_ENUM_VALUE({0}, \"{0}\").DISPLAY_INFO(L\"{1}\", L\"{2}\");", member.Name, member.DisplayName, member.Description);
                             else
-                                file.WriteLine("\tDEFINE_ENUM_VALUE({0}, \"{0}\");", member.Name);
+                                file.WriteLine("\tBEHAVIAC_ENUM_ITEM({0}, \"{0}\");", member.Name);
                         }
 
                         file.WriteLine("}");
-                        file.WriteLine("END_ENUM_DESCRIPTION()");
+                        file.WriteLine("BEHAVIAC_END_ENUM()");
                     }
 
                     if (CustomizedTypeManager.Instance.Enums.Count > 0)
@@ -1157,10 +1157,10 @@ namespace PluginBehaviac.Exporters
 
                         CustomizedStruct customizedStruct = CustomizedTypeManager.Instance.Structs[s];
 
-                        file.WriteLine("BEGIN_PROPERTIES_DESCRIPTION({0})", customizedStruct.Name);
+                        file.WriteLine("BEHAVIAC_BEGIN_PROPERTIES({0})", customizedStruct.Name);
                         file.WriteLine("{");
-                        file.WriteLine("\tCLASS_DISPLAYNAME(L\"{0}\");", customizedStruct.DisplayName);
-                        file.WriteLine("\tCLASS_DESC(L\"{0}\");", customizedStruct.Description);
+                        file.WriteLine("\tBEHAVIAC_CLASS_DISPLAYNAME(L\"{0}\");", customizedStruct.DisplayName);
+                        file.WriteLine("\tBEHAVIAC_CLASS_DESC(L\"{0}\");", customizedStruct.Description);
                         file.WriteLine();
 
                         for (int m = 0; m < customizedStruct.Properties.Count; ++m)
@@ -1170,13 +1170,13 @@ namespace PluginBehaviac.Exporters
 
                             PropertyDef member = customizedStruct.Properties[m];
                             if (member.DisplayName != member.Name || !string.IsNullOrEmpty(member.BasicDescription))
-                                file.WriteLine("\tREGISTER_PROPERTY({0}).DISPLAYNAME(L\"{1}\").DESC(L\"{2}\");", member.BasicName, member.DisplayName, member.BasicDescription);
+                                file.WriteLine("\tBEHAVIAC_REGISTER_PROPERTY({0}).DISPLAYNAME(L\"{1}\").DESC(L\"{2}\");", member.BasicName, member.DisplayName, member.BasicDescription);
                             else
-                                file.WriteLine("\tREGISTER_PROPERTY({0});", member.BasicName);
+                                file.WriteLine("\tBEHAVIAC_REGISTER_PROPERTY({0});", member.BasicName);
                         }
 
                         file.WriteLine("}");
-                        file.WriteLine("END_PROPERTIES_DESCRIPTION()");
+                        file.WriteLine("BEHAVIAC_END_PROPERTIES()");
                     }
                 }
             }

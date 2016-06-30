@@ -491,6 +491,9 @@ namespace behaviac
 
             this.m_bInited = true;
 
+            ComparerRegister.Init();
+            ComputerRegister.Init();
+
             Workspace.Instance.RegisterStuff();
 
             Config.LogInfo();
@@ -563,6 +566,9 @@ namespace behaviac
             this.UnLoadAll();
 
             Debug.Check(this.m_bRegistered);
+
+            ComparerRegister.Cleanup();
+            ComputerRegister.Cleanup();
 
             this.UnRegisterStuff();
 

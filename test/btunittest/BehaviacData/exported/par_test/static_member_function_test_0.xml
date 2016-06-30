@@ -31,8 +31,8 @@
         <property Opr="Self.ParTestAgent::Func_kEmployeeSMF(TNS::ST::PER::WRK::kEmployee Self.ParTestAgent::TV_KEMPLOYEE_0)" />
       </node>
       <node class="Assignment" id="10">
-        <property Opl="behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0" />
-        <property Opr="Self.ParTestAgent::Func_kEmployeeListSMF(behaviac::vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0)" />
+        <property Opl="vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0" />
+        <property Opr="Self.ParTestAgent::Func_kEmployeeListSMF(vector&lt;TNS::ST::PER::WRK::kEmployee&gt; Self.ParTestAgent::TV_LIST_KEMPLOYEE_0)" />
       </node>
     </node>
     <node class="Sequence" id="3">
@@ -53,8 +53,8 @@
         <property Opr="Self.EmployeeParTestAgent::Func_AgentSMF(behaviac::Agent Self.EmployeeParTestAgent::TV_AGENT_0)" />
       </node>
       <node class="Assignment" id="15">
-        <property Opl="behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0" />
-        <property Opr="Self.EmployeeParTestAgent::Func_AgentListSMF(behaviac::vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" />
+        <property Opl="vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0" />
+        <property Opr="Self.EmployeeParTestAgent::Func_AgentListSMF(vector&lt;behaviac::Agent&gt; Self.EmployeeParTestAgent::TV_LIST_AGENT_0)" />
       </node>
     </node>
   </node>

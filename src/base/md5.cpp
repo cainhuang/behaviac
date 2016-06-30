@@ -131,7 +131,7 @@ void CMD5Hash::append(const uint8_t* data, uint32_t dataSize)
 
             for (uint32_t i = 0; i < 16; ++i)
             {
-                SwapByte(m_buf.w[i]);
+                behaviacSwapByte(m_buf.w[i]);
             }
 
 #endif
@@ -154,18 +154,18 @@ void CMD5Hash::Finish(SMD5Digest& digest)
     count[0] = m_msgLength[0];
     count[1] = m_msgLength[1];
 #if BEHAVIAC_BIGENDIAN
-    SwapByte(count[0]);
-    SwapByte(count[1]);
+    behaviacSwapByte(count[0]);
+    behaviacSwapByte(count[1]);
 #endif
     uint32_t padLength = 64 - (((m_msgLength[0] >> 3) + 8) & 63);
     append(padding, padLength);
     append(reinterpret_cast<uint8_t*>(count), 8);
     BEHAVIAC_ASSERT((m_msgLength[0] & 63) == 0);
 #if BEHAVIAC_BIGENDIAN
-    SwapByte(m_abcd.w[0]);
-    SwapByte(m_abcd.w[1]);
-    SwapByte(m_abcd.w[2]);
-    SwapByte(m_abcd.w[3]);
+    behaviacSwapByte(m_abcd.w[0]);
+    behaviacSwapByte(m_abcd.w[1]);
+    behaviacSwapByte(m_abcd.w[2]);
+    behaviacSwapByte(m_abcd.w[3]);
 #endif
 
     for (uint32_t i = 0; i < 16; ++i)

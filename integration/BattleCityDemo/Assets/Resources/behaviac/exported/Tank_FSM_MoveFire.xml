@@ -59,11 +59,9 @@
     </node>
     <node class="ReferencedBehavior" id="13">
       <property ReferenceBehavior="const string &quot;Tank_Fire&quot;" />
-      <attachment class="Transition" id="7" flag="transition">
-        <property Operator="Equal" />
-        <property Opl="behaviac::EBTStatus Self.Player::Status" />
-        <property Opr2="const behaviac::EBTStatus BT_SUCCESS" />
+      <attachment class="AlwaysTransition" id="8" flag="transition">
         <property TargetFSMNodeId="1" />
+        <property TransitionPhase="ETP_Exit" />
       </attachment>
     </node>
   </node>

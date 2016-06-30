@@ -19,109 +19,109 @@
 
 //////////////////////////////////////////////////////////////////////////
 // CHighPerfTimer
+namespace behaviac {
+	static uint64_t GetTimeFrequency()
+	{
+		LARGE_INTEGER l;
 
-static uint64_t GetTimeFrequency()
-{
-    LARGE_INTEGER l;
+		if (!QueryPerformanceFrequency(&l))
+		{
+			BEHAVIAC_ASSERT(false);
+		}
 
-    if (!QueryPerformanceFrequency(&l))
-    {
-        BEHAVIAC_ASSERT(false);
-    }
+		return uint64_t(l.QuadPart);
+	}
 
-    return uint64_t(l.QuadPart);
-}
+	const uint64_t CHighPerfTimer::s_kfFrequency = GetTimeFrequency();
+	const behaviac::Float64 CHighPerfTimer::s_kfPeriod = 1.0 / behaviac::Float64(GetTimeFrequency()); // 1/frequency
 
-const uint64_t CHighPerfTimer::s_kfFrequency = GetTimeFrequency();
-const behaviac::Float64 CHighPerfTimer::s_kfPeriod = 1.0 / behaviac::Float64(GetTimeFrequency()); // 1/frequency
+	uint64_t CHighPerfTimer::GetTimeValue()
+	{
+		LARGE_INTEGER l;
+		QueryPerformanceCounter(&l);
+		return uint64_t(l.QuadPart);
+	}
 
-uint64_t CHighPerfTimer::GetTimeValue()
-{
-    LARGE_INTEGER l;
-    QueryPerformanceCounter(&l);
-    return uint64_t(l.QuadPart);
-}
+	//////////////////////////////////////////////////////////////////////////
+	// Variables used by timers
+	//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
-// Variables used by timers
-//////////////////////////////////////////////////////////////////////////
+	struct SInternalTimerVariables
+	{
+		SInternalTimerVariables()
+			: m_curTime(0),
+			m_timerStart(0),
+			m_secsPerTick(0.f)
+		{}
+		int64_t m_curTime;
+		int64_t m_timerStart;
+		double m_secsPerTick;
+	};
 
-struct SInternalTimerVariables
-{
-    SInternalTimerVariables()
-        : m_curTime(0),
-          m_timerStart(0),
-          m_secsPerTick(0.f)
-    {}
-    int64_t m_curTime;
-    int64_t m_timerStart;
-    double m_secsPerTick;
-};
+	static SInternalTimerVariables s_timerVar;
 
-static SInternalTimerVariables s_timerVar;
+	static uint32_t s_appLaunchTickCount = GetTickCount();  // s_appLaunchTickCount is the tick count since the launch of the application
 
-static uint32_t s_appLaunchTickCount = GetTickCount();  // s_appLaunchTickCount is the tick count since the launch of the application
+	//get time from multimedia timer
+	/////////////////////////////////////////////////////
+	static float GetMMTime()
+	{
+		s_timerVar.m_curTime = ::GetTickCount();
+		return ((float)(s_timerVar.m_secsPerTick * (s_timerVar.m_curTime - s_timerVar.m_timerStart)));
+	}
 
-//get time from multimedia timer
-/////////////////////////////////////////////////////
-static float GetMMTime()
-{
-    s_timerVar.m_curTime = ::GetTickCount();
-    return ((float)(s_timerVar.m_secsPerTick * (s_timerVar.m_curTime - s_timerVar.m_timerStart)));
-}
+	//get time from performance counter
+	/////////////////////////////////////////////////////
+	static float GetPerformanceCounterTime()
+	{
+		::QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&s_timerVar.m_curTime));
+		float res = ((float)(s_timerVar.m_secsPerTick * (s_timerVar.m_curTime - s_timerVar.m_timerStart)));
 
-//get time from performance counter
-/////////////////////////////////////////////////////
-static float GetPerformanceCounterTime()
-{
-    ::QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&s_timerVar.m_curTime));
-    float res = ((float)(s_timerVar.m_secsPerTick * (s_timerVar.m_curTime - s_timerVar.m_timerStart)));
+		if (res < 0.f)
+		{
+			res = 0.f;
+		}
 
-    if (res < 0.f)
-    {
-        res = 0.f;
-    }
+		return res;
+	}
 
-    return res;
-}
+	//init the timer
+	/////////////////////////////////////////////////////
+	bool CTimer::Init()
+	{
+		LARGE_INTEGER TTicksPerSec;
 
-//init the timer
-/////////////////////////////////////////////////////
-bool CTimer::Init()
-{
-    LARGE_INTEGER TTicksPerSec;
+		if (QueryPerformanceFrequency(&TTicksPerSec))
+		{
+			// performance counter is available, use it instead of multimedia timer
+			LARGE_INTEGER t;
+			QueryPerformanceCounter(&t);
+			memcpy(&s_timerVar.m_timerStart, &t, sizeof(s_timerVar.m_timerStart));
+			s_timerVar.m_secsPerTick = double(1.0 / double(TTicksPerSec.QuadPart));
+			m_pfnUpdate = &GetPerformanceCounterTime;
 
-    if (QueryPerformanceFrequency(&TTicksPerSec))
-    {
-        // performance counter is available, use it instead of multimedia timer
-        LARGE_INTEGER t;
-        QueryPerformanceCounter(&t);
-        memcpy(&s_timerVar.m_timerStart, &t, sizeof(s_timerVar.m_timerStart));
-        s_timerVar.m_secsPerTick = double(1.0 / double(TTicksPerSec.QuadPart));
-        m_pfnUpdate = &GetPerformanceCounterTime;
+		}
+		else
+		{
+			//Use MM timer if unable to use the High Frequency timer
+			s_timerVar.m_timerStart = GetTickCount();
+			//m_SecsPerTick = 1.0 / 1000.0;
+			m_pfnUpdate = &GetMMTime;
+		}
 
-    }
-    else
-    {
-        //Use MM timer if unable to use the High Frequency timer
-        s_timerVar.m_timerStart = GetTickCount();
-        //m_SecsPerTick = 1.0 / 1000.0;
-        m_pfnUpdate = &GetMMTime;
-    }
+		Reset();
+		return true;
+	}
 
-    Reset();
-    return true;
-}
-
-//get elapsed time
-/////////////////////////////////////////////////////
-unsigned int CTimer::GetElapsedTime(int& hours, int& minutes, int& seconds)
-{
-    uint32_t tickCount = GetTickCount() - s_appLaunchTickCount;
-    hours = ((tickCount / 1000) / 60) / 60;
-    minutes = ((tickCount - (hours * 60 * 60 * 1000)) / 1000) / 60;
-    seconds = (tickCount - (hours * 60 * 60 * 1000) - (minutes * 60 * 1000)) / 1000;
-    return tickCount;
-}
-
+	//get elapsed time
+	/////////////////////////////////////////////////////
+	unsigned int CTimer::GetElapsedTime(int& hours, int& minutes, int& seconds)
+	{
+		uint32_t tickCount = GetTickCount() - s_appLaunchTickCount;
+		hours = ((tickCount / 1000) / 60) / 60;
+		minutes = ((tickCount - (hours * 60 * 60 * 1000)) / 1000) / 60;
+		seconds = (tickCount - (hours * 60 * 60 * 1000) - (minutes * 60 * 1000)) / 1000;
+		return tickCount;
+	}
+}//
 #endif//#if BEHAVIAC_COMPILER_MSVC

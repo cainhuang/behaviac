@@ -26,11 +26,11 @@
 #include "behaviac/base/meta/types.h"
 
 
-template<typename T>
-bool EnumValueFromString(const char* valueStr, T& v);
-
 namespace behaviac
 {
+	template<typename T>
+	bool EnumValueFromString(const char* valueStr, T& v);
+
     namespace StringUtils
     {
         template<typename T>
@@ -611,7 +611,7 @@ namespace behaviac
             {
                 static bool FromString(const char* valueStr, T& v)
                 {
-                    return EnumValueFromString(valueStr, v);
+                    return behaviac::EnumValueFromString(valueStr, v);
                 }
             };
 

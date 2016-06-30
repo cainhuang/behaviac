@@ -46,8 +46,7 @@ namespace behaviac
 
 				if (pParenthesis == (size_t)-1)
                 {
-                    this->m_opl = Condition::LoadLeft(p->value);
-
+					this->m_opl = Condition::LoadLeft(p->value, typeName);
                 }
                 else
                 {
@@ -62,7 +61,6 @@ namespace behaviac
 				if (pParenthesis == (size_t)-1)
                 {
                     this->m_opr = Condition::LoadRight(p->value, typeName);
-
                 }
                 else
                 {

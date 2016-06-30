@@ -23,27 +23,27 @@ FSMAgentTest::~FSMAgentTest()
 {
 }
 
-BEGIN_ENUM_DESCRIPTION(FSMAgentTest::EMessage, EMessage)
+BEHAVIAC_BEGIN_ENUM(FSMAgentTest::EMessage, EMessage)
 {
-    DEFINE_ENUM_VALUE(FSMAgentTest::Invalid, "Invalid");
-    DEFINE_ENUM_VALUE(FSMAgentTest::Begin, "Begin");
-    DEFINE_ENUM_VALUE(FSMAgentTest::End, "End");
-    DEFINE_ENUM_VALUE(FSMAgentTest::Pause, "Pause");
-    DEFINE_ENUM_VALUE(FSMAgentTest::Resume, "Resume");
-    DEFINE_ENUM_VALUE(FSMAgentTest::Exit, "Exit");
+    BEHAVIAC_ENUM_ITEM(FSMAgentTest::Invalid, "Invalid");
+    BEHAVIAC_ENUM_ITEM(FSMAgentTest::Begin, "Begin");
+    BEHAVIAC_ENUM_ITEM(FSMAgentTest::End, "End");
+    BEHAVIAC_ENUM_ITEM(FSMAgentTest::Pause, "Pause");
+    BEHAVIAC_ENUM_ITEM(FSMAgentTest::Resume, "Resume");
+    BEHAVIAC_ENUM_ITEM(FSMAgentTest::Exit, "Exit");
 }
-END_ENUM_DESCRIPTION()
+BEHAVIAC_END_ENUM()
 
-BEGIN_PROPERTIES_DESCRIPTION(FSMAgentTest)
+BEHAVIAC_BEGIN_PROPERTIES(FSMAgentTest)
 {
-    //CLASS_DISPLAYNAME(L"FSMAgentTest DisplayName")
-    //CLASS_DESC(L"FSMAgentTest Desc")
+    //BEHAVIAC_CLASS_DISPLAYNAME(L"FSMAgentTest DisplayName")
+    //BEHAVIAC_CLASS_DESC(L"FSMAgentTest Desc")
 
-    REGISTER_PROPERTY(Message);
+    BEHAVIAC_REGISTER_PROPERTY(Message);
 
-    REGISTER_METHOD(inactive_update);
-    REGISTER_METHOD(active_update);
-    REGISTER_METHOD(pause_update);
-    REGISTER_METHOD(exit_update);
+    BEHAVIAC_REGISTER_METHOD(inactive_update);
+    BEHAVIAC_REGISTER_METHOD(active_update);
+    BEHAVIAC_REGISTER_METHOD(pause_update);
+    BEHAVIAC_REGISTER_METHOD(exit_update);
 }
-END_PROPERTIES_DESCRIPTION()
+BEHAVIAC_END_PROPERTIES()

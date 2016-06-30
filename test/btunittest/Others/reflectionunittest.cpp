@@ -40,10 +40,10 @@
 //    DECLARE_BEHAVIAC_STRUCT(TypeTest2_t);
 //};
 //
-//class ObjectTest : public CTagObject
+//class ObjectTest : public behaviac::CTagObject
 //{
 //public:
-//	DECLARE_BEHAVIAC_TAG_OBJECT(ObjectTest, CTagObject);
+//	DECLARE_BEHAVIAC_TAG_OBJECT(ObjectTest, behaviac::CTagObject);
 //
 //    ObjectTest() : Property1(10), Property2(true), Property3(10.0f)
 //    {}
@@ -113,21 +113,21 @@
 //    }
 //};
 //
-//BEGIN_PROPERTIES_DESCRIPTION(TypeTest2_t)
+//BEHAVIAC_BEGIN_PROPERTIES(TypeTest2_t)
 //{
 //    REGISTER_MEMBER("name", name, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
 //    REGISTER_MEMBER("weight", weight, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
 //    REGISTER_MEMBER("bLive", bLive, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
-//BEGIN_PROPERTIES_DESCRIPTION(ObjectTest::Param2_t)
+//BEHAVIAC_BEGIN_PROPERTIES(ObjectTest::Param2_t)
 //{
 //    REGISTER_MEMBER("type", type, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
 //    REGISTER_MEMBER("color", color, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
 //    REGISTER_MEMBER("id", id, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
 ////namespace StringUtils
 ////{
@@ -153,7 +153,7 @@
 ////
 ////}
 //
-//BEGIN_PROPERTIES_DESCRIPTION(ObjectTest)
+//BEHAVIAC_BEGIN_PROPERTIES(ObjectTest)
 //{
 //    REGISTER_SERIALIZATION_EVENT(PreSave, EPersistenceType_Description_Save);
 //    BEGIN_GROUP_MEMBER("Properties", EPersistenceType_Description);
@@ -168,24 +168,24 @@
 //    REGISTER_SERIALIZATION_EVENT(PostSave, EPersistenceType_Description_Save);
 //    REGISTER_SERIALIZATION_EVENT(PostLoad, EPersistenceType_Description_Load);
 //
-//    BEGIN_REGISTER_METHOD("method0", method0)
-//    END_REGISTER_METHOD()
+//    BEGIN_BEHAVIAC_REGISTER_METHOD("method0", method0)
+//    END_BEHAVIAC_REGISTER_METHOD()
 //
-//    BEGIN_REGISTER_METHOD("method1", method1)
-//    END_REGISTER_METHOD()
+//    BEGIN_BEHAVIAC_REGISTER_METHOD("method1", method1)
+//    END_BEHAVIAC_REGISTER_METHOD()
 //
-//    BEGIN_REGISTER_METHOD("method2", method2)
-//    END_REGISTER_METHOD()
+//    BEGIN_BEHAVIAC_REGISTER_METHOD("method2", method2)
+//    END_BEHAVIAC_REGISTER_METHOD()
 //
-//    BEGIN_REGISTER_METHOD("method3", method3)
-//    END_REGISTER_METHOD()
+//    BEGIN_BEHAVIAC_REGISTER_METHOD("method3", method3)
+//    END_BEHAVIAC_REGISTER_METHOD()
 //
-//    BEGIN_REGISTER_METHOD("method4", method4)
-//    END_REGISTER_METHOD()
+//    BEGIN_BEHAVIAC_REGISTER_METHOD("method4", method4)
+//    END_BEHAVIAC_REGISTER_METHOD()
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
-//class CGrassMorphData : public CTagObject
+//class CGrassMorphData : public behaviac::CTagObject
 //{
 //    //-----------------------------------------
 //    // type definition
@@ -214,9 +214,9 @@
 //    // operations
 //    //-----------------------------------------
 //public:
-//	DECLARE_BEHAVIAC_TAG_OBJECT(CGrassMorphData, CTagObject);
+//	DECLARE_BEHAVIAC_TAG_OBJECT(CGrassMorphData, behaviac::CTagObject);
 //
-//    static CTagObject* CreateObject()
+//    static behaviac::CTagObject* CreateObject()
 //    {
 //        return BEHAVIAC_NEW CGrassMorphData;
 //    }
@@ -264,23 +264,23 @@
 //    }
 //};
 //
-//BEGIN_PROPERTIES_DESCRIPTION(CGrassMorphData::SMorph)
+//BEHAVIAC_BEGIN_PROPERTIES(CGrassMorphData::SMorph)
 //{
 //    REGISTER_MEMBER("Name", m_name, EPersistenceType_Description_UiInfo, DefaultTypeHandler, DefaultUiInfo);
-//    REGISTER_OFFSET_MEMBER("fileSylvanGrass", m_grassFaction, 0, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
-//    REGISTER_OFFSET_MEMBER("fileHavenGrass", m_grassFaction, 1, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
-//    REGISTER_OFFSET_MEMBER("fileNecroGrass", m_grassFaction, 2, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
-//    REGISTER_OFFSET_MEMBER("fileInfernoGrass", m_grassFaction, 3, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+//    BEHAVIAC_REGISTER_OFFSET_MEMBER("fileSylvanGrass", m_grassFaction, 0, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+//    BEHAVIAC_REGISTER_OFFSET_MEMBER("fileHavenGrass", m_grassFaction, 1, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+//    BEHAVIAC_REGISTER_OFFSET_MEMBER("fileNecroGrass", m_grassFaction, 2, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
+//    BEHAVIAC_REGISTER_OFFSET_MEMBER("fileInfernoGrass", m_grassFaction, 3, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
-//BEGIN_PROPERTIES_DESCRIPTION(CGrassMorphData)
+//BEHAVIAC_BEGIN_PROPERTIES(CGrassMorphData)
 //{
 //    REGISTER_CONTAINER_MEMBER_EX("Morph_contain", "Morph_elem", "", m_morphData, EPersistenceType_Description_UiInfo, TagEmptyEntryVectorProvider, DefaultContainedTypeHandler, DefaultUiInfo);
 //    REGISTER_MEMBER("fMorphForce", m_morphForce, EPersistenceType_Description, DefaultTypeHandler, DefaultUiInfo);
 //    //REGISTER_VIRTUAL_MEMBER_REF("Values", SetSavedValues, GetSavedValues, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
 //#if BEHAVIAC_COMPILER_MSVC
 //struct SAttachement
@@ -302,14 +302,14 @@
 //    bool freezeRotation;
 //};
 //
-//BEGIN_PROPERTIES_DESCRIPTION(SAttachement)
+//BEHAVIAC_BEGIN_PROPERTIES(SAttachement)
 //{
 //    REGISTER_MEMBER("BoneIndex", boneIndex, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
 //    //REGISTER_VIRTUAL_MEMBER("Translation", Translation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
 //    //REGISTER_VIRTUAL_MEMBER_INTRINSIC_GET_COPY("Rotation", Rotation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
 //    REGISTER_MEMBER("FreezeRotation", freezeRotation, EPersistenceType_State, DefaultTypeHandler, DefaultUiInfo);
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
 //typedef behaviac::map<behaviac::CStringID, SAttachement> MapAttachements;
 //
@@ -376,7 +376,7 @@
 ////}
 ////
 //
-//BEGIN_PROPERTIES_DESCRIPTION(CMoveModel)
+//BEHAVIAC_BEGIN_PROPERTIES(CMoveModel)
 //{
 //    REGISTER_CONTAINER_MEMBER_BYID("MapAttachements", "Attachement", "Attachement", "AttachementName", m_attachements, EPersistenceType_State, CreateChildNode, TagMapProvider, DefaultTypeHandler, DefaultUiInfo);
 //
@@ -396,7 +396,7 @@
 //    REGISTER_MEMBER("AIObject", m_aiObject, EPersistenceType_All_UiInfo, DefaultTypeHandler, DefaultUiInfo);
 //    REGISTER_SERIALIZATION_EVENT(RegisterAIObjectResources, EPersistenceType_Description_Load);
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
 //class CSequenceManager
 //{
@@ -436,11 +436,11 @@
 //
 //BEHAVIAC_IMPLEMNT_SINGLETON(CSequenceManager);
 //
-//BEGIN_PROPERTIES_DESCRIPTION(CSequenceManager)
+//BEHAVIAC_BEGIN_PROPERTIES(CSequenceManager)
 //{
 //    //
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
 //template< typename T >
 //class CSceneObjectHandle
@@ -476,7 +476,7 @@
 //{
 //    //
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
 //class CSceneObject
 //{
@@ -487,24 +487,24 @@
 //    CSceneObject();
 //};
 //
-//BEGIN_PROPERTIES_DESCRIPTION(CSceneObject)
+//BEHAVIAC_BEGIN_PROPERTIES(CSceneObject)
 //{
 //    //
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
 //template< typename T >
-//class CSceneObjectComponent : public CTagObject
+//class CSceneObjectComponent : public behaviac::CTagObject
 //{
 //public:
 //    BEHAVIAC_DECLARE_MEMORY_OPERATORS(CSceneObjectComponent<T>)
-//    BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE1(CSceneObjectComponent, T, CTagObject);
-//    DECLARE_BEHAVIAC_OBJECT_SIMPLE(CSceneObjectComponent, CTagObject);
+//    BEHAVIAC_DECLARE_TEMPLATE_DYNAMIC_TYPE1(CSceneObjectComponent, T, behaviac::CTagObject);
+//    DECLARE_BEHAVIAC_OBJECT_SIMPLE(CSceneObjectComponent, behaviac::CTagObject);
 //
 //    CSceneObjectComponent();
 //    virtual ~CSceneObjectComponent();
 //
-//    static CTagObject* CreateObject(const behaviac::CStringID&)
+//    static behaviac::CTagObject* CreateObject(const behaviac::CStringID&)
 //    {
 //        return BEHAVIAC_NEW CSceneObjectComponent();
 //    }
@@ -525,7 +525,7 @@
 //    REGISTER_SERIALIZATION_EVENT(CreateObjectHandle, EPersistenceType_Description_Load)
 //    //REGISTER_MEMBER("Handle", m_handle, EPersistenceType_Description, NoChildTypeHandler, DefaultUiInfo)
 //}
-//END_PROPERTIES_DESCRIPTION()
+//BEHAVIAC_END_PROPERTIES()
 //
 //TEST(ReflectionTest, Register)
 //{

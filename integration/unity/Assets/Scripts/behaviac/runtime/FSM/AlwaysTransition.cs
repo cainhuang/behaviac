@@ -17,6 +17,14 @@ namespace behaviac
 {
     class AlwaysTransition : Transition
     {
+        public enum ETransitionPhase
+        {
+            ETP_Always,
+            ETP_Success,
+            ETP_Failure,
+            ETP_Exit,
+        }
+
         public AlwaysTransition()
         {
         }
@@ -25,9 +33,47 @@ namespace behaviac
         //{
         //}
 
+        protected ETransitionPhase m_transitionPhase = ETransitionPhase.ETP_Always;
+
+        public ETransitionPhase TransitionPhase
+        {
+            get { return this.m_transitionPhase; }
+            set { this.m_transitionPhase = value; }
+        }
+
+
         protected override void load(int version, string agentType, List<property_t> properties)
         {
             base.load(version, agentType, properties);
+
+            for (int i = 0; i < properties.Count; ++i)
+            {
+                property_t p = properties[i];
+                if (p.name == "TransitionPhase")
+                {
+                    if (p.value == "ETP_Exit")
+                    {
+                        this.m_transitionPhase = ETransitionPhase.ETP_Exit;
+                    }
+                    else if (p.value == "ETP_Success")
+                    {
+                        this.m_transitionPhase = ETransitionPhase.ETP_Success;
+                    }
+                    else if (p.value == "ETP_Failure")
+                    {
+                        this.m_transitionPhase = ETransitionPhase.ETP_Failure;
+                    }
+                    else if (p.value == "ETP_Always")
+                    {
+                        this.m_transitionPhase = ETransitionPhase.ETP_Always;
+                    }
+                    else
+                    {
+                        Debug.Check(false);
+                    }
+                }
+            }
+
         }
 
         public override bool IsValid(Agent pAgent, BehaviorTask pTask)
@@ -47,9 +93,22 @@ namespace behaviac
             return null;
         }
 
-        public override bool Evaluate(Agent pAgent)
+        public override bool Evaluate(Agent pAgent, EBTStatus status)
         {
-            return true;
+            if (this.m_transitionPhase == ETransitionPhase.ETP_Always)
+            {
+                return true;
+            }
+            else if (status == EBTStatus.BT_SUCCESS && (this.m_transitionPhase == ETransitionPhase.ETP_Success || this.m_transitionPhase == ETransitionPhase.ETP_Exit))
+            {
+                return true;
+            }
+            else if (status == EBTStatus.BT_FAILURE && (this.m_transitionPhase == ETransitionPhase.ETP_Failure || this.m_transitionPhase == ETransitionPhase.ETP_Exit))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 

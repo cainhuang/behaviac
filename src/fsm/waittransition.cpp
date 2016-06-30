@@ -30,9 +30,16 @@ namespace behaviac
         super::load(version, agentType, properties);
     }
 
+
 	bool WaitTransition::Evaluate(Agent* pAgent)
 	{
+		return super::Evaluate(pAgent);
+	}
+
+	bool WaitTransition::Evaluate(Agent* pAgent, EBTStatus status)
+	{
         BEHAVIAC_UNUSED_VAR(pAgent);
+		BEHAVIAC_UNUSED_VAR(status);
         
 		return true;
 	}

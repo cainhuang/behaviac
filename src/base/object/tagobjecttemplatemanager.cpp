@@ -14,79 +14,82 @@
 #include "behaviac/base/object/tagobjecttemplatemanager.h"
 #include "behaviac/base/object/tagobject.h"
 
-BEHAVIAC_IMPLEMNT_SINGLETON(CTagObjectTemplateManager);
-
-CTagObjectTemplateManager::CTagObjectTemplateManager()
+namespace behaviac
 {
-}
+	BEHAVIAC_IMPLEMNT_SINGLETON(CTagObjectTemplateManager);
 
-CTagObjectTemplateManager::~CTagObjectTemplateManager()
-{
-}
+	CTagObjectTemplateManager::CTagObjectTemplateManager()
+	{
+	}
 
-const behaviac::ISerializableNode* CTagObjectTemplateManager::GetTemplate(const behaviac::CNoCaseStringID& templateId)
-{
-    behaviac::map<behaviac::CNoCaseStringID, const behaviac::ISerializableNode*>::const_iterator iter = m_templates.find(templateId);
+	CTagObjectTemplateManager::~CTagObjectTemplateManager()
+	{
+	}
 
-    if (iter != m_templates.end())
-    {
-        return iter->second;
-    }
+	const behaviac::ISerializableNode* CTagObjectTemplateManager::GetTemplate(const behaviac::CNoCaseStringID& templateId)
+	{
+		behaviac::map<behaviac::CNoCaseStringID, const behaviac::ISerializableNode*>::const_iterator iter = m_templates.find(templateId);
 
-    return NULL;
-}
+		if (iter != m_templates.end())
+		{
+			return iter->second;
+		}
 
-void CTagObjectTemplateManager::ParseTemplates()
-{
-}
+		return NULL;
+	}
 
-void CTagObjectTemplateManager::RegisterTemplateChangeListener(const char* templateName, CTagObject* tagObject)
-{
-    m_templateChangeListeners.insert(std::make_pair(behaviac::CNoCaseStringID(templateName), tagObject));
-}
+	void CTagObjectTemplateManager::ParseTemplates()
+	{
+	}
 
-void CTagObjectTemplateManager::UnregisterTemplateChangeListener(const char* templateName)
-{
-    m_templateChangeListeners.erase(behaviac::CNoCaseStringID(templateName));
-}
+	void CTagObjectTemplateManager::RegisterTemplateChangeListener(const char* templateName, behaviac::CTagObject* tagObject)
+	{
+		m_templateChangeListeners.insert(std::make_pair(behaviac::CNoCaseStringID(templateName), tagObject));
+	}
 
-void CTagObjectTemplateManager::UnregisterTemplateChangeListener(CTagObject* tagObject)
-{
-    behaviac::map<behaviac::CNoCaseStringID, CTagObject*>::iterator it(m_templateChangeListeners.begin());
-    behaviac::map<behaviac::CNoCaseStringID, CTagObject*>::iterator itEnd(m_templateChangeListeners.end());
+	void CTagObjectTemplateManager::UnregisterTemplateChangeListener(const char* templateName)
+	{
+		m_templateChangeListeners.erase(behaviac::CNoCaseStringID(templateName));
+	}
 
-    for (; it != itEnd; ++it)
-    {
-        CTagObject* compareTest = it->second;
+	void CTagObjectTemplateManager::UnregisterTemplateChangeListener(behaviac::CTagObject* tagObject)
+	{
+		behaviac::map<behaviac::CNoCaseStringID, behaviac::CTagObject*>::iterator it(m_templateChangeListeners.begin());
+		behaviac::map<behaviac::CNoCaseStringID, behaviac::CTagObject*>::iterator itEnd(m_templateChangeListeners.end());
 
-        if (compareTest == tagObject)
-        {
-            m_templateChangeListeners.erase(it);
-            break;
-        }
-    }
-}
+		for (; it != itEnd; ++it)
+		{
+			behaviac::CTagObject* compareTest = it->second;
 
-void CTagObjectTemplateManager::NotifyTemplateChanged(const behaviac::string& templateName)
-{
-    // Retrieve template that changed
-    const behaviac::ISerializableNode* node = GetTemplate(templateName);
+			if (compareTest == tagObject)
+			{
+				m_templateChangeListeners.erase(it);
+				break;
+			}
+		}
+	}
 
-    if (!node)
-    {
-        BEHAVIAC_ASSERT(!"Template changed, but could not find it!");
-        return;
-    }
+	void CTagObjectTemplateManager::NotifyTemplateChanged(const behaviac::string& templateName)
+	{
+		// Retrieve template that changed
+		const behaviac::ISerializableNode* node = GetTemplate(templateName);
 
-    behaviac::map<behaviac::CNoCaseStringID, CTagObject*>::iterator it(m_templateChangeListeners.find(behaviac::CNoCaseStringID(templateName.c_str())));
+		if (!node)
+		{
+			BEHAVIAC_ASSERT(!"Template changed, but could not find it!");
+			return;
+		}
 
-    if (it != m_templateChangeListeners.end())
-    {
-        it->second->Load(node);
-    }
-}
+		behaviac::map<behaviac::CNoCaseStringID, behaviac::CTagObject*>::iterator it(m_templateChangeListeners.find(behaviac::CNoCaseStringID(templateName.c_str())));
 
-const char* CTagObjectTemplateManager::GetTemplatesPath() const
-{
-    return "generated\\tagobjecttemplates.fcb";
+		if (it != m_templateChangeListeners.end())
+		{
+			it->second->Load(node);
+		}
+	}
+
+	const char* CTagObjectTemplateManager::GetTemplatesPath() const
+	{
+		return "generated\\tagobjecttemplates.fcb";
+	}
 }

@@ -16,40 +16,42 @@
 
 #include "behaviac/base/object/uitype.h"
 
-struct UiContainerType : public UiBasicType
-{
-public:
-    BEHAVIAC_DECLARE_MEMORY_OPERATORS(UiContainerType);
+namespace behaviac {
+	struct UiContainerType : public UiBasicType
+	{
+	public:
+		BEHAVIAC_DECLARE_MEMORY_OPERATORS(UiContainerType);
 
-private:
-    bool m_resizable;
-    const char* m_elementName;
+	private:
+		bool m_resizable;
+		const char* m_elementName;
 
-public:
+	public:
 
-    UiContainerType() : m_resizable(false), m_elementName(NULL) {}
-    UiContainerType(bool resizable, const char* description = NULL) : UiBasicType(Ui_None, description), m_resizable(resizable), m_elementName(NULL) {}
+		UiContainerType() : m_resizable(false), m_elementName(NULL) {}
+		UiContainerType(bool resizable, const char* description = NULL) : UiBasicType(Ui_None, description), m_resizable(resizable), m_elementName(NULL) {}
 
-    virtual void SetMemberName(const char* memberName)
-    {
-        m_elementName = memberName;
-    }
-    virtual void SaveDescription(behaviac::XmlNodeRef& xmlNode)
-    {
-        UiBasicType::SaveDescription(xmlNode);
+		virtual void SetMemberName(const char* memberName)
+		{
+			m_elementName = memberName;
+		}
+		virtual void SaveDescription(behaviac::XmlNodeRef& xmlNode)
+		{
+			UiBasicType::SaveDescription(xmlNode);
 
-        if (m_elementName)
-        {
-            xmlNode->setAttr("Container", m_elementName);
-        }
+			if (m_elementName)
+			{
+				xmlNode->setAttr("Container", m_elementName);
+			}
 
-        if (m_resizable)
-        {
-            xmlNode->setAttr("Resizable", true);
-        }
-    }
-};
+			if (m_resizable)
+			{
+				xmlNode->setAttr("Resizable", true);
+			}
+		}
+	};
+}//
 
-#define UiDescriptorAllocate_UiContainerType BEHAVIAC_NEW UiContainerType
+#define UiDescriptorAllocate_UiContainerType BEHAVIAC_NEW behaviac::UiContainerType
 
 #endif // #ifndef BEHAVIAC_ENGINESERVICES_CONTAINERUITYPE_H

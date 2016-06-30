@@ -46,7 +46,7 @@ namespace behaviac
         Compute();
         virtual ~Compute();
         virtual void load(int version, const char* agentType, const properties_t& properties);
-        static bool EvaluteCompute(Agent* pAgent, const behaviac::string& typeName, Property* opl, Property* opr1, CMethodBase* opr1_m, EComputeOperator computeOperator, Property* opr2, CMethodBase* opr2_m);
+        static bool EvaluteCompute(Agent* pAgent, const behaviac::string& typeName, Property* opl, Property* opr1, behaviac::CMethodBase* opr1_m, EComputeOperator computeOperator, Property* opr2, behaviac::CMethodBase* opr2_m);
     protected:
         virtual bool IsValid(Agent* pAgent, BehaviorTask* pTask) const;
 
@@ -83,10 +83,10 @@ namespace behaviac
         Property*			m_opl;
 
         Property*			m_opr1;
-        CMethodBase*		m_opr1_m;
+        behaviac::CMethodBase*		m_opr1_m;
 
         Property*			m_opr2;
-        CMethodBase*		m_opr2_m;
+        behaviac::CMethodBase*		m_opr2_m;
 
         EComputeOperator	m_operator;
 

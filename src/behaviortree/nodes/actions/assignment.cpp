@@ -31,7 +31,7 @@ namespace behaviac
         BEHAVIAC_DELETE(m_opr_m);
     }
 
-    //CMethodBase* LoadMethod(const char* value);
+    //behaviac::CMethodBase* LoadMethod(const char* value);
     //Property* LoadLeft(const char* value, behaviac::string& propertyName, const char* constValue);
     //Property* LoadRight(const char* value, const behaviac::string& propertyName, behaviac::string& typeName);
     /**
@@ -50,8 +50,7 @@ namespace behaviac
 
             if (strcmp(p.name, "Opl") == 0)
             {
-                this->m_opl = Condition::LoadLeft(p.value);
-
+				this->m_opl = Condition::LoadLeft(p.value, propertyName);
             }
             else if (strcmp(p.name, "Opr") == 0)
             {
@@ -74,7 +73,7 @@ namespace behaviac
             }
         }
     }
-    bool Assignment::EvaluteAssignment(const Agent* pAgent, Property* opl, Property* opr, CMethodBase* opr_m)
+    bool Assignment::EvaluteAssignment(const Agent* pAgent, Property* opl, Property* opr, behaviac::CMethodBase* opr_m)
     {
         bool bValid = false;
 
