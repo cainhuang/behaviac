@@ -439,6 +439,7 @@ namespace Behaviac.Design
             editor.ValueWasChanged += editor_ValueWasChanged;
         }
 
+        MethodDef.Param lastListParam = null;
         void createParamEditor(MethodDef method, bool enable, bool bReadonlyParent) {
             List<MethodDef.Param> parameters = method.Params;
             foreach(MethodDef.Param p in parameters) {
@@ -450,8 +451,20 @@ namespace Behaviac.Design
                 label.MouseEnter += new EventHandler(label_MouseEnter);
 
                 DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
+
+                if (p.Type.Name == "IList")
+                {
+                    lastListParam = p;
+                }
+
+                if (p.Type.Name == "System_Object" && lastListParam != null)
+                {
+                    p.ListParam = lastListParam;
+                }
+
                 editor.Enabled = enable;
                 editor.SetParameter(p, _selectedObject, bReadonly);
+
                 editor.ValueWasAssigned();
                 editor.MouseEnter += editor_MouseEnter;
                 editor.DescriptionWasChanged += editor_DescriptionWasChanged;

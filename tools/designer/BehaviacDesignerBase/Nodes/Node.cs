@@ -221,7 +221,8 @@ namespace Behaviac.Design.Nodes
         /// <param name="type">The type of the attachment we want to add.</param>
         /// <returns>Returns if the attachment may be added or not</returns>
         public virtual bool AcceptsAttachment(DefaultObject obj) {
-            return (obj != null) && !obj.IsFSM && obj.CanBeAttached;
+            bool bCanBeAttached = obj.CanBeAttached;
+            return (obj != null) && !obj.IsFSM && bCanBeAttached;
         }
 
         protected List<Attachments.Attachment> _attachments;

@@ -195,6 +195,11 @@ namespace Behaviac.Design
                         return this._property.Property.PropertyType;
                     }
 
+                    if (this._type != null)
+                    {
+                        return this._type;
+                    }
+
                     if (this._value != null)
                     {
                         if (this._value is VariableDef)
@@ -276,6 +281,21 @@ namespace Behaviac.Design
                 }
             }
 
+            //for VectorAdd, for the 2nd param, to hold the 1st param, which is an IList, FilterType needs to be set List<T>'s T
+            private MethodDef.Param listParam_ = null;
+            public MethodDef.Param ListParam
+            {
+                get
+                {
+                    return this.listParam_;
+                }
+
+                set
+                {
+                    this.listParam_ = value;
+                }
+            }
+
             private DesignerProperty _attribute;
             public DesignerProperty Attribute
             {
@@ -351,13 +371,26 @@ namespace Behaviac.Design
                     { attr = attributes[0]; }
 
                     if (attr != null)
-                    { _attribute = attr; }
-
+                    {
+                        _attribute = attr;
+                    }
                     else if (_paramInfo.ParameterType.IsEnum)
-                    { _attribute = new DesignerEnum(_paramInfo.Name, "", category, DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, ""); }
-
+                    {
+                        _attribute = new DesignerEnum(_paramInfo.Name, "", category, DesignerProperty.DisplayMode.Parameter, 0, DesignerProperty.DesignerFlags.NoFlags, "");
+                    }
                     else
-                    { _attribute = Plugin.InvokeTypeCreateDesignerProperty(category, _paramInfo.Name, _paramInfo.ParameterType, rangeMin, rangeMax); }
+                    {
+                        _attribute = Plugin.InvokeTypeCreateDesignerProperty(category, _paramInfo.Name, _paramInfo.ParameterType, rangeMin, rangeMax);
+
+                        if (_attribute != null)
+                        {
+                            Type listType = Plugin.GetType("XMLPluginBehaviac.IList");
+                            if ((Plugin.IsArrayType(pi.ParameterType) || pi.ParameterType == listType || pi.ParameterType == typeof(IList<>)))
+                            {
+                                _attribute.ValueType = ValueTypes.Array;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -1722,10 +1755,16 @@ namespace Behaviac.Design
 
         public void SetProperty(PropertyDef property, string valueType)
         {
-            _property = property;
             ValueClass = valueType;
-            if (_property != null)
+            if (property != null && property.Owner != valueType)
+            {
+                _property = property.Clone();
                 _property.Owner = valueType;
+            }
+            else
+            {
+                _property = property;
+            }
         }
 
         private string _nativeType = "";

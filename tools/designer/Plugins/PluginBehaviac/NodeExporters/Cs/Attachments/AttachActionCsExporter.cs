@@ -118,8 +118,9 @@ namespace PluginBehaviac.NodeExporters
                         if (!prop.IsArrayElement && (prop.IsPar || prop.IsCustomized))
                         {
                             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+                            string agentName = PropertyCsExporter.GetGenerateAgentName(prop, "opl", "attach");
 
-                            stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", {2}u, opr2);", indent, propBasicName, id);
+                            stream.WriteLine("{0}\t\t\t{1}.SetVariable(\"{2}\", {3}u, opr2);", indent, agentName, propBasicName, id);
                         }
                         else if (prop.IsPublic)
                         {
@@ -228,8 +229,9 @@ namespace PluginBehaviac.NodeExporters
                         if (!prop.IsArrayElement && (prop.IsPar || prop.IsCustomized))
                         {
                             uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
+                            string agentName = PropertyCsExporter.GetGenerateAgentName(prop, "opl", "attach");
 
-                            stream.WriteLine("{0}\t\t\tpAgent.SetVariable(\"{1}\", {2}u, {3});", indent, propBasicName, id, oprStr);
+                            stream.WriteLine("{0}\t\t\t{1}.SetVariable(\"{2}\", {3}u, {4});", indent, agentName, propBasicName, id, oprStr);
                         }
                         else if (prop.IsPublic)
                         {

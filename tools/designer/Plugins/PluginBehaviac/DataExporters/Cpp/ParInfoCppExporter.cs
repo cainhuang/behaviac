@@ -111,7 +111,7 @@ namespace PluginBehaviac.DataExporters
             stream.WriteLine("{0}pAgent->SetVariable(\"{1}\", {2}, {3}u);", indent, propBasicName, var, id);
         }
 
-        public static string GetProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent)
+        public static string GetProperty(string agentName, Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, StreamWriter stream, string indent)
         {
             string retStr = string.Empty;
             if (property != null)
@@ -131,7 +131,7 @@ namespace PluginBehaviac.DataExporters
                 uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
 
                 stream.WriteLine("{0}BEHAVIAC_ASSERT(behaviac::MakeVariableId(\"{1}\") == {2}u);", indent, propBasicName, id);
-                retStr = string.Format("({0}&)pAgent->GetVariable<{0} >({1}u)", typename, id);
+                retStr = string.Format("({0}&){1}->GetVariable<{0} >({2}u)", typename, agentName, id);
             }
 
             return retStr;

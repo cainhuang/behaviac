@@ -6849,6 +6849,56 @@ namespace behaviac
 	// Source file: node_test/action_ut_3
 
 	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_action_ut_3_node14 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_3_node14()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			((AgentNodeTest)pAgent).initChildAgentTest();
+			return EBTStatus.BT_SUCCESS;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_node_test_action_ut_3_node7 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_3_node7()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr = ((AgentNodeTest)pAgent).testVar_0;
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "par_child_agent_1");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("par_child_agent_1"));
+			Debug.Check(behaviac.Utils.MakeVariableId("testInt") == 2614050066u);
+			pAgent_opl.SetVariable<int>("testInt", 2614050066u, opr);
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Condition_bt_node_test_action_ut_3_node8 : behaviac.Condition
+	{
+		public Condition_bt_node_test_action_ut_3_node8()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			behaviac.Agent pAgent_opl = behaviac.Utils.GetParentAgent(pAgent, "par_child_agent_1");
+			Debug.Check(pAgent_opl != null || Utils.IsStaticClass("par_child_agent_1"));
+			Debug.Check(behaviac.Utils.MakeVariableId("testInt") == 2614050066u);
+			int opl = pAgent_opl.GetVariable<int>(2614050066u);
+			int opr = ((AgentNodeTest)pAgent).testVar_0;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Compute_bt_node_test_action_ut_3_node3 : behaviac.Compute
 	{
 		public Compute_bt_node_test_action_ut_3_node3()
@@ -6973,6 +7023,36 @@ namespace behaviac
 				node0.SetAgentType("AgentNodeTest");
 #endif
 				bt.AddChild(node0);
+				{
+					Action_bt_node_test_action_ut_3_node14 node14 = new Action_bt_node_test_action_ut_3_node14();
+					node14.SetClassNameString("Action");
+					node14.SetId(14);
+#if !BEHAVIAC_RELEASE
+					node14.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node14);
+					node0.SetHasEvents(node0.HasEvents() | node14.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_3_node7 node7 = new Assignment_bt_node_test_action_ut_3_node7();
+					node7.SetClassNameString("Assignment");
+					node7.SetId(7);
+#if !BEHAVIAC_RELEASE
+					node7.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node7);
+					node0.SetHasEvents(node0.HasEvents() | node7.HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_3_node8 node8 = new Condition_bt_node_test_action_ut_3_node8();
+					node8.SetClassNameString("Condition");
+					node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+					node8.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node8);
+					node0.SetHasEvents(node0.HasEvents() | node8.HasEvents());
+				}
 				{
 					Compute_bt_node_test_action_ut_3_node3 node3 = new Compute_bt_node_test_action_ut_3_node3();
 					node3.SetClassNameString("Compute");

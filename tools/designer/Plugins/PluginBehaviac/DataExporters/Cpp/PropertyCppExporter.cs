@@ -100,7 +100,7 @@ namespace PluginBehaviac.DataExporters
         private static string getProperty(Behaviac.Design.PropertyDef property, MethodDef.Param arrayIndexElement, string agentName, StreamWriter stream, string indent)
         {
             if (property.IsPar || property.IsCustomized)
-                return ParInfoCppExporter.GetProperty(property, arrayIndexElement, stream, indent);
+                return ParInfoCppExporter.GetProperty(agentName, property, arrayIndexElement, stream, indent);
 
             string propName = DataCppExporter.GetPropertyBasicName(property, arrayIndexElement);
             string nativeType = DataCppExporter.GetPropertyNativeType(property, arrayIndexElement);

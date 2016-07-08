@@ -8,6 +8,19 @@
     <par name="par_float_type_2" type="float" value="0.6" />
   </pars>
   <node class="Sequence" id="0">
+    <node class="Action" id="14">
+      <property Method="Self.AgentNodeTest::initChildAgentTest()" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
+    <node class="Assignment" id="7">
+      <property Opl="int par_child_agent_1.AgentNodeTest::testInt" />
+      <property Opr="int Self.AgentNodeTest::testVar_0" />
+    </node>
+    <node class="Condition" id="8">
+      <property Operator="Equal" />
+      <property Opl="int par_child_agent_1.AgentNodeTest::testInt" />
+      <property Opr="int Self.AgentNodeTest::testVar_0" />
+    </node>
     <node class="Compute" id="3">
       <property Operator="Mul" />
       <property Opl="float Self.AgentNodeTest::par_float_type_0" />

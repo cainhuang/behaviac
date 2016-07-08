@@ -544,7 +544,7 @@ namespace behaviac
 
                     uint classId = Utils.MakeVariableId(className);
                     AgentMeta meta = AgentMeta.GetMeta(classId);
-                    Debug.Check(meta != null);
+                    Debug.Check(meta != null, "please add the exported 'AgentProperties.cs' and 'customizedtypes.cs' into the project!");
 
                     uint propId = Utils.MakeVariableId(propName + arrayItem);
 

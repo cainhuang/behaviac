@@ -474,7 +474,9 @@ namespace Behaviac.Design.Attributes
         }
 
         protected ValueTypes _valueType = ValueTypes.All;
-        public ValueTypes ValueType {
+        public ValueTypes ValueType
+        {
+            set { _valueType = value; }
             get { return _valueType; }
         }
 

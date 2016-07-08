@@ -130,9 +130,10 @@ namespace PluginBehaviac.NodeExporters
                     {
                         string propBasicName = prop.BasicName.Replace("[]", "");
                         uint id = Behaviac.Design.CRC32.CalcCRC(propBasicName);
-
+                        string agentName = PropertyCsExporter.GetGenerateAgentName(prop, "opl", "compute");
                         string typename = DataCsExporter.GetGeneratedNativeType(prop.NativeType);
-                        stream.WriteLine("{0}\t\t\tpAgent.SetVariable<{1}>(\"{2}\", {3}u, {4});", indent, typename, propBasicName, id, oprStr);
+
+                        stream.WriteLine("{0}\t\t\t{1}.SetVariable<{2}>(\"{3}\", {4}u, {5});", indent, agentName, typename, propBasicName, id, oprStr);
                     }
                     else
                     {

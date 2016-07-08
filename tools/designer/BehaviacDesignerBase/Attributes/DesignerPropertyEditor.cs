@@ -203,6 +203,11 @@ namespace Behaviac.Design.Attributes
                 if (enumAtt != null && enumAtt.DependingProperty != "") {
                     byForce = true;
                 }
+
+                if (this._param != null && this._param.Type.FullName == "XMLPluginBehaviac.IList")
+                {
+                    byForce = true;
+                }
             }
 
             if (byForce && DesignerPropertyEditor.PropertyChanged != null) {

@@ -225,7 +225,7 @@ namespace behaviac
 		}
 	}
 
-    void Agent::Init_(int contextId, Agent* pAgent, short priority, const char* agentInstanceName)
+	void Agent::Init_(int contextId, Agent* pAgent, short priority, const char* agentInstanceName)
     {
 #if !BEHAVIAC_RELEASE
         pAgent->m_debug_verify = kAGENT_DEBUG_VERY;

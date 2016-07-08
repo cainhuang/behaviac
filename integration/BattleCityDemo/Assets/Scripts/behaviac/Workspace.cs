@@ -513,7 +513,11 @@ namespace behaviac
             m_frameSinceStartup = -1;
 
 #if !BEHAVIAC_RELEASE
-            this.m_workspaceExportPathAbs = Path.GetFullPath(this.FilePath);
+            this.m_workspaceExportPathAbs = Path.GetFullPath(this.FilePath).Replace('\\', '/');
+            if (!this.m_workspaceExportPathAbs.EndsWith("/"))
+            {
+                this.m_workspaceExportPathAbs += '/';
+            }
 
 #if BEHAVIAC_HOTRELOAD
             // set the file watcher

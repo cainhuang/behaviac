@@ -24,6 +24,8 @@ Please don't define BEHAVIAC_RELEASE unless you know what you are doing.
 */
 #include "behaviac/base/core/_config.h"
 #include "behaviac/base/core/staticassert.h"
+#include "behaviac/base/core/compiler.h"
+//#include "behaviac/base/core/types.h"
 
 //if BEHAVIAC_RELEASE is not defined in _config.h, BEHAVIAC_RELEASE will be defined
 // as 0 for Debug and 1 for Release
@@ -96,10 +98,6 @@ Please don't define BEHAVIAC_RELEASE unless you know what you are doing.
 	#pragma warning(disable : 4310) //cast truncates constant value
 #endif
 #endif
-
-
-#include "behaviac/base/core/compiler.h"
-//#include "behaviac/base/core/types.h"
 
 
 #endif//BEHAVIAC_BASE_CORE_CONFIG_H

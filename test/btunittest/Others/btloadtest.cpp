@@ -61,7 +61,7 @@ void memory_leak_test(behaviac::Workspace::EFileFormat format)
     behaviac::Agent::Destroy(regNameAgent);
     behaviac::Agent::UnRegisterInstanceName<ParTestRegNameAgent>("ParTestRegNameAgent");
 
-    BEHAVIAC_DELETE(myTestAgent);
+    behaviac::Agent::Destroy(myTestAgent);
     behaviac::Workspace::GetInstance()->UnLoadAll();
 
     EmployeeParTestAgent::clearAllStaticMemberVariables();

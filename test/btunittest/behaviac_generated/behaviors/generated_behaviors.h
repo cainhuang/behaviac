@@ -9265,6 +9265,67 @@ namespace behaviac
 
 	// Source file: node_test/action_ut_3
 
+	class Action_bt_node_test_action_ut_3_node14 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_action_ut_3_node14, Action);
+		Action_bt_node_test_action_ut_3_node14()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_initChildAgentTest, void >();
+			return BT_SUCCESS;
+		}
+	};
+
+	class Assignment_bt_node_test_action_ut_3_node7 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_action_ut_3_node7, Assignment);
+		Assignment_bt_node_test_action_ut_3_node7()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "par_child_agent_1");
+			BEHAVIAC_ASSERT(pAgent_opl);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("testInt") == 2614050066u);
+			pAgent_opl->SetVariable("testInt", opr, 2614050066u);
+			return result;
+		}
+	};
+
+	class Condition_bt_node_test_action_ut_3_node8 : public Condition
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Condition_bt_node_test_action_ut_3_node8, Condition);
+		Condition_bt_node_test_action_ut_3_node8()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			Agent* pAgent_opl = Agent::GetInstance(pAgent, "par_child_agent_1");
+			BEHAVIAC_ASSERT(pAgent_opl);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("testInt") == 2614050066u);
+			int& opl = (int&)pAgent_opl->GetVariable<int >(2614050066u);
+			int& opr = ((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_0, int >();
+			bool op = Details::Equal(opl, opr);
+			return op ? BT_SUCCESS : BT_FAILURE;
+		}
+	};
+
 	class Compute_bt_node_test_action_ut_3_node3 : public Compute
 	{
 	public:
@@ -9413,6 +9474,36 @@ namespace behaviac
 				node0->SetAgentType("AgentNodeTest");
 #endif
 				pBT->AddChild(node0);
+				{
+					Action_bt_node_test_action_ut_3_node14* node14 = BEHAVIAC_NEW Action_bt_node_test_action_ut_3_node14;
+					node14->SetClassNameString("Action");
+					node14->SetId(14);
+#if !BEHAVIAC_RELEASE
+					node14->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node14);
+					node0->SetHasEvents(node0->HasEvents() | node14->HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_3_node7* node7 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_3_node7;
+					node7->SetClassNameString("Assignment");
+					node7->SetId(7);
+#if !BEHAVIAC_RELEASE
+					node7->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node7);
+					node0->SetHasEvents(node0->HasEvents() | node7->HasEvents());
+				}
+				{
+					Condition_bt_node_test_action_ut_3_node8* node8 = BEHAVIAC_NEW Condition_bt_node_test_action_ut_3_node8;
+					node8->SetClassNameString("Condition");
+					node8->SetId(8);
+#if !BEHAVIAC_RELEASE
+					node8->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node8);
+					node0->SetHasEvents(node0->HasEvents() | node8->HasEvents());
+				}
 				{
 					Compute_bt_node_test_action_ut_3_node3* node3 = BEHAVIAC_NEW Compute_bt_node_test_action_ut_3_node3;
 					node3->SetClassNameString("Compute");
