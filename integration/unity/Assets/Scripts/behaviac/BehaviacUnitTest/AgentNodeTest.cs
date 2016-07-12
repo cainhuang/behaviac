@@ -32,8 +32,43 @@ public enum EnumTest
 {
     EnumTest_One = 0,
     EnumTest_OneAfterOne = 1,
-};
+}
 
+[behaviac.TypeMetaInfo("ActionClip", "动作", behaviac.ERefType.ERT_ValueType)]
+public class Act
+{
+    [behaviac.MemberMetaInfo("Var_B_Loop", "动作Loop")]
+    public bool Var_B_Loop;
+
+    [behaviac.MemberMetaInfo("Var_Lis_Enum", "枚举类型的数组")]
+    public List<EnumTest> Var_List_EnumTest;
+}
+
+namespace BSASN
+{
+    [behaviac.TypeMetaInfo()]
+    public struct SpatialCoord
+    {
+        [behaviac.MemberMetaInfo()]
+        public float coordX;
+
+        [behaviac.MemberMetaInfo()]
+        public float coordY;
+    }
+
+    [behaviac.TypeMetaInfo()]
+    public struct TransitPlan
+    {
+        [behaviac.MemberMetaInfo()]
+        public string plan_ID;
+
+        [behaviac.MemberMetaInfo()]
+        public int plan_selection_precedence;
+
+        [behaviac.MemberMetaInfo()]
+        public List<SpatialCoord> transit_points;
+    }
+}
 
 [behaviac.TypeMetaInfo()]
 public class AgentNodeTest : behaviac.Agent
@@ -61,6 +96,9 @@ public class AgentNodeTest : behaviac.Agent
 
     [behaviac.MemberMetaInfo()]
     public EnumTest testColor = EnumTest.EnumTest_One;
+
+    [behaviac.MemberMetaInfo()]
+    public Act testVar_Act = null;
 
     public bool m_bCanSee = false;
 
@@ -101,6 +139,8 @@ public class AgentNodeTest : behaviac.Agent
         TestFloat2.y = 2.0f;
 
         testVar_str_0 = string.Empty;
+
+        testVar_Act = null;
     }
 
     [behaviac.MethodMetaInfo()]
@@ -351,6 +391,14 @@ public class AgentNodeTest : behaviac.Agent
     [behaviac.MethodMetaInfo()]
     void testVectorStruct(List<TestNS.Float2> param)
 	{}
+
+    [behaviac.MethodMetaInfo()]
+	void transitPlanTactics(BSASN.TransitPlan task_tactics_type, EnumTest enumTest, string platform_ID)
+	{
+		behaviac.Debug.Check(task_tactics_type.transit_points.Count == 3);
+        behaviac.Debug.Check(enumTest == EnumTest.EnumTest_OneAfterOne);
+        behaviac.Debug.Check(string.IsNullOrEmpty(platform_ID));
+	}
 
 }
 

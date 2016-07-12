@@ -623,6 +623,14 @@ template<>  float& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_tes
 	return *(reinterpret_cast<float*>(pc));
 }
 
+struct PROPERTY_TYPE_AgentNodeTest_testVar_Act { };
+template<>  Act& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_Act>()
+{
+	unsigned char* pc = (unsigned char*)this;
+	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_Act);
+	return *(reinterpret_cast<Act*>(pc));
+}
+
 struct PROPERTY_TYPE_AgentNodeTest_testVar_str_0 { };
 template<>  string& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_str_0>()
 {
@@ -853,6 +861,12 @@ struct METHOD_TYPE_AgentNodeTest_testVectorStruct { };
 template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testVectorStruct>(behaviac::vector<TestNS::Float2>& p0)
 {
 	this->AgentNodeTest::testVectorStruct(p0);
+}
+
+struct METHOD_TYPE_AgentNodeTest_transitPlanTactics { };
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_transitPlanTactics>(BSASN::TransitPlan p0, EnumTest p1, string& p2)
+{
+	this->AgentNodeTest::transitPlanTactics(p0, p1, p2);
 }
 
 struct METHOD_TYPE_ChildNodeTest_GetConstDoubleValue { };
@@ -8335,6 +8349,43 @@ namespace behaviac
 		behaviac::vector<TestNS::Float2> method_p0;
 	};
 
+	class Action_bt_node_test_action_ut_0_node17 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_action_ut_0_node17, Action);
+		Action_bt_node_test_action_ut_0_node17()
+		{
+			method_p1 = EnumTest_OneAfterOne;
+			method_p2 = (char*)("");
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			method_p0.plan_ID = (char*)("");
+			method_p0.plan_selection_precedence = 0;
+			method_p0.transit_points.reserve(3);
+			BSASN::SpatialCoord method_p0_transit_points_item0;
+			method_p0_transit_points_item0.coordX = 0;
+			method_p0_transit_points_item0.coordY = 0;
+			method_p0.transit_points.push_back(method_p0_transit_points_item0);
+			BSASN::SpatialCoord method_p0_transit_points_item1;
+			method_p0_transit_points_item1.coordX = 0;
+			method_p0_transit_points_item1.coordY = 0;
+			method_p0.transit_points.push_back(method_p0_transit_points_item1);
+			BSASN::SpatialCoord method_p0_transit_points_item2;
+			method_p0_transit_points_item2.coordX = 0;
+			method_p0_transit_points_item2.coordY = 0;
+			method_p0.transit_points.push_back(method_p0_transit_points_item2);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_transitPlanTactics, void, BSASN::TransitPlan, EnumTest, string& >(method_p0, method_p1, method_p2);
+			return BT_SUCCESS;
+		}
+		BSASN::TransitPlan method_p0;
+		EnumTest method_p1;
+		string method_p2;
+	};
+
 	class bt_node_test_action_ut_0
 	{
 	public:
@@ -8522,6 +8573,16 @@ namespace behaviac
 #endif
 					node0->AddChild(node16);
 					node0->SetHasEvents(node0->HasEvents() | node16->HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_0_node17* node17 = BEHAVIAC_NEW Action_bt_node_test_action_ut_0_node17;
+					node17->SetClassNameString("Action");
+					node17->SetId(17);
+#if !BEHAVIAC_RELEASE
+					node17->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node17);
+					node0->SetHasEvents(node0->HasEvents() | node17->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}
@@ -9449,6 +9510,31 @@ namespace behaviac
 		}
 	};
 
+	class Assignment_bt_node_test_action_ut_3_node9 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_node_test_action_ut_3_node9, Assignment);
+		Assignment_bt_node_test_action_ut_3_node9()
+		{
+			opr.Var_B_Loop = true;
+			opr.Var_List_EnumTest.reserve(2);
+			EnumTest opr_Var_List_EnumTest_item0 = EnumTest_OneAfterOne;
+			opr.Var_List_EnumTest.push_back(opr_Var_List_EnumTest_item0);
+			EnumTest opr_Var_List_EnumTest_item1 = EnumTest_One;
+			opr.Var_List_EnumTest.push_back(opr_Var_List_EnumTest_item1);
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			((AgentNodeTest*)pAgent)->_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_Act, Act >() = opr;
+			return result;
+		}
+		Act opr;
+	};
+
 	class bt_node_test_action_ut_3
 	{
 	public:
@@ -9563,6 +9649,16 @@ namespace behaviac
 #endif
 					node0->AddChild(node6);
 					node0->SetHasEvents(node0->HasEvents() | node6->HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_3_node9* node9 = BEHAVIAC_NEW Assignment_bt_node_test_action_ut_3_node9;
+					node9->SetClassNameString("Assignment");
+					node9->SetId(9);
+#if !BEHAVIAC_RELEASE
+					node9->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node9);
+					node0->SetHasEvents(node0->HasEvents() | node9->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}

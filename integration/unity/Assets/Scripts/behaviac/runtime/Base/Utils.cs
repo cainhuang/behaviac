@@ -1261,6 +1261,62 @@ namespace behaviac
 
     static public class StringUtils
     {
+        		//it returns true if 'str' starts with a count followed by ':'
+		//3:{....}
+		private static bool IsArrayString(string str, int posStart, ref int posEnd)
+		{
+			//begin of the count of an array?
+			int posStartOld = posStart;
+
+			bool bIsDigit = false;
+
+			int strLen = (int)str.Length;
+			while (posStart < strLen)
+			{
+				char c = str[posStart++];
+
+				if (char.IsDigit(c))
+				{
+					bIsDigit = true;
+				}
+				else if (c == ':' && bIsDigit)
+				{
+					//transit_points = 3:{coordX = 0; coordY = 0; } | {coordX = 0; coordY = 0; } | {coordX = 0; coordY = 0; };
+					//skip array item which is possible a struct
+					int depth = 0;
+					for (int posStart2 = posStart; posStart2 < strLen; posStart2++)
+					{
+						char c1 = str[posStart2];
+
+						if (c1 == ';' && depth == 0)
+						{
+							//the last ';'
+							posEnd = posStart2;
+							break;
+						}
+						else if (c1 == '{')
+						{
+							Debug.Check(depth < 10);
+							depth++;
+						}
+						else if (c1 == '}')
+						{
+                            Debug.Check(depth > 0);
+							depth--;
+						}
+					}
+					
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
         ///the first char is '{', to return the paired '}'
         private static int SkipPairedBrackets(string src, int indexBracketBegin)
         {
@@ -1318,6 +1374,7 @@ namespace behaviac
             Debug.Check(posCloseBrackets != -1);
 
             //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+            //{color=0;id=;type={bLive=false;name=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
             int posBegin = 1;
             int posEnd = src.IndexOf(';', posBegin);
 
@@ -1339,7 +1396,18 @@ namespace behaviac
                     if (c != '{')
                     {
                         length = posEnd - posEqual - 1;
-                        memberValueStr = src.Substring(posEqual + 1, length);
+
+                        //to check if it is an array
+                        if (IsArrayString(src, posEqual + 1, ref posEnd))
+                        {
+                            length = posEnd - posEqual - 1;
+                            memberValueStr = src.Substring(posEqual + 1, length);
+                        }
+                        else
+                        {
+                            length = posEnd - posEqual - 1;
+                            memberValueStr = src.Substring(posEqual + 1, length);
+                        }
                     }
                     else
                     {
@@ -1365,7 +1433,7 @@ namespace behaviac
                 //skip ';'
                 posBegin = posEnd + 1;
 
-                //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+                //{color=0;id=;type={bLive=false;name=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
                 posEnd = src.IndexOf(';', posBegin);
 
                 if (posEnd > posCloseBrackets)

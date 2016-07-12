@@ -5991,6 +5991,46 @@ namespace behaviac
 		List<TestNS.Float2> method_p0;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_action_ut_0_node17 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_0_node17()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_params = new object[3];
+			method_params[1] = EnumTest.EnumTest_OneAfterOne;
+			method_params[2] = "";
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			method_p0 = new BSASN.TransitPlan();
+			method_p0.plan_ID = "";
+			method_p0.plan_selection_precedence = 0;
+			method_p0.transit_points = new List<BSASN.SpatialCoord>();
+			method_p0.transit_points.Capacity = 3;
+			BSASN.SpatialCoord method_p0_transit_points_item0;
+			method_p0_transit_points_item0 = new BSASN.SpatialCoord();
+			method_p0_transit_points_item0.coordX = 0f;
+			method_p0_transit_points_item0.coordY = 0f;
+			method_p0.transit_points.Add(method_p0_transit_points_item0);
+			BSASN.SpatialCoord method_p0_transit_points_item1;
+			method_p0_transit_points_item1 = new BSASN.SpatialCoord();
+			method_p0_transit_points_item1.coordX = 0f;
+			method_p0_transit_points_item1.coordY = 0f;
+			method_p0.transit_points.Add(method_p0_transit_points_item1);
+			BSASN.SpatialCoord method_p0_transit_points_item2;
+			method_p0_transit_points_item2 = new BSASN.SpatialCoord();
+			method_p0_transit_points_item2.coordX = 0f;
+			method_p0_transit_points_item2.coordY = 0f;
+			method_p0.transit_points.Add(method_p0_transit_points_item2);
+			method_params[0] = method_p0;
+			AgentMetaVisitor.ExecuteMethod(pAgent, "transitPlanTactics", method_params);
+			return EBTStatus.BT_SUCCESS;
+		}
+		object[] method_params;
+		BSASN.TransitPlan method_p0;
+	}
+
 	public static class bt_node_test_action_ut_0
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -6176,6 +6216,16 @@ namespace behaviac
 #endif
 					node0.AddChild(node16);
 					node0.SetHasEvents(node0.HasEvents() | node16.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_0_node17 node17 = new Action_bt_node_test_action_ut_0_node17();
+					node17.SetClassNameString("Action");
+					node17.SetId(17);
+#if !BEHAVIAC_RELEASE
+					node17.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node17);
+					node0.SetHasEvents(node0.HasEvents() | node17.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}
@@ -6999,6 +7049,29 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_node_test_action_ut_3_node9 : behaviac.Assignment
+	{
+		public Assignment_bt_node_test_action_ut_3_node9()
+		{
+			opr = new Act();
+			opr.Var_B_Loop = true;
+			opr.Var_List_EnumTest = new List<EnumTest>();
+			opr.Var_List_EnumTest.Capacity = 2;
+			EnumTest opr_Var_List_EnumTest_item0 = EnumTest.EnumTest_OneAfterOne;
+			opr.Var_List_EnumTest.Add(opr_Var_List_EnumTest_item0);
+			EnumTest opr_Var_List_EnumTest_item1 = EnumTest.EnumTest_One;
+			opr.Var_List_EnumTest.Add(opr_Var_List_EnumTest_item1);
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			((AgentNodeTest)pAgent).testVar_Act = opr;
+			return result;
+		}
+		Act opr;
+	}
+
 	public static class bt_node_test_action_ut_3
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -7112,6 +7185,16 @@ namespace behaviac
 #endif
 					node0.AddChild(node6);
 					node0.SetHasEvents(node0.HasEvents() | node6.HasEvents());
+				}
+				{
+					Assignment_bt_node_test_action_ut_3_node9 node9 = new Assignment_bt_node_test_action_ut_3_node9();
+					node9.SetClassNameString("Assignment");
+					node9.SetId(9);
+#if !BEHAVIAC_RELEASE
+					node9.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node9);
+					node0.SetHasEvents(node0.HasEvents() | node9.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}

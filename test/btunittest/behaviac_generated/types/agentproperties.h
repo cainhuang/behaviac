@@ -97,6 +97,7 @@ namespace behaviac
 			bb->AddProperty("int", false, "testVar_1", "0", "AgentNodeTest");
 			bb->AddProperty("float", false, "testVar_2", "0", "AgentNodeTest");
 			bb->AddProperty("float", false, "testVar_3", "0", "AgentNodeTest");
+			bb->AddProperty("Act", false, "testVar_Act", "{Var_B_Loop=false;Var_List_EnumTest=0:;}", "AgentNodeTest");
 			bb->AddProperty("string", false, "testVar_str_0", "", "AgentNodeTest");
 			bb->AddProperty("int", false, "waiting_timeout_interval", "0", "AgentNodeTest");
 			bb->AddProperty("TestNS::Float2", false, "testFloat2", "{x=0;y=0;}", "AgentNodeTest");
@@ -124,6 +125,7 @@ namespace behaviac
 			bb->AddProperty("int", false, "testVar_1", "0", "ChildNodeTest");
 			bb->AddProperty("float", false, "testVar_2", "0", "ChildNodeTest");
 			bb->AddProperty("float", false, "testVar_3", "0", "ChildNodeTest");
+			bb->AddProperty("Act", false, "testVar_Act", "{Var_B_Loop=false;Var_List_EnumTest=0:;}", "ChildNodeTest");
 			bb->AddProperty("string", false, "testVar_str_0", "", "ChildNodeTest");
 			bb->AddProperty("int", false, "waiting_timeout_interval", "0", "ChildNodeTest");
 

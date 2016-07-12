@@ -215,7 +215,9 @@ namespace behaviac
 
 #if BEHAVIAC_COMPILER_MSVC
 	int32_t t_packetBufferIndex = TLS_OUT_OF_INDEXES;
-#elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID
+#elif BEHAVIAC_COMPILER_APPLE 
+	behaviac::ThreadInt t_packetBufferIndex;
+#elif BEHAVIAC_COMPILER_ANDROID
 	__thread int32_t t_packetBufferIndex = (uint32_t) - 1;
 #else
     __thread int32_t t_packetBufferIndex = (uint32_t) - 1;
@@ -252,6 +254,8 @@ namespace behaviac
         t_packetBufferIndex = TlsAlloc();
         //initially 0
         //TlsSetValue(t_packetBufferIndex, 0);
+#elif BEHAVIAC_COMPILER_APPLE
+		t_packetBufferIndex.set(-1);
 #else
         //t_packetBufferIndex = 0;
         //printf("Init t_packetBufferIndex = %d\n", t_packetBufferIndex);
@@ -375,7 +379,8 @@ namespace behaviac
             TlsFree(t_packetBufferIndex);
             t_packetBufferIndex = TLS_OUT_OF_INDEXES;
         }
-
+#elif BEHAVIAC_COMPILER_APPLE
+		t_packetBufferIndex.set(-1);
 #else
         t_packetBufferIndex = 0;
 #endif
@@ -426,6 +431,8 @@ namespace behaviac
 #if BEHAVIAC_COMPILER_MSVC
         BEHAVIAC_ASSERT(t_packetBufferIndex != TLS_OUT_OF_INDEXES);
 		int32_t bufferIndex = (uint32_t)(uint64_t)TlsGetValue(t_packetBufferIndex);
+#elif BEHAVIAC_COMPILER_APPLE
+		int32_t bufferIndex = (int32_t)t_packetBufferIndex.value();
 #else
         //BEHAVIAC_ASSERT(t_packetBufferIndex != (unsigned int) - 1);
 		int32_t bufferIndex = t_packetBufferIndex;
@@ -521,6 +528,8 @@ namespace behaviac
     {
 #if BEHAVIAC_COMPILER_MSVC
 		int32_t bufferIndex = (uint32_t)(uint64_t)TlsGetValue(t_packetBufferIndex);
+#elif BEHAVIAC_COMPILER_APPLE
+		int32_t bufferIndex = (int32_t)t_packetBufferIndex.value();
 #else
 		int32_t bufferIndex = t_packetBufferIndex;
 #endif
@@ -564,6 +573,8 @@ namespace behaviac
             {
 #if BEHAVIAC_COMPILER_MSVC
                 TlsSetValue(t_packetBufferIndex, (PVOID)(uint64_t)retIndex);
+#elif BEHAVIAC_COMPILER_APPLE
+				t_packetBufferIndex.set(bufferIndex);
 #else
                 t_packetBufferIndex = retIndex;
 #endif
@@ -644,6 +655,8 @@ namespace behaviac
             Log("behaviac: Socket Thread Starting\n");
 #if BEHAVIAC_COMPILER_MSVC
             BEHAVIAC_ASSERT(t_packetBufferIndex != TLS_OUT_OF_INDEXES);
+#elif BEHAVIAC_COMPILER_APPLE
+			//
 #else
             //printf("ThreadFunc t_packetBufferIndex = %d\n", t_packetBufferIndex);
             //BEHAVIAC_ASSERT(t_packetBufferIndex != (unsigned int)-1);

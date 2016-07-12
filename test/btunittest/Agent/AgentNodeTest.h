@@ -53,6 +53,40 @@ enum EnumTest
 
 DECLARE_BEHAVIAC_OBJECT_ENUM(EnumTest, EnumTest);
 
+class Act
+{
+public:
+	bool Var_B_Loop;
+
+	behaviac::vector<EnumTest> Var_List_EnumTest;
+
+	DECLARE_BEHAVIAC_STRUCT(Act);
+};
+
+namespace BSASN
+{
+	class SpatialCoord
+	{
+	public:
+		float coordX;
+		float coordY;
+
+		DECLARE_BEHAVIAC_STRUCT(BSASN::SpatialCoord);
+	};
+
+	struct TransitPlan
+	{
+	public:
+		behaviac::string plan_ID;
+		int plan_selection_precedence;
+
+		behaviac::vector<BSASN::SpatialCoord> transit_points;
+
+		DECLARE_BEHAVIAC_STRUCT(BSASN::TransitPlan);
+	};
+
+}
+
 class ChildNodeTest;
 class AgentNodeTest : public behaviac::Agent
 {
@@ -86,9 +120,12 @@ public:
 	bool m_bCanSee;
 	bool m_bTargetValid;
 
-	EnumTest	testColor;
+	EnumTest testColor;
 
-	TestNS::Float2	TestFloat2;
+	TestNS::Float2 TestFloat2;
+
+	Act testVar_Act;
+
 public:
     virtual void resetProperties();
 
@@ -108,7 +145,7 @@ public:
     {
         ChildAgentType* childAgent = behaviac::Agent::Create<ChildAgentType>(var_0,strChildAgentName,0,0);
         return childAgent;
-    };
+    }
 
     void setEventVarInt(int var)
     {
@@ -296,7 +333,15 @@ public:
     void initChildAgent();
 
 	void testVectorStruct(const behaviac::vector<TestNS::Float2>& param)
-	{}
+	{
+	}
+
+	void transitPlanTactics(BSASN::TransitPlan task_tactics_type, EnumTest enumTest, const behaviac::string& platform_ID)
+	{
+		BEHAVIAC_ASSERT(task_tactics_type.transit_points.size() == 3);
+		BEHAVIAC_ASSERT(enumTest == EnumTest_OneAfterOne);
+		BEHAVIAC_ASSERT(platform_ID.empty());
+	}
 };
 
 

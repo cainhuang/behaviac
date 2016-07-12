@@ -52,7 +52,7 @@ namespace PluginBehaviac.DataExporters
                         int endIndex = nativeTypeStr.LastIndexOf('>');
                         string itemType = nativeTypeStr.Substring(startIndex + 1, endIndex - startIndex - 1);
 
-                        ArrayCsExporter.GenerateCode(member, stream, indent, itemType, paramName);
+                        ArrayCsExporter.GenerateCode(member, stream, indent, itemType, var + "." + property.Property.Name);
                     }
                     else
                     {

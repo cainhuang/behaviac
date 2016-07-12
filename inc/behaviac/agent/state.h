@@ -29,7 +29,6 @@ namespace behaviac
 
     /// The State_t class
     /*!
-    I don't know what is this!
     */
 
     class BEHAVIAC_API State_t

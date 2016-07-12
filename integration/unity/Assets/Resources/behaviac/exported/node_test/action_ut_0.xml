@@ -84,5 +84,9 @@
       <property Method="Self.AgentNodeTest::testVectorStruct(1:{x=0.01;y=-0.01;})" />
       <property ResultOption="BT_SUCCESS" />
     </node>
+    <node class="Action" id="17">
+      <property Method="Self.AgentNodeTest::transitPlanTactics({plan_ID=&quot;&quot;;plan_selection_precedence=0;transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};},EnumTest_OneAfterOne,&quot;&quot;)" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
   </node>
 </behavior>

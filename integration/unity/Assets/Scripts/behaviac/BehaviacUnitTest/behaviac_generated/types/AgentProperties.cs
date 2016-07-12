@@ -1828,6 +1828,7 @@ namespace behaviac
 			meta.RegisterMemberProperty(2819170128, new CMemberProperty<int>("testVar_1", delegate(Agent self, int value) { ((AgentNodeTest)self).testVar_1 = value; }, delegate(Agent self) { return ((AgentNodeTest)self).testVar_1; }));
 			meta.RegisterMemberProperty(2200194195, new CMemberProperty<float>("testVar_2", delegate(Agent self, float value) { ((AgentNodeTest)self).testVar_2 = value; }, delegate(Agent self) { return ((AgentNodeTest)self).testVar_2; }));
 			meta.RegisterMemberProperty(2587852242, new CMemberProperty<float>("testVar_3", delegate(Agent self, float value) { ((AgentNodeTest)self).testVar_3 = value; }, delegate(Agent self) { return ((AgentNodeTest)self).testVar_3; }));
+			meta.RegisterMemberProperty(3310187448, new CMemberProperty<Act>("testVar_Act", delegate(Agent self, Act value) { ((AgentNodeTest)self).testVar_Act = value; }, delegate(Agent self) { return ((AgentNodeTest)self).testVar_Act; }));
 			meta.RegisterMemberProperty(2437660593, new CMemberProperty<string>("testVar_str_0", delegate(Agent self, string value) { ((AgentNodeTest)self).testVar_str_0 = value; }, delegate(Agent self) { return ((AgentNodeTest)self).testVar_str_0; }));
 			meta.RegisterMemberProperty(2286980848, new CMemberProperty<string>("testVar_str_1", delegate(Agent self, string value) { ((AgentNodeTest)self).testVar_str_1 = value; }, delegate(Agent self) { return ((AgentNodeTest)self).testVar_str_1; }));
 			meta.RegisterMemberProperty(2829684079, new CMemberProperty<int>("waiting_timeout_interval", delegate(Agent self, int value) { ((AgentNodeTest)self).waiting_timeout_interval = value; }, delegate(Agent self) { return ((AgentNodeTest)self).waiting_timeout_interval; }));
@@ -1876,6 +1877,7 @@ namespace behaviac
 			meta.RegisterMethod(1444063412, new CMethod_AgentNodeTest_testExtendedStruct());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
+			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -1907,6 +1909,7 @@ namespace behaviac
 			meta.RegisterMemberProperty(2819170128, new CMemberProperty<int>("testVar_1", delegate(Agent self, int value) { ((ChildNodeTest)self).testVar_1 = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testVar_1; }));
 			meta.RegisterMemberProperty(2200194195, new CMemberProperty<float>("testVar_2", delegate(Agent self, float value) { ((ChildNodeTest)self).testVar_2 = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testVar_2; }));
 			meta.RegisterMemberProperty(2587852242, new CMemberProperty<float>("testVar_3", delegate(Agent self, float value) { ((ChildNodeTest)self).testVar_3 = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testVar_3; }));
+			meta.RegisterMemberProperty(3310187448, new CMemberProperty<Act>("testVar_Act", delegate(Agent self, Act value) { ((ChildNodeTest)self).testVar_Act = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testVar_Act; }));
 			meta.RegisterMemberProperty(2437660593, new CMemberProperty<string>("testVar_str_0", delegate(Agent self, string value) { ((ChildNodeTest)self).testVar_str_0 = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testVar_str_0; }));
 			meta.RegisterMemberProperty(2286980848, new CMemberProperty<string>("testVar_str_1", delegate(Agent self, string value) { ((ChildNodeTest)self).testVar_str_1 = value; }, delegate(Agent self) { return ((ChildNodeTest)self).testVar_str_1; }));
 			meta.RegisterMemberProperty(2829684079, new CMemberProperty<int>("waiting_timeout_interval", delegate(Agent self, int value) { ((ChildNodeTest)self).waiting_timeout_interval = value; }, delegate(Agent self) { return ((ChildNodeTest)self).waiting_timeout_interval; }));
@@ -1956,6 +1959,7 @@ namespace behaviac
 			meta.RegisterMethod(1444063412, new CMethod_AgentNodeTest_testExtendedStruct());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
+			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2459,10 +2463,13 @@ namespace behaviac
 			AgentMeta.Register<ETest>("ETest");
 			AgentMeta.Register<FSMAgentTest.EMessage>("FSMAgentTest.EMessage");
 			AgentMeta.Register<TNS.NE.NAT.eColor>("TNS.NE.NAT.eColor");
+			AgentMeta.Register<Act>("Act");
 			AgentMeta.Register<System.Object>("System.Object");
 			AgentMeta.Register<UnityEngine.GameObject>("UnityEngine.GameObject");
 			AgentMeta.Register<TestNS.Node>("TestNS.Node");
 			AgentMeta.Register<TestNS.Float2>("TestNS.Float2");
+			AgentMeta.Register<BSASN.TransitPlan>("BSASN.TransitPlan");
+			AgentMeta.Register<BSASN.SpatialCoord>("BSASN.SpatialCoord");
 			AgentMeta.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
 			AgentMeta.Register<TestNamespace.Float2>("TestNamespace.Float2");
 			AgentMeta.Register<TestNamespace.ClassAsValueType>("TestNamespace.ClassAsValueType");
@@ -2494,10 +2501,13 @@ namespace behaviac
 			AgentMeta.UnRegister<ETest>("ETest");
 			AgentMeta.UnRegister<FSMAgentTest.EMessage>("FSMAgentTest.EMessage");
 			AgentMeta.UnRegister<TNS.NE.NAT.eColor>("TNS.NE.NAT.eColor");
+			AgentMeta.UnRegister<Act>("Act");
 			AgentMeta.UnRegister<System.Object>("System.Object");
 			AgentMeta.UnRegister<UnityEngine.GameObject>("UnityEngine.GameObject");
 			AgentMeta.UnRegister<TestNS.Node>("TestNS.Node");
 			AgentMeta.UnRegister<TestNS.Float2>("TestNS.Float2");
+			AgentMeta.UnRegister<BSASN.TransitPlan>("BSASN.TransitPlan");
+			AgentMeta.UnRegister<BSASN.SpatialCoord>("BSASN.SpatialCoord");
 			AgentMeta.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
 			AgentMeta.UnRegister<TestNamespace.Float2>("TestNamespace.Float2");
 			AgentMeta.UnRegister<TestNamespace.ClassAsValueType>("TestNamespace.ClassAsValueType");

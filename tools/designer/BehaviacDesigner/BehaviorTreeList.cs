@@ -2331,7 +2331,7 @@ namespace Behaviac.Design
                         return false;
                     }
 
-                    if (Plugin.SourceLanguage != "cpp" && !Workspace.Current.IsSetExportFolder(Plugin.SourceLanguage))
+                    if (!string.IsNullOrEmpty(Plugin.SourceLanguage) && Plugin.SourceLanguage != "cpp" && !Workspace.Current.IsSetExportFolder(Plugin.SourceLanguage))
                     {
                         if (DialogResult.OK == MessageBox.Show(Resources.InvalidExportedTypePath, Resources.ExportError, MessageBoxButtons.OK))
                         {

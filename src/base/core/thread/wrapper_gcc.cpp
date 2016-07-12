@@ -64,13 +64,13 @@ namespace behaviac
         m_inited = false;
     }
 
-    //void ThreadInt::set(long v)
-    //{
-    //	{
-    //		behaviac::ScopedLock lock(m_csMemory);
-    //		m_value = v;
-    //	}
-    //}
+    void ThreadInt::set(long v)
+    {
+    	{
+    		behaviac::ScopedLock lock(m_csMemory);
+    		m_value = v;
+    	}
+    }
 
     long ThreadInt::value() const
     {

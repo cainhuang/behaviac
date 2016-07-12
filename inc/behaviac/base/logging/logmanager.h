@@ -101,7 +101,6 @@ namespace behaviac
         typedef behaviac::map<int, FILE*> Logs_t;
         Logs_t				m_logs;
         const char*			m_logFilePath;
-        bool				m_bFlush;
         static LogManager*	ms_instance;
     };
 }//namespace behaviac

@@ -25,6 +25,19 @@
 			<enum NativeValue="TNS::NE::NAT::YELLOW" Value="YELLOW" DisplayName="" Desc="" />
 			<enum NativeValue="TNS::NE::NAT::WHITE" Value="WHITE" DisplayName="" Desc="" />
 		</enumtype>
+		<struct Type="Act" DisplayName="" Desc="" IsRefType="false">
+			<Member Name="Var_B_Loop" DisplayName="" Desc="" Type="bool" Class="Act" />
+			<Member Name="Var_List_EnumTest" DisplayName="" Desc="" Type="vector&lt;EnumTest&gt;" Class="Act" />
+		</struct>
+		<struct Type="BSASN::SpatialCoord" DisplayName="" Desc="" IsRefType="false">
+			<Member Name="coordX" DisplayName="" Desc="" Type="float" Class="BSASN::SpatialCoord" />
+			<Member Name="coordY" DisplayName="" Desc="" Type="float" Class="BSASN::SpatialCoord" />
+		</struct>
+		<struct Type="BSASN::TransitPlan" DisplayName="" Desc="" IsRefType="false">
+			<Member Name="plan_ID" DisplayName="" Desc="" Type="string" Class="BSASN::TransitPlan" />
+			<Member Name="plan_selection_precedence" DisplayName="" Desc="" Type="int" Class="BSASN::TransitPlan" />
+			<Member Name="transit_points" DisplayName="" Desc="" Type="vector&lt;BSASN::SpatialCoord&gt;" Class="BSASN::TransitPlan" />
+		</struct>
 		<struct Type="IList" DisplayName="" Desc="" IsRefType="false" />
 		<struct Type="System::Object" DisplayName="" Desc="" IsRefType="false" />
 		<struct Type="TestNamespace::ClassAsValueType" DisplayName="" Desc="" IsRefType="false">
@@ -253,6 +266,7 @@
 			<Member Name="waiting_timeout_interval" DisplayName="" Desc="" Type="int" Class="AgentNodeTest" />
 			<Member Name="testVar_str_0" DisplayName="" Desc="" Type="string" Class="AgentNodeTest" />
 			<Member Name="testColor" DisplayName="" Desc="" Type="EnumTest" Class="AgentNodeTest" />
+			<Member Name="testVar_Act" DisplayName="" Desc="" Type="Act" Class="AgentNodeTest" />
 			<Method Name="setEventVarInt" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
 				<Param DisplayName="" Desc="" Type="int" />
 			</Method>
@@ -330,6 +344,11 @@
 			<Method Name="initChildAgentTest" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void" />
 			<Method Name="testVectorStruct" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
 				<Param DisplayName="" Desc="" Type="const vector&lt;TestNS::Float2&gt;&amp;" />
+			</Method>
+			<Method Name="transitPlanTactics" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
+				<Param DisplayName="" Desc="" Type="BSASN::TransitPlan" />
+				<Param DisplayName="" Desc="" Type="EnumTest" />
+				<Param DisplayName="" Desc="" Type="const string&amp;" />
 			</Method>
 		</agent>
 		<agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="" Desc="" IsRefType="true">

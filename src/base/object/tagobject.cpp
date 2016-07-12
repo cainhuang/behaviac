@@ -400,6 +400,62 @@ namespace behaviac
 {
     namespace StringUtils
     {
+		//it returns true if 'str' starts with a count followed by ':'
+		//3:{....}
+		bool IsArrayString(const behaviac::string& str, int posStart, behaviac::string::size_type& posEnd)
+		{
+			//begin of the count of an array?
+			//int posStartOld = posStart;
+
+			bool bIsDigit = false;
+
+			int strLen = (int)str.size();
+			while (posStart < strLen)
+			{
+				char c = str[posStart++];
+
+				if (isdigit(c))
+				{
+					bIsDigit = true;
+				}
+				else if (c == ':' && bIsDigit)
+				{
+					//transit_points = 3:{coordX = 0; coordY = 0; } | {coordX = 0; coordY = 0; } | {coordX = 0; coordY = 0; };
+					//skip array item which is possible a struct
+					int depth = 0;
+					for (int posStart2 = posStart; posStart2 < strLen; posStart2++)
+					{
+						char c1 = str[posStart2];
+
+						if (c1 == ';' && depth == 0)
+						{
+							//the last ';'
+							posEnd = posStart2;
+							break;
+						}
+						else if (c1 == '{')
+						{
+							BEHAVIAC_ASSERT(depth < 10);
+							depth++;
+						}
+						else if (c1 == '}')
+						{
+							BEHAVIAC_ASSERT(depth > 0);
+							depth--;
+						}
+					}
+					
+					return true;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
         XmlNodeRef MakeXmlNodeStruct(const char* str, const behaviac::string& typeNameT)
         {
             behaviac::string src = str;
@@ -414,6 +470,7 @@ namespace behaviac
             XmlNodeRef xmlNode = CreateXmlNode(typeNameT.c_str());
 
             //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+			//{color=0;id=;type={bLive=false;name=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
             behaviac::string::size_type posBegin = 1;
             behaviac::string::size_type posEnd = src.find_first_of(';', posBegin);
 
@@ -434,9 +491,17 @@ namespace behaviac
 
                     if (c != '{')
                     {
-                        length = posEnd - posEqual - 1;
-                        memmberValue = src.substr(posEqual + 1, length);
-
+						//to check if it is an array
+						if (IsArrayString(src, posEqual + 1, posEnd))
+						{
+							length = posEnd - posEqual - 1;
+							memmberValue = src.substr(posEqual + 1, length);
+						}
+						else
+						{
+							length = posEnd - posEqual - 1;
+							memmberValue = src.substr(posEqual + 1, length);
+						}
                     }
                     else
                     {
@@ -457,7 +522,6 @@ namespace behaviac
                         XmlNodeRef memberNode = MakeXmlNodeStruct(memmberValue.c_str(), memmberName);
 
                         xmlNode->addChild(memberNode);
-
                     }
                     else
                     {
@@ -472,7 +536,7 @@ namespace behaviac
                 //skip ';'
                 posBegin = posEnd + 1;
 
-                //{color=0;id=;type={bLive=false;name=0;weight=0;};}
+                //{color=0;id=;type={bLive=false;name=0;weight=0;};transit_points=3:{coordX=0;coordY=0;}|{coordX=0;coordY=0;}|{coordX=0;coordY=0;};}
                 posEnd = src.find_first_of(';', posBegin);
 
                 if (posEnd > posCloseBrackets)

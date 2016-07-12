@@ -66,6 +66,7 @@
       <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_2" type="float" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_3" type="float" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_Act" type="Act" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_str_0" type="string" member="true" static="false" agent="AgentNodeTest" />
       <property name="waiting_timeout_interval" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
@@ -121,6 +122,7 @@
       <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_2" type="float" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_3" type="float" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_Act" type="Act" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_str_0" type="string" member="true" static="false" agent="AgentNodeTest" />
       <property name="waiting_timeout_interval" type="int" member="true" static="false" agent="AgentNodeTest" />
     </properties>

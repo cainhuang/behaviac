@@ -28,7 +28,7 @@ namespace behaviac
 {
     LogManager* LogManager::ms_instance = 0;
 
-    LogManager::LogManager() : m_logFilePath(0), m_bFlush(true)
+    LogManager::LogManager() : m_logFilePath(0)
     {
         BEHAVIAC_ASSERT(ms_instance == NULL);
         ms_instance = this;
@@ -145,7 +145,7 @@ namespace behaviac
 
                 fwrite(buffer, 1, strlen(buffer), fp);
 
-                if (this->m_bFlush)
+                if (behaviac::Config::IsLoggingFlush())
                 {
                     fflush(fp);
                 }

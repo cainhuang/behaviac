@@ -638,7 +638,7 @@ namespace behaviac
 			}
 		}
 
-		static void SaveState(ISerializableNode* node, const Array& array, const CSerializationID& propertyID)
+		static void SaveState(ISerializableNode* node, const vector<MemberType>& array, const CSerializationID& propertyID)
 		{
 			ISerializableNode* arrayNode = node->newChild(propertyID);
 
@@ -650,12 +650,12 @@ namespace behaviac
 			}
 		}
 
-		static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const Array& array, const char* className, const char* classFullName, const CSerializationID& propertyID, UiGenericType* uiWrapper)
+		static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const vector<MemberType>& array, const char* className, const char* classFullName, const CSerializationID& propertyID, UiGenericType* uiWrapper)
 		{
 			BEHAVIAC_ASSERT(!"Not implemented");
 		}
 
-		static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const Array& array, const char* className, const char* propertyName)
+		static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const vector<MemberType>& array, const char* className, const char* propertyName)
 		{
 			BEHAVIAC_ASSERT(!"Not implemented");
 		}
@@ -664,31 +664,17 @@ namespace behaviac
 	template<class MemberType>
 	struct GenericTypeHandler<vector<MemberType> >
 	{
-		typedef vector<MemberType> Array;
-
-		static void Load(const ISerializableNode* node, Array& _array, const CSerializationID& propertyID)
+		static void Load(const ISerializableNode* node, vector<MemberType>& _array, const char* classTypeName, const CSerializationID& propertyID)
 		{
-			const ISerializableNode* arrayNode = node->findChild(propertyID);
+			const char* attrVauleStr = node->getAttrRaw(propertyID);
 
-			if (arrayNode)
+			if (attrVauleStr)
 			{
-				uint32_t ArraySize;
-
-				const IXmlNode* xmlNode = (IXmlNode*)arrayNode;
-				xmlNode->getAttr("Count", ArraySize);
-
-				_array.resize(ArraySize);
-
-				for (uint32_t i = 0; i < ArraySize; ++i)
-				{
-					char name[16];
-					string_sprintf(name, "Element%d", i);
-					GenericTypeHandler< MemberType >::Load(arrayNode, _array[i], 0, name);
-				}
+				StringUtils::FromString(attrVauleStr, _array);
 			}
 		}
 
-		static void Save(ISerializableNode* node, Array& _array, const CSerializationID& propertyID)
+		static void Save(ISerializableNode* node, vector<MemberType>& _array, const char* classTypeName, const CSerializationID& propertyID)
 		{
 			ISerializableNode* arrayNode = node->newChild(propertyID);
 
@@ -698,11 +684,12 @@ namespace behaviac
 			{
 				char name[16];
 				string_sprintf(name, "Element%d", i);
-				GenericTypeHandler< MemberType >::Save(arrayNode, _array[i], 0, name);
+				behaviac::CSerializationID id(name);
+				GenericTypeHandler< MemberType >::Save(arrayNode, _array[i], classTypeName, id);
 			}
 		}
 
-		static void LoadState(const ISerializableNode* node, Array& _array, const CSerializationID& propertyID)
+		static void LoadState(const ISerializableNode* node, vector<MemberType>& _array, const char* classTypeName, const CSerializationID& propertyID)
 		{
 			const ISerializableNode* arrayNode = node->findChild(propertyID);
 
@@ -714,12 +701,13 @@ namespace behaviac
 				{
 					char name[16];
 					string_sprintf(name, "Element%d", i);
-					GenericTypeHandler< MemberType >::LoadState(arrayNode, _array[i], name);
+					behaviac::CSerializationID id(name);
+					GenericTypeHandler< MemberType >::LoadState(arrayNode, _array[i], classTypeName, id);
 				}
 			}
 		}
 
-		static void SaveState(ISerializableNode* node, const Array& _array, const CSerializationID& propertyID)
+		static void SaveState(ISerializableNode* node, const vector<MemberType>& _array, const char* classTypeName, const CSerializationID& propertyID)
 		{
 			ISerializableNode* arrayNode = node->newChild(propertyID);
 			uint32_t ArraySize = _array.size();
@@ -728,16 +716,65 @@ namespace behaviac
 			{
 				char name[16];
 				string_sprintf(name, "Element%d", i);
-				GenericTypeHandler< MemberType >::SaveState(arrayNode, _array[i], name);
+				behaviac::CSerializationID id(name);
+				GenericTypeHandler< MemberType >::SaveState(arrayNode, _array[i], classTypeName, id);
 			}
 		}
 
-		static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const Array& _array, const char* className, const char* classFullName, const CSerializationID& propertyID, UiGenericType* uiWrapper)
+		static void GetUiInfo(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const vector<MemberType>& _array, bool bStatic, int readonlyFlag, const char* classFullName, const CSerializationID& propertyID, const wstring& displayName, const wstring& desc, UiGenericType* uiWrapper)
 		{
-			BEHAVIAC_ASSERT(!"Not implemented");
+			// Create a new node if the property ID is not empty, otherwise serialize it to the current node
+			XmlNodeRef memberNode = xmlNode;
+
+			if (types == NULL)
+			{
+				if (propertyID.GetID().IsValid())
+				{
+					memberNode = xmlNode->newChild("Member");
+					memberNode->setAttr("Name", propertyID.GetString());
+					memberNode->setAttr("DisplayName", displayName);
+					memberNode->setAttr("Desc", desc);
+					const string memberTypeStr = GetTypeDescString<vector<MemberType> >();
+					memberNode->setAttr("Type", memberTypeStr.c_str());
+
+					if (classFullName)
+					{
+						memberNode->setAttr("Class", classFullName);
+					}
+
+					if (bStatic)
+					{
+						memberNode->setAttr("Static", "true");
+					}
+
+					if (readonlyFlag & 0x1)
+					{
+						memberNode->setAttr("Readonly", "true");
+					}
+
+					if (readonlyFlag & 0x2)
+					{
+						memberNode->setAttr("Property", "true");
+					}
+				}
+			}
+			else
+			{
+				const char* typeName = GetClassTypeName((MemberType*)0);
+
+				if (types->find(typeName) == types->end())
+				{
+					EnumClassUiInfoGetter<MemberType, Meta::IsEnum<MemberType>::Result>::GetUiInfo(types, memberNode);
+				}
+			}
+
+			if (uiWrapper)
+			{
+				uiWrapper->SaveDescription(memberNode);
+			}
 		}
 
-		static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const Array& _array, const char* className, const char* propertyName)
+		static void GetMethodsDescription(CTagTypeDescriptor::TypesMap_t* types, const XmlNodeRef& xmlNode, const vector<MemberType>& _array, const char* className, const char* propertyName)
 		{
 			BEHAVIAC_ASSERT(!"Not implemented");
 		}

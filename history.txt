@@ -1,3 +1,9 @@
+2016-07-12	3.5.7
+    fix a bug for the array member of the struct.
+    fix a bug for generating the type files when the language is null.
+    fix a bug when a struct has a vector member of a struct
+    fix compiling error on iOS
+
 2016-07-07	3.5.6
     fix a bug(file path) in HotReload of unity version
     add prompt messages if not adding generated cs into the project
@@ -7,7 +13,6 @@
     ListParam added to restrict item type for List
     fix bug in edtior for VectorAdd, etc.
     fix a bug for the instance of the property
-
 
 2016-06-30	3.5.5
     refactor Compare and Compute to avoid Expression Lamda for bugs on iOS

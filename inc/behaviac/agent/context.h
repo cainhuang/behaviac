@@ -41,7 +41,6 @@ namespace behaviac
 
     /// The Context class
     /*!
-    I don't know what is this!
     */
     class BEHAVIAC_API Context
     {

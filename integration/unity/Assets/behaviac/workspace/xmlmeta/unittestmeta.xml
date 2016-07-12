@@ -32,12 +32,25 @@
       <enum NativeValue="TNS::NE::NAT::YELLOW" Value="YELLOW" DisplayName="YELLOW" Desc="YELLOW" />
       <enum NativeValue="TNS::NE::NAT::WHITE" Value="WHITE" DisplayName="WHITE" Desc="WHITE" />
     </enumtype>
+    <struct Type="Act" DisplayName="ActionClip" Desc="动作" IsRefType="false">
+      <Member Name="Var_B_Loop" DisplayName="Var_B_Loop" Desc="Var_B_Loop" Type="bool" Class="Act" Public="true" />
+      <Member Name="Var_List_EnumTest" DisplayName="Var_List_EnumTest" Desc="Var_List_EnumTest" Type="vector&lt;EnumTest&gt;" Class="Act" Public="true" />
+    </struct>
     <struct Type="System::Object" DisplayName="Object" Desc="Object" IsRefType="true" />
     <struct Type="UnityEngine::GameObject" DisplayName="GameObject" Desc="GameObject" IsRefType="true" />
     <struct Type="TestNS::Node" DisplayName="Node" Desc="Node" IsRefType="true" />
     <struct Type="TestNS::Float2" DisplayName="Float2" Desc="Float2" IsRefType="false">
       <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="TestNS::Float2" Public="true" />
       <Member Name="y" DisplayName="y" Desc="y" Type="float" Class="TestNS::Float2" Public="true" />
+    </struct>
+    <struct Type="BSASN::TransitPlan" DisplayName="TransitPlan" Desc="TransitPlan" IsRefType="false">
+      <Member Name="plan_ID" DisplayName="plan_ID" Desc="plan_ID" Type="string" Class="BSASN::TransitPlan" Public="true" />
+      <Member Name="plan_selection_precedence" DisplayName="plan_selection_precedence" Desc="plan_selection_precedence" Type="int" Class="BSASN::TransitPlan" Public="true" />
+      <Member Name="transit_points" DisplayName="transit_points" Desc="transit_points" Type="vector&lt;BSASN::SpatialCoord&gt;" Class="BSASN::TransitPlan" Public="true" />
+    </struct>
+    <struct Type="BSASN::SpatialCoord" DisplayName="SpatialCoord" Desc="SpatialCoord" IsRefType="false">
+      <Member Name="coordX" DisplayName="coordX" Desc="coordX" Type="float" Class="BSASN::SpatialCoord" Public="true" />
+      <Member Name="coordY" DisplayName="coordY" Desc="coordY" Type="float" Class="BSASN::SpatialCoord" Public="true" />
     </struct>
     <struct Type="UnityEngine::Vector3" DisplayName="Vector3" Desc="Vector3" IsRefType="false">
       <Member Name="kEpsilon" DisplayName="kEpsilon" Desc="kEpsilon" Type="float" Class="UnityEngine::Vector3" Readonly="true" Static="true" Public="true" />
@@ -102,6 +115,7 @@
       <Member Name="testVar_str_0" DisplayName="" Desc="" Type="string" Class="AgentNodeTest" Public="true" />
       <Member Name="testVar_str_1" DisplayName="" Desc="" Type="string" Class="AgentNodeTest" Public="true" />
       <Member Name="testColor" DisplayName="" Desc="" Type="EnumTest" Class="AgentNodeTest" Public="true" />
+      <Member Name="testVar_Act" DisplayName="" Desc="" Type="Act*" Class="AgentNodeTest" Public="true" />
       <Method Name="initChildAgentTest" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true" />
       <Method Name="setEventVarInt" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest" Public="true">
         <Param DisplayName="var" Desc="var" Type="int" />
@@ -179,6 +193,11 @@
       <Method Name="GetRefTree" DisplayName="" Desc="" ReturnType="string" Class="AgentNodeTest" Public="true" />
       <Method Name="testVectorStruct" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest">
         <Param DisplayName="param" Desc="param" Type="vector&lt;TestNS::Float2&gt;" />
+      </Method>
+      <Method Name="transitPlanTactics" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest">
+        <Param DisplayName="task_tactics_type" Desc="task_tactics_type" Type="BSASN::TransitPlan" />
+        <Param DisplayName="enumTest" Desc="enumTest" Type="EnumTest" />
+        <Param DisplayName="platform_ID" Desc="platform_ID" Type="string" />
       </Method>
     </agent>
     <agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="ChildNodeTest" Desc="ChildNodeTest" IsRefType="true">

@@ -102,10 +102,10 @@ namespace behaviac
     public:
         ThreadInt();
         ~ThreadInt();
+		void set(long v);
         long value() const;
     private:
         void Init();
-        //void set(long v);
         long operator++();
         void operator--();
 
@@ -122,10 +122,10 @@ namespace behaviac
     public:
         ThreadInt();
         ~ThreadInt();
+		void set(long v);
         long value() const;
     private:
         void Init();
-        //void set(long v);
         long operator++();
         void operator--();
 

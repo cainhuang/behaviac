@@ -39,13 +39,13 @@ namespace behaviac
         m_inited = false;
     }
 
-    //void ThreadInt::set(long v)
-    //{
-    //	behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
-    //	long* value = m_threadInt.find((long)threadId);
-    //	BEHAVIAC_ASSERT(value);
-    //	*value = v;
-    //}
+    void ThreadInt::set(long v)
+    {
+    	behaviac::THREAD_ID_TYPE threadId = behaviac::GetTID();
+    	long* value = m_threadInt.find((long)threadId);
+    	BEHAVIAC_ASSERT(value);
+    	*value = v;
+    }
 
     long ThreadInt::value() const
     {
