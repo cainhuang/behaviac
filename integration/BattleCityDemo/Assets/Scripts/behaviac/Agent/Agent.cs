@@ -1844,6 +1844,14 @@ namespace behaviac
         }
 
         [behaviac.MethodMetaInfo()]
+        public static void LogMessage(string message)
+        {
+            int frames = behaviac.Workspace.Instance.FrameSinceStartup;
+
+            behaviac.Debug.Log(string.Format("[{0}]{1}\n", frames, message));
+        }
+
+        [behaviac.MethodMetaInfo()]
         public static int VectorLength(IList vector)
         {
             if (vector != null)

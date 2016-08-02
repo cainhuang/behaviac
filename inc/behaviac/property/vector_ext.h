@@ -230,12 +230,16 @@ public:
         TListPool& listPool = GetListPool();
         behaviac::ScopedLock lock(ms_mutex);
 
-        if (listPool.pool->size() > 1)
+		size_t n = listPool.pool->size();
+
+        if (n > 0)
         {
-			size_t n = listPool.pool->size();
+			// get the last
             TList<T>* pList = (*listPool.pool)[n - 1];
 
             listPool.pool->pop_back();
+
+			pList->setList((T*)pVector);
 
             return pList;
         }
@@ -245,9 +249,13 @@ public:
         return pList;
     }
 
+	void setList(T* pVector)
+	{
+		this->vector_ = pVector;
+	}
+
     virtual void release()
     {
-
         if (this->bRelease)
         {
             TListPool& listPool = GetListPool();

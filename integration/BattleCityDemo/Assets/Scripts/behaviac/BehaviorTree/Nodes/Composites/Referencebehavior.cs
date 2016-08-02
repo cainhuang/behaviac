@@ -198,6 +198,12 @@ namespace behaviac
 #if BEHAVIAC_USE_HTN
             private AgentState currentState;
 #endif//
+            //~ReferencedBehaviorTask()
+            //{
+            //    Workspace.Instance.DestroyBehaviorTreeTask(this.m_subTree, null);
+            //    this.m_subTree = null;
+            //}
+
             protected override bool CheckPreconditions(Agent pAgent, bool bIsAlive)
             {
 #if BEHAVIAC_USE_HTN
@@ -245,8 +251,16 @@ namespace behaviac
 
                 this.m_nextStateId = -1;
 
-                string szTreePath = pNode.GetReferencedTree(pAgent);
-                this.m_subTree = Workspace.Instance.CreateBehaviorTreeTask(szTreePath);
+                //to create the task on demand
+                if (this.m_subTree == null)
+                {
+                    string szTreePath = pNode.GetReferencedTree(pAgent);
+                    this.m_subTree = Workspace.Instance.CreateBehaviorTreeTask(szTreePath);
+                }
+                else
+                {
+                    this.m_subTree.reset(pAgent);
+                }
 
                 pNode.SetTaskParams(pAgent, this.m_subTree);
 
@@ -255,8 +269,6 @@ namespace behaviac
 
             protected override void onexit(Agent pAgent, EBTStatus s)
             {
-                Workspace.Instance.DestroyBehaviorTreeTask(this.m_subTree, pAgent);
-                this.m_subTree = null;
 
 #if BEHAVIAC_USE_HTN
                 Debug.Check(this.currentState != null);

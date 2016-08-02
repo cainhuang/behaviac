@@ -46,6 +46,15 @@ namespace PluginBehaviac.Nodes
             set { _bDoneWithinFrame = value; }
         }
 
+        protected override void CloneProperties(Node newnode)
+        {
+            base.CloneProperties(newnode);
+
+            DecoratorLoop dec = (DecoratorLoop)newnode;
+            dec._bDoneWithinFrame = this._bDoneWithinFrame;
+        }
+
+
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
             base.CheckForErrors(rootBehavior, result);

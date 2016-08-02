@@ -131,7 +131,7 @@ namespace behaviac
 
                     int nextStateId = currentState.GetNextStateId();
 
-                    if (nextStateId < 0) // -1 or overflow
+                    if (nextStateId < 0)
                     {
                         //if not transitioned, don't go on next state, to exit
                         bLoop = false;

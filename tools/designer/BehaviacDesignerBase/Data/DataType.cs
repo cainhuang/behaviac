@@ -183,14 +183,24 @@ namespace Behaviac.Design
                 get
                 {
                     if (_paramInfo != null)
-                    { return _paramInfo.ParameterType; }
+                    { 
+                        if (this.listParam_ != null)
+                        {
+                            Type type = GetListParamItemType(this);
+                            return type;
+                        }
+
+                        return _paramInfo.ParameterType; 
+                    }
 
                     if (_bParamFromStruct)
                     {
                         ParInfo par = this._value as ParInfo;
 
                         if (par != null)
-                        { return par.Type; }
+                        { 
+                            return par.Type; 
+                        }
 
                         return this._property.Property.PropertyType;
                     }
@@ -526,6 +536,31 @@ namespace Behaviac.Design
                     return null;
                 }
             }
+
+            public static Type GetListParamItemType(MethodDef.Param param)
+            {
+                Type type = null;
+                if (param.ListParam.Value is VariableDef)
+                {
+                    VariableDef varDef = param.ListParam.Value as VariableDef;
+                    type = varDef.ValueType;
+                }
+                else if (param.ListParam.Value is ParInfo)
+                {
+                    ParInfo pi = param.ListParam.Value as ParInfo;
+                    type = pi.Type;
+                }
+
+                if (Plugin.IsArrayType(type))
+                {
+                    Type itemType = type.GetGenericArguments()[0];
+
+                    return itemType;
+                }
+
+                return null;
+            }
+
         }
 
         public MethodDef(AgentType agentType, MemberType memberType, bool isChangeableType, bool isPublic, bool isStatic, string classname, string owner, string name, string displayName, string description, string nativeReturnType, Type returnType, bool isActionMethodOnly, List<Param> pars)

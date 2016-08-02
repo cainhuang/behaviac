@@ -84,7 +84,7 @@ namespace behaviac
             {
                 Debug.Check(this.GetNode() is DecoratorLog);
                 DecoratorLog pDecoratorLogNode = (DecoratorLog)(this.GetNode());
-                behaviac.Debug.LogWarning(string.Format("DecoratorLogTask:{0}\n", pDecoratorLogNode.m_message));
+                behaviac.Debug.Log(string.Format("DecoratorLogTask:{0}\n", pDecoratorLogNode.m_message));
 
                 return status;
             }

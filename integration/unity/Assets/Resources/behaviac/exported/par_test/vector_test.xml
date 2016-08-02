@@ -42,5 +42,35 @@
       <property Method="Self.behaviac::Agent::VectorRemove(vector&lt;int&gt; Self.TestNS::AgentArrayAccessTest::c_ListInts,int Self.TestNS::AgentArrayAccessTest::c_Int)" />
       <property ResultOption="BT_SUCCESS" />
     </node>
+    <node class="DecoratorLoop" id="8">
+      <property Count="const int 100" />
+      <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="true" />
+      <node class="Sequence" id="12">
+        <node class="Assignment" id="14">
+          <property Opl="double Self.TestNS::AgentArrayAccessTest::c_douleVec[2]" />
+          <property Opr="const double 0.03" />
+        </node>
+        <node class="Action" id="9">
+          <property Method="Self.behaviac::Agent::VectorAdd(vector&lt;double&gt; Self.TestNS::AgentArrayAccessTest::c_douleVec,double Self.TestNS::AgentArrayAccessTest::c_douleVec[2])" />
+          <property ResultOption="BT_SUCCESS" />
+        </node>
+      </node>
+    </node>
+    <node class="DecoratorLoop" id="10">
+      <property Count="const int 100" />
+      <property DecorateWhenChildEnds="true" />
+      <property DoneWithinFrame="true" />
+      <node class="Sequence" id="13">
+        <node class="Assignment" id="15">
+          <property Opl="double Self.TestNS::AgentArrayAccessTest::c_doubleVal" />
+          <property Opr="const double 0.05" />
+        </node>
+        <node class="Action" id="11">
+          <property Method="Self.behaviac::Agent::VectorAdd(vector&lt;double&gt; Self.TestNS::AgentArrayAccessTest::c_doubleVec2,double Self.TestNS::AgentArrayAccessTest::c_doubleVal)" />
+          <property ResultOption="BT_SUCCESS" />
+        </node>
+      </node>
+    </node>
   </node>
 </behavior>

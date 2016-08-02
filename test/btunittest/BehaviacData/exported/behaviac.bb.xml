@@ -312,6 +312,9 @@
       <property name="c_Int" type="int" member="false" static="false" defaultvalue="0" />
       <property name="c_ListInts" type="vector&lt;int&gt;" member="false" static="false" defaultvalue="5:10|20|30|40|50" />
       <property name="c_Count" type="int" member="false" static="false" defaultvalue="0" />
+      <property name="c_douleVec" type="vector&lt;double&gt;" member="false" static="false" defaultvalue="3:0.01|0.02|0.03" />
+      <property name="c_doubleVal" type="double" member="false" static="false" defaultvalue="0.05" />
+      <property name="c_doubleVec2" type="vector&lt;double&gt;" member="false" static="false" defaultvalue="3:0.01|0.02|0.03" />
     </properties>
   </agent>
 </agents>

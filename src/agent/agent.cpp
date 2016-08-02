@@ -53,6 +53,8 @@ BEHAVIAC_BEGIN_PROPERTIES(behaviac::Agent)
     BEHAVIAC_REGISTER_METHOD(VectorRemove);
     BEHAVIAC_REGISTER_METHOD(VectorContains);
     BEHAVIAC_REGISTER_METHOD(VectorClear);
+
+    BEHAVIAC_REGISTER_METHOD(LogMessage);
 }
 BEHAVIAC_END_PROPERTIES()
 
@@ -1700,6 +1702,12 @@ namespace behaviac
         return 0;
     }
 #endif//BEHAVIAC_RELEASE
+
+	void Agent::LogMessage(const char* message)
+	{
+		int frames = behaviac::Workspace::GetInstance()->GetFrameSinceStartup();
+		BEHAVIAC_LOGMSG("[%d]%s\n", frames, message);
+	}
 
     int Agent::VectorLength(const IList& vector)
     {

@@ -223,6 +223,8 @@ namespace behaviac
 
     ReferencedBehaviorTask::~ReferencedBehaviorTask()
     {
+		behaviac::Workspace::GetInstance()->DestroyBehaviorTreeTask(this->m_subTree, 0);
+		this->m_subTree = 0;
     }
 
     void ReferencedBehaviorTask::copyto(BehaviorTask* target) const
@@ -272,8 +274,17 @@ namespace behaviac
 
 		this->m_nextStateId = -1;
 
-		const char* szTreePath = pNode->GetReferencedTree(pAgent);
-		this->m_subTree = Workspace::GetInstance()->CreateBehaviorTreeTask(szTreePath);
+		//to create it on demand
+		if (this->m_subTree == NULL)
+		{
+			const char* szTreePath = pNode->GetReferencedTree(pAgent);
+			this->m_subTree = Workspace::GetInstance()->CreateBehaviorTreeTask(szTreePath);
+		}
+		else
+		{
+			this->m_subTree->reset(pAgent);
+		}
+
 		pNode->SetTaskParams(pAgent);
 
         return true;
@@ -281,8 +292,6 @@ namespace behaviac
 
     void ReferencedBehaviorTask::onexit(Agent* pAgent, EBTStatus s)
     {
-		behaviac::Workspace::GetInstance()->DestroyBehaviorTreeTask(this->m_subTree, pAgent);
-		this->m_subTree = 0;
         BEHAVIAC_UNUSED_VAR(pAgent);
         BEHAVIAC_UNUSED_VAR(s);
     }

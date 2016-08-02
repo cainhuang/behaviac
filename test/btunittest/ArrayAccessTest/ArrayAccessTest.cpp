@@ -58,9 +58,19 @@ LOAD_TEST(btunittest, vector_test)
     int c_Count = testAgent->GetVariable<int>("c_Count");
     CHECK_EQUAL(5, c_Count);
 
-    behaviac::vector<int> c_ListInts = testAgent->GetVariable<behaviac::vector<int> >("c_ListInts");
-    CHECK_EQUAL(5, c_ListInts.size());
-    CHECK_EQUAL(20, c_ListInts[0]);
+	behaviac::vector<double> c_douleVec = testAgent->GetVariable<behaviac::vector<double> >("c_douleVec");
+	CHECK_EQUAL(103, c_douleVec.size());
+	for (int i = 0; i < 100; ++i)
+	{
+		CHECK_FLOAT_EQUAL(c_douleVec[3 + i], 0.03);
+	}
+
+	behaviac::vector<double> c_douleVec2 = testAgent->GetVariable<behaviac::vector<double> >("c_doubleVec2");
+	CHECK_EQUAL(103, c_douleVec2.size());
+	for (int i = 0; i < 100; ++i)
+	{
+		CHECK_FLOAT_EQUAL(c_douleVec2[3 + i], 0.05);
+	}
 
     finlTestEnvArray(testAgent);
 }

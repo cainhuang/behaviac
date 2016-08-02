@@ -709,26 +709,33 @@ namespace behaviac
     void TTProperty<VariableType, true>::SetVectorElementTo(Agent* pAgentFrom, int index, const Property* to, Agent* pAgentTo)
     {
         const VariableType& retV_vec = this->GetValue(pAgentFrom);
-        const ElementType& retV = retV_vec[index];
+		BEHAVIAC_ASSERT(retV_vec.size() > 0 && (size_t)index < retV_vec.size());
 
-        BEHAVIAC_ASSERT(to->GetTypeId() == GetClassTypeNumberId<ElementType>());
+		const ElementType& retV = retV_vec[index];
 
-        TProperty<ElementType>* toT = (TProperty<ElementType>*)to;
+		BEHAVIAC_ASSERT(to->GetTypeId() == GetClassTypeNumberId<ElementType>());
 
-        toT->SetValue(pAgentTo, retV);
+		TProperty<ElementType>* toT = (TProperty<ElementType>*)to;
+
+		toT->SetValue(pAgentTo, retV);
     }
 
     template<typename VariableType>
     void TTProperty<VariableType, true>::SetVectorElementAsDefault(Property* pProperty)
     {
         const VariableType& retV_vec = this->GetDefaultValue();
-        const ElementType& retV = retV_vec[0];
 
-        BEHAVIAC_ASSERT(pProperty->GetTypeId() == GetClassTypeNumberId<ElementType>());
+		// vector's default might be empty
+		if (retV_vec.size() > 0)
+		{
+			const ElementType& retV = retV_vec[0];
 
-        TProperty<ElementType>* pTProperty = (TProperty<ElementType>*)pProperty;
+			BEHAVIAC_ASSERT(pProperty->GetTypeId() == GetClassTypeNumberId<ElementType>());
 
-        pTProperty->SetDefaultValue(retV);
+			TProperty<ElementType>* pTProperty = (TProperty<ElementType>*)pProperty;
+
+			pTProperty->SetDefaultValue(retV);
+		}
     }
 
     template<typename T>

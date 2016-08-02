@@ -129,6 +129,9 @@
         <property name="c_Int" type="System.Int32" classname="TestNS::AgentArrayAccessTest" defaultvalue="0" static="false" public="true" readonly="false" disp="c_Int" desc="TestNS::AgentArrayAccessTest::c_Int" />
         <property name="c_ListInts" type="System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" classname="TestNS::AgentArrayAccessTest" defaultvalue="5:10|20|30|40|50" static="false" public="true" readonly="false" disp="c_ListInts" desc="TestNS::AgentArrayAccessTest::c_ListInts" />
         <property name="c_Count" type="System.Int32" classname="TestNS::AgentArrayAccessTest" defaultvalue="0" static="false" public="true" readonly="false" disp="c_Count" desc="TestNS::AgentArrayAccessTest::c_Count" />
+        <property name="c_douleVec" type="System.Collections.Generic.List`1[[System.Double, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" classname="TestNS::AgentArrayAccessTest" defaultvalue="3:0.01|0.02|0.03" static="false" public="true" readonly="false" disp="c_douleVec" desc="c_douleVec" />
+        <property name="c_doubleVal" type="System.Double" classname="TestNS::AgentArrayAccessTest" defaultvalue="0.05" static="false" public="true" readonly="false" disp="c_doubleVal" desc="c_doubleVal" />
+        <property name="c_doubleVec2" type="System.Collections.Generic.List`1[[System.Double, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" classname="TestNS::AgentArrayAccessTest" defaultvalue="3:0.01|0.02|0.03" static="false" public="true" readonly="false" disp="c_doubleVec2" desc="c_doubleVec2" />
       </properties>
     </agent>
   </agents>

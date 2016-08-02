@@ -453,7 +453,18 @@ namespace Behaviac.Design.Attributes
                     { Debug.Check(false); }
 
                 } else if (this._param != null) {
-                    if (this._param.Attribute is DesignerFloat)
+                    bool bFloat = false;
+                    if (this._param.ListParam != null)
+                    {
+                        Type itemType = MethodDef.Param.GetListParamItemType(this._param);
+
+                        if (Plugin.IsFloatType(itemType))
+                        {
+                            bFloat = true;
+                        }
+                    }
+
+                    if (this._param.Attribute is DesignerFloat || bFloat)
                     { 
                         float value =  (float)numericUpDown.Value;
                         
@@ -470,14 +481,15 @@ namespace Behaviac.Design.Attributes
                         {
                             this._param.Value = value; 
                         }
-
                     }
-
                     else if (this._param.Attribute is DesignerInteger)
-                    { this._param.Value = (int)numericUpDown.Value; }
-
+                    { 
+                        this._param.Value = (int)numericUpDown.Value; 
+                    }
                     else
-                    { Debug.Check(false); }
+                    { 
+                        Debug.Check(false); 
+                    }
 
                 } else if (this._variable != null) {
                     if (this._variable.Value.GetType() == typeof(float))

@@ -1814,6 +1814,7 @@ namespace behaviac
 			// behaviac.Agent
 			meta = new AgentMeta();
 			_agentMetas[2436498804] = meta;
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { behaviac.Agent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -1878,6 +1879,7 @@ namespace behaviac
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { AgentNodeTest.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -1960,6 +1962,7 @@ namespace behaviac
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { ChildNodeTest.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -1986,6 +1989,7 @@ namespace behaviac
 			meta.RegisterMethod(537561990, new CMethod_CustomPropertyAgent_FnWithOutParam());
 			meta.RegisterMethod(3084186706, new CAgentMethodVoid<TestNamespace.Float2>(delegate(Agent self, TestNamespace.Float2 param0) { ((CustomPropertyAgent)self).TestFn1(param0); }));
 			meta.RegisterMethod(2633607057, new CAgentMethodVoid<TestNamespace.ClassAsValueType>(delegate(Agent self, TestNamespace.ClassAsValueType param0) { ((CustomPropertyAgent)self).TestFn2(param0); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { CustomPropertyAgent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2046,6 +2050,7 @@ namespace behaviac
 			meta.RegisterMethod(3634257456, new CMethod_ParTestAgentBase_Func_eColorListRef());
 			meta.RegisterMethod(2320925517, new CMethod_ParTestAgentBase_Func_SByteRef());
 			meta.RegisterMethod(348573471, new CMethod_ParTestAgentBase_Func_SByteListRef());
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { ParTestAgentBase.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2137,6 +2142,7 @@ namespace behaviac
 			meta.RegisterMethod(3634257456, new CMethod_ParTestAgentBase_Func_eColorListRef());
 			meta.RegisterMethod(2320925517, new CMethod_ParTestAgentBase_Func_SByteRef());
 			meta.RegisterMethod(348573471, new CMethod_ParTestAgentBase_Func_SByteListRef());
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { ParTestAgent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2284,6 +2290,7 @@ namespace behaviac
 			meta.RegisterMethod(3634257456, new CMethod_ParTestAgentBase_Func_eColorListRef());
 			meta.RegisterMethod(2320925517, new CMethod_ParTestAgentBase_Func_SByteRef());
 			meta.RegisterMethod(348573471, new CMethod_ParTestAgentBase_Func_SByteListRef());
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { EmployeeParTestAgent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2304,6 +2311,7 @@ namespace behaviac
 			meta.RegisterMethod(4202428535, new CAgentMethodVoid(delegate(Agent self) { ((FSMAgentTest)self).exit_update(); }));
 			meta.RegisterMethod(373260699, new CAgentMethodVoid(delegate(Agent self) { ((FSMAgentTest)self).inactive_update(); }));
 			meta.RegisterMethod(3924795606, new CAgentMethodVoid(delegate(Agent self) { ((FSMAgentTest)self).pause_update(); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { FSMAgentTest.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2315,6 +2323,7 @@ namespace behaviac
 			_agentMetas[3994384195] = meta;
 			meta.RegisterCustomizedProperty(4260042937, new CCustomizedProperty<int>(4260042937, "Money", "0"));
 			meta.RegisterMethod(3744542564, new CAgentMethodVoid(delegate(Agent self) { ((HTNAgentHouseBase)self).ObtainPermit(); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { HTNAgentHouseBase.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2344,6 +2353,7 @@ namespace behaviac
 			meta.RegisterMethod(2881918156, new CAgentMethodVoid(delegate(Agent self) { ((HTNAgentHouse)self).HireBuilder(); }));
 			meta.RegisterMethod(800517312, new CAgentMethodVoid(delegate(Agent self) { ((HTNAgentHouse)self).PayBuilder(); }));
 			meta.RegisterMethod(3744542564, new CAgentMethodVoid(delegate(Agent self) { ((HTNAgentHouse)self).ObtainPermit(); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { HTNAgentHouse.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2364,6 +2374,7 @@ namespace behaviac
 			meta.RegisterMethod(2170933389, new CAgentMethod<bool, int, int>(delegate(Agent self, int param0, int param1) { return ((HTNAgentTravel)self).long_distance(param0, param1); }));
 			meta.RegisterMethod(1983317305, new CAgentMethodVoid<int, int>(delegate(Agent self, int param0, int param1) { ((HTNAgentTravel)self).ride_taxi(param0, param1); }));
 			meta.RegisterMethod(781174382, new CAgentMethod<bool, int, int>(delegate(Agent self, int param0, int param1) { return ((HTNAgentTravel)self).short_distance(param0, param1); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { HTNAgentTravel.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2397,6 +2408,7 @@ namespace behaviac
 			meta.RegisterMethod(509199861, new CAgentMethod<sbyte, sbyte>(delegate(Agent self, sbyte param0) { return ((ParTestRegNameAgent)self).Func_SByteIR(param0); }));
 			meta.RegisterMethod(4269893793, new CAgentMethod<List<sbyte>, List<sbyte>>(delegate(Agent self, List<sbyte> param0) { return ((ParTestRegNameAgent)self).Func_SByteListIR(param0); }));
 			meta.RegisterMethod(1323559417, new CAgentMethod<string, string>(delegate(Agent self, string param0) { return ((ParTestRegNameAgent)self).Func_StringIR(param0); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { ParTestRegNameAgent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2412,6 +2424,7 @@ namespace behaviac
 			meta.RegisterMemberProperty(2211163255, new CMemberProperty<int>("ret", delegate(Agent self, int value) { ((PreconEffectorAgent)self).ret = value; }, delegate(Agent self) { return ((PreconEffectorAgent)self).ret; }));
 			meta.RegisterMethod(3671624611, new CAgentMethodVoid(delegate(Agent self) { ((PreconEffectorAgent)self).action(); }));
 			meta.RegisterMethod(2122404635, new CAgentMethod<int>(delegate(Agent self) { return ((PreconEffectorAgent)self).fn_return(); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { PreconEffectorAgent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2430,6 +2443,7 @@ namespace behaviac
 			meta.RegisterStaticCustomizedProperty(450204216, new CCustomizedProperty<int>(450204216, "c_ResultStatic", "0"));
 			meta.RegisterMethod(537561990, new CMethod_PropertyReadonlyAgent_FnWithOutParam());
 			meta.RegisterMethod(2969862106, new CAgentMethodVoid<int>(delegate(Agent self, int param0) { ((PropertyReadonlyAgent)self).PassInProperty(param0); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { PropertyReadonlyAgent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -2452,6 +2466,12 @@ namespace behaviac
 			meta.RegisterCustomizedProperty(2521109666, new CCustomizedProperty<List<int>>(2521109666, "c_ListInts", "5:10|20|30|40|50"));
 			meta.RegisterCustomizedProperty(3979786214, new CCustomizedArrayItemProperty<int>(2521109666, "c_ListInts"));
 			meta.RegisterCustomizedProperty(1209342235, new CCustomizedProperty<int>(1209342235, "c_Count", "0"));
+			meta.RegisterCustomizedProperty(2212380943, new CCustomizedProperty<List<double>>(2212380943, "c_douleVec", "3:0.01|0.02|0.03"));
+			meta.RegisterCustomizedProperty(3986605474, new CCustomizedArrayItemProperty<double>(2212380943, "c_douleVec"));
+			meta.RegisterCustomizedProperty(1155710363, new CCustomizedProperty<double>(1155710363, "c_doubleVal", "0.05"));
+			meta.RegisterCustomizedProperty(3835017610, new CCustomizedProperty<List<double>>(3835017610, "c_doubleVec2", "3:0.01|0.02|0.03"));
+			meta.RegisterCustomizedProperty(4069501271, new CCustomizedArrayItemProperty<double>(3835017610, "c_doubleVec2"));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { TestNS.AgentArrayAccessTest.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());

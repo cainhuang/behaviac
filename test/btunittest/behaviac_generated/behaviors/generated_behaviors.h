@@ -86,6 +86,12 @@ using namespace behaviac;
 
 namespace behaviac
 {
+	struct METHOD_TYPE_behaviac_Agent_LogMessage { };
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_LogMessage>(char* p0)
+	{
+		this->behaviac::Agent::LogMessage(p0);
+	}
+
 	struct METHOD_TYPE_behaviac_Agent_VectorAdd { };
 	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
 	{
@@ -35412,6 +35418,127 @@ namespace behaviac
 		}
 	};
 
+	class DecoratorLoop_bt_par_test_vector_test_node8 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_par_test_vector_test_node8, DecoratorLoop);
+		DecoratorLoop_bt_par_test_vector_test_node8()
+		{
+			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = true;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 100;
+		}
+	};
+
+	class Assignment_bt_par_test_vector_test_node14 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_par_test_vector_test_node14, Assignment);
+		Assignment_bt_par_test_vector_test_node14()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			double opr = 0.03f;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_douleVec") == 2212380943u);
+			int opl_index = 2;
+			((behaviac::vector<double>&)pAgent->GetVariable<behaviac::vector<double> >(2212380943u))[opl_index] = opr;
+			return result;
+		}
+	};
+
+	class Action_bt_par_test_vector_test_node9 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_par_test_vector_test_node9, Action);
+		Action_bt_par_test_vector_test_node9()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_douleVec") == 2212380943u);
+			TList<vector<double> > method_p0 = &((behaviac::vector<double>&)pAgent->GetVariable<behaviac::vector<double> >(2212380943u));
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_douleVec") == 2212380943u);
+			int method_p1_index = 2;
+			((behaviac::Agent*)pAgent)->_Execute_Method_<behaviac::METHOD_TYPE_behaviac_Agent_VectorAdd, void, IList&, System::Object& >(method_p0, *(System::Object*)&((behaviac::vector<double>&)pAgent->GetVariable<behaviac::vector<double> >(2212380943u))[method_p1_index]);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_douleVec") == 2212380943u);
+			pAgent->SetVariable("c_douleVec", *method_p0.vector_, 2212380943u);
+			return BT_SUCCESS;
+		}
+	};
+
+	class DecoratorLoop_bt_par_test_vector_test_node10 : public DecoratorLoop
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(DecoratorLoop_bt_par_test_vector_test_node10, DecoratorLoop);
+		DecoratorLoop_bt_par_test_vector_test_node10()
+		{
+			m_bDecorateWhenChildEnds = true;
+			m_bDoneWithinFrame = true;
+		}
+	protected:
+		virtual int GetCount(Agent* pAgent) const
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			return 100;
+		}
+	};
+
+	class Assignment_bt_par_test_vector_test_node15 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_par_test_vector_test_node15, Assignment);
+		Assignment_bt_par_test_vector_test_node15()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			double opr = 0.05f;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_doubleVal") == 1155710363u);
+			pAgent->SetVariable("c_doubleVal", opr, 1155710363u);
+			return result;
+		}
+	};
+
+	class Action_bt_par_test_vector_test_node11 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_par_test_vector_test_node11, Action);
+		Action_bt_par_test_vector_test_node11()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_doubleVec2") == 3835017610u);
+			TList<vector<double> > method_p0 = &((behaviac::vector<double>&)pAgent->GetVariable<behaviac::vector<double> >(3835017610u));
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_doubleVal") == 1155710363u);
+			double& method_p1 = (double&)pAgent->GetVariable<double >(1155710363u);
+			((behaviac::Agent*)pAgent)->_Execute_Method_<behaviac::METHOD_TYPE_behaviac_Agent_VectorAdd, void, IList&, System::Object& >(method_p0, *(System::Object*)&method_p1);
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_doubleVec2") == 3835017610u);
+			pAgent->SetVariable("c_doubleVec2", *method_p0.vector_, 3835017610u);
+			return BT_SUCCESS;
+		}
+	};
+
 	class bt_par_test_vector_test
 	{
 	public:
@@ -35516,6 +35643,86 @@ namespace behaviac
 #endif
 					node22->AddChild(node7);
 					node22->SetHasEvents(node22->HasEvents() | node7->HasEvents());
+				}
+				{
+					DecoratorLoop_bt_par_test_vector_test_node8* node8 = BEHAVIAC_NEW DecoratorLoop_bt_par_test_vector_test_node8;
+					node8->SetClassNameString("DecoratorLoop");
+					node8->SetId(8);
+#if !BEHAVIAC_RELEASE
+					node8->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+					node22->AddChild(node8);
+					{
+						Sequence* node12 = BEHAVIAC_NEW Sequence;
+						node12->SetClassNameString("Sequence");
+						node12->SetId(12);
+#if !BEHAVIAC_RELEASE
+						node12->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+						node8->AddChild(node12);
+						{
+							Assignment_bt_par_test_vector_test_node14* node14 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node14;
+							node14->SetClassNameString("Assignment");
+							node14->SetId(14);
+#if !BEHAVIAC_RELEASE
+							node14->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+							node12->AddChild(node14);
+							node12->SetHasEvents(node12->HasEvents() | node14->HasEvents());
+						}
+						{
+							Action_bt_par_test_vector_test_node9* node9 = BEHAVIAC_NEW Action_bt_par_test_vector_test_node9;
+							node9->SetClassNameString("Action");
+							node9->SetId(9);
+#if !BEHAVIAC_RELEASE
+							node9->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+							node12->AddChild(node9);
+							node12->SetHasEvents(node12->HasEvents() | node9->HasEvents());
+						}
+						node8->SetHasEvents(node8->HasEvents() | node12->HasEvents());
+					}
+					node22->SetHasEvents(node22->HasEvents() | node8->HasEvents());
+				}
+				{
+					DecoratorLoop_bt_par_test_vector_test_node10* node10 = BEHAVIAC_NEW DecoratorLoop_bt_par_test_vector_test_node10;
+					node10->SetClassNameString("DecoratorLoop");
+					node10->SetId(10);
+#if !BEHAVIAC_RELEASE
+					node10->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+					node22->AddChild(node10);
+					{
+						Sequence* node13 = BEHAVIAC_NEW Sequence;
+						node13->SetClassNameString("Sequence");
+						node13->SetId(13);
+#if !BEHAVIAC_RELEASE
+						node13->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+						node10->AddChild(node13);
+						{
+							Assignment_bt_par_test_vector_test_node15* node15 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node15;
+							node15->SetClassNameString("Assignment");
+							node15->SetId(15);
+#if !BEHAVIAC_RELEASE
+							node15->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+							node13->AddChild(node15);
+							node13->SetHasEvents(node13->HasEvents() | node15->HasEvents());
+						}
+						{
+							Action_bt_par_test_vector_test_node11* node11 = BEHAVIAC_NEW Action_bt_par_test_vector_test_node11;
+							node11->SetClassNameString("Action");
+							node11->SetId(11);
+#if !BEHAVIAC_RELEASE
+							node11->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+							node13->AddChild(node11);
+							node13->SetHasEvents(node13->HasEvents() | node11->HasEvents());
+						}
+						node10->SetHasEvents(node10->HasEvents() | node13->HasEvents());
+					}
+					node22->SetHasEvents(node22->HasEvents() | node10->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node22->HasEvents());
 			}

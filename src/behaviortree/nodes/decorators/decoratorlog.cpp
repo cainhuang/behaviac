@@ -73,7 +73,7 @@ namespace behaviac
     {
         BEHAVIAC_ASSERT(DecoratorLog::DynamicCast(this->GetNode()));
         const DecoratorLog* pDecoratorLogNode = (const DecoratorLog*)(this->GetNode());
-        BEHAVIAC_LOGINFO("DecoratorLogTask:%s\n", pDecoratorLogNode->m_message.c_str());
+		BEHAVIAC_LOGMSG("DecoratorLogTask:%s\n", pDecoratorLogNode->m_message.c_str());
 
         return status;
     }

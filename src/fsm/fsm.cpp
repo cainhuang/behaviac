@@ -130,7 +130,7 @@ namespace behaviac
 
 			int nextStateId = currentState->GetNextStateId();
 
-			if (nextStateId < 0) // don't know why, the nextStateID might be -2147483648, so change the condition
+			if (nextStateId < 0)
 			{
 				//if not transitioned, don't go on next state, to exit
 				bLoop = false;

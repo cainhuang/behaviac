@@ -268,6 +268,9 @@ namespace behaviac
 			bb->AddProperty("int", false, "c_Int", "0", "TestNS::AgentArrayAccessTest");
 			bb->AddProperty("vector<int>", false, "c_ListInts", "5:10|20|30|40|50", "TestNS::AgentArrayAccessTest");
 			bb->AddProperty("int", false, "c_Count", "0", "TestNS::AgentArrayAccessTest");
+			bb->AddProperty("vector<double>", false, "c_douleVec", "3:0.01|0.02|0.03", "TestNS::AgentArrayAccessTest");
+			bb->AddProperty("double", false, "c_doubleVal", "0.05", "TestNS::AgentArrayAccessTest");
+			bb->AddProperty("vector<double>", false, "c_doubleVec2", "3:0.01|0.02|0.03", "TestNS::AgentArrayAccessTest");
 
 			// ---------------------------------------------------------------------
 			// tasks

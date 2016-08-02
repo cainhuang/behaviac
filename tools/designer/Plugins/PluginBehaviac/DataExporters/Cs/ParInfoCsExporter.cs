@@ -30,6 +30,14 @@ namespace PluginBehaviac.DataExporters
                 shouldDefineType = false;
                 typename = property.NativeType;
             }
+            else if (typename == "System.Object" || typename == "System.Collections.IList")
+            {
+                typename = property.NativeType;
+            }
+            else
+            {
+                //
+            }
 
             typename = DataCsExporter.GetGeneratedNativeType(typename);
             if (property.IsArrayElement && !typename.StartsWith("List<"))

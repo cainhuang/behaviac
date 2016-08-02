@@ -489,6 +489,7 @@ namespace behaviac
         void ReplicateProperties();
 #endif//#if BEHAVIAC_ENABLE_NETWORKD
 
+		static void LogMessage(const char* message);
         static int VectorLength(const IList& vector);
         static void VectorAdd(IList& vector, const System::Object& element);
         static void VectorRemove(IList& vector, const System::Object& element);

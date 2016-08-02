@@ -36,6 +36,38 @@
           <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="7" Method="Self.behaviac::Agent::VectorRemove(vector&lt;int&gt; Self.TestNS::AgentArrayAccessTest::c_ListInts,int Self.TestNS::AgentArrayAccessTest::c_Int)" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS">
             <Comment Background="NoColor" Text="" />
           </Node>
+          <Node Class="PluginBehaviac.Nodes.DecoratorLoop" Count="const int 100" DecorateWhenChildEnds="true" DoneWithinFrame="true" Enable="true" HasOwnPrefabData="false" Id="8" PrefabName="" PrefabNodeId="-1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="12" PrefabName="" PrefabNodeId="-1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="14" Opl="double Self.TestNS::AgentArrayAccessTest::c_douleVec[2]" Opr="const double 0.03" PrefabName="" PrefabNodeId="-1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                  <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="9" Method="Self.behaviac::Agent::VectorAdd(vector&lt;double&gt; Self.TestNS::AgentArrayAccessTest::c_douleVec,double Self.TestNS::AgentArrayAccessTest::c_douleVec[2])" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                </Connector>
+              </Node>
+            </Connector>
+          </Node>
+          <Node Class="PluginBehaviac.Nodes.DecoratorLoop" Count="const int 100" DecorateWhenChildEnds="true" DoneWithinFrame="true" Enable="true" HasOwnPrefabData="false" Id="10" PrefabName="" PrefabNodeId="-1">
+            <Comment Background="NoColor" Text="" />
+            <Connector Identifier="GenericChildren">
+              <Node Class="PluginBehaviac.Nodes.Sequence" Enable="true" HasOwnPrefabData="false" Id="13" PrefabName="" PrefabNodeId="-1">
+                <Comment Background="NoColor" Text="" />
+                <Connector Identifier="GenericChildren">
+                  <Node Class="PluginBehaviac.Nodes.Assignment" Enable="true" HasOwnPrefabData="false" Id="15" Opl="double Self.TestNS::AgentArrayAccessTest::c_doubleVal" Opr="const double 0.05" PrefabName="" PrefabNodeId="-1">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                  <Node Class="PluginBehaviac.Nodes.Action" Enable="true" HasOwnPrefabData="false" Id="11" Method="Self.behaviac::Agent::VectorAdd(vector&lt;double&gt; Self.TestNS::AgentArrayAccessTest::c_doubleVec2,double Self.TestNS::AgentArrayAccessTest::c_doubleVal)" PrefabName="" PrefabNodeId="-1" ResultFunctor="&quot;&quot;" ResultOption="BT_SUCCESS">
+                    <Comment Background="NoColor" Text="" />
+                  </Node>
+                </Connector>
+              </Node>
+            </Connector>
+          </Node>
         </Connector>
       </Node>
     </Connector>

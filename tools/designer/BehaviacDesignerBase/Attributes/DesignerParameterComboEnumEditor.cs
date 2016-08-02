@@ -152,7 +152,7 @@ namespace Behaviac.Design.Attributes
             bool bSet = true;
             if (param.ListParam != null)
             {
-                Type itemType = GetListParamItemType(param);
+                Type itemType = MethodDef.Param.GetListParamItemType(param);
 
                 if (param.Value is VariableDef)
                 {
@@ -331,11 +331,11 @@ namespace Behaviac.Design.Attributes
                 if (this._param.ListParam != null)
                 {
                     // based on the List's item type
-                    Type itemType = GetListParamItemType(this._param);
+                    Type itemType = MethodDef.Param.GetListParamItemType(this._param);
 
                     if (!Plugin.IsCustomClassType(itemType))
                     {
-                        if (Plugin.IsIntergerNumberType(itemType))
+                        if (Plugin.IsIntergerNumberType(itemType) || Plugin.IsFloatType(itemType))
                         {
                             return typeof(DesignerNumberEditor);
                         }
@@ -343,7 +343,7 @@ namespace Behaviac.Design.Attributes
                         {
                             return typeof(DesignerBooleanEditor);
                         }
-                        else if (Plugin.IsBooleanType(itemType))
+                        else if (Plugin.IsStringType(itemType))
                         {
                             return typeof(DesignerStringEditor);
                         }
@@ -431,7 +431,7 @@ namespace Behaviac.Design.Attributes
         {
             if (_param.ListParam != null && _param.ListParam.Value != null)
             {
-                Type itemType = GetListParamItemType(_param);
+                Type itemType = MethodDef.Param.GetListParamItemType(_param);
                 Debug.Check(itemType != null);
                 propertyEnumEditor.FilterType = itemType;
             }
@@ -445,29 +445,6 @@ namespace Behaviac.Design.Attributes
             }
         }
 
-        private Type GetListParamItemType(MethodDef.Param param)
-        {
-            Type type = null;
-            if (param.ListParam.Value is VariableDef)
-            {
-                VariableDef varDef = param.ListParam.Value as VariableDef;
-                type = varDef.ValueType;
-            }
-            else if (param.ListParam.Value is ParInfo)
-            {
-                ParInfo pi = param.ListParam.Value as ParInfo;
-                type = pi.Type;
-            }
-
-            if (Plugin.IsArrayType(type))
-            {
-                Type itemType = type.GetGenericArguments()[0];
-
-                return itemType;
-            }
-
-            return null;
-        }
 
         private void editor_ValueWasChanged(object sender, DesignerPropertyInfo property)
         {

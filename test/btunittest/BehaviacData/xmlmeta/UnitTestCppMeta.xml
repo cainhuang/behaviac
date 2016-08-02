@@ -99,6 +99,9 @@
 			<Method Name="VectorClear" DisplayName="" Desc="" Class="behaviac::Agent" Static="true" ReturnType="void">
 				<Param DisplayName="" Desc="" Type="IList&amp;" />
 			</Method>
+			<Method Name="LogMessage" DisplayName="" Desc="" Class="behaviac::Agent" Static="true" ReturnType="void">
+				<Param DisplayName="" Desc="" Type="const char*" />
+			</Method>
 		</agent>
 		<agent classfullname="HTNAgentHouseBase" base="behaviac::Agent" inherited="true" DisplayName="" Desc="" IsRefType="true">
 			<Method Name="ObtainPermit" DisplayName="" Desc="" Class="HTNAgentHouseBase" ReturnType="void" />
