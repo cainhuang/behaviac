@@ -1157,7 +1157,7 @@ namespace behaviac
                 }
             }
 
-            Debug.Check(false, string.Format("The variable \"{0}\" with type \"{1}\" can not be found!", variableName, typeof(VariableType).Name));
+            Debug.Check(false, string.Format("The variable \"{0}\" with type \"{1}\" can not be found! please check the variable name or be after loading type info(btload)!", variableName, typeof(VariableType).Name));
         }
 
         internal void SetVariable<VariableType>(string variableName, uint variableId, VariableType value, int index)

@@ -56,14 +56,11 @@ namespace Behaviac.Design
             this.typeListBox = new System.Windows.Forms.ListBox();
             this.addTypeButton = new System.Windows.Forms.Button();
             this.removeTypeButton = new System.Windows.Forms.Button();
-            this.okButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.memberFilterCheckBox = new System.Windows.Forms.CheckBox();
             this.downMemberButton = new System.Windows.Forms.Button();
             this.upMemberButton = new System.Windows.Forms.Button();
-            this.applyButton = new System.Windows.Forms.Button();
-            this.exportFolderLabel = new System.Windows.Forms.Label();
-            this.typeBrowseButton = new System.Windows.Forms.Button();
-            this.exportTypeTextBox = new System.Windows.Forms.TextBox();
+            this.exportButton = new System.Windows.Forms.Button();
             this.metaTypePanel = new Behaviac.Design.MetaTypePanel();
             this.SuspendLayout();
             // 
@@ -199,15 +196,15 @@ namespace Behaviac.Design
             this.removeTypeButton.UseVisualStyleBackColor = false;
             this.removeTypeButton.Click += new System.EventHandler(this.removeTypeButton_Click);
             // 
-            // okButton
+            // saveButton
             // 
-            resources.ApplyResources(this.okButton, "okButton");
-            this.okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
-            this.okButton.Name = "okButton";
-            this.okButton.UseVisualStyleBackColor = false;
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            resources.ApplyResources(this.saveButton, "saveButton");
+            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.saveButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.saveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.saveButton.Name = "saveButton";
+            this.saveButton.UseVisualStyleBackColor = false;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // memberFilterCheckBox
             // 
@@ -236,40 +233,16 @@ namespace Behaviac.Design
             this.upMemberButton.UseVisualStyleBackColor = false;
             this.upMemberButton.Click += new System.EventHandler(this.upMemberButton_Click);
             // 
-            // applyButton
+            // exportButton
             // 
-            resources.ApplyResources(this.applyButton, "applyButton");
-            this.applyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.applyButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.applyButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.applyButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
-            this.applyButton.Name = "applyButton";
-            this.applyButton.UseVisualStyleBackColor = false;
-            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
-            // 
-            // exportFolderLabel
-            // 
-            resources.ApplyResources(this.exportFolderLabel, "exportFolderLabel");
-            this.exportFolderLabel.Name = "exportFolderLabel";
-            // 
-            // typeBrowseButton
-            // 
-            resources.ApplyResources(this.typeBrowseButton, "typeBrowseButton");
-            this.typeBrowseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.typeBrowseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.typeBrowseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
-            this.typeBrowseButton.Name = "typeBrowseButton";
-            this.typeBrowseButton.UseVisualStyleBackColor = false;
-            this.typeBrowseButton.Click += new System.EventHandler(this.typeBrowseButton_Click);
-            // 
-            // exportTypeTextBox
-            // 
-            resources.ApplyResources(this.exportTypeTextBox, "exportTypeTextBox");
-            this.exportTypeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.exportTypeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.exportTypeTextBox.ForeColor = System.Drawing.Color.LightGray;
-            this.exportTypeTextBox.Name = "exportTypeTextBox";
-            this.exportTypeTextBox.ReadOnly = true;
+            resources.ApplyResources(this.exportButton, "exportButton");
+            this.exportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.exportButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.exportButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.exportButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.exportButton.Name = "exportButton";
+            this.exportButton.UseVisualStyleBackColor = false;
+            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
             // 
             // metaTypePanel
             // 
@@ -284,15 +257,12 @@ namespace Behaviac.Design
             resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.closeButton;
-            this.Controls.Add(this.exportFolderLabel);
-            this.Controls.Add(this.typeBrowseButton);
-            this.Controls.Add(this.exportTypeTextBox);
             this.Controls.Add(this.metaTypePanel);
-            this.Controls.Add(this.applyButton);
+            this.Controls.Add(this.exportButton);
             this.Controls.Add(this.downMemberButton);
             this.Controls.Add(this.upMemberButton);
             this.Controls.Add(this.memberFilterCheckBox);
-            this.Controls.Add(this.okButton);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.addTypeButton);
             this.Controls.Add(this.removeTypeButton);
             this.Controls.Add(this.typeListBox);
@@ -338,15 +308,12 @@ namespace Behaviac.Design
         private System.Windows.Forms.ListBox typeListBox;
         private System.Windows.Forms.Button addTypeButton;
         private System.Windows.Forms.Button removeTypeButton;
-        private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.CheckBox memberFilterCheckBox;
         private System.Windows.Forms.Button downMemberButton;
         private System.Windows.Forms.Button upMemberButton;
-        private System.Windows.Forms.Button applyButton;
+        private System.Windows.Forms.Button exportButton;
         private MetaTypePanel metaTypePanel;
-        private System.Windows.Forms.Label exportFolderLabel;
-        private System.Windows.Forms.Button typeBrowseButton;
-        private System.Windows.Forms.TextBox exportTypeTextBox;
 
     }
 }

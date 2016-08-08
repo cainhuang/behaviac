@@ -16,6 +16,10 @@
       <property Opl="int Self.TestNS::AgentArrayAccessTest::c_Int" />
       <property Opr="int Self.TestNS::AgentArrayAccessTest::c_ListInts[0]" />
     </node>
+    <node class="Assignment" id="16">
+      <property Opl="int Self.TestNS::AgentArrayAccessTest::l_ListInts[0]" />
+      <property Opr="const int 100" />
+    </node>
     <node class="Assignment" id="2">
       <property Opl="int Self.TestNS::AgentArrayAccessTest::l_Int" />
       <property Opr="int Self.TestNS::AgentArrayAccessTest::l_ListInts[0]" />

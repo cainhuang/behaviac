@@ -642,6 +642,8 @@ namespace behaviac
 
                     if (Workspace.Instance.CheckBreakpoint(pAgent, b, action, actionResult))
                     {
+                        //log the current variables, otherwise, its value is not the latest
+                        pAgent.LogVariables(false);
                         LogManager.Instance.Log(pAgent, bpstr, actionResult, LogMode.ELM_breaked);
                         LogManager.Instance.Flush(pAgent);
                         SocketUtils.Flush();

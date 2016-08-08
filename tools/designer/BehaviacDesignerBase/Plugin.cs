@@ -469,13 +469,6 @@ namespace Behaviac.Design
         public delegate void PostSetWorkspaceDelegate();
         public static PostSetWorkspaceDelegate PostSetWorkspaceHandler;
 
-        private static string _sourceLanguage = "";
-        public static string SourceLanguage
-        {
-            get { return _sourceLanguage; }
-            set { _sourceLanguage = value; }
-        }
-
         private static bool _useBasicDisplayName = true;
         public static bool UseBasicDisplayName {
             get { return _useBasicDisplayName; }

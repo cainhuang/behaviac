@@ -1,3 +1,12 @@
+2016-08-08  3.5.9
+    fix a bug in c# about member field logging
+    log the current variables, otherwise, its value is not the latest
+    fix a bug when buffer is reallcated
+    fix a bug when double is used
+    fix compiling errors on linux
+    fix a bug for setting the relative path for the generating the types
+    add logging of export info
+
 2016-08-01  3.5.8
     fix possible memory leak when subtree
     fix a bug in Vector to setList when returning from the pool

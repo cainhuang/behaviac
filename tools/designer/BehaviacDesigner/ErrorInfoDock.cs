@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -34,6 +35,7 @@ namespace Behaviac.Design
         internal static void Inspect() {
             if (_dock == null) {
                 _dock = new ErrorInfoDock();
+
                 _dock.Show(MainWindow.Instance.DockPanel, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
 
             } else {
@@ -53,6 +55,13 @@ namespace Behaviac.Design
             }
         }
 
+        internal static void WriteLineWithTime(string log)
+        {
+            string dt = DateTime.Now.ToString();
+            string msg = string.Format("[{0}] {1}", dt, log);
+            WriteLine(msg);
+        }
+
         internal static void WriteLine(string log) {
             if (_dock != null && log != null) {
                 _dock.errorListBox.BeginUpdate();
@@ -69,6 +78,22 @@ namespace Behaviac.Design
 
                 _dock.errorListBox.EndUpdate();
             }
+        }
+
+        public static void WriteExportTypeInfo()
+        {
+            string exportPathRelative = Workspace.Current.GetExportFolder(Workspace.Current.Language);
+
+            string exportPath = Path.Combine(exportPathRelative, "behaviac_generated/types");
+
+            string exportPathAbs = Path.Combine(Workspace.Current.DefaultExportFolder, exportPath);
+
+            string exportPathFull = Path.GetFullPath(exportPathAbs);
+
+            string msg = string.Format(Resources.ExportMessages, exportPathFull);
+
+            ErrorInfoDock.Inspect();
+            ErrorInfoDock.WriteLineWithTime(msg);
         }
 
         private static void scrollToEnd() {

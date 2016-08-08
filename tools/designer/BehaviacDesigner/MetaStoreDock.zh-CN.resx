@@ -205,8 +205,8 @@
   <data name="removeTypeButton.Text" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="okButton.Text" xml:space="preserve">
-    <value>确定</value>
+  <data name="saveButton.Text" xml:space="preserve">
+    <value>保存</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="memberFilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
@@ -233,23 +233,8 @@
   <data name="upMemberButton.Text" xml:space="preserve">
     <value>往上</value>
   </data>
-  <data name="applyButton.Text" xml:space="preserve">
-    <value>应用</value>
-  </data>
-  <data name="exportFolderLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 681</value>
-  </data>
-  <data name="exportFolderLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 13</value>
-  </data>
-  <data name="exportFolderLabel.Text" xml:space="preserve">
-    <value>类型生成位置:</value>
-  </data>
-  <data name="exportTypeTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 677</value>
-  </data>
-  <data name="exportTypeTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>426, 21</value>
+  <data name="exportButton.Text" xml:space="preserve">
+    <value>导出</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

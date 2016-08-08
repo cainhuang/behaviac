@@ -614,7 +614,7 @@
     <value>节点</value>
   </data>
   <data name="NoResultFunctor" xml:space="preserve">
-    <value>没有设置结果函数</value>
+    <value>没有设置决定状态的选项或函数：请选中该动作节点后，在其属性窗口中进行设置</value>
   </data>
   <data name="WrongResultFunctor" xml:space="preserve">
     <value>结果函数的返回值不是EBTStatus类型，或者其参数不是动作节点方法的返回值类型</value>
@@ -775,7 +775,7 @@
     <value>遍历</value>
   </data>
   <data name="CustomizedMethodError" xml:space="preserve">
-    <value>自定义的方法不能被导出，需要在游戏端实现该方法并重新导出元信息</value>
+    <value>发现自定义的方法：请先将该方法所在Agent类的导出源码文件整合到自己的游戏项目中，并导出元信息文件，然后回到编辑器中重新加载当前工作区后，再导出行为树。</value>
   </data>
   <data name="TaskMethodChildrenOrOne" xml:space="preserve">
     <value>任务节点只接受方法节点或者只是一个其他类型的节点</value>
@@ -841,7 +841,7 @@
     <value>转换</value>
   </data>
   <data name="CustomizedAgentError" xml:space="preserve">
-    <value>不能导出自定义的Agent类型，请先在运行时端实现该Agent类并导出为元信息到编辑器中。</value>
+    <value>发现自定义的Agent类型：请先将导出的该Agent类的源码文件整合到自己的游戏项目中，并导出元信息文件，然后回到编辑器中重新加载当前工作区后，再导出行为树。</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>错误</value>

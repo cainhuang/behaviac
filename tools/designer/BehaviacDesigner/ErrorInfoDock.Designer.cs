@@ -48,43 +48,42 @@ namespace Behaviac.Design
             this.errorListBox = new System.Windows.Forms.ListBox();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // contextMenu
-            //
+            // 
             this.contextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.copyMenuItem,
-                this.toolStripSeparator,
-                this.clearAllMenuItem
-            });
+            this.copyMenuItem,
+            this.toolStripSeparator,
+            this.clearAllMenuItem});
             this.contextMenu.Name = "contextMenu";
             resources.ApplyResources(this.contextMenu, "contextMenu");
-            //
+            // 
             // copyMenuItem
-            //
+            // 
             this.copyMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.copyMenuItem.ForeColor = System.Drawing.Color.LightGray;
             this.copyMenuItem.Name = "copyMenuItem";
             resources.ApplyResources(this.copyMenuItem, "copyMenuItem");
             this.copyMenuItem.Click += new System.EventHandler(this.copyMenuItem_Click);
-            //
+            // 
             // toolStripSeparator
-            //
+            // 
             this.toolStripSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.toolStripSeparator.ForeColor = System.Drawing.Color.LightGray;
             this.toolStripSeparator.Name = "toolStripSeparator";
             resources.ApplyResources(this.toolStripSeparator, "toolStripSeparator");
-            //
+            // 
             // clearAllMenuItem
-            //
+            // 
             this.clearAllMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.clearAllMenuItem.ForeColor = System.Drawing.Color.LightGray;
             this.clearAllMenuItem.Name = "clearAllMenuItem";
             resources.ApplyResources(this.clearAllMenuItem, "clearAllMenuItem");
             this.clearAllMenuItem.Click += new System.EventHandler(this.clearAllMenuItem_Click);
-            //
+            // 
             // errorListBox
-            //
+            // 
             this.errorListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.errorListBox.ContextMenuStrip = this.contextMenu;
             resources.ApplyResources(this.errorListBox, "errorListBox");
@@ -94,9 +93,9 @@ namespace Behaviac.Design
             this.errorListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.errorListBox.SelectedIndexChanged += new System.EventHandler(this.logListBox_SelectedIndexChanged);
             this.errorListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.logListBox_KeyDown);
-            //
+            // 
             // ErrorInfoDock
-            //
+            // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.errorListBox);

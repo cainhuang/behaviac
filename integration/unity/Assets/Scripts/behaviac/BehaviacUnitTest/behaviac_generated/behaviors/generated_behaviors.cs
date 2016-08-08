@@ -30307,6 +30307,23 @@ namespace behaviac
 	}
 
 	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_par_test_vector_test_node16 : behaviac.Assignment
+	{
+		public Assignment_bt_par_test_vector_test_node16()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			int opr = 100;
+			Debug.Check(behaviac.Utils.MakeVariableId("l_ListInts") == 96329828u);
+			int opl_index = 0;
+			(pAgent.GetVariable<List<int>>(96329828u))[opl_index] = opr;
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
 	class Assignment_bt_par_test_vector_test_node2 : behaviac.Assignment
 	{
 		public Assignment_bt_par_test_vector_test_node2()
@@ -30553,6 +30570,16 @@ namespace behaviac
 #endif
 					node22.AddChild(node1);
 					node22.SetHasEvents(node22.HasEvents() | node1.HasEvents());
+				}
+				{
+					Assignment_bt_par_test_vector_test_node16 node16 = new Assignment_bt_par_test_vector_test_node16();
+					node16.SetClassNameString("Assignment");
+					node16.SetId(16);
+#if !BEHAVIAC_RELEASE
+					node16.SetAgentType("TestNS.AgentArrayAccessTest");
+#endif
+					node22.AddChild(node16);
+					node22.SetHasEvents(node22.HasEvents() | node16.HasEvents());
 				}
 				{
 					Assignment_bt_par_test_vector_test_node2 node2 = new Assignment_bt_par_test_vector_test_node2();

@@ -484,7 +484,7 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The customized agent can not be exported! You should firstly implement the agent on the runtime part and then export it as meta info into the editor..
+        ///   Looks up a localized string similar to Found the customized agent : Please firstly integrate the generated source files of the customized agent into your game project. Then export it as meta info into the editor, reload the current workspace. At last, export the behaviors..
         /// </summary>
         internal static string CustomizedAgentError {
             get {
@@ -493,7 +493,7 @@ namespace Behaviac.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The customized method can not be exported!.
+        ///   Looks up a localized string similar to Found the customized method : Please firstly integrate the generated source files of the customized method of the agent into your game project. Then export it as meta info into the editor, reload the current workspace. At last, export the behaviors..
         /// </summary>
         internal static string CustomizedMethodError {
             get {

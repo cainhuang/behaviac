@@ -38,7 +38,7 @@ namespace behaviac
 
         public virtual IInstantiatedVariable GetVariable(uint varId)
         {
-            if (this.m_variables.ContainsKey(varId))
+            if (this.m_variables != null && this.m_variables.ContainsKey(varId))
             {
                 return this.m_variables[varId];
             }

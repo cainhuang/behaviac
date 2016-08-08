@@ -11,6 +11,6 @@
 	#define BEHAVIAC_RELEASE 		0
 #endif
 
-#define BEHAVIAC_VERSION_STRING 	"3.5.8"
+#define BEHAVIAC_VERSION_STRING 	"3.5.9"
 
 #define BEHAVIAC_ENABLE_LUA 		0

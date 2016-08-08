@@ -874,7 +874,7 @@ namespace behaviac
             //if out of scope
             if (pVar->m_instantiated > 0)
             {
-                return &pVar->GetValue(pAgent);
+				return (const VariableType*)pVar->GetAddress(pAgent);
             }
 			else
 			{

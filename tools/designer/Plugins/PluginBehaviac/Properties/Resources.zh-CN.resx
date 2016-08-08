@@ -718,7 +718,7 @@
     <value>什么时候起作用</value>
   </data>
   <data name="CustomizedMethodError" xml:space="preserve">
-    <value>自定义的方法不能被导出，需要在游戏端实现该方法并重新导出元信息</value>
+    <value>发现自定义的方法：请先将该方法所在Agent类的导出源码文件整合到自己的游戏项目中，并导出元信息文件，然后回到编辑器中重新加载当前工作区后，再导出行为树。</value>
   </data>
   <data name="DecoratorIterator" xml:space="preserve">
     <value>尝试</value>

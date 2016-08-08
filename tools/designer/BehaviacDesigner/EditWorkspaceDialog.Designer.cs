@@ -77,6 +77,12 @@ namespace Behaviac.Design
             this.exportTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.exportButton = new System.Windows.Forms.Button();
+            this.typesExportTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.typesExportButton = new System.Windows.Forms.Button();
+            this.languageLabel = new System.Windows.Forms.Label();
+            this.languageComboBox = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.folderBrowserDialog = new Ookii.Dialogs.VistaFolderBrowserDialog();
             this.SuspendLayout();
             // 
@@ -124,6 +130,7 @@ namespace Behaviac.Design
             this.pluginListBox.ForeColor = System.Drawing.Color.LightGray;
             this.pluginListBox.FormattingEnabled = true;
             this.pluginListBox.Name = "pluginListBox";
+            this.pluginListBox.SelectedValueChanged += new System.EventHandler(this.pluginListBox_SelectedValueChanged);
             // 
             // XMLButton
             // 
@@ -142,8 +149,7 @@ namespace Behaviac.Design
             this.XMLTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.XMLTextBox.ForeColor = System.Drawing.Color.LightGray;
             this.XMLTextBox.Name = "XMLTextBox";
-            this.XMLTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.xmlFolderTextBox_KeyDown);
-            this.XMLTextBox.Leave += new System.EventHandler(this.xmlFolderTextBox_Leave);
+            this.XMLTextBox.ReadOnly = true;
             // 
             // metaLabel
             // 
@@ -167,8 +173,7 @@ namespace Behaviac.Design
             this.workspaceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.workspaceTextBox.ForeColor = System.Drawing.Color.LightGray;
             this.workspaceTextBox.Name = "workspaceTextBox";
-            this.workspaceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.locationTextBox_KeyDown);
-            this.workspaceTextBox.Leave += new System.EventHandler(this.locationTextBox_Leave);
+            this.workspaceTextBox.ReadOnly = true;
             // 
             // locationLabel
             // 
@@ -182,8 +187,7 @@ namespace Behaviac.Design
             this.sourceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sourceTextBox.ForeColor = System.Drawing.Color.LightGray;
             this.sourceTextBox.Name = "sourceTextBox";
-            this.sourceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sourceTextBox_KeyDown);
-            this.sourceTextBox.Leave += new System.EventHandler(this.sourceTextBox_Leave);
+            this.sourceTextBox.ReadOnly = true;
             // 
             // label1
             // 
@@ -207,8 +211,7 @@ namespace Behaviac.Design
             this.exportTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.exportTextBox.ForeColor = System.Drawing.Color.LightGray;
             this.exportTextBox.Name = "exportTextBox";
-            this.exportTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.exportTextBox_KeyDown);
-            this.exportTextBox.Leave += new System.EventHandler(this.exportTextBox_Leave);
+            this.exportTextBox.ReadOnly = true;
             // 
             // label2
             // 
@@ -225,9 +228,51 @@ namespace Behaviac.Design
             this.exportButton.UseVisualStyleBackColor = false;
             this.exportButton.Click += new System.EventHandler(this.buttonExport_Click);
             // 
-            // folderBrowserDialog
+            // typesExportTextBox
             // 
-            resources.ApplyResources(this.folderBrowserDialog, "folderBrowserDialog");
+            resources.ApplyResources(this.typesExportTextBox, "typesExportTextBox");
+            this.typesExportTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.typesExportTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.typesExportTextBox.ForeColor = System.Drawing.Color.LightGray;
+            this.typesExportTextBox.Name = "typesExportTextBox";
+            this.typesExportTextBox.ReadOnly = true;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // typesExportButton
+            // 
+            resources.ApplyResources(this.typesExportButton, "typesExportButton");
+            this.typesExportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.typesExportButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.typesExportButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.typesExportButton.Name = "typesExportButton";
+            this.typesExportButton.UseVisualStyleBackColor = false;
+            this.typesExportButton.Click += new System.EventHandler(this.typesExportButton_Click);
+            // 
+            // languageLabel
+            // 
+            resources.ApplyResources(this.languageLabel, "languageLabel");
+            this.languageLabel.Name = "languageLabel";
+            // 
+            // languageComboBox
+            // 
+            resources.ApplyResources(this.languageComboBox, "languageComboBox");
+            this.languageComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.languageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.languageComboBox.ForeColor = System.Drawing.Color.LightGray;
+            this.languageComboBox.FormattingEnabled = true;
+            this.languageComboBox.Items.AddRange(new object[] {
+            resources.GetString("languageComboBox.Items"),
+            resources.GetString("languageComboBox.Items1")});
+            this.languageComboBox.Name = "languageComboBox";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // EditWorkspaceDialog
             // 
@@ -236,6 +281,12 @@ namespace Behaviac.Design
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.cancelButton;
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.languageComboBox);
+            this.Controls.Add(this.languageLabel);
+            this.Controls.Add(this.typesExportTextBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.typesExportButton);
             this.Controls.Add(this.exportTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.exportButton);
@@ -283,5 +334,11 @@ namespace Behaviac.Design
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button exportButton;
         private Ookii.Dialogs.VistaFolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.TextBox typesExportTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button typesExportButton;
+        private System.Windows.Forms.Label languageLabel;
+        private System.Windows.Forms.ComboBox languageComboBox;
+        private System.Windows.Forms.Label label5;
     }
 }

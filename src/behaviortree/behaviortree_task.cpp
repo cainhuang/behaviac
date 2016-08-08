@@ -402,6 +402,8 @@ namespace behaviac
 				LogManager::GetInstance()->Log(pAgent, bpstr.c_str(), actionResult, ELM_tick);
 				if (Workspace::GetInstance()->CheckBreakpoint(pAgent, b, action, actionResult))
 				{
+					//log the current variables, otherwise, its value is not the latest
+					pAgent->LogVariables(false);
 					LogManager::GetInstance()->Log(pAgent, bpstr.c_str(), actionResult, ELM_breaked);
 					LogManager::GetInstance()->Flush(pAgent);
 					behaviac::Socket::Flush();

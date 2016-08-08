@@ -414,7 +414,7 @@ is not the right one used by game:
     <value>Save</value>
   </data>
   <data name="ErrorList" xml:space="preserve">
-    <value>Error List</value>
+    <value>Information</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Output</value>
@@ -713,5 +713,14 @@ Please be sure to open the workspace which is used by the runtime!</value>
   </data>
   <data name="InvalidExportedTypePath" xml:space="preserve">
     <value>The path for the generated type is empty, so please go to the Meta Browser to set it.</value>
+  </data>
+  <data name="ExportMessages" xml:space="preserve">
+    <value>types are genereated at '{0}'</value>
+  </data>
+  <data name="MessageOutput" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="MessageBTExport" xml:space="preserve">
+    <value>Behavior Trees Exportd: {0}</value>
   </data>
 </root>

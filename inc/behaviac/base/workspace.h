@@ -243,11 +243,11 @@ namespace behaviac
         bool RegisterBehaviorTreeCreator(const char* relativePath, BehaviorTreeCreator_t creator);
         void UnRegisterBehaviorTreeCreators();
 
-        bool PopFileFromBuffer(const char* file, const char* str, char* pBuffer);
+		bool PopFileFromBuffer(const char* file, const char* str, char* pBuffer, uint32_t bufferSize);
         void LogCurrentStates();
 
         void HandleFileFormat(const behaviac::string& fullPath, behaviac::string& ext, Workspace::EFileFormat& f);
-        char* ReadFileToBuffer(const char* file, const char* ext);
+        char* ReadFileToBuffer(const char* file, const char* ext, uint32_t& bufferSize);
 
     protected:
         Workspace();
@@ -257,9 +257,9 @@ namespace behaviac
         bool LoadWorkspaceSetting(const char* file, behaviac::string& workspaceFile);
         bool LoadWorkspaceFile(const char* file);
 
-        char* ReadFileToBuffer(const char* file);
+		char* ReadFileToBuffer(const char* file, uint32_t& bufferSize);
 
-        void PopFileFromBuffer(char* pBuffer);
+		void PopFileFromBuffer(char* pBuffer, uint32_t bufferSize);
 
         /**
         a shared buffer is kept for file loading.
@@ -313,7 +313,6 @@ namespace behaviac
         behaviac::Mutex			m_cs;
 
         static const int kMaxPath = 260 * 2;
-        static const int kFileBufferDepth = 20;
 
         char					m_szWorkspaceExportPath[kMaxPath];
 
@@ -343,10 +342,22 @@ namespace behaviac
         BehaviorNodeLoader		m_pBehaviorNodeLoader;
         BehaviorTreeCreators_t* m_behaviortreeCreators;
 
-        char* m_fileBuffer;
-        uint32_t m_fileBufferLength;
-        int m_fileBufferTop;
-        uint32_t m_fileBufferOffset[kFileBufferDepth];
+		// we keep 5 (kFileBuffers) buffers, each buffer is allocated once and used from buffer[0] until 
+		// it is used out then to try to use buffer[1], etc. 
+		// our goal is to use memory as less as possible and allocate as not often as possible
+		const static int kFileBuffers = 5;
+
+		struct FileBuffer_t
+		{
+			char* 		start;
+			uint32_t	length;
+			uint32_t	offset;
+
+			FileBuffer_t() : start(0), length(0), offset(0)
+			{}
+		};
+
+		FileBuffer_t m_fileBuffers[kFileBuffers];
 
 		int m_frame;
 

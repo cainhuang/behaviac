@@ -407,7 +407,7 @@
     <value>保存</value>
   </data>
   <data name="ErrorList" xml:space="preserve">
-    <value>错误信息</value>
+    <value>信息</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>输出</value>
@@ -698,5 +698,14 @@
   </data>
   <data name="InvalidExportedTypePath" xml:space="preserve">
     <value>还未设置生成类型文件所在的路径，请去元信息浏览器设置该路径！</value>
+  </data>
+  <data name="ExportMessages" xml:space="preserve">
+    <value>导出类型 '{0}'</value>
+  </data>
+  <data name="MessageOutput" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="MessageBTExport" xml:space="preserve">
+    <value>导出行为树: {0}</value>
   </data>
 </root>

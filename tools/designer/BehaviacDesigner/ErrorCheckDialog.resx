@@ -117,117 +117,111 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;imageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="listView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="&gt;&gt;listView.Name" xml:space="preserve">
-    <value>listView</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ErrorCheckDialog</value>
-  </data>
-  <data name="&gt;&gt;listView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Error Check Results</value>
+  <metadata name="imageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="imageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAD8
+        DQAAAk1TRnQBSQFMAgEBAwEAAeABAAHgAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEDIAAYUBTAFBAf8BjwFSAT4B/xwAAzQBVAFDARIBFAH/AUMBEwEVAf8BQwET
+        ARUB/wFDARMBFQH/AUIBEwEVAf8BQgETARUB/wFCARMBFQH/AUMBEwEVAf8BQwETARUB/wFDARMBFQH/
+        AUMBEwEUAf8BRAERARIB/wFNAgAB/wMGAQgQAAMYASIDVgG+AgABQAH/AgABVwH/AgABTwH/AgABKAH/
+        A0wB8wNUAa4DGwEmaAABlgFOAS4B/wHOAZ8BUgH/AasBWwEwAf8BhQFMAUEB/xQAA0oBigEAAbEB2gH/
+        AQABswHfAf8BAAGzAd8B/wEAAbMB3wH/AQABswHfAf8BAAG6AeUB/wEAAcsB/AH/AQABtgHiAf8BAAGz
+        Ad8B/wEAAbMB3wH/AQABswHfAf8BAAG0AeAB/wEAAcAB7wH/ATQBKgEzAf8DQAFwDAADSgGLAgABkQH/
+        AgABhQH/AgABhQH/AgABhgH/AgABhAH/AgABgAH/AgABgQH/AgABVQH/A0IB9QM6AWFgAAGWAU4BLgH/
+        AcoBqgGHAv8B9wHEAf8BlAFGASQB/wGFAUwBQQH/FAADTAGTAQABwAHrAf8BAAHZAv8BAAHWAv8BAAHW
+        Av8BAAHZAv8BAAEdATAB/wFGAgAB/wEyAZ0BuAH/AQAB1wL/AQAB1gL/AQAB1QL/AQAB4AL/AQAByAH1
+        Af8CMQE7Af8MAANTAaoCAAGOAf8CAAGPAf8CAAGVAf8CAAGZAf8CAAGbAf8CAAGYAf8CAAGUAf8CAAGL
+        Af8CAAGCAf8CAAGIAf8DHQH8AzMBU1QAAZMBWAFIAf8BigFHAS8B/wHnAcoBqAL/AdwBswL/AdwBswH/
+        Aa8BhwFHAf8BOAELAQAB/wFLAScBGQH/AYUBTAFBAf8RAAHAAeYB/wEAAeMC/wEAAdUC/wEAAdYC/wEA
+        AdoC/wIAAQcB/wMAAf8BBAFAAVwB/wEAAdcC/wEAAdUC/wEAAdUC/wEAAe4C/wEAAeEC/wFdAloB0wgA
+        AyoBQAIAAZQB/wIAAZoB/wIsAb8B/wIAAZ0B/wIAAakB/wIAAaoB/wIAAagB/wIAAaIB/wJCAcUB/wIA
+        AYoB/wIAAYYB/wIAAYsB/wNeAeUDBwEJSAABugGnAZ0B/wG6AacBnQH/AdIBtgGZAf8B5wHKAagB/wH9
+        AeQBvwL/AekBxwL/AfgB0QH/AfUB1gGzAf8B2AG4AZMB/wGtAYkBRwH/AUEBEgEAAf8BhQFMAUEB/wwA
+        AT0BgAGGAfkBAAHQAfcB/wEAAeMC/wEAAdkC/wEAAdsC/wEAAewC/wEAAfUC/wEAAegC/wEAAdoC/wEA
+        AdkC/wEAAfIC/wEAAdQB/QH/AQwBiQGeAf8DAgEDCgABsgH/AgABpAH/AhIBqQP/AfQF/wIAAawB/wIA
+        AbMB/wIAAbIB/wImAbUJ/wIAAZUB/wIAAYsB/wIAATgB/wM/AW9EAAHJAbYBpwH/AegB2wHHAf8B7QHV
+        AbgC/wHrAcwB/wH4AdYBtwH/AcABUwEyAf8B6QGVAUYB/wHdAY0BPwH/Ad8BpgFeAv8B5wHDAf8B9AHW
+        AbEB/wHXAbYBlAH/AVYBKgEMAf8BiQFSAUgB/w0AAckB6AH/AQAB7QL/AQAB3QL/AQAB3gL/AQAB5QL/
+        ASYCAAH/AQAB6AL/AQAB3QL/AQAB3AL/AQAB+QL/AQAB6AL/AV4CXAHOCAADFwEgAgABpwH/AgABswH/
+        AgABsAH/AsQBqQn/AgABsQH/AjEByAP/AfYF/wJWAZMB/wIAAasB/wIAAZsB/wIAAZsB/wNXAcJAAAHL
+        AbgBogH/AegB2wHHAf8B7gHYAcEC/wHvAdEC/wHuAc8D/wHiAf8BtAGBAUUB/wFcAgAB/wGPAREBAAH/
+        AfcB5QHEAv8B7QHLAv8B5wHDAf8B9QHXAbcB/wHaAb0BmwH/AT4BEAEAAf8MAAFUAmEB7gEAAdUB8gH/
+        AQAB6gL/AQAB4wL/AQAB/gL/AU0CAAH/AQAB+QL/AQAB4QL/AQAB9wL/AQAB1wH5Af8BEAGJAZYB/wMC
+        AQMIAAJRAVIBoQIAAbUB/wIAAcIB/wIAAcsB/wIAAboB/wLGAasR/wJXAZUB/wIAAcIB/wIAAbgB/wIA
+        AaoB/wIAAZ4B/wNYAeZAAAHFAbIBoAH/AegB2wHHAv8B8AHXAv8B7AHSAv8B5wHOA/8B7QH/Ac8BsgGV
+        Af8BUgIAAf8BpAE7ARoD/wHwAv8B5wHJAv8B5QHGAv8B6gHJAf8B/AHjAcUB/wGtAYoBTgH/AZABWQFQ
+        Af8NAAHOAeYB/wEAAfUC/wEAAeYC/wEAAegC/wG6AT4BTAH/AQAB9QL/AQAB5AL/AQED/wEAAe8C/wFe
+        AloB2AwAAlcBXwHoAgABwgH/AgAB0AH/AgAB1AH/AgAB0AH/AgABwgH/AvcB6gH/A/4F/wKTAcgB/wIA
+        AcgB/wIAAcYB/wIAAcUB/wIAAbYB/wIAAaMB/wNdAe1AAAHPAb8BrgH/AfgB5wHVAv8B9AHfAv8B7AHW
+        Av8B7AHWA/8B8wH/Ac0BrwGUAf8BVwIAAf8BpQE6ARkD/wHxAv8B6AHPAv8B5QHKAv8B6gHPAv8B6wHR
+        Af8B5AHKAa8B/wGIAU0BPwH/DAABKQF8AYMB+gEAAeUB+AH/AQAB8AL/AQABowG0Af8BSwEEARoB/wEA
+        AcwB4wH/AQAB9wL/AQAB5wL/AQwBlAGfAf8DCAELDAACVQFcAeoCAAHQAf8CAAHhAf8CAAHgAf8CAAHW
+        Af8CJQHLA/8B+wv/AfkB/wIAAcYB/wIAAc0B/wIAAc8B/wIAAcMB/wIAAa0B/wNdAeJAAAHPAcIBtwH/
+        Af0B7wHgAv8B9AHjAv8B7wHeAv8B8AHcBf8B1gHBAaoB/wFaAgAB/wGmATsBGQP/AfgC/wHtAdUC/wHp
+        AdAC/wHsAdIC/wHyAdkB/wHsAdcBwAH/AYYBTQE/Af8RAAHYAegB/wEAA/8DAAH/ASECAAH/AQUBOAFQ
+        Af8BBwP/AQAB9wL/AWECWwHhEAACUAFSAaQCAAHgAf8CAAHyAf8CAAHzAf8CKwHSA/8B9QX/AoUBuwH/
+        At0BxQn/AgAB0gH/AgAB2QH/AgABygH/AgABvAH/A1UBsUAAAdABxwG9Af8B/QH1AekC/wH4AesC/wHy
+        AeYC/wH9Ae8B/wHvAeYB2gH/AYwBIAEBAf8BSAIAAf8BjAEfAQYD/wH+Av8B8AHdAv8B6wHWAv8B7gHZ
+        Av8B+gHlAf8B8gHeAckB/wGXAWEBVQH/EQAB3QHpAf8BAAHwAv8DAAH/ARMCAAH/AREBMAE/Af8BAAHz
+        Av8BAwGoAbIB/wMOARMQAAMYASICBQHpAf8CCgL/AkEB1gP/AfUF/wJVAZsB/wIAAegB/wIAAdEB/wLC
+        AaQH/wH6Af8CAAHoAf8CAAHUAf8CAAHOAf8DLgFHQAAB3wHUAcgB/wH3AfQB7wP/AfkC/wH2AewD/wH5
+        Af8B5gHZAckB/wGzAZMBggH/AboBpQGaAf8BwgGuAaMD/wH4Av8B9AHjAv8B7gHcAv8B+gHrA/8B/AH/
+        AeIBygG0Af8BlwFhAVUB/xAAAwMBBAEAAeAB6QH/AQAD/wEAAbgBwwH/AQYD/wEAA/8BZAJZAewYAAIE
+        Ae0B/wIfAv8CHgH4Af8C2AG9Af8CTwGZAf8CAAH2Af8CAAHmAf8CAAHoAf8CAAHeAf8CuwGYAf8CQgGo
+        Af8CAAH6Af8CAAHZAf8CWQFnAfJIAAHkAuUH/wH6Av8B+wHzB/8B+gH/AfkByAGmAv8B/gHuBv8B9QHo
+        Av8B+gHvCf8BrwGXAYcB/xkAAeMB6QH/AQAB9AH5Af8BAAP/AQAB+AH+Af8BAAG6Ab8B/wMUARwYAAMk
+        ATUCHgL/Aj8C/wJHAfwB/wI4Av8CFAL/AgAC/wIAAv8CFAL/AiAB9gH/AhgC/wIPAfoB/wIAAegB/wMR
+        ARdIAAHsAecB4gH/Au0B7w3/AY4BOgExAf8BQAIAAf8BmgEoAQsR/wHRAb0BrQH/HAADCwEPAQAB6QHr
+        Af8BSwP/AQAD/wFnAlkB8iAAAksBTAGQAjAC/wJfAv8ClAL/ApEC/wJhAv8CVgL/Ak8C/wI+Av8CJgL/
+        AgkC/wMcAShQAAHxAesB5gH/AfIB9AH1Cf8B1wHOAckB/wFFASQBJwH/AcUBtQGvC/8B/gH/AegB3gHV
+        Af8lAALzAf8BAAP/AVgCYgHvKAADKgFBAigC/wJcAv8CmwL/AqMC/wKOAv8CTwL/Ai4C/wICAe8B/2AA
+        AeoB4wHcAf8B9gHzAe8N/wH7AfgB9AH/AdgBywHDAf8wAAMyAVE0AAMiATICUwFVAbACUwFkAfECWgFg
+        Ad4DSgGLAwUBB1QAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAH/AT8BgAEA
+        AfABBwIAAf4BHwIAAeABAwIAAfwBHwEAAQEBwAEBAgAB8AEHAYABAQGAAwABwAEDAYABAQGAAwABgAEB
+        AcABAwUAAQEBwAEDBgAB4AEHBgAB4AEHBgAB8AEPBgAB8AEPBgAB8AEfAYABAQIAAYABAQH4AR8BgAEB
+        AgABgAEDAfgBPwHAAQMCAAHAAQcB/AF/AeABDwIAAfABHwH+Af8B+AEfAgAL
+</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>499, 404</value>
-  </data>
   <data name="listView.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="imageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAG
-        DgAAAk1TRnQBSQFMAgEBAwEAAbQBAAG4AQABEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEDIAAYUBUQFGAf8BjwFXAUMB/xwAAzQBVAFIARcBGQH/AUgBGAEaAf8BSAEY
-        ARoB/wFIARgBGgH/AUcBGAEaAf8BRwEYARoB/wFHARgBGgH/AUgBGAEaAf8BSAEYARoB/wFIARgBGgH/
-        AUgBGAEZAf8BSQEWARcB/wFSAQUBAgH/AwYBCBAAAxgBIgNWAb4CAAFFAf8CAAFcAf8CAAFUAf8CAAEt
-        Af8DTAHzA1QBrgMbASZoAAGWAVMBMwH/Ac4BnwFXAf8BqwFgATUB/wGFAVEBRgH/FAADSgGKAQABsQHa
-        Af8BAAGzAd8B/wEAAbMB3wH/AQABswHfAf8BAAGzAd8B/wEAAboB5QH/AQABywH8Af8BAAG2AeIB/wEA
-        AbMB3wH/AQABswHfAf8BAAGzAd8B/wEAAbQB4AH/AQABwAHvAf8BOQEvATgB/wNAAXAMAANKAYsCAAGR
-        Af8CAAGFAf8CAAGFAf8CAAGGAf8CAAGEAf8CAAGAAf8CAAGBAf8CAAFaAf8DQgH1AzoBYWAAAZYBUwEz
-        Af8BygGqAYcC/wH3AcQB/wGUAUsBKQH/AYUBUQFGAf8UAANMAZMBAAHAAesB/wEAAdkC/wEAAdYC/wEA
-        AdYC/wEAAdkC/wEAASIBNQH/AUsCAAH/ATcBnQG4Af8BAAHXAv8BAAHWAv8BAAHVAv8BAAHgAv8BAAHI
-        AfUB/wI2AUAB/wwAA1MBqgIAAY4B/wIAAY8B/wIAAZUB/wIAAZkB/wIAAZsB/wIAAZgB/wIAAZQB/wIA
-        AYsB/wIAAYIB/wIAAYgB/wMYAfwDMwFTVAABkwFdAU0B/wGKAUwBNAH/AecBygGoAv8B3AGzAv8B3AGz
-        Af8BrwGHAUwB/wE9ARABAAH/AVABLAEeAf8BhQFRAUYB/xEAAcAB5gH/AQAB4wL/AQAB1QL/AQAB1gL/
-        AQAB2gL/AQABAQEMAf8BAQIAAf8BCQFFAWEB/wEAAdcC/wEAAdUC/wEAAdUC/wEDAe4C/wEAAeEC/wFd
-        AloB0wgAAyoBQAIAAZQB/wIAAZoB/wIxAb8B/wIAAZ0B/wIAAakB/wIAAaoB/wIAAagB/wIAAaIB/wJH
-        AcUB/wIAAYoB/wIAAYYB/wIAAYsB/wNeAeUDBwEJSAABugGnAZ0B/wG6AacBnQH/AdIBtgGZAf8B5wHK
-        AagB/wH9AeQBvwL/AekBxwL/AfgB0QH/AfUB1gGzAf8B2AG4AZMB/wGtAYkBTAH/AUYBFwEAAf8BhQFR
-        AUYB/wwAATMBhQGLAfkBAAHQAfcB/wEAAeMC/wEAAdkC/wEAAdsC/wEAAewC/wEAAfUC/wEAAegC/wEA
-        AdoC/wEAAdkC/wEBAfIC/wEAAdQB/QH/AREBiQGeAf8DAgEDCgABsgH/AgABpAH/AhcBqQP/AfQF/wIA
-        AawB/wIAAbMB/wIAAbIB/wIrAbUJ/wIAAZUB/wIAAYsB/wIAAT0B/wM/AW9EAAHJAbYBpwH/AegB2wHH
-        Af8B7QHVAbgC/wHrAcwB/wH4AdYBtwH/AcABWAE3Af8B6QGVAUsB/wHdAY0BRAH/Ad8BpgFjAv8B5wHD
-        Af8B9AHWAbEB/wHXAbYBlAH/AVsBLwERAf8BiQFXAU0B/w0AAckB6AH/AQAB7QL/AQAB3QL/AQAB3gL/
-        AQAB5QL/ASsBAAEFAf8BAAHoAv8BAAHdAv8BAAHcAv8BBQH5Av8BAAHoAv8BXgJcAc4IAAMXASACAAGn
-        Af8CAAGzAf8CAAGwAf8CxAGpCf8CAAGxAf8CNgHIA/8B9gX/AlsBkwH/AgABqwH/AgABmwH/AgABmwH/
-        A1cBwkAAAcsBuAGiAf8B6AHbAccB/wHuAdgBwQL/Ae8B0QL/Ae4BzwP/AeIB/wG0AYEBSgH/AWECAAH/
-        AY8BFgEAAf8B9wHlAcQC/wHtAcsC/wHnAcMB/wH1AdcBtwH/AdoBvQGbAf8BQwEVAQAB/wwAAVQCYQHu
-        AQAB1QHyAf8BAAHqAv8BAAHjAv8BAAH+Av8BUgIAAf8BAAH5Av8BAAHhAv8BAAH3Av8BAAHXAfkB/wEV
-        AYkBlgH/AwIBAwgAAlEBUgGhAgABtQH/AgABwgH/AgABywH/AgABugH/AsYBqxH/AlwBlQH/AgABwgH/
-        AgABuAH/AgABqgH/AgABngH/A1gB5kAAAcUBsgGgAf8B6AHbAccC/wHwAdcC/wHsAdIC/wHnAc4D/wHt
-        Af8BzwGyAZUB/wFXAgAB/wGkAUABHwP/AfAC/wHnAckC/wHlAcYC/wHqAckB/wH8AeMBxQH/Aa0BigFT
-        Af8BkAFeAVUB/w0AAc4B5gH/AQAB9QL/AQAB5gL/AQAB6AL/AboBQwFRAf8BAAH1Av8BAAHkAv8BBgP/
-        AQAB7wL/AV4CWgHYDAACVwFfAegCAAHCAf8CAAHQAf8CAAHUAf8CAAHQAf8CAAHCAf8C9wHqAf8D/gX/
-        ApMByAH/AgAByAH/AgABxgH/AgABxQH/AgABtgH/AgABowH/AlsBXQHtQAABzwG/Aa4B/wH4AecB1QL/
-        AfQB3wL/AewB1gL/AewB1gP/AfMB/wHNAa8BlAH/AVwCAAH/AaUBPwEeA/8B8QL/AegBzwL/AeUBygL/
-        AeoBzwL/AesB0QH/AeQBygGvAf8BiAFSAUQB/wwAASkBhgGSAfoBAAHlAfgB/wEAAfAC/wEAAaMBtAH/
-        AVABCQEfAf8BAAHMAeMB/wEAAfcC/wEAAecC/wERAZQBnwH/AwgBCwwAAlUBXAHqAgAB0AH/AgAB4QH/
-        AgAB4AH/AgAB1gH/AioBywP/AfsL/wH5Af8CAAHGAf8CAAHNAf8CAAHPAf8CAAHDAf8CAAGtAf8DXQHi
-        QAABzwHCAbcB/wH9Ae8B4AL/AfQB4wL/Ae8B3gL/AfAB3AX/AdYBwQGqAf8BXwIAAf8BpgFAAR4D/wH4
-        Av8B7QHVAv8B6QHQAv8B7AHSAv8B8gHZAf8B7AHXAcAB/wGGAVIBRAH/EQAB2AHoAf8BAAP/AwAB/wEm
-        AgAB/wEKAT0BVQH/AQwD/wEAAfcC/wFhAlsB4RAAAlABUgGkAgAB4AH/AgIB8gH/AgAB8wH/AjAB0gP/
-        AfUF/wKFAbsB/wLdAcUJ/wIAAdIB/wIAAdkB/wIAAcoB/wIAAbwB/wNVAbFAAAHQAccBvQH/Af0B9QHp
-        Av8B+AHrAv8B8gHmAv8B/QHvAf8B7wHmAdoB/wGMASUBBgH/AU0CAAH/AYwBJAELA/8B/gL/AfAB3QL/
-        AesB1gL/Ae4B2QL/AfoB5QH/AfIB3gHJAf8BlwFmAVoB/xEAAd0B6QH/AQAB8AL/AwAB/wEYAgAB/wEW
-        ATUBRAH/AQAB8wL/AQgBqAGyAf8DDgETEAADGAEiAgoB6QH/Ag8C/wJGAdYD/wH1Bf8CWgGbAf8CAAHo
-        Af8CAAHRAf8CwgGkB/8B+gH/AgAB6AH/AgAB1AH/AgABzgH/Ay4BR0AAAd8B1AHIAf8B9wH0Ae8D/wH5
-        Av8B9gHsA/8B+QH/AeYB2QHJAf8BswGTAYIB/wG6AaUBmgH/AcIBrgGjA/8B+AL/AfQB4wL/Ae4B3AL/
-        AfoB6wP/AfwB/wHiAcoBtAH/AZcBZgFaAf8QAAMDAQQBAAHgAekB/wEAA/8BAAG4AcMB/wELA/8BAAP/
-        AWQCWQHsGAACCQHtAf8CJAL/AiMB+AH/AtgBvQH/AlQBmQH/AgAB9gH/AgAB5gH/AgAB6AH/AgAB3gH/
-        ArsBmAH/AkcBqAH/AgEB+gH/AgEB2QH/AlUBZwHySAAB5ALlB/8B+gL/AfsB8wf/AfoB/wH5AcgBpgL/
-        Af4B7gb/AfUB6AL/AfoB7wn/Aa8BlwGHAf8ZAAHjAekB/wEAAfQB+QH/AQAD/wEAAfgB/gH/AQABugG/
-        Af8DFAEcGAADJAE1AiMC/wJEAv8CTAH8Af8CPQL/AhkC/wIBAv8CBAL/AhkC/wIlAfYB/wIdAv8CFAH6
-        Af8CAgHoAf8DEQEXSAAB7AHnAeIB/wLtAe8N/wGOAT8BNgH/AUUCAAH/AZoBLQEQEf8B0QG9Aa0B/xwA
-        AwsBDwEAAekB6wH/AVAD/wEAA/8BZwJVAfIgAAJLAUwBkAI1Av8CZAL/ApQC/wKRAv8CZgL/AlsC/wJU
-        Av8CQwL/AisC/wIOAv8DHAEoUAAB8QHrAeYB/wHyAfQB9Qn/AdcBzgHJAf8BSgEpASwB/wHFAbUBrwv/
-        Af4B/wHoAd4B1QH/JQAC8wH/AQAD/wFYAmIB7ygAAyoBQQItAv8CYQL/ApsC/wKjAv8CjgL/AlQC/wIz
-        Av8CBwHvAf9gAAHqAeMB3AH/AfYB8wHvDf8B+wH4AfQB/wHYAcsBwwH/MAADMgFRNAADIgEyAlMBVQGw
-        AlMBbQHxAloBYAHeA0oBiwMFAQdUAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/
-        AQAB/wE/AYABAAHwAQcCAAH+AR8CAAHgAQMCAAH8AR8BAAEBAcABAQIAAfABBwGAAQEBgAMAAcABAwGA
-        AQEBgAMAAYABAQHAAQMFAAEBAcABAwYAAeABBwYAAeABBwYAAfABDwYAAfABDwYAAfABHwGAAQECAAGA
-        AQEB+AEfAYABAQIAAYABAwH4AT8BwAEDAgABwAEHAfwBfwHgAQ8CAAHwAR8B/gH/AfgBHxgACw==
-</value>
-  </data>
-  <data name="&gt;&gt;listView.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="listView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>575, 404</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="listView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;listView.Name" xml:space="preserve">
+    <value>listView</value>
+  </data>
   <data name="&gt;&gt;listView.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="listView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>499, 404</value>
+  <data name="&gt;&gt;listView.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;imageList.Name" xml:space="preserve">
-    <value>imageList</value>
+  <data name="&gt;&gt;listView.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>575, 404</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5094,16 +5088,25 @@
         AYfw4AMP8DAGD/AMGA/+AYB//4AA//+AAP//zjv/
 </value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>400, 300</value>
   </data>
-  <data name="listView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="imageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Error Check Results</value>
+  </data>
+  <data name="&gt;&gt;imageList.Name" xml:space="preserve">
+    <value>imageList</value>
+  </data>
+  <data name="&gt;&gt;imageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ErrorCheckDialog</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

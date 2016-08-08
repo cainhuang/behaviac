@@ -65,18 +65,21 @@ namespace Behaviac.Design
                 }
             }
         }
-
         public static bool DebugWorkspace = true;
 
         public const string kExtraMeta = "_extra_meta.xml";
 
-        private string _name;
-
-        /// <summary>
-        /// The name of the workspace.
-        /// </summary>
-        public string Name {
+        private string _name = "";
+        public string Name
+        {
             get { return _name; }
+        }
+
+        private string _language = "";
+        public string Language
+        {
+            get { return _language; }
+            set { _language = value; }
         }
 
         private string _file_name;
@@ -272,6 +275,7 @@ namespace Behaviac.Design
 
         public string GetExportAbsoluteFolder(string format) {
             string wsFilename = Workspace.Current.FileName.Replace('/', '\\');
+
             string exportFolder = Workspace.Current.GetExportFolder(format);
             exportFolder = exportFolder.Replace('/', '\\');
 
@@ -305,6 +309,7 @@ namespace Behaviac.Design
 
             string path = Path.GetDirectoryName(_file_name);
             string result = Path.Combine(path, absolute);
+            result = Path.GetFullPath(result);
             return result;
         }
 
@@ -321,9 +326,11 @@ namespace Behaviac.Design
         /// <param name="name">The name of the workspace.</param>
         /// <param name="folder">The folder the behaviors will be loaded from.</param>
         /// <param name="defaultExportFolder">The folder behaviours are exported to by default.</param>
-        public Workspace(string path, string name, string xmlfolder, string folder, string defaultExportFolder, Dictionary<string, ExportData> exportDatas = null) {
+        public Workspace(string language, string path, string name, string xmlfolder, string folder, string defaultExportFolder, Dictionary<string, ExportData> exportDatas = null)
+        {
             _file_name = Path.GetFullPath(path);
             _name = name;
+            _language = language;
 
             Debug.Check(_file_name != null);
             _xmlFolder = MakeAbsolutePath(xmlfolder);
@@ -453,6 +460,7 @@ namespace Behaviac.Design
                 XmlNode root = xml.ChildNodes[1];
 
                 if (root.Name == "workspace") {
+                    string language = GetAttribute(root, "language");
                     string name = GetAttribute(root, "name");
                     string xmlfolder = GetAttribute(root, "xmlmetafolder");
                     string folder = GetAttribute(root, "folder");
@@ -465,7 +473,7 @@ namespace Behaviac.Design
                         throw new Exception(Resources.LoadWorkspaceError);
                     }
 
-                    Workspace ws = new Workspace(filename, name, xmlfolder, folder, defaultExportFolder);
+                    Workspace ws = new Workspace(language, filename, name, xmlfolder, folder, defaultExportFolder);
 
                     foreach(XmlNode subnode in root) {
                         if (subnode.NodeType == XmlNodeType.Element) {
@@ -1464,6 +1472,7 @@ namespace Behaviac.Design
 
             return false;
         }
+
 
         private static bool ExportBsonCustomMembers(Workspace ws) {
             string bbPath = ws.getExportCustomMembersBsonPath();

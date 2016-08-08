@@ -57,6 +57,8 @@ namespace Behaviac.Design
 
         internal ErrorCheckDialog() {
             InitializeComponent();
+
+            listView.TileSize = new Size(listView.Width - 2, 24);
         }
 
         private void listView_Click(object sender, EventArgs e) {
@@ -86,6 +88,11 @@ namespace Behaviac.Design
             if (e.KeyCode == Keys.Escape) {
                 this.Close();
             }
+        }
+
+        private void listView_SizeChanged(object sender, EventArgs e)
+        {
+            listView.TileSize = new Size(listView.Width - 2, 24);
         }
     }
 }

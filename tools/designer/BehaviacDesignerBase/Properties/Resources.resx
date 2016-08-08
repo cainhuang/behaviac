@@ -774,7 +774,7 @@ Are your sure continue the undo/redo operation?</value>
     <value>iterator</value>
   </data>
   <data name="CustomizedMethodError" xml:space="preserve">
-    <value>The customized method can not be exported!</value>
+    <value>Found the customized method : Please firstly integrate the generated source files of the customized method of the agent into your game project. Then export it as meta info into the editor, reload the current workspace. At last, export the behaviors.</value>
   </data>
   <data name="TaskMethodChildrenOrOne" xml:space="preserve">
     <value>Task can only accept methods or only one child.</value>
@@ -843,7 +843,7 @@ Are your sure continue the undo/redo operation?</value>
     <value>Transition</value>
   </data>
   <data name="CustomizedAgentError" xml:space="preserve">
-    <value>The customized agent can not be exported! You should firstly implement the agent on the runtime part and then export it as meta info into the editor.</value>
+    <value>Found the customized agent : Please firstly integrate the generated source files of the customized agent into your game project. Then export it as meta info into the editor, reload the current workspace. At last, export the behaviors.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>

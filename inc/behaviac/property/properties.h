@@ -31,7 +31,7 @@ namespace behaviac
     {
     public:
         IVariable(const behaviac::CMemberBase* pMember, const char* variableName, uint32_t id) :
-            m_id(id), m_name(variableName), m_property(0), m_pMember(pMember), m_instantiated(1)
+			m_name(variableName), m_property(0), m_pMember(pMember), m_id(id), m_instantiated(1)
 #if !BEHAVIAC_RELEASE
             , m_changed(true)
 #endif
@@ -50,7 +50,7 @@ namespace behaviac
         }
 
         IVariable(const IVariable& copy) :
-            m_id(copy.m_id), m_name(copy.m_name), m_property(copy.m_property), m_pMember(copy.m_pMember), m_instantiated(copy.m_instantiated)
+			m_name(copy.m_name), m_property(copy.m_property), m_pMember(copy.m_pMember), m_id(copy.m_id), m_instantiated(copy.m_instantiated)
 #if !BEHAVIAC_RELEASE
             , m_changed(copy.m_changed)
 #endif
@@ -103,6 +103,9 @@ namespace behaviac
         virtual void Load(ISerializableNode* node);
 
         virtual void SetFromString(Agent* pAgent, const behaviac::CMemberBase* pMember, const char* value) = 0;
+
+		virtual const void* GetAddress(const Agent* pAgent = 0) const = 0;
+
         virtual void Log(const Agent* pAgent) = 0;
 
         virtual void Reset() = 0;
@@ -124,13 +127,16 @@ namespace behaviac
 		}
 
     protected:
-        uint32_t			m_id;
         behaviac::string	m_name;
         const Property*		m_property;
         const behaviac::CMemberBase*	m_pMember;
+
+        uint32_t			m_id;
         unsigned char		m_instantiated;
 #if !BEHAVIAC_RELEASE
         bool				m_changed;
+#else 
+		bool				m_padding;
 #endif
         friend class Variables;
     };
@@ -148,7 +154,13 @@ namespace behaviac
         TVariable(const TVariable& copy) : IVariable(copy), m_value(copy.m_value)
         {}
 
-        const VariableType& GetValue(const Agent* pAgent = 0) const
+		const VariableType& GetValue(const Agent* pAgent = 0) const {
+			const VariableType* pAddr = (const VariableType*)this->GetAddress(pAgent);
+
+			return *pAddr;
+		}
+
+        virtual const void* GetAddress(const Agent* pAgent) const
         {
             if (this->m_pMember)
             {
@@ -159,10 +171,10 @@ namespace behaviac
 
                 const void* pAddr = this->m_pMember->Get(pAgent, typeId);
 
-                return *(VariableType*)pAddr;
+				return pAddr;
             }
 
-            return this->m_value;
+            return &this->m_value;
         }
 
         void SetValue(const VariableType& value, Agent* pAgent)

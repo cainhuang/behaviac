@@ -353,7 +353,7 @@ namespace behaviac
         }
         else
         {
-            //BEHAVIAC_ASSERT(false, "accessing a not declared local variable");
+            BEHAVIAC_ASSERT(false, "accessing a not declared local variable");
             const char* valueStr = 0;
             pProperty = AgentProperties::AddLocal(agentType, typeName, variableName, valueStr);
         }

@@ -48,7 +48,7 @@ namespace behaviac
 
             if (bForce || OperationUtils.Compare<T>(currentValue, this.value, EOperatorType.E_NOTEQUAL))
             {
-                LogManager.Instance.LogVarValue(agent, name, this.value);
+                LogManager.Instance.LogVarValue(agent, name, currentValue);
                 this.value = currentValue;
             }
 #endif

@@ -35285,6 +35285,27 @@ namespace behaviac
 		}
 	};
 
+	class Assignment_bt_par_test_vector_test_node16 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_par_test_vector_test_node16, Assignment);
+		Assignment_bt_par_test_vector_test_node16()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			int opr = 100;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("l_ListInts") == 96329828u);
+			int opl_index = 0;
+			((behaviac::vector<int >&)pAgent->GetVariable<behaviac::vector<int > >(96329828u))[opl_index] = opr;
+			return result;
+		}
+	};
+
 	class Assignment_bt_par_test_vector_test_node2 : public Assignment
 	{
 	public:
@@ -35583,6 +35604,16 @@ namespace behaviac
 #endif
 					node22->AddChild(node1);
 					node22->SetHasEvents(node22->HasEvents() | node1->HasEvents());
+				}
+				{
+					Assignment_bt_par_test_vector_test_node16* node16 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node16;
+					node16->SetClassNameString("Assignment");
+					node16->SetId(16);
+#if !BEHAVIAC_RELEASE
+					node16->SetAgentType("TestNS::AgentArrayAccessTest");
+#endif
+					node22->AddChild(node16);
+					node22->SetHasEvents(node22->HasEvents() | node16->HasEvents());
 				}
 				{
 					Assignment_bt_par_test_vector_test_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_vector_test_node2;

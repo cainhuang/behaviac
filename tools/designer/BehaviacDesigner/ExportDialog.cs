@@ -252,6 +252,11 @@ namespace Behaviac.Design
             return errorsFilesCount;
         }
 
+        public string GetExportedInfo()
+        {
+            return fileCountLabel.Text;
+        }
+
         private void ShowNodes(TreeNodeCollection treenodes, bool onlyShowFaultBehaviors)
         {
             List<TreeNode> removedNodes = new List<TreeNode>();

@@ -619,13 +619,14 @@ namespace behaviac
 
             case Workspace::EFF_xml:
             {
-                char* pBuffer = Workspace::GetInstance()->ReadFileToBuffer(fullPath.c_str(), ext.c_str());
+				uint32_t bufferSize = 0;
+				char* pBuffer = Workspace::GetInstance()->ReadFileToBuffer(fullPath.c_str(), ext.c_str(), bufferSize);
 
                 if (pBuffer != NULL)
                 {
                     bLoadResult = load_xml(pBuffer);
 
-                    Workspace::GetInstance()->PopFileFromBuffer(fullPath.c_str(), ext.c_str(), pBuffer);
+					Workspace::GetInstance()->PopFileFromBuffer(fullPath.c_str(), ext.c_str(), pBuffer, bufferSize);
                 }
                 else
                 {
@@ -637,13 +638,14 @@ namespace behaviac
 
             case Workspace::EFF_bson:
             {
-                char* pBuffer = Workspace::GetInstance()->ReadFileToBuffer(fullPath.c_str(), ext.c_str());
+				uint32_t bufferSize = 0;
+				char* pBuffer = Workspace::GetInstance()->ReadFileToBuffer(fullPath.c_str(), ext.c_str(), bufferSize);
 
                 if (pBuffer != NULL)
                 {
                     bLoadResult = load_bson(pBuffer);
 
-                    Workspace::GetInstance()->PopFileFromBuffer(fullPath.c_str(), ext.c_str(), pBuffer);
+					Workspace::GetInstance()->PopFileFromBuffer(fullPath.c_str(), ext.c_str(), pBuffer, bufferSize);
                 }
                 else
                 {

@@ -2202,7 +2202,7 @@ namespace Behaviac.Design
 
         private void GetExportBehaviors(TreeNodeCollection pool, bool exportNoGroups, ExporterInfo exporter, ref bool aborted, ref List<BehaviorNode> exportBehaviors)
         {
-            if (aborted)
+            if (aborted || pool == null)
             {
                 return;
             }
@@ -2331,7 +2331,7 @@ namespace Behaviac.Design
                         return false;
                     }
 
-                    if (!string.IsNullOrEmpty(Plugin.SourceLanguage) && Plugin.SourceLanguage != "cpp" && !Workspace.Current.IsSetExportFolder(Plugin.SourceLanguage))
+                    if (!string.IsNullOrEmpty(Workspace.Current.Language) && Workspace.Current.Language != "cpp" && !Workspace.Current.IsSetExportFolder(Workspace.Current.Language))
                     {
                         if (DialogResult.OK == MessageBox.Show(Resources.InvalidExportedTypePath, Resources.ExportError, MessageBoxButtons.OK))
                         {
@@ -2368,13 +2368,13 @@ namespace Behaviac.Design
                         {
                             ExporterInfo info = Plugin.Exporters[i];
 
-                            if ((string.IsNullOrEmpty(format) && (Workspace.Current.ShouldBeExported(info.ID) || (info.ID == Plugin.SourceLanguage))) || (info.ID == format))
+                            if ((string.IsNullOrEmpty(format) && (Workspace.Current.ShouldBeExported(info.ID) || (info.ID == Workspace.Current.Language))) || (info.ID == format))
                             {
                                 exportXML |= (info.ID == "xml");
                                 exportBson |= (info.ID == "bson");
 
                                 bool bExportBehaviors = dialog.ExportBehaviors;
-                                if (info.ID == Plugin.SourceLanguage && !Workspace.Current.ShouldBeExported(info.ID))
+                                if (info.ID == Workspace.Current.Language && !Workspace.Current.ShouldBeExported(info.ID))
                                     bExportBehaviors = false;
 
                                 exportBehavior(bExportBehaviors, i, exportedPath, dialog.treeView.Nodes, ref aborted);
@@ -2388,12 +2388,16 @@ namespace Behaviac.Design
 
                         if (!aborted)
                         {
-                            if (Plugin.SourceLanguage == "cpp")
+                            if (Workspace.Current.Language == "cpp")
                             {
                                 Workspace.ExportCustomMembers(Workspace.Current, exportXML, exportBson);
                             }
 
                             Utilities.ReportExportBehavior();
+
+                            ErrorInfoDock.Inspect();
+                            string msg = string.Format(Resources.MessageBTExport, dialog.GetExportedInfo());
+                            ErrorInfoDock.WriteLineWithTime(msg);
                         }
                     }
 
@@ -2406,6 +2410,20 @@ namespace Behaviac.Design
             }
 
             return true;
+        }
+
+        public void ExportTypes(int exporterIndex)
+        {
+            Debug.Check(exporterIndex >= 0 && exporterIndex < Plugin.Exporters.Count);
+
+            // retieve the correct exporter info
+            ExporterInfo exporter = Plugin.Exporters[exporterIndex];
+            Debug.Check(exporter.HasSettings);
+
+            string exportedPath = Workspace.Current.GetExportAbsoluteFolder(exporter.ID);
+            Exporters.Exporter exp = exporter.Create(null, exportedPath, "", null);
+
+            exp.Export(null, false, false);
         }
 
         private void exportBehavior(bool isExportingBehaviors, int exporterIndex, string exportedPath, TreeNodeCollection nodes, ref bool aborted)
@@ -2431,6 +2449,8 @@ namespace Behaviac.Design
 
                 // Export behavior.
                 exp.Export(exportBehaviors, Workspace.Current.ExportedUnifiedFile(exporter.ID), isExportingBehaviors);
+
+                ErrorInfoDock.WriteExportTypeInfo();
             }
         }
 

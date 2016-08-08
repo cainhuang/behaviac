@@ -471,7 +471,7 @@
 </value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Error List</value>
+    <value>Information</value>
   </data>
   <data name="&gt;&gt;copyMenuItem.Name" xml:space="preserve">
     <value>copyMenuItem</value>
@@ -495,6 +495,6 @@
     <value>ErrorInfoDock</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.5.0.35039, Culture=neutral, PublicKeyToken=null</value>
+    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.5.0.28092, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>
