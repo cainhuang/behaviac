@@ -317,7 +317,7 @@ namespace PluginBehaviac.Exporters
             }
 
             // write the namespaces for the game agents
-            file.WriteLine("using namespace behaviac;\r\n");
+            //file.WriteLine("using namespace behaviac;\r\n");
 
             // write property and method handlers
             file.WriteLine("// Agent property and method handlers\r\n");

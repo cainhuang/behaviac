@@ -937,5 +937,22 @@ namespace ParUnitTest
             Assert.AreEqual(true, parTestAgent.TV_LIST_BOOL_0[1]);
             Assert.AreEqual(false, parTestAgent.TV_LIST_BOOL_0[2]);
         }
+
+        [Test]
+        [Category("cast_param")]
+        public void cast_param()
+        {
+            parTestAgent.btsetcurrent("par_test/cast_param");
+            parTestAgent.resetProperties();
+
+            parTestAgent.TV_UINT_0 = 10;
+
+            parTestAgent.btexec();
+
+            Assert.AreEqual(72, parTestAgent.TV_BYTE_0);
+            Assert.AreEqual(10, parTestAgent.TV_SHORT_0);
+            Assert.AreEqual(null, parTestAgent.TV_AGENT_0);
+        }
+
     }
 }

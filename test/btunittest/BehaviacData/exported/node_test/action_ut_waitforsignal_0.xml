@@ -12,11 +12,13 @@
         </node>
       </custom>
       <node class="Assignment" id="3">
+        <property CastRight="false" />
         <property Opl="int Self.AgentNodeTest::testVar_1" />
         <property Opr="const int 1" />
       </node>
     </node>
     <node class="Assignment" id="4">
+      <property CastRight="false" />
       <property Opl="float Self.AgentNodeTest::testVar_2" />
       <property Opr="const float 2.3" />
     </node>

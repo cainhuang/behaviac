@@ -815,4 +815,10 @@
   <data name="TransitionPhaseDesc" xml:space="preserve">
     <value>转换时机</value>
   </data>
+  <data name="CastRight" xml:space="preserve">
+    <value>类型转换</value>
+  </data>
+  <data name="CastRightDesc" xml:space="preserve">
+    <value>右值被转换到左值的类型</value>
+  </data>
 </root>

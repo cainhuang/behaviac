@@ -7,6 +7,7 @@
   </pars>
   <node class="Sequence" id="0">
     <node class="Assignment" id="3">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::testVar_0" />
       <property Opr="const int 1" />
     </node>
@@ -14,6 +15,7 @@
       <property Frames="int Self.AgentNodeTest::par_frame_count" />
     </node>
     <node class="Assignment" id="4">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::testVar_0" />
       <property Opr="const int 2" />
     </node>

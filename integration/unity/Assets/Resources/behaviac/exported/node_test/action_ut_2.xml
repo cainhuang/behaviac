@@ -9,10 +9,12 @@
   </pars>
   <node class="Sequence" id="0">
     <node class="Assignment" id="7">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::par_int_type_0" />
       <property Opr="const int 1" />
     </node>
     <node class="Assignment" id="6">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::test_int_array[int Self.AgentNodeTest::par_int_type_0]" />
       <property Opr="const int 5" />
     </node>
@@ -41,6 +43,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="3">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::par_int_type_1" />
       <property Opr="int Self.AgentNodeTest::testVar_0" />
     </node>

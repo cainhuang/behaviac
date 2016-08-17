@@ -88,6 +88,8 @@ namespace behaviac
 			bb->AddProperty("vector<TNS::NE::NAT::eColor>", false, "TV_LIST_ECOLOR_0", "0:", "ParTestAgent");
 			bb->AddProperty("vector<subyte>", false, "TV_LIST_SBYTE_0", "0:", "ParTestAgent");
 			bb->AddProperty("subyte", false, "TV_SBYTE_0", "0", "ParTestAgent");
+			bb->AddProperty("UnityEngine::GameObject", false, "C_GameObject", "null", "ParTestAgent");
+			bb->AddProperty("ParTestAgent", false, "C_Agent", "null", "ParTestAgent");
 
 			// AgentNodeTest
 			bb = BEHAVIAC_NEW AgentProperties("AgentNodeTest");
@@ -149,6 +151,8 @@ namespace behaviac
 			// EmployeeParTestAgent
 			bb = BEHAVIAC_NEW AgentProperties("EmployeeParTestAgent");
 			AgentProperties::SetAgentTypeBlackboards("EmployeeParTestAgent", bb);
+			bb->AddProperty("UnityEngine::GameObject", false, "C_GameObject", "null", "EmployeeParTestAgent");
+			bb->AddProperty("ParTestAgent", false, "C_Agent", "null", "EmployeeParTestAgent");
 			bb->AddProperty("behaviac::Agent*", true, "STV_AGENT_0", "null", "EmployeeParTestAgent");
 			bb->AddProperty("float", true, "STV_F_0", "0", "EmployeeParTestAgent");
 			bb->AddProperty("vector<behaviac::Agent*>", true, "STV_LIST_AGENT_0", "0:", "EmployeeParTestAgent");

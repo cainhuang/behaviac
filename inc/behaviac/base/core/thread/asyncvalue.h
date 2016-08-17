@@ -17,6 +17,8 @@
 #include "behaviac/base/core/sharedptr.h"
 #include "behaviac/base/meta/types.h"
 #include "behaviac/base/functions.h"
+#include "behaviac/base/meta/isstruct.h"
+#include "behaviac/base/meta/isptr.h"
 
 namespace behaviac
 {
@@ -31,6 +33,7 @@ namespace behaviac
         }
         virtual IAsyncValue* clone() = 0;
         virtual bool IsVoid() const = 0;
+        virtual void get_as(int typeId, void* pValueAddr) const = 0;
         virtual void GetTypeName(behaviac::string& typeName) = 0;
         virtual const char* GetString() const = 0;
 		virtual double GetDouble() const
@@ -40,6 +43,75 @@ namespace behaviac
 		}
 		//virtual double GetInteger() const = 0;
     };
+
+	template<typename T, bool bStruct>
+	struct CastValue {
+		static void get_as(int typeId, void* pValueAddr, const T& value) {
+			BEHAVIAC_ASSERT(false);
+		}
+	};
+
+	template<typename T>
+	struct CastValue<T, false> {
+		static void get_as(int typeId, void* pValueAddr, const T& value) {
+			if (typeId == GetClassTypeNumberId<char>()) {
+				*(char*)pValueAddr = (char)value;
+			}
+			else if (typeId == GetClassTypeNumberId<signed char>()) {
+				*(signed char*)pValueAddr = (signed char)value;
+			}
+			else if (typeId == GetClassTypeNumberId<unsigned char>()) {
+				*(unsigned char*)pValueAddr = (unsigned char)value;
+			}
+			else if (typeId == GetClassTypeNumberId<short>()) {
+				*(short*)pValueAddr = (short)value;
+			}
+			else if (typeId == GetClassTypeNumberId<unsigned short>()) {
+				*(unsigned short*)pValueAddr = (unsigned short)value;
+			}
+			else if (typeId == GetClassTypeNumberId<int>()) {
+				*(int*)pValueAddr = (int)value;
+			}
+			else if (typeId == GetClassTypeNumberId<unsigned int>()) {
+				*(unsigned int*)pValueAddr = (unsigned int)value;
+			}
+			else if (typeId == GetClassTypeNumberId<long>()) {
+				*(long*)pValueAddr = (long)value;
+			}
+			else if (typeId == GetClassTypeNumberId<unsigned long>()) {
+				*(unsigned long*)pValueAddr = (unsigned long)value;
+			}
+			else if (typeId == GetClassTypeNumberId<long long>()) {
+				*(long long*)pValueAddr = (long long)value;
+			}
+			else if (typeId == GetClassTypeNumberId<unsigned long long>()) {
+				*(unsigned long long*)pValueAddr = (unsigned long long)value;
+			}
+			else if (typeId == GetClassTypeNumberId<float>()) {
+				*(float*)pValueAddr = (float)value;
+			}
+			else if (typeId == GetClassTypeNumberId<double>()) {
+				*(double*)pValueAddr = (double)value;
+			}
+			else {
+				BEHAVIAC_ASSERT(false);
+			}
+		}
+	};
+
+	template<typename T, bool bPtr>
+	struct CastValuePtr {
+		static void get_as(int typeId, void* pValueAddr, const T& value) {
+			CastValue<T, behaviac::Meta::IsStruct<T>::Result>::get_as(typeId, pValueAddr, value);
+		}
+	};
+
+	template<typename T>
+	struct CastValuePtr<T, true> {
+		static void get_as(int typeId, void* pValueAddr, const T& value) {
+			*(behaviac::Address*)pValueAddr = (behaviac::Address)value;
+		}
+	};
 
     /**
      * Class that holds a value and a valid flag, allowing to check whether
@@ -93,11 +165,18 @@ namespace behaviac
         {
             mValue->set = false;
         }
+
         inline void set(const TTYPE& value, bool set)
         {
             mValue->value = value;
             mValue->set = set;
         }
+
+		// typeId might be int while TTYPE is float
+		virtual void get_as(int typeId, void* pValueAddr) const {
+			CastValuePtr<TTYPE, behaviac::Meta::IsPtr<TTYPE>::Result>::get_as(typeId, pValueAddr, mValue->value);
+		}
+
         inline TTYPE& get()
         {
             return mValue->value;
@@ -193,6 +272,10 @@ namespace behaviac
             BEHAVIAC_ASSERT(false);
             return 0;
         }
+		virtual void get_as(int typeId, void* pValueAddr) const {
+			BEHAVIAC_ASSERT(false);
+		}
+
     };
 
     template<> class AsyncValue<const char*> : public IAsyncValue
@@ -284,6 +367,9 @@ namespace behaviac
         {
             return this->mValue->value;
         }
+		virtual void get_as(int typeId, void* pValueAddr) const {
+			*(char**)pValueAddr = *(char**)&mValue->value;
+		}
 
     protected:
         inline operator SharedT() const
@@ -380,6 +466,9 @@ namespace behaviac
         {
             return this->mValue->value;
         }
+		virtual void get_as(int typeId, void* pValueAddr) const {
+			*(char**)pValueAddr = (char*)mValue->value;
+		}
 
     protected:
         inline operator SharedT() const
@@ -477,6 +566,9 @@ namespace behaviac
         {
             return this->mValue->value.c_str();
         }
+		virtual void get_as(int typeId, void* pValueAddr) const {
+			BEHAVIAC_ASSERT(false);
+		}
 
     protected:
         inline operator SharedT() const

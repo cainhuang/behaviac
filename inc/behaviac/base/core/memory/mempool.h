@@ -119,7 +119,7 @@ namespace behaviac
             return sizeof(*this) + this->m_segmentCount * this->m_objectCountsInSegment * m_objectSize;
         }
 
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
         /// Get allocation statistics (only in Debug target)
         uint32_t GetPeekCount()
         {
@@ -165,7 +165,7 @@ namespace behaviac
             BEHAVIAC_DECLARE_DLIST(PoolSegment);
 
         public:
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
             enum     ESafety { Val = 0xBEBA0B0B };
             ESafety  m_safety;
 #endif
@@ -175,7 +175,7 @@ namespace behaviac
 
         struct BlockHeader
         {
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
             enum    ESafety { Val = 0x01D0ADDE };
             ESafety m_safety;
 #endif
@@ -202,7 +202,7 @@ namespace behaviac
         uint32_t m_segmentAlign;
         uint32_t m_objectAlign;
 
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
         uint32_t m_peakAllocatedCount;
         uint32_t m_totalAllocatedCount;
 #endif
@@ -448,7 +448,7 @@ namespace behaviac
         }
 
         m_freeObjectCount--;
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
         m_totalAllocatedCount++;
 
         if (m_totalAllocatedCount > m_peakAllocatedCount)

@@ -88,6 +88,8 @@ namespace Behaviac.Design.Attributes
                 this.FilterType = _property.Attribute.FilterType;
             }
 
+            SetupCastSettings(obj);
+
             setComboBox();
         }
 
@@ -160,6 +162,8 @@ namespace Behaviac.Design.Attributes
             if (!_resetMethods) {
                 _resetMethods = true;
 
+                this.SetupCastSettings(this._object);
+
                 _methods = getMethods();
 
                 if (_methods.Count > 0 && CheckMethods(_methods))
@@ -221,9 +225,12 @@ namespace Behaviac.Design.Attributes
 
             } else {
                 object propertyMember = _property.Property.GetValue(_object, null);
-                RightValueDef oldvarRV = propertyMember as RightValueDef;
-                RightValueDef varRV = new RightValueDef(m, oldvarRV.ValueClass);
-                _property.Property.SetValue(_object, varRV, null);
+                if (propertyMember != null)
+                {
+                    RightValueDef oldvarRV = propertyMember as RightValueDef;
+                    RightValueDef varRV = new RightValueDef(m, oldvarRV.ValueClass);
+                    _property.Property.SetValue(_object, varRV, null);
+                }
             }
 
             this.RereshProperty(true, _property);

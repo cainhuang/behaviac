@@ -114,7 +114,8 @@ namespace Behaviac.Design.Attributes
 
             this.FilterType = null;
 
-            if (enumAtt != null) {
+            if (enumAtt != null)
+            {
                 if (enumAtt.DependedProperty != "") {
                     Type objType = _object.GetType();
                     PropertyInfo pi = objType.GetProperty(enumAtt.DependedProperty);
@@ -144,6 +145,7 @@ namespace Behaviac.Design.Attributes
                 }
             }
 
+
             setComboBox(selectionName);
 
             //after the left is changed, the right might need to be invalidated
@@ -151,6 +153,7 @@ namespace Behaviac.Design.Attributes
                 property.Property.SetValue(_object, null, null);
             }
         }
+
 
         public override void SetParameter(MethodDef.Param param, object obj, bool bReadonly) {
             base.SetParameter(param, obj, bReadonly);
@@ -185,6 +188,9 @@ namespace Behaviac.Design.Attributes
         }
 
         private List<PropertyDef> getProperties() {
+            
+            this.SetupCastSettings(this._object);
+
             List<PropertyDef> properties = new List<PropertyDef>();
 
             if (_agentType != null) {
@@ -226,6 +232,7 @@ namespace Behaviac.Design.Attributes
                         bool isFloat = Plugin.IsFloatType(p.Type);
                         bool isBool = Plugin.IsBooleanType(p.Type);
                         bool isString = Plugin.IsStringType(p.Type);
+                        bool isRefType = Plugin.IsRefType(p.Type);
                         bool bOk = false;
 
                         if (bArrayOnly) {
@@ -234,10 +241,11 @@ namespace Behaviac.Design.Attributes
                             bOk = isArray;
                         } else {
                             bOk = (this.ValueType == ValueTypes.All) ||
-                                  (isBool && ((this.ValueType & ValueTypes.Bool) == ValueTypes.Bool)) ||
-                                  (isInt && ((this.ValueType & ValueTypes.Int) == ValueTypes.Int)) ||
-                                  (isFloat && ((this.ValueType & ValueTypes.Float) == ValueTypes.Float) ||
-                                  (isString && ((this.ValueType & ValueTypes.String) == ValueTypes.String)));
+                                  ((isBool && ((this.ValueType & ValueTypes.Bool) == ValueTypes.Bool))) ||
+                                  ((isInt && ((this.ValueType & ValueTypes.Int) == ValueTypes.Int))) ||
+                                  (isFloat && ((this.ValueType & ValueTypes.Float) == ValueTypes.Float)) ||
+                                  (isString && ((this.ValueType & ValueTypes.String) == ValueTypes.String)) || 
+                                  (isRefType && ((this.ValueType & ValueTypes.RefType) == ValueTypes.RefType));
                         }
 
                         if (bOk) {
@@ -270,6 +278,8 @@ namespace Behaviac.Design.Attributes
         private void resetProperties() {
             if (!_resetProperties) {
                 _resetProperties = true;
+
+                this.SetupCastSettings(this._object);
 
                 _properties = getProperties();
 

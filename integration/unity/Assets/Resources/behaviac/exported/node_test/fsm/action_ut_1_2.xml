@@ -24,6 +24,7 @@
         <property ResultOption="BT_SUCCESS" />
       </node>
       <node class="Assignment" id="1">
+        <property CastRight="false" />
         <property Opl="float Self.AgentNodeTest::par_float_type_1" />
         <property Opr="float Self.AgentNodeTest::testVar_2" />
       </node>
@@ -38,6 +39,7 @@
         <property ResultOption="BT_SUCCESS" />
       </node>
       <node class="Assignment" id="7">
+        <property CastRight="false" />
         <property Opl="UnityEngine::GameObject Self.AgentNodeTest::par_go" />
         <property Opr="Self.AgentNodeTest::createGameObject()" />
       </node>

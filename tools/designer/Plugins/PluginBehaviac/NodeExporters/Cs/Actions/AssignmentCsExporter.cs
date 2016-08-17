@@ -108,7 +108,14 @@ namespace PluginBehaviac.NodeExporters
                     }
                     else
                     {
-                        stream.WriteLine("{0}\t\t\t{1} = {2};", indent, property, oprStr);
+                        if (assignment.IsCasting)
+                        {
+                            stream.WriteLine("{0}\t\t\t{1} = ({2}){3};", indent, property, DataCsExporter.GetGeneratedNativeType(assignment.Opl.ValueType), oprStr);
+                        }
+                        else
+                        {
+                            stream.WriteLine("{0}\t\t\t{1} = {2};", indent, property, oprStr);
+                        }
                     }
                 }
 

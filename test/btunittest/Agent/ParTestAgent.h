@@ -13,6 +13,7 @@
 
 #pragma once
 #include "ParTestAgentBase.h"
+#include "AgentNodeTest.h"
 
 class ParTestAgent : public ParTestAgentBase
 {
@@ -55,6 +56,7 @@ public:
     //[behaviac.MemberMetaInfo("1 # STV_LIST_KEMPLOYEE_0", "A")]
     static behaviac::vector<kEmployee> STV_LIST_KEMPLOYEE_0;
 
+	//UnityEngine::GameObject* TV_GAMEOBJECT_PTR_0;
 public:
     virtual void resetProperties();
 

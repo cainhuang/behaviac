@@ -559,7 +559,7 @@ namespace behaviac
     {
 #if !BEHAVIAC_RELEASE
         this->m_agentType = agentType;
-#endif//#ifdef _DEBUG
+#endif//
 
         properties_t properties;
 
@@ -784,7 +784,7 @@ namespace behaviac
     {
 #if !BEHAVIAC_RELEASE
         SetAgentType(agentType);
-#endif//#ifdef _DEBUG
+#endif//
 
         bool bHasEvents = this->HasEvents();
         rapidxml::xml_node<>* children = node->first_node();

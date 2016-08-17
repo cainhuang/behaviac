@@ -75,6 +75,22 @@ namespace PluginBehaviac.Nodes
             set { this._opr = value; }
         }
 
+        protected bool _bCastRight = false;
+        [DesignerBoolean("CastRight", "CastRightDesc", "Assignment", DesignerProperty.DisplayMode.NoDisplay, 2, DesignerProperty.DesignerFlags.NoFlags)]
+        public bool CastRight
+        {
+            get { return _bCastRight; }
+            set { _bCastRight = value; }
+        }
+
+        public override bool IsCasting
+        {
+            get
+            {
+                return _bCastRight;
+            }
+        }
+
         public override string Description
         {
             get
@@ -129,12 +145,14 @@ namespace PluginBehaviac.Nodes
 
             if (_opr != null)
                 prec._opr = (RightValueDef)_opr.Clone();
+
+            prec._bCastRight = this._bCastRight;
         }
 
         public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
         {
             if (this.Opl == null || this.Opr == null || this.Opl.ToString() == "" || this.Opr.ToString() == "" ||
-                !Plugin.CheckTwoTypes(this.Opl.ValueType, this.Opr.ValueType))
+                (!this.IsCasting && !Plugin.CheckTwoTypes(this.Opl.ValueType, this.Opr.ValueType)))
             {
                 result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.OperandError));
             }

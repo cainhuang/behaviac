@@ -80,8 +80,6 @@ and you also need to include your agent types' headers before it:
 // You should set the agent header files of your game
 // when exporting cpp files in the behaviac editor:
 
-using namespace behaviac;
-
 // Agent property and method handlers
 
 namespace behaviac
@@ -638,11 +636,11 @@ template<>  Act& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testV
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_testVar_str_0 { };
-template<>  string& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_str_0>()
+template<>  behaviac::string& AgentNodeTest::_Get_Property_<PROPERTY_TYPE_AgentNodeTest_testVar_str_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(AgentNodeTest, AgentNodeTest::testVar_str_0);
-	return *(reinterpret_cast<string*>(pc));
+	return *(reinterpret_cast<behaviac::string*>(pc));
 }
 
 struct PROPERTY_TYPE_AgentNodeTest_waiting_timeout_interval { };
@@ -684,7 +682,7 @@ template<>  bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter
 }
 
 struct METHOD_TYPE_AgentNodeTest_enter_action_2 { };
-template<>  bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2>(int p0, string p1)
+template<>  bool AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2>(int p0, behaviac::string p1)
 {
 	return this->AgentNodeTest::enter_action_2(p0, p1);
 }
@@ -702,7 +700,7 @@ template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_
 }
 
 struct METHOD_TYPE_AgentNodeTest_exit_action_2 { };
-template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2>(int p0, string p1)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2>(int p0, behaviac::string p1)
 {
 	this->AgentNodeTest::exit_action_2(p0, p1);
 }
@@ -840,7 +838,7 @@ template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_Stop>
 }
 
 struct METHOD_TYPE_AgentNodeTest_switchRef { };
-template<>  behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_switchRef>(string& p0)
+template<>  behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_switchRef>(behaviac::string& p0)
 {
 	return this->AgentNodeTest::switchRef(p0);
 }
@@ -870,7 +868,7 @@ template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testV
 }
 
 struct METHOD_TYPE_AgentNodeTest_transitPlanTactics { };
-template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_transitPlanTactics>(BSASN::TransitPlan p0, EnumTest p1, string& p2)
+template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_transitPlanTactics>(BSASN::TransitPlan p0, EnumTest p1, behaviac::string& p2)
 {
 	this->AgentNodeTest::transitPlanTactics(p0, p1, p2);
 }
@@ -927,11 +925,11 @@ template<>  UnityEngine::Vector3& CustomPropertyAgent::_Get_Property_<PROPERTY_T
 }
 
 struct PROPERTY_TYPE_CustomPropertyAgent_StringMemberReadonly { };
-template<>  string& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_StringMemberReadonly>()
+template<>  behaviac::string& CustomPropertyAgent::_Get_Property_<PROPERTY_TYPE_CustomPropertyAgent_StringMemberReadonly>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(CustomPropertyAgent, CustomPropertyAgent::StringMemberReadonly);
-	return *(reinterpret_cast<string*>(pc));
+	return *(reinterpret_cast<behaviac::string*>(pc));
 }
 
 struct METHOD_TYPE_CustomPropertyAgent_FnWithOutParam { };
@@ -981,17 +979,17 @@ template<>  behaviac::vector<float>& EmployeeParTestAgent::_Get_Property_<PROPER
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0 { };
-template<>  behaviac::vector<string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0>()
+template<>  behaviac::vector<behaviac::string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)(&EmployeeParTestAgent::STV_LIST_STR_0);
-	return *(reinterpret_cast<behaviac::vector<string>*>(pc));
+	return *(reinterpret_cast<behaviac::vector<behaviac::string>*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0 { };
-template<>  string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0>()
+template<>  behaviac::string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)(&EmployeeParTestAgent::STV_STR_0);
-	return *(reinterpret_cast<string*>(pc));
+	return *(reinterpret_cast<behaviac::string*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_AGENT_0 { };
@@ -1043,11 +1041,11 @@ template<>  behaviac::vector<float>& EmployeeParTestAgent::_Get_Property_<PROPER
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0 { };
-template<>  behaviac::vector<string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0>()
+template<>  behaviac::vector<behaviac::string>& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_LIST_STR_0);
-	return *(reinterpret_cast<behaviac::vector<string>*>(pc));
+	return *(reinterpret_cast<behaviac::vector<behaviac::string>*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_LL_0 { };
@@ -1059,11 +1057,11 @@ template<>  long long& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_Employ
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0 { };
-template<>  string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0>()
+template<>  behaviac::string& EmployeeParTestAgent::_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(EmployeeParTestAgent, EmployeeParTestAgent::TV_STR_0);
-	return *(reinterpret_cast<string*>(pc));
+	return *(reinterpret_cast<behaviac::string*>(pc));
 }
 
 struct PROPERTY_TYPE_EmployeeParTestAgent_TV_SZSTR_0 { };
@@ -1153,13 +1151,13 @@ template<>  behaviac::vector<float> EmployeeParTestAgent::_Execute_Method_<METHO
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringIR { };
-template<>  string EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR>(string& p0)
+template<>  behaviac::string EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR>(behaviac::string& p0)
 {
 	return this->EmployeeParTestAgent::Func_StringIR(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR { };
-template<>  behaviac::vector<string> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR>(behaviac::vector<string> p0)
+template<>  behaviac::vector<behaviac::string> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR>(behaviac::vector<behaviac::string> p0)
 {
 	return this->EmployeeParTestAgent::Func_StringListIR(p0);
 }
@@ -1201,13 +1199,13 @@ template<>  behaviac::Agent* EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringListSMF { };
-template<>  behaviac::vector<string> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListSMF>(behaviac::vector<string> p0)
+template<>  behaviac::vector<behaviac::string> EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListSMF>(behaviac::vector<behaviac::string> p0)
 {
 	return this->EmployeeParTestAgent::Func_StringListSMF(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringSMF { };
-template<>  string EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringSMF>(string& p0)
+template<>  behaviac::string EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringSMF>(behaviac::string& p0)
 {
 	return this->EmployeeParTestAgent::Func_StringSMF(p0);
 }
@@ -1261,13 +1259,13 @@ template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParT
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef { };
-template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef>(behaviac::vector<string>& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef>(behaviac::vector<behaviac::string>& p0)
 {
 	this->EmployeeParTestAgent::Func_StringListRef(p0);
 }
 
 struct METHOD_TYPE_EmployeeParTestAgent_Func_StringRef { };
-template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef>(string& p0)
+template<>  void EmployeeParTestAgent::_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef>(behaviac::string& p0)
 {
 	this->EmployeeParTestAgent::Func_StringRef(p0);
 }
@@ -1512,11 +1510,11 @@ template<>  signed char& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTe
 }
 
 struct PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0 { };
-template<>  string& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0>()
+template<>  behaviac::string& ParTestRegNameAgent::_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0>()
 {
 	unsigned char* pc = (unsigned char*)this;
 	pc += (int)BEHAVIAC_OFFSETOF(ParTestRegNameAgent, ParTestRegNameAgent::TV_STR_0);
-	return *(reinterpret_cast<string*>(pc));
+	return *(reinterpret_cast<behaviac::string*>(pc));
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_AgentIR { };
@@ -1562,7 +1560,7 @@ template<>  behaviac::vector<signed char> ParTestRegNameAgent::_Execute_Method_<
 }
 
 struct METHOD_TYPE_ParTestRegNameAgent_Func_StringIR { };
-template<>  string ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_StringIR>(string p0)
+template<>  behaviac::string ParTestRegNameAgent::_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_StringIR>(behaviac::string p0)
 {
 	return this->ParTestRegNameAgent::Func_StringIR(p0);
 }
@@ -8384,12 +8382,12 @@ namespace behaviac
 			method_p0_transit_points_item2.coordX = 0;
 			method_p0_transit_points_item2.coordY = 0;
 			method_p0.transit_points.push_back(method_p0_transit_points_item2);
-			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_transitPlanTactics, void, BSASN::TransitPlan, EnumTest, string& >(method_p0, method_p1, method_p2);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_transitPlanTactics, void, BSASN::TransitPlan, EnumTest, behaviac::string& >(method_p0, method_p1, method_p2);
 			return BT_SUCCESS;
 		}
 		BSASN::TransitPlan method_p0;
 		EnumTest method_p1;
-		string method_p2;
+		behaviac::string method_p2;
 	};
 
 	class bt_node_test_action_ut_0
@@ -14588,7 +14586,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2, bool, int, string >(opl_p0, opl_p1);
+			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2, bool, int, behaviac::string >(opl_p0, opl_p1);
 			bool opr2 = true;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -14596,7 +14594,7 @@ namespace behaviac
 			return result;
 		}
 		int opl_p0;
-		string opl_p1;
+		behaviac::string opl_p1;
 	};
 
 	class Effector_bt_node_test_enter_exit_action_ut_0_attach4 : public Effector
@@ -14613,11 +14611,11 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2, void, int, string >(opl_p0, opl_p1);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2, void, int, behaviac::string >(opl_p0, opl_p1);
 			return result;
 		}
 		int opl_p0;
-		string opl_p1;
+		behaviac::string opl_p1;
 	};
 
 	class Condition_bt_node_test_enter_exit_action_ut_0_node5 : public Condition
@@ -14832,7 +14830,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2, bool, int, string >(opl_p0, opl_p1);
+			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2, bool, int, behaviac::string >(opl_p0, opl_p1);
 			bool opr2 = true;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -14840,7 +14838,7 @@ namespace behaviac
 			return result;
 		}
 		int opl_p0;
-		string opl_p1;
+		behaviac::string opl_p1;
 	};
 
 	class Effector_bt_node_test_enter_exit_action_ut_1_attach5 : public Effector
@@ -14857,11 +14855,11 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2, void, int, string >(opl_p0, opl_p1);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2, void, int, behaviac::string >(opl_p0, opl_p1);
 			return result;
 		}
 		int opl_p0;
-		string opl_p1;
+		behaviac::string opl_p1;
 	};
 
 	class Condition_bt_node_test_enter_exit_action_ut_1_node6 : public Condition
@@ -15056,7 +15054,7 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2, bool, int, string >(opl_p0, opl_p1);
+			bool opl = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_enter_action_2, bool, int, behaviac::string >(opl_p0, opl_p1);
 			bool opr2 = true;
 			bool op = Details::Equal(opl, opr2);
 			if (!op)
@@ -15064,7 +15062,7 @@ namespace behaviac
 			return result;
 		}
 		int opl_p0;
-		string opl_p1;
+		behaviac::string opl_p1;
 	};
 
 	class Effector_bt_node_test_enter_exit_action_ut_2_attach5 : public Effector
@@ -15081,11 +15079,11 @@ namespace behaviac
 		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
 		{
 			EBTStatus result = BT_SUCCESS;
-			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2, void, int, string >(opl_p0, opl_p1);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_exit_action_2, void, int, behaviac::string >(opl_p0, opl_p1);
 			return result;
 		}
 		int opl_p0;
-		string opl_p1;
+		behaviac::string opl_p1;
 	};
 
 	class Condition_bt_node_test_enter_exit_action_ut_2_node8 : public Condition
@@ -20984,7 +20982,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			string opr = (char*)("node_test/reference_sub_0");
+			behaviac::string opr = (char*)("node_test/reference_sub_0");
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("subTreePath") == 526556242u);
 			pAgent->SetVariable("subTreePath", opr, 526556242u);
 			return result;
@@ -21792,10 +21790,10 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			behaviac::EBTStatus result = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_switchRef, behaviac::EBTStatus, string& >(method_p0);
+			behaviac::EBTStatus result = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_switchRef, behaviac::EBTStatus, behaviac::string& >(method_p0);
 			return result;
 		}
-		string method_p0;
+		behaviac::string method_p0;
 	};
 
 	class Action_bt_node_test_selector_loop_ut_5_node9 : public Action
@@ -27364,6 +27362,125 @@ namespace behaviac
 		}
 	};
 
+	// Source file: par_test/cast_param
+
+	class Assignment_bt_par_test_cast_param_node1 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_par_test_cast_param_node1, Assignment);
+		Assignment_bt_par_test_cast_param_node1()
+		{
+			opr_p0 = 0;
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			float opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_SingleIR, float, float >(opr_p0);
+			((ParTestAgentBase*)pAgent)->_Get_Property_<PROPERTY_TYPE_ParTestAgentBase_TV_BYTE_0, unsigned char >() = (unsigned char)opr;
+			return result;
+		}
+		float opr_p0;
+	};
+
+	class Assignment_bt_par_test_cast_param_node0 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_par_test_cast_param_node0, Assignment);
+		Assignment_bt_par_test_cast_param_node0()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			unsigned int opr = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_UINT_0, unsigned int >();
+			((ParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_ParTestAgent_TV_SHORT_0, short >() = (short)opr;
+			return result;
+		}
+	};
+
+	class Assignment_bt_par_test_cast_param_node2 : public Assignment
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Assignment_bt_par_test_cast_param_node2, Assignment);
+		Assignment_bt_par_test_cast_param_node2()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			EBTStatus result = BT_SUCCESS;
+			BEHAVIAC_ASSERT(behaviac::MakeVariableId("C_Agent") == 2630010392u);
+			ParTestAgent*& opr = (ParTestAgent*&)pAgent->GetVariable<ParTestAgent* >(2630010392u);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_AGENT_0, behaviac::Agent* >() = (behaviac::Agent*)opr;
+			return result;
+		}
+	};
+
+	class bt_par_test_cast_param
+	{
+	public:
+		static bool Create(BehaviorTree* pBT)
+		{
+			pBT->SetClassNameString("BehaviorTree");
+			pBT->SetId((uint16_t)-1);
+			pBT->SetName("par_test/cast_param");
+			pBT->SetIsFSM(false);
+#if !BEHAVIAC_RELEASE
+			pBT->SetAgentType("EmployeeParTestAgent");
+#endif
+			// children
+			{
+				Sequence* node22 = BEHAVIAC_NEW Sequence;
+				node22->SetClassNameString("Sequence");
+				node22->SetId(22);
+#if !BEHAVIAC_RELEASE
+				node22->SetAgentType("EmployeeParTestAgent");
+#endif
+				pBT->AddChild(node22);
+				{
+					Assignment_bt_par_test_cast_param_node1* node1 = BEHAVIAC_NEW Assignment_bt_par_test_cast_param_node1;
+					node1->SetClassNameString("Assignment");
+					node1->SetId(1);
+#if !BEHAVIAC_RELEASE
+					node1->SetAgentType("EmployeeParTestAgent");
+#endif
+					node22->AddChild(node1);
+					node22->SetHasEvents(node22->HasEvents() | node1->HasEvents());
+				}
+				{
+					Assignment_bt_par_test_cast_param_node0* node0 = BEHAVIAC_NEW Assignment_bt_par_test_cast_param_node0;
+					node0->SetClassNameString("Assignment");
+					node0->SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0->SetAgentType("EmployeeParTestAgent");
+#endif
+					node22->AddChild(node0);
+					node22->SetHasEvents(node22->HasEvents() | node0->HasEvents());
+				}
+				{
+					Assignment_bt_par_test_cast_param_node2* node2 = BEHAVIAC_NEW Assignment_bt_par_test_cast_param_node2;
+					node2->SetClassNameString("Assignment");
+					node2->SetId(2);
+#if !BEHAVIAC_RELEASE
+					node2->SetAgentType("EmployeeParTestAgent");
+#endif
+					node22->AddChild(node2);
+					node22->SetHasEvents(node22->HasEvents() | node2->HasEvents());
+				}
+				pBT->SetHasEvents(pBT->HasEvents() | node22->HasEvents());
+			}
+			return true;
+		}
+	};
+
 	// Source file: par_test/const_param
 
 	class Assignment_bt_par_test_const_param_node0 : public Assignment
@@ -27550,7 +27667,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			string opr = (char*)("test string");
+			behaviac::string opr = (char*)("test string");
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_StaticString") == 2438934774u);
 			pAgent->SetVariable("c_StaticString", opr, 2438934774u);
 			return result;
@@ -28000,7 +28117,7 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			string opr = (char*)("test string");
+			behaviac::string opr = (char*)("test string");
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("c_StaticString") == 2438934774u);
 			pAgent->SetVariable("c_StaticString", opr, 2438934774u);
 			return result;
@@ -28313,8 +28430,8 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_0") == 351984746u);
-			string& opr_p0 = (string&)pAgent->GetVariable<string >(351984746u);
-			string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, string, string& >(opr_p0);
+			behaviac::string& opr_p0 = (behaviac::string&)pAgent->GetVariable<behaviac::string >(351984746u);
+			behaviac::string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, behaviac::string, behaviac::string& >(opr_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_0") == 351984746u);
 			pAgent->SetVariable("par2_string_0", opr, 351984746u);
 			return result;
@@ -28335,8 +28452,8 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_list_0") == 1339885043u);
-			behaviac::vector<string>& opr_p0 = (behaviac::vector<string>&)pAgent->GetVariable<behaviac::vector<string> >(1339885043u);
-			behaviac::vector<string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR, behaviac::vector<string>, behaviac::vector<string> >(opr_p0);
+			behaviac::vector<behaviac::string>& opr_p0 = (behaviac::vector<behaviac::string>&)pAgent->GetVariable<behaviac::vector<behaviac::string> >(1339885043u);
+			behaviac::vector<behaviac::string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR, behaviac::vector<behaviac::string>, behaviac::vector<behaviac::string> >(opr_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_list_0") == 1339885043u);
 			pAgent->SetVariable("par2_string_list_0", opr, 1339885043u);
 			return result;
@@ -28445,8 +28562,8 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_SzString_0") == 2318984205u);
-			string& opr_p0 = (string&)pAgent->GetVariable<string >(2318984205u);
-			string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, string, string& >(opr_p0);
+			behaviac::string& opr_p0 = (behaviac::string&)pAgent->GetVariable<behaviac::string >(2318984205u);
+			behaviac::string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, behaviac::string, behaviac::string& >(opr_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_SzString_0") == 2318984205u);
 			pAgent->SetVariable("par2_SzString_0", opr, 2318984205u);
 			return result;
@@ -29394,8 +29511,8 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_0") == 351984746u);
-			string& method_p0 = (string&)pAgent->GetVariable<string >(351984746u);
-			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, string& >(method_p0);
+			behaviac::string& method_p0 = (behaviac::string&)pAgent->GetVariable<behaviac::string >(351984746u);
+			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, behaviac::string& >(method_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_0") == 351984746u);
 			pAgent->SetVariable("par2_string_0", method_p0, 351984746u);
 			return BT_SUCCESS;
@@ -29415,8 +29532,8 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_list_0") == 1339885043u);
-			behaviac::vector<string>& method_p0 = (behaviac::vector<string>&)pAgent->GetVariable<behaviac::vector<string> >(1339885043u);
-			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef, void, behaviac::vector<string>& >(method_p0);
+			behaviac::vector<behaviac::string>& method_p0 = (behaviac::vector<behaviac::string>&)pAgent->GetVariable<behaviac::vector<behaviac::string> >(1339885043u);
+			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef, void, behaviac::vector<behaviac::string>& >(method_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_list_0") == 1339885043u);
 			pAgent->SetVariable("par2_string_list_0", method_p0, 1339885043u);
 			return BT_SUCCESS;
@@ -30460,9 +30577,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_0") == 351984746u);
-			string& opr_p0 = (string&)pAgent->GetVariable<string >(351984746u);
-			string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, string, string& >(opr_p0);
-			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, string >() = opr;
+			behaviac::string& opr_p0 = (behaviac::string&)pAgent->GetVariable<behaviac::string >(351984746u);
+			behaviac::string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, behaviac::string, behaviac::string& >(opr_p0);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, behaviac::string >() = opr;
 			return result;
 		}
 	};
@@ -30481,9 +30598,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("par2_string_list_0") == 1339885043u);
-			behaviac::vector<string>& opr_p0 = (behaviac::vector<string>&)pAgent->GetVariable<behaviac::vector<string> >(1339885043u);
-			behaviac::vector<string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR, behaviac::vector<string>, behaviac::vector<string> >(opr_p0);
-			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<string> >() = opr;
+			behaviac::vector<behaviac::string>& opr_p0 = (behaviac::vector<behaviac::string>&)pAgent->GetVariable<behaviac::vector<behaviac::string> >(1339885043u);
+			behaviac::vector<behaviac::string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR, behaviac::vector<behaviac::string>, behaviac::vector<behaviac::string> >(opr_p0);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<behaviac::string> >() = opr;
 			return result;
 		}
 	};
@@ -31404,9 +31521,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			string opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, string >();
-			string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, string, string& >(opr_p0);
-			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, string >() = opr;
+			behaviac::string opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, behaviac::string >();
+			behaviac::string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, behaviac::string, behaviac::string& >(opr_p0);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, behaviac::string >() = opr;
 			return result;
 		}
 	};
@@ -31424,9 +31541,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			behaviac::vector<string> opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<string> >();
-			behaviac::vector<string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR, behaviac::vector<string>, behaviac::vector<string> >(opr_p0);
-			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<string> >() = opr;
+			behaviac::vector<behaviac::string> opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<behaviac::string> >();
+			behaviac::vector<behaviac::string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR, behaviac::vector<behaviac::string>, behaviac::vector<behaviac::string> >(opr_p0);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<behaviac::string> >() = opr;
 			return result;
 		}
 	};
@@ -32302,8 +32419,8 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			string method_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, string >();
-			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, string& >(method_p0);
+			behaviac::string method_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, behaviac::string >();
+			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, behaviac::string& >(method_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("TV_STR_0") == 3765213955u);
 			pAgent->SetVariable("TV_STR_0", method_p0, 3765213955u);
 			return BT_SUCCESS;
@@ -32324,8 +32441,8 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			Agent* pAgent_method_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_method_p0);
-			string method_p0 = ((ParTestRegNameAgent*)pAgent_method_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, string >();
-			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, string& >(method_p0);
+			behaviac::string method_p0 = ((ParTestRegNameAgent*)pAgent_method_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, behaviac::string >();
+			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, behaviac::string& >(method_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("TV_STR_0") == 3765213955u);
 			pAgent_method_p0->SetVariable("TV_STR_0", method_p0, 3765213955u);
 			return BT_SUCCESS;
@@ -32344,8 +32461,8 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			behaviac::vector<string> method_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<string> >();
-			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef, void, behaviac::vector<string>& >(method_p0);
+			behaviac::vector<behaviac::string> method_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<behaviac::string> >();
+			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef, void, behaviac::vector<behaviac::string>& >(method_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("TV_LIST_STR_0") == 3861554756u);
 			pAgent->SetVariable("TV_LIST_STR_0", method_p0, 3861554756u);
 			return BT_SUCCESS;
@@ -33545,13 +33662,13 @@ namespace behaviac
 			EBTStatus result = BT_SUCCESS;
 			Agent* pAgent_opr_p0 = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr_p0);
-			string opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, string >();
+			behaviac::string opr_p0 = ((ParTestRegNameAgent*)pAgent_opr_p0)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, behaviac::string >();
 			Agent* pAgent_opr = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opr);
-			string opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_StringIR, string, string >(opr_p0);
+			behaviac::string opr = ((ParTestRegNameAgent*)pAgent_opr)->_Execute_Method_<METHOD_TYPE_ParTestRegNameAgent_Func_StringIR, behaviac::string, behaviac::string >(opr_p0);
 			Agent* pAgent_opl = Agent::GetInstance(pAgent, "ParTestRegNameAgent");
 			BEHAVIAC_ASSERT(pAgent_opl);
-			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, string >() = opr;
+			((ParTestRegNameAgent*)pAgent_opl)->_Get_Property_<PROPERTY_TYPE_ParTestRegNameAgent_TV_STR_0, behaviac::string >() = opr;
 			return result;
 		}
 	};
@@ -33859,9 +33976,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			string opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, string >();
-			string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringSMF, string, string& >(opr_p0);
-			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, string >() = opr;
+			behaviac::string opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, behaviac::string >();
+			behaviac::string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringSMF, behaviac::string, behaviac::string& >(opr_p0);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_STR_0, behaviac::string >() = opr;
 			return result;
 		}
 	};
@@ -33879,9 +33996,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			behaviac::vector<string> opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<string> >();
-			behaviac::vector<string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListSMF, behaviac::vector<string>, behaviac::vector<string> >(opr_p0);
-			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<string> >() = opr;
+			behaviac::vector<behaviac::string> opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<behaviac::string> >();
+			behaviac::vector<behaviac::string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListSMF, behaviac::vector<behaviac::string>, behaviac::vector<behaviac::string> >(opr_p0);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_TV_LIST_STR_0, behaviac::vector<behaviac::string> >() = opr;
 			return result;
 		}
 	};
@@ -34358,9 +34475,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			string opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0, string >();
-			string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, string, string& >(opr_p0);
-			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0, string >() = opr;
+			behaviac::string opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0, behaviac::string >();
+			behaviac::string opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringIR, behaviac::string, behaviac::string& >(opr_p0);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0, behaviac::string >() = opr;
 			return result;
 		}
 	};
@@ -34418,9 +34535,9 @@ namespace behaviac
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
 			EBTStatus result = BT_SUCCESS;
-			behaviac::vector<string> opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0, behaviac::vector<string> >();
-			behaviac::vector<string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR, behaviac::vector<string>, behaviac::vector<string> >(opr_p0);
-			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0, behaviac::vector<string> >() = opr;
+			behaviac::vector<behaviac::string> opr_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0, behaviac::vector<behaviac::string> >();
+			behaviac::vector<behaviac::string> opr = ((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListIR, behaviac::vector<behaviac::string>, behaviac::vector<behaviac::string> >(opr_p0);
+			((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0, behaviac::vector<behaviac::string> >() = opr;
 			return result;
 		}
 	};
@@ -34926,8 +35043,8 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			string method_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0, string >();
-			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, string& >(method_p0);
+			behaviac::string method_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_STR_0, behaviac::string >();
+			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringRef, void, behaviac::string& >(method_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("STV_STR_0") == 3234589190u);
 			pAgent->SetVariable("STV_STR_0", method_p0, 3234589190u);
 			return BT_SUCCESS;
@@ -34986,8 +35103,8 @@ namespace behaviac
 		{
 			BEHAVIAC_UNUSED_VAR(pAgent);
 			BEHAVIAC_UNUSED_VAR(childStatus);
-			behaviac::vector<string> method_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0, behaviac::vector<string> >();
-			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef, void, behaviac::vector<string>& >(method_p0);
+			behaviac::vector<behaviac::string> method_p0 = ((EmployeeParTestAgent*)pAgent)->_Get_Property_<PROPERTY_TYPE_EmployeeParTestAgent_STV_LIST_STR_0, behaviac::vector<behaviac::string> >();
+			((EmployeeParTestAgent*)pAgent)->_Execute_Method_<METHOD_TYPE_EmployeeParTestAgent_Func_StringListRef, void, behaviac::vector<behaviac::string>& >(method_p0);
 			BEHAVIAC_ASSERT(behaviac::MakeVariableId("STV_LIST_STR_0") == 3870229397u);
 			pAgent->SetVariable("STV_LIST_STR_0", method_p0, 3870229397u);
 			return BT_SUCCESS;
@@ -35900,6 +36017,7 @@ namespace behaviac
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/wait_ut_0", bt_node_test_wait_ut_0::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/wait_ut_1", bt_node_test_wait_ut_1::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("node_test/wait_ut_2", bt_node_test_wait_ut_2::Create);
+			Workspace::GetInstance()->RegisterBehaviorTreeCreator("par_test/cast_param", bt_par_test_cast_param::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("par_test/const_param", bt_par_test_const_param::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("par_test/custom_property_as_left_value_and_param", bt_par_test_custom_property_as_left_value_and_param::Create);
 			Workspace::GetInstance()->RegisterBehaviorTreeCreator("par_test/custom_property_reset", bt_par_test_custom_property_reset::Create);

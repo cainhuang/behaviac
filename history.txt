@@ -1,3 +1,7 @@
+2016-08-16  3.5.10
+    assignment supports cast
+    fix bug when creating an Agent custom variable
+
 2016-08-08  3.5.9
     fix a bug in c# about member field logging
     log the current variables, otherwise, its value is not the latest

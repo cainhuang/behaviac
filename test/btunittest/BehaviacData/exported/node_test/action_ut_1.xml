@@ -21,6 +21,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="1">
+      <property CastRight="false" />
       <property Opl="float Self.AgentNodeTest::par_float_type_1" />
       <property Opr="float Self.AgentNodeTest::testVar_2" />
     </node>
@@ -35,6 +36,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="7">
+      <property CastRight="false" />
       <property Opl="UnityEngine::GameObject Self.AgentNodeTest::par_go" />
       <property Opr="Self.AgentNodeTest::createGameObject()" />
     </node>
@@ -43,6 +45,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="8">
+      <property CastRight="false" />
       <property Opl="TestNS::Node Self.AgentNodeTest::local_node" />
       <property Opr="Self.AgentNodeTest::createExtendedNode()" />
     </node>
@@ -55,10 +58,12 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="11">
+      <property CastRight="false" />
       <property Opl="TestNS::Float2 Self.AgentNodeTest::c_ReturnFloat2" />
       <property Opr="Self.AgentNodeTest::getExtendedStruct()" />
     </node>
     <node class="Assignment" id="12">
+      <property CastRight="false" />
       <property Opl="TestNS::Float2 Self.AgentNodeTest::c_ReturnFloat2Const" />
       <property Opr="Self.AgentNodeTest::getConstExtendedStruct()" />
     </node>

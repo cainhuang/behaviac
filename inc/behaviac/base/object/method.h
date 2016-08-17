@@ -1289,12 +1289,20 @@ namespace behaviac
 		be careful to use this function only when you know the return type
 		*/
 		template <typename R>
-		R GetReturnValue(const CTagObject* parent)
+		R GetReturnValue(const CTagObject* parent, bool bCast = false)
 		{
 			BEHAVIAC_UNUSED_VAR(parent);
 			BEHAVIAC_ASSERT(this->m_return);
 
-			R returnValue = ((AsyncValue<R>*)this->m_return)->get();
+			R returnValue;
+			if (bCast) {
+				int returnValueTypeId = GetClassTypeNumberId<R>();
+				this->m_return->get_as(returnValueTypeId, &returnValue);
+			}
+			else {
+				returnValue = ((AsyncValue<R>*)this->m_return)->get();
+			}
+
 			return returnValue;
 		}
 

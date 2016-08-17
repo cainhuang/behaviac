@@ -68,6 +68,12 @@ namespace behaviac
             return p;
         }
 
+		virtual void GetValueAs(int typeId, Agent* pAgent, void* pValueAddr) const {
+			const VariableType& value = this->GetValue(pAgent);
+
+			CastValuePtr<VariableType, behaviac::Meta::IsPtr<VariableType>::Result>::get_as(typeId, pValueAddr, value);
+		}
+
         virtual int GetTypeId() const
         {
             return GetClassTypeNumberId<VariableType>();
@@ -80,7 +86,7 @@ namespace behaviac
             this->SetValue(pAgentTo, retV);
         }
 
-        virtual void SetFrom(Agent* pAgentFrom, const Property* from, Agent* pAgentTo);
+		virtual void SetFrom(Agent* pAgentFrom, const Property* from, Agent* pAgentTo, bool bCast);
 
         virtual void SetFrom(Agent* pAgentfrom, const behaviac::CMemberBase* from, Agent* pAgentTo)
         {
@@ -91,11 +97,11 @@ namespace behaviac
             this->SetValue(pAgentTo, *pV);
         }
 
-        virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo)
+		virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo, bool bCast)
         {
             ((behaviac::CMethodBase*)from)->Invoke(pAgentFrom);
 
-			VariableType retV = ((behaviac::CMethodBase*)from)->GetReturnValue<VariableType>(pAgentFrom);
+			VariableType retV = ((behaviac::CMethodBase*)from)->GetReturnValue<VariableType>(pAgentFrom, bCast);
             
             this->SetValue(pAgentTo, retV);
         }
@@ -156,7 +162,7 @@ namespace behaviac
 
 		virtual double GetDoubleValue(Agent* pAgent) const
 		{
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
             typedef VALUE_TYPE(VariableType) TTYPE;
 			BEHAVIAC_ASSERT(GetClassTypeNumberId<double>() == GetClassTypeNumberId<TTYPE>() ||
 				GetClassTypeNumberId<float>() == GetClassTypeNumberId<TTYPE>());
@@ -416,6 +422,7 @@ namespace behaviac
             return p;
         }
 
+
         virtual void SetVectorElementTo(Agent* pAgentFrom, int index, const Property* to, Agent* pAgentTo);
 
         virtual void* GetVectorElementFrom(Agent* pAgentFrom, int index)
@@ -566,6 +573,10 @@ namespace behaviac
             return p;
         }
 
+		virtual void GetValueAs(int typeId, Agent* pAgent, void* pValueAddr) const {
+			BEHAVIAC_ASSERT(false);
+		}
+
         virtual const char* GetString(const behaviac::Agent* parent, const behaviac::Agent* parHolder) const
         {
             const behaviac::string& v = this->GetValue(parent, parHolder);
@@ -628,13 +639,21 @@ namespace behaviac
     };
 
     template<typename VariableType, bool bVector>
-    void TTProperty<VariableType, bVector>::SetFrom(Agent* pAgentFrom, const Property* from, Agent* pAgentTo)
+	void TTProperty<VariableType, bVector>::SetFrom(Agent* pAgentFrom, const Property* from, Agent* pAgentTo, bool bCast)
     {
-        TProperty<VariableType>* fromT = (TProperty<VariableType>*)from;
+		if (bCast) {
+			int typeId = GetClassTypeNumberId<VariableType>();
+			VariableType retV;
+			from->GetValueAs(typeId, pAgentFrom, &retV);
+			this->SetValue(pAgentTo, retV);
+		}
+		else {
+			TProperty<VariableType>* fromT = (TProperty<VariableType>*)from;
 
-        const VariableType& retV = fromT->GetValue(pAgentFrom);
+			const VariableType& retV = fromT->GetValue(pAgentFrom);
 
-        this->SetValue(pAgentTo, retV);
+			this->SetValue(pAgentTo, retV);
+		}
     }
 
     template<typename VariableType, bool bVector>

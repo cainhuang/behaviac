@@ -1005,7 +1005,7 @@ namespace behaviac
 		return UserDefinedTypeAssert<T, behaviac::Meta::IsPtr<T>::Result && behaviac::Meta::IsRefType<T>::Result>::IsAKindOf(child, baseClass);
 	}
 
-#if BEHAVIAC_ENABLE_ASSERTS
+#if BEHAVIAC_DEBUG_DEFINED
 	template<typename T>
 	static bool CheckCompatibleType(const behaviac::string& typeName) {
 		behaviac::string t = GetTypeDescString<T>();

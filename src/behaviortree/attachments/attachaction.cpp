@@ -188,7 +188,7 @@ namespace behaviac
         // assign
         else if (this->m_operator == E_ASSIGN)
         {
-            bValid = Assignment::EvaluteAssignment(pAgent, this->m_opl, this->m_opr2, this->m_opr2_m);
+            bValid = Assignment::EvaluteAssignment(false, pAgent, this->m_opl, this->m_opr2, this->m_opr2_m);
         }
         // compute
         else if (this->m_operator >= E_ADD && this->m_operator <= E_DIV)

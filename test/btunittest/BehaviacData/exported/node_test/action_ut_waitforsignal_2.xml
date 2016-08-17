@@ -27,6 +27,7 @@
       </custom>
     </node>
     <node class="Assignment" id="4">
+      <property CastRight="false" />
       <property Opl="float Self.AgentNodeTest::testVar_2" />
       <property Opr="const float 2.3" />
     </node>

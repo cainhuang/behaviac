@@ -24,7 +24,12 @@ namespace behaviac
             for (int i = 0; i < properties.Count; ++i)
             {
                 property_t p = properties[i];
-                if (p.name == "Opl")
+
+                if (p.name == "CastRight")
+                {
+                    this.m_bCast = (p.value == "true");
+                }
+                else if (p.name == "Opl")
                 {
                     this.m_opl = AgentMeta.ParseProperty(p.value);
                 }
@@ -61,6 +66,7 @@ namespace behaviac
 
         protected IInstanceMember m_opl;
         protected IInstanceMember m_opr;
+        protected bool m_bCast = false;
 
         private class AssignmentTask : LeafTask
         {
@@ -99,7 +105,14 @@ namespace behaviac
 
                 if (pAssignmentNode.m_opl != null)
                 {
-                    pAssignmentNode.m_opl.SetValue(pAgent, pAssignmentNode.m_opr);
+                    if (pAssignmentNode.m_bCast)
+                    {
+                        pAssignmentNode.m_opl.SetValueAs(pAgent, pAssignmentNode.m_opr);
+                    }
+                    else
+                    {
+                        pAssignmentNode.m_opl.SetValue(pAgent, pAssignmentNode.m_opr);
+                    }
                 }
                 else
                 {

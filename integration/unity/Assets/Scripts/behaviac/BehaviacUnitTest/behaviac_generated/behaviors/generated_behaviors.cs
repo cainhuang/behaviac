@@ -23342,6 +23342,112 @@ namespace behaviac
 		}
 	}
 
+	// Source file: par_test/cast_param
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_par_test_cast_param_node1 : behaviac.Assignment
+	{
+		public Assignment_bt_par_test_cast_param_node1()
+		{
+			opr_p0 = 0f;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			float opr = (float)((EmployeeParTestAgent)pAgent).Func_SingleIR(opr_p0);
+			((ParTestAgentBase)pAgent).TV_BYTE_0 = (byte)opr;
+			return result;
+		}
+		float opr_p0;
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_par_test_cast_param_node0 : behaviac.Assignment
+	{
+		public Assignment_bt_par_test_cast_param_node0()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			uint opr = ((EmployeeParTestAgent)pAgent).TV_UINT_0;
+			((ParTestAgent)pAgent).TV_SHORT_0 = (short)opr;
+			return result;
+		}
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Assignment_bt_par_test_cast_param_node2 : behaviac.Assignment
+	{
+		public Assignment_bt_par_test_cast_param_node2()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			EBTStatus result = EBTStatus.BT_SUCCESS;
+			Debug.Check(behaviac.Utils.MakeVariableId("C_Agent") == 2630010392u);
+			ParTestAgent opr = pAgent.GetVariable<ParTestAgent>(2630010392u);
+			((EmployeeParTestAgent)pAgent).TV_AGENT_0 = (behaviac.Agent)opr;
+			return result;
+		}
+	}
+
+	public static class bt_par_test_cast_param
+	{
+		public static bool build_behavior_tree(BehaviorTree bt)
+		{
+			bt.SetClassNameString("BehaviorTree");
+			bt.SetId(-1);
+			bt.SetName("par_test/cast_param");
+			bt.IsFSM = false;
+#if !BEHAVIAC_RELEASE
+			bt.SetAgentType("EmployeeParTestAgent");
+#endif
+			// children
+			{
+				Sequence node22 = new Sequence();
+				node22.SetClassNameString("Sequence");
+				node22.SetId(22);
+#if !BEHAVIAC_RELEASE
+				node22.SetAgentType("EmployeeParTestAgent");
+#endif
+				bt.AddChild(node22);
+				{
+					Assignment_bt_par_test_cast_param_node1 node1 = new Assignment_bt_par_test_cast_param_node1();
+					node1.SetClassNameString("Assignment");
+					node1.SetId(1);
+#if !BEHAVIAC_RELEASE
+					node1.SetAgentType("EmployeeParTestAgent");
+#endif
+					node22.AddChild(node1);
+					node22.SetHasEvents(node22.HasEvents() | node1.HasEvents());
+				}
+				{
+					Assignment_bt_par_test_cast_param_node0 node0 = new Assignment_bt_par_test_cast_param_node0();
+					node0.SetClassNameString("Assignment");
+					node0.SetId(0);
+#if !BEHAVIAC_RELEASE
+					node0.SetAgentType("EmployeeParTestAgent");
+#endif
+					node22.AddChild(node0);
+					node22.SetHasEvents(node22.HasEvents() | node0.HasEvents());
+				}
+				{
+					Assignment_bt_par_test_cast_param_node2 node2 = new Assignment_bt_par_test_cast_param_node2();
+					node2.SetClassNameString("Assignment");
+					node2.SetId(2);
+#if !BEHAVIAC_RELEASE
+					node2.SetAgentType("EmployeeParTestAgent");
+#endif
+					node22.AddChild(node2);
+					node22.SetHasEvents(node22.HasEvents() | node2.HasEvents());
+				}
+				bt.SetHasEvents(bt.HasEvents() | node22.HasEvents());
+			}
+			return true;
+		}
+	}
+
 	// Source file: par_test/const_param
 
 	[behaviac.GeneratedTypeMetaInfo()]

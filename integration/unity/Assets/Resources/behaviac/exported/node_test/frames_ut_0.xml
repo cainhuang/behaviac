@@ -12,6 +12,7 @@
           <property ResultOption="BT_SUCCESS" />
         </node>
         <node class="Assignment" id="21">
+          <property CastRight="false" />
           <property Opl="int Self.AgentNodeTest::testVar_0" />
           <property Opr="const int 0" />
         </node>
@@ -27,12 +28,14 @@
           </attachment>
         </node>
         <node class="Assignment" id="0">
+          <property CastRight="false" />
           <property Opl="int Self.AgentNodeTest::testVar_0" />
           <property Opr="const int 2" />
         </node>
       </node>
     </node>
     <node class="Assignment" id="2">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::testVar_0" />
       <property Opr="const int 3" />
     </node>

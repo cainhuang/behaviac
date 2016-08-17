@@ -1749,16 +1749,31 @@ namespace Behaviac.Design
         {
             Debug.Check(typeToFilter != null);
 
-            if (filterType == null || (filterType.Name == "System_Object" && !Plugin.IsArrayType(typeToFilter)))
-                return true;
-
-            if (filterType == null && valueType != ValueTypes.All)
+            if (filterType != null && (filterType.Name == "System_Object" && !Plugin.IsArrayType(typeToFilter)))
             {
-                if ((valueType & ValueTypes.Int) == ValueTypes.Int && Plugin.IsIntergerType(typeToFilter) ||
-                    (valueType & ValueTypes.Float) == ValueTypes.Float && Plugin.IsFloatType(typeToFilter) ||
-                    (valueType & ValueTypes.Bool) == ValueTypes.Float && Plugin.IsBooleanType(typeToFilter) ||
-                    (valueType & ValueTypes.String) == ValueTypes.Float && Plugin.IsStringType(typeToFilter))
+                return true;
+            }
+
+            if (valueType == ValueTypes.All)
+            {
+                return true;
+            }
+
+            if ((valueType & ValueTypes.Int) == ValueTypes.Int && Plugin.IsIntergerType(typeToFilter) ||
+                (valueType & ValueTypes.Float) == ValueTypes.Float && Plugin.IsFloatType(typeToFilter) ||
+                (valueType & ValueTypes.Bool) == ValueTypes.Float && Plugin.IsBooleanType(typeToFilter) ||
+                (valueType & ValueTypes.String) == ValueTypes.Float && Plugin.IsStringType(typeToFilter)
+                )
+            {
+                return true;
+            }
+
+            if ((valueType & ValueTypes.RefType) == ValueTypes.RefType && Plugin.IsRefType(typeToFilter))
+            {
+                if (filterType == null || Plugin.IsDerived(typeToFilter, filterType))
+                {
                     return true;
+                }
             }
 
             bool bCompatible = false;
@@ -1777,9 +1792,13 @@ namespace Behaviac.Design
             {
                 bCompatible = true;
             }
-            else
+            else if (filterType != null)
             {
                 bCompatible = Plugin.IsAgentDerived(typeToFilter.Name, filterType.Name);
+            }
+            else
+            {
+                bCompatible = (valueType == ValueTypes.All);
             }
 
             return bCompatible;
@@ -2238,7 +2257,6 @@ namespace Behaviac.Design
 
             } else {
                 if (type == typeof(Agent) || type.IsSubclassOf(typeof(Agent)))
-                //if (!type.IsValueType)
                 {
                     return Activator.CreateInstance(type);
                     //return null;
@@ -2247,8 +2265,10 @@ namespace Behaviac.Design
                 if (Plugin.IsArrayType(type) || type == typeof(System.Collections.IList))
                     return null;
 
-                if (type == typeof(object))
+                if (type == typeof(object) || Plugin.IsDerived(type, typeof(Agent)) || type.Name == "AgentType")
+                {
                     return null;
+                }
 
                 string message = string.Format("DefaultValue for {0} is not registered!", type.Name);
                 throw new Exception(message);

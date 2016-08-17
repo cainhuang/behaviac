@@ -60,6 +60,8 @@ namespace Behaviac.Design
 
         Array = 16,
 
+        RefType = 32, 
+
         //all types
         All = Bool | Int | Float | String
     }

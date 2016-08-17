@@ -8,6 +8,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="21">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::testVar_1" />
       <property Opr="const int 0" />
     </node>

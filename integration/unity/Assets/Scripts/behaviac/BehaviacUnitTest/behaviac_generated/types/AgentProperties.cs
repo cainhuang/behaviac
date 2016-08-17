@@ -2101,6 +2101,8 @@ namespace behaviac
 			meta.RegisterMemberProperty(2204970056, new CMemberArrayItemProperty<sbyte>("TV_LIST_SBYTE_0[]", delegate(Agent self, sbyte value, int index) { ((ParTestAgent)self).TV_LIST_SBYTE_0[index] = value; }, delegate(Agent self, int index) { return ((ParTestAgent)self).TV_LIST_SBYTE_0[index]; }));
 			meta.RegisterMemberProperty(3466167234, new CMemberProperty<List<sbyte>>("TV_LIST_SBYTE_0", delegate(Agent self, List<sbyte> value) { ((ParTestAgent)self).TV_LIST_SBYTE_0 = value; }, delegate(Agent self) { return ((ParTestAgent)self).TV_LIST_SBYTE_0; }));
 			meta.RegisterMemberProperty(1600661043, new CMemberProperty<sbyte>("TV_SBYTE_0", delegate(Agent self, sbyte value) { ((ParTestAgent)self).TV_SBYTE_0 = value; }, delegate(Agent self) { return ((ParTestAgent)self).TV_SBYTE_0; }));
+			meta.RegisterCustomizedProperty(1780706519, new CCustomizedProperty<UnityEngine.GameObject>(1780706519, "C_GameObject", "null"));
+			meta.RegisterCustomizedProperty(2630010392, new CCustomizedProperty<ParTestAgent>(2630010392, "C_Agent", "null"));
 			meta.RegisterMethod(1487303319, new CAgentMethod<int, int>(delegate(Agent self, int param0) { return ((ParTestAgent)self).Func_IntIR(param0); }));
 			meta.RegisterMethod(3597364904, new CAgentMethod<List<int>, List<int>>(delegate(Agent self, List<int> param0) { return ((ParTestAgent)self).Func_IntListIR(param0); }));
 			meta.RegisterMethod(1409230127, new CAgentMethod<TNS.ST.PER.WRK.kEmployee, TNS.ST.PER.WRK.kEmployee>(delegate(Agent self, TNS.ST.PER.WRK.kEmployee param0) { return ((ParTestAgent)self).Func_kEmployeeIR(param0); }));
@@ -2152,6 +2154,8 @@ namespace behaviac
 			// EmployeeParTestAgent
 			meta = new AgentMeta();
 			_agentMetas[1673745146] = meta;
+			meta.RegisterCustomizedProperty(1780706519, new CCustomizedProperty<UnityEngine.GameObject>(1780706519, "C_GameObject", "null"));
+			meta.RegisterCustomizedProperty(2630010392, new CCustomizedProperty<ParTestAgent>(2630010392, "C_Agent", "null"));
 			meta.RegisterMemberProperty(2845805842, new CStaticMemberProperty<behaviac.Agent>("STV_AGENT_0", delegate(behaviac.Agent value) { EmployeeParTestAgent.STV_AGENT_0 = value; }, delegate() { return EmployeeParTestAgent.STV_AGENT_0; }));
 			meta.RegisterMemberProperty(1858562011, new CStaticMemberProperty<float>("STV_F_0", delegate(float value) { EmployeeParTestAgent.STV_F_0 = value; }, delegate() { return EmployeeParTestAgent.STV_F_0; }));
 			meta.RegisterMemberProperty(2215715602, new CStaticMemberArrayItemProperty<float>("STV_LIST_F_0[]", delegate(float value, int index) { EmployeeParTestAgent.STV_LIST_F_0[index] = value; }, delegate(int index) { return EmployeeParTestAgent.STV_LIST_F_0[index]; }));

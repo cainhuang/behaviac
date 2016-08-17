@@ -16,12 +16,12 @@
 
 namespace behaviac
 {
-#if	BEHAVIAC_ENABLE_ASSERTS
+#if	BEHAVIAC_DEBUG_DEFINED
     static bool gs_bAssertEnabled = true;
 
     bool IsAssertEnabled()
     {
         return gs_bAssertEnabled;
     }
-#endif//#if	BEHAVIAC_ENABLE_ASSERTS
+#endif//#if	BEHAVIAC_DEBUG_DEFINED
 }//namespace behaviac

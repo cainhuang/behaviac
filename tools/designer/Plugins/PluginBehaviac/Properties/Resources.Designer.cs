@@ -252,6 +252,24 @@ namespace PluginBehaviac.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cast.
+        /// </summary>
+        internal static string CastRight {
+            get {
+                return ResourceManager.GetString("CastRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the right operand is cast to the left type.
+        /// </summary>
+        internal static string CastRightDesc {
+            get {
+                return ResourceManager.GetString("CastRightDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ChildFinishPolicy.
         /// </summary>
         internal static string ChildFinishPolicy {

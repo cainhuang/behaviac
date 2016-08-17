@@ -4,6 +4,7 @@
 <behavior name="node_test/fsm/bt_ref_fsm" agenttype="FSMAgentTest" version="5">
   <node class="Sequence" id="0">
     <node class="Assignment" id="2">
+      <property CastRight="false" />
       <property Opl="int Self.FSMAgentTest::FoodCount" />
       <property Opr="const int -1" />
     </node>

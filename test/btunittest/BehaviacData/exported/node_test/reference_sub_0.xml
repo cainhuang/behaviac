@@ -11,10 +11,12 @@
     <property IsHTN="false" />
     <node class="Sequence" id="0">
       <node class="Assignment" id="1">
+        <property CastRight="false" />
         <property Opl="int Self.AgentNodeTest::testVar_0" />
         <property Opr="int Self.AgentNodeTest::_$local_task_param_$_0" />
       </node>
       <node class="Assignment" id="2">
+        <property CastRight="false" />
         <property Opl="float Self.AgentNodeTest::testVar_2" />
         <property Opr="float Self.AgentNodeTest::_$local_task_param_$_1" />
       </node>

@@ -17,6 +17,12 @@
         <property name="Money" type="System.Int32" classname="HTNAgentHouseBase" defaultvalue="0" static="false" public="true" readonly="false" disp="Money" desc="MemberProperty" />
       </properties>
     </agent>
+    <agent type="ParTestAgent" base="ParTestAgentBase" disp="ParTestAgent" desc="ParTestAgent">
+      <properties>
+        <property name="C_GameObject" type="XMLPluginBehaviac.UnityEngine_GameObject" classname="ParTestAgent" defaultvalue="null" static="false" public="true" readonly="false" disp="C_GameObject" desc="C_GameObject" />
+        <property name="C_Agent" type="XMLPluginBehaviac.ParTestAgent" classname="ParTestAgent" defaultvalue="null" static="false" public="true" readonly="false" disp="C_Agent" desc="C_Agent" />
+      </properties>
+    </agent>
     <agent type="AgentNodeTest" base="behaviac::Agent" disp="AgentNodeTest" desc="AgentNodeTest">
       <properties>
         <property name="testFloat2" type="XMLPluginBehaviac.TestNS_Float2" classname="AgentNodeTest" defaultvalue="{x=0;y=0;}" static="false" public="true" readonly="false" disp="testFloat2" desc="local_node" />

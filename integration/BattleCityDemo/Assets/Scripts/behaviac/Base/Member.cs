@@ -66,6 +66,8 @@ namespace behaviac
 
         void SetValue(Agent self, IInstanceMember right);
 
+        void SetValueAs(Agent self, IInstanceMember right);
+
         bool Compare(Agent self, IInstanceMember right, EOperatorType comparisonType);
 
         void Compute(Agent self, IInstanceMember right1, IInstanceMember right2, EOperatorType computeType);
@@ -156,6 +158,27 @@ namespace behaviac
             Debug.Check(value == null || !value.GetType().IsValueType);
 
             SetValue(self, (T)value);
+        }
+
+        public void SetValueAs(Agent self, IInstanceMember right)
+        {
+            if (typeof(T).IsValueType)
+            {
+                // this will cause boxing/unboxing
+                object v = right.GetValueObject(self);
+
+                object vv = Convert.ChangeType(v, typeof(T));
+
+                T t = (T)vv;
+
+                SetValue(self, t);
+            }
+            else
+            {
+                object v = right.GetValueObject(self);
+
+                SetValue(self, v);
+            }
         }
 
         public void SetValue(Agent self, IInstanceMember right)
@@ -2310,6 +2333,11 @@ namespace behaviac
         }
 
         public void SetValue(Agent self, object value)
+        {
+            Debug.Check(false);
+        }
+
+        public void SetValueAs(Agent self, IInstanceMember right)
         {
             Debug.Check(false);
         }

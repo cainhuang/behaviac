@@ -216,8 +216,7 @@ namespace behaviac
 	{
 		BEHAVIAC_UNUSED_VAR(src);
 		BEHAVIAC_UNUSED_VAR(dst);
-#ifdef _DEBUG
-
+#ifdef BEHAVIAC_DEBUG_DEFINED
 		if (src != dst)
 		{
 			BEHAVIAC_ASSERT(0, "Invalid parameters passed to behaviac::CTagObject::CallMethod function. Given Type : %s, Expected Type : %s", src, dst);
@@ -226,7 +225,7 @@ namespace behaviac
 		return (src == dst);
 #else
 		return true;
-#endif
+#endif//BEHAVIAC_DEBUG_DEFINED
 	}
 
 	//template<class NoParam>

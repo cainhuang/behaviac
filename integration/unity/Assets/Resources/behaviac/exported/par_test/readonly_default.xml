@@ -4,6 +4,7 @@
 <behavior name="par_test/readonly_default" agenttype="PropertyReadonlyAgent" version="5">
   <node class="Sequence" id="0">
     <node class="Assignment" id="3">
+      <property CastRight="false" />
       <property Opl="int Self.PropertyReadonlyAgent::PropertyGetterSetter" />
       <property Opr="int Self.PropertyReadonlyAgent::MemberReadonly" />
     </node>

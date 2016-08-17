@@ -110,14 +110,66 @@ namespace Behaviac.Design.Attributes
 
         protected Type _filterType = null;
         public Type FilterType {
-            get { return _filterType; }
-            set { _filterType = value; }
+            get 
+            { 
+                return _filterType; 
+            }
+            set 
+            { 
+                _filterType = value; 
+            }
         }
 
         protected ValueTypes _valueType = ValueTypes.All;
         public ValueTypes ValueType {
-            get { return _valueType; }
-            set { _valueType = value; }
+            get 
+            { 
+                return _valueType; 
+            }
+            set 
+            { 
+                _valueType = value; 
+            }
+        }
+
+        public void SetupCastSettings(object obj)
+        {
+            if (obj != null && obj is Behaviac.Design.Nodes.Node)
+            {
+                Behaviac.Design.Nodes.Node assignNode = obj as Behaviac.Design.Nodes.Node;
+
+                if (assignNode != null)
+                {
+                    bool bCasting = assignNode.IsCasting;
+
+                    if (bCasting)
+                    {
+                        DesignerPropertyInfo leftPropInfo = DesignerProperty.GetDesignerProperty(assignNode.GetType(), "Opl");
+                        VariableDef opl = (VariableDef)leftPropInfo.GetValue(assignNode);
+
+                        Type leftType = opl.ValueType;
+
+                        // if number
+                        if (Plugin.IsIntergerNumberType(leftType) || Plugin.IsFloatType(leftType))
+                        {
+                            this.ValueType = ValueTypes.Int | ValueTypes.Float;
+
+                            this.FilterType = null;
+                        }
+                        else if (Plugin.IsRefType(leftType))
+                        {
+                            //ref type/pointer type
+                            this.ValueType = ValueTypes.RefType;
+
+                            this.FilterType = leftType;
+                        }
+                        else
+                        {
+                            //
+                        }
+                    }
+                }
+            }
         }
 
         protected DesignerPropertyInfo _property;

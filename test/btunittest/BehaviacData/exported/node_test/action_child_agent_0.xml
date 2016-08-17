@@ -11,6 +11,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="2">
+      <property CastRight="false" />
       <property Opl="int par_child_agent_1.AgentNodeTest::testVar_0" />
       <property Opr="const int 666" />
     </node>

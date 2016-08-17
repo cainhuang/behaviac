@@ -93,10 +93,10 @@ namespace behaviac
 			behaviac::string strPath(path);
 			strPath = make_lower(strPath);
 			SetContentPrivate(strPath.c_str());
-#ifdef BEHAVIAC_ENABLE_ASSERTS
+#ifdef BEHAVIAC_DEBUG_DEFINED
 			CPathID pathId(path);
 			BEHAVIAC_ASSERT(GetUniqueID() == pathId.GetUniqueID());
-#endif // #ifdef BEHAVIAC_ENABLE_ASSERTS
+#endif // #ifdef BEHAVIAC_DEBUG_DEFINED
 
 		}
 		else
@@ -141,14 +141,14 @@ namespace behaviac
 		char filename[PATHID_MAX_PATH];
 		filename[0] = '\0';
 		behaviac::CFileManager::GetInstance()->FormatPath(path, filename);
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
 
 		if (strchr(filename, ':'))
 		{
 			BEHAVIAC_LOGERROR("Building a path id with a full path is prohibited.\n%s", filename);
 		}
 
-#endif // #ifdef _DEBUG
+#endif // #ifdef BEHAVIAC_DEBUG_DEFINED
 
 		if (CExtensionConfig::GetInstance())
 		{

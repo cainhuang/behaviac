@@ -22,6 +22,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="12">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::testVar_0" />
       <property Opr="int par_child.AgentNodeTest::testVar_1" />
     </node>
@@ -31,6 +32,7 @@
       <property Opr="int par_child.AgentNodeTest::testVar_1" />
     </node>
     <node class="Assignment" id="10">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::testVar_0" />
       <property Opr="par_child.AgentNodeTest::getConstOne()" />
     </node>
@@ -59,6 +61,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="3">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::par_int_type_1" />
       <property Opr="int Self.AgentNodeTest::testVar_0" />
     </node>

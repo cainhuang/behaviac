@@ -75,9 +75,10 @@ namespace behaviac
         virtual int GetTypeId() const = 0;
 
         virtual void SetFrom(Agent* pAgentfrom, behaviac::IAsyncValue* from, Agent* pAgentTo) = 0;
-        virtual void SetFrom(Agent* pAgentfrom, const Property* from, Agent* pAgentTo) = 0;
+		virtual void SetFrom(Agent* pAgentfrom, const Property* from, Agent* pAgentTo, bool bCast = false) = 0;
         virtual void SetFrom(Agent* pAgentfrom, const behaviac::CMemberBase* from, Agent* pAgentTo) = 0;
-        virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo) = 0;
+        virtual void SetFrom(Agent* pAgentFrom, const behaviac::CMethodBase* from, Agent* pAgentTo, bool bCast = false) = 0;
+		virtual void GetValueAs(int typeId, Agent* pAgent, void* pValueAddr) const = 0;
 
         virtual void SetVectorElementTo(Agent* pAgentFrom, int index, const Property* to, Agent* pAgentTo) = 0;
         virtual void* GetVectorElementFrom(Agent* pAgentFrom, int index) = 0;

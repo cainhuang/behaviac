@@ -529,23 +529,37 @@ namespace Behaviac.Design
 
                         } else {
                             if ((methodReturnType & ValueTypes.Int) == ValueTypes.Int &&
-                                Plugin.IsIntergerType(m.ReturnType)) {
+                                Plugin.IsIntergerType(m.ReturnType))
+                            {
                                 if (!methods.Contains(m))
                                 { methods.Add(m); }
-
-                            } else if ((methodReturnType & ValueTypes.Float) == ValueTypes.Float &&
-                                       Plugin.IsFloatType(m.ReturnType)) {
+                            }
+                            else if ((methodReturnType & ValueTypes.Float) == ValueTypes.Float &&
+                                     Plugin.IsFloatType(m.ReturnType))
+                            {
                                 if (!methods.Contains(m))
                                 { methods.Add(m); }
-
-                            } else if ((methodReturnType & ValueTypes.Bool) == ValueTypes.Bool &&
-                                       Plugin.IsBooleanType(m.ReturnType)) {
+                            }
+                            else if ((methodReturnType & ValueTypes.Bool) == ValueTypes.Bool &&
+                                     Plugin.IsBooleanType(m.ReturnType))
+                            {
                                 if (!methods.Contains(m))
                                 { methods.Add(m); }
-                            } else if ((methodReturnType & ValueTypes.String) == ValueTypes.String &&
-                                       Plugin.IsStringType(m.ReturnType)) {
-                                if (!methods.Contains(m)) { 
-                                    methods.Add(m); 
+                            }
+                            else if ((methodReturnType & ValueTypes.String) == ValueTypes.String &&
+                                     Plugin.IsStringType(m.ReturnType))
+                            {
+                                if (!methods.Contains(m))
+                                {
+                                    methods.Add(m);
+                                }
+                            }
+                            else if ((methodReturnType & ValueTypes.RefType) == ValueTypes.RefType &&
+                                     Plugin.IsRefType(m.ReturnType))
+                            {
+                                if (!methods.Contains(m))
+                                {
+                                    methods.Add(m);
                                 }
                             }
                         }

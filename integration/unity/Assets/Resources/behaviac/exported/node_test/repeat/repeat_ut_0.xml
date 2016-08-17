@@ -4,6 +4,7 @@
 <behavior name="node_test/repeat/repeat_ut_0" agenttype="AgentNodeTest" version="5">
   <node class="Sequence" id="2">
     <node class="Assignment" id="3">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::testVar_0" />
       <property Opr="const int 0" />
     </node>

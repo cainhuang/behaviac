@@ -39,7 +39,7 @@
 #include <android/log.h>
 
 #define  LOG_TAG    "libbehaviac"
-#define  LOGI(str)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, str)
+#define  LOGI(str)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "%s", str)
 #else
 #define  LOGI(str)  printf("%s", str)
 #endif//#if BEHAVIAC_COMPILER_ANDROID

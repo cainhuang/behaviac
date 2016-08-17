@@ -421,6 +421,7 @@ namespace Behaviac.Design.Attributes
             }
 
             this.SetFilterType(editor, filterTypeCandidate);
+            SetupCastSettings(_object);
             editor.SetParameter(_param, _object, false);
 
             editor.ValueWasAssigned();

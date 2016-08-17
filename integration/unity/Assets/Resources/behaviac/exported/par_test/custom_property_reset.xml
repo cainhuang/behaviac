@@ -12,6 +12,7 @@
       <property ResultOption="BT_SUCCESS" />
     </node>
     <node class="Assignment" id="0">
+      <property CastRight="false" />
       <property Opl="int Self.AgentNodeTest::testInt" />
       <property Opr="const int 20" />
     </node>

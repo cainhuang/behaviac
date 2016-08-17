@@ -66,6 +66,8 @@ namespace PluginBehaviac.DataExporters
 
             if (typeName.Contains("std::string"))
                 typeName = typeName.Replace("std::string", "behaviac::string");
+            else if (typeName.Contains("string") && !typeName.Contains("::string"))
+                typeName = typeName.Replace("string", "behaviac::string");
 
             return typeName;
         }

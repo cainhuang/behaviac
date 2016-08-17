@@ -394,7 +394,7 @@ namespace behaviac
 		return ret;
 	}
 
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
 	template <class T> class CTemplateClassDetector {};
 
 	template <typename T1, template <typename> class TClass>
@@ -429,7 +429,7 @@ namespace behaviac
 #endif
 }//
 
-#ifdef _DEBUG
+#ifdef BEHAVIAC_DEBUG_DEFINED
 #define BEHAVIAC_INTERNAL_DECLARE_DYNAMIC_TYPE_COMPOSER(__type) \
     public: \
     static const char* GetClassTypeName() \
@@ -442,7 +442,7 @@ namespace behaviac
         return #__type; \
     }
 
-#else  // #ifdef _DEBUG
+#else  // #ifdef BEHAVIAC_DEBUG_DEFINED
 
 #define BEHAVIAC_INTERNAL_DECLARE_DYNAMIC_TYPE_COMPOSER(__type) \
     public: \
@@ -451,7 +451,7 @@ namespace behaviac
         return #__type; \
     }
 
-#endif  // #ifdef _DEBUG
+#endif  // #ifdef BEHAVIAC_DEBUG_DEFINED
 
 	//BEHAVIAC_OVERRIDE_TYPE_NAME_ can't be placed in a namespace
 #define BEHAVIAC_OVERRIDE_TYPE_NAME_(typeFullClassNameWithNamespace, typeName)																		\

@@ -1022,6 +1022,20 @@ LOAD_TEST(btunittest, const_param)
     finlTestEnvPar(parTestAgent);
 }
 
+LOAD_TEST(btunittest, cast_param)
+{
+	EmployeeParTestAgent* parTestAgent = initTestEnvPar("par_test/cast_param", format);
+	parTestAgent->resetProperties();
+	parTestAgent->TV_UINT_0 = 10;
+	parTestAgent->btexec();
+
+	CHECK_EQUAL(72, parTestAgent->TV_BYTE_0);
+	CHECK_EQUAL(10, parTestAgent->TV_SHORT_0);
+	CHECK_EQUAL(0, parTestAgent->TV_AGENT_0);
+
+	finlTestEnvPar(parTestAgent);
+}
+
 //< static_member_function_test_0
 LOAD_TEST(btunittest, static_member_function_test_0)
 {

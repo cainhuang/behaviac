@@ -119,6 +119,14 @@ namespace Behaviac.Design.Nodes
             get { return false; }
         }
 
+        public virtual bool IsCasting
+        {
+            get 
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Add a new child but the behaviour does not need to be saved.
         /// Used for collapsed referenced behaviours which show the behaviours they reference.
