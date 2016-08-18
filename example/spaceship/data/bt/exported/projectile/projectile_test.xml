@@ -44,6 +44,7 @@
       </custom>
     </node>
     <node class="Assignment" id="9">
+      <property CastRight="false" />
       <property Opl="bool Self.framework::Projectile::par_test_a" />
       <property Opr="const bool true" />
     </node>

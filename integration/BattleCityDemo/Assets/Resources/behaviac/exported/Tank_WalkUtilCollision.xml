@@ -18,6 +18,7 @@
       </node>
       <node class="Sequence" id="9">
         <node class="Assignment" id="6">
+          <property CastRight="false" />
           <property Opl="float Self.Player::parT_RotateAngle" />
           <property Opr="GameLevel.GameLevelCommon::getAvailabeMoveDirection(Player Self.Player::parIn_Self,UNKNOWN)" />
         </node>

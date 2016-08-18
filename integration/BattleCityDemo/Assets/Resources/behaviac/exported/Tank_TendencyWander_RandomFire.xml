@@ -33,6 +33,7 @@
           <property Weight="const int 30" />
           <node class="Sequence" id="7">
             <node class="Assignment" id="17">
+              <property CastRight="false" />
               <property Opl="eMapDirection Self.Player::parT_TendencyDirection" />
               <property Opr="const eMapDirection UNKNOWN" />
             </node>
@@ -40,6 +41,7 @@
               <property DecorateWhenChildEnds="false" />
               <node class="Sequence" id="11">
                 <node class="Assignment" id="14">
+                  <property CastRight="false" />
                   <property Opl="behaviac::Agent Self.Player::parT_nearestEnemy" />
                   <property Opr="GameLevel.GameLevelCommon::getNearestEnemy(RED_FORCE)" />
                 </node>
@@ -49,16 +51,19 @@
                   <property Opr="const behaviac::Agent null" />
                 </node>
                 <node class="Assignment" id="13">
+                  <property CastRight="false" />
                   <property Opl="UnityEngine::Vector3 Self.Player::parT_enemyPosition" />
                   <property Opr="GameLevel.GameLevelCommon::getEnemyPosition(behaviac::Agent Self.Player::parT_nearestEnemy)" />
                 </node>
                 <node class="Assignment" id="5">
+                  <property CastRight="false" />
                   <property Opl="eMapDirection Self.Player::parT_TendencyDirection" />
                   <property Opr="Self.Player::locationTendencyToTarget(UnityEngine::Vector3 Self.Player::parT_enemyPosition)" />
                 </node>
               </node>
             </node>
             <node class="Assignment" id="12">
+              <property CastRight="false" />
               <property Opl="float Self.Player::parT_RotateAngle" />
               <property Opr="GameLevel.GameLevelCommon::getAvailabeMoveDirection(Player Self.Player::parIn_Self,eMapDirection Self.Player::parT_TendencyDirection)" />
             </node>
@@ -79,18 +84,22 @@
       <node class="Sequence" id="27">
         <node class="SelectorStochastic" id="3">
           <node class="Assignment" id="19">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 180" />
           </node>
           <node class="Assignment" id="20">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 90" />
           </node>
           <node class="Assignment" id="21">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 0" />
           </node>
           <node class="Assignment" id="22">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 270" />
           </node>

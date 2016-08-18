@@ -33,10 +33,12 @@
           <property Opr="int Self.GameLevelCommon::parT_ActorCount" />
         </node>
         <node class="Assignment" id="12">
+          <property CastRight="false" />
           <property Opl="int Self.GameLevelCommon::parT_ID" />
           <property Opr="Self.GameLevelCommon::getIntArrayElement(vector&lt;int&gt; Self.GameLevelCommon::parT_PlayerIDs,int Self.GameLevelCommon::parT_PlayerIndex)" />
         </node>
         <node class="Assignment" id="13">
+          <property CastRight="false" />
           <property Opl="int Self.GameLevelCommon::parT_Life" />
           <property Opr="Self.GameLevelCommon::getIntArrayElement(vector&lt;int&gt; Self.GameLevelCommon::parT_LifeCounts,int Self.GameLevelCommon::parT_PlayerIndex)" />
         </node>
@@ -45,6 +47,7 @@
           <property ResultOption="BT_SUCCESS" />
         </node>
         <node class="Assignment" id="51">
+          <property CastRight="false" />
           <property Opl="eGameForce Self.GameLevelCommon::parT_ActorForce" />
           <property Opr="Self.GameLevelCommon::getGameForceArrayElement(vector&lt;eGameForce&gt; Self.GameLevelCommon::parT_Forces,int Self.GameLevelCommon::parT_PlayerIndex)" />
         </node>
@@ -57,6 +60,7 @@
               <property Opr="const eGameForce RED_FORCE" />
             </node>
             <node class="Assignment" id="55">
+              <property CastRight="false" />
               <property Opl="int Self.GameLevelCommon::parT_RedForceID" />
               <property Opr="int Self.GameLevelCommon::parT_ID" />
             </node>
@@ -97,12 +101,14 @@
                   <property Opr="int Self.GameLevelCommon::parT_ActorCount" />
                 </node>
                 <node class="Assignment" id="19">
+                  <property CastRight="false" />
                   <property Opl="int Self.GameLevelCommon::parT_PlayerIndex" />
                   <property Opr="const int 0" />
                 </node>
               </node>
             </node>
             <node class="Assignment" id="20">
+              <property CastRight="false" />
               <property Opl="int Self.GameLevelCommon::parT_ID" />
               <property Opr="Self.GameLevelCommon::getIntArrayElement(vector&lt;int&gt; Self.GameLevelCommon::parT_PlayerIDs,int Self.GameLevelCommon::parT_PlayerIndex)" />
             </node>
@@ -117,6 +123,7 @@
                   </node>
                 </node>
                 <node class="Assignment" id="39">
+                  <property CastRight="false" />
                   <property Opl="int Self.GameLevelCommon::parT_Life" />
                   <property Opr="Self.GameLevelCommon::getActorLifeCount(int Self.GameLevelCommon::parT_ID)" />
                 </node>
@@ -126,14 +133,17 @@
                   <property Opr="const int 0" />
                 </node>
                 <node class="Assignment" id="40">
+                  <property CastRight="false" />
                   <property Opl="eGameForce Self.GameLevelCommon::parT_ActorForce" />
                   <property Opr="Self.GameLevelCommon::getGameForceArrayElement(vector&lt;eGameForce&gt; Self.GameLevelCommon::parT_Forces,int Self.GameLevelCommon::parT_PlayerIndex)" />
                 </node>
                 <node class="Assignment" id="48">
+                  <property CastRight="false" />
                   <property Opl="UnityEngine::Color Self.GameLevelCommon::parT_ActorColor" />
                   <property Opr="Self.GameLevelCommon::getColorArrayElement(vector&lt;UnityEngine::Color&gt; Self.GameLevelCommon::parT_ForceColors,int Self.GameLevelCommon::parT_PlayerIndex)" />
                 </node>
                 <node class="Assignment" id="25">
+                  <property CastRight="false" />
                   <property Opl="string Self.GameLevelCommon::parT_Tree" />
                   <property Opr="Self.GameLevelCommon::getStringArrayElement(vector&lt;string&gt; Self.GameLevelCommon::parT_BehaviorTree,int Self.GameLevelCommon::parT_PlayerIndex)" />
                 </node>
@@ -207,14 +217,17 @@
               <property Time="const float 8000" />
             </node>
             <node class="Assignment" id="42">
+              <property CastRight="false" />
               <property Opl="int Self.GameLevelCommon::parT_AwardType" />
               <property Opr="Self.GameLevelCommon::randomNumberInt(0,4)" />
             </node>
             <node class="Assignment" id="43">
+              <property CastRight="false" />
               <property Opl="int Self.GameLevelCommon::parT_AwardX" />
               <property Opr="Self.GameLevelCommon::randomNumberInt(5,20)" />
             </node>
             <node class="Assignment" id="44">
+              <property CastRight="false" />
               <property Opl="int Self.GameLevelCommon::parT_AwardY" />
               <property Opr="Self.GameLevelCommon::randomNumberInt(5,20)" />
             </node>

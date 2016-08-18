@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<workspace name="ships" xmlmetafolder="." folder="bt\behaviors" export="bt\exported">
+<workspace name="ships" xmlmetafolder="." folder="bt\behaviors" export="bt\exported" language="cpp">
   <xmlmeta>ships.xml</xmlmeta>
   <export>
     <cs>

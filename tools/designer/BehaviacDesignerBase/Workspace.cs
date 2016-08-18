@@ -75,11 +75,19 @@ namespace Behaviac.Design
             get { return _name; }
         }
 
-        private string _language = "";
+        private string _language = "cpp";
         public string Language
         {
             get { return _language; }
-            set { _language = value; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _language = value;
+
+                    Debug.Check(value == "cpp" || value == "cs", "Only cpp or cs are supported now!");
+                }
+            }
         }
 
         private string _file_name;
@@ -330,7 +338,7 @@ namespace Behaviac.Design
         {
             _file_name = Path.GetFullPath(path);
             _name = name;
-            _language = language;
+            this.Language = language;
 
             Debug.Check(_file_name != null);
             _xmlFolder = MakeAbsolutePath(xmlfolder);
@@ -558,6 +566,7 @@ namespace Behaviac.Design
                         workspace.SetAttribute("xmlmetafolder", ws.RelativeXMLFolder);
                         workspace.SetAttribute("folder", ws.RelativeFolder);
                         workspace.SetAttribute("export", ws.RelativeDefaultExportFolder);
+                        workspace.SetAttribute("language", ws.Language);
                         xml.AppendChild(workspace);
 
                         // Create XML plugin nodes.

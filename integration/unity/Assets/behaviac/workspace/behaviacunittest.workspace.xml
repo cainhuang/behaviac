@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<workspace name="behaviac_unittest" xmlmetafolder="xmlmeta" folder="behaviors" export="..\..\Resources\behaviac\exported">
+<workspace name="behaviac_unittest" xmlmetafolder="xmlmeta" folder="behaviors" export="..\..\Resources\behaviac\exported" language="cs">
   <xmlmeta>unittestmeta.xml</xmlmeta>
   <export>
     <bson>

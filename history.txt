@@ -1,3 +1,6 @@
+2016-08-18  3.5.11
+    Fix a bug for saving the Language of the workspace.
+
 2016-08-16  3.5.10
     assignment supports cast
     fix bug when creating an Agent custom variable

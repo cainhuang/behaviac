@@ -32,12 +32,14 @@
           <node class="DecoratorAlwaysFailure" id="25">
             <property DecorateWhenChildEnds="false" />
             <node class="Assignment" id="26">
+              <property CastRight="false" />
               <property Opl="bool Self.Player::parT_NavFailed" />
               <property Opr="const bool true" />
             </node>
           </node>
           <node class="Sequence" id="22">
             <node class="Assignment" id="35">
+              <property CastRight="false" />
               <property Opl="int Self.Player::parT_AwardID" />
               <property Opr="GameLevel.GameLevelCommon::getNearestAwardID()" />
             </node>
@@ -47,6 +49,7 @@
               <property Opr="const int -1" />
             </node>
             <node class="Assignment" id="37">
+              <property CastRight="false" />
               <property Opl="UnityEngine::Vector3 Self.Player::parT_NavTargetPosition" />
               <property Opr="GameLevel.GameLevelCommon::getAwardPosition(int Self.Player::parT_AwardID)" />
             </node>
@@ -71,6 +74,7 @@
                   <property Time="const float 1000" />
                 </node>
                 <node class="Assignment" id="20">
+                  <property CastRight="false" />
                   <property Opl="bool Self.Player::parT_NavFailed" />
                   <property Opr="const bool false" />
                 </node>
@@ -78,10 +82,12 @@
             </node>
             <node class="Sequence" id="3">
               <node class="Assignment" id="4">
+                <property CastRight="false" />
                 <property Opl="behaviac::Agent Self.Player::parT_nearestEnemy" />
                 <property Opr="GameLevel.GameLevelCommon::getNearestEnemy(eGameForce Self.GameActor::force)" />
               </node>
               <node class="Assignment" id="7">
+                <property CastRight="false" />
                 <property Opl="UnityEngine::Vector3 Self.Player::parT_enemyPosition" />
                 <property Opr="GameLevel.GameLevelCommon::getEnemyPosition(behaviac::Agent Self.Player::parT_nearestEnemy)" />
               </node>
@@ -109,18 +115,22 @@
               <node class="Sequence" id="12">
                 <node class="SelectorStochastic" id="9">
                   <node class="Assignment" id="36">
+                    <property CastRight="false" />
                     <property Opl="eMapDirection Self.Player::parT_RandomMoveDirection" />
                     <property Opr="const eMapDirection TOP" />
                   </node>
                   <node class="Assignment" id="11">
+                    <property CastRight="false" />
                     <property Opl="eMapDirection Self.Player::parT_RandomMoveDirection" />
                     <property Opr="const eMapDirection RIGHT" />
                   </node>
                   <node class="Assignment" id="14">
+                    <property CastRight="false" />
                     <property Opl="eMapDirection Self.Player::parT_RandomMoveDirection" />
                     <property Opr="const eMapDirection BOTTOM" />
                   </node>
                   <node class="Assignment" id="16">
+                    <property CastRight="false" />
                     <property Opl="eMapDirection Self.Player::parT_RandomMoveDirection" />
                     <property Opr="const eMapDirection LEFT" />
                   </node>
@@ -131,6 +141,7 @@
               </node>
               <node class="Sequence" id="49">
                 <node class="Assignment" id="18">
+                  <property CastRight="false" />
                   <property Opl="eMapDirection Self.Player::parT_SafeMoveDirection" />
                   <property Opr="Self.GameActor::getBestMoveDirection(eMapDirection Self.Player::parT_RandomMoveDirection)" />
                 </node>
@@ -147,6 +158,7 @@
         <property DecorateWhenChildEnds="false" />
         <node class="Sequence" id="28">
           <node class="Assignment" id="29">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_EnemyAzimuth" />
             <property Opr="Self.Player::detectNearestEnemyInView()" />
           </node>

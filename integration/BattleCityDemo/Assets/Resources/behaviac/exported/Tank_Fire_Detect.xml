@@ -11,6 +11,7 @@
     <property DoneWithinFrame="false" />
     <node class="Sequence" id="6">
       <node class="Assignment" id="0">
+        <property CastRight="false" />
         <property Opl="float Self.Player::parT_EnemyAzimuth" />
         <property Opr="Self.Player::detectNearestEnemyInView()" />
       </node>

@@ -19,18 +19,22 @@
       <node class="Sequence" id="4">
         <node class="SelectorStochastic" id="2">
           <node class="Assignment" id="8">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 180" />
           </node>
           <node class="Assignment" id="6">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 90" />
           </node>
           <node class="Assignment" id="7">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 0" />
           </node>
           <node class="Assignment" id="9">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 270" />
           </node>
@@ -58,6 +62,7 @@
           <property Weight="const int 30" />
           <node class="Sequence" id="14">
             <node class="Assignment" id="15">
+              <property CastRight="false" />
               <property Opl="float Self.Player::parT_RotateAngle" />
               <property Opr="GameLevel.GameLevelCommon::getAvailabeMoveDirection(Player Self.Player::parIn_Self,UNKNOWN)" />
             </node>

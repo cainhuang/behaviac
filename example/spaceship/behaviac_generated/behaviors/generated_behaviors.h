@@ -84,6 +84,12 @@ and you also need to include your agent types' headers before it:
 
 namespace behaviac
 {
+	struct METHOD_TYPE_behaviac_Agent_LogMessage { };
+	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_LogMessage>(char* p0)
+	{
+		this->behaviac::Agent::LogMessage(p0);
+	}
+
 	struct METHOD_TYPE_behaviac_Agent_VectorAdd { };
 	template<>  void Agent::_Execute_Method_<METHOD_TYPE_behaviac_Agent_VectorAdd>(IList& p0, System::Object& p1)
 	{

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<workspace name="BehaviacUnitTestCpp" xmlmetafolder="xmlmeta" folder="..\..\..\integration\unity\Assets\behaviac\workspace\behaviors" export="exported">
+<workspace name="BehaviacUnitTestCpp" xmlmetafolder="xmlmeta" folder="..\..\..\integration\unity\Assets\behaviac\workspace\behaviors" export="exported" language="cpp">
   <xmlmeta>UnitTestCppMeta.xml</xmlmeta>
   <export>
     <cs>

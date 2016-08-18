@@ -12,6 +12,7 @@
   </pars>
   <node class="Sequence" id="23">
     <node class="Assignment" id="36">
+      <property CastRight="false" />
       <property Opl="int Self.GameLevelCommon::parT_PlayerLifeCount" />
       <property Opr="const int 9" />
     </node>
@@ -33,6 +34,7 @@
             <property Time="const float 1000" />
           </node>
           <node class="Assignment" id="1">
+            <property CastRight="false" />
             <property Opl="int Self.GameLevelCommon::parT_AwardType" />
             <property Opr="Self.GameLevelCommon::randomNumberInt(0,4)" />
           </node>
@@ -46,6 +48,7 @@
         </node>
         <node class="Sequence" id="3">
           <node class="Assignment" id="9">
+            <property CastRight="false" />
             <property Opl="int Self.GameLevelCommon::parT_EnemyCount" />
             <property Opr="Self.GameLevelCommon::getEnemyCount()" />
           </node>
@@ -77,6 +80,7 @@
                 <property Time="const float 1000" />
               </node>
               <node class="Assignment" id="24">
+                <property CastRight="false" />
                 <property Opl="int Self.GameLevelCommon::parT_PlayerLifeCount" />
                 <property Opr="Self.GameLevelCommon::getActorLifeCount(int Self.GameLevelCommon::parT_PlayerID)" />
               </node>
@@ -135,6 +139,7 @@
             <property ResultOption="BT_SUCCESS" />
           </node>
           <node class="Assignment" id="35">
+            <property CastRight="false" />
             <property Opl="bool Self.GameLevelCommon::parT_GameStopped" />
             <property Opr="const bool true" />
           </node>

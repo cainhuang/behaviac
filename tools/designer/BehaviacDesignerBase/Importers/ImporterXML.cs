@@ -373,7 +373,6 @@ namespace Behaviac.Design.Importers
                 }
 
                 Workspace.Current.Language = (languageNode != null) ? languageNode.Value : "";
-                Debug.Check(Workspace.Current.Language == "cpp" || Workspace.Current.Language == "cs", "only cpp or cs are supported now");
 
                 Stream s = File.Open(csFilename, FileMode.Create);
                 StreamWriter wrtr = new StreamWriter(s);

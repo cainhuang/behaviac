@@ -11,6 +11,7 @@
     <property DoneWithinFrame="false" />
     <node class="Sequence" id="1">
       <node class="Assignment" id="4">
+        <property CastRight="false" />
         <property Opl="int Self.Player::parT_FireInterval" />
         <property Opr="GameLevel.GameLevelCommon::randomNumberInt(1000,8000)" />
       </node>

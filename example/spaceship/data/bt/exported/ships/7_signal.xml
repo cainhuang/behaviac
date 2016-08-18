@@ -34,6 +34,7 @@
         </node>
       </node>
       <node class="Assignment" id="9">
+        <property CastRight="false" />
         <property Opl="bool framework::WorldState.framework::WorldState::SyncSignal" />
         <property Opr="const bool true" />
       </node>

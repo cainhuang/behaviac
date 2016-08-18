@@ -9,6 +9,7 @@
     <property DecorateWhenChildEnds="false" />
     <node class="Sequence" id="1">
       <node class="Assignment" id="2">
+        <property CastRight="false" />
         <property Opl="eMapDirection Self.Player::parT_SafeMoveDirection" />
         <property Opr="Self.GameActor::getBestMoveDirection(UNKNOWN)" />
       </node>

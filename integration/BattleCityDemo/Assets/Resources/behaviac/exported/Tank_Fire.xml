@@ -7,6 +7,7 @@
   </pars>
   <node class="Sequence" id="0">
     <node class="Assignment" id="2">
+      <property CastRight="false" />
       <property Opl="behaviac::EBTStatus Self.Player::Status" />
       <property Opr="const behaviac::EBTStatus BT_SUCCESS" />
     </node>

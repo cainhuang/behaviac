@@ -30,18 +30,22 @@
           <node class="Sequence" id="7">
             <node class="SelectorStochastic" id="21">
               <node class="Assignment" id="10">
+                <property CastRight="false" />
                 <property Opl="eMapDirection Self.Player::parT_RandomMoveDirection" />
                 <property Opr="const eMapDirection TOP" />
               </node>
               <node class="Assignment" id="5">
+                <property CastRight="false" />
                 <property Opl="eMapDirection Self.Player::parT_RandomMoveDirection" />
                 <property Opr="const eMapDirection RIGHT" />
               </node>
               <node class="Assignment" id="2">
+                <property CastRight="false" />
                 <property Opl="eMapDirection Self.Player::parT_RandomMoveDirection" />
                 <property Opr="const eMapDirection BOTTOM" />
               </node>
               <node class="Assignment" id="3">
+                <property CastRight="false" />
                 <property Opl="eMapDirection Self.Player::parT_RandomMoveDirection" />
                 <property Opr="const eMapDirection LEFT" />
               </node>
@@ -52,6 +56,7 @@
           </node>
           <node class="Sequence" id="19">
             <node class="Assignment" id="6">
+              <property CastRight="false" />
               <property Opl="eMapDirection Self.Player::parT_SafeMoveDirection" />
               <property Opr="Self.GameActor::getBestMoveDirection(eMapDirection Self.Player::parT_RandomMoveDirection)" />
             </node>
@@ -65,18 +70,22 @@
       <node class="Sequence" id="22">
         <node class="SelectorStochastic" id="12">
           <node class="Assignment" id="13">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 180" />
           </node>
           <node class="Assignment" id="14">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 90" />
           </node>
           <node class="Assignment" id="15">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 0" />
           </node>
           <node class="Assignment" id="16">
+            <property CastRight="false" />
             <property Opl="float Self.Player::parT_AimAngle" />
             <property Opr="const float 270" />
           </node>
