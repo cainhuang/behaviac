@@ -64,18 +64,18 @@ namespace Behaviac.Design.Importers
                 //}
 
                 if (string.IsNullOrEmpty(xmlDir))
-                { 
-                    return string.Empty; 
+                {
+                    return string.Empty;
                 }
 
                 if (!Path.IsPathRooted(xmlDir))
-                { 
-                    xmlDir = Path.GetFullPath(xmlDir); 
+                {
+                    xmlDir = Path.GetFullPath(xmlDir);
                 }
 
                 if (!Directory.Exists(xmlDir))
-                { 
-                    return string.Empty; 
+                {
+                    return string.Empty;
                 }
 
                 // Push the cs and dll files into the system temp folder.
@@ -84,15 +84,15 @@ namespace Behaviac.Design.Importers
 
                 dllFilename = preBuild(dllFilename, csDir);
 
-                string[] filenames = Directory.GetFiles(xmlDir);
-                bool needBuildDll = false;
-
                 // Add the extra meta xml files firstly.
                 string extraMeta = Path.Combine(xmlDir, Workspace.kExtraMeta);
                 if (File.Exists(extraMeta))
                 {
                     loadExtraMeta(extraMeta);
                 }
+
+                string[] filenames = Directory.GetFiles(xmlDir);
+                bool needBuildDll = false;
 
                 if (filenames.Length > 0)
                 {
@@ -108,7 +108,8 @@ namespace Behaviac.Design.Importers
                         }
                     }
                 }
-                else
+
+                if (!needBuildDll)
                 {
                     string csFilename = Path.Combine(csDir, "customized_types.cs");
 
@@ -118,9 +119,8 @@ namespace Behaviac.Design.Importers
                 // Build all cs files into a dll file.
                 if (needBuildDll)
                 {
-                    return buildDll(dllFilename, csDir); 
+                    return buildDll(dllFilename, csDir);
                 }
-
             }
             catch (Exception e)
             {
@@ -315,12 +315,25 @@ namespace Behaviac.Design.Importers
             }
         }
 
+        private static string getAgentClassFullName(XmlNode agentNode)
+        {
+            XmlNode classfullnameNode = agentNode.Attributes["classfullname"];
+            if (classfullnameNode == null)
+            {
+                classfullnameNode = agentNode.Attributes["type"];
+            }
+
+            string classfullname = (classfullnameNode != null && classfullnameNode.Value.Length > 0) ? classfullnameNode.Value : "";
+            return classfullname;
+        }
+
         private static bool generateCsFile(string csFilename, string xmlFilename)
         {
             try
             {
                 XmlNode rootNode = null;
                 XmlNode languageNode = null;
+
                 if (!string.IsNullOrEmpty(xmlFilename))
                 {
                     XmlDocument xmlDoc = new XmlDocument();
@@ -354,7 +367,7 @@ namespace Behaviac.Design.Importers
                                 bValid = true;
                             }
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
                         }
                     }
@@ -367,9 +380,6 @@ namespace Behaviac.Design.Importers
                     }
 
                     languageNode = rootNode.Attributes["language"];
-                }
-                else
-                {
                 }
 
                 Workspace.Current.Language = (languageNode != null) ? languageNode.Value : "";
@@ -432,7 +442,6 @@ namespace Behaviac.Design.Importers
                         if (typeNode.Name == "enumtype")
                         {
                             writeEnumNode(typeNode, enumNodeDict, wrtr);
-
                         }
                         else if (typeNode.Name == "struct")
                         {
@@ -457,39 +466,93 @@ namespace Behaviac.Design.Importers
                     }
                 }
 
+                List<XmlNode> agentsNodes = new List<XmlNode>();
+
                 if (agentsNode != null)
                 {
+                    foreach (XmlNode agentNode in agentsNode.ChildNodes)
+                    {
+                        agentsNodes.Add(agentNode);
+                    }
+                }
+
+                Dictionary<string, bool> customizedAgentNames = new Dictionary<string, bool>();
+                if (Workspace.CustomizedAgentsXMLNode != null)
+                {
+                    foreach (XmlNode agentNode in Workspace.CustomizedAgentsXMLNode.ChildNodes)
+                    {
+                        string customizedClass = getAgentClassFullName(agentNode);
+                        bool bFound = false;
+                        foreach (XmlNode node in agentsNodes)
+                        {
+                            string classname = getAgentClassFullName(node);
+                            if (classname == customizedClass)
+                            {
+                                bFound = true;
+                                break;
+                            }
+                        }
+
+                        if (!bFound)
+                        {
+                            customizedAgentNames[customizedClass] = true;
+                            agentsNodes.Add(agentNode);
+                        }
+                    }
+                }
+
+                if (agentsNodes.Count > 0)
+                {
+                    wrtr.WriteLine();
                     wrtr.WriteLine("namespace XMLPluginBehaviac");
                     wrtr.WriteLine("{");
 
-                    foreach (XmlNode agentNode in agentsNode.ChildNodes)
+                    for (int i = 0; i < agentsNodes.Count; ++i)
                     {
-                        XmlNode classfullnameNode = agentNode.Attributes["classfullname"];
-                        string classfullname = (classfullnameNode != null && classfullnameNode.Value.Length > 0) ? classfullnameNode.Value : "";
+                        XmlNode agentNode = agentsNodes[i];
+                        string classfullname = getAgentClassFullName(agentNode);
                         string className = HandleBaseName(classfullname);
 
                         Plugin.AllMetaTypes.Add(classfullname);
+
+                        if (i == 0 && classfullname != "behaviac::Agent")
+                        {
+                            wrtr.WriteLine("\t[Behaviac.Design.ClassDesc(\"behaviac::Agent\", \"Agent\", false, true, false, \"\", \"\", false)]");
+                            wrtr.WriteLine("\tpublic class behaviac_Agent : Behaviac.Design.Agent");
+                            wrtr.WriteLine("\t{");
+                            wrtr.WriteLine("\t}\n");
+                        }
 
                         XmlAttribute baseNode = agentNode.Attributes["base"];
                         string baseName = (baseNode != null && baseNode.Value.Length > 0) ? baseNode.Value : "Agent";
 
                         // Then write out this class itself.
                         XmlAttribute inheritedNode = agentNode.Attributes["inherited"];
-                        string isinherited = (inheritedNode != null) ? inheritedNode.Value : "false";
+                        string isinherited = (inheritedNode != null) ? inheritedNode.Value : "true";
 
                         XmlNode isRefTypeNode = agentNode.Attributes["IsRefType"];
-                        string isRefType = (isRefTypeNode != null) ? isRefTypeNode.Value : "false";
+                        string isRefType = (isRefTypeNode != null) ? isRefTypeNode.Value : "true";
 
                         XmlNode isStaticNode = agentNode.Attributes["IsStatic"];
                         string isStatic = (isStaticNode != null) ? isStaticNode.Value : "false";
 
                         XmlNode displayNameNode = agentNode.Attributes["DisplayName"];
+                        if (displayNameNode == null)
+                        {
+                            displayNameNode = agentNode.Attributes["disp"];
+                        }
                         string displayName = (displayNameNode != null && displayNameNode.Value.Length > 0) ? displayNameNode.Value : classfullname;
 
                         XmlNode descNode = agentNode.Attributes["Desc"];
+                        if (descNode == null)
+                        {
+                            descNode = agentNode.Attributes["desc"];
+                        }
                         string desc = (descNode != null && descNode.Value.Length > 0) ? descNode.Value : displayName;
 
-                        wrtr.WriteLine("\t[Behaviac.Design.ClassDesc(\"{0}\", \"{1}\", {2}, {3}, {4}, \"{5}\", \"{6}\")]", classfullname, baseName, isinherited, isRefType, isStatic, displayName, desc);
+                        string isCustomized = customizedAgentNames.ContainsKey(classfullname) ? "true" : "false";
+
+                        wrtr.WriteLine("\t[Behaviac.Design.ClassDesc(\"{0}\", \"{1}\", {2}, {3}, {4}, \"{5}\", \"{6}\", {7})]", classfullname, baseName, isinherited, isRefType, isStatic, displayName, desc, isCustomized);
                         wrtr.WriteLine("\tpublic class {0} : {1}", HandleHierarchyName(classfullname), (baseName == "Agent") ? "Behaviac.Design.Agent" : HandleHierarchyName(baseName));
                         wrtr.WriteLine("\t{");
                         {
@@ -536,7 +599,6 @@ namespace Behaviac.Design.Importers
                 s.Close();
 
                 return true;
-
             }
             catch (XmlException ex)
             {

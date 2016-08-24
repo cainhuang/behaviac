@@ -84,8 +84,13 @@ namespace BSASN
 
 		DECLARE_BEHAVIAC_STRUCT(BSASN::TransitPlan);
 	};
-
 }
+
+class TestClassA
+{
+public:
+	DECLARE_BEHAVIAC_STRUCT(TestClassA, true);
+};
 
 class ChildNodeTest;
 class AgentNodeTest : public behaviac::Agent
@@ -250,6 +255,28 @@ public:
 	const TestNS::Float2& getConstExtendedStruct()
 	{
 		return this->TestFloat2;
+	}
+
+	behaviac::EBTStatus return_status(const TestNS::Float2& f2)
+	{
+		if (behaviac::IsEqualWithEpsilon(f2.x, 2.0f, 0.001f) &&
+			behaviac::IsEqualWithEpsilon(f2.y, 2.0f, 0.001f))
+		{
+			return behaviac::BT_SUCCESS;
+		}
+
+		return behaviac::BT_FAILURE;
+	}
+
+	TestClassA* TestFunC()
+	{
+		//possible memory leak, however it doesn't matter ...
+		return BEHAVIAC_NEW TestClassA();
+	}
+
+	behaviac::EBTStatus TestFuncD(TestClassA* fun)
+	{
+		return fun ? behaviac::BT_SUCCESS : behaviac::BT_FAILURE;
 	}
 
     behaviac::EBTStatus switchRef(const behaviac::string& refTree)

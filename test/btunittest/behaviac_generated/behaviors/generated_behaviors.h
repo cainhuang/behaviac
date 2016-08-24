@@ -765,6 +765,12 @@ template<>  behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_Agen
 	return this->AgentNodeTest::MoveToTarget();
 }
 
+struct METHOD_TYPE_AgentNodeTest_return_status { };
+template<>  behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_return_status>(TestNS::Float2& p0)
+{
+	return this->AgentNodeTest::return_status(p0);
+}
+
 struct METHOD_TYPE_AgentNodeTest_SelectTarget { };
 template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_SelectTarget>()
 {
@@ -853,6 +859,18 @@ struct METHOD_TYPE_AgentNodeTest_testExtendedStruct { };
 template<>  void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testExtendedStruct>(TestNS::Float2& p0)
 {
 	this->AgentNodeTest::testExtendedStruct(p0);
+}
+
+struct METHOD_TYPE_AgentNodeTest_TestFunC { };
+template<>  TestClassA* AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_TestFunC>()
+{
+	return this->AgentNodeTest::TestFunC();
+}
+
+struct METHOD_TYPE_AgentNodeTest_TestFuncD { };
+template<>  behaviac::EBTStatus AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_TestFuncD>(TestClassA* p0)
+{
+	return this->AgentNodeTest::TestFuncD(p0);
 }
 
 struct METHOD_TYPE_AgentNodeTest_testGameObject { };
@@ -8837,6 +8855,40 @@ namespace behaviac
 		}
 	};
 
+	class Action_bt_node_test_action_ut_1_node13 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_action_ut_1_node13, Action);
+		Action_bt_node_test_action_ut_1_node13()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			const TestNS::Float2& result = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_getConstExtendedStruct, const TestNS::Float2& >();
+			return ((AgentNodeTest*)pAgent)->AgentNodeTest::return_status(result);
+		}
+	};
+
+	class Action_bt_node_test_action_ut_1_node14 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_action_ut_1_node14, Action);
+		Action_bt_node_test_action_ut_1_node14()
+		{
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			TestClassA* result = ((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_TestFunC, TestClassA* >();
+			return ((AgentNodeTest*)pAgent)->AgentNodeTest::TestFuncD(result);
+		}
+	};
+
 	class bt_node_test_action_ut_1
 	{
 	public:
@@ -8983,6 +9035,26 @@ namespace behaviac
 #endif
 					node0->AddChild(node12);
 					node0->SetHasEvents(node0->HasEvents() | node12->HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_1_node13* node13 = BEHAVIAC_NEW Action_bt_node_test_action_ut_1_node13;
+					node13->SetClassNameString("Action");
+					node13->SetId(13);
+#if !BEHAVIAC_RELEASE
+					node13->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node13);
+					node0->SetHasEvents(node0->HasEvents() | node13->HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_1_node14* node14 = BEHAVIAC_NEW Action_bt_node_test_action_ut_1_node14;
+					node14->SetClassNameString("Action");
+					node14->SetId(14);
+#if !BEHAVIAC_RELEASE
+					node14->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node14);
+					node0->SetHasEvents(node0->HasEvents() | node14->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}

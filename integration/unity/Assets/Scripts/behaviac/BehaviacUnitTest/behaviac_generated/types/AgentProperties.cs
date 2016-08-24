@@ -291,6 +291,49 @@ namespace behaviac
 			}
 		}
 
+		private class CMethod_AgentNodeTest_TestFuncD : CAgentMethodBase<behaviac.EBTStatus>
+		{
+			IInstanceMember _param0;
+
+			public CMethod_AgentNodeTest_TestFuncD()
+			{
+			}
+
+			public CMethod_AgentNodeTest_TestFuncD(CMethod_AgentNodeTest_TestFuncD rhs) : base(rhs)
+			{
+			}
+
+			public override IMethod Clone()
+			{
+				return new CMethod_AgentNodeTest_TestFuncD(this);
+			}
+
+			public override void Load(string instance, string[] paramStrs)
+			{
+				Debug.Check(paramStrs.Length == 1);
+
+				_instance = instance;
+				_param0 = AgentMeta.ParseProperty<TestClassA>(paramStrs[0]);
+			}
+
+			public override void Run(Agent self)
+			{
+				Debug.Check(_param0 != null);
+
+				Agent agent = Utils.GetParentAgent(self, _instance);
+
+				_returnValue.value = ((AgentNodeTest)agent).TestFuncD((TestClassA)_param0.GetValueObject(self));
+			}
+
+			public override IValue GetIValue(Agent self, IInstanceMember firstParam)
+			{
+				Agent agent = Utils.GetParentAgent(self, _instance);
+				TestClassA result = ((CInstanceMember<TestClassA>)firstParam).GetValue(self);
+				_returnValue.value = ((AgentNodeTest)agent).TestFuncD(result);
+				return _returnValue;
+			}
+		}
+
 		private class CMethod_AgentNodeTest_testGameObject : CAgentMethodVoidBase
 		{
 			IInstanceMember _param0;
@@ -1861,6 +1904,7 @@ namespace behaviac
 			meta.RegisterMethod(359893626, new CAgentMethod<bool>(delegate(Agent self) { return (bool)AgentMetaVisitor.ExecuteMethod(self, "IsTargetValid", null); }));
 			meta.RegisterMethod(3042982998, new CAgentMethod<behaviac.EBTStatus>(delegate(Agent self) { return (behaviac.EBTStatus)AgentMetaVisitor.ExecuteMethod(self, "Move", null); }));
 			meta.RegisterMethod(1793645156, new CAgentMethod<behaviac.EBTStatus>(delegate(Agent self) { return (behaviac.EBTStatus)AgentMetaVisitor.ExecuteMethod(self, "MoveToTarget", null); }));
+			meta.RegisterMethod(1360929338, new CAgentMethod<behaviac.EBTStatus, TestNS.Float2>(delegate(Agent self, TestNS.Float2 param0) { return (behaviac.EBTStatus)AgentMetaVisitor.ExecuteMethod(self, "return_status", new object[]{ param0 }); }));
 			meta.RegisterMethod(3924198470, new CAgentMethodVoid(delegate(Agent self) { AgentMetaVisitor.ExecuteMethod(self, "SelectTarget", null); }));
 			meta.RegisterMethod(3443632936, new CMethod_AgentNodeTest_setEventVarAgent());
 			meta.RegisterMethod(3973031482, new CAgentMethodVoid<bool>(delegate(Agent self, bool param0) { ((AgentNodeTest)self).setEventVarBool(param0); }));
@@ -1876,6 +1920,8 @@ namespace behaviac
 			meta.RegisterMethod(766905, new CAgentMethod<behaviac.EBTStatus, string>(delegate(Agent self, string param0) { return ((AgentNodeTest)self).switchRef(param0); }));
 			meta.RegisterMethod(2043807016, new CMethod_AgentNodeTest_testExtendedRefType());
 			meta.RegisterMethod(1444063412, new CMethod_AgentNodeTest_testExtendedStruct());
+			meta.RegisterMethod(4293156620, new CAgentMethod<TestClassA>(delegate(Agent self) { return ((AgentNodeTest)self).TestFunC(); }));
+			meta.RegisterMethod(336877113, new CMethod_AgentNodeTest_TestFuncD());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
@@ -1944,6 +1990,7 @@ namespace behaviac
 			meta.RegisterMethod(359893626, new CAgentMethod<bool>(delegate(Agent self) { return (bool)AgentMetaVisitor.ExecuteMethod(self, "IsTargetValid", null); }));
 			meta.RegisterMethod(3042982998, new CAgentMethod<behaviac.EBTStatus>(delegate(Agent self) { return (behaviac.EBTStatus)AgentMetaVisitor.ExecuteMethod(self, "Move", null); }));
 			meta.RegisterMethod(1793645156, new CAgentMethod<behaviac.EBTStatus>(delegate(Agent self) { return (behaviac.EBTStatus)AgentMetaVisitor.ExecuteMethod(self, "MoveToTarget", null); }));
+			meta.RegisterMethod(1360929338, new CAgentMethod<behaviac.EBTStatus, TestNS.Float2>(delegate(Agent self, TestNS.Float2 param0) { return (behaviac.EBTStatus)AgentMetaVisitor.ExecuteMethod(self, "return_status", new object[]{ param0 }); }));
 			meta.RegisterMethod(3924198470, new CAgentMethodVoid(delegate(Agent self) { AgentMetaVisitor.ExecuteMethod(self, "SelectTarget", null); }));
 			meta.RegisterMethod(3443632936, new CMethod_AgentNodeTest_setEventVarAgent());
 			meta.RegisterMethod(3973031482, new CAgentMethodVoid<bool>(delegate(Agent self, bool param0) { ((ChildNodeTest)self).setEventVarBool(param0); }));
@@ -1959,6 +2006,8 @@ namespace behaviac
 			meta.RegisterMethod(766905, new CAgentMethod<behaviac.EBTStatus, string>(delegate(Agent self, string param0) { return ((ChildNodeTest)self).switchRef(param0); }));
 			meta.RegisterMethod(2043807016, new CMethod_AgentNodeTest_testExtendedRefType());
 			meta.RegisterMethod(1444063412, new CMethod_AgentNodeTest_testExtendedStruct());
+			meta.RegisterMethod(4293156620, new CAgentMethod<TestClassA>(delegate(Agent self) { return ((ChildNodeTest)self).TestFunC(); }));
+			meta.RegisterMethod(336877113, new CMethod_AgentNodeTest_TestFuncD());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
@@ -2492,6 +2541,7 @@ namespace behaviac
 			AgentMeta.Register<UnityEngine.GameObject>("UnityEngine.GameObject");
 			AgentMeta.Register<TestNS.Node>("TestNS.Node");
 			AgentMeta.Register<TestNS.Float2>("TestNS.Float2");
+			AgentMeta.Register<TestClassA>("TestClassA");
 			AgentMeta.Register<BSASN.TransitPlan>("BSASN.TransitPlan");
 			AgentMeta.Register<BSASN.SpatialCoord>("BSASN.SpatialCoord");
 			AgentMeta.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
@@ -2530,6 +2580,7 @@ namespace behaviac
 			AgentMeta.UnRegister<UnityEngine.GameObject>("UnityEngine.GameObject");
 			AgentMeta.UnRegister<TestNS.Node>("TestNS.Node");
 			AgentMeta.UnRegister<TestNS.Float2>("TestNS.Float2");
+			AgentMeta.UnRegister<TestClassA>("TestClassA");
 			AgentMeta.UnRegister<BSASN.TransitPlan>("BSASN.TransitPlan");
 			AgentMeta.UnRegister<BSASN.SpatialCoord>("BSASN.SpatialCoord");
 			AgentMeta.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");

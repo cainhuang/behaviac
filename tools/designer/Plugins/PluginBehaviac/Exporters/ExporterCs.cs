@@ -939,6 +939,31 @@ namespace PluginBehaviac.Exporters
 
                             file.WriteLine("\t\t\t}"); // Run()
 
+                            if (method.Params.Count == 1 && methodReturnType == "behaviac.EBTStatus")
+                            {
+                                // GetIValue()
+                                string paramType = DataCsExporter.GetGeneratedNativeType(method.Params[0].NativeType);
+
+                                file.WriteLine();
+                                file.WriteLine("\t\t\tpublic override IValue GetIValue(Agent self, IInstanceMember firstParam)");
+                                file.WriteLine("\t\t\t{");
+                                file.WriteLine("\t\t\t\tAgent agent = Utils.GetParentAgent(self, _instance);");
+                                file.WriteLine("\t\t\t\t{0} result = ((CInstanceMember<{0}>)firstParam).GetValue(self);", paramType);
+
+                                if (method.IsPublic)
+                                {
+                                    file.WriteLine("\t\t\t\t_returnValue.value = {0}.{1}(result);", instanceName, method.BasicName);
+                                }
+                                else
+                                {
+                                    file.WriteLine("\t\t\t\tobject[] paramArray = new object[] {{ result }};");
+                                    file.WriteLine("\t\t\t\t_returnValue.value = ({0})AgentMetaVisitor.ExecuteMethod({1}, \"{2}\", paramArray);", methodReturnType, instanceName, method.BasicName);
+                                }
+
+                                file.WriteLine("\t\t\t\treturn _returnValue;");
+                                file.WriteLine("\t\t\t}");
+                            }
+
                             file.WriteLine("\t\t}"); // class
                             file.WriteLine();
                         }

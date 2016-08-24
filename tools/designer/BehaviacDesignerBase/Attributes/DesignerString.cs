@@ -54,7 +54,7 @@ namespace Behaviac.Design.Attributes
             : base(displayName, description, category, displayMode, displayOrder, flags, typeof(DesignerStringEditor), null) {
         }
 
-        private string trimQuotes(string text) {
+        public static string trimQuotes(string text) {
             char[] toTrim = { '"' };
             return text.Trim(toTrim);
         }

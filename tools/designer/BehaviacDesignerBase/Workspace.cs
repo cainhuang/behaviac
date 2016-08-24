@@ -52,14 +52,17 @@ namespace Behaviac.Design
         public static WorkspaceChangedDelegate WorkspaceChangedHandler;
 
         private static Workspace _current = null;
-        public static Workspace Current {
+        public static Workspace Current
+        {
             get { return _current; }
             set
             {
-                if (_current != value) {
+                if (_current != value)
+                {
                     _current = value;
 
-                    if (WorkspaceChangedHandler != null) {
+                    if (WorkspaceChangedHandler != null)
+                    {
                         WorkspaceChangedHandler();
                     }
                 }
@@ -91,7 +94,8 @@ namespace Behaviac.Design
         }
 
         private string _file_name;
-        public string FileName {
+        public string FileName
+        {
             get
             {
                 //return Path.Combine(_folder, _name) + ".xml";
@@ -104,14 +108,17 @@ namespace Behaviac.Design
         /// <summary>
         /// The folder the behaviors are saved in.
         /// </summary>
-        public string Folder {
-            get {
+        public string Folder
+        {
+            get
+            {
                 _folder = Path.GetFullPath(_folder);
                 return _folder;
             }
         }
 
-        public string RelativeFolder {
+        public string RelativeFolder
+        {
             get { return MakeRelativePath(this.Folder); }
         }
 
@@ -120,11 +127,13 @@ namespace Behaviac.Design
         /// <summary>
         /// The default folder behaviours are exported to.
         /// </summary>
-        public string DefaultExportFolder {
+        public string DefaultExportFolder
+        {
             get { return _defaultExportFolder; }
         }
 
-        public string RelativeDefaultExportFolder {
+        public string RelativeDefaultExportFolder
+        {
             get { return MakeRelativePath(_defaultExportFolder); }
         }
 
@@ -133,12 +142,14 @@ namespace Behaviac.Design
         /// <summary>
         /// The folder the XML plugins are saved in.
         /// </summary>
-        public string XMLFolder {
+        public string XMLFolder
+        {
             get { return _xmlFolder; }
             set { _xmlFolder = value; }
         }
 
-        public string RelativeXMLFolder {
+        public string RelativeXMLFolder
+        {
             get { return MakeRelativePath(_xmlFolder); }
         }
 
@@ -147,7 +158,8 @@ namespace Behaviac.Design
         /// <summary>
         /// The list of XML plugins which will be loaded for the workspace.
         /// </summary>
-        public IList<string> XMLPlugins {
+        public IList<string> XMLPlugins
+        {
             get { return _xmlPlugins.AsReadOnly(); }
         }
 
@@ -155,7 +167,8 @@ namespace Behaviac.Design
         /// Adds a xml plugin which will be loaded to the workspace.
         /// </summary>
         /// <param name="filename">The filename of the xml plugin which will be loaded.</param>
-        public void AddXMLPlugin(string filename) {
+        public void AddXMLPlugin(string filename)
+        {
             if (!_xmlPlugins.Contains(filename))
             { _xmlPlugins.Add(filename); }
         }
@@ -163,7 +176,8 @@ namespace Behaviac.Design
         public class ExportData
         {
             private bool _isExported = true;
-            public bool IsExported {
+            public bool IsExported
+            {
                 get { return _isExported; }
                 set { _isExported = value; }
             }
@@ -179,7 +193,8 @@ namespace Behaviac.Design
             /// ExportFolder should be saved as relative path, but used as absoluted path.
             /// </summary>
             private string _exportFolder = "";
-            public string ExportFolder {
+            public string ExportFolder
+            {
                 get { return _exportFolder; }
                 set { _exportFolder = value; }
             }
@@ -188,13 +203,15 @@ namespace Behaviac.Design
             /// ExportIncludedFilenames should be saved and used as relative path.
             /// </summary>
             private List<string> _exportIncludedFilenames = new List<string>();
-            public List<string> ExportIncludedFilenames {
+            public List<string> ExportIncludedFilenames
+            {
                 get { return _exportIncludedFilenames; }
             }
         }
 
         private Dictionary<string, ExportData> _exportDatas = new Dictionary<string, ExportData>();
-        public Dictionary<string, ExportData> ExportDatas {
+        public Dictionary<string, ExportData> ExportDatas
+        {
             get { return _exportDatas; }
         }
 
@@ -205,7 +222,8 @@ namespace Behaviac.Design
                 return;
             }
 
-            if (!_exportDatas.ContainsKey(format)) {
+            if (!_exportDatas.ContainsKey(format))
+            {
                 _exportDatas[format] = new ExportData();
             }
 
@@ -216,14 +234,17 @@ namespace Behaviac.Design
             if (folder != null)
                 data.ExportFolder = folder;
 
-            if (includedFilenames != null) {
+            if (includedFilenames != null)
+            {
                 data.ExportIncludedFilenames.Clear();
                 data.ExportIncludedFilenames.AddRange(includedFilenames);
             }
         }
 
-        public bool ShouldBeExported(string format) {
-            if (_exportDatas.ContainsKey(format)) {
+        public bool ShouldBeExported(string format)
+        {
+            if (_exportDatas.ContainsKey(format))
+            {
                 ExportData data = _exportDatas[format];
                 return data.IsExported;
             }
@@ -237,7 +258,8 @@ namespace Behaviac.Design
             return false;
         }
 
-        public bool ExportedUnifiedFile(string format) {
+        public bool ExportedUnifiedFile(string format)
+        {
             if (format == "xml" || format == "bson")
             {
                 return false;
@@ -263,15 +285,18 @@ namespace Behaviac.Design
             return false;
         }
 
-        public string GetExportFolder(string format) {
+        public string GetExportFolder(string format)
+        {
             string exportFolder = "";
 
-            if (_exportDatas.ContainsKey(format)) {
+            if (_exportDatas.ContainsKey(format))
+            {
                 ExportData data = _exportDatas[format];
                 exportFolder = data.ExportFolder;
             }
 
-            if (string.IsNullOrEmpty(exportFolder)) {
+            if (string.IsNullOrEmpty(exportFolder))
+            {
                 string wsFilename = this.FileName.Replace('/', '\\');
                 exportFolder = this.DefaultExportFolder.Replace('/', '\\');
                 exportFolder = Workspace.MakeRelative(exportFolder, wsFilename, true, true);
@@ -281,7 +306,8 @@ namespace Behaviac.Design
             return exportFolder;
         }
 
-        public string GetExportAbsoluteFolder(string format) {
+        public string GetExportAbsoluteFolder(string format)
+        {
             string wsFilename = Workspace.Current.FileName.Replace('/', '\\');
 
             string exportFolder = Workspace.Current.GetExportFolder(format);
@@ -291,8 +317,10 @@ namespace Behaviac.Design
             return exportAbsoluteFolder;
         }
 
-        public List<string> GetExportIncludedFilenames(string format) {
-            if (_exportDatas.ContainsKey(format)) {
+        public List<string> GetExportIncludedFilenames(string format)
+        {
+            if (_exportDatas.ContainsKey(format))
+            {
                 ExportData data = _exportDatas[format];
                 return data.ExportIncludedFilenames;
             }
@@ -300,7 +328,8 @@ namespace Behaviac.Design
             return new List<string>();
         }
 
-        private string MakeAbsolutePath(string relativePath) {
+        private string MakeAbsolutePath(string relativePath)
+        {
             string absolute = relativePath;
 
             absolute = absolute.Replace("$DESKTOP", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
@@ -311,7 +340,8 @@ namespace Behaviac.Design
             absolute = absolute.Replace("$COMMONAPPDATA", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
             absolute = absolute.Replace("$PICTURES", Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
 
-            if (Path.IsPathRooted(absolute)) {
+            if (Path.IsPathRooted(absolute))
+            {
                 return absolute;
             }
 
@@ -321,7 +351,8 @@ namespace Behaviac.Design
             return result;
         }
 
-        private string MakeRelativePath(string absolutePath) {
+        private string MakeRelativePath(string absolutePath)
+        {
             string path = Path.GetDirectoryName(_file_name);
             string relative = MakeRelative(absolutePath, path, true, true);
 
@@ -353,7 +384,8 @@ namespace Behaviac.Design
         /// This is required for the combobox used in the workspace selection dialogue.
         /// </summary>
         /// <returns>Returns the name of the workspace.</returns>
-        public override string ToString() {
+        public override string ToString()
+        {
             return _name;
         }
 
@@ -374,13 +406,15 @@ namespace Behaviac.Design
         /// directory to the end path.
         /// </returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static string MakeRelative(string toPath, string fromDirectory_, bool bDifferent, bool from_is_path = false) {
+        public static string MakeRelative(string toPath, string fromDirectory_, bool bDifferent, bool from_is_path = false)
+        {
             if (fromDirectory_ == null)
             { throw new ArgumentNullException("fromDirectory"); }
 
             string fromDirectory = fromDirectory_;
 
-            if (!from_is_path) {
+            if (!from_is_path)
+            {
                 fromDirectory = Path.GetDirectoryName(fromDirectory_);
             }
 
@@ -389,7 +423,8 @@ namespace Behaviac.Design
 
             bool isRooted = (Path.IsPathRooted(fromDirectory) && Path.IsPathRooted(toPath));
 
-            if (isRooted) {
+            if (isRooted)
+            {
                 bool isDifferentRoot = (string.Compare(Path.GetPathRoot(fromDirectory), Path.GetPathRoot(toPath), true) != 0);
 
                 if (isDifferentRoot)
@@ -406,7 +441,8 @@ namespace Behaviac.Design
             int lastCommonRoot = -1;
 
             // find common root
-            for (int x = 0; x < length; x++) {
+            for (int x = 0; x < length; x++)
+            {
                 if (string.Compare(fromDirectories[x], toDirectories[x], true) != 0)
                 { break; }
 
@@ -419,13 +455,15 @@ namespace Behaviac.Design
             // add relative folders in from path
             int higherLevel = bDifferent ? 1 : 0;
 
-            for (int x = lastCommonRoot + higherLevel; x < fromDirectories.Length; x++) {
+            for (int x = lastCommonRoot + higherLevel; x < fromDirectories.Length; x++)
+            {
                 if (fromDirectories[x].Length > 0)
                 { relativePath.Add(".."); }
             }
 
             // add to folders to path
-            for (int x = lastCommonRoot + 1; x < toDirectories.Length; x++) {
+            for (int x = lastCommonRoot + 1; x < toDirectories.Length; x++)
+            {
                 relativePath.Add(toDirectories[x]);
             }
 
@@ -435,7 +473,8 @@ namespace Behaviac.Design
 
             string newPath = string.Join(Path.DirectorySeparatorChar.ToString(), relativeParts);
 
-            if (string.IsNullOrEmpty(newPath)) {
+            if (string.IsNullOrEmpty(newPath))
+            {
                 newPath = ".";
             }
 
@@ -448,7 +487,8 @@ namespace Behaviac.Design
         /// <param name="node">The XML node we want to get the attribute from.</param>
         /// <param name="att">The name of the attribute we want.</param>
         /// <returns>Returns the attributes value. Is always valid.</returns>
-        private static string GetAttribute(XmlNode node, string att) {
+        private static string GetAttribute(XmlNode node, string att)
+        {
             XmlNode value = node.Attributes.GetNamedItem(att);
 
             if (value != null && value.NodeType == XmlNodeType.Attribute)
@@ -457,8 +497,10 @@ namespace Behaviac.Design
             return string.Empty;
         }
 
-        public static Workspace LoadWorkspaceFile(string filename) {
-            try {
+        public static Workspace LoadWorkspaceFile(string filename)
+        {
+            try
+            {
                 if (!File.Exists(filename))
                 { return null; }
 
@@ -467,7 +509,8 @@ namespace Behaviac.Design
 
                 XmlNode root = xml.ChildNodes[1];
 
-                if (root.Name == "workspace") {
+                if (root.Name == "workspace")
+                {
                     string language = GetAttribute(root, "language");
                     string name = GetAttribute(root, "name");
                     string xmlfolder = GetAttribute(root, "xmlmetafolder");
@@ -477,16 +520,20 @@ namespace Behaviac.Design
                     if (string.IsNullOrEmpty(name) ||
                         string.IsNullOrEmpty(xmlfolder) ||
                         string.IsNullOrEmpty(folder) ||
-                        string.IsNullOrEmpty(defaultExportFolder)) {
+                        string.IsNullOrEmpty(defaultExportFolder))
+                    {
                         throw new Exception(Resources.LoadWorkspaceError);
                     }
 
                     Workspace ws = new Workspace(language, filename, name, xmlfolder, folder, defaultExportFolder);
 
-                    foreach(XmlNode subnode in root) {
-                        if (subnode.NodeType == XmlNodeType.Element) {
-                            switch (subnode.Name) {
-                                    // Load all XML plugins.
+                    foreach (XmlNode subnode in root)
+                    {
+                        if (subnode.NodeType == XmlNodeType.Element)
+                        {
+                            switch (subnode.Name)
+                            {
+                                // Load all XML plugins.
                                 case "xmlmeta":
                                     string nodeName = subnode.InnerText.Trim();
 
@@ -495,18 +542,23 @@ namespace Behaviac.Design
 
                                     break;
 
-                                    // Load export nodes.
+                                // Load export nodes.
                                 case "export":
-                                    foreach(XmlNode exportNode in subnode) {
-                                        if (exportNode.NodeType == XmlNodeType.Element) {
-                                            if (!ws._exportDatas.ContainsKey(exportNode.Name)) {
+                                    foreach (XmlNode exportNode in subnode)
+                                    {
+                                        if (exportNode.NodeType == XmlNodeType.Element)
+                                        {
+                                            if (!ws._exportDatas.ContainsKey(exportNode.Name))
+                                            {
                                                 ws._exportDatas[exportNode.Name] = new ExportData();
                                             }
 
                                             ExportData data = ws._exportDatas[exportNode.Name];
 
-                                            foreach(XmlNode exportInfoNode in exportNode) {
-                                                switch (exportInfoNode.Name) {
+                                            foreach (XmlNode exportInfoNode in exportNode)
+                                            {
+                                                switch (exportInfoNode.Name)
+                                                {
                                                     case "isexported":
                                                         data.IsExported = Boolean.Parse(exportInfoNode.InnerText.Trim());
                                                         break;
@@ -520,8 +572,10 @@ namespace Behaviac.Design
                                                         break;
 
                                                     case "includedfilenames":
-                                                        foreach(XmlNode sn in exportInfoNode) {
-                                                            if (sn.NodeType == XmlNodeType.Element && sn.Name == "includedfilename") {
+                                                        foreach (XmlNode sn in exportInfoNode)
+                                                        {
+                                                            if (sn.NodeType == XmlNodeType.Element && sn.Name == "includedfilename")
+                                                            {
                                                                 string includeFilename = sn.InnerText.Trim();
 
                                                                 if (!data.ExportIncludedFilenames.Contains(includeFilename))
@@ -541,7 +595,9 @@ namespace Behaviac.Design
                     return ws;
                 }
 
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 string msgError = string.Format(Resources.LoadWorkspaceError, filename);
                 MessageBox.Show(msgError, Resources.LoadError, MessageBoxButtons.OK);
             }
@@ -549,10 +605,13 @@ namespace Behaviac.Design
             return null;
         }
 
-        public static void SaveWorkspaceFile(Workspace ws) {
+        public static void SaveWorkspaceFile(Workspace ws)
+        {
             // check if we have a valid result
-            if (ws != null && !string.IsNullOrEmpty(ws.FileName)) {
-                try {
+            if (ws != null && !string.IsNullOrEmpty(ws.FileName))
+            {
+                try
+                {
                     XmlDocument xml = new XmlDocument();
 
                     // Create the xml declaration.
@@ -570,7 +629,8 @@ namespace Behaviac.Design
                         xml.AppendChild(workspace);
 
                         // Create XML plugin nodes.
-                        foreach(string xmlPlugin in ws.XMLPlugins) {
+                        foreach (string xmlPlugin in ws.XMLPlugins)
+                        {
                             XmlElement p = xml.CreateElement("xmlmeta");
                             p.InnerText = xmlPlugin;
                             workspace.AppendChild(p);
@@ -580,7 +640,8 @@ namespace Behaviac.Design
                         XmlElement export = xml.CreateElement("export");
                         workspace.AppendChild(export);
 
-                        foreach(string format in ws._exportDatas.Keys) {
+                        foreach (string format in ws._exportDatas.Keys)
+                        {
                             ExportData data = ws._exportDatas[format];
 
                             // Create exporter nodes.
@@ -601,17 +662,20 @@ namespace Behaviac.Design
                             }
 
                             // Create folder node.
-                            if (!string.IsNullOrEmpty(data.ExportFolder)) {
+                            if (!string.IsNullOrEmpty(data.ExportFolder))
+                            {
                                 XmlElement folder = xml.CreateElement("folder");
                                 folder.InnerText = data.ExportFolder;
                                 exporter.AppendChild(folder);
                             }
 
                             // Create includedfilenames nodes.
-                            if (data.ExportIncludedFilenames.Count > 0) {
+                            if (data.ExportIncludedFilenames.Count > 0)
+                            {
                                 XmlElement exportincludedfilenames = xml.CreateElement("includedfilenames");
                                 exporter.AppendChild(exportincludedfilenames);
-                                foreach(string includedFilename in data.ExportIncludedFilenames) {
+                                foreach (string includedFilename in data.ExportIncludedFilenames)
+                                {
                                     XmlElement exportincludedfilename = xml.CreateElement("includedfilename");
                                     exportincludedfilename.InnerText = includedFilename;
                                     exportincludedfilenames.AppendChild(exportincludedfilename);
@@ -631,7 +695,9 @@ namespace Behaviac.Design
                     // save workspaces
                     xml.Save(ws.FileName);
 
-                } catch (Exception) {
+                }
+                catch (Exception)
+                {
                     string msgError = string.Format(Resources.SaveWorkspaceError, ws.FileName);
                     MessageBox.Show(msgError, Resources.SaveError, MessageBoxButtons.OK);
                 }
@@ -653,18 +719,26 @@ namespace Behaviac.Design
             return Path.Combine(this.DefaultExportFolder, "behaviac.bb.xml");
         }
 
-        private string getExportCustomMembersBsonPath() {
+        private string getExportCustomMembersBsonPath()
+        {
             return Path.Combine(this.DefaultExportFolder, "behaviac.bb.bson.bytes");
         }
 
         private static XmlNode _agentsXMLNode = null;
         private static XmlNode _typesXMLNode = null;
 
-        public static XmlNode CustomizedTypesXMLNode {
+        public static XmlNode CustomizedTypesXMLNode
+        {
             get { return _typesXMLNode; }
         }
 
-        public static void PreLoadCustomMeta(Workspace ws) {
+        public static XmlNode CustomizedAgentsXMLNode
+        {
+            get { return _agentsXMLNode; }
+        }
+
+        public static void PreLoadCustomMeta(Workspace ws)
+        {
             _agentsXMLNode = null;
             _typesXMLNode = null;
 
@@ -712,7 +786,8 @@ namespace Behaviac.Design
             }
         }
 
-        public static void LoadCustomMeta(List<Nodes.Node.ErrorCheck> result) {
+        public static void LoadCustomMeta(List<Nodes.Node.ErrorCheck> result)
+        {
             LoadCustomTypes(_typesXMLNode);
             LoadCustomMembers(result, _agentsXMLNode);
 
@@ -730,41 +805,28 @@ namespace Behaviac.Design
                 // Set the default base agent.
                 if (Plugin.AgentTypes.Count == 0)
                 {
-                    AgentType agent = new AgentType(typeof(Agent), "Agent", false, false, "Agent", "");
+                    AgentType agent = new AgentType(typeof(Agent), "Agent", false, false, "Agent", "", false);
                     Plugin.AgentTypes.Add(agent);
                 }
+
+                string agentName;
+
+                // first pass, to load all the agents as it might be used as a property of another agent
+                foreach (XmlNode xmlNode in rootNode.ChildNodes)
+                {
+                    if (xmlNode.Name == "agent")
+                    {
+                        LoadAgentType(xmlNode, out agentName);
+                    }
+                }
+
 
                 foreach (XmlNode xmlNode in rootNode.ChildNodes)
                 {
                     if (xmlNode.Name == "agent")
                     {
-                        string agentName = GetAttribute(xmlNode, "type");
-                        string agentBase = GetAttribute(xmlNode, "base");
-                        int baseIndex = -1;
-
-                        for (int i = 0; i < Plugin.AgentTypes.Count; ++i)
-                        {
-                            if (Plugin.AgentTypes[i].AgentTypeName == agentBase)
-                            {
-                                baseIndex = i;
-                                break;
-                            }
-                        }
-
-                        string agentDisp = GetAttribute(xmlNode, "disp");
-                        string agentDesc = GetAttribute(xmlNode, "desc");
-
-                        if (string.IsNullOrEmpty(agentDisp))
-                        { agentDisp = agentName; }
-
-                        AgentType agent = Plugin.GetAgentType(agentName);
-
-                        if (agent == null)
-                        {
-                            agent = new AgentType(agentName, (baseIndex > -1) ? Plugin.AgentTypes[baseIndex] : null, agentDisp, agentDesc);
-                            Plugin.AgentTypes.Add(agent);
-                        }
-
+                        AgentType agent = LoadAgentType(xmlNode, out agentName); 
+                        
                         foreach (XmlNode bbNode in xmlNode)
                         {
                             if (bbNode.Name == "properties")
@@ -824,7 +886,7 @@ namespace Behaviac.Design
 
                                             agent.AddProperty(prop);
                                         }
-                                        catch(Exception)
+                                        catch (Exception)
                                         {
                                             string errorInfo = string.Format("error when loading Agent '{0}' Member '{1}'", agentName, propName);
                                             MessageBox.Show(errorInfo, "Loading Custom Meta", MessageBoxButtons.OK);
@@ -920,7 +982,7 @@ namespace Behaviac.Design
                     }
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 string errorInfo = string.Format("error when loading custom members");
 
@@ -928,7 +990,43 @@ namespace Behaviac.Design
             }
         }
 
-        private static void LoadCustomTypes(XmlNode rootNode) {
+        private static AgentType LoadAgentType(XmlNode xmlNode, out string agentName)
+        {
+            agentName = GetAttribute(xmlNode, "type");
+
+            AgentType agent = Plugin.GetAgentType(agentName);
+
+            if (agent == null)
+            {
+                string agentBase = GetAttribute(xmlNode, "base");
+                int baseIndex = -1;
+
+                for (int i = 0; i < Plugin.AgentTypes.Count; ++i)
+                {
+                    if (Plugin.AgentTypes[i].AgentTypeName == agentBase)
+                    {
+                        baseIndex = i;
+                        break;
+                    }
+                }
+
+                string agentDisp = GetAttribute(xmlNode, "disp");
+                string agentDesc = GetAttribute(xmlNode, "desc");
+
+                if (string.IsNullOrEmpty(agentDisp))
+                {
+                    agentDisp = agentName;
+                }
+
+                agent = new AgentType(agentName, (baseIndex > -1) ? Plugin.AgentTypes[baseIndex] : null, agentDisp, agentDesc);
+                Plugin.AgentTypes.Add(agent);
+            }
+
+            return agent;
+        }
+
+        private static void LoadCustomTypes(XmlNode rootNode)
+        {
             try
             {
                 if (rootNode == null)
@@ -1025,7 +1123,7 @@ namespace Behaviac.Design
                     }
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 string errorInfo = string.Format("errors when loading custom types");
                 MessageBox.Show(errorInfo, "Loading Meta", MessageBoxButtons.OK);
@@ -1033,7 +1131,8 @@ namespace Behaviac.Design
         }
 
         private bool _isBlackboardDirty = false;
-        public bool IsBlackboardDirty {
+        public bool IsBlackboardDirty
+        {
             get { return _isBlackboardDirty; }
             set { _isBlackboardDirty = value; }
         }
@@ -1158,11 +1257,13 @@ namespace Behaviac.Design
             return hasChangeableType;
         }
 
-        public static bool SaveCustomMeta(Workspace ws) {
+        public static bool SaveCustomMeta(Workspace ws)
+        {
             string bbPath = ws.getBlackboardPath();
             XmlDocument bbfile = new XmlDocument();
 
-            try {
+            try
+            {
                 FileManagers.SaveResult result = FileManagers.FileManager.MakeWritable(bbPath, Resources.SaveFileWarning);
 
                 if (FileManagers.SaveResult.Succeeded != result)
@@ -1189,7 +1290,9 @@ namespace Behaviac.Design
 
                 return true;
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 bbfile.RemoveAll();
 
                 string msgError = string.Format(Resources.SaveFileError, bbPath, ex.Message);
@@ -1199,15 +1302,18 @@ namespace Behaviac.Design
             return false;
         }
 
-        private static void SaveCustomMembers(XmlDocument bbfile, XmlNode meta) {
+        private static void SaveCustomMembers(XmlDocument bbfile, XmlNode meta)
+        {
             XmlElement root = bbfile.CreateElement("agents");
             meta.AppendChild(root);
 
-            foreach(AgentType agent in Plugin.AgentTypes) {
+            foreach (AgentType agent in Plugin.AgentTypes)
+            {
                 XmlElement bbEle = bbfile.CreateElement("agent");
                 bbEle.SetAttribute("type", agent.AgentTypeName);
 
-                if (agent.Base != null) {
+                if (agent.Base != null)
+                {
                     bbEle.SetAttribute("base", agent.Base.AgentTypeName);
                 }
 
@@ -1216,11 +1322,13 @@ namespace Behaviac.Design
                 XmlElement propsEle = bbfile.CreateElement("properties");
                 bool hasCustomizedProperty = false;
 
-                foreach(PropertyDef prop in agent.GetProperties()) {
+                foreach (PropertyDef prop in agent.GetProperties())
+                {
                     if (prop.IsArrayElement || prop.IsPar)
                     { continue; }
 
-                    if (prop.IsCustomized || prop.IsExportedButAlsoCustomized) {
+                    if (prop.IsCustomized || prop.IsExportedButAlsoCustomized)
+                    {
                         hasCustomizedProperty = true;
 
                         XmlElement propEle = bbfile.CreateElement("property");
@@ -1245,8 +1353,10 @@ namespace Behaviac.Design
                 XmlElement methodsEle = bbfile.CreateElement("methods");
                 bool hasCustomizedMethod = false;
 
-                foreach(MethodDef method in agent.GetMethods()) {
-                    if (method.IsCustomized) {
+                foreach (MethodDef method in agent.GetMethods())
+                {
+                    if (method.IsCustomized)
+                    {
                         hasCustomizedMethod = true;
 
                         XmlElement methodEle = bbfile.CreateElement("method");
@@ -1261,7 +1371,8 @@ namespace Behaviac.Design
                         methodEle.SetAttribute("disp", method.DisplayName);
                         methodEle.SetAttribute("desc", method.BasicDescription);
 
-                        foreach(MethodDef.Param param in method.Params) {
+                        foreach (MethodDef.Param param in method.Params)
+                        {
                             XmlElement paramEle = bbfile.CreateElement("parameter");
 
                             paramEle.SetAttribute("name", param.Name);
@@ -1291,11 +1402,13 @@ namespace Behaviac.Design
             }
         }
 
-        private static void SaveCustomTypes(XmlDocument bbfile, XmlNode meta) {
+        private static void SaveCustomTypes(XmlDocument bbfile, XmlNode meta)
+        {
             XmlElement root = bbfile.CreateElement("types");
             meta.AppendChild(root);
 
-            foreach(CustomizedEnum customizedEnum in CustomizedTypeManager.Instance.Enums) {
+            foreach (CustomizedEnum customizedEnum in CustomizedTypeManager.Instance.Enums)
+            {
                 string enumFullname = string.IsNullOrEmpty(customizedEnum.Namespace) ? customizedEnum.Name : (customizedEnum.Namespace + "::" + customizedEnum.Name);
 
                 XmlElement enumEle = bbfile.CreateElement("enumtype");
@@ -1303,7 +1416,8 @@ namespace Behaviac.Design
                 enumEle.SetAttribute("DisplayName", customizedEnum.DisplayName);
                 enumEle.SetAttribute("Desc", customizedEnum.Description);
 
-                foreach(CustomizedEnum.CustomizedEnumMember member in customizedEnum.Members) {
+                foreach (CustomizedEnum.CustomizedEnumMember member in customizedEnum.Members)
+                {
                     XmlElement memberEle = bbfile.CreateElement("enum");
 
                     memberEle.SetAttribute("NativeValue", member.Name);
@@ -1318,7 +1432,8 @@ namespace Behaviac.Design
                 root.AppendChild(enumEle);
             }
 
-            foreach(CustomizedStruct customizedStruct in CustomizedTypeManager.Instance.Structs) {
+            foreach (CustomizedStruct customizedStruct in CustomizedTypeManager.Instance.Structs)
+            {
                 string structFullname = string.IsNullOrEmpty(customizedStruct.Namespace) ? customizedStruct.Name : (customizedStruct.Namespace + "::" + customizedStruct.Name);
 
                 XmlElement structEle = bbfile.CreateElement("struct");
@@ -1326,7 +1441,8 @@ namespace Behaviac.Design
                 structEle.SetAttribute("DisplayName", customizedStruct.DisplayName);
                 structEle.SetAttribute("Desc", customizedStruct.Description);
 
-                foreach(PropertyDef member in customizedStruct.Properties) {
+                foreach (PropertyDef member in customizedStruct.Properties)
+                {
                     XmlElement memberEle = bbfile.CreateElement("Member");
 
                     memberEle.SetAttribute("Name", member.BasicName);
@@ -1343,7 +1459,8 @@ namespace Behaviac.Design
             }
         }
 
-        public static void ExportCustomMembers(Workspace ws, bool exportXML, bool exportBson) {
+        public static void ExportCustomMembers(Workspace ws, bool exportXML, bool exportBson)
+        {
             SaveCustomMeta(ws);
 
             if (exportXML)
@@ -1353,21 +1470,25 @@ namespace Behaviac.Design
                 ExportBsonCustomMembers(ws);
         }
 
-        private static bool ExportXmlCustomMembers(Workspace ws) {
+        private static bool ExportXmlCustomMembers(Workspace ws)
+        {
             string bbPath = ws.getExportCustomMembersXmlPath();
 
-            try {
+            try
+            {
                 FileManagers.SaveResult result = FileManagers.FileManager.MakeWritable(bbPath, Resources.SaveFileWarning);
 
                 if (FileManagers.SaveResult.Succeeded != result)
                 { return false; }
 
-                using(StreamWriter file = new StreamWriter(bbPath)) {
+                using (StreamWriter file = new StreamWriter(bbPath))
+                {
                     XmlWriterSettings xmlWs = new XmlWriterSettings();
                     xmlWs.Indent = true;
                     //xmlWs.OmitXmlDeclaration = true;
 
-                    using(XmlWriter xmlWrtier = XmlWriter.Create(file, xmlWs)) {
+                    using (XmlWriter xmlWrtier = XmlWriter.Create(file, xmlWs))
+                    {
                         xmlWrtier.WriteStartDocument();
 
                         xmlWrtier.WriteComment("EXPORTED BY TOOL, DON'T MODIFY IT!");
@@ -1376,32 +1497,40 @@ namespace Behaviac.Design
                         xmlWrtier.WriteStartElement("agents");
                         xmlWrtier.WriteAttributeString("version", "1");
 
-                        foreach(AgentType agent in Plugin.AgentTypes) {
+                        foreach (AgentType agent in Plugin.AgentTypes)
+                        {
                             bool hasCustomizedProperty = (agent.GetProperties().Count > 0);
                             IList<MethodDef> methods = agent.GetMethods();
                             bool hasCustomizedMethod = false;
-                            foreach(MethodDef method in methods) {
-                                if (method.IsNamedEvent) {
+                            foreach (MethodDef method in methods)
+                            {
+                                if (method.IsNamedEvent)
+                                {
                                     hasCustomizedMethod = true;
                                     break;
                                 }
                             }
 
-                            if (agent.IsCustomized || hasCustomizedProperty || hasCustomizedMethod) {
+                            if (agent.IsCustomized || hasCustomizedProperty || hasCustomizedMethod)
+                            {
                                 xmlWrtier.WriteStartElement("agent");
 
                                 xmlWrtier.WriteAttributeString("type", agent.AgentTypeName);
 
-                                if (agent.Base != null) {
+                                if (agent.Base != null)
+                                {
                                     xmlWrtier.WriteAttributeString("base", agent.Base.AgentTypeName);
                                 }
 
-                                if (hasCustomizedProperty) {
+                                if (hasCustomizedProperty)
+                                {
                                     xmlWrtier.WriteStartElement("properties");
 
-                                    foreach(PropertyDef prop in agent.GetProperties()) {
+                                    foreach (PropertyDef prop in agent.GetProperties())
+                                    {
                                         //skip array element
-                                        if (prop.IsArrayElement || prop.IsPar) {
+                                        if (prop.IsArrayElement || prop.IsPar)
+                                        {
                                             continue;
                                         }
 
@@ -1413,10 +1542,13 @@ namespace Behaviac.Design
                                         xmlWrtier.WriteAttributeString("static", prop.IsStatic ? "true" : "false");
 
                                         //xmlWrtier.WriteAttributeString("public", prop.IsPublic ? "true" : "false");
-                                        if (prop.IsMember) {
+                                        if (prop.IsMember)
+                                        {
                                             xmlWrtier.WriteAttributeString("agent", prop.ClassName);
 
-                                        } else {
+                                        }
+                                        else
+                                        {
                                             xmlWrtier.WriteAttributeString("defaultvalue", prop.DefaultValue);
                                         }
 
@@ -1426,12 +1558,15 @@ namespace Behaviac.Design
                                     xmlWrtier.WriteEndElement();
                                 }
 
-                                if (hasCustomizedMethod) {
+                                if (hasCustomizedMethod)
+                                {
                                     xmlWrtier.WriteStartElement("methods");
 
-                                    foreach(MethodDef method in methods) {
+                                    foreach (MethodDef method in methods)
+                                    {
                                         //skip root, but custom method is included
-                                        if (method.IsNamedEvent) {
+                                        if (method.IsNamedEvent)
+                                        {
                                             xmlWrtier.WriteStartElement("method");
 
                                             xmlWrtier.WriteAttributeString("name", method.BasicName);
@@ -1442,7 +1577,8 @@ namespace Behaviac.Design
                                             //xmlWrtier.WriteAttributeString("isevent", (method.IsNamedEvent || method.MemberType == MemberType.Task) ? "true" : "false");
                                             xmlWrtier.WriteAttributeString("agent", method.ClassName);
 
-                                            foreach(MethodDef.Param param in method.Params) {
+                                            foreach (MethodDef.Param param in method.Params)
+                                            {
                                                 xmlWrtier.WriteStartElement("parameter");
 
                                                 xmlWrtier.WriteAttributeString("name", param.Name);
@@ -1474,7 +1610,9 @@ namespace Behaviac.Design
 
                 return true;
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 string msgError = string.Format(Resources.SaveFileError, bbPath, ex.Message);
                 MessageBox.Show(msgError, Resources.SaveError, MessageBoxButtons.OK);
             }
@@ -1483,17 +1621,20 @@ namespace Behaviac.Design
         }
 
 
-        private static bool ExportBsonCustomMembers(Workspace ws) {
+        private static bool ExportBsonCustomMembers(Workspace ws)
+        {
             string bbPath = ws.getExportCustomMembersBsonPath();
 
-            try {
+            try
+            {
                 FileManagers.SaveResult result = FileManagers.FileManager.MakeWritable(bbPath, Resources.SaveFileWarning);
 
                 if (FileManagers.SaveResult.Succeeded != result)
                 { return false; }
 
-                using(var ms = new MemoryStream())
-                using(var writer = new BinaryWriter(ms)) {
+                using (var ms = new MemoryStream())
+                using (var writer = new BinaryWriter(ms))
+                {
                     BsonSerializer serializer = BsonSerializer.CreateSerialize(writer);
                     serializer.WriteStartDocument();
 
@@ -1503,38 +1644,48 @@ namespace Behaviac.Design
                     //serializer.WriteAttributeString("version", "1");
                     serializer.WriteString("1");
 
-                    foreach(AgentType agent in Plugin.AgentTypes) {
+                    foreach (AgentType agent in Plugin.AgentTypes)
+                    {
                         bool hasCustomizedProperty = (agent.GetProperties().Count > 0);
 
                         //IList<MethodDef> methods = agent.GetMethods(MethodType.Task | MethodType.Event);
                         IList<MethodDef> methods = agent.GetMethods();
                         bool hasCustomizedMethod = false;
-                        foreach(MethodDef method in methods) {
-                            if (method.IsNamedEvent) {
+                        foreach (MethodDef method in methods)
+                        {
+                            if (method.IsNamedEvent)
+                            {
                                 hasCustomizedMethod = true;
                                 break;
                             }
                         }
 
-                        if (agent.IsCustomized || hasCustomizedProperty || hasCustomizedMethod) {
+                        if (agent.IsCustomized || hasCustomizedProperty || hasCustomizedMethod)
+                        {
                             serializer.WriteStartElement("agent");
 
                             serializer.WriteString(agent.AgentTypeName);
 
                             //base
-                            if (agent.Base != null) {
+                            if (agent.Base != null)
+                            {
                                 serializer.WriteString(agent.Base.AgentTypeName);
 
-                            } else {
+                            }
+                            else
+                            {
                                 serializer.WriteString("none");
                             }
 
-                            if (hasCustomizedProperty) {
+                            if (hasCustomizedProperty)
+                            {
                                 serializer.WriteStartElement("properties");
 
-                                foreach(PropertyDef prop in agent.GetProperties()) {
+                                foreach (PropertyDef prop in agent.GetProperties())
+                                {
                                     //skip array element
-                                    if (prop.IsArrayElement || prop.IsPar) {
+                                    if (prop.IsArrayElement || prop.IsPar)
+                                    {
                                         continue;
                                     }
 
@@ -1546,10 +1697,13 @@ namespace Behaviac.Design
                                     serializer.WriteString(prop.IsStatic ? "true" : "false");
 
                                     //serializer.WriteString(prop.IsPublic ? "true" : "false");
-                                    if (prop.IsMember) {
+                                    if (prop.IsMember)
+                                    {
                                         serializer.WriteString(prop.ClassName);
 
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         serializer.WriteString(prop.DefaultValue);
                                     }
 
@@ -1559,12 +1713,15 @@ namespace Behaviac.Design
                                 serializer.WriteEndElement();
                             }
 
-                            if (hasCustomizedMethod) {
+                            if (hasCustomizedMethod)
+                            {
                                 serializer.WriteStartElement("methods");
 
-                                foreach(MethodDef method in methods) {
+                                foreach (MethodDef method in methods)
+                                {
                                     //skip root and those other custom method
-                                    if (method.IsNamedEvent) {
+                                    if (method.IsNamedEvent)
+                                    {
                                         serializer.WriteStartElement("method");
 
                                         serializer.WriteString(method.BasicName);
@@ -1574,7 +1731,8 @@ namespace Behaviac.Design
                                         //serializer.WriteString((method.MemberType == MemberType.Task) ? "true" : "false");
                                         serializer.WriteString(method.ClassName);
 
-                                        foreach(MethodDef.Param param in method.Params) {
+                                        foreach (MethodDef.Param param in method.Params)
+                                        {
                                             serializer.WriteStartElement("parameter");
 
                                             serializer.WriteString(param.Name);
@@ -1594,7 +1752,9 @@ namespace Behaviac.Design
                             //end of agent
                             serializer.WriteEndElement();
 
-                        } else {
+                        }
+                        else
+                        {
                             //serializer.WriteTypeNone();
                         }
                     }
@@ -1604,8 +1764,10 @@ namespace Behaviac.Design
 
                     serializer.WriteEndDocument();
 
-                    using(FileStream fs = File.Create(bbPath)) {
-                        using(BinaryWriter w = new BinaryWriter(fs)) {
+                    using (FileStream fs = File.Create(bbPath))
+                    {
+                        using (BinaryWriter w = new BinaryWriter(fs))
+                        {
                             byte[] d = ms.ToArray();
 
                             w.Write(d);
@@ -1616,7 +1778,9 @@ namespace Behaviac.Design
 
                 return true;
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 string msgError = string.Format(Resources.SaveFileError, bbPath, ex.Message);
                 MessageBox.Show(msgError, Resources.SaveError, MessageBoxButtons.OK);
             }

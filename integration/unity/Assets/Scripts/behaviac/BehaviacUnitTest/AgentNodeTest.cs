@@ -70,6 +70,8 @@ namespace BSASN
     }
 }
 
+public class TestClassA { }
+
 [behaviac.TypeMetaInfo()]
 public class AgentNodeTest : behaviac.Agent
 {
@@ -293,6 +295,30 @@ public class AgentNodeTest : behaviac.Agent
     TestNS.Float2 getConstExtendedStruct()
     {
         return this.TestFloat2;
+    }
+
+    [behaviac.MethodMetaInfo()]
+    behaviac.EBTStatus return_status(TestNS.Float2 f2)
+    {
+        if (Mathf.Abs(f2.x - 2.0f) < 0.001f &&
+			Mathf.Abs(f2.y - 2.0f) < 0.001f)
+		{
+			return behaviac.EBTStatus.BT_SUCCESS;
+		}
+
+        return behaviac.EBTStatus.BT_FAILURE;
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public TestClassA TestFunC()
+    {
+        return new TestClassA();
+    }
+
+    [behaviac.MethodMetaInfo()]
+    public behaviac.EBTStatus TestFuncD(TestClassA fun)
+    {
+        return (fun != null) ? behaviac.EBTStatus.BT_SUCCESS : behaviac.EBTStatus.BT_FAILURE;
     }
 
     [behaviac.MethodMetaInfo()]

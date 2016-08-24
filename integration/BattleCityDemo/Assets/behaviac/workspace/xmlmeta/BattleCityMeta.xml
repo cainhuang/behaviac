@@ -52,6 +52,9 @@
   </types>
   <agents>
     <agent classfullname="behaviac::Agent" DisplayName="behaviac.Agent" Desc="behaviac.Agent" IsRefType="true">
+      <Method Name="LogMessage" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
+        <Param DisplayName="message" Desc="message" Type="string" />
+      </Method>
       <Method Name="VectorLength" DisplayName="" Desc="" ReturnType="int" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="vector" Desc="vector" Type="System.Collections.IList" />
       </Method>

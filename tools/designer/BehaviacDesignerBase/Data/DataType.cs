@@ -56,11 +56,11 @@ namespace Behaviac.Design
         //return float, double
         Float = 4,
 
-        String = 8, 
+        String = 8,
 
         Array = 16,
 
-        RefType = 32, 
+        RefType = 32,
 
         //all types
         All = Bool | Int | Float | String
@@ -185,14 +185,14 @@ namespace Behaviac.Design
                 get
                 {
                     if (_paramInfo != null)
-                    { 
+                    {
                         if (this.listParam_ != null)
                         {
                             Type type = GetListParamItemType(this);
                             return type;
                         }
 
-                        return _paramInfo.ParameterType; 
+                        return _paramInfo.ParameterType;
                     }
 
                     if (_bParamFromStruct)
@@ -200,8 +200,8 @@ namespace Behaviac.Design
                         ParInfo par = this._value as ParInfo;
 
                         if (par != null)
-                        { 
-                            return par.Type; 
+                        {
+                            return par.Type;
                         }
 
                         return this._property.Property.PropertyType;

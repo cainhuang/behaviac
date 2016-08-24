@@ -6443,6 +6443,36 @@ namespace behaviac
 		object[] opr_params;
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_action_ut_1_node13 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_1_node13()
+		{
+			this.m_resultOption = EBTStatus.BT_INVALID;
+			method_params = null;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			TestNS.Float2 result = (TestNS.Float2)AgentMetaVisitor.ExecuteMethod(pAgent, "getConstExtendedStruct", method_params);
+			return (EBTStatus)AgentMetaVisitor.ExecuteMethod(pAgent, "return_status", new object[] { result });
+		}
+		object[] method_params;
+	}
+
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_action_ut_1_node14 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_1_node14()
+		{
+			this.m_resultOption = EBTStatus.BT_INVALID;
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			TestClassA result = (TestClassA)((AgentNodeTest)pAgent).TestFunC();
+			return (EBTStatus)((AgentNodeTest)pAgent).TestFuncD(result);
+		}
+	}
+
 	public static class bt_node_test_action_ut_1
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -6588,6 +6618,26 @@ namespace behaviac
 #endif
 					node0.AddChild(node12);
 					node0.SetHasEvents(node0.HasEvents() | node12.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_1_node13 node13 = new Action_bt_node_test_action_ut_1_node13();
+					node13.SetClassNameString("Action");
+					node13.SetId(13);
+#if !BEHAVIAC_RELEASE
+					node13.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node13);
+					node0.SetHasEvents(node0.HasEvents() | node13.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_1_node14 node14 = new Action_bt_node_test_action_ut_1_node14();
+					node14.SetClassNameString("Action");
+					node14.SetId(14);
+#if !BEHAVIAC_RELEASE
+					node14.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node14);
+					node0.SetHasEvents(node0.HasEvents() | node14.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}

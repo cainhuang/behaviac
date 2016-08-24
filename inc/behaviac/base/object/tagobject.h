@@ -647,18 +647,10 @@ namespace behaviac
 
 #define DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO(className, bRefType)	\
     DECLARE_BEHAVIAC_OBJECT_NOVIRTUAL_BASE_MACRO_BASE(className, bRefType)	\
-    bool Equal(const className& rhs)	const								\
+    bool _Object_Equal_(const className& rhs)	const								\
     {																		\
         const behaviac::CTagObjectDescriptor& object_desc = className::GetObjectDescriptor();	\
-        return Equal_Struct(object_desc, (const behaviac::CTagObject*)this, (const behaviac::CTagObject*)&rhs); \
-    }																		\
-    bool operator==(const className& rhs)	const							\
-    {																		\
-        return this->Equal(rhs);												\
-    }																		\
-    bool operator!=(const className& rhs)	const							\
-    {																		\
-        return !this->Equal(rhs);											\
+        return behaviac::Equal_Struct(object_desc, (const behaviac::CTagObject*)this, (const behaviac::CTagObject*)&rhs); \
     }																		\
     bool FromString(const char* str)										\
     {																		\

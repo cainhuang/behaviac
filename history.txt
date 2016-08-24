@@ -1,3 +1,10 @@
+2016-08-24  3.5.12
+    fix a bug when there is a ResultStatus
+    Fix a bug for using the customized types    
+    Fix a bug for the StatusResult method
+    Equanl renamed to _Object_Equal_
+    operator== and operator!= removed for TagObject
+
 2016-08-18  3.5.11
     Fix a bug for saving the Language of the workspace.
 

@@ -61,7 +61,7 @@ namespace Behaviac.Design
         private List<PropertyDef> _propertyList = new List<PropertyDef>();
         private List<MethodDef> _methodsList = new List<MethodDef>();
 
-        public AgentType(Type type, string fullname, bool isInherited, bool isStaticClass, string displayName, string description)
+        public AgentType(Type type, string fullname, bool isInherited, bool isStaticClass, string displayName, string description, bool isCustomized)
         {
             this._agentType = type;
             this._fullname = fullname;
@@ -69,6 +69,7 @@ namespace Behaviac.Design
             this._isStatic = isStaticClass;
             this._displayName = displayName;
             this._description = description;
+            this._isCustomized = isCustomized;
 
             this.Base = Plugin.GetAgentType(type.BaseType.Name);
 
@@ -115,16 +116,20 @@ namespace Behaviac.Design
 
         // Customized Agent
         public AgentType(string name, AgentType baseAgent, string disp, string desc) {
-            _agentType = this.GetType();
+            this._agentType = this.GetType();
+            this._isCustomized = true;
 
             this.Reset(name, baseAgent, disp, desc);
         }
 
         public AgentType(AgentType other) {
-            _agentType = this.GetType();
+            this._agentType = other._agentType;
+            this._isCustomized = other._isCustomized;
 
             if (other != null)
-            { this.Reset(other._fullname, other._base, other._displayName, other._description); }
+            {
+                this.Reset(other._fullname, other._base, other._displayName, other._description);
+            }
         }
 
         public void Reset(string name, AgentType baseAgent, string disp, string desc) {
@@ -385,8 +390,11 @@ namespace Behaviac.Design
             get { return this._agentType; }
         }
 
-        public bool IsCustomized {
-            get { return this._agentType == this.GetType(); }
+        bool _isCustomized = false;
+        public bool IsCustomized
+        {
+            //get { return this._agentType == this.GetType(); }
+            get { return _isCustomized; }
         }
 
         private string _fullname = "";
@@ -731,7 +739,7 @@ namespace Behaviac.Design
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ClassDescAttribute : Attribute
     {
-        public ClassDescAttribute(string fullname, string baseName, bool isInherited, bool isRefType, bool isStatic, string displayName, string description)
+        public ClassDescAttribute(string fullname, string baseName, bool isInherited, bool isRefType, bool isStatic, string displayName, string description, bool isCustomized)
         {
             _fullname = fullname;
             _baseName = baseName;
@@ -740,6 +748,7 @@ namespace Behaviac.Design
             _isStatic = isStatic;
             _displayName = displayName;
             _description = description;
+            _isCustomized = isCustomized;
         }
 
         public ClassDescAttribute(bool isStruct, bool isRefType) {
@@ -787,6 +796,12 @@ namespace Behaviac.Design
         private string _description = "";
         public string Description {
             get { return _description; }
+        }
+
+        private bool _isCustomized = false;
+        public bool IsCustomized
+        {
+            get { return this._isCustomized; }
         }
     }
 
@@ -1668,7 +1683,7 @@ namespace Behaviac.Design
     }
 
 
-    [Behaviac.Design.ClassDesc("Behaviac::Design::llong", "llong", true, false, false, "llong", "llong")]
+    [Behaviac.Design.ClassDesc("Behaviac::Design::llong", "llong", true, false, false, "llong", "llong", false)]
     public class llong
     {
     }
@@ -1777,7 +1792,7 @@ namespace Behaviac.Design
     }
 
 
-    [Behaviac.Design.ClassDesc("Behaviac::Design::ullong", "ullong", true, false, false, "ullong", "ullong")]
+    [Behaviac.Design.ClassDesc("Behaviac::Design::ullong", "ullong", true, false, false, "ullong", "ullong", false)]
     public class ullong
     {
     }

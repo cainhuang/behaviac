@@ -67,5 +67,15 @@
       <property Opl="TestNS::Float2 Self.AgentNodeTest::c_ReturnFloat2Const" />
       <property Opr="Self.AgentNodeTest::getConstExtendedStruct()" />
     </node>
+    <node class="Action" id="13">
+      <property Method="Self.AgentNodeTest::getConstExtendedStruct()" />
+      <property ResultFunctor="Self.AgentNodeTest::return_status({x=0;y=0;})" />
+      <property ResultOption="BT_INVALID" />
+    </node>
+    <node class="Action" id="14">
+      <property Method="Self.AgentNodeTest::TestFunC()" />
+      <property ResultFunctor="Self.AgentNodeTest::TestFuncD(null)" />
+      <property ResultOption="BT_INVALID" />
+    </node>
   </node>
 </behavior>

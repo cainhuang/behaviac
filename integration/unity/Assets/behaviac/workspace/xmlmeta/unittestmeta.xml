@@ -32,17 +32,18 @@
       <enum NativeValue="TNS::NE::NAT::YELLOW" Value="YELLOW" DisplayName="YELLOW" Desc="YELLOW" />
       <enum NativeValue="TNS::NE::NAT::WHITE" Value="WHITE" DisplayName="WHITE" Desc="WHITE" />
     </enumtype>
+    <struct Type="System::Object" DisplayName="Object" Desc="Object" IsRefType="true" />
     <struct Type="Act" DisplayName="ActionClip" Desc="动作" IsRefType="false">
       <Member Name="Var_B_Loop" DisplayName="Var_B_Loop" Desc="Var_B_Loop" Type="bool" Class="Act" Public="true" />
       <Member Name="Var_List_EnumTest" DisplayName="Var_List_EnumTest" Desc="Var_List_EnumTest" Type="vector&lt;EnumTest&gt;" Class="Act" Public="true" />
     </struct>
-    <struct Type="System::Object" DisplayName="Object" Desc="Object" IsRefType="true" />
     <struct Type="UnityEngine::GameObject" DisplayName="GameObject" Desc="GameObject" IsRefType="true" />
     <struct Type="TestNS::Node" DisplayName="Node" Desc="Node" IsRefType="true" />
     <struct Type="TestNS::Float2" DisplayName="Float2" Desc="Float2" IsRefType="false">
       <Member Name="x" DisplayName="x" Desc="x" Type="float" Class="TestNS::Float2" Public="true" />
       <Member Name="y" DisplayName="y" Desc="y" Type="float" Class="TestNS::Float2" Public="true" />
     </struct>
+    <struct Type="TestClassA" DisplayName="TestClassA" Desc="TestClassA" IsRefType="true" />
     <struct Type="BSASN::TransitPlan" DisplayName="TransitPlan" Desc="TransitPlan" IsRefType="false">
       <Member Name="plan_ID" DisplayName="plan_ID" Desc="plan_ID" Type="string" Class="BSASN::TransitPlan" Public="true" />
       <Member Name="plan_selection_precedence" DisplayName="plan_selection_precedence" Desc="plan_selection_precedence" Type="int" Class="BSASN::TransitPlan" Public="true" />
@@ -168,6 +169,13 @@
       </Method>
       <Method Name="getExtendedStruct" DisplayName="" Desc="" ReturnType="TestNS::Float2" Class="AgentNodeTest" />
       <Method Name="getConstExtendedStruct" DisplayName="" Desc="" ReturnType="TestNS::Float2" Class="AgentNodeTest" />
+      <Method Name="return_status" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest">
+        <Param DisplayName="f2" Desc="f2" Type="TestNS::Float2" />
+      </Method>
+      <Method Name="TestFunC" DisplayName="" Desc="" ReturnType="TestClassA*" Class="AgentNodeTest" Public="true" />
+      <Method Name="TestFuncD" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest" Public="true">
+        <Param DisplayName="fun" Desc="fun" Type="TestClassA*" />
+      </Method>
       <Method Name="switchRef" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="AgentNodeTest" Public="true">
         <Param DisplayName="refTree" Desc="refTree" Type="string" />
       </Method>

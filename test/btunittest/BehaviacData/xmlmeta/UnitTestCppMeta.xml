@@ -40,6 +40,7 @@
 		</struct>
 		<struct Type="IList" DisplayName="" Desc="" IsRefType="false" />
 		<struct Type="System::Object" DisplayName="" Desc="" IsRefType="false" />
+		<struct Type="TestClassA" DisplayName="" Desc="" IsRefType="true" />
 		<struct Type="TestNamespace::ClassAsValueType" DisplayName="" Desc="" IsRefType="false">
 			<Member Name="x" DisplayName="" Desc="" Type="float" Class="TestNamespace::ClassAsValueType" />
 			<Member Name="y" DisplayName="" Desc="" Type="float" Class="TestNamespace::ClassAsValueType" />
@@ -333,6 +334,13 @@
 			</Method>
 			<Method Name="getExtendedStruct" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="TestNS::Float2&amp;" />
 			<Method Name="getConstExtendedStruct" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="const TestNS::Float2&amp;" />
+			<Method Name="return_status" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus">
+				<Param DisplayName="" Desc="" Type="const TestNS::Float2&amp;" />
+			</Method>
+			<Method Name="TestFunC" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="TestClassA*" />
+			<Method Name="TestFuncD" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus">
+				<Param DisplayName="" Desc="" Type="TestClassA*" />
+			</Method>
 			<Method Name="switchRef" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="behaviac::EBTStatus">
 				<Param DisplayName="" Desc="" Type="const string&amp;" />
 			</Method>

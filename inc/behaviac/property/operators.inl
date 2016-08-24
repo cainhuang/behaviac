@@ -30,7 +30,7 @@ namespace behaviac
                 template<typename U, bool (U::*)(const U&) const> struct SFINAE {};
 
                 template< typename U >
-                static behaviac::Meta::Yes Tester(SFINAE<U, &U::Equal>*);
+				static behaviac::Meta::Yes Tester(SFINAE<U, &U::_Object_Equal_>*);
 
                 template<typename U>
                 static behaviac::Meta::No Tester(...);
@@ -128,7 +128,7 @@ namespace behaviac
         {
             static bool Equal(const T& lhs, const T& rhs)
             {
-                return lhs.Equal(rhs);
+				return lhs._Object_Equal_(rhs);
             }
 
             static bool Greater(const T& lhs, const T& rhs)
