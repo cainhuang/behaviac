@@ -87,7 +87,7 @@
     </struct>
   </types>
   <agents>
-    <agent classfullname="behaviac::Agent" DisplayName="behaviac.Agent" Desc="behaviac.Agent" IsRefType="true">
+    <agent classfullname="behaviac::Agent" DisplayName="behaviac.Agent" Desc="behaviac.Agent" IsRefType="true" Namespace="behaviac">
       <Method Name="LogMessage" DisplayName="" Desc="" ReturnType="void" Class="behaviac::Agent" Static="true" Public="true">
         <Param DisplayName="message" Desc="message" Type="string" />
       </Method>
@@ -615,7 +615,7 @@
       <Member Name="sInt" DisplayName="" Desc="" Type="int" Class="StaticAgent" Static="true" Public="true" />
       <Method Name="sAction" DisplayName="" Desc="" ReturnType="void" Class="StaticAgent" Static="true" Public="true" />
     </agent>
-    <agent classfullname="TestNS::AgentArrayAccessTest" base="behaviac::Agent" DisplayName="ArrayAccessTest_Agent" Desc="ArrayAccessTest Agent Desc" IsRefType="true">
+    <agent classfullname="TestNS::AgentArrayAccessTest" base="behaviac::Agent" DisplayName="ArrayAccessTest_Agent" Desc="ArrayAccessTest Agent Desc" IsRefType="true" Namespace="TestNS">
       <Member Name="ListInts" DisplayName="" Desc="" Type="vector&lt;int&gt;" Class="TestNS::AgentArrayAccessTest" Public="true" />
       <Member Name="Int" DisplayName="" Desc="" Type="int" Class="TestNS::AgentArrayAccessTest" Public="true" />
     </agent>

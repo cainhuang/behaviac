@@ -533,15 +533,16 @@ namespace behaviac
 
         public override T GetValue(Agent self)
         {
-            T value;
-            if (self.GetVarValue<T>(_id, out value))
+            if (self != null)
             {
-                return value;
+                T value;
+                if (self.GetVarValue<T>(_id, out value))
+                {
+                    return value;
+                }
             }
 
-            Debug.Check(false);
-
-            return value; 
+            return _defaultValue; 
         }
 
         public override void SetValue(Agent self, T value)

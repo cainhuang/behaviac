@@ -466,6 +466,7 @@ namespace behaviac
 			// behaviac.Agent
 			meta = new AgentMeta();
 			_agentMetas[2436498804] = meta;
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { behaviac.Agent.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -485,6 +486,7 @@ namespace behaviac
 			meta.RegisterMethod(1961188964, new CAgentMethod<behaviac.EBTStatus, eMapDirection>(delegate(Agent self, eMapDirection param0) { return ((GameActor)self).moveToDirection(param0); }));
 			meta.RegisterMethod(3698607782, new CAgentMethod<behaviac.EBTStatus>(delegate(Agent self) { return ((GameActor)self).navigate(); }));
 			meta.RegisterMethod(2618631093, new CAgentMethod<behaviac.EBTStatus, float>(delegate(Agent self, float param0) { return ((GameActor)self).rotateToAngle(param0); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { GameActor.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -535,6 +537,7 @@ namespace behaviac
 			meta.RegisterMethod(2132449613, new CAgentMethod<int, eGameForce, string, int, UnityEngine.Color, int>(delegate(Agent self, eGameForce param0, string param1, int param2, UnityEngine.Color param3, int param4) { return ((GameLevelCommon)self).spawnGameActor4(param0, param1, param2, param3, param4); }));
 			meta.RegisterMethod(2412112748, new CAgentMethod<int, eGameForce>(delegate(Agent self, eGameForce param0) { return ((GameLevelCommon)self).spawnRandomActor(param0); }));
 			meta.RegisterMethod(2970214778, new CAgentMethodVoid<bool>(delegate(Agent self, bool param0) { ((GameLevelCommon)self).stopGame(param0); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { GameLevelCommon.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
@@ -571,41 +574,42 @@ namespace behaviac
 			meta.RegisterMethod(1961188964, new CAgentMethod<behaviac.EBTStatus, eMapDirection>(delegate(Agent self, eMapDirection param0) { return ((Player)self).moveToDirection(param0); }));
 			meta.RegisterMethod(3698607782, new CAgentMethod<behaviac.EBTStatus>(delegate(Agent self) { return ((Player)self).navigate(); }));
 			meta.RegisterMethod(2618631093, new CAgentMethod<behaviac.EBTStatus, float>(delegate(Agent self, float param0) { return ((Player)self).rotateToAngle(param0); }));
+			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { Player.LogMessage(param0); }));
 			meta.RegisterMethod(2521019022, new CMethod_behaviac_Agent_VectorAdd());
 			meta.RegisterMethod(2306090221, new CMethod_behaviac_Agent_VectorClear());
 			meta.RegisterMethod(3483755530, new CMethod_behaviac_Agent_VectorContains());
 			meta.RegisterMethod(505785840, new CMethod_behaviac_Agent_VectorLength());
 			meta.RegisterMethod(502968959, new CMethod_behaviac_Agent_VectorRemove());
 
+			AgentMeta.Register<behaviac.Agent>("behaviac.Agent");
 			AgentMeta.Register<behaviac.EBTStatus>("behaviac.EBTStatus");
+			AgentMeta.Register<eBrickType>("eBrickType");
 			AgentMeta.Register<eGameForce>("eGameForce");
 			AgentMeta.Register<eMapDirection>("eMapDirection");
-			AgentMeta.Register<eBrickType>("eBrickType");
-			AgentMeta.Register<System.Object>("System.Object");
-			AgentMeta.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
-			AgentMeta.Register<UnityEngine.Color>("UnityEngine.Color");
-			AgentMeta.Register<UnityEngine.Transform>("UnityEngine.Transform");
-			AgentMeta.Register<behaviac.Agent>("behaviac.Agent");
 			AgentMeta.Register<GameActor>("GameActor");
 			AgentMeta.Register<GameLevelCommon>("GameLevelCommon");
 			AgentMeta.Register<Player>("Player");
+			AgentMeta.Register<System.Object>("System.Object");
+			AgentMeta.Register<UnityEngine.Color>("UnityEngine.Color");
+			AgentMeta.Register<UnityEngine.Transform>("UnityEngine.Transform");
+			AgentMeta.Register<UnityEngine.Vector3>("UnityEngine.Vector3");
 
 		}
 
 		static partial void unRegisterMeta()
 		{
+			AgentMeta.UnRegister<behaviac.Agent>("behaviac.Agent");
 			AgentMeta.UnRegister<behaviac.EBTStatus>("behaviac.EBTStatus");
+			AgentMeta.UnRegister<eBrickType>("eBrickType");
 			AgentMeta.UnRegister<eGameForce>("eGameForce");
 			AgentMeta.UnRegister<eMapDirection>("eMapDirection");
-			AgentMeta.UnRegister<eBrickType>("eBrickType");
-			AgentMeta.UnRegister<System.Object>("System.Object");
-			AgentMeta.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
-			AgentMeta.UnRegister<UnityEngine.Color>("UnityEngine.Color");
-			AgentMeta.UnRegister<UnityEngine.Transform>("UnityEngine.Transform");
-			AgentMeta.UnRegister<behaviac.Agent>("behaviac.Agent");
 			AgentMeta.UnRegister<GameActor>("GameActor");
 			AgentMeta.UnRegister<GameLevelCommon>("GameLevelCommon");
 			AgentMeta.UnRegister<Player>("Player");
+			AgentMeta.UnRegister<System.Object>("System.Object");
+			AgentMeta.UnRegister<UnityEngine.Color>("UnityEngine.Color");
+			AgentMeta.UnRegister<UnityEngine.Transform>("UnityEngine.Transform");
+			AgentMeta.UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
 		}
 	}
 }

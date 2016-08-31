@@ -21,6 +21,7 @@ using System.Collections.Specialized;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Management;
 using System.Threading;
+using System.Net.NetworkInformation;
 
 using Behaviac.Design.Properties;
 
@@ -192,10 +193,62 @@ namespace Behaviac.Design
             return _hdID;
         }
 
+        private static string _gatwway = "";
+        private static IPStatus _netWorkStatus = IPStatus.Unknown;
+        private static bool CheckNetWork()
+        {
+            try
+            {
+                if (_netWorkStatus == IPStatus.Unknown)
+                {
+                    if (string.IsNullOrEmpty(_gatwway))
+                    {
+                        using (ManagementClass cimObject = new ManagementClass("Win32_NetWorkAdapterConfiguration"))
+                        {
+                            ManagementObjectCollection moc = cimObject.GetInstances();
+
+                            foreach (ManagementObject mo in moc)
+                            {
+                                if ((bool)mo["IPEnabled"])
+                                {
+                                    string[] gateways = (string[])mo["DefaultIPGateway"];
+
+                                    foreach (string gw in gateways)
+                                    {
+                                        _gatwway += gw;
+                                    }
+
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(_gatwway))
+                    {
+                        Ping p = new Ping();
+                        PingReply pr = p.Send(_gatwway);
+
+                        _netWorkStatus = pr.Status;
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return (_netWorkStatus == IPStatus.Success);
+        }
+
         private static bool ReportToTQOS(int intNum, string intList, int strNum, string strList)
         {
             try
             {
+                if (!CheckNetWork())
+                {
+                    return false;
+                }
+
                 string qosData = "http://stats.behaviac.com/web/index.php?r=log/add&tqos={\"Head\":{\"Cmd\":5},\"Body\":{\"QOSRep\":{\"BusinessID\":1,\"QosNum\":1,\"QosList\":[{\"QosID\":7001,\"QosVal\":0,\"AppendDescFlag\":2,\"AppendDesc\":{\"Comm\":{\"IntNum\":";
                 qosData += intNum;
                 qosData += ",\"IntList\":[";
@@ -208,7 +261,6 @@ namespace Behaviac.Design
 
                 using (var client = new WebClient())
                 {
-                    //client.OpenRead(qosData);
                     Uri uri = new Uri(qosData);
                     client.OpenReadAsync(uri);
                 }

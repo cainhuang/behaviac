@@ -528,10 +528,11 @@ namespace PluginBehaviac.Exporters
                                         allParams += DataCsExporter.GetGeneratedNativeType(param.NativeType) + " " + param.Name;
                                     }
 
-                                    string returnValue = DataCsExporter.GetGeneratedDefaultValue(method.ReturnType, method.NativeReturnType);
+                                    string returnType = DataCsExporter.GetGeneratedNativeType(method.ReturnType);
+                                    string returnValue = DataCsExporter.GetGeneratedDefaultValue(method.ReturnType, returnType);
 
                                     file.WriteLine("{0}\t[behaviac.MethodMetaInfo(\"{1}\", \"{2}\")]", indent, method.DisplayName, method.BasicDescription);
-                                    file.WriteLine("{0}\t{1}{2}{3} {4}({5})", indent, publicStr, staticStr, DataCsExporter.GetGeneratedNativeType(method.ReturnType), method.BasicName, allParams);
+                                    file.WriteLine("{0}\t{1}{2}{3} {4}({5})", indent, publicStr, staticStr, returnType, method.BasicName, allParams);
                                     file.WriteLine("{0}\t{{", indent);
                                     file.WriteLine("{0}\t\t// Write your logic codes here.", indent);
                                     if (returnValue != null)
@@ -685,6 +686,8 @@ namespace PluginBehaviac.Exporters
                 ExportMeta(file);
 
                 file.WriteLine();
+
+                Plugin.AllMetaTypes.Sort();
 
                 foreach (string type in Plugin.AllMetaTypes)
                 {

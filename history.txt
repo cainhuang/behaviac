@@ -1,3 +1,9 @@
+2016-08-31  3.5.13
+    Fix a bug for sending data when the network is disconnected.
+    Fix a bug for generating the return type for the customized method.
+    Sort the meta types before exporting types.
+    export base agent types content when it is not decorated by type attribute
+    
 2016-08-24  3.5.12
     fix a bug when there is a ResultStatus
     Fix a bug for using the customized types    

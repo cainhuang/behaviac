@@ -2661,34 +2661,12 @@ namespace behaviac
                                     xmlWriter.WriteAttributeString("base", baseClass);
                                 }
 
-                                Attribute[] attributes = (Attribute[])agentType.GetCustomAttributes(typeof(behaviac.TypeMetaInfoAttribute), false);
-
-                                if (attributes.Length > 0)
                                 {
                                     //behaviac.AgentTypeAttribute cda = (behaviac.AgentTypeAttribute)attributes[0];
                                     Agent.CTagObjectDescriptor objectDesc = Agent.GetDescriptorByName(agentType.FullName);
 
-                                    xmlWriter.WriteAttributeString("DisplayName", objectDesc.displayName);
-                                    xmlWriter.WriteAttributeString("Desc", objectDesc.desc);
-                                    //agent is a ref type no matter TypeMetaInfoAttribute
-                                    xmlWriter.WriteAttributeString("IsRefType", "true");
-
-                                    if (Utils.IsStaticType(agentType))
-                                    {
-                                        xmlWriter.WriteAttributeString("IsStatic", "true");
-                                    }
-
-                                    ExportType(xmlWriter, agentType, true, onlyExportPublicMembers);
-                                }
-                                else
-                                {
-                                    if (Utils.IsAgentType(agentType))
-                                    {
-                                        xmlWriter.WriteAttributeString("inherited", "true");
-                                    }
-
-                                    xmlWriter.WriteAttributeString("DisplayName", "");
-                                    xmlWriter.WriteAttributeString("Desc", "");
+                                    xmlWriter.WriteAttributeString("DisplayName", objectDesc != null ? objectDesc.displayName : "");
+                                    xmlWriter.WriteAttributeString("Desc", objectDesc != null ? objectDesc.desc : "");
                                     //agent is a ref type no matter TypeMetaInfoAttribute
                                     xmlWriter.WriteAttributeString("IsRefType", "true");
 
@@ -2701,7 +2679,10 @@ namespace behaviac
                                     {
                                         xmlWriter.WriteAttributeString("Namespace", agentType.Namespace.Replace(".", "::"));
                                     }
+
+                                    ExportType(xmlWriter, agentType, true, onlyExportPublicMembers);
                                 }
+              
 
                                 // end of agent
                                 xmlWriter.WriteEndElement();
