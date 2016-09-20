@@ -11,6 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#if !BEHAVIAC_CS_ONLY
+
 using System;
 using System.Threading;
 using NUnit.Framework;
@@ -1031,7 +1033,7 @@ namespace BehaviorNodeUnitTest
             Assert.AreEqual(0, testAgent.testVar_0);
             Assert.AreEqual(0.0, testAgent.testVar_2);
         }
-
     }
-
 }
+
+#endif

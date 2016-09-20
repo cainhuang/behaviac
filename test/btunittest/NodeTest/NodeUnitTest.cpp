@@ -674,7 +674,7 @@ LOAD_TEST(btunittest, action_ut_0)
     AgentNodeTest* myTestAgent = initTestEnvNode("node_test/action_ut_0", format);
     myTestAgent->resetProperties();
 
-	ChildNodeTest* testChildAgent = behaviac::Agent::Create<ChildNodeTest>(1, "par_child", 0, 0);
+	ChildNodeTestSub* testChildAgent = behaviac::Agent::Create<ChildNodeTestSub>(1, "par_child", 0, 0);
 	StaticAgent* pStaticAgent = behaviac::Agent::Create<StaticAgent>("StaticAgent");
 
 	myTestAgent->testVar_3 = 1;

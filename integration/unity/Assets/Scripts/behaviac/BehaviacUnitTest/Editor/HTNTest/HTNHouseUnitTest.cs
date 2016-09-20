@@ -1,3 +1,5 @@
+#if !BEHAVIAC_CS_ONLY
+
 using System;
 using System.Threading;
 using NUnit.Framework;
@@ -46,3 +48,5 @@ namespace BehaviorNodeUnitTest
     }
 }
 #endif//BEHAVIAC_USE_HTN
+
+#endif

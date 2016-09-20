@@ -6047,7 +6047,6 @@ namespace behaviac
 			bt.AddPar("AgentNodeTest", "int", "par_int_type_1", "0");
 			bt.AddPar("AgentNodeTest", "int", "par_int_type_2", "300");
 			bt.AddPar("AgentNodeTest", "UnityEngine.GameObject", "par_go", "null");
-			bt.AddPar("AgentNodeTest", "ChildNodeTest", "par_child", "null");
 			// children
 			{
 				Sequence node0 = new Sequence();

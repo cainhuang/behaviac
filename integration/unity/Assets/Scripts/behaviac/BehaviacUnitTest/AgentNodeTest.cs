@@ -12,7 +12,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace TestNS
 {
@@ -76,6 +75,9 @@ public class TestClassA { }
 public class AgentNodeTest : behaviac.Agent
 {
     [behaviac.MemberMetaInfo()]
+    public ChildNodeTest par_child = null;
+
+    [behaviac.MemberMetaInfo()]
     public int testVar_0 = -1;
 
     [behaviac.MemberMetaInfo("testVar_1", "testVar_1 property", 100)]
@@ -113,7 +115,7 @@ public class AgentNodeTest : behaviac.Agent
     public float event_test_var_float = -1.0f;
     public AgentNodeTest event_test_var_agent = null;
 
-    public GameObject testAgentGameObject = null;
+    public UnityEngine.GameObject testAgentGameObject = null;
 
     public void resetProperties() {
         testVar_0 = -1;
@@ -152,7 +154,9 @@ public class AgentNodeTest : behaviac.Agent
         this.SetVariable<ChildNodeTest>("par_child_agent_1", testChildAgent);
 
         if (this.IsValidVariable("par_child"))
+        {
             this.SetVariable<ChildNodeTest>("par_child", _child);
+        }
     }
 
     private ChildNodeTest _child = null;
@@ -164,8 +168,12 @@ public class AgentNodeTest : behaviac.Agent
     public T getChildAgent<T>(string strChildAgentName)
         where T : behaviac.Agent
     {
+#if BEHAVIAC_CS_ONLY
+        return null;
+#else
         var childAgent = gameObject.AddComponent<T>();
         return childAgent;
+#endif
     }
 
     public void init() {
@@ -250,14 +258,16 @@ public class AgentNodeTest : behaviac.Agent
     }
 
     [behaviac.MethodMetaInfo()]
-    public GameObject createGameObject() {
-        GameObject go = new GameObject();
+    public UnityEngine.GameObject createGameObject()
+    {
+        UnityEngine.GameObject go = new UnityEngine.GameObject();
         go.name = "HC";
         return go;
     }
 
     [behaviac.MethodMetaInfo()]
-    public void testGameObject(GameObject go) {
+    public void testGameObject(UnityEngine.GameObject go)
+    {
         if (go != null)
             testVar_str_0 = go.name;
         else
@@ -300,8 +310,8 @@ public class AgentNodeTest : behaviac.Agent
     [behaviac.MethodMetaInfo()]
     behaviac.EBTStatus return_status(TestNS.Float2 f2)
     {
-        if (Mathf.Abs(f2.x - 2.0f) < 0.001f &&
-			Mathf.Abs(f2.y - 2.0f) < 0.001f)
+        if (UnityEngine.Mathf.Abs(f2.x - 2.0f) < 0.001f &&
+            UnityEngine.Mathf.Abs(f2.y - 2.0f) < 0.001f)
 		{
 			return behaviac.EBTStatus.BT_SUCCESS;
 		}
@@ -443,4 +453,17 @@ public class ChildNodeTest : AgentNodeTest
     {
         return 1000.0;
     }
+}
+
+[behaviac.TypeMetaInfo()]
+public class ChildNodeTestSub : ChildNodeTest
+{
+    [behaviac.MethodMetaInfo()]
+    public float GetConstFloatValueSub()
+    {
+        return 1000.0f;
+    }
+
+    [behaviac.MemberMetaInfo()]
+    public int IntValue = 0;
 }

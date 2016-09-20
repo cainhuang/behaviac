@@ -18,12 +18,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using UnityEngine;
 
 namespace behaviac
 {
     [behaviac.TypeMetaInfo()]
-    public class Agent : MonoBehaviour
+#if BEHAVIAC_CS_ONLY
+    public class Agent
+#else
+    public class Agent : UnityEngine.MonoBehaviour
+#endif
     {
         #region State
 
@@ -99,6 +102,18 @@ namespace behaviac
 
         #endregion State
 
+#if BEHAVIAC_CS_ONLY
+        protected Agent()
+        {
+            Init();
+        }
+
+        ~Agent()
+        {
+            OnDestroy();
+        }
+#endif
+
         protected void Init()
         {
             Awake();
@@ -114,29 +129,11 @@ namespace behaviac
 #endif
         }
 
-#if !BEHAVIAC_RELEASE
-        private static Dictionary<string, Agent> ms_agents = new Dictionary<string, Agent>();
+#if BEHAVIAC_CS_ONLY
+        private string name;
+#endif
 
-        public static Agent GetAgent(string agentName)
-        {
-            Agent pAgent = Agent.GetInstance(agentName);
-
-            if (!System.Object.ReferenceEquals(pAgent, null))
-            {
-                return pAgent;
-            }
-
-            if (ms_agents.ContainsKey(agentName))
-            {
-                Agent pA = ms_agents[agentName];
-                return pA;
-            }
-
-            return null;
-        }
-#endif//BEHAVIAC_RELEASE
-
-        protected void OnDestroy()
+        void OnDestroy()
         {
 #if !BEHAVIAC_RELEASE
             string agentClassName = this.GetClassTypeName();
@@ -161,6 +158,28 @@ namespace behaviac
                 this.m_behaviorTreeTasks = null;
             }
         }
+
+#if !BEHAVIAC_RELEASE
+        private static Dictionary<string, Agent> ms_agents = new Dictionary<string, Agent>();
+
+        public static Agent GetAgent(string agentName)
+        {
+            Agent pAgent = Agent.GetInstance(agentName);
+
+            if (!System.Object.ReferenceEquals(pAgent, null))
+            {
+                return pAgent;
+            }
+
+            if (ms_agents.ContainsKey(agentName))
+            {
+                Agent pA = ms_agents[agentName];
+                return pA;
+            }
+
+            return null;
+        }
+#endif//BEHAVIAC_RELEASE
 
         private List<BehaviorTreeTask> m_behaviorTreeTasks;
 
@@ -1522,7 +1541,9 @@ namespace behaviac
         {
             if (this.m_bActive)
             {
-                Profiler.BeginSample("btexec");
+#if !BEHAVIAC_CS_ONLY
+                UnityEngine.Profiler.BeginSample("btexec");
+#endif
 
 #if !BEHAVIAC_RELEASE
                 this.m_debug_in_exec = 1;
@@ -1542,7 +1563,9 @@ namespace behaviac
                     this.LogVariables(false);
                 }
 
-                Profiler.EndSample();
+#if !BEHAVIAC_CS_ONLY
+                UnityEngine.Profiler.EndSample();
+#endif
 
 #if !BEHAVIAC_RELEASE
                 this.m_debug_in_exec = 0;

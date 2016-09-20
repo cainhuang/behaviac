@@ -93,12 +93,20 @@ namespace Behaviac.Design.Attributes
             Type type = obj.GetType();
 
             if (!type.IsEnum)
-            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, obj)); }
+            {
+                //throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, obj));
+                Debug.Check(false);
+                return "";
+            }
 
             string enumName = Enum.GetName(type, obj);
 
             if (string.IsNullOrEmpty(enumName))
-            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeEnumValueIllegal, obj)); }
+            {
+                //throw new Exception(string.Format(Resources.ExceptionDesignerAttributeEnumValueIllegal, obj));
+                Debug.Check(false);
+                return "";
+            }
 
             return enumName;
         }
@@ -167,7 +175,11 @@ namespace Behaviac.Design.Attributes
         public override object FromStringValue(List<Nodes.Node.ErrorCheck> result, DefaultObject node, object parentObject, Type type, string str)
         {
             if (!type.IsEnum)
-            { throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, type)); }
+            {
+                //throw new Exception(string.Format(Resources.ExceptionDesignerAttributeExpectedEnum, type));
+                Debug.Check(false);
+                return null;
+            }
 
             string[] parts = str.Split(':');
 

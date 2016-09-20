@@ -11,6 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#if !BEHAVIAC_CS_ONLY
+
 using System;
 using System.Threading;
 using NUnit.Framework;
@@ -953,6 +955,7 @@ namespace ParUnitTest
             Assert.AreEqual(10, parTestAgent.TV_SHORT_0);
             Assert.AreEqual(null, parTestAgent.TV_AGENT_0);
         }
-
     }
 }
+
+#endif

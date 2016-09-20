@@ -12,7 +12,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.IO;
-using UnityEngine;
 
 namespace behaviac
 {
@@ -63,7 +62,7 @@ namespace behaviac
             try
             {
 //#if !UNITY_WEBPLAYER && (UNITY_EDITOR || UNITY_STANDALONE_WIN)
-#if !UNITY_WEBPLAYER && UNITY_EDITOR
+#if BEHAVIAC_CS_ONLY || !UNITY_WEBPLAYER && UNITY_EDITOR
                 //if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
                 {
                     if (ext == ".bson")

@@ -1,3 +1,9 @@
+2016-09-20  3.5.14
+    Support splitting the generated_behaviors.cpp file.
+    Add the BEHAVIAC_CS_ONLY to use the behaviac lib without UnityEngine.
+    Fix a bug for the type sbyte.
+    Fix a bug for the ref type of the parameter of the customized method.
+
 2016-08-31  3.5.13
     Fix a bug for sending data when the network is disconnected.
     Fix a bug for generating the return type for the customized method.

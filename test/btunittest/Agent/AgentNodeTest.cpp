@@ -31,6 +31,8 @@ AgentNodeTest::~AgentNodeTest()
 
 void AgentNodeTest::resetProperties()
 {
+	par_child = 0;
+
     testVar_0 = -1;
     testVar_1 = -1;
     testVar_2 = -1.0f;
@@ -101,6 +103,7 @@ BEHAVIAC_BEGIN_PROPERTIES(AgentNodeTest)
 {
     //BEHAVIAC_CLASS_DISPLAYNAME(L"≤‚ ‘behaviac::Agent")
     //BEHAVIAC_CLASS_DESC(L"≤‚ ‘behaviac::AgentµƒÀµ√˜")
+	BEHAVIAC_REGISTER_PROPERTY(par_child);
     BEHAVIAC_REGISTER_PROPERTY(testVar_0);
     BEHAVIAC_REGISTER_PROPERTY(testVar_1).DISPLAYNAME(L"testVar_1").DESC(L"testVar_1 property").RANGE(100);
     BEHAVIAC_REGISTER_PROPERTY(testVar_2);
@@ -193,5 +196,12 @@ BEHAVIAC_BEGIN_PROPERTIES(ChildNodeTest)
 {
 	BEHAVIAC_REGISTER_METHOD(GetConstFloatValue);
 	BEHAVIAC_REGISTER_METHOD(GetConstDoubleValue);
+}
+BEHAVIAC_END_PROPERTIES()
+
+BEHAVIAC_BEGIN_PROPERTIES(ChildNodeTestSub)
+{
+	BEHAVIAC_REGISTER_METHOD(GetConstFloatValueSub);
+	BEHAVIAC_REGISTER_PROPERTY(IntValue);
 }
 BEHAVIAC_END_PROPERTIES()

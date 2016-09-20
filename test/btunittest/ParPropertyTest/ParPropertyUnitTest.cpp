@@ -25,6 +25,7 @@ void registerAllTypes()
     //< new types
     behaviac::Agent::Register<AgentNodeTest>();
     behaviac::Agent::Register<ChildNodeTest>();
+    behaviac::Agent::Register<ChildNodeTestSub>();
 
     behaviac::TypeRegister::Register<TNS::ST::PER::WRK::kEmployee>("TNS::ST::PER::WRK::kEmployee");
     behaviac::TypeRegister::Register<TNS::ST::kCar>("TNS::ST::kCar");
@@ -81,6 +82,7 @@ void unregisterAllTypes()
     behaviac::TypeRegister::UnRegister<TNS::NE::NAT::eColor>("TNS::NE::NAT::eColor");
     behaviac::TypeRegister::UnRegister<TNS::ST::PER::WRK::kEmployee>("TNS::ST::PER::WRK::kEmployee");
 
+    behaviac::Agent::UnRegister<ChildNodeTestSub>();
     behaviac::Agent::UnRegister<ChildNodeTest>();
     behaviac::Agent::UnRegister<AgentNodeTest>();
 

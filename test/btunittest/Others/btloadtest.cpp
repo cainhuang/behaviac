@@ -15,7 +15,7 @@
 #include "../btloadtestsuite.h"
 #include "../behaviac_generated/types/customizedtypes.h"
 #include "../behaviac_generated/types/agentproperties.h"
-#include "../behaviac_generated/behaviors/generated_behaviors.h"
+//#include "../behaviac_generated/behaviors/generated_behaviors.h"
 
 //#if BEHAVIAC_COMPILER_MSVC
 #if 1

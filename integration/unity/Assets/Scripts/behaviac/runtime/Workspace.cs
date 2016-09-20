@@ -23,7 +23,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
-using UnityEngine;
 
 #if !BEHAVIAC_RELEASE || BEHAVIAC_USE_SYSTEM_XML
 
@@ -50,8 +49,13 @@ namespace behaviac
 
     public static class Config
     {
-        readonly private static bool m_bIsDesktopPlayer = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.OSXPlayer);
-        readonly private static bool m_bIsDesktopEditor = (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXPlayer);
+#if !BEHAVIAC_CS_ONLY
+        readonly private static bool m_bIsDesktopPlayer = (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsPlayer || UnityEngine.Application.platform == UnityEngine.RuntimePlatform.OSXPlayer);
+        readonly private static bool m_bIsDesktopEditor = (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsEditor || UnityEngine.Application.platform == UnityEngine.RuntimePlatform.OSXPlayer);
+#else
+        readonly private static bool m_bIsDesktopPlayer = false;
+        readonly private static bool m_bIsDesktopEditor = false;
+#endif
 
         private static bool m_bProfiling = false;
 
@@ -333,21 +337,23 @@ namespace behaviac
 
         private static string GetDefaultExportPath()
         {
-            string relativePath = "/Resources/behaviac/exported";
             string path = "";
 
-            if (Application.platform == RuntimePlatform.WindowsEditor)
+#if !BEHAVIAC_CS_ONLY
+            string relativePath = "/Resources/behaviac/exported";
+            if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsEditor)
             {
-                path = Application.dataPath + relativePath;
+                path = UnityEngine.Application.dataPath + relativePath;
             }
-            else if (Application.platform == RuntimePlatform.WindowsPlayer)
+            else if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsPlayer)
             {
-                path = Application.dataPath + relativePath;
+                path = UnityEngine.Application.dataPath + relativePath;
             }
             else
             {
                 path = "Assets" + relativePath;
             }
+#endif
 
             return path;
         }
@@ -381,8 +387,13 @@ namespace behaviac
         {
             get
             {
-                return (m_frameSinceStartup < 0) ? Time.frameCount : m_frameSinceStartup;
+#if !BEHAVIAC_CS_ONLY
+                return (m_frameSinceStartup < 0) ? UnityEngine.Time.frameCount : m_frameSinceStartup;
+#else
+                return m_frameSinceStartup;
+#endif
             }
+
             set
             {
                 m_frameSinceStartup = value;
@@ -398,13 +409,18 @@ namespace behaviac
         {
             get
             {
+#if !BEHAVIAC_CS_ONLY
                 if (this.m_timeSinceStartup >= 0.0)
                 {
                     return this.m_timeSinceStartup;
                 }
 
-                return Time.realtimeSinceStartup;
+                return UnityEngine.Time.realtimeSinceStartup;
+#else
+                return this.m_timeSinceStartup;
+#endif
             }
+
             set
             {
                 this.m_timeSinceStartup = value;
@@ -2551,19 +2567,21 @@ namespace behaviac
             {
                 string path = "";
 
-                if (Application.platform == RuntimePlatform.WindowsEditor)
+#if !BEHAVIAC_CS_ONLY
+                if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsEditor)
                 {
-                    path = Application.dataPath;
+                    path = UnityEngine.Application.dataPath;
                 }
-                else if (Application.platform == RuntimePlatform.WindowsPlayer)
+                else if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsPlayer)
                 {
-                    path = Application.dataPath;
+                    path = UnityEngine.Application.dataPath;
                 }
                 else
                 {
                     behaviac.Debug.LogWarning("only for dev!");
                     behaviac.Debug.Check(false);
                 }
+#endif
 
                 return path;
             }
@@ -2585,7 +2603,9 @@ namespace behaviac
                 filePath = Path.Combine(this.DataPath, xmlMetaFilePath);
             }
 
+#if !BEHAVIAC_CS_ONLY
             if (Config.IsDesktopEditor)
+#endif
             {
                 RegisterMetas();
 

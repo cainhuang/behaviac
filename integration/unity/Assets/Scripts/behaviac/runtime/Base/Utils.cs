@@ -957,7 +957,11 @@ namespace behaviac
 
         public static bool IsGameObjectType(Type type)
         {
+#if !BEHAVIAC_CS_ONLY
             return (type == typeof(UnityEngine.GameObject) || type.IsSubclassOf(typeof(UnityEngine.GameObject)));
+#else
+            return false;
+#endif
         }
 
         public static bool IsRefNullType(Type type)
@@ -1207,25 +1211,41 @@ namespace behaviac
         [Conditional("UNITY_EDITOR")]
         public static void Log(string message)
         {
+#if !BEHAVIAC_CS_ONLY
             UnityEngine.Debug.Log(message);
+#else
+            Console.WriteLine(message);
+#endif
         }
 
         [Conditional("UNITY_EDITOR")]
         public static void LogWarning(string message)
         {
+#if !BEHAVIAC_CS_ONLY
             UnityEngine.Debug.LogWarning(message);
+#else
+            Console.WriteLine(message);
+#endif
         }
 
         [Conditional("UNITY_EDITOR")]
         public static void LogError(string message)
         {
+#if !BEHAVIAC_CS_ONLY
             UnityEngine.Debug.LogError(message);
+#else
+            Console.WriteLine(message);
+#endif
         }
 
         [Conditional("UNITY_EDITOR")]
         public static void LogError(Exception ex)
         {
+#if !BEHAVIAC_CS_ONLY
             UnityEngine.Debug.LogError(ex.Message);
+#else
+            Console.WriteLine(ex.Message);
+#endif
         }
 
         [Conditional("BEHAVIAC_DEBUG")]
@@ -1234,9 +1254,12 @@ namespace behaviac
         {
             LogError(msg);
 
+#if !BEHAVIAC_CS_ONLY
             UnityEngine.Debug.Break();
+#else
             //throw new Exception();
-            //System.Diagnostics.Debug.Assert(false);
+            System.Diagnostics.Debug.Assert(false);
+#endif
         }
     }
 

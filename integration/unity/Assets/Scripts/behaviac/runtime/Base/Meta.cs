@@ -382,10 +382,12 @@ namespace behaviac
             Register<string>("string");
             Register<String>("String");
             Register<object>("object");
+#if !BEHAVIAC_CS_ONLY
             Register<UnityEngine.GameObject>("UnityEngine.GameObject");
             Register<UnityEngine.Vector2>("UnityEngine.Vector2");
             Register<UnityEngine.Vector3>("UnityEngine.Vector3");
             Register<UnityEngine.Vector4>("UnityEngine.Vector4");
+#endif
             Register<behaviac.Agent>("behaviac.Agent");
             Register<behaviac.EBTStatus>("behaviac.EBTStatus");
         }
@@ -426,10 +428,12 @@ namespace behaviac
             UnRegister<string>("string");
             UnRegister<String>("String");
             UnRegister<object>("object");
+#if !BEHAVIAC_CS_ONLY
             UnRegister<UnityEngine.GameObject>("UnityEngine.GameObject");
             UnRegister<UnityEngine.Vector2>("UnityEngine.Vector2");
             UnRegister<UnityEngine.Vector3>("UnityEngine.Vector3");
             UnRegister<UnityEngine.Vector4>("UnityEngine.Vector4");
+#endif
             UnRegister<behaviac.Agent>("behaviac.Agent");
             UnRegister<behaviac.EBTStatus>("behaviac.EBTStatus");
         }

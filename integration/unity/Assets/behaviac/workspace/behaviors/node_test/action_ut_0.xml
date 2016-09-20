@@ -7,7 +7,6 @@
       <Parameter Name="par_int_type_1" Type="System.Int32" DefaultValue="0" DisplayName="par_int_type_1" Desc="AgentNodeTest::par_int_type_1" Display="true" />
       <Parameter Name="par_int_type_2" Type="System.Int32" DefaultValue="300" DisplayName="par_int_type_2" Desc="AgentNodeTest::par_int_type_2" Display="true" />
       <Parameter Name="par_go" Type="XMLPluginBehaviac.UnityEngine_GameObject" DefaultValue="null" DisplayName="par_go" Desc="par_go" Display="true" />
-      <Parameter Name="par_child" Type="XMLPluginBehaviac.ChildNodeTest" DefaultValue="null" DisplayName="par_child" Desc="par_child" Display="true" />
     </Parameters>
     <DescriptorRefs value="0:" />
     <Connector Identifier="GenericChildren">

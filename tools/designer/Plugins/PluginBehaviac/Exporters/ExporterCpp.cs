@@ -49,7 +49,7 @@ namespace PluginBehaviac.Exporters
             _filename = "behaviors/generated_behaviors.h";
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile, bool exportBehaviors)
+        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportBehaviors, int exportFileCount)
         {
             string behaviorFilename = "behaviors/generated_behaviors.h";
             string agentFolder = string.Empty;
@@ -62,7 +62,7 @@ namespace PluginBehaviac.Exporters
                     clearFolder(behaviorFolder);
                     //clearFolder(agentFolder);
 
-                    ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
+                    ExportBehaviors(behaviors, behaviorFilename, exportFileCount);
 
                     ExportCustomizedMembers(agentFolder);
                 }
@@ -97,59 +97,115 @@ namespace PluginBehaviac.Exporters
             }
         }
 
-        private void ExportBehaviors(List<BehaviorNode> behaviors, string filename, bool exportUnifiedFile)
+        private void ExportBehaviors(List<BehaviorNode> behaviors, string filename, int exportFileCount)
         {
-            using (StreamWriter file = new StreamWriter(filename))
+            using (StreamWriter file = new StreamWriter(filename)) // generated_behaviors.h
             {
                 ExportHead(file, filename);
 
                 _behaviorCreators.Clear();
 
-                if (exportUnifiedFile)
+                if (exportFileCount == 1)
                 {
+                    // create namespace
+                    file.WriteLine("namespace behaviac");
+                    file.WriteLine("{");
+
                     foreach (BehaviorNode behavior in behaviors)
                     {
                         behavior.PreExport();
 
-                        _behaviorCreators.Add(ExportBody(file, behavior));
+                        _behaviorCreators.Add(ExportBody(file, behavior, false));
 
                         behavior.PostExport();
                     }
+
+                    ExportTail(file);
+
+                    // close namespace
+                    file.WriteLine("}");
                 }
                 else
                 {
-                    foreach (BehaviorNode behavior in behaviors)
+                    Debug.Check(exportFileCount > 1);
+
+                    string cppFileName = Path.ChangeExtension(filename, ".cpp");
+
+                    using (StreamWriter baseCppFile = new StreamWriter(cppFileName)) // generated_behaviors.cpp
                     {
-                        string behaviorFilename = behavior.RelativePath;
-                        behaviorFilename = behaviorFilename.Replace("\\", "/");
-                        behaviorFilename = Path.ChangeExtension(behaviorFilename, "inl");
+                        baseCppFile.WriteLine("#include \"behaviac/behaviac.h\"");
+                        baseCppFile.WriteLine();
+                        baseCppFile.WriteLine("#include \"generated_behaviors.h\"");
 
-                        file.WriteLine("#include \"{0}\"", behaviorFilename);
+                        string ext = Path.GetExtension(filename);
+                        int behaviorUnitSize = behaviors.Count / exportFileCount;
+                        int unitNum = 0;
 
-                        behaviorFilename = Path.Combine("behaviors", behaviorFilename);
-                        string agentFolder = string.Empty;
-
-                        Behaviac.Design.FileManagers.SaveResult result = VerifyFilename(true ,ref behaviorFilename, ref agentFolder);
-
-                        if (Behaviac.Design.FileManagers.SaveResult.Succeeded == result)
+                        for (int i = 0; i < behaviors.Count; i += behaviorUnitSize)
                         {
-                            using (StreamWriter behaviorFile = new StreamWriter(behaviorFilename))
+                            string unitHeaderFileName = filename.Replace(ext, "_" + unitNum + ".h");
+                            string unitCppFileName = filename.Replace(ext, "_" + unitNum + ".cpp");
+
+                            StreamWriter headerSW = new StreamWriter(unitHeaderFileName);
+                            StreamWriter cppSW = new StreamWriter(unitCppFileName);
+
+                            // header
+                            headerSW.WriteLine("#include \"generated_behaviors.h\"");
+                            headerSW.WriteLine();
+                            headerSW.WriteLine("namespace behaviac");
+                            headerSW.WriteLine("{");
+
+                            // cpp
+                            string unitHeaderFile = Path.GetFileName(unitHeaderFileName);
+                            baseCppFile.WriteLine("#include \"{0}\"", unitHeaderFile);
+
+                            cppSW.WriteLine("#include \"{0}\"", unitHeaderFile);
+                            cppSW.WriteLine();
+                            cppSW.WriteLine("namespace behaviac");
+                            cppSW.WriteLine("{");
+
+                            for (int k = 0; k < behaviorUnitSize && i + k < behaviors.Count; ++k)
                             {
+                                BehaviorNode behavior = behaviors[i + k];
+
                                 behavior.PreExport();
 
-                                _behaviorCreators.Add(ExportBody(behaviorFile, behavior));
+                                // cpp
+                                BehaviorCreator creator = ExportBody(cppSW, behavior, true);
+                                _behaviorCreators.Add(creator);
+
+                                // header
+                                headerSW.WriteLine("\tclass {0}", creator.Classname);
+                                headerSW.WriteLine("\t{");
+                                headerSW.WriteLine("\tpublic:");
+                                headerSW.WriteLine("\t\tstatic bool Create(BehaviorTree* pBT);");
+                                headerSW.WriteLine("\t};");
+                                headerSW.WriteLine();
 
                                 behavior.PostExport();
-
-                                behaviorFile.Close();
                             }
+
+                            // header
+                            headerSW.WriteLine("}");
+                            headerSW.Close();
+
+                            // cpp
+                            cppSW.WriteLine("}");
+                            cppSW.Close();
+
+                            unitNum++;
                         }
+
+                        baseCppFile.WriteLine();
+                        baseCppFile.WriteLine("namespace behaviac");
+                        baseCppFile.WriteLine("{");
+
+                        ExportTail(baseCppFile);
+
+                        baseCppFile.WriteLine("}");
+                        baseCppFile.Close();
                     }
-
-                    file.WriteLine();
                 }
-
-                ExportTail(file);
 
                 file.Close();
             }
@@ -234,14 +290,15 @@ namespace PluginBehaviac.Exporters
 
             // write comments
             file.WriteLine("// ---------------------------------------------------------------------");
-            file.WriteLine("/*\nThis file is auto-generated by behaviac designer, so please don't modify it by yourself!\n\n");
-            file.WriteLine("Usage: include this file in a certain cpp accordingly, only include it once and don't include it in other cpps again.");
-            file.WriteLine("(RELATIVE_PATH is the path where it is generated):");
-            file.WriteLine("and you also need to include your agent types' headers before it:\n");
-            file.WriteLine("      #include \"YourAgentTypes.h\"\n");
-            file.WriteLine("      #include \"RELATIVE_PATH/generated_behaviors.h\"\n*/\n");
+            file.WriteLine("/*\nThis file is auto-generated by behaviac designer, so please don't modify it by yourself!");
+            //file.WriteLine("Usage: include this file in a certain cpp accordingly, only include it once and don't include it in other cpps again.");
+            //file.WriteLine("(RELATIVE_PATH is the path where it is generated):");
+            //file.WriteLine("and you also need to include your agent types' headers before it:\n");
+            //file.WriteLine("      #include \"YourAgentTypes.h\"\n");
+            //file.WriteLine("      #include \"RELATIVE_PATH/generated_behaviors.h\"\n");
+            file.WriteLine("*/");
             file.WriteLine("// Export file: {0}", exportFilename);
-            file.WriteLine("// ---------------------------------------------------------------------\r\n");
+            file.WriteLine("// ---------------------------------------------------------------------\n");
 
             // write included behaviac files
             file.WriteLine("// You should set the include path of the behaviac lib in your project\r\n// for using the following header files :");
@@ -316,9 +373,6 @@ namespace PluginBehaviac.Exporters
                 file.WriteLine("");
             }
 
-            // write the namespaces for the game agents
-            //file.WriteLine("using namespace behaviac;\r\n");
-
             // write property and method handlers
             file.WriteLine("// Agent property and method handlers\r\n");
 
@@ -361,7 +415,7 @@ namespace PluginBehaviac.Exporters
                         string nativeType = DataCppExporter.GetBasicGeneratedNativeType(property.NativeType);
 
                         file.WriteLine("{0}struct PROPERTY_TYPE_{1} {{ }};", indent, propName);
-                        file.WriteLine("{0}template<>  {1}& {2}::_Get_Property_<PROPERTY_TYPE_{3}>()", indent, nativeType, agenType.BasicClassName, propName);
+                        file.WriteLine("{0}template<> inline {1}& {2}::_Get_Property_<PROPERTY_TYPE_{3}>()", indent, nativeType, agenType.BasicClassName, propName);
                         file.WriteLine("{0}{{", indent);
                         if (property.IsProperty)
                         {
@@ -410,7 +464,7 @@ namespace PluginBehaviac.Exporters
                             nativeReturnType = "const " + nativeReturnType;
 
                         file.WriteLine("{0}struct METHOD_TYPE_{1} {{ }};", indent, methodName);
-                        file.WriteLine("{0}template<>  {1} {2}::_Execute_Method_<METHOD_TYPE_{3}>({4})", indent, nativeReturnType, agenType.BasicClassName, methodName, paramStrDef);
+                        file.WriteLine("{0}template<> inline {1} {2}::_Execute_Method_<METHOD_TYPE_{3}>({4})", indent, nativeReturnType, agenType.BasicClassName, methodName, paramStrDef);
                         file.WriteLine("{0}{{", indent);
 
                         string ret = (method.NativeReturnType == "void") ? string.Empty : "return ";
@@ -422,12 +476,9 @@ namespace PluginBehaviac.Exporters
 
                 WriteNamespacesTail(file, namespaces);
             }
-
-            // create namespace
-            file.WriteLine("namespace behaviac\r\n{");
         }
 
-        private BehaviorCreator ExportBody(StreamWriter file, BehaviorNode behavior)
+        private BehaviorCreator ExportBody(StreamWriter file, BehaviorNode behavior, bool onlyImplement)
         {
             string filename = Path.ChangeExtension(behavior.RelativePath, "").Replace(".", "");
             filename = filename.Replace('\\', '/');
@@ -446,12 +497,19 @@ namespace PluginBehaviac.Exporters
                 ExportNodeClass(file, btClassName, agentType, behavior, child);
 
             // export the create function
-            file.WriteLine("\tclass {0}", btClassName);
-            file.WriteLine("\t{");
-            file.WriteLine("\tpublic:");
-            file.WriteLine("\t\tstatic bool Create(BehaviorTree* pBT)");
-            file.WriteLine("\t\t{");
+            if (onlyImplement)
+            {
+                file.WriteLine("\t\tbool {0}::Create(BehaviorTree* pBT)", btClassName);
+            }
+            else
+            {
+                file.WriteLine("\tclass {0}", btClassName);
+                file.WriteLine("\t{");
+                file.WriteLine("\tpublic:");
+                file.WriteLine("\t\tstatic bool Create(BehaviorTree* pBT)");
+            }
 
+            file.WriteLine("\t\t{");
             file.WriteLine("\t\t\tpBT->SetClassNameString(\"BehaviorTree\");");
             file.WriteLine("\t\t\tpBT->SetId((uint16_t)-1);");
             file.WriteLine("\t\t\tpBT->SetName(\"{0}\");", filename);
@@ -498,12 +556,17 @@ namespace PluginBehaviac.Exporters
             else
             {
                 foreach (Node child in ((Node)behavior).GetChildNodes())
+                {
                     ExportNode(file, btClassName, agentType, "pBT", child, 3);
+                }
             }
 
             file.WriteLine("\t\t\treturn true;");
             file.WriteLine("\t\t}");
-            file.WriteLine("\t};");
+            if (!onlyImplement)
+            {
+                file.WriteLine("\t};");
+            }
             file.WriteLine();
 
             return new BehaviorCreator(filename, btClassName);
@@ -531,9 +594,6 @@ namespace PluginBehaviac.Exporters
 	        file.WriteLine("\t};\n");
 
             file.WriteLine("\tCppGenerationManager _cppGenerationManager_;");
-
-            // close namespace
-            file.WriteLine("}");
         }
 
         private void ExportPars(StreamWriter file, string agentType, string nodeName, Node node, string indent)

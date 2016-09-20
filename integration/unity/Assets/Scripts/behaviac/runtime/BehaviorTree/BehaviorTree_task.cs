@@ -13,7 +13,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace behaviac
 {
@@ -126,12 +125,20 @@ namespace behaviac
             {
                 this.classId_ = taskClassid;
                 this.agent_ = agent;
-                this.time_ = Time.realtimeSinceStartup; 
+#if !BEHAVIAC_CS_ONLY
+                this.time_ = UnityEngine.Time.realtimeSinceStartup;
+#else
+                this.time_ = System.DateTime.Now.Millisecond;
+#endif
             }
 
             public void Close()
             {
-                float endTime = Time.realtimeSinceStartup; 
+#if !BEHAVIAC_CS_ONLY
+                float endTime = UnityEngine.Time.realtimeSinceStartup; 
+#else
+                float endTime = System.DateTime.Now.Millisecond;
+#endif
 
                 //micro second
                 long duration = (long)((endTime - this.time_) * 1000000.0f);

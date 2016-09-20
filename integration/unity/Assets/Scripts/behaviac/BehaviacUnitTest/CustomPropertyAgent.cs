@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 namespace TestNamespace
 {
     [behaviac.TypeMetaInfo("Float2", "Float2 structure")]
@@ -82,7 +81,7 @@ public class CustomPropertyAgent : behaviac.Agent
     public string StringMemberReadonly = "read only sting";
 
     [behaviac.MemberMetaInfo()]
-    public Vector3 Location = new Vector3();
+    public UnityEngine.Vector3 Location = new UnityEngine.Vector3();
 
     [behaviac.MethodMetaInfo()]
     public void FnWithOutParam(out int param) {

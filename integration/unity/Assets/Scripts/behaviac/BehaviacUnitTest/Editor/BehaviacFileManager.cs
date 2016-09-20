@@ -11,7 +11,6 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using UnityEngine;
 using System.Collections;
 using System;
 using System.IO;
@@ -26,7 +25,8 @@ public class BehaviacFileManager: behaviac.FileManager
     }
 
     public override byte[] FileOpen(string filePath, string ext) {
-        if (Application.platform == RuntimePlatform.WindowsPlayer) {
+        if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsPlayer)
+        {
             string behaviacPath = filePath + ext;
             string stdPath = behaviacPath.Replace("/", "\\");
             FileStream fs = new FileStream(stdPath, FileMode.Open);

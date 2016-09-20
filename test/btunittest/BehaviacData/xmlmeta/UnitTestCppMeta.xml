@@ -263,6 +263,7 @@
 			</Method>
 		</agent>
 		<agent classfullname="AgentNodeTest" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
+			<Member Name="par_child" DisplayName="" Desc="" Type="ChildNodeTest*" Class="AgentNodeTest" />
 			<Member Name="testVar_0" DisplayName="" Desc="" Type="int" Class="AgentNodeTest" />
 			<Member Name="testVar_1" DisplayName="testVar_1" Desc="testVar_1 property" Type="int" Class="AgentNodeTest" />
 			<Member Name="testVar_2" DisplayName="" Desc="" Type="float" Class="AgentNodeTest" />
@@ -365,6 +366,10 @@
 		<agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="" Desc="" IsRefType="true">
 			<Method Name="GetConstFloatValue" DisplayName="" Desc="" Class="ChildNodeTest" ReturnType="float" />
 			<Method Name="GetConstDoubleValue" DisplayName="" Desc="" Class="ChildNodeTest" ReturnType="double" />
+		</agent>
+		<agent classfullname="ChildNodeTestSub" base="ChildNodeTest" DisplayName="" Desc="" IsRefType="true">
+			<Member Name="IntValue" DisplayName="" Desc="" Type="int" Class="ChildNodeTestSub" />
+			<Method Name="GetConstFloatValueSub" DisplayName="" Desc="" Class="ChildNodeTestSub" ReturnType="float" />
 		</agent>
 		<agent classfullname="CustomPropertyAgent" base="behaviac::Agent" DisplayName="" Desc="" IsRefType="true">
 			<Member Name="IntProperty" DisplayName="" Desc="" Type="int" Class="CustomPropertyAgent" />

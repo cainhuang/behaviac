@@ -525,7 +525,7 @@ namespace Behaviac.Design
             if (columnIndex == 0) // Enable
             {
                 Debug.Check(Workspace.Current != null);
-                Workspace.Current.SetExportInfo(info.ID, (bool)row.Cells["Enable"].EditedFormattedValue, Workspace.Current.ExportedUnifiedFile(info.ID));
+                Workspace.Current.SetExportInfo(info.ID, (bool)row.Cells["Enable"].EditedFormattedValue, Workspace.Current.ExportFileCount(info.ID));
 
                 exportIndex = -1;
 

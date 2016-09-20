@@ -15,8 +15,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace behaviac
 {
@@ -1424,7 +1422,7 @@ namespace behaviac
             return c.Div(left, right);
         }
 
-        private static bool MemberEqual<T>(T left, T right)
+        private static bool MemberEqual(T left, T right)
         {
             //if a value type
             if (left is ValueType)

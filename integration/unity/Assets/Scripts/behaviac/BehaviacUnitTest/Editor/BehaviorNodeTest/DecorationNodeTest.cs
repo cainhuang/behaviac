@@ -11,6 +11,8 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#if !BEHAVIAC_CS_ONLY
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -132,7 +134,6 @@ namespace BehaviorNodeUnitTest
             testAgent.btexec();
             Assert.AreEqual(5, testAgent.testVar_0);
         }
-
 
         [Test]
         [Category("test_decoration_not_0")]
@@ -586,3 +587,5 @@ namespace BehaviorNodeUnitTest
         }
     }
 }
+
+#endif

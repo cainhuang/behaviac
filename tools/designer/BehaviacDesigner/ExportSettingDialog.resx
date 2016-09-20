@@ -149,7 +149,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;okButton.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <metadata name="imageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>15, 21</value>
@@ -158,47 +158,47 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAu
-        CQAAAk1TRnQBSQFMAgEBAgEAAWQBAgFkAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEnAQ0BAAH/AScBDQEAAf8BJwENAQAB/wEnAQ0BAAH/
-        AScBDQEAAf8BJwENAQAB/wEnAQ0BAAH/AScBDQEAAf8BJwENAQAB/wEnAQ0BAAH/jAABOQGEAY8B/wEw
-        AT4BhQH/ASQBMQE7Af8BFQEhASoB/wEGARABGAH/AgABBQH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/
-        AwAB/wMAAf8DAAH/DAABtwGiAZMF/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/AbcBogGT
-        Af8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BJwENAQAB/4wAATsBhwGSAf8BogHfAfAB/wE0Ac0B6gH/
-        AQ0BuAHiAf8BAAGuAdsB/wEAAakB2QH/AQABoQHSAf8BAAGYAccB/wEAAY4BvAH/AQABgwGuAf8BAAFD
-        AasB/wEAAUABqQH/AQABOwGfAf8BAAE2AZYB/wMAAf8MAAG3AaIBkwn/AfwB+gH5Af8B9wHxAe4B/wHx
-        AecB4QH/AewB3QHVAf8B5gHTAckB/wHhAcoBvQH/AbcBogGTAf8BJwENAQAB/4wAAT4BigGVAf8BqgHo
-        AfYB/wGVAeUB/AH/AYQB3wH7Af8BOQHWAfoB/wEuAdAB9wH/ASEBxgH0Af8BFAG+AfAB/wEFAbQB7AH/
-        AQABqgHoAf8BAAGkAeYB/wEAAZoB3wH/AQABkAHXAf8BAAE7AZ8B/wMAAf8MAAG3AaIBkwn/A/4B/wH6
-        AfcB9QH/AfUB7QHpAf8B7wHjAdwB/wHqAdkB0QH/AeQBzwHEAf8BtwGiAZMB/wEnAQ0BAAH/jAABQQGO
-        AZgB/wGwAeoB9gH/AZ8B6QH7Af8BkgHkAfwB/wGBAd0B+wH/ATkB1gH6Af8BLAHOAfcB/wEhAcYB9AH/
-        AREBvAHwAf8BBQG0AewB/wEAAaoB6AH/AQABowHmAf8BAAGWAdwB/wEAAUABqQH/AwAB/wwAAbcBogGT
-        Df8B/QH8AfsB/wH4AfMB8AH/AfIB6QHjAf8B7QHfAdgB/wHnAdUBywH/AbcBogGTAf8BJwENAQAB/4wA
-        AYABkQGcAf8BtgHtAfgB/wGqAewB+wH/AZsB6AH7Af8BjwHjAfwB/wGBAd0B+wH/ATUB1QH5Af8BLAHO
-        AfcB/wEfAcUB9AH/AREBvAHwAf8BAQGyAewB/wEAAakB6AH/AQABngHiAf8BAAGCAbQB/wEAAQcBDwH/
-        DAABugGlAZYR/wH7AfgB9wH/AfYB7wHrAf8B8AHlAd8B/wHrAdsB0wH/AbcBogGTAf8BJwENAQAB/4wA
-        AYMBlQGfAf8BvgHwAfkB/wGrAfAB9wH/AaUB7AH7Af8BmAHnAfsB/wGJAeEB/AH/AUMB3QH7Af8BNQHV
-        AfkB/wEpAc0B9wH/ARwBxAHzAf8BDwG7AfAB/wEBAbIB7AH/AQABpAHjAf8BAAGKAb8B/wENARcBIAH/
-        DAABvgGpAZoR/wH+Af0B/AH/AfkB9QHyAf8B9AHrAeYB/wHuAeEB2gH/AbcBogGTAf8BJwENAQAB/4wA
-        AYYBmQGjAf8BvgHwAfkB/wG2Ae0B+AH/AbAB7gH6Af8BpAHrAfoB/wGVAeYB+wH/AYkB4QH8Af8BQQHc
-        AfwB/wE1AdUB+QH/ASkBzQH3Af8BHAHEAfMB/wENAbkB7wH/AQABqQHnAf8BAAGPAccB/wEbAScBLwH/
-        DAABwwGuAZ4V/wH8AfoB+QH/AfcB8QHuAf8B8QHnAeEB/wG3AaIBkwH/AScBDQEAAf+MAAGJAZwBpgH/
-        Ab4B8AH5Af8BtgHtAfgB/wG2Ae0B+AH/AasB8AH3Af8BogHsAfoB/wGVAeYB+wH/AYkB4QH8Af8BQQHc
-        AfwB/wEzAdMB+gH/AScBzAH3Af8BGQHDAfMB/wENAbkB7wH/AQABmQHPAf8BJwE0AT4B/wwAAcgBsgGj
-        Ff8D/gH/AfoB9wH1Af8B9QHtAekB/wG3AaIBkwH/AScBDQEAAf+MAAGLAaABqAH/Ab4B8AH5Af8BvgHw
-        AfkB/wG+AfAB+QH/Ab4B8AH5Af8BtAHyAfgB/wGqAewB+wH/AaAB6QH7Af8BlQHlAfwB/wGKAd8B/AH/
-        AUMB2AH7Af8BOAHSAfgB/wEsAcoB9AH/ASEBwAHxAf8BJwE0AT4B/wwAAcwBtgGnGf8B/QH8AfsB/wG3
-        AaIBkwH/AbcBogGTAf8BKAEOAQAB/4wAAY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/AY0BoQGqAf8BjQGh
-        AaoB/wGLAZ8BqAH/AYkBnAGmAf8BiQGbAaYB/wGHAZoBpAH/AYYBmQGjAf8BhAGWAaAB/wGEAZYBoAH/
-        AYMBlQGgAf8BgwGVAaAB/wE5AYQBjwH/DAAB0QG7AasZ/wG3AaIBkwH/ASgBDgEAAf8BKAEOAQAB/wEo
-        AQ4BAAH/jAABjwGkAawB/wGyAeQB7AH/AbYB7QH4Af8BtgHtAfgB/wGpAewB9gH/AZIB4QHzAf8BjQGh
-        AaoB/wHVAdwB4AH/KAAB1QG/Aa8Z/wG5AaQBlQH/AdQBxQG6Af8BKAEOAQAB/wNKAYyMAAHaAd4B4QH/
-        AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AY8BpAGsAf8BjwGkAawB/wHVAdwB4AH/LAAB2AHCAbIZ/wHA
-        AasBnAH/ASgBDgEAAf8DSgGL2AAB2AHCAbIB/wHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHYAcIBsgH/
-        AdQBvgGuAf8BzwG5AakB/wHJAbMBpAH/A0oBi/8AlQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEA
-        AQEFAAGAFwAD/wEABP8EAAL/AcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHA
-        AQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQAB/wHAAQcEAAEBAf8BwAEP
-        BAAC/wHAAR8EAAT/BAAL
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAs
+        CQAAAk1TRnQBSQFMAgEBAgEAAZgBAgGYAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8AWwABtwGiAZMB/wEiAQgBAAH/ASIBCAEAAf8BIgEIAQAB/wEiAQgBAAH/
+        ASIBCAEAAf8BIgEIAQAB/wEiAQgBAAH/ASIBCAEAAf8BIgEIAQAB/wEiAQgBAAH/jAABNAGEAY8B/wEr
+        ATkBhQH/AR8BLAE2Af8BEAEcASUB/wEBAQsBEwH/AwAB/wMAAf8DAAH/AwAB/wMAAf8DAAH/AwAB/wMA
+        Af8DAAH/AwAB/wwAAbcBogGTBf8BtwGiAZMB/wG3AaIBkwH/AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/
+        AbcBogGTAf8BtwGiAZMB/wG3AaIBkwH/ASIBCAEAAf+MAAE2AYcBkgH/AaIB3wHwAf8BLwHNAeoB/wEI
+        AbgB4gH/AQABrgHbAf8BAAGpAdkB/wEAAaEB0gH/AQABmAHHAf8BAAGOAbwB/wEAAYMBrgH/AQABPgGr
+        Af8BAAE7AakB/wEAATYBnwH/AQABMQGWAf8DAAH/DAABtwGiAZMJ/wH8AfoB+QH/AfcB8QHuAf8B8QHn
+        AeEB/wHsAd0B1QH/AeYB0wHJAf8B4QHKAb0B/wG3AaIBkwH/ASIBCAEAAf+MAAE5AYoBlQH/AaoB6AH2
+        Af8BlQHlAfwB/wGEAd8B+wH/ATQB1gH6Af8BKQHQAfcB/wEcAcYB9AH/AQ8BvgHwAf8BAAG0AewB/wEA
+        AaoB6AH/AQABpAHmAf8BAAGaAd8B/wEAAZAB1wH/AQABNgGfAf8DAAH/DAABtwGiAZMJ/wP+Af8B+gH3
+        AfUB/wH1Ae0B6QH/Ae8B4wHcAf8B6gHZAdEB/wHkAc8BxAH/AbcBogGTAf8BIgEIAQAB/4wAATwBjgGY
+        Af8BsAHqAfYB/wGfAekB+wH/AZIB5AH8Af8BgQHdAfsB/wE0AdYB+gH/AScBzgH3Af8BHAHGAfQB/wEM
+        AbwB8AH/AQABtAHsAf8BAAGqAegB/wEAAaMB5gH/AQABlgHcAf8BAAE7AakB/wMAAf8MAAG3AaIBkw3/
+        Af0B/AH7Af8B+AHzAfAB/wHyAekB4wH/Ae0B3wHYAf8B5wHVAcsB/wG3AaIBkwH/ASIBCAEAAf+MAAGA
+        AZEBnAH/AbYB7QH4Af8BqgHsAfsB/wGbAegB+wH/AY8B4wH8Af8BgQHdAfsB/wEwAdUB+QH/AScBzgH3
+        Af8BGgHFAfQB/wEMAbwB8AH/AQABsgHsAf8BAAGpAegB/wEAAZ4B4gH/AQABggG0Af8BAAECAQoB/wwA
+        AboBpQGWEf8B+wH4AfcB/wH2Ae8B6wH/AfAB5QHfAf8B6wHbAdMB/wG3AaIBkwH/ASIBCAEAAf+MAAGD
+        AZUBnwH/Ab4B8AH5Af8BqwHwAfcB/wGlAewB+wH/AZgB5wH7Af8BiQHhAfwB/wE+Ad0B+wH/ATAB1QH5
+        Af8BJAHNAfcB/wEXAcQB8wH/AQoBuwHwAf8BAAGyAewB/wEAAaQB4wH/AQABigG/Af8BCAESARsB/wwA
+        Ab4BqQGaEf8B/gH9AfwB/wH5AfUB8gH/AfQB6wHmAf8B7gHhAdoB/wG3AaIBkwH/ASIBCAEAAf+MAAGG
+        AZkBowH/Ab4B8AH5Af8BtgHtAfgB/wGwAe4B+gH/AaQB6wH6Af8BlQHmAfsB/wGJAeEB/AH/ATwB3AH8
+        Af8BMAHVAfkB/wEkAc0B9wH/ARcBxAHzAf8BCAG5Ae8B/wEAAakB5wH/AQABjwHHAf8BFgEiASoB/wwA
+        AcMBrgGeFf8B/AH6AfkB/wH3AfEB7gH/AfEB5wHhAf8BtwGiAZMB/wEiAQgBAAH/jAABiQGcAaYB/wG+
+        AfAB+QH/AbYB7QH4Af8BtgHtAfgB/wGrAfAB9wH/AaIB7AH6Af8BlQHmAfsB/wGJAeEB/AH/ATwB3AH8
+        Af8BLgHTAfoB/wEiAcwB9wH/ARQBwwHzAf8BCAG5Ae8B/wEAAZkBzwH/ASIBLwE5Af8MAAHIAbIBoxX/
+        A/4B/wH6AfcB9QH/AfUB7QHpAf8BtwGiAZMB/wEiAQgBAAH/jAABiwGgAagB/wG+AfAB+QH/Ab4B8AH5
+        Af8BvgHwAfkB/wG+AfAB+QH/AbQB8gH4Af8BqgHsAfsB/wGgAekB+wH/AZUB5QH8Af8BigHfAfwB/wE+
+        AdgB+wH/ATMB0gH4Af8BJwHKAfQB/wEcAcAB8QH/ASIBLwE5Af8MAAHMAbYBpxn/Af0B/AH7Af8BtwGi
+        AZMB/wG3AaIBkwH/ASMBCQEAAf+MAAGNAaEBqgH/AY0BoQGqAf8BjQGhAaoB/wGNAaEBqgH/AY0BoQGq
+        Af8BiwGfAagB/wGJAZwBpgH/AYkBmwGmAf8BhwGaAaQB/wGGAZkBowH/AYQBlgGgAf8BhAGWAaAB/wGD
+        AZUBoAH/AYMBlQGgAf8BNAGEAY8B/wwAAdEBuwGrGf8BtwGiAZMB/wEjAQkBAAH/ASMBCQEAAf8BIwEJ
+        AQAB/4wAAY8BpAGsAf8BsgHkAewB/wG2Ae0B+AH/AbYB7QH4Af8BqQHsAfYB/wGSAeEB8wH/AY0BoQGq
+        Af8B1QHcAeAB/ygAAdUBvwGvGf8BuQGkAZUB/wHUAcUBugH/ASMBCQEAAf8DSgGMjAAB2gHeAeEB/wGP
+        AaQBrAH/AY8BpAGsAf8BjwGkAawB/wGPAaQBrAH/AY8BpAGsAf8B1QHcAeAB/ywAAdgBwgGyGf8BwAGr
+        AZwB/wEjAQkBAAH/A0oBi9gAAdgBwgGyAf8B2AHCAbIB/wHYAcIBsgH/AdgBwgGyAf8B2AHCAbIB/wHU
+        Ab4BrgH/Ac8BuQGpAf8ByQGzAaQB/wNKAYv/AJUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEB
+        BQABgBcAA/8BAAT/BAAC/wHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAQEBwAEH
+        BQABAQHAAQcFAAEBAcABBwUAAQEBwAEHBQABAQHAAQcFAAEBAcABBwUAAf8BwAEHBAABAQH/AcABDwQA
+        Av8BwAEfBAAE/wQACw==
 </value>
   </data>
   <data name="includedFilesGridView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -244,7 +244,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;includedFilesGridView.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="removeFilenameButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -274,7 +274,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;removeFilenameButton.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="addFilenameButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -304,7 +304,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;addFilenameButton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="cancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -334,7 +334,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="exportFolderTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -358,7 +358,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportFolderTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="browseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -391,7 +391,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;browseButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="exportFolderLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -418,36 +418,57 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exportFolderLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
-  <data name="unifiedCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="generatedFileCountNumeric.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 53</value>
   </data>
-  <data name="unifiedCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="generatedFileCountNumeric.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 21</value>
   </data>
-  <data name="unifiedCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 55</value>
+  <data name="generatedFileCountNumeric.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
   </data>
-  <data name="unifiedCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 16</value>
+  <data name="&gt;&gt;generatedFileCountNumeric.Name" xml:space="preserve">
+    <value>generatedFileCountNumeric</value>
   </data>
-  <data name="unifiedCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="&gt;&gt;generatedFileCountNumeric.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="unifiedCheckBox.Text" xml:space="preserve">
-    <value>Export Unified File?</value>
-  </data>
-  <data name="&gt;&gt;unifiedCheckBox.Name" xml:space="preserve">
-    <value>unifiedCheckBox</value>
-  </data>
-  <data name="&gt;&gt;unifiedCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;unifiedCheckBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;generatedFileCountNumeric.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;unifiedCheckBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;generatedFileCountNumeric.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="generatedFileCountLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="generatedFileCountLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="generatedFileCountLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 57</value>
+  </data>
+  <data name="generatedFileCountLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 12</value>
+  </data>
+  <data name="generatedFileCountLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="generatedFileCountLabel.Text" xml:space="preserve">
+    <value>Generated File Count:</value>
+  </data>
+  <data name="&gt;&gt;generatedFileCountLabel.Name" xml:space="preserve">
+    <value>generatedFileCountLabel</value>
+  </data>
+  <data name="&gt;&gt;generatedFileCountLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;generatedFileCountLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;generatedFileCountLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

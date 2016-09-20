@@ -56,8 +56,10 @@ namespace Behaviac.Design
             this.exportFolderTextBox = new System.Windows.Forms.TextBox();
             this.browseButton = new System.Windows.Forms.Button();
             this.exportFolderLabel = new System.Windows.Forms.Label();
-            this.unifiedCheckBox = new System.Windows.Forms.CheckBox();
+            this.generatedFileCountNumeric = new System.Windows.Forms.NumericUpDown();
+            this.generatedFileCountLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.includedFilesGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.generatedFileCountNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // okButton
@@ -193,15 +195,32 @@ namespace Behaviac.Design
             this.exportFolderLabel.Name = "exportFolderLabel";
             this.exportFolderLabel.Click += new System.EventHandler(this.exportFolderLabel_Click);
             // 
-            // unifiedCheckBox
+            // generatedFileCountNumeric
             // 
-            resources.ApplyResources(this.unifiedCheckBox, "unifiedCheckBox");
-            this.unifiedCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.unifiedCheckBox.Checked = true;
-            this.unifiedCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.unifiedCheckBox.ForeColor = System.Drawing.Color.LightGray;
-            this.unifiedCheckBox.Name = "unifiedCheckBox";
-            this.unifiedCheckBox.UseVisualStyleBackColor = false;
+            this.generatedFileCountNumeric.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.generatedFileCountNumeric.ForeColor = System.Drawing.Color.LightGray;
+            resources.ApplyResources(this.generatedFileCountNumeric, "generatedFileCountNumeric");
+            this.generatedFileCountNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.generatedFileCountNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.generatedFileCountNumeric.Name = "generatedFileCountNumeric";
+            this.generatedFileCountNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // generatedFileCountLabel
+            // 
+            resources.ApplyResources(this.generatedFileCountLabel, "generatedFileCountLabel");
+            this.generatedFileCountLabel.Name = "generatedFileCountLabel";
             // 
             // ExportSettingDialog
             // 
@@ -210,7 +229,8 @@ namespace Behaviac.Design
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.CancelButton = this.cancelButton;
-            this.Controls.Add(this.unifiedCheckBox);
+            this.Controls.Add(this.generatedFileCountLabel);
+            this.Controls.Add(this.generatedFileCountNumeric);
             this.Controls.Add(this.exportFolderLabel);
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.exportFolderTextBox);
@@ -225,6 +245,7 @@ namespace Behaviac.Design
             this.Name = "ExportSettingDialog";
             this.ShowInTaskbar = false;
             ((System.ComponentModel.ISupportInitialize)(this.includedFilesGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.generatedFileCountNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,6 +264,7 @@ namespace Behaviac.Design
         private System.Windows.Forms.TextBox exportFolderTextBox;
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Label exportFolderLabel;
-        private System.Windows.Forms.CheckBox unifiedCheckBox;
+        private System.Windows.Forms.NumericUpDown generatedFileCountNumeric;
+        private System.Windows.Forms.Label generatedFileCountLabel;
     }
 }

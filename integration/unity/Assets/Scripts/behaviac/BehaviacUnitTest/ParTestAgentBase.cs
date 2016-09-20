@@ -11,12 +11,10 @@
 // See the License for the specific language governing permissions and limitations under the License.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
 using TNS.NE.NAT;
-
 
 //TV_***, Test Variable
 //STV_***, Static Test Variable

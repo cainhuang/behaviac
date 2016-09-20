@@ -63,6 +63,7 @@
   </agent>
   <agent type="AgentNodeTest" base="behaviac::Agent">
     <properties>
+      <property name="par_child" type="ChildNodeTest*" member="true" static="false" agent="AgentNodeTest" />
       <property name="testColor" type="EnumTest" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_0" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />
@@ -119,6 +120,57 @@
       <property name="c_ReturnFloat2Const" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
       <property name="redirectCount" type="uint" member="false" static="false" defaultvalue="0" />
       <property name="redirectTime" type="uint" member="false" static="false" defaultvalue="0" />
+      <property name="par_child" type="ChildNodeTest*" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testColor" type="EnumTest" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_0" type="int" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_2" type="float" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_3" type="float" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_Act" type="Act" member="true" static="false" agent="AgentNodeTest" />
+      <property name="testVar_str_0" type="string" member="true" static="false" agent="AgentNodeTest" />
+      <property name="waiting_timeout_interval" type="int" member="true" static="false" agent="AgentNodeTest" />
+    </properties>
+    <methods>
+      <method name="event_test_int" agent="AgentNodeTest">
+        <parameter name="val_int" type="int" />
+      </method>
+      <method name="event_test_int_bool" agent="AgentNodeTest">
+        <parameter name="val_int" type="int" />
+        <parameter name="val_bool" type="bool" />
+      </method>
+      <method name="event_test_int_bool_float" agent="AgentNodeTest">
+        <parameter name="val_int" type="int" />
+        <parameter name="val_bool" type="bool" />
+        <parameter name="val_float" type="float" />
+      </method>
+      <method name="event_test_void" agent="AgentNodeTest" />
+      <method name="task_test" agent="AgentNodeTest">
+        <parameter name="count" type="int" />
+        <parameter name="weight" type="float" />
+      </method>
+      <method name="event_test_agent" agent="AgentNodeTest">
+        <parameter name="agent" type="AgentNodeTest" />
+      </method>
+      <method name="event_test_float2" agent="AgentNodeTest">
+        <parameter name="float2" type="TestNS::Float2" />
+      </method>
+      <method name="event_test_float2_ref" agent="AgentNodeTest">
+        <parameter name="float2" type="TestNS::Float2&amp;" />
+      </method>
+    </methods>
+  </agent>
+  <agent type="ChildNodeTestSub" base="ChildNodeTest">
+    <properties>
+      <property name="testFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
+      <property name="testInt" type="int" member="false" static="false" defaultvalue="10" />
+      <property name="test_int_array" type="vector&lt;int&gt;" member="false" static="false" defaultvalue="3:1|2|3" />
+      <property name="par_child_agent_1" type="ChildNodeTest" member="false" static="false" defaultvalue="null" />
+      <property name="c_ReturnFloat2" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
+      <property name="c_ReturnFloat2Const" type="TestNS::Float2" member="false" static="false" defaultvalue="{x=0;y=0;}" />
+      <property name="redirectCount" type="uint" member="false" static="false" defaultvalue="0" />
+      <property name="redirectTime" type="uint" member="false" static="false" defaultvalue="0" />
+      <property name="IntValue" type="int" member="true" static="false" agent="ChildNodeTestSub" />
+      <property name="par_child" type="ChildNodeTest*" member="true" static="false" agent="AgentNodeTest" />
       <property name="testColor" type="EnumTest" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_0" type="int" member="true" static="false" agent="AgentNodeTest" />
       <property name="testVar_1" type="int" member="true" static="false" agent="AgentNodeTest" />

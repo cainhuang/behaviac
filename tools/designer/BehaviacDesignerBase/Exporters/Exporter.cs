@@ -96,7 +96,7 @@ namespace Behaviac.Design.Exporters
             return FileManagers.SaveResult.Succeeded;
         }
 
-        public virtual FileManagers.SaveResult Export(List<Nodes.BehaviorNode> behaviors, bool exportUnifiedFile, bool exportBehaviors)
+        public virtual FileManagers.SaveResult Export(List<Nodes.BehaviorNode> behaviors, bool exportBehaviors, int exportFileCount)
         {
             return FileManagers.SaveResult.Succeeded;
         }

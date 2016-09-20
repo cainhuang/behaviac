@@ -33,7 +33,7 @@ namespace PluginBehaviac.Exporters
             _outputFolder = Path.Combine(Path.GetFullPath(_outputFolder), "behaviac_generated");
         }
 
-        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportUnifiedFile, bool exportBehaviors)
+        public override Behaviac.Design.FileManagers.SaveResult Export(List<BehaviorNode> behaviors, bool exportBehaviors, int exportFileCount)
         {
             string behaviorFilename = "behaviors/generated_behaviors.cs";
             string agentFolder = string.Empty;
@@ -46,7 +46,7 @@ namespace PluginBehaviac.Exporters
                     clearFolder(behaviorFolder);
                     //clearFolder(agentFolder);
 
-                    ExportBehaviors(behaviors, behaviorFilename, exportUnifiedFile);
+                    ExportBehaviors(behaviors, behaviorFilename, exportFileCount);
                 }
 
                 ExportMembers(agentFolder);
@@ -79,13 +79,13 @@ namespace PluginBehaviac.Exporters
             }
         }
 
-        private void ExportBehaviors(List<BehaviorNode> behaviors, string filename, bool exportUnifiedFile)
+        private void ExportBehaviors(List<BehaviorNode> behaviors, string filename, int exportFileCount)
         {
             using (StreamWriter file = new StreamWriter(filename))
             {
                 ExportHead(file, filename);
 
-                if (exportUnifiedFile)
+                if (exportFileCount == 1)
                 {
                     foreach (BehaviorNode behavior in behaviors)
                     {
@@ -523,9 +523,17 @@ namespace PluginBehaviac.Exporters
                                     foreach (MethodDef.Param param in method.Params)
                                     {
                                         if (!string.IsNullOrEmpty(allParams))
+                                        {
                                             allParams += ", ";
+                                        }
 
-                                        allParams += DataCsExporter.GetGeneratedNativeType(param.NativeType) + " " + param.Name;
+                                        string paramType = DataCsExporter.GetGeneratedNativeType(param.NativeType);
+                                        if (param.IsRef)
+                                        {
+                                            paramType = "ref " + paramType;
+                                        }
+
+                                        allParams += paramType + " " + param.Name;
                                     }
 
                                     string returnType = DataCsExporter.GetGeneratedNativeType(method.ReturnType);

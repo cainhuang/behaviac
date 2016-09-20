@@ -275,7 +275,7 @@ namespace Behaviac.Design
             typesExportFolder = Workspace.MakeRelative(typesExportFolder, wsFilename, true, true);
             typesExportFolder = typesExportFolder.Replace('\\', '/');
 
-            _workspace.SetExportInfo(language, _workspace.ShouldBeExported(language), _workspace.ExportedUnifiedFile(language), typesExportFolder);
+            _workspace.SetExportInfo(language, _workspace.ShouldBeExported(language), _workspace.ExportFileCount(language), typesExportFolder);
 
             // update plugins
             foreach (string plugin in pluginListBox.CheckedItems)

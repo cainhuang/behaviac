@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 namespace UnityTest
 {
@@ -20,7 +19,7 @@ namespace UnityTest
             AllowedTypes = new Type[] {};
         }
 
-        public IList<string> GetFieldsAndPropertiesUnderPath(GameObject go, string propertPath) {
+        public IList<string> GetFieldsAndPropertiesUnderPath(UnityEngine.GameObject go, string propertPath) {
             propertPath = propertPath.Trim();
 
             if (!PropertyPathIsValid(propertPath)) {
@@ -86,15 +85,16 @@ namespace UnityTest
             return true;
         }
 
-        public IList<string> GetFieldsAndPropertiesFromGameObject(GameObject gameObject, int depthOfSearch, string extendPath) {
+        public IList<string> GetFieldsAndPropertiesFromGameObject(UnityEngine.GameObject gameObject, int depthOfSearch, string extendPath)
+        {
             if (depthOfSearch < 1) { throw new ArgumentOutOfRangeException("depthOfSearch need to be greater than 0"); }
 
-            var goVals = GetPropertiesAndFieldsFromType(typeof(GameObject),
+            var goVals = GetPropertiesAndFieldsFromType(typeof(UnityEngine.GameObject),
                                                         depthOfSearch - 1).Select(s => "gameObject." + s);
 
             var result = new List<string>();
 
-            if (AllowedTypes == null || !AllowedTypes.Any() || AllowedTypes.Contains(typeof(GameObject)))
+            if (AllowedTypes == null || !AllowedTypes.Any() || AllowedTypes.Contains(typeof(UnityEngine.GameObject)))
             { result.Add("gameObject"); }
 
             result.AddRange(goVals);
@@ -158,9 +158,10 @@ namespace UnityTest
             throw new Exception("Only properties and fields are allowed");
         }
 
-        internal Type[] GetAllComponents(GameObject gameObject) {
+        internal Type[] GetAllComponents(UnityEngine.GameObject gameObject)
+        {
             var result = new List<Type>();
-            var components = gameObject.GetComponents(typeof(Component));
+            var components = gameObject.GetComponents(typeof(UnityEngine.Component));
             foreach(var component in components) {
                 var componentType = component.GetType();
 

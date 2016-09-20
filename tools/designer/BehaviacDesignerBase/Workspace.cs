@@ -182,11 +182,11 @@ namespace Behaviac.Design
                 set { _isExported = value; }
             }
 
-            private bool _exportUnifiedFile = true;
-            public bool ExportUnifiedFile
+            private int _exportFileCount = 1;
+            public int ExportFileCount
             {
-                get { return _exportUnifiedFile; }
-                set { _exportUnifiedFile = value; }
+                get { return _exportFileCount; }
+                set { _exportFileCount = value; }
             }
 
             /// <summary>
@@ -215,7 +215,7 @@ namespace Behaviac.Design
             get { return _exportDatas; }
         }
 
-        public void SetExportInfo(string format, bool isExported, bool exportUnifiedFile, string folder = null, List<string> includedFilenames = null)
+        public void SetExportInfo(string format, bool isExported, int exportFileCount, string folder = null, List<string> includedFilenames = null)
         {
             if (string.IsNullOrEmpty(format))
             {
@@ -229,7 +229,7 @@ namespace Behaviac.Design
 
             ExportData data = _exportDatas[format];
             data.IsExported = isExported;
-            data.ExportUnifiedFile = exportUnifiedFile;
+            data.ExportFileCount = exportFileCount;
 
             if (folder != null)
                 data.ExportFolder = folder;
@@ -258,20 +258,20 @@ namespace Behaviac.Design
             return false;
         }
 
-        public bool ExportedUnifiedFile(string format)
+        public int ExportFileCount(string format)
         {
             if (format == "xml" || format == "bson")
             {
-                return false;
+                return 1;
             }
 
             if (_exportDatas.ContainsKey(format))
             {
                 ExportData data = _exportDatas[format];
-                return data.ExportUnifiedFile;
+                return data.ExportFileCount;
             }
 
-            return true;
+            return -1;
         }
 
         public bool IsSetExportFolder(string format)
@@ -564,7 +564,12 @@ namespace Behaviac.Design
                                                         break;
 
                                                     case "exportunifiedfile":
-                                                        data.ExportUnifiedFile = Boolean.Parse(exportInfoNode.InnerText.Trim());
+                                                        bool exportUnifiedFile = Boolean.Parse(exportInfoNode.InnerText.Trim());
+                                                        data.ExportFileCount = exportUnifiedFile ? 1 : -1;
+                                                        break;
+
+                                                    case "exportfilecount":
+                                                        data.ExportFileCount = Int32.Parse(exportInfoNode.InnerText.Trim());
                                                         break;
 
                                                     case "folder":
@@ -653,11 +658,11 @@ namespace Behaviac.Design
                             isExported.InnerText = data.IsExported.ToString();
                             exporter.AppendChild(isExported);
 
-                            // Create exportUnifiedFile node.
+                            // Create exportfilecount node.
                             if (format != "xml" && format != "bson")
                             {
-                                XmlElement exportUnifiedFile = xml.CreateElement("exportunifiedfile");
-                                exportUnifiedFile.InnerText = data.ExportUnifiedFile.ToString();
+                                XmlElement exportUnifiedFile = xml.CreateElement("exportfilecount");
+                                exportUnifiedFile.InnerText = data.ExportFileCount.ToString();
                                 exporter.AppendChild(exportUnifiedFile);
                             }
 

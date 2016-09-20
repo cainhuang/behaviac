@@ -1,3 +1,5 @@
+#if !BEHAVIAC_CS_ONLY
+
 using UnityEngine;
 using System.Collections;
 using NUnit.Framework;
@@ -41,3 +43,5 @@ namespace BehaviorNodeUnitTest
         }
     }
 }
+
+#endif

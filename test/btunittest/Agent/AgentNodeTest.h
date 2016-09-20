@@ -101,6 +101,7 @@ public:
 
     DECLARE_BEHAVIAC_AGENT(AgentNodeTest, behaviac::Agent);
 
+	ChildNodeTest* par_child;
     int testVar_0;
     int testVar_1;
     float testVar_2;
@@ -383,4 +384,21 @@ public:
 public:
 	float GetConstFloatValue();
 	double GetConstDoubleValue();
+};
+
+class ChildNodeTestSub : public ChildNodeTest
+{
+public:
+	ChildNodeTestSub(int var_0) : ChildNodeTest(var_0), IntValue(0)
+	{
+	}
+
+	DECLARE_BEHAVIAC_AGENT(ChildNodeTestSub, ChildNodeTest);
+public:
+	float GetConstFloatValueSub()
+	{
+		return 1000.0f;
+	}
+
+	int IntValue;
 };

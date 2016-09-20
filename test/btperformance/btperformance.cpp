@@ -295,10 +295,10 @@ int main(int argc, char** argv)
         format = behaviac::Workspace::EFF_bson;
     }
 
-    CConfig::GetInstance()->LoadConfig("setting.xml");
+    behaviac::CConfig::GetInstance()->LoadConfig("setting.xml");
 
     if (!bWait) {
-        const char* pWait = CConfig::Get("settings", "Wait");
+		const char* pWait = behaviac::CConfig::Get("settings", "Wait");
 
         if (pWait && strcmp(pWait, "1") == 0) {
             bWait = true;

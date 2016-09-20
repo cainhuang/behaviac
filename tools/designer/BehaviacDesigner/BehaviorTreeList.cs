@@ -2423,7 +2423,7 @@ namespace Behaviac.Design
             string exportedPath = Workspace.Current.GetExportAbsoluteFolder(exporter.ID);
             Exporters.Exporter exp = exporter.Create(null, exportedPath, "", null);
 
-            exp.Export(null, false, false);
+            exp.Export(null, false, 1);
         }
 
         private void exportBehavior(bool isExportingBehaviors, int exporterIndex, string exportedPath, TreeNodeCollection nodes, ref bool aborted)
@@ -2448,7 +2448,7 @@ namespace Behaviac.Design
                 Exporters.Exporter exp = exporter.Create(null, exportedPath, "", exportIncludedFilenames);
 
                 // Export behavior.
-                exp.Export(exportBehaviors, Workspace.Current.ExportedUnifiedFile(exporter.ID), isExportingBehaviors);
+                exp.Export(exportBehaviors, isExportingBehaviors, Workspace.Current.ExportFileCount(exporter.ID));
 
                 ErrorInfoDock.WriteExportTypeInfo();
             }
