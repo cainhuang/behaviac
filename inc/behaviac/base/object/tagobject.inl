@@ -32,7 +32,9 @@ ValueType behaviac::CTagObject::GetMember(const behaviac::CStringID& nameId)
         return *((ValueType*)member->Get(this, typeId));
     }
 
-    BEHAVIAC_ASSERT(0, "behaviac::CTagObject::GetMember, cannot find the parameter %s", nameId.LogStr().c_str());
+    //BEHAVIAC_ASSERT(0, "behaviac::CTagObject::GetMember, cannot find the parameter %s", nameId.LogStr().c_str());
+	BEHAVIAC_ASSERT(0);
+
     return ValueType();
 }
 
@@ -53,7 +55,8 @@ void behaviac::CTagObject::SetMember(const behaviac::CStringID& nameId, const Va
         return;
     }
 
-    BEHAVIAC_ASSERT(0, "behaviac::CTagObject::SetMember, cannot find the parameter %s", nameId.LogStr().c_str());
+    //BEHAVIAC_ASSERT(0, "behaviac::CTagObject::SetMember, cannot find the parameter %s", nameId.LogStr().c_str());
+	BEHAVIAC_ASSERT(0);
 }
 
 #endif // #ifndef _BEHAVIAC_BASE_OBJECT_TAGOBJECT_MACROS_H_

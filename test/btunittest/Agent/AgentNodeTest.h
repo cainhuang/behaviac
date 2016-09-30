@@ -370,6 +370,10 @@ public:
 		BEHAVIAC_ASSERT(enumTest == EnumTest_OneAfterOne);
 		BEHAVIAC_ASSERT(platform_ID.empty());
 	}
+
+	void testString(behaviac::string str)
+	{
+	}
 };
 
 

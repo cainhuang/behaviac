@@ -5709,7 +5709,7 @@
     <value>folderBrowserDialog</value>
   </data>
   <data name="&gt;&gt;folderBrowserDialog.Type" xml:space="preserve">
-    <value>Ookii.Dialogs.VistaFolderBrowserDialog, BehaviacDesigner, Version=3.5.8.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Ookii.Dialogs.VistaFolderBrowserDialog, BehaviacDesigner, Version=3.5.15.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>EditWorkspaceDialog</value>

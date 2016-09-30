@@ -426,7 +426,8 @@ public class AgentNodeTest : behaviac.Agent
 
     [behaviac.MethodMetaInfo()]
     void testVectorStruct(List<TestNS.Float2> param)
-	{}
+	{
+    }
 
     [behaviac.MethodMetaInfo()]
 	void transitPlanTactics(BSASN.TransitPlan task_tactics_type, EnumTest enumTest, string platform_ID)
@@ -436,6 +437,10 @@ public class AgentNodeTest : behaviac.Agent
         behaviac.Debug.Check(string.IsNullOrEmpty(platform_ID));
 	}
 
+    [behaviac.MethodMetaInfo()]
+    void testString(string str)
+    {
+    }
 }
 
 

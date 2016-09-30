@@ -15,8 +15,8 @@
 #define BEHAVIAC_BASE_ASSERT_H
 
 #include "behaviac/base/core/config.h"
-#include "behaviac/base/core/compiler.h"
-#include "behaviac/base/core/types.h"
+#include "behaviac/base/core/string/formatstring.h"
+#include "behaviac/base/core/logging/log.h"
 
 //#include <assert.h>
 //_CRTDBG_MAP_ALLOC predefined in the project files
@@ -41,13 +41,13 @@
 	}//namespace behaviac
 
 	// notice: do not remove zz_ at the beginning of doAssert. It's to put static variables at the end of CW debugger watches.
-	#define _BEHAVIAC_ASSERT_GROUP_MESSAGE_(exp, message) \
+#define _BEHAVIAC_ASSERT_GROUP_MESSAGE_(exp, message) \
 		do { \
 			static bool zz_doAssert = true; \
 			if (::behaviac::IsAssertEnabled() && zz_doAssert) { \
 				bool eval=!(exp); \
 				if (eval) { \
-					/*_ASSERT_EXPR(0, message);*/\
+					BEHAVIAC_LOGERROR(message);\
 					_ASSERT(0); \
 				} \
 			} \

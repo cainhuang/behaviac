@@ -1924,6 +1924,7 @@ namespace behaviac
 			meta.RegisterMethod(4293156620, new CAgentMethod<TestClassA>(delegate(Agent self) { return ((AgentNodeTest)self).TestFunC(); }));
 			meta.RegisterMethod(336877113, new CMethod_AgentNodeTest_TestFuncD());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
+			meta.RegisterMethod(3286992291, new CAgentMethodVoid<string>(delegate(Agent self, string param0) { AgentMetaVisitor.ExecuteMethod(self, "testString", new object[]{ param0 }); }));
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
 			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { AgentNodeTest.LogMessage(param0); }));
@@ -2011,6 +2012,7 @@ namespace behaviac
 			meta.RegisterMethod(4293156620, new CAgentMethod<TestClassA>(delegate(Agent self) { return ((ChildNodeTest)self).TestFunC(); }));
 			meta.RegisterMethod(336877113, new CMethod_AgentNodeTest_TestFuncD());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
+			meta.RegisterMethod(3286992291, new CAgentMethodVoid<string>(delegate(Agent self, string param0) { AgentMetaVisitor.ExecuteMethod(self, "testString", new object[]{ param0 }); }));
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
 			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { ChildNodeTest.LogMessage(param0); }));
@@ -2092,6 +2094,7 @@ namespace behaviac
 			meta.RegisterMethod(4293156620, new CAgentMethod<TestClassA>(delegate(Agent self) { return ((ChildNodeTestSub)self).TestFunC(); }));
 			meta.RegisterMethod(336877113, new CMethod_AgentNodeTest_TestFuncD());
 			meta.RegisterMethod(3054404812, new CMethod_AgentNodeTest_testGameObject());
+			meta.RegisterMethod(3286992291, new CAgentMethodVoid<string>(delegate(Agent self, string param0) { AgentMetaVisitor.ExecuteMethod(self, "testString", new object[]{ param0 }); }));
 			meta.RegisterMethod(2247836416, new CAgentMethodVoid<List<TestNS.Float2>>(delegate(Agent self, List<TestNS.Float2> param0) { AgentMetaVisitor.ExecuteMethod(self, "testVectorStruct", new object[]{ param0 }); }));
 			meta.RegisterMethod(2469406928, new CAgentMethodVoid<BSASN.TransitPlan, EnumTest, string>(delegate(Agent self, BSASN.TransitPlan param0, EnumTest param1, string param2) { AgentMetaVisitor.ExecuteMethod(self, "transitPlanTactics", new object[]{ param0, param1, param2 }); }));
 			meta.RegisterMethod(1045109914, new CAgentStaticMethodVoid<string>(delegate(string param0) { ChildNodeTestSub.LogMessage(param0); }));

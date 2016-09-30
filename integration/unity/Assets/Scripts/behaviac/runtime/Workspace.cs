@@ -2920,6 +2920,11 @@ namespace behaviac
         {
             agentTypes.Sort(delegate(TypeInfo_t x, TypeInfo_t y)
             {
+                if (x == y || x.type == y.type)
+                {
+                    return 0;
+                }
+
                 if (x.type == typeof(behaviac.Agent))
                 {
                     return -1;

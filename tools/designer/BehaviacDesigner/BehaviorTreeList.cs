@@ -2331,13 +2331,19 @@ namespace Behaviac.Design
                         return false;
                     }
 
-                    if (!string.IsNullOrEmpty(Workspace.Current.Language) && Workspace.Current.Language != "cpp" && !Workspace.Current.IsSetExportFolder(Workspace.Current.Language))
+                    if (!Workspace.Current.IsSetExportFolder(Workspace.Current.Language))
                     {
                         if (DialogResult.OK == MessageBox.Show(Resources.InvalidExportedTypePath, Resources.ExportError, MessageBoxButtons.OK))
                         {
-                            MetaStoreDock.Inspect(null);
+                            using (EditWorkspaceDialog wksDialog = new EditWorkspaceDialog())
+                            {
+                                wksDialog.EditWorkspace(Workspace.Current);
 
-                            return false;
+                                if (wksDialog.ShowDialog() == DialogResult.Cancel)
+                                {
+                                    return false;
+                                }
+                            }
                         }
                     }
                 }

@@ -891,6 +891,12 @@ template<> inline void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest
 	this->AgentNodeTest::testGameObject(p0);
 }
 
+struct METHOD_TYPE_AgentNodeTest_testString { };
+template<> inline void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testString>(behaviac::string p0)
+{
+	this->AgentNodeTest::testString(p0);
+}
+
 struct METHOD_TYPE_AgentNodeTest_testVectorStruct { };
 template<> inline void AgentNodeTest::_Execute_Method_<METHOD_TYPE_AgentNodeTest_testVectorStruct>(behaviac::vector<TestNS::Float2>& p0)
 {

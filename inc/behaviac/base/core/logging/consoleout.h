@@ -15,9 +15,7 @@
 #define BEHAVIAC_BASE_LOGGING_CONSOLEOUT_H
 
 #include "behaviac/base/core/config.h"
-#include "behaviac/base/core/assert_t.h"
-
-#include "behaviac/base/core/thread/mutex.h"
+#include "behaviac/base/core/types.h"
 
 #include <stdarg.h>
 

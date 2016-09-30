@@ -1686,6 +1686,13 @@ namespace behaviac
             // "const int 10"
             // "int Self.AgentArrayAccessTest::ListInts[int Self.AgentArrayAccessTest::l_index]"
 
+            if (str.StartsWith("\"") && str.EndsWith("\""))
+            {
+                ret.Add(str);
+
+                return ret;
+            }
+
             if (str.StartsWith("const string "))
             {
                 ret.Add("const");

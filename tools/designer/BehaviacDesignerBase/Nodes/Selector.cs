@@ -68,12 +68,16 @@ namespace Behaviac.Design.Nodes
             get { return __defaultBackgroundBrush; }
         }
 
-        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result) {
-            if (_genericChildren.EnableChildCount < 2)
-            { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.SelectorOnlyOneChildError)); }
-
-            else if (_genericChildren.EnableChildCount < 1)
-            { result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.SelectorNoChildrenError)); }
+        public override void CheckForErrors(BehaviorNode rootBehavior, List<ErrorCheck> result)
+        {
+            if (_genericChildren.EnableChildCount < 1)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Error, Resources.SelectorNoChildrenError));
+            }
+            else if (_genericChildren.EnableChildCount < 2)
+            {
+                result.Add(new Node.ErrorCheck(this, ErrorCheckLevel.Warning, Resources.SelectorOnlyOneChildError));
+            }
 
             base.CheckForErrors(rootBehavior, result);
         }

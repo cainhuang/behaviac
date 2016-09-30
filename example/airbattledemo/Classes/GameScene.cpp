@@ -427,24 +427,27 @@ void GameScene::levelUp(Level level)
 
         break;
     default:
+		label = 0;
         break;
     }
 
-    auto s = Director::getInstance()->getWinSize();
-    label->setPosition(Vec2(s.width / 2, s.height*0.6));
+	if (label) {
+		auto s = Director::getInstance()->getWinSize();
+		label->setPosition(Vec2(s.width / 2, s.height*0.6));
 
-    this->addChild(label);
-    label->setColor(Color3B::RED);
+		this->addChild(label);
+		label->setColor(Color3B::RED);
 
-    //label->runAction(CCBlink::create(2, 10));
-    label->runAction(
-        Repeat::create(
-        Sequence::create(
-        CCBlink::create(2, 3),
-        CCFadeTo::create(1, 0),
-        nullptr), 1));
-    //this->removeChild(label, true);
-    //label->autorelease();
+		//label->runAction(CCBlink::create(2, 10));
+		label->runAction(
+			Repeat::create(
+			Sequence::create(
+			CCBlink::create(2, 3),
+			CCFadeTo::create(1, 0),
+			nullptr), 1));
+		//this->removeChild(label, true);
+		//label->autorelease();
+	}
 }
 
 void GameScene::testLevel(float dt)

@@ -1,3 +1,9 @@
+2016-09-26  3.5.15
+    Fix a bug for checking the Selector node.
+    Fix a bug for the type exported path.
+    Fix a bug for the string value with space.
+    Fix a bug for the default value of the ExportFileCount.
+
 2016-09-20  3.5.14
     Support splitting the generated_behaviors.cpp file.
     Add the BEHAVIAC_CS_ONLY to use the behaviac lib without UnityEngine.

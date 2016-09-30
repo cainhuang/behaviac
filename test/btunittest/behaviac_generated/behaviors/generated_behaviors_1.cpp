@@ -2750,6 +2750,25 @@ namespace behaviac
 		}
 	};
 
+	class Action_bt_node_test_action_ut_2_node11 : public Action
+	{
+	public:
+		BEHAVIAC_DECLARE_DYNAMIC_TYPE(Action_bt_node_test_action_ut_2_node11, Action);
+		Action_bt_node_test_action_ut_2_node11()
+		{
+			method_p0 = (char*)("Hello\" \t \n Kitty!");
+		}
+	protected:
+		virtual EBTStatus update_impl(Agent* pAgent, EBTStatus childStatus)
+		{
+			BEHAVIAC_UNUSED_VAR(pAgent);
+			BEHAVIAC_UNUSED_VAR(childStatus);
+			((AgentNodeTest*)pAgent)->_Execute_Method_<METHOD_TYPE_AgentNodeTest_testString, void, behaviac::string >(method_p0);
+			return BT_SUCCESS;
+		}
+		behaviac::string method_p0;
+	};
+
 		bool bt_node_test_action_ut_2::Create(BehaviorTree* pBT)
 		{
 			pBT->SetClassNameString("BehaviorTree");
@@ -2871,6 +2890,16 @@ namespace behaviac
 #endif
 					node0->AddChild(node5);
 					node0->SetHasEvents(node0->HasEvents() | node5->HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_2_node11* node11 = BEHAVIAC_NEW Action_bt_node_test_action_ut_2_node11;
+					node11->SetClassNameString("Action");
+					node11->SetId(11);
+#if !BEHAVIAC_RELEASE
+					node11->SetAgentType("AgentNodeTest");
+#endif
+					node0->AddChild(node11);
+					node0->SetHasEvents(node0->HasEvents() | node11->HasEvents());
 				}
 				pBT->SetHasEvents(pBT->HasEvents() | node0->HasEvents());
 			}

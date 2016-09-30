@@ -57,5 +57,9 @@
       <property Method="Self.AgentNodeTest::setTestVar_1(int Self.AgentNodeTest::par_int_type_0)" />
       <property ResultOption="BT_SUCCESS" />
     </node>
+    <node class="Action" id="11">
+      <property Method="Self.AgentNodeTest::testString(&quot;Hello\&quot; \t \n Kitty!&quot;)" />
+      <property ResultOption="BT_SUCCESS" />
+    </node>
   </node>
 </behavior>

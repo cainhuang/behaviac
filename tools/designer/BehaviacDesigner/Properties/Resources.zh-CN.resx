@@ -697,7 +697,7 @@
     <value>有错误的行为树:</value>
   </data>
   <data name="InvalidExportedTypePath" xml:space="preserve">
-    <value>还未设置生成类型文件所在的路径，请去元信息浏览器设置该路径！</value>
+    <value>还未设置类型导出的位置，请去"编辑工作区"窗口设置该路径！</value>
   </data>
   <data name="ExportMessages" xml:space="preserve">
     <value>导出类型 '{0}'</value>

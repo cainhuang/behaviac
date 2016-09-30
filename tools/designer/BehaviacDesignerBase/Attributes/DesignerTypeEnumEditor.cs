@@ -117,32 +117,37 @@ namespace Behaviac.Design.Attributes
             }
         }
 
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e) {
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
             if (comboBox.SelectedIndex < 0 || !_valueWasAssigned)
-            { return; }
+            {
+                return;
+            }
 
             object agentType = _property.Property.GetValue(_object, null);
             AgentType preType = agentType as AgentType;
             AgentType curType = _agentTypes[comboBox.SelectedIndex];
 
-            DialogResult result = DialogResult.OK;
+            if (preType != null && preType != curType && _root != null && _root.Children.Count > 0)
+            {
+                DialogResult result = MessageBox.Show(Resources.AgentTypeChangedWarning, Resources.Warning, MessageBoxButtons.OKCancel);
 
-            if (preType != null && preType != curType && _root != null && _root.Children.Count > 0) {
-                result = MessageBox.Show(Resources.AgentTypeChangedWarning, Resources.Warning, MessageBoxButtons.OKCancel);
-            }
+                if (result == DialogResult.OK)
+                {
+                    // reset the properties and methods of the root
+                    if (_root != null)
+                    {
+                        _root.ResetMembers(false, curType, false);
+                    }
 
-            if (result == DialogResult.OK) {
-                // reset the properties and methods of the root
-                if (_root != null) {
-                    _root.ResetMembers(false, curType, false);
+                    _property.Property.SetValue(_object, curType, null);
+
+                    OnValueChanged(_property);
                 }
-
-                _property.Property.SetValue(_object, curType, null);
-
-                OnValueChanged(_property);
-
-            } else if (preType != null) {
-                comboBox.Text = preType.DisplayName;
+                else if (preType != null)
+                {
+                    comboBox.Text = preType.DisplayName;
+                }
             }
         }
 

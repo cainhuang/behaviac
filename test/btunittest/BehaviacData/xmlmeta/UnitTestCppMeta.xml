@@ -362,6 +362,9 @@
 				<Param DisplayName="" Desc="" Type="EnumTest" />
 				<Param DisplayName="" Desc="" Type="const string&amp;" />
 			</Method>
+			<Method Name="testString" DisplayName="" Desc="" Class="AgentNodeTest" ReturnType="void">
+				<Param DisplayName="" Desc="" Type="string" />
+			</Method>
 		</agent>
 		<agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="" Desc="" IsRefType="true">
 			<Method Name="GetConstFloatValue" DisplayName="" Desc="" Class="ChildNodeTest" ReturnType="float" />

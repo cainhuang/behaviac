@@ -211,6 +211,9 @@
         <Param DisplayName="enumTest" Desc="enumTest" Type="EnumTest" />
         <Param DisplayName="platform_ID" Desc="platform_ID" Type="string" />
       </Method>
+      <Method Name="testString" DisplayName="" Desc="" ReturnType="void" Class="AgentNodeTest">
+        <Param DisplayName="str" Desc="str" Type="string" />
+      </Method>
     </agent>
     <agent classfullname="ChildNodeTest" base="AgentNodeTest" DisplayName="ChildNodeTest" Desc="ChildNodeTest" IsRefType="true">
       <Method Name="GetConstFloatValue" DisplayName="" Desc="" ReturnType="float" Class="ChildNodeTest" Public="true" />

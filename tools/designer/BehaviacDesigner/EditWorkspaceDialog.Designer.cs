@@ -90,6 +90,7 @@ namespace Behaviac.Design
             // 
             resources.ApplyResources(this.doneButton, "doneButton");
             this.doneButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.doneButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.doneButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.doneButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.doneButton.Name = "doneButton";

@@ -938,7 +938,6 @@ namespace Behaviac.Design
                 {
                     _structParams[structParam.Name] = new StructArrayParam_t();
                 }
-
             }
 
             IList<DesignerPropertyInfo> properties = DesignerProperty.GetDesignerProperties(structParam.Type, DesignerProperty.SortByDisplayOrder);
@@ -966,7 +965,6 @@ namespace Behaviac.Design
                             return p;
                         }
                     }
-
                 }
                 else
                 {
@@ -1013,7 +1011,6 @@ namespace Behaviac.Design
                             return p;
                         }
                     }
-
                 }
                 else
                 {
@@ -1050,12 +1047,13 @@ namespace Behaviac.Design
                     {
                         return true;
                     }
-
                 }
                 else if (param.Value is ParInfo)
                 {
                     if (par.GetExportValue() == ((ParInfo)(param.Value)).GetExportValue())
-                    { return true; }
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -1083,9 +1081,8 @@ namespace Behaviac.Design
                         this.CopyFrom(method);
                     }
                 }
-
             }
-            else if (property != null)
+            else
             {
                 foreach (MethodDef.Param param in this.Params)
                 {
@@ -1093,35 +1090,34 @@ namespace Behaviac.Design
                     {
                         VariableDef var = param.Value as VariableDef;
                         bReset |= var.ResetMembers(check, agentType, clear, property);
-
                     }
                     else if (param.Value is ParInfo)
                     {
                         ParInfo par = param.Value as ParInfo;
 
-                        if (property.IsPar && (property.OldName == par.Name ||
-                        !property.IsArrayElement && par.IsArrayElement && (property.OldName + "[]") == par.Name))
+                        if (clear || this.ShouldBeCleared(agentType))
                         {
-                            if (clear || this.ShouldBeCleared(agentType))
+                            bReset = true;
+
+                            if (!check)
                             {
-                                bReset = true;
-
-                                if (!check)
-                                { param.Value = Plugin.DefaultValue(param.Type); }
-
+                                param.Value = Plugin.DefaultValue(param.Type);
                             }
-                            else
+                        }
+                        else if (property != null && property.IsPar && (property.OldName == par.Name ||
+                            !property.IsArrayElement && par.IsArrayElement && (property.OldName + "[]") == par.Name))
+                        {
+                            bReset = true;
+
+                            if (!check)
                             {
-                                bReset = true;
+                                bool isArrayElement = par.IsArrayElement;
 
-                                if (!check)
+                                par.CopyFrom(property);
+
+                                if (isArrayElement)
                                 {
-                                    bool isArrayElement = par.IsArrayElement;
-
-                                    par.CopyFrom(property);
-
-                                    if (isArrayElement)
-                                    { par.SetArrayElement(property); }
+                                    par.SetArrayElement(property);
                                 }
                             }
                         }
@@ -1989,10 +1985,7 @@ namespace Behaviac.Design
 
         public bool ResetMembers(bool check, AgentType agentType, bool clear, PropertyDef property)
         {
-            if (property != null && this._property != null &&
-                (property.OldName == this._property.Name ||
-                 !property.IsArrayElement && this._property.IsArrayElement &&
-                 (property.OldName + "[]") == this._property.Name))
+            if (this._property != null)
             {
                 if (!check)
                 {
@@ -2000,25 +1993,29 @@ namespace Behaviac.Design
                     {
                         this._property = null;
 
+                        return true;
                     }
-                    else
+                    else if (property != null &&
+                        (property.OldName == this._property.Name ||
+                        !property.IsArrayElement && this._property.IsArrayElement && (property.OldName + "[]") == this._property.Name))
                     {
                         bool isArrayElement = this._property.IsArrayElement;
 
                         this._property.CopyFrom(property);
 
                         if (isArrayElement)
-                        { this._property.SetArrayElement(property); }
+                        {
+                            this._property.SetArrayElement(property);
+                        }
+
+                        return true;
                     }
                 }
-
-                return true;
             }
 
             return false;
         }
     }
-
 
     public class RightValueDef : ICloneable, ISerializableData
     {
@@ -2293,22 +2290,23 @@ namespace Behaviac.Design
         {
             if (this.IsMethod && this.Method != null)
             {
-                if (method != null && method.OldName == this.Method.Name)
+                if (!check)
                 {
-                    if (!check)
+                    if (clear || this.Method.ShouldBeCleared(agentType))
                     {
-                        if (clear || this.Method.ShouldBeCleared(agentType))
-                        { this.m_method = null; }
+                        this.m_method = null;
 
-                        else
-                        { this.Method.CopyFrom(method); }
+                        return true;
                     }
+                    else if (method != null && method.OldName == this.Method.Name)
+                    {
+                        this.Method.CopyFrom(method);
 
-                    return true;
+                        return true;
+                    }
                 }
 
                 return this.Method.ResetMembers(check, agentType, clear, method, property);
-
             }
             else if (this.Var != null)
             {

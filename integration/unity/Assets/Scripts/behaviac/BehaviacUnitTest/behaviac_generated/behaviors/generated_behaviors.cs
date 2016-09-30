@@ -6815,6 +6815,23 @@ namespace behaviac
 		}
 	}
 
+	[behaviac.GeneratedTypeMetaInfo()]
+	class Action_bt_node_test_action_ut_2_node11 : behaviac.Action
+	{
+		public Action_bt_node_test_action_ut_2_node11()
+		{
+			this.m_resultOption = EBTStatus.BT_SUCCESS;
+			method_params = new object[1];
+			method_params[0] = "Hello\" \t \n Kitty!";
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			AgentMetaVisitor.ExecuteMethod(pAgent, "testString", method_params);
+			return EBTStatus.BT_SUCCESS;
+		}
+		object[] method_params;
+	}
+
 	public static class bt_node_test_action_ut_2
 	{
 		public static bool build_behavior_tree(BehaviorTree bt)
@@ -6938,6 +6955,16 @@ namespace behaviac
 #endif
 					node0.AddChild(node5);
 					node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
+				}
+				{
+					Action_bt_node_test_action_ut_2_node11 node11 = new Action_bt_node_test_action_ut_2_node11();
+					node11.SetClassNameString("Action");
+					node11.SetId(11);
+#if !BEHAVIAC_RELEASE
+					node11.SetAgentType("AgentNodeTest");
+#endif
+					node0.AddChild(node11);
+					node0.SetHasEvents(node0.HasEvents() | node11.HasEvents());
 				}
 				bt.SetHasEvents(bt.HasEvents() | node0.HasEvents());
 			}

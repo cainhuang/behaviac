@@ -33,7 +33,7 @@ namespace behaviac
 
             if (a)
             {
-                BEHAVIAC_ASSERT(TAGENT::DynamicCast(a) != 0);
+                BEHAVIAC_ASSERT(TAGENT::DynamicCast(a) != 0, "the same agentInstanceName is duplicated, please specify a unique name!");
                 pA = (TAGENT*)a;
             }
             else

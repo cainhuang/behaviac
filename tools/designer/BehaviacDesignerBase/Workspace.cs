@@ -271,7 +271,7 @@ namespace Behaviac.Design
                 return data.ExportFileCount;
             }
 
-            return -1;
+            return 1;
         }
 
         public bool IsSetExportFolder(string format)
