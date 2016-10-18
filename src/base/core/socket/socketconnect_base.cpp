@@ -214,11 +214,11 @@ namespace behaviac
 	};
 
 #if BEHAVIAC_COMPILER_MSVC
-	int32_t t_packetBufferIndex = TLS_OUT_OF_INDEXES;
+	static int32_t t_packetBufferIndex = TLS_OUT_OF_INDEXES;
 #elif BEHAVIAC_COMPILER_APPLE || BEHAVIAC_COMPILER_ANDROID
-	__thread int32_t t_packetBufferIndex = (int32_t)-1;
+	static __thread int32_t t_packetBufferIndex = (int32_t)-1;
 #else
-	__thread int32_t t_packetBufferIndex = (int32_t)-1;
+	static __thread int32_t t_packetBufferIndex = (int32_t)-1;
 #endif
 
 	ConnectorInterface::ConnectorInterface() :

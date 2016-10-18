@@ -128,7 +128,16 @@ namespace Behaviac.Design.Attributes
 
                         object member = property.GetValue(obj);
 
-                        Type memberType = member.GetType();
+                        Type memberType = null;
+
+                        if (member != null)
+                        {
+                            memberType = member.GetType();
+                        }
+                        else
+                        {
+                            memberType = property.GetTypeFallback();
+                        }
 
                         if (Plugin.IsArrayType(memberType))
                         {

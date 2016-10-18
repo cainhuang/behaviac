@@ -433,7 +433,7 @@ namespace Behaviac.Design.Attributes
             if (_param.ListParam != null && _param.ListParam.Value != null)
             {
                 Type itemType = MethodDef.Param.GetListParamItemType(_param);
-                Debug.Check(itemType != null);
+                //Debug.Check(itemType != null);
                 propertyEnumEditor.FilterType = itemType;
             }
             else if (valueType != null)

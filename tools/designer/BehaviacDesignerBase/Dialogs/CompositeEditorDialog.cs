@@ -202,6 +202,15 @@ namespace Behaviac.Design.Attributes
 
                         object member = property.GetValue(owner);
                         Type type = property.Attribute.GetEditorType(member);
+                        DesignerMethodEnum propertyMethod = property.Attribute as DesignerMethodEnum;
+
+                        if (propertyMethod != null)
+                        {
+                            if ((propertyMethod.MethodType & MethodType.Task) == MethodType.Task)
+                            {
+                                type = typeof(DesignerMethodEnumEditor);
+                            }
+                        }
 
                         string displayName = property.Attribute.DisplayName;
 
@@ -225,6 +234,73 @@ namespace Behaviac.Design.Attributes
                                 uiPolicy.AddEditor(editor);
                             }
                         }
+
+                        MethodDef method = null;
+
+                        if (propertyMethod != null)
+                        {
+                            if (propertyMethod.MethodType != MethodType.Status)
+                            {
+                                method = member as MethodDef;
+                            }
+                        }
+                        else
+                        {
+                            DesignerRightValueEnum propertyRV = property.Attribute as DesignerRightValueEnum;
+
+                            if (propertyRV != null)
+                            {
+                                RightValueDef rv = member as RightValueDef;
+
+                                if (rv != null && rv.IsMethod)
+                                {
+                                    method = rv.Method;
+                                }
+                            }
+                        }
+
+                        if (property.Attribute != null)
+                        {
+                            if (method != null)
+                            {
+                                if (property.Attribute.HasFlags(DesignerProperty.DesignerFlags.NoDisplayOnProperty))
+                                {
+                                    //don't dipslay on the property panel
+                                }
+                                else
+                                {
+                                    bool bReadonly = property.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnlyParams);
+
+                                    createParamEditor(owner, method, true, bReadonly);
+                                }
+                            }
+                            else
+                            {
+                                MethodDef.Param arrayIndexElement = null;
+
+                                if (member is VariableDef)
+                                {
+                                    VariableDef var = member as VariableDef;
+                                    arrayIndexElement = var.ArrayIndexElement;
+
+                                }
+                                else if (member is RightValueDef)
+                                {
+                                    RightValueDef varRV = member as RightValueDef;
+
+                                    if (varRV.Var != null)
+                                    {
+                                        arrayIndexElement = varRV.Var.ArrayIndexElement;
+                                    }
+                                }
+
+                                if (arrayIndexElement != null)
+                                {
+                                    createArrayIndexEditor(owner, "    ", arrayIndexElement);
+                                }
+
+                            }
+                        }
                     }
                 }
             }
@@ -237,6 +313,80 @@ namespace Behaviac.Design.Attributes
                 propertyGrid.UpdateSizes();
                 propertyGrid.PropertiesVisible(true, true);
             }
+        }
+
+        MethodDef.Param lastListParam = null;
+        void createParamEditor(object owner, MethodDef method, bool enable, bool bReadonlyParent)
+        {
+            List<MethodDef.Param> parameters = method.Params;
+            foreach (MethodDef.Param p in parameters)
+            {
+                Type editorType = typeof(DesignerParameterComboEnumEditor);
+                string arugmentsName = "    " + p.DisplayName;
+                bool bReadonly = bReadonlyParent | p.Attribute.HasFlags(DesignerProperty.DesignerFlags.ReadOnly);
+                Label label = propertyGrid.AddProperty(arugmentsName, editorType, bReadonly);
+
+                label.MouseEnter += new EventHandler(label_MouseEnter);
+
+                DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
+
+                if (p.Type.Name == "IList")
+                {
+                    lastListParam = p;
+                }
+
+                if (p.Type.Name == "System_Object" && lastListParam != null)
+                {
+                    p.ListParam = lastListParam;
+                }
+
+                editor.Enabled = enable;
+                editor.SetParameter(p, owner, bReadonly);
+
+                editor.ValueWasAssigned();
+                editor.MouseEnter += editor_MouseEnter;
+                editor.ValueWasChanged += editor_ValueWasChanged;
+                //editor.ValueType = p.Attribute.ValueType;
+
+                MethodDef.Param arrayIndexElement = null;
+
+                if (p.Value is VariableDef)
+                {
+                    VariableDef var = p.Value as VariableDef;
+                    arrayIndexElement = var.ArrayIndexElement;
+                }
+                else if (p.Value is RightValueDef)
+                {
+                    RightValueDef varRV = p.Value as RightValueDef;
+
+                    if (varRV.Var != null)
+                    {
+                        arrayIndexElement = varRV.Var.ArrayIndexElement;
+                    }
+                }
+
+                if (arrayIndexElement != null)
+                {
+                    createArrayIndexEditor(owner, "        ", arrayIndexElement);
+                }
+            }
+        }
+
+        void createArrayIndexEditor(object owner, string preBlank, MethodDef.Param arrayIndex)
+        {
+            Type editorType = typeof(DesignerParameterComboEnumEditor);
+            string arugmentsName = preBlank + "Index";
+            bool bReadonly = false;
+            Label label = propertyGrid.AddProperty(arugmentsName, editorType, bReadonly);
+
+            label.MouseEnter += new EventHandler(label_MouseEnter);
+
+            DesignerPropertyEditor editor = (DesignerPropertyEditor)label.Tag;
+            editor.Enabled = true;
+            editor.SetParameter(arrayIndex, owner, bReadonly);
+            editor.ValueWasAssigned();
+            editor.MouseEnter += editor_MouseEnter;
+            editor.ValueWasChanged += editor_ValueWasChanged;
         }
 
         private void label_MouseEnter(object sender, EventArgs e) {

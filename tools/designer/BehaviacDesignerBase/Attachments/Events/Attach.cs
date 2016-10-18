@@ -91,7 +91,16 @@ namespace Behaviac.Design.Attachments
         [DesignerEnum("Operator", "OperatorDesc", "Operation", DesignerProperty.DisplayMode.Parameter, 4, DesignerProperty.DesignerFlags.NoFlags, "EffectorOperaptor")]
         public OperatorTypes Operator
         {
-            get { return _operator; }
+            get
+            {
+                if (this.IsAction())
+                {
+                    return OperatorTypes.Invalid;
+                }
+
+                return _operator;
+            }
+
             set { _operator = value; }
         }
 
@@ -103,6 +112,11 @@ namespace Behaviac.Design.Attachments
             set { this._opr2 = value; }
         }
 
+        private bool IsAction()
+        {
+            return this._opl != null && this._opl.IsMethod && this._opl.Method != null;
+        }
+
         public IList<DesignerPropertyInfo> GetDesignerProperties()
         {
             return DesignerProperty.GetDesignerProperties(this.GetType());
@@ -110,13 +124,19 @@ namespace Behaviac.Design.Attachments
 
         public Behaviac.Design.ObjectUI.ObjectUIPolicy CreateUIPolicy()
         {
-            return new Behaviac.Design.ObjectUI.AttachActionUIPolicy();
+            return new Behaviac.Design.ObjectUI.TransitionEffectorUIPolicy();
         }
 
         public object[] GetExcludedEnums(DesignerEnum enumAttr)
         {
             ArrayList enums = new ArrayList();
             enums.Add(OperatorTypes.Invalid);
+            enums.Add(OperatorTypes.Equal);
+            enums.Add(OperatorTypes.NotEqual);
+            enums.Add(OperatorTypes.Greater);
+            enums.Add(OperatorTypes.Less);
+            enums.Add(OperatorTypes.GreaterEqual);
+            enums.Add(OperatorTypes.LessEqual);
 
             if (enumAttr != null && enumAttr.ExcludeTag == "EffectorOperaptor")
             {
@@ -139,11 +159,6 @@ namespace Behaviac.Design.Attachments
                         enums.Add(OperatorTypes.Sub);
                         enums.Add(OperatorTypes.Mul);
                         enums.Add(OperatorTypes.Div);
-
-                        enums.Add(OperatorTypes.Greater);
-                        enums.Add(OperatorTypes.Less);
-                        enums.Add(OperatorTypes.GreaterEqual);
-                        enums.Add(OperatorTypes.LessEqual);
                     }
 
                     if (this.Opl.IsMethod && this.Opl.Method != null)

@@ -77,6 +77,11 @@ namespace Behaviac.Design.Attributes
             return (_property != null) ? _property.GetValue(obj, null) : null;
         }
 
+        public Type GetTypeFallback()
+        {
+            return (_property != null) ? _property.PropertyType: null;
+        }
+
         /// <summary>
         /// Returns the property's value as a string for displaying, skipping any encoding.
         /// </summary>
