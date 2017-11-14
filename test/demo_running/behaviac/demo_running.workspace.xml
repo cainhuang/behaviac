@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<workspace name="bttest" xmlmetafolder="." folder="behaviors" export="exported" language="cpp">
+  <xmlmeta>demo_running.xml</xmlmeta>
+  <export>
+    <cs>
+      <isexported>False</isexported>
+      <exportfilecount>1</exportfilecount>
+    </cs>
+    <bson>
+      <isexported>True</isexported>
+    </bson>
+    <cpp>
+      <isexported>True</isexported>
+      <exportfilecount>1</exportfilecount>
+    </cpp>
+  </export>
+</workspace>
